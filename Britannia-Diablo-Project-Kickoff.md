@@ -24,7 +24,7 @@ Treat **agreed direction** as the project's design intent. Treat **candidate**, 
 | Dungeons | Shared, automatically party entrants; cap occupancy if needed | Party membership rules, local rewards, caps, town-return reservations |
 | NPCs | Code controls routines and actions; optional LLM dialogue and memories | Model, memory implementation, inference budget, rollout scope |
 
-First priority is proving that movement, controls, attacks, and recovery feel good. Build the crafting and world systems around a successful combat foundation. NPC language features come later.
+Finish the shared foundations before expanding content. Then implement one class at a time, settle gear/vendor assortments, complete skill visuals, and build crafting/gathering. World layout, dungeons, monster affixes and bosses follow working gameplay systems. The agreed order and completion criteria are in section 14. NPC language features remain later work.
 
 ## 3. Technical starting point and reuse audit
 
@@ -65,6 +65,16 @@ Fast, readable combat and item-driven builds are central. Running, attacking, ca
 Keep independent base rates for player movement, monster/pet movement, weapon attacks, casting, and projectile travel. Future Increased Attack Speed (IAS), Faster Cast Rate (FCR), and run-speed modifiers apply to their respective rates. Faster Hit Recovery (FHR) shortens a distinct recovery state entered after sufficiently strong hits. Specify the hit threshold, blocked actions, cancellation/queue rules, recovery duration, and modifier/breakpoint model through play tests; do not silently inherit UO Dexterity or skill formulas as Diablo balance.
 
 Investigate Diablo mechanics using documentation, reconstructed code such as D2MOO, and controlled observation. Use REA-assisted binary investigation only for concrete gaps. Distinguish legacy Diablo II behaviour from later D2R changes. Reimplement selected behaviour for this project rather than assuming old engine code transfers directly.
+
+### Mechanics first, visual effects later
+
+Build and verify a skill's gameplay first: targeting, damage/status behaviour, costs, timing, progression and persistence. Use readable existing art as a placeholder while those rules are developed. A working skill and its final visual treatment are separate completion states; a placeholder does not mean the mechanic is absent, and an effect playing does not establish that the mechanic works.
+
+The current class prototype is Necromancer, with a few working skills and most of its catalog still placeholders. Teeth's Magic Arrow-style visual is a placeholder. The seven class selections and talent catalogs do not mean seven classes are implemented. Work through Necromancer first, then one other class at a time; choose the later class order separately. Identify each class's weapon/armour needs during its mechanics pass, and settle exact town stock and level ceilings during the subsequent vendor pass.
+
+After class mechanics and vendor/gear planning, audit UO's existing projectile, spell, particle and animation assets for final skill presentation. Test hue changes, combinations and resizing where the actual client/effect path supports them; none of those capabilities is assumed to work for every asset. Preserve UO's visual identity and accept practical adaptations. Projectile art does not decide damage type, targeting or hit resolution.
+
+One candidate Amazon adaptation is an arrow-like thrown projectile followed by a lightning effect, or a poison-cloud-like asset tinted green. These are visual ideas to investigate later, not implemented Amazon skills or a commitment to a particular asset. Final VFX and asset exploration must not block proving the skill mechanics.
 
 ### Recovery and action states
 
@@ -148,7 +158,7 @@ Only dropped and crafted equipment is eligible for Imbuing and Tinkering socket 
 
 ### Amazon weapon baselines — later implementation
 
-Investigate repurposing UO spears for javelins. Javelins need separately authored melee and thrown damage and attack-speed profiles, with the action mode choosing the appropriate values. The existing D2 reference bases retain separate melee and missile damage fields; they do not yet implement switching modes or separate action timings. Exact UO art, ammunition/stack behaviour and animations remain later work. Keep the baselines available without building the weapon system or fixing town assortments now.
+Investigate repurposing UO spears for javelins. Javelins need separately authored melee and thrown damage and attack-speed profiles, with the action mode choosing the appropriate values. The existing D2 reference bases retain separate melee and missile damage fields; they do not yet implement switching modes or separate action timings. An arrow-like projectile with a lightning or green poison effect is a possible visual stand-in, to be evaluated during the later skill-effects pass. Exact UO art, ammunition/stack behaviour and animations remain later work. Keep the baselines available without building the weapon system or fixing town assortments now.
 
 ### Socketing
 
@@ -181,6 +191,8 @@ Materials should remain useful for different purposes instead of becoming an obs
 
 Professions improve through use. Total skill caps, mastery rates, and whether one character can eventually master everything remain open.
 
+Crafting and gathering come after foundations, class mechanics, vendor planning and skill effects. Item origin is already implemented as a prerequisite; that does not settle profession responsibilities, resources, recipes or gain rules. First decide what each profession produces and which resources it consumes, and define how those resources are acquired. Then design the recipe list, skill requirements, gain eligibility and gain rates as a connected system. Exact resource locations belong to the later world-design pass.
+
 The paperdoll’s Skills button becomes **Class**, opening the selected class’s three Diablo II talent trees with ten skills each. Quests becomes **Skills**, opening the retained UO skills window with only the 13 professions below, grouped as gathering, crafting (including Imbuing), and treasure hunting (Cartography). The sections are fixed, without group-editing controls or skill drag-and-drop. Both Class and Skills use the blue paperdoll button style. Original combat skills are hidden from this view; recipe and combat-system changes are separate work.
 
 | Profession | Intended role |
@@ -200,6 +212,17 @@ The paperdoll’s Skills button becomes **Class**, opening the selected class’
 | Alchemy | Candidate role: potions and reagent processing |
 
 Resolve uncovered base types such as staves and crossbows in the recipe audit. Do not silently assign every item to a profession without documenting the choice.
+
+### Salvage and useful training outputs — candidate resource chains
+
+Design profession training so its output can feed other useful work. Avoid a loop whose ordinary result is discarding hundreds of newly crafted daggers. Salvage/recycling is a candidate way to recover a useful intermediate material and connect professions.
+
+| Candidate input | Recycled intermediate | Candidate downstream use | Alternative production route |
+| --- | --- | --- | --- |
+| Blacksmith equipment | Metal scraps | Tinkering | Produce scraps directly from ingots |
+| Carpentry or Bowcraft equipment | Wood chips | Cooking; exact use to be decided | Produce chips directly from logs or boards |
+
+These chains are proposals, not implemented recipes or final profession assignments. During the profession pass, decide eligible items/origins, recovery yields, resource losses, costs, skill requirements and whether salvage itself can grant skill. Balance direct production against recycling so training outputs stay useful without creating free net resources. Preserve item origin through existing-item operations and explicitly classify newly produced salvage materials. Vendor equipment remains ineligible for Imbuing, socketing and tier upgrades; any salvage eligibility is a separate decision.
 
 Retain bladed-tool skinning to gather hides from skinnable corpses. Hides feed Tailoring to craft light armour bases. Preserve this gathering interaction when adapting weapon and combat controls: double-clicking a bladed tool can invoke its targeting action, while dragging a weapon onto the paperdoll equips it.
 
@@ -295,20 +318,20 @@ Memories distinguish witnessed events, reported claims, and verified achievement
 
 A conversational mercenary is optional later work: ordinary AI handles immediate combat; the LLM interprets supported orders, remembers expeditions, and speaks at suitable moments. No model call per attack.
 
-## 14. Recommended implementation sequence
+## 14. Agreed implementation sequence
 
-These milestones are proposed execution guidance. Keep each playable and reviewable; do not implement every subsystem at once.
+Follow this dependency order. Keep each step playable and reviewable, and finish the agreed scope of the current step before expanding into the next. Existing test populations and placeholder visuals support verification; they are not a decision to start building the world or final effects early.
 
-| Milestone | Deliverable | Exit evidence |
+| Step | Deliverable | Completion evidence |
 | --- | --- | --- |
-| 0. Baseline and audit | Pinned server/client, Linux setup, existing-system map | Login, move, interact, equip, save, restart, and recover state; documented reuse findings |
-| 1. Combat room | One provisional class, basic attack, projectile, AoE, recovery | Responsive controls; timing agrees between server and client; hits and recovery are measurable and visible |
-| 2. Difficult effects | Frozen Orb and hammer prototypes, plus a trap | Choose adaptations through actual play; record failed approaches honestly |
-| 3. Equipment loop | Small affix pool, material base, imbuing, sockets, repairs, charged key/mould | Rules survive restart; invalid actions spend nothing; successful actions consume exactly the intended resources |
-| 4. Dungeon slice | One town and dungeon with three difficulty depths, mercenary, insurance | Two or more players cooperate; immunity theme works; death, resurrection, errands, and respawns preserve state |
-| 5. Treasure expedition | One map tier and catacomb template | Complete decipher–dig–explore–unlock–return loop without duplicate rewards |
-| 6. Broader content | Skill audit, additional builds, materials, regions | Distinct class playstyles and measured progression budgets |
-| 7. Living town | One smith, household, schedule, event rumour, and recipe interaction | Memory and eligibility are grounded in actual state; ordinary gameplay works without the LLM |
+| 1. Shared foundations | Reliable movement/controls/action timing; player growth and XP; players-1 monster numeric baselines; gear base/tier mappings, requirements and affix rules; item origin, inventory/death and save contracts | Numeric rules and remaining shared gaps are explicit; implemented rules work in play and survive saves/restarts. Class catalogs or reference data alone do not count as finished gameplay |
+| 2. One class at a time | Complete Necromancer's agreed skill mechanics first, then each subsequent class separately; verify targeting, costs, timing, scaling, summons/passives and equipment needs | Skills work and interact correctly through actual play and persistence checks. Readable placeholder effects are acceptable; catalog entries are distinguished from implemented skills |
+| 3. Gear and vendor assortments | Decide which weapon/armour families support each class, which towns sell them, and up to which levels; then implement the agreed white/blue normal/exceptional vendor stock, restocking and origin restrictions | Assortments and level ceilings are explicit; purchases, requirements, persistent origin and open-menu restocking behave correctly. Town ideas remain provisional until this pass |
+| 4. Skill effects and asset adaptation | Inspect UO assets and complete each skill's visual treatment using existing art, suitable combinations, hues and supported transformations | Effects communicate targeting, travel, impact and status clearly in the actual client; mechanic tests continue to pass. Record asset limitations and chosen compromises |
+| 5. Crafting and gathering | Set profession responsibilities and resource flows, then recipes, requirements, skill gains/rates, and useful recycling/salvage chains; implement profession actions and equipment gambles | The gather–craft–use/salvage loop works with deliberate costs and gains. Origin restrictions, resource consumption, socket caps and saved outcomes are enforced; training output has a useful destination |
+| 6. World and encounters | Once the preceding systems are in place and working, choose/adapt maps and build dungeons, regional populations, resistance/immunity profiles, monster affixes, bosses, treasure content and other world systems | Encounters and rewards are authored against established player, gear and profession progression; shared-world behaviour and multiplayer performance are verified |
+
+Dungeon themes, town specialities, boss ideas and map possibilities elsewhere in this brief are design references for later steps. They do not authorise implementing those systems ahead of this order. Living-town/LLM work remains a later feature within that broader world plan.
 
 Use tests for consequential rules: resource consumption, socket destruction, charge accounting, repairs, insurance, persistence, damage types, and reward duplication. Use manual gameplay and capture/logging for responsiveness and effects. Do not substitute a passing unit test for testing combat feel. Performance-test the intended monster density and concurrent population before claiming the 40-player target is supported.
 
