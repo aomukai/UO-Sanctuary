@@ -1,6 +1,6 @@
 # Baseline audit
 
-17 October 2026. Source inspection and Linux compilation only; no gameplay compatibility claim. Exact source pins and run commands are in [the README](../README.md).
+17 October 2026. Source inspection, Linux compilation, asset installation, server account/save checks, and client startup checks. Character gameplay remains untested. Exact source pins and run commands are in [the README](../README.md).
 
 ## Reuse findings
 
@@ -8,9 +8,9 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 
 | System | Source evidence | Proposed treatment and gap |
 | --- | --- | --- |
-| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Owner setup is interactive; first login untested. |
+| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Local owner creation and account authentication/server-list response passed before and after restart. Character login remains untested. |
 | Character creation | `Projects/UOContent/Engines/Character Creation/CharacterCreation.cs` | Keep baseline; extend with class choice after a playable room. |
-| Saves | `Projects/Server/World/World.cs`, `Load()` and `Save()` | Keep. Character/item round trip still requires gameplay verification. |
+| Saves | `Projects/Server/World/World.cs`, `Load()` and `Save()` | Keep. World snapshots and owner-account reload passed. Character/item round trip still requires gameplay verification. |
 | Inventories, banking, equipment | `Projects/Server/Items/Container.cs`; `Projects/UOContent/Mobiles/Townfolk/Banker.cs`; `Items/Weapons/BaseWeapon.cs` within UOContent | Keep baseline. Combat properties and class requirements need adaptation. |
 | Housing | `Projects/UOContent/Multis/Houses/BaseHouse.cs`; `HouseFoundation.cs` in the same directory | Keep foundation. Town-house ownership and NPC reservations require a separate map audit. |
 | Tooltips and properties | `Projects/Server/PropertyList/ObjectPropertyList.cs`; `Projects/Server/Items/Item.cs`, `GetProperties()` | Keep and extend for rarity, class affixes, sockets, and provenance. |
@@ -32,20 +32,28 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 
 - Initialized the root Git repository and pinned two upstream submodules, including the client's recursive dependencies.
 - Installed SDK `10.0.201` under `.tools/`; detected existing ICU, libdeflate, and Argon2 native libraries on Pop!_OS 24.04 x64.
-- Added `dev` commands for setup, build, readiness inspection, one-time configuration, and interactive server/client launch.
+- Added `dev` commands for setup, build, game-data installation, readiness inspection, one-time configuration, and interactive server/client launch.
 - Staged Debug binaries under ignored `.local/` while preserving runtime configuration and saves across builds.
 - Compiled ModernUO successfully with the local dependency override: zero warnings and errors in the successful build. Compiled ClassicUO successfully with upstream warnings and zero errors.
 - Added focused configuration checks for refusing overwrite, rejecting missing data, and keeping local listeners on loopback.
 - Restored the kickoff brief from the user's Downloads copy after it disappeared from the workspace. The restoration is byte-for-byte identical to that copy; the cause of disappearance is unknown.
+- Installed Classic Client data 7.0.117.1 from the publisher's patch servers using pinned UO Patcher source. Verified 420 game files and 44,200 game archive entries against manifest identities/sizes. Omitted unavailable patch-note web pages.
+- Configured loopback-only SA test settings with Felucca and Trammel. Disabled optional startup path pre-baking; recorded the actual client-data version explicitly.
+- Created a local owner account, received the expected server-list packet after authenticating, saved the world snapshot, restarted the server, authenticated again, saved again, and shut down cleanly. No character was created during this protocol check.
+- Started ClassicUO under Xvfb with software OpenGL and dummy audio. Assets loaded and rendering initialized; this does not verify the user's physical GPU, audio output, or interactive gameplay.
 
 ## Experiments and limitations
 
 The unmodified server failed NuGet restore because a transitive dependency resolved vulnerable `System.Security.Cryptography.Pkcs 10.0.0`. `build/ModernUO.targets` adds the patched `10.0.13` reference to the application and content projects. Auditing was not disabled. The client still reports ImageSharp advisories; its upstream dependency versions were preserved.
 
-The shallow server checkout could not calculate Nerdbank version height. Local Debug builds use its documented disabled-Git-engine option; release version stamps are not valid. The exact submodule SHA remains the source identity. No upstream gameplay or engine code was changed.
+The shallow server checkout could not calculate Nerdbank version height. Local Debug builds use its documented disabled-Git-engine option; release version stamps are not valid. The exact submodule SHA remains the source identity. No upstream gameplay or server engine code was changed.
 
-UO art/map data is not installed. Neither executable has been launched into a playable session. Login, input, timing, networking compatibility, graphics/audio loading, equipment, banking, and save/restart play checks remain untested. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
+Client startup initially failed with `InvalidOperation_CannotRegisterSecondResolver`: `ClassicUO.DllMap.Init()` and the pinned FNA's `Microsoft.Xna.Framework.FNADllMap` module initializer both registered a resolver for FNA. The tracked client patch defers to modern FNA on JIT builds while retaining the legacy path for other builds. Client rebuild and initialization passed after the patch. Native AOT publishing has not been tested.
+
+The project drive is exFAT. Downloading tens of thousands of temporary chunks there was slow; RAM-backed staging completed the installation, and finished archives were copied to the project drive. Interrupted disk staging and temporary RAM files were removed. The downloader's source commit/hash and installation provenance are recorded in ignored `.local/uo-installation.json`.
+
+Character creation/login, movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain untested. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
 
 ## Next smallest experiment
 
-Install and patch Classic Client data, identify its version, choose a provisional test era, and run the vanilla client against the local server. Complete the README's login–interact–equip–bank–save–restart check before introducing class combat. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.
+Run `./dev server` and `./dev client`, use the local owner credentials, create a character, and complete the README's interact–equip–bank–save–restart check before introducing class combat. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.

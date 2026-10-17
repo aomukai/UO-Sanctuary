@@ -1,0 +1,18 @@
+diff --git a/src/ClassicUO.Client/DllMap.cs b/src/ClassicUO.Client/DllMap.cs
+index a7be101..3cfa15e 100644
+--- a/src/ClassicUO.Client/DllMap.cs
++++ b/src/ClassicUO.Client/DllMap.cs
+@@ -29,6 +29,13 @@ namespace ClassicUO
+             // Get the executing assembly
+             Assembly assembly = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Graphics.ColorWriteChannels));
+ 
++            // Modern FNA installs this resolver through its module initializer.
++            if (RuntimeFeature.IsDynamicCodeCompiled
++                && assembly.GetType("Microsoft.Xna.Framework.FNADllMap") != null)
++            {
++                return;
++            }
++
+             // Locate the config file
+             string xmlPath = Path.Combine(AppContext.BaseDirectory, "FNA.dll.config");
+ 

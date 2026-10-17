@@ -23,11 +23,12 @@ SERVER = LOCAL / "server"
 CLIENT = LOCAL / "client"
 
 
-def run(args, cwd=ROOT, **kwargs):
+def run(args, cwd=ROOT, extra_env=None, **kwargs):
     env = os.environ.copy()
     env["DOTNET_ROOT"] = str(DOTNET.parent)
     env["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
     env["DOTNET_NOLOGO"] = "1"
+    env.update(extra_env or {})
     return subprocess.run([str(arg) for arg in args], cwd=cwd, env=env, check=True, **kwargs)
 
 
@@ -48,7 +49,21 @@ def setup():
         run(["bash", installer, "--version", SDK_VERSION,
              "--install-dir", DOTNET.parent, "--no-path"])
     require_sdk()
+    apply_client_patches()
     print(f"Project SDK {SDK_VERSION} and pinned upstream sources are ready.")
+
+
+def apply_client_patches():
+    for patch in sorted((ROOT / "patches/ClassicUO").glob("*.patch")):
+        check = subprocess.run(["git", "apply", "--check", str(patch)], cwd=CLIENT_SOURCE,
+                               capture_output=True)
+        if check.returncode == 0:
+            run(["git", "apply", str(patch)], cwd=CLIENT_SOURCE)
+            continue
+        reverse = subprocess.run(["git", "apply", "--reverse", "--check", str(patch)],
+                                 cwd=CLIENT_SOURCE, capture_output=True)
+        if reverse.returncode != 0:
+            raise ValueError(f"Client patch conflicts with local changes: {patch.name}")
 
 
 def build(target):
@@ -64,6 +79,8 @@ def build(target):
             "-p:PublishAot=false"]),
     }
     for name in projects if target == "all" else [target]:
+        if name == "client":
+            apply_client_patches()
         source, project, properties = projects[name]
         logfile = logs / f"{name}-build.log"
         print(f"Building {name}; log: {logfile.relative_to(ROOT)}", flush=True)
@@ -142,7 +159,13 @@ def launch(name):
     if not (folder / assembly).exists():
         raise ValueError(f"Build {name} first: ./dev build {name}")
     arguments = [] if name == "server" else ["-settings", str(config)]
-    run([DOTNET, folder / assembly, *arguments], cwd=folder)
+    extra_env = {}
+    if name == "client":
+        paths = [str(folder)]
+        if os.environ.get("LD_LIBRARY_PATH"):
+            paths.append(os.environ["LD_LIBRARY_PATH"])
+        extra_env["LD_LIBRARY_PATH"] = os.pathsep.join(paths)
+    run([DOTNET, folder / assembly, *arguments], cwd=folder, extra_env=extra_env)
 
 
 def doctor():
@@ -183,6 +206,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("setup", help="Download pinned sources and the project-local .NET SDK")
+    commands.add_parser("install-data", help="Install Classic Client data from the publisher's patch servers")
     builder = commands.add_parser("build", help="Compile and stage a local Debug build")
     builder.add_argument("target", choices=["all", "server", "client"], default="all", nargs="?")
     config = commands.add_parser("configure", help="Create local configs once UO data is installed")
@@ -196,6 +220,8 @@ def main():
     try:
         if args.command == "setup":
             setup()
+        elif args.command == "install-data":
+            run([sys.executable, ROOT / "tools/install_game_data.py"])
         elif args.command == "build":
             build(args.target)
         elif args.command == "configure":
