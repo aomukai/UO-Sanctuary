@@ -1,0 +1,99 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1643,6 +1643,10 @@
+ 
+         public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness)
+         {
++            if (ClassCombatHooks.Friendly?.Invoke(this, target) == true)
++            {
++                return false;
++            }
+             if (DesignContext != null || target is PlayerMobile mobile && mobile.DesignContext != null)
+             {
+                 return false;
+@@ -2426,6 +2430,10 @@
+                 {
+                     deathRobe.Delete();
+                 }
++                if (ClassCombatHooks.Enabled?.Invoke(this) == true)
++                {
++                    Hits = HitsMax;
++                }
+             }
+         }
+ 
+@@ -2514,6 +2522,7 @@
+         public override void OnDeath(Container c)
+         {
+             base.OnDeath(c);
++            ClassCombatHooks.PlayerDied?.Invoke(this, c);
+ 
+             EquipSnapshot = null;
+ 
+@@ -2727,6 +2736,10 @@
+ 
+         public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false)
+         {
++            if (ClassCombatHooks.Friendly?.Invoke(from, this) == true)
++            {
++                return;
++            }
+             var damageBonus = 1.0;
+ 
+             if (EvilOmenSpell.EndEffect(this) && !ignoreEvilOmen)
+@@ -3542,6 +3555,7 @@
+ 
+         public void AutoStablePets()
+         {
++            ClassCombatHooks.DismissGuardians?.Invoke(this);
+             var allFollowers = _allFollowers;
+ 
+             if (!Core.SE || !(allFollowers?.Count > 0))
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,6 +5,9 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public static class ClassCombatHooks
+ {
++    public static Action<PlayerMobile> DismissGuardians { get; set; }
++    public static Func<Mobile, Mobile, bool> Friendly { get; set; }
++    public static Action<PlayerMobile, Container> PlayerDied { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+     public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
+diff --git a/Projects/UOContent/Gumps/ResurrectGump.cs b/Projects/UOContent/Gumps/ResurrectGump.cs
+--- a/Projects/UOContent/Gumps/ResurrectGump.cs
++++ b/Projects/UOContent/Gumps/ResurrectGump.cs
+@@ -219,7 +219,8 @@
+ 
+         from.Resurrect();
+ 
+-        if (_healer != null && from != _healer)
++        var classResurrection = from is PlayerMobile classPlayer && ClassCombatHooks.Enabled?.Invoke(classPlayer) == true;
++        if (!classResurrection && _healer != null && from != _healer)
+         {
+             var level = VirtueSystem.GetLevel(_healer, VirtueName.Compassion);
+ 
+@@ -265,7 +266,7 @@
+             Titles.AwardFame(from, -amount, true);
+         }
+ 
+-        if (from.Alive && _hitsScalar > 0)
++        if (!classResurrection && from.Alive && _hitsScalar > 0)
+         {
+             from.Hits = (int)(from.HitsMax * _hitsScalar);
+         }
+diff --git a/Projects/UOContent/Misc/AOS.cs b/Projects/UOContent/Misc/AOS.cs
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -49,7 +49,7 @@
+             int nrgy, int chaos = 0, int direct = 0, bool keepAlive = false, bool archer = false, bool deathStrike = false
+         )
+         {
+-            if (m?.Deleted != false || !m.Alive || damage <= 0)
++            if (m?.Deleted != false || !m.Alive || damage <= 0 || ClassCombatHooks.Friendly?.Invoke(from, m) == true)
+             {
+                 return 0;
+             }

@@ -1,0 +1,140 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1676,6 +1676,31 @@
+ 
+         public override bool CheckContextMenuDisplay(IEntity target) => DesignContext == null;
+ 
++        public override Mobile Combatant
++        {
++            get => base.Combatant;
++            set => base.Combatant = value != null && ClassCombatHooks.Enabled?.Invoke(this) == true ? null : value;
++        }
++
++        public override void Attack(Mobile target)
++        {
++            if (ClassCombatHooks.Enabled?.Invoke(this) == true)
++            {
++                ClassCombatHooks.AttackRequested?.Invoke(this, target);
++                return;
++            }
++            base.Attack(target);
++        }
++
++        public override void OnWarmodeChanged()
++        {
++            base.OnWarmodeChanged();
++            if (Warmode && ClassCombatHooks.Enabled?.Invoke(this) == true)
++            {
++                Warmode = false;
++            }
++        }
++
+         public override void OnItemAdded(Item item)
+         {
+             base.OnItemAdded(item);
+@@ -1738,8 +1763,13 @@
+                 MovementImpl.IgnoreMovableImpassables = true;
+             }
+ 
++            var previousLocation = Location;
+             var res = base.Move(d);
+             MovementImpl.IgnoreMovableImpassables = false;
++            if (res && Location != previousLocation)
++            {
++                ClassCombatHooks.Moved?.Invoke(this, d);
++            }
+             return res;
+         }
+ 
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Items;
++namespace Server.Mobiles;
++// A content assembly can own player attacks while NPC combat remains independent.
++public static class ClassCombatHooks
++{
++    public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
++    public static Action<PlayerMobile, Direction> Moved { get; set; }
++    public static Func<PlayerMobile, bool> DefenseSuppressed { get; set; }
++    public static Func<PlayerMobile, bool> Enabled { get; set; }
++    public static Func<PlayerMobile, SkillName, bool> SkillGainAllowed { get; set; }
++    public static Action<PlayerMobile, Mobile> AttackRequested { get; set; }
++}
+diff --git a/Projects/UOContent/Items/Weapons/Knives/Dagger.cs b/Projects/UOContent/Items/Weapons/Knives/Dagger.cs
+--- a/Projects/UOContent/Items/Weapons/Knives/Dagger.cs
++++ b/Projects/UOContent/Items/Weapons/Knives/Dagger.cs
+@@ -9,6 +9,12 @@
+         [Constructible]
+         public Dagger() : base(0xF52)
+         {
++        }
++
++        public override void GetProperties(IPropertyList list)
++        {
++            base.GetProperties(list);
++            Server.Mobiles.ClassCombatHooks.DaggerProperties?.Invoke(this, list);
+         }
+ 
+         public override double DefaultWeight => 1.0;
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -1207,6 +1207,11 @@
+ 
+     public virtual bool CheckHit(Mobile attacker, Mobile defender)
+     {
++        if (defender is PlayerMobile player && ClassCombatHooks.DefenseSuppressed?.Invoke(player) == true)
++        {
++            return true;
++        }
++
+         var atkWeapon = attacker.Weapon as BaseWeapon;
+         var defWeapon = defender.Weapon as BaseWeapon;
+ 
+@@ -1490,7 +1495,8 @@
+ 
+     public static bool CheckParry(Mobile defender)
+     {
+-        if (defender == null)
++        if (defender == null || defender is PlayerMobile player
++            && ClassCombatHooks.DefenseSuppressed?.Invoke(player) == true)
+         {
+             return false;
+         }
+diff --git a/Projects/UOContent/Skills/SkillCheck.cs b/Projects/UOContent/Skills/SkillCheck.cs
+--- a/Projects/UOContent/Skills/SkillCheck.cs
++++ b/Projects/UOContent/Skills/SkillCheck.cs
+@@ -105,6 +105,9 @@
+         return CheckSkill(from, skill, loc, chance);
+     }
+ 
++    private static bool ClassAllowsGain(Mobile from, Skill skill) =>
++        from is not PlayerMobile player || ClassCombatHooks.SkillGainAllowed?.Invoke(player, skill.SkillName) != false;
++
+     public static bool CheckSkill(Mobile from, Skill skill, object amObj, double chance)
+     {
+         if (from.Skills.Cap == 0)
+@@ -115,7 +118,7 @@
+         var success = chance >= Utility.RandomDouble();
+ 
+         var region = from.Region;
+-        if (from.Alive && region.AllowGain(from, skill, amObj))
++        if (from.Alive && ClassAllowsGain(from, skill) && region.AllowGain(from, skill, amObj))
+         {
+             if (skill.Base < 10.0) // Gain regardless of the AllowGain check
+             {
+@@ -235,7 +238,7 @@
+ 
+     public static void Gain(Mobile from, Skill skill)
+     {
+-        if (from is BaseCreature { IsDeadPet: true })
++        if (!ClassAllowsGain(from, skill) || from is BaseCreature { IsDeadPet: true })
+         {
+             return;
+         }

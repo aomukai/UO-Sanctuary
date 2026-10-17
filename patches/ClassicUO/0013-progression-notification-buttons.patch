@@ -1,0 +1,137 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -196,6 +196,10 @@
+         }
+         ClassStatsClient.Update();
+         ClassLootClient.Update();
++        if (UIManager.GetGump<ProgressionButtonsGump>() == null)
++        {
++            UIManager.Add(new ProgressionButtonsGump(world));
++        }
+         var hud = UIManager.GetGump<CombatActionsGump>();
+         if (hud == null)
+         {
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -10,10 +10,12 @@
+     private static int[] _values = new int[StatProtocol.Values];
+     private static uint _sequence, _nextPoll;
+     public static bool Ready { get; private set; }
++    public static uint LevelUpUntil { get; private set; }
+     public static int Get(StatField field) => _values[(int)field];
+     public static void Reset()
+     {
+         Ready = false;
++        LevelUpUntil = 0;
+         _sequence = 0;
+         _nextPoll = Time.Ticks;
+         _values = new int[StatProtocol.Values];
+@@ -49,9 +51,14 @@
+             }
+         }
+         if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
+-            || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490)
++            || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490
++            || values[(int)StatField.TalentPoints] > 98)
+         {
+             return;
++        }
++        if (Ready && values[(int)StatField.Level] > Get(StatField.Level))
++        {
++            LevelUpUntil = Time.Ticks + 8000;
+         }
+         _values = values;
+         Ready = true;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ProgressionButtonsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ProgressionButtonsGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ProgressionButtonsGump.cs
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class ProgressionButtonsGump : Gump
++{
++    private readonly Label _heading;
++    private readonly PointButton _stats, _talents;
++    private int _lastStats, _lastTalents;
++    private uint _lastNotice;
++    public ProgressionButtonsGump(World world) : base(world, 0, 0)
++    {
++        X = 8;
++        Y = 70;
++        CanMove = CanCloseWithRightClick = false;
++        Add(new AlphaBlendControl(0.85f) { Width = 252, Height = 68, AcceptMouseInput = false });
++        Add(_heading = new Label("Points available", true, 0x35) { X = 8, Y = 4, AcceptMouseInput = false });
++        Add(_stats = new PointButton(8, "Spend attribute points", () =>
++        {
++            var status = StatusGumpBase.GetStatusGump();
++            if (status == null)
++            {
++                UIManager.Add(status = StatusGumpBase.AddStatusGump(world, 260, 180));
++            }
++            status.BringOnTop();
++        }));
++        Add(_talents = new PointButton(130, "Spend talent points", () => GameActions.Say("[Class")));
++    }
++    public override void Update()
++    {
++        bool ready = ClassCombatClient.Enabled && ClassStatsClient.Ready && World.InGame;
++        int stats = ready ? ClassStatsClient.Get(StatField.Points) : 0;
++        int talents = ready ? ClassStatsClient.Get(StatField.TalentPoints) : 0;
++        bool leveled = ready && ClassStatsClient.LevelUpUntil != 0
++            && unchecked((int)(ClassStatsClient.LevelUpUntil - Time.Ticks)) > 0;
++        IsVisible = ready && (stats > 0 || talents > 0 || leveled);
++        _heading.Text = leveled ? $"LEVEL {ClassStatsClient.Get(StatField.Level)}!" : "Points available";
++        _stats.SetPoints("Stats", stats);
++        _talents.SetPoints("Talents", talents);
++        if (IsVisible && (stats > _lastStats || talents > _lastTalents || ClassStatsClient.LevelUpUntil != _lastNotice))
++        {
++            BringOnTop();
++        }
++        _lastStats = stats;
++        _lastTalents = talents;
++        _lastNotice = ClassStatsClient.LevelUpUntil;
++        base.Update();
++    }
++    private sealed class PointButton : Control
++    {
++        private readonly Label _caption;
++        private readonly Action _click;
++        public PointButton(int x, string tooltip, Action click)
++        {
++            X = x;
++            Y = 30;
++            Width = 114;
++            Height = 30;
++            WantUpdateSize = false;
++            AcceptMouseInput = true;
++            _click = click;
++            Add(new Line(0, 0, Width, Height, 0xFF494337) { AcceptMouseInput = false });
++            Add(_caption = new Label("", true, 0x35) { X = 7, Y = 6, AcceptMouseInput = false });
++            SetTooltip(tooltip);
++        }
++        public void SetPoints(string label, int points)
++        {
++            IsVisible = points > 0;
++            _caption.Text = $"{label} +{points}";
++        }
++        protected override void OnMouseUp(int x, int y, MouseButtonType button)
++        {
++            if (button == MouseButtonType.Left && MouseIsOver)
++            {
++                _click();
++                Mouse.CancelDoubleClick = true;
++            }
++            base.OnMouseUp(x, y, button);
++        }
++    }
++}

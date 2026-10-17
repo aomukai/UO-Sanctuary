@@ -1,0 +1,352 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -31,6 +31,7 @@
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
++    <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -102,6 +102,7 @@
+ 
+     public static void Reset()
+     {
++        ClassStatsClient.Reset();
+         ClassLootClient.Reset();
+         _animations.Clear();
+         _nextAnimationCleanup = Time.Ticks;
+@@ -171,6 +172,7 @@
+         {
+             return;
+         }
++        ClassStatsClient.Update();
+         ClassLootClient.Update();
+         var hud = UIManager.GetGump<CombatActionsGump>();
+         if (hud == null)
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class ClassStatsClient
++{
++    private static int[] _values = new int[StatProtocol.Values];
++    private static uint _sequence, _nextPoll;
++    public static bool Ready { get; private set; }
++    public static int Get(StatField field) => _values[(int)field];
++    public static void Reset()
++    {
++        Ready = false;
++        _sequence = 0;
++        _nextPoll = Time.Ticks;
++        _values = new int[StatProtocol.Values];
++    }
++    public static void Update()
++    {
++        if (ClassCombatClient.Enabled && unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
++        {
++            _nextPoll = Time.Ticks + StatProtocol.PollMs;
++            Send(0);
++        }
++    }
++    public static void Spend(CharacterStat stat)
++    {
++        if (Ready && Get(StatField.Points) > 0 && (byte)stat <= 3)
++        {
++            Send((byte)((byte)stat + 1));
++        }
++    }
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining != 1 + StatProtocol.Values * 4 || reader.ReadUInt8() != StatProtocol.Version)
++        {
++            return;
++        }
++        var values = new int[StatProtocol.Values];
++        for (int i = 0; i < values.Length; i++)
++        {
++            values[i] = reader.ReadInt32BE();
++            if (values[i] < 0 && i != (int)StatField.Defense)
++            {
++                return;
++            }
++        }
++        if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
++            || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490)
++        {
++            return;
++        }
++        _values = values;
++        Ready = true;
++    }
++    private static void Send(byte request)
++    {
++        var writer = new StackDataWriter(11);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(11);
++        writer.WriteUInt16BE(StatProtocol.SubCommand);
++        writer.WriteUInt8(StatProtocol.Version);
++        writer.WriteUInt8(request);
++        writer.WriteUInt32BE(++_sequence);
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/StatusGump.cs
+@@ -105,7 +105,7 @@
+         {
+             StatusGumpBase gump;
+ 
+-            if (ProfileManager.CurrentProfile.UseOldStatusGump)
++            if (!ClassCombatClient.Enabled && ProfileManager.CurrentProfile.UseOldStatusGump)
+             {
+                 gump = UIManager.GetGump<StatusGumpOld>();
+             }
+@@ -123,7 +123,7 @@
+         {
+             StatusGumpBase gump;
+ 
+-            if (Client.Game.UO.Version < ClientVersion.CV_308Z || ProfileManager.CurrentProfile.UseOldStatusGump)
++            if (!ClassCombatClient.Enabled && (Client.Game.UO.Version < ClientVersion.CV_308Z || ProfileManager.CurrentProfile.UseOldStatusGump))
+             {
+                 gump = new StatusGumpOld(world);
+             }
+@@ -134,7 +134,11 @@
+ 
+             gump.X = x;
+             gump.Y = y;
+-
++            if (ClassCombatClient.Enabled)
++            {
++                gump.X = Math.Clamp(x, 0, Math.Max(0, Client.Game.ClientBounds.Width - 584));
++                gump.Y = Math.Clamp(y, 0, Math.Max(0, Client.Game.ClientBounds.Height - 200));
++            }
+             return gump;
+         }
+ 
+@@ -540,6 +544,15 @@
+ 
+     internal class StatusGumpModern : StatusGumpBase
+     {
++        private ClassStatusPanel _classPanel;
++        private uint _nextClassRefresh = Time.Ticks;
++        private void BuildClassStatus()
++        {
++            Clear();
++            Add(new GumpPic(0, 0, 0x2A6C, 0));
++            Add(_classPanel = new ClassStatusPanel(World));
++            _point = new Point(Client.Game.UO.FileManager.Gumps.UseUOPGumps ? 552 : 389, 190);
++        }
+         public StatusGumpModern(World world) : base(world)
+         {
+             Point p = Point.Zero;
+@@ -547,6 +560,11 @@
+             _labels = new Label[(int) MobileStats.NumStats];
+ 
+             Add(new GumpPic(0, 0, 0x2A6C, 0));
++            if (ClassCombatClient.Enabled)
++            {
++                BuildClassStatus();
++                return;
++            }
+ 
+             if (Client.Game.UO.Version >= ClientVersion.CV_308Z)
+             {
+@@ -1354,6 +1372,20 @@
+                 return;
+             }
+ 
++            if (ClassCombatClient.Enabled)
++            {
++                if (_classPanel == null)
++                {
++                    BuildClassStatus();
++                }
++                if (unchecked((int)(Time.Ticks - _nextClassRefresh)) >= 0)
++                {
++                    _nextClassRefresh = Time.Ticks + 250;
++                    _classPanel.Refresh();
++                }
++                base.Update();
++                return;
++            }
+             if (_refreshTime < Time.Ticks)
+             {
+                 _refreshTime = (long)Time.Ticks + 250;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs
+@@ -0,0 +1,143 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System;
++using System.Collections.Generic;
++using ClassicUO.Assets;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class ClassStatusPanel : Control
++{
++    private readonly World _world;
++    private readonly List<(Label Label, Func<string> Text)> _values = new();
++    private readonly HitBox[] _attributes = new HitBox[4];
++    private readonly Label[] _pluses = new Label[4];
++    public ClassStatusPanel(World world)
++    {
++        _world = world;
++        AcceptMouseInput = false;
++        bool uop = Client.Game.UO.FileManager.Gumps.UseUOPGumps;
++        int statX = uop ? 80 : 88;
++        Value(90, 50, 420, () => world.Player.Name ?? string.Empty, TEXT_ALIGN_TYPE.TS_CENTER);
++        for (int i = 0; i < 4; i++)
++        {
++            int index = i, y = 70 + i * 28;
++            Value(statX, y + 7, 34, () => ClassStatsClient.Ready ? Get((StatField)index).ToString() : "...");
++            _pluses[i] = new Label("+", false, 0x35, font: 1) { X = uop ? 28 : 40, Y = y + 6 };
++            Add(_pluses[i]);
++            var hit = new HitBox(uop ? 28 : 40, y, uop ? 92 : 78, 24, alpha: 0.15f);
++            hit.MouseUp += (_, e) =>
++            {
++                if (e.Button == MouseButtonType.Left && !world.TargetManager.IsTargeting)
++                {
++                    ClassStatsClient.Spend((CharacterStat)index);
++                }
++            };
++            _attributes[i] = hit;
++            Add(hit);
++        }
++        // The legacy HCI artwork occupies the new Vitality cell.
++        Add(new Line(uop ? 42 : 52, 158, 29, 20, 0xFFB6B6B6));
++        Add(new Label("Vit", false, 0x386, font: 1) { X = uop ? 43 : 53, Y = 161 });
++        // Keep the click surface above the replacement icon.
++        _attributes[3].BringOnTop();
++        int healthX = uop ? 145 : 141;
++        Pair(healthX, 70, () => world.Player.Hits, () => world.Player.HitsMax);
++        Pair(healthX, 98, () => world.Player.Stamina, () => world.Player.StaminaMax);
++        Pair(healthX, 126, () => world.Player.Mana, () => world.Player.ManaMax);
++        Value(uop ? 150 : 146, 161, 42, () => Get(StatField.Defense).ToString());
++        Tip(124, 70, 69, 24, "Life / Maximum Life. Vitality and class level determine your life pool.");
++        Tip(124, 98, 69, 24, "Stamina / Maximum Stamina. Vitality and class level determine your stamina pool.");
++        Tip(124, 126, 69, 24, "Mana / Maximum Mana. Energy and class level determine your mana pool.");
++        Tip(124, 154, 69, 24, "Defense Rating. Reduces physical hit chance; disabled while running. Armor contributes defense separately from physical resistance.");
++        int middle = uop ? 240 : 220;
++        Value(middle, 77, 42, () => Get(StatField.Level).ToString());
++        Value(middle, 105, 42, () => world.Player.Luck.ToString());
++        Pair(middle - 10, 126, () => world.Player.Weight, () => world.Player.WeightMax);
++        Value(middle, 161, 42, () => Get(StatField.Points).ToString(), hue: 0x35);
++        Tip(uop ? 205 : 188, 70, 65, 24, "Character Level. Each level awards 5 attribute points and 1 talent point.");
++        Tip(uop ? 205 : 188, 98, 65, 24, "Luck. Existing UO equipment value; Diablo magic find is not implemented yet.");
++        Tip(uop ? 205 : 188, 126, 65, 24, "Carried Weight / Maximum Weight. Strength increases carrying capacity.");
++        Tip(uop ? 205 : 188, 154, 65, 24, "Unspent attribute points. Click a left-column attribute to spend one point. Earn 5 per level.");
++        int attackX = uop ? 320 : 280;
++        Value(attackX - 10, 77, 55, () => $"{Get(StatField.DamageMin)}-{Get(StatField.DamageMax)}");
++        Value(attackX, 105, 45, () => Get(StatField.AttackRating).ToString());
++        Value(attackX, 133, 45, () => $"{world.Player.Followers}/{world.Player.FollowersMax}");
++        Value(attackX, 161, 45, () => Get(StatField.Ias) + "%");
++        int attackHitX = uop ? 285 : 260;
++        Tip(attackHitX, 70, 69, 24, "Basic Attack Damage before target resistance. Uses weapon damage, Strength/Dexterity and equipment damage bonuses.");
++        Tip(attackHitX, 98, 69, 24, "Attack Rating. Dexterity grants 5 per point, with a class bonus. Physical attacks roll against enemy defense and level; spells do not.");
++        Tip(attackHitX, 126, 69, 24, "Followers / Maximum Followers. Summoning limits will be adapted when class summons are implemented.");
++        Tip(attackHitX, 154, 69, 24, "Increased Attack Speed (IAS). Equipment percentage; applies to attack animation breakpoints, not casting.");
++        if (uop)
++        {
++            Value(400, 77, 38, () => "--");
++            Value(400, 105, 38, () => "--");
++            Value(400, 133, 38, () => Get(StatField.Fcr) + "%");
++            Value(400, 161, 38, () => "--");
++            Tip(365, 70, 69, 24, "Reserved. Reagents are not used by class abilities.");
++            Tip(365, 98, 69, 24, "Reserved for future class combat bonuses.");
++            Tip(365, 126, 69, 24, "Faster Cast Rate (FCR). Equipment percentage; applies to casting breakpoints, not physical attacks.");
++            Tip(365, 154, 69, 24, "Faster Hit Recovery (FHR). Hit recovery is not implemented yet.");
++            Value(480, 161, 70, () => world.Player.Gold.ToString());
++            Tip(445, 154, 100, 24, "Gold carried in your backpack.");
++        }
++        else
++        {
++            Value(280, 105, 45, () => world.Player.Gold.ToString());
++        }
++        int resX = uop ? 480 : 360;
++        Value(resX, 74, 64, () => $"{world.Player.PhysicalResistance}/{world.Player.MaxPhysicResistence}");
++        Value(resX, 92, 64, () => $"{world.Player.FireResistance}/{world.Player.MaxFireResistence}");
++        Value(resX, 106, 64, () => $"{world.Player.ColdResistance}/{world.Player.MaxColdResistence}");
++        Value(resX, 120, 64, () => $"{world.Player.PoisonResistance}/{world.Player.MaxPoisonResistence}");
++        Value(resX, 134, 64, () => $"{world.Player.EnergyResistance}/{world.Player.MaxEnergyResistence}");
++        string[] resistances = ["Physical", "Fire", "Cold", "Poison", "Lightning"];
++        int[] resY = [70, 88, 102, 116, 130];
++        for (int i = 0; i < resistances.Length; i++)
++        {
++            Tip(uop ? 445 : 334, resY[i], 100, 14,
++                resistances[i] + " Resistance / Maximum (%). Reduces incoming damage of this type.");
++        }
++        Refresh();
++    }
++    private static int Get(StatField field) => ClassStatsClient.Get(field);
++    private void Value(int x, int y, int width, Func<string> text,
++        TEXT_ALIGN_TYPE align = TEXT_ALIGN_TYPE.TS_LEFT, ushort hue = 0x386)
++    {
++        var label = new Label(text(), false, hue, width, font: 1, align: align) { X = x, Y = y };
++        Add(label);
++        _values.Add((label, text));
++    }
++    private void Pair(int x, int y, Func<int> current, Func<int> maximum)
++    {
++        Value(x, y, 40, () => current().ToString(), TEXT_ALIGN_TYPE.TS_CENTER);
++        Value(x, y + 13, 40, () => maximum().ToString(), TEXT_ALIGN_TYPE.TS_CENTER);
++        Add(new Line(x, y + 12, 40, 1, 0xFF383838));
++    }
++    private void Tip(int x, int y, int width, int height, string text) =>
++        Add(new HitBox(x, y, width, height, text, 0) { CanMove = true });
++    private static string Quarter(int value) => (value / 4.0).ToString("0.##");
++    public void Refresh()
++    {
++        foreach (var (label, text) in _values)
++        {
++            label.Text = text();
++        }
++        string[] tips =
++        [
++            "Strength: weapon damage and equipment requirements. Also increases carrying capacity.",
++            "Dexterity: +5 base Attack Rating per point and +1 base Defense per 4 points. Also improves bow, dagger and throwing damage.",
++            $"Energy: +{Quarter(Get(StatField.ManaPerEnergy4))} Mana per point for your class.",
++            $"Vitality: +{Quarter(Get(StatField.LifePerVitality4))} Life and +{Quarter(Get(StatField.StaminaPerVitality4))} Stamina per point for your class."
++        ];
++        int points = Get(StatField.Points);
++        for (int i = 0; i < 4; i++)
++        {
++            _pluses[i].IsVisible = ClassStatsClient.Ready && points > 0 && !_world.Player.IsDead;
++            _attributes[i].SetTooltip(tips[i] + (points > 0 ? $"\nClick to add 1 point. {points} available." : "\nNo unspent attribute points. Gain a level to earn 5."));
++        }
++    }
++}
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,11 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.StatProtocol.SubCommand)
++            {
++                ClassStatsClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.CombatProtocol.AnimationSubCommand)
+             {
+                 ClassCombatClient.ReceiveAnimation(world, ref p);

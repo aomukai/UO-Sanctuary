@@ -1,0 +1,46 @@
+{
+  "CharStats": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/CharStats.txt",
+    "sha256": "210a6f1371a475442a6f9b27a2d03b2bebc2e3e93c1e586583c112596301a8b3"
+  },
+  "Experience": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Experience.txt",
+    "sha256": "5a9748320bd4796d5b660f9ad4fc33e20a73966ba1d02512e58b94e6ece98983"
+  },
+  "MonLvl": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/MonLvl.txt",
+    "sha256": "7624abe33673f8bf4f243de141fb387a1d78f1192466ace49ac8b3c175fa4df8"
+  },
+  "MonStats": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/MonStats.txt",
+    "sha256": "973eedacd121f724f6dca1c7201750f6a4e60480c3d536ef5a9cb36853d38193"
+  },
+  "MonStats2": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/MonStats2.txt",
+    "sha256": "275e4b6f7fae793d7a238d8f892b5ef69cb20e5ccc4544e95fde45c2d301a348"
+  },
+  "Weapons": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Weapons.txt",
+    "sha256": "706f39eafa8393e428b049ef7f629eb59096435f62f849b6ab2b144b704ccd4b"
+  },
+  "Armor": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Armor.txt",
+    "sha256": "6ce5a09e8c6bc07dddea916412f18e57af860f7c870e3ef9e3003ea8beeaaf99"
+  },
+  "ItemTypes": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/ItemTypes.txt",
+    "sha256": "04dc469680ff78c33cef55a852b3bad8b4c63d5f776fd5fbcfaae276e8d95f02"
+  },
+  "MagicPrefix": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/MagicPrefix.txt",
+    "sha256": "db5ec15867c933b636ab622885ca392caca8d3346d327bc01dbee287bb42e2c4"
+  },
+  "MagicSuffix": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/MagicSuffix.txt",
+    "sha256": "fe708fad529499efee05843647c53d949e059dab018bb96165ff9a780bfc3bda"
+  },
+  "Properties": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Properties.txt",
+    "sha256": "df39332fbe0c17cbee3d1f42f0caf63f9d76076b36f2f633c6d712d5c38af4e8"
+  }
+}

@@ -1,0 +1,152 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -24,6 +24,9 @@
+     private static uint _heldUnit, _nextHoldUpdate;
+     private static CombatAbility _heldAbility;
+     private static bool _groundHeld, _groundGesture;
++    private static bool _groundWasHold, _groundCancelled;
++    private static uint _groundDownAt;
++    private const int GroundHoldThresholdMs = 200;
+     private static bool _attackHeld, _attackGesture;
+     private static uint _nextAttackUpdate;
+     private static CombatAbility _attackAbility;
+@@ -109,6 +112,7 @@
+         Enabled = _queried = _pursuing = _rightHeld = _wasDead = false;
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
++        _groundWasHold = _groundCancelled = false;
+         _attackHeld = _attackGesture = false;
+         _sequence = _target = 0;
+         _lastPath = Time.Ticks - 500;
+@@ -302,6 +306,10 @@
+     }
+     public static void Stop(World world)
+     {
++        if (_groundGesture)
++        {
++            _groundCancelled = true;
++        }
+         _rightHeld = _groundHeld = _attackHeld = false;
+         StopMovement(world);
+         _target = 0;
+@@ -464,15 +472,22 @@
+         }
+         Stop(world);
+         _groundHeld = _groundGesture = true;
++        _groundWasHold = _groundCancelled = false;
++        _groundDownAt = Time.Ticks;
+         _groundX = _groundY = -1;
+         _nextGroundUpdate = Time.Ticks;
+         UpdateGroundHold(world);
+         return true;
+     }
+-    public static bool FinishGroundHold()
++    public static bool FinishGroundHold(World world)
+     {
+         bool gesture = _groundGesture;
++        bool held = _groundWasHold || unchecked((int)(Time.Ticks - _groundDownAt)) >= GroundHoldThresholdMs;
+         _groundHeld = _groundGesture = false;
++        if (gesture && (held || _groundCancelled || Keyboard.Shift))
++        {
++            StopMovement(world);
++        }
+         return gesture;
+     }
+     private static void UpdateGroundHold(World world)
+@@ -481,6 +496,7 @@
+         {
+             return;
+         }
++        _groundWasHold |= unchecked((int)(Time.Ticks - _groundDownAt)) >= GroundHoldThresholdMs;
+         if (!Mouse.LButtonPressed)
+         {
+             _groundHeld = false;
+@@ -491,6 +507,7 @@
+         {
+             _groundHeld = false;
+             StopMovement(world);
++            _groundCancelled = true;
+             return;
+         }
+         if (Keyboard.Shift)
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -329,6 +329,7 @@
+ 
+         private bool OnLeftMouseDown()
+         {
++            TalentClickAreas.TraceMouse("down");
+             if (
+                 UIManager.PopupMenu != null
+                 && !UIManager.PopupMenu.Bounds.Contains(Mouse.Position.X, Mouse.Position.Y)
+@@ -394,7 +395,8 @@
+ 
+         private bool OnLeftMouseUp()
+         {
+-            if (ClassCombatClient.FinishAttackHold() | ClassCombatClient.FinishGroundHold())
++            TalentClickAreas.TraceMouse("up");
++            if (ClassCombatClient.FinishAttackHold() | ClassCombatClient.FinishGroundHold(_world))
+             {
+                 _isMouseLeftDown = _isSelectionActive = false;
+                 return true;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs b/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs
+@@ -1,6 +1,9 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ using System.Collections.Generic;
++using System;
++using System.IO;
+ using ClassicUO.Game.UI.Controls;
++using ClassicUO.Game.Managers;
+ using ClassicUO.Input;
+ 
+ namespace ClassicUO.Game.UI.Gumps;
+@@ -9,6 +12,7 @@
+ {
+     public static void Attach(Gump gump)
+     {
++        Trace($"attach type={gump.ServerSerial:X8} serial={gump.LocalSerial} position={gump.X},{gump.Y}");
+         if (gump.ServerSerial != Sanctuary.ClassGumpProtocol.Talents)
+         {
+             return;
+@@ -38,14 +42,36 @@
+             {
+                 continue;
+             }
+-            area.MouseUp += (_, e) =>
++            area.MouseDown += (_, e) =>
+             {
+                 if (e.Button == MouseButtonType.Left)
+                 {
++                    Trace($"submit type={gump.ServerSerial:X8} serial={gump.LocalSerial} button={id}");
+                     gump.OnButtonClick(id);
+                 }
+             };
+             gump.Add(area, button.Page);
+         }
+     }
++
++    public static void TraceMouse(string phase)
++    {
++        Trace($"mouse {phase} at={Mouse.Position} over={UIManager.MouseOverControl?.GetType().Name} root={UIManager.MouseOverControl?.RootParent?.GetType().Name} world={UIManager.IsMouseOverWorld}");
++    }
++
++    private static void Trace(string value)
++    {
++        string folder = Path.Combine(CUOEnviroment.ExecutablePath, "Data", "Client");
++        if (!File.Exists(Path.Combine(folder, "talent-input.enabled")))
++        {
++            return;
++        }
++        try
++        {
++            File.AppendAllText(Path.Combine(folder, "talent-input.log"), $"{DateTime.UtcNow:O} {value}\n");
++        }
++        catch (IOException)
++        {
++        }
++    }
+ }

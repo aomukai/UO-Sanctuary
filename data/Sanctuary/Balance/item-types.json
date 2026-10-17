@@ -1,0 +1,888 @@
+[
+  {
+    "code": "shie",
+    "parents": [
+      "shld"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "tors",
+    "parents": [
+      "armo"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "gold",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "bowq",
+    "parents": [
+      "misl"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "xboq",
+    "parents": [
+      "misl"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "play",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "herb",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "poti",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "ring",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": true,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "elix",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "amul",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": true,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "char",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": true,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "boot",
+    "parents": [
+      "armo"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "glov",
+    "parents": [
+      "armo"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "book",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "belt",
+    "parents": [
+      "armo"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "gem",
+    "parents": [
+      "sock"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "torc",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "scro",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "scep",
+    "parents": [
+      "rod"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "wand",
+    "parents": [
+      "rod"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "staf",
+    "parents": [
+      "rod"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "bow",
+    "parents": [
+      "miss"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "axe",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "club",
+    "parents": [
+      "blun"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "swor",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "hamm",
+    "parents": [
+      "blun"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "knif",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "spea",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "pole",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "xbow",
+    "parents": [
+      "miss"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "mace",
+    "parents": [
+      "blun"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "helm",
+    "parents": [
+      "armo"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "tpot",
+    "parents": [
+      "thro"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "ques",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "body",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "key",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "tkni",
+    "parents": [
+      "comb",
+      "knif"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "taxe",
+    "parents": [
+      "comb",
+      "axe"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "jave",
+    "parents": [
+      "comb",
+      "spea"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "weap",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "mele",
+    "parents": [
+      "weap"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "miss",
+    "parents": [
+      "weap"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "thro",
+    "parents": [
+      "weap"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "comb",
+    "parents": [
+      "mele",
+      "thro"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "armo",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "shld",
+    "parents": [
+      "armo",
+      "seco"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "misc",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "sock",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "seco",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "rod",
+    "parents": [
+      "blun"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "misl",
+    "parents": [
+      "misc"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "blun",
+    "parents": [
+      "mele"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "jewl",
+    "parents": [
+      "sock"
+    ],
+    "alwaysMagic": true,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "clas",
+    "parents": [],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "amaz",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ama"
+  },
+  {
+    "code": "barb",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "bar"
+  },
+  {
+    "code": "necr",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "nec"
+  },
+  {
+    "code": "pala",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "pal"
+  },
+  {
+    "code": "sorc",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "sor"
+  },
+  {
+    "code": "assn",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ass"
+  },
+  {
+    "code": "drui",
+    "parents": [
+      "clas"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "dru"
+  },
+  {
+    "code": "h2h",
+    "parents": [
+      "mele",
+      "assn"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ass"
+  },
+  {
+    "code": "orb",
+    "parents": [
+      "weap",
+      "sorc"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "sor"
+  },
+  {
+    "code": "head",
+    "parents": [
+      "shld",
+      "necr"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "nec"
+  },
+  {
+    "code": "ashd",
+    "parents": [
+      "shld",
+      "pala"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "pal"
+  },
+  {
+    "code": "phlm",
+    "parents": [
+      "helm",
+      "barb"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "bar"
+  },
+  {
+    "code": "pelt",
+    "parents": [
+      "helm",
+      "drui"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "dru"
+  },
+  {
+    "code": "cloa",
+    "parents": [
+      "tors",
+      "assn"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ass"
+  },
+  {
+    "code": "rune",
+    "parents": [
+      "sock"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "circ",
+    "parents": [
+      "helm"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "hpot",
+    "parents": [
+      "poti"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "mpot",
+    "parents": [
+      "poti"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "rpot",
+    "parents": [
+      "hpot",
+      "mpot"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "spot",
+    "parents": [
+      "poti"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "apot",
+    "parents": [
+      "poti"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "wpot",
+    "parents": [
+      "poti"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "scha",
+    "parents": [
+      "char"
+    ],
+    "alwaysMagic": true,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "mcha",
+    "parents": [
+      "char"
+    ],
+    "alwaysMagic": true,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "lcha",
+    "parents": [
+      "char"
+    ],
+    "alwaysMagic": true,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "abow",
+    "parents": [
+      "bow",
+      "amaz"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ama"
+  },
+  {
+    "code": "aspe",
+    "parents": [
+      "spea",
+      "amaz"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ama"
+  },
+  {
+    "code": "ajav",
+    "parents": [
+      "jave",
+      "amaz"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ama"
+  },
+  {
+    "code": "h2h2",
+    "parents": [
+      "h2h"
+    ],
+    "alwaysMagic": false,
+    "rare": true,
+    "characterClass": "ass"
+  },
+  {
+    "code": "mboq",
+    "parents": [
+      "bowq"
+    ],
+    "alwaysMagic": true,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "mxbq",
+    "parents": [
+      "xboq"
+    ],
+    "alwaysMagic": true,
+    "rare": true,
+    "characterClass": ""
+  },
+  {
+    "code": "gem0",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gem1",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gem2",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gem3",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gem4",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gema",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gemd",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "geme",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gemr",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gems",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gemt",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  },
+  {
+    "code": "gemz",
+    "parents": [
+      "gem"
+    ],
+    "alwaysMagic": false,
+    "rare": false,
+    "characterClass": ""
+  }
+]

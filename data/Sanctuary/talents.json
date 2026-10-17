@@ -1,0 +1,1921 @@
+[
+  {
+    "class": "Amazon",
+    "trees": [
+      {
+        "name": "Javelin and Spear Skills",
+        "source": "https://classic.battle.net/diablo2exp/skills/amazon-javelin.shtml",
+        "skills": [
+          {
+            "id": "amazon.jab",
+            "name": "Jab",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.powerstrike",
+            "name": "Power Strike",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "amazon.jab"
+            ]
+          },
+          {
+            "id": "amazon.poisonjavelin",
+            "name": "Poison Javelin",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.impale",
+            "name": "Impale",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "amazon.jab"
+            ]
+          },
+          {
+            "id": "amazon.lightningbolt",
+            "name": "Lightning Bolt",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "amazon.poisonjavelin"
+            ]
+          },
+          {
+            "id": "amazon.chargedstrike",
+            "name": "Charged Strike",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "amazon.jab",
+              "amazon.poisonjavelin",
+              "amazon.powerstrike",
+              "amazon.lightningbolt"
+            ]
+          },
+          {
+            "id": "amazon.plaguejavelin",
+            "name": "Plague Javelin",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "amazon.poisonjavelin",
+              "amazon.lightningbolt"
+            ]
+          },
+          {
+            "id": "amazon.fend",
+            "name": "Fend",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "amazon.jab",
+              "amazon.impale"
+            ]
+          },
+          {
+            "id": "amazon.lightningstrike",
+            "name": "Lightning Strike",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "amazon.jab",
+              "amazon.poisonjavelin",
+              "amazon.powerstrike",
+              "amazon.lightningbolt",
+              "amazon.chargedstrike"
+            ]
+          },
+          {
+            "id": "amazon.lightningfury",
+            "name": "Lightning Fury",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "amazon.poisonjavelin",
+              "amazon.lightningbolt",
+              "amazon.plaguejavelin"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Passive and Magic Skills",
+        "source": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+        "skills": [
+          {
+            "id": "amazon.innersight",
+            "name": "Inner Sight",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.criticalstrike",
+            "name": "Critical Strike",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.dodge",
+            "name": "Dodge",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.slowmissiles",
+            "name": "Slow Missiles",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "amazon.innersight"
+            ]
+          },
+          {
+            "id": "amazon.avoid",
+            "name": "Avoid",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "amazon.dodge"
+            ]
+          },
+          {
+            "id": "amazon.penetrate",
+            "name": "Penetrate",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "amazon.criticalstrike"
+            ]
+          },
+          {
+            "id": "amazon.decoy",
+            "name": "Decoy",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "amazon.innersight",
+              "amazon.slowmissiles"
+            ]
+          },
+          {
+            "id": "amazon.evade",
+            "name": "Evade",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "amazon.dodge",
+              "amazon.avoid"
+            ]
+          },
+          {
+            "id": "amazon.valkyrie",
+            "name": "Valkyrie",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "amazon.innersight",
+              "amazon.dodge",
+              "amazon.slowmissiles",
+              "amazon.avoid",
+              "amazon.decoy",
+              "amazon.evade"
+            ]
+          },
+          {
+            "id": "amazon.pierce",
+            "name": "Pierce",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "amazon.criticalstrike",
+              "amazon.penetrate"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bow and Crossbow Skills",
+        "source": "https://classic.battle.net/diablo2exp/skills/amazon-bow.shtml",
+        "skills": [
+          {
+            "id": "amazon.magicarrow",
+            "name": "Magic Arrow",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.firearrow",
+            "name": "Fire Arrow",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.coldarrow",
+            "name": "Cold Arrow",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "amazon.multipleshot",
+            "name": "Multiple Shot",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "amazon.magicarrow"
+            ]
+          },
+          {
+            "id": "amazon.explodingarrow",
+            "name": "Exploding Arrow",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "amazon.magicarrow",
+              "amazon.firearrow",
+              "amazon.multipleshot"
+            ]
+          },
+          {
+            "id": "amazon.icearrow",
+            "name": "Ice Arrow",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "amazon.coldarrow"
+            ]
+          },
+          {
+            "id": "amazon.guidedarrow",
+            "name": "Guided Arrow",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "amazon.magicarrow",
+              "amazon.coldarrow",
+              "amazon.multipleshot"
+            ]
+          },
+          {
+            "id": "amazon.immolationarrow",
+            "name": "Immolation Arrow",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "amazon.magicarrow",
+              "amazon.firearrow",
+              "amazon.multipleshot"
+            ]
+          },
+          {
+            "id": "amazon.strafe",
+            "name": "Strafe",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "amazon.magicarrow",
+              "amazon.multipleshot",
+              "amazon.coldarrow",
+              "amazon.guidedarrow"
+            ]
+          },
+          {
+            "id": "amazon.freezingarrow",
+            "name": "Freezing Arrow",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "amazon.coldarrow",
+              "amazon.icearrow"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Sorceress",
+    "trees": [
+      {
+        "name": "Cold Spells",
+        "source": "https://classic.battle.net/diablo2exp/skills/sorceress-cold.shtml",
+        "skills": [
+          {
+            "id": "sorceress.icebolt",
+            "name": "Ice Bolt",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.frozenarmor",
+            "name": "Frozen Armor",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.frostnova",
+            "name": "Frost Nova",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.iceblast",
+            "name": "Ice Blast",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "sorceress.icebolt"
+            ]
+          },
+          {
+            "id": "sorceress.shiverarmor",
+            "name": "Shiver Armor",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "sorceress.frozenarmor",
+              "sorceress.icebolt",
+              "sorceress.iceblast"
+            ]
+          },
+          {
+            "id": "sorceress.glacialspike",
+            "name": "Glacial Spike",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "sorceress.icebolt",
+              "sorceress.iceblast"
+            ]
+          },
+          {
+            "id": "sorceress.blizzard",
+            "name": "Blizzard",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "sorceress.icebolt",
+              "sorceress.iceblast",
+              "sorceress.frostnova",
+              "sorceress.glacialspike"
+            ]
+          },
+          {
+            "id": "sorceress.chillingarmor",
+            "name": "Chilling Armor",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "sorceress.frozenarmor",
+              "sorceress.icebolt",
+              "sorceress.iceblast",
+              "sorceress.shiverarmor"
+            ]
+          },
+          {
+            "id": "sorceress.frozenorb",
+            "name": "Frozen Orb",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "sorceress.icebolt",
+              "sorceress.iceblast",
+              "sorceress.frostnova",
+              "sorceress.glacialspike",
+              "sorceress.blizzard"
+            ]
+          },
+          {
+            "id": "sorceress.coldmastery",
+            "name": "Cold Mastery",
+            "requiredLevel": 30,
+            "prerequisites": []
+          }
+        ]
+      },
+      {
+        "name": "Lightning Spells",
+        "source": "https://classic.battle.net/diablo2exp/skills/sorceress-lightning.shtml",
+        "skills": [
+          {
+            "id": "sorceress.chargedbolt",
+            "name": "Charged Bolt",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.telekinesis",
+            "name": "Telekinesis",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.staticfield",
+            "name": "Static Field",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.lightning",
+            "name": "Lightning",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "sorceress.chargedbolt"
+            ]
+          },
+          {
+            "id": "sorceress.nova",
+            "name": "Nova",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "sorceress.staticfield"
+            ]
+          },
+          {
+            "id": "sorceress.chainlightning",
+            "name": "Chain Lightning",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "sorceress.chargedbolt",
+              "sorceress.lightning"
+            ]
+          },
+          {
+            "id": "sorceress.teleport",
+            "name": "Teleport",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "sorceress.telekinesis"
+            ]
+          },
+          {
+            "id": "sorceress.thunderstorm",
+            "name": "Thunder Storm",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "sorceress.chargedbolt",
+              "sorceress.staticfield",
+              "sorceress.lightning",
+              "sorceress.nova",
+              "sorceress.chainlightning"
+            ]
+          },
+          {
+            "id": "sorceress.energyshield",
+            "name": "Energy Shield",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "sorceress.chargedbolt",
+              "sorceress.telekinesis",
+              "sorceress.lightning",
+              "sorceress.teleport",
+              "sorceress.chainlightning"
+            ]
+          },
+          {
+            "id": "sorceress.lightningmastery",
+            "name": "Lightning Mastery",
+            "requiredLevel": 30,
+            "prerequisites": []
+          }
+        ]
+      },
+      {
+        "name": "Fire Spells",
+        "source": "https://classic.battle.net/diablo2exp/skills/sorceress-fire.shtml",
+        "skills": [
+          {
+            "id": "sorceress.firebolt",
+            "name": "Fire Bolt",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.warmth",
+            "name": "Warmth",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.inferno",
+            "name": "Inferno",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.blaze",
+            "name": "Blaze",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "sorceress.inferno"
+            ]
+          },
+          {
+            "id": "sorceress.fireball",
+            "name": "Fireball",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "sorceress.firebolt"
+            ]
+          },
+          {
+            "id": "sorceress.firewall",
+            "name": "Fire Wall",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "sorceress.inferno",
+              "sorceress.blaze"
+            ]
+          },
+          {
+            "id": "sorceress.enchant",
+            "name": "Enchant",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "sorceress.firebolt",
+              "sorceress.warmth",
+              "sorceress.fireball"
+            ]
+          },
+          {
+            "id": "sorceress.meteor",
+            "name": "Meteor",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "sorceress.firebolt",
+              "sorceress.inferno",
+              "sorceress.blaze",
+              "sorceress.firewall",
+              "sorceress.fireball"
+            ]
+          },
+          {
+            "id": "sorceress.firemastery",
+            "name": "Fire Mastery",
+            "requiredLevel": 30,
+            "prerequisites": []
+          },
+          {
+            "id": "sorceress.hydra",
+            "name": "Hydra",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "sorceress.firebolt",
+              "sorceress.warmth",
+              "sorceress.fireball",
+              "sorceress.enchant"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Necromancer",
+    "trees": [
+      {
+        "name": "Summoning Spells",
+        "source": "https://classic.battle.net/diablo2exp/skills/necromancer-summoning.shtml",
+        "skills": [
+          {
+            "id": "necromancer.raiseskeleton",
+            "name": "Raise Skeleton",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.skeletonmastery",
+            "name": "Skeleton Mastery",
+            "requiredLevel": 1,
+            "prerequisites": [
+              "necromancer.raiseskeleton"
+            ]
+          },
+          {
+            "id": "necromancer.claygolem",
+            "name": "Clay Golem",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.golemmastery",
+            "name": "Golem Mastery",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "necromancer.claygolem"
+            ]
+          },
+          {
+            "id": "necromancer.skeletalmage",
+            "name": "Raise Skeletal Mage",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "necromancer.raiseskeleton"
+            ]
+          },
+          {
+            "id": "necromancer.bloodgolem",
+            "name": "Blood Golem",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "necromancer.claygolem"
+            ]
+          },
+          {
+            "id": "necromancer.summonresist",
+            "name": "Summon Resist",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "necromancer.claygolem",
+              "necromancer.golemmastery"
+            ]
+          },
+          {
+            "id": "necromancer.irongolem",
+            "name": "Iron Golem",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "necromancer.claygolem",
+              "necromancer.bloodgolem"
+            ]
+          },
+          {
+            "id": "necromancer.firegolem",
+            "name": "Fire Golem",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "necromancer.claygolem",
+              "necromancer.bloodgolem",
+              "necromancer.irongolem"
+            ]
+          },
+          {
+            "id": "necromancer.revive",
+            "name": "Revive",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "necromancer.raiseskeleton",
+              "necromancer.claygolem",
+              "necromancer.skeletalmage",
+              "necromancer.bloodgolem",
+              "necromancer.irongolem"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Poison and Bone Spells",
+        "source": "https://classic.battle.net/diablo2exp/skills/necromancer-poison.shtml",
+        "skills": [
+          {
+            "id": "necromancer.teeth",
+            "name": "Teeth",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.bonearmor",
+            "name": "Bone Armor",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.poisondagger",
+            "name": "Poison Dagger",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.corpseexplosion",
+            "name": "Corpse Explosion",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "necromancer.teeth"
+            ]
+          },
+          {
+            "id": "necromancer.bonewall",
+            "name": "Bone Wall",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "necromancer.bonearmor"
+            ]
+          },
+          {
+            "id": "necromancer.poisonexplosion",
+            "name": "Poison Explosion",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "necromancer.teeth",
+              "necromancer.corpseexplosion",
+              "necromancer.poisondagger"
+            ]
+          },
+          {
+            "id": "necromancer.bonespear",
+            "name": "Bone Spear",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "necromancer.teeth",
+              "necromancer.corpseexplosion"
+            ]
+          },
+          {
+            "id": "necromancer.boneprison",
+            "name": "Bone Prison",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "necromancer.teeth",
+              "necromancer.bonearmor",
+              "necromancer.corpseexplosion",
+              "necromancer.bonewall",
+              "necromancer.bonespear"
+            ]
+          },
+          {
+            "id": "necromancer.poisonnova",
+            "name": "Poison Nova",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "necromancer.poisondagger",
+              "necromancer.teeth",
+              "necromancer.corpseexplosion",
+              "necromancer.poisonexplosion"
+            ]
+          },
+          {
+            "id": "necromancer.bonespirit",
+            "name": "Bone Spirit",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "necromancer.teeth",
+              "necromancer.corpseexplosion",
+              "necromancer.bonespear"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Curses",
+        "source": "https://classic.battle.net/diablo2exp/skills/necromancer-curses.shtml",
+        "skills": [
+          {
+            "id": "necromancer.amplifydamage",
+            "name": "Amplify Damage",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.dimvision",
+            "name": "Dim Vision",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "necromancer.weaken",
+            "name": "Weaken",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "necromancer.amplifydamage"
+            ]
+          },
+          {
+            "id": "necromancer.ironmaiden",
+            "name": "Iron Maiden",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "necromancer.amplifydamage"
+            ]
+          },
+          {
+            "id": "necromancer.terror",
+            "name": "Terror",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "necromancer.amplifydamage",
+              "necromancer.weaken"
+            ]
+          },
+          {
+            "id": "necromancer.confuse",
+            "name": "Confuse",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "necromancer.dimvision"
+            ]
+          },
+          {
+            "id": "necromancer.lifetap",
+            "name": "Life Tap",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "necromancer.amplifydamage",
+              "necromancer.ironmaiden"
+            ]
+          },
+          {
+            "id": "necromancer.attract",
+            "name": "Attract",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "necromancer.dimvision",
+              "necromancer.confuse"
+            ]
+          },
+          {
+            "id": "necromancer.decrepify",
+            "name": "Decrepify",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "necromancer.amplifydamage",
+              "necromancer.weaken",
+              "necromancer.terror"
+            ]
+          },
+          {
+            "id": "necromancer.lowerresist",
+            "name": "Lower Resist",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "necromancer.weaken",
+              "necromancer.amplifydamage",
+              "necromancer.terror",
+              "necromancer.ironmaiden",
+              "necromancer.lifetap",
+              "necromancer.decrepify"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Paladin",
+    "trees": [
+      {
+        "name": "Defensive Auras",
+        "source": "https://classic.battle.net/diablo2exp/skills/paladin-defense.shtml",
+        "skills": [
+          {
+            "id": "paladin.prayer",
+            "name": "Prayer",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.resistfire",
+            "name": "Resist Fire",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.resistcold",
+            "name": "Resist Cold",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.resistlightning",
+            "name": "Resist Lightning",
+            "requiredLevel": 12,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.defiance",
+            "name": "Defiance",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.cleansing",
+            "name": "Cleansing",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "paladin.prayer"
+            ]
+          },
+          {
+            "id": "paladin.vigor",
+            "name": "Vigor",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "paladin.prayer",
+              "paladin.cleansing",
+              "paladin.defiance"
+            ]
+          },
+          {
+            "id": "paladin.meditation",
+            "name": "Meditation",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "paladin.prayer",
+              "paladin.cleansing"
+            ]
+          },
+          {
+            "id": "paladin.redemption",
+            "name": "Redemption",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "paladin.prayer",
+              "paladin.cleansing",
+              "paladin.defiance",
+              "paladin.vigor"
+            ]
+          },
+          {
+            "id": "paladin.salvation",
+            "name": "Salvation",
+            "requiredLevel": 30,
+            "prerequisites": []
+          }
+        ]
+      },
+      {
+        "name": "Offensive Auras",
+        "source": "https://classic.battle.net/diablo2exp/skills/paladin-offense.shtml",
+        "skills": [
+          {
+            "id": "paladin.might",
+            "name": "Might",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.holyfire",
+            "name": "Holy Fire",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "paladin.might"
+            ]
+          },
+          {
+            "id": "paladin.thorns",
+            "name": "Thorns",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.blessedaim",
+            "name": "Blessed Aim",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "paladin.might"
+            ]
+          },
+          {
+            "id": "paladin.concentration",
+            "name": "Concentration",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.blessedaim"
+            ]
+          },
+          {
+            "id": "paladin.holyfreeze",
+            "name": "Holy Freeze",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.holyfire"
+            ]
+          },
+          {
+            "id": "paladin.holyshock",
+            "name": "Holy Shock",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.holyfire",
+              "paladin.holyfreeze"
+            ]
+          },
+          {
+            "id": "paladin.sanctuary",
+            "name": "Sanctuary",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.thorns",
+              "paladin.holyfire",
+              "paladin.holyfreeze"
+            ]
+          },
+          {
+            "id": "paladin.fanaticism",
+            "name": "Fanaticism",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.blessedaim",
+              "paladin.concentration"
+            ]
+          },
+          {
+            "id": "paladin.conviction",
+            "name": "Conviction",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "paladin.might",
+              "paladin.thorns",
+              "paladin.holyfire",
+              "paladin.holyfreeze",
+              "paladin.sanctuary"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Combat Skills",
+        "source": "https://classic.battle.net/diablo2exp/skills/paladin-combat.shtml",
+        "skills": [
+          {
+            "id": "paladin.sacrifice",
+            "name": "Sacrifice",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.smite",
+            "name": "Smite",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.holybolt",
+            "name": "Holy Bolt",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "paladin.zeal",
+            "name": "Zeal",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "paladin.sacrifice"
+            ]
+          },
+          {
+            "id": "paladin.charge",
+            "name": "Charge",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "paladin.smite"
+            ]
+          },
+          {
+            "id": "paladin.vengeance",
+            "name": "Vengeance",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "paladin.sacrifice",
+              "paladin.zeal"
+            ]
+          },
+          {
+            "id": "paladin.blessedhammer",
+            "name": "Blessed Hammer",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "paladin.holybolt"
+            ]
+          },
+          {
+            "id": "paladin.conversion",
+            "name": "Conversion",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "paladin.sacrifice",
+              "paladin.zeal",
+              "paladin.vengeance"
+            ]
+          },
+          {
+            "id": "paladin.holyshield",
+            "name": "Holy Shield",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "paladin.smite",
+              "paladin.holybolt",
+              "paladin.charge",
+              "paladin.blessedhammer"
+            ]
+          },
+          {
+            "id": "paladin.fistoftheheavens",
+            "name": "Fist of the Heavens",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "paladin.sacrifice",
+              "paladin.holybolt",
+              "paladin.zeal",
+              "paladin.vengeance",
+              "paladin.blessedhammer",
+              "paladin.conversion"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Barbarian",
+    "trees": [
+      {
+        "name": "Warcries",
+        "source": "https://classic.battle.net/diablo2exp/skills/barbarian-warcries.shtml",
+        "skills": [
+          {
+            "id": "barbarian.howl",
+            "name": "Howl",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.findpotion",
+            "name": "Find Potion",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.shout",
+            "name": "Shout",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "barbarian.howl"
+            ]
+          },
+          {
+            "id": "barbarian.taunt",
+            "name": "Taunt",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "barbarian.howl"
+            ]
+          },
+          {
+            "id": "barbarian.battlecry",
+            "name": "Battle Cry",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "barbarian.howl",
+              "barbarian.taunt"
+            ]
+          },
+          {
+            "id": "barbarian.finditem",
+            "name": "Find Item",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "barbarian.findpotion"
+            ]
+          },
+          {
+            "id": "barbarian.battleorders",
+            "name": "Battle Orders",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "barbarian.howl",
+              "barbarian.shout"
+            ]
+          },
+          {
+            "id": "barbarian.grimward",
+            "name": "Grim Ward",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "barbarian.findpotion",
+              "barbarian.finditem"
+            ]
+          },
+          {
+            "id": "barbarian.warcry",
+            "name": "War Cry",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "barbarian.howl",
+              "barbarian.taunt",
+              "barbarian.shout",
+              "barbarian.battlecry",
+              "barbarian.battleorders"
+            ]
+          },
+          {
+            "id": "barbarian.battlecommand",
+            "name": "Battle Command",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "barbarian.howl",
+              "barbarian.shout",
+              "barbarian.battleorders"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Combat Masteries",
+        "source": "https://classic.battle.net/diablo2exp/skills/barbarian-combatmasteries.shtml",
+        "skills": [
+          {
+            "id": "barbarian.swordmastery",
+            "name": "Sword Mastery",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.axemastery",
+            "name": "Axe Mastery",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.macemastery",
+            "name": "Mace Mastery",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.polearmmastery",
+            "name": "Polearm Mastery",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.throwingmastery",
+            "name": "Throwing Mastery",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.spearmastery",
+            "name": "Spear Mastery",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.increasedstamina",
+            "name": "Increased Stamina",
+            "requiredLevel": 12,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.ironskin",
+            "name": "Iron Skin",
+            "requiredLevel": 18,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.increasedspeed",
+            "name": "Increased Speed",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "barbarian.increasedstamina"
+            ]
+          },
+          {
+            "id": "barbarian.naturalresistance",
+            "name": "Natural Resistance",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "barbarian.ironskin"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Combat Skills",
+        "source": "https://classic.battle.net/diablo2exp/skills/barbarian-combatskills.shtml",
+        "skills": [
+          {
+            "id": "barbarian.bash",
+            "name": "Bash",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.doubleswing",
+            "name": "Double Swing",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "barbarian.bash"
+            ]
+          },
+          {
+            "id": "barbarian.leap",
+            "name": "Leap",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "barbarian.doublethrow",
+            "name": "Double Throw",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "barbarian.bash",
+              "barbarian.doubleswing"
+            ]
+          },
+          {
+            "id": "barbarian.stun",
+            "name": "Stun",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "barbarian.bash"
+            ]
+          },
+          {
+            "id": "barbarian.leapattack",
+            "name": "Leap Attack",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "barbarian.leap"
+            ]
+          },
+          {
+            "id": "barbarian.concentrate",
+            "name": "Concentrate",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "barbarian.leap",
+              "barbarian.stun"
+            ]
+          },
+          {
+            "id": "barbarian.frenzy",
+            "name": "Frenzy",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "barbarian.bash",
+              "barbarian.doubleswing",
+              "barbarian.doublethrow"
+            ]
+          },
+          {
+            "id": "barbarian.whirlwind",
+            "name": "Whirlwind",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "barbarian.bash",
+              "barbarian.leap",
+              "barbarian.stun",
+              "barbarian.concentrate",
+              "barbarian.leapattack"
+            ]
+          },
+          {
+            "id": "barbarian.berserk",
+            "name": "Berserk",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "barbarian.bash",
+              "barbarian.stun",
+              "barbarian.concentrate"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Druid",
+    "trees": [
+      {
+        "name": "Elemental",
+        "source": "https://classic.battle.net/diablo2exp/skills/druid-elemental.shtml",
+        "skills": [
+          {
+            "id": "druid.firestorm",
+            "name": "Firestorm",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.moltenboulder",
+            "name": "Molten Boulder",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "druid.firestorm"
+            ]
+          },
+          {
+            "id": "druid.arcticblast",
+            "name": "Arctic Blast",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.fissure",
+            "name": "Fissure",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "druid.firestorm",
+              "druid.moltenboulder"
+            ]
+          },
+          {
+            "id": "druid.cyclonearmor",
+            "name": "Cyclone Armor",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "druid.arcticblast"
+            ]
+          },
+          {
+            "id": "druid.twister",
+            "name": "Twister",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "druid.arcticblast",
+              "druid.cyclonearmor"
+            ]
+          },
+          {
+            "id": "druid.volcano",
+            "name": "Volcano",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "druid.firestorm",
+              "druid.moltenboulder",
+              "druid.fissure"
+            ]
+          },
+          {
+            "id": "druid.tornado",
+            "name": "Tornado",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "druid.arcticblast",
+              "druid.cyclonearmor",
+              "druid.twister"
+            ]
+          },
+          {
+            "id": "druid.hurricane",
+            "name": "Hurricane",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "druid.arcticblast",
+              "druid.cyclonearmor",
+              "druid.twister",
+              "druid.tornado"
+            ]
+          },
+          {
+            "id": "druid.armageddon",
+            "name": "Armageddon",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "druid.firestorm",
+              "druid.moltenboulder",
+              "druid.arcticblast",
+              "druid.fissure",
+              "druid.cyclonearmor",
+              "druid.twister",
+              "druid.tornado",
+              "druid.volcano",
+              "druid.hurricane"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Shape Shifting",
+        "source": "https://classic.battle.net/diablo2exp/skills/druid-shapeshifting.shtml",
+        "skills": [
+          {
+            "id": "druid.werewolf",
+            "name": "Werewolf",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.lycanthropy",
+            "name": "Lycanthropy",
+            "requiredLevel": 1,
+            "prerequisites": [
+              "druid.werewolf"
+            ]
+          },
+          {
+            "id": "druid.werebear",
+            "name": "Werebear",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.maul",
+            "name": "Maul",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "druid.werebear"
+            ]
+          },
+          {
+            "id": "druid.feralrage",
+            "name": "Feral Rage",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "druid.werewolf"
+            ]
+          },
+          {
+            "id": "druid.fireclaws",
+            "name": "Fire Claws",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "druid.werewolf",
+              "druid.werebear",
+              "druid.feralrage",
+              "druid.maul"
+            ]
+          },
+          {
+            "id": "druid.rabies",
+            "name": "Rabies",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "druid.werewolf",
+              "druid.feralrage"
+            ]
+          },
+          {
+            "id": "druid.shockwave",
+            "name": "Shock Wave",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "druid.werebear",
+              "druid.maul"
+            ]
+          },
+          {
+            "id": "druid.hunger",
+            "name": "Hunger",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "druid.werewolf",
+              "druid.werebear",
+              "druid.feralrage",
+              "druid.maul",
+              "druid.fireclaws"
+            ]
+          },
+          {
+            "id": "druid.fury",
+            "name": "Fury",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "druid.werewolf",
+              "druid.feralrage",
+              "druid.rabies"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Summoning",
+        "source": "https://classic.battle.net/diablo2exp/skills/druid-summoning.shtml",
+        "skills": [
+          {
+            "id": "druid.raven",
+            "name": "Raven",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.poisoncreeper",
+            "name": "Poison Creeper",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.oaksage",
+            "name": "Oak Sage",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "druid.summonspiritwolf",
+            "name": "Summon Spirit Wolf",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "druid.raven"
+            ]
+          },
+          {
+            "id": "druid.carrionvine",
+            "name": "Carrion Vine",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "druid.poisoncreeper"
+            ]
+          },
+          {
+            "id": "druid.heartofwolverine",
+            "name": "Heart of Wolverine",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "druid.oaksage"
+            ]
+          },
+          {
+            "id": "druid.summondirewolf",
+            "name": "Summon Dire Wolf",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "druid.raven",
+              "druid.oaksage",
+              "druid.summonspiritwolf"
+            ]
+          },
+          {
+            "id": "druid.solarcreeper",
+            "name": "Solar Creeper",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "druid.poisoncreeper",
+              "druid.carrionvine"
+            ]
+          },
+          {
+            "id": "druid.spiritofbarbs",
+            "name": "Spirit of Barbs",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "druid.oaksage",
+              "druid.heartofwolverine"
+            ]
+          },
+          {
+            "id": "druid.summongrizzly",
+            "name": "Summon Grizzly",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "druid.raven",
+              "druid.oaksage",
+              "druid.summonspiritwolf",
+              "druid.summondirewolf"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Assassin",
+    "trees": [
+      {
+        "name": "Martial Arts",
+        "source": "https://classic.battle.net/diablo2exp/skills/assassin-martialarts.shtml",
+        "skills": [
+          {
+            "id": "assassin.tigerstrike",
+            "name": "Tiger Strike",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.dragontalon",
+            "name": "Dragon Talon",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.dragonclaw",
+            "name": "Dragon Claw",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "assassin.dragontalon"
+            ]
+          },
+          {
+            "id": "assassin.fistsoffire",
+            "name": "Fists of Fire",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.cobrastrike",
+            "name": "Cobra Strike",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "assassin.tigerstrike"
+            ]
+          },
+          {
+            "id": "assassin.dragontail",
+            "name": "Dragon Tail",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "assassin.dragontalon",
+              "assassin.dragonclaw"
+            ]
+          },
+          {
+            "id": "assassin.clawsofthunder",
+            "name": "Claws of Thunder",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "assassin.fistsoffire"
+            ]
+          },
+          {
+            "id": "assassin.bladesofice",
+            "name": "Blades of Ice",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "assassin.fistsoffire",
+              "assassin.clawsofthunder"
+            ]
+          },
+          {
+            "id": "assassin.dragonflight",
+            "name": "Dragon Flight",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "assassin.dragontalon",
+              "assassin.dragonclaw",
+              "assassin.dragontail"
+            ]
+          },
+          {
+            "id": "assassin.phoenixstrike",
+            "name": "Phoenix Strike",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "assassin.tigerstrike",
+              "assassin.fistsoffire",
+              "assassin.cobrastrike",
+              "assassin.clawsofthunder",
+              "assassin.bladesofice"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Shadow Disciplines",
+        "source": "https://classic.battle.net/diablo2exp/skills/assassin-shadow.shtml",
+        "skills": [
+          {
+            "id": "assassin.clawmastery",
+            "name": "Claw Mastery",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.psychichammer",
+            "name": "Psychic Hammer",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.burstofspeed",
+            "name": "Burst of Speed",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "assassin.clawmastery"
+            ]
+          },
+          {
+            "id": "assassin.cloakofshadows",
+            "name": "Cloak of Shadows",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "assassin.psychichammer"
+            ]
+          },
+          {
+            "id": "assassin.weaponblock",
+            "name": "Weapon Block",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "assassin.clawmastery"
+            ]
+          },
+          {
+            "id": "assassin.fade",
+            "name": "Fade",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "assassin.clawmastery",
+              "assassin.burstofspeed"
+            ]
+          },
+          {
+            "id": "assassin.shadowwarrior",
+            "name": "Shadow Warrior",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "assassin.clawmastery",
+              "assassin.psychichammer",
+              "assassin.weaponblock",
+              "assassin.cloakofshadows"
+            ]
+          },
+          {
+            "id": "assassin.mindblast",
+            "name": "Mind Blast",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "assassin.psychichammer",
+              "assassin.cloakofshadows"
+            ]
+          },
+          {
+            "id": "assassin.venom",
+            "name": "Venom",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "assassin.clawmastery",
+              "assassin.burstofspeed",
+              "assassin.fade"
+            ]
+          },
+          {
+            "id": "assassin.shadowmaster",
+            "name": "Shadow Master",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "assassin.clawmastery",
+              "assassin.psychichammer",
+              "assassin.weaponblock",
+              "assassin.cloakofshadows",
+              "assassin.shadowwarrior"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Traps",
+        "source": "https://classic.battle.net/diablo2exp/skills/assassin-traps.shtml",
+        "skills": [
+          {
+            "id": "assassin.fireblast",
+            "name": "Fire Blast",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.shockweb",
+            "name": "Shock Web",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "assassin.fireblast"
+            ]
+          },
+          {
+            "id": "assassin.bladesentinel",
+            "name": "Blade Sentinel",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "assassin.chargedboltsentry",
+            "name": "Charged Bolt Sentry",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.shockweb"
+            ]
+          },
+          {
+            "id": "assassin.wakeoffire",
+            "name": "Wake Of Fire",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "assassin.fireblast"
+            ]
+          },
+          {
+            "id": "assassin.bladefury",
+            "name": "Blade Fury",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.bladesentinel",
+              "assassin.wakeoffire"
+            ]
+          },
+          {
+            "id": "assassin.lightningsentry",
+            "name": "Lightning Sentry",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.shockweb",
+              "assassin.chargedboltsentry"
+            ]
+          },
+          {
+            "id": "assassin.wakeofinferno",
+            "name": "Wake Of Inferno",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.wakeoffire"
+            ]
+          },
+          {
+            "id": "assassin.deathsentry",
+            "name": "Death Sentry",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.shockweb",
+              "assassin.chargedboltsentry",
+              "assassin.lightningsentry"
+            ]
+          },
+          {
+            "id": "assassin.bladeshield",
+            "name": "Blade Shield",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "assassin.fireblast",
+              "assassin.bladesentinel",
+              "assassin.wakeoffire",
+              "assassin.bladefury"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

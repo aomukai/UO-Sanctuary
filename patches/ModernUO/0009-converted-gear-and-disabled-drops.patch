@@ -1,0 +1,368 @@
+diff --git a/Projects/UOContent/Items/Armor/BaseArmor.cs b/Projects/UOContent/Items/Armor/BaseArmor.cs
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -271,7 +271,7 @@
+         [CommandProperty(AccessLevel.GameMaster)]
+         public int BaseArmorRating
+         {
+-            get => _armorBase == -1 ? ArmorBase : _armorBase;
++            get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.Defense) ?? (_armorBase == -1 ? ArmorBase : _armorBase);
+             set
+             {
+                 _armorBase = value;
+@@ -290,6 +290,10 @@
+         {
+             get
+             {
++                if (ClassGearHooks.Stat?.Invoke(this, ClassGearStat.Defense) is { } converted)
++                {
++                    return converted;
++                }
+                 var ar = BaseArmorRating;
+ 
+                 if (_protectionLevel != ArmorProtectionLevel.Regular)
+@@ -799,6 +803,12 @@
+ 
+         public int ComputeStatReq(StatType type)
+         {
++            var stat = type == StatType.Str ? ClassGearStat.StrengthRequirement
++                : type == StatType.Dex ? ClassGearStat.DexterityRequirement : ClassGearStat.IntelligenceRequirement;
++            if (ClassGearHooks.Stat?.Invoke(this, stat) is { } converted)
++            {
++                return converted;
++            }
+             var v = type switch
+             {
+                 StatType.Str => StrRequirement,
+@@ -811,6 +821,12 @@
+ 
+         public int ComputeStatBonus(StatType type)
+         {
++            var stat = type == StatType.Str ? ClassGearStat.StrengthBonus
++                : type == StatType.Dex ? ClassGearStat.DexterityBonus : ClassGearStat.IntelligenceBonus;
++            if (ClassGearHooks.Stat?.Invoke(this, stat) is { } converted)
++            {
++                return converted;
++            }
+             return type switch
+             {
+                 StatType.Str => StrBonus + Attributes.BonusStr,
+@@ -1054,6 +1070,11 @@
+ 
+         public override bool CanEquip(Mobile from)
+         {
++            if (ClassGearHooks.CanEquip?.Invoke(this, from) == false)
++            {
++                return false;
++            }
++
+             if (!from.Player || from.AccessLevel >= AccessLevel.GameMaster)
+             {
+                 return base.CanEquip(from);
+@@ -1265,6 +1286,11 @@
+         public override void GetProperties(IPropertyList list)
+         {
+             base.GetProperties(list);
++            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++            {
++                return;
++            }
++
+ 
+             if (_crafter != null)
+             {
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Items;
++using Server.Mobiles;
++
++namespace Server;
++
++public enum ClassGearStat
++{
++    MinDamage, MaxDamage, StrengthRequirement, DexterityRequirement, IntelligenceRequirement,
++    Defense, StrengthBonus, DexterityBonus, IntelligenceBonus
++}
++
++public static class ClassGearHooks
++{
++    public static Func<Item, ClassGearStat, int?> Stat { get; set; }
++    public static Func<Item, Mobile, bool?> CanEquip { get; set; }
++    public static Func<Item, IPropertyList, bool> Properties { get; set; }
++    public static Func<BaseAttributes, int, int?> Attribute { get; set; }
++    public static Func<Mobile, AosAttribute, int?> MobileAttribute { get; set; }
++    public static Func<PlayerMobile, ResistanceType, int?> Resistance { get; set; }
++}
+diff --git a/Projects/UOContent/Items/Clothing/BaseClothing.cs b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -412,6 +412,11 @@
+ 
+         public override bool CanEquip(Mobile from)
+         {
++            if (ClassGearHooks.CanEquip?.Invoke(this, from) == false)
++            {
++                return false;
++            }
++
+             if (!from.Player || from.AccessLevel >= AccessLevel.GameMaster)
+             {
+                 return base.CanEquip(from);
+@@ -476,7 +481,8 @@
+             return base.CanEquip(from);
+         }
+ 
+-        public int ComputeStatReq(StatType type) => AOS.Scale(StrRequirement, 100 - GetLowerStatReq());
++        public int ComputeStatReq(StatType type) => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.StrengthRequirement)
++            ?? AOS.Scale(StrRequirement, 100 - GetLowerStatReq());
+ 
+         public int ComputeStatBonus(StatType type) =>
+             type switch
+@@ -702,6 +708,11 @@
+         public override void GetProperties(IPropertyList list)
+         {
+             base.GetProperties(list);
++            if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++            {
++                return;
++            }
++
+ 
+             if (_crafter != null)
+             {
+diff --git a/Projects/UOContent/Items/Jewels/BaseJewel.cs b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+--- a/Projects/UOContent/Items/Jewels/BaseJewel.cs
++++ b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+@@ -373,9 +373,17 @@
+         }
+     }
+ 
++    public override bool CanEquip(Mobile from) =>
++        ClassGearHooks.CanEquip?.Invoke(this, from) != false && base.CanEquip(from);
++
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+ 
+         SkillBonuses.GetProperties(list);
+ 
+diff --git a/Projects/UOContent/Items/Quivers/BaseQuiver.cs b/Projects/UOContent/Items/Quivers/BaseQuiver.cs
+--- a/Projects/UOContent/Items/Quivers/BaseQuiver.cs
++++ b/Projects/UOContent/Items/Quivers/BaseQuiver.cs
+@@ -216,6 +216,11 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+ 
+         if (_crafter != null)
+         {
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+@@ -492,7 +492,7 @@
+         Ethic.CheckTrade(from, to, newOwner, this) && base.AllowSecureTrade(from, to, newOwner, accepted);
+ 
+     public override bool CanEquip(Mobile from) =>
+-        Ethic.CheckEquip(from, this) && from.CanBeginAction<BaseWeapon>() && base.CanEquip(from);
++        ClassGearHooks.CanEquip?.Invoke(this, from) != false && Ethic.CheckEquip(from, this) && from.CanBeginAction<BaseWeapon>() && base.CanEquip(from);
+ 
+     public override bool AllowEquippedCast(Mobile from) => true;
+ 
+@@ -632,6 +632,11 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+ 
+         if (_quality == BookQuality.Exceptional)
+         {
+diff --git a/Projects/UOContent/Items/Talismans/BaseTalisman.cs b/Projects/UOContent/Items/Talismans/BaseTalisman.cs
+--- a/Projects/UOContent/Items/Talismans/BaseTalisman.cs
++++ b/Projects/UOContent/Items/Talismans/BaseTalisman.cs
+@@ -552,6 +552,11 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+ 
+         if (Blessed)
+         {
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -390,7 +390,7 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public int StrRequirement
+     {
+-        get => _strRequirement == -1 ? Core.AOS ? AosStrengthReq : OldStrengthReq : _strRequirement;
++        get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.StrengthRequirement) ?? (_strRequirement == -1 ? Core.AOS ? AosStrengthReq : OldStrengthReq : _strRequirement);
+         set
+         {
+             _strRequirement = value;
+@@ -408,7 +408,7 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public int DexRequirement
+     {
+-        get => _dexRequirement == -1 ? Core.AOS ? AosDexterityReq : OldDexterityReq : _dexRequirement;
++        get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.DexterityRequirement) ?? (_dexRequirement == -1 ? Core.AOS ? AosDexterityReq : OldDexterityReq : _dexRequirement);
+         set
+         {
+             _dexRequirement = value;
+@@ -426,7 +426,7 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public int IntRequirement
+     {
+-        get => _intRequirement == -1 ? Core.AOS ? AosIntelligenceReq : OldIntelligenceReq : _intRequirement;
++        get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.IntelligenceRequirement) ?? (_intRequirement == -1 ? Core.AOS ? AosIntelligenceReq : OldIntelligenceReq : _intRequirement);
+         set
+         {
+             _intRequirement = value;
+@@ -444,7 +444,7 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public int MinDamage
+     {
+-        get => _minDamage == -1 ? Core.AOS ? AosMinDamage : OldMinDamage : _minDamage;
++        get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.MinDamage) ?? (_minDamage == -1 ? Core.AOS ? AosMinDamage : OldMinDamage : _minDamage);
+         set
+         {
+             _minDamage = value;
+@@ -462,7 +462,7 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public int MaxDamage
+     {
+-        get => _maxDamage == -1 ? Core.AOS ? AosMaxDamage : OldMaxDamage : _maxDamage;
++        get => ClassGearHooks.Stat?.Invoke(this, ClassGearStat.MaxDamage) ?? (_maxDamage == -1 ? Core.AOS ? AosMaxDamage : OldMaxDamage : _maxDamage);
+         set
+         {
+             _maxDamage = value;
+@@ -1008,6 +1008,11 @@
+ 
+     public override bool CanEquip(Mobile from)
+     {
++        if (ClassGearHooks.CanEquip?.Invoke(this, from) == false)
++        {
++            return false;
++        }
++
+         if (!from.Player || from.AccessLevel >= AccessLevel.GameMaster)
+         {
+             return from.CanBeginAction<BaseWeapon>() && base.CanEquip(from);
+@@ -2926,6 +2931,11 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Properties?.Invoke(this, list) == true)
++        {
++            return;
++        }
++
+ 
+         if (_crafter != null)
+         {
+diff --git a/Projects/UOContent/Misc/AOS.cs b/Projects/UOContent/Misc/AOS.cs
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -620,6 +620,10 @@
+ 
+         public static int GetValue(Mobile m, AosAttribute attribute)
+         {
++            if (ClassGearHooks.MobileAttribute?.Invoke(m, attribute) is { } converted)
++            {
++                return converted;
++            }
+             if (!Core.AOS)
+             {
+                 return 0;
+@@ -1613,6 +1617,10 @@
+ 
+         public int GetValue(int bitmask)
+         {
++            if (ClassGearHooks.Attribute?.Invoke(this, bitmask) is { } converted)
++            {
++                return converted;
++            }
+             if (!Core.AOS)
+             {
+                 return 0;
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3659,8 +3659,9 @@
+                 karma.Dispose();
+             }
+ 
++            // The base death handler deletes NPCs and clears their ownership.
++            ClassLootHooks.CreatureDied?.Invoke(this, c);
+             base.OnDeath(c);
+-            ClassLootHooks.CreatureDied?.Invoke(this, c);
+ 
+             if (DeleteCorpseOnDeath)
+             {
+@@ -5320,6 +5321,11 @@
+ 
+         public virtual void GenerateLoot(bool spawning)
+         {
++            if (ClassLootHooks.SuppressDrops?.Invoke(this) == true)
++            {
++                return;
++            }
++
+             m_Spawning = spawning;
+ 
+             if (!spawning)
+@@ -5708,7 +5714,7 @@
+                 return;
+             }
+ 
+-            if (Summoned)
++            if (Summoned || ClassLootHooks.SuppressDrops?.Invoke(this) == true)
+             {
+                 item.Delete();
+                 return;
+diff --git a/Projects/UOContent/Mobiles/ClassLootHooks.cs b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassLootHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -3,6 +3,7 @@
+ namespace Server.Mobiles;
+ public static class ClassLootHooks
+ {
++    public static Func<BaseCreature, bool> SuppressDrops { get; set; }
+     public static Action<BaseCreature, Container> CreatureDied { get; set; }
+     public static Action<Mobile, Corpse> Carved { get; set; }
+     public static Action<Corpse> ContentsChanged { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1709,6 +1709,9 @@
+             }
+         }
+ 
++        public override int GetResistance(ResistanceType type) =>
++            ClassGearHooks.Resistance?.Invoke(this, type) ?? base.GetResistance(type);
++
+         public override void OnItemAdded(Item item)
+         {
+             base.OnItemAdded(item);

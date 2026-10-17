@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ModernUODistribution>$(MSBuildThisFileDirectory)../../upstream/ModernUO/Distribution</ModernUODistribution>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ModernUO.Serialization.Annotations" Version="4.2.0" />
+    <PackageReference Include="ModernUO.Serialization.Generator" Version="4.2.0" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../shared/DiabloClass.cs" Link="DiabloClass.cs" />
+    <Compile Include="../../shared/CombatProtocol.cs" Link="CombatProtocol.cs" />
+    <Compile Include="../../shared/StatProtocol.cs" Link="StatProtocol.cs" />
+    <Compile Include="../../shared/LootProtocol.cs" Link="LootProtocol.cs" />
+    <Compile Include="../../shared/ClassGumpProtocol.cs" Link="ClassGumpProtocol.cs" />
+    <Compile Include="../../shared/TradeSkills.cs" Link="TradeSkills.cs" />
+    <Reference Include="Server" HintPath="$(ModernUODistribution)/Server.dll" Private="false" />
+    <Reference Include="UOContent" HintPath="$(ModernUODistribution)/Assemblies/UOContent.dll" Private="false" />
+    <Reference Include="Logger" HintPath="$(ModernUODistribution)/Logger.dll" Private="false" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,48 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1712,6 +1712,7 @@
+         public override void OnItemAdded(Item item)
+         {
+             base.OnItemAdded(item);
++            ClassCombatHooks.EquipmentChanged?.Invoke(this);
+ 
+             if (item is BaseArmor or BaseWeapon)
+             {
+@@ -1727,6 +1728,7 @@
+         public override void OnItemRemoved(Item item)
+         {
+             base.OnItemRemoved(item);
++            ClassCombatHooks.EquipmentChanged?.Invoke(this);
+ 
+             if (item is BaseArmor or BaseWeapon)
+             {
+@@ -3940,10 +3942,12 @@
+ 
+             if (onHorse || AnimalForm.GetContext(this)?.SpeedBoost == true)
+             {
+-                return running ? CalcMoves.RunMountDelay : CalcMoves.WalkMountDelay;
+-            }
+-
+-            return running ? CalcMoves.RunFootDelay : CalcMoves.WalkFootDelay;
++                return running ? ClassCombatHooks.RunningDelay?.Invoke(this, CalcMoves.RunMountDelay)
++                    ?? CalcMoves.RunMountDelay : CalcMoves.WalkMountDelay;
++            }
++
++            return running ? ClassCombatHooks.RunningDelay?.Invoke(this, CalcMoves.RunFootDelay)
++                ?? CalcMoves.RunFootDelay : CalcMoves.WalkFootDelay;
+         }
+ 
+         private void DeltaEnemies(Type oldType, Type newType)
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -12,6 +12,8 @@
+     public static Action<PlayerMobile, Container> PlayerDied { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
++    public static Func<PlayerMobile, int, int> RunningDelay { get; set; }
++    public static Action<PlayerMobile> EquipmentChanged { get; set; }
+     public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }

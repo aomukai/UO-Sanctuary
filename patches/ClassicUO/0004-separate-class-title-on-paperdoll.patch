@@ -1,0 +1,63 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+index dff3b74..cf69109 100644
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
+ using System;
+ using System.Collections.Generic;
+ using System.Xml;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps
+ {
+@@ -33,6 +34,7 @@ namespace ClassicUO.Game.UI.Gumps
+         private GumpPic _profilePic;
+         private readonly List<EquipmentSlot> _slots = new List<EquipmentSlot>();
+         private Label _titleLabel;
++        private string _paperdollTitle;
+         private GumpPic _virtueMenuPic;
+         private Button _warModeBtn;
+ 
+@@ -329,7 +331,32 @@ namespace ClassicUO.Game.UI.Gumps
+ 
+         public void UpdateTitle(string text)
+         {
+-            _titleLabel.Text = text;
++            _paperdollTitle = text;
++            _titleLabel.Text = FormatTitle(text);
++        }
++
++        private static string FormatTitle(string text)
++        {
++            if (string.IsNullOrEmpty(text))
++            {
++                return text;
++            }
++
++            int marker = text.LastIndexOf(" Level ", StringComparison.Ordinal);
++            if (marker > 0)
++            {
++                ReadOnlySpan<char> progression = text.AsSpan(marker + 7);
++                int separator = progression.IndexOf(' ');
++                if (separator > 0
++                    && int.TryParse(progression[..separator], out int level) && level > 0
++                    && Enum.TryParse(progression[(separator + 1)..], out DiabloClass characterClass)
++                    && DiabloClasses.TryFromWire((int)characterClass, out _))
++                {
++                    return text[..marker] + "\n" + text[(marker + 1)..];
++                }
++            }
++
++            return text;
+         }
+ 
+         private void VirtueMenu_MouseDoubleClickEvent(object sender, MouseDoubleClickEventArgs args)
+@@ -551,7 +578,7 @@ namespace ClassicUO.Game.UI.Gumps
+         {
+             Mobile mobile = World.Mobiles.Get(LocalSerial);
+ 
+-            if (mobile != null && mobile.Title != _titleLabel.Text)
++            if (mobile != null && mobile.Title != _paperdollTitle)
+             {
+                 UpdateTitle(mobile.Title);
+             }

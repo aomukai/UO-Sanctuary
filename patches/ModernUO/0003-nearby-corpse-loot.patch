@@ -1,0 +1,74 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3660,6 +3660,7 @@
+             }
+ 
+             base.OnDeath(c);
++            ClassLootHooks.CreatureDied?.Invoke(this, c);
+ 
+             if (DeleteCorpseOnDeath)
+             {
+diff --git a/Projects/UOContent/Mobiles/ClassLootHooks.cs b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -0,0 +1,9 @@
++using System;
++using Server.Items;
++namespace Server.Mobiles;
++public static class ClassLootHooks
++{
++    public static Action<BaseCreature, Container> CreatureDied { get; set; }
++    public static Action<Mobile, Corpse> Carved { get; set; }
++    public static Action<Corpse> ContentsChanged { get; set; }
++}
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -83,7 +83,9 @@
+     /// <summary>
+     ///     Was the owner an animated dead creature?
+     /// </summary>
+-    OwnerWasAnimatedDead = 0x00000800
++    OwnerWasAnimatedDead = 0x00000800,
++
++    SanctuaryHarvested = 0x00001000
+ }
+ 
+ [SerializationGenerator(19, false)]
+@@ -401,6 +403,12 @@
+ 
+     [CommandProperty(AccessLevel.GameMaster)]
+     public bool OwnerWasAnimatedDead => GetFlag(CorpseFlag.OwnerWasAnimatedDead);
++
++    public bool SanctuaryHarvested
++    {
++        get => GetFlag(CorpseFlag.SanctuaryHarvested);
++        set => SetFlag(CorpseFlag.SanctuaryHarvested, value);
++    }
+ 
+     public override bool DisplaysContent => false;
+ 
+@@ -465,6 +473,10 @@
+         else if (dead is BaseCreature creature)
+         {
+             creature.OnCarve(from, this, item);
++            if (Carved)
++            {
++                ClassLootHooks.Carved?.Invoke(from, this);
++            }
+         }
+         else
+         {
+@@ -840,6 +852,10 @@
+         {
+             _liftingWornItem = null;
+         }
++        if (SanctuaryHarvested)
++        {
++            ClassLootHooks.ContentsChanged?.Invoke(this);
++        }
+     }
+ 
+     public override void GetContextMenuEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)

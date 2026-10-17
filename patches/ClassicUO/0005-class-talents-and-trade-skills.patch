@@ -1,0 +1,984 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -29,6 +29,7 @@
+   <ItemGroup>
+     <Folder Include="Properties\" />
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
++    <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+   </ItemGroup>
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -167,9 +167,9 @@
+                 }
+                 else
+                 {
+-                    // QUESTS BUTTON
++                    // SKILLS BUTTON
+                     Add(
+-                        new Button((int)Buttons.Quests, 0x57b5, 0x57b7, 0x57b6)
++                        new Button((int)Buttons.Quests, 0x07df, 0x07e0, 0x07e1)
+                         {
+                             X = 185,
+                             Y = 44 + 27 * 3,
+@@ -178,15 +178,8 @@
+                     );
+                 }
+ 
+-                // SKILLS BUTTON
+-                Add(
+-                    new Button((int)Buttons.Skills, 0x07df, 0x07e0, 0x07e1)
+-                    {
+-                        X = 185,
+-                        Y = 44 + 27 * 4,
+-                        ButtonAction = ButtonAction.Activate
+-                    }
+-                );
++                // CLASS BUTTON
++                Add(new ClassButton(185, 44 + 27 * 4, (int)Buttons.Skills));
+ 
+                 // GUILD BUTTON
+                 Add(
+@@ -631,12 +624,12 @@
+                     break;
+ 
+                 case Buttons.Quests:
+-                    GameActions.RequestQuestMenu(World);
++                    GameActions.OpenSkills(World);
+ 
+                     break;
+ 
+                 case Buttons.Skills:
+-                    GameActions.OpenSkills(World);
++                    GameActions.Say("[Class");
+ 
+                     break;
+ 
+@@ -711,6 +704,78 @@
+                     }
+ 
+                     break;
++            }
++        }
++
++        // Reuse the installed paperdoll button's blue face and gold rim. Its caption is
++        // baked into the art, so tile a clean column between the unchanged end caps.
++        private sealed class ClassButton : Control
++        {
++            private readonly int _buttonID;
++            private bool _pressed;
++
++            public ClassButton(int x, int y, int buttonID)
++            {
++                _buttonID = buttonID;
++                X = x;
++                Y = y;
++                ref readonly var art = ref Client.Game.UO.Gumps.GetGump(0x07df);
++                Width = art.UV.Width;
++                Height = art.UV.Height;
++                CanMove = false;
++                AcceptMouseInput = true;
++                WantUpdateSize = false;
++                var caption = new Label("CLASS", false, 0x0481, font: 1);
++                caption.X = (Width - caption.Width) / 2;
++                caption.Y = (Height - caption.Height) / 2;
++                Add(caption);
++            }
++
++            protected override void OnMouseDown(int x, int y, MouseButtonType button)
++            {
++                if (button == MouseButtonType.Left)
++                {
++                    _pressed = true;
++                }
++                base.OnMouseDown(x, y, button);
++            }
++
++            protected override void OnMouseUp(int x, int y, MouseButtonType button)
++            {
++                if (button == MouseButtonType.Left)
++                {
++                    _pressed = false;
++                    if (MouseIsOver)
++                    {
++                        OnButtonClick(_buttonID);
++                        Mouse.CancelDoubleClick = true;
++                    }
++                }
++            }
++
++            public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
++            {
++                ushort graphic = MouseIsOver ? (_pressed ? (ushort)0x07e0 : (ushort)0x07e1) : (ushort)0x07df;
++                ref readonly var art = ref Client.Game.UO.Gumps.GetGump(graphic);
++                var texture = art.Texture;
++                var source = art.UV;
++                var hue = ShaderHueTranslator.GetHueVector(0, false, Alpha, true);
++                float depth = layerDepthRef;
++                const int cap = 10;
++                if (texture != null)
++                {
++                    renderLists.AddGumpWithAtlas(batcher =>
++                    {
++                        batcher.Draw(texture, new Rectangle(x, y, cap, Height),
++                            new Rectangle(source.X, source.Y, cap, source.Height), hue, depth);
++                        batcher.Draw(texture, new Rectangle(x + cap, y, Width - cap * 2, Height),
++                            new Rectangle(source.Right - cap - 1, source.Y, 1, source.Height), hue, depth);
++                        batcher.Draw(texture, new Rectangle(x + Width - cap, y, cap, Height),
++                            new Rectangle(source.Right - cap, source.Y, cap, source.Height), hue, depth);
++                        return true;
++                    });
++                }
++                return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+             }
+         }
+ 
+diff --git a/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs b/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
+@@ -11,6 +11,7 @@
+ using ClassicUO.Assets;
+ using ClassicUO.Resources;
+ using ClassicUO.Utility.Logging;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.Managers
+ {
+@@ -44,6 +45,11 @@
+ 
+         public void Add(byte item)
+         {
++            if (!TradeSkills.Includes(item))
++            {
++                return;
++            }
++
+             if (!Contains(item))
+             {
+                 _list[Count++] = item;
+@@ -194,57 +200,9 @@
+ 
+         public void Load()
+         {
+-            Groups.Clear();
+-
+-            string path = Path.Combine(ProfileManager.ProfilePath, "skillsgroups.xml");
+-
+-            if (!File.Exists(path))
+-            {
+-                Log.Trace("No skillsgroups.xml file. Creating a default file.");
+-
+-                MakeDefault();
+-
+-                return;
+-            }
+-
+-            XmlDocument doc = new XmlDocument();
+-
+-            try
+-            {
+-                doc.Load(path);
+-            }
+-            catch (Exception ex)
+-            {
+-                MakeDefault();
+-
+-                Log.Error(ex.ToString());
+-
+-                return;
+-            }
+-
+-            XmlElement root = doc["skillsgroups"];
+-
+-            if (root != null)
+-            {
+-                foreach (XmlElement xml in root.GetElementsByTagName("group"))
+-                {
+-                    SkillsGroup g = new SkillsGroup();
+-                    g.Name = xml.GetAttribute("name");
+-
+-                    XmlElement xmlIdsRoot = xml["skillids"];
+-
+-                    if (xmlIdsRoot != null)
+-                    {
+-                        foreach (XmlElement xmlIds in xmlIdsRoot.GetElementsByTagName("skill"))
+-                        {
+-                            g.Add(byte.Parse(xmlIds.GetAttribute("id")));
+-                        }
+-                    }
+-
+-                    g.Sort();
+-                    Add(g);
+-                }
+-            }
++            // The professions menu has fixed sections. Rebuild legacy/custom layouts
++            // without changing any skill values on the server.
++            MakeDefault();
+         }
+ 
+ 
+@@ -277,16 +235,9 @@
+         {
+             Groups.Clear();
+ 
+-            if (!LoadMULFile(Client.Game.UO.FileManager.GetUOFilePath("skillgrp.mul")))
+-            {
+-                MakeDefaultMiscellaneous();
+-                MakeDefaultCombat();
+-                MakeDefaultTradeSkills();
+-                MakeDefaultMagic();
+-                MakeDefaultWilderness();
+-                MakeDefaultThieving();
+-                MakeDefaultBard();
+-            }
++            AddTradeGroup("Gathering", TradeSkills.Gathering);
++            AddTradeGroup("Crafting", TradeSkills.Crafting);
++            AddTradeGroup("Treasure Hunting", TradeSkills.TreasureHunting);
+ 
+             foreach (SkillsGroup g in Groups)
+             {
+@@ -294,6 +245,16 @@
+             }
+ 
+             Save();
++        }
++
++        private void AddTradeGroup(string name, ReadOnlySpan<byte> skills)
++        {
++            SkillsGroup group = new SkillsGroup { Name = name, IsMaximized = true };
++            foreach (byte index in skills)
++            {
++                group.Add(index);
++            }
++            Add(group);
+         }
+ 
+         private void MakeDefaultMiscellaneous()
+@@ -547,4 +508,4 @@
+             return Groups.Count != 0;
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/StandardSkillsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/StandardSkillsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/StandardSkillsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/StandardSkillsGump.cs
+@@ -14,6 +14,7 @@
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Xml;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps
+ {
+@@ -28,12 +29,10 @@
+         private readonly GumpPic _gumpPic;
+         private readonly HitBox _hitBox;
+         private bool _isMinimized;
+-        private readonly Button _newGroupButton;
+         private readonly ExpandableScroll _scrollArea;
+ 
+         private readonly List<SkillsGroupControl> _skillsControl = new List<SkillsGroupControl>();
+         private readonly Label _skillsLabelSum;
+-        private readonly NiceButton _resetGroups;
+ 
+         public StandardSkillsGump(World world) : base(world, 0, 0)
+         {
+@@ -41,18 +40,18 @@
+             CanMove = true;
+             CanCloseWithRightClick = true;
+ 
+-            Height = 200 + _diffY;
++            Height = 430;
+ 
+             Add(_gumpPic = new GumpPic(160, 0, 0x82D, 0));
+             _gumpPic.MouseDoubleClick += _picBase_MouseDoubleClick;
+ 
+             _scrollArea = new ExpandableScroll(0, _diffY, Height, 0x1F40)
+             {
+-                TitleGumpID = 0x0834,
+                 AcceptMouseInput = true
+             };
+ 
+             Add(_scrollArea);
++            Add(new Label("SKILLS", false, 0x0386, font: 6) { X = 145, Y = 34 });
+ 
+             Add(new GumpPic(50, 35 + _diffY, 0x082B, 0));
+             Add(_bottomLine = new GumpPic(50, Height - 98, 0x082B, 0));
+@@ -80,26 +79,12 @@
+             (
+                 _skillsLabelSum = new Label
+                 (
+-                    World.Player.Skills.Sum(s => s.Value).ToString("F1"),
++                    World.Player.Skills.Where(s => TradeSkills.Includes(s.Index)).Sum(s => s.Value).ToString("F1"),
+                     false,
+                     600,
+                     0,
+                     3
+                 ) { X = _bottomComment.X + _bottomComment.Width + 5, Y = _bottomComment.Y - 5 }
+-            );
+-
+-            //new group
+-            int x = 60;
+-
+-            Add
+-            (
+-                _newGroupButton = new Button(0, 0x083A, 0x083A, 0x083A)
+-                {
+-                    X = x,
+-                    Y = Height,
+-                    ContainsByBounds = true,
+-                    ButtonAction = ButtonAction.Activate
+-                }
+             );
+ 
+             Add
+@@ -112,7 +97,7 @@
+                     1,
+                     0x0386,
+                     false
+-                ) { X = _newGroupButton.X + _newGroupButton.Width + 30, Y = _newGroupButton.Y - 6 }
++                ) { X = 185, Y = Height - 58 }
+             );
+ 
+             Add
+@@ -125,7 +110,7 @@
+                     1,
+                     0x0386,
+                     false
+-                ) { X = _newGroupButton.X + _newGroupButton.Width + 30, Y = _newGroupButton.Y + 7 }
++                ) { X = 185, Y = Height - 45 }
+             );
+ 
+             _checkReal.ValueChanged += UpdateSkillsValues;
+@@ -133,16 +118,6 @@
+ 
+ 
+             LoadSkills();
+-
+-            Add(_resetGroups = new NiceButton(_scrollArea.X + 25, _scrollArea.Y + 7, 100, 18,
+-                                              ButtonAction.Activate, ResGumps.ResetGroups,
+-                                              unicode: false,
+-                                              font: 6)
+-            {
+-                ButtonParameter = 1,
+-                IsSelectable = false,
+-                //Alpha = 1f
+-            });
+ 
+             _hitBox = new HitBox(160, 0, 23, 24);
+             Add(_hitBox);
+@@ -206,60 +181,21 @@
+             }
+         }
+ 
+-        public override void OnButtonClick(int buttonID)
+-        {
+-            if (buttonID == 0)
+-            {
+-                SkillsGroup g = new SkillsGroup
+-                {
+-                    Name = ResGumps.NewGroup
+-                };
+-
+-                World.SkillsGroupManager.Add(g);
+-
+-                SkillsGroupControl control = new SkillsGroupControl(this, g, 3, 3);
+-                _skillsControl.Add(control);
+-                _container.Add(control);
+-                control.IsMinimized = !g.IsMaximized;
+-
+-                _container.WantUpdateSize = true;
+-                _container.ReArrangeChildren();
+-            }
+-            else if (buttonID == 1) // reset
+-            {
+-                UIManager.Add(
+-                    new MessageBoxGump(World, 300, 200,
+-                                       "Skills will be placed in default groups.\nDo you want reset all groups?",
+-                                               b =>
+-                                               {
+-                                                   if (b)
+-                                                   {
+-                                                       _skillsControl.Clear();
+-                                                       _container.Clear();
+-
+-                                                       World.SkillsGroupManager.Groups.Clear();
+-                                                       World.SkillsGroupManager.MakeDefault();
+-
+-                                                       LoadSkills();
+-
+-                                                       _container.WantUpdateSize = true;
+-                                                       _container.ReArrangeChildren();
+-                                                   }
+-                                               }, false, MessageButtonType.OK_CANCEL));
+-            }
+-        }
+-
+         private void LoadSkills()
+         {
+             if (World.Player != null)
+             {
+                 foreach (SkillsGroup g in World.SkillsGroupManager.Groups)
+                 {
++                    if (g.Count == 0)
++                    {
++                        continue;
++                    }
+                     SkillsGroupControl control = new SkillsGroupControl(this, g, 3, 3);
+                     _skillsControl.Add(control);
+                     _container.Add(control);
+ 
+-                    control.IsMinimized = true;
++                    control.IsMinimized = false;
+ 
+                     int count = g.Count;
+ 
+@@ -267,7 +203,7 @@
+                     {
+                         byte index = g.GetSkill(i);
+ 
+-                        if (index < Client.Game.UO.FileManager.Skills.SkillsCount)
++                        if (TradeSkills.Includes(index) && index < Client.Game.UO.FileManager.Skills.SkillsCount)
+                         {
+                             control.AddSkill(index, 0, 17 + i * 17);
+                         }
+@@ -285,10 +221,9 @@
+             _bottomLine.Y = Height - 98;
+             _bottomComment.Y = Height - 85;
+             _area.Height = _container.Height = Height - (150 + _diffY);
+-            _newGroupButton.Y = Height - 52;
+             _skillsLabelSum.Y = _bottomComment.Y + 2;
+-            _checkReal.Y = _newGroupButton.Y - 6;
+-            _checkCaps.Y = _newGroupButton.Y + 7;
++            _checkReal.Y = Height - 58;
++            _checkCaps.Y = Height - 45;
+ 
+ 
+             base.Update();
+@@ -347,12 +282,12 @@
+         public override void Restore(XmlElement xml)
+         {
+             base.Restore(xml);
+-            _scrollArea.Height = _scrollArea.SpecialHeight = int.Parse(xml.GetAttribute("height"));
++            _scrollArea.Height = _scrollArea.SpecialHeight = Math.Max(430, int.Parse(xml.GetAttribute("height")));
+         }
+ 
+         private void SumTotalSkills()
+         {
+-            _skillsLabelSum.Text = World.Player.Skills.Sum(s => _checkReal.IsChecked ? s.Base : s.Value).ToString("F1");
++            _skillsLabelSum.Text = World.Player.Skills.Where(s => TradeSkills.Includes(s.Index)).Sum(s => _checkReal.IsChecked ? s.Base : s.Value).ToString("F1");
+         }
+ 
+ 
+@@ -361,13 +296,9 @@
+             private readonly StandardSkillsGump _gump;
+             private readonly DataBox _box;
+             private readonly Button _button;
+-            private readonly SkillsGroup _group;
+-            private readonly GumpPicTiled _gumpPic;
+             private bool _isMinimized;
+ 
+             private readonly List<SkillItemControl> _skills = new List<SkillItemControl>();
+-            private byte _status;
+-            private readonly StbTextBox _textbox;
+ 
+             public SkillsGroupControl(StandardSkillsGump gump, SkillsGroup group, int x, int y)
+             {
+@@ -375,15 +306,13 @@
+                 CanMove = false;
+                 AcceptMouseInput = true;
+                 WantUpdateSize = true;
+-                AcceptKeyboardInput = true;
++                AcceptKeyboardInput = false;
+ 
+                 X = x;
+                 Y = y;
+                 Width = 200;
+                 Height = 20;
+ 
+-                _group = group;
+-
+                 _button = new Button(1000, 0x0827, 0x0827, 0x0827)
+                 {
+                     ButtonAction = ButtonAction.Activate,
+@@ -395,30 +324,16 @@
+ 
+                 int width = Client.Game.UO.FileManager.Fonts.GetWidthASCII(6, group.Name);
+ 
+-                Add
+-                (
+-                    _textbox = new StbTextBox
+-                    (
+-                        6,
+-                        -1,
+-                        200,
+-                        false,
+-                        FontStyle.Fixed
+-                    )
+-                    {
+-                        X = 16,
+-                        Y = -3,
+-                        Width = 200,
+-                        Height = 17,
+-                        IsEditable = false
+-                    }
+-                );
+-
+-                _textbox.SetText(group.Name);
++                Add(new Label(group.Name, false, 0, font: 6)
++                {
++                    X = 16,
++                    Y = -3,
++                    AcceptMouseInput = false
++                });
+ 
+                 int xx = width + 11 + 16;
+ 
+-                _gumpPic = new GumpPicTiled(0x0835)
++                var groupLine = new GumpPicTiled(0x0835)
+                 {
+                     X = xx,
+                     Y = 5,
+@@ -426,67 +341,9 @@
+                     AcceptMouseInput = false
+                 };
+ 
+-                Add(_gumpPic);
++                Add(groupLine);
+ 
+                 Add(_box = new DataBox(0, 0, 0, 0));
+-
+-                _textbox.IsEditable = false;
+-
+-                _textbox.MouseDown += (s, e) =>
+-                {
+-                    if (_textbox.IsEditable && _status == 2)
+-                    {
+-                        return;
+-                    }
+-
+-                    _status++;
+-
+-                    if (_status >= 3)
+-                    {
+-                        _status = 0;
+-                    }
+-
+-                    switch (_status)
+-                    {
+-                        default:
+-                        case 0:
+-                            _gumpPic.IsVisible = true;
+-                            _textbox.IsEditable = false;
+-                            _textbox.AllowSelection = false;
+-                            UIManager.KeyboardFocusControl = this;
+-                            UIManager.SystemChat.SetFocus();
+-
+-                            break;
+-
+-                        case 1:
+-                            _gumpPic.IsVisible = true;
+-                            _textbox.IsEditable = false;
+-                            _textbox.AllowSelection = false;
+-                            UIManager.KeyboardFocusControl = this;
+-
+-                            //UIManager.SystemChat.SetFocus();
+-                            break;
+-
+-                        case 2:
+-                            _gumpPic.IsVisible = false;
+-                            _textbox.IsEditable = true;
+-                            _textbox.AllowSelection = true;
+-                            UIManager.KeyboardFocusControl = _textbox;
+-                            _textbox.SetKeyboardFocus();
+-
+-                            break;
+-                    }
+-                };
+-
+-                _textbox.FocusLost += (s, e) =>
+-                {
+-                    _status = 0;
+-                    _gumpPic.IsVisible = true;
+-                    _textbox.IsEditable = false;
+-                    _textbox.AllowSelection = false;
+-                    UIManager.KeyboardFocusControl = null;
+-                    UIManager.SystemChat.SetFocus();
+-                };
+             }
+ 
+ 
+@@ -516,6 +373,10 @@
+ 
+             public void AddSkill(int index, int x, int y)
+             {
++                if (!TradeSkills.Includes(index))
++                {
++                    return;
++                }
+                 SkillItemControl c = new SkillItemControl(_gump, index, x, y);
+                 _skills.Add(c);
+                 _box.Add(c);
+@@ -560,133 +421,6 @@
+             }
+ 
+ 
+-            protected override void OnMouseOver(int x, int y)
+-            {
+-                if (UIManager.LastControlMouseDown(MouseButtonType.Left) is SkillItemControl skillControl)
+-                {
+-                    if (skillControl.Parent // databox
+-                                    .Parent // skillgruop
+-                        != this)
+-                    {
+-                        SkillsGroupControl originalGroup = (SkillsGroupControl) skillControl.Parent.Parent;
+-
+-                        if (originalGroup != null)
+-                        {
+-                            // remove from original control the skillcontrol
+-                            if (!_group.Contains((byte) skillControl.Index))
+-                            {
+-                                byte index = (byte) skillControl.Index;
+-
+-                                originalGroup._skills.Remove(skillControl);
+-
+-                                // update groups
+-                                originalGroup._group.Remove(index);
+-                                _group.Add(index);
+-                                _group.Sort();
+-
+-                                originalGroup._button.IsVisible = originalGroup._skills.Count != 0;
+-
+-                                // insert skillcontrol at the right index
+-                                int itemCount = _group.Count;
+-
+-                                for (int i = 0; i < itemCount; i++)
+-                                {
+-                                    if (_group.GetSkill(i) == index)
+-                                    {
+-                                        _skills.Insert(i, skillControl);
+-                                        _box.Insert(i, skillControl);
+-
+-                                        if (!_button.IsVisible)
+-                                        {
+-                                            _button.IsVisible = true;
+-                                        }
+-
+-                                        break;
+-                                    }
+-                                }
+-
+-                                // update gump positions
+-                                UpdateSkillsPosition();
+-                                originalGroup.UpdateSkillsPosition();
+-                            }
+-                        }
+-                    }
+-                }
+-
+-                base.OnMouseOver(x, y);
+-            }
+-
+-            public override void OnKeyboardReturn(int textID, string text)
+-            {
+-                if (string.IsNullOrWhiteSpace(text))
+-                {
+-                    text = ResGumps.NoName;
+-                    _textbox.SetText(text);
+-                }
+-
+-                int width = Client.Game.UO.FileManager.Fonts.GetWidthASCII(6, text);
+-                int xx = width + 11 + 16;
+-
+-                if (xx > 0)
+-                {
+-                    _gumpPic.IsVisible = true;
+-                    _gumpPic.X = xx;
+-                    _gumpPic.Width = 215 - xx;
+-                }
+-                else
+-                {
+-                    _gumpPic.IsVisible = false;
+-                }
+-
+-                UIManager.KeyboardFocusControl = null;
+-                UIManager.SystemChat.SetFocus();
+-
+-                _group.Name = text;
+-
+-                base.OnKeyboardReturn(textID, text);
+-            }
+-
+-            protected override void OnKeyUp(SDL.SDL_Keycode key, SDL.SDL_Keymod mod)
+-            {
+-                base.OnKeyUp(key, mod);
+-
+-                if (key == SDL.SDL_Keycode.SDLK_DELETE && _status == 1)
+-                {
+-                    if (_gump.World.SkillsGroupManager.Remove(_group) && RootParent is StandardSkillsGump gump)
+-                    {
+-                        SkillsGroupControl first = gump._skillsControl[0];
+-
+-                        while (_box.Children.Count != 0)
+-                        {
+-                            SkillItemControl skillControl = (SkillItemControl) _box.Children[0];
+-
+-                            int itemCount = first._group.Count;
+-
+-                            for (int i = 0; i < itemCount; i++)
+-                            {
+-                                if (first._group.GetSkill(i) == skillControl.Index)
+-                                {
+-                                    first._skills.Insert(i, skillControl);
+-                                    first._box.Insert(i, skillControl);
+-
+-                                    if (!first._button.IsVisible)
+-                                    {
+-                                        first._button.IsVisible = true;
+-                                    }
+-
+-                                    break;
+-                                }
+-                            }
+-                        }
+-
+-                        _skills.Clear();
+-                        Dispose();
+-
+-                        first.UpdateSkillsPosition();
+-                    }
+-                }
+-            }
+-
+             public override void OnButtonClick(int buttonID)
+             {
+                 if (buttonID == 1000)
+@@ -695,74 +429,6 @@
+                 }
+             }
+ 
+-            private void UpdateSkillsPosition()
+-            {
+-                int currY = 17;
+-
+-                foreach (SkillItemControl c in _skills)
+-                {
+-                    c.Y = currY;
+-                    currY += 17;
+-                }
+-
+-                _box.WantUpdateSize = true;
+-                WantUpdateSize = true;
+-            }
+-
+-            public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+-            {
+-                float layerDepth = layerDepthRef;
+-                Vector3 hueVector = ShaderHueTranslator.GetHueVector(0);
+-
+-                if (_status == 2)
+-                {
+-                    renderLists.AddGumpNoAtlas
+-                    (
+-                        batcher =>
+-                        {
+-                            batcher.Draw
+-                            (
+-                                SolidColorTextureCache.GetTexture(Color.Beige),
+-                                new Rectangle
+-                                (
+-                                    x,
+-                                    y,
+-                                    Width,
+-                                    17
+-                                ),
+-                                hueVector,
+-                                layerDepth
+-                            );
+-                            return true;
+-                        }
+-                    );
+-                }
+-                else if (_status == 1)
+-                {
+-                    renderLists.AddGumpNoAtlas
+-                    (
+-                        batcher =>
+-                        {
+-                            batcher.Draw
+-                            (
+-                                SolidColorTextureCache.GetTexture(Color.Bisque),
+-                                new Rectangle
+-                                (
+-                                    x + 16,
+-                                    y,
+-                                    200,
+-                                    17
+-                                ),
+-                                hueVector,
+-                                layerDepth
+-                            );
+-                            return true;
+-                        }
+-                    );
+-                }
+-
+-                return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+-            }
+         }
+ 
+         private class SkillItemControl : Control
+@@ -923,82 +589,6 @@
+                 }
+             }
+ 
+-            protected override void OnMouseUp(int x, int y, MouseButtonType button)
+-            {
+-                if (button != MouseButtonType.Left)
+-                {
+-                    return;
+-                }
+-
+-                Client.Game.UO.GameCursor.IsDraggingCursorForced = false;
+-
+-                if (UIManager.LastControlMouseDown(MouseButtonType.Left) == this && _gump.World.Player.Skills[Index].IsClickable)
+-                {
+-                    if (UIManager.MouseOverControl == null || UIManager.MouseOverControl.RootParent != RootParent)
+-                    {
+-                        GetSpellFloatingButton(Index)?.Dispose();
+-
+-                        if (Index >= 0 && Index < _gump.World.Player.Skills.Length)
+-                        {
+-                            UIManager.Add(new SkillButtonGump(_gump.World, _gump.World.Player.Skills[Index], Mouse.Position.X - 44, Mouse.Position.Y - 22));
+-                        }
+-                    }
+-                }
+-            }
+-
+-            private static SkillButtonGump GetSpellFloatingButton(int id)
+-            {
+-                for (LinkedListNode<Gump> i = UIManager.Gumps.Last; i != null; i = i.Previous)
+-                {
+-                    if (i.Value is SkillButtonGump g && g.SkillID == id)
+-                    {
+-                        return g;
+-                    }
+-                }
+-
+-                return null;
+-            }
+-
+-            protected override void OnMouseDown(int x, int y, MouseButtonType button)
+-            {
+-                if (button == MouseButtonType.Left)
+-                {
+-                    Client.Game.UO.GameCursor.IsDraggingCursorForced = true;
+-                }
+-            }
+-
+-            public override bool AddToRenderLists(RenderLists renderLists, int x, int y, ref float layerDepthRef)
+-            {
+-                Vector3 hueVector = ShaderHueTranslator.GetHueVector(0);
+-
+-                if (UIManager.LastControlMouseDown(MouseButtonType.Left) == this)
+-                {
+-                    float layerDepth = layerDepthRef;
+-                    renderLists.AddGumpNoAtlas
+-                    (
+-                        batcher =>
+-                        {
+-                            batcher.Draw
+-                            (
+-                                SolidColorTextureCache.GetTexture(Color.Wheat),
+-                                new Rectangle
+-                                (
+-                                    x,
+-                                    y,
+-                                    Width,
+-                                    Height
+-                                ),
+-                                hueVector,
+-                                layerDepth
+-                            );
+-
+-                            return true;
+-                        }
+-                    );
+-                }
+-
+-                return base.AddToRenderLists(renderLists, x, y, ref layerDepthRef);
+-            }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/SkillGumpAdvanced.cs b/src/ClassicUO.Client/Game/UI/Gumps/SkillGumpAdvanced.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/SkillGumpAdvanced.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/SkillGumpAdvanced.cs
+@@ -163,7 +163,7 @@
+ 
+             PropertyInfo pi = typeof(Skill).GetProperty(_sortField);
+             List<Skill> sortSkills = new List<Skill>(
+-                World.Player.Skills.OrderBy(x => pi.GetValue(x, null))
++                World.Player.Skills.Where(x => Sanctuary.TradeSkills.Includes(x.Index)).OrderBy(x => pi.GetValue(x, null))
+             );
+ 
+             if (_sortAsc)
+@@ -344,39 +344,6 @@
+             };
+         }
+ 
+-        protected override void OnDragBegin(int x, int y)
+-        {
+-            if (_skill.IsClickable && Mouse.LButtonPressed)
+-            {
+-                GetSpellFloatingButton(_skill.Index)?.Dispose();
+-
+-                ref readonly var gumpInfo = ref Client.Game.UO.Gumps.GetGump(0x24B8);
+-
+-                SkillButtonGump skillButtonGump = new SkillButtonGump(
+-                    _gump.World,
+-                    _skill,
+-                    Mouse.LClickPosition.X + (gumpInfo.UV.Width >> 1),
+-                    Mouse.LClickPosition.Y + (gumpInfo.UV.Height >> 1)
+-                );
+-
+-                UIManager.Add(skillButtonGump);
+-                UIManager.AttemptDragControl(skillButtonGump, true);
+-            }
+-        }
+-
+-        private static SkillButtonGump GetSpellFloatingButton(int id)
+-        {
+-            for (LinkedListNode<Gump> i = UIManager.Gumps.Last; i != null; i = i.Previous)
+-            {
+-                if (i.Value is SkillButtonGump g && g.SkillID == id)
+-                {
+-                    return g;
+-                }
+-            }
+-
+-            return null;
+-        }
+-
+         public override void OnButtonClick(int buttonID)
+         {
+             switch ((Buttons)buttonID)
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -1975,7 +1975,7 @@
+                     {
+                         if (standard == null)
+                         {
+-                            UIManager.Add(standard = new StandardSkillsGump(world) { X = 100, Y = 100 });
++                            UIManager.Add(standard = new StandardSkillsGump(world) { X = 100, Y = 10 });
+                         }
+                     }
+                     else

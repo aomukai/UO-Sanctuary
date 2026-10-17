@@ -1,0 +1,25 @@
+# Nearby corpse loot
+
+Current policy: all monster death drops, including gold and equipment, are disabled. The looting UI and recovery paths remain available for future drop tables and player/pet belongings; see [Balance foundations](balance-foundations.md#equipment).
+
+Class characters single-click a monster corpse to open one **Nearby loot** grid. The grid combines eligible contents of corpses within **five tiles of the player**, including the body clicked. The radius applies to opening and to every pickup, independent of the stock two-tile drag/lift path. Line of sight, a less-than-16-Z height difference, visibility, corpse ownership and instanced-item visibility still apply. Player corpses retain their ordinary recovery interaction and are excluded from the combined grid. Criminal looting is excluded, even in Felucca. Party distribution is not implemented.
+
+Click an icon once to transfer the whole item stack to the backpack. Items stay inside their original corpses until the server accepts the transfer. Server checks include current location, living/action state, ownership, accessibility, lift restrictions, backpack space and carrying weight. Rejected pickups keep the original item in its corpse. Existing item-property hover tooltips remain; tooltip simplification, larger coloured names and explicit Diablo rarity metadata are future work. UO item hue is not treated as rarity. The combined view deliberately targets the backpack; the stock grid's configurable loot-bag selector remains available in its ordinary mode.
+
+A physically empty monster corpse appears grey on the ground. This is a client rendering choice driven by server state, not a change to its saved item hue or type. An empty **unharvested** corpse remains available for necromancy, harvesting and future corpse mechanics until its normal decay. Items not visible to this player do not become lootable merely because another player opened the grid. A body with remaining contents does not count as empty.
+
+Harvesting keeps the stock bladed-weapon interaction: double-click the tool to obtain a target cursor, then click the corpse. Ordinary materials remain in the corpse. Successful class harvesting marks the body using a persisted corpse flag. Taking its final remaining item removes the harvested body. Equipment or materials left behind preserve the body until ordinary decay; no unclaimed equipment is deleted by the harvest operation. A second attempt cannot produce materials again. Native tool-specific harvesting exceptions, such as a Skinning Knife cutting hides into backpack leather, remain unchanged.
+
+Gold from an eligible monster kill is deposited into the class killer's backpack. The recipient must retain lawful loot rights, be alive, and be within sight range and line of sight. This credits the killing player or the owner of a controlled pet; party sharing and other contribution rules remain future work. Weight/capacity failure leaves the gold stack inside the corpse. The gold uses existing stackable UO items, not a new weightless currency ledger.
+
+The server advertises at most 64 nearby eligible bodies and 256 items per snapshot. The client refreshes every 500 ms. A single grid follows eligible contents around the player as they move; every pickup revalidates the five-tile range. No global world enumeration or background world access is used. No virtual combined container is created, so items retain their real corpse ownership, normal decay and persistence. The grid remains open when empty so newly harvested materials or newly reachable loot can appear without repeated window opening.
+
+## Checks
+
+Server integration checks cover five-tile reach, rejection beyond range/on another floor, class/legacy and player-corpse boundaries, overweight rejection without item loss, nested-container restrictions, single transfer without duplication, automatic gold and failed deposit retention, repeat harvesting, preservation of remaining items and removal only when a harvested body empties.
+
+The actual-client fixture uses two corpses, including one exactly five tiles away, verifies single-click opening and pickups through the combined grid, targets a body through the native bladed-tool cursor, takes its materials and checks removal. It records screenshots of full bodies, the combined grid, grey empty bodies and harvested materials. Save/reload checks preserve the harvested flag and retained equipment after the original creature reference is gone. All fixtures use disposable worlds and accounts.
+
+Server checks, actual-client grid/tooltip/harvesting checks, six developer-helper tests, fresh patch application checks, and three isolated save/reload boots passed on 17 October 2026. The harvested flag and retained equipment survived reload after the original creature was deleted. The live installation backup is `.local/backups/pre-nearby-loot-20261017-200947/`.
+
+The installed server reloaded the live world and completed a world save with unchanged town identities. Class progression, configuration, and client settings/profiles matched the backup byte for byte. The desktop client was left closed.

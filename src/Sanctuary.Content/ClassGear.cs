@@ -1,0 +1,383 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.Collections.Generic;
+using Server;
+using Server.Items;
+using Server.Mobiles;
+
+namespace Sanctuary;
+
+public static class ClassGear
+{
+    private static readonly HashSet<Serial> _refresh = new();
+    public static GearProfiles Profiles { get; private set; }
+    private static readonly HashSet<string> _implemented = new(StringComparer.Ordinal)
+    {
+        "str", "dex", "enr", "vit", "hp", "mana", "stam", "att", "att%", "ac", "ac%",
+        "dmg%", "dmg-min", "dmg-max", "res-all", "res-fire", "res-cold", "res-ltng", "res-pois",
+        "swing1", "swing2", "swing3", "cast1", "cast2", "cast3", "move1", "move2", "move3", "block"
+    };
+    public static bool Implemented(AffixDefinition affix)
+    {
+        foreach (var mod in affix.Modifiers)
+        {
+            if (mod.Mode != ModifierMode.Numeric || !_implemented.Contains(mod.Code))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static bool Converted(Item item) => item != null && EquipmentBalance.TryGet(item, out var definition)
+        && definition.Category != "Unarmed";
+    public static GearDefinition Definition(Item item) => EquipmentBalance.TryGet(item, out var definition) ? definition : null;
+    public static GearState State(Item item) => Profiles?.Find(item.Serial);
+    public static NormalBase Base(Item item)
+    {
+        var definition = Definition(item);
+        return definition?.BaseCode is { } code ? EquipmentBalance.Base(code) : null;
+    }
+    public static GearSlot Slot(Item item)
+    {
+        var definition = Definition(item);
+        if (definition == null)
+        {
+            return GearSlot.Cosmetic;
+        }
+        // Body armour cannot acquire a second stat slot through a UO-only layer.
+        if (item is BaseArmor && item is not BaseShield && item.Layer is Layer.Arms or Layer.Neck or Layer.Pants or Layer.InnerLegs or Layer.OuterLegs)
+        {
+            return GearSlot.Cosmetic;
+        }
+        return definition.Slot;
+    }
+    public static bool Active(PlayerMobile player, Item item)
+    {
+        var slot = Slot(item);
+        if (item.Parent != player || slot == GearSlot.Cosmetic)
+        {
+            return false;
+        }
+        if (slot == GearSlot.Shield)
+        {
+            foreach (var other in player.Items)
+            {
+                if (Slot(other) == GearSlot.Weapon && Base(other) is { TwoHanded: true, OneOrTwoHanded: false })
+                {
+                    return false;
+                }
+            }
+        }
+        foreach (var other in player.Items)
+        {
+            if (other != item && Slot(other) == slot && other.Serial.Value < item.Serial.Value)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static int Bonus(Item item, string code)
+    {
+        if (Slot(item) == GearSlot.Cosmetic || State(item) is not { } state)
+        {
+            return 0;
+        }
+        int value = 0;
+        foreach (var affix in state.Roll.Affixes)
+        {
+            foreach (var mod in affix.Modifiers)
+            {
+                if (mod.Code == code)
+                {
+                    value += mod.Value ?? 0;
+                }
+            }
+        }
+        return value;
+    }
+    public static int Bonus(PlayerMobile player, string code)
+    {
+        int value = 0;
+        foreach (var item in player.Items)
+        {
+            if (Active(player, item))
+            {
+                value += Bonus(item, code);
+            }
+        }
+        return value;
+    }
+    public static int Defense(Item item)
+    {
+        if (Slot(item) == GearSlot.Cosmetic || Base(item) is not { } basis)
+        {
+            return 0;
+        }
+        int enhanced = Bonus(item, "ac%");
+        int defense = enhanced > 0 ? basis.MaxDefense + 1 : State(item)?.Defense
+            ?? basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));
+        return defense * (100 + enhanced) / 100 + Bonus(item, "ac");
+    }
+    public static (int Min, int Max) Damage(Item item)
+    {
+        if (item == null || !Converted(item))
+        {
+            return (1, 2);
+        }
+        if (Slot(item) != GearSlot.Weapon || Base(item) is not { } basis)
+        {
+            return (0, 0);
+        }
+        bool twoHanded = item.Layer == Layer.TwoHanded || basis.TwoHanded && !basis.OneOrTwoHanded;
+        int min = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
+        int max = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
+        if (Definition(item).Category == "Throwing" && basis.MissileMax > 0)
+        {
+            min = basis.MissileMin;
+            max = basis.MissileMax;
+        }
+        int enhanced = Bonus(item, "dmg%");
+        min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min");
+        max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max");
+        return (min, Math.Max(min, max));
+    }
+    public static int RequiredLevel(Item item) => State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0;
+    public static int BlockChance(PlayerMobile player)
+    {
+        Item shield = null;
+        foreach (var item in player.Items)
+        {
+            if (Slot(item) == GearSlot.Shield && Active(player, item))
+            {
+                shield = item;
+                break;
+            }
+        }
+        if (shield == null || ClassMovement.IsRunning(player, Core.TickCount)
+            || !ClassCreation.Profiles.TryGet(player.Serial, out var profile))
+        {
+            return 0;
+        }
+        int classBlock = profile.Class switch
+        {
+            DiabloClass.Paladin => 30,
+            DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin => 25,
+            _ => 20
+        };
+        return Math.Clamp(((Base(shield)?.Block ?? 0) + classBlock + Bonus(player, "block"))
+            * Math.Max(0, player.Dex - 15) / (2 * profile.Level), 0, 75);
+    }
+    public static int? Stat(Item item, ClassGearStat stat)
+    {
+        if (!Converted(item))
+        {
+            return null;
+        }
+        var basis = Slot(item) == GearSlot.Cosmetic ? null : Base(item);
+        return stat switch
+        {
+            ClassGearStat.MinDamage => Damage(item).Min,
+            ClassGearStat.MaxDamage => Damage(item).Max,
+            ClassGearStat.Defense => Defense(item),
+            ClassGearStat.StrengthRequirement => basis?.Strength ?? 0,
+            ClassGearStat.DexterityRequirement => basis?.Dexterity ?? 0,
+            ClassGearStat.IntelligenceRequirement => 0,
+            ClassGearStat.StrengthBonus => EffectiveBonus(item, "str"),
+            ClassGearStat.DexterityBonus => EffectiveBonus(item, "dex"),
+            ClassGearStat.IntelligenceBonus => EffectiveBonus(item, "enr"),
+            _ => 0
+        };
+    }
+    private static int EffectiveBonus(Item item, string code) => item.Parent is PlayerMobile player && !Active(player, item)
+        ? 0 : Bonus(item, code);
+    private static string AttributeCode(AosAttribute attribute) => attribute switch
+    {
+        AosAttribute.BonusStr => "str", AosAttribute.BonusDex => "dex", AosAttribute.BonusInt => "enr",
+        AosAttribute.BonusHits => "hp", AosAttribute.BonusMana => "mana", AosAttribute.BonusStam => "stam",
+        AosAttribute.AttackChance => "att%", AosAttribute.DefendChance => "ac%", _ => null
+    };
+    private static int Attribute(Item item, AosAttribute attribute)
+    {
+        var code = AttributeCode(attribute);
+        if (code != null)
+        {
+            return EffectiveBonus(item, code);
+        }
+        return attribute switch
+        {
+            AosAttribute.WeaponSpeed => EffectiveBonus(item, "swing1") + EffectiveBonus(item, "swing2") + EffectiveBonus(item, "swing3"),
+            AosAttribute.CastSpeed => EffectiveBonus(item, "cast1") + EffectiveBonus(item, "cast2") + EffectiveBonus(item, "cast3"),
+            AosAttribute.WeaponDamage => EffectiveBonus(item, "dmg%"), _ => 0
+        };
+    }
+    public static int? MobileAttribute(Mobile mobile, AosAttribute attribute)
+    {
+        if (mobile is not PlayerMobile player || !ClassCombat.Enabled(player))
+        {
+            return null;
+        }
+        int value = 0;
+        foreach (var item in player.Items)
+        {
+            if (Active(player, item))
+            {
+                value += Attribute(item, attribute);
+            }
+        }
+        return value;
+    }
+    public static int RunBonus(PlayerMobile player)
+    {
+        int frw = Math.Max(0, Bonus(player, "move1") + Bonus(player, "move2") + Bonus(player, "move3"));
+        return 120 * frw / (120 + frw);
+    }
+    public static bool? CanEquip(Item item, Mobile mobile)
+    {
+        if (mobile is not PlayerMobile player || !ClassCombat.Enabled(player))
+        {
+            return null;
+        }
+        if (!Converted(item))
+        {
+            return false;
+        }
+        if (ClassStats.Level(player) < RequiredLevel(item)
+            || player.Str < (Stat(item, ClassGearStat.StrengthRequirement) ?? 0)
+            || player.Dex < (Stat(item, ClassGearStat.DexterityRequirement) ?? 0))
+        {
+            player.SendMessage("You do not meet this item's level or attribute requirements.");
+            return false;
+        }
+        if (Slot(item) is GearSlot.Weapon or GearSlot.Shield)
+        {
+            foreach (var other in player.Items)
+            {
+                if (other != item && Slot(other) is GearSlot.Weapon or GearSlot.Shield
+                    && (Base(item) is { TwoHanded: true, OneOrTwoHanded: false }
+                        || Base(other) is { TwoHanded: true, OneOrTwoHanded: false }))
+                {
+                    player.SendMessage("This weapon requires both hands.");
+                    return false;
+                }
+            }
+        }
+        if (Base(item) is { } basis && EquipmentBalance.Types[basis.Type].CharacterClass is { Length: > 0 } required)
+        {
+            ClassCreation.Profiles.TryGet(player.Serial, out var profile);
+            string code = profile.Class switch
+            {
+                DiabloClass.Amazon => "ama", DiabloClass.Sorceress => "sor", DiabloClass.Necromancer => "nec",
+                DiabloClass.Paladin => "pal", DiabloClass.Barbarian => "bar", DiabloClass.Druid => "dru", _ => "ass"
+            };
+            if (required != code)
+            {
+                player.SendMessage("This base is restricted to its Diablo class.");
+                return false;
+            }
+        }
+        return true;
+    }
+    public static bool AddProperties(Item item, IPropertyList list)
+    {
+        if (!Converted(item))
+        {
+            return false;
+        }
+        var definition = Definition(item);
+        if (Slot(item) == GearSlot.Cosmetic)
+        {
+            list.Add($"{"Normal (white) — cosmetic; no combat stats or affixes"}");
+            return true;
+        }
+        var basis = Base(item);
+        var roll = State(item)?.Roll;
+        list.Add($"{"Rarity: "}{roll?.Rarity ?? GearRarity.Normal}{"; normal base: "}{basis.Name}");
+        list.Add($"{"Item level: "}{roll?.ItemLevel ?? 1}{"; affix level: "}{roll?.AffixLevel ?? AffixBalance.Level(1, basis.QualityLevel, basis.MagicLevel)}");
+        if (Slot(item) == GearSlot.Weapon && item is BaseWeapon)
+        {
+            var damage = Damage(item);
+            list.Add(1061168, $"{damage.Min}\t{damage.Max}");
+            CombatTiming.AddSpeedProperties((BaseWeapon)item, list);
+        }
+        if (basis.MaxDefense > 0)
+        {
+            list.Add($"{"Defense: "}{Defense(item)}");
+        }
+        if (Slot(item) == GearSlot.Shield && item.Parent is PlayerMobile player)
+        {
+            list.Add($"{"Chance to block: "}{BlockChance(player)}{"%"}");
+        }
+        list.Add($"{"Requires level "}{RequiredLevel(item)}{"; Strength "}{basis.Strength}{"; Dexterity "}{basis.Dexterity}");
+        if (roll != null)
+        {
+            foreach (var affix in roll.Affixes)
+            {
+                foreach (var modifier in affix.Modifiers)
+                {
+                    list.Add($"{affix.Definition.Name}{": "}{modifier.Code}{" "}{modifier.Value}");
+                }
+            }
+        }
+        return true;
+    }
+    public static void Changed(PlayerMobile player)
+    {
+        if (!_refresh.Add(player.Serial))
+        {
+            return;
+        }
+        Timer.DelayCall(() =>
+        {
+            _refresh.Remove(player.Serial);
+            if (player.Deleted || !ClassCombat.Enabled(player))
+            {
+                return;
+            }
+            Refresh(player);
+            StatNetwork.Send(player);
+        });
+    }
+    public static void Refresh(PlayerMobile player)
+    {
+        foreach (var item in player.Items)
+        {
+            if (!Converted(item))
+            {
+                continue;
+            }
+            foreach (var (stat, code, suffix) in new[] { (StatType.Str, "str", "Str"), (StatType.Dex, "dex", "Dex"), (StatType.Int, "enr", "Int") })
+            {
+                string name = $"{item.Serial}{suffix}";
+                player.RemoveStatMod(name);
+                int value = Active(player, item) ? Bonus(item, code) : 0;
+                if (value != 0)
+                {
+                    player.AddStatMod(new StatMod(stat, name, value, TimeSpan.Zero));
+                }
+            }
+        }
+        player.UpdateResistances();
+        ClassStats.Refresh(player);
+        player.Hits = Math.Min(player.Hits, player.HitsMax);
+        player.Mana = Math.Min(player.Mana, player.ManaMax);
+        player.Stam = Math.Min(player.Stam, player.StamMax);
+    }
+    public static void Configure()
+    {
+        Profiles = new GearProfiles();
+        ClassGearHooks.Stat = Stat;
+        ClassGearHooks.CanEquip = CanEquip;
+        ClassGearHooks.Properties = AddProperties;
+        ClassGearHooks.Attribute = (attributes, mask) => attributes.Owner is Item item && Converted(item)
+            ? attributes is AosAttributes ? Attribute(item, (AosAttribute)mask) : 0 : null;
+        ClassGearHooks.MobileAttribute = MobileAttribute;
+        ClassGearHooks.Resistance = (player, type) => !ClassCombat.Enabled(player) ? null : Math.Clamp(
+            Bonus(player, type switch
+            {
+                ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold",
+                ResistanceType.Poison => "res-pois", ResistanceType.Energy => "res-ltng", _ => "res-physical"
+            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, 75);
+        EventSink.WorldSave += Profiles.Prune;
+    }
+}

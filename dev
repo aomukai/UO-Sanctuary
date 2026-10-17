@@ -11,6 +11,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import urllib.request
 
 ROOT = Path(__file__).resolve().parent
@@ -49,25 +50,58 @@ def setup():
         run(["bash", installer, "--version", SDK_VERSION,
              "--install-dir", DOTNET.parent, "--no-path"])
     require_sdk()
+    apply_server_patches()
     apply_client_patches()
     print(f"Project SDK {SDK_VERSION} and pinned upstream sources are ready.")
 
 
 def apply_client_patches():
-    for patch in sorted((ROOT / "patches/ClassicUO").glob("*.patch")):
-        check = subprocess.run(["git", "apply", "--check", str(patch)], cwd=CLIENT_SOURCE,
-                               capture_output=True)
-        if check.returncode == 0:
-            run(["git", "apply", str(patch)], cwd=CLIENT_SOURCE)
-            continue
-        reverse = subprocess.run(["git", "apply", "--reverse", "--check", str(patch)],
-                                 cwd=CLIENT_SOURCE, capture_output=True)
-        if reverse.returncode != 0:
-            raise ValueError(f"Client patch conflicts with local changes: {patch.name}")
+    apply_patches("ClassicUO", CLIENT_SOURCE)
+
+
+def apply_server_patches():
+    apply_patches("ModernUO", SERVER_SOURCE)
+
+
+def apply_patches(name, source):
+    patches = sorted((ROOT / f"patches/{name}").glob("*.patch"))
+    if not patches:
+        return
+    paths = set()
+    for patch in patches:
+        records = subprocess.check_output(["git", "apply", "--numstat", "-z", str(patch)])
+        paths.update(Path(os.fsdecode(record.split(b"\t", 2)[2]))
+                     for record in records.split(b"\0") if record)
+
+    # Later patches may change earlier context; check prefixes in a disposable tree.
+    for applied in range(len(patches), -1, -1):
+        with tempfile.TemporaryDirectory(prefix="sanctuary-patches-") as temp:
+            folder = Path(temp)
+            for path in paths:
+                if (source / path).exists():
+                    (folder / path).parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source / path, folder / path)
+            valid = True
+            steps = [(patch, True) for patch in reversed(patches[:applied])]
+            steps += [(patch, False) for patch in patches]
+            for patch, reverse in steps:
+                arguments = ["git", "apply", *(["--reverse"] if reverse else []), str(patch)]
+                result = subprocess.run(arguments, cwd=folder, capture_output=True)
+                if result.returncode != 0:
+                    valid = False
+                    break
+            if valid:
+                for patch in patches[applied:]:
+                    run(["git", "apply", str(patch)], cwd=source)
+                return
+    raise ValueError(f"{name} patch series conflicts with local changes; no files were changed.")
 
 
 def build(target):
     require_sdk()
+    if target == "content":
+        build_content()
+        return
     logs = LOCAL / "logs"
     logs.mkdir(parents=True, exist_ok=True)
     projects = {
@@ -79,8 +113,11 @@ def build(target):
             "-p:PublishAot=false"]),
     }
     for name in projects if target == "all" else [target]:
+        require_stopped(name)
         if name == "client":
             apply_client_patches()
+        else:
+            apply_server_patches()
         source, project, properties = projects[name]
         logfile = logs / f"{name}-build.log"
         print(f"Building {name}; log: {logfile.relative_to(ROOT)}", flush=True)
@@ -95,9 +132,50 @@ def build(target):
         if name == "server":
             shutil.copytree(source / "Distribution", SERVER, dirs_exist_ok=True,
                             ignore=shutil.ignore_patterns("Configuration", "Saves", "Backups", "Logs"))
+            build_content()
+            stage_content()
         else:
             shutil.copytree(source / "bin/Debug/net10.0", CLIENT, dirs_exist_ok=True,
                             ignore=shutil.ignore_patterns("settings.json", "Profiles", "Logs"))
+
+
+def require_stopped(name):
+    folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            arguments = (entry / "cmdline").read_bytes().split(b"\0")
+            if any(Path(os.fsdecode(arg)).name == assembly for arg in arguments if arg):
+                if (entry / "cwd").resolve() == folder.resolve():
+                    raise ValueError(f"Close the running {name} before replacing or launching its binaries.")
+        except (OSError, RuntimeError):
+            continue
+
+
+def build_content():
+    output = LOCAL / "content"
+    run([DOTNET, "build", ROOT / "src/Sanctuary.Content/Sanctuary.Content.csproj",
+         "-c", "Debug", "-o", output, "--nologo"])
+    print("Content built. It will be installed on the next ./dev server launch.")
+
+
+def stage_content():
+    require_stopped("server")
+    content = LOCAL / "content/Sanctuary.Content.dll"
+    if not content.is_file():
+        raise ValueError("Build project content first: ./dev build content (or ./dev build server)")
+    destination = SERVER / "Assemblies/Sanctuary.Content.dll"
+    shutil.copy2(content, destination.with_suffix(".dll.pending"))
+    destination.with_suffix(".dll.pending").replace(destination)
+    shutil.copytree(ROOT / "data/Sanctuary", SERVER / "Data/Sanctuary", dirs_exist_ok=True)
+    manifest = SERVER / "Data/assemblies.json"
+    assemblies = json.loads(manifest.read_text())
+    if "Sanctuary.Content.dll" not in assemblies:
+        assemblies.append("Sanctuary.Content.dll")
+        pending = manifest.with_suffix(".json.pending")
+        pending.write_text(json.dumps(assemblies, indent=2) + "\n")
+        pending.replace(manifest)
 
 
 def validate_data(path):
@@ -149,6 +227,7 @@ def configure(args):
 
 def launch(name):
     require_sdk()
+    require_stopped(name)
     config = SERVER / "Configuration/modernuo.json" if name == "server" else CLIENT / "settings.json"
     if not config.exists():
         raise ValueError("UO data is not configured. See ./dev configure --help.")
@@ -158,6 +237,8 @@ def launch(name):
     folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
     if not (folder / assembly).exists():
         raise ValueError(f"Build {name} first: ./dev build {name}")
+    if name == "server":
+        stage_content()
     arguments = [] if name == "server" else ["-settings", str(config)]
     extra_env = {}
     if name == "client":
@@ -208,7 +289,7 @@ def main():
     commands.add_parser("setup", help="Download pinned sources and the project-local .NET SDK")
     commands.add_parser("install-data", help="Install Classic Client data from the publisher's patch servers")
     builder = commands.add_parser("build", help="Compile and stage a local Debug build")
-    builder.add_argument("target", choices=["all", "server", "client"], default="all", nargs="?")
+    builder.add_argument("target", choices=["all", "server", "client", "content"], default="all", nargs="?")
     config = commands.add_parser("configure", help="Create local configs once UO data is installed")
     config.add_argument("data", help="Classic Client data directory")
     config.add_argument("--client-version", required=True, help="Version matching the installed data")

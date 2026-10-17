@@ -1,0 +1,147 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -31,6 +31,59 @@
+     private static uint _nextGroundUpdate;
+     private static int _groundX, _groundY, _groundZ;
+     public static bool GroundGesture => _groundGesture;
++    private readonly record struct AnimationLease(byte Action, int Cycle, uint Until);
++    private static readonly Dictionary<uint, AnimationLease> _animations = new();
++    private static readonly List<uint> _expiredAnimations = new();
++    private static uint _nextAnimationCleanup;
++    public static void ReceiveAnimation(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining != 8 || reader.ReadUInt8() != CombatProtocol.Version)
++        {
++            return;
++        }
++        uint serial = reader.ReadUInt32BE();
++        byte action = reader.ReadUInt8();
++        int cycle = reader.ReadUInt16BE();
++        if (cycle > 0 && world.Mobiles.Get(serial) != null)
++        {
++            _animations[serial] = new AnimationLease(action, cycle, Time.Ticks + (uint)cycle);
++        }
++    }
++    private static void ExpireAnimations()
++    {
++        if (unchecked((int)(Time.Ticks - _nextAnimationCleanup)) < 0)
++        {
++            return;
++        }
++        _nextAnimationCleanup = Time.Ticks + 200;
++        _expiredAnimations.Clear();
++        foreach (var (serial, lease) in _animations)
++        {
++            if (unchecked((int)(Time.Ticks - lease.Until)) >= 0)
++            {
++                _expiredAnimations.Add(serial);
++            }
++        }
++        foreach (uint serial in _expiredAnimations)
++        {
++            _animations.Remove(serial);
++        }
++    }
++    private static int _leftRange = 1;
++    private static byte _animation;
++    private static int _animationCycle;
++    private static uint _animationUntil;
++    public static int AnimationDelay(uint serial, int action, int frames, int fallback)
++    {
++        if (_animations.TryGetValue(serial, out var lease) && lease.Action == action
++            && frames > 0 && unchecked((int)(lease.Until - Time.Ticks)) > 0)
++        {
++            return Math.Max(10, lease.Cycle / frames);
++        }
++        return Enabled && serial == Client.Game.UO.World.Player?.Serial && action == _animation
++            && frames > 0 && unchecked((int)(_animationUntil - Time.Ticks)) > 0
++            ? Math.Max(10, _animationCycle / frames) : fallback;
++    }
+     public static bool Enabled { get; private set; }
+     public static bool Running => ProfileManager.CurrentProfile.DiabloRun;
+     public static void ToggleMovement()
+@@ -50,6 +103,8 @@
+     public static void Reset()
+     {
+         ClassLootClient.Reset();
++        _animations.Clear();
++        _nextAnimationCleanup = Time.Ticks;
+         Enabled = _queried = _pursuing = _rightHeld = false;
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
+@@ -58,6 +113,8 @@
+         _lastPath = Time.Ticks - 500;
+         _hostiles.Clear();
+         _selectionFallback = null;
++        _leftRange = 1;
++        _animationUntil = Time.Ticks;
+     }
+     public static bool Hostile(Mobile target) => target != null && !target.IsDead && !target.IsDestroyed && _hostiles.Contains(target.Serial);
+ 
+@@ -103,6 +160,7 @@
+ 
+     public static void Update(World world)
+     {
++        ExpireAnimations();
+         if (!_queried)
+         {
+             _queried = true;
+@@ -137,7 +195,7 @@
+             Stop(world);
+             return;
+         }
+-        int range = Left == CombatAbility.Teeth ? CombatProtocol.TeethRange : CombatProtocol.BasicRange;
++        int range = _leftRange;
+         if (enemy.Distance <= range && Math.Abs(enemy.Z - world.Player.Z) < 16)
+         {
+             if (_pursuing)
+@@ -158,7 +216,7 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining < 14 || reader.ReadUInt8() != CombatProtocol.Version)
++        if (!world.InGame || reader.Remaining < 24 || reader.ReadUInt8() != CombatProtocol.Version)
+         {
+             return;
+         }
+@@ -169,6 +227,12 @@
+         var target = reader.ReadUInt32BE();
+         var count = reader.ReadUInt8();
+         var running = reader.ReadUInt8() != 0;
++        _leftRange = Math.Clamp((int)reader.ReadUInt8(), 1, CombatProtocol.SightRange);
++        reader.ReadUInt16BE(); // Left cycle, reserved for the binding UI.
++        reader.ReadUInt16BE(); // Right cycle.
++        _animation = reader.ReadUInt8();
++        _animationCycle = reader.ReadUInt16BE();
++        _animationUntil = Time.Ticks + reader.ReadUInt16BE();
+         if (count > CombatProtocol.MaxHostiles || reader.Remaining != count * 4)
+         {
+             return;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -608,6 +608,8 @@
+                     if (AnimationFromServer)
+                     {
+                         currentDelay += currentDelay * (_animationInterval + 1);
++                        currentDelay = ClassCombatClient.AnimationDelay(Serial, action,
++                            AnimationFrameCount == 0 ? fc : AnimationFrameCount, currentDelay);
+ 
+                         if (AnimationFrameCount == 0)
+                         {
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,11 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.CombatProtocol.AnimationSubCommand)
++            {
++                ClassCombatClient.ReceiveAnimation(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.LootProtocol.SubCommand)
+             {
+                 ClassLootClient.Receive(world, ref p);

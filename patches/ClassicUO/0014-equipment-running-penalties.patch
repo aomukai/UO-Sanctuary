@@ -1,0 +1,70 @@
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -12,6 +12,11 @@
+     public static bool Ready { get; private set; }
+     public static uint LevelUpUntil { get; private set; }
+     public static int Get(StatField field) => _values[(int)field];
++    public static int MovementDelay(bool run, bool dead, int delay)
++    {
++        int penalty = ClassCombatClient.Enabled && Ready && run && !dead ? Get(StatField.RunPenalty) : 0;
++        return (delay * 100 + 99 - penalty) / (100 - penalty);
++    }
+     public static void Reset()
+     {
+         Ready = false;
+@@ -52,7 +57,7 @@
+         }
+         if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
+             || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490
+-            || values[(int)StatField.TalentPoints] > 98)
++            || values[(int)StatField.TalentPoints] > 98 || values[(int)StatField.RunPenalty] > 20)
+         {
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -740,9 +740,12 @@
+                             );
+                     }
+ 
+-                    int maxDelay =
+-                        MovementSpeed.TimeToCompleteMovement(run, mounted)
+-                        - (int)Client.Game.FrameDelay[1];
++                    int stepDelay = MovementSpeed.TimeToCompleteMovement(run, mounted);
++                    if (Serial == World.Player)
++                    {
++                        stepDelay = ClassStatsClient.MovementDelay(run, IsDead, stepDelay);
++                    }
++                    int maxDelay = stepDelay - (int)Client.Game.FrameDelay[1];
+ 
+                     bool removeStep = delay >= maxDelay;
+                     bool directionChange = false;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: BSD-2-Clause
++﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using ClassicUO.Assets;
+ using ClassicUO.Configuration;
+@@ -585,7 +585,7 @@
+                     y = newY;
+                     z = newZ;
+ 
+-                    walkTime = (ushort) MovementSpeed.TimeToCompleteMovement(run, IsMounted || SpeedMode == CharacterSpeedType.FastUnmount || SpeedMode == CharacterSpeedType.FastUnmountAndCantRun || IsFlying);
++                    walkTime = (ushort)ClassStatsClient.MovementDelay(run, IsDead, MovementSpeed.TimeToCompleteMovement(run, IsMounted || SpeedMode == CharacterSpeedType.FastUnmount || SpeedMode == CharacterSpeedType.FastUnmountAndCantRun || IsFlying));
+                 }
+             }
+             else
+@@ -609,7 +609,7 @@
+                     y = newY;
+                     z = newZ;
+ 
+-                    walkTime = (ushort) MovementSpeed.TimeToCompleteMovement(run, IsMounted || SpeedMode == CharacterSpeedType.FastUnmount || SpeedMode == CharacterSpeedType.FastUnmountAndCantRun || IsFlying);
++                    walkTime = (ushort)ClassStatsClient.MovementDelay(run, IsDead, MovementSpeed.TimeToCompleteMovement(run, IsMounted || SpeedMode == CharacterSpeedType.FastUnmount || SpeedMode == CharacterSpeedType.FastUnmountAndCantRun || IsFlying));
+                 }
+ 
+                 direction = newDir;

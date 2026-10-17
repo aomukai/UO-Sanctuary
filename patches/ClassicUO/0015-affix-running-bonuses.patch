@@ -1,0 +1,23 @@
+diff --git a/src/ClassicUO.Client/Game/ClassStatsClient.cs b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -15,7 +15,8 @@
+     public static int MovementDelay(bool run, bool dead, int delay)
+     {
+         int penalty = ClassCombatClient.Enabled && Ready && run && !dead ? Get(StatField.RunPenalty) : 0;
+-        return (delay * 100 + 99 - penalty) / (100 - penalty);
++        int bonus = ClassCombatClient.Enabled && Ready && run && !dead ? Get(StatField.RunBonus) : 0;
++        return (delay * 100 + 99 + bonus - penalty) / (100 + bonus - penalty);
+     }
+     public static void Reset()
+     {
+@@ -57,7 +58,8 @@
+         }
+         if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
+             || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490
+-            || values[(int)StatField.TalentPoints] > 98 || values[(int)StatField.RunPenalty] > 20)
++            || values[(int)StatField.TalentPoints] > 98 || values[(int)StatField.RunPenalty] > 20
++            || values[(int)StatField.RunBonus] > 120)
+         {
+             return;
+         }

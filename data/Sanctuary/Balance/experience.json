@@ -1,0 +1,497 @@
+[
+  {
+    "level": 1,
+    "threshold": 0,
+    "ratio1024": 1024
+  },
+  {
+    "level": 2,
+    "threshold": 500,
+    "ratio1024": 1024
+  },
+  {
+    "level": 3,
+    "threshold": 1500,
+    "ratio1024": 1024
+  },
+  {
+    "level": 4,
+    "threshold": 3750,
+    "ratio1024": 1024
+  },
+  {
+    "level": 5,
+    "threshold": 7875,
+    "ratio1024": 1024
+  },
+  {
+    "level": 6,
+    "threshold": 14175,
+    "ratio1024": 1024
+  },
+  {
+    "level": 7,
+    "threshold": 22680,
+    "ratio1024": 1024
+  },
+  {
+    "level": 8,
+    "threshold": 32886,
+    "ratio1024": 1024
+  },
+  {
+    "level": 9,
+    "threshold": 44396,
+    "ratio1024": 1024
+  },
+  {
+    "level": 10,
+    "threshold": 57715,
+    "ratio1024": 1024
+  },
+  {
+    "level": 11,
+    "threshold": 72144,
+    "ratio1024": 1024
+  },
+  {
+    "level": 12,
+    "threshold": 90180,
+    "ratio1024": 1024
+  },
+  {
+    "level": 13,
+    "threshold": 112725,
+    "ratio1024": 1024
+  },
+  {
+    "level": 14,
+    "threshold": 140906,
+    "ratio1024": 1024
+  },
+  {
+    "level": 15,
+    "threshold": 176132,
+    "ratio1024": 1024
+  },
+  {
+    "level": 16,
+    "threshold": 220165,
+    "ratio1024": 1024
+  },
+  {
+    "level": 17,
+    "threshold": 275207,
+    "ratio1024": 1024
+  },
+  {
+    "level": 18,
+    "threshold": 344008,
+    "ratio1024": 1024
+  },
+  {
+    "level": 19,
+    "threshold": 430010,
+    "ratio1024": 1024
+  },
+  {
+    "level": 20,
+    "threshold": 537513,
+    "ratio1024": 1024
+  },
+  {
+    "level": 21,
+    "threshold": 671891,
+    "ratio1024": 1024
+  },
+  {
+    "level": 22,
+    "threshold": 839864,
+    "ratio1024": 1024
+  },
+  {
+    "level": 23,
+    "threshold": 1049830,
+    "ratio1024": 1024
+  },
+  {
+    "level": 24,
+    "threshold": 1312287,
+    "ratio1024": 1024
+  },
+  {
+    "level": 25,
+    "threshold": 1640359,
+    "ratio1024": 1024
+  },
+  {
+    "level": 26,
+    "threshold": 2050449,
+    "ratio1024": 1024
+  },
+  {
+    "level": 27,
+    "threshold": 2563061,
+    "ratio1024": 1024
+  },
+  {
+    "level": 28,
+    "threshold": 3203826,
+    "ratio1024": 1024
+  },
+  {
+    "level": 29,
+    "threshold": 3902260,
+    "ratio1024": 1024
+  },
+  {
+    "level": 30,
+    "threshold": 4663553,
+    "ratio1024": 1024
+  },
+  {
+    "level": 31,
+    "threshold": 5493363,
+    "ratio1024": 1024
+  },
+  {
+    "level": 32,
+    "threshold": 6397855,
+    "ratio1024": 1024
+  },
+  {
+    "level": 33,
+    "threshold": 7383752,
+    "ratio1024": 1024
+  },
+  {
+    "level": 34,
+    "threshold": 8458379,
+    "ratio1024": 1024
+  },
+  {
+    "level": 35,
+    "threshold": 9629723,
+    "ratio1024": 1024
+  },
+  {
+    "level": 36,
+    "threshold": 10906488,
+    "ratio1024": 1024
+  },
+  {
+    "level": 37,
+    "threshold": 12298162,
+    "ratio1024": 1024
+  },
+  {
+    "level": 38,
+    "threshold": 13815086,
+    "ratio1024": 1024
+  },
+  {
+    "level": 39,
+    "threshold": 15468534,
+    "ratio1024": 1024
+  },
+  {
+    "level": 40,
+    "threshold": 17270791,
+    "ratio1024": 1024
+  },
+  {
+    "level": 41,
+    "threshold": 19235252,
+    "ratio1024": 1024
+  },
+  {
+    "level": 42,
+    "threshold": 21376515,
+    "ratio1024": 1024
+  },
+  {
+    "level": 43,
+    "threshold": 23710491,
+    "ratio1024": 1024
+  },
+  {
+    "level": 44,
+    "threshold": 26254525,
+    "ratio1024": 1024
+  },
+  {
+    "level": 45,
+    "threshold": 29027522,
+    "ratio1024": 1024
+  },
+  {
+    "level": 46,
+    "threshold": 32050088,
+    "ratio1024": 1024
+  },
+  {
+    "level": 47,
+    "threshold": 35344686,
+    "ratio1024": 1024
+  },
+  {
+    "level": 48,
+    "threshold": 38935798,
+    "ratio1024": 1024
+  },
+  {
+    "level": 49,
+    "threshold": 42850109,
+    "ratio1024": 1024
+  },
+  {
+    "level": 50,
+    "threshold": 47116709,
+    "ratio1024": 1024
+  },
+  {
+    "level": 51,
+    "threshold": 51767302,
+    "ratio1024": 1024
+  },
+  {
+    "level": 52,
+    "threshold": 56836449,
+    "ratio1024": 1024
+  },
+  {
+    "level": 53,
+    "threshold": 62361819,
+    "ratio1024": 1024
+  },
+  {
+    "level": 54,
+    "threshold": 68384473,
+    "ratio1024": 1024
+  },
+  {
+    "level": 55,
+    "threshold": 74949165,
+    "ratio1024": 1024
+  },
+  {
+    "level": 56,
+    "threshold": 82104680,
+    "ratio1024": 1024
+  },
+  {
+    "level": 57,
+    "threshold": 89904191,
+    "ratio1024": 1024
+  },
+  {
+    "level": 58,
+    "threshold": 98405658,
+    "ratio1024": 1024
+  },
+  {
+    "level": 59,
+    "threshold": 107672256,
+    "ratio1024": 1024
+  },
+  {
+    "level": 60,
+    "threshold": 117772849,
+    "ratio1024": 1024
+  },
+  {
+    "level": 61,
+    "threshold": 128782495,
+    "ratio1024": 1024
+  },
+  {
+    "level": 62,
+    "threshold": 140783010,
+    "ratio1024": 1024
+  },
+  {
+    "level": 63,
+    "threshold": 153863570,
+    "ratio1024": 1024
+  },
+  {
+    "level": 64,
+    "threshold": 168121381,
+    "ratio1024": 1024
+  },
+  {
+    "level": 65,
+    "threshold": 183662396,
+    "ratio1024": 1024
+  },
+  {
+    "level": 66,
+    "threshold": 200602101,
+    "ratio1024": 1024
+  },
+  {
+    "level": 67,
+    "threshold": 219066380,
+    "ratio1024": 1024
+  },
+  {
+    "level": 68,
+    "threshold": 239192444,
+    "ratio1024": 1024
+  },
+  {
+    "level": 69,
+    "threshold": 261129853,
+    "ratio1024": 1024
+  },
+  {
+    "level": 70,
+    "threshold": 285041630,
+    "ratio1024": 976
+  },
+  {
+    "level": 71,
+    "threshold": 311105466,
+    "ratio1024": 928
+  },
+  {
+    "level": 72,
+    "threshold": 339515048,
+    "ratio1024": 880
+  },
+  {
+    "level": 73,
+    "threshold": 370481492,
+    "ratio1024": 832
+  },
+  {
+    "level": 74,
+    "threshold": 404234916,
+    "ratio1024": 784
+  },
+  {
+    "level": 75,
+    "threshold": 441026148,
+    "ratio1024": 736
+  },
+  {
+    "level": 76,
+    "threshold": 481128591,
+    "ratio1024": 688
+  },
+  {
+    "level": 77,
+    "threshold": 524840254,
+    "ratio1024": 640
+  },
+  {
+    "level": 78,
+    "threshold": 572485967,
+    "ratio1024": 592
+  },
+  {
+    "level": 79,
+    "threshold": 624419793,
+    "ratio1024": 544
+  },
+  {
+    "level": 80,
+    "threshold": 681027665,
+    "ratio1024": 496
+  },
+  {
+    "level": 81,
+    "threshold": 742730244,
+    "ratio1024": 448
+  },
+  {
+    "level": 82,
+    "threshold": 809986056,
+    "ratio1024": 400
+  },
+  {
+    "level": 83,
+    "threshold": 883294891,
+    "ratio1024": 352
+  },
+  {
+    "level": 84,
+    "threshold": 963201521,
+    "ratio1024": 304
+  },
+  {
+    "level": 85,
+    "threshold": 1050299747,
+    "ratio1024": 256
+  },
+  {
+    "level": 86,
+    "threshold": 1145236814,
+    "ratio1024": 192
+  },
+  {
+    "level": 87,
+    "threshold": 1248718217,
+    "ratio1024": 144
+  },
+  {
+    "level": 88,
+    "threshold": 1361512946,
+    "ratio1024": 108
+  },
+  {
+    "level": 89,
+    "threshold": 1484459201,
+    "ratio1024": 81
+  },
+  {
+    "level": 90,
+    "threshold": 1618470619,
+    "ratio1024": 61
+  },
+  {
+    "level": 91,
+    "threshold": 1764543065,
+    "ratio1024": 46
+  },
+  {
+    "level": 92,
+    "threshold": 1923762030,
+    "ratio1024": 35
+  },
+  {
+    "level": 93,
+    "threshold": 2097310703,
+    "ratio1024": 26
+  },
+  {
+    "level": 94,
+    "threshold": 2286478756,
+    "ratio1024": 20
+  },
+  {
+    "level": 95,
+    "threshold": 2492671933,
+    "ratio1024": 15
+  },
+  {
+    "level": 96,
+    "threshold": 2717422497,
+    "ratio1024": 11
+  },
+  {
+    "level": 97,
+    "threshold": 2962400612,
+    "ratio1024": 8
+  },
+  {
+    "level": 98,
+    "threshold": 3229426756,
+    "ratio1024": 6
+  },
+  {
+    "level": 99,
+    "threshold": 3520485254,
+    "ratio1024": 0
+  }
+]

@@ -3,3 +3,10 @@
 __pycache__/
 *.pyc
 .DS_Store
+src/**/bin/
+src/**/obj/
+tests/**/bin/
+tests/**/obj/
+
+# Local operational handoff includes installation and character details.
+HANDOFF.md

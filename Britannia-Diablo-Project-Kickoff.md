@@ -48,6 +48,8 @@ Use existing client art first. Keep the game rules authoritative on the server. 
 
 Each character selects one combat class and earns combat XP and levels. Use Diablo II's class identities and skill trees as the starting design reference. Specify the initial class roster before implementation; do not assume every expansion class is included.
 
+The initial character-creation roster is Amazon, Sorceress, Necromancer, Paladin, Barbarian, Druid, and Assassin. Select a class first, then use UO's appearance editor and enter the world at level 1 with zero combat XP. Remove the original profession templates, custom option, and starting skill allocation screen. Class selection is saved per character; it does not depend on the chosen appearance. Class abilities and XP advancement remain subsequent work.
+
 Try to retain the trees before removing skills. Audit every ability for gameplay role and implementation feasibility. If a skill needs adaptation, preserve what makes its build enjoyable rather than its precise geometry or artwork.
 
 Combat competence comes from class progression, not parallel UO weapon-skill grinding. Crafting daggers should improve a profession, not award combat levels. Original UO combat and magical combat skills are generally replaced by the class system. Do not keep old skills merely to fill a list.
@@ -59,6 +61,8 @@ A fully developed specialist should require meaningful commitment. A secondary e
 ## 5. Combat feel and skill adaptation
 
 Fast, readable combat and item-driven builds are central. Running, attacking, casting, hit recovery, blocking, knockback, chilling/freezing, and mercenary reactions need coherent timings.
+
+Keep independent base rates for player movement, monster/pet movement, weapon attacks, casting, and projectile travel. Future Increased Attack Speed (IAS), Faster Cast Rate (FCR), and run-speed modifiers apply to their respective rates. Faster Hit Recovery (FHR) shortens a distinct recovery state entered after sufficiently strong hits. Specify the hit threshold, blocked actions, cancellation/queue rules, recovery duration, and modifier/breakpoint model through play tests; do not silently inherit UO Dexterity or skill formulas as Diablo balance.
 
 Investigate Diablo mechanics using documentation, reconstructed code such as D2MOO, and controlled observation. Use REA-assisted binary investigation only for concrete gaps. Distinguish legacy Diablo II behaviour from later D2R changes. Reimplement selected behaviour for this project rather than assuming old engine code transfers directly.
 
@@ -96,9 +100,9 @@ For each audited skill record its role, targeting, available assets, server beha
 
 ## 6. Controls and interface
 
-Support assignable left/right mouse skills and configurable hotkeys. Investigate existing ClassicUO bindings before extending them. Selecting a spell and separately handling a target cursor for every cast is not the desired combat loop.
+Support assignable left/right mouse skills and configurable hotkeys. Investigate existing ClassicUO bindings before extending them. Selecting a spell and separately handling a target cursor for every cast is not the desired combat loop. Diablo class abilities use mana without UO reagents or UO magic-skill requirements.
 
-Candidate controls: left-click ground to move, left-click an enemy to use the assigned attack, right-click to cast the assigned skill, optional quick-cast hotkeys, and a hold-position modifier. Exact bindings remain open. Preserve reliable interactions with doors, NPCs, containers, and draggable items. Chat input must not accidentally trigger combat hotkeys.
+The initial controls are left-click ground to cancel attacking and move, left-click an enemy to approach and repeatedly use the bound attack, and right-click to use the bound skill with appropriate targeting. Target death stops attacking without choosing another enemy. Shift holds position and blocks movement; its future bound-attack action remains to be wired. Remove war mode from the player experience while adapting internal dependencies as needed. Friendly NPCs remain interaction targets. Preserve reliable interactions with doors, NPCs, containers, and draggable items. Chat input must not accidentally trigger combat hotkeys.
 
 Prefer a UI integrated into the client over a separate operating-system overlay. Reuse existing paperdolls, tooltips, containers, and crafting interfaces where useful. Add visible assigned skills, class progression, XP, and a separate professions view. No pixel-perfect Diablo HUD is required.
 
@@ -106,9 +110,17 @@ Use weight and UO-style carrying capacity instead of Diablo inventory Tetris. Ex
 
 ## 7. Itemisation and equipment economy
 
-Use white, blue, yellow, and gold rarity categories with Diablo-like affixes such as IAS, FCR, magic find, FHR, life leech, and mana after kill. Define exact affix pools, ranges, exclusions, and rarity rules later. Unique items and loot tables require deliberate design.
+Use white, blue, yellow, and gold rarity categories with Diablo-like affixes such as IAS, FCR, magic find, FHR, life leech, and mana after kill. Base the magic/rare eligibility pools, roll ranges, level gates, groups, and frequencies on the D2 1.13 data. Magic items roll at most one prefix and one suffix; rares target three to six affixes, at most three of each kind. Some high-end affixes are magic-only; rare does not mean a higher ceiling on every individual stat. Unique items and loot tables require deliberate design.
 
 Keep base type, base tier/quality, material, rarity, affixes, sockets, and durability as separate concepts internally. Their exact relationship is still open, especially whether rarity or base tier controls socket ceilings. Preserve the ability to make high-quality white bases valuable.
+
+Convert all supported equipment to explicit normal D2 base analogues and enforce their damage, defence, speed, level and attribute requirements. Keep one combat contribution per D2-equivalent slot. UO-only layers—gorgets, arms, leg armour, bracelets, earrings, cloaks and extra clothing—exist only as white cosmetic items, with no combat stats or affixes. They must not enlarge the D2 player power budget. Native UO magical/material/quality bonuses do not bypass the converted rules. Only the actual Necromancer starter dagger has its starter +1 Teeth grant; ordinary daggers do not.
+
+Disable all monster death loot for now, including gold and equipment; design drop tables later. Preserve player and pet belongings and continue XP rewards. Future monster-created magic/rare gear uses monster level as item level, source base quality/magic level to derive affix level, slot/type eligibility, rarity caps, source roll ranges and character requirements. These gates are independent of sockets. Persist selected affix IDs and values, and enable only effects that are fully implemented. Example: gloves can roll IAS, boots cannot; magic-only high tiers can exceed rare ceilings.
+
+The foundation pass covers normal equipment bases only. Exceptional and elite base tiers, uniques, and actual socket ceilings come later. Every supported UO equipment type must have a catalog entry and category; named artifacts and rewards must not accidentally enter the normal base drop pool. Keep a nullable `maxSockets` field on every entry until our own limits are decided. UO crafted Exceptional quality is a separate concept from a Diablo exceptional base tier.
+
+Classify weapons into swords, axes, maces, polearms, spears, daggers, bows, crossbows, throwing weapons, staves, wands, scepters, and claws where appropriate. Armour and shields have light, medium, or heavy weight classes. Light has no running penalty, medium a small penalty, heavy a larger one. The initial implementation uses 0%, 5%, and 10%; only the canonical body armour contributes its weight penalty, then add the shield's penalty. These are editable project rules. Do not multiply an entire Diablo body-armour penalty by the number of UO armour pieces.
 
 ### Socketing
 
@@ -137,6 +149,8 @@ Materials should remain useful for different purposes instead of becoming an obs
 
 Professions improve through use. Total skill caps, mastery rates, and whether one character can eventually master everything remain open.
 
+The paperdoll’s Skills button becomes **Class**, opening the selected class’s three Diablo II talent trees with ten skills each. Quests becomes **Skills**, opening the retained UO skills window with only the 13 professions below, grouped as gathering, crafting (including Imbuing), and treasure hunting (Cartography). The sections are fixed, without group-editing controls or skill drag-and-drop. Both Class and Skills use the blue paperdoll button style. Original combat skills are hidden from this view; recipe and combat-system changes are separate work.
+
 | Profession | Intended role |
 | --- | --- |
 | Blacksmithing | Metal armour and melee weapons; appropriate repairs |
@@ -154,6 +168,8 @@ Professions improve through use. Total skill caps, mastery rates, and whether on
 | Alchemy | Candidate role: potions and reagent processing |
 
 Resolve uncovered base types such as staves and crossbows in the recipe audit. Do not silently assign every item to a profession without documenting the choice.
+
+Retain bladed-tool skinning to gather hides from skinnable corpses. Hides feed Tailoring to craft light armour bases. Preserve this gathering interaction when adapting weapon and combat controls: double-clicking a bladed tool can invoke its targeting action, while dragging a weapon onto the paperdoll equips it.
 
 Keys and rune moulds are consumables with charges. Better keys open higher-tier chests. A proposed simple rule is that an adequate key guarantees opening and spends one charge; inadequate keys do not spend a charge. Exact tier compatibility, crafting costs, mould uses, and rune yields remain open. Lockpicking is unnecessary under this design.
 
@@ -176,6 +192,24 @@ Offer per-item insurance as a recurring gold sink. Insured equipment is retained
 Mercenaries can die and require resurrection for gold. Premium formulas, insufficient funds, corpse expiry, resurrection locations, and protection of items in mixed insured/uninsured inventories need specification.
 
 ## 10. Dungeon ecology and world structure
+
+### Foundation baseline — players 1
+
+Finish the combat, itemisation, class growth, and XP foundations before adding more content. Start with a single players-1 monster baseline for levels 1–99: tank, melee damage dealer, ranged physical damage dealer, and caster. Use actual D2 data where a matching species exists; use explicit archetype profiles for UO species without a D2 counterpart. Archetype multipliers and UO movement/animation mappings are project adaptations, not original D2 monster records.
+
+Keep bounded spawn variance within an archetype's level band. A rolled level 39 must remain easier than a rolled level 40 of the same archetype; cross-archetype life/damage trade-offs remain intentional. Integer per-hit damage may plateau, but higher levels must have strictly greater life and no lower attack rating, defence, or damage. Roll once per spawn and preserve the roll through saves; do not reroll whenever a creature is examined or loaded. Bosses, super uniques, uniques, champions, and their special minions are outside this pass.
+
+D2's Normal, Nightmare, and Hell data inform the level progression: roughly the first thirty levels, the next thirty, and the remainder to 99. For the initial editable curve, use Normal source columns at levels 1–35, Nightmare at 36–65, and Hell at 66–99. These are source bands for one curve, not three selectable difficulty profiles or multiplayer scaling. Preserve players-1 HP and XP; do not apply player-count multipliers. Record the band boundaries explicitly so they can be tuned later.
+
+Leave additional resistance and immunity profiles out of this foundation. Later derive dungeon Normal, Nightmare, and Hell variants from the players-1 baseline: for example, floor 1 uses Normal, floor 2 uses Nightmare with stronger resistances, and floor 3 uses Hell with immunities. A floor's difficulty is distinct from a monster's level and from the source band used to build that level's base stats. Do not create those difficulty variants yet. Existing explicitly researched species properties are retained until that later resistance pass.
+
+These are two independent axes of difficulty. Level and archetype supply numeric strength; the later regional resistance profiles supply mechanical matchups between builds and places. This is one persistent world, not three copies of the same world or a linear campaign repeated three times. A level-40 ghost's baseline is still the level-40 baseline when its eventual area profile grants physical immunity. The baseline must work before introducing that immunity.
+
+Examples for the later geography pass: Hythloth's third depth can have physically immune ghosts and poison-immune skeletons/zombies; Covetous's third depth can include lightning-immune populations that remain vulnerable to fire; Destard's third depth can contain fire-immune dragons vulnerable to cold. These are intended regional matchups, not implemented populations or resistance values. As in D2's contrasting skeleton populations, modest Normal resistance differences can grow into decisive Nightmare matchups and Hell immunities. A mercenary, allies, or skipping particular packs can make a hostile area navigable while a favourable area remains comfortable to farm. None of those resistance/immunity additions belong to the current numeric-stat pass.
+
+All seven player classes use D2 starting attributes, HP/mana/stamina, per-level growth, per-Vitality/Energy growth, five attribute points per level, and the original level 1–99 cumulative XP thresholds. Retain quarter-point precision until the final resource total is rounded. Monster rewards use the players-1 base reward, solo level-difference adjustment, and D2's high-level XP reductions. Pet kills credit their owner. Party distribution and multiplayer scaling come later.
+
+Implementation details, source provenance, coverage, and verification live in [the balance foundations reference](docs/balance-foundations.md).
 
 Use fixed layouts with respawning inhabitants. Major dungeons have progressively harder depths: Normal at the top, Nightmare below, Hell deepest. Adapt actual maps as needed rather than assuming every existing dungeon already has exactly three appropriate floors.
 

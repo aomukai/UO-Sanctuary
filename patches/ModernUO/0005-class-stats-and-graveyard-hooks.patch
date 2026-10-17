@@ -1,0 +1,166 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -542,6 +542,10 @@
+         {
+             get
+             {
++                if (ClassCombatHooks.ResourceMaximum?.Invoke(this, 0) is { } classMaximum)
++                {
++                    return classMaximum;
++                }
+                 int strBase;
+                 var strOffs = GetStatOffset(StatType.Str);
+ 
+@@ -571,18 +575,18 @@
+         }
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+-        public override int StamMax => base.StamMax + AosAttributes.GetValue(this, AosAttribute.BonusStam);
+-
+-        [CommandProperty(AccessLevel.GameMaster)]
+-        public override int ManaMax => base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana) +
+-                                       (Core.ML && Race == Race.Elf ? 20 : 0);
++        public override int StamMax => ClassCombatHooks.ResourceMaximum?.Invoke(this, 1) ?? (base.StamMax + AosAttributes.GetValue(this, AosAttribute.BonusStam));
++
++        [CommandProperty(AccessLevel.GameMaster)]
++        public override int ManaMax => ClassCombatHooks.ResourceMaximum?.Invoke(this, 2) ?? (base.ManaMax + AosAttributes.GetValue(this, AosAttribute.BonusMana) +
++                                       (Core.ML && Race == Race.Elf ? 20 : 0));
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+         public override int Str
+         {
+             get
+             {
+-                if (Core.ML && AccessLevel == AccessLevel.Player)
++                if (ClassCombatHooks.Enabled?.Invoke(this) != true && Core.ML && AccessLevel == AccessLevel.Player)
+                 {
+                     return Math.Min(base.Str, 150);
+                 }
+@@ -597,7 +601,7 @@
+         {
+             get
+             {
+-                if (Core.ML && AccessLevel == AccessLevel.Player)
++                if (ClassCombatHooks.Enabled?.Invoke(this) != true && Core.ML && AccessLevel == AccessLevel.Player)
+                 {
+                     return Math.Min(base.Int, 150);
+                 }
+@@ -612,7 +616,7 @@
+         {
+             get
+             {
+-                if (Core.ML && AccessLevel == AccessLevel.Player)
++                if (ClassCombatHooks.Enabled?.Invoke(this) != true && Core.ML && AccessLevel == AccessLevel.Player)
+                 {
+                     return Math.Min(base.Dex, 150);
+                 }
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,6 +5,9 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public static class ClassCombatHooks
+ {
++    public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
++    public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
++    public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
+     public static Action<PlayerMobile, Direction> Moved { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -833,6 +833,10 @@
+ 
+     public virtual TimeSpan OnSwing(Mobile attacker, Mobile defender, double damageBonus = 1.0)
+     {
++        if (ClassCombatHooks.CreatureSwing?.Invoke(attacker, defender) is { } creatureCycle)
++        {
++            return creatureCycle;
++        }
+         var canSwing = true;
+ 
+         if (Core.AOS)
+@@ -1209,6 +1213,10 @@
+ 
+     public virtual bool CheckHit(Mobile attacker, Mobile defender)
+     {
++        if (ClassCombatHooks.ClassHitCheck?.Invoke(attacker, defender) is { } classHit)
++        {
++            return classHit;
++        }
+         if (defender is PlayerMobile player && ClassCombatHooks.DefenseSuppressed?.Invoke(player) == true)
+         {
+             return true;
+diff --git a/Projects/UOContent/Skills/SkillCheck.cs b/Projects/UOContent/Skills/SkillCheck.cs
+--- a/Projects/UOContent/Skills/SkillCheck.cs
++++ b/Projects/UOContent/Skills/SkillCheck.cs
+@@ -446,6 +446,10 @@
+ 
+     public static void GainStat(Mobile from, Stat stat)
+     {
++        if (from is PlayerMobile player && ClassCombatHooks.Enabled?.Invoke(player) == true)
++        {
++            return;
++        }
+         switch (stat)
+         {
+             case Stat.Str:
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -85,7 +85,11 @@
+     /// </summary>
+     OwnerWasAnimatedDead = 0x00000800,
+ 
+-    SanctuaryHarvested = 0x00001000
++    SanctuaryHarvested = 0x00001000,
++    SanctuarySkeleton = 0x00002000,
++    SanctuaryZombie = 0x00004000,
++    SanctuaryNoRewards = 0x00008000,
++    SanctuaryConsumed = 0x00010000
+ }
+ 
+ [SerializationGenerator(19, false)]
+@@ -404,6 +408,28 @@
+     [CommandProperty(AccessLevel.GameMaster)]
+     public bool OwnerWasAnimatedDead => GetFlag(CorpseFlag.OwnerWasAnimatedDead);
+ 
++    public bool SanctuaryConsumed
++    {
++        get => GetFlag(CorpseFlag.SanctuaryConsumed);
++        set => SetFlag(CorpseFlag.SanctuaryConsumed, value);
++    }
++
++    public bool SanctuaryNoRewards
++    {
++        get => GetFlag(CorpseFlag.SanctuaryNoRewards);
++        set => SetFlag(CorpseFlag.SanctuaryNoRewards, value);
++    }
++
++    public int SanctuaryUndeadKind
++    {
++        get => GetFlag(CorpseFlag.SanctuarySkeleton) ? 1 : GetFlag(CorpseFlag.SanctuaryZombie) ? 2 : 0;
++        set
++        {
++            SetFlag(CorpseFlag.SanctuarySkeleton, value == 1);
++            SetFlag(CorpseFlag.SanctuaryZombie, value == 2);
++        }
++    }
++
+     public bool SanctuaryHarvested
+     {
+         get => GetFlag(CorpseFlag.SanctuaryHarvested);
+@@ -414,6 +440,11 @@
+ 
+     public void Carve(Mobile from, Item item)
+     {
++        if (SanctuaryConsumed)
++        {
++            from.SendMessage("This corpse has already been used.");
++            return;
++        }
+         if (IsCriminalAction(from) && (Map?.Rules & MapRules.HarmfulRestrictions) != 0)
+         {
+             if (Owner?.Player != true)

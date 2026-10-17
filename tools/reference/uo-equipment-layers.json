@@ -1,0 +1,1592 @@
+[
+  {
+    "Type": "AssassinSpike",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Axe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Bandana",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "Bardiche",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Bascinet",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "BattleAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "BearMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "BlackStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "BladedStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "BloodBlade",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "BodySash",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "Bokuto",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "BoneArms",
+    "Layer": "Arms",
+    "Material": "Bone"
+  },
+  {
+    "Type": "BoneChest",
+    "Layer": "InnerTorso",
+    "Material": "Bone"
+  },
+  {
+    "Type": "BoneGloves",
+    "Layer": "Gloves",
+    "Material": "Bone"
+  },
+  {
+    "Type": "BoneHarvester",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "BoneHelm",
+    "Layer": "Helm",
+    "Material": "Bone"
+  },
+  {
+    "Type": "BoneLegs",
+    "Layer": "Pants",
+    "Material": "Bone"
+  },
+  {
+    "Type": "Bonnet",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "Boomerang",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Boots",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "Bow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Broadsword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "BronzeShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Buckler",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "ButcherKnife",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Cap",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "ChainChest",
+    "Layer": "InnerTorso",
+    "Material": "Chainmail"
+  },
+  {
+    "Type": "ChainCoif",
+    "Layer": "Helm",
+    "Material": "Chainmail"
+  },
+  {
+    "Type": "ChainHatsuburi",
+    "Layer": "Helm",
+    "Material": "Chainmail"
+  },
+  {
+    "Type": "ChainLegs",
+    "Layer": "Pants",
+    "Material": "Chainmail"
+  },
+  {
+    "Type": "ChaosShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Circlet",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Cleaver",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Cloak",
+    "Layer": "Cloak",
+    "Material": null
+  },
+  {
+    "Type": "CloseHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "ClothNinjaHood",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "ClothNinjaJacket",
+    "Layer": "InnerTorso",
+    "Material": null
+  },
+  {
+    "Type": "Club",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "CompositeBow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "CrescentBlade",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Crossbow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Cutlass",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Cyclone",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Dagger",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Daisho",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "DecorativePlateKabuto",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "DeerMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "DiamondMace",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "DiscMace",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "DoubleAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "DoubleBladedStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Doublet",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "DragonArms",
+    "Layer": "Arms",
+    "Material": "Dragon"
+  },
+  {
+    "Type": "DragonChest",
+    "Layer": "InnerTorso",
+    "Material": "Dragon"
+  },
+  {
+    "Type": "DragonGloves",
+    "Layer": "Gloves",
+    "Material": "Dragon"
+  },
+  {
+    "Type": "DragonHelm",
+    "Layer": "Helm",
+    "Material": "Dragon"
+  },
+  {
+    "Type": "DragonLegs",
+    "Layer": "Pants",
+    "Material": "Dragon"
+  },
+  {
+    "Type": "DreadSword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "DualPointedSpear",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "DualShortAxes",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "ElvenBoots",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "ElvenCompositeLongbow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "ElvenDarkShirt",
+    "Layer": "Shirt",
+    "Material": null
+  },
+  {
+    "Type": "ElvenMachete",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "ElvenPants",
+    "Layer": "Pants",
+    "Material": null
+  },
+  {
+    "Type": "ElvenShirt",
+    "Layer": "Shirt",
+    "Material": null
+  },
+  {
+    "Type": "ElvenSpellblade",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "ExecutionersAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "FancyDress",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "FancyShirt",
+    "Layer": "Shirt",
+    "Material": null
+  },
+  {
+    "Type": "FeatheredHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "FemaleElvenPlateChest",
+    "Layer": "InnerTorso",
+    "Material": "Wood"
+  },
+  {
+    "Type": "FemaleElvenRobe",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "FemaleKimono",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "FemaleLeafChest",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "FemaleLeatherChest",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "FemalePlateChest",
+    "Layer": "InnerTorso",
+    "Material": "Plate"
+  },
+  {
+    "Type": "FemaleStuddedChest",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "FloppyHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "FlowerGarland",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "FormalShirt",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "FullApron",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "FurBoots",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "FurCape",
+    "Layer": "Cloak",
+    "Material": null
+  },
+  {
+    "Type": "FurSarong",
+    "Layer": "OuterLegs",
+    "Material": null
+  },
+  {
+    "Type": "GargishClothArmsType1",
+    "Layer": "Arms",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothArmsType2",
+    "Layer": "Arms",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothChestType1",
+    "Layer": "InnerTorso",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothChestType2",
+    "Layer": "InnerTorso",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothKiltType1",
+    "Layer": "Gloves",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothKiltType2",
+    "Layer": "Gloves",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothLegsType1",
+    "Layer": "Pants",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishClothLegsType2",
+    "Layer": "Pants",
+    "Material": "Cloth"
+  },
+  {
+    "Type": "GargishLeatherArmsType1",
+    "Layer": "Arms",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherArmsType2",
+    "Layer": "Arms",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherChestType1",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherChestType2",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherKiltType1",
+    "Layer": "Gloves",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherKiltType2",
+    "Layer": "Gloves",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherLegsType1",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherLegsType2",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishLeatherWingArmor",
+    "Layer": "Cloak",
+    "Material": "Leather"
+  },
+  {
+    "Type": "GargishStoneArmsType1",
+    "Layer": "Arms",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneArmsType2",
+    "Layer": "Arms",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneChestType1",
+    "Layer": "InnerTorso",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneChestType2",
+    "Layer": "InnerTorso",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneKiltType1",
+    "Layer": "Gloves",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneKiltType2",
+    "Layer": "Gloves",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneLegsType1",
+    "Layer": "Pants",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStoneLegsType2",
+    "Layer": "Pants",
+    "Material": "Stone"
+  },
+  {
+    "Type": "GargishStuddedArmsType1",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedArmsType2",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedChestType1",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedChestType2",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedKiltType1",
+    "Layer": "Gloves",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedKiltType2",
+    "Layer": "Gloves",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedLegsType1",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishStuddedLegsType2",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "GargishTalwar",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "GargishWoodenShield",
+    "Layer": "TwoHanded",
+    "Material": "Wood"
+  },
+  {
+    "Type": "GemmedCirclet",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "GildedDress",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "GlassStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "GlassSword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "GnarledStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "GoldBeadNecklace",
+    "Layer": "Neck",
+    "Material": null
+  },
+  {
+    "Type": "GoldBracelet",
+    "Layer": "Bracelet",
+    "Material": null
+  },
+  {
+    "Type": "GoldEarrings",
+    "Layer": "Earrings",
+    "Material": null
+  },
+  {
+    "Type": "GoldNecklace",
+    "Layer": "Neck",
+    "Material": null
+  },
+  {
+    "Type": "GoldRing",
+    "Layer": "Ring",
+    "Material": null
+  },
+  {
+    "Type": "Hakama",
+    "Layer": "OuterLegs",
+    "Material": null
+  },
+  {
+    "Type": "HakamaShita",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "Halberd",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "HalfApron",
+    "Layer": "Waist",
+    "Material": null
+  },
+  {
+    "Type": "HammerPick",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Hatchet",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "HeaterShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "HeavyCrossbow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "HeavyPlateJingasa",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Helmet",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "HideChest",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HideFemaleChest",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HideGloves",
+    "Layer": "Gloves",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HideGorget",
+    "Layer": "Neck",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HidePants",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HidePauldrons",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "HornedTribalMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "JesterHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "JesterSuit",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "JinBaori",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "Kama",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Kamishimo",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "Kasa",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "Katana",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Kilt",
+    "Layer": "OuterLegs",
+    "Material": null
+  },
+  {
+    "Type": "Kryss",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Lajatang",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Lance",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "LargeBattleAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "LeafArms",
+    "Layer": "Arms",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeafChest",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeafGloves",
+    "Layer": "Gloves",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeafGorget",
+    "Layer": "Neck",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeafLegs",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeafTonlet",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "Leafblade",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "LeatherArms",
+    "Layer": "Arms",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherBustierArms",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherCap",
+    "Layer": "Helm",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherChest",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherDo",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherGloves",
+    "Layer": "Gloves",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherGorget",
+    "Layer": "Neck",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherHaidate",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherHiroSode",
+    "Layer": "Arms",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherJingasa",
+    "Layer": "Helm",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherLegs",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherMempo",
+    "Layer": "Neck",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherNinjaHood",
+    "Layer": "Helm",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherNinjaJacket",
+    "Layer": "InnerTorso",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherNinjaMitts",
+    "Layer": "Gloves",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherNinjaPants",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherShorts",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherSkirt",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LeatherSuneate",
+    "Layer": "Pants",
+    "Material": "Leather"
+  },
+  {
+    "Type": "LightPlateJingasa",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "LongPants",
+    "Layer": "Pants",
+    "Material": null
+  },
+  {
+    "Type": "Longsword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Mace",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "MagicWand",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "MagicWizardsHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "MagicalShortbow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "MaleElvenRobe",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "MaleKimono",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "Maul",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "MetalKiteShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "MetalShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "MonkRobe",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "Necklace",
+    "Layer": "Neck",
+    "Material": null
+  },
+  {
+    "Type": "NinjaTabi",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "NoDachi",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "NorseHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Nunchaku",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Obi",
+    "Layer": "Waist",
+    "Material": null
+  },
+  {
+    "Type": "OrcHelm",
+    "Layer": "Helm",
+    "Material": "Leather"
+  },
+  {
+    "Type": "OrcishKinMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "OrderShield",
+    "Layer": "TwoHanded",
+    "Material": "Plate"
+  },
+  {
+    "Type": "OrnateAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Pickaxe",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Pike",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Pitchfork",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "PlainDress",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "PlateArms",
+    "Layer": "Arms",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateBattleKabuto",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateChest",
+    "Layer": "InnerTorso",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateDo",
+    "Layer": "InnerTorso",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateGloves",
+    "Layer": "Gloves",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateGorget",
+    "Layer": "Neck",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateHaidate",
+    "Layer": "Pants",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateHatsuburi",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateHiroSode",
+    "Layer": "Arms",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateLegs",
+    "Layer": "Pants",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateMempo",
+    "Layer": "Neck",
+    "Material": "Plate"
+  },
+  {
+    "Type": "PlateSuneate",
+    "Layer": "Pants",
+    "Material": "Plate"
+  },
+  {
+    "Type": "QuarterStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "RadiantScimitar",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "RangerArms",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "RangerChest",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "RangerGloves",
+    "Layer": "Gloves",
+    "Material": "Studded"
+  },
+  {
+    "Type": "RangerGorget",
+    "Layer": "Neck",
+    "Material": "Studded"
+  },
+  {
+    "Type": "RangerLegs",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "RavenHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "RepeatingCrossbow",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "RewardCloak",
+    "Layer": "Cloak",
+    "Material": null
+  },
+  {
+    "Type": "RewardDress",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "RewardRobe",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "RingmailArms",
+    "Layer": "Arms",
+    "Material": "Ringmail"
+  },
+  {
+    "Type": "RingmailChest",
+    "Layer": "InnerTorso",
+    "Material": "Ringmail"
+  },
+  {
+    "Type": "RingmailGloves",
+    "Layer": "Gloves",
+    "Material": "Ringmail"
+  },
+  {
+    "Type": "RingmailLegs",
+    "Layer": "Pants",
+    "Material": "Ringmail"
+  },
+  {
+    "Type": "Robe",
+    "Layer": "OuterTorso",
+    "Material": null
+  },
+  {
+    "Type": "RoyalCirclet",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "RuneBlade",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Sai",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "SamuraiTabi",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "Sandals",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "SavageMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "Scepter",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Scimitar",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Scythe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "SerpentstoneStaff",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "ShepherdsCrook",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Shirt",
+    "Layer": "Shirt",
+    "Material": null
+  },
+  {
+    "Type": "Shoes",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "ShortPants",
+    "Layer": "Pants",
+    "Material": null
+  },
+  {
+    "Type": "ShortSpear",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "SilverBeadNecklace",
+    "Layer": "Neck",
+    "Material": null
+  },
+  {
+    "Type": "SilverBracelet",
+    "Layer": "Bracelet",
+    "Material": null
+  },
+  {
+    "Type": "SilverEarrings",
+    "Layer": "Earrings",
+    "Material": null
+  },
+  {
+    "Type": "SilverNecklace",
+    "Layer": "Neck",
+    "Material": null
+  },
+  {
+    "Type": "SilverRing",
+    "Layer": "Ring",
+    "Material": null
+  },
+  {
+    "Type": "SkinningKnife",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Skirt",
+    "Layer": "OuterLegs",
+    "Material": null
+  },
+  {
+    "Type": "SkullCap",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "SmallPlateJingasa",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "SoulGlaive",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Spear",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "StandardPlateKabuto",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "StrawHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "StuddedArms",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedBustierArms",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedChest",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedDo",
+    "Layer": "InnerTorso",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedGloves",
+    "Layer": "Gloves",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedGorget",
+    "Layer": "Neck",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedHaidate",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedHiroSode",
+    "Layer": "Arms",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedLegs",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedMempo",
+    "Layer": "Neck",
+    "Material": "Studded"
+  },
+  {
+    "Type": "StuddedSuneate",
+    "Layer": "Pants",
+    "Material": "Studded"
+  },
+  {
+    "Type": "Surcoat",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "TallStrawHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "TattsukeHakama",
+    "Layer": "Pants",
+    "Material": null
+  },
+  {
+    "Type": "Tekagi",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Tessen",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "Tetsubo",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "ThighBoots",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "ThinLongsword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "TribalMask",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "TribalSpear",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "TricorneHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "Tunic",
+    "Layer": "MiddleTorso",
+    "Material": null
+  },
+  {
+    "Type": "TwoHandedAxe",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "VikingSword",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "VultureHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "Wakizashi",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "WarAxe",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "WarCleaver",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "WarFork",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "WarHammer",
+    "Layer": "TwoHanded",
+    "Material": null
+  },
+  {
+    "Type": "WarMace",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "Waraji",
+    "Layer": "Shoes",
+    "Material": null
+  },
+  {
+    "Type": "WeddingRing",
+    "Layer": "Ring",
+    "Material": null
+  },
+  {
+    "Type": "WideBrimHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "WildStaff",
+    "Layer": "FirstValid",
+    "Material": null
+  },
+  {
+    "Type": "WingedHelm",
+    "Layer": "Helm",
+    "Material": "Plate"
+  },
+  {
+    "Type": "WizardsHat",
+    "Layer": "Helm",
+    "Material": null
+  },
+  {
+    "Type": "WoodenKiteShield",
+    "Layer": "TwoHanded",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodenShield",
+    "Layer": "TwoHanded",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodlandArms",
+    "Layer": "Arms",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodlandBelt",
+    "Layer": "Waist",
+    "Material": null
+  },
+  {
+    "Type": "WoodlandChest",
+    "Layer": "InnerTorso",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodlandGloves",
+    "Layer": "Gloves",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodlandGorget",
+    "Layer": "Neck",
+    "Material": "Wood"
+  },
+  {
+    "Type": "WoodlandLegs",
+    "Layer": "Pants",
+    "Material": "Wood"
+  },
+  {
+    "Type": "Yumi",
+    "Layer": "TwoHanded",
+    "Material": null
+  }
+]

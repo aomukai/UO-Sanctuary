@@ -1,0 +1,74 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "4d2f5acf-2664-4b96-a09e-f544a20300d1",
+    "name": "Sanctuary Graveyard GraveyardSkeleton",
+    "location": [
+      1386,
+      1494,
+      10
+    ],
+    "map": "Felucca",
+    "count": 3,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "team": 0,
+    "homeRange": 6,
+    "walkingRange": 8,
+    "entries": [
+      {
+        "name": "GraveyardSkeleton",
+        "maxCount": 3,
+        "probability": 100
+      }
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "823ba4f4-f157-4aa0-bbd2-9b17bb9d0592",
+    "name": "Sanctuary Graveyard GraveyardZombie",
+    "location": [
+      1386,
+      1488,
+      10
+    ],
+    "map": "Felucca",
+    "count": 2,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "team": 0,
+    "homeRange": 6,
+    "walkingRange": 8,
+    "entries": [
+      {
+        "name": "GraveyardZombie",
+        "maxCount": 2,
+        "probability": 100
+      }
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "df737c44-9319-4869-a65d-fb2db9fa2906",
+    "name": "Sanctuary Healer (graveyard)",
+    "location": [
+      1380,
+      1504,
+      0
+    ],
+    "map": "Felucca",
+    "count": 1,
+    "minDelay": "00:00:45",
+    "maxDelay": "00:01:15",
+    "team": 0,
+    "homeRange": 0,
+    "walkingRange": 0,
+    "entries": [
+      {
+        "name": "GraveyardHealer",
+        "maxCount": 1,
+        "probability": 100
+      }
+    ]
+  }
+]

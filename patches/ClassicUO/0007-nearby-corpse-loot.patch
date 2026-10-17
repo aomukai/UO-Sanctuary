@@ -1,0 +1,333 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -31,6 +31,7 @@
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
++    <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+   </ItemGroup>
+diff --git a/src/ClassicUO.Client/Game/ClassLootClient.cs b/src/ClassicUO.Client/Game/ClassLootClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/ClassLootClient.cs
+@@ -0,0 +1,109 @@
++using System.Collections.Generic;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class ClassLootClient
++{
++    private static readonly HashSet<uint> _empty = new();
++    private static readonly List<uint> _items = new();
++    private static uint _nextPoll;
++    public static IReadOnlyList<uint> Items => _items;
++    public static bool Open { get; private set; }
++    public static void Reset()
++    {
++        _empty.Clear();
++        _items.Clear();
++        Open = false;
++        _nextPoll = Time.Ticks;
++    }
++    public static bool IsEmpty(uint serial) => ClassCombatClient.Enabled && _empty.Contains(serial);
++    public static void Update()
++    {
++        if (ClassCombatClient.Enabled && unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
++        {
++            _nextPoll = Time.Ticks + LootProtocol.PollMs;
++            Send(LootRequest.Poll);
++        }
++    }
++    public static void OpenCorpse(uint serial) => Send(LootRequest.Open, serial);
++    public static void Take(uint serial) => Send(LootRequest.Take, serial);
++    public static void Close()
++    {
++        if (Open)
++        {
++            Open = false;
++            Send(LootRequest.Close);
++        }
++    }
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining < 9 || reader.ReadUInt8() != LootProtocol.Version)
++        {
++            return;
++        }
++        bool open = reader.ReadUInt8() != 0;
++        uint anchor = reader.ReadUInt32BE();
++        int count = reader.ReadUInt8();
++        int itemCount = reader.ReadUInt16BE();
++        if (count > LootProtocol.MaxCorpses || itemCount > LootProtocol.MaxItems || reader.Remaining != count * 5 + itemCount * 4)
++        {
++            return;
++        }
++        _empty.Clear();
++        for (var i = 0; i < count; i++)
++        {
++            var corpse = reader.ReadUInt32BE();
++            if (reader.ReadUInt8() != 0)
++            {
++                _empty.Add(corpse);
++            }
++        }
++        bool changed = _items.Count != itemCount;
++        var next = new List<uint>(itemCount);
++        for (var i = 0; i < itemCount; i++)
++        {
++            uint serial = reader.ReadUInt32BE();
++            changed |= i >= _items.Count || _items[i] != serial;
++            next.Add(serial);
++        }
++        _items.Clear();
++        _items.AddRange(next);
++        Open = open;
++        var gump = UIManager.GetGump<GridLootGump>(0);
++        if (Open)
++        {
++            if (gump == null && world.Items.Get(anchor) is Item)
++            {
++                gump = new GridLootGump(world, anchor, nearby: true);
++                UIManager.Add(gump);
++                changed = true;
++            }
++            if (changed)
++            {
++                gump?.RequestUpdateContents();
++            }
++        }
++        else
++        {
++            gump?.Dispose();
++        }
++    }
++    private static void Send(LootRequest action, uint serial = 0)
++    {
++        var writer = new StackDataWriter(11);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(11);
++        writer.WriteUInt16BE(LootProtocol.SubCommand);
++        writer.WriteUInt8(LootProtocol.Version);
++        writer.WriteUInt8((byte)action);
++        writer.WriteUInt32BE(serial);
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -49,6 +49,7 @@
+ 
+     public static void Reset()
+     {
++        ClassLootClient.Reset();
+         Enabled = _queried = _pursuing = _rightHeld = false;
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
+@@ -112,6 +113,7 @@
+         {
+             return;
+         }
++        ClassLootClient.Update();
+         var hud = UIManager.GetGump<CombatActionsGump>();
+         if (hud == null)
+         {
+@@ -230,6 +232,12 @@
+             return false;
+         }
+         var obj = SelectedObject.Object;
++        if (obj is Item { IsCorpse: true } corpse)
++        {
++            Stop(world);
++            ClassLootClient.OpenCorpse(corpse.Serial);
++            return true;
++        }
+         if (obj is Mobile mobile)
+         {
+             if (Hostile(mobile))
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/GridLootGump.cs
+@@ -11,6 +11,7 @@
+ using ClassicUO.Resources;
+ using Microsoft.Xna.Framework;
+ using System.Linq;
++using System.Collections.Generic;
+ 
+ namespace ClassicUO.Game.UI.Gumps
+ {
+@@ -26,6 +27,7 @@
+             _buttonNext,
+             _setlootbag;
+         private readonly Item _corpse;
++        private readonly bool _nearby;
+ 
+         private int _currentPage = 1;
+         private readonly Label _currentPageLabel;
+@@ -33,8 +35,9 @@
+         private readonly bool _hideIfEmpty;
+         private int _pagesCount;
+ 
+-        public GridLootGump(World world, uint local) : base(world, local, 0)
+-        {
++        public GridLootGump(World world, uint local, bool nearby = false) : base(world, nearby ? 0u : local, 0)
++        {
++            _nearby = nearby;
+             _corpse = World.Items.Get(local);
+ 
+             if (_corpse == null)
+@@ -86,6 +89,7 @@
+                 IsSelectable = false
+             };
+ 
++            _setlootbag.IsVisible = !_nearby;
+             Add(_setlootbag);
+ 
+             _buttonPrev = new NiceButton(
+@@ -212,9 +216,8 @@
+ 
+             for (int displayGroup = 0; displayGroup < 2; displayGroup++)
+             {
+-                for (LinkedObject i = _corpse.Items; i != null; i = i.Next)
+-                {
+-                    Item it = (Item)i;
++                foreach (Item it in LootItems())
++                {
+ 
+                     if (!ItemBelongsToGroup(it, displayGroup) || !it.IsLootable)
+                     {
+@@ -278,12 +281,36 @@
+ 
+             if (count == 0)
+             {
+-                GameActions.Print(World, ResGumps.CorpseIsEmpty);
+-                Dispose();
++                if (!_nearby)
++                {
++                    GameActions.Print(World, ResGumps.CorpseIsEmpty);
++                    Dispose();
++                }
+             }
+             else if (_hideIfEmpty && !IsVisible)
+             {
+                 IsVisible = true;
++            }
++        }
++
++        private IEnumerable<Item> LootItems()
++        {
++            if (_nearby)
++            {
++                foreach (uint serial in ClassLootClient.Items)
++                {
++                    if (World.Items.Get(serial) is Item item && !item.IsDestroyed)
++                    {
++                        yield return item;
++                    }
++                }
++            }
++            else
++            {
++                for (LinkedObject i = _corpse.Items; i != null; i = i.Next)
++                {
++                    yield return (Item)i;
++                }
+             }
+         }
+ 
+@@ -298,6 +325,10 @@
+ 
+         public override void Dispose()
+         {
++            if (_nearby)
++            {
++                ClassLootClient.Close();
++            }
+             if (_corpse != null)
+             {
+                 if (_corpse == SelectedObject.CorpseObject)
+@@ -344,7 +375,7 @@
+ 
+         public override void Update()
+         {
+-            if (_corpse == null || _corpse.IsDestroyed || _corpse.OnGround && _corpse.Distance > 3)
++            if (_nearby ? !ClassLootClient.Open : _corpse == null || _corpse.IsDestroyed || _corpse.OnGround && _corpse.Distance > 3)
+             {
+                 Dispose();
+ 
+@@ -409,7 +440,7 @@
+ 
+         private string GetCorpseName()
+         {
+-            return _corpse.Name?.Length > 0 ? _corpse.Name : "a corpse";
++            return _nearby ? $"Nearby loot ({ClassLootClient.Items.Count})" : _corpse.Name?.Length > 0 ? _corpse.Name : "a corpse";
+         }
+ 
+         private class GridLootItem : Control
+@@ -451,7 +482,7 @@
+ 
+                 Add(amount);
+ 
+-                amount.IsVisible = amount.IsEnabled = amount.MaxValue > 1;
++                amount.IsVisible = amount.IsEnabled = !_gump._nearby && amount.MaxValue > 1;
+ 
+                 AlphaBlendControl background = new AlphaBlendControl();
+                 background.Y = 15;
+@@ -471,7 +502,14 @@
+                 {
+                     if (e.Button == MouseButtonType.Left)
+                     {
+-                        GameActions.GrabItem(_gump.World, item, (ushort)amount.Value);
++                        if (_gump._nearby)
++                        {
++                            ClassLootClient.Take(item.Serial);
++                        }
++                        else
++                        {
++                            GameActions.GrabItem(_gump.World, item, (ushort)amount.Value);
++                        }
+                     }
+                 };
+ 
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -389,7 +389,12 @@
+                 }
+                 else
+                 {
+-                    if (
++                    if (ClassLootClient.IsEmpty(owner.Serial))
++                    {
++                        color = 0x0386;
++                        ispartialhue = false;
++                    }
++                    else if (
+                         ProfileManager.CurrentProfile.GridLootType > 0
+                         && SelectedObject.CorpseObject == owner
+                     )
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,11 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.LootProtocol.SubCommand)
++            {
++                ClassLootClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.CombatProtocol.SubCommand)
+             {
+                 ClassCombatClient.Receive(world, ref p);

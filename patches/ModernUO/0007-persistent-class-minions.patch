@@ -1,0 +1,58 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -2495,7 +2495,7 @@
+                 NameHue = -1;
+             }
+ 
+-            if (_summoned)
++            if (_summoned && ClassCombatHooks.PersistentMinion?.Invoke(this) != true)
+             {
+                 new UnsummonTimer(this, _summonEnd - Core.Now).Start();
+             }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3555,7 +3555,7 @@
+ 
+         public void AutoStablePets()
+         {
+-            ClassCombatHooks.DismissGuardians?.Invoke(this);
++            ClassCombatHooks.SuspendMinions?.Invoke(this);
+             var allFollowers = _allFollowers;
+ 
+             if (!Core.SE || !(allFollowers?.Count > 0))
+@@ -3566,6 +3566,11 @@
+             foreach (var follower in allFollowers)
+             {
+                 if (follower is not BaseCreature { Controlled: true } pet || pet.ControlMaster == null)
++                {
++                    continue;
++                }
++
++                if (ClassCombatHooks.PersistentMinion?.Invoke(pet) == true)
+                 {
+                     continue;
+                 }
+@@ -3617,6 +3622,7 @@
+ 
+         public void ClaimAutoStabledPets()
+         {
++            ClassCombatHooks.ResumeMinions?.Invoke(this);
+             if (!Core.SE || !(AutoStabled?.Count > 0))
+             {
+                 return;
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,7 +5,9 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public static class ClassCombatHooks
+ {
+-    public static Action<PlayerMobile> DismissGuardians { get; set; }
++    public static Func<BaseCreature, bool> PersistentMinion { get; set; }
++    public static Action<PlayerMobile> SuspendMinions { get; set; }
++    public static Action<PlayerMobile> ResumeMinions { get; set; }
+     public static Func<Mobile, Mobile, bool> Friendly { get; set; }
+     public static Action<PlayerMobile, Container> PlayerDied { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }

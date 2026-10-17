@@ -1,0 +1,89 @@
+[
+  {
+    "$type": "Spawner",
+    "guid": "bd54442b-2a68-421a-b113-f38a66849e77",
+    "name": "Spawner (225)",
+    "location": [
+      1447,
+      1647,
+      10
+    ],
+    "map": "Felucca",
+    "count": 2,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:10:00",
+    "team": 0,
+    "homeRange": 0,
+    "walkingRange": 5,
+    "entries": [
+      {
+        "name": "Armorer",
+        "maxCount": 1,
+        "probability": 100
+      },
+      {
+        "name": "Weaponsmith",
+        "maxCount": 1,
+        "probability": 100
+      }
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "d3757ec1-febf-4562-9ae6-62181a418b8a",
+    "name": "Spawner (225)",
+    "location": [
+      1425,
+      1690,
+      0
+    ],
+    "map": "Felucca",
+    "count": 2,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:10:00",
+    "team": 0,
+    "homeRange": 0,
+    "walkingRange": 5,
+    "entries": [
+      {
+        "name": "Banker",
+        "maxCount": 1,
+        "probability": 100
+      },
+      {
+        "name": "Minter",
+        "maxCount": 1,
+        "probability": 100
+      }
+    ]
+  },
+  {
+    "$type": "Spawner",
+    "guid": "f29e3b5a-eb24-477a-adb1-3d1c7cfda113",
+    "name": "Spawner (225)",
+    "location": [
+      1469,
+      1668,
+      0
+    ],
+    "map": "Felucca",
+    "count": 2,
+    "minDelay": "00:05:00",
+    "maxDelay": "00:10:00",
+    "team": 0,
+    "homeRange": 0,
+    "walkingRange": 5,
+    "entries": [
+      {
+        "name": "Provisioner",
+        "maxCount": 1,
+        "probability": 100
+      },
+      {
+        "name": "Cobbler",
+        "maxCount": 1,
+        "probability": 100
+      }
+    ]
+  }
+]

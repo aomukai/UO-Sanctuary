@@ -1,0 +1,70 @@
+diff --git a/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs b/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs
+index 4fddbf9..bc323fe 100644
+--- a/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs	
++++ b/Projects/UOContent/Engines/Character Creation/CharacterCreatedEvent.cs	
+@@ -24,7 +24,7 @@ public class CharacterCreatedEventArgs(
+ 
+     public byte[] Stats { get; } = stats;
+ 
+-    public CityInfo City { get; } = city;
++    public CityInfo City { get; set; } = city;
+ 
+     public (SkillName, byte)[] Skills { get; } = skills;
+ 
+@@ -42,5 +42,11 @@ public class CharacterCreatedEventArgs(
+ 
+     public int Profession { get; set; } = profession;
+ 
++    public int RequestedProfession { get; } = profession;
++
++    public bool Rejected { get; set; }
++
++    public AccessLevel? AccessLevelOverride { get; set; }
++
+     public Race Race { get; } = race;
+ }
+diff --git a/Projects/UOContent/Engines/Character Creation/CharacterCreation.cs b/Projects/UOContent/Engines/Character Creation/CharacterCreation.cs
+index 7189e38..7cbb4de 100644
+--- a/Projects/UOContent/Engines/Character Creation/CharacterCreation.cs	
++++ b/Projects/UOContent/Engines/Character Creation/CharacterCreation.cs	
+@@ -160,6 +160,9 @@ private static CityInfo[] ConstructAvailableStartingCities()
+     [GeneratedEvent(nameof(CharacterCreatedEvent))]
+     public static partial void CharacterCreatedEvent(CharacterCreatedEventArgs e);
+ 
++    public static event Action<CharacterCreatedEventArgs> Creating;
++    public static event Action<CharacterCreatedEventArgs> Created;
++
+     private static void AddBackpack(this Mobile m)
+     {
+         var pack = m.Backpack;
+@@ -199,6 +202,12 @@ private static Mobile CreateMobile(Account a)
+     [OnEvent(nameof(CharacterCreatedEvent))]
+     private static void OnCharacterCreated(CharacterCreatedEventArgs args)
+     {
++        Creating?.Invoke(args);
++        if (args.Rejected)
++        {
++            return;
++        }
++
+         if (!ProfessionInfo.GetProfession(args.Profession, out var profession))
+         {
+             args.Profession = 0;
+@@ -222,7 +231,7 @@ private static void OnCharacterCreated(CharacterCreatedEventArgs args)
+         args.Mobile = newChar;
+ 
+         newChar.Player = true;
+-        newChar.AccessLevel = args.Account.AccessLevel;
++        newChar.AccessLevel = args.AccessLevelOverride ?? args.Account.AccessLevel;
+         newChar.Female = args.Female;
+         newChar.Hue = newChar.Race.ClipSkinHue(args.Hue & 0x3FFF) | 0x8000;
+         newChar.Hunger = 20;
+@@ -288,6 +297,8 @@ private static void OnCharacterCreated(CharacterCreatedEventArgs args)
+         var city = GetStartLocation(args);
+         newChar.MoveToWorld(city.Location, city.Map);
+ 
++        Created?.Invoke(args);
++
+         logger.Information(
+             "Login: {0}: New character being created (account={1}, character={2}, serial={3}, started.city={4}, started.location={5}, started.map={6})",
+             state,

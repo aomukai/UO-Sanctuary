@@ -1,0 +1,993 @@
+diff --git a/src/ClassicUO.Renderer/PixelPicker.cs b/src/ClassicUO.Renderer/PixelPicker.cs
+--- a/src/ClassicUO.Renderer/PixelPicker.cs
++++ b/src/ClassicUO.Renderer/PixelPicker.cs
+@@ -30,7 +30,7 @@
+             int current = 0;
+             int target = x + y * width;
+             bool inTransparentSpan = true;
+-            while (current < target)
++            while (current <= target)
+             {
+                 int spanLength = ReadIntegerFromData(ref index);
+                 current += spanLength;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -983,6 +983,8 @@
+             r.X = position.X - r.X;
+             r.Y = position.Y - r.Y;
+ 
++            ClassCombatClient.ConsiderSelectionFallback(this, r);
++
+             if (!r.Contains(SelectedObject.TranslatedMousePositionByViewport))
+             {
+                 return false;
+@@ -1005,6 +1007,8 @@
+ 
+             byte animGroupBackup = animGroup;
+             byte animIndexBackup = animIndex;
++            // Inverse mirroring addresses the last source pixel at width - 1.
++            int mirrorPixelOffset = ClassCombatClient.Enabled ? 1 : 0;
+ 
+             SpriteInfo spriteInfo;
+             bool isUop;
+@@ -1049,7 +1053,7 @@
+                                     animIndex,
+                                     isFlipped
+                                         ? x
+-                                            + spriteInfo.UV.Width
++                                            + spriteInfo.UV.Width - mirrorPixelOffset
+                                             - SelectedObject.TranslatedMousePositionByViewport.X
+                                         : SelectedObject.TranslatedMousePositionByViewport.X - x,
+                                     SelectedObject.TranslatedMousePositionByViewport.Y - y
+@@ -1084,7 +1088,7 @@
+                         animIndex,
+                         isFlipped
+                             ? x
+-                                + spriteInfo.UV.Width
++                                + spriteInfo.UV.Width - mirrorPixelOffset
+                                 - SelectedObject.TranslatedMousePositionByViewport.X
+                             : SelectedObject.TranslatedMousePositionByViewport.X - x,
+                         SelectedObject.TranslatedMousePositionByViewport.Y - y
+@@ -1146,7 +1150,7 @@
+                                     animIndex,
+                                     isFlipped
+                                         ? x
+-                                            + spriteInfo.UV.Width
++                                            + spriteInfo.UV.Width - mirrorPixelOffset
+                                             - SelectedObject.TranslatedMousePositionByViewport.X
+                                         : SelectedObject.TranslatedMousePositionByViewport.X - x,
+                                     SelectedObject.TranslatedMousePositionByViewport.Y - y
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -147,6 +147,7 @@
+         public bool EnablePathfind { get; set; }
+         public bool UseShiftToPathfind { get; set; }
+         public bool AlwaysRun { get; set; }
++        public bool DiabloRun { get; set; } = true;
+         public bool AlwaysRunUnlessHidden { get; set; }
+         public bool FastRotation { get; set; }
+         public bool SmoothMovements { get; set; } = true;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -527,7 +527,7 @@
+                 return false;
+             }
+ 
+-            run |= ProfileManager.CurrentProfile.AlwaysRun;
++            run = ClassCombatClient.Enabled ? ClassCombatClient.Running : run || ProfileManager.CurrentProfile.AlwaysRun;
+ 
+             if (SpeedMode >= CharacterSpeedType.CantRun || Stamina <= 1 && !IsDead || IsHidden && ProfileManager.CurrentProfile.AlwaysRunUnlessHidden)
+             {
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -30,6 +30,7 @@
+     <Folder Include="Properties\" />
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
++    <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+   </ItemGroup>
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -0,0 +1,505 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System;
++using System.Collections.Generic;
++using ClassicUO.Configuration;
++using ClassicUO.Game.GameObjects;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.Scenes;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.Input;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class ClassCombatClient
++{
++    private static readonly HashSet<uint> _hostiles = new();
++    private static bool _queried, _pursuing;
++    private static Mobile _selectionFallback;
++    private static uint _sequence, _target, _lastPath;
++    private static ushort _pathX, _pathY;
++    private static bool _rightHeld;
++    private static uint _heldUnit, _nextHoldUpdate;
++    private static CombatAbility _heldAbility;
++    private static bool _groundHeld, _groundGesture;
++    private static bool _attackHeld, _attackGesture;
++    private static uint _nextAttackUpdate;
++    private static CombatAbility _attackAbility;
++    public static bool AttackGesture => _attackGesture;
++    private static uint _nextGroundUpdate;
++    private static int _groundX, _groundY, _groundZ;
++    public static bool GroundGesture => _groundGesture;
++    public static bool Enabled { get; private set; }
++    public static bool Running => ProfileManager.CurrentProfile.DiabloRun;
++    public static void ToggleMovement()
++    {
++        if (Enabled)
++        {
++            ProfileManager.CurrentProfile.DiabloRun = !Running;
++            UpdateCaption();
++            Send(CombatRequest.MovementMode, serial: Running ? 1u : 0u);
++        }
++    }
++    public static CombatAbility Left { get; private set; }
++    public static CombatAbility Right { get; private set; }
++    public static int TeethRank { get; private set; }
++    public static string Caption { get; private set; } = string.Empty;
++
++    public static void Reset()
++    {
++        Enabled = _queried = _pursuing = _rightHeld = false;
++        _heldUnit = 0;
++        _groundHeld = _groundGesture = false;
++        _attackHeld = _attackGesture = false;
++        _sequence = _target = 0;
++        _lastPath = Time.Ticks - 500;
++        _hostiles.Clear();
++        _selectionFallback = null;
++    }
++    public static bool Hostile(Mobile target) => target != null && !target.IsDead && !target.IsDestroyed && _hostiles.Contains(target.Serial);
++
++    public static void BeginSelection() => _selectionFallback = null;
++
++    public static void ConsiderSelectionFallback(Mobile mobile, Microsoft.Xna.Framework.Rectangle bounds)
++    {
++        if (!Enabled || !Hostile(mobile) || mobile.World.TargetManager.IsTargeting
++            || mobile.World.CustomHouseManager != null || Client.Game.UO.GameCursor.ItemHold.Enabled
++            || bounds.Width <= 0 || bounds.Height <= 0)
++        {
++            return;
++        }
++        bounds.Inflate(3, 3);
++        if (!bounds.Contains(SelectedObject.TranslatedMousePositionByViewport))
++        {
++            return;
++        }
++        var previous = _selectionFallback;
++        var depth = mobile.CalculateDepthZ();
++        if (previous == null || depth > previous.CalculateDepthZ()
++            || depth == previous.CalculateDepthZ() && mobile.Serial < previous.Serial)
++        {
++            _selectionFallback = mobile;
++        }
++    }
++
++    public static void FinishSelection()
++    {
++        var fallback = _selectionFallback;
++        _selectionFallback = null;
++        // The normal pixel pass wins for every creature and usable item. Filled
++        // bodies only replace ground/background pixels, with normal wall occlusion.
++        if (!UIManager.IsMouseOverWorld || fallback == null || SelectedObject.Object is Mobile or Item)
++        {
++            return;
++        }
++        if (SelectedObject.Object is not GameObject picked || fallback.CalculateDepthZ() >= picked.CalculateDepthZ())
++        {
++            SelectedObject.Object = fallback;
++        }
++    }
++
++    public static void Update(World world)
++    {
++        if (!_queried)
++        {
++            _queried = true;
++            Send(CombatRequest.Hello);
++            Send(CombatRequest.MovementMode, serial: Running ? 1u : 0u);
++        }
++        if (!Enabled)
++        {
++            return;
++        }
++        var hud = UIManager.GetGump<CombatActionsGump>();
++        if (hud == null)
++        {
++            UIManager.Add(new CombatActionsGump(world));
++        }
++        UpdateAttackHold(world);
++        UpdateRightHold(world);
++        UpdateGroundHold(world);
++        if (Keyboard.Shift)
++        {
++            world.Player.Pathfinder.StopAutoWalk();
++            return;
++        }
++        if (_target == 0)
++        {
++            return;
++        }
++        var enemy = world.Mobiles.Get(_target);
++        if (!Hostile(enemy) || world.Player.IsDead || enemy.Distance > CombatProtocol.SightRange)
++        {
++            Stop(world);
++            return;
++        }
++        int range = Left == CombatAbility.Teeth ? CombatProtocol.TeethRange : CombatProtocol.BasicRange;
++        if (enemy.Distance <= range && Math.Abs(enemy.Z - world.Player.Z) < 16)
++        {
++            if (_pursuing)
++            {
++                world.Player.Pathfinder.StopAutoWalk();
++                _pursuing = false;
++            }
++            return;
++        }
++        if (unchecked((int)(Time.Ticks - _lastPath)) >= 500
++            && (!world.Player.Pathfinder.AutoWalking || enemy.X != _pathX || enemy.Y != _pathY))
++        {
++            _lastPath = Time.Ticks;
++            _pathX = enemy.X;
++            _pathY = enemy.Y;
++            _pursuing = world.Player.Pathfinder.WalkTo(enemy.X, enemy.Y, enemy.Z, range);
++        }
++    }
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining < 14 || reader.ReadUInt8() != CombatProtocol.Version)
++        {
++            return;
++        }
++        var ack = reader.ReadUInt32BE();
++        Left = (CombatAbility)reader.ReadUInt8();
++        Right = (CombatAbility)reader.ReadUInt8();
++        TeethRank = reader.ReadUInt8();
++        var target = reader.ReadUInt32BE();
++        var count = reader.ReadUInt8();
++        var running = reader.ReadUInt8() != 0;
++        if (count > CombatProtocol.MaxHostiles || reader.Remaining != count * 4)
++        {
++            return;
++        }
++        Enabled = true;
++        _hostiles.Clear();
++        for (var i = 0; i < count; i++)
++        {
++            _hostiles.Add(reader.ReadUInt32BE());
++        }
++        if (unchecked((int)(ack - _sequence)) >= 0)
++        {
++            ProfileManager.CurrentProfile.DiabloRun = running;
++            if (_target != target && _pursuing)
++            {
++                world.Player.Pathfinder.StopAutoWalk();
++                _pursuing = false;
++            }
++            _target = target;
++        }
++        UpdateCaption();
++    }
++    private static void UpdateCaption()
++    {
++        var leftName = Left == CombatAbility.BasicAttack ? "Attack" : Left.ToString();
++        var rightName = Right == CombatAbility.Teeth
++            ? TeethRank > 0 ? $"Teeth {TeethRank}" : "Teeth (unavailable)"
++            : Right.ToString();
++        Caption = $"Move: {(Running ? "Run" : "Walk")} (Tab)    Left: {leftName}    Right: {rightName}";
++    }
++    public static void Select(World world, Mobile target)
++    {
++        _rightHeld = _groundHeld = _attackHeld = false;
++        StopMovement(world);
++        _target = 0;
++        _lastPath = Time.Ticks - 500;
++        if (Hostile(target))
++        {
++            world.TargetManager.LastAttack = target.Serial;
++            Send(CombatRequest.Attack, target.Serial);
++        }
++    }
++    private static void StopMovement(World world)
++    {
++        world.Player.Pathfinder.StopAutoWalk();
++        _pursuing = false;
++    }
++    public static void Stop(World world)
++    {
++        _rightHeld = _groundHeld = _attackHeld = false;
++        StopMovement(world);
++        _target = 0;
++        world.TargetManager.LastAttack = 0;
++        Send(CombatRequest.Stop);
++    }
++    public static bool LeftClick(World world)
++    {
++        if (!Enabled || UIManager.IsDragging || Client.Game.UO.GameCursor.ItemHold.Enabled
++            || world.TargetManager.IsTargeting || world.CustomHouseManager != null)
++        {
++            return false;
++        }
++        var obj = SelectedObject.Object;
++        if (obj is Mobile mobile)
++        {
++            if (Hostile(mobile))
++            {
++                Select(world, mobile);
++                return true;
++            }
++            Stop(world);
++            // Keep ordinary single/double click and context-menu interaction for friendlies.
++            return false;
++        }
++        if (obj is Land or Static or Multi)
++        {
++            Stop(world);
++            if (!Keyboard.Shift && obj is GameObject point)
++            {
++                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0);
++            }
++            return true;
++        }
++        return false;
++    }
++    public static bool BeginAttackHold(World world)
++    {
++        if (!Enabled || !Keyboard.Shift || !UIManager.IsMouseOverWorld || UIManager.IsDragging
++            || world.Player.IsDead || world.TargetManager.IsTargeting
++            || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null)
++        {
++            return false;
++        }
++        Stop(world);
++        _attackHeld = _attackGesture = true;
++        _attackAbility = Left;
++        _nextAttackUpdate = Time.Ticks;
++        UpdateAttackHold(world);
++        return true;
++    }
++    public static bool FinishAttackHold()
++    {
++        bool gesture = _attackGesture;
++        _attackGesture = false;
++        EndAttackHold();
++        return gesture;
++    }
++    private static void EndAttackHold()
++    {
++        if (_attackHeld)
++        {
++            _attackHeld = false;
++            Send(CombatRequest.ReleaseAttack);
++        }
++    }
++    private static void UpdateAttackHold(World world)
++    {
++        if (!_attackHeld)
++        {
++            return;
++        }
++        if (!Mouse.LButtonPressed || !Keyboard.Shift || !Client.Game.IsActive || !UIManager.IsMouseOverWorld
++            || world.Player.IsDead || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled
++            || world.CustomHouseManager != null || UIManager.IsDragging || Left != _attackAbility)
++        {
++            // Keep consuming this gesture until mouse-up, even if Shift is released
++            // first. It must never fall through into a chase or a ground path.
++            EndAttackHold();
++            return;
++        }
++        StopMovement(world);
++        if (unchecked((int)(Time.Ticks - _nextAttackUpdate)) >= 0)
++        {
++            _nextAttackUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
++            if (SelectedObject.Object is Mobile enemy && Hostile(enemy))
++            {
++                Send(CombatRequest.HoldAttack, enemy.Serial, _attackAbility, enemy.X, enemy.Y, enemy.Z);
++            }
++            else
++            {
++                SendPointAim(world, CombatRequest.HoldAttack, _attackAbility);
++            }
++        }
++    }
++    public static bool BeginGroundHold(World world)
++    {
++        if (!Enabled || !UIManager.IsMouseOverWorld || world.TargetManager.IsTargeting
++            || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null
++            || SelectedObject.Object is not (Land or Static or Multi))
++        {
++            return false;
++        }
++        Stop(world);
++        _groundHeld = _groundGesture = true;
++        _groundX = _groundY = -1;
++        _nextGroundUpdate = Time.Ticks;
++        UpdateGroundHold(world);
++        return true;
++    }
++    public static bool FinishGroundHold()
++    {
++        bool gesture = _groundGesture;
++        _groundHeld = _groundGesture = false;
++        return gesture;
++    }
++    private static void UpdateGroundHold(World world)
++    {
++        if (!_groundHeld)
++        {
++            return;
++        }
++        if (!Mouse.LButtonPressed)
++        {
++            _groundHeld = false;
++            return;
++        }
++        if (!Client.Game.IsActive || !UIManager.IsMouseOverWorld || world.Player.IsDead
++            || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled)
++        {
++            _groundHeld = false;
++            StopMovement(world);
++            return;
++        }
++        if (Keyboard.Shift)
++        {
++            StopMovement(world);
++            return;
++        }
++        if (unchecked((int)(Time.Ticks - _nextGroundUpdate)) < 0
++            || SelectedObject.Object is not (Land or Static or Multi)
++            || SelectedObject.Object is not GameObject point)
++        {
++            return;
++        }
++        _nextGroundUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
++        if (_groundX != point.X || _groundY != point.Y || _groundZ != point.Z || !world.Player.Pathfinder.AutoWalking)
++        {
++            _groundX = point.X;
++            _groundY = point.Y;
++            _groundZ = point.Z;
++            if (world.Player.X != point.X || world.Player.Y != point.Y || Math.Abs(world.Player.Z - point.Z) >= 16)
++            {
++                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0);
++            }
++        }
++    }
++    public static bool RightClick(World world)
++    {
++        if (!Enabled)
++        {
++            return false;
++        }
++        EndRightHold();
++        EndAttackHold();
++        if (world.TargetManager.IsTargeting)
++        {
++            world.TargetManager.CancelTarget();
++            return true;
++        }
++        if (Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null
++            || Right == CombatAbility.None || Right == CombatAbility.Teeth && TeethRank == 0)
++        {
++            return true;
++        }
++        var obj = SelectedObject.Object;
++        if (obj is Mobile mobile && !Hostile(mobile))
++        {
++            Stop(world);
++            return true;
++        }
++        _groundHeld = false;
++        StopMovement(world);
++        _target = 0;
++        _rightHeld = true;
++        _heldAbility = Right;
++        _heldUnit = obj is Mobile enemy ? enemy.Serial : 0;
++        SendHeldAim(world);
++        _nextHoldUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
++        return true;
++    }
++    public static void EndRightHold()
++    {
++        if (_rightHeld)
++        {
++            _rightHeld = false;
++            _heldUnit = 0;
++            Send(CombatRequest.ReleaseCast);
++        }
++    }
++    private static void UpdateRightHold(World world)
++    {
++        if (!_rightHeld)
++        {
++            return;
++        }
++        if (!Mouse.RButtonPressed || !Client.Game.IsActive || !UIManager.IsMouseOverWorld
++            || world.Player.IsDead || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled
++            || Right != _heldAbility || Right == CombatAbility.Teeth && TeethRank == 0)
++        {
++            EndRightHold();
++            return;
++        }
++        if (unchecked((int)(Time.Ticks - _nextHoldUpdate)) >= 0)
++        {
++            _nextHoldUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
++            SendHeldAim(world);
++        }
++    }
++    private static void SendHeldAim(World world)
++    {
++        if (_heldUnit != 0)
++        {
++            var unit = world.Mobiles.Get(_heldUnit);
++            if (!Hostile(unit))
++            {
++                EndRightHold();
++                return;
++            }
++            Send(CombatRequest.HoldCast, unit.Serial, _heldAbility, unit.X, unit.Y, unit.Z);
++            return;
++        }
++        if (SelectedObject.Object is Mobile friendly && !Hostile(friendly))
++        {
++            EndRightHold();
++            return;
++        }
++        SendPointAim(world, CombatRequest.HoldCast, _heldAbility);
++    }
++    private static void SendPointAim(World world, CombatRequest action, CombatAbility ability)
++    {
++        if (SelectedObject.Object is GameObject point)
++        {
++            Send(action, 0, ability, point.X, point.Y, point.Z);
++            return;
++        }
++        // Empty/undrawn world pixels still specify a direction in the isometric plane.
++        var camera = Client.Game.Scene.Camera;
++        var mouse = camera.MouseToWorldPosition();
++        var center = camera.ScreenToWorld(new Microsoft.Xna.Framework.Point(camera.Bounds.Width / 2, camera.Bounds.Height / 2));
++        var dx = mouse.X - center.X;
++        var dy = mouse.Y - center.Y;
++        var x = Math.Clamp(world.Player.X + (dx + dy) / 44, 0, ushort.MaxValue);
++        var y = Math.Clamp(world.Player.Y + (dy - dx) / 44, 0, ushort.MaxValue);
++        Send(action, 0, ability, (ushort)x, (ushort)y, world.Player.Z);
++    }
++    private static void Send(CombatRequest action, uint serial = 0, CombatAbility ability = CombatAbility.None,
++        ushort x = 0, ushort y = 0, sbyte z = 0)
++    {
++        int length = 11 + (action == CombatRequest.Attack ? 4 : action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack ? 10 : action == CombatRequest.MovementMode ? 1 : 0);
++        var writer = new StackDataWriter(length);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE((ushort)length);
++        writer.WriteUInt16BE(CombatProtocol.SubCommand);
++        writer.WriteUInt8(CombatProtocol.Version);
++        writer.WriteUInt8((byte)action);
++        writer.WriteUInt32BE(++_sequence);
++        if (action == CombatRequest.MovementMode)
++        {
++            writer.WriteUInt8((byte)serial);
++        }
++        else if (action == CombatRequest.Attack)
++        {
++            writer.WriteUInt32BE(serial);
++        }
++        else if (action is CombatRequest.Cast or CombatRequest.HoldCast or CombatRequest.HoldAttack)
++        {
++            writer.WriteUInt8((byte)ability);
++            writer.WriteUInt32BE(serial);
++            writer.WriteUInt16BE(x);
++            writer.WriteUInt16BE(y);
++            writer.WriteUInt8((byte)z);
++        }
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CombatActionsGump.cs
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using ClassicUO.Game.UI.Controls;
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class CombatActionsGump : Gump
++{
++    private readonly Label _actions;
++    private string _caption;
++    public CombatActionsGump(World world) : base(world, 0, 0)
++    {
++        X = 8;
++        Y = 40;
++        CanMove = false;
++        CanCloseWithRightClick = false;
++        AcceptMouseInput = false;
++        Add(_actions = new Label(ClassCombatClient.Caption, true, 0x0481));
++    }
++    public override void Update()
++    {
++        if (_caption != ClassCombatClient.Caption)
++        {
++            _caption = ClassCombatClient.Caption;
++            _actions.Text = _caption;
++        }
++        base.Update();
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameScene.cs b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -95,6 +95,7 @@
+         public override void Load()
+         {
+             base.Load();
++            ClassCombatClient.Reset();
+ 
+             Client.Game.Window.AllowUserResizing = true;
+ 
+@@ -336,6 +337,7 @@
+             Settings.GlobalSettings.IsWindowMaximized = Client.Game.IsWindowMaximized();
+             Client.Game.SetWindowBorderless(false);
+ 
++            ClassCombatClient.Reset();
+             base.Unload();
+         }
+ 
+@@ -752,10 +754,12 @@
+             _world.Update();
+             _animatedStaticsManager.Process();
+             _world.BoatMovingManager.Update();
++            ClassCombatClient.Update(_world);
+             _world.Player.Pathfinder.ProcessAutoWalk();
+             _world.DelayedObjectClickManager.Update();
+ 
+-            if (!MoveCharacterByMouseInput() && !currentProfile.DisableArrowBtn)
++            if (!MoveCharacterByMouseInput() && !currentProfile.DisableArrowBtn
++                && !(ClassCombatClient.Enabled && Keyboard.Shift))
+             {
+                 Direction dir = DirectionHelper.DirectionFromKeyboardArrows(
+                     _flags[0],
+@@ -772,6 +776,7 @@
+ 
+             if (
+                 _followingMode && SerialHelper.IsMobile(_followingTarget) && !_world.Player.Pathfinder.AutoWalking
++                && !(ClassCombatClient.Enabled && Keyboard.Shift)
+             )
+             {
+                 Mobile follow = _world.Mobiles.Get(_followingTarget);
+@@ -954,8 +959,10 @@
+         {
+             batcher.GraphicsDevice.SetRenderTarget(renderTargets.WorldRenderTarget);
+             SelectedObject.Object = null;
++            ClassCombatClient.BeginSelection();
+             Profiler.EnterContext(Profiler.ProfilerContext.RENDER_FRAME_WORLD_PREPARE);
+             FillGameObjectList();
++            ClassCombatClient.FinishSelection();
+ 
+             // Restore previous highlight's original hue before applying new one
+             if (_prevMeshHighlight != null
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -38,6 +38,11 @@
+ 
+         private bool MoveCharacterByMouseInput()
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                _rightMousePressed = _continueRunning = false;
++                return false;
++            }
+             if ((_rightMousePressed || _continueRunning) && _world.InGame) // && !Pathfinder.AutoWalking)
+             {
+                 if (_world.Player.Pathfinder.AutoWalking)
+@@ -335,6 +340,14 @@
+             if (!UIManager.IsMouseOverWorld)
+             {
+                 return false;
++            }
++
++            if (ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world))
++            {
++                _isMouseLeftDown = _isSelectionActive = false;
++                SelectedObject.LastLeftDownObject = null;
++                StopFollowing();
++                return true;
+             }
+ 
+             if (_world.CustomHouseManager != null)
+@@ -361,7 +374,7 @@
+             {
+                 SelectedObject.LastLeftDownObject = SelectedObject.Object;
+ 
+-                if (ProfileManager.CurrentProfile.EnableDragSelect && DragSelectModifierActive())
++                if (!ClassCombatClient.Enabled && ProfileManager.CurrentProfile.EnableDragSelect && DragSelectModifierActive())
+                 {
+                     if (CanDragSelectOnObject(SelectedObject.Object as GameObject))
+                     {
+@@ -381,6 +394,12 @@
+ 
+         private bool OnLeftMouseUp()
+         {
++            if (ClassCombatClient.FinishAttackHold() | ClassCombatClient.FinishGroundHold())
++            {
++                _isMouseLeftDown = _isSelectionActive = false;
++                return true;
++            }
++
+             if (
+                 UIManager.PopupMenu != null
+                 && !UIManager.PopupMenu.Bounds.Contains(Mouse.Position.X, Mouse.Position.Y)
+@@ -417,6 +436,18 @@
+             {
+                 UIManager.KeyboardFocusControl = null;
+                 UIManager.SystemChat.SetFocus();
++            }
++
++            if (ClassCombatClient.Enabled && !_world.TargetManager.IsTargeting
++                && !Client.Game.UO.GameCursor.ItemHold.Enabled)
++            {
++                StopFollowing();
++            }
++            if (ClassCombatClient.LeftClick(_world))
++            {
++                SelectedObject.LastLeftDownObject = null;
++                _world.DelayedObjectClickManager.Clear();
++                return true;
+             }
+ 
+             if (!ProfileManager.CurrentProfile.DisableAutoMove && _rightMousePressed)
+@@ -761,6 +792,23 @@
+                 return false;
+             }
+ 
++            if (ClassCombatClient.AttackGesture || ClassCombatClient.GroundGesture
++                || ClassCombatClient.BeginAttackHold(_world) || ClassCombatClient.BeginGroundHold(_world))
++            {
++                return true;
++            }
++
++            if (ClassCombatClient.Enabled && !_world.TargetManager.IsTargeting
++                && !Client.Game.UO.GameCursor.ItemHold.Enabled)
++            {
++                StopFollowing();
++            }
++            if (ClassCombatClient.LeftClick(_world))
++            {
++                _world.DelayedObjectClickManager.Clear();
++                return true;
++            }
++
+             BaseGameObject obj = SelectedObject.Object;
+ 
+             switch (obj)
+@@ -824,6 +872,13 @@
+                 return false;
+             }
+ 
++            if (ClassCombatClient.RightClick(_world))
++            {
++                _rightMousePressed = _continueRunning = false;
++                StopFollowing();
++                return true;
++            }
++
+             _rightMousePressed = true;
+             _continueRunning = false;
+             StopFollowing();
+@@ -841,6 +896,7 @@
+                 UIManager.ShowGamePopup(null);
+             }
+ 
++            ClassCombatClient.EndRightHold();
+             _rightMousePressed = false;
+ 
+             if (_boatIsMoving)
+@@ -857,6 +913,11 @@
+             if (!UIManager.IsMouseOverWorld)
+             {
+                 return false;
++            }
++
++            if (ClassCombatClient.Enabled)
++            {
++                return true;
+             }
+ 
+             if (ProfileManager.CurrentProfile.EnablePathfind && !_world.Player.Pathfinder.AutoWalking)
+@@ -1143,6 +1204,13 @@
+                 return;
+             }
+ 
++            if (ClassCombatClient.Enabled && keycode == SDL.SDL_Keycode.SDLK_TAB
++                && !Keyboard.Alt && !Keyboard.Ctrl)
++            {
++                ClassCombatClient.ToggleMovement();
++                return;
++            }
++
+             switch (keycode)
+             {
+                 case SDL.SDL_Keycode.SDLK_ESCAPE:
+@@ -1154,7 +1222,7 @@
+ 
+                     break;
+ 
+-                case SDL.SDL_Keycode.SDLK_TAB when !ProfileManager.CurrentProfile.DisableTabBtn:
++                case SDL.SDL_Keycode.SDLK_TAB when !ClassCombatClient.Enabled && !ProfileManager.CurrentProfile.DisableTabBtn:
+ 
+                     if (ProfileManager.CurrentProfile.HoldDownKeyTab)
+                     {
+@@ -1496,6 +1564,7 @@
+             if (
+                 keycode == SDL.SDL_Keycode.SDLK_TAB
+                 && !ProfileManager.CurrentProfile.DisableTabBtn
++                && !ClassCombatClient.Enabled
+             )
+             {
+                 if (ProfileManager.CurrentProfile.HoldDownKeyTab)
+diff --git a/src/ClassicUO.Client/Game/GameActions.cs b/src/ClassicUO.Client/Game/GameActions.cs
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -29,6 +29,10 @@
+ 
+         public static void RequestWarMode(PlayerMobile player, bool war)
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                return;
++            }
+             if (!player.IsDead)
+             {
+                 if (war && ProfileManager.CurrentProfile != null && ProfileManager.CurrentProfile.EnableMusic)
+@@ -261,6 +265,11 @@
+ 
+         public static void Attack(World world, uint serial)
+         {
++            if (ClassCombatClient.Enabled)
++            {
++                ClassCombatClient.Select(world, world.Mobiles.Get(serial));
++                return;
++            }
+             if (ProfileManager.CurrentProfile.EnabledCriminalActionQuery)
+             {
+                 Mobile m = world.Mobiles.Get(serial);
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -37,6 +37,8 @@
+         private string _paperdollTitle;
+         private GumpPic _virtueMenuPic;
+         private Button _warModeBtn;
++        private ClassButton _movementModeBtn;
++        private string _movementCaption;
+ 
+         public PaperDollGump(World world) : base(world, 0, 0)
+         {
+@@ -210,6 +212,12 @@
+                         ButtonAction = ButtonAction.Activate
+                     }
+                 );
++
++                Add(_movementModeBtn = new ClassButton(185, 44 + 27 * 6,
++                    (int)Buttons.MovementToggle, ClassCombatClient.Running ? "RUN" : "WALK")
++                {
++                    IsVisible = false
++                });
+ 
+                 int profileX = 25;
+                 const int SCROLLS_STEP = 14;
+@@ -403,6 +411,22 @@
+                 return;
+             }
+ 
++            if (_warModeBtn != null)
++            {
++                bool classPlayer = ClassCombatClient.Enabled && LocalSerial == World.Player;
++                _warModeBtn.IsVisible = !classPlayer && !_isMinimized;
++                _movementModeBtn.IsVisible = classPlayer && !_isMinimized;
++                string movementCaption = ClassCombatClient.Running ? "RUN" : "WALK";
++                if (_movementCaption != movementCaption)
++                {
++                    _movementCaption = movementCaption;
++                    _movementModeBtn.SetCaption(movementCaption);
++                    _movementModeBtn.SetTooltip(ClassCombatClient.Running
++                        ? "Running: click or press Tab to walk. No defense or blocking during running steps."
++                        : "Walking: click or press Tab to run.");
++                }
++            }
++
+             Mobile mobile = World.Mobiles.Get(LocalSerial);
+ 
+             if (mobile != null && mobile.IsDestroyed)
+@@ -638,6 +662,10 @@
+ 
+                     break;
+ 
++                case Buttons.MovementToggle:
++                    ClassCombatClient.ToggleMovement();
++                    break;
++
+                 case Buttons.PeaceWarToggle:
+                     GameActions.ToggleWarMode(World.Player);
+ 
+@@ -712,9 +740,10 @@
+         private sealed class ClassButton : Control
+         {
+             private readonly int _buttonID;
++            private readonly Label _caption;
+             private bool _pressed;
+ 
+-            public ClassButton(int x, int y, int buttonID)
++            public ClassButton(int x, int y, int buttonID, string text = "CLASS")
+             {
+                 _buttonID = buttonID;
+                 X = x;
+@@ -725,10 +754,19 @@
+                 CanMove = false;
+                 AcceptMouseInput = true;
+                 WantUpdateSize = false;
+-                var caption = new Label("CLASS", false, 0x0481, font: 1);
+-                caption.X = (Width - caption.Width) / 2;
+-                caption.Y = (Height - caption.Height) / 2;
+-                Add(caption);
++                _caption = new Label(text, false, 0x0481, font: 1);
++                _caption.X = (Width - _caption.Width) / 2;
++                _caption.Y = (Height - _caption.Height) / 2;
++                Add(_caption);
++            }
++
++            public void SetCaption(string text)
++            {
++                if (_caption.Text != text)
++                {
++                    _caption.Text = text;
++                    _caption.X = (Width - _caption.Width) / 2;
++                }
+             }
+ 
+             protected override void OnMouseDown(int x, int y, MouseButtonType button)
+@@ -789,6 +827,7 @@
+             Skills,
+             Guild,
+             PeaceWarToggle,
++            MovementToggle,
+             Status
+         }
+ 
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,12 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.CombatProtocol.SubCommand)
++            {
++                ClassCombatClient.Receive(world, ref p);
++                return;
++            }
++
+             switch (cmd)
+             {
+                 case 0:

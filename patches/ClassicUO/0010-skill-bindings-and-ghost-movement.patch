@@ -1,0 +1,199 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -16,8 +16,8 @@
+ internal static class ClassCombatClient
+ {
+     private static readonly HashSet<uint> _hostiles = new();
+-    private static bool _queried, _pursuing;
+-    private static Mobile _selectionFallback;
++    private static bool _queried, _pursuing, _wasDead;
++    private static Entity _selectionFallback;
+     private static uint _sequence, _target, _lastPath;
+     private static ushort _pathX, _pathY;
+     private static bool _rightHeld;
+@@ -106,7 +106,7 @@
+         ClassLootClient.Reset();
+         _animations.Clear();
+         _nextAnimationCleanup = Time.Ticks;
+-        Enabled = _queried = _pursuing = _rightHeld = false;
++        Enabled = _queried = _pursuing = _rightHeld = _wasDead = false;
+         _heldUnit = 0;
+         _groundHeld = _groundGesture = false;
+         _attackHeld = _attackGesture = false;
+@@ -129,6 +129,18 @@
+         {
+             return;
+         }
++        ConsiderBodyFallback(mobile, bounds);
++    }
++    public static void ConsiderCorpseFallback(Item corpse, Microsoft.Xna.Framework.Rectangle bounds)
++    {
++        if (Enabled && corpse.IsCorpse && !corpse.World.TargetManager.IsTargeting
++            && corpse.World.CustomHouseManager == null && !Client.Game.UO.GameCursor.ItemHold.Enabled)
++        {
++            ConsiderBodyFallback(corpse, bounds);
++        }
++    }
++    private static void ConsiderBodyFallback(Entity mobile, Microsoft.Xna.Framework.Rectangle bounds)
++    {
+         bounds.Inflate(3, 3);
+         if (!bounds.Contains(SelectedObject.TranslatedMousePositionByViewport))
+         {
+@@ -171,6 +183,12 @@
+         if (!Enabled)
+         {
+             return;
++        }
++        if (_wasDead != world.Player.IsDead)
++        {
++            _wasDead = world.Player.IsDead;
++            Stop(world);
++            _animations.Remove(world.Player.Serial);
+         }
+         ClassStatsClient.Update();
+         ClassLootClient.Update();
+@@ -259,10 +277,10 @@
+     }
+     private static void UpdateCaption()
+     {
+-        var leftName = Left == CombatAbility.BasicAttack ? "Attack" : Left.ToString();
++        var leftName = CombatProtocol.Label(Left);
+         var rightName = Right == CombatAbility.Teeth
+             ? TeethRank > 0 ? $"Teeth {TeethRank}" : "Teeth (unavailable)"
+-            : Right.ToString();
++            : CombatProtocol.Label(Right);
+         Caption = $"Move: {(Running ? "Run" : "Walk")} (Tab)    Left: {leftName}    Right: {rightName}";
+     }
+     public static void Select(World world, Mobile target)
+@@ -290,6 +308,46 @@
+         world.TargetManager.LastAttack = 0;
+         Send(CombatRequest.Stop);
+     }
++    public static bool TrySkillMacro(World world, string text)
++    {
++        if (!Enabled)
++        {
++            return false;
++        }
++        CombatAbility ability = text.Trim().ToLowerInvariant() switch
++        {
++            "[cast raiseskeleton" => CombatAbility.RaiseSkeleton,
++            "[cast teeth" => CombatAbility.Teeth,
++            "[cast basicattack" => CombatAbility.BasicAttack,
++            _ => CombatAbility.None
++        };
++        if (ability == CombatAbility.None)
++        {
++            return false;
++        }
++        Stop(world);
++        if (ability == CombatAbility.RaiseSkeleton)
++        {
++            SendSummonAim(world, CombatRequest.Cast);
++        }
++        else if (SelectedObject.Object is Mobile target)
++        {
++            if (Hostile(target))
++            {
++                Send(CombatRequest.Cast, target.Serial, ability, target.X, target.Y, target.Z);
++            }
++        }
++        else
++        {
++            SendPointAim(world, CombatRequest.Cast, ability);
++        }
++        return true;
++    }
++    private static void SendSummonAim(World world, CombatRequest action)
++    {
++        Send(action, SelectedObject.Object is Item { IsCorpse: true } corpse ? corpse.Serial : 0,
++            CombatAbility.RaiseSkeleton);
++    }
+     public static bool LeftClick(World world)
+     {
+         if (!Enabled || UIManager.IsDragging || Client.Game.UO.GameCursor.ItemHold.Enabled
+@@ -298,6 +356,13 @@
+             return false;
+         }
+         var obj = SelectedObject.Object;
++        if (Left == CombatAbility.RaiseSkeleton && !world.Player.IsDead
++            && (obj is Item { IsCorpse: true } || obj is Mobile enemy && Hostile(enemy)))
++        {
++            Stop(world);
++            SendSummonAim(world, CombatRequest.HoldAttack);
++            return true;
++        }
+         if (obj is Item { IsCorpse: true } corpse)
+         {
+             Stop(world);
+@@ -375,7 +440,11 @@
+         if (unchecked((int)(Time.Ticks - _nextAttackUpdate)) >= 0)
+         {
+             _nextAttackUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+-            if (SelectedObject.Object is Mobile enemy && Hostile(enemy))
++            if (_attackAbility == CombatAbility.RaiseSkeleton)
++            {
++                SendSummonAim(world, CombatRequest.HoldAttack);
++            }
++            else if (SelectedObject.Object is Mobile enemy && Hostile(enemy))
+             {
+                 Send(CombatRequest.HoldAttack, enemy.Serial, _attackAbility, enemy.X, enemy.Y, enemy.Z);
+             }
+@@ -417,7 +486,7 @@
+             _groundHeld = false;
+             return;
+         }
+-        if (!Client.Game.IsActive || !UIManager.IsMouseOverWorld || world.Player.IsDead
++        if (!Client.Game.IsActive || !UIManager.IsMouseOverWorld
+             || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled)
+         {
+             _groundHeld = false;
+@@ -466,7 +535,7 @@
+             return true;
+         }
+         var obj = SelectedObject.Object;
+-        if (obj is Mobile mobile && !Hostile(mobile))
++        if (obj is Mobile mobile && !Hostile(mobile) && Right != CombatAbility.RaiseSkeleton)
+         {
+             Stop(world);
+             return true;
+@@ -511,6 +580,11 @@
+     }
+     private static void SendHeldAim(World world)
+     {
++        if (_heldAbility == CombatAbility.RaiseSkeleton)
++        {
++            SendSummonAim(world, CombatRequest.HoldCast);
++            return;
++        }
+         if (_heldUnit != 0)
+         {
+             var unit = world.Mobiles.Get(_heldUnit);
+diff --git a/src/ClassicUO.Client/Game/Managers/MacroManager.cs b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/MacroManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/MacroManager.cs
+@@ -417,6 +417,11 @@
+ 
+                     string text = ((MacroObjectString) macro).Text;
+ 
++                    if (macro.Code == MacroType.Say && !string.IsNullOrWhiteSpace(text)
++                        && ClassCombatClient.TrySkillMacro(_world, text))
++                    {
++                        break;
++                    }
+                     if (!string.IsNullOrEmpty(text))
+                     {
+                         MessageType type = MessageType.Regular;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/ItemView.cs
+@@ -648,6 +648,8 @@
+                                     : spriteInfo.Center.X
+                             );
+                         int y = position.Y - (spriteInfo.UV.Height + spriteInfo.Center.Y);
++                        ClassCombatClient.ConsiderCorpseFallback(this,
++                            new Rectangle(x, y, spriteInfo.UV.Width, spriteInfo.UV.Height));
+ 
+                         if (
+                             animations.PixelCheck(

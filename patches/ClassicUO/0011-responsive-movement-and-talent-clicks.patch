@@ -1,0 +1,360 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -33,6 +33,7 @@
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
++    <Compile Include="../../../../shared/ClassGumpProtocol.cs" Link="Game/Data/ClassGumpProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+   </ItemGroup>
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -231,7 +231,7 @@
+             _lastPath = Time.Ticks;
+             _pathX = enemy.X;
+             _pathY = enemy.Y;
+-            _pursuing = world.Player.Pathfinder.WalkTo(enemy.X, enemy.Y, enemy.Z, range);
++            _pursuing = world.Player.Pathfinder.WalkTo(enemy.X, enemy.Y, enemy.Z, range, responsive: true);
+         }
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+@@ -385,7 +385,7 @@
+             Stop(world);
+             if (!Keyboard.Shift && obj is GameObject point)
+             {
+-                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0);
++                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0, responsive: true);
+             }
+             return true;
+         }
+@@ -512,7 +512,7 @@
+             _groundZ = point.Z;
+             if (world.Player.X != point.X || world.Player.Y != point.Y || Math.Abs(world.Player.Z - point.Z) >= 16)
+             {
+-                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0);
++                world.Player.Pathfinder.WalkTo(point.X, point.Y, point.Z, 0, responsive: true);
+             }
+         }
+     }
+diff --git a/src/ClassicUO.Client/Game/Pathfinder.cs b/src/ClassicUO.Client/Game/Pathfinder.cs
+--- a/src/ClassicUO.Client/Game/Pathfinder.cs
++++ b/src/ClassicUO.Client/Game/Pathfinder.cs
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
++using System.Diagnostics;
++using ClassicUO.Utility.Logging;
+ using System.Collections.Generic;
+ using ClassicUO.Configuration;
+ using ClassicUO.Game.Data;
+@@ -15,9 +17,13 @@
+     internal sealed class Pathfinder
+     {
+         private const int PATHFINDER_MAX_NODES = 10000;
++        private const int RESPONSIVE_MAX_NODES = 256;
++        private const int RESPONSIVE_BUDGET_MS = 4;
+         private int _goalNode;
+         private bool _goalFound;
+         private int _activeOpenNodes, _activeCloseNodes, _pathfindDistance;
++        private int _openHighWater, _closedHighWater, _destinationZ;
++        private bool _responsive;
+         private readonly PathNode[] _openList = new PathNode[PATHFINDER_MAX_NODES];
+         private readonly PathNode[] _closedList = new PathNode[PATHFINDER_MAX_NODES];
+         private readonly PathNode[] _path = new PathNode[PATHFINDER_MAX_NODES];
+@@ -641,7 +647,7 @@
+ 
+         private bool DoesNotExistOnOpenList(int x, int y, int z)
+         {
+-            for (int i = 0; i < PATHFINDER_MAX_NODES; i++)
++            for (int i = 0; i < _openHighWater; i++)
+             {
+                 PathNode node = _openList[i];
+ 
+@@ -656,7 +662,7 @@
+ 
+         private bool DoesNotExistOnClosedList(int x, int y, int z)
+         {
+-            for (int i = 0; i < PATHFINDER_MAX_NODES; i++)
++            for (int i = 0; i < _closedHighWater; i++)
+             {
+                 PathNode node = _closedList[i];
+ 
+@@ -692,6 +698,7 @@
+ 
+                             if (!node.Used)
+                             {
++                                _openHighWater = Math.Max(_openHighWater, i + 1);
+                                 node.Used = true;
+                                 node.Direction = direction;
+                                 node.X = x;
+@@ -717,7 +724,7 @@
+                     }
+                     else
+                     {
+-                        for (int i = 0; i < PATHFINDER_MAX_NODES; i++)
++                        for (int i = 0; i < _openHighWater; i++)
+                         {
+                             PathNode node = _openList[i];
+ 
+@@ -755,6 +762,7 @@
+ 
+                     if (!node.Used)
+                     {
++                        _closedHighWater = Math.Max(_closedHighWater, i + 1);
+                         node.Used = true;
+                         node.DistFromGoalCost = parent.DistFromGoalCost;
+                         node.DistFromStartCost = parent.DistFromStartCost;
+@@ -833,7 +841,7 @@
+             int cheapestCost = 9999999;
+             int cheapestNode = -1;
+ 
+-            for (int i = 0; i < PATHFINDER_MAX_NODES; i++)
++            for (int i = 0; i < _openHighWater; i++)
+             {
+                 if (_openList[i].Used)
+                 {
+@@ -865,10 +873,12 @@
+             return result;
+         }
+ 
+-        private bool FindPath(int maxNodes)
++        private bool FindPath(int maxNodes, bool responsive)
+         {
+             int curNode = 0;
+-
++            long started = responsive ? Stopwatch.GetTimestamp() : 0;
++
++            _closedHighWater = 1;
+             _closedList[0].Used = true;
+             _closedList[0].X = _startPoint.X;
+             _closedList[0].Y = _startPoint.Y;
+@@ -888,27 +898,7 @@
+ 
+                 if (_goalFound)
+                 {
+-                    int totalNodes = 0;
+-                    PathNode goalNode = _openList[_goalNode];
+-
+-                    while (goalNode.Parent != null && goalNode != goalNode.Parent)
+-                    {
+-                        goalNode = goalNode.Parent;
+-                        totalNodes++;
+-                    }
+-
+-                    totalNodes++;
+-                    _pathSize = totalNodes;
+-                    goalNode = _openList[_goalNode];
+-
+-                    while (totalNodes != 0)
+-                    {
+-                        totalNodes--;
+-                        _path[totalNodes] = goalNode;
+-                        goalNode = goalNode.Parent;
+-                    }
+-
+-                    break;
++                    return BuildPath(_openList[_goalNode]);
+                 }
+ 
+                 curNode = FindCheapestNode();
+@@ -920,14 +910,81 @@
+ 
+                 if (_activeCloseNodes >= maxNodes)
+                 {
++                    return responsive && BuildPartialPath();
++                }
++                if (responsive && (_activeCloseNodes >= RESPONSIVE_MAX_NODES || Stopwatch.GetElapsedTime(started).TotalMilliseconds >= RESPONSIVE_BUDGET_MS))
++                {
++                    return BuildPartialPath();
++                }
++            }
++
++            return true;
++        }
++
++        private bool BuildPath(PathNode goal)
++        {
++            int count = 0;
++            for (var node = goal; node != null; node = node.Parent)
++            {
++                if (++count > PATHFINDER_MAX_NODES)
++                {
+                     return false;
+                 }
+             }
+-
++            if (count <= 1)
++            {
++                return false;
++            }
++            _pathSize = count;
++            while (goal != null)
++            {
++                _path[--count] = goal;
++                goal = goal.Parent;
++            }
+             return true;
+         }
+ 
+-        public bool WalkTo(int x, int y, int z, int distance)
++        private bool BuildPartialPath()
++        {
++            PathNode best = null;
++            for (int i = 0; i < _openHighWater; i++)
++            {
++                Consider(_openList[i]);
++            }
++            for (int i = 0; i < _closedHighWater; i++)
++            {
++                Consider(_closedList[i]);
++            }
++            return best != null && BuildPath(best);
++
++            void Consider(PathNode node)
++            {
++                if (!node.Used || node.Parent == null || node.DistFromGoalCost >= GetGoalDistCost(_startPoint, 0))
++                {
++                    return;
++                }
++                if (best == null || node.DistFromGoalCost < best.DistFromGoalCost
++                    || node.DistFromGoalCost == best.DistFromGoalCost && node.Cost < best.Cost)
++                {
++                    best = node;
++                }
++            }
++        }
++
++        private static readonly bool TraceMovement = Environment.GetEnvironmentVariable("SANCTUARY_TRACE_MOVEMENT") == "1";
++
++        public bool WalkTo(int x, int y, int z, int distance, bool responsive = false)
++        {
++            long started = TraceMovement ? Stopwatch.GetTimestamp() : 0;
++            bool result = WalkToCore(x, y, z, distance, responsive);
++            if (TraceMovement)
++            {
++                Log.Trace($"Movement path: ms={Stopwatch.GetElapsedTime(started).TotalMilliseconds:F2} nodes={_activeCloseNodes} result={result} responsive={responsive}");
++            }
++            return result;
++        }
++
++        private bool WalkToCore(int x, int y, int z, int distance, bool responsive)
+         {
+             if (_world.Player == null /*|| World.Player.Stamina == 0*/ || _world.Player.IsParalyzed)
+             {
+@@ -972,17 +1029,20 @@
+             _startPoint.Y = playerY;
+             _endPoint.X = x;
+             _endPoint.Y = y;
++            _destinationZ = z;
+             _goalNode = 0;
+             _goalFound = false;
+             _activeOpenNodes = 0;
+             _activeCloseNodes = 0;
++            _openHighWater = _closedHighWater = 0;
+             _pathfindDistance = distance;
+             _pathSize = 0;
+             PathindingCanBeCancelled = true;
+             StopAutoWalk();
++            _responsive = responsive;
+             AutoWalking = true;
+ 
+-            if (FindPath(PATHFINDER_MAX_NODES))
++            if (FindPath(PATHFINDER_MAX_NODES, responsive))
+             {
+                 _pointIndex = 1;
+                 ProcessAutoWalk();
+@@ -1022,6 +1082,15 @@
+                         StopAutoWalk();
+                     }
+                 }
++                else if (_responsive && !_goalFound
++                    && MathHelper.GetDistance(_endPoint, new Point(_world.Player.X, _world.Player.Y)) > _pathfindDistance)
++                {
++                    // Finish queued steps before planning from the player's new position.
++                    if (_world.Player.Walker.StepsCount == 0)
++                    {
++                        WalkTo(_endPoint.X, _endPoint.Y, _destinationZ, _pathfindDistance, responsive: true);
++                    }
++                }
+                 else
+                 {
+                     StopAutoWalk();
+@@ -1032,6 +1101,7 @@
+         public void StopAutoWalk()
+         {
+             AutoWalking = false;
++            _responsive = false;
+             _run = false;
+             _pathSize = 0;
+         }
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs b/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/TalentClickAreas.cs
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System.Collections.Generic;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal static class TalentClickAreas
++{
++    public static void Attach(Gump gump)
++    {
++        if (gump.ServerSerial != Sanctuary.ClassGumpProtocol.Talents)
++        {
++            return;
++        }
++        // Overlay after parsing so the HTML labels cannot intercept card clicks.
++        var buttons = new List<Button>();
++        foreach (var child in gump.Children)
++        {
++            if (child is Button button)
++            {
++                buttons.Add(button);
++            }
++        }
++        foreach (var button in buttons)
++        {
++            int id = button.ButtonID;
++            HitBox area;
++            if (id is >= 100 and < 110)
++            {
++                area = new HitBox(button.X - 3, button.Y - 28, 114, 46, alpha: 0.12f);
++            }
++            else if (id is >= 1000 and < 1010)
++            {
++                area = new HitBox(button.X, button.Y - 3, 188, 30, "Learn this skill for one point", 0.12f);
++            }
++            else
++            {
++                continue;
++            }
++            area.MouseUp += (_, e) =>
++            {
++                if (e.Button == MouseButtonType.Left)
++                {
++                    gump.OnButtonClick(id);
++                }
++            };
++            gump.Add(area, button.Page);
++        }
++    }
++}
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -7133,6 +7133,7 @@
+                 }
+             }
+ 
++            TalentClickAreas.Attach(gump);
+             if (mustBeAdded)
+             {
+                 UIManager.Add(gump);

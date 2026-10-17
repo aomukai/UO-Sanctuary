@@ -1,0 +1,54 @@
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -1093,6 +1093,7 @@
+     public override void OnAdded(IEntity parent)
+     {
+         base.OnAdded(parent);
++        InvalidateProperties();
+ 
+         if (parent is Mobile from)
+         {
+@@ -1108,6 +1109,7 @@
+ 
+     public override void OnRemoved(IEntity parent)
+     {
++        InvalidateProperties();
+         if (parent is not Mobile m)
+         {
+             return;
+@@ -3061,13 +3063,16 @@
+ 
+         list.Add(1061168, $"{MinDamage}\t{MaxDamage}"); // weapon damage ~1_val~ - ~2_val~
+ 
+-        if (Core.ML)
+-        {
+-            list.Add(1061167, $"{Speed}s"); // weapon speed ~1_val~
+-        }
+-        else
+-        {
+-            list.Add(1061167, $"{Speed}");
++        if (ClassCombatHooks.WeaponSpeedProperties?.Invoke(this, list) != true)
++        {
++            if (Core.ML)
++            {
++                list.Add(1061167, $"{Speed}s"); // weapon speed ~1_val~
++            }
++            else
++            {
++                list.Add(1061167, $"{Speed}");
++            }
+         }
+ 
+         if (MaxRange > 1)
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,6 +5,7 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public static class ClassCombatHooks
+ {
++    public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
+     public static Action<PlayerMobile, Direction> Moved { get; set; }
+     public static Func<PlayerMobile, bool> DefenseSuppressed { get; set; }

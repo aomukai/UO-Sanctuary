@@ -1,0 +1,502 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+index c2de090..ff4ba4d 100644
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -28,6 +28,9 @@
+ 
+   <ItemGroup>
+     <Folder Include="Properties\" />
++    <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
++    <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
++    <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharCityGump.cs" />
+   </ItemGroup>
+ 
+   <ItemGroup>
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+index a516ddc..c7b6584 100644
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+@@ -1,203 +1,92 @@
+ ﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
+-using System.Linq;
+-using ClassicUO.Game.Data;
+ using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.Scenes;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Game.UI.Gumps.Login;
+-using ClassicUO.Assets;
+-using ClassicUO.Utility;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps.CharCreation
+ {
+     internal class CharCreationGump : Gump
+     {
+-        private PlayerMobile _character;
+-        private int _cityIndex;
+-        private CharCreationStep _currentStep;
+-        private LoadingGump _loadingGump;
+         private readonly LoginScene _loginScene;
+-        private ProfessionInfo _selectedProfession;
++        private DiabloClass? _selectedClass;
++        private CreateCharAppearanceGump _appearance;
++        private Label _classLabel;
++        private LoadingGump _loadingGump;
+ 
+         public CharCreationGump(World world, LoginScene scene) : base(world, 0, 0)
+         {
+             _loginScene = scene;
+-            Add(new CreateCharAppearanceGump(world), 1);
+-            SetStep(CharCreationStep.Appearence);
++            Width = 640;
++            Height = 480;
++            WantUpdateSize = false;
+             CanCloseWithRightClick = false;
++            CanCloseWithEsc = false;
++            Add(new CreateCharProfessionGump(world), 1);
++            ChangePage(1);
+         }
+ 
+-        internal static int _skillsCount => Client.Game.UO.Version >= ClientVersion.CV_70160 ? 4 : 3;
+-
+-        public void SetCharacter(PlayerMobile character)
++        public void SetClass(DiabloClass characterClass)
+         {
+-            _character = character;
+-            SetStep(CharCreationStep.ChooseProfession);
+-        }
++            if (!DiabloClasses.TryFromWire((int)characterClass, out _))
++            {
++                return;
++            }
+ 
+-        public void SetAttributes(bool force = false)
+-        {
+-            SetStep(_selectedProfession.DescriptionIndex >= 0 || force ? CharCreationStep.ChooseCity : CharCreationStep.ChooseTrade);
+-        }
++            _selectedClass = characterClass;
++            if (_appearance == null)
++            {
++                Add(_appearance = new CreateCharAppearanceGump(World), 2);
++                Add(_classLabel = new Label("", true, 0x0481, font: 1)
++                {
++                    X = 250, Y = 108, AcceptMouseInput = false
++                }, 2);
++            }
+ 
+-        public void SetCity(int cityIndex)
+-        {
+-            _cityIndex = cityIndex;
++            _classLabel.Text = $"Level 1 {characterClass}";
++            ChangePage(2);
+         }
+ 
+-        public void SetProfession(ProfessionInfo info)
++        public void SetCharacter(PlayerMobile character)
+         {
+-            for (int i = 0; i < _skillsCount; i++)
++            if (_selectedClass == null)
+             {
+-                int skillIndex = info.SkillDefVal[i, 0];
+-
+-                if (skillIndex >= _character.Skills.Length)
+-                {
+-                    continue;
+-                }
+-
+-                if ((World.ClientFeatures.Flags & CharacterListFlags.CLF_SAMURAI_NINJA) == 0 && (skillIndex == 52 || skillIndex == 53))
+-                {
+-                    // reset skills if needed
+-                    for (int k = 0; k < i; k++)
+-                    {
+-                        Skill skill = _character.Skills[info.SkillDefVal[k, 0]];
+-                        skill.ValueFixed = 0;
+-                        skill.BaseFixed = 0;
+-                        skill.CapFixed = 0;
+-                        skill.Lock = Lock.Locked;
+-                    }
+-
+-                    MessageBoxGump messageBox = new MessageBoxGump
+-                    (
+-                        World,
+-                        400,
+-                        300,
+-                        Client.Game.UO.FileManager.Clilocs.GetString(1063016),
+-                        null,
+-                        true
+-                    )
+-                    {
+-                        X = 470 / 2 - 400 / 2 + 100,
+-                        Y = 372 / 2 - 300 / 2 + 20,
+-                        CanMove = false
+-                    };
+-
+-                    UIManager.Add(messageBox);
+-
+-                    return;
+-                }
+-
+-                Skill skill2 = _character.Skills[skillIndex];
+-                skill2.ValueFixed = (ushort) info.SkillDefVal[i, 1];
+-                skill2.BaseFixed = 0;
+-                skill2.CapFixed = 0;
+-                skill2.Lock = Lock.Locked;
++                ChangePage(1);
++                return;
+             }
+ 
+-            _selectedProfession = info;
+-            _character.Strength = (ushort) _selectedProfession.StatsVal[0];
+-            _character.Intelligence = (ushort) _selectedProfession.StatsVal[1];
+-            _character.Dexterity = (ushort) _selectedProfession.StatsVal[2];
+-
+-            SetAttributes();
+-
+-            SetStep(_selectedProfession.DescriptionIndex > 0 ? CharCreationStep.ChooseCity : CharCreationStep.ChooseTrade);
+-        }
++            // Class progression is authoritative on the server; no UO skill allocation is sent.
++            character.Strength = character.Dexterity = character.Intelligence = 30;
++            foreach (var skill in character.Skills)
++            {
++                skill.ValueFixed = 0;
++                skill.BaseFixed = 0;
++            }
+ 
+-        public void CreateCharacter(byte profession)
+-        {
+-            _loginScene.CreateCharacter(_character, _cityIndex, profession);
++            _loginScene.CreateCharacter(character, 0, (byte)_selectedClass.Value);
+         }
+ 
+         public void StepBack(int steps = 1)
+         {
+-            if (_currentStep == CharCreationStep.Appearence)
++            if (ActivePage == 2)
+             {
+-                _loginScene.StepBack();
++                ChangePage(1);
+             }
+             else
+             {
+-                SetStep(_currentStep - steps);
++                _loginScene.StepBack();
+             }
+         }
+ 
+         public void ShowMessage(string message)
+         {
+             int currentPage = ActivePage;
+-
+-            if (_loadingGump != null)
+-            {
+-                Remove(_loadingGump);
+-            }
+-
+-            Add(_loadingGump = new LoadingGump(World, message, LoginButtons.OK, a => ChangePage(currentPage)), 4);
+-            ChangePage(4);
+-        }
+-
+-        private void SetStep(CharCreationStep step)
+-        {
+-            _currentStep = step;
+-
+-            switch (step)
+-            {
+-                default:
+-                case CharCreationStep.Appearence:
+-                    ChangePage(1);
+-
+-                    break;
+-
+-                case CharCreationStep.ChooseProfession:
+-                    Control existing = Children.FirstOrDefault(page => page.Page == 2);
+-
+-                    if (existing != null)
+-                    {
+-                        Remove(existing);
+-                    }
+-
+-                    Add(new CreateCharProfessionGump(World), 2);
+-
+-                    ChangePage(2);
+-
+-                    break;
+-
+-                case CharCreationStep.ChooseTrade:
+-                    existing = Children.FirstOrDefault(page => page.Page == 3);
+-
+-                    if (existing != null)
+-                    {
+-                        Remove(existing);
+-                    }
+-
+-                    Add(new CreateCharTradeGump(World, _character, _selectedProfession), 3);
+-                    ChangePage(3);
+-
+-                    break;
+-
+-                case CharCreationStep.ChooseCity:
+-                    existing = Children.FirstOrDefault(page => page.Page == 4);
+-
+-                    if (existing != null)
+-                    {
+-                        Remove(existing);
+-                    }
+-
+-                    Add(new CreateCharSelectionCityGump(World, (byte) _selectedProfession.DescriptionIndex, _loginScene), 4);
+-
+-                    ChangePage(4);
+-
+-                    break;
+-            }
+-        }
+-
+-        private enum CharCreationStep
+-        {
+-            Appearence = 0,
+-            ChooseProfession = 1,
+-            ChooseTrade = 2,
+-            ChooseCity = 3
++            _loadingGump?.Dispose();
++            Add(_loadingGump = new LoadingGump(World, message, LoginButtons.OK, _ => ChangePage(currentPage)), 3);
++            ChangePage(3);
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+index 11a7ccc..72d7c71 100644
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+@@ -1,180 +1,91 @@
+ ﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+-using ClassicUO.Configuration;
+-using System.Collections.Generic;
+ using ClassicUO.Game.Managers;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Input;
+-using ClassicUO.Assets;
++using Sanctuary;
+ 
+ namespace ClassicUO.Game.UI.Gumps.CharCreation
+ {
+     internal class CreateCharProfessionGump : Gump
+     {
+-        private readonly ProfessionInfo _Parent;
+-
+-        public CreateCharProfessionGump(World world, ProfessionInfo parent = null) : base(world, 0, 0)
++        public CreateCharProfessionGump(World world) : base(world, 0, 0)
+         {
+-            _Parent = parent;
+-
+-            if (parent == null || !Client.Game.UO.FileManager.Professions.Professions.TryGetValue(parent, out List<ProfessionInfo> professions) || professions == null)
+-            {
+-                professions = new List<ProfessionInfo>(Client.Game.UO.FileManager.Professions.Professions.Keys);
+-            }
+-
+-            /* Build the gump */
+-            Add
+-            (
+-                new ResizePic(2600)
+-                {
+-                    X = 100,
+-                    Y = 80,
+-                    Width = 470,
+-                    Height = 372
+-                }
+-            );
+-
++            CanMove = false;
++            CanCloseWithRightClick = false;
++            CanCloseWithEsc = false;
++            Add(new ResizePic(2600) { X = 100, Y = 80, Width = 470, Height = 372 });
+             Add(new GumpPic(291, 42, 0x0589, 0));
+             Add(new GumpPic(214, 58, 0x058B, 0));
+             Add(new GumpPic(300, 51, 0x15A9, 0));
+-
+-            ClilocLoader localization = Client.Game.UO.FileManager.Clilocs;
+-
+-            bool isAsianLang = string.Compare(Settings.GlobalSettings.Language, "CHT", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                string.Compare(Settings.GlobalSettings.Language, "KOR", StringComparison.InvariantCultureIgnoreCase) == 0 ||
+-                string.Compare(Settings.GlobalSettings.Language, "JPN", StringComparison.InvariantCultureIgnoreCase) == 0;
+-
+-            bool unicode = isAsianLang;
+-            byte font = (byte)(isAsianLang ? 1 : 2);
+-            ushort hue = (ushort)(isAsianLang ? 0xFFFF : 0x0386);
+-
+-            Add
+-            (
+-                new Label(localization.GetString(3000326, "Choose a Trade for Your Character"), unicode, hue, font: font)
+-                {
+-                    X = 158,
+-                    Y = 132
+-                }
+-            );
+-
+-            for (int i = 0; i < professions.Count; i++)
++            Add(new Label("Choose Your Class", true, 0, font: 1) { X = 158, Y = 125 });
++            Add(new Label("Begin at level 1. Appearance comes next.", true, 0, font: 1)
+             {
+-                int cx = i % 2;
+-                int cy = i >> 1;
+-
+-                Add
+-                (
+-                    new ProfessionInfoGump(professions[i])
+-                    {
+-                        X = 145 + cx * 195,
+-                        Y = 168 + cy * 70,
+-
+-                        Selected = SelectProfession
+-                    }
+-                );
+-            }
++                X = 145, Y = 151
++            });
+ 
+-            Add
+-            (
+-                new Button((int) Buttons.Prev, 0x15A1, 0x15A3, 0x15A2)
+-                {
+-                    X = 586,
+-                    Y = 445,
+-                    ButtonAction = ButtonAction.Activate
+-                }
+-            );
+-        }
+-
+-        public void SelectProfession(ProfessionInfo info)
+-        {
+-            if (info.Type == ProfessionLoader.PROF_TYPE.CATEGORY && Client.Game.UO.FileManager.Professions.Professions.TryGetValue(info, out List<ProfessionInfo> list) && list != null)
++            DiabloClass[] classes = Enum.GetValues<DiabloClass>();
++            for (int i = 0; i < classes.Length; i++)
+             {
+-                Parent.Add(new CreateCharProfessionGump(World, info));
+-                Parent.Remove(this);
++                Add(new ClassButton(classes[i]) { X = 145 + i % 2 * 195, Y = 185 + i / 2 * 55 });
+             }
+-            else
+-            {
+-                CharCreationGump charCreationGump = UIManager.GetGump<CharCreationGump>();
+ 
+-                charCreationGump?.SetProfession(info);
+-            }
++            Add(new Button(0, 0x15A1, 0x15A3, 0x15A2)
++            {
++                X = 586, Y = 445, ButtonAction = ButtonAction.Activate
++            });
+         }
+ 
+         public override void OnButtonClick(int buttonID)
+         {
+-            switch ((Buttons) buttonID)
++            if (buttonID == 0)
+             {
+-                case Buttons.Prev:
+-
+-                {
+-                    if (_Parent != null && _Parent.TopLevel)
+-                    {
+-                        Parent.Add(new CreateCharProfessionGump(World));
+-                        Parent.Remove(this);
+-                    }
+-                    else
+-                    {
+-                        Parent.Remove(this);
+-                        CharCreationGump charCreationGump = UIManager.GetGump<CharCreationGump>();
+-                        charCreationGump?.StepBack();
+-                    }
+-
+-                    break;
+-                }
++                UIManager.GetGump<CharCreationGump>()?.StepBack();
+             }
+-
+-            base.OnButtonClick(buttonID);
+-        }
+-
+-        private enum Buttons
+-        {
+-            Prev
+         }
+     }
+ 
+-    internal class ProfessionInfoGump : Control
++    internal class ClassButton : Control
+     {
+-        private readonly ProfessionInfo _info;
++        private readonly DiabloClass _characterClass;
+ 
+-        public ProfessionInfoGump(ProfessionInfo info)
++        public ClassButton(DiabloClass characterClass)
+         {
+-            _info = info;
+-
+-            ClilocLoader localization = Client.Game.UO.FileManager.Clilocs;
+-
+-            ResizePic background = new ResizePic(3000)
++            _characterClass = characterClass;
++            Width = 175;
++            Height = 48;
++            CanMove = false;
++            AcceptMouseInput = true;
++            Add(new ResizePic(3000) { Width = 175, Height = 48, AcceptMouseInput = false });
++            Add(new Label(characterClass.ToString(), true, 0, font: 1)
++            {
++                X = 10, Y = 7, AcceptMouseInput = false
++            });
++            string role = characterClass switch
+             {
+-                Width = 175,
+-                Height = 34
++                DiabloClass.Amazon => "Bows and javelins",
++                DiabloClass.Sorceress => "Elemental magic",
++                DiabloClass.Necromancer => "Summons and curses",
++                DiabloClass.Paladin => "Holy combat and auras",
++                DiabloClass.Barbarian => "Melee and warcries",
++                DiabloClass.Druid => "Nature and shapeshifting",
++                DiabloClass.Assassin => "Martial arts and traps",
++                _ => ""
+             };
+-
+-            background.SetTooltip(localization.GetString(info.Description), 250);
+-
+-            Add(background);
+-
+-            Add
+-            (
+-                new Label(localization.GetString(info.Localization), true, 0x00, font: 1)
+-                {
+-                    X = 7,
+-                    Y = 8
+-                }
+-            );
+-
+-            Add(new GumpPic(121, -12, info.Graphic, 0));
++            Add(new Label(role, true, 0x0386, font: 1)
++            {
++                X = 10, Y = 27, AcceptMouseInput = false
++            });
+         }
+ 
+-        public Action<ProfessionInfo> Selected;
+-
+         protected override void OnMouseUp(int x, int y, MouseButtonType button)
+         {
+             base.OnMouseUp(x, y, button);
+-
+             if (button == MouseButtonType.Left)
+             {
+-                Selected?.Invoke(_info);
++                UIManager.GetGump<CharCreationGump>()?.SetClass(_characterClass);
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
