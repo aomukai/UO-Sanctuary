@@ -90,6 +90,7 @@ public static class CreationChecks
     private static void Create()
     {
         FoundationChecks.Check();
+        OriginChecks.Check();
         GearChecks.Check();
         var serials = new List<uint>();
         var account = new Account("creation-check", Guid.NewGuid().ToString("N")) { AccessLevel = AccessLevel.Owner };
@@ -125,6 +126,7 @@ public static class CreationChecks
 
     private static void Reload()
     {
+        OriginChecks.Reload();
         GearChecks.Reload();
         var serials = JsonSerializer.Deserialize<uint[]>(File.ReadAllText(Manifest));
         var classes = Enum.GetValues<DiabloClass>();

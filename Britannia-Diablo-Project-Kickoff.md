@@ -118,20 +118,52 @@ Convert all supported equipment to explicit normal D2 base analogues and enforce
 
 Disable all monster death loot for now, including gold and equipment; design drop tables later. Preserve player and pet belongings and continue XP rewards. Future monster-created magic/rare gear uses monster level as item level, source base quality/magic level to derive affix level, slot/type eligibility, rarity caps, source roll ranges and character requirements. These gates are independent of sockets. Persist selected affix IDs and values, and enable only effects that are fully implemented. Example: gloves can roll IAS, boots cannot; magic-only high tiers can exceed rare ceilings.
 
-The foundation pass covers normal equipment bases only. Exceptional and elite base tiers, uniques, and actual socket ceilings come later. Every supported UO equipment type must have a catalog entry and category; named artifacts and rewards must not accidentally enter the normal base drop pool. Keep a nullable `maxSockets` field on every entry until our own limits are decided. UO crafted Exceptional quality is a separate concept from a Diablo exceptional base tier.
+The current runtime covers normal equipment bases only. For direct D2 counterparts, extend exceptional and elite tiers using the actual per-base records: they are distinct damage/defence, requirement, quality-level and sometimes speed profiles, not a universal percentage bonus. For UO gear without a direct counterpart, choose a comparable combat family and explicitly author any adjustments to damage, speed, requirements and tier progression within that family's power budget. D2 is the numeric baseline; the item rosters do not need a one-to-one match. The researched comparison is in [the gear tier reference](docs/gear-tiers.md). Uniques and actual socket ceilings come later. Every supported UO equipment type must have a catalog entry and category; named artifacts and rewards must not accidentally enter the normal base drop pool. Keep a nullable `maxSockets` field on every entry until our own limits are decided; vendor-origin equipment will explicitly override its possible sockets to zero. UO crafted Exceptional quality is a separate concept from a Diablo exceptional base tier.
 
 Classify weapons into swords, axes, maces, polearms, spears, daggers, bows, crossbows, throwing weapons, staves, wands, scepters, and claws where appropriate. Armour and shields have light, medium, or heavy weight classes. Light has no running penalty, medium a small penalty, heavy a larger one. The initial implementation uses 0%, 5%, and 10%; only the canonical body armour contributes its weight penalty, then add the shield's penalty. These are editable project rules. Do not multiply an entire Diablo body-armour penalty by the number of UO armour pieces.
 
+### Regional gear vendors — future design goal
+
+Gear vendors will sell white (normal rarity) and blue (magic rarity) equipment, using normal and exceptional base tiers only; elite bases will not be vendor stock. Normal bases around stock progression levels 1–40 and exceptional around 41–70 are tentative project bands, not D2's character requirements or confirmed cutoffs. There are no acts; town and regional assortments supply the progression that act vendors would otherwise provide. Do not build these vendors yet. Stock generation, prices, base availability and the complete town specialisation matrix need a later design pass. The town ideas below are provisional and do not settle where each tier or family will be sold.
+
+| Town | Intended stock progression | Assortment direction |
+| --- | --- | --- |
+| Cove and Vesper | Levels 1–10 | Basic equipment |
+| Britain | Levels 1–50, later | Broad general equipment |
+| Moonglow | Up to level 70 | Caster-oriented equipment, including staves, wands and daggers |
+| Skara Brae | Up to level 70 | Candidate physical equipment specialisation; exact weapon families remain open |
+| Trinsic | Ceiling to be decided | Tank-oriented equipment, including heavy armour and large shields |
+| Serpent's Hold | Ceiling to be decided | Candidate Barbarian-oriented assortment |
+| Yew | Ceiling to be decided | Candidate higher-level bow selection |
+
+These are equipment-family specialisations, not class-locked shops or a decision to introduce class-specific bases. Basic caster weapons remain available everywhere; Moonglow's distinction is extending that selection to higher levels. Apply the same principle to other regional specialities. Level bands describe intended stock progression; define base selection and generated item levels separately from affix levels and character equip requirements. A shop's level-70 ceiling does not mean every item requires a level-70 character.
+
+Restock every 30 minutes. Do not reroll or replace the offers visible to a player while that player's vendor menu remains open; show the refreshed assortment after they close and reopen it. Define shared stock, purchase validation and interaction between players with open menus in the later vendor design so a refresh cannot expose inconsistent offers.
+
+### Item origin and upgrade eligibility — future rules
+
+Vendor equipment is final as sold: vendor whites cannot be imbued, vendor whites and blues cannot receive sockets, and vendor items cannot be upgraded to another base tier. Vendor-origin items have zero possible sockets even if the same base type permits sockets when dropped or crafted. This origin restriction is independent of rarity, item level, current socket count and the base type's eventual socket maximum.
+
+Only dropped and crafted equipment is eligible for Imbuing and Tinkering socket attempts. Every item—not only equipment—now has its own persisted `Item.Origin`: `Vendor`, `Drop` or `Crafted`. Stock vendor purchases and standard/custom crafting construction choose the origin at creation. Trading, resale, renaming, moving containers or recovering an item from a corpse do not change that origin. Splits and copies inherit it; stacks of different origins cannot merge. Items created outside vendor/craft factories default to `Drop`, including starter/world items. Existing test-world items also default to `Drop`, as explicitly accepted for the disposable test population. Origin storage and creation tagging are implemented; vendor upgrade restrictions and the profession actions still need their future gameplay implementations.
+
+### Amazon weapon baselines — later implementation
+
+Investigate repurposing UO spears for javelins. Javelins need separately authored melee and thrown damage and attack-speed profiles, with the action mode choosing the appropriate values. The existing D2 reference bases retain separate melee and missile damage fields; they do not yet implement switching modes or separate action timings. Exact UO art, ammunition/stack behaviour and animations remain later work. Keep the baselines available without building the weapon system or fixing town assortments now.
+
 ### Socketing
 
-- Looted gear starts without sockets in the proposed system.
-- Tinkering adds one socket per attempt, up to the item's allowed maximum.
+- Dropped gear starts without sockets in the proposed system. Vendor equipment has zero possible sockets and is ineligible for socket attempts.
+- Tinkering gambles on adding one additional socket per attempt to eligible dropped or crafted gear, up to that item type's allowed maximum.
 - The intended success ceiling is about 10% at 100 skill; failure destroys the item.
 - Successive sockets may become harder. The relationship to skill 120 is not settled; do not silently raise the intended low success ceiling.
 - This is deliberately a high-risk improvement minigame and item sink. Do not replace it with a single roll that grants all sockets.
 - For scale: three consecutive independent successes at 10% each have probability 0.1%. That harshness was discussed and intentional, though the live economy needs tuning.
 
-Crafted whites may have a chance to start with sockets at crafting skill 100, with additional durability at 120. These are promising candidate milestones, not final probabilities. Starting sockets can make crafted bases desirable without overwhelming loot. Preserve material bonuses and existing sockets when imbuing a white base into a rare.
+Crafted whites may have a chance to start with sockets at crafting skill 100, with additional durability at 120. These are promising candidate milestones, not final probabilities. Starting sockets can make crafted bases desirable without overwhelming loot. Preserve material bonuses and existing sockets when imbuing an eligible white base into blue or yellow gear.
+
+### Imbuing
+
+Imbuing eligible dropped or crafted white bases is a gamble that produces blue (magic) or yellow (rare) equipment. Randomly choose rarity and then legal affixes and values under the existing item-level, base/type, group and rarity rules. A 75% blue / 25% yellow split is a tuning candidate, not a final probability. This replaces the earlier white-to-rare-only direction. Vendor whites are ineligible. Resources, failure behaviour, required skill, treatment of existing non-affix base properties and any repeat attempts need a later detailed design; the initial input is a white base, not an unrestricted reroll of an existing blue or yellow item.
 
 ### Gems and runes
 
@@ -156,7 +188,7 @@ The paperdoll’s Skills button becomes **Class**, opening the selected class’
 | Blacksmithing | Metal armour and melee weapons; appropriate repairs |
 | Bowcraft and Fletching | Bows and shields; appropriate repairs |
 | Tailoring | Light armour; appropriate repairs |
-| Imbuing | Convert white bases into rares |
+| Imbuing | Gamble eligible dropped/crafted white bases into magic or rare gear |
 | Tinkering | Destructive socket attempts and charged chest keys |
 | Inscription | Create runes from charged moulds dropped in PvE |
 | Carpentry | Housing furniture and decoration |

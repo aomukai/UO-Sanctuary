@@ -49,6 +49,14 @@ Running penalties are **0% light, 5% medium, 10% heavy**, counted for body armou
 
 **Monster drops are disabled globally**, including gold, equipment and pre-existing packed loot on wild creatures. Corpses remain available for summoning and harvesting; player corpses and controlled-pet belongings are preserved. XP continues normally. Future loot tables must call `GearProfiles.FromMonster` with the killed monster's level as item level, then persist the resulting roll. There are no rarity drop chances yet.
 
+### Item origin
+
+Every item has a read-only `Item.Origin` field (`Drop`, `Vendor`, `Crafted`) stored in base Item save format v12, independently of equipment rolls. This applies to resources and consumables as well as gear. `ItemOrigins.Create(origin, factory)` scopes synchronous construction on the game loop, including nested item creation, and restores the previous origin even on failure. Stock vendor purchases use Vendor; both standard crafting completion paths and custom craft constructors use Crafted. New ordinary items and existing v11 test-world items default to Drop. Treating the old test population as Drop was explicitly accepted; no historical provenance recovery or reset is attempted.
+
+Transfers, resale, renaming and gear conversion preserve origin. Lift splits and duplication copy it. Different origins cannot merge into one stack, so a vendor stack cannot lose its restriction through stacking. Origin survives a full world save/restart; it is not inferred later from the current owner, container, rarity or UO `PlayerConstructed` flag. Future item-producing systems must use the matching creation factory. Player-made replacement items retain Crafted origin through trade; buying back an existing item preserves its original origin.
+
+The origin field and source tagging are active. Tinkering/Imbuing and future vendor stock are still later work; their upgrade checks must enforce the root design's vendor restrictions.
+
 ## Affixes and rarity
 
 `affixes.json` preserves **967 spawnable, nonzero-frequency prefix/suffix records**, with stable source row IDs, allowed/excluded item types, affix levels and maximum levels, required levels, class restrictions, weights, groups, and modifier parameters. `item-types.json` supplies the inherited type graph; for example a sword also qualifies as a melee weapon and weapon. Two source typos are normalized explicitly: trailing space in `ring `, and `staff` → `staf`. The level-110 source affix is retained as unreachable reference data, not clamped down to make it available.

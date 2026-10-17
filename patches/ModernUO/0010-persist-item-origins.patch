@@ -1,0 +1,194 @@
+diff --git a/Projects/Server/Items/Item.cs b/Projects/Server/Items/Item.cs
+--- a/Projects/Server/Items/Item.cs
++++ b/Projects/Server/Items/Item.cs
+@@ -227,6 +227,7 @@
+     [Constructible]
+     public Item(int itemID = 0)
+     {
++        Origin = ItemOrigins.Current;
+         m_ItemID = itemID;
+         Serial = World.NewItem;
+ 
+@@ -798,6 +799,9 @@
+     public bool PlayerConstructed { get; set; }
+ 
+     [CommandProperty(AccessLevel.GameMaster)]
++    public ItemOrigin Origin { get; private set; }
++
++    [CommandProperty(AccessLevel.GameMaster)]
+     public bool QuestItem
+     {
+         get => GetFlag(ImplFlag.QuestItem);
+@@ -887,7 +891,8 @@
+ 
+     public virtual void Serialize(IGenericWriter writer)
+     {
+-        writer.Write(11); // version
++        writer.Write(12); // version
++        writer.Write((byte)Origin);
+ 
+         var flags = SaveFlag.None;
+ 
+@@ -2518,6 +2523,7 @@
+ 
+     public virtual bool CanStackWith(Item dropped) =>
+         dropped.Stackable && Stackable &&
++        dropped.Origin == Origin &&
+         dropped.GetType() == GetType() &&
+         dropped.ItemID == ItemID &&
+         dropped.Hue == Hue &&
+@@ -2529,7 +2535,7 @@
+ 
+     public virtual bool StackWith(Mobile from, Item dropped, bool playSound)
+     {
+-        if (!CanStackWith(dropped))
++        if (dropped.Origin != Origin || !CanStackWith(dropped))
+         {
+             return false;
+         }
+@@ -2845,6 +2851,13 @@
+ 
+         switch (version)
+         {
++            case 12:
++                Origin = (ItemOrigin)reader.ReadByte();
++                if (!Enum.IsDefined(Origin))
++                {
++                    throw new InvalidOperationException("Invalid saved item origin.");
++                }
++                goto case 11;
+             case 11:
+             case 10:
+             case 9:
+@@ -3665,6 +3678,7 @@
+     // Warning: This uses reflection and is slow!
+     public static void CopyProperties(Item src, Item dest)
+     {
++        dest.Origin = src.Origin;
+         var props = src.GetType().GetProperties();
+ 
+         for (var i = 0; i < props.Length; i++)
+diff --git a/Projects/Server/Items/ItemOrigin.cs b/Projects/Server/Items/ItemOrigin.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/Server/Items/ItemOrigin.cs
+@@ -0,0 +1,36 @@
++using System;
++
++namespace Server;
++
++public enum ItemOrigin : byte
++{
++    Drop = 0,
++    Vendor = 1,
++    Crafted = 2
++}
++
++// Item construction and this synchronous factory run only on the game loop.
++public static class ItemOrigins
++{
++    internal static ItemOrigin Current { get; private set; }
++
++    public static T Create<T>(ItemOrigin origin, Func<T> factory)
++    {
++        if (!Enum.IsDefined(origin))
++        {
++            throw new ArgumentOutOfRangeException(nameof(origin));
++        }
++
++        ArgumentNullException.ThrowIfNull(factory);
++        var previous = Current;
++        Current = origin;
++        try
++        {
++            return factory();
++        }
++        finally
++        {
++            Current = previous;
++        }
++    }
++}
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -5238,7 +5238,7 @@
+         T item;
+         try
+         {
+-            item = oldItem.GetType().CreateInstance<T>();
++            item = ItemOrigins.Create(oldItem.Origin, () => oldItem.GetType().CreateInstance<T>());
+         }
+         catch (Exception e)
+         {
+diff --git a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+--- a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
++++ b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+@@ -1437,16 +1437,16 @@
+                 Item item;
+                 if (customCraft != null)
+                 {
+-                    item = customCraft.CompleteCraft(out num);
++                    item = ItemOrigins.Create(ItemOrigin.Crafted, () => customCraft.CompleteCraft(out num));
+                 }
+                 else if (typeof(MapItem).IsAssignableFrom(ItemType) && from.Map != Map.Trammel && from.Map != Map.Felucca)
+                 {
+-                    item = new IndecipherableMap();
++                    item = ItemOrigins.Create(ItemOrigin.Crafted, () => new IndecipherableMap());
+                     from.SendLocalizedMessage(1070800); // The map you create becomes mysteriously indecipherable.
+                 }
+                 else
+                 {
+-                    item = ItemType.CreateInstance<Item>();
++                    item = ItemOrigins.Create(ItemOrigin.Crafted, () => ItemType.CreateInstance<Item>());
+                 }
+ 
+                 if (item != null)
+@@ -1736,11 +1736,11 @@
+                 Item item;
+                 if (customCraft != null)
+                 {
+-                    item = customCraft.CompleteCraft(out num);
++                    item = ItemOrigins.Create(ItemOrigin.Crafted, () => customCraft.CompleteCraft(out num));
+                 }
+                 else
+                 {
+-                    item = ItemType.CreateInstance<Item>();
++                    item = ItemOrigins.Create(ItemOrigin.Crafted, () => ItemType.CreateInstance<Item>());
+                 }
+ 
+                 if (item != null)
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -1255,7 +1255,7 @@
+ 
+             bii.Amount -= amount;
+ 
+-            var o = bii.GetEntity();
++            var o = ItemOrigins.Create(ItemOrigin.Vendor, bii.GetEntity);
+ 
+             if (o is Item item)
+             {
+@@ -1279,7 +1279,7 @@
+ 
+                     for (var i = 1; i < amount; i++)
+                     {
+-                        if (bii.GetEntity() is Item newItem)
++                        if (ItemOrigins.Create(ItemOrigin.Vendor, bii.GetEntity) is Item newItem)
+                         {
+                             newItem.Amount = 1;
+ 
+diff --git a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+--- a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
++++ b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+@@ -97,7 +97,8 @@
+         public int MaxAmount { get; set; }
+ 
+         // get a new instance of an object (we just bought it)
+-        public virtual IEntity GetEntity() => Type.CreateInstance<IEntity>(Args);
++        public virtual IEntity GetEntity() =>
++            ItemOrigins.Create(ItemOrigin.Vendor, () => Type.CreateInstance<IEntity>(Args));
+ 
+         // Attempt to restock with item, (return true if restock successful)
+         public bool Restock(Item item, int amount) => false;
