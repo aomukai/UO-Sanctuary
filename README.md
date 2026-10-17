@@ -2,7 +2,7 @@
 
 Diablo II combat and itemisation in a persistent Ultima Online world. The design baseline is [the kickoff brief](Britannia-Diablo-Project-Kickoff.md). Agreed direction and candidate mechanics remain distinct.
 
-The local foundation is installed with Classic Client data **7.0.117.1**. Both upstream projects compile. The server boots, authenticates the local owner account, saves, and authenticates again after restart. The client loads the assets and initializes OpenGL rendering in a virtual display. Character creation, movement, equipment, and combat still need an in-game play check.
+The local foundation is installed with Classic Client data **7.0.117.1**. Both upstream projects compile. The server boots, authenticates the local owner account, saves, and authenticates again after restart. The actual client also authenticates and reaches the character-creation screen. Completing character creation, movement, equipment, and combat still need an in-game play check.
 
 ## Pinned foundation
 
@@ -12,7 +12,7 @@ The local foundation is installed with Classic Client data **7.0.117.1**. Both u
 | Desktop ClassicUO | `ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93` |
 | .NET SDK | `10.0.201`, installed locally in `.tools/dotnet` |
 
-The server and client are Git submodules under `upstream/`. ClassicUO's nested dependencies are pinned by its own submodules. The server source is unchanged. The client has [one local compatibility patch](patches/ClassicUO/0001-use-fna-native-resolver.patch): its pinned FNA dependency already installs a native-library resolver, so ClassicUO must defer to it on modern .NET. `setup` and client builds apply the patch idempotently and reject conflicting edits. Git therefore reports the client submodule as modified; the patch file records that intentional difference. Project build overrides live in `build/`; runtime files, saves, accounts, and logs live in ignored `.local/`.
+The server and client are Git submodules under `upstream/`. ClassicUO's nested dependencies are pinned by its own submodules. The server source is unchanged. The client has two local patches: [native-library startup compatibility](patches/ClassicUO/0001-use-fna-native-resolver.patch) and [password-field compatibility](patches/ClassicUO/0002-match-password-field-to-login-packet.patch). The latter accepts up to 30 password characters, matching the login packet, and logs login-state transitions without credentials. `setup` and client builds apply the patches idempotently and reject conflicting edits. Git therefore reports the client submodule as modified; the patch files record those intentional differences. Project build overrides live in `build/`; runtime files, saves, accounts, and logs live in ignored `.local/`.
 
 ## Linux setup
 

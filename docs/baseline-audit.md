@@ -8,7 +8,7 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 
 | System | Source evidence | Proposed treatment and gap |
 | --- | --- | --- |
-| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Local owner creation and account authentication/server-list response passed before and after restart. Character login remains untested. |
+| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Local owner creation and account authentication/server-list response passed before and after restart. Actual ClassicUO login reaches character creation; creating and entering a character remain untested. |
 | Character creation | `Projects/UOContent/Engines/Character Creation/CharacterCreation.cs` | Keep baseline; extend with class choice after a playable room. |
 | Saves | `Projects/Server/World/World.cs`, `Load()` and `Save()` | Keep. World snapshots and owner-account reload passed. Character/item round trip still requires gameplay verification. |
 | Inventories, banking, equipment | `Projects/Server/Items/Container.cs`; `Projects/UOContent/Mobiles/Townfolk/Banker.cs`; `Items/Weapons/BaseWeapon.cs` within UOContent | Keep baseline. Combat properties and class requirements need adaptation. |
@@ -41,6 +41,7 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 - Configured loopback-only SA test settings with Felucca and Trammel. Disabled optional startup path pre-baking; recorded the actual client-data version explicitly.
 - Created a local owner account, received the expected server-list packet after authenticating, saved the world snapshot, restarted the server, authenticated again, saved again, and shut down cleanly. No character was created during this protocol check.
 - Started ClassicUO under Xvfb with software OpenGL and dummy audio. Assets loaded and rendering initialized; this does not verify the user's physical GPU, audio output, or interactive gameplay.
+- Verified actual ClassicUO authentication against the running local server after correcting the login field's length. The client progressed through `VerifyingAccount` and `LoginInToServer` to `CharacterCreation` without creating a character.
 
 ## Experiments and limitations
 
@@ -50,9 +51,11 @@ The shallow server checkout could not calculate Nerdbank version height. Local D
 
 Client startup initially failed with `InvalidOperation_CannotRegisterSecondResolver`: `ClassicUO.DllMap.Init()` and the pinned FNA's `Microsoft.Xna.Framework.FNADllMap` module initializer both registered a resolver for FNA. The tracked client patch defers to modern FNA on JIT builds while retaining the legacy path for other builds. Client rebuild and initialization passed after the patch. Native AOT publishing has not been tested.
 
+The initial generated owner password had 24 characters, but ClassicUO's login password control accepted only 16. The UI silently truncated it and saved the truncated prefix, causing `BadPass`; the original protocol-only check bypassed that control. The second tracked patch raises the password control's limit to the packet's 30-character capacity and logs credential-free login-state transitions. The account password was preserved, the complete saved password was restored, and actual-client authentication passed.
+
 The project drive is exFAT. Downloading tens of thousands of temporary chunks there was slow; RAM-backed staging completed the installation, and finished archives were copied to the project drive. Interrupted disk staging and temporary RAM files were removed. The downloader's source commit/hash and installation provenance are recorded in ignored `.local/uo-installation.json`.
 
-Character creation/login, movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain untested. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
+Completing character creation and entering the world, movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain untested. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
 
 ## Next smallest experiment
 
