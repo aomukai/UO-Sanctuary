@@ -56,8 +56,10 @@ The initial generated owner password had 24 characters, but ClassicUO's login pa
 
 The project drive is exFAT. Downloading tens of thousands of temporary chunks there was slow; RAM-backed staging completed the installation, and finished archives were copied to the project drive. Interrupted disk staging and temporary RAM files were removed. The downloader's source commit/hash and installation provenance are recorded in ignored `.local/uo-installation.json`.
 
+Staff characters are assigned Green Acres on Felucca by `CharacterCreation.GetStartLocation()` at `(5445, 1153, 0)`. Andy reported appearing in an empty staff area, consistent with this default. The shard's dynamic world population and decorations have not been generated. `[Go Britain` is supported by `Commands/Handlers.cs`; a small populated town area is needed before banker/vendor interaction checks can be completed.
+
 Movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain unverified. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
 
 ## Next smallest experiment
 
-Run `./dev server` and `./dev client`, use the local owner credentials, and complete the README's interact–equip–bank–save–restart check before introducing class combat. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.
+Prepare a small populated Britain test area, then complete the README's interact–equip–bank–save–restart check before introducing class combat. Use `[Go Britain` to leave the staff starting area. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.
