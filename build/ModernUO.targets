@@ -1,0 +1,7 @@
+<Project>
+  <!-- The pinned MailKit dependency resolves vulnerable Pkcs 10.0.0.
+       Pin the patched package while retaining NuGet's vulnerability checks. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'Application' Or '$(MSBuildProjectName)' == 'UOContent'">
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
+  </ItemGroup>
+</Project>

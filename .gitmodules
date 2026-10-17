@@ -1,0 +1,6 @@
+[submodule "upstream/ModernUO"]
+	path = upstream/ModernUO
+	url = https://github.com/modernuo/ModernUO.git
+[submodule "upstream/ClassicUO"]
+	path = upstream/ClassicUO
+	url = https://github.com/ClassicUO/ClassicUO.git

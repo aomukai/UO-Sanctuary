@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+"""Local Linux development commands. Requires Python 3.10+, Git, and Bash."""
+
+import argparse
+import ctypes
+import ctypes.util
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import urllib.request
+
+ROOT = Path(__file__).resolve().parent
+LOCAL = ROOT / ".local"
+SDK_VERSION = json.loads((ROOT / "global.json").read_text())["sdk"]["version"]
+DOTNET = ROOT / ".tools/dotnet/dotnet"
+SERVER_SOURCE = ROOT / "upstream/ModernUO"
+CLIENT_SOURCE = ROOT / "upstream/ClassicUO"
+SERVER = LOCAL / "server"
+CLIENT = LOCAL / "client"
+
+
+def run(args, cwd=ROOT, **kwargs):
+    env = os.environ.copy()
+    env["DOTNET_ROOT"] = str(DOTNET.parent)
+    env["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
+    env["DOTNET_NOLOGO"] = "1"
+    return subprocess.run([str(arg) for arg in args], cwd=cwd, env=env, check=True, **kwargs)
+
+
+def require_sdk():
+    if not DOTNET.is_file():
+        raise ValueError("Project SDK missing. Run ./dev setup first.")
+    actual = run([DOTNET, "--version"], capture_output=True, text=True).stdout.strip()
+    if actual != SDK_VERSION:
+        raise ValueError(f"Expected SDK {SDK_VERSION}, found {actual}. Run ./dev setup.")
+
+
+def setup():
+    run(["git", "submodule", "update", "--init", "--recursive", "--depth", "1"])
+    if not DOTNET.is_file():
+        installer = ROOT / ".tools/dotnet-install.sh"
+        installer.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve("https://dot.net/v1/dotnet-install.sh", installer)
+        run(["bash", installer, "--version", SDK_VERSION,
+             "--install-dir", DOTNET.parent, "--no-path"])
+    require_sdk()
+    print(f"Project SDK {SDK_VERSION} and pinned upstream sources are ready.")
+
+
+def build(target):
+    require_sdk()
+    logs = LOCAL / "logs"
+    logs.mkdir(parents=True, exist_ok=True)
+    projects = {
+        "server": (SERVER_SOURCE, "Projects/Application/Application.csproj", [
+            f"-p:CustomAfterMicrosoftCommonTargets={ROOT / 'build/ModernUO.targets'}",
+            "-p:NBGV_GitEngine=Disabled", "-p:WarningsNotAsErrors=NBGV1001",
+            "-p:PublicRelease=false"]),
+        "client": (CLIENT_SOURCE, "src/ClassicUO.Client/ClassicUO.Client.csproj", [
+            "-p:PublishAot=false"]),
+    }
+    for name in projects if target == "all" else [target]:
+        source, project, properties = projects[name]
+        logfile = logs / f"{name}-build.log"
+        print(f"Building {name}; log: {logfile.relative_to(ROOT)}", flush=True)
+        with logfile.open("w") as output:
+            try:
+                run([DOTNET, "build", project, "-c", "Debug", "--nologo", *properties],
+                    cwd=source, stdout=output, stderr=subprocess.STDOUT)
+            except subprocess.CalledProcessError:
+                print("\n".join(logfile.read_text().splitlines()[-35:]), file=sys.stderr)
+                raise
+        print("\n".join(logfile.read_text().splitlines()[-4:]))
+        if name == "server":
+            shutil.copytree(source / "Distribution", SERVER, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns("Configuration", "Saves", "Backups", "Logs"))
+        else:
+            shutil.copytree(source / "bin/Debug/net10.0", CLIENT, dirs_exist_ok=True,
+                            ignore=shutil.ignore_patterns("settings.json", "Profiles", "Logs"))
+
+
+def validate_data(path):
+    if not path.is_dir():
+        raise ValueError(f"UO data directory does not exist: {path}")
+    names = {entry.name.lower() for entry in path.iterdir() if entry.is_file()}
+    groups = [("tiledata.mul",), ("map0.mul", "map0legacymul.uop"),
+              ("art.mul", "artlegacymul.uop")]
+    missing = [" or ".join(group) for group in groups if not names.intersection(group)]
+    if missing:
+        raise ValueError("Missing Classic Client data: " + "; ".join(missing))
+
+
+def configure(args):
+    data = Path(args.data).expanduser().resolve()
+    validate_data(data)
+    if not re.fullmatch(r"\d+\.\d+\.\d+\.\d+", args.client_version):
+        raise ValueError("Use the installed UO data version, e.g. four numeric components; do not guess it.")
+    files = [SERVER / "Configuration/modernuo.json", SERVER / "Configuration/expansion.json",
+             CLIENT / "settings.json"]
+    if any(path.exists() for path in files):
+        raise ValueError("Local configuration already exists. Edit it directly; configure never overwrites it.")
+    expansions = json.loads((SERVER_SOURCE / "Distribution/Data/expansions.json").read_text())
+    expansion = next(entry for entry in expansions if entry["Id"] == {"AOS": 5, "SA": 8}[args.expansion])
+    for name in expansion["MapSelectionFlags"]:
+        expansion["MapSelectionFlags"][name] = name in ("Felucca", "Trammel")
+    configs = [{
+        "assemblyDirectories": ["./Assemblies"], "dataDirectories": [str(data)],
+        "listeners": ["127.0.0.1:2593"],
+        "settings": {
+            "serverListing.serverName": "Sanctuary Local",
+            "serverListing.address": "127.0.0.1", "serverListing.autoDetect": "False",
+            "world.savePath": "Saves", "autosave.enabled": "True",
+            "accountHandler.enableAutoAccountCreation": "False",
+        },
+    }, expansion, {
+        "ip": "127.0.0.1", "port": 2593, "ultimaonlinedirectory": str(data),
+        "clientversion": args.client_version, "plugins": [], "saveaccount": False,
+        "autologin": False, "reconnect": False,
+    }]
+    for path, content in zip(files, configs):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("x") as output:
+            json.dump(content, output, indent=2)
+            output.write("\n")
+    print(f"Configured loopback-only play, Britannia maps, provisional {args.expansion} era.")
+    print("Run ./dev server, create your owner account at its console, then ./dev client in another terminal.")
+
+
+def launch(name):
+    require_sdk()
+    config = SERVER / "Configuration/modernuo.json" if name == "server" else CLIENT / "settings.json"
+    if not config.exists():
+        raise ValueError("UO data is not configured. See ./dev configure --help.")
+    settings = json.loads(config.read_text())
+    validate_data(Path(settings["dataDirectories"][0] if name == "server"
+                       else settings["ultimaonlinedirectory"]))
+    folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
+    if not (folder / assembly).exists():
+        raise ValueError(f"Build {name} first: ./dev build {name}")
+    arguments = [] if name == "server" else ["-settings", str(config)]
+    run([DOTNET, folder / assembly, *arguments], cwd=folder)
+
+
+def doctor():
+    ready = True
+    for name, folder in [("ModernUO", SERVER_SOURCE), ("ClassicUO", CLIENT_SOURCE)]:
+        if (folder / ".git").exists():
+            commit = run(["git", "rev-parse", "HEAD"], cwd=folder,
+                         capture_output=True, text=True).stdout.strip()
+            print(f"{name}: {commit}")
+        else:
+            print(f"{name}: missing; run ./dev setup")
+            ready = False
+    try:
+        require_sdk()
+        print(f".NET SDK: {SDK_VERSION}")
+    except ValueError as error:
+        print(error)
+        ready = False
+    for library in ("icuuc", "deflate", "argon2"):
+        located = ctypes.util.find_library(library)
+        try:
+            if not located:
+                raise OSError("not found")
+            ctypes.CDLL(located)
+            print(f"Native {library}: {located}")
+        except OSError:
+            print(f"Native {library}: missing (see README prerequisites)")
+            ready = False
+    for name, assembly, config in [("server", SERVER / "ModernUO.dll", SERVER / "Configuration/modernuo.json"),
+                                   ("client", CLIENT / "cuo.dll", CLIENT / "settings.json")]:
+        print(f"{name}: {'built' if assembly.exists() else 'not built'}; "
+              f"{'configured' if config.exists() else 'UO data not configured'}")
+        ready &= assembly.exists() and config.exists()
+    return 0 if ready else 1
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("setup", help="Download pinned sources and the project-local .NET SDK")
+    builder = commands.add_parser("build", help="Compile and stage a local Debug build")
+    builder.add_argument("target", choices=["all", "server", "client"], default="all", nargs="?")
+    config = commands.add_parser("configure", help="Create local configs once UO data is installed")
+    config.add_argument("data", help="Classic Client data directory")
+    config.add_argument("--client-version", required=True, help="Version matching the installed data")
+    config.add_argument("--expansion", required=True, choices=["AOS", "SA"], help="Provisional test era")
+    commands.add_parser("server", help="Run the local server interactively")
+    commands.add_parser("client", help="Run the desktop client")
+    commands.add_parser("doctor", help="Report source, SDK, native libraries, build, and config readiness")
+    args = parser.parse_args()
+    try:
+        if args.command == "setup":
+            setup()
+        elif args.command == "build":
+            build(args.target)
+        elif args.command == "configure":
+            configure(args)
+        elif args.command in ("server", "client"):
+            launch(args.command)
+        else:
+            return doctor()
+        return 0
+    except (ValueError, OSError, subprocess.CalledProcessError) as error:
+        print(f"Error: {error}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        return 130
+
+
+if __name__ == "__main__":
+    sys.exit(main())
