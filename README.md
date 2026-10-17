@@ -2,7 +2,7 @@
 
 Diablo II combat and itemisation in a persistent Ultima Online world. The design baseline is [the kickoff brief](Britannia-Diablo-Project-Kickoff.md). Agreed direction and candidate mechanics remain distinct.
 
-The local foundation is installed with Classic Client data **7.0.117.1**. Both upstream projects compile. The server boots, authenticates the local owner account, saves, and authenticates again after restart. The actual client also authenticates and reaches the character-creation screen. Completing character creation, movement, equipment, and combat still need an in-game play check.
+The local foundation is installed with Classic Client data **7.0.117.1**. Both upstream projects compile. The server boots, authenticates the local owner account, saves, and authenticates again after restart. Andy confirmed successful desktop login and entry into the game world. Movement, interactions, equipment, and character/inventory persistence still need explicit play checks before combat work.
 
 ## Pinned foundation
 
@@ -60,6 +60,6 @@ Use the version matching the installed `client.exe` if downloading newer data. O
 
 The generated server listens on `127.0.0.1:2593` and disables public-address detection. The ping listener also binds to loopback. Account auto-creation is disabled. This installation has an owner account; its username and generated password are stored in `~/.config/sanctuary/owner-login.json` with mode `0600`. No credentials are stored in the repository or command arguments. On a fresh installation, create an owner account at the server's interactive console.
 
-The server was shut down after verification. In ClassicUO, log in with the local owner credentials and create a character. Before adding combat code, verify walking/running, doors, a container, equipment, and banking. Use the upstream `[Save` command as owner, stop the server cleanly, restart it, and verify the same character and inventory return. At the server console, `save` writes a save and `shutdown` stops the server; shutdown alone should not replace an explicit save. Record outcomes in [the baseline audit](docs/baseline-audit.md).
+For the remaining baseline play checks, log in with the local owner credentials and enter the world. Before adding combat code, verify walking/running, doors, a container, equipment, and banking. Use the upstream `[Save` command as owner, stop the server cleanly, restart it, and verify the same character and inventory return. At the server console, `save` writes a save and `shutdown` stops the server; shutdown alone should not replace an explicit save. Record outcomes in [the baseline audit](docs/baseline-audit.md).
 
 The next experiment is an isolated combat room with one provisional class, a basic attack, a projectile, an area attack, and visible recovery timing. Final class selection, production skill trees, economy rules, and NPC dialogue are still ahead.

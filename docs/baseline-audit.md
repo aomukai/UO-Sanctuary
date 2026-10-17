@@ -1,6 +1,6 @@
 # Baseline audit
 
-17 October 2026. Source inspection, Linux compilation, asset installation, server account/save checks, and client startup checks. Character gameplay remains untested. Exact source pins and run commands are in [the README](../README.md).
+17 October 2026. Source inspection, Linux compilation, asset installation, server account/save checks, and client startup checks. Andy also confirmed desktop login and entry into the game world. Detailed interaction and character/inventory persistence checks remain outstanding. Exact source pins and run commands are in [the README](../README.md).
 
 ## Reuse findings
 
@@ -8,7 +8,7 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 
 | System | Source evidence | Proposed treatment and gap |
 | --- | --- | --- |
-| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Local owner creation and account authentication/server-list response passed before and after restart. Actual ClassicUO login reaches character creation; creating and entering a character remain untested. |
+| Login and accounts | `Projects/UOContent/Accounting/AccountHandler.cs`; `Misc/AccountPrompt.cs` within UOContent | Keep. Local owner creation and account authentication/server-list response passed before and after restart. Andy confirmed desktop login and entry into the game world. |
 | Character creation | `Projects/UOContent/Engines/Character Creation/CharacterCreation.cs` | Keep baseline; extend with class choice after a playable room. |
 | Saves | `Projects/Server/World/World.cs`, `Load()` and `Save()` | Keep. World snapshots and owner-account reload passed. Character/item round trip still requires gameplay verification. |
 | Inventories, banking, equipment | `Projects/Server/Items/Container.cs`; `Projects/UOContent/Mobiles/Townfolk/Banker.cs`; `Items/Weapons/BaseWeapon.cs` within UOContent | Keep baseline. Combat properties and class requirements need adaptation. |
@@ -42,6 +42,7 @@ Paths below are relative to `upstream/ModernUO/` unless marked ClassicUO. Existi
 - Created a local owner account, received the expected server-list packet after authenticating, saved the world snapshot, restarted the server, authenticated again, saved again, and shut down cleanly. No character was created during this protocol check.
 - Started ClassicUO under Xvfb with software OpenGL and dummy audio. Assets loaded and rendering initialized; this does not verify the user's physical GPU, audio output, or interactive gameplay.
 - Verified actual ClassicUO authentication against the running local server after correcting the login field's length. The client progressed through `VerifyingAccount` and `LoginInToServer` to `CharacterCreation` without creating a character.
+- Andy subsequently confirmed successful desktop login and entry into the game world, establishing that the installed client/server pair works in-game. He then closed both applications. This confirmation does not establish the individual movement, equipment, banking, or inventory persistence checks.
 
 ## Experiments and limitations
 
@@ -55,8 +56,8 @@ The initial generated owner password had 24 characters, but ClassicUO's login pa
 
 The project drive is exFAT. Downloading tens of thousands of temporary chunks there was slow; RAM-backed staging completed the installation, and finished archives were copied to the project drive. Interrupted disk staging and temporary RAM files were removed. The downloader's source commit/hash and installation provenance are recorded in ignored `.local/uo-installation.json`.
 
-Completing character creation and entering the world, movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain untested. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
+Movement, combat timing, equipment, banking, actual sound output, and character/inventory save/restart checks remain unverified. No class, combat room, new economy system, NPC language service, or public shard has been implemented or deployed. No population or performance target has been verified.
 
 ## Next smallest experiment
 
-Run `./dev server` and `./dev client`, use the local owner credentials, create a character, and complete the README's interact–equip–bank–save–restart check before introducing class combat. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.
+Run `./dev server` and `./dev client`, use the local owner credentials, and complete the README's interact–equip–bank–save–restart check before introducing class combat. Then build the isolated combat-room prototype and compare server timing with recorded client feedback.
