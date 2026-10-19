@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_ECONOMY_UI") == "1":
+        from check_economy_ui import exercise as economy_exercise
+        economy_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_BELT_UI") == "1":
+        from check_belt_ui import exercise as belt_exercise
+        belt_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1":
         click(335, 367)
         from check_movement_ui import exercise as movement_exercise
@@ -283,6 +291,16 @@ def exercise(window, click, capture):
     time.sleep(1)
     command("movement-resumed")
     capture("combat-held-ground.png")
+    command("cast-transition-mark")
+    subprocess.run(["xdotool", "mousemove", "--window", window, "590", "80"], check=True)
+    time.sleep(.15)
+    subprocess.run(["xdotool", "mousedown", "3"], check=True)
+    time.sleep(.4)
+    command("cast-transition-still")
+    time.sleep(1.3)
+    command("cast-transition")
+    subprocess.run(["xdotool", "mouseup", "3"], check=True)
+    print("Actual client: right-held casting stops a left-held moving route after the committed step.", flush=True)
     subprocess.run(["xdotool", "keydown", "Shift_L", "mouseup", "1"], check=True)
     time.sleep(0.3)
     command("movement-reset")

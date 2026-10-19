@@ -37,7 +37,7 @@ def check(port, combat=False):
         profile.mkdir(parents=True)
         if combat:
             # Legacy AlwaysRun must never override the explicit Diablo Walk choice.
-            (profile / "profile.json").write_text(json.dumps({"always_run": True}))
+            (profile / "profile.json").write_text(json.dumps({"always_run": True, "activate_chat_after_enter": False, "activate_chat_additional_buttons": True}))
         # A disposable Save Desktop macro lets us inspect final UI state without
         # changing the production client or depending on a window manager.
         (profile / "macros.xml").write_text(
@@ -89,6 +89,11 @@ def check(port, combat=False):
             def capture(name):
                 ImageGrab.grab(xdisplay=os.environ["DISPLAY"]).save(logs / name)
 
+            if os.environ.get("SANCTUARY_TEST_CLASS_NAMES_UI") == "1":
+                from check_class_names_ui import exercise
+                exercise(window, click, capture, character, wait_for)
+                return
+
             capture("creation-classes.png")
             click(210, 205)  # Amazon, then back to the class selector.
             capture("creation-appearance-amazon.png")
@@ -107,10 +112,11 @@ def check(port, combat=False):
             capture("creation-world.png")
             print("Actual client: class selector, appearance, Back/reselect, and world entry passed.", flush=True)
             if combat:
+                os.environ["SANCTUARY_TEST_CLIENT_PID"] = str(process.pid)
                 os.environ["SANCTUARY_TEST_PROFILE"] = str(profile)
                 from check_combat_ui import exercise
                 exercise(window, click, capture)
-                if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1":
+                if os.environ.get("SANCTUARY_TEST_ECONOMY_UI") == "1" or os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" or os.environ.get("SANCTUARY_TEST_BELT_UI") == "1":
                     return
                 if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1":
                     from check_pets_ui import command

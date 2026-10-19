@@ -1,0 +1,267 @@
+# Economy and crafting: decision tracker
+
+Worksheet created 18 October 2026; reconciled with the completed user replies on 19 October 2026 (JST). Scope: [crafting handoff](../sanctuary-crafting.md), [economy draft](../sanctuary-economy.md), [implemented economy](economy.md), and [runes and gems](runes-and-gems.md). The crafting handoff and subsequent explicit user confirmations take precedence over older notes.
+
+Replace `_open_` with a starting rule/value, `keep current`, `use native for now`, or `defer`. Answers may be provisional and tuned later. IDs are stable so answers can also be supplied in chat. Related fields are grouped to avoid repeating the same question across professions. Tables that require a catalogue can initially contain only the items chosen for the first implementation.
+
+**Status:** The completed [user replies](economy-open-questions-replies.md) now supply the first implementation rules summarized in [current crafting decisions](crafting.md). Their explicit answers override older questions/proposals and conflicting prototype values. The replies file is preserved unchanged. Rows below distinguish resolved direction, partial answers, and delegated research/recipe authoring; Q retains unanswered wardrobe/title details. “Resolved” does not mean implemented, and provisional values remain tunable.
+
+**Settled foundations (later explicit replies take precedence over old thresholds/assumptions):** material-plus-rarity-essence durability repairs; essence-only spell-charge restoration; possible maximum-durability loss and a separate special restoration resource; no destructive Imbuing failure; destructive socket failure; one socket per successful attempt; leather and cloth in Tailoring; vendor-origin equipment excluded from salvage/imbuing/socketing; gambling rewards use loot eligibility; single-use rune moulds; nine gem families with five qualities; eight mould/bark tiers and their recorded level/Lumberjacking bands; percentage-only runes; no runewords; gathering-only gems/bark; no fresh rewards from revived lives; no XP loss on death; convenience food versus short combat potions; no tome refilling.
+
+## A. Shared profession and recipe rules
+
+Sources: crafting §§1, 3, 6–8, 12, 16–17.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| A01 | Which professions/actions/representative recipes belong in the first implementation, and which should remain deferred? | Updated by later user instruction: all professions remain in scope, delivered as dependency-ordered small playable slices in the [roadmap](implementation-roadmap.md). This supersedes reply A01's all-at-once delivery order. |
+| A02 | What are the skill-gain rules: gain amount/chance, recipe difficulty bands, gain ceilings per recipe, and intended training pace? Can gains occur on an unsuccessful ordinary craft? | Direction resolved: native UO gathering pace, useful recipes every 10 skill through 110, top-end work emphasized at 110–120; exact recipe/gain tables are authoring work. |
+| A03 | What per-profession and aggregate skill-cap rules apply? Can one character eventually master every retained profession? | **User direction recorded:** independent class/profession progression on one character; one class and one crafting job selected, with Mining/Lumberjacking/Fishing always active. Cartography is a selectable crafting job. Swaps are free/no-cooldown after unlock and require alive/out-of-combat state. Eligibility: class level 80 OR one **crafting** skill at 100; gathering does not qualify. Public town-hall wardrobe access accompanies the unlock. Overweight swaps are allowed with normal encumbrance. Skill caps start at 100 and rise through 105/110/115/120 Power Scrolls from rare dungeon-boss drops. See [wardrobe progression](wardrobe-progression.md) and Q01–Q10 for remaining details. |
+| A04 | For ordinary crafting outside the separately settled Imbuing/repair/socket rules, what is the success formula and what inputs are lost on failure? Identify any recipe exceptions, including rune crafting. | Partial: trainers to 30; no-output practice recipes in 10-point bands through 70, +0.1 gain chance falling 100%→1%; ordinary crafts use UO-style success. Practice interpolation/scope and trainer gold prices remain open. Imbuing/repair/socket exceptions are settled. |
+| A05 | How are ordinary/high/superior crafting qualities produced: probabilities, skill dependence and applicable product types? Which products have distinct quality rules? | Resolved starting rule: after success, HQ 10%, Superior 1%, Average 89% once eligible. Provisional eligibility min(required skill+10,120); below it Average only. Runes use G01/G05 exceptions. |
+| A06 | What tools does each profession require, with what crafting recipe, required skill, uses/charges and consumption per action? Include Imbuing ladle/cauldron choice, Tinkering hammers and Cartography pens. Tool costs are additional to, not replacements for, the settled repair resource model. | Partial: Cartography pen; smithing/repair hammers; tailoring kit/repair scissors; Imbuing ladle + cauldron; Tinkering tools; town guild stations. Remaining tools/recipes reuse native assets where suitable; station exceptions remain Q10. |
+| A07 | What are vendor starter-tool prices, stock quantities and replenishment? Which other permitted ordinary supplies are stocked, and at what prices? | Partial: vendor tools about 10 gold, 20–30 charges; crafted 100 charges and 10% charge saving, HQ 110, Superior 120. Exact stock/restock and ordinary-supply prices still need authoring. |
+| A08 | How are ambiguous equipment bases assigned to crafting/repair professions? Resolve catalogue edge cases such as medium metal armour; leather and cloth already belong to Tailoring. | Resolved: craft and repair follow material, not armour weight. Metal → Blacksmithing; leather/cloth/studded → Tailoring; wooden weapons/shields → Bowcraft. Bone is heavy Tailoring armour. |
+
+## B. Equipment, materials and acquisition
+
+Sources: crafting §§3–6; economy §§4–5.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| B01 | For each initial equipment recipe: base, normal/exceptional/elite availability, skill requirement, resource type/quantity, tool/station requirements and output quantity? | Partial: white bases; Normal recipes skill 0–80, Exceptional 80–110, Elite 110–120. Per-base recipe quantities/requirements and tier mappings remain authoring work. |
+| B02 | How is crafted equipment item level determined? This governs later affix eligibility and salvage yield separately from material, rarity and crafting quality. | Resolved for the three equipment base tiers: crafted item levels 35/70/99; equip levels 0/60/80, plus other requirements. Jewellery E01 has no complete item-level/cost table yet. |
+| B03 | Which coloured metals, woods and hides are available initially, at what gathering thresholds, frequency, quantity and locations? Which native resource/discovery rules should remain for now? | Direction resolved: retain native ore/wood gathering and creature hide assignments; add custom gem/bark rolls. Verify actual native behavior rather than assuming the illustrative description specifies new veins. |
+| B04 | What exact deterministic bonuses does each coloured material give to weapons and armour? Define flat versus percentage units and how they combine with affixes/socket bonuses. | Partial: material identities and bonus ranges supplied; see current crafting spec. Armour 1–5% resistance; weapons 5–10% base damage as added type; Gold MF/GF 1–2%; Verite 1 life/mana per 5s. Exact roll/scaling, random-element pool and damage arithmetic remain open. |
+| B05 | Do crafted whites have a chance to start with sockets at 100 skill? If adopted, specify chance/count and its interaction with the socket cap. This was only a proposal. | Resolved: at craft skill 100+, eligible Average/HQ/Superior bases start with 0/1/2 native sockets. Cap 5; next Tinkering attempt uses the next total socket index. Native sockets differ from tinker-added provenance. |
+| B06 | Does 120 crafting skill grant extra durability? If adopted, specify amount and interaction with crafting quality. | Resolved starting rule: at 100+ skill, +10–20% durability and crafter name. Rounding and whether both current/max are raised need implementation definition. |
+| B07 | How much leather/hide, meat and other recipe material does each eligible beast provide, and what corpse/species eligibility applies? | Resolved baseline: no skinning skill; retain native corpse/species material amounts. The illustrative dragon quantity is not a new verified override. |
+| B08 | What nonvendor sources supply alchemical reagents and other cooking ingredients not yet assigned? | Partial: beast meat; inexpensive inn flour/fruit/vegetables/spices; alchemist UO reagents/bottles; Carpenter kegs use native recipes where suitable. Exact ordinary supply catalogue/prices remain authoring work. |
+| B09 | Is any NPC ingot supply permitted? Ore/wood/leather gathering exceptions must not be bypassed through an unapproved processed-resource vendor. | Resolved: no vendor metal/wood/leather supply; cloth is expensive vendor stock or native sheep→yarn→loom production. Remove cloth→bandage creation. |
+| B10 | May starter equipment ever be imbued/socketed/salvaged, or should the prototype's starter-protected exclusions remain? Its retention through death is already settled. | Resolved: starter newbie gear persists through death, cannot be salvaged/imbued/socketed, sells for 1 gold. |
+| B11 | Does the potion tabard/belt receive combat affixes and sockets, and within what budget? Other designated cosmetic layers must remain without combat contribution. | Resolved slot policy: belt/tabard combat affixes but no sockets; gloves/boots/jewellery no sockets; helmet/chest/weapon (including swords)/shield socketable. Imbuing includes eligible white weapons/shields/rings/amulets plus the listed armour/clothing. Normal origin/starter/skill/tinker-provenance restrictions apply. |
+
+## C. Salvage and material processing
+
+Sources: crafting §5; economy implementation §§Salvage, Imbuing. Existing variable recovery settings are in P03–P05 below.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| C01 | What are direct-production recipes for ingots → Metal Scraps and logs/boards → Wooden Chips: quantities, skill, tool use and gains? | Partial: 1 ore/ingot/log/board/leather/cloth → 10 matching scraps/chips/strips; production tool, no charge use; gains to 30; output intended to weigh half the input. Native input weights differ, so a consistent stack-weight rule is still required. |
+| C02 | Adopt direct leather → Leather Strips and cloth → Cloth Scraps recipes? If so, specify their quantities, requirements and gains. | Resolved: adopt leather→strips and cloth→scraps under C01. |
+| C03 | Which recipes consume Leather Strips and Cloth Scraps, and how much? Straps/grips/padding/upholstery/repair tools remain examples. | Partial: Tinkering tools/keys use scraps/strips; Cooking uses chips; metal/leather/cloth repairs use their scraps plus matching processed material. Wooden repairs use matching boards, not chips. Scrap quantities and full recipe books remain open. |
+| C04 | Does salvaging itself require skill/tools or grant gains? The prototype has no skill threshold/gains and a configurable gold fee. | Resolved requirement/cost direction: anyone may salvage with the corresponding craft tool, no skill, no charges, no gold fee. No additional salvage-gain rule selected; current no-gain baseline remains. |
+
+## D. Repairs, spell charges and durability
+
+Source: crafting §9. Repair success and resource categories are settled; the following details are not.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| D01 | Which material forms are consumed: ingots/boards/leather/cloth, salvage materials, or an explicit choice? | Resolved forms: ingots, boards, cut leather, cloth; bone usable directly for heavy Tailoring armour. C03 adds scraps/strips where applicable. |
+| D02 | Must coloured equipment be repaired with its exact coloured subtype, or can ordinary matching material be used? | Resolved: exact material subtype is required. |
+| D03 | How much material restores how much current durability? Specify rounding/minimum costs and whether repairs can be partial. | Partial: randomly drawn matching processed material by base tier: Normal 1–3, Exceptional 3–5, Elite 5–10. Scrap quantities and full-versus-partial repair extent remain open. |
+| D04 | What is the durability-repair essence cost by rarity, including white gear? Does it scale with durability restored or other item properties? | Partial: white no essence; Magic Normal/Exceptional/Elite 1–3/3–5/5–10; Rare twice Magic; random per repair. Unique cost and saving-roll scope remain open. |
+| D05 | What is the essence cost for restoring spell charges, by number/type of charges and rarity? Define partial versus full recharge. | Resolved unit price: 1 essence per restored charge. Partial/full recharge controls and precise charge-type support remain implementation details. |
+| D06 | If one action repairs durability and restores charges, are costs simply combined or calculated differently? | Resolved: applicable durability and recharge costs combine. |
+| D07 | What chance does an ordinary repair have to lower maximum durability? Does the chance depend on amount repaired, item/rarity or repairer skill? | Resolved provisional table: below80 50% loss1–3; 80–<100 25% loss1–2; 100–<120 10% loss1–2; 120 5% loss1. Repair action succeeds. The 100–119.9 extension is the supplied provisional gap fix. |
+| D08 | How much maximum durability is lost, what is its minimum floor, and what happens when equipment reaches zero current durability? | Partial: at 0 current durability the item remains equipped but has no damage/defense/stats; weapon falls back to unarmed. Minimum maximum-durability floor remains open; loss amounts in D07. |
+| D09 | What wear rate should ordinary gameplay use, or should native wear remain initially? | Resolved baseline: native UO wear rates, tune later. |
+| D10 | What is the special maximum-durability restoration resource, where/how often is it obtained, and how much maximum durability does each use restore? Include any restoration limit or additional requirements. A hive is only a candidate source. | Partial: Solen/Terathan/other arachnids drop chitin; mortar/pestle converts it to Powder of Fortifying. Drop rates, processing cost/skill, restoration amount and limits remain open. |
+| D11 | What repair/recharge tools are required and how are their uses consumed? Specify any requirements different from the shared tools in A06; resource costs above still apply. | Partial: use A06 designated repair tools. Exact repair/recharge charge consumption remains open; tools do not replace material/essence costs. |
+| D12 | How do NPC services handle material and essence: player supplies them, vendor supplies them for gold, or both options? What gold fee/premium applies? | Partial: NPC requires the player repair resources +100/500/2500 gold by base tier, works at skill80. Resource hand-in/payment details remain to define. |
+| D13 | Adopt a skill-based resource-saving chance, such as the earlier 30% at 120 proposal? If so, which resources/actions qualify and what is the curve? | Partial: saving chance below80/80/100/120 is 10/20/25/30%. Which resources/how much are saved is not specified. |
+| D14 | Does spell-charge-only restoration cause any durability loss? No such loss has been approved; specify whether to keep it exempt. | Resolved: no durability loss from charge use or charge-only restoration; if durability is undamaged, restore charges with essence only. |
+
+## E. Imbuing
+
+Sources: crafting §7; implemented economy §Essence-funded imbuing. Valid completed actions always produce an item; blue/rare rerolling is not an approved action.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| E01 | What Imbuing skill requirements apply by base/item level/tier? Define recipe gain bands alongside A02. | Partial: Imbuing Normal/Exceptional/Elite at 80/100/120. Tinkering white jewellery at 30/50/70/90/110 is imbued at matching skill; Shoddy/Plain/Solid/Elegant/Fancy. Jewellery item-level/equip/cost mapping remains open. |
+| E02 | Keep the current fixed 5 essence + 100 gold cost, or scale it by item level/base/tier or another explicit rule? Tool costs are specified separately in A06. | Resolved equipment-tier starting costs: Normal 100gold+5essence; Exceptional 500+10; Elite 1000+20. Jewellery costs not specified. |
+| E03 | Keep the current 75% Magic / 25% Rare split, or vary it with skill or recipe? No destructive-failure chance is needed. | Resolved starting split: below120 75%Magic/25%Rare; at120 70%/30%. No destructive failure. |
+| E04 | Which additional equipment affixes should the eventual Imbuing pool support, including binary properties, with what eligibility/ranges/weights? The current pool only admits implemented effects; this larger pool can explicitly remain deferred. | Direction resolved: numerical properties represented by runes/gems plus binary effects; full legal catalogue/effect implementations remain authoring work. Clarified: dropped/imbued gear retains normal random affix-value rolls; minimums are only for rune baselines. |
+| E05 | How do installed sockets and material benefits survive a rarity change if socket caps differ by rarity? Preservation is the intended rule; resolve cap compatibility in F01 rather than silently deleting properties. | Resolved: cap does not depend on rarity. Crafted native sockets survive Imbuing; any tinker-added socket makes the base permanently ineligible for later Imbuing. Warn before Tinkering a white base. |
+
+## F. Socket creation, tools and socketable use
+
+Sources: crafting §8; runes/gems implementation dependencies. Proposed base success values are already listed in P01.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| F01 | What maximum socket counts apply by base/slot, base tier and rarity? Decide whether caps are rarity-independent or define how E05 is preserved. | Resolved: cap5 for helmet/chest/weapon/shield; 20 equipped with 1h+shield, 15 with 2h. Rarity/base tier do not change cap. |
+| F02 | What Tinkering skill requirements apply to each socket/base, and does skill affect eligibility only or also success? Include behavior above 100 skill. | Partial: base-tier gates30/80/100; socket-index gates30/50/70/90/110; chances100/50/25/5/5%. At120, failed roll has5% intuition second-try chance. Retry charge/recursion details remain open. |
+| F03 | What gold/material/tool costs are consumed per attempt, including failed destructive attempts? | Resolved: a Tinkering tool charge per attempt, applicable tool charge-saving; no extra gold/material cost. Failure can destroy the item. |
+| F04 | Are proposed hammer bonuses +1/+2/+3 additive percentage points or relative percentages? Example: 5% becomes 8% or 5.15% at +3. Final success is capped at 100%. | Resolved arithmetic: +1/+2/+3 additive percentage points, cap100%. Tinker-added sockets prevent later Imbuing, including on natively socketed whites; warning required. Tool-bonus acquisition mapping still needs exact definition in F05. |
+| F05 | How are those hammer bonuses acquired? Are average/high/superior labels crafting quality, Imbuing affix tiers or a defined combination? Supply probabilities/requirements and any bonus limits. | Partial: tool quality follows ordinary crafting; 100/110/120 charges. Exact source/mapping of socket-success bonus versus Imbuing/tool quality is not fully stated. |
+| F06 | Which equipment categories accept which rune/gem properties? Do gear-slot affix restrictions also constrain socket effects? Define stacking/caps with existing bonuses. | Resolved: any permitted socket accepts any gem/rune without host-slot property restrictions; bonuses add to gear totals, with existing effect formulas/breakpoints. |
+| F07 | Can installed socketables be removed or replaced? If so, what is consumed/destroyed/recovered and what costs apply? | Resolved: permanent sockets and contents; no extraction/replacement. |
+| F08 | What happens to installed socketables when equipment is salvaged? The gear is consumed; socketable recovery versus destruction is not yet specified. | Resolved: contents destroyed on salvage and do not increase yield. Ordinary rarity-based essence and physical salvage rules still apply. |
+
+## G. Inscription runes and mould rewards
+
+Sources: crafting §13; runes/gems §§Progression, Quality. One mould is consumed per rune; the existing eight bands are not being reopened.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| G01 | What Inscription skill is required for each rune tier? Lumberjacking thresholds do not set Inscription eligibility, and low runes need not wait until 110. | Resolved: T1–T8 Inscription30/40/50/60/70/80/90/100; HQ eligibility required+10, Superior required+20. SuperiorT8 needs120. |
+| G02 | How much suitable Runebark does each rune consume, plus any other recipe ingredients/gold? Tools are covered in A06. | Resolved: consume1 mould, bark quantity equal to tier (1–8), and1 pen charge; equal/higher bark allowed, no output-tier upgrade. |
+| G03 | Which percentage properties can moulds specify, and with what selection weights? The mould determines the rune property; Inscription no longer rerolls it. | Partial: mould fixes stat before crafting. Ordinary mould-drop chance0.1%; semantic property catalogue/weights remain to define. Crafting only rolls quality, not a new stat. |
+| G04 | Which percentage properties share the tier-plus-quality numerical curve and which need different amounts/caps? The 1–8% FCR plus 0/1/2 quality-point example is already recorded; define the other properties. | Provisional formula: category minimum +(tier−1)+quality0/1/2 percentage points; FRW10 baseline gives T1 10%, T8 17/18/19%. Clarified: only rune baselines use minimums; actual dropped/imbued gear keeps normal random affix-value rolls. |
+| G05 | What are Average/High Quality/Superior rune chances, and how does Inscription skill affect them? | Resolved: before+10 Average100%; +10→<+20 Average90/HQ10%; at+20 Average89/HQ10/Superior1%. Mutually exclusive. |
+| G06 | What character-level requirements apply to runes/socketed items, and how do they interact with the host item's requirements? | Resolved filled-socket minimum levels:1/2/3/4/5 filled require30/40/50/60/70. Empty sockets add none; existing gear requirements also apply. |
+| G07 | Confirm final intermediate tier names and canonical stat suffixes. Current working tiers are Crude/Rough/Shaped/Etched/Refined/Polished/Flawless/Perfect; FCR names include unselected Spellcasting/Magus proposals. | Partial: use lowest-tier canonical suffix by stat category, e.g. Chance/Greed/Balance; linked D2 affix data supplies the source. Full percentage-property mapping/weights and final working tier-name signoff remain catalogue work. |
+| G08 | What mould drop chance/quantity applies per eligible monster, and are there encounter/difficulty modifiers? Previously spent lives cannot roll again. | Resolved chances: ordinary0.1%, champion1%, unique random boss5%, dungeon super-unique10%. Exact per-drop quantity/stat weights remain unspecified; no duplicate reward lives. |
+| G09 | Where will tier-8 moulds come from? Their band is monster level 90–99, while the current common Hell reward roster caps at 85. Future higher-level enemies/bosses versus changing the bands requires an explicit decision. | Resolved direction: level3+ dungeons progress60–70 entrance,70–80,80–90,90–99 near boss. Current level85 roster cap must not constrain those future spawns; concrete placement is world work. |
+
+## H. Runebark and mining gems
+
+Sources: crafting §§4, 13–14; runes/gems §§Progression, Mining, Code baseline. Nine families/five qualities and recorded unlock thresholds are already specified.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| H01 | Do gathering unlocks use trained Base skill or modified skill Value? Apply the choice consistently to bark and gems unless an exception is intended. | Resolved: trained Base skill. |
+| H02 | What bark discovery chance/quantity applies, and how are finds distributed among unlocked tiers? | Partial:5% per successful wood harvest, random unlocked tier; bark thresholds45/50/55/60/65/70/75/80. Not5% per tier. Quantity/distribution details remain unspecified. |
+| H03 | What gem discovery chance/quantity applies, with what family weights and distribution among unlocked qualities? | Partial:5% per successful ore harvest; gem quality thresholds40/50/60/70/80; random unlocked tier. Family weights/quantity remain unspecified. |
+| H04 | What triggers a byproduct roll: successful resource harvesting, successful backpack delivery, or another explicit event? What happens with a full pack—no byproduct, loss, placement at feet or another rule? | Partial: successful harvest triggers one roll, system message announces find. Full-pack delivery behavior remains open. |
+| H05 | What is the complete nine-family property mapping? Choose the second extra flat effect alongside Attacker Takes Damage; Mana After Each Kill and Magic Damage Reduced by X remain candidates. Amber/Star Sapphire assignments and Citrine/Topaz or Tourmaline/Skull analogies are also unselected. | Partial: mapped D2 gem effects; two additions use flat properties regardless of slot. Nine-family mapping and second flat effect remain open; no silent Amber/StarSapphire assignment. |
+| H06 | Does a gem's effect change between weapons, shields and armour, or is it the same wherever eligible? Specify the five-quality value table for every chosen family/category. | Direction resolved: mapped D2 gems keep their weapon/shield/armour effects and values; extra flat gems are slot-independent. Full UO family table still requires H05. |
+| H07 | Are gem/bark upgrading or conversion recipes allowed? If adopted, give inputs, outputs, skill and costs; no D2 three-to-one rule has been adopted automatically. | Partial: allow gem upgrades, disallow bark upgrades. Gem recipe/ratio/skill/cost not explicitly supplied. |
+| H08 | What small NPC purchase price applies to each bark tier and gem family/quality? NPCs must not offer the sold stock back for purchase. | Resolved provisional prices: gems25/75/250/500/1500 by quality; barkT1–T8 10/20/30/40/50/60/70/80. Vendor purchase only, no resale. |
+| H09 | How are pre-existing native gems treated when socket gems arrive: migration, decorative/crafting-only legacy items, or replacement? Vendor-origin legacy gems must not become an unapproved socket-gem source. | Resolved: existing native gems are decoration-only, not socket gems. |
+
+## I. Inscription scrolls, tomes and Teleport bonus
+
+Source: crafting §12. Tomes are consumed through use and cannot be refilled.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| I01 | Confirm the proposed progression bands: scrolls to 50, tomes 50–100, full tomes 100–110 and runes for gains at 110–120. Which recipes/gain ceilings distinguish the tome bands? | Direction resolved: UO-typical gains. Exact tome/scroll recipes and gain bands remain authoring work, with I02 charge ladder replacing the older full-tome plan. |
+| I02 | What are Town Portal/Identify scroll and tome recipes, ingredient/output quantities, skill requirements and NPC prices? Specify initial versus maximum charges on produced tomes. | Partial: tomes start3/4/5/6/7/10 charges at skill50/60/70/80/90/100. Basic recipes, vendor capacities/prices still open; old vendor10/crafted20 is not adopted. |
+| I03 | How are high/superior tome qualities obtained, with what probabilities/skill dependence? The proposed charge-saving effects are listed in P08; quality-production odds remain separate. | Resolved: ordinary quality roll; HQ adds1, Superior2 charges. Replaces old quality charge-saving effect; no refills. |
+| I04 | Adopt the bonus single-use Teleport scroll from full-tome crafting at 100+? If so, give chance, exact requirements and intended behavior/restrictions equivalent to the proposed level-1 Sorceress effect. | Resolved direction: full tome at100 has1% extra single-use Teleport scroll. Inventory right-click gives target cursor; belt use teleports toward cursor directly. Match Sorcerer/Sorceress Teleport; underlying spell/belt support needs implementation. |
+
+## J. Alchemy, restorative supply and bottles
+
+Sources: crafting §10; economy §9. Short combat effects and Alchemy-only rejuvenation direction are settled; exact catalogues are not.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| J01 | Which potion effects/tiers belong in the initial catalogue, with what magnitudes and skill requirements? Include rejuvenation/full rejuvenation recipes. | Initial catalogue supplied: SecondWind30, InstantHeal50, InstantRecharge60, Rejuv70, FullRejuv80, DeepWounds100, MagicalPenetration100, Stealing110, Protection120. Exact effects in current crafting spec; elemental/mitigation formulas remain open. |
+| J02 | What duration does each combat effect have? How do same/different tiers combine: refresh, extend, replace or coexist? Define duration caps, effect categories and any cooldowns. | Partial: buff30s, add duration not strength, cap90s;12+30=42. Cross-effect coexistence and instantaneous restorative exceptions use their own rules; exact categories remain open. |
+| J03 | What are ingredient/reagent/bottle quantities, recipe output quantities and tool use for each potion? Reagent price and bulk quantities both affect cost. | Partial: named reagent/bottle recipes and healing/mana potion counts supplied; see current crafting spec. Unnumbered reagent amounts, recipe output counts and any missing progression recipes need authoring. |
+| J04 | Which healing/mana tiers are sold by NPCs, at what prices/stock, and which drop from monsters at what rates? Whether these ordinary restoratives also need craft recipes is not settled as an Alchemy progression requirement. | Partial: every alchemist unlimited stock through Greater heal/mana; Super drop-only. Use D2 starting prices. Actual source values/drop mapping need research/authoring, not invented prices. |
+| J05 | Keep the existing restorative amounts/time profiles as the initial balance, or choose replacements? Their class scaling and mixed-tier reapplication should remain explicit rather than being replaced implicitly by the buff catalogue. | Resolved baseline direction: keep D2 restorative values; verify actual current class/time behavior against the pinned version during implementation. |
+
+The bottle-return chance is an existing tuning value (P09). The installed belt's capacity/overflow and bottle-capacity handling remain the comparison baseline; those mechanics are not new unanswered interface questions.
+
+## K. Cooking and hunting outputs
+
+Source: crafting §11; economy §10.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| K01 | What initial food effects/tiers are available, with what values and skill requirements? Light radius and carrying capacity are examples, not a complete menu. | Initial6 effect families×3tiers supplied: light1/2/3; capacity25/50/74;10% extra gather1/2/3; gather-time−1/2/3s; corpse yield+1/2/3; aggro delay1/2/3s. Skill bands0–50/50–100/100–120; names/recipes delegated. Timing floors/aggro behavior need definition. |
+| K02 | What duration does each meal have? Roughly one hour is a proposal; define refresh/extension, effect categories and whether different meal effects coexist. | Resolved: one food effect at a time,1hour. Same-effect refresh/replacement details remain implementation definition. |
+| K03 | What are food recipes, ingredient/fuel quantities, output quantities and tool use? Include fish/meat, ordinary purchased ingredients and Wooden Chips as appropriate. | Recipe authoring delegated: economical fish/meat/vendor produce/flour/spices; generally1 each; proposed chip costs5/10/30 per tier. Exact recipe catalogue/output counts still needed. |
+| K04 | Is any hunger requirement intended, or are meals optional effect consumables without a hunger system? | Resolved: no hunger; food buffs only. |
+| K05 | When carrying-capacity food expires while the character is overweight, what encumbrance/movement rule applies? Possessions must not be destroyed. | Resolved: normal encumbrance on expiry; the player manually drops items if needed to move. No automatic spilling/removal; manually dropped items follow normal world decay. |
+
+## L. Cartography, keys, treasure maps and fishing
+
+Sources: crafting §§8, 15–17; economy §11. Exact world layouts can be deferred without guessing these mechanics.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| L01 | What are town/region/dungeon map recipes and their Cartography requirements/gain bands? How are the mapped place and eligibility determined? | Direction resolved: City0–30, World30–60, Dungeon1 60–80, Dungeon2 80–100, Dungeon3+100–120; deciphering also gains skill. Exact recipe/region mapping and modern/native treasure-version alignment need authoring. |
+| L02 | Are usable maps consumed on activation, charged, or reusable? Specify charge counts, cooldowns and stacking rules. | Resolved: consume on double-click, no charges, one map buff at a time,30minutes. |
+| L03 | Is map-buff duration based on the maker's recorded skill or the user's current skill? What formula handles skill 0, 1–9, 10–19 and exactly 120, with what rounding? | Resolved: fixed30minutes independent of maker/user skill. |
+| L04 | Confirm/change the proposed map bonuses: town vendor benefit 5%, region search radius +5 tiles, dungeon-level Magic Find +10%. Does the town bonus discount purchases, improve resale, or both? Define stacking/caps without a buy/sell profit loop. | Partial: city vendor5%; world search+5tiles; dungeon1/2/3+ MF10/20/30. Vendor purchase/sale/both is still unspecified. |
+| L05 | Where do map effects apply, and what happens on leaving/re-entering the town/region/dungeon level? | Partial: city/world anywhere; dungeon only where activated, leave dungeon loses effect. Whole-dungeon versus floor boundaries need exact definition. |
+| L06 | What treasure-map tiers and Cartography breakpoints exist, and which monsters/fishing bottles supply each tier at what rates? | Partial: maps1% from monsterbands1–20 Stash,21–40 Supply,41–60 Cache,61–80 Hoard,81–99 Trove. Cartography decode thresholds delegated to UO references; native6-level versus modern5-tier mapping remains to settle. |
+| L07 | What Tinkering key tiers match which chest tiers, with what recipes, required skill, charges and charge-consumption rules? | Partial: Primitive25/iron1; Clunky50/shadow1; Simple75/bronze1; Intricate100/agapite1; Splendid120/valorite1. Key charges/consumption still missing. |
+| L08 | Which rare profession recipes can appear as treasure rewards, with what eligibility and drop weights? | Partial: one random recipe at20/40/60/80/100% by treasure tier; pool includes tier3 Cooking and skill120 recipes. Also cash/gear/gem/resources, exact amounts/weights missing. Usable-gem reward is an unresolved exception to gathering-only gem supply. |
+| L09 | What fishing skill thresholds, fish yields, bottle chances and map contents apply initially? Which native fishing behavior is retained? | Research delegated: native/UO reference Fishing and bottles. Modern reference/native behavior and sea SOS versus custom land-map rewards need explicit adaptation. |
+| L10 | What triggers a kraken encounter, at what chance/skill/location, and what difficulty/reward is intended? | Research delegated with L09: determine native/reference kraken trigger, rates and rewards; no invented numerical override recorded. |
+
+## M. Gold, ordinary vendors and equipment drops
+
+Sources: economy §§2–5, 12, 14; implemented economy §Reconciliation. Drops are currently disabled; numerical settings below do not imply they are already active.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| M01 | What gold-drop formula/chance/range applies by monster level and encounter/difficulty? Define Gold Find's effect and bounds. No one-tenth D2 multiplier or coupling to XP awarded has been adopted. | Direction resolved: tentative D2-derived gold amount/randomness; detailed pinned-source extraction, encounter mapping and GoldFind behavior require research/testing. |
+| M02 | What equipment-drop chances/counts, base-tier eligibility, item-level rules and rarity weights apply to the first encounters? Which encounters have exclusive rewards? | Direction resolved: mirror D2 gear-drop chances initially; map to UO bases/counterparts, with actual supported rarity/tier tables and exclusive drops still to author. |
+| M03 | How is automatic kill-gold collection handled when capacity prevents transfer? What owner/party distribution applies? Owner credit for pet kills is already settled. | Resolved: remove automatic kill-gold collection; players loot corpse gold in grid. Existing pet-owner and spent-life rules remain. |
+| M04 | What does a representative short outing mean in minutes, and what expenses/savings should it support at starter/mid/endgame levels? Give rough targets rather than a complete price list if preferred. | Resolved target:30-minute outing pays repairs and leaves bonus cash. Start with D2-derived numbers and tune through real play. |
+| M05 | Which ordinary equipment bases/rarities/normal-or-exceptional tiers do vendors stock at each progression band? Define prices, quantities, restock, town specialties and locations. The earlier 1–40/41–70 bands are proposals. | Partial: random White/Magic stock up to level41 generally,70 in Britain; no class-specific town stock. Meaning of level, exact prices/stock/restock still unspecified. |
+| M06 | What buyback behavior should player-sold eligible gear have: who can repurchase it, at what price, and with what retained eligibility? Origin must not be laundered by sale. Gem/bark NPC resale remains prohibited separately. | Partial: no buyback; Drop/Crafted sale price fixed once first seen by vendor: Normal100–500, Exceptional500–1000, Elite2500–5000; unidentified10%; persist quote; stats tooltips wanted. Vendor-origin pricing and exact identified-price storage semantics remain to define. |
+
+## N. Gambling
+
+Source: economy §5. Rewards use ordinary loot improvement eligibility, not ordinary shop-stock restrictions.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| N01 | Which equipment types can be selected, and how does gold price scale with base/character level? | Direction resolved: all intended item types, D2-like gamble pricing initially; base catalogue mapping and source price formulas are research/authoring. |
+| N02 | How is reward item level calculated, and what are base-tier/rarity probabilities? Are actual uniques eligible once their system exists? | Direction resolved: adopt D2 item-level/base-tier/rarity generation; unsupported Set/Unique handling needs a project policy when implemented. |
+| N03 | Which NPC/location provides gambling, and what access/progression requirements apply? | Resolved: gambler in every tavern, vendor-like interface with hidden stats before purchase. |
+
+## O. Death, insurance, companions and housing
+
+Sources: economy §§12–14; crafting §10 for consumables. These are broader/later economy decisions, not prerequisites to every crafting recipe.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| O01 | What final death-gold penalty and source apply? The current comparison implementation takes min(level, 20)% of carried/corpse gold and leaves bank gold safe; retain or change explicitly. No XP penalty is needed. | Resolved: flat20% of backpack-carried gold at death, bank safe, no XP loss. Replaces prototype min(level,20)% explicitly. |
+| O02 | How long do player corpses persist, how does logout affect them, and how should recovery handle full packs/equipment conflicts and multiple deaths? | Partial: corpse24hours then bank escrow; content-based fee, payment refusal/lack deletes items. Fee formula, decision timing/logout/capacity/recovery handling remain open. |
+| O03 | Is equipment insurance wanted alongside the newer corpse-recovery rules? If so, define eligible items, fee/reinsurance and what remains on the corpse. | Partial: insurance wanted; Normal/Exceptional/Elite prices White100/200/300, Magic250/500/750, Rare500/1000/1500, Unique1000/2000/3000. Duration/renewal/payment source and exact retention behavior still open. |
+| O04 | What mercenary resurrection price applies, and how does it scale? Broader recruitment/loadout design remains later work. | Resolved starting price: mercenary level×1000gold, gear/inventory retained. |
+| O05 | What potion inventory/limits, drink thresholds, in-progress-healing rules, eligible potion types and low-stock warnings should mercenaries use? | Partial: healing-potion-only reserve, cannot retrieve as player storage; warn10/5/1/0. Drink thresholds, stock/capacity semantics and active-heal behavior remain open. |
+| O06 | Are houses player-placed, purchased vacant town houses, or both? Define initial availability, acquisition prices and the intended ordinary-play saving timescale. No rent/tax/upkeep has been adopted and none is implied by this question. | Partial: both placed housing through architects and town housing; sign purchase is proposed. Recognition rights/public wardrobe remain as recorded. Availability/prices/savings and sign behavior still need authoring. |
+| O07 | What initial dungeon/region/boss/chest layouts and reward tables are needed for treasure entrances, special restoration resources and housing/world placement? This can be answered with a deferred-content list rather than designed now. | Direction resolved: inspect existing dungeon maps and adapt smaller copied/empty sections with project spawns. Specific layouts/rewards/placement remain deferred world work. |
+
+## P. Reconciled starting values
+
+These rows now reflect the completed reply file's latest starting rules. Conflicting prototype numbers are historical; do not combine them with the replacements. Values remain provisional for testing, and Unique recovery is reserved until actual Unique support exists.
+
+| ID | Setting | Latest first-implementation rule | Reconciliation status |
+| --- | --- | --- | --- |
+| P01 | Socket base success, sockets 1 / 2 / 3 / 4 onward | New F01–F05:5-socket cap;100/50/25/5/5% base success; charge-only attempt cost, destructive failure, additive tool bonus, skill120 intuition retry. | Reconciled from user replies; provisional first implementation values. |
+| P02 | Converted-equipment NPC resale | New M06:Normal100–500/Exceptional500–1000/Elite2500–5000 fixed generated sale price; unidentified10%, no buyback. Starter1gold; Vendor-origin cases open. | Reconciled from user replies; provisional first implementation values. |
+| P03 | Magic/Rare essence salvage | Retained:Magic80% recovery1–2; Rare90%2–5. | Reconciled from user replies; provisional first implementation values. |
+| P04 | Physical salvage | Retained:physical85%, range[1+s,3+s], s=floor((ilvl−1)/10), separate material settings. | Reconciled from user replies; provisional first implementation values. |
+| P05 | Salvage gold fee; future Unique essence recovery | Retained:salvage0gold; Unique95%5–12 reserved/inactive. | Reconciled from user replies; provisional first implementation values. |
+| P06 | Imbuing cost and rarity | New E01–E03:Normal100gold+5essence,Exceptional500+10,Elite1000+20;75/25 below120 and70/30 at120; no destructive failure. | Reconciled from user replies; provisional first implementation values. |
+| P07 | Rune tier/quality numbers | New G04 provisional category-minimum+(tier−1)+quality0/1/2 points; G01/G05 thresholds/odds. Replaces universal1–8%. | Reconciled from user replies; provisional first implementation values. |
+| P08 | Tome capacities and quality effects | New I02/I03:tome3/4/5/6/7/10 charges at50/60/70/80/90/100, HQ+1/Superior+2; no refills. Vendor capacities/prices open. | Reconciled from user replies; provisional first implementation values. |
+| P09 | Empty-bottle return | Retained:20% bottle return with capacity-safe handling. | Reconciled from user replies; provisional first implementation values. |
+| P10 | Potion belt comparison capacities | Retained:unbelted1row; tabards2/2/3/3/4rows;4columns and current overflow behavior. | Reconciled from user replies; provisional first implementation values. |
+
+## Q. A03 follow-up: wardrobe, class profiles and town crafting
+
+Source: the user's A03 answer and subsequent clarifications, recorded in [wardrobe progression](wardrobe-progression.md). Free/no-cooldown swaps require alive/out-of-combat state. One class and one crafting job are selected; all three gathering skills stay active. Cartography is a craft and qualifies for the crafting-only skill-100 recognition route. The class-80 alternative and 100→120 Power Scroll progression remain recorded. Answered parts below are not being reopened.
+
+| ID | Unresolved question / values needed | First implementation answer |
+| --- | --- | --- |
+| Q01 | How does a first crafting profession obtain gathering materials before wardrobe access? | **Resolved:** Mining, Lumberjacking and Fishing are always active and do not use the crafting slot. Gathering cannot earn Pillar of Society. |
+| Q02 | What happens to access/progression if a personal wardrobe or house is moved, sold or lost? | **Answered in part:** a public town-hall wardrobe is available after unlocking, before home ownership. Personal furniture loss/storage/progression ownership details remain _open_. |
+| Q03 | How is out-of-combat state detected, and how are active actions/pending targets handled during a swap? | **Answered in part:** swapping requires being alive and out of combat, free/no-cooldown after unlock. Exact combat detection and action/target handling remain _open_; pool/status rules are in Q04. |
+| Q04 | What health/mana/stamina, buff/debuff and timer state is shared versus saved per class, and how does it advance while that class is inactive? Switching must not silently become a free refill/cleanse/reset. | _open_ |
+| Q05 | How are class summons suspended/restored, with what preserved health, remaining lifetime and follower-slot accounting? How are ordinary pets/mercenaries treated compared with class summons? | _open_ |
+| Q06 | Which remaining state is shared versus class-specific: backpack/bank/gold, potion-belt contents, quests/reputation, position and UI preferences? Class level/XP, allocations/talents, equipped gear, hotkeys and summons are already intended to persist per class. | _open_ |
+| Q07 | Can one real gear item be referenced by multiple class loadouts? Define storage/capacity/ownership and what happens if a saved item has been moved/sold/lost or the target class cannot equip it. | **Answered in part:** swapping to a weaker class may leave the character overweight; allow it and apply normal encumbrance. Item identity/storage/equipment eligibility details remain _open_. |
+| Q08 | How are initial class/profession choices and first activation of another class handled, including starting gear/bindings? What is the ownership scope of the unlock/certificates/housing right (character or account), which town hall is selected, and does later earning the other achievement grant its second title/certificate? | **Answered in part, 19 October:** new characters show Alchemy active initially, but first crafting-tool use confirms the first profession before action/cost/gain; cancellation leaves it unchosen. The confirmed choice is locked until class80 OR craft100 unlocks wardrobe access. Gathering tools are exempt. Wardrobe UI opens with current class/craft selected and enables Swap with exactly one checked class and craft. Existing-character craft migration, first activation of another class/gear/bindings, ownership scope, town selection and second award remain _open_. |
+| Q09 | Are Power Scroll cap unlocks stored per profession on the character, and must 105/110/115/120 be applied in order? Specify whether scrolls are profession-specific, their boss eligibility/drop weights, and trading restrictions if any. | _open_ |
+| Q10 | Which crafts require town facilities, and which portable exceptions are allowed? Private home workshops remain undecided; initial town usage fee is zero. Define any fee knob's future basis without enabling a fee now. | _open_ |
+| Q11 | What title does each class earn at 99 and each skill earn at 100? Are higher skill ranks added at 105–120, and what are they named? | **User proposal recorded:** optional class prefix at 99 and skill suffix at 100, including gathering; example Archmage Joe, Legendary Blacksmith. Names/additional ranks and any sex-specific achievement-title variants remain _open_. Ordinary class display names for either creation sex are already specified in [class names](class-talents-and-trades.md); do not reopen those aliases as title questions. Grandmaster 100 / Legendary 120 is an assistant recommendation, not a chosen replacement. |
+| Q12 | Can title slots select any earned class/skill title, or must they match the active class/crafting job? | **Answered in part:** class prefix and skill suffix are independently optional. Selection scope remains _open_; freely choosing from earned titles is a recommendation. |
+| Q13 | How do Hero of the People/Pillar of Society honors and legacy fame/skill titles fit the selectable title display? | _open_. Gathering may earn a skill title at 100 but still does not qualify for Pillar of Society or wardrobe/housing rights. No change to criminal/notoriety rules is implied. |
+
+## Suggested answer format
+
+Use the answer column or stable IDs in chat for remaining partial questions. The new starting rules are in section P and the current crafting specification; do not use “keep current” to restore superseded prototype prices or thresholds. Reference research and recipe authoring can be completed from the delegated baselines. Unanswered design choices remain open; `defer` does not authorize an invented default.
+
+No changes to gameplay, live state or existing balance values are made by creating this worksheet.

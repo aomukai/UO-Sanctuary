@@ -80,6 +80,11 @@ public abstract partial class GraveyardUndead : BaseCreature
         RangeFight = Caster ? 10 : 1;
         _nextRaise = Core.TickCount + 3000;
     }
+    // Movement notices use the species decision immediately; broad idle scans stay paced.
+    public override TimeSpan AcquireOnApproachDelay => CreatureProfiles.For(this).Reaction.NoticeMs is { } notice
+        ? TimeSpan.FromMilliseconds(notice) : base.AcquireOnApproachDelay;
+    public override TimeSpan ReacquireDelay => CreatureProfiles.For(this).Reaction.ScanMs is { } scan
+        ? TimeSpan.FromMilliseconds(scan) : base.ReacquireDelay;
     public override bool CanRegenHits => false;
     public override bool CanRegenMana => false;
     public override bool BleedImmune => true;
@@ -110,7 +115,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             list.Add($"{"Revived undead"}");
         }
     }
-    private bool ValidEnemy(Mobile target, int range) => !Deleted && Alive && !Frozen && !Paralyzed
+    private bool ValidEnemy(Mobile target, int range) => !Deleted && Alive && !Frozen && !Paralyzed && CreatureHitRecovery.Remaining(this) == 0
         && target is { Deleted: false, Alive: true, Blessed: false } && target.Map == Map
         && IsEnemy(target) && InRange(target, range) && Math.Abs(target.Z - Z) < 16
         && CanSee(target) && InLOS(target) && CanBeHarmful(target, false);
@@ -124,9 +129,13 @@ public abstract partial class GraveyardUndead : BaseCreature
         {
             return TimeSpan.FromMilliseconds(40);
         }
-        if (_actionTimer.Running || now < _nextAction)
+        if (_actionTimer.Running || now - _nextAction < 0)
         {
             return TimeSpan.FromMilliseconds(Math.Max(40, _nextAction - now));
+        }
+        if (AIObject is LeashedMeleeAI ai && ai.MeleeWait(target, now) is > 0 and var wait)
+        {
+            return TimeSpan.FromMilliseconds(Math.Max(40, wait));
         }
         var normal = NormalStats;
         if (normal.AttackChance < 100 && Utility.RandomDouble() * 100 >= normal.AttackChance)
@@ -179,8 +188,13 @@ public abstract partial class GraveyardUndead : BaseCreature
     private void Deal(Mobile target, int damage, bool fire)
     {
         DoHarmful(target);
-        AOS.Damage(target, this, damage, fire ? 0 : 100, fire ? 100 : 0, 0, 0, 0);
+        int before = target.Hits;
+        AOS.Damage(target, this, damage, false, fire ? 0 : 100, fire ? 100 : 0, 0, 0, 0, weaponDamage: !fire);
         CombatDamage.Finish(target, this);
+        if (!fire && target is PlayerMobile player)
+        {
+            HitRecovery.Apply(player, before - target.Hits, Core.TickCount);
+        }
     }
     public override void OnThink()
     {
@@ -344,7 +358,6 @@ public abstract partial class GraveyardUndead : BaseCreature
         if (corpse is Corpse body)
         {
             body.SanctuaryUndeadKind = RaiseKind;
-            body.SanctuaryNoRewards = true;
         }
         base.OnDeath(corpse);
     }
@@ -356,6 +369,12 @@ public abstract partial class GraveyardUndead : BaseCreature
         _raiseTarget = null;
         _actionMap = null;
         _nextAction = Core.TickCount;
+    }
+    internal void InterruptForRecovery()
+    {
+        long deadline = _nextAction;
+        StopCombatActions();
+        _nextAction = deadline;
     }
     public override void OnDelete()
     {

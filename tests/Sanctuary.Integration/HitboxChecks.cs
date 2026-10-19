@@ -37,11 +37,12 @@ public static class HitboxChecks
             ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
             player.Str = player.Int = 100;
             player.Hits = player.Mana = 100;
-            var point = CombatPractice.FindFloor(Map.Felucca, 1382, 1495);
-            player.MoveToWorld(point, Map.Felucca);
+            // Keep projectile interception separate from persistent pet/graveyard fixtures.
+            var point = CombatPractice.FindFloor(Map.Trammel, 5480, 1180);
+            player.MoveToWorld(point, Map.Trammel);
             player.EquipItem(dagger);
-            front.MoveToWorld(new Point3D(point.X + 2, point.Y, point.Z), Map.Felucca);
-            rear.MoveToWorld(new Point3D(point.X + 4, point.Y, point.Z), Map.Felucca);
+            front.MoveToWorld(new Point3D(point.X + 2, point.Y, point.Z), Map.Trammel);
+            rear.MoveToWorld(new Point3D(point.X + 4, point.Y, point.Z), Map.Trammel);
             front.SetHits(100);
             rear.SetHits(100);
             front.Hits = rear.Hits = 100;

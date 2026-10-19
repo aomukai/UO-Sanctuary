@@ -1,0 +1,70 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -19,7 +19,8 @@
+     private static readonly HashSet<uint> _hostiles = new();
+     private static bool _queried, _pursuing, _wasDead;
+     private static Entity _selectionFallback;
+-    private static uint _sequence, _target, _lastPath;
++    private static uint _sequence, _target, _lastPath, _recoveryUntil;
++    public static bool Recovering => Enabled && unchecked((int)(_recoveryUntil - Time.Ticks)) > 0;
+     private static int _pathX, _pathY, _pathZ, _pathRange;
+     private const int PursuitUpdateMs = 200;
+     private static readonly bool TracePursuit = Environment.GetEnvironmentVariable("SANCTUARY_TRACE_MOVEMENT") == "1";
+@@ -122,7 +123,7 @@
+         _hostiles.Clear();
+         _selectionFallback = null;
+         _leftRange = 1;
+-        _animationUntil = Time.Ticks;
++        _animationUntil = _recoveryUntil = Time.Ticks;
+     }
+     public static bool Hostile(Mobile target) => target != null && !target.IsDead && !target.IsDestroyed && _hostiles.Contains(target.Serial);
+ 
+@@ -194,6 +195,7 @@
+         if (_wasDead != world.Player.IsDead)
+         {
+             _wasDead = world.Player.IsDead;
++            _recoveryUntil = Time.Ticks;
+             Stop(world);
+             _animations.Remove(world.Player.Serial);
+         }
+@@ -210,6 +212,10 @@
+         }
+         UpdateAttackHold(world);
+         UpdateRightHold(world);
++        if (Recovering)
++        {
++            return;
++        }
+         UpdateGroundHold(world);
+         if (Keyboard.Shift)
+         {
+@@ -260,7 +266,7 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining < 24 || reader.ReadUInt8() != CombatProtocol.Version)
++        if (!world.InGame || reader.Remaining < 26 || reader.ReadUInt8() != CombatProtocol.Version)
+         {
+             return;
+         }
+@@ -277,6 +283,7 @@
+         _animation = reader.ReadUInt8();
+         _animationCycle = reader.ReadUInt16BE();
+         _animationUntil = Time.Ticks + reader.ReadUInt16BE();
++        _recoveryUntil = Time.Ticks + reader.ReadUInt16BE();
+         if (count > CombatProtocol.MaxHostiles || reader.Remaining != count * 4)
+         {
+             return;
+diff --git a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+--- a/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/PlayerMobile.cs
+@@ -522,7 +522,7 @@
+ 
+         public bool Walk(Direction direction, bool run)
+         {
+-            if (Walker.WalkingFailed || Walker.LastStepRequestTime > Time.Ticks || Walker.StepsCount >= Constants.MAX_STEP_COUNT || Client.Game.UO.Version >= ClientVersion.CV_60142 && IsParalyzed)
++            if (ClassCombatClient.Recovering || Walker.WalkingFailed || Walker.LastStepRequestTime > Time.Ticks || Walker.StepsCount >= Constants.MAX_STEP_COUNT || Client.Game.UO.Version >= ClientVersion.CV_60142 && IsParalyzed)
+             {
+                 return false;
+             }

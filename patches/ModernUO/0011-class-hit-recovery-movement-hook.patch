@@ -1,0 +1,26 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1754,6 +1754,11 @@
+ 
+         public override bool Move(Direction d)
+         {
++            if (ClassCombatHooks.MovementAllowed?.Invoke(this) == false)
++            {
++                return false;
++            }
++
+             if (NetState != null)
+             {
+                 var gumps = NetState.GetGumps();
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -17,6 +17,7 @@
+     public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
++    public static Func<PlayerMobile, bool> MovementAllowed { get; set; }
+     public static Action<PlayerMobile, Direction> Moved { get; set; }
+     public static Func<PlayerMobile, bool> DefenseSuppressed { get; set; }
+     public static Func<PlayerMobile, bool> Enabled { get; set; }

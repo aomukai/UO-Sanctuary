@@ -1,0 +1,1532 @@
+[
+  {
+    "code": "hax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "axe",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "2ax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "mpi",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "wax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "lax",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "bax",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "btx",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "gax",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "gix",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "wnd",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ywn",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "bwn",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "gwn",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "clb",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "scp",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "gsc",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "wsp",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "spc",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "mac",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "mst",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "fla",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "whm",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "mau",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "gma",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "ssd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "scm",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "sbr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "flc",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "crs",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "bsd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "lsd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "wsd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "2hs",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "clm",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "gis",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "bsw",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "flb",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "gsd",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "dgr",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "dir",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "kri",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "bld",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "tkf",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "tax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "bkf",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "bal",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "jav",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "pil",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "ssp",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "glv",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "tsp",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "spr",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "tri",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "brn",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "spt",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "pik",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "bar",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "vou",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "scy",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "pax",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "hal",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "wsc",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "sst",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "lst",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "cst",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "bst",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "wst",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "sbw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "hbw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "lbw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "cbw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "sbb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "lbb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "swb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "lwb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "lxb",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "mxb",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "hxb",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "rxb",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "gps",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "ops",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "gpm",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "opm",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "gpl",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "opl",
+    "hitClass": "hth",
+    "divisor": 16
+  },
+  {
+    "code": "d33",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "g33",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "leg",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "hdm",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "hfh",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "hst",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "msf",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "9ha",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9ax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "92a",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9mp",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9wa",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9la",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9ba",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9bt",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9ga",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9gi",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9wn",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "9yw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "9bw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "9gw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "9cl",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "9sc",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "9qs",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "9ws",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "9sp",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9ma",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9mt",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9fl",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9wh",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9m9",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9gm",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9ss",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9sm",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9sb",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9fc",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9cr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9bs",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9ls",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9wd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "92h",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9cm",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9gs",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9b9",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9fb",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9gd",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "9dg",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9di",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9kr",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9bl",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9tk",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9ta",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9bk",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9b8",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9ja",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9pi",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9s9",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9gl",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9ts",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "9sr",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "9tr",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "9br",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "9st",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "9p9",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "9b7",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9vo",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9s8",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9pa",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9h9",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "9wc",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "8ss",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "8ls",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "8cs",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "8bs",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "8ws",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "8sb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8hb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8lb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8cb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8s8",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8l8",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8sw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8lw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "8lx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "8mx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "8hx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "8rx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "qf1",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "qf2",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "ktr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "wrb",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "axf",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "ces",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "clw",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "btl",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "skr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9ar",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9wb",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9xf",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9cs",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9lw",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9tw",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "9qr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ar",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7wb",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7xf",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7cs",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7lw",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7tw",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7qr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ha",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ax",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "72a",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7mp",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7wa",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7la",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7ba",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7bt",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7ga",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7gi",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7wn",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "7yw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "7bw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "7gw",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "7cl",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "7sc",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "7qs",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "7ws",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "7sp",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ma",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7mt",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7fl",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7wh",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7m7",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7gm",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7ss",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7sm",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7sb",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7fc",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7cr",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7bs",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ls",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7wd",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "72h",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7cm",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7gs",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7b7",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7fb",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7gd",
+    "hitClass": "2hss",
+    "divisor": 32
+  },
+  {
+    "code": "7dg",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7di",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7kr",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7bl",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7tk",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7ta",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7bk",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7b8",
+    "hitClass": "1hsl",
+    "divisor": 16
+  },
+  {
+    "code": "7ja",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7pi",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7s7",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7gl",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7ts",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "7sr",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "7tr",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "7br",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "7st",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "7p7",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "7o7",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7vo",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7s8",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7pa",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7h7",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "7wc",
+    "hitClass": "2hsl",
+    "divisor": 64
+  },
+  {
+    "code": "6ss",
+    "hitClass": "club",
+    "divisor": 32
+  },
+  {
+    "code": "6ls",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "6cs",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "6bs",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "6ws",
+    "hitClass": "staf",
+    "divisor": 16
+  },
+  {
+    "code": "6sb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6hb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6lb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6cb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6s7",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6l7",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6sw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6lw",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "6lx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "6mx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "6hx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "6rx",
+    "hitClass": "xbow",
+    "divisor": 8
+  },
+  {
+    "code": "ob1",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob2",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob3",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob4",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob5",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "am1",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "am2",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "am3",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "am4",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "am5",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "ob6",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob7",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob8",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "ob9",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "oba",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "am6",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "am7",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "am8",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "am9",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "ama",
+    "hitClass": "1ht",
+    "divisor": 8
+  },
+  {
+    "code": "obb",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "obc",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "obd",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "obe",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "obf",
+    "hitClass": "1hss",
+    "divisor": 8
+  },
+  {
+    "code": "amb",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "amc",
+    "hitClass": "bow",
+    "divisor": 8
+  },
+  {
+    "code": "amd",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "ame",
+    "hitClass": "2ht",
+    "divisor": 16
+  },
+  {
+    "code": "amf",
+    "hitClass": "1ht",
+    "divisor": 8
+  }
+]

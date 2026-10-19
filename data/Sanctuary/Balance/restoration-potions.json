@@ -1,0 +1,92 @@
+[
+  {
+    "kind": "Healing",
+    "tier": 1,
+    "name": "Minor Healing potion",
+    "amount": 30,
+    "durationMs": 7680,
+    "graphic": 3852,
+    "hue": 0
+  },
+  {
+    "kind": "Healing",
+    "tier": 2,
+    "name": "Light Healing potion",
+    "amount": 60,
+    "durationMs": 6400,
+    "graphic": 3852,
+    "hue": 0
+  },
+  {
+    "kind": "Healing",
+    "tier": 3,
+    "name": "Healing potion",
+    "amount": 100,
+    "durationMs": 6840,
+    "graphic": 3852,
+    "hue": 0
+  },
+  {
+    "kind": "Healing",
+    "tier": 4,
+    "name": "Greater Healing potion",
+    "amount": 180,
+    "durationMs": 7680,
+    "graphic": 3852,
+    "hue": 0
+  },
+  {
+    "kind": "Healing",
+    "tier": 5,
+    "name": "Super Healing potion",
+    "amount": 320,
+    "durationMs": 10240,
+    "graphic": 3852,
+    "hue": 0
+  },
+  {
+    "kind": "Mana",
+    "tier": 1,
+    "name": "Minor Mana potion",
+    "amount": 20,
+    "durationMs": 5120,
+    "graphic": 3853,
+    "hue": 5
+  },
+  {
+    "kind": "Mana",
+    "tier": 2,
+    "name": "Light Mana potion",
+    "amount": 40,
+    "durationMs": 5120,
+    "graphic": 3853,
+    "hue": 5
+  },
+  {
+    "kind": "Mana",
+    "tier": 3,
+    "name": "Mana potion",
+    "amount": 80,
+    "durationMs": 5120,
+    "graphic": 3853,
+    "hue": 5
+  },
+  {
+    "kind": "Mana",
+    "tier": 4,
+    "name": "Greater Mana potion",
+    "amount": 150,
+    "durationMs": 5120,
+    "graphic": 3853,
+    "hue": 5
+  },
+  {
+    "kind": "Mana",
+    "tier": 5,
+    "name": "Super Mana potion",
+    "amount": 250,
+    "durationMs": 5120,
+    "graphic": 3853,
+    "hue": 5
+  }
+]

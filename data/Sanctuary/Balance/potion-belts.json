@@ -1,0 +1,27 @@
+[
+  {
+    "type": "PotionSash",
+    "code": "lbl",
+    "rows": 2
+  },
+  {
+    "type": "PotionLightBelt",
+    "code": "vbl",
+    "rows": 2
+  },
+  {
+    "type": "PotionBelt",
+    "code": "mbl",
+    "rows": 3
+  },
+  {
+    "type": "PotionHeavyBelt",
+    "code": "tbl",
+    "rows": 3
+  },
+  {
+    "type": "PotionPlatedBelt",
+    "code": "hbl",
+    "rows": 4
+  }
+]

@@ -1,0 +1,110 @@
+diff --git a/Projects/UOContent/Items/ClassEconomyHooks.cs b/Projects/UOContent/Items/ClassEconomyHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Items/ClassEconomyHooks.cs
+@@ -0,0 +1,11 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++
++namespace Server;
++
++public static class ClassEconomyHooks
++{
++    public static Func<Item, int, int> SellPrice { get; set; }
++    public static Func<Mobile, Item, bool> LegacySalvageAllowed { get; set; }
++    public static bool AllowLegacySalvage(Mobile from, Item item) => LegacySalvageAllowed?.Invoke(from, item) ?? true;
++}
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -581,7 +581,7 @@
+                         }
+                     }
+ 
+-                    GiveGold += ssi.GetSellPriceFor(resp.Item) * amount;
++                    GiveGold += GetSellPriceFor(resp.Item, ssi) * amount;
+                     break;
+                 }
+             }
+@@ -1039,6 +1039,12 @@
+             from.NetState.SendEquipUpdate(pack);
+         }
+ 
++        public static int GetSellPriceFor(Item item, IShopSellInfo info)
++        {
++            var price = info.GetSellPriceFor(item);
++            return ClassEconomyHooks.SellPrice?.Invoke(item, price) ?? price;
++        }
++
+         public virtual void VendorSell(Mobile from)
+         {
+             if (!IsActiveBuyer || !from.CheckAlive())
+@@ -1085,7 +1091,7 @@
+ 
+                     if (item.IsStandardLoot() && item.Movable && ssi.IsSellable(item))
+                     {
+-                        set.Add(new SellItemState(item, ssi.GetSellPriceFor(item), ssi.GetNameFor(item)));
++                        set.Add(new SellItemState(item, GetSellPriceFor(item, ssi), ssi.GetNameFor(item)));
+                     }
+                 }
+             }
+diff --git a/Projects/UOContent/Items/Armor/BaseArmor.cs b/Projects/UOContent/Items/Armor/BaseArmor.cs
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -636,6 +636,11 @@
+ 
+         public bool Scissor(Mobile from, Scissors scissors)
+         {
++            if (!ClassEconomyHooks.AllowLegacySalvage(from, this))
++            {
++                return false;
++            }
++
+             if (!IsChildOf(from.Backpack))
+             {
+                 from.SendLocalizedMessage(502437); // Items you wish to cut must be in your backpack.
+diff --git a/Projects/UOContent/Items/Clothing/BaseClothing.cs b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -237,6 +237,11 @@
+ 
+         public virtual bool Scissor(Mobile from, Scissors scissors)
+         {
++            if (!ClassEconomyHooks.AllowLegacySalvage(from, this))
++            {
++                return false;
++            }
++
+             if (!IsChildOf(from.Backpack))
+             {
+                 from.SendLocalizedMessage(502437); // Items you wish to cut must be in your backpack.
+diff --git a/Projects/UOContent/Items/Containers/SalvageBag.cs b/Projects/UOContent/Items/Containers/SalvageBag.cs
+--- a/Projects/UOContent/Items/Containers/SalvageBag.cs
++++ b/Projects/UOContent/Items/Containers/SalvageBag.cs
+@@ -44,6 +44,11 @@
+ 
+     private bool Resmelt(Mobile from, Item item, CraftResource resource)
+     {
++        if (!ClassEconomyHooks.AllowLegacySalvage(from, item))
++        {
++            return false;
++        }
++
+         try
+         {
+             if (CraftResources.GetType(resource) != CraftResourceType.Metal)
+diff --git a/Projects/UOContent/Engines/Craft/Core/Resmelt.cs b/Projects/UOContent/Engines/Craft/Core/Resmelt.cs
+--- a/Projects/UOContent/Engines/Craft/Core/Resmelt.cs
++++ b/Projects/UOContent/Engines/Craft/Core/Resmelt.cs
+@@ -41,6 +41,11 @@
+ 
+             private SmeltResult Resmelt(Mobile from, Item item, CraftResource resource)
+             {
++                if (!ClassEconomyHooks.AllowLegacySalvage(from, item))
++                {
++                    return SmeltResult.Invalid;
++                }
++
+                 try
+                 {
+                     if (Ethic.IsImbued(item))

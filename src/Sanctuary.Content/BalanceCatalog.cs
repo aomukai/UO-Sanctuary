@@ -15,8 +15,11 @@ public static class BalanceCatalog
     public static void Configure()
     {
         EquipmentBalance.Load();
+        PotionBeltCatalog.Load();
+        EquipmentEconomy.Load();
         AffixBalance.Load();
         MonsterBalance.Load();
+        CreatureProfiles.Load();
     }
     private static JsonSerializerOptions CreateOptions()
     {

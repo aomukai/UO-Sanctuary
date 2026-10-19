@@ -51,13 +51,13 @@ public static class CreationChecks
         }
     }
 
-    private static CharacterCreatedEventArgs Args(int id, Account account)
+    internal static CharacterCreatedEventArgs Args(int id, Account account, bool female = true)
     {
         // Event-path checks need protocol capabilities, but must not register fake sockets.
         var state = (NetState)RuntimeHelpers.GetUninitializedObject(typeof(NetState));
         state.Version = new ClientVersion("7.0.117.1");
         return new CharacterCreatedEventArgs(
-            state, account, $"Check{(DiabloClass)id}", true, 0x03EA,
+            state, account, $"Check{(DiabloClass)id}", female, 0x03EA,
             [255, 255, 255], new CityInfo("Britain", "Bank", 1438, 1696, 0, Map.Felucca),
             [(SkillName.Magery, 50), (SkillName.Swords, 50), (SkillName.Necromancy, 50), (SkillName.Tailoring, 50)],
             3, 5, 0x203B, 0x044E, 0, 0, id, Race.Human);
@@ -67,7 +67,7 @@ public static class CreationChecks
     {
         Require(ClassCreation.Profiles.TryGet(mobile.Serial, out var profile), "Missing class profile");
         Require(profile == new CharacterProfile(characterClass, 1, 0), "Incorrect class, level, or XP");
-        Require(mobile.Title == $"Level 1 {characterClass}", "Incorrect paperdoll title");
+        Require(mobile.Title == $"Level 1 {DiabloClasses.DisplayName(characterClass, mobile.Female)}", "Incorrect paperdoll title");
         Require(mobile.AccessLevel == AccessLevel.Player && !mobile.Blessed, "New character inherited staff powers");
         var basis = ClassStats.For(characterClass);
         Require(mobile.Str == basis.Strength && mobile.Dex == basis.Dexterity && mobile.Int == basis.Energy,

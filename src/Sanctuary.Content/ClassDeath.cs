@@ -18,7 +18,9 @@ public static class ClassDeath
         {
             return;
         }
+        PotionBelts.OnDeath(player, corpse);
         ClassCombat.Stop(player);
+        ClassCombat.For(player).RecoveryUntil = Core.TickCount;
         PersistentMinions.Dismiss(player);
         using var gold = PooledRefList<Item>.Create();
         long carried = 0;

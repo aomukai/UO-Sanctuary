@@ -30,6 +30,9 @@ public static class EquipmentBalance
     public static bool TryGet(Item item, out GearDefinition gear) => _gear.TryGetValue(item.GetType().Name, out gear);
     public static bool TryGet(Type type, out GearDefinition gear) => _gear.TryGetValue(type.Name, out gear);
     public static NormalBase Base(string code) => _bases[code];
+    internal static void AddProjectBelt(string type, string code) => _gear.Add(type,
+        new(type, "Clothing", "belt", GearWeight.None, "Normal", false, null,
+            "src/Sanctuary.Content/PotionTabards.cs", null, GearSlot.Belt, code, true));
     public static bool IsType(string code, string ancestor)
     {
         if (code == ancestor)

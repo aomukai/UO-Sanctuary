@@ -29,7 +29,7 @@ def build(source):
         (OUT / (name + '.json')).write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
 
     names = ['CharStats', 'Experience', 'MonLvl', 'MonStats', 'MonStats2',
-             'Weapons', 'Armor', 'ItemTypes', 'MagicPrefix', 'MagicSuffix', 'Properties']
+             'Weapons', 'Armor', 'ItemTypes', 'MagicPrefix', 'MagicSuffix', 'Properties', 'Misc', 'ItemStatCost']
     save('sources', {name: {'url': TABLE_URL + name + '.txt',
                           'sha256': hashlib.sha256((source / (name + '.txt')).read_bytes()).hexdigest()}
                      for name in names})

@@ -1,0 +1,358 @@
+diff --git a/src/ClassicUO.Client/Configuration/Profile.cs b/src/ClassicUO.Client/Configuration/Profile.cs
+--- a/src/ClassicUO.Client/Configuration/Profile.cs
++++ b/src/ClassicUO.Client/Configuration/Profile.cs
+@@ -173,8 +173,9 @@
+         public bool UseColoredLights { get; set; } = true;
+         public bool UseDarkNights { get; set; }
+         public int CloseHealthBarType { get; set; } // 0 = none, 1 == not exists, 2 == is dead
+-        public bool ActivateChatAfterEnter { get; set; }
+-        public bool ActivateChatAdditionalButtons { get; set; } = true;
++        // Gameplay keys remain available until Enter opens chat, including old profiles.
++        public bool ActivateChatAfterEnter { get => true; set { } }
++        public bool ActivateChatAdditionalButtons { get => false; set { } }
+         public bool ActivateChatShiftEnterSupport { get; set; } = true;
+         public bool UseObjectsFading { get; set; } = true;
+         public bool HoldDownKeyAltToCloseAnchored { get; set; } = true;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/OptionsGump.cs
+@@ -95,8 +95,6 @@
+                          _holdDownKeyTab,
+                          _holdDownKeyAlt,
+                          _closeAllAnchoredGumpsWithRClick,
+-                         _chatAfterEnter,
+-                         _chatAdditionalButtonsCheckbox,
+                          _chatShiftEnterCheckbox,
+                          _enableCaveBorder;
+         private Checkbox _holdShiftForContext, _holdShiftToSplitStack, _reduceFPSWhenInactive, _sallosEasyGrab, _partyInviteGump, _objectsFading, _textFading, _holdAltToMoveGumps;
+@@ -2547,28 +2545,13 @@
+             startX = 5;
+             startY += _journalFileWithSerial.Height + 2 + 5;
+ 
+-            _chatAfterEnter = AddCheckBox
+-            (
+-                rightArea,
+-                ResGumps.ActiveChatWhenPressingEnter,
+-                _currentProfile.ActivateChatAfterEnter,
+-                startX,
+-                startY
+-            );
+-
++            rightArea.Add(new Label("Press Enter to chat (required)", true, 0x0481)
++            {
++                X = startX,
++                Y = startY
++            });
+             startX += 40;
+-            startY += _chatAfterEnter.Height + 2;
+-
+-            _chatAdditionalButtonsCheckbox = AddCheckBox
+-            (
+-                rightArea,
+-                ResGumps.UseAdditionalButtonsToActivateChat,
+-                _currentProfile.ActivateChatAdditionalButtons,
+-                startX,
+-                startY
+-            );
+-
+-            startY += _chatAdditionalButtonsCheckbox.Height + 2;
++            startY += 22;
+ 
+             _chatShiftEnterCheckbox = AddCheckBox
+             (
+@@ -3769,9 +3752,7 @@
+                     _guildMessageColorPickerBox.Hue = 0x0044;
+                     _allyMessageColorPickerBox.Hue = 0x0057;
+                     _chatMessageColorPickerBox.Hue = 0x0256;
+-                    _chatAfterEnter.IsChecked = false;
+-                    UIManager.SystemChat.IsActive = !_chatAfterEnter.IsChecked;
+-                    _chatAdditionalButtonsCheckbox.IsChecked = true;
++                    UIManager.SystemChat.IsActive = false;
+                     _chatShiftEnterCheckbox.IsChecked = true;
+                     _saveJournalCheckBox.IsChecked = false;
+                     _hideChatGradient.IsChecked = false;
+@@ -4003,13 +3984,6 @@
+             _currentProfile.AllyMessageHue = _allyMessageColorPickerBox.Hue;
+             _currentProfile.ChatMessageHue = _chatMessageColorPickerBox.Hue;
+ 
+-            if (_currentProfile.ActivateChatAfterEnter != _chatAfterEnter.IsChecked)
+-            {
+-                UIManager.SystemChat.IsActive = !_chatAfterEnter.IsChecked;
+-                _currentProfile.ActivateChatAfterEnter = _chatAfterEnter.IsChecked;
+-            }
+-
+-            _currentProfile.ActivateChatAdditionalButtons = _chatAdditionalButtonsCheckbox.IsChecked;
+             _currentProfile.ActivateChatShiftEnterSupport = _chatShiftEnterCheckbox.IsChecked;
+             _currentProfile.SaveJournalToFile = _saveJournalCheckBox.IsChecked;
+             _currentProfile.OverheadPartyMessages = _partyMessagesOverhead.IsChecked;
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -111,6 +111,7 @@
+     {
+         ClassStatsClient.Reset();
+         ClassLootClient.Reset();
++        ClassBeltClient.Reset();
+         _animations.Clear();
+         _nextAnimationCleanup = Time.Ticks;
+         Enabled = _queried = _pursuing = _rightHeld = _wasDead = false;
+@@ -201,6 +202,7 @@
+         }
+         ClassStatsClient.Update();
+         ClassLootClient.Update();
++        ClassBeltClient.Update(world);
+         if (UIManager.GetGump<ProgressionButtonsGump>() == null)
+         {
+             UIManager.Add(new ProgressionButtonsGump(world));
+diff --git a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+--- a/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameSceneInputHandler.cs
+@@ -1322,6 +1322,18 @@
+                 return;
+             }
+ 
++            // Unmodified 1-4 are reserved for belt columns. Chat and other text
++            // controls have already consumed their input above; never repeat a held key.
++            if (ClassCombatClient.Enabled && !Keyboard.Alt && !Keyboard.Ctrl && !Keyboard.Shift
++                && keycode >= SDL.SDL_Keycode.SDLK_1 && keycode <= SDL.SDL_Keycode.SDLK_4)
++            {
++                if (!e.repeat)
++                {
++                    ClassBeltClient.Send(Sanctuary.BeltRequest.Use, (int)keycode - (int)SDL.SDL_Keycode.SDLK_1);
++                }
++                return;
++            }
++
+             if (CanExecuteMacro())
+             {
+                 Macro macro = _world.Macros.FindMacro(
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4137,6 +4137,11 @@
+                 ClassCombatClient.ReceiveAnimation(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.BeltProtocol.SubCommand)
++            {
++                ClassBeltClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.LootProtocol.SubCommand)
+             {
+                 ClassLootClient.Receive(world, ref p);
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -32,6 +32,7 @@
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
++    <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+     <Compile Include="../../../../shared/ClassGumpProtocol.cs" Link="Game/Data/ClassGumpProtocol.cs" />
+     <Compile Remove="Game/UI/Gumps/CharCreation/CreateCharTradeGump.cs" />
+diff --git a/src/ClassicUO.Client/Game/ClassBeltClient.cs b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.IO;
++using ClassicUO.Network;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class ClassBeltClient
++{
++    internal readonly record struct Cell(uint Serial, RestorationKind Kind, byte Tier, ushort Graphic, ushort Hue);
++    private static Cell[] _cells = new Cell[BeltProtocol.Cells];
++    private static uint _sequence, _nextPoll;
++    public static int Rows { get; private set; } = 1;
++    public static bool Ready { get; private set; }
++    public static bool Alive { get; private set; }
++    public static bool Expanded { get; private set; }
++    public static Cell Get(int cell) => _cells[cell];
++    public static bool Overflow
++    {
++        get
++        {
++            for (int i = Rows * 4; i < _cells.Length; i++)
++            {
++                if (_cells[i].Serial != 0) { return true; }
++            }
++            return false;
++        }
++    }
++    public static void Reset()
++    {
++        Array.Clear(_cells);
++        Rows = 1;
++        Ready = Alive = Expanded = false;
++        _sequence = 0;
++        _nextPoll = Time.Ticks;
++        UIManager.GetGump<PotionBeltGump>()?.Dispose();
++    }
++    public static void Update(World world)
++    {
++        if (!ClassCombatClient.Enabled) { return; }
++        if (UIManager.GetGump<PotionBeltGump>() == null) { UIManager.Add(new PotionBeltGump(world)); }
++        if (unchecked((int)(Time.Ticks - _nextPoll)) >= 0)
++        {
++            _nextPoll = Time.Ticks + BeltProtocol.PollMs;
++            Send(BeltRequest.Poll);
++        }
++    }
++    public static void Toggle()
++    {
++        Expanded = !Expanded;
++        UIManager.GetGump<PotionBeltGump>()?.RequestUpdateContents();
++    }
++    public static void Send(BeltRequest request, int cell = 0)
++    {
++        if (!ClassCombatClient.Enabled || cell < 0 || cell >= BeltProtocol.Cells) { return; }
++        var writer = new StackDataWriter(BeltProtocol.RequestLength);
++        writer.WriteUInt8(0xBF);
++        writer.WriteUInt16BE(BeltProtocol.RequestLength);
++        writer.WriteUInt16BE(BeltProtocol.SubCommand);
++        writer.WriteUInt8(BeltProtocol.Version);
++        writer.WriteUInt8((byte)request);
++        writer.WriteUInt8((byte)cell);
++        writer.WriteUInt32BE(++_sequence);
++        NetClient.Socket.Send(writer.BufferWritten);
++        writer.Dispose();
++    }
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining != BeltProtocol.StateLength - 5 || reader.ReadUInt8() != BeltProtocol.Version) { return; }
++        reader.ReadUInt32BE(); // Server acknowledgement; all state below is authoritative.
++        int rows = reader.ReadUInt8();
++        bool alive = reader.ReadUInt8() != 0;
++        if (rows is < 1 or > 4) { return; }
++        var cells = new Cell[BeltProtocol.Cells];
++        bool changed = !Ready || Rows != rows || Alive != alive;
++        for (int i = 0; i < cells.Length; i++)
++        {
++            cells[i] = new Cell(reader.ReadUInt32BE(), (RestorationKind)reader.ReadUInt8(), reader.ReadUInt8(),
++                reader.ReadUInt16BE(), reader.ReadUInt16BE());
++            changed |= cells[i] != _cells[i];
++        }
++        _cells = cells;
++        Rows = rows;
++        Alive = alive;
++        Ready = true;
++        if (changed) { UIManager.GetGump<PotionBeltGump>()?.RequestUpdateContents(); }
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+@@ -0,0 +1,103 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System;
++using System.Linq;
++using ClassicUO.Configuration;
++using ClassicUO.Game.UI.Controls;
++using ClassicUO.Input;
++using Sanctuary;
++
++namespace ClassicUO.Game.UI.Gumps;
++
++internal sealed class PotionBeltGump : Gump
++{
++    private const int Size = 36, PanelWidth = 164;
++    public PotionBeltGump(World world) : base(world, 0, 0)
++    {
++        CanMove = CanCloseWithRightClick = false;
++        RequestUpdateContents();
++    }
++    public override void Update()
++    {
++        IsVisible = World.InGame && ClassCombatClient.Enabled && ClassBeltClient.Ready;
++        var profile = ProfileManager.CurrentProfile;
++        X = Math.Max(0, profile.GameWindowPosition.X + profile.GameWindowSize.X - PanelWidth - 12);
++        Y = Math.Max(0, profile.GameWindowPosition.Y + profile.GameWindowSize.Y - Height - 14);
++        base.Update();
++    }
++    protected override void UpdateContents()
++    {
++        foreach (var child in Children.ToArray()) { child.Dispose(); }
++        int rows = ClassBeltClient.Overflow ? 4 : ClassBeltClient.Expanded ? ClassBeltClient.Rows : 1;
++        int height = 26 + rows * Size + 17;
++        Add(new AlphaBlendControl(0.9f) { Width = PanelWidth, Height = height, AcceptMouseInput = false });
++        Add(new Label($"Potions  {ClassBeltClient.Rows} row{(ClassBeltClient.Rows == 1 ? "" : "s")}", true, 0x35)
++        { X = 8, Y = 3, AcceptMouseInput = false });
++        Add(new ActionControl(114, 2, 20, 21, ClassBeltClient.Expanded ? "v" : "^", "Show/hide belt rows", _ => ClassBeltClient.Toggle()));
++        Add(new ActionControl(136, 2, 24, 21, "+", "Fill from backpack: healing left, mana right", _ => ClassBeltClient.Send(BeltRequest.Fill)));
++        for (int row = 0; row < rows; row++)
++        {
++            for (int column = 0; column < 4; column++)
++            {
++                int cell = row * 4 + column;
++                var potion = ClassBeltClient.Get(cell);
++                bool locked = row >= ClassBeltClient.Rows;
++                var control = new ActionControl(8 + column * Size, 25 + (rows - 1 - row) * Size, Size - 2, Size - 2,
++                    potion.Serial == 0 ? "+" : "", locked ? "Inactive overflow: right-click to return to backpack" :
++                    potion.Serial == 0 ? "Click to load a healing or mana potion from your backpack" :
++                    $"{PotionName(potion)}: click to drink; right-click to return to backpack",
++                    button =>
++                    {
++                        if (button == MouseButtonType.Right) { ClassBeltClient.Send(BeltRequest.Remove, cell); }
++                        else if (!locked && ClassBeltClient.Alive)
++                        {
++                            ClassBeltClient.Send(potion.Serial == 0 ? BeltRequest.Load : BeltRequest.Use, cell);
++                        }
++                    }, locked ? 0xFF333333u : 0xFF504638u);
++                Add(control);
++                if (potion.Serial != 0)
++                {
++                    var art = new StaticPic(potion.Graphic, potion.Hue) { AcceptMouseInput = false };
++                    art.X = (Size - 2 - art.Width) / 2;
++                    art.Y = (Size - 2 - art.Height) / 2;
++                    control.Add(art);
++                    if (locked) { control.Add(new Label("!", true, 0x21) { X = 2, Y = 2, AcceptMouseInput = false }); }
++                }
++            }
++        }
++        for (int column = 0; column < 4; column++)
++        {
++            Add(new Label((column + 1).ToString(), true, 0x35) { X = 21 + column * Size, Y = 25 + rows * Size, AcceptMouseInput = false });
++        }
++        Width = PanelWidth;
++        Height = height;
++    }
++    private static string PotionName(ClassBeltClient.Cell potion)
++    {
++        string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
++        return $"{strength}{potion.Kind} potion";
++    }
++    private sealed class ActionControl : Control
++    {
++        private readonly Action<MouseButtonType> _action;
++        public ActionControl(int x, int y, int width, int height, string text, string tooltip,
++            Action<MouseButtonType> action, uint color = 0xFF504638)
++        {
++            X = x; Y = y; Width = width; Height = height;
++            WantUpdateSize = false;
++            AcceptMouseInput = true;
++            _action = action;
++            Add(new Line(0, 0, width, height, color) { AcceptMouseInput = false });
++            Add(new Label(text, true, 0x35) { X = 6, Y = 4, AcceptMouseInput = false });
++            SetTooltip(tooltip);
++        }
++        protected override void OnMouseUp(int x, int y, MouseButtonType button)
++        {
++            if (MouseIsOver && button is MouseButtonType.Left or MouseButtonType.Right)
++            {
++                _action(button);
++                Mouse.CancelDoubleClick = true;
++            }
++            base.OnMouseUp(x, y, button);
++        }
++    }
++}

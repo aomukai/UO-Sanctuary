@@ -104,7 +104,13 @@ public static class CombatTiming
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
     public static int Range(PlayerMobile from, CombatAbility ability) => ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
-        : Math.Clamp(Equipped(from)?.MaxRange ?? 1, 1, CombatProtocol.SightRange);
+        : WeaponRange(Equipped(from));
+    private static int WeaponRange(BaseWeapon weapon)
+    {
+        // Provisional class-combat comparison; native UO reach and other bases stay intact.
+        int range = Math.Max(weapon?.MaxRange ?? 1, weapon is Halberd ? 2 : 1);
+        return Math.Clamp(range, 1, CombatProtocol.SightRange);
+    }
     public static bool AddSpeedProperties(BaseWeapon weapon, IPropertyList list)
     {
         var basis = Weapon(weapon);
@@ -112,7 +118,11 @@ public static class CombatTiming
         {
             ClassCreation.Profiles.TryGet(player.Serial, out var profile);
             var timing = For(player, CombatAbility.BasicAttack, weapon);
-            list.Add(1061167, $"{Label(timing.Frames)} ({profile.Class}, {timing.DurationMs / 1000.0:0.00}s)");
+            list.Add(1061167, $"{Label(timing.Frames)} ({DiabloClasses.DisplayName(profile.Class, player.Female)}, {timing.DurationMs / 1000.0:0.00}s)");
+            if (weapon is Halberd)
+            {
+                list.Add($"Class melee reach: {WeaponRange(weapon)} tiles");
+            }
         }
         else
         {

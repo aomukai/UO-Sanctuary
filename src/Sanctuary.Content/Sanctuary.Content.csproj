@@ -13,6 +13,7 @@
     <Compile Include="../../shared/CombatProtocol.cs" Link="CombatProtocol.cs" />
     <Compile Include="../../shared/StatProtocol.cs" Link="StatProtocol.cs" />
     <Compile Include="../../shared/LootProtocol.cs" Link="LootProtocol.cs" />
+    <Compile Include="../../shared/BeltProtocol.cs" Link="BeltProtocol.cs" />
     <Compile Include="../../shared/ClassGumpProtocol.cs" Link="ClassGumpProtocol.cs" />
     <Compile Include="../../shared/TradeSkills.cs" Link="TradeSkills.cs" />
     <Reference Include="Server" HintPath="$(ModernUODistribution)/Server.dll" Private="false" />

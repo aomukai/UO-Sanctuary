@@ -52,7 +52,7 @@ public sealed class TalentGump : DynamicGump
 
         builder.AddPage();
         builder.AddBackground(0, 0, 610, 440, 5054);
-        builder.AddLabel(18, 12, 0x481, $"{_profile.Class} — Level {_profile.Level}");
+        builder.AddLabel(18, 12, 0x481, $"{DiabloClasses.DisplayName(_profile.Class, World.FindMobile(_owner)?.Female == true)} — Level {_profile.Level}");
         builder.AddLabel(18, 34, 0x47E, $"Talent points: {points}     Experience: {_profile.Experience}");
         builder.AddButton(570, 12, 4017, 4019, 0);
 

@@ -151,7 +151,7 @@ public static class FoundationChecks
     {
         Type[] roots = [typeof(BaseWeapon), typeof(BaseArmor), typeof(BaseClothing), typeof(BaseJewel),
             typeof(BaseQuiver), typeof(BaseTalisman), typeof(Spellbook), typeof(BaseEquipableLight)];
-        var types = typeof(Dagger).Assembly.GetTypes();
+        var types = typeof(Dagger).Assembly.GetTypes().Concat(typeof(PotionTabard).Assembly.GetTypes()).ToArray();
         var missing = types.Where(t => !t.IsAbstract && roots.Any(r => r.IsAssignableFrom(t))
             && !EquipmentBalance.TryGet(t, out _)).Select(t => t.FullName).ToArray();
         Require(missing.Length == 0, "Uncatalogued equipment: " + string.Join(", ", missing));

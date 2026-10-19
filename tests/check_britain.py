@@ -128,6 +128,31 @@ def check():
                         session.send(command)
                         result = session.expect(command + r": (passed|failed)").group(1)
                         assert result == "passed", f"{command} failed; inspect {logfile}"
+                        if iteration < 2 and os.environ.get("SANCTUARY_TEST_CLASS_NAMES") == "1":
+                            name_command = "class-names-check" if iteration == 0 else "class-names-reload-check"
+                            session.send(name_command)
+                            assert session.expect(name_command + r": (passed|failed)").group(1) == "passed"
+                        if iteration == 0 and os.environ.get("SANCTUARY_TEST_FIRST_LOOP") == "1":
+                            session.send("first-loop-catalogue-check")
+                            assert session.expect(r"first-loop-catalogue-check: (passed|failed)").group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_CREATURE_XP") == "1":
+                            # Later boots deliberately rewrite the class save into legacy fixtures
+                            # containing only their seven original characters.
+                            xp_command = ["creature-xp-check", "creature-xp-reload-check",
+                                          "creature-xp-claims-check", "creature-xp-claims-check"][iteration]
+                            session.send(xp_command)
+                            assert session.expect(xp_command + r": (passed|failed)", timeout=45).group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_BELT") == "1":
+                            belt_command = "belt-check" if iteration == 0 else "belt-reload-check"
+                            session.send(belt_command)
+                            assert session.expect(belt_command + r": (passed|failed)", timeout=30).group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_ECONOMY") == "1":
+                            economy_command = "economy-check" if iteration == 0 else "economy-reload-check"
+                            session.send(economy_command)
+                            assert session.expect(economy_command + r": (passed|failed)", timeout=30).group(1) == "passed"
+                        if iteration == 0 and os.environ.get("SANCTUARY_TEST_CREATURE_PROFILES") == "1":
+                            session.send("creature-profile-check")
+                            assert session.expect(r"creature-profile-check: (passed|failed)", timeout=30).group(1) == "passed"
                         if os.environ.get("SANCTUARY_TEST_PETS") == "1" and iteration < 2:
                             pet_command = "pet-check" if iteration == 0 else "pet-reload-check"
                             session.send(pet_command)
@@ -138,6 +163,9 @@ def check():
                             assert session.expect(healer_command + r": (passed|failed)").group(1) == "passed"
                         if os.environ.get("SANCTUARY_TEST_MONSTERS") == "1" and iteration < 2:
                             if iteration == 0:
+                                if os.environ.get("SANCTUARY_TEST_APPROACH") == "1":
+                                    session.send("approach-check")
+                                    assert session.expect(r"approach-check: (passed|failed)", timeout=30).group(1) == "passed"
                                 session.send("normal-monster-check")
                                 assert session.expect(r"normal-monster-check: (passed|failed)", timeout=30).group(1) == "passed"
                             monster_command = "monster-check" if iteration == 0 else "monster-reload-check"
@@ -152,10 +180,10 @@ def check():
                             subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests" / script),
                                             str(port)], check=True, pass_fds=(session.master,),
                                            env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
-                            final = "movement-ui-final" if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" else "resurrection-ui-final" if os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" else "pet-ui-final" if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" else "stat-ui-final" if os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" else "loot-ui-closed" if os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1" else "combat-ui-final" if combat_ui else "creation-ui-check"
+                            final = "class-names-ui-check" if os.environ.get("SANCTUARY_TEST_CLASS_NAMES_UI") == "1" else "economy-ui-final" if os.environ.get("SANCTUARY_TEST_ECONOMY_UI") == "1" else "belt-ui-final" if os.environ.get("SANCTUARY_TEST_BELT_UI") == "1" else "movement-ui-final" if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" else "resurrection-ui-final" if os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" else "pet-ui-final" if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" else "stat-ui-final" if os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" else "loot-ui-closed" if os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1" else "combat-ui-final" if combat_ui else "creation-ui-check"
                             session.send(final)
                             assert session.expect(final + r": (passed|failed)").group(1) == "passed"
-                    if creation and os.environ.get("SANCTUARY_TEST_COMBAT_UI") == "1" and iteration > 0 and os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") != "1" and os.environ.get("SANCTUARY_TEST_STATS_UI") != "1" and os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") != "1" and os.environ.get("SANCTUARY_TEST_PETS_UI") != "1":
+                    if creation and os.environ.get("SANCTUARY_TEST_COMBAT_UI") == "1" and iteration > 0 and os.environ.get("SANCTUARY_TEST_ECONOMY_UI") != "1" and os.environ.get("SANCTUARY_TEST_BELT_UI") != "1" and os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") != "1" and os.environ.get("SANCTUARY_TEST_STATS_UI") != "1" and os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") != "1" and os.environ.get("SANCTUARY_TEST_PETS_UI") != "1":
                         session.send("loot-ui-reload")
                         assert session.expect(r"loot-ui-reload: (passed|failed)").group(1) == "passed"
                     session.send("save")

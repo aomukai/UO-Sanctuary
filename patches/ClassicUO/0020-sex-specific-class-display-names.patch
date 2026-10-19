@@ -1,0 +1,65 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CharCreationGump.cs
+@@ -46,8 +46,16 @@
+                 }, 2);
+             }
+ 
+-            _classLabel.Text = $"Level 1 {characterClass}";
++            UpdateClassSummary(_appearance.IsFemale);
+             ChangePage(2);
++        }
++
++        public void UpdateClassSummary(bool female)
++        {
++            if (_classLabel != null && _selectedClass is { } characterClass)
++            {
++                _classLabel.Text = $"Level 1 {DiabloClasses.DisplayName(characterClass, female)}";
++            }
+         }
+ 
+         public void SetCharacter(PlayerMobile character)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharAppearanceGump.cs
+@@ -27,6 +27,7 @@
+ 
+         private PlayerMobile _character;
+         private CharacterInfo _characterInfo;
++        public bool IsFemale => _characterInfo.IsFemale;
+         private readonly Button _humanRadio, _elfRadio, _gargoyleRadio;
+         private readonly Button _maleRadio, _femaleRadio;
+         private Combobox _hairCombobox, _facialCombobox;
+@@ -247,6 +248,7 @@
+             _character.Clear();
+             _character.Race = race;
+             _character.IsFemale = isFemale;
++            UIManager.GetGump<CharCreationGump>()?.UpdateClassSummary(isFemale);
+ 
+             if (isFemale)
+             {
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+@@ -58,7 +58,7 @@
+             CanMove = false;
+             AcceptMouseInput = true;
+             Add(new ResizePic(3000) { Width = 175, Height = 48, AcceptMouseInput = false });
+-            Add(new Label(characterClass.ToString(), true, 0, font: 1)
++            Add(new Label(DiabloClasses.SelectionName(characterClass), true, 0, font: 1)
+             {
+                 X = 10, Y = 7, AcceptMouseInput = false
+             });
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -350,8 +350,7 @@
+                 int separator = progression.IndexOf(' ');
+                 if (separator > 0
+                     && int.TryParse(progression[..separator], out int level) && level > 0
+-                    && Enum.TryParse(progression[(separator + 1)..], out DiabloClass characterClass)
+-                    && DiabloClasses.TryFromWire((int)characterClass, out _))
++                    && DiabloClasses.TryFromDisplayName(progression[(separator + 1)..], out _))
+                 {
+                     return text[..marker] + "\n" + text[(marker + 1)..];
+                 }

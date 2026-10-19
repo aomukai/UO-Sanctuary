@@ -90,21 +90,16 @@ public static class ClassStats
                 + AosAttributes.GetValue(player, AosAttribute.BonusMana)
         }, 1, 65000);
     }
-    public static int Level(Mobile mobile) => mobile is SkeletonGuardian pet ? pet.CombatProfile.Level : mobile is GraveyardUndead undead ? undead.CombatProfile.Level : mobile is PlayerMobile && ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
+    public static int Level(Mobile mobile) => mobile is BaseCreature creature ? CreatureProfiles.Level(creature) : mobile is PlayerMobile && ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
         ? profile.Level : 1;
     public static int AttackRating(Mobile mobile)
     {
-        if (mobile is SkeletonGuardian pet)
+        if (mobile is BaseCreature creature)
         {
-            return pet.CombatProfile.AttackRating;
-        }
-        if (mobile is GraveyardUndead undead)
-        {
-            return undead.CombatProfile.AttackRating;
+            return CreatureProfiles.AttackRating(creature);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
         {
-            // Temporary UO creature conversion until monsters receive explicit Diablo profiles.
             return Math.Max(5, mobile.Dex * 2);
         }
         int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att"));
@@ -112,13 +107,9 @@ public static class ClassStats
     }
     public static int Defense(Mobile mobile)
     {
-        if (mobile is SkeletonGuardian pet)
+        if (mobile is BaseCreature creature)
         {
-            return pet.CombatProfile.Defense;
-        }
-        if (mobile is GraveyardUndead undead)
-        {
-            return undead.CombatProfile.Defense;
+            return CreatureProfiles.Defense(creature);
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {

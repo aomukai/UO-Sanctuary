@@ -1,0 +1,502 @@
+{
+  "schemaVersion": 1,
+  "status": "authoring-reference-only",
+  "d2Commit": "45112569deb9384738ccafe5c24ebbb71f41c7c9",
+  "modernUOCommit": "eff9de028136b11e544fd81375d1e0e710e22dd6",
+  "items": [
+    {
+      "type": "Longsword",
+      "baseCode": "lsd",
+      "baseTier": "Normal",
+      "maker": "Blacksmithing",
+      "material": "plain-metal",
+      "slot": "Weapon",
+      "targetWeight": "None",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "Existing sword analogue retained; one-handed. No source socket count or durability is adopted as a new Sanctuary rule."
+    },
+    {
+      "type": "WoodenShield",
+      "baseCode": "sml",
+      "baseTier": "Normal",
+      "maker": "Bowcraft/Fletching",
+      "material": "plain-wood",
+      "slot": "Shield",
+      "targetWeight": "Light",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "Keep Small Shield stats; maker follows physical wood rather than the native Carpentry recipe."
+    },
+    {
+      "type": "LeatherCap",
+      "baseCode": "cap",
+      "baseTier": "Normal",
+      "maker": "Tailoring",
+      "material": "plain-leather",
+      "slot": "Head",
+      "targetWeight": "Light",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "Leather headgear uses the existing Cap analogue."
+    },
+    {
+      "type": "RingmailChest",
+      "baseCode": "rng",
+      "baseTier": "Normal",
+      "maker": "Blacksmithing",
+      "material": "plain-metal",
+      "slot": "Body",
+      "targetWeight": "Medium",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "Metal body armour remains Blacksmithing despite medium weight."
+    },
+    {
+      "type": "GoldRing",
+      "baseCode": "rin",
+      "baseTier": "Normal",
+      "maker": "Tinkering",
+      "material": "plain-metal",
+      "slot": "Ring",
+      "targetWeight": "None",
+      "progression": "jewellery",
+      "targetSocketCap": 0,
+      "notes": "Normal is the existing compatibility base label. Target jewellery has its own five-step ladder; item levels, equip requirements, quantities and costs remain E01 decisions."
+    },
+    {
+      "type": "Necklace",
+      "baseCode": "amu",
+      "baseTier": "Normal",
+      "maker": "Tinkering",
+      "material": "plain-metal",
+      "slot": "Amulet",
+      "targetWeight": "None",
+      "progression": "jewellery",
+      "targetSocketCap": 0,
+      "notes": "Necklace receives the Amulet stat slot. Native jewellery recipes do not establish this exact target recipe."
+    },
+    {
+      "type": "SkullCap",
+      "baseCode": "cap",
+      "baseTier": "Normal",
+      "maker": "Tailoring",
+      "material": "cloth",
+      "slot": "Head",
+      "targetWeight": "Light",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "UO SkullCap uses D2 Cap, not D2 Skull Cap. Physical cloth is distinct from its head stat slot."
+    },
+    {
+      "type": "BoneChest",
+      "baseCode": "rng",
+      "baseTier": "Normal",
+      "maker": "Tailoring",
+      "material": "bone",
+      "slot": "Body",
+      "targetWeight": "Heavy",
+      "progression": "equipment",
+      "targetSocketCap": 5,
+      "notes": "Retain Ring Mail numerical analogue for the bounded cohort; target Heavy is an explicit Sanctuary weight override, pending T08/T09. Existing runtime weight is Medium."
+    }
+  ],
+  "materials": [
+    {
+      "id": "plain-metal",
+      "primary": "IronIngot",
+      "raw": [
+        "IronOre"
+      ],
+      "processed": [
+        "IronIngot"
+      ],
+      "scrap": "MetalScraps",
+      "maker": "Blacksmithing",
+      "source": "gathering; no vendor metal supply",
+      "bonus": "none",
+      "notes": "Jewellery uses Tinkering. GoldRing art/name does not force Gold material; native default is Iron."
+    },
+    {
+      "id": "plain-wood",
+      "primary": "Board",
+      "raw": [
+        "Log"
+      ],
+      "processed": [
+        "Board"
+      ],
+      "scrap": "WoodenChips",
+      "maker": "Bowcraft/Fletching",
+      "source": "Lumberjacking; no vendor wood supply",
+      "bonus": "none",
+      "notes": "Wooden weapons/shields change maker from native Carpentry to Bowcraft/Fletching. Carpenter furniture remains separate."
+    },
+    {
+      "id": "plain-leather",
+      "primary": "Leather",
+      "raw": [
+        "Hides"
+      ],
+      "processed": [
+        "Leather"
+      ],
+      "scrap": "LeatherStrips",
+      "maker": "Tailoring",
+      "source": "native creature hides and skill-free butchering; no vendor leather supply",
+      "bonus": "none",
+      "notes": "Retain species yields; this is not a new hide quantity table."
+    },
+    {
+      "id": "cloth",
+      "primary": "Cloth",
+      "raw": [
+        "Wool",
+        "Cotton"
+      ],
+      "processed": [
+        "Yarn",
+        "SpoolOfThread",
+        "Cloth"
+      ],
+      "scrap": "ClothScraps",
+      "maker": "Tailoring",
+      "source": "native fibre/spinning/loom; expensive vendor cloth allowed",
+      "bonus": "none",
+      "notes": "Native CraftResource.None on cloth is not missing provenance. Remove bandage creation in T07. No new conversion weight policy here."
+    },
+    {
+      "id": "bone",
+      "primary": "Bone",
+      "raw": [
+        "Bone"
+      ],
+      "processed": [
+        "Bone"
+      ],
+      "scrap": null,
+      "maker": "Tailoring",
+      "source": "native creature bones; exact production acquisition verified with the recipe cohort",
+      "bonus": "none specified",
+      "notes": "Bone armour is heavy Tailoring. Native BoneChest combines leather and bones, reports MaterialType.Bone but DefaultResource.RegularLeather; Resource alone cannot classify it. No bone scrap or salvage-yield rule is invented."
+    }
+  ],
+  "effects": [
+    {
+      "code": "str",
+      "unit": "attribute-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Refresh",
+      "scope": "Active item stat modifiers; source level/attribute requirements still apply.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dex",
+      "unit": "attribute-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Refresh",
+      "scope": "Active item stat modifiers; source level/attribute requirements still apply.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "enr",
+      "unit": "attribute-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Refresh",
+      "scope": "Active item stat modifiers; source level/attribute requirements still apply.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "vit",
+      "unit": "attribute-points",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#Vitality",
+      "scope": "Effective vitality enters class life/stamina growth.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "hp",
+      "unit": "resource-points",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#Maximum",
+      "scope": "Whole pool points; ItemStatCost ValShift is engine representation, not a multiplier on affix table values.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "mana",
+      "unit": "resource-points",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#Maximum",
+      "scope": "Whole pool points; ItemStatCost ValShift is engine representation, not a multiplier on affix table values.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "stam",
+      "unit": "resource-points",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#Maximum",
+      "scope": "Whole pool points; ItemStatCost ValShift is engine representation, not a multiplier on affix table values.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att",
+      "unit": "attack-rating-points",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#AttackRating",
+      "scope": "Flat rating before att% scaling.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att%",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassStats.cs#AttackRating",
+      "scope": "Percent of flat/base attack rating.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ac",
+      "unit": "defense-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Defense",
+      "scope": "Item defense contribution; not physical damage reduction.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ac%",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Defense",
+      "scope": "Item enhanced defense; uses base max+1 when positive. Not a universal physical resistance.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg%",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Damage",
+      "scope": "Local weapon enhancement; off-weapon damage enters ClassStats.DamageBonus.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-min",
+      "unit": "damage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Damage",
+      "scope": "Flat physical damage endpoints; off-weapon endpoints enter ClassStats.DamageRange.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-max",
+      "unit": "damage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Damage",
+      "scope": "Flat physical damage endpoints; off-weapon endpoints enter ClassStats.DamageRange.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-all",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Configure",
+      "scope": "Elemental resistance aggregation clamped -100..75; all-res excludes physical resistance. ltng maps to native Energy.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-fire",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Configure",
+      "scope": "Elemental resistance aggregation clamped -100..75; all-res excludes physical resistance. ltng maps to native Energy.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-cold",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Configure",
+      "scope": "Elemental resistance aggregation clamped -100..75; all-res excludes physical resistance. ltng maps to native Energy.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-ltng",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Configure",
+      "scope": "Elemental resistance aggregation clamped -100..75; all-res excludes physical resistance. ltng maps to native Energy.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-pois",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#Configure",
+      "scope": "Elemental resistance aggregation clamped -100..75; all-res excludes physical resistance. ltng maps to native Energy.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "swing1",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "IAS enters existing frame breakpoints; not a direct percentage reduction of cycle milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "swing2",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "IAS enters existing frame breakpoints; not a direct percentage reduction of cycle milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "swing3",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "IAS enters existing frame breakpoints; not a direct percentage reduction of cycle milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cast1",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "FCR enters existing frame breakpoints; does not directly set cast milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cast2",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "FCR enters existing frame breakpoints; does not directly set cast milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cast3",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ActionTiming.cs",
+      "scope": "FCR enters existing frame breakpoints; does not directly set cast milliseconds.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "move1",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#RunBonus",
+      "scope": "FRW totals use 120*FRW/(120+FRW), then existing run-delay penalties. No change to constant turn timing.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "move2",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#RunBonus",
+      "scope": "FRW totals use 120*FRW/(120+FRW), then existing run-delay penalties. No change to constant turn timing.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "move3",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#RunBonus",
+      "scope": "FRW totals use 120*FRW/(120+FRW), then existing run-delay penalties. No change to constant turn timing.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "block",
+      "unit": "percentage-points",
+      "consumer": "src/Sanctuary.Content/ClassGear.cs#BlockChance",
+      "scope": "Added before Dexterity/level formula and 75% cap. Blocking disabled by project running rule.",
+      "status": "consumer-and-generation-guard-enabled"
+    }
+  ],
+  "affixQueryItemLevels": [
+    35,
+    99
+  ],
+  "ordinaryTierTargets": [
+    {
+      "tier": "Normal",
+      "recipeBand": [
+        0,
+        80
+      ],
+      "craftedItemLevel": 35,
+      "baseEquipLevel": 0
+    },
+    {
+      "tier": "Exceptional",
+      "recipeBand": [
+        80,
+        110
+      ],
+      "craftedItemLevel": 70,
+      "baseEquipLevel": 60
+    },
+    {
+      "tier": "Elite",
+      "recipeBand": [
+        110,
+        120
+      ],
+      "craftedItemLevel": 99,
+      "baseEquipLevel": 80
+    }
+  ],
+  "jewelleryTargets": {
+    "skillSteps": [
+      30,
+      50,
+      70,
+      90,
+      110
+    ],
+    "workingNames": [
+      "Shoddy",
+      "Plain",
+      "Solid",
+      "Elegant",
+      "Fancy"
+    ],
+    "craftedItemLevels": null,
+    "equipLevels": null,
+    "costs": null
+  },
+  "gatedEffects": [
+    {
+      "codes": [
+        "balance1",
+        "balance2",
+        "balance3"
+      ],
+      "status": "consumer-exists-generation-disabled",
+      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Fhr"
+    },
+    {
+      "codes": [
+        "res-physical"
+      ],
+      "status": "resistance-hook-exists-generation-disabled"
+    },
+    {
+      "codes": [
+        "mag%",
+        "gold%",
+        "lifesteal",
+        "manasteal",
+        "regen",
+        "regen-mana"
+      ],
+      "status": "missing-or-incomplete-consumer"
+    },
+    {
+      "codes": [
+        "sock"
+      ],
+      "status": "future-state-and-insertion-consumers"
+    },
+    {
+      "modes": [
+        "Proc",
+        "Charges",
+        "DamageRange",
+        "Parameter"
+      ],
+      "status": "excluded-from-live-affixes"
+    }
+  ],
+  "gates": [
+    "B04: coloured-material roll/scaling, random element pool and typed damage math",
+    "E01/E02: jewellery item levels, equip requirements and recipe costs",
+    "G03/G07: full mould property/weight catalogue; minimums apply only to runes",
+    "H: nine-family gem mapping, second flat effect, upgrades and delivery",
+    "M05/M06/N02: stock-level meaning, vendor resale and unsupported rarity policy",
+    "T08/T09: apply and measure heavy bone weight; T17: resolve bone physical salvage before enabling it"
+  ],
+  "rarityPolicy": {
+    "current": [
+      "Normal",
+      "Magic",
+      "Rare"
+    ],
+    "setUnique": "not enabled; no invented fallback roll",
+    "ordinaryCraft": "white/no affixes; future Imbuing is separate",
+    "randomValues": "normal eligible affix ranges; no minimum-only gear rolls"
+  }
+}

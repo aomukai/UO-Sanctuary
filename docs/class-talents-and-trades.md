@@ -1,6 +1,30 @@
 # Class talents and trades
 
+> **Design update, 19 October 2026:** [Current first-implementation crafting/economy rules](crafting.md) reconcile the completed replies. The implementation/verification descriptions below refer to the existing comparison build, not completion of the new recipes, socket rules, potion/food catalogue or progression changes.
+
 The paperdoll’s **Class** button replaces Skills and opens the selected character’s class gump. **Skills** replaces Quests and opens the existing UO skills window. `[Class` also opens the class gump. Characters without an assigned Diablo class are not assigned one automatically.
+
+## Class names and character sex — design update, 19 October 2026
+
+Every class is available to either sex chosen during character creation. The user specified these display names:
+
+| Existing class identity | Male display name | Female display name |
+| --- | --- | --- |
+| Amazon (101) | Gargarean | Amazon |
+| Sorceress (102) | Sorcerer | Sorceress |
+| Necromancer (103) | Necromancer | Necromancer |
+| Paladin (104) | Paladin | Paladin |
+| Barbarian (105) | Barbarian | Barbarian |
+| Druid (106) | Druid | Druidess |
+| Assassin (107) | Assassin | Assassin |
+
+These are display variants of the same seven classes, not additional classes or separate progression histories. They share the same stats, skills, talents, equipment rules and balance. Keep the existing wire/save class IDs and talent IDs stable. The character's creation sex supplies the display variant for every class, including when using the planned wardrobe; switching class does not change that sex.
+
+This naming rule applies to character-creation class choices/summaries, class/talent headings, wardrobe class lists and player-facing class references. Earned title names remain a separate, unfinished catalogue; the display aliases do not implicitly choose sex-specific achievement titles.
+
+**Implementation status:** [T03 implements and verifies the shared display mapping](t03-class-names.md) for creation choices/summaries, paperdoll titles/wrapping, talent headings and class-labelled speed tooltips. Both sexes retain the same existing wire/save identity and talent keys. The planned wardrobe must use this helper when implemented. The matching client/content builds are tested but not installed; the live comparison build remains unchanged.
+
+## Current talents implementation
 
 Each of the seven classes has three named trees with ten skills each. The gump shows ranks and level gates, lets players switch trees and inspect prerequisites, and offers Learn when allocation is allowed. Names and dependencies come from [Blizzard’s skill guide](https://classic.battle.net/diablo2exp/skills/); every tree’s source URL is retained in [the catalog](../data/Sanctuary/talents.json). No Blizzard art is bundled.
 
@@ -20,7 +44,9 @@ The Skills window contains exactly these professions:
 | Crafting | Alchemy, Blacksmithing, Bowcraft/Fletching, Carpentry, Cooking, Imbuing, Inscription, Tailoring, Tinkering |
 | Treasure hunting | Cartography |
 
-Both traditional and advanced skills windows use [the shared list](../shared/TradeSkills.cs), and totals include only those skills. The three sections are fixed and rebuilt on login. Reset Groups, New Group, group renaming/deletion, and skill drag-and-drop are removed. Dragging a skill neither transfers it between sections nor creates a floating shortcut; the same shortcut drag is disabled in the advanced view. Section collapsing, use buttons, skill locks, and the real/cap toggles remain available. Actual server skill values, skill gain, recipes, tools, and caps are unchanged. Imbuing is visible but its planned white-to-rare system remains future work. Skinning stays a bladed-tool action supplying hides for Tailoring.
+This table describes the current implemented grouping. The later [wardrobe design](wardrobe-progression.md) moves Cartography into the ten selectable crafting jobs: it produces maps and provides the prerequisite for treasure hunting, which remains an activity. Mining, Lumberjacking and Fishing remain always active alongside one selected class and crafting job. Only crafting at 100, including Cartography, qualifies for Pillar of Society. The UI regrouping and active-craft enforcement are not implemented by the design documentation.
+
+Both traditional and advanced skills windows use [the shared list](../shared/TradeSkills.cs), and totals include only those skills. The three sections are fixed and rebuilt on login. Reset Groups, New Group, group renaming/deletion, and skill drag-and-drop are removed. Dragging a skill neither transfers it between sections nor creates a floating shortcut; the same shortcut drag is disabled in the advanced view. Section collapsing, use buttons, skill locks, and the real/cap toggles remain available. Actual server skill values, skill gain, recipes, tools, and caps are unchanged. Imbuing now opens the white-to-magic/rare and salvage prototype described below; profession training/tool rules remain future work. Skinning stays a bladed-tool action supplying hides for Tailoring.
 
 ## Verification
 
@@ -39,3 +65,11 @@ The live installation was saved and stopped before staging. Its saves, configura
 Live allocation diagnostics are logged by the server. While investigating a click that fails only in live play, an ignored client marker `Data/Client/talent-input.enabled` also enables `talent-input.log` with incoming gump IDs, mouse targets and submitted button IDs; it records no credentials or chat. Remove the marker after diagnosis. Copied-world checks using the saved character, original account privileges and character profile can learn normally, so they do not by themselves establish that the live input failure is resolved.
 
 The press-submission, grey-card and release-to-stop update is installed with backup `.local/backups/pre-talent-input-release-20261018-005943/`. Saved character progression and all existing client preferences were preserved. Press-before-release learning, summon/binding/relog, movement, combat and loot regressions passed. Live allocation is awaiting the reported-failure retry; do not treat the copied-world success as live confirmation.
+
+The [potion belt and consumable direction](potion-belt.md) now establishes a foundation for alchemy: short clutch power/restoration potions, with hour-long convenience meals reserved for cooking. The belt prototype does not yet add profession recipes or change potion drops.
+
+## Imbuing and salvage prototype — 18 October 2026
+
+The retained Imbuing skill now opens a native menu, also available through `[Essence`. It offers confirmed randomized gear salvage and essence/gold-funded imbuing of eligible white bases. [Economy documentation](economy.md) defines origin/protection checks, recovery chances, item-level material yields and provisional costs. Metal Scraps, Wooden Chips, Leather Strips and Cloth Scraps are physical resources for later profession recipes. This pass does not set profession skill requirements/gains or replace native crafting and repair systems. Material follows the physical base rather than the armour weight category.
+
+The later [crafting handoff](../sanctuary-crafting.md) supersedes conflicting economy-draft rules. Tailoring includes leather and cloth. The repair target is matching material plus rarity-based essence, essence-only spell-charge restoration, and possible maximum-durability loss with a separate special restoration resource; tools remain a separate decision. Imbuing has no destructive failure. Socketing retains destruction on failure with a proposed 100% / 50% / 25% / 5% base schedule. These repair/socket/progression requirements are design, not additional implemented features. Single-use moulds and nine gem families are confirmed in [runes and gems](runes-and-gems.md).

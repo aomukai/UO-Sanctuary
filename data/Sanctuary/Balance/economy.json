@@ -1,0 +1,55 @@
+[
+  {
+    "resalePercent": 10,
+    "normalResaleCap": 10,
+    "magicResaleCap": 25,
+    "rareResaleCap": 50,
+    "magicEssence": {
+      "min": 1,
+      "max": 2,
+      "chancePercent": 80
+    },
+    "rareEssence": {
+      "min": 2,
+      "max": 5,
+      "chancePercent": 90
+    },
+    "reservedUniqueEssence": {
+      "min": 5,
+      "max": 12,
+      "chancePercent": 95
+    },
+    "metalScraps": {
+      "min": 1,
+      "max": 3,
+      "chancePercent": 85,
+      "levelsPerStep": 10,
+      "bonusPerStep": 1
+    },
+    "woodenChips": {
+      "min": 1,
+      "max": 3,
+      "chancePercent": 85,
+      "levelsPerStep": 10,
+      "bonusPerStep": 1
+    },
+    "salvageGoldCost": 0,
+    "imbueEssenceCost": 5,
+    "imbueGoldCost": 100,
+    "rareChancePercent": 25,
+    "leatherStrips": {
+      "min": 1,
+      "max": 3,
+      "chancePercent": 85,
+      "levelsPerStep": 10,
+      "bonusPerStep": 1
+    },
+    "clothScraps": {
+      "min": 1,
+      "max": 3,
+      "chancePercent": 85,
+      "levelsPerStep": 10,
+      "bonusPerStep": 1
+    }
+  }
+]

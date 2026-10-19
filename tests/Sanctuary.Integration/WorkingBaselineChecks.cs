@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Server;
+using Server.Items;
+using Server.Logging;
+using Server.Mobiles;
+
+namespace Sanctuary.Integration;
+
+// Read-only world inspection for a disposable copy of an existing save.
+// Never load the integration assembly into the live server.
+public static class WorkingBaselineChecks
+{
+    private static readonly ILogger _logger = LogFactory.GetLogger(typeof(WorkingBaselineChecks));
+
+    public static void Configure() => ConsoleInputHandler.RegisterCommand(
+        "working-baseline-inspect", "Inspect a disposable baseline without changing game state", _ =>
+            Core.LoopContext.Post(() =>
+            {
+                try
+                {
+                    var snapshot = new
+                    {
+                        Players = World.Mobiles.Values.OfType<PlayerMobile>().OrderBy(p => p.Serial.Value).Select(p => new
+                        {
+                            Serial = p.Serial.Value,
+                            Access = p.AccessLevel.ToString(),
+                            Profile = ClassCreation.Profiles.TryGet(p.Serial, out var profile) ? profile : null,
+                            Allocation = ClassCreation.Profiles.Stats(p.Serial),
+                            SkillsCap = p.Skills.Cap,
+                            Skills = Enumerable.Range(0, p.Skills.Length).Select(id => p.Skills[id]).Select(s => new
+                            {
+                                Id = (int)s.SkillName, s.BaseFixedPoint, s.CapFixedPoint, Lock = s.Lock.ToString()
+                            }).ToArray(),
+                            Items = p.Items.Select(i => i.Serial.Value).OrderBy(s => s).ToArray()
+                        }).ToArray(),
+                        Origins = World.Items.Values.GroupBy(i => i.Origin).OrderBy(g => g.Key)
+                            .Select(g => new { Origin = g.Key.ToString(), Count = g.Count() }).ToArray(),
+                        Gear = World.Items.Values.Where(i => ClassGear.State(i) != null).OrderBy(i => i.Serial.Value)
+                            .Select(i => new { Serial = i.Serial.Value, Origin = i.Origin.ToString(), State = ClassGear.State(i) }).ToArray(),
+                        Corpses = World.Items.Values.OfType<Corpse>().OrderBy(i => i.Serial.Value)
+                            .Select(c => new { Serial = c.Serial.Value, c.SanctuaryNoRewards }).ToArray(),
+                        Raised = World.Mobiles.Values.OfType<GraveyardUndead>().Where(m => m.Raised).OrderBy(m => m.Serial.Value)
+                            .Select(m => new { Serial = m.Serial.Value, m.NoKillAwards }).ToArray()
+                    };
+                    File.WriteAllText(Path.Join(Core.BaseDirectory, "working-baseline.json"),
+                        JsonSerializer.Serialize(snapshot, new JsonSerializerOptions { WriteIndented = true }));
+                    _logger.Information("working-baseline-inspect: passed");
+                }
+                catch (Exception error)
+                {
+                    _logger.Error(error, "working-baseline-inspect: failed");
+                }
+            }));
+}

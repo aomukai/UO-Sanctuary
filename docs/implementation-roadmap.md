@@ -1,0 +1,412 @@
+# Crafting, loot and progression implementation roadmap
+
+Created 19 October 2026 (JST). This is a dependency-ordered TODO list for small, playable changes. **T00–T03 are complete, with T02 bounded to its first reference cohort.** T01 verified the comparison build, T02 authored reference evidence, and T03 implemented/tested cosmetic class names. T03 is not deployed. See the [baseline](t01-working-baseline.md), [reference cohort](t02-reference-cohort.md) and [class-name implementation](t03-class-names.md).
+
+The user requested incremental delivery after completing the questionnaire. All ten crafting professions remain in scope; the earlier A01 instruction to implement them all together is superseded as a delivery strategy. The ordering below is an implementation recommendation, not a change to the agreed mechanics or provisional values.
+
+## Start from a cold session
+
+1. Read applicable `AGENTS.md` instructions, [README](../README.md), this document, [crafting decisions](crafting.md), and [wardrobe progression](wardrobe-progression.md). Read only the relevant sections of the [decision tracker](economy-open-questions.md) and [reconciliation](economy-reconciliation.md) for the selected card. User confirmations after the questionnaire take precedence; the original [replies](economy-open-questions-replies.md) are preserved as evidence, not an editable work list. Root `sanctuary-economy.md` and `sanctuary-crafting.md` are historical drafts.
+2. Inspect `git status` in the root and both submodules. Existing dirty changes are substantial, intentional project work. Check the selected source, patch and installed runtime before changing anything. Source code, built output and the running installation can differ. Do not reset them or run setup to clean them up.
+3. Pick **one ready card**: all its dependencies must be satisfied in the working implementation, and its blocking choices must be settled or explicitly deferred with the dependent feature left disabled. An independent branch need not wait for unrelated gem, wardrobe or housing choices. The table order is a suggested sequence, not a command to execute every card.
+4. Write the bounded scope and acceptance checks before implementing. For a large recipe/content card, choose one representative cohort, complete its loop, then add separate checklist entries for the remaining cohorts. A GM kit may test behavior but is not production acquisition.
+5. Implement, run the relevant checks, test the actual client interaction, save/restart, and update the card's evidence and limitations. Distinguish automated fixtures, your own play observations and player feedback. Deployment is a separate operational step; a successful build does not mean the change is installed.
+
+### What already exists
+
+These are the documented comparison baseline, not freshly retested claims for this roadmap. Recheck them in T01. [Economy](economy.md), [XP](creature-experience.md), [creature profiles](creature-profiles.md), [movement](movement-smoothness.md), [melee](melee-reach.md), [reactions](monster-reactions.md), [recovery](hit-recovery.md) and [belt](potion-belt.md) contain the detailed evidence.
+
+| Area | Existing behavior to preserve / adapt |
+| --- | --- |
+| Movement/combat | Bounded held steering and release, responsive pursuit, dagger/halberd reach comparison, strict impact checks, attack/cast deadlines and player/monster hit recovery. Do not undo the held-movement hang fix or add unbounded path requests. |
+| Progression | D2 character XP curve to 99; common reviewed monster XP and pet-owner credit. Persistent spent-life flags prevent revived corpses giving XP again. Normal is active; Nightmare/Hell data is preparatory. Current profile level ceilings do not provide level-99 dungeon content. |
+| Gear | Converted bases, stored random affixes, origins and implemented numerical combat effects. An advertised reference stat is not proof its effect exists. Most talent effects, MF, leech and many elemental/binary effects need further consumers. |
+| Economy prototype | Variable physical/essence salvage and white-base Imbuing exist. The installed skill-free 100 gold/5 essence Imbuing and old resale caps are superseded targets, not the new spec. Vendor-origin conversion exclusions and stale-quote/capacity protections must survive. Ordinary wild monster loot is suppressed. The native origin enum has Drop/Vendor/Crafted; gambling should use loot eligibility, not ordinary vendor-stock eligibility. A separate Gambled enum is not an established requirement. |
+| Consumables | Real persistent four-column tabard belt, overflow/death handling, forced Enter-to-chat, 1–4 hotkeys, restorative heal/mana behavior and 20% bottle recovery. Production recipes/drop supply and the new buff catalogue are pending. |
+| Careers/world | One saved class per character; independent multi-class histories and craft activation are absent. Native skills, crafting/harvesting and a small Britain test neighborhood exist. Full world population, dungeon progression, wardrobe, housing progression and new death economy are pending. |
+
+### Source ownership and entry points
+
+Paths below are relative to the repository root. Start with these owners and follow their call sites; do not add a second authoritative model for the same state.
+
+| Label used in cards | Existing entry points |
+| --- | --- |
+| Career | `src/Sanctuary.Content/CharacterProfiles.cs`, `ClassCreation.cs`, `ClassSkills.cs`, `ClassStats.cs`, `TalentGump.cs`; `shared/TradeSkills.cs`, `DiabloClass.cs`, `ClassGumpProtocol.cs` |
+| Gear | `src/Sanctuary.Content/GearProfiles.cs`, `EquipmentBalance.cs`, `AffixBalance.cs`, `ClassGear.cs`, `ClassCombat.cs`, `ActionTiming.cs`; `data/Sanctuary/Balance/` |
+| Economy | `src/Sanctuary.Content/EquipmentEconomy.cs`, `EssenceGump.cs`; `data/Sanctuary/Balance/economy.json`; `patches/ModernUO/0010-persist-item-origins.patch`, `0013-vendor-resale-price-hook.patch` |
+| Rewards | `src/Sanctuary.Content/ClassLoot.cs`, `CreatureExperience.cs`, `CreatureProfiles.cs`; [reward roster](creature-reward-roster.md); `tools/build_creature_profiles.py` |
+| Production | `upstream/ModernUO/Projects/UOContent/Engines/Craft/`, `Engines/Harvest/`; native tools, resource items and vendor stock under `Projects/UOContent/`. Follow the production/repair tool handlers, not only a new menu. |
+| Effects | `src/Sanctuary.Content/PotionRestoration.cs`, `PotionBelts.cs`, `PotionBeltNetwork.cs`, `PotionTabards.cs`, `HitRecovery.cs`, `ClassStats.cs`, `ClassCombat.cs`, `ClassGear.cs`; `shared/BeltProtocol.cs` |
+| Death/followers | `src/Sanctuary.Content/ClassDeath.cs`, `PersistentMinions.cs`, `SkeletonPets.cs`; native PlayerMobile, corpse, banker, pet/mercenary and insurance handlers in UOContent |
+| Maps | `upstream/ModernUO/Projects/UOContent/Items/Maps/TreasureMap.cs`, `Items/Skill Items/Fishing/Misc/MessageInABottle.cs`; native Cartography/treasure/Fishing call sites |
+| Client | `upstream/ClassicUO/src/ClassicUO.Client/Game/UI/Gumps/` (creation, shop, class and belt interfaces); `patches/ClassicUO/`. Native shop already has serial-based tooltips. |
+| Reference/verification | `tools/fetch_balance_sources.py`, `tools/build_foundations.py`, `tools/reference/uo-equipment-layers.json`; `tests/Sanctuary.Integration/`, `tests/check_britain.py`, `tests/test_*.py` |
+
+Keep game logic in project content/UOContent where appropriate; consult ModernUO's own instructions before edits. Native modifications must remain reproducible through the existing patch workflow. Do not rebuild unrelated gear/XP catalogues to author one recipe. Ignored local caches and chat handoffs are supplementary, never the sole specification or required cold-start evidence.
+
+## Dependency map and playable milestones
+
+This graph groups work. Each card below lists its actual prerequisites. A blocked optional branch must not stop another complete loop.
+
+```mermaid
+flowchart TD
+    A[Baseline and persisted item/career contracts] --> B[Gold, shops and maintenance]
+    A --> C[Gather, process and craft white gear]
+    A --> D[Recognition and public craft wardrobe]
+    B --> E[Identify, salvage and imbue]
+    C --> E
+    E --> F[Add sockets and insert runes]
+    C --> G[Mining gems and insertion]
+    C --> H[Potions, food, maps and tomes]
+    E --> I[Dungeon grades, treasure and rare progression]
+    H --> I
+    D --> J[Full class, gear and summon wardrobe]
+    J --> K[Titles and homes]
+    B --> L[Insurance, corpse escrow and mercenary sinks]
+    E --> M[Tavern gambling]
+    I --> N[Complete profession coverage and economy play pass]
+    F --> N
+    G --> N
+    H --> N
+    K --> N
+    L --> N
+    M --> N
+```
+
+| Milestone | Player loop / comparison | Required cards (including their dependencies) |
+| --- | --- | --- |
+| M1a: funded outing | Kill → manual corpse gold → loot/sell → buy supplies/bank → save/relog. Keep gear drops disabled until their own card. | T10, T11, T13 |
+| M1b: maintain ordinary gear | Gather/hunt → process → craft white gear → equip/fight/wear → player or NPC repair → save/relog. Unlock and switch craft at the public wardrobe through the specified progression route. | T05–T09, T12, T14, T15 |
+| M2: magic economy | Find gear → identify or sell unidentified → salvage materials/essence → imbue a white base → equip/use the rolled effect → repeat. | T16–T19 |
+| M3r: rune economy | Kill a level-appropriate monster → obtain a known-stat mould → gather bark → commission/craft rune → risk extra sockets → permanently insert → meet requirements/use the effect. | T20–T23, T25 |
+| M3g: gem economy | Mine a gem → upgrade if desired → socket → use the actual slot-dependent effect, or sell for the specified pittance. | T24, T26 |
+| M4: preparation | Buy/gather ingredients → craft potion/meal/map/tome → use inventory/belt as applicable → fight/gather/treasure hunt → expire/consume → replenish. Carpenter furniture/kegs support the same town loop. | T27–T34 |
+| M5: advanced PvE | Enter adapted dungeons → fight graded encounters → find maps/rare recipes/chitin/Power Scrolls → improve craft cap/max durability → return for higher-tier work. | T35–T38 |
+| M6: career/home progression | Earn recognition → use public wardrobe → develop another class → save gear/bindings/summons → swap/relog → optionally display earned titles/acquire a home. Profession-only access is already M1b. | T39–T42 |
+| M7: complete economic outing | Prepare → kill/loot/gather → craft/trade/gamble → die/recover/insure/resurrect companions → pay upkeep → compare net gold over 30 minutes. | T43–T48 and preceding relevant loops |
+
+M1b is a **release bundle**, not one implementation change: do not ship craft locking without the earned public switching route. M3r can finish while gem-family choices remain open. Rare skill-120 recipes and caps require production acquisition in M5; testing them through a kit does not complete that progression.
+
+## Work cards
+
+Dependencies refer to completed behavior, not just documentation. Spec IDs resolve in the [tracker](economy-open-questions.md); exact numbers/recipes belong in [crafting.md](crafting.md) and versioned balance data, rather than being copied inconsistently into every card. Unresolved decisions are gates only for the behavior they affect. No unchecked card is authorization to invent an answer.
+
+### Foundations and the first maintenance loop
+
+- [x] **T00 — Reconcile decisions and publish this roadmap.**
+  - Depends: none. Owners: repository documentation. Spec: A–Q.
+  - Done: preserve replies, distinguish target/prototype/recommendations, index remaining choices, define bounded tasks and acceptance checks. This does not complete any runtime card.
+
+- [x] **T01 — Re-establish the working baseline.**
+  - Depends: T00. Owners: Reference/verification, README, current implementation reports.
+  - Record source/patch/runtime revisions, running processes and existing test outcomes without installing anything. Inspect current save versions, skill values, origin tags, reward-life flags and live/test separation.
+  - Accept: one disposable save/restart baseline, relevant current checks and a written list of actual differences from the table above. Preserve the current player/accounts/progression and control preferences. Use the operational notes below.
+  - Completed 19 October: [source/patch/runtime inventory, persisted-state findings, commands, passing checks and limitations](t01-working-baseline.md). Combined server/economy and full combat/timing/loot client suites each passed four disposable boots; a copied installed save preserved existing profiles, native skill values/caps/locks and gear across restart. Live gameplay/configuration/preferences were preserved; nothing was deployed. The retained player Focus 5.1 and absence of a selected-craft state are recorded for later migration work.
+
+- [x] **T02 — Author the first bounded reference/catalogue cohort.**
+  - Depends: T01. Owners: Gear, Production, Reference/verification. Spec: A/B/E/G/H/M/N.
+  - Record pinned D2 evidence/units and map a representative UO weapon, shield, helmet, chest, jewellery and each physical material. Identify supported versus missing stat consumers; distinguish base tier, item level, required level and monster difficulty/grade. Extend catalogues per later card, not through a speculative universal rewrite.
+  - Accept: every first-loop item has an explicit maker/material/base tier and legal effects; source facts and adaptation choices are separate. No silently enabled Set/Unique, proc or binary effects.
+  - Completed 19 October: [eight-base/five-material cohort, pinned facts/units, maker/tier mappings, exact legal-affix queries and gates](t02-reference-cohort.md). Actual runtime APIs passed 24 pool queries and 1,536 validated seeded rolls; four disposable save/restart boots and all 12 Python checks passed. Remaining recipe/tier/material/jewellery/reward cohorts are listed separately in the report. No gameplay, migration or deployment change.
+
+- [x] **T03 — Apply cosmetic class names for either creation sex.**
+  - Depends: T01. Owners: Career, Client. Spec: [class names](class-talents-and-trades.md).
+  - Use existing seven identities with the confirmed Gargarean/Amazon, Sorcerer/Sorceress, Druid/Druidess aliases and four unisex names.
+  - Accept: creation, paperdoll, talent/wardrobe labels and reload agree; class IDs, XP/talents and combat behavior are unchanged.
+  - Completed 19 October: [shared mapping, alias-aware paperdoll formatting, level/reload/talent/speed labels and client patch 0020](t03-class-names.md). All 14 server creation/sex cases and persistence checks passed; real client toggles/Back/reselection and Sorcerer/Druidess world-entry labels were verified. The wardrobe has no UI yet and must use the shared helper in its own card. Matching builds are tested, not deployed; IDs/talent keys/save formats and live progression remain unchanged.
+
+- [ ] **T04 — Extend persisted item state for its next consumers.**
+  - Depends: T02. Owners: Gear, Economy. Spec: B/E/F/M.
+  - Add/version only needed metadata: base tier/material, quality/creator/durability, native versus tinker-added sockets and later sale/identification state. Preserve real item identities and origin exclusions; use deterministic documented legacy defaults, not random rerolls on reload.
+  - Accept: old/new saves round-trip; trade/stack/split/copy paths cannot launder origins, lose socket provenance or regenerate random values. Starter/vendor protections survive.
+
+- [ ] **T05 — First profession, skill activation and training.**
+  - Depends: T02. Owners: Career, Production. Spec: A02–A04, Q01/Q08/Q09.
+  - Store the selected craft and a distinct first-choice-confirmed state; new characters display Alchemy initially. First crafting-tool use asks confirmation before crafting, gains or costs; cancel leaves the choice open. Confirm locks that profession until earned wardrobe access. Gathering tools are exempt. Cartography joins the ten selectable crafts; all three gathering skills stay active.
+  - Enforce the chosen craft server-side through applicable native tools/action/gain entry points, not just one gump. Implement paid training to30, the chosen practice bands to70 and cap storage. Decide existing-character migration and exact practice interpolation/scope before enabling them. Preprocessing/salvage exceptions follow C and Q10, not a blanket ban on every tool action.
+  - Accept: confirm/cancel/repeated/stale prompts, alternate tools, relog and normal gameplay cannot change the locked choice or consume costs on cancel; inactive crafting cannot gain/produce via another menu. Gather/butcher exceptions work. Release with T14/T15, not as an isolated permanent lock.
+
+- [ ] **T06 — Shared crafting/tool/station rules for the first recipes.**
+  - Depends: T04, T05. Owners: Production, Economy. Spec: A05–A08, Q10.
+  - Reuse native craft transactions; adapt tool charges, quality roll after success, material selection, target validation and town station requirements. Include explicit portable exceptions, concurrent station users, zero station fee and recipe-unlock storage. Settle remaining tool mappings/charge handling for the selected recipes.
+  - Accept: success/failure/cancel/full pack/stale target/relog use the correct resources/charges once; vendor and crafted tool capacities/charge-saving differ correctly. No gains or costs from a rejected request.
+
+- [ ] **T07 — Gather, skin and preprocess ordinary materials.**
+  - Depends: T06. Owners: Production. Spec: B03/B05/C01–C04.
+  - Preserve native ore/wood/hides and skill-free butchering; support wool→yarn→cloth. Remove bandage creation. Add tool-driven 1→10 scrap/chip/strip conversions with no charges and gains only through30. Settle input/output weight normalization and active-craft/portable exceptions first.
+  - Accept: exact subtype/count/weight, stack limits/full packs and vendor supply exclusions work; failed delivery cannot lose inputs or duplicate yields. No NPC metal/wood/leather source is introduced.
+
+- [ ] **T08 — Craft usable white bases and tools.**
+  - Depends: T06, T07. Owners: Production, Gear. Spec: B01–B11.
+  - Start with the mapped first cohort, then add explicit recipe batches. Apply Normal/Exceptional/Elite skill and ilvl/equip ladders, physical maker routing (including heavy bone Tailoring), quality, creator/durability perks and native quality sockets at100. Tools are Tinkering products; material bonus identities follow the spec.
+  - Accept: a player produces/equips the item with correct attributes/level checks and persistent rolls. Settle material arithmetic/random-element pool and durability rounding before enabling the affected bonuses. Empty sockets are visible state; they need not pretend insertion already exists.
+
+- [ ] **T09 — Project effective gear stats consistently.**
+  - Depends: T08. Owners: Gear, Effects. Spec: B04/D09/E04/F.
+  - Extend the existing gear aggregation for the selected material/affix effects. Broken worn gear contributes zero damage/defense/stats; broken weapons use unarmed attacks. Keep timing/FHR formulas and equipment-change deadlines honest.
+  - Accept: equip/unequip/break/repair/relog recompute the same values without double-counting. Each enabled advertised property has a measured combat/stat effect. Leave unsupported properties unavailable until their own consumer is implemented.
+
+- [ ] **T10 — One reward-life contract and manual corpse gold.**
+  - Depends: T02. Owners: Rewards. Spec: M01/M03, existing XP contract.
+  - Extract/author the bounded D2-derived gold rolls and common eligibility for XP, gold, gear, moulds, maps and later recipes. Reuse persistent spent-life/revival semantics; reward eligibility must not depend on XP actually increasing (level99/zero-XP cases). Gold stays on the corpse for the loot grid; remove automatic collection explicitly.
+  - Accept: player/pet kill, original/revived death, save/restart, full pack and overlapping death callbacks pay each entitlement once. Keep unsupported/native loot suppressed; do not globally turn on UO drops to obtain gold.
+
+- [ ] **T11 — Essential vendors, persistent resale and supply.**
+  - Depends: T04, T06, T10. Owners: Economy, Production, Client. Spec: B05/M04–M06/H09.
+  - Supply tools/reagents/bottles/ordinary food ingredients/expensive cloth, author trainers, and replace the prototype resale formula with the specified persistent base-tier quote. Apply unidentified10%, starter1gold and no buyback/destruction on sale; preserve origin. Settle vendor-origin resale and meaning of stock level41/70 before enabling affected stock; gem/bark purchase prices activate with their items and vendors never resell them.
+  - Accept: reopen/relog/vendor changes cannot reroll a quote; sales consume items/pay once; sold items cannot be repurchased. Verify actual shop OPL delivery without exposing unidentified stats. Do not reapply the old10% multiplier to new quote bands.
+
+- [ ] **T12 — Player and NPC repair/recharge.**
+  - Depends: T09, T11. Owners: Economy, Production, Gear. Spec: C03/D01–D12/D14.
+  - Implement exact processed-material subtype plus rarity essence, resource-saving and max-durability-loss rolls; NPCs need the same resources plus tier fee and skill80 behavior. Recharge-only uses essence and no durability loss, for charge types with real consumers. Settle extra scrap quantities, repair extent/floor, saving scope and tool charge handling.
+  - Accept: worn/broken/partly damaged equipment repairs consistently; cancel/stale/insufficient costs cannot partially consume or reroll accepted work. Save/reload max losses. White repair works before new magic drops; repeat magic cases after T17/T19. Tool charges alone never replace material/essence costs.
+
+- [ ] **T13 — Apply the agreed carried-gold death loss.**
+  - Depends: T10. Owners: Death/followers. Spec: O01.
+  - Replace the prototype level-based curve with flat20% of backpack-carried gold at death, once, leaving bank gold safe and XP unchanged.
+  - Accept: rounding/stack handling is documented; resurrection/relog/repeated death callbacks cannot charge twice. Existing corpse/belt/pet recovery still works.
+
+- [ ] **T14 — Recognition and earned wardrobe access.**
+  - Depends: T05, T11. Owners: Career, world content. Spec: A03/Q02/Q08.
+  - Add class80 OR craft100 eligibility, town-hall message/ceremony, named painting certificate, bookshelf wardrobe award and housing-right flag. Gathering100 does not qualify. Settle unlock ownership, town selection and second-award handling before final ceremony rewards.
+  - Accept: both qualifying routes and Cartography work once across reload; gathering cannot unlock it; recognition is not a free house. Award/capacity failure cannot duplicate rewards or lose earned access.
+
+- [ ] **T15 — Public wardrobe: first craft-only switching loop.**
+  - Depends: T14. Owners: Career, Client. Spec: A03/Q03/Q08.
+  - Provide public town-hall access. Opening preselects current class/craft; tick exactly one of each to enable Swap. In this bounded slice the existing class remains selected and other classes await T39/T40. Switching only the craft is free, alive/out-of-combat, and preserves all trained skills. Settle combat/action detection for this operation.
+  - Accept: locked/unlocked/dead/in-combat/stale sessions, unchanged selection, craft-only change and relog behave correctly. A craft-only switch does not move gear/summons, refill pools or reset timers. Deploy with the T05 activation rules so eligible players have a real route to switch.
+
+### Magic gear, sockets and gathering socketables
+
+- [ ] **T16 — Bring salvage onto the agreed tools.**
+  - Depends: T07, T09. Owners: Economy, Production. Spec: C02–C04/P03–P05.
+  - Adapt the existing salvage transaction to proper tools, no skill/charge/gold cost, correct physical material and retained independent rarity/ilvl recovery rolls. Filled contents are lost with no extra yield. Keep Unique recovery reserved until real Unique items exist.
+  - Accept: Drop/Crafted/Gambled eligible; Vendor/starter/protected rejected, including native salvage/resmelt/scissor/bag bypasses. Confirm/cancel/stale/full-pack and reload do not duplicate resources or destroy the item without delivery.
+
+- [ ] **T17 — Tiered Imbuing and white jewellery.**
+  - Depends: T09, T11, T16. Owners: Economy, Production, Gear. Spec: E01–E05.
+  - Replace skill-free prototype rules with base-tier/jewellery skill/cost ladders and 120 rarity odds; build the ladle/cauldron path. Eligible white weapons/shields/rings/amulets remain included. Persisted native quality sockets are allowed; any tinker-added socket forbids Imbuing even before socket creation goes live.
+  - Accept: valid actions always yield Magic/Rare with ordinary eligible random affix values. Cancel/reject never destroys gear; real charged costs and one transaction survive replay/reload. Settle jewellery ilvl/equip/costs and enable effects only as their consumers pass tests.
+
+- [ ] **T18 — Identification and information boundaries.**
+  - Depends: T04, T11, T17. Owners: Gear, Economy, Client. Spec: M06, I.
+  - Implement persistent identified state and the first real identification route using the selected scroll/tome behavior; establish recipe/vendor supply for the chosen small route. Defer the larger tome ladder to T34.
+  - Accept: ground/corpse/backpack/shop/tooltips do not reveal hidden affixes or alter rolls; identification reveals the same stored item, and its quote remains the same underlying price. Unidentified sale pays10% without identifying it.
+
+- [ ] **T19 — Bounded production gear drops and Magic Find.**
+  - Depends: T10, T17, T18. Owners: Rewards, Gear. Spec: M02/N02/E04.
+  - Author the first encounter cohort from verified D2 tables and UO counterparts: counts/chances, item levels, base tiers, rarity and affix eligibility. Implement MF's actual selection consumer before enabling MF affixes. Settle unsupported Set/Unique outcomes rather than silently reassigning their probability.
+  - Accept: kill→loot→identify→equip/sell/salvage completes in play; pet/revival entitlement holds. Distribution checks use fixed seeds/bounds, not claims of full D2 parity from a small sample. Do not enable unconverted monsters' abilities/stat profiles as a side effect.
+
+- [ ] **T20 — Tinkering empty sockets and destruction.**
+  - Depends: T17. Owners: Production, Economy, Gear. Spec: F01–F08.
+  - Add one socket per attempt using both base-tier and socket-index gates, five cap,100/50/25/5/5% base schedule and permanent tinker provenance. Warn that socketing a white item blocks later Imbuing. Costs are tool charges only; native sockets count toward the next index.
+  - Accept: deterministic success/failure paths, destruction/installed-content loss, all gates, cap, cancellation and reload. Settle tool bonus acquisition/mapping and 120 intuition retry charges/one-retry semantics before enabling those enhancements; no repeated free retries.
+
+- [ ] **T21 — Known-stat mould catalogue and ordinary drops.**
+  - Depends: T02, T10, T19. Owners: Rewards, Gear. Spec: G01/G03/G04/G06/G09.
+  - Define eight tiers, percentage-only legal stat mappings, category minimum baselines and canonical suffixes. A mould declares its stat before crafting. Add ordinary0.1% drops; reserve the grade field for T35's1/5/10% encounters.
+  - Accept: level bands/stat/tier/names persist through trade/reload; no flat/binary rune, old random-stat craft or universal1–8% assumption returns. The same spent-life contract prevents repeat moulds.
+
+- [ ] **T22 — Runebark harvesting and resale.**
+  - Depends: T07, T11. Owners: Production, Economy. Spec: H01/H03/H04/H09.
+  - Add one5% roll per successful wood harvest using trained Base skill and eight45–80 thresholds; random unlocked tier and find message. Author quantity/distribution/full-pack handling before enabling. No bark upgrades or NPC/monster supply.
+  - Accept: no byproduct on failure or per-tier extra rolls; skill bonuses cannot bypass Base thresholds. Higher bark may substitute downward later. Correct10–80 vendor purchase price, no resale stock.
+
+- [ ] **T23 — Inscription makes the declared rune.**
+  - Depends: T06, T21, T22. Owners: Production, Gear. Spec: G01–G05/G08.
+  - Consume one mould, tier1–8 bark quantities and one pen charge; skill30–100, quality+10/+20 gates and separate rune odds. Higher bark substitutes downward without raising the output tier/stat. Apply category-minimum+(tier−1)+quality points.
+  - Accept: Average/HQ/Superior boundary cases including SuperiorT8 at120, costs/cancel/full-pack/reload and naming agree. Ordinary gear affix rolls keep their random ranges; rune baseline minima do not flatten gear.
+
+- [ ] **T24 — Mining gem families, quality and upgrades.**
+  - Depends: T07, T11. Owners: Production, Gear, Economy. Spec: H01/H02/H05–H09.
+  - Add nine families/five qualities at Base40–80, one5% roll per successful ore harvest and purchase-only prices. Legacy gems are decorative. Resolve family→D2 mapping, second added flat stat, family/quality quantity weights, capacity behavior and upgrade recipe/ratio/profession before enabling the relevant outputs.
+  - Accept: no vendor/monster usable-gem supply; upgrades preserve identity rules and consume once; actual stored effects differ correctly by quality. Keep the L08 treasure exception unresolved until explicitly answered.
+
+- [ ] **T25 — Permanent rune insertion and equipment requirements.**
+  - Depends: T20, T23. Owners: Gear, Economy, Client. Spec: F06–F08/G07.
+  - Fill sockets permanently, add numeric bonuses once and enforce filled-count level30/40/50/60/70 alongside base/affix/attribute requirements. Empty sockets add no level requirement; rune identity adds none. No extraction/replacement.
+  - Accept: insertion/equip/unequip/break/repair/trade/relog give identical totals; failed/stale requests cannot duplicate runes. Five FHR runes affect the actual recovery consumer, without changing movement/attack timing through a second path.
+
+- [ ] **T26 — Gem insertion and real slot-dependent effects.**
+  - Depends: T24, T25. Owners: Gear, Effects. Spec: H05/F06–F08.
+  - Reuse insertion/requirements and implement the mapped D2 weapon/shield/armour differences; the two extra flat effects are slot-independent as agreed.
+  - Accept: each of nine families has real measured effects in supported host categories, no inert tooltip-only bonus. Permanent loss and save/equip aggregation match runes.
+
+### Consumables, convenience crafts and exploration
+
+- [ ] **T27 — Timed-effect persistence and stacking contract.**
+  - Depends: T09, T15. Owners: Effects, Career. Spec: J/K/L/Q04/Q06.
+  - Agree owner scope/shared versus per-class and offline/inactive-time behavior before binding potion/food/map state. Reuse existing restorative timing where suitable; add only the common expiry/reapplication behavior needed by the next consumable.
+  - Accept: reload/reconnect/expiry and later class-switch hooks cannot refresh duration, double effects or cleanse damage. Potions extend duration up to90s, food/map categories each permit one effect. Cross-potion coexistence/refresh rules need an explicit answer.
+
+- [ ] **T28 — Alchemy restoratives and normal potion supply.**
+  - Depends: T06, T11, T19, T27. Owners: Production, Effects, Rewards. Spec: J03–J05/P09/P10.
+  - Verify existing D2 restoration/class behavior against selected data, add the chosen heal/mana drop mapping, unlimited NPC stock through Greater, Super drop-only and crafted rejuvenations/instant heal/mana recipes. Preserve existing inventory and belt consumption/bottle handling.
+  - Accept: actual crafted/bought/dropped potions work from both sources; 20% bottle recovery/full-pack behavior, mixed-tier healing and1–4/Enter-to-chat controls remain correct. Rejuvenations never enter monster drops.
+
+- [ ] **T29 — Alchemy combat buffs and their effect consumers.**
+  - Depends: T28. Owners: Production, Effects, Gear. Spec: J01/J02.
+  - Add the listed Second Wind/Deep Wounds/Magical Penetration/Stealing/Protection recipes in separate small cohorts. Define elemental component math and mitigation order before their respective recipes; implement leech, speed and damage consumers rather than displaying inert stats.
+  - Accept:30s→at most90s duration stacking without magnitude growth, exact resource/output counts, damage/healing/mitigation order and expiry/reload. Speed buffs preserve bounded steering, collision, hit recovery and constant turn speed.
+
+- [ ] **T30 — Cooking meals and gathering/corpse hooks.**
+  - Depends: T07, T22, T27. Owners: Production, Effects, Rewards. Spec: K01–K05.
+  - Author economical recipes across the specified bands, native ingredients/chip fuel, no hunger and one1h effect. Implement light/capacity first, then resource/time/corpse/aggro effects separately. Define minimum harvest time and aggro application/reset rules first; retain specified+74 tier3 capacity until explicitly tuned.
+  - Accept: use/replace/expire/relog work; leaving capacity buff applies normal encumbrance and the **player manually drops** items. No automatic spill, multiplied byproduct rolls, repeated skinning bonus or zero-time gathering loop.
+
+- [ ] **T31 — Carpenter furniture, stations and kegs.**
+  - Depends: T06, T07, T28. Owners: Production, Effects. Spec: A/B05/Q10.
+  - Adapt useful native furniture/keg recipes into the progression. Tinkering remains the producer of tools. Town crafting starts free; making home furniture does not approve private crafting stations. Inspect compatibility of native keg transfer with custom potion identity before enabling it.
+  - Accept: real crafted objects persist/place safely; keg transfers cannot change potion tier/effects, duplicate bottles or bypass belt/storage limits. No unrequested automatic refill system.
+
+- [ ] **T32 — Crafted consumable map buffs.**
+  - Depends: T06, T19, T27. Owners: Maps, Production, Effects, Economy. Spec: L01–L05.
+  - Implement city/world/dungeon map recipes, one map effect for30min, independent of maker skill on use. Resolve purchase/sale/both for city5% and whole-dungeon versus floor exit boundaries before enabling those effects.
+  - Accept: double-click consumes once; search radius/MF/vendor consumers actually change, dungeon exit expires the correct effect, and relog cannot reset duration. Cartography action/gains respect the chosen-craft rules; consuming a finished map does not require its maker's skill.
+
+- [ ] **T33 — Shared level-one Teleport effect and scroll targeting.**
+  - Depends: T09, T27. Owners: Career, Effects, Client. Spec: I04.
+  - Implement/verify the actual Sorcerer/Sorceress level-one Teleport effect with source-backed range, collision, elevation and timing. Use the same validation for a single-use scroll: inventory right-click targets normally, belt use takes cursor world position.
+  - Accept: walls/doors/corners/stairs, invalid targets, cursor outside world, death/recovery and repeat requests cannot clip, duplicate or consume incorrectly. No need to implement all other talent effects first.
+
+- [ ] **T34 — Scrolls, consumable tomes and bonus Teleport output.**
+  - Depends: T18, T23, T33. Owners: Production, Effects, Client. Spec: I01–I04.
+  - Author TP/Identify recipes/supply and3/4/5/6/7/10 tome charges at50–100, quality+1/+2 and no refill. Settle vendor capacities/prices. Full-tome craft at100 has1% extra single-use Teleport scroll using T33, not an inert item.
+  - Accept: consumption/last charge/cancel/full pack/belt interaction/reload and quality thresholds; no old20-charge/charge-saving tome rules or refill loophole.
+
+### Advanced rewards and character progression
+
+- [ ] **T35 — Encounter grades and higher-level dungeon profiles.**
+  - Depends: T19, T21. Owners: Rewards, creature AI/profile content. Spec: G06/G09/M02.
+  - Author champion/random unique+minions/named super-unique grade semantics and1/5/10% mould chances. Monster grade is distinct from Unique item rarity. Build bounded adapted dungeon cohorts reaching90–99 beyond current ceilings, using creative UO counterparts and verified profiles; no act-boss system is required.
+  - Accept: real encounter level, offense/defense/resists/speed/reaction/recovery, converted abilities and rewards agree. Test doors/corners/pursuit and pet targeting. Merely lifting an85 cap is not a balanced level99 monster; keep Nightmare/Hell activation separate unless explicitly requested.
+
+- [ ] **T36 — Chitin and maximum-durability restoration.**
+  - Depends: T12, T28. Owners: Rewards, Production, Economy. Spec: D13.
+  - Settle eligible species/drop rates, Alchemy processing skill/recipe and Powder of Fortifying restoration amount/floor/ceiling. Hook chitin into T10's reward entitlement, not a second native loot path.
+  - Accept: eligible Solen/Terathan/arachnid kill→chitin→powder→restore max→ordinary repair completes. No free refill beyond defined extent, repeat-revival drops or restoration past the permitted maximum.
+
+- [ ] **T37 — Treasure maps, keys and rare recipe acquisition.**
+  - Depends: T20, T31, T32, T35. Owners: Maps, Production, Rewards. Spec: L06–L10.
+  - Map modern five named tiers to native six-level behavior, author skeleton keys/charges and small adapted dungeon sections. Add1% level-band map drops and20/40/60/80/100% one-recipe rewards, tier3 Cooking/all120 recipes; separate native Fishing/bottle/SOS research from land treasure.
+  - Accept: map→decipher/search→key→encounter/chest→learn recipe works with retained skills. No hidden Lockpicking/Remove Trap reintroduction or repeated chest reward. Settle cash/gear/resource quantities and usable-versus-decorative treasure gem exception before enabling those rewards.
+
+- [ ] **T38 — Boss Power Scroll drops and cap unlocks.**
+  - Depends: T05, T35. Owners: Career, Rewards. Spec: A03/Q09.
+  - Settle profession specificity, owner scope, order/tradability and rare boss weights; apply105/110/115/120 caps without granting skill levels. Use dungeon bosses authored in T35, not unsupported D2 act bosses.
+  - Accept: dropped/traded/used scroll, already-unlocked/out-of-order cases, inactive craft and relog preserve the right cap and consume correctly. Both120 recipes and their skill caps have production acquisition.
+
+- [ ] **T39 — Migrate to independent class histories.**
+  - Depends: T15, T27. Owners: Career, Death/followers. Spec: Q04–Q08.
+  - Settle pool/status/timer ownership, shared backpack/bank/gold/belt/quests/location, first activation gear/bindings and inactive advancement. Migrate the current single class/ranks/allocations into its initial class record without changing IDs or earned progress.
+  - Accept: old/new saves preserve all values; two class histories level independently and reload without free healing/cleansing/reset. Migration must be reviewable and recoverable before enabling swaps.
+
+- [ ] **T40 — Full class/gear/binding/summon wardrobe transaction.**
+  - Depends: T39. Owners: Career, Gear, Death/followers, Client. Spec: Q03–Q07.
+  - Expand the existing preselected two-list UI to all classes. Resolve real-item loadout storage/capacity/lost-item rules and summon suspension/lifetime/follower accounting, including ordinary pets/mercenaries. Move/save real entities; never clone them. Retain free/alive/out-of-combat access and allow normal encumbrance on a weaker class.
+  - Accept: class-only/craft-only/both/unchanged choices, stale sessions, invalid gear/storage, active summons, disconnect and reload. Validation failure leaves the prior state intact; only the active class's permitted summon set remains active. Client hotkeys/talents/stats/belt resynchronize without resetting combat deadlines.
+
+- [ ] **T41 — Optional earned titles.**
+  - Depends: T14, T39. Owners: Career, Client. Spec: Q11–Q13.
+  - Settle exact class99 prefixes/skill100 suffixes, any higher ranks, earned-versus-active selection and legacy/town-hall presentation. Either title slot can be hidden. Gathering100 earns skill-title eligibility, not wardrobe recognition.
+  - Accept: independently selected/hidden titles persist across class/craft swaps and reload. Sex aliases remain cosmetic; no stats/notoriety changes. Grandmaster100/Legendary120 is still a recommendation, not an adopted replacement for the user's example.
+
+- [ ] **T42 — Homes, architect/town purchases and personal wardrobes.**
+  - Depends: T14, T40. Owners: world/housing content, Career. Spec: O06/O07/Q02/Q10.
+  - Author locations/prices and architect placement/town-sign purchase flows gated by recognition, no recurring charge initially. Place the awarded bookshelf wardrobe; settle ownership/house-loss behavior. Public access must remain available without home ownership.
+  - Accept: purchase/place/move/sell/loss/reload preserve permissions and real stored property; no free home or unapproved private workshop. Furniture is an access point, not an excuse to erase character progression.
+
+### Remaining sinks, complete coverage and tuning
+
+- [ ] **T43 — Equipment insurance.**
+  - Depends: T13, T19. Owners: Death/followers, Economy, Gear. Spec: O03.
+  - Settle payment source/duration/renewal/retention and implement the rarity/base-tier price table for supported rarities. Unique prices remain future data until real items exist.
+  - Accept: insure→death→recovery/renewal across insufficient funds, equipped/backpack gear, belt, trade and relog; one payment/retention outcome per death. No item duplication or origin change.
+
+- [ ] **T44 — 24-hour corpse escrow and banker recovery.**
+  - Depends: T13, T43. Owners: Death/followers, Economy. Spec: O02.
+  - Settle content-based fee, exact refusal/no-funds deletion trigger and bank-capacity handling before implementing irreversible deletion. Persist corpse age/escrow ownership; honor insurance and existing pet/belt recovery.
+  - Accept: death→24h boundary→escrow→quoted banker recovery, cancel/refusal/no funds/full bank/offline/restart and simultaneous access. Use isolated fixtures for deletion cases; never experiment with live player belongings.
+
+- [ ] **T45 — Tavern gambling.**
+  - Depends: T18, T19. Owners: Economy, Gear, Rewards, Client. Spec: N01–N03.
+  - Author D2-derived price/item-level/base/rarity generation, offer all intended item families and hidden-stat stock at tavern gamblers. Reuse the resolved unsupported-rarity policy and real item generation; preserve loot eligibility for gambled items instead of tagging them as ordinary Vendor stock.
+  - Accept: buy/reveal/equip/salvage/sell loop, refresh/level bounds, hidden tooltips, funds/capacity and save/reload. No origin laundering or previewing the purchased roll for free.
+
+- [ ] **T46 — Mercenary resurrection and healing reserves.**
+  - Depends: T13, T28. Owners: Death/followers, Effects, Economy. Spec: O04/O05/Q05.
+  - Implement level×1,000 resurrection with retained real gear/inventory. Define drink thresholds, reserve capacity and active-heal behavior; healing-only reserve is not retrievable player storage, with warnings10/5/1/0.
+  - Accept: actual companion death→pay→resurrect, insufficient funds, healing use/depletion, logout/reload and follower ownership. Coordinate T40 class switching with Q05; do not assume existing skeleton minions constitute a mercenary system.
+
+- [ ] **T47 — Complete all profession recipe/gain coverage.**
+  - Depends: T08, T17, T23, T29, T30, T31, T34, T37, T38.
+  - Owners: Production, Career, Reference/verification. Spec: A01/A02 and each profession's sections.
+  - Maintain a matrix for **Alchemy, Blacksmithing, Bowcraft/Fletching, Carpentry, Cartography, Cooking, Imbuing, Inscription, Tailoring, Tinkering**. For each, list tools/station, input source, useful outputs every10 points through110, practice/gain bands,100/120 perks, cap access, rare recipe source and product consumer. Mining/Lumberjacking/Fishing get their own always-active progression/source matrix.
+  - Accept: finish remaining cohorts individually, including crafted tools/keys/jewellery/furniture, Fishing/SOS and top-end recipe unlocks. A row is complete only when its output has a usable consumer and sustainable acquisition; placeholder recipes/GM grants are insufficient.
+
+- [ ] **T48 — Combined play comparison and economic budget.**
+  - Depends: T03, T12, T25, T26, T36, T38, T41, T42, T44, T45, T46, T47.
+  - Owners: all affected systems and verification. Spec: M01 and complete loops above.
+  - Record30-minute outings by level/gear/class with gold faucets separated (kills/resale/gathering) and sinks separated (repair/consumables/crafting/death/gambling/companions). Include vendor-cloth→crafted-resale paths. Preserve the supplied starting values; propose tuning from results rather than silently reinstating old caps.
+  - Accept: sustainable repairs plus intended surplus, usable cross-profession supply, and documented limitations. Exercise sustained movement/CPU/requests, angled runs/turn/release, doors/fences/corners/stairs, melee/cast stops, hit recovery, pet kills/revives, full packs, death and save/reload. No drift/clipping/timing changes or removed control bindings. Full D2 parity is not the acceptance claim.
+
+## Verification and deployment workflow
+
+Use tests appropriate to the selected card, then broaden when shared state changes justify it. Existing fixtures protect the comparison build; new mechanics need meaningful cases for their own behavior, not merely assertions that repeat constants. Documentation-only edits need link/dependency/consistency checks, not rebuilding the game.
+
+From the repository root, inspect these entry points before running them; outputs and dependencies may have changed since this roadmap:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py'
+./dev build content
+.tools/dotnet/dotnet build tests/Sanctuary.Integration/Sanctuary.Integration.csproj -c Debug -o .local/integration --nologo
+```
+
+`build content` builds project output, not a live install. If changing UOContent, build the native application against the project overrides without staging it into a running installation:
+
+```bash
+SANCTUARY_ROOT="$PWD"
+(
+  cd "$SANCTUARY_ROOT/upstream/ModernUO"
+  "$SANCTUARY_ROOT/.tools/dotnet/dotnet" build Projects/Application/Application.csproj -c Debug --nologo \
+    -p:CustomAfterMicrosoftCommonTargets="$SANCTUARY_ROOT/build/ModernUO.targets" \
+    -p:NBGV_GitEngine=Disabled -p:WarningsNotAsErrors=NBGV1001 -p:PublicRelease=false
+)
+```
+
+Build the project content/integration against a matching native binary set afterwards. A useful existing server regression selection is:
+
+```bash
+SANCTUARY_TEST_SERVER="$PWD/upstream/ModernUO/Distribution" \
+SANCTUARY_TEST_CREATION=1 SANCTUARY_TEST_ECONOMY=1 \
+SANCTUARY_TEST_CREATURE_XP=1 SANCTUARY_TEST_CREATURE_PROFILES=1 \
+SANCTUARY_TEST_COMBAT=1 SANCTUARY_TEST_PETS=1 \
+SANCTUARY_TEST_MONSTERS=1 SANCTUARY_TEST_RESURRECTION=1 SANCTUARY_TEST_BELT=1 \
+python3 tests/check_britain.py
+```
+
+Select `SANCTUARY_TEST_SERVER` only after verifying that directory contains the intended matching binaries. The harness uses disposable accounts/saves and separate ports. It symlinks some selected binaries/content/data, and currently still obtains configuration from `.local/server/Configuration`; **do not rebuild mapped files while it runs**. This workspace's exFAT volume lacks symlink support: use `/dev/shm` for symlink-based disposable runtimes, or actual copies if creating a test runtime under `.local/`. Run harness sessions sequentially and retain each log separately; the default log name is shared.
+
+For actual client economy checks, use the existing `SANCTUARY_TEST_UI=1`, `SANCTUARY_TEST_COMBAT_UI=1`, `SANCTUARY_TEST_ECONOMY_UI=1` and an absolute `SANCTUARY_TEST_UI_STATE` output path alongside the appropriate server flags. Read `tests/check_britain.py`/`tests/check_economy_ui.py` before adapting them. Current UI fixtures test real gumps/buttons but provide some targets through the normal server target callback; do not claim that proves pixel-based backpack targeting. Add a real manual path for tool use, first-profession confirmation and wardrobe selections.
+
+`./dev setup` is for initial setup, not repairing a dirty existing checkout. `./dev build server`, `./dev build client` and `./dev server` can stage runtime files/content; do not treat them as read-only validation. For a deployment: identify the exact changes, save and stop the live process cleanly, back up relevant runtime/configuration/accounts/saves, install only intended artifacts, restart, and verify identities/progression/items/client preferences. Preserve a concrete rollback and migration record. Never deploy integration assemblies or test kits into production automatically. A content change must not overwrite unrelated client, application/core or gear work.
+
+## Completion record for each card
+
+Append this beside the completed card or link a durable repository report. Keep this roadmap updated as the source of the next ready task.
+
+```text
+Card / bounded cohort:
+Prerequisites verified / decisions settled (spec IDs):
+Changed source, data and upstream patches:
+Save migration / legacy defaults / rollback:
+Automated commands and outcomes, with durable evidence:
+Actual client play observations (and separate player feedback):
+Installed artifact/revision, or explicitly not deployed:
+Known limitations / remaining cohorts / next ready card:
+```
+
+Do not tick an entire milestone because one representative item passed. Mark remaining recipe/encounter/stat cohorts explicitly, and keep unresolved design choices distinct from implementation recommendations. The next recommended implementation task is **T04**, within T02's bounded cohort and recorded gates. T03's tested cosmetic changes remain undeployed; no later gameplay card has been started.
+
+Documentation verification on19 October: all49 card IDs are unique, dependencies point to earlier existing cards (no cycles), local Markdown links resolve, the131 questionnaire IDs retain their order, and the replies SHA-256 still matches the [reconciliation record](economy-reconciliation.md). `git diff --check` passed. These checks do not constitute gameplay verification.

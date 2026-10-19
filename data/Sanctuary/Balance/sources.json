@@ -42,5 +42,13 @@
   "Properties": {
     "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Properties.txt",
     "sha256": "df39332fbe0c17cbee3d1f42f0caf63f9d76076b36f2f633c6d712d5c38af4e8"
+  },
+  "Misc": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/Misc.txt",
+    "sha256": "d01a37412cc170b744ae4cde66f5f5130e97f69274bad60b2d3ef0f470d7e207"
+  },
+  "ItemStatCost": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/ItemStatCost.txt",
+    "sha256": "4d743b7f3e260a6647f259de25a931fd2554d52315d316eac467f110ee096c27"
   }
 }

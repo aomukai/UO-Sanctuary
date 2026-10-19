@@ -18,6 +18,8 @@ public static class CombatChecks
                 {
                     using var random = new CombatRandom();
                     TimingChecks.Check();
+                    MeleeReachChecks.Check();
+                    HitRecoveryChecks.Check();
                     Check();
                     CheckHeld();
                     StationaryAttackChecks.Check();

@@ -20,6 +20,7 @@ public static class ClassCombat
         public long NextAction { get; internal set; } = Core.TickCount;
         public CombatAbility PendingAbility { get; internal set; }
         public long EffectAt { get; internal set; } = Core.TickCount;
+        public long RecoveryUntil { get; internal set; } = Core.TickCount;
         public ActionTiming Timing { get; internal set; }
         public byte Animation { get; internal set; }
         internal Serial PendingTarget, PendingWeapon;
@@ -67,6 +68,7 @@ public static class ClassCombat
         ClassCombatHooks.Friendly = Friendly;
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
+        ClassCombatHooks.MovementAllowed = from => !HitRecovery.Active(from, Core.TickCount);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
             ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), ClassGear.RunBonus(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
@@ -127,7 +129,8 @@ public static class ClassCombat
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
-        if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null)
+        if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null
+            || HitRecovery.Active(from, now))
         {
             return false;
         }
@@ -288,7 +291,7 @@ public static class ClassCombat
         }
         var session = For(from);
         if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null
-            || !Available(from, ability) || now - session.NextAction < 0 || session.PendingAbility != CombatAbility.None)
+            || HitRecovery.Active(from, now) || !Available(from, ability) || now - session.NextAction < 0 || session.PendingAbility != CombatAbility.None)
         {
             return false;
         }
@@ -431,12 +434,20 @@ public static class ClassCombat
             from.DoHarmful(target, true);
             if (ability == CombatAbility.Teeth)
             {
-                target.Damage(4 + TeethRank(from) * 2, from);
+                int before = target.Hits;
+                int resistance = target is BaseCreature creature && CreatureProfiles.For(creature) is { ApplyStats: true } creatureProfile
+                    ? creatureProfile.Resistances.Magic ?? 0 : 0;
+                target.Damage((4 + TeethRank(from) * 2) * Math.Clamp(100 - resistance, 0, 200) / 100, from);
+                if (target is BaseCreature victim)
+                {
+                    CreatureHitRecovery.Apply(victim, from, Math.Max(0, before - target.Hits));
+                }
             }
             else if (ClassStats.CheckHit(from, target) == true)
             {
                 var damage = ClassStats.DamageRange(from);
-                AOS.Damage(target, from, Utility.RandomMinMax(damage.Min, damage.Max), 100, 0, 0, 0, 0);
+                AOS.Damage(target, from, Utility.RandomMinMax(damage.Min, damage.Max), false, 100, 0, 0, 0, 0,
+                    weaponDamage: true);
             }
             else
             {
@@ -604,7 +615,7 @@ public static class ClassCombat
             _sessions.Remove(serial);
         }
     }
-    private static void SendState(PlayerMobile from, Session session)
+    internal static void SendState(PlayerMobile from, Session session)
     {
         if (!session.Handshake || from.NetState?.Running != true)
         {
@@ -627,7 +638,7 @@ public static class ClassCombat
             session.TooltipSignature = signature;
             weapon?.InvalidateProperties();
         }
-        var length = 29 + count * 4;
+        var length = 31 + count * 4;
         Span<byte> data = stackalloc byte[length];
         var writer = new SpanWriter(data);
         writer.Write((byte)0xBF);
@@ -647,6 +658,7 @@ public static class ClassCombat
         writer.Write(session.Animation);
         writer.Write((ushort)session.Timing.DurationMs);
         writer.Write((ushort)Math.Clamp(session.NextAction - Core.TickCount, 0, session.Timing.DurationMs));
+        writer.Write((ushort)Math.Clamp(session.RecoveryUntil - Core.TickCount, 0, 2000));
         for (var i = 0; i < count; i++)
         {
             writer.Write(hostiles[i]);

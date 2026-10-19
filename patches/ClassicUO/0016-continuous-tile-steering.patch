@@ -1,0 +1,238 @@
+diff --git a/src/ClassicUO.Client/Game/Pathfinder.cs b/src/ClassicUO.Client/Game/Pathfinder.cs
+--- a/src/ClassicUO.Client/Game/Pathfinder.cs
++++ b/src/ClassicUO.Client/Game/Pathfinder.cs
+@@ -19,11 +19,14 @@
+         private const int PATHFINDER_MAX_NODES = 10000;
+         private const int RESPONSIVE_MAX_NODES = 256;
+         private const int RESPONSIVE_BUDGET_MS = 4;
++        private const int DIRECT_PATH_MAX_STEPS = 32;
+         private int _goalNode;
+         private bool _goalFound;
+         private int _activeOpenNodes, _activeCloseNodes, _pathfindDistance;
+         private int _openHighWater, _closedHighWater, _destinationZ;
+         private bool _responsive;
++        private sbyte _startZ;
++        private readonly PathNode[] _directPath = new PathNode[DIRECT_PATH_MAX_STEPS + 1];
+         private readonly PathNode[] _openList = new PathNode[PATHFINDER_MAX_NODES];
+         private readonly PathNode[] _closedList = new PathNode[PATHFINDER_MAX_NODES];
+         private readonly PathNode[] _path = new PathNode[PATHFINDER_MAX_NODES];
+@@ -873,16 +876,14 @@
+             return result;
+         }
+ 
+-        private bool FindPath(int maxNodes, bool responsive)
++        private bool FindPath(int maxNodes, bool responsive, long started)
+         {
+             int curNode = 0;
+-            long started = responsive ? Stopwatch.GetTimestamp() : 0;
+-
+             _closedHighWater = 1;
+             _closedList[0].Used = true;
+             _closedList[0].X = _startPoint.X;
+             _closedList[0].Y = _startPoint.Y;
+-            _closedList[0].Z = _world.Player.Z;
++            _closedList[0].Z = _startZ;
+             _closedList[0].Parent = null;
+             _closedList[0].DistFromGoalCost = GetGoalDistCost(_startPoint, 0);
+             _closedList[0].Cost = _closedList[0].DistFromGoalCost;
+@@ -979,7 +980,7 @@
+             bool result = WalkToCore(x, y, z, distance, responsive);
+             if (TraceMovement)
+             {
+-                Log.Trace($"Movement path: ms={Stopwatch.GetElapsedTime(started).TotalMilliseconds:F2} nodes={_activeCloseNodes} result={result} responsive={responsive}");
++                Log.Trace($"Movement path: ms={Stopwatch.GetElapsedTime(started).TotalMilliseconds:F2} nodes={_activeCloseNodes} result={result} responsive={responsive} from={_startPoint.X},{_startPoint.Y},{_startZ} to={x},{y},{z} points={_pathSize}");
+             }
+             return result;
+         }
+@@ -989,6 +990,19 @@
+             if (_world.Player == null /*|| World.Player.Stamina == 0*/ || _world.Player.IsParalyzed)
+             {
+                 return false;
++            }
++
++            if (responsive)
++            {
++                _world.Player.GetEndPosition(out int endX, out int endY, out sbyte endZ, out _);
++                if (Math.Max(Math.Abs(endX - x), Math.Abs(endY - y)) <= distance && Math.Abs(endZ - z) < 16)
++                {
++                    StopAutoWalk();
++                    _startPoint = new Point(endX, endY);
++                    _startZ = endZ;
++                    _activeCloseNodes = 0;
++                    return true;
++                }
+             }
+ 
+             if (distance == 0 && IsBlocked(x, y, z))
+@@ -1021,10 +1035,12 @@
+ 
+             int playerX = _world.Player.X;
+             int playerY = _world.Player.Y;
+-            //sbyte playerZ = 0;
+-            //Direction playerDir = Direction.None;
+-
+-            //World.Player.GetEndPosition(ref playerX, ref playerY, ref playerZ, ref playerDir);
++            _startZ = _world.Player.Z;
++            if (responsive)
++            {
++                // Committed steps cannot be cancelled by a new route.
++                _world.Player.GetEndPosition(out playerX, out playerY, out _startZ, out _);
++            }
+             _startPoint.X = playerX;
+             _startPoint.Y = playerY;
+             _endPoint.X = x;
+@@ -1042,7 +1058,8 @@
+             _responsive = responsive;
+             AutoWalking = true;
+ 
+-            if (FindPath(PATHFINDER_MAX_NODES, responsive))
++            long started = responsive ? Stopwatch.GetTimestamp() : 0;
++            if ((responsive && TryDirectPath(started)) || FindPath(PATHFINDER_MAX_NODES, responsive, started))
+             {
+                 _pointIndex = 1;
+                 ProcessAutoWalk();
+@@ -1055,6 +1072,60 @@
+             return _pathSize != 0;
+         }
+ 
++        private bool TryDirectPath(long started)
++        {
++            int dx = _endPoint.X - _startPoint.X;
++            int dy = _endPoint.Y - _startPoint.Y;
++            int length = Math.Max(Math.Abs(dx), Math.Abs(dy));
++            if (length == 0 || length >= _directPath.Length)
++            {
++                return false;
++            }
++
++            // Distribute the two nearest legal step directions along the line.
++            // Every edge still passes the native height and corner checks.
++            int x = _startPoint.X, y = _startPoint.Y;
++            sbyte z = _startZ;
++            for (int i = 0; i <= length; i++)
++            {
++                int direction = 0;
++                if (i > 0)
++                {
++                    int nextX = _startPoint.X + Math.Sign(dx) * ((Math.Abs(dx) * i + length / 2) / length);
++                    int nextY = _startPoint.Y + Math.Sign(dy) * ((Math.Abs(dy) * i + length / 2) / length);
++                    while (_offsetX[direction] != nextX - x || _offsetY[direction] != nextY - y)
++                    {
++                        direction++;
++                    }
++                    Direction want = (Direction)direction;
++                    Direction actual = want;
++                    if (!CanWalk(ref actual, ref x, ref y, ref z) || actual != want || x != nextX || y != nextY)
++                    {
++                        return false;
++                    }
++                }
++
++                var node = _directPath[i] ??= new PathNode();
++                node.X = x;
++                node.Y = y;
++                node.Z = z;
++                node.Direction = direction;
++                _path[i] = node;
++
++                if (i > 0 && MathHelper.GetDistance(_endPoint, new Point(x, y)) <= _pathfindDistance && Math.Abs(z - _destinationZ) < 16)
++                {
++                    _pathSize = i + 1;
++                    _goalFound = true;
++                    return true;
++                }
++                if (Stopwatch.GetElapsedTime(started).TotalMilliseconds >= RESPONSIVE_BUDGET_MS)
++                {
++                    return false;
++                }
++            }
++            return false;
++        }
++
+         private bool IsBlocked(int x, int y, int z)
+         {
+             sbyte tempZ = (sbyte)z;
+@@ -1069,6 +1140,12 @@
+                 if (_pointIndex >= 0 && _pointIndex < _pathSize)
+                 {
+                     PathNode p = _path[_pointIndex];
++
++                    if (_responsive)
++                    {
++                        ProcessResponsiveStep(p);
++                        return;
++                    }
+ 
+                     _world.Player.GetEndPosition(out int x, out int y, out sbyte z, out Direction dir);
+ 
+@@ -1085,16 +1162,65 @@
+                 else if (_responsive && !_goalFound
+                     && MathHelper.GetDistance(_endPoint, new Point(_world.Player.X, _world.Player.Y)) > _pathfindDistance)
+                 {
+-                    // Finish queued steps before planning from the player's new position.
+-                    if (_world.Player.Walker.StepsCount == 0)
+-                    {
+-                        WalkTo(_endPoint.X, _endPoint.Y, _destinationZ, _pathfindDistance, responsive: true);
+-                    }
++                    WalkTo(_endPoint.X, _endPoint.Y, _destinationZ, _pathfindDistance, responsive: true);
+                 }
+                 else
+                 {
+                     StopAutoWalk();
+                 }
++            }
++        }
++
++        private void ProcessResponsiveStep(PathNode node)
++        {
++            var player = _world.Player;
++            player.GetEndPosition(out int x, out int y, out _, out Direction direction);
++            if (Math.Abs(node.X - x) > 1 || Math.Abs(node.Y - y) > 1 || node.X == x && node.Y == y)
++            {
++                if (TraceMovement)
++                {
++                    Log.Trace($"Movement route stopped: non-adjacent node from={x},{y} to={node.X},{node.Y}");
++                }
++                StopAutoWalk();
++                return;
++            }
++
++            // A cheaper A* parent can change a node's incoming direction.
++            int next = 0;
++            while (_offsetX[next] != node.X - x || _offsetY[next] != node.Y - y)
++            {
++                next++;
++            }
++            Direction pathDirection = (Direction)next;
++            bool turning = (direction & Direction.Mask) != pathDirection;
++            if (!player.Walk(pathDirection, _run))
++            {
++                StopAutoWalk();
++                return;
++            }
++
++            player.GetEndPosition(out int nextX, out int nextY, out sbyte nextZ, out Direction nextDirection);
++            if (turning && nextX == x && nextY == y && (nextDirection & Direction.Mask) == pathDirection
++                && player.Walker.UnacceptedPacketsCount < 3 && player.Walker.StepsCount < Constants.MAX_STEP_COUNT)
++            {
++                // A protocol turn costs no movement time. Pair only one turn and
++                // one step, after the preceding step's normal request deadline.
++                player.Walker.LastStepRequestTime = Time.Ticks;
++                if (!player.Walk(pathDirection, _run))
++                {
++                    StopAutoWalk();
++                    return;
++                }
++                player.GetEndPosition(out nextX, out nextY, out nextZ, out _);
++            }
++
++            if (nextX == node.X && nextY == node.Y && nextZ == node.Z)
++            {
++                _pointIndex++;
++            }
++            else if (nextX != x || nextY != y)
++            {
++                StopAutoWalk();
+             }
+         }
+ 

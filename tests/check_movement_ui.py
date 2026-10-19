@@ -9,6 +9,21 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_CREATURE_RECOVERY_UI") == "1":
+        from check_creature_recovery_ui import exercise as creature_recovery_exercise
+        creature_recovery_exercise(window, click, capture)
+    if os.environ.get("SANCTUARY_TEST_APPROACH_UI") == "1":
+        from check_approach_ui import exercise as approach_exercise
+        approach_exercise(window, click, capture)
+    if os.environ.get("SANCTUARY_TEST_RECOVERY_UI") == "1":
+        from check_recovery_ui import exercise as recovery_exercise
+        recovery_exercise(window, click, capture)
+    if os.environ.get("SANCTUARY_TEST_PURSUIT_UI") == "1":
+        from check_pursuit_ui import exercise as pursuit_exercise
+        pursuit_exercise(window, click, capture)
+    if os.environ.get("SANCTUARY_TEST_SMOOTH_UI") == "1":
+        from check_smooth_movement_ui import exercise as smooth_exercise
+        smooth_exercise(window, click, capture)
     log = ROOT / ".local/logs/britain-baseline-check.log"
     client_log = ROOT / ".local/logs/creation-ui-client.log"
     console = int(os.environ["SANCTUARY_TEST_CONSOLE_FD"])

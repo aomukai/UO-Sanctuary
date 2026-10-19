@@ -36,14 +36,7 @@ public static class ClassLoot
                 }
             }
             AwardGold(creature, corpse);
-            if (creature is GraveyardUndead { Raised: false, NoKillAwards: false } undead
-                && Killer(creature) is { Deleted: false, Alive: true } player && ClassCombat.Enabled(player)
-                && corpse is Corpse body && body.Map == player.Map && player.InRange(body, LootProtocol.SightRange))
-            {
-                int xp = undead.BalanceLevel?.Experience ?? undead.NormalStats?.Experience ?? 200;
-                ClassCreation.Profiles.AwardExperience(player,
-                    MonsterExperience.Award(xp, undead.CombatProfile.Level, ClassStats.Level(player)));
-            }
+            CreatureExperience.Award(creature, corpse);
         };
         ClassLootHooks.Carved = (from, corpse) =>
         {

@@ -248,7 +248,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
             }
         }
     }
-    private bool CanHit(Mobile target) => Alive && !Deleted && !Frozen && !Paralyzed && Map != Map.Internal
+    private bool CanHit(Mobile target) => Alive && !Deleted && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
         && IsEnemy(target) && target.Map == Map && InRange(target, 1) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
     public TimeSpan BeginMelee(Mobile target)
     {
@@ -273,9 +273,16 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _target = null;
         if (Map == _originMap && Location == _origin && CanHit(target) && ClassStats.CheckHit(this, target) == true)
         {
-            AOS.Damage(target, this, Utility.RandomMinMax(CombatProfile.MinDamage, CombatProfile.MaxDamage), 100, 0, 0, 0, 0);
+            AOS.Damage(target, this, Utility.RandomMinMax(CombatProfile.MinDamage, CombatProfile.MaxDamage), false,
+                100, 0, 0, 0, 0, weaponDamage: true);
             CombatDamage.Finish(target, this);
         }
+        _originMap = null;
+    }
+    internal void InterruptForRecovery()
+    {
+        _attackTimer.Cancel();
+        _target = null;
         _originMap = null;
     }
     public override void Damage(int amount, Mobile from = null, bool informMount = true, bool ignoreEvilOmen = false)

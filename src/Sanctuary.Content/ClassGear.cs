@@ -70,8 +70,16 @@ public static class ClassGear
         }
         foreach (var other in player.Items)
         {
+            if (slot == GearSlot.Belt && other is PotionTabard && item is not PotionTabard)
+            {
+                return false;
+            }
             if (other != item && Slot(other) == slot && other.Serial.Value < item.Serial.Value)
             {
+                if (item is PotionTabard && other is not PotionTabard)
+                {
+                    continue;
+                }
                 return false;
             }
         }

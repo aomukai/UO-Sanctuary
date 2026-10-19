@@ -78,7 +78,8 @@ public static class TimingChecks
             player.RemoveItem(dagger);
             Require(HasProperty(dagger, "Very Fast (base)"), "Unequipped tooltip retained wielder timing");
             player.EquipItem(halberd);
-            Require(CombatTiming.For(player, CombatAbility.BasicAttack).DurationMs == 800 && HasProperty(halberd, "Slow (Necromancer, 0.80s)"),
+            Require(CombatTiming.For(player, CombatAbility.BasicAttack).DurationMs == 800 && HasProperty(halberd, "Slow (Necromancer, 0.80s)")
+                && HasProperty(halberd, "Class melee reach: 2 tiles"),
                 "Halberd timing/tooltip does not differ from dagger");
             player.RemoveItem(halberd);
             player.EquipItem(sword);

@@ -45,6 +45,30 @@ public sealed class GearProfiles : GenericPersistence
     }
     public GearState FromMonster(Item item, int monsterLevel, GearRarity rarity, Random random = null)
         => Convert(item, monsterLevel, rarity, random);
+    internal GearState PrepareImbue(Item item, GearRarity rarity, Random random)
+    {
+        var basis = ClassGear.Base(item);
+        var before = Find(item.Serial);
+        if (basis == null || before is { StarterTeeth: true }
+            || (before?.Roll.Rarity ?? GearRarity.Normal) != GearRarity.Normal
+            || rarity is not (GearRarity.Magic or GearRarity.Rare))
+        {
+            return null;
+        }
+        var roll = AffixBalance.Roll(basis, before?.Roll.ItemLevel ?? 1, rarity, random, ClassGear.Implemented);
+        if (roll.Affixes.Length == 0)
+        {
+            return null;
+        }
+        var state = new GearState(ClassGear.Definition(item).BaseCode, before?.Defense ?? ClassGear.Defense(item), false, roll);
+        Validate(item, state);
+        return state;
+    }
+    internal void ApplyImbue(Item item, GearState state)
+    {
+        _items[item.Serial] = state;
+        item.InvalidateProperties();
+    }
     public void MarkStarter(Dagger dagger)
     {
         var state = Find(dagger.Serial) ?? Convert(dagger);

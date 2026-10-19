@@ -1,0 +1,82 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -9,6 +9,7 @@
+ using ClassicUO.Input;
+ using ClassicUO.IO;
+ using ClassicUO.Network;
++using ClassicUO.Utility.Logging;
+ using Sanctuary;
+ 
+ namespace ClassicUO.Game;
+@@ -19,7 +20,9 @@
+     private static bool _queried, _pursuing, _wasDead;
+     private static Entity _selectionFallback;
+     private static uint _sequence, _target, _lastPath;
+-    private static ushort _pathX, _pathY;
++    private static int _pathX, _pathY, _pathZ, _pathRange;
++    private const int PursuitUpdateMs = 200;
++    private static readonly bool TracePursuit = Environment.GetEnvironmentVariable("SANCTUARY_TRACE_MOVEMENT") == "1";
+     private static bool _rightHeld;
+     private static uint _heldUnit, _nextHoldUpdate;
+     private static CombatAbility _heldAbility;
+@@ -115,7 +118,7 @@
+         _groundWasHold = _groundCancelled = false;
+         _attackHeld = _attackGesture = false;
+         _sequence = _target = 0;
+-        _lastPath = Time.Ticks - 500;
++        _lastPath = Time.Ticks - PursuitUpdateMs;
+         _hostiles.Clear();
+         _selectionFallback = null;
+         _leftRange = 1;
+@@ -223,8 +226,13 @@
+             Stop(world);
+             return;
+         }
++        // Remote steps contain the latest server position; X/Y may still be
++        // interpolating toward it. Plan from our own committed endpoint as well.
++        enemy.GetEndPosition(out int targetX, out int targetY, out sbyte targetZ, out _);
++        world.Player.GetEndPosition(out int playerX, out int playerY, out sbyte playerZ, out _);
+         int range = _leftRange;
+-        if (enemy.Distance <= range && Math.Abs(enemy.Z - world.Player.Z) < 16)
++        if (Math.Max(Math.Abs(targetX - playerX), Math.Abs(targetY - playerY)) <= range
++            && Math.Abs(targetZ - playerZ) < 16)
+         {
+             if (_pursuing)
+             {
+@@ -233,13 +241,21 @@
+             }
+             return;
+         }
+-        if (unchecked((int)(Time.Ticks - _lastPath)) >= 500
+-            && (!world.Player.Pathfinder.AutoWalking || enemy.X != _pathX || enemy.Y != _pathY))
++        if (unchecked((int)(Time.Ticks - _lastPath)) >= PursuitUpdateMs
++            && world.Player.Walker.LastStepRequestTime <= Time.Ticks
++            && (!world.Player.Pathfinder.AutoWalking || targetX != _pathX || targetY != _pathY
++                || targetZ != _pathZ || range != _pathRange))
+         {
+             _lastPath = Time.Ticks;
+-            _pathX = enemy.X;
+-            _pathY = enemy.Y;
+-            _pursuing = world.Player.Pathfinder.WalkTo(enemy.X, enemy.Y, enemy.Z, range, responsive: true);
++            _pathX = targetX;
++            _pathY = targetY;
++            _pathZ = targetZ;
++            _pathRange = range;
++            if (TracePursuit)
++            {
++                Log.Trace($"Pursuit path: tick={Time.Ticks} target={enemy.Serial:X8} at={targetX},{targetY},{targetZ} range={range}");
++            }
++            _pursuing = world.Player.Pathfinder.WalkTo(targetX, targetY, targetZ, range, responsive: true);
+         }
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+@@ -296,7 +312,7 @@
+         _rightHeld = _groundHeld = _attackHeld = false;
+         StopMovement(world);
+         _target = 0;
+-        _lastPath = Time.Ticks - 500;
++        _lastPath = Time.Ticks - PursuitUpdateMs;
+         if (Hostile(target))
+         {
+             world.TargetManager.LastAttack = target.Serial;

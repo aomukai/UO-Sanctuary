@@ -150,3 +150,50 @@ Four attributes and five points per level now drive class resource pools and phy
 Three persistent graveyard spawners maintain three skeletons, two zombies and a lich with explicit Diablo-style monster profiles. The lich casts Firebolt and repeatedly revives eligible corpses. A persistent corpse reward flag carries to revived creatures and their later corpses, suppressing additional rewards. Consumed bodies preserve unclaimed loot until emptied. See [formulas, encounter rules, limitations and verification](character-stats.md).
 
 Installed successfully after all seven-class allocation/resource checks, the actual-client status test, repeated-resurrection/loot suppression/harvest-race tests, and the complete actual-client combat/timing/nearby-loot regression pass. Both integration suites completed four save/reload boots including v1 and v0 migration. Six developer helper tests and fresh/idempotent patch staging passed. The live migration preserved class, level, XP, talents and allocation budget; 32 configuration/profile hashes remained identical. Town serial identities were unchanged. Three graveyard spawners were installed and the world saved successfully. Client left closed. Backup: `.local/backups/pre-stats-graveyard-20261017-212516`.
+
+
+## Movement smoothness comparison — 18 October 2026
+
+A client-only responsive-path patch now plans from committed endpoints, tries collision-checked distributed tile lines before bounded A*, and pairs a protocol turn with one normal-paced translation. Existing controls, the held-path hang fix, gear rules and combat timing remain in use. Four angled routes reduced maximum line deviation from 1.265 to 0.316 tiles; turn-related intervals fell from 273–290 ms to 200–210 ms, with ordinary running/walking cadence preserved.
+
+Actual-client movement checks passed wall/fence/corner detours, closed/open door collision, stair ascent/stop/descent, release/reversal, all eight directions during sustained steering, bounded searches and network rates. Server checks and the combined client combat, move-to-cast, timing, loot and preference suite passed. Each complete movement, baseline and combat comparison completed four disposable save/restart boots. Six helper tests and a fresh application of all 16 client patches passed. The comparison build is installed; the live server and gear production code were not changed. See [the investigation and prototype proposal](movement-smoothness.md) for measurements, source evidence, test commands and limits. This remains tile movement, not Diablo II movement parity.
+
+
+## Melee pursuit, provisional reach and player recovery — 18 October 2026
+
+Client pursuit now uses received enemy step endpoints and a coalesced 200 ms refresh at movement deadlines. A dagger remains one tile; the Halberd has two-tile class basic-attack reach through the same advertised/admission/impact function. Windup distance checks, LOS/Z checks, movement speed and weapon cycles remain strict. The dagger encounter comparison stayed closer without increasing connected hits, so further moving-target play feedback is still needed. See [measurements and limitations](melee-reach.md).
+
+Project undead physical impacts can now cause player hit recovery using verified damage/chance bands and class frames. A base Necromancer has 520 ms recovery; weak subthreshold hits do not interrupt, and ordinary hits cannot refresh an active recovery. Server movement/action guards and protocol-5 client prediction pause agree. The real-client zombie, held movement/release/pack checks, server/monster checks, complete combat/timing/loot regression and four-boot save/reload suites passed. FHR equipment generation and species approach AI are separate future steps. See [rules, source evidence and verification](hit-recovery.md).
+
+The matching build is installed and the live world loaded/saved with progression and client preferences preserved. Backup: `.local/backups/pre-melee-recovery-20261018-152038/`. Client remains closed; all 18 client and 11 server patches reproduce the modified source trees.
+
+
+## Monster reactions, common creature profiles and mob recovery — 18 October 2026
+
+The [reaction comparison](monster-reactions.md) removes the native two-second notice delay for wild project skeletons/zombies, retains species hesitation/local wandering and preserves 320/960 ms movement clocks. [Common creature profiles](creature-profiles.md) cover all 726 concrete built-in UO types plus four project types, with three difficulty variants, complete source-field audit, native fallbacks and explicit conversion status. Creature recovery now gates authoritative movement, AI wakes and standard melee; actual Teeth/weapon damage uses the final life loss. Fire-dragon/Megademon mappings remain disabled proposals until native breath/spells are converted. Native target ranking remains unchanged; source threat values do not prove a simple player/mercenary priority formula.
+
+All builds, six helper tests, fresh/repeated patch reproduction, server combat/pet/resurrection/monster checks, connected recovery/movement/approach tests, full client combat/timing/loot regressions and save/restart checks passed. Details, limitations, fixture isolation and evidence are in the reports. Server/content installed after backup `.local/backups/pre-creature-profiles-20261018-165142/`; client/protocol 5 and gear generation remain unchanged. No server-engine edit was added by this step.
+
+## Potion belt and chat comparison — 18 October 2026
+
+The [potion belt report](potion-belt.md) records client patch 0019, existing-slot UO tabards with four columns and variable rows, real item storage, authoritative use, reliable timed healing/mana and the requested 20% empty-bottle return. Enter-to-chat is enforced even for legacy profiles and cannot be disabled in Options. Future power potions are short clutch effects; meals are long convenience effects. Recipes and new drops are not part of this comparison. Verification and deployment details are maintained in that report.
+
+## Common-profile kill XP — 18 October 2026
+
+[The shared kill-XP service](creature-experience.md) replaces the graveyard-only payout check. It reads explicit enabled profile rewards, preserves the existing D2 thresholds and level penalties, credits player-owned pet/summon kills, and claims the existing persistent corpse/revival flag once. Unset/disabled mappings retain zero XP. No combat-stat rebalance, drop changes, new protocol or save-format migration is included. Verification and deployment details are maintained in that report.
+
+### Reviewed common-creature XP roster — 18 October 2026
+
+The [reward roster](creature-reward-roster.md) now assigns all 730 common types explicitly: 324 reward-bearing analogues, 406 exclusions. Base XP uses the selected counterpart's difficulty percentage and the authored level's LoD MonLvl baseline. Combat and XP now use the same reviewed level on ordinary native mobs, replacing their level-1 fallback; native HP/damage/abilities remain unchanged. Normal is live and Nightmare/Hell remain prepared data. Pet-owner and revived-life suppression remain active. Final native death/payout, recovery, pets, combat, resurrection, four-boot persistence, eight Python tests and live preservation checks passed. [Contract and evidence](creature-experience.md).
+
+### Equipment economy and material salvage — 18 October 2026
+
+The [economy comparison](economy.md) lowers NPC gear resale offers to 10% with provisional normal/magic/rare caps, preserves stock/buyback/non-equipment pricing, and adds independently rolled rarity-based Magic Essence and item-level physical-material recovery. Vendor-origin gear cannot use either the new action or native gear-recycling paths. Physical materials are metal scraps, wooden chips, leather strips and cloth scraps; cosmetic material-bearing gear can be recycled without receiving combat stats. White-base imbuing preserves the same item's identity/material/durability/level and applies the existing legal affix roller after consuming essence and gold. The original `sanctuary-economy.md` remains untouched. Monster drops and future recipes remain separate work.
+
+## T01 baseline re-established — 19 October 2026
+
+The [working-baseline report](t01-working-baseline.md) records source/patch/runtime identities, current save contracts and native skill values, passing server/client/save-restart checks and comparison limits. All 13 server and 19 client patches reproduce current source. Nine Python checks and content/integration builds passed. Combined server/economy and full combat/timing/loot client runs each passed four disposable boots; an isolated copy of the installed save preserved the two existing characters and gear across restart. Live payloads, configuration and client preferences were preserved; only normal autosave index timestamps changed. No gameplay change, installation, live restart or player-feedback claim is included. The roadmap marks T01 complete and recommends bounded T02 next.
+
+## T03 cosmetic class names — 19 October 2026
+
+[T03](t03-class-names.md) implements shared sex-specific labels with stable class/talent/save identities. Both sexes of all seven server creation paths passed progression/reload/stat/timing/compiled-heading checks. Actual client appearance toggles/Back/reselection, Sorcerer and Druidess world entry, paperdoll wrapping and talent headings passed; the screenshots were visually checked. Content/integration builds, 12 Python checks and all 20 client/13 server patch reproductions passed; the client build retains upstream warnings. T02 pools/material facts remain unchanged after a provenance refresh. These builds are not installed: the live process, installed binaries, save payloads and preferences remain unchanged. Wardrobe UI remains future work using the same helper.

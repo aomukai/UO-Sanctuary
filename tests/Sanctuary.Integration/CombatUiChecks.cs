@@ -19,7 +19,8 @@ public static class CombatUiChecks
     private static CombatRandom _random;
     private static int _hp, _otherHp, _flags, _releaseAllowance;
     private static long _action;
-    private static Point3D _position;
+    private static Point3D _position, _castStopped;
+    private static int _transitionMana;
     public static void Configure()
     {
         Register("setup", () => { _random = new CombatRandom(); Setup(); });
@@ -133,7 +134,7 @@ public static class CombatUiChecks
         });
         Register("approach", () =>
         {
-            Require(_player.InRange(_enemy, 1) && _enemy.Hits <= 108, $"Approach/repeated melee failed: location={_player.Location}, target={ClassCombat.For(_player).Target}, enemy={_enemy.Location}, hits={_enemy.Hits}, LOS={_player.InLOS(_enemy)}");
+            Require(_player.InRange(_enemy, 1) && _enemy.Hits <= 120 - 6 * CombatTestActions.HitDamage(_player, _enemy), $"Approach/repeated melee failed: location={_player.Location}, target={ClassCombat.For(_player).Target}, enemy={_enemy.Location}, hits={_enemy.Hits}, LOS={_player.InLOS(_enemy)}");
             Require(!_player.Warmode && _player.Combatant == null, "War/legacy swing loop was enabled");
             _position = _player.Location;
             _flags |= 1;
@@ -165,6 +166,11 @@ public static class CombatUiChecks
         {
             Require(_player.Location != _position, "Held ground movement did not resume after Shift");
         });
+        Register("cast-transition-mark", () => _transitionMana = _player.Mana);
+        Register("cast-transition-still", () => _castStopped = _player.Location);
+        Register("cast-transition", () => Require(_player.Location == _castStopped
+            && _player.Mana < _transitionMana && ClassCombat.For(_player).HeldAbility == CombatAbility.Teeth,
+            "Right-held cast failed to stop a left-held route or did not cast"));
         Register("movement-reset", () =>
         {
             _player.MoveToWorld(CombatPractice.FindFloor(Map.Felucca, 1382, 1495), Map.Felucca);

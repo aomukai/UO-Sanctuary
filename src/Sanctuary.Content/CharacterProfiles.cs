@@ -145,7 +145,7 @@ public sealed class CharacterProfiles : GenericPersistence
         }
 
         _profiles[mobile.Serial] = profile with { Level = level };
-        mobile.Title = $"Level {level} {profile.Class}";
+        mobile.Title = $"Level {level} {DiabloClasses.DisplayName(profile.Class, mobile.Female)}";
         ClassStats.Refresh(mobile);
         mobile.Hits = mobile.HitsMax;
         mobile.Mana = mobile.ManaMax;
@@ -166,7 +166,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
         ((PlayerMobile)mobile).Young = false;
         _profiles.Add(mobile.Serial, new CharacterProfile(characterClass, 1, 0));
-        mobile.Title = $"Level 1 {characterClass}";
+        mobile.Title = $"Level 1 {DiabloClasses.DisplayName(characterClass, mobile.Female)}";
         ClassStats.ApplyBase(mobile, _profiles[mobile.Serial], default);
         mobile.Hits = mobile.HitsMax;
         mobile.Mana = mobile.ManaMax;
@@ -308,7 +308,7 @@ public sealed class CharacterProfiles : GenericPersistence
         {
             var mobile = World.FindMobile(serial);
             ((PlayerMobile)mobile).Young = false;
-            mobile.Title = $"Level {profile.Level} {profile.Class}";
+            mobile.Title = $"Level {profile.Level} {DiabloClasses.DisplayName(profile.Class, mobile.Female)}";
             ClassStats.ApplyBase(mobile, profile, Stats(serial));
             mobile.Hits = Math.Min(mobile.Hits, mobile.HitsMax);
             mobile.Mana = Math.Min(mobile.Mana, mobile.ManaMax);

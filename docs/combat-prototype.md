@@ -110,3 +110,11 @@ Shift + left-click/hold now swings in place with or without a victim, following 
 Server checks and the actual client passed empty swing cadence, cursor-selected hits, harmless distant swings, binding changes, frozen state, lease expiry, death without replacement, mouse release, and Shift release without pursuit. Existing overlap picking, ordinary approach/repeat, held movement, Teeth, friendly interactions, and three save/reload boots also passed. Six helper tests and fresh-source patch checks passed. Live saves, configuration, and client settings/profiles were backed up at `.local/backups/pre-stationary-melee-20261017-194720/` before installation.
 
 The installed server reloaded the existing world, retained town identities, and completed a world save. Class data, configuration, and client settings/profiles matched the backup byte for byte. The desktop client remains closed.
+
+## Movement comparison — 18 October 2026
+
+The [movement smoothness report](movement-smoothness.md) traces the client/server pipeline and records the isolated responsive-path improvement, comparison measurements, verification limits and proposed finer-position prototype. Existing controls and combat action timing remain in use.
+
+## Melee reach investigation — 18 October 2026
+
+The [melee reach report](melee-reach.md) records the revised 200 ms pursuit using received step endpoints and the provisional one-tile dagger/two-tile halberd comparison. Impact range, LOS, elevation and windup timing remain strict. [Hit recovery](hit-recovery.md) records the separate player recovery prototype and monster reaction findings.

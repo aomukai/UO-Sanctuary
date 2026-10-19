@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""Inspect and round-trip a disposable copy of the installed world's save.
+
+Build Sanctuary.Integration first. No fixture commands, live console commands,
+installation, or writes to the source runtime are performed.
+"""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import socket
+import tempfile
+
+from check_britain import ROOT, Session
+
+
+def hashes(folder):
+    return {str(p.relative_to(folder)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted(folder.rglob('*')) if p.is_file()}
+
+
+def port(kind=socket.SOCK_STREAM):
+    with socket.socket(type=kind) as reservation:
+        reservation.bind(('127.0.0.1', 0))
+        return reservation.getsockname()[1]
+
+
+def check(output):
+    source = ROOT / '.local/server'
+    output.mkdir(parents=True, exist_ok=True)
+    assert not (source / 'Assemblies/Sanctuary.Integration.dll').exists(), 'Live runtime contains integration assembly'
+    config = json.loads((source / 'Configuration/modernuo.json').read_text())
+    assert config['settings']['world.savePath'] == 'Saves', 'Review nonstandard live save path first'
+    with tempfile.TemporaryDirectory(prefix='sanctuary-working-baseline-', dir='/dev/shm') as temporary:
+        folder = Path(temporary)
+        for entry in source.iterdir():
+            if entry.is_file() and entry.suffix in ('.dll', '.json', '.config'):
+                shutil.copy2(entry, folder / entry.name)
+        (folder / 'runtimes').symlink_to(source / 'runtimes', target_is_directory=True)
+        shutil.copytree(source / 'Configuration', folder / 'Configuration')
+        for name in ('Assemblies', 'Data'):
+            (folder / name).mkdir()
+            for entry in (source / name).iterdir():
+                if name == 'Data' and entry.name == 'assemblies.json':
+                    continue
+                (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
+        probe = ROOT / '.local/integration/Sanctuary.Integration.dll'
+        assert probe.is_file(), 'Build the integration project first'
+        (folder / 'Assemblies/Sanctuary.Integration.dll').symlink_to(probe)
+        assemblies = json.loads((source / 'Data/assemblies.json').read_text())
+        assert 'Sanctuary.Integration.dll' not in assemblies
+        assemblies.append('Sanctuary.Integration.dll')
+        (folder / 'Data/assemblies.json').write_text(json.dumps(assemblies))
+        # An autosave could replace files during copying. Require one stable,
+        # byte-identical snapshot before booting the disposable world.
+        for attempt in range(3):
+            before = hashes(source / 'Saves')
+            shutil.copytree(source / 'Saves', folder / 'Saves', dirs_exist_ok=True)
+            if before == hashes(source / 'Saves') == hashes(folder / 'Saves'):
+                break
+            shutil.rmtree(folder / 'Saves')
+        else:
+            raise AssertionError('Live saves changed during all three copy attempts')
+        (output / 'copied-save-hashes.json').write_text(json.dumps(before, indent=2))
+        listen, ping = port(), port(socket.SOCK_DGRAM)
+        config['listeners'] = [f'127.0.0.1:{listen}']
+        config['settings'].update({'autosave.enabled': 'False', 'world.savePath': 'Saves',
+                                   'pingServer.port': str(ping), 'crashGuard.restartServer': 'False',
+                                   'accountHandler.enableAutoAccountCreation': 'False'})
+        (folder / 'Configuration/modernuo.json').write_text(json.dumps(config))
+        snapshots = []
+        progression = []
+        with (output / 'copied-world-server.log').open('w') as log:
+            for iteration in range(2):
+                session = Session(folder, log)
+                try:
+                    session.expect(f'Listening: 127.0.0.1:{listen}')
+                    session.send('working-baseline-inspect')
+                    assert session.expect(r'working-baseline-inspect: (passed|failed)').group(1) == 'passed'
+                    snapshot = json.loads((folder / 'working-baseline.json').read_text())
+                    snapshots.append(snapshot)
+                    (output / f'copied-world-{iteration + 1}.json').write_text(json.dumps(snapshot, indent=2))
+                    session.send('save')
+                    session.expect('Writing world save snapshot done')
+                    progression.append(hashes(folder / 'Saves/SanctuaryCharacters'))
+                    session.send('shutdown')
+                    session.expect('Shutting down')
+                    session.process.wait(timeout=20)
+                    assert session.process.returncode == 0
+                finally:
+                    session.close()
+        for key in ('Players', 'Gear'):
+            assert snapshots[0][key] == snapshots[1][key], f'{key} changed after copied-world restart'
+        assert progression[0] == progression[1], 'Serialized class/talent/allocation history changed on restart'
+        claims = {c['Serial']: c['SanctuaryNoRewards'] for c in snapshots[1]['Corpses']}
+        for corpse in snapshots[0]['Corpses']:
+            if corpse['SanctuaryNoRewards']:
+                assert claims.get(corpse['Serial']) is True, 'Spent corpse claim lost on restart'
+        print('Copied installed save: two boots/save/shutdowns; player profiles, allocations, all native skill values/caps/locks, worn identities and gear rolls/origins preserved.')
+        print(f"Players={len(snapshots[0]['Players'])}; gear={len(snapshots[0]['Gear'])}; origins={snapshots[0]['Origins']}; corpses={snapshots[0]['Corpses']}; raised={snapshots[0]['Raised']}")
+        print(f'Local evidence: {output}')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT / '.local/logs/working-baseline-check')
+    check(parser.parse_args().output.resolve())

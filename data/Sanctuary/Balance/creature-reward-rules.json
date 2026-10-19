@@ -1,0 +1,3625 @@
+{
+  "sourceCommit": "45112569deb9384738ccafe5c24ebbb71f41c7c9",
+  "policy": "Authored UO analogues, ordinary players-1 LoD MonStats percentage times MonLvl L-XP at the selected level. Normal only is live. Nightmare/Hell are prepared previews. Boss encounters reserved for manual profiles.",
+  "groups": [
+    {
+      "id": "lesser-undead",
+      "reference": "zombie1",
+      "levels": [
+        1,
+        36,
+        67
+      ],
+      "rationale": "Slow early corpse walker.",
+      "types": [
+        "Sanctuary.GraveyardZombie",
+        "Server.Mobiles.Zombie"
+      ]
+    },
+    {
+      "id": "skeleton",
+      "reference": "skeleton1",
+      "levels": [
+        2,
+        37,
+        68
+      ],
+      "rationale": "Early bone warrior; project skeleton already uses level 2.",
+      "types": [
+        "Sanctuary.GraveyardSkeleton",
+        "Server.Mobiles.Skeleton"
+      ]
+    },
+    {
+      "id": "skeletal-knight",
+      "reference": "skeleton4",
+      "levels": [
+        13,
+        43,
+        74
+      ],
+      "rationale": "Armoured skeletal melee warrior.",
+      "types": [
+        "Server.Mobiles.BoneKnight",
+        "Server.Mobiles.SkeletalKnight"
+      ]
+    },
+    {
+      "id": "skeletal-mage",
+      "reference": "skmage_fire2",
+      "levels": [
+        10,
+        40,
+        70
+      ],
+      "rationale": "Ranged elemental skeletal caster.",
+      "types": [
+        "Server.Mobiles.BoneMagi",
+        "Server.Mobiles.SkeletalMage"
+      ]
+    },
+    {
+      "id": "ghoul",
+      "reference": "zombie3",
+      "levels": [
+        12,
+        43,
+        73
+      ],
+      "rationale": "Faster, tougher corpse walker.",
+      "types": [
+        "Server.Mobiles.Cursed",
+        "Server.Mobiles.Ghoul"
+      ]
+    },
+    {
+      "id": "rotting-corpse",
+      "reference": "zombie4",
+      "levels": [
+        22,
+        50,
+        80
+      ],
+      "rationale": "Durable advanced corpse walker.",
+      "types": [
+        "Server.Mobiles.RottingCorpse"
+      ]
+    },
+    {
+      "id": "patchwork-skeleton",
+      "reference": "reanimatedhorde1",
+      "levels": [
+        31,
+        61,
+        81
+      ],
+      "rationale": "Heavy reanimated warrior.",
+      "types": [
+        "Server.Mobiles.PatchworkSkeleton"
+      ]
+    },
+    {
+      "id": "mummy",
+      "reference": "mummy2",
+      "levels": [
+        15,
+        44,
+        79
+      ],
+      "rationale": "Durable desert undead.",
+      "types": [
+        "Server.Mobiles.Mummy"
+      ]
+    },
+    {
+      "id": "greater-mummy",
+      "reference": "mummy5",
+      "levels": [
+        32,
+        62,
+        85
+      ],
+      "rationale": "Advanced spellcasting mummy.",
+      "types": [
+        "Server.Mobiles.UnfrozenMummy"
+      ]
+    },
+    {
+      "id": "restless-spirit",
+      "reference": "wraith1",
+      "levels": [
+        7,
+        38,
+        75
+      ],
+      "rationale": "Lesser immaterial undead.",
+      "types": [
+        "Server.Mobiles.RestlessSoul"
+      ]
+    },
+    {
+      "id": "wraith",
+      "reference": "wraith3",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Dangerous immaterial undead.",
+      "types": [
+        "Server.Mobiles.Bogle",
+        "Server.Mobiles.Shade",
+        "Server.Mobiles.Spectre",
+        "Server.Mobiles.Wraith"
+      ]
+    },
+    {
+      "id": "banshee",
+      "reference": "wraith5",
+      "levels": [
+        30,
+        59,
+        85
+      ],
+      "rationale": "Advanced spirit with a disruptive ranged attack.",
+      "types": [
+        "Server.Mobiles.WailingBanshee"
+      ]
+    },
+    {
+      "id": "lich",
+      "reference": "unraveler1",
+      "levels": [
+        15,
+        44,
+        79
+      ],
+      "rationale": "Undead caster and corpse support.",
+      "types": [
+        "Server.Mobiles.KhaldunSummoner",
+        "Server.Mobiles.Lich"
+      ]
+    },
+    {
+      "id": "lich-lord",
+      "reference": "unraveler4",
+      "levels": [
+        23,
+        52,
+        84
+      ],
+      "rationale": "Stronger undead caster.",
+      "types": [
+        "Server.Mobiles.LichLord"
+      ]
+    },
+    {
+      "id": "ancient-lich",
+      "reference": "unraveler5",
+      "levels": [
+        40,
+        64,
+        85
+      ],
+      "rationale": "Late Normal undead caster.",
+      "types": [
+        "Server.Mobiles.AncientLich"
+      ]
+    },
+    {
+      "id": "graveyard-lich",
+      "reference": "unraveler1",
+      "levels": [
+        5,
+        36,
+        69
+      ],
+      "rationale": "Existing level-5 tutorial caster; retain its authored 200 XP comparison reward.",
+      "types": [
+        "Sanctuary.GraveyardLich"
+      ],
+      "experience": [
+        200,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "bone-demon",
+      "reference": "doomknight2",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Heavy advanced undead warrior.",
+      "types": [
+        "Server.Mobiles.BoneDemon"
+      ]
+    },
+    {
+      "id": "death-knight",
+      "reference": "doomknight1",
+      "levels": [
+        24,
+        56,
+        82
+      ],
+      "rationale": "Armoured undead/dark warrior.",
+      "types": [
+        "Server.Mobiles.KhaldunRevenant",
+        "Server.Mobiles.ShadowKnight"
+      ]
+    },
+    {
+      "id": "spectral-armour",
+      "reference": "doomknight2",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Animated armoured undead.",
+      "types": [
+        "Server.Mobiles.SpectralArmour"
+      ]
+    },
+    {
+      "id": "corrupted-soul",
+      "reference": "wraith5",
+      "levels": [
+        28,
+        57,
+        85
+      ],
+      "rationale": "Dangerous spirit.",
+      "types": [
+        "Server.Mobiles.CorruptedSoul",
+        "Server.Mobiles.WandererOfTheVoid"
+      ]
+    },
+    {
+      "id": "pestilent-bandage",
+      "reference": "swarm3",
+      "levels": [
+        21,
+        48,
+        79
+      ],
+      "rationale": "Small pestilential nuisance; no boss premium.",
+      "types": [
+        "Server.Mobiles.PestilentBandage"
+      ]
+    },
+    {
+      "id": "khaldun-archer",
+      "reference": "sk_archer5",
+      "levels": [
+        18,
+        47,
+        78
+      ],
+      "rationale": "Named undead archer, ordinary advanced-monster reward.",
+      "types": [
+        "Server.Mobiles.GrimmochDrummel"
+      ]
+    },
+    {
+      "id": "khaldun-mage",
+      "reference": "skmage_fire4",
+      "levels": [
+        17,
+        47,
+        78
+      ],
+      "rationale": "Named undead caster, ordinary advanced-monster reward.",
+      "types": [
+        "Server.Mobiles.LysanderGathenwale",
+        "Server.Mobiles.TavaraSewel"
+      ]
+    },
+    {
+      "id": "khaldun-warrior",
+      "reference": "skeleton5",
+      "levels": [
+        14,
+        44,
+        78
+      ],
+      "rationale": "Advanced undead warrior.",
+      "types": [
+        "Server.Mobiles.KhaldunZealot",
+        "Server.Mobiles.MorgBergen"
+      ]
+    },
+    {
+      "id": "small-flying-demon",
+      "reference": "foulcrow1",
+      "levels": [
+        4,
+        37,
+        68
+      ],
+      "rationale": "Small flying harrier.",
+      "types": [
+        "Server.Mobiles.GreaterMongbat",
+        "Server.Mobiles.Mongbat"
+      ]
+    },
+    {
+      "id": "strong-flying-demon",
+      "reference": "foulcrow2",
+      "levels": [
+        6,
+        38,
+        69
+      ],
+      "rationale": "Stronger flying harrier.",
+      "types": [
+        "Server.Mobiles.ShadowFiend",
+        "Server.Mobiles.StrongMongbat",
+        "Server.Mobiles.VampireBat"
+      ]
+    },
+    {
+      "id": "lesser-minion",
+      "reference": "fallen1",
+      "levels": [
+        1,
+        36,
+        67
+      ],
+      "rationale": "Weak, numerous melee minion.",
+      "types": [
+        "Server.Mobiles.Gibberling",
+        "Server.Mobiles.HordeMinion"
+      ]
+    },
+    {
+      "id": "orc",
+      "reference": "goatman2",
+      "levels": [
+        6,
+        38,
+        69
+      ],
+      "rationale": "Early tribal melee fighter.",
+      "types": [
+        "Server.Mobiles.Orc"
+      ]
+    },
+    {
+      "id": "orc-captain",
+      "reference": "goatman5",
+      "levels": [
+        10,
+        40,
+        70
+      ],
+      "rationale": "Veteran tribal melee fighter.",
+      "types": [
+        "Server.Mobiles.OrcCaptain",
+        "Server.Mobiles.OrcishLord",
+        "Server.Mobiles.SpawnedOrcishLord"
+      ]
+    },
+    {
+      "id": "orc-bomber",
+      "reference": "slinger1",
+      "levels": [
+        14,
+        43,
+        75
+      ],
+      "rationale": "Ranged projectile specialist.",
+      "types": [
+        "Server.Mobiles.OrcBomber"
+      ]
+    },
+    {
+      "id": "orc-shaman",
+      "reference": "fallenshaman3",
+      "levels": [
+        9,
+        40,
+        70
+      ],
+      "rationale": "Tribal support caster.",
+      "types": [
+        "Server.Mobiles.OrcishMage"
+      ]
+    },
+    {
+      "id": "orc-brute",
+      "reference": "blunderbore3",
+      "levels": [
+        25,
+        55,
+        83
+      ],
+      "rationale": "Heavy tribal brute.",
+      "types": [
+        "Server.Mobiles.OrcBrute"
+      ]
+    },
+    {
+      "id": "ratman",
+      "reference": "fetish1",
+      "levels": [
+        10,
+        42,
+        72
+      ],
+      "rationale": "Small fast tribal fighter.",
+      "types": [
+        "Server.Mobiles.Ratman"
+      ]
+    },
+    {
+      "id": "ratman-archer",
+      "reference": "fetishblow1",
+      "levels": [
+        9,
+        39,
+        72
+      ],
+      "rationale": "Small ranged tribal fighter.",
+      "types": [
+        "Server.Mobiles.RatmanArcher"
+      ]
+    },
+    {
+      "id": "ratman-mage",
+      "reference": "fetishshaman1",
+      "levels": [
+        11,
+        39,
+        72
+      ],
+      "rationale": "Small tribal caster.",
+      "types": [
+        "Server.Mobiles.RatmanMage"
+      ]
+    },
+    {
+      "id": "bandit",
+      "reference": "corruptrogue2",
+      "levels": [
+        5,
+        38,
+        68
+      ],
+      "rationale": "Early armed humanoid.",
+      "types": [
+        "Server.Mobiles.Brigand",
+        "Server.Mobiles.ElfBrigand"
+      ]
+    },
+    {
+      "id": "executioner",
+      "reference": "cr_lancer4",
+      "levels": [
+        16,
+        47,
+        78
+      ],
+      "rationale": "Advanced armed humanoid.",
+      "types": [
+        "Server.Mobiles.Executioner"
+      ]
+    },
+    {
+      "id": "savage",
+      "reference": "fetish3",
+      "levels": [
+        22,
+        50,
+        80
+      ],
+      "rationale": "Fast tribal melee fighter.",
+      "types": [
+        "Server.Mobiles.Savage"
+      ]
+    },
+    {
+      "id": "savage-rider",
+      "reference": "pantherwoman4",
+      "levels": [
+        23,
+        52,
+        83
+      ],
+      "rationale": "Mounted tribal skirmisher.",
+      "types": [
+        "Server.Mobiles.SavageRider"
+      ]
+    },
+    {
+      "id": "savage-shaman",
+      "reference": "fetishshaman3",
+      "levels": [
+        23,
+        50,
+        81
+      ],
+      "rationale": "Advanced tribal caster.",
+      "types": [
+        "Server.Mobiles.SavageShaman"
+      ]
+    },
+    {
+      "id": "evil-mage",
+      "reference": "cantor1",
+      "levels": [
+        12,
+        40,
+        70
+      ],
+      "rationale": "Humanoid spellcaster.",
+      "types": [
+        "Server.Mobiles.EvilMage",
+        "Server.Mobiles.GolemController",
+        "Server.Mobiles.Spellbinder"
+      ]
+    },
+    {
+      "id": "evil-mage-lord",
+      "reference": "cantor3",
+      "levels": [
+        24,
+        53,
+        82
+      ],
+      "rationale": "Advanced humanoid spellcaster.",
+      "types": [
+        "Server.Mobiles.EvilMageLord"
+      ]
+    },
+    {
+      "id": "headless",
+      "reference": "brute1",
+      "levels": [
+        4,
+        38,
+        70
+      ],
+      "rationale": "Early shambling brute.",
+      "types": [
+        "Server.Mobiles.HeadlessOne"
+      ]
+    },
+    {
+      "id": "ettin",
+      "reference": "brute3",
+      "levels": [
+        9,
+        40,
+        70
+      ],
+      "rationale": "Mid-early heavy brute.",
+      "types": [
+        "Server.Mobiles.Ettin"
+      ]
+    },
+    {
+      "id": "ogre",
+      "reference": "brute4",
+      "levels": [
+        12,
+        41,
+        72
+      ],
+      "rationale": "Large slow brute.",
+      "types": [
+        "Server.Mobiles.Ogre"
+      ]
+    },
+    {
+      "id": "troll",
+      "reference": "brute4",
+      "levels": [
+        14,
+        43,
+        74
+      ],
+      "rationale": "Regenerating melee brute.",
+      "types": [
+        "Server.Mobiles.Troll"
+      ]
+    },
+    {
+      "id": "frost-troll",
+      "reference": "snowyeti1",
+      "levels": [
+        19,
+        40,
+        67
+      ],
+      "rationale": "Cold-adapted melee brute.",
+      "types": [
+        "Server.Mobiles.FrostTroll"
+      ]
+    },
+    {
+      "id": "ogre-lord",
+      "reference": "blunderbore3",
+      "levels": [
+        25,
+        55,
+        83
+      ],
+      "rationale": "Advanced heavy melee brute.",
+      "types": [
+        "Server.Mobiles.OgreLord"
+      ]
+    },
+    {
+      "id": "arctic-ogre-lord",
+      "reference": "frozenhorror1",
+      "levels": [
+        30,
+        54,
+        75
+      ],
+      "rationale": "Heavy cold brute.",
+      "types": [
+        "Server.Mobiles.ArcticOgreLord"
+      ]
+    },
+    {
+      "id": "cyclops",
+      "reference": "blunderbore2",
+      "levels": [
+        20,
+        49,
+        80
+      ],
+      "rationale": "Large heavy melee brute.",
+      "types": [
+        "Server.Mobiles.Cyclops",
+        "Server.Mobiles.Moloch"
+      ]
+    },
+    {
+      "id": "titan",
+      "reference": "overseer3",
+      "levels": [
+        28,
+        53,
+        74
+      ],
+      "rationale": "Large magical bruiser.",
+      "types": [
+        "Server.Mobiles.Titan"
+      ]
+    },
+    {
+      "id": "troglodyte",
+      "reference": "brute4",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Cave-dwelling brute.",
+      "types": [
+        "Server.Mobiles.Troglodyte"
+      ]
+    },
+    {
+      "id": "minotaur",
+      "reference": "bloodlord1",
+      "levels": [
+        33,
+        61,
+        82
+      ],
+      "rationale": "Frenzied heavy melee demon analogue.",
+      "types": [
+        "Server.Mobiles.Minotaur",
+        "Server.Mobiles.TormentedMinotaur"
+      ]
+    },
+    {
+      "id": "minotaur-scout",
+      "reference": "bloodlord1",
+      "levels": [
+        30,
+        58,
+        79
+      ],
+      "rationale": "Agile minotaur skirmisher.",
+      "types": [
+        "Server.Mobiles.MinotaurScout"
+      ]
+    },
+    {
+      "id": "minotaur-captain",
+      "reference": "bloodlord3",
+      "levels": [
+        36,
+        61,
+        82
+      ],
+      "rationale": "Veteran frenzied heavy melee fighter.",
+      "types": [
+        "Server.Mobiles.MinotaurCaptain"
+      ]
+    },
+    {
+      "id": "juka-warrior",
+      "reference": "zealot1",
+      "levels": [
+        20,
+        50,
+        80
+      ],
+      "rationale": "Organised armed warrior.",
+      "types": [
+        "Server.Mobiles.ChaosDragoon",
+        "Server.Mobiles.JukaWarrior"
+      ]
+    },
+    {
+      "id": "juka-mage",
+      "reference": "cantor2",
+      "levels": [
+        23,
+        51,
+        81
+      ],
+      "rationale": "Organised support caster.",
+      "types": [
+        "Server.Mobiles.JukaMage"
+      ]
+    },
+    {
+      "id": "juka-lord",
+      "reference": "overseer3",
+      "levels": [
+        30,
+        55,
+        76
+      ],
+      "rationale": "Heavy veteran commander.",
+      "types": [
+        "Server.Mobiles.ChaosDragoonElite",
+        "Server.Mobiles.JukaLord"
+      ]
+    },
+    {
+      "id": "meer-warrior",
+      "reference": "zealot1",
+      "levels": [
+        20,
+        50,
+        80
+      ],
+      "rationale": "Armed warrior; friendly alignment remains native.",
+      "types": [
+        "Server.Mobiles.MeerWarrior"
+      ]
+    },
+    {
+      "id": "meer-mage",
+      "reference": "cantor2",
+      "levels": [
+        23,
+        51,
+        81
+      ],
+      "rationale": "Caster; friendly alignment remains native.",
+      "types": [
+        "Server.Mobiles.MeerMage"
+      ]
+    },
+    {
+      "id": "meer-captain",
+      "reference": "zealot3",
+      "levels": [
+        24,
+        53,
+        82
+      ],
+      "rationale": "Veteran warrior; friendly alignment remains native.",
+      "types": [
+        "Server.Mobiles.MeerCaptain"
+      ]
+    },
+    {
+      "id": "meer-eternal",
+      "reference": "cantor3",
+      "levels": [
+        30,
+        59,
+        85
+      ],
+      "rationale": "Veteran caster; friendly alignment remains native.",
+      "types": [
+        "Server.Mobiles.MeerEternal"
+      ]
+    },
+    {
+      "id": "ronin",
+      "reference": "cr_lancer5",
+      "levels": [
+        24,
+        53,
+        84
+      ],
+      "rationale": "Advanced armed humanoid.",
+      "types": [
+        "Server.Mobiles.Ronin"
+      ]
+    },
+    {
+      "id": "elite-ninja",
+      "reference": "cr_lancer5",
+      "levels": [
+        28,
+        57,
+        85
+      ],
+      "rationale": "Agile advanced armed humanoid.",
+      "types": [
+        "Server.Mobiles.EliteNinja"
+      ]
+    },
+    {
+      "id": "fan-dancer",
+      "reference": "succubus1",
+      "levels": [
+        32,
+        61,
+        82
+      ],
+      "rationale": "Fast melee/caster humanoid.",
+      "types": [
+        "Server.Mobiles.FanDancer"
+      ]
+    },
+    {
+      "id": "yomotsu-warrior",
+      "reference": "zealot3",
+      "levels": [
+        24,
+        53,
+        82
+      ],
+      "rationale": "Advanced tribal fighter.",
+      "types": [
+        "Server.Mobiles.YomotsuWarrior"
+      ]
+    },
+    {
+      "id": "yomotsu-priest",
+      "reference": "cantor3",
+      "levels": [
+        24,
+        53,
+        82
+      ],
+      "rationale": "Advanced tribal caster.",
+      "types": [
+        "Server.Mobiles.YomotsuPriest"
+      ]
+    },
+    {
+      "id": "yomotsu-elder",
+      "reference": "overseer3",
+      "levels": [
+        36,
+        61,
+        82
+      ],
+      "rationale": "Heavy tribal commander.",
+      "types": [
+        "Server.Mobiles.YomotsuElder"
+      ]
+    },
+    {
+      "id": "imp",
+      "reference": "fallen4",
+      "levels": [
+        10,
+        41,
+        71
+      ],
+      "rationale": "Small dangerous demon.",
+      "types": [
+        "Server.Mobiles.Imp"
+      ]
+    },
+    {
+      "id": "daemon",
+      "reference": "megademon1",
+      "levels": [
+        24,
+        55,
+        82
+      ],
+      "rationale": "Large offensive demon.",
+      "types": [
+        "Server.Mobiles.ArcaneDaemon",
+        "Server.Mobiles.ChaosDaemon",
+        "Server.Mobiles.Daemon"
+      ]
+    },
+    {
+      "id": "balron",
+      "reference": "megademon3",
+      "levels": [
+        35,
+        62,
+        85
+      ],
+      "rationale": "High-tier winged fire demon.",
+      "types": [
+        "Server.Mobiles.Balron"
+      ]
+    },
+    {
+      "id": "ice-fiend",
+      "reference": "frozenhorror3",
+      "levels": [
+        39,
+        61,
+        84
+      ],
+      "rationale": "Large cold demon.",
+      "types": [
+        "Server.Mobiles.IceFiend"
+      ]
+    },
+    {
+      "id": "succubus",
+      "reference": "succubus3",
+      "levels": [
+        35,
+        62,
+        83
+      ],
+      "rationale": "Dangerous caster demon.",
+      "types": [
+        "Server.Mobiles.Succubus"
+      ]
+    },
+    {
+      "id": "abysmal-horror",
+      "reference": "doomknight3",
+      "levels": [
+        38,
+        66,
+        85
+      ],
+      "rationale": "Late Normal curse/spell demon.",
+      "types": [
+        "Server.Mobiles.AbysmalHorror"
+      ]
+    },
+    {
+      "id": "demon-knight",
+      "reference": "doomknight3",
+      "levels": [
+        40,
+        68,
+        85
+      ],
+      "rationale": "Heavy advanced dark caster/warrior.",
+      "types": [
+        "Server.Mobiles.DemonKnight"
+      ]
+    },
+    {
+      "id": "ravager",
+      "reference": "bloodlord4",
+      "levels": [
+        40,
+        63,
+        84
+      ],
+      "rationale": "Extremely strong ordinary melee monster.",
+      "types": [
+        "Server.Mobiles.Ravager"
+      ]
+    },
+    {
+      "id": "flesh-renderer",
+      "reference": "bloodlord2",
+      "levels": [
+        35,
+        61,
+        82
+      ],
+      "rationale": "Strong aggressive melee monster.",
+      "types": [
+        "Server.Mobiles.FleshRenderer",
+        "Server.Mobiles.Impaler"
+      ]
+    },
+    {
+      "id": "flesh-golem",
+      "reference": "blunderbore4",
+      "levels": [
+        32,
+        57,
+        85
+      ],
+      "rationale": "Large durable construct.",
+      "types": [
+        "Server.Mobiles.FleshGolem"
+      ]
+    },
+    {
+      "id": "gore-fiend",
+      "reference": "vampire4",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "Blood-themed advanced caster/melee monster.",
+      "types": [
+        "Server.Mobiles.GoreFiend"
+      ]
+    },
+    {
+      "id": "devourer",
+      "reference": "regurgitator2",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Large corpse-consuming monster.",
+      "types": [
+        "Server.Mobiles.Devourer"
+      ]
+    },
+    {
+      "id": "darknight-creeper",
+      "reference": "deathmauler2",
+      "levels": [
+        35,
+        59,
+        81
+      ],
+      "rationale": "Large stalking melee monster.",
+      "types": [
+        "Server.Mobiles.DarknightCreeper"
+      ]
+    },
+    {
+      "id": "maggots",
+      "reference": "swarm3",
+      "levels": [
+        21,
+        48,
+        79
+      ],
+      "rationale": "Small pest swarm.",
+      "types": [
+        "Server.Mobiles.MoundOfMaggots"
+      ]
+    },
+    {
+      "id": "gazer-larva",
+      "reference": "bighead3",
+      "levels": [
+        5,
+        37,
+        69
+      ],
+      "rationale": "Small ranged grotesque.",
+      "types": [
+        "Server.Mobiles.GazerLarva"
+      ]
+    },
+    {
+      "id": "gazer",
+      "reference": "bighead1",
+      "levels": [
+        12,
+        43,
+        73
+      ],
+      "rationale": "Ranged magical grotesque.",
+      "types": [
+        "Server.Mobiles.Gazer"
+      ]
+    },
+    {
+      "id": "elder-gazer",
+      "reference": "bighead5",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Advanced ranged magical grotesque.",
+      "types": [
+        "Server.Mobiles.ElderGazer"
+      ]
+    },
+    {
+      "id": "gargoyle",
+      "reference": "clawviper2",
+      "levels": [
+        15,
+        45,
+        76
+      ],
+      "rationale": "Tough humanoid monster; analogue is a mobile armored demon.",
+      "types": [
+        "Server.Mobiles.EnslavedGargoyle",
+        "Server.Mobiles.Gargoyle",
+        "Server.Mobiles.StoneGargoyle"
+      ]
+    },
+    {
+      "id": "fire-gargoyle",
+      "reference": "megademon1",
+      "levels": [
+        24,
+        55,
+        82
+      ],
+      "rationale": "Fire-oriented humanoid demon.",
+      "types": [
+        "Server.Mobiles.FireGargoyle"
+      ]
+    },
+    {
+      "id": "greater-gargoyle",
+      "reference": "blunderbore3",
+      "levels": [
+        25,
+        55,
+        83
+      ],
+      "rationale": "Heavy armoured humanoid demon.",
+      "types": [
+        "Server.Mobiles.GargoyleDestroyer",
+        "Server.Mobiles.GargoyleEnforcer"
+      ]
+    },
+    {
+      "id": "air-elemental",
+      "reference": "willowisp1",
+      "levels": [
+        21,
+        50,
+        80
+      ],
+      "rationale": "Mobile elemental/spirit attacker.",
+      "types": [
+        "Server.Mobiles.AirElemental",
+        "Server.Mobiles.CrystalWisp",
+        "Server.Mobiles.DarkWisp",
+        "Server.Mobiles.ShadowWisp",
+        "Server.Mobiles.Wisp"
+      ]
+    },
+    {
+      "id": "fire-elemental",
+      "reference": "vampire2",
+      "levels": [
+        23,
+        54,
+        82
+      ],
+      "rationale": "Fire-oriented ranged elemental analogue.",
+      "types": [
+        "Server.Mobiles.Efreet",
+        "Server.Mobiles.FireElemental"
+      ]
+    },
+    {
+      "id": "water-elemental",
+      "reference": "frogdemon1",
+      "levels": [
+        21,
+        49,
+        79
+      ],
+      "rationale": "Ranged liquid elemental analogue.",
+      "types": [
+        "Server.Mobiles.CorporealBrume",
+        "Server.Mobiles.WaterElemental"
+      ]
+    },
+    {
+      "id": "earth-elemental",
+      "reference": "thornhulk1",
+      "levels": [
+        21,
+        49,
+        79
+      ],
+      "rationale": "Slow sturdy elemental brute.",
+      "types": [
+        "Server.Mobiles.EarthElemental"
+      ]
+    },
+    {
+      "id": "snow-elemental",
+      "reference": "snowyeti1",
+      "levels": [
+        25,
+        46,
+        67
+      ],
+      "rationale": "Cold sturdy elemental brute.",
+      "types": [
+        "Server.Mobiles.SnowElemental"
+      ]
+    },
+    {
+      "id": "ice-elemental",
+      "reference": "frozenhorror1",
+      "levels": [
+        37,
+        61,
+        82
+      ],
+      "rationale": "Advanced cold elemental.",
+      "types": [
+        "Server.Mobiles.IceElemental"
+      ]
+    },
+    {
+      "id": "acid-elemental",
+      "reference": "regurgitator1",
+      "levels": [
+        24,
+        56,
+        82
+      ],
+      "rationale": "Caustic elemental analogue.",
+      "types": [
+        "Server.Mobiles.AcidElemental",
+        "Server.Mobiles.FetidEssence"
+      ]
+    },
+    {
+      "id": "blood-elemental",
+      "reference": "vampire4",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "Durable advanced blood elemental.",
+      "types": [
+        "Server.Mobiles.BloodElemental"
+      ]
+    },
+    {
+      "id": "poison-elemental",
+      "reference": "clawviper5",
+      "levels": [
+        32,
+        62,
+        85
+      ],
+      "rationale": "Deadly poison elemental analogue.",
+      "types": [
+        "Server.Mobiles.PoisonElemental"
+      ]
+    },
+    {
+      "id": "crystal-elemental",
+      "reference": "frozenhorror2",
+      "levels": [
+        32,
+        55,
+        77
+      ],
+      "rationale": "Advanced crystalline elemental.",
+      "types": [
+        "Server.Mobiles.CrystalElemental",
+        "Server.Mobiles.CrystalVortex"
+      ]
+    },
+    {
+      "id": "base-ore-elemental",
+      "reference": "thornhulk1",
+      "levels": [
+        23,
+        51,
+        81
+      ],
+      "rationale": "Ore-armoured sturdy elemental.",
+      "types": [
+        "Server.Mobiles.CopperElemental",
+        "Server.Mobiles.DullCopperElemental"
+      ]
+    },
+    {
+      "id": "mid-ore-elemental",
+      "reference": "thornhulk3",
+      "levels": [
+        26,
+        55,
+        84
+      ],
+      "rationale": "Stronger ore-armoured elemental.",
+      "types": [
+        "Server.Mobiles.BronzeElemental",
+        "Server.Mobiles.GoldenElemental",
+        "Server.Mobiles.ShadowIronElemental"
+      ]
+    },
+    {
+      "id": "high-ore-elemental",
+      "reference": "thornhulk4",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "High-tier ore-armoured elemental.",
+      "types": [
+        "Server.Mobiles.AgapiteElemental",
+        "Server.Mobiles.VeriteElemental"
+      ]
+    },
+    {
+      "id": "valorite-elemental",
+      "reference": "thornhulk4",
+      "levels": [
+        34,
+        64,
+        85
+      ],
+      "rationale": "Highest-tier ore-armoured elemental.",
+      "types": [
+        "Server.Mobiles.ValoriteElemental"
+      ]
+    },
+    {
+      "id": "drake",
+      "reference": "megademon1",
+      "levels": [
+        24,
+        55,
+        82
+      ],
+      "rationale": "Smaller fire-breathing dragon: Balrog-tier Megademon.",
+      "types": [
+        "Server.Mobiles.Drake"
+      ]
+    },
+    {
+      "id": "dragon",
+      "reference": "megademon3",
+      "levels": [
+        30,
+        57,
+        84
+      ],
+      "rationale": "Fire-breathing dragon: Venom Lord-tier Megademon.",
+      "types": [
+        "Server.Mobiles.Dragon",
+        "Server.Mobiles.SerpentineDragon"
+      ]
+    },
+    {
+      "id": "greater-dragon",
+      "reference": "megademon3",
+      "levels": [
+        36,
+        63,
+        85
+      ],
+      "rationale": "Stronger fire dragon, late Normal tier.",
+      "types": [
+        "Server.Mobiles.GreaterDragon"
+      ]
+    },
+    {
+      "id": "ancient-wyrm",
+      "reference": "megademon3",
+      "levels": [
+        40,
+        67,
+        85
+      ],
+      "rationale": "Ancient fire dragon, end-Normal tier.",
+      "types": [
+        "Server.Mobiles.AncientWyrm"
+      ]
+    },
+    {
+      "id": "shadow-wyrm",
+      "reference": "megademon3",
+      "levels": [
+        43,
+        68,
+        85
+      ],
+      "rationale": "Top ordinary dragon tier; no act-boss multiplier.",
+      "types": [
+        "Server.Mobiles.ShadowWyrm"
+      ]
+    },
+    {
+      "id": "white-wyrm",
+      "reference": "frozenhorror3",
+      "levels": [
+        36,
+        58,
+        81
+      ],
+      "rationale": "Cold dragon: Frozen Horror analogue.",
+      "types": [
+        "Server.Mobiles.WhiteWyrm"
+      ]
+    },
+    {
+      "id": "skeletal-dragon",
+      "reference": "doomknight3",
+      "levels": [
+        38,
+        66,
+        85
+      ],
+      "rationale": "Undead dragon: heavy undead caster analogue.",
+      "types": [
+        "Server.Mobiles.SkeletalDragon"
+      ]
+    },
+    {
+      "id": "wyvern",
+      "reference": "clawviper4",
+      "levels": [
+        22,
+        51,
+        82
+      ],
+      "rationale": "Poisonous reptilian predator.",
+      "types": [
+        "Server.Mobiles.Wyvern"
+      ]
+    },
+    {
+      "id": "reptalon",
+      "reference": "megademon2",
+      "levels": [
+        29,
+        58,
+        85
+      ],
+      "rationale": "Advanced reptile with elemental attacks.",
+      "types": [
+        "Server.Mobiles.Reptalon"
+      ]
+    },
+    {
+      "id": "sea-serpent",
+      "reference": "tentaclehead1",
+      "levels": [
+        18,
+        48,
+        75
+      ],
+      "rationale": "Aquatic predator; reward follows the head, not spawned tentacles.",
+      "types": [
+        "Server.Mobiles.SeaSerpent"
+      ]
+    },
+    {
+      "id": "deep-sea-serpent",
+      "reference": "tentaclehead3",
+      "levels": [
+        28,
+        59,
+        85
+      ],
+      "rationale": "Large advanced aquatic predator.",
+      "types": [
+        "Server.Mobiles.CrystalSeaSerpent",
+        "Server.Mobiles.DeepSeaSerpent"
+      ]
+    },
+    {
+      "id": "kraken",
+      "reference": "tentaclehead3",
+      "levels": [
+        32,
+        63,
+        85
+      ],
+      "rationale": "Heavy aquatic predator.",
+      "types": [
+        "Server.Mobiles.Kraken"
+      ]
+    },
+    {
+      "id": "leviathan",
+      "reference": "tentaclehead3",
+      "levels": [
+        36,
+        67,
+        85
+      ],
+      "rationale": "Top ordinary aquatic predator; no act-boss multiplier.",
+      "types": [
+        "Server.Mobiles.Leviathan"
+      ]
+    },
+    {
+      "id": "hydra",
+      "reference": "clawviper5",
+      "levels": [
+        32,
+        62,
+        85
+      ],
+      "rationale": "Large multi-headed reptilian predator.",
+      "types": [
+        "Server.Mobiles.Hydra"
+      ]
+    },
+    {
+      "id": "lizardman",
+      "reference": "goatman3",
+      "levels": [
+        7,
+        38,
+        75
+      ],
+      "rationale": "Early tribal reptile fighter.",
+      "types": [
+        "Server.Mobiles.Lizardman"
+      ]
+    },
+    {
+      "id": "ophidian-warrior",
+      "reference": "clawviper3",
+      "levels": [
+        18,
+        46,
+        77
+      ],
+      "rationale": "Advanced reptilian fighter.",
+      "types": [
+        "Server.Mobiles.OphidianWarrior"
+      ]
+    },
+    {
+      "id": "ophidian-knight",
+      "reference": "clawviper4",
+      "levels": [
+        22,
+        51,
+        82
+      ],
+      "rationale": "Veteran reptilian fighter.",
+      "types": [
+        "Server.Mobiles.OphidianKnight"
+      ]
+    },
+    {
+      "id": "ophidian-mage",
+      "reference": "skmage_pois3",
+      "levels": [
+        20,
+        50,
+        85
+      ],
+      "rationale": "Poison-themed reptilian caster.",
+      "types": [
+        "Server.Mobiles.OphidianMage"
+      ]
+    },
+    {
+      "id": "ophidian-archmage",
+      "reference": "skmage_pois4",
+      "levels": [
+        25,
+        55,
+        85
+      ],
+      "rationale": "Veteran reptilian caster.",
+      "types": [
+        "Server.Mobiles.OphidianArchmage"
+      ]
+    },
+    {
+      "id": "ophidian-matriarch",
+      "reference": "clawviper5",
+      "levels": [
+        28,
+        58,
+        85
+      ],
+      "rationale": "Large reptilian leader.",
+      "types": [
+        "Server.Mobiles.OphidianMatriarch"
+      ]
+    },
+    {
+      "id": "giant-spider",
+      "reference": "arach1",
+      "levels": [
+        11,
+        42,
+        73
+      ],
+      "rationale": "Web/poison spider.",
+      "types": [
+        "Server.Mobiles.FrostSpider",
+        "Server.Mobiles.GiantSpider"
+      ]
+    },
+    {
+      "id": "widow",
+      "reference": "arach3",
+      "levels": [
+        21,
+        49,
+        78
+      ],
+      "rationale": "Stronger venomous spider.",
+      "types": [
+        "Server.Mobiles.GiantBlackWidow"
+      ]
+    },
+    {
+      "id": "dread-spider",
+      "reference": "arach5",
+      "levels": [
+        23,
+        53,
+        84
+      ],
+      "rationale": "High-tier venomous spider.",
+      "types": [
+        "Server.Mobiles.DreadSpider"
+      ]
+    },
+    {
+      "id": "scorpion",
+      "reference": "scarab1",
+      "levels": [
+        8,
+        37,
+        69
+      ],
+      "rationale": "Armoured poisonous arthropod.",
+      "types": [
+        "Server.Mobiles.Scorpion"
+      ]
+    },
+    {
+      "id": "terathan-drone",
+      "reference": "sandmaggot1",
+      "levels": [
+        12,
+        41,
+        72
+      ],
+      "rationale": "Insectoid worker/fighter.",
+      "types": [
+        "Server.Mobiles.TerathanDrone"
+      ]
+    },
+    {
+      "id": "terathan-warrior",
+      "reference": "sandmaggot3",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Heavy insectoid warrior.",
+      "types": [
+        "Server.Mobiles.TerathanWarrior"
+      ]
+    },
+    {
+      "id": "terathan-avenger",
+      "reference": "scarab5",
+      "levels": [
+        24,
+        54,
+        85
+      ],
+      "rationale": "Advanced armoured insectoid.",
+      "types": [
+        "Server.Mobiles.TerathanAvenger"
+      ]
+    },
+    {
+      "id": "terathan-matriarch",
+      "reference": "maggotqueen5",
+      "levels": [
+        29,
+        50,
+        85
+      ],
+      "rationale": "Dangerous insectoid leader; ordinary-monster table only.",
+      "types": [
+        "Server.Mobiles.TerathanMatriarch"
+      ]
+    },
+    {
+      "id": "solen-worker",
+      "reference": "sandmaggot1",
+      "levels": [
+        12,
+        41,
+        72
+      ],
+      "rationale": "Insectoid worker.",
+      "types": [
+        "Server.Mobiles.BlackSolenWorker",
+        "Server.Mobiles.RedSolenWorker"
+      ]
+    },
+    {
+      "id": "solen-warrior",
+      "reference": "sandmaggot3",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Insectoid warrior.",
+      "types": [
+        "Server.Mobiles.BlackSolenInfiltratorWarrior",
+        "Server.Mobiles.BlackSolenWarrior",
+        "Server.Mobiles.RedSolenInfiltratorWarrior",
+        "Server.Mobiles.RedSolenWarrior"
+      ]
+    },
+    {
+      "id": "solen-queen",
+      "reference": "maggotqueen4",
+      "levels": [
+        21,
+        49,
+        84
+      ],
+      "rationale": "Insectoid queen; ordinary-monster table, not Coldworm superunique.",
+      "types": [
+        "Server.Mobiles.BlackSolenInfiltratorQueen",
+        "Server.Mobiles.BlackSolenQueen",
+        "Server.Mobiles.RedSolenInfiltratorQueen",
+        "Server.Mobiles.RedSolenQueen"
+      ]
+    },
+    {
+      "id": "ant-lion",
+      "reference": "sandmaggot3",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Large burrowing insect.",
+      "types": [
+        "Server.Mobiles.AntLion"
+      ]
+    },
+    {
+      "id": "deathwatch-hatchling",
+      "reference": "maggotbaby2",
+      "levels": [
+        17,
+        45,
+        84
+      ],
+      "rationale": "Small beetle brood.",
+      "types": [
+        "Server.Mobiles.DeathwatchBeetleHatchling"
+      ]
+    },
+    {
+      "id": "deathwatch-beetle",
+      "reference": "scarab3",
+      "levels": [
+        17,
+        45,
+        84
+      ],
+      "rationale": "Armoured adult beetle.",
+      "types": [
+        "Server.Mobiles.DeathwatchBeetle"
+      ]
+    },
+    {
+      "id": "rune-beetle",
+      "reference": "scarab5",
+      "levels": [
+        28,
+        58,
+        85
+      ],
+      "rationale": "Advanced magical beetle.",
+      "types": [
+        "Server.Mobiles.RuneBeetle"
+      ]
+    },
+    {
+      "id": "skittering-hopper",
+      "reference": "sandleaper1",
+      "levels": [
+        14,
+        43,
+        75
+      ],
+      "rationale": "Small agile leaping insect.",
+      "types": [
+        "Server.Mobiles.SkitteringHopper"
+      ]
+    },
+    {
+      "id": "giant-ice-worm",
+      "reference": "sandmaggot4",
+      "levels": [
+        21,
+        50,
+        79
+      ],
+      "rationale": "Large cold burrowing worm.",
+      "types": [
+        "Server.Mobiles.GiantIceWorm"
+      ]
+    },
+    {
+      "id": "reaper",
+      "reference": "thornhulk1",
+      "levels": [
+        21,
+        49,
+        79
+      ],
+      "rationale": "Large animated plant.",
+      "types": [
+        "Server.Mobiles.Reaper",
+        "Server.Mobiles.Treefellow"
+      ]
+    },
+    {
+      "id": "feral-treefellow",
+      "reference": "thornhulk4",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Aggressive advanced animated tree.",
+      "types": [
+        "Server.Mobiles.FeralTreefellow"
+      ]
+    },
+    {
+      "id": "bogling",
+      "reference": "vilechild1",
+      "levels": [
+        7,
+        39,
+        67
+      ],
+      "rationale": "Small swamp plant.",
+      "types": [
+        "Server.Mobiles.Bogling"
+      ]
+    },
+    {
+      "id": "bog-thing",
+      "reference": "thornhulk2",
+      "levels": [
+        22,
+        50,
+        80
+      ],
+      "rationale": "Large swamp plant brute.",
+      "types": [
+        "Server.Mobiles.BogThing",
+        "Server.Mobiles.Quagmire"
+      ]
+    },
+    {
+      "id": "corpser",
+      "reference": "tentaclehead1",
+      "levels": [
+        10,
+        40,
+        67
+      ],
+      "rationale": "Rooted plant ambusher.",
+      "types": [
+        "Server.Mobiles.Corpser"
+      ]
+    },
+    {
+      "id": "vines",
+      "reference": "tentacle1",
+      "levels": [
+        15,
+        45,
+        72
+      ],
+      "rationale": "Plant tendril attacker.",
+      "types": [
+        "Server.Mobiles.SwampTentacle",
+        "Server.Mobiles.WhippingVine"
+      ]
+    },
+    {
+      "id": "slime",
+      "reference": "swarm1",
+      "levels": [
+        5,
+        36,
+        67
+      ],
+      "rationale": "Small amorphous nuisance.",
+      "types": [
+        "Server.Mobiles.FrostOoze",
+        "Server.Mobiles.Jwilson",
+        "Server.Mobiles.Slime"
+      ]
+    },
+    {
+      "id": "corrosive-slime",
+      "reference": "swarm4",
+      "levels": [
+        18,
+        48,
+        77
+      ],
+      "rationale": "Advanced caustic nuisance.",
+      "types": [
+        "Server.Mobiles.CorrosiveSlime"
+      ]
+    },
+    {
+      "id": "plague-beast",
+      "reference": "vilemother2",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Large diseased spawn-producing brute.",
+      "types": [
+        "Server.Mobiles.PlagueBeast"
+      ]
+    },
+    {
+      "id": "plague-lord",
+      "reference": "vilemother3",
+      "levels": [
+        30,
+        57,
+        85
+      ],
+      "rationale": "Stronger diseased spawn-producing brute.",
+      "types": [
+        "Server.Mobiles.PlagueBeastLord"
+      ]
+    },
+    {
+      "id": "plague-spawn",
+      "reference": "vilechild2",
+      "levels": [
+        27,
+        57,
+        84
+      ],
+      "rationale": "Spawned lesser plague creature; low child reward.",
+      "types": [
+        "Server.Mobiles.PlagueSpawn"
+      ]
+    },
+    {
+      "id": "golem",
+      "reference": "blunderbore1",
+      "levels": [
+        18,
+        47,
+        78
+      ],
+      "rationale": "Slow durable construct.",
+      "types": [
+        "Server.Mobiles.Golem"
+      ]
+    },
+    {
+      "id": "juggernaut",
+      "reference": "siegebeast1",
+      "levels": [
+        37,
+        59,
+        81
+      ],
+      "rationale": "Large siege construct.",
+      "types": [
+        "Server.Mobiles.Juggernaut"
+      ]
+    },
+    {
+      "id": "exodus-minion",
+      "reference": "minion3",
+      "levels": [
+        35,
+        60,
+        80
+      ],
+      "rationale": "Advanced constructed fighter.",
+      "types": [
+        "Server.Mobiles.ExodusMinion"
+      ]
+    },
+    {
+      "id": "exodus-overseer",
+      "reference": "overseer4",
+      "levels": [
+        37,
+        62,
+        83
+      ],
+      "rationale": "Heavy advanced construct.",
+      "types": [
+        "Server.Mobiles.Betrayer",
+        "Server.Mobiles.ExodusOverseer"
+      ]
+    },
+    {
+      "id": "sand-vortex",
+      "reference": "willowisp1",
+      "levels": [
+        21,
+        50,
+        80
+      ],
+      "rationale": "Roaming hostile elemental.",
+      "types": [
+        "Server.Mobiles.SandVortex"
+      ]
+    },
+    {
+      "id": "animated-weapon",
+      "reference": "flyingscimitar",
+      "levels": [
+        12,
+        45,
+        78
+      ],
+      "rationale": "Wild animated weapon; summoned instances are excluded at death.",
+      "types": [
+        "Server.Mobiles.AnimatedWeapon"
+      ]
+    },
+    {
+      "id": "centaur",
+      "reference": "cr_archer5",
+      "levels": [
+        24,
+        54,
+        85
+      ],
+      "rationale": "Mobile ranged/melee fighter.",
+      "types": [
+        "Server.Mobiles.Centaur"
+      ]
+    },
+    {
+      "id": "harpy",
+      "reference": "vulture2",
+      "levels": [
+        15,
+        44,
+        76
+      ],
+      "rationale": "Winged melee attacker.",
+      "types": [
+        "Server.Mobiles.Harpy"
+      ]
+    },
+    {
+      "id": "stone-harpy",
+      "reference": "vulture4",
+      "levels": [
+        23,
+        50,
+        81
+      ],
+      "rationale": "Armoured winged attacker.",
+      "types": [
+        "Server.Mobiles.StoneHarpy"
+      ]
+    },
+    {
+      "id": "pixie",
+      "reference": "willowisp1",
+      "levels": [
+        15,
+        44,
+        74
+      ],
+      "rationale": "Small ranged magical creature.",
+      "types": [
+        "Server.Mobiles.Pixie"
+      ]
+    },
+    {
+      "id": "ethereal-warrior",
+      "reference": "zealot3",
+      "levels": [
+        28,
+        57,
+        85
+      ],
+      "rationale": "Advanced magical warrior.",
+      "types": [
+        "Server.Mobiles.EtherealWarrior"
+      ]
+    },
+    {
+      "id": "dryad",
+      "reference": "cantor2",
+      "levels": [
+        23,
+        51,
+        81
+      ],
+      "rationale": "Plant-associated caster.",
+      "types": [
+        "Server.Mobiles.InsaneDryad",
+        "Server.Mobiles.MLDryad"
+      ]
+    },
+    {
+      "id": "satyr",
+      "reference": "goatman4",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Musical humanoid melee/caster analogue.",
+      "types": [
+        "Server.Mobiles.EnslavedSatyr",
+        "Server.Mobiles.Satyr"
+      ]
+    },
+    {
+      "id": "changeling",
+      "reference": "zealot2",
+      "levels": [
+        22,
+        51,
+        81
+      ],
+      "rationale": "Shapeshifting humanoid; no reward copied from its disguise.",
+      "types": [
+        "Server.Mobiles.Changeling",
+        "Server.Mobiles.Doppleganger"
+      ]
+    },
+    {
+      "id": "crystal-daemon",
+      "reference": "megademon2",
+      "levels": [
+        27,
+        56,
+        83
+      ],
+      "rationale": "Advanced crystalline demon.",
+      "types": [
+        "Server.Mobiles.CrystalDaemon"
+      ]
+    },
+    {
+      "id": "lattice-seeker",
+      "reference": "scarab5",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "Armoured crystalline hunter.",
+      "types": [
+        "Server.Mobiles.CrystalLatticeSeeker"
+      ]
+    },
+    {
+      "id": "crystal-protector",
+      "reference": "doomknight1",
+      "levels": [
+        30,
+        62,
+        85
+      ],
+      "rationale": "Armoured crystalline guardian.",
+      "types": [
+        "Server.Mobiles.Protector"
+      ]
+    },
+    {
+      "id": "crystal-spirit",
+      "reference": "willowisp4",
+      "levels": [
+        28,
+        58,
+        85
+      ],
+      "rationale": "Advanced ranged crystal spirit.",
+      "types": [
+        "Server.Mobiles.MantraEffervescence"
+      ]
+    },
+    {
+      "id": "flying-cold-beast",
+      "reference": "frozenhorror1",
+      "levels": [
+        30,
+        54,
+        75
+      ],
+      "rationale": "Cold caster spirit.",
+      "types": [
+        "Server.Mobiles.LadyOfTheSnow"
+      ]
+    },
+    {
+      "id": "oni",
+      "reference": "blunderbore3",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "Large aggressive demon.",
+      "types": [
+        "Server.Mobiles.Oni"
+      ]
+    },
+    {
+      "id": "kappa",
+      "reference": "frogdemon1",
+      "levels": [
+        16,
+        44,
+        74
+      ],
+      "rationale": "Aquatic leaping demon.",
+      "types": [
+        "Server.Mobiles.Kappa"
+      ]
+    },
+    {
+      "id": "kaze-kemono",
+      "reference": "sandleaper4",
+      "levels": [
+        22,
+        52,
+        80
+      ],
+      "rationale": "Agile magical predator.",
+      "types": [
+        "Server.Mobiles.KazeKemono"
+      ]
+    },
+    {
+      "id": "raiju",
+      "reference": "willowisp2",
+      "levels": [
+        25,
+        55,
+        83
+      ],
+      "rationale": "Lightning-oriented magical predator.",
+      "types": [
+        "Server.Mobiles.RaiJu"
+      ]
+    },
+    {
+      "id": "tsuki-wolf",
+      "reference": "bloodlord1",
+      "levels": [
+        33,
+        61,
+        82
+      ],
+      "rationale": "Large aggressive wolf-demon.",
+      "types": [
+        "Server.Mobiles.TsukiWolf"
+      ]
+    },
+    {
+      "id": "yamandon",
+      "reference": "clawviper5",
+      "levels": [
+        36,
+        66,
+        85
+      ],
+      "rationale": "Large high-tier venomous reptile.",
+      "types": [
+        "Server.Mobiles.Yamandon"
+      ]
+    },
+    {
+      "id": "kitsune",
+      "reference": "succubuswitch1",
+      "levels": [
+        28,
+        56,
+        77
+      ],
+      "rationale": "Magical trickster/caster predator.",
+      "types": [
+        "Server.Mobiles.BakeKitsune"
+      ]
+    },
+    {
+      "id": "revenant-lion",
+      "reference": "reanimatedhorde2",
+      "levels": [
+        33,
+        62,
+        82
+      ],
+      "rationale": "Strong undead predator.",
+      "types": [
+        "Server.Mobiles.RevenantLion"
+      ]
+    },
+    {
+      "id": "hell-hound",
+      "reference": "vampire1",
+      "levels": [
+        18,
+        48,
+        79
+      ],
+      "rationale": "Fire-oriented hunting beast.",
+      "types": [
+        "Server.Mobiles.HellCat",
+        "Server.Mobiles.HellHound",
+        "Server.Mobiles.PredatorHellCat"
+      ]
+    },
+    {
+      "id": "giant-rat",
+      "reference": "quillrat1",
+      "levels": [
+        1,
+        36,
+        67
+      ],
+      "rationale": "Early hostile rodent.",
+      "types": [
+        "Server.Mobiles.GiantRat"
+      ]
+    },
+    {
+      "id": "snake",
+      "reference": "quillrat1",
+      "levels": [
+        3,
+        38,
+        69
+      ],
+      "rationale": "Small venomous hazard.",
+      "types": [
+        "Server.Mobiles.IceSnake",
+        "Server.Mobiles.LavaSnake",
+        "Server.Mobiles.Snake"
+      ]
+    },
+    {
+      "id": "large-serpent",
+      "reference": "clawviper1",
+      "levels": [
+        11,
+        43,
+        75
+      ],
+      "rationale": "Dangerous larger venomous reptile.",
+      "types": [
+        "Server.Mobiles.GiantSerpent",
+        "Server.Mobiles.IceSerpent",
+        "Server.Mobiles.LavaSerpent",
+        "Server.Mobiles.SilverSerpent"
+      ]
+    },
+    {
+      "id": "lava-lizard",
+      "reference": "clawviper2",
+      "levels": [
+        12,
+        42,
+        73
+      ],
+      "rationale": "Fire-adapted reptile.",
+      "types": [
+        "Server.Mobiles.LavaLizard"
+      ]
+    },
+    {
+      "id": "alligator",
+      "reference": "clawviper1",
+      "levels": [
+        6,
+        38,
+        70
+      ],
+      "rationale": "Large reptilian predator.",
+      "types": [
+        "Server.Mobiles.Alligator"
+      ]
+    },
+    {
+      "id": "raptor",
+      "reference": "sandleaper3",
+      "levels": [
+        17,
+        46,
+        77
+      ],
+      "rationale": "Fast reptilian predator.",
+      "types": [
+        "Server.Mobiles.Raptor"
+      ]
+    },
+    {
+      "id": "slith",
+      "reference": "clawviper2",
+      "levels": [
+        15,
+        45,
+        76
+      ],
+      "rationale": "Reptilian predator.",
+      "types": [
+        "Server.Mobiles.Slith"
+      ]
+    },
+    {
+      "id": "stone-slith",
+      "reference": "clawviper4",
+      "levels": [
+        22,
+        51,
+        82
+      ],
+      "rationale": "Armoured reptilian predator.",
+      "types": [
+        "Server.Mobiles.StoneSlith"
+      ]
+    },
+    {
+      "id": "toxic-slith",
+      "reference": "clawviper5",
+      "levels": [
+        24,
+        54,
+        85
+      ],
+      "rationale": "Advanced venomous reptilian predator.",
+      "types": [
+        "Server.Mobiles.ToxicSlith"
+      ]
+    },
+    {
+      "id": "toad",
+      "reference": "frogdemon1",
+      "levels": [
+        5,
+        36,
+        67
+      ],
+      "rationale": "Amphibian predator.",
+      "types": [
+        "Server.Mobiles.BullFrog",
+        "Server.Mobiles.GiantToad"
+      ]
+    },
+    {
+      "id": "black-bear",
+      "reference": "brute1",
+      "levels": [
+        5,
+        39,
+        71
+      ],
+      "rationale": "Wild bear; slow early brute analogue.",
+      "types": [
+        "Server.Mobiles.BlackBear"
+      ]
+    },
+    {
+      "id": "brown-bear",
+      "reference": "brute2",
+      "levels": [
+        7,
+        40,
+        71
+      ],
+      "rationale": "Wild bear; heavier brute analogue.",
+      "types": [
+        "Server.Mobiles.BrownBear"
+      ]
+    },
+    {
+      "id": "grizzly-bear",
+      "reference": "brute3",
+      "levels": [
+        9,
+        40,
+        70
+      ],
+      "rationale": "Large wild bear.",
+      "types": [
+        "Server.Mobiles.GrizzlyBear"
+      ]
+    },
+    {
+      "id": "polar-bear",
+      "reference": "snowyeti1",
+      "levels": [
+        12,
+        36,
+        67
+      ],
+      "rationale": "Cold-adapted wild bear.",
+      "types": [
+        "Server.Mobiles.PolarBear"
+      ]
+    },
+    {
+      "id": "raging-grizzly",
+      "reference": "brute4",
+      "levels": [
+        19,
+        48,
+        79
+      ],
+      "rationale": "Aggressive advanced bear.",
+      "types": [
+        "Server.Mobiles.RagingGrizzlyBear"
+      ]
+    },
+    {
+      "id": "wolf",
+      "reference": "quillrat2",
+      "levels": [
+        4,
+        37,
+        67
+      ],
+      "rationale": "Early wild predator.",
+      "types": [
+        "Server.Mobiles.GreyWolf",
+        "Server.Mobiles.TimberWolf"
+      ]
+    },
+    {
+      "id": "white-wolf",
+      "reference": "quillrat3",
+      "levels": [
+        6,
+        37,
+        67
+      ],
+      "rationale": "Stronger wild predator.",
+      "types": [
+        "Server.Mobiles.WhiteWolf"
+      ]
+    },
+    {
+      "id": "dire-wolf",
+      "reference": "brute3",
+      "levels": [
+        8,
+        39,
+        69
+      ],
+      "rationale": "Large aggressive pack predator.",
+      "types": [
+        "Server.Mobiles.DireWolf"
+      ]
+    },
+    {
+      "id": "cat-predator",
+      "reference": "sandleaper1",
+      "levels": [
+        7,
+        36,
+        68
+      ],
+      "rationale": "Agile wild feline.",
+      "types": [
+        "Server.Mobiles.Cougar",
+        "Server.Mobiles.Panther",
+        "Server.Mobiles.SnowLeopard"
+      ]
+    },
+    {
+      "id": "gorilla",
+      "reference": "baboon1",
+      "levels": [
+        10,
+        39,
+        70
+      ],
+      "rationale": "Large wild primate.",
+      "types": [
+        "Server.Mobiles.Gorilla"
+      ]
+    },
+    {
+      "id": "gaman",
+      "reference": "brute3",
+      "levels": [
+        10,
+        41,
+        71
+      ],
+      "rationale": "Large sturdy wild animal.",
+      "types": [
+        "Server.Mobiles.Gaman"
+      ]
+    },
+    {
+      "id": "phoenix",
+      "reference": "vampire2",
+      "levels": [
+        26,
+        57,
+        85
+      ],
+      "rationale": "Powerful fire creature.",
+      "types": [
+        "Server.Mobiles.Phoenix"
+      ]
+    },
+    {
+      "id": "vorpal-bunny",
+      "reference": "sandleaper5",
+      "levels": [
+        26,
+        56,
+        82
+      ],
+      "rationale": "Magical aggressive rabbit; ordinary high-tier skirmisher.",
+      "types": [
+        "Server.Mobiles.VorpalBunny"
+      ]
+    },
+    {
+      "id": "cu-sidhe",
+      "reference": "bloodlord1",
+      "levels": [
+        32,
+        60,
+        81
+      ],
+      "rationale": "Powerful magical hunting beast.",
+      "types": [
+        "Server.Mobiles.CuSidhe"
+      ]
+    },
+    {
+      "id": "hiryu",
+      "reference": "megademon2",
+      "levels": [
+        32,
+        61,
+        85
+      ],
+      "rationale": "Large magical flying reptile.",
+      "types": [
+        "Server.Mobiles.Hiryu"
+      ]
+    },
+    {
+      "id": "lesser-hiryu",
+      "reference": "megademon1",
+      "levels": [
+        24,
+        55,
+        82
+      ],
+      "rationale": "Lesser magical flying reptile.",
+      "types": [
+        "Server.Mobiles.LesserHiryu"
+      ]
+    },
+    {
+      "id": "nightmare",
+      "reference": "megademon1",
+      "levels": [
+        24,
+        55,
+        82
+      ],
+      "rationale": "Dangerous fire-breathing equine.",
+      "types": [
+        "Server.Mobiles.FireSteed",
+        "Server.Mobiles.HellSteed",
+        "Server.Mobiles.Nightmare"
+      ]
+    },
+    {
+      "id": "kirin",
+      "reference": "cantor3",
+      "levels": [
+        24,
+        53,
+        82
+      ],
+      "rationale": "Powerful magical beast; native friendly alignment retained.",
+      "types": [
+        "Server.Mobiles.Kirin",
+        "Server.Mobiles.Unicorn"
+      ]
+    },
+    {
+      "id": "swamp-dragon",
+      "reference": "clawviper3",
+      "levels": [
+        18,
+        46,
+        77
+      ],
+      "rationale": "Heavy armoured swamp reptile.",
+      "types": [
+        "Server.Mobiles.ScaledSwampDragon",
+        "Server.Mobiles.SwampDragon"
+      ]
+    },
+    {
+      "id": "beetle-mount",
+      "reference": "scarab3",
+      "levels": [
+        17,
+        45,
+        84
+      ],
+      "rationale": "Large wild beetle; tame/summoned victims excluded.",
+      "types": [
+        "Server.Mobiles.Beetle",
+        "Server.Mobiles.FireBeetle"
+      ]
+    },
+    {
+      "id": "ridgeback",
+      "reference": "sandleaper1",
+      "levels": [
+        10,
+        39,
+        71
+      ],
+      "rationale": "Small reptilian predator.",
+      "types": [
+        "Server.Mobiles.Ridgeback",
+        "Server.Mobiles.SavageRidgeback"
+      ]
+    },
+    {
+      "id": "frenzied-ostard",
+      "reference": "sandleaper2",
+      "levels": [
+        15,
+        44,
+        76
+      ],
+      "rationale": "Aggressive flightless hunting bird.",
+      "types": [
+        "Server.Mobiles.FrenziedOstard"
+      ]
+    },
+    {
+      "id": "skeletal-mount",
+      "reference": "skeleton4",
+      "levels": [
+        13,
+        43,
+        74
+      ],
+      "rationale": "Undead mount; owned instances excluded.",
+      "types": [
+        "Server.Mobiles.SkeletalMount"
+      ]
+    },
+    {
+      "id": "dark-guardian",
+      "reference": "doomknight1",
+      "levels": [
+        24,
+        56,
+        82
+      ],
+      "rationale": "Hostile armored guardian.",
+      "types": [
+        "Server.Mobiles.DarkGuardian"
+      ]
+    },
+    {
+      "id": "servant-of-semidar",
+      "reference": "megademon2",
+      "levels": [
+        27,
+        56,
+        83
+      ],
+      "rationale": "Ordinary demon servant; no act-boss reward.",
+      "types": [
+        "Server.Mobiles.ServantOfSemidar"
+      ]
+    },
+    {
+      "id": "event-pumpkin",
+      "reference": "reanimatedhorde2",
+      "levels": [
+        33,
+        62,
+        82
+      ],
+      "rationale": "Hostile seasonal monster, ordinary advanced undead tier.",
+      "types": [
+        "Server.Mobiles.PumpkinHead"
+      ]
+    },
+    {
+      "id": "named-heavy-brute",
+      "reference": "blunderbore3",
+      "levels": [
+        28,
+        58,
+        85
+      ],
+      "rationale": "Named ordinary heavy brute.",
+      "types": [
+        "Server.Mobiles.Lurg",
+        "Server.Mobiles.MougGuur"
+      ]
+    },
+    {
+      "id": "named-bear",
+      "reference": "brute5",
+      "levels": [
+        25,
+        55,
+        85
+      ],
+      "rationale": "Named ordinary bear.",
+      "types": [
+        "Server.Mobiles.Grobu"
+      ]
+    },
+    {
+      "id": "named-reptalon",
+      "reference": "megademon3",
+      "levels": [
+        38,
+        65,
+        85
+      ],
+      "rationale": "Named advanced reptalon.",
+      "types": [
+        "Server.Mobiles.Rend"
+      ]
+    },
+    {
+      "id": "named-phoenix",
+      "reference": "vampire4",
+      "levels": [
+        34,
+        64,
+        85
+      ],
+      "rationale": "Named ordinary fire bird.",
+      "types": [
+        "Server.Mobiles.Pyre"
+      ]
+    },
+    {
+      "id": "named-scorpion",
+      "reference": "scarab5",
+      "levels": [
+        35,
+        65,
+        85
+      ],
+      "rationale": "Named ordinary venomous arthropod.",
+      "types": [
+        "Server.Mobiles.Miasma"
+      ]
+    },
+    {
+      "id": "named-undead",
+      "reference": "reanimatedhorde4",
+      "levels": [
+        40,
+        64,
+        84
+      ],
+      "rationale": "Named advanced undead, no boss multiplier.",
+      "types": [
+        "Server.Mobiles.LadyJennifyr",
+        "Server.Mobiles.LadyMarai",
+        "Server.Mobiles.RedDeath",
+        "Server.Mobiles.SirPatrick"
+      ]
+    },
+    {
+      "id": "named-undead-caster",
+      "reference": "doomknight3",
+      "levels": [
+        38,
+        66,
+        85
+      ],
+      "rationale": "Named advanced undead caster.",
+      "types": [
+        "Server.Mobiles.MasterJonath",
+        "Server.Mobiles.MasterMikael"
+      ]
+    },
+    {
+      "id": "named-mage",
+      "reference": "cantor3",
+      "levels": [
+        36,
+        65,
+        85
+      ],
+      "rationale": "Named advanced humanoid caster.",
+      "types": [
+        "Server.Mobiles.MasterTheophilus"
+      ]
+    },
+    {
+      "id": "named-hydra",
+      "reference": "clawviper5",
+      "levels": [
+        38,
+        68,
+        85
+      ],
+      "rationale": "Named advanced multi-headed reptile.",
+      "types": [
+        "Server.Mobiles.Abscess"
+      ]
+    },
+    {
+      "id": "named-harpy",
+      "reference": "vulture4",
+      "levels": [
+        28,
+        55,
+        85
+      ],
+      "rationale": "Named advanced winged attacker.",
+      "types": [
+        "Server.Mobiles.Saliva"
+      ]
+    },
+    {
+      "id": "named-balron",
+      "reference": "megademon3",
+      "levels": [
+        40,
+        67,
+        85
+      ],
+      "rationale": "Named advanced demon.",
+      "types": [
+        "Server.Mobiles.Putrefier"
+      ]
+    },
+    {
+      "id": "named-serpent",
+      "reference": "clawviper5",
+      "levels": [
+        34,
+        64,
+        85
+      ],
+      "rationale": "Named venomous reptile.",
+      "types": [
+        "Server.Mobiles.Coil",
+        "Server.Mobiles.Thrasher"
+      ]
+    },
+    {
+      "id": "named-wolf",
+      "reference": "bloodlord1",
+      "levels": [
+        32,
+        60,
+        81
+      ],
+      "rationale": "Named advanced pack predator.",
+      "types": [
+        "Server.Mobiles.Gnaw"
+      ]
+    },
+    {
+      "id": "named-spider",
+      "reference": "arach5",
+      "levels": [
+        30,
+        60,
+        85
+      ],
+      "rationale": "Named advanced venomous spider.",
+      "types": [
+        "Server.Mobiles.LadyLissith",
+        "Server.Mobiles.LadySabrix",
+        "Server.Mobiles.Silk"
+      ]
+    },
+    {
+      "id": "named-dread-spider",
+      "reference": "arach5",
+      "levels": [
+        34,
+        64,
+        85
+      ],
+      "rationale": "Named advanced venomous spider.",
+      "types": [
+        "Server.Mobiles.Malefic",
+        "Server.Mobiles.Virulent"
+      ]
+    },
+    {
+      "id": "named-changeling",
+      "reference": "succubuswitch3",
+      "levels": [
+        35,
+        62,
+        83
+      ],
+      "rationale": "Named hostile shapeshifting caster.",
+      "types": [
+        "Server.Mobiles.Guile",
+        "Server.Mobiles.Irk",
+        "Server.Mobiles.Spite"
+      ]
+    },
+    {
+      "id": "named-bird",
+      "reference": "vulture4",
+      "levels": [
+        30,
+        57,
+        85
+      ],
+      "rationale": "Named dangerous bird.",
+      "types": [
+        "Server.Mobiles.Swoop"
+      ]
+    },
+    {
+      "id": "named-ratman-mage",
+      "reference": "fetishshaman3",
+      "levels": [
+        28,
+        55,
+        85
+      ],
+      "rationale": "Named advanced tribal caster.",
+      "types": [
+        "Server.Mobiles.Chiikkaha"
+      ]
+    },
+    {
+      "id": "named-succubus",
+      "reference": "succubus3",
+      "levels": [
+        34,
+        61,
+        82
+      ],
+      "rationale": "Named advanced demon caster.",
+      "types": [
+        "Server.Mobiles.Szavetra"
+      ]
+    },
+    {
+      "id": "boss-reserved",
+      "reference": null,
+      "levels": null,
+      "rationale": "Champion/peerless/boss encounter reserved for a manual dungeon-boss profile; no imported act-boss reward.",
+      "types": [
+        "Server.Mobiles.Barracoon",
+        "Server.Mobiles.Harrower",
+        "Server.Mobiles.HarrowerTentacles",
+        "Server.Mobiles.Ilhenir",
+        "Server.Mobiles.InterredGrizzle",
+        "Server.Mobiles.LordOaks",
+        "Server.Mobiles.Mephitis",
+        "Server.Mobiles.Meraktus",
+        "Server.Mobiles.Neira",
+        "Server.Mobiles.Rikktor",
+        "Server.Mobiles.Semidar",
+        "Server.Mobiles.Serado",
+        "Server.Mobiles.Silvani",
+        "Server.Mobiles.Tangle",
+        "Server.Mobiles.Twaulo"
+      ]
+    },
+    {
+      "id": "summon-helper",
+      "reference": null,
+      "levels": null,
+      "rationale": "Summon, pet implementation or scripted helper, never a reward target.",
+      "types": [
+        "Sanctuary.SkeletonGuardian",
+        "Server.Engines.Quests.Necro.SummonedPaladin",
+        "Server.Mobiles.ArcaneFey",
+        "Server.Mobiles.ArcaneFiend",
+        "Server.Mobiles.BaseEnraged",
+        "Server.Mobiles.BaseTalismanSummon",
+        "Server.Mobiles.BladeSpirits",
+        "Server.Mobiles.CapturedHordeMinion",
+        "Server.Mobiles.Clone",
+        "Server.Mobiles.DarkWolfFamiliar",
+        "Server.Mobiles.DeathAdder",
+        "Server.Mobiles.EnergyVortex",
+        "Server.Mobiles.EnragedBlackBear",
+        "Server.Mobiles.EnragedEagle",
+        "Server.Mobiles.EnragedHart",
+        "Server.Mobiles.EnragedHind",
+        "Server.Mobiles.EnragedRabbit",
+        "Server.Mobiles.HolyFamiliar",
+        "Server.Mobiles.HolySteed",
+        "Server.Mobiles.HordeMinionFamiliar",
+        "Server.Mobiles.NatureFury",
+        "Server.Mobiles.Revenant",
+        "Server.Mobiles.ShadowWispFamiliar",
+        "Server.Mobiles.UnholyFamiliar",
+        "Server.Mobiles.UnholySteed",
+        "Server.Mobiles.VampireBatFamiliar"
+      ]
+    },
+    {
+      "id": "quest-trial",
+      "reference": null,
+      "levels": null,
+      "rationale": "Scripted training/quest encounter; not an ordinary reward-bearing spawn.",
+      "types": [
+        "Server.Engines.Quests.Haven.MilitiaFighter",
+        "Server.Engines.Quests.Ninja.Henchman",
+        "Server.Engines.Quests.Samurai.CursedSoul",
+        "Server.Engines.Quests.Samurai.DeadlyImp",
+        "Server.Engines.Quests.Samurai.DiseasedCat",
+        "Server.Engines.Quests.Samurai.FierceDragon",
+        "Server.Engines.Quests.Samurai.InjuredWolf",
+        "Server.Engines.Quests.Samurai.YoungNinja",
+        "Server.Engines.Quests.Samurai.YoungRonin"
+      ]
+    },
+    {
+      "id": "event-copy",
+      "reference": null,
+      "levels": null,
+      "rationale": "Player-copy/event helper; avoid repeatable player-derived reward farming.",
+      "types": [
+        "Server.Engines.Events.NaughtyTwin",
+        "Server.Engines.Events.ZombieSkeleton"
+      ]
+    },
+    {
+      "id": "town-guard",
+      "reference": null,
+      "levels": null,
+      "rationale": "Town/faction guard or faction mount; not a PvE XP target.",
+      "types": [
+        "Server.Factions.FactionBerserker",
+        "Server.Factions.FactionDeathKnight",
+        "Server.Factions.FactionDragoon",
+        "Server.Factions.FactionHenchman",
+        "Server.Factions.FactionKnight",
+        "Server.Factions.FactionMercenary",
+        "Server.Factions.FactionNecromancer",
+        "Server.Factions.FactionPaladin",
+        "Server.Factions.FactionSorceress",
+        "Server.Factions.FactionWarHorse",
+        "Server.Factions.FactionWizard",
+        "Server.Mobiles.ChaosGuard",
+        "Server.Mobiles.Guardian",
+        "Server.Mobiles.OrderGuard"
+      ]
+    },
+    {
+      "id": "domestic-wildlife",
+      "reference": null,
+      "levels": null,
+      "rationale": "Domestic, ambient or passive wildlife; no hostile D2 counterpart or livestock XP loop.",
+      "types": [
+        "Server.Mobiles.Bird",
+        "Server.Mobiles.Boar",
+        "Server.Mobiles.Bull",
+        "Server.Mobiles.Cat",
+        "Server.Mobiles.Chicken",
+        "Server.Mobiles.CoMWarHorse",
+        "Server.Mobiles.Cow",
+        "Server.Mobiles.Crane",
+        "Server.Mobiles.DesertOstard",
+        "Server.Mobiles.Dog",
+        "Server.Mobiles.Dolphin",
+        "Server.Mobiles.Eagle",
+        "Server.Mobiles.Ferret",
+        "Server.Mobiles.ForestOstard",
+        "Server.Mobiles.Goat",
+        "Server.Mobiles.GreatHart",
+        "Server.Mobiles.GrizzledMare",
+        "Server.Mobiles.Hind",
+        "Server.Mobiles.Horse",
+        "Server.Mobiles.JackRabbit",
+        "Server.Mobiles.Llama",
+        "Server.Mobiles.MinaxWarHorse",
+        "Server.Mobiles.MountainGoat",
+        "Server.Mobiles.PackHorse",
+        "Server.Mobiles.PackLlama",
+        "Server.Mobiles.Parrot",
+        "Server.Mobiles.Pig",
+        "Server.Mobiles.Rabbit",
+        "Server.Mobiles.Rat",
+        "Server.Mobiles.RidableLlama",
+        "Server.Mobiles.SLWarHorse",
+        "Server.Mobiles.SeaHorse",
+        "Server.Mobiles.SewerRat",
+        "Server.Mobiles.Sheep",
+        "Server.Mobiles.SilverSteed",
+        "Server.Mobiles.Squirrel",
+        "Server.Mobiles.TBWarHorse",
+        "Server.Mobiles.TropicalBird",
+        "Server.Mobiles.Walrus"
+      ]
+    },
+    {
+      "id": "vendors",
+      "reference": null,
+      "levels": null,
+      "rationale": "Vendor/service NPC; never a reward target.",
+      "types": [
+        "Server.Engines.ConPVP.TournamentRegistrar",
+        "Server.Engines.MLQuests.Definitions.Aelorn",
+        "Server.Engines.MLQuests.Definitions.AmeliaYoungstone",
+        "Server.Engines.MLQuests.Definitions.GeorgeHephaestus",
+        "Server.Engines.MLQuests.Definitions.Hamato",
+        "Server.Engines.MLQuests.Definitions.Morganna",
+        "Server.Engines.MLQuests.Definitions.Mulcivikh",
+        "Server.Engines.MLQuests.Definitions.Robyn",
+        "Server.Engines.MLQuests.Definitions.Ryuichi",
+        "Server.Engines.MLQuests.Mobiles.SirHelper",
+        "Server.Engines.Quests.Ambitious.BlackAmbitiousSolenQueen",
+        "Server.Engines.Quests.Ambitious.RedAmbitiousSolenQueen",
+        "Server.Engines.Quests.Collector.AlbertaGiacco",
+        "Server.Engines.Quests.Collector.ElwoodMcCarrin",
+        "Server.Engines.Quests.Collector.GabrielPiete",
+        "Server.Engines.Quests.Collector.Impresario",
+        "Server.Engines.Quests.Collector.TomasONeerlan",
+        "Server.Engines.Quests.Doom.Chyloth",
+        "Server.Engines.Quests.Doom.Victoria",
+        "Server.Engines.Quests.Hag.Blackheart",
+        "Server.Engines.Quests.Hag.Grizelda",
+        "Server.Engines.Quests.Hag.Zeefzorpul",
+        "Server.Engines.Quests.Haven.Dryad",
+        "Server.Engines.Quests.Haven.MansionGuard",
+        "Server.Engines.Quests.Haven.MilitiaCanoneer",
+        "Server.Engines.Quests.Haven.Schmendrick",
+        "Server.Engines.Quests.Haven.Uzeraan",
+        "Server.Engines.Quests.Matriarch.BlackSolenMatriarch",
+        "Server.Engines.Quests.Matriarch.RedSolenMatriarch",
+        "Server.Engines.Quests.Naturalist.Naturalist",
+        "Server.Engines.Quests.Necro.Horus",
+        "Server.Engines.Quests.Necro.Maabus",
+        "Server.Engines.Quests.Necro.Mardoth",
+        "Server.Engines.Quests.Ninja.Emino",
+        "Server.Engines.Quests.Ninja.EnshroudedFigure",
+        "Server.Engines.Quests.Ninja.HiddenFigure",
+        "Server.Engines.Quests.Ninja.JedahEntille",
+        "Server.Engines.Quests.Ninja.Zoel",
+        "Server.Engines.Quests.Samurai.Haochi",
+        "Server.Engines.Quests.Samurai.HaochisGuardsman",
+        "Server.Engines.Quests.Samurai.Relnia",
+        "Server.Engines.Quests.Zento.AnsellaGryen",
+        "Server.Factions.FactionBoardVendor",
+        "Server.Factions.FactionBottleVendor",
+        "Server.Factions.FactionHorseVendor",
+        "Server.Factions.FactionOreVendor",
+        "Server.Factions.FactionReagentVendor",
+        "Server.Mobiles.Alchemist",
+        "Server.Mobiles.AnimalTrainer",
+        "Server.Mobiles.Architect",
+        "Server.Mobiles.Armorer",
+        "Server.Mobiles.Baker",
+        "Server.Mobiles.Banker",
+        "Server.Mobiles.Bard",
+        "Server.Mobiles.BardGuildmaster",
+        "Server.Mobiles.Barkeeper",
+        "Server.Mobiles.Beekeeper",
+        "Server.Mobiles.Blacksmith",
+        "Server.Mobiles.BlacksmithGuildmaster",
+        "Server.Mobiles.Bowyer",
+        "Server.Mobiles.Butcher",
+        "Server.Mobiles.Carpenter",
+        "Server.Mobiles.Cobbler",
+        "Server.Mobiles.Cook",
+        "Server.Mobiles.CustomHairstylist",
+        "Server.Mobiles.EvilHealer",
+        "Server.Mobiles.EvilWanderingHealer",
+        "Server.Mobiles.Farmer",
+        "Server.Mobiles.FisherGuildmaster",
+        "Server.Mobiles.Fisherman",
+        "Server.Mobiles.FortuneTeller",
+        "Server.Mobiles.Furtrader",
+        "Server.Mobiles.Glassblower",
+        "Server.Mobiles.GolemCrafter",
+        "Server.Mobiles.GypsyAnimalTrainer",
+        "Server.Mobiles.GypsyBanker",
+        "Server.Mobiles.GypsyMaiden",
+        "Server.Mobiles.HairStylist",
+        "Server.Mobiles.Healer",
+        "Server.Mobiles.HealerGuildmaster",
+        "Server.Mobiles.Herbalist",
+        "Server.Mobiles.HolyMage",
+        "Server.Mobiles.IharaSoko",
+        "Server.Mobiles.InnKeeper",
+        "Server.Mobiles.IronWorker",
+        "Server.Mobiles.Jeweler",
+        "Server.Mobiles.KeeperOfChivalry",
+        "Server.Mobiles.LeatherWorker",
+        "Server.Mobiles.Mage",
+        "Server.Mobiles.MageGuildmaster",
+        "Server.Mobiles.Mapmaker",
+        "Server.Mobiles.MerchantGuildmaster",
+        "Server.Mobiles.Miller",
+        "Server.Mobiles.Miner",
+        "Server.Mobiles.MinerGuildmaster",
+        "Server.Mobiles.Minter",
+        "Server.Mobiles.Monk",
+        "Server.Mobiles.PlayerBarkeeper",
+        "Server.Mobiles.PricedHealer",
+        "Server.Mobiles.Provisioner",
+        "Server.Mobiles.Rancher",
+        "Server.Mobiles.Ranger",
+        "Server.Mobiles.RangerGuildmaster",
+        "Server.Mobiles.RealEstateBroker",
+        "Server.Mobiles.Scribe",
+        "Server.Mobiles.Shipwright",
+        "Server.Mobiles.StoneCrafter",
+        "Server.Mobiles.Tailor",
+        "Server.Mobiles.TailorGuildmaster",
+        "Server.Mobiles.Tanner",
+        "Server.Mobiles.TavernKeeper",
+        "Server.Mobiles.Thief",
+        "Server.Mobiles.ThiefGuildmaster",
+        "Server.Mobiles.Tinker",
+        "Server.Mobiles.TinkerGuildmaster",
+        "Server.Mobiles.Vagabond",
+        "Server.Mobiles.VarietyDealer",
+        "Server.Mobiles.Veterinarian",
+        "Server.Mobiles.Waiter",
+        "Server.Mobiles.WanderingHealer",
+        "Server.Mobiles.WarriorGuildmaster",
+        "Server.Mobiles.Weaponsmith",
+        "Server.Mobiles.Weaver"
+      ]
+    },
+    {
+      "id": "quest-npcs",
+      "reference": null,
+      "levels": null,
+      "rationale": "Quest giver, escort or invulnerable quest helper; never an ordinary monster reward.",
+      "types": [
+        "Server.Engines.MLQuests.Definitions.Aeluva",
+        "Server.Engines.MLQuests.Definitions.Aernya",
+        "Server.Engines.MLQuests.Definitions.Ahie",
+        "Server.Engines.MLQuests.Definitions.AldenArmstrong",
+        "Server.Engines.MLQuests.Definitions.Alefian",
+        "Server.Engines.MLQuests.Definitions.Alejaha",
+        "Server.Engines.MLQuests.Definitions.Alelle",
+        "Server.Engines.MLQuests.Definitions.Aluniol",
+        "Server.Engines.MLQuests.Definitions.AndreasVesalius",
+        "Server.Engines.MLQuests.Definitions.Andric",
+        "Server.Engines.MLQuests.Definitions.Andros",
+        "Server.Engines.MLQuests.Definitions.Aniel",
+        "Server.Engines.MLQuests.Definitions.Anolly",
+        "Server.Engines.MLQuests.Definitions.Arielle",
+        "Server.Engines.MLQuests.Definitions.Asandos",
+        "Server.Engines.MLQuests.Definitions.Athailon",
+        "Server.Engines.MLQuests.Definitions.Aulan",
+        "Server.Engines.MLQuests.Definitions.Aurelia",
+        "Server.Engines.MLQuests.Definitions.Avicenna",
+        "Server.Engines.MLQuests.Definitions.Belulah",
+        "Server.Engines.MLQuests.Definitions.Ben",
+        "Server.Engines.MLQuests.Definitions.Beotham",
+        "Server.Engines.MLQuests.Definitions.Bolaevin",
+        "Server.Engines.MLQuests.Definitions.Braen",
+        "Server.Engines.MLQuests.Definitions.Bravehorn",
+        "Server.Engines.MLQuests.Definitions.BravehornsMate",
+        "Server.Engines.MLQuests.Definitions.Brinnae",
+        "Server.Engines.MLQuests.Definitions.Caelas",
+        "Server.Engines.MLQuests.Definitions.Cailla",
+        "Server.Engines.MLQuests.Definitions.Canir",
+        "Server.Engines.MLQuests.Definitions.Chiyo",
+        "Server.Engines.MLQuests.Definitions.Churchill",
+        "Server.Engines.MLQuests.Definitions.Ciala",
+        "Server.Engines.MLQuests.Definitions.Cillitha",
+        "Server.Engines.MLQuests.Definitions.Clairesse",
+        "Server.Engines.MLQuests.Definitions.Clehin",
+        "Server.Engines.MLQuests.Definitions.Cloorne",
+        "Server.Engines.MLQuests.Definitions.Daelas",
+        "Server.Engines.MLQuests.Definitions.Dallid",
+        "Server.Engines.MLQuests.Definitions.Danoel",
+        "Server.Engines.MLQuests.Definitions.Dimethro",
+        "Server.Engines.MLQuests.Definitions.Drithen",
+        "Server.Engines.MLQuests.Definitions.ElderAbbein",
+        "Server.Engines.MLQuests.Definitions.ElderAcob",
+        "Server.Engines.MLQuests.Definitions.ElderAlethanian",
+        "Server.Engines.MLQuests.Definitions.ElderBrae",
+        "Server.Engines.MLQuests.Definitions.ElderJothan",
+        "Server.Engines.MLQuests.Definitions.ElderMallew",
+        "Server.Engines.MLQuests.Definitions.ElderOnallan",
+        "Server.Engines.MLQuests.Definitions.ElderTaellia",
+        "Server.Engines.MLQuests.Definitions.ElderVicaie",
+        "Server.Engines.MLQuests.Definitions.Emerillo",
+        "Server.Engines.MLQuests.Definitions.Emilio",
+        "Server.Engines.MLQuests.Definitions.Enigma",
+        "Server.Engines.MLQuests.Definitions.Evan",
+        "Server.Engines.MLQuests.Definitions.Frederic",
+        "Server.Engines.MLQuests.Definitions.Gervis",
+        "Server.Engines.MLQuests.Definitions.Gorrow",
+        "Server.Engines.MLQuests.Definitions.GrandpaCharley",
+        "Server.Engines.MLQuests.Definitions.Gustar",
+        "Server.Engines.MLQuests.Definitions.Hargrove",
+        "Server.Engines.MLQuests.Definitions.Huntsman",
+        "Server.Engines.MLQuests.Definitions.Iosep",
+        "Server.Engines.MLQuests.Definitions.JacobWaltz",
+        "Server.Engines.MLQuests.Definitions.Jamal",
+        "Server.Engines.MLQuests.Definitions.Jelrice",
+        "Server.Engines.MLQuests.Definitions.Jillian",
+        "Server.Engines.MLQuests.Definitions.Jockles",
+        "Server.Engines.MLQuests.Definitions.Jun",
+        "Server.Engines.MLQuests.Definitions.Jusae",
+        "Server.Engines.MLQuests.Definitions.Kaelynna",
+        "Server.Engines.MLQuests.Definitions.Kashiel",
+        "Server.Engines.MLQuests.Definitions.Kia",
+        "Server.Engines.MLQuests.Definitions.Koole",
+        "Server.Engines.MLQuests.Definitions.Landy",
+        "Server.Engines.MLQuests.Definitions.Leon",
+        "Server.Engines.MLQuests.Definitions.Lissbet",
+        "Server.Engines.MLQuests.Definitions.Lohn",
+        "Server.Engines.MLQuests.Definitions.LorekeeperAneen",
+        "Server.Engines.MLQuests.Definitions.LorekeeperBroolol",
+        "Server.Engines.MLQuests.Definitions.LorekeeperCalendor",
+        "Server.Engines.MLQuests.Definitions.LorekeeperNillaen",
+        "Server.Engines.MLQuests.Definitions.LorekeeperOolua",
+        "Server.Engines.MLQuests.Definitions.LorekeeperRollarn",
+        "Server.Engines.MLQuests.Definitions.LorekeeperRyal",
+        "Server.Engines.MLQuests.Definitions.LorekeeperSiarra",
+        "Server.Engines.MLQuests.Definitions.Lowel",
+        "Server.Engines.MLQuests.Definitions.Lyle",
+        "Server.Engines.MLQuests.Definitions.MasterGnosos",
+        "Server.Engines.MLQuests.Definitions.MaulTheBear",
+        "Server.Engines.MLQuests.Definitions.Mielan",
+        "Server.Engines.MLQuests.Definitions.Mithneral",
+        "Server.Engines.MLQuests.Definitions.Mugg",
+        "Server.Engines.MLQuests.Definitions.Nibbet",
+        "Server.Engines.MLQuests.Definitions.Norton",
+        "Server.Engines.MLQuests.Definitions.Nythalia",
+        "Server.Engines.MLQuests.Definitions.Olaeni",
+        "Server.Engines.MLQuests.Definitions.Olla",
+        "Server.Engines.MLQuests.Definitions.Patricus",
+        "Server.Engines.MLQuests.Definitions.Rebinil",
+        "Server.Engines.MLQuests.Definitions.Recaro",
+        "Server.Engines.MLQuests.Definitions.Regina",
+        "Server.Engines.MLQuests.Definitions.Sadrah",
+        "Server.Engines.MLQuests.Definitions.Salaenih",
+        "Server.Engines.MLQuests.Definitions.Saril",
+        "Server.Engines.MLQuests.Definitions.SarsmeaSmythe",
+        "Server.Engines.MLQuests.Definitions.SkeletonOfSzandor",
+        "Server.Engines.MLQuests.Definitions.Sledge",
+        "Server.Engines.MLQuests.Definitions.Sleen",
+        "Server.Engines.MLQuests.Definitions.Strongroot",
+        "Server.Engines.MLQuests.Definitions.Synaeva",
+        "Server.Engines.MLQuests.Definitions.Tallinin",
+        "Server.Engines.MLQuests.Definitions.Tamm",
+        "Server.Engines.MLQuests.Definitions.Thalia",
+        "Server.Engines.MLQuests.Definitions.Thallary",
+        "Server.Engines.MLQuests.Definitions.Tholef",
+        "Server.Engines.MLQuests.Definitions.Tiana",
+        "Server.Engines.MLQuests.Definitions.Tillanil",
+        "Server.Engines.MLQuests.Definitions.Tyeelor",
+        "Server.Engines.MLQuests.Definitions.TylAriadne",
+        "Server.Engines.MLQuests.Definitions.Unoelil",
+        "Server.Engines.MLQuests.Definitions.Vilo",
+        "Server.Engines.MLQuests.Definitions.Waelian",
+        "Server.Engines.MLQuests.Definitions.Walker",
+        "Server.Engines.MLQuests.Definitions.Yellienir",
+        "Server.Engines.MLQuests.Definitions.Yorus",
+        "Server.Engines.MLQuests.Mobiles.Darius",
+        "Server.Engines.MLQuests.Mobiles.Nedrick"
+      ]
+    },
+    {
+      "id": "townfolk",
+      "reference": null,
+      "levels": null,
+      "rationale": "Townfolk, escort or service NPC; not an ordinary monster reward.",
+      "types": [
+        "Server.Mobiles.Actor",
+        "Server.Mobiles.Artist",
+        "Server.Mobiles.BaseEscortable",
+        "Server.Mobiles.BrideGroom",
+        "Server.Mobiles.EscortableMage",
+        "Server.Mobiles.Gypsy",
+        "Server.Mobiles.HarborMaster",
+        "Server.Mobiles.Merchant",
+        "Server.Mobiles.Messenger",
+        "Server.Mobiles.Ninja",
+        "Server.Mobiles.Noble",
+        "Server.Mobiles.Peasant",
+        "Server.Mobiles.Samurai",
+        "Server.Mobiles.Sculptor",
+        "Server.Mobiles.SeekerOfAdventure",
+        "Server.Mobiles.Townfolk.Prisoner"
+      ]
+    },
+    {
+      "id": "hirelings",
+      "reference": null,
+      "levels": null,
+      "rationale": "Hireling implementation; not a reward target.",
+      "types": [
+        "Server.Mobiles.BaseHire",
+        "Server.Mobiles.HireBard",
+        "Server.Mobiles.HireBardArcher",
+        "Server.Mobiles.HireBeggar",
+        "Server.Mobiles.HireFighter",
+        "Server.Mobiles.HireMage",
+        "Server.Mobiles.HirePaladin",
+        "Server.Mobiles.HirePeasant",
+        "Server.Mobiles.HireRanger",
+        "Server.Mobiles.HireRangerArcher",
+        "Server.Mobiles.HireSailor",
+        "Server.Mobiles.HireThief"
+      ]
+    },
+    {
+      "id": "summoned-types",
+      "reference": null,
+      "levels": null,
+      "rationale": "Summon implementation, not an ordinary wild spawn.",
+      "types": [
+        "Server.Mobiles.SummonedAirElemental",
+        "Server.Mobiles.SummonedAntLion",
+        "Server.Mobiles.SummonedArcticOgreLord",
+        "Server.Mobiles.SummonedBakeKitsune",
+        "Server.Mobiles.SummonedBogling",
+        "Server.Mobiles.SummonedBullFrog",
+        "Server.Mobiles.SummonedChicken",
+        "Server.Mobiles.SummonedCow",
+        "Server.Mobiles.SummonedDaemon",
+        "Server.Mobiles.SummonedDoppleganger",
+        "Server.Mobiles.SummonedEarthElemental",
+        "Server.Mobiles.SummonedFireElemental",
+        "Server.Mobiles.SummonedFrostSpider",
+        "Server.Mobiles.SummonedGreatHart",
+        "Server.Mobiles.SummonedLavaSerpent",
+        "Server.Mobiles.SummonedOrcBrute",
+        "Server.Mobiles.SummonedPanther",
+        "Server.Mobiles.SummonedSheep",
+        "Server.Mobiles.SummonedSkeletalKnight",
+        "Server.Mobiles.SummonedVorpalBunny",
+        "Server.Mobiles.SummonedWailingBanshee",
+        "Server.Mobiles.SummonedWaterElemental"
+      ]
+    }
+  ]
+}
