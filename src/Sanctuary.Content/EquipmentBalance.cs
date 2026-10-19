@@ -75,12 +75,14 @@ public static class EquipmentBalance
                 }
                 else if (gear.Slot == GearSlot.Body)
                 {
-                    body = Math.Max(body, WeightPenalty(gear.Weight));
+                    body = Math.Max(body, WeightPenalty(EffectiveWeight(item)));
                 }
             }
         }
         return body + shield;
     }
+    public static GearWeight EffectiveWeight(Item item) => item is BaseArmor { MaterialType: ArmorMaterialType.Bone } && ClassGear.State(item)?.CraftedEquipment == true
+        ? GearWeight.Heavy : ClassGear.Definition(item)?.Weight ?? GearWeight.None;
     // A 10% speed loss means dividing speed by .9, not adding 10% to time.
     public static int RunDelay(int baseDelayMs, int penalty, int bonus = 0)
         => checked((baseDelayMs * 100 + 99 + bonus - penalty) / (100 + bonus - penalty));
@@ -106,6 +108,13 @@ public static class EquipmentBalance
             {
                 throw new InvalidDataException("Invalid normal equipment base.");
             }
+            _bases.Add(basis.Code, basis);
+        }
+        foreach (var basis in BalanceCatalog.Read<NormalBase>("equipment-tier-bases"))
+        {
+            if (basis.Tier is not ("Exceptional" or "Elite") || !_types.ContainsKey(basis.Type)
+                || basis.QualityLevel is < 1 or > 99 || basis.MinDamage > basis.MaxDamage || basis.MinDefense > basis.MaxDefense)
+            { throw new InvalidDataException("Invalid equipment tier base."); }
             _bases.Add(basis.Code, basis);
         }
         foreach (var gear in BalanceCatalog.Read<GearDefinition>("uo-equipment"))

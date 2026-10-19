@@ -11,12 +11,17 @@ namespace Sanctuary;
 public enum GearTier : byte { Normal, Exceptional, Elite }
 public enum CraftQuality : byte { Average, HighQuality, Superior }
 
+public sealed record MaterialRoll(string Code, int Value);
+
 public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, GearRoll Roll)
 {
     public GearTier Tier { get; init; }
     public CraftQuality Quality { get; init; }
     public int NativeSockets { get; init; }
     public int TinkerSockets { get; init; }
+    public bool CraftedEquipment { get; init; }
+    public int DurabilityPercent { get; init; }
+    public MaterialRoll[] MaterialRolls { get; init; } = [];
     public bool Identified { get; init; } = true;
     public int? IdentifiedSaleOffer { get; init; }
     public int SocketCount => NativeSockets + TinkerSockets;
@@ -71,7 +76,7 @@ public sealed class GearProfiles : GenericPersistence
             var affix = state.Roll.Affixes[i];
             affixes[i] = new(affix.Definition, (RolledModifier[])affix.Modifiers.Clone());
         }
-        Store(destination, state with { Roll = state.Roll with { Affixes = affixes } });
+        Store(destination, state with { Roll = state.Roll with { Affixes = affixes }, MaterialRolls = (MaterialRoll[])state.MaterialRolls.Clone() });
     }
     public GearState Convert(Item item, int itemLevel = 1, GearRarity rarity = GearRarity.Normal, Random random = null)
     {
@@ -90,6 +95,7 @@ public sealed class GearProfiles : GenericPersistence
             : AffixBalance.Roll(basis, itemLevel, rarity, random, ClassGear.Implemented);
         int defense = basis == null ? 0 : random.Next(basis.MinDefense, basis.MaxDefense + 1);
         var before = Find(item.Serial) ?? new GearState(definition.BaseCode, defense, false, roll);
+        roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(before.Tier), roll.RequiredLevel) };
         var state = before with { Defense = defense, Roll = roll };
         Validate(item, state);
         _items[item.Serial] = state;
@@ -117,6 +123,7 @@ public sealed class GearProfiles : GenericPersistence
         {
             return null;
         }
+        roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(before?.Tier ?? GearTier.Normal), roll.RequiredLevel) };
         var state = (before ?? DefaultState(item)) with { Roll = roll };
         Validate(item, state);
         return state;
@@ -153,7 +160,7 @@ public sealed class GearProfiles : GenericPersistence
     public static void Validate(Item item, GearState state)
     {
         var definition = ClassGear.Definition(item) ?? throw new InvalidDataException("Unknown saved gear type.");
-        if (state == null || state.Roll == null || state.Tier != GearTier.Normal || !Enum.IsDefined(state.Quality)
+        if (state == null || state.Roll == null || !Enum.IsDefined(state.Tier) || !Enum.IsDefined(state.Quality)
             || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
             || state.TinkerSockets > 5 || state.SocketCount > 5
             || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
@@ -163,7 +170,8 @@ public sealed class GearProfiles : GenericPersistence
         {
             throw new InvalidDataException("Invalid equipment tier, quality, socket provenance or sale offer.");
         }
-        if (state.BaseCode != definition.BaseCode || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
+        if (!EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode)
+            || !EquipmentCrafting.ValidMaterialRolls(item, state) || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
             || state.StarterTeeth && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal))
         {
             throw new InvalidDataException("Invalid converted equipment identity or level.");
@@ -185,7 +193,7 @@ public sealed class GearProfiles : GenericPersistence
             throw new InvalidDataException("Invalid converted base defence or affix count.");
         }
         var groups = new HashSet<int>();
-        int prefixes = 0, suffixes = 0, requirement = basis.RequiredLevel;
+        int prefixes = 0, suffixes = 0, requirement = Math.Max(basis.RequiredLevel, EquipmentCrafting.EquipFloor(state.Tier));
         foreach (var affix in state.Roll.Affixes)
         {
             var source = AffixBalance.Find(affix.Definition.Id);
@@ -218,7 +226,7 @@ public sealed class GearProfiles : GenericPersistence
     }
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(1);
+        writer.Write(2);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -250,12 +258,16 @@ public sealed class GearProfiles : GenericPersistence
             writer.Write(state.TinkerSockets);
             writer.Write(state.Identified);
             writer.Write(state.IdentifiedSaleOffer ?? 0);
+            writer.Write(state.CraftedEquipment);
+            writer.Write(state.DurabilityPercent);
+            writer.Write(state.MaterialRolls.Length);
+            foreach (var material in state.MaterialRolls) { writer.Write(material.Code); writer.Write(material.Value); }
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 1)
+        if (version is < 0 or > 2)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -310,6 +322,15 @@ public sealed class GearProfiles : GenericPersistence
                 int offer = reader.ReadInt();
                 state = state with { Tier = tier, Quality = quality, NativeSockets = nativeSockets,
                     TinkerSockets = tinkerSockets, Identified = identified, IdentifiedSaleOffer = offer == 0 ? null : offer };
+            }
+            if (version >= 2)
+            {
+                bool crafted = reader.ReadBool();
+                int durability = reader.ReadInt(), countMaterials = reader.ReadInt();
+                if (countMaterials is < 0 or > 2) { throw new InvalidDataException("Invalid material roll count."); }
+                var materials = new MaterialRoll[countMaterials];
+                for (int j = 0; j < materials.Length; j++) { materials[j] = new(reader.ReadString(), reader.ReadInt()); }
+                state = state with { CraftedEquipment = crafted, DurabilityPercent = durability, MaterialRolls = materials };
             }
             _items.Add(serial, state);
         }

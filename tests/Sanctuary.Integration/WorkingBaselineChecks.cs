@@ -38,6 +38,16 @@ public static class WorkingBaselineChecks
                             }).ToArray(),
                             Items = p.Items.Select(i => i.Serial.Value).OrderBy(s => s).ToArray()
                         }).ToArray(),
+                        Materials = World.Items.Values.Where(i => i is BaseOre or BaseIngot or Log or Board or BaseHides or BaseLeather
+                            or Cloth or UncutCloth or BoltOfCloth or Wool or BaseClothMaterial or MetalScraps or WoodenChips or LeatherStrips or ClothScraps or Bandage)
+                            .OrderBy(i => i.Serial.Value).Select(i => new
+                            {
+                                Serial = i.Serial.Value, Type = i.GetType().Name, i.Amount, i.ItemID, i.Hue, i.Origin, i.Weight,
+                                CanonicalWeight = MaterialProcessing.Weight(i),
+                                Resource = i switch { BaseOre ore => (int?)ore.Resource, BaseIngot ingot => (int)ingot.Resource,
+                                    Log log => (int)log.Resource, Board board => (int)board.Resource, BaseHides hides => (int)hides.Resource,
+                                    BaseLeather leather => (int)leather.Resource, _ => null }
+                            }).ToArray(),
                         Origins = World.Items.Values.GroupBy(i => i.Origin).OrderBy(g => g.Key)
                             .Select(g => new { Origin = g.Key.ToString(), Count = g.Count() }).ToArray(),
                         Gear = World.Items.Values.Where(i => ClassGear.State(i) != null).OrderBy(i => i.Serial.Value)

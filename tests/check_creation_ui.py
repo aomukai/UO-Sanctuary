@@ -137,7 +137,7 @@ def check(port, combat=False):
                     capture("pets-after-relog.png")
                     command("final")
                     print("Actual client: disconnect/relogin retained guardian identity, health and guard order.", flush=True)
-                if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" or os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" or os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" or os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1":
+                if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" or os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" or os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" or os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" or os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" or os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1":
                     return
                 saved = json.loads((profile / "profile.json").read_text())
                 assert saved["diablo_run"] is False, "Walk preference was not saved to the character profile"

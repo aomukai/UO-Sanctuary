@@ -49,7 +49,7 @@ public static class ProfessionChecks
     }
     private static void Ask(PlayerMobile player, BaseTool tool, bool confirm)
     {
-        tool.OnDoubleClick(player);
+        ClassProfessions.Request(player, tool.CraftSystem.MainSkill, tool, true);
         var pending = ClassProfessions.Pending(player);
         Require(pending != null, "Tool did not request first-profession confirmation");
         Require(ClassProfessions.Respond(player, pending.Token, confirm) == confirm, "Confirmation result differed");
@@ -80,9 +80,9 @@ public static class ProfessionChecks
             trainer.AIObject.AITimer.Stop();
             Ask(player, tool, false);
             Require(ClassProfessions.Profiles.Find(player) == initial && tool.UsesRemaining > 0, "Cancel changed profession or used tool");
-            tool.OnDoubleClick(player);
+            ClassProfessions.Request(player, tool.CraftSystem.MainSkill, tool, true);
             var stale = ClassProfessions.Pending(player);
-            tool.OnDoubleClick(player);
+            ClassProfessions.Request(player, tool.CraftSystem.MainSkill, tool, true);
             var latest = ClassProfessions.Pending(player);
             Require(!ClassProfessions.Respond(player, stale.Token, true), "Stale prompt locked profession");
             tool.Internalize();

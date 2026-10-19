@@ -1,0 +1,1268 @@
+[
+  {
+    "type": "AssassinSpike",
+    "material": "Metal",
+    "source": "Native AssassinSpike",
+    "excludedReason": null
+  },
+  {
+    "type": "Axe",
+    "material": "Metal",
+    "source": "Native Axe",
+    "excludedReason": null
+  },
+  {
+    "type": "Bandana",
+    "material": "Cloth",
+    "source": "Native Bandana",
+    "excludedReason": null
+  },
+  {
+    "type": "Bardiche",
+    "material": "Metal",
+    "source": "Native Bardiche",
+    "excludedReason": null
+  },
+  {
+    "type": "Bascinet",
+    "material": "Metal",
+    "source": "Native Bascinet",
+    "excludedReason": null
+  },
+  {
+    "type": "BattleAxe",
+    "material": "Metal",
+    "source": "Native BattleAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "BearMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "BlackStaff",
+    "material": "Wood",
+    "source": "Analogue GnarledStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "BladedStaff",
+    "material": "Metal",
+    "source": "Native BladedStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "BloodBlade",
+    "material": "Metal",
+    "source": "Analogue Wakizashi",
+    "excludedReason": null
+  },
+  {
+    "type": "Bokuto",
+    "material": "Wood",
+    "source": "Native Bokuto",
+    "excludedReason": null
+  },
+  {
+    "type": "BoneChest",
+    "material": "Bone",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "BoneGloves",
+    "material": "Bone",
+    "source": "Native BoneGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "BoneHarvester",
+    "material": "Bone",
+    "source": "Authored bone equivalent of native 10-ingot recipe",
+    "excludedReason": null
+  },
+  {
+    "type": "BoneHelm",
+    "material": "Bone",
+    "source": "Native BoneHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "Bonnet",
+    "material": "Cloth",
+    "source": "Native Bonnet",
+    "excludedReason": null
+  },
+  {
+    "type": "Boomerang",
+    "material": "Wood",
+    "source": "Native Boomerang",
+    "excludedReason": null
+  },
+  {
+    "type": "Boots",
+    "material": "Leather",
+    "source": "Native Boots",
+    "excludedReason": null
+  },
+  {
+    "type": "Bow",
+    "material": "Wood",
+    "source": "Native Bow",
+    "excludedReason": null
+  },
+  {
+    "type": "Broadsword",
+    "material": "Metal",
+    "source": "Native Broadsword",
+    "excludedReason": null
+  },
+  {
+    "type": "BronzeShield",
+    "material": "Metal",
+    "source": "Native BronzeShield",
+    "excludedReason": null
+  },
+  {
+    "type": "Buckler",
+    "material": "Metal",
+    "source": "Native Buckler",
+    "excludedReason": null
+  },
+  {
+    "type": "ButcherKnife",
+    "material": "Metal",
+    "source": "Native ButcherKnife",
+    "excludedReason": null
+  },
+  {
+    "type": "Cap",
+    "material": "Cloth",
+    "source": "Native Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "ChainChest",
+    "material": "Metal",
+    "source": "Native ChainChest",
+    "excludedReason": null
+  },
+  {
+    "type": "ChainCoif",
+    "material": "Metal",
+    "source": "Native ChainCoif",
+    "excludedReason": null
+  },
+  {
+    "type": "ChainHatsuburi",
+    "material": "Metal",
+    "source": "Native ChainHatsuburi",
+    "excludedReason": null
+  },
+  {
+    "type": "ChaosShield",
+    "material": "Metal",
+    "source": "Native ChaosShield",
+    "excludedReason": null
+  },
+  {
+    "type": "Circlet",
+    "material": "Metal",
+    "source": "Native Circlet",
+    "excludedReason": null
+  },
+  {
+    "type": "Cleaver",
+    "material": "Metal",
+    "source": "Native Cleaver",
+    "excludedReason": null
+  },
+  {
+    "type": "CloseHelm",
+    "material": "Metal",
+    "source": "Native CloseHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "ClothNinjaHood",
+    "material": "Cloth",
+    "source": "Native ClothNinjaHood",
+    "excludedReason": null
+  },
+  {
+    "type": "Club",
+    "material": "Wood",
+    "source": "Analogue QuarterStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "CompositeBow",
+    "material": "Wood",
+    "source": "Native CompositeBow",
+    "excludedReason": null
+  },
+  {
+    "type": "CrescentBlade",
+    "material": "Metal",
+    "source": "Native CrescentBlade",
+    "excludedReason": null
+  },
+  {
+    "type": "Crossbow",
+    "material": "Wood",
+    "source": "Native Crossbow",
+    "excludedReason": null
+  },
+  {
+    "type": "Cutlass",
+    "material": "Metal",
+    "source": "Native Cutlass",
+    "excludedReason": null
+  },
+  {
+    "type": "Cyclone",
+    "material": "Wood",
+    "source": "Native Cyclone",
+    "excludedReason": null
+  },
+  {
+    "type": "Dagger",
+    "material": "Metal",
+    "source": "Native Dagger",
+    "excludedReason": null
+  },
+  {
+    "type": "Daisho",
+    "material": "Metal",
+    "source": "Native Daisho",
+    "excludedReason": null
+  },
+  {
+    "type": "DecorativePlateKabuto",
+    "material": "Metal",
+    "source": "Native DecorativePlateKabuto",
+    "excludedReason": null
+  },
+  {
+    "type": "DeerMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "DiamondMace",
+    "material": "Metal",
+    "source": "Native DiamondMace",
+    "excludedReason": null
+  },
+  {
+    "type": "DiscMace",
+    "material": "Metal",
+    "source": "Analogue Mace",
+    "excludedReason": null
+  },
+  {
+    "type": "DoubleAxe",
+    "material": "Metal",
+    "source": "Native DoubleAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "DoubleBladedStaff",
+    "material": "Metal",
+    "source": "Native DoubleBladedStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "DragonChest",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Dragon material recipe needed"
+  },
+  {
+    "type": "DragonGloves",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Dragon material recipe needed"
+  },
+  {
+    "type": "DragonHelm",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Dragon material recipe needed"
+  },
+  {
+    "type": "DreadSword",
+    "material": "Metal",
+    "source": "Analogue Wakizashi",
+    "excludedReason": null
+  },
+  {
+    "type": "DualPointedSpear",
+    "material": "Metal",
+    "source": "Analogue Spear",
+    "excludedReason": null
+  },
+  {
+    "type": "DualShortAxes",
+    "material": "Metal",
+    "source": "Analogue Axe",
+    "excludedReason": null
+  },
+  {
+    "type": "ElvenBoots",
+    "material": "Leather",
+    "source": "Analogue Boots",
+    "excludedReason": null
+  },
+  {
+    "type": "ElvenCompositeLongbow",
+    "material": "Wood",
+    "source": "Analogue Yumi",
+    "excludedReason": null
+  },
+  {
+    "type": "ElvenMachete",
+    "material": "Metal",
+    "source": "Native ElvenMachete",
+    "excludedReason": null
+  },
+  {
+    "type": "ElvenSpellblade",
+    "material": "Metal",
+    "source": "Native ElvenSpellblade",
+    "excludedReason": null
+  },
+  {
+    "type": "ExecutionersAxe",
+    "material": "Metal",
+    "source": "Native ExecutionersAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "FeatheredHat",
+    "material": "Cloth",
+    "source": "Native FeatheredHat",
+    "excludedReason": null
+  },
+  {
+    "type": "FemaleElvenPlateChest",
+    "material": "Wood",
+    "source": "Analogue WoodlandChest",
+    "excludedReason": null
+  },
+  {
+    "type": "FemaleLeafChest",
+    "material": "Leather",
+    "source": "Analogue LeatherChest",
+    "excludedReason": null
+  },
+  {
+    "type": "FemaleLeatherChest",
+    "material": "Leather",
+    "source": "Native FemaleLeatherChest",
+    "excludedReason": null
+  },
+  {
+    "type": "FemalePlateChest",
+    "material": "Metal",
+    "source": "Native FemalePlateChest",
+    "excludedReason": null
+  },
+  {
+    "type": "FemaleStuddedChest",
+    "material": "Leather",
+    "source": "Native FemaleStuddedChest",
+    "excludedReason": null
+  },
+  {
+    "type": "FloppyHat",
+    "material": "Cloth",
+    "source": "Native FloppyHat",
+    "excludedReason": null
+  },
+  {
+    "type": "FlowerGarland",
+    "material": "Cloth",
+    "source": "Native FlowerGarland",
+    "excludedReason": null
+  },
+  {
+    "type": "FurBoots",
+    "material": "Cloth",
+    "source": "Native FurBoots",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishClothChestType1",
+    "material": "Cloth",
+    "source": "Authored basic cloth baseline",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishClothChestType2",
+    "material": "Cloth",
+    "source": "Authored basic cloth baseline",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishClothKiltType1",
+    "material": "Cloth",
+    "source": "Authored basic cloth baseline",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishClothKiltType2",
+    "material": "Cloth",
+    "source": "Authored basic cloth baseline",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishLeatherChestType1",
+    "material": "Leather",
+    "source": "Native GargishLeatherChestType1",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishLeatherChestType2",
+    "material": "Leather",
+    "source": "Native GargishLeatherChestType2",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishLeatherKiltType1",
+    "material": "Leather",
+    "source": "Native GargishLeatherKiltType1",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishLeatherKiltType2",
+    "material": "Leather",
+    "source": "Native GargishLeatherKiltType2",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishStoneChestType1",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Stone material recipe needed"
+  },
+  {
+    "type": "GargishStoneChestType2",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Stone material recipe needed"
+  },
+  {
+    "type": "GargishStoneKiltType1",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Stone material recipe needed"
+  },
+  {
+    "type": "GargishStoneKiltType2",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated Stone material recipe needed"
+  },
+  {
+    "type": "GargishStuddedChestType1",
+    "material": "Leather",
+    "source": "Native GargishStuddedChestType1",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishStuddedChestType2",
+    "material": "Leather",
+    "source": "Native GargishStuddedChestType2",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishStuddedKiltType1",
+    "material": "Leather",
+    "source": "Native GargishStuddedKiltType1",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishStuddedKiltType2",
+    "material": "Leather",
+    "source": "Native GargishStuddedKiltType2",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishTalwar",
+    "material": "Metal",
+    "source": "Analogue Wakizashi",
+    "excludedReason": null
+  },
+  {
+    "type": "GargishWoodenShield",
+    "material": "Wood",
+    "source": "Analogue WoodenShield",
+    "excludedReason": null
+  },
+  {
+    "type": "GemmedCirclet",
+    "material": "Metal",
+    "source": "Native GemmedCirclet",
+    "excludedReason": null
+  },
+  {
+    "type": "GlassStaff",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated glass/stone material recipe needed"
+  },
+  {
+    "type": "GlassSword",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated glass/stone material recipe needed"
+  },
+  {
+    "type": "GnarledStaff",
+    "material": "Wood",
+    "source": "Native GnarledStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "Halberd",
+    "material": "Metal",
+    "source": "Native Halberd",
+    "excludedReason": null
+  },
+  {
+    "type": "HalfApron",
+    "material": "Cloth",
+    "source": "Native HalfApron",
+    "excludedReason": null
+  },
+  {
+    "type": "HammerPick",
+    "material": "Metal",
+    "source": "Native HammerPick",
+    "excludedReason": null
+  },
+  {
+    "type": "Hatchet",
+    "material": "Metal",
+    "source": "Native Hatchet",
+    "excludedReason": null
+  },
+  {
+    "type": "HeaterShield",
+    "material": "Metal",
+    "source": "Native HeaterShield",
+    "excludedReason": null
+  },
+  {
+    "type": "HeavyCrossbow",
+    "material": "Wood",
+    "source": "Native HeavyCrossbow",
+    "excludedReason": null
+  },
+  {
+    "type": "HeavyPlateJingasa",
+    "material": "Metal",
+    "source": "Native HeavyPlateJingasa",
+    "excludedReason": null
+  },
+  {
+    "type": "Helmet",
+    "material": "Metal",
+    "source": "Native Helmet",
+    "excludedReason": null
+  },
+  {
+    "type": "HideChest",
+    "material": "Leather",
+    "source": "Analogue StuddedChest",
+    "excludedReason": null
+  },
+  {
+    "type": "HideFemaleChest",
+    "material": "Leather",
+    "source": "Analogue FemaleStuddedChest",
+    "excludedReason": null
+  },
+  {
+    "type": "HideGloves",
+    "material": "Leather",
+    "source": "Analogue StuddedGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "HornedTribalMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "JesterHat",
+    "material": "Cloth",
+    "source": "Native JesterHat",
+    "excludedReason": null
+  },
+  {
+    "type": "Kama",
+    "material": "Metal",
+    "source": "Native Kama",
+    "excludedReason": null
+  },
+  {
+    "type": "Kasa",
+    "material": "Cloth",
+    "source": "Native Kasa",
+    "excludedReason": null
+  },
+  {
+    "type": "Katana",
+    "material": "Metal",
+    "source": "Native Katana",
+    "excludedReason": null
+  },
+  {
+    "type": "Kryss",
+    "material": "Metal",
+    "source": "Native Kryss",
+    "excludedReason": null
+  },
+  {
+    "type": "Lajatang",
+    "material": "Metal",
+    "source": "Native Lajatang",
+    "excludedReason": null
+  },
+  {
+    "type": "Lance",
+    "material": "Metal",
+    "source": "Native Lance",
+    "excludedReason": null
+  },
+  {
+    "type": "LargeBattleAxe",
+    "material": "Metal",
+    "source": "Native LargeBattleAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "LeafChest",
+    "material": "Leather",
+    "source": "Analogue LeatherChest",
+    "excludedReason": null
+  },
+  {
+    "type": "LeafGloves",
+    "material": "Leather",
+    "source": "Analogue LeatherGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "Leafblade",
+    "material": "Metal",
+    "source": "Native Leafblade",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherBustierArms",
+    "material": "Leather",
+    "source": "Native LeatherBustierArms",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherCap",
+    "material": "Leather",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherChest",
+    "material": "Leather",
+    "source": "Native LeatherChest",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherDo",
+    "material": "Leather",
+    "source": "Native LeatherDo",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherGloves",
+    "material": "Leather",
+    "source": "Native LeatherGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherJingasa",
+    "material": "Leather",
+    "source": "Native LeatherJingasa",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherNinjaHood",
+    "material": "Leather",
+    "source": "Native LeatherNinjaHood",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherNinjaJacket",
+    "material": "Leather",
+    "source": "Native LeatherNinjaJacket",
+    "excludedReason": null
+  },
+  {
+    "type": "LeatherNinjaMitts",
+    "material": "Leather",
+    "source": "Native LeatherNinjaMitts",
+    "excludedReason": null
+  },
+  {
+    "type": "LightPlateJingasa",
+    "material": "Metal",
+    "source": "Native LightPlateJingasa",
+    "excludedReason": null
+  },
+  {
+    "type": "Longsword",
+    "material": "Metal",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "Mace",
+    "material": "Metal",
+    "source": "Native Mace",
+    "excludedReason": null
+  },
+  {
+    "type": "MagicWand",
+    "material": "Metal",
+    "source": "Authored basic metal baseline",
+    "excludedReason": null
+  },
+  {
+    "type": "MagicWizardsHat",
+    "material": "Cloth",
+    "source": "Analogue WizardsHat",
+    "excludedReason": null
+  },
+  {
+    "type": "MagicalShortbow",
+    "material": "Wood",
+    "source": "Analogue Bow",
+    "excludedReason": null
+  },
+  {
+    "type": "Maul",
+    "material": "Metal",
+    "source": "Native Maul",
+    "excludedReason": null
+  },
+  {
+    "type": "MetalKiteShield",
+    "material": "Metal",
+    "source": "Native MetalKiteShield",
+    "excludedReason": null
+  },
+  {
+    "type": "MetalShield",
+    "material": "Metal",
+    "source": "Native MetalShield",
+    "excludedReason": null
+  },
+  {
+    "type": "NinjaTabi",
+    "material": "Cloth",
+    "source": "Native NinjaTabi",
+    "excludedReason": null
+  },
+  {
+    "type": "NoDachi",
+    "material": "Metal",
+    "source": "Native NoDachi",
+    "excludedReason": null
+  },
+  {
+    "type": "NorseHelm",
+    "material": "Metal",
+    "source": "Native NorseHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "Nunchaku",
+    "material": "Wood",
+    "source": "Native Nunchaku",
+    "excludedReason": null
+  },
+  {
+    "type": "Obi",
+    "material": "Cloth",
+    "source": "Native Obi",
+    "excludedReason": null
+  },
+  {
+    "type": "OrcHelm",
+    "material": "Leather",
+    "source": "Native OrcHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "OrcishKinMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "OrderShield",
+    "material": "Metal",
+    "source": "Native OrderShield",
+    "excludedReason": null
+  },
+  {
+    "type": "OrnateAxe",
+    "material": "Metal",
+    "source": "Native OrnateAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "Pickaxe",
+    "material": "Metal",
+    "source": "Native Pickaxe",
+    "excludedReason": null
+  },
+  {
+    "type": "Pike",
+    "material": "Metal",
+    "source": "Native Pike",
+    "excludedReason": null
+  },
+  {
+    "type": "Pitchfork",
+    "material": "Metal",
+    "source": "Analogue WarFork",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateBattleKabuto",
+    "material": "Metal",
+    "source": "Native PlateBattleKabuto",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateChest",
+    "material": "Metal",
+    "source": "Native PlateChest",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateDo",
+    "material": "Metal",
+    "source": "Native PlateDo",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateGloves",
+    "material": "Metal",
+    "source": "Native PlateGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateHatsuburi",
+    "material": "Metal",
+    "source": "Native PlateHatsuburi",
+    "excludedReason": null
+  },
+  {
+    "type": "PlateHelm",
+    "material": "Metal",
+    "source": "Native PlateHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "PotionBelt",
+    "material": "Cloth",
+    "source": "Authored cloth tabard baseline; existing 3 potion rows retained",
+    "excludedReason": null
+  },
+  {
+    "type": "PotionHeavyBelt",
+    "material": "Cloth",
+    "source": "Authored cloth tabard baseline; existing 3 potion rows retained",
+    "excludedReason": null
+  },
+  {
+    "type": "PotionLightBelt",
+    "material": "Cloth",
+    "source": "Authored cloth tabard baseline; existing 2 potion rows retained",
+    "excludedReason": null
+  },
+  {
+    "type": "PotionPlatedBelt",
+    "material": "Cloth",
+    "source": "Authored cloth tabard baseline; existing 4 potion rows retained",
+    "excludedReason": null
+  },
+  {
+    "type": "PotionSash",
+    "material": "Cloth",
+    "source": "Authored cloth tabard baseline; existing 2 potion rows retained",
+    "excludedReason": null
+  },
+  {
+    "type": "QuarterStaff",
+    "material": "Wood",
+    "source": "Native QuarterStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "RadiantScimitar",
+    "material": "Metal",
+    "source": "Native RadiantScimitar",
+    "excludedReason": null
+  },
+  {
+    "type": "RavenHelm",
+    "material": "Metal",
+    "source": "Native RavenHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "RepeatingCrossbow",
+    "material": "Wood",
+    "source": "Native RepeatingCrossbow",
+    "excludedReason": null
+  },
+  {
+    "type": "RingmailChest",
+    "material": "Metal",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "RingmailGloves",
+    "material": "Metal",
+    "source": "Native RingmailGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "RoyalCirclet",
+    "material": "Metal",
+    "source": "Native RoyalCirclet",
+    "excludedReason": null
+  },
+  {
+    "type": "RuneBlade",
+    "material": "Metal",
+    "source": "Native RuneBlade",
+    "excludedReason": null
+  },
+  {
+    "type": "Sai",
+    "material": "Metal",
+    "source": "Native Sai",
+    "excludedReason": null
+  },
+  {
+    "type": "SamuraiTabi",
+    "material": "Cloth",
+    "source": "Native SamuraiTabi",
+    "excludedReason": null
+  },
+  {
+    "type": "Sandals",
+    "material": "Leather",
+    "source": "Native Sandals",
+    "excludedReason": null
+  },
+  {
+    "type": "SavageMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "Scepter",
+    "material": "Metal",
+    "source": "Native Scepter",
+    "excludedReason": null
+  },
+  {
+    "type": "Scimitar",
+    "material": "Metal",
+    "source": "Native Scimitar",
+    "excludedReason": null
+  },
+  {
+    "type": "Scythe",
+    "material": "Metal",
+    "source": "Native Scythe",
+    "excludedReason": null
+  },
+  {
+    "type": "SerpentstoneStaff",
+    "material": "Unknown",
+    "source": "Ordinary mapped exotic base",
+    "excludedReason": "Dedicated glass/stone material recipe needed"
+  },
+  {
+    "type": "ShepherdsCrook",
+    "material": "Wood",
+    "source": "Native ShepherdsCrook",
+    "excludedReason": null
+  },
+  {
+    "type": "Shoes",
+    "material": "Leather",
+    "source": "Native Shoes",
+    "excludedReason": null
+  },
+  {
+    "type": "ShortSpear",
+    "material": "Metal",
+    "source": "Native ShortSpear",
+    "excludedReason": null
+  },
+  {
+    "type": "SkinningKnife",
+    "material": "Metal",
+    "source": "Native SkinningKnife",
+    "excludedReason": null
+  },
+  {
+    "type": "SkullCap",
+    "material": "Cloth",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "SmallPlateJingasa",
+    "material": "Metal",
+    "source": "Native SmallPlateJingasa",
+    "excludedReason": null
+  },
+  {
+    "type": "SoulGlaive",
+    "material": "Wood",
+    "source": "Native SoulGlaive",
+    "excludedReason": null
+  },
+  {
+    "type": "Spear",
+    "material": "Metal",
+    "source": "Native Spear",
+    "excludedReason": null
+  },
+  {
+    "type": "StandardPlateKabuto",
+    "material": "Metal",
+    "source": "Native StandardPlateKabuto",
+    "excludedReason": null
+  },
+  {
+    "type": "StrawHat",
+    "material": "Cloth",
+    "source": "Native StrawHat",
+    "excludedReason": null
+  },
+  {
+    "type": "StuddedBustierArms",
+    "material": "Leather",
+    "source": "Native StuddedBustierArms",
+    "excludedReason": null
+  },
+  {
+    "type": "StuddedChest",
+    "material": "Leather",
+    "source": "Native StuddedChest",
+    "excludedReason": null
+  },
+  {
+    "type": "StuddedDo",
+    "material": "Leather",
+    "source": "Native StuddedDo",
+    "excludedReason": null
+  },
+  {
+    "type": "StuddedGloves",
+    "material": "Leather",
+    "source": "Native StuddedGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "TallStrawHat",
+    "material": "Cloth",
+    "source": "Native TallStrawHat",
+    "excludedReason": null
+  },
+  {
+    "type": "Tekagi",
+    "material": "Metal",
+    "source": "Native Tekagi",
+    "excludedReason": null
+  },
+  {
+    "type": "Tessen",
+    "material": "Metal",
+    "source": "Native Tessen",
+    "excludedReason": null
+  },
+  {
+    "type": "Tetsubo",
+    "material": "Wood",
+    "source": "Native Tetsubo",
+    "excludedReason": null
+  },
+  {
+    "type": "ThighBoots",
+    "material": "Leather",
+    "source": "Native ThighBoots",
+    "excludedReason": null
+  },
+  {
+    "type": "ThinLongsword",
+    "material": "Metal",
+    "source": "Analogue Wakizashi",
+    "excludedReason": null
+  },
+  {
+    "type": "TribalMask",
+    "material": "Cloth",
+    "source": "Analogue Cap",
+    "excludedReason": null
+  },
+  {
+    "type": "TribalSpear",
+    "material": "Metal",
+    "source": "Analogue Spear",
+    "excludedReason": null
+  },
+  {
+    "type": "TricorneHat",
+    "material": "Cloth",
+    "source": "Native TricorneHat",
+    "excludedReason": null
+  },
+  {
+    "type": "TwoHandedAxe",
+    "material": "Metal",
+    "source": "Native TwoHandedAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "VikingSword",
+    "material": "Metal",
+    "source": "Native VikingSword",
+    "excludedReason": null
+  },
+  {
+    "type": "VultureHelm",
+    "material": "Metal",
+    "source": "Native VultureHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "Wakizashi",
+    "material": "Metal",
+    "source": "Native Wakizashi",
+    "excludedReason": null
+  },
+  {
+    "type": "WarAxe",
+    "material": "Metal",
+    "source": "Native WarAxe",
+    "excludedReason": null
+  },
+  {
+    "type": "WarCleaver",
+    "material": "Metal",
+    "source": "Native WarCleaver",
+    "excludedReason": null
+  },
+  {
+    "type": "WarFork",
+    "material": "Metal",
+    "source": "Native WarFork",
+    "excludedReason": null
+  },
+  {
+    "type": "WarHammer",
+    "material": "Metal",
+    "source": "Native WarHammer",
+    "excludedReason": null
+  },
+  {
+    "type": "WarMace",
+    "material": "Metal",
+    "source": "Native WarMace",
+    "excludedReason": null
+  },
+  {
+    "type": "Waraji",
+    "material": "Cloth",
+    "source": "Analogue SamuraiTabi",
+    "excludedReason": null
+  },
+  {
+    "type": "WideBrimHat",
+    "material": "Cloth",
+    "source": "Native WideBrimHat",
+    "excludedReason": null
+  },
+  {
+    "type": "WildStaff",
+    "material": "Wood",
+    "source": "Native WildStaff",
+    "excludedReason": null
+  },
+  {
+    "type": "WingedHelm",
+    "material": "Metal",
+    "source": "Native WingedHelm",
+    "excludedReason": null
+  },
+  {
+    "type": "WizardsHat",
+    "material": "Cloth",
+    "source": "Native WizardsHat",
+    "excludedReason": null
+  },
+  {
+    "type": "WoodenKiteShield",
+    "material": "Wood",
+    "source": "Native WoodenKiteShield",
+    "excludedReason": null
+  },
+  {
+    "type": "WoodenShield",
+    "material": "Wood",
+    "source": "Approved first batch",
+    "excludedReason": null
+  },
+  {
+    "type": "WoodlandBelt",
+    "material": "Cloth",
+    "source": "Analogue Obi",
+    "excludedReason": null
+  },
+  {
+    "type": "WoodlandChest",
+    "material": "Wood",
+    "source": "Native WoodlandChest",
+    "excludedReason": null
+  },
+  {
+    "type": "WoodlandGloves",
+    "material": "Wood",
+    "source": "Native WoodlandGloves",
+    "excludedReason": null
+  },
+  {
+    "type": "Yumi",
+    "material": "Wood",
+    "source": "Native Yumi",
+    "excludedReason": null
+  }
+]

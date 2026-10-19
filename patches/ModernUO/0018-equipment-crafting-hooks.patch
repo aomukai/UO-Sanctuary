@@ -1,0 +1,91 @@
+diff --git a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+--- a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
++++ b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+@@ -901,7 +901,7 @@
+                 return 0;
+             }
+ 
+-            var minChance = craftSystem.GetChanceAtMin(this);
++            var minChance = TradeSkillHooks.MinimumChance?.Invoke(from, craftSystem, this) ?? craftSystem.GetChanceAtMin(this);
+ 
+             var chance = minChance + (valMainSkill - minMainSkill) / (maxMainSkill - minMainSkill) * (1.0 - minChance);
+ 
+diff --git a/Projects/UOContent/Engines/Craft/Core/Enhance.cs b/Projects/UOContent/Engines/Craft/Core/Enhance.cs
+--- a/Projects/UOContent/Engines/Craft/Core/Enhance.cs
++++ b/Projects/UOContent/Engines/Craft/Core/Enhance.cs
+@@ -31,6 +31,8 @@
+                 return EnhanceResult.BadItem;
+             }
+ 
++            if (ClassGearHooks.CanEnhance?.Invoke(item) == false) { return EnhanceResult.BadItem; }
++
+             if (!item.IsChildOf(from.Backpack))
+             {
+                 return EnhanceResult.NotInBackpack;
+diff --git a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+--- a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
++++ b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+@@ -12,6 +12,8 @@
+     public static Func<Mobile, SkillName, Item, bool, bool> ActionAllowed { get; set; }
+     public static Func<Mobile, BaseTool, bool> ToolUsed { get; set; }
+     public static Func<Mobile, SkillName, Type, BaseTool, bool, bool> RecipeAllowed { get; set; }
++    public static Func<Mobile, CraftSystem, CraftItem, BaseTool, bool> RecipeSelected { get; set; }
++    public static Func<Mobile, CraftSystem, CraftItem, double?> MinimumChance { get; set; }
+     public static Func<Mobile, bool> IndependentSkills { get; set; }
+     public static Func<Mobile, SkillName, bool> TeachingAllowed { get; set; }
+     public static TradeTraining Training { get; set; }
+@@ -32,5 +34,6 @@
+         ActionAllowed?.Invoke(from, skill, source, prompt) != false;
+     public static bool Independent(Mobile from) => IndependentSkills?.Invoke(from) == true;
+     public static bool CheckRecipe(Mobile from, CraftSystem system, CraftItem recipe, BaseTool tool, bool prompt = false) =>
+-        RecipeAllowed?.Invoke(from, system.MainSkill, recipe.ItemType, tool, prompt) != false;
++        RecipeSelected?.Invoke(from, system, recipe, tool) != false
++        && RecipeAllowed?.Invoke(from, system.MainSkill, recipe.ItemType, tool, prompt) != false;
+ }
+diff --git a/Projects/UOContent/Items/Armor/BaseArmor.cs b/Projects/UOContent/Items/Armor/BaseArmor.cs
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -894,6 +894,7 @@
+ 
+         public int GetDurabilityBonus()
+         {
++            if (ClassGearHooks.NativeDurabilityBonus?.Invoke(this) is { } replacement) { return replacement; }
+             if (!Core.UOR)
+             {
+                 return (int)_durability * 5 + ((int)_quality - 1) * 10;
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,9 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Item, bool> CanEnhance { get; set; }
++    public static Func<Item, bool> PersistResource { get; set; }
++    public static Func<Item, int?> NativeDurabilityBonus { get; set; }
+     public static Func<Item, ClassGearStat, int?> Stat { get; set; }
+     public static Func<Item, Mobile, bool?> CanEquip { get; set; }
+     public static Func<Item, IPropertyList, bool> Properties { get; set; }
+diff --git a/Projects/UOContent/Items/Clothing/BaseClothing.cs b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -26,7 +26,7 @@
+     public abstract partial class BaseClothing
+         : Item, IDyable, IScissorable, IFactionItem, ICraftable, IWearableDurability, IAosItem
+     {
+-        private bool ShouldSerializeResource() => _resource != DefaultResource;
++        private bool ShouldSerializeResource() => _resource != DefaultResource || ClassGearHooks.PersistResource?.Invoke(this) == true;
+ 
+         [SerializedIgnoreDupe]
+         [SerializableField(1, setter: "private")]
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -927,6 +927,7 @@
+ 
+     public int GetDurabilityBonus()
+     {
++        if (ClassGearHooks.NativeDurabilityBonus?.Invoke(this) is { } replacement) { return replacement; }
+         if (!Core.UOR)
+         {
+             return (int)_durabilityLevel * 5 + ((int)_quality - 1) * 10;

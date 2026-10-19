@@ -28,6 +28,7 @@ public static class CraftTransactions
         public int Hue { get; } = hue;
         public NetState Connection { get; } = owner.NetState;
         public bool Claimed { get; set; }
+        public EquipmentCrafting.Work Equipment { get; set; }
     }
     public static bool ToolType(Type type) => _toolTypes.Contains(type);
     public static void Configure()
@@ -111,9 +112,14 @@ public static class CraftTransactions
             && (random ?? Random.Shared).Next(100) < Settings.SaveChancePercent) { return; }
         tool.UsesRemaining--;
     }
-    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && ToolType(recipe.ItemType);
-    internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue) =>
-        Managed(from, recipe) ? new Request(from, system, recipe, material, tool, hue) : null;
+    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType));
+    internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
+    {
+        if (!Managed(from, recipe)) { return null; }
+        var ticket = new Request(from, system, recipe, material, tool, hue);
+        if (EquipmentCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
+        return ticket;
+    }
     private static bool Handle(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue, object ticket)
     {
         if (!Managed(from, recipe)) { return false; }
@@ -122,22 +128,27 @@ public static class CraftTransactions
             && request.Hue == hue) { Complete(request); }
         return true;
     }
+    internal static bool Valid(Request request)
+    {
+        var from = request.Owner; var tool = request.Tool; var recipe = request.Recipe; var system = request.System;
+        return !(!ClassProfessions.Affected(from) || !ClassProfessions.Ready(from)
+            || !ReferenceEquals(from.NetState, request.Connection) || !ClassProfessions.Active(from, system.MainSkill)
+            || tool is not { Deleted: false, UsesRemaining: > 0 } || tool.CraftSystem != system
+            || !(tool.IsChildOf(from.Backpack) || tool.Parent == from)
+            || !CraftFacilities.AllowsRecipe(from, system.MainSkill, recipe.ItemType)
+            || system.CanCraft(from, tool, recipe.ItemType) != 0
+            || recipe.Recipe != null && (from as Server.Mobiles.PlayerMobile)?.HasRecipe(recipe.Recipe) != true);
+    }
     internal static bool Complete(Request request, Random random = null)
     {
+        if (EquipmentCrafting.IsOutput(request.Recipe.ItemType)) { return EquipmentCrafting.Complete(request, random); }
         if (request.Claimed) { return false; }
         request.Claimed = true;
         var from = request.Owner;
         var tool = request.Tool;
         var recipe = request.Recipe;
         var system = request.System;
-        if (!ClassProfessions.Affected(from) || !ClassProfessions.Ready(from)
-            || !ReferenceEquals(from.NetState, request.Connection) || !ClassProfessions.Active(from, system.MainSkill)
-            || tool is not { Deleted: false, UsesRemaining: > 0 } || tool.CraftSystem != system
-            || !(tool.IsChildOf(from.Backpack) || tool.Parent == from)
-            || !CraftFacilities.AllowsRecipe(from, system.MainSkill, recipe.ItemType)
-            || system.CanCraft(from, tool, recipe.ItemType) != 0
-            || recipe.Recipe != null && (from as Server.Mobiles.PlayerMobile)?.HasRecipe(recipe.Recipe) != true)
-        { return false; }
+        if (!Valid(request)) { return false; }
         double chance = recipe.GetSuccessChance(from, request.Material, system, false, out bool allSkills);
         if (!allSkills || chance <= 0) { return false; }
         int hue = 0, amount = 0;

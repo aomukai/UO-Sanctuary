@@ -16,6 +16,7 @@ public static class PotionBeltCatalog
 {
     private static readonly Dictionary<string, PotionBeltBase> _belts = new(StringComparer.Ordinal);
     private static readonly Dictionary<(RestorationKind, int), RestorationBase> _potions = new();
+    internal static IEnumerable<PotionBeltBase> Belts => _belts.Values;
     public static PotionBeltBase Belt(Item item) => item == null ? null : _belts.GetValueOrDefault(item.GetType().Name);
     public static RestorationBase Potion(RestorationKind kind, int tier) => _potions.TryGetValue((kind, tier), out var row)
         ? row : throw new ArgumentOutOfRangeException(nameof(tier));

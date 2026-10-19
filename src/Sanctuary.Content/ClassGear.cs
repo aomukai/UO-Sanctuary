@@ -35,7 +35,7 @@ public static class ClassGear
     public static NormalBase Base(Item item)
     {
         var definition = Definition(item);
-        return definition?.BaseCode is { } code ? EquipmentBalance.Base(code) : null;
+        return (State(item)?.BaseCode ?? definition?.BaseCode) is { } code ? EquipmentBalance.Base(code) : null;
     }
     public static GearSlot Slot(Item item)
     {
@@ -299,8 +299,21 @@ public static class ClassGear
             return true;
         }
         var basis = Base(item);
-        var roll = State(item)?.Roll;
-        list.Add($"{"Rarity: "}{roll?.Rarity ?? GearRarity.Normal}{"; normal base: "}{basis.Name}");
+        var saved = State(item);
+        var roll = saved?.Roll;
+        if (saved != null)
+        {
+            list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
+            if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount}"); }
+            if (saved.CraftedEquipment)
+            {
+                var native = GearDetails.Read(item);
+                list.Add($"{"Durability: "}{native.Durability}{" / "}{native.MaximumDurability}");
+                if (native.Creator is { Length: > 0 } maker) { list.Add($"{"Crafted by "}{maker}"); }
+                if (saved.MaterialRolls.Length > 0) { list.Add($"{"Special material effects are inactive"}"); }
+            }
+        }
+        list.Add($"{"Rarity: "}{roll?.Rarity ?? GearRarity.Normal}{"; base: "}{basis.Name}");
         list.Add($"{"Item level: "}{roll?.ItemLevel ?? 1}{"; affix level: "}{roll?.AffixLevel ?? AffixBalance.Level(1, basis.QualityLevel, basis.MagicLevel)}");
         if (Slot(item) == GearSlot.Weapon && item is BaseWeapon)
         {
@@ -380,6 +393,9 @@ public static class ClassGear
             CraftTransactions.Profiles?.Copy(source, copy);
         };
         ItemStateHooks.CanStack = (first, second) => !Converted(first) && !Converted(second);
+        ClassGearHooks.PersistResource = item => State(item)?.CraftedEquipment == true;
+        ClassGearHooks.CanEnhance = item => State(item)?.CraftedEquipment != true;
+        ClassGearHooks.NativeDurabilityBonus = item => State(item)?.CraftedEquipment == true ? 0 : null;
         ClassGearHooks.Stat = Stat;
         ClassGearHooks.CanEquip = CanEquip;
         ClassGearHooks.Properties = AddProperties;

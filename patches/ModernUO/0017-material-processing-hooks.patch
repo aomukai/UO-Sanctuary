@@ -1,0 +1,622 @@
+diff --git a/Projects/UOContent/Items/Misc/OilCloth.cs b/Projects/UOContent/Items/Misc/OilCloth.cs
+--- a/Projects/UOContent/Items/Misc/OilCloth.cs
++++ b/Projects/UOContent/Items/Misc/OilCloth.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using System;
+ using ModernUO.Serialization;
+ using Server.Mobiles;
+@@ -34,7 +35,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new Bandage(), 1);
++        var output = new Bandage();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+diff --git a/Projects/UOContent/Items/Resources/Blacksmithing/Ingots.cs b/Projects/UOContent/Items/Resources/Blacksmithing/Ingots.cs
+--- a/Projects/UOContent/Items/Resources/Blacksmithing/Ingots.cs
++++ b/Projects/UOContent/Items/Resources/Blacksmithing/Ingots.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ 
+ namespace Server.Items;
+@@ -5,6 +6,9 @@
+ [SerializationGenerator(2, false)]
+ public abstract partial class BaseIngot : Item, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     public BaseIngot(CraftResource resource, int amount = 1) : base(0x1BF2)
+     {
+         Stackable = true;
+@@ -14,7 +18,7 @@
+         _resource = resource;
+     }
+ 
+-    public override double DefaultWeight => 0.1;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 0.1;
+ 
+     [SerializableField(0, fieldChanged: nameof(OnResourceChanged))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+diff --git a/Projects/UOContent/Items/Resources/Blacksmithing/Ore.cs b/Projects/UOContent/Items/Resources/Blacksmithing/Ore.cs
+--- a/Projects/UOContent/Items/Resources/Blacksmithing/Ore.cs
++++ b/Projects/UOContent/Items/Resources/Blacksmithing/Ore.cs
+@@ -8,6 +8,11 @@
+ [SerializationGenerator(2, false)]
+ public abstract partial class BaseOre : Item
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? base.DefaultWeight;
++
+     public BaseOre(CraftResource resource, int amount = 1) : base(RandomSize())
+     {
+         Stackable = true;
+@@ -194,6 +199,11 @@
+                     return;
+                 }
+ 
++                if (MaterialProcessHooks.Smelt?.Invoke(from, m_Ore, targeted, minSkill, maxSkill) == true)
++                {
++                    return;
++                }
++
+                 if (from.CheckTargetSkill(SkillName.Mining, targeted, minSkill, maxSkill))
+                 {
+                     var toConsume = m_Ore.Amount;
+@@ -259,6 +269,11 @@
+ 
+         private void OnTargetOre(Mobile from, BaseOre ore)
+         {
++            if (MaterialProcessHooks.Combine?.Invoke(from, m_Ore, ore) == true)
++            {
++                return;
++            }
++
+             if (!ore.Movable)
+             {
+                 return;
+diff --git a/Projects/UOContent/Items/Resources/Tailor/BoltOfCloth.cs b/Projects/UOContent/Items/Resources/Tailor/BoltOfCloth.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/BoltOfCloth.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/BoltOfCloth.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Network;
+ 
+@@ -7,6 +8,9 @@
+ [Flippable(0xF95, 0xF96, 0xF97, 0xF98, 0xF99, 0xF9A, 0xF9B, 0xF9C)]
+ public partial class BoltOfCloth : Item, IScissorable, IDyable, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     [Constructible]
+     public BoltOfCloth(int amount = 1) : base(0xF95)
+     {
+@@ -14,7 +18,7 @@
+         Amount = amount;
+     }
+ 
+-    public override double DefaultWeight => 5.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 5.0;
+ 
+     int ICommodity.DescriptionNumber => LabelNumber;
+     bool ICommodity.IsDeedable => true;
+@@ -38,7 +42,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new Cloth(), 50);
++        var output = new Cloth();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 50, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 50);
+ 
+         return true;
+     }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Cloth.cs b/Projects/UOContent/Items/Resources/Tailor/Cloth.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Cloth.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Cloth.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Network;
+ 
+@@ -7,6 +8,9 @@
+ [Flippable(0x1766, 0x1768)]
+ public partial class Cloth : Item, IScissorable, IDyable, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     [Constructible]
+     public Cloth(int amount = 1) : base(0x1766)
+     {
+@@ -14,7 +18,7 @@
+         Amount = amount;
+     }
+ 
+-    public override double DefaultWeight => 0.1;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 0.1;
+     int ICommodity.DescriptionNumber => LabelNumber;
+     bool ICommodity.IsDeedable => true;
+ 
+@@ -37,7 +41,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new Bandage(), 1);
++        var output = new Bandage();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Cotton.cs b/Projects/UOContent/Items/Resources/Tailor/Cotton.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Cotton.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Cotton.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Targeting;
+ 
+@@ -85,6 +86,7 @@
+             }
+             else
+             {
++                if (MaterialProcessHooks.Spin?.Invoke(from, m_Cotton, wheel) == true) { return; }
+                 m_Cotton.Consume();
+                 wheel.BeginSpin(m_Cotton.OnSpun, from, m_Cotton.Hue);
+             }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Flax.cs b/Projects/UOContent/Items/Resources/Tailor/Flax.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Flax.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Flax.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Targeting;
+ 
+@@ -85,6 +86,7 @@
+             }
+             else
+             {
++                if (MaterialProcessHooks.Spin?.Invoke(from, m_Flax, wheel) == true) { return; }
+                 m_Flax.Consume();
+                 wheel.BeginSpin(m_Flax.OnSpun, from, m_Flax.Hue);
+             }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Hides.cs b/Projects/UOContent/Items/Resources/Tailor/Hides.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Hides.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Hides.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ 
+ namespace Server.Items;
+@@ -5,6 +6,9 @@
+ [SerializationGenerator(2, false)]
+ public abstract partial class BaseHides : Item, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     public BaseHides(CraftResource resource, int amount = 1) : base(0x1079)
+     {
+         Stackable = true;
+@@ -13,7 +17,7 @@
+         _resource = resource;
+     }
+ 
+-    public override double DefaultWeight => 5.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 5.0;
+ 
+     [SerializableField(0, fieldChanged: nameof(OnResourceChanged))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+@@ -100,7 +104,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new Leather(), 1);
++        var output = new Leather();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+@@ -128,7 +135,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new SpinedLeather(), 1);
++        var output = new SpinedLeather();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+@@ -156,7 +166,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new HornedLeather(), 1);
++        var output = new HornedLeather();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+@@ -184,8 +197,11 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new BarbedLeather(), 1);
+-
+-        return true;
+-    }
+-}
++        var output = new BarbedLeather();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
++
++        return true;
++    }
++}
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Leathers.cs b/Projects/UOContent/Items/Resources/Tailor/Leathers.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Leathers.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Leathers.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ 
+ namespace Server.Items;
+@@ -5,6 +6,9 @@
+ [SerializationGenerator(2, false)]
+ public abstract partial class BaseLeather : Item, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     public BaseLeather(CraftResource resource, int amount = 1) : base(0x1081)
+     {
+         Stackable = true;
+@@ -13,7 +17,7 @@
+         _resource = resource;
+     }
+ 
+-    public override double DefaultWeight => 1.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 1.0;
+ 
+     [SerializableField(0, fieldChanged: nameof(OnResourceChanged))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+diff --git a/Projects/UOContent/Items/Resources/Tailor/UncutCloth.cs b/Projects/UOContent/Items/Resources/Tailor/UncutCloth.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/UncutCloth.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/UncutCloth.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Network;
+ 
+@@ -7,6 +8,9 @@
+ [Flippable(0x1765, 0x1767)]
+ public partial class UncutCloth : Item, IScissorable, IDyable, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     [Constructible]
+     public UncutCloth(int amount = 1) : base(0x1767)
+     {
+@@ -14,7 +18,7 @@
+         Amount = amount;
+     }
+ 
+-    public override double DefaultWeight => 0.1;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 0.1;
+     int ICommodity.DescriptionNumber => LabelNumber;
+     bool ICommodity.IsDeedable => true;
+ 
+@@ -37,7 +41,10 @@
+             return false;
+         }
+ 
+-        ScissorHelper(from, new Bandage(), 1);
++        var output = new Bandage();
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, output, 1, scissors);
++        if (result.HasValue) { return result.Value; }
++        ScissorHelper(from, output, 1);
+ 
+         return true;
+     }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/Wool.cs b/Projects/UOContent/Items/Resources/Tailor/Wool.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/Wool.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/Wool.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Targeting;
+ 
+@@ -6,6 +7,9 @@
+ [SerializationGenerator(0, false)]
+ public partial class Wool : Item, IDyable
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     [Constructible]
+     public Wool(int amount = 1) : base(0xDF8)
+     {
+@@ -13,7 +17,7 @@
+         Amount = amount;
+     }
+ 
+-    public override double DefaultWeight => 4.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 4.0;
+ 
+     public bool Dye(Mobile from, DyeTub sender)
+     {
+@@ -81,6 +85,7 @@
+                 }
+                 else
+                 {
++                    if (MaterialProcessHooks.Spin?.Invoke(from, m_Wool, wheel) == true) { return; }
+                     m_Wool.Consume();
+                     wheel.BeginSpin(m_Wool.OnSpun, from, m_Wool.Hue);
+                 }
+diff --git a/Projects/UOContent/Items/Resources/Tailor/YarnsAndThreads.cs b/Projects/UOContent/Items/Resources/Tailor/YarnsAndThreads.cs
+--- a/Projects/UOContent/Items/Resources/Tailor/YarnsAndThreads.cs
++++ b/Projects/UOContent/Items/Resources/Tailor/YarnsAndThreads.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ using Server.Targeting;
+ 
+@@ -6,13 +7,16 @@
+ [SerializationGenerator(0, false)]
+ public abstract partial class BaseClothMaterial : Item, IDyable
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     public BaseClothMaterial(int itemID, int amount = 1) : base(itemID)
+     {
+         Stackable = true;
+         Amount = amount;
+     }
+ 
+-    public override double DefaultWeight => 1.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 1.0;
+ 
+     public bool Dye(Mobile from, DyeTub sender)
+     {
+@@ -64,6 +68,10 @@
+                 if (!m_Material.IsChildOf(from.Backpack))
+                 {
+                     from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
++                }
++                else if (MaterialProcessHooks.Weave?.Invoke(from, m_Material, loom, targeted as Item) == true)
++                {
++                    return;
+                 }
+                 else if (loom.Phase < 4)
+                 {
+diff --git a/Projects/UOContent/Items/Skill Items/Carpenter Items/Board.cs b/Projects/UOContent/Items/Skill Items/Carpenter Items/Board.cs
+--- a/Projects/UOContent/Items/Skill Items/Carpenter Items/Board.cs
++++ b/Projects/UOContent/Items/Skill Items/Carpenter Items/Board.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ 
+ namespace Server.Items;
+@@ -6,6 +7,11 @@
+ [SerializationGenerator(4, false)]
+ public partial class Board : Item, ICommodity
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? base.DefaultWeight;
++
+     [Constructible]
+     public Board(int amount = 1) : this(CraftResource.RegularWood, amount)
+     {
+diff --git a/Projects/UOContent/Items/Skill Items/Lumberjack/Log.cs b/Projects/UOContent/Items/Skill Items/Lumberjack/Log.cs
+--- a/Projects/UOContent/Items/Skill Items/Lumberjack/Log.cs
++++ b/Projects/UOContent/Items/Skill Items/Lumberjack/Log.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using ModernUO.Serialization;
+ 
+ namespace Server.Items;
+@@ -6,6 +7,9 @@
+ [Flippable(0x1bdd, 0x1be0)]
+ public partial class Log : Item, ICommodity, IAxe
+ {
++    [AfterDeserialization]
++    private void NormalizeMaterialWeight() => MaterialProcessHooks.Normalize?.Invoke(this);
++
+     [Constructible]
+     public Log(int amount = 1) : this(CraftResource.RegularWood, amount)
+     {
+@@ -26,7 +30,7 @@
+         Hue = CraftResources.GetHue(resource);
+     }
+ 
+-    public override double DefaultWeight => 2.0;
++    public override double DefaultWeight => MaterialProcessHooks.Weight?.Invoke(this) ?? 2.0;
+ 
+     [SerializableField(0, fieldChanged: nameof(OnResourceChanged))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+@@ -38,7 +42,7 @@
+         Hue = CraftResources.GetHue(newValue);
+     }
+ 
+-    public virtual bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 0, new Board());
++    public virtual bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 0, new Board(), axe);
+ 
+     int ICommodity.DescriptionNumber => CraftResources.IsStandard(_resource)
+         ? LabelNumber
+@@ -74,7 +78,7 @@
+         };
+     }
+ 
+-    public virtual bool TryCreateBoards(Mobile from, double skill, Item item)
++    public virtual bool TryCreateBoards(Mobile from, double skill, Item item, BaseAxe axe = null)
+     {
+         if (Deleted || !from.CanSee(this))
+         {
+@@ -89,6 +93,8 @@
+             return false;
+         }
+ 
++        var result = MaterialProcessHooks.Cut?.Invoke(from, this, item, 1, axe);
++        if (result.HasValue) { return result.Value; }
+         ScissorHelper(from, item, 1, false);
+         return true;
+     }
+@@ -102,7 +108,7 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new HeartwoodBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new HeartwoodBoard(), axe);
+ }
+ 
+ [SerializationGenerator(0, false)]
+@@ -113,7 +119,7 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new BloodwoodBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new BloodwoodBoard(), axe);
+ }
+ 
+ [SerializationGenerator(0, false)]
+@@ -124,7 +130,7 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new FrostwoodBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 100, new FrostwoodBoard(), axe);
+ }
+ 
+ [SerializationGenerator(0, false)]
+@@ -135,7 +141,7 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 65, new OakBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 65, new OakBoard(), axe);
+ }
+ 
+ [SerializationGenerator(0, false)]
+@@ -146,7 +152,7 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 80, new AshBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 80, new AshBoard(), axe);
+ }
+ 
+ [SerializationGenerator(0, false)]
+@@ -157,5 +163,5 @@
+     {
+     }
+ 
+-    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new YewBoard());
++    public override bool Axe(Mobile from, BaseAxe axe) => TryCreateBoards(from, 95, new YewBoard(), axe);
+ }
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -1,3 +1,4 @@
++using Server.Engines.Craft;
+ using System;
+ using System.Collections.Generic;
+ using ModernUO.Serialization;
+@@ -251,7 +252,8 @@
+                             return false;
+                         }
+                     }
+-                    else if (item != BuyPack && item.IsChildOf(BuyPack))
++                    else if (item != BuyPack && item.IsChildOf(BuyPack)
++                        && MaterialProcessHooks.ResaleAllowed?.Invoke(item) != false)
+                     {
+                         if (amount > item.Amount)
+                         {
+@@ -967,6 +969,7 @@
+             for (var i = 0; i < playerItems.Count; ++i)
+             {
+                 var item = playerItems[i];
++                if (MaterialProcessHooks.ResaleAllowed?.Invoke(item) == false) { continue; }
+ 
+                 var price = 0;
+                 string name = null;
+diff --git a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+--- a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
++++ b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+@@ -92,7 +92,7 @@
+ 
+         public int Amount
+         {
+-            get => m_Amount;
++            get => MaterialProcessHooks.StockAllowed?.Invoke(Type) == false ? 0 : m_Amount;
+             set => m_Amount = Math.Max(value, 0);
+         }
+ 
+@@ -101,6 +101,7 @@
+         // get a new instance of an object (we just bought it)
+         public virtual IEntity GetEntity()
+         {
++            if (MaterialProcessHooks.StockAllowed?.Invoke(Type) == false) { return null; }
+             var entity = ItemOrigins.Create(ItemOrigin.Vendor, () => Type.CreateInstance<IEntity>(Args));
+             if (entity is BaseTool tool) { TradeSkillHooks.ToolSupplied?.Invoke(tool); }
+             return entity;
+diff --git a/Projects/UOContent/Skills/SkillCheck.cs b/Projects/UOContent/Skills/SkillCheck.cs
+--- a/Projects/UOContent/Skills/SkillCheck.cs
++++ b/Projects/UOContent/Skills/SkillCheck.cs
+@@ -281,7 +281,8 @@
+ 
+             if (TradeSkillHooks.Independent(from) || !from.Player || skills.Total < skills.Cap)
+             {
+-                skill.BaseFixedPoint = Math.Min(skill.BaseFixedPoint + toGain, skill.CapFixedPoint);
++                skill.BaseFixedPoint = Math.Min(skill.BaseFixedPoint + toGain,
++                    Math.Min(skill.CapFixedPoint, MaterialProcessHooks.GainCap?.Invoke(from, skill.SkillName) ?? skill.CapFixedPoint));
+             }
+         }
+ 
+diff --git a/Projects/UOContent/Engines/Craft/Core/MaterialProcessHooks.cs b/Projects/UOContent/Engines/Craft/Core/MaterialProcessHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Engines/Craft/Core/MaterialProcessHooks.cs
+@@ -0,0 +1,18 @@
++using System;
++using Server.Items;
++
++namespace Server.Engines.Craft;
++
++public static class MaterialProcessHooks
++{
++    public static Func<Item, double?> Weight { get; set; }
++    public static Action<Item> Normalize { get; set; }
++    public static Func<Mobile, Item, Item, int, Item, bool?> Cut { get; set; }
++    public static Func<Mobile, BaseOre, object, double, double, bool> Smelt { get; set; }
++    public static Func<Mobile, BaseOre, BaseOre, bool> Combine { get; set; }
++    public static Func<Mobile, Item, ISpinningWheel, bool> Spin { get; set; }
++    public static Func<Mobile, BaseClothMaterial, ILoom, Item, bool> Weave { get; set; }
++    public static Func<Type, bool> StockAllowed { get; set; }
++    public static Func<Item, bool> ResaleAllowed { get; set; }
++    public static Func<Mobile, SkillName, int?> GainCap { get; set; }
++}

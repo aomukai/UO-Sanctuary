@@ -85,7 +85,7 @@ public sealed class ProfessionToolGump : DynamicGump
     }
     protected override void BuildLayout(ref DynamicGumpBuilder b)
     {
-        b.AddPage(); b.AddBackground(0, 0, 500, 310, 5054);
+        b.AddPage(); b.AddBackground(0, 0, 500, 360, 5054);
         b.AddLabel(22, 20, 0x481, $"{ClassProfessions.Name(_skill)} tool");
         b.AddLabel(22, 55, 0x47E, "Production and practice need your craft and town station.");
         b.AddButton(22, 95, 4005, 4007, 1); b.AddLabel(57, 95, 0x481, "Open tool actions");
@@ -96,6 +96,15 @@ public sealed class ProfessionToolGump : DynamicGump
             b.AddButton(22, 205, 4005, 4007, 2); b.AddLabel(57, 205, 0x481, "Practice once");
         }
         else { b.AddLabel(22, 145, 0x47E, "Practice is available from 30.0 to below 70.0."); }
+        if (EquipmentCrafting.Supports(_tool))
+        {
+            b.AddButton(22, 235, 4005, 4007, 4); b.AddLabel(57, 235, 0x481, "Craft white equipment");
+        }
+        if (MaterialProcessing.Supports(_tool))
+        {
+            b.AddButton(22, 270, 4005, 4007, 3); b.AddLabel(57, 270, 0x481, "Process materials into scraps");
+            b.AddLabel(22, 305, 0x47E, "Portable; no profession choice or tool uses needed.");
+        }
         b.AddButton(445, 20, 4017, 4019, 0);
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
@@ -110,8 +119,10 @@ public sealed class ProfessionToolGump : DynamicGump
             {
                 if (ClassProfessions.Request(owner, _skill, _tool, true)) { EssenceGump.DisplayTo(owner); }
             }
-            else { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
+            else if (ClassProfessions.Request(owner, _skill, _tool, true)) { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
         }
+        else if (info.ButtonID == 4) { EquipmentCraftGump.DisplayTo(owner, _tool); }
+        else if (info.ButtonID == 3) { ProcessingGump.Target(owner, _tool); }
         else if (info.ButtonID == 2)
         {
             if (!ProfessionPractice.Attempt(owner, _tool, _band, out _))

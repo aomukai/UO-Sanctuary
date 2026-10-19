@@ -145,7 +145,7 @@ public static class ClassProfessions
     {
         if (!Affected(from)) { return false; }
         if (!SourceValid(from, tool, null, tool.CraftSystem.MainSkill)) { return true; }
-        if (!Profiles.Find(from).Confirmed)
+        if (!Profiles.Find(from).Confirmed && !MaterialProcessing.Supports(tool))
         {
             Request(from, tool.CraftSystem.MainSkill, tool, true);
         }

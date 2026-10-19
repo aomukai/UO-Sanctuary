@@ -116,7 +116,7 @@ def check():
             config["settings"]["accountHandler.enableAutoAccountCreation"] = "True"
             config["settings"]["accountHandler.maxAccountsPerIP"] = "50"
         config_path.write_text(json.dumps(config))
-        logfile = ROOT / ".local/logs/britain-baseline-check.log"
+        logfile = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
         with logfile.open("w") as log:
             signatures = []
             for iteration in range(4 if creation else 2):
@@ -132,10 +132,24 @@ def check():
                     signatures.append(status[5])
                     session.send("sanctuary-status")
                     assert session.expect(STATUS).groups() == status
+                    if creation and iteration == 0 and os.environ.get("SANCTUARY_RECIPE_AUDIT"):
+                        session.send("equipment-recipe-audit")
+                        assert session.expect(r"equipment-recipe-audit: (passed|failed)").group(1) == "passed"
                     if professions:
                         command = "profession-check" if iteration == 0 else "profession-reload-check"
                         session.send(command)
                         assert session.expect(command + r": (passed|failed)", timeout=45).group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_PROCESSING") == "1":
+                            process_command = "processing-check" if iteration == 0 else "processing-reload-check"
+                            session.send(process_command)
+                            assert session.expect(process_command + r": (passed|failed)", timeout=45).group(1) == "passed"
+                            if iteration == 0:
+                                session.send("processing-spin-check")
+                                assert session.expect(r"processing-spin-check: (passed|failed)", timeout=15).group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING") == "1":
+                            equipment_command = "equipment-crafting-check" if iteration == 0 else "equipment-crafting-reload-check"
+                            session.send(equipment_command)
+                            assert session.expect(equipment_command + r": (passed|failed)", timeout=45).group(1) == "passed"
                         if os.environ.get("SANCTUARY_TEST_CRAFTING") == "1":
                             craft_command = "crafting-check" if iteration == 0 else "crafting-reload-check"
                             session.send(craft_command)
@@ -144,14 +158,19 @@ def check():
                             session.send("first-loop-catalogue-check")
                             assert session.expect(r"first-loop-catalogue-check: (passed|failed)").group(1) == "passed"
                         if iteration == 0 and (os.environ.get("SANCTUARY_TEST_PROFESSIONS_UI") == "1"
-                                               or os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1"):
+                                               or os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1"
+                                               or os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1"
+                                               or os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1"):
                             subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests/check_combat_ui.py"), str(port)],
                                 check=True, pass_fds=(session.master,),
                                 env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
-                            ui_final = "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
+                            ui_final = "equipment-crafting-ui-final" if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" else "processing-ui-final" if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" else "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
                             session.send(ui_final)
                             assert session.expect(ui_final + r": (passed|failed)").group(1) == "passed"
                     if creation and not professions:
+                        if iteration == 0 and os.environ.get("SANCTUARY_TEST_PROCESSING") == "1":
+                            session.send("processing-comparison-check")
+                            assert session.expect(r"processing-comparison-check: (passed|failed)").group(1) == "passed"
                         command = ["creation-check", "creation-reload-check", "creation-migration-check", "creation-migration-check"][iteration]
                         session.send(command)
                         result = session.expect(command + r": (passed|failed)").group(1)
@@ -219,6 +238,9 @@ def check():
                     if creation and os.environ.get("SANCTUARY_TEST_COMBAT_UI") == "1" and iteration > 0 and os.environ.get("SANCTUARY_TEST_ECONOMY_UI") != "1" and os.environ.get("SANCTUARY_TEST_BELT_UI") != "1" and os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") != "1" and os.environ.get("SANCTUARY_TEST_STATS_UI") != "1" and os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") != "1" and os.environ.get("SANCTUARY_TEST_PETS_UI") != "1":
                         session.send("loot-ui-reload")
                         assert session.expect(r"loot-ui-reload: (passed|failed)").group(1) == "passed"
+                    if professions and iteration == 0 and os.environ.get("SANCTUARY_TEST_PROCESSING") == "1":
+                        session.send("processing-pending-check")
+                        assert session.expect(r"processing-pending-check: (passed|failed)").group(1) == "passed"
                     session.send("save")
                     session.expect("Writing world save snapshot done")
                     if creation and iteration == 1 and os.environ.get("SANCTUARY_TEST_ITEM_STATE") == "1":

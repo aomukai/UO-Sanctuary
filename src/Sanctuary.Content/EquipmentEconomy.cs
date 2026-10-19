@@ -329,12 +329,15 @@ public partial class MagicEssence : Item
 [SerializationGenerator(0)]
 public partial class MetalScraps : Item
 {
+    public override double DefaultWeight => MaterialProcessing.Weight(this) ?? 0.1;
+    [AfterDeserialization]
+    private void NormalizeWeight() => MaterialProcessing.Normalize(this);
     [Constructible]
     public MetalScraps(int amount = 1) : base(0x1BF2)
     {
         Name = "Metal Scraps";
         Hue = 0x835;
-        Weight = 0.1;
+        Weight = -1;
         Stackable = true;
         Amount = Math.Clamp(amount, 1, 60000);
     }
@@ -342,11 +345,14 @@ public partial class MetalScraps : Item
 [SerializationGenerator(0)]
 public partial class WoodenChips : Item
 {
+    public override double DefaultWeight => MaterialProcessing.Weight(this) ?? 0.1;
+    [AfterDeserialization]
+    private void NormalizeWeight() => MaterialProcessing.Normalize(this);
     [Constructible]
     public WoodenChips(int amount = 1) : base(0x1BD7)
     {
         Name = "Wooden Chips";
-        Weight = 0.1;
+        Weight = -1;
         Stackable = true;
         Amount = Math.Clamp(amount, 1, 60000);
     }
@@ -355,12 +361,15 @@ public partial class WoodenChips : Item
 [SerializationGenerator(0)]
 public partial class LeatherStrips : Item
 {
+    public override double DefaultWeight => MaterialProcessing.Weight(this) ?? 0.1;
+    [AfterDeserialization]
+    private void NormalizeWeight() => MaterialProcessing.Normalize(this);
     [Constructible]
     public LeatherStrips(int amount = 1) : base(0x1081)
     {
         Name = "Leather Strips";
         Hue = 0x973;
-        Weight = 0.1;
+        Weight = -1;
         Stackable = true;
         Amount = Math.Clamp(amount, 1, 60000);
     }
@@ -368,12 +377,15 @@ public partial class LeatherStrips : Item
 [SerializationGenerator(0)]
 public partial class ClothScraps : Item
 {
+    public override double DefaultWeight => MaterialProcessing.Weight(this) ?? 0.1;
+    [AfterDeserialization]
+    private void NormalizeWeight() => MaterialProcessing.Normalize(this);
     [Constructible]
     public ClothScraps(int amount = 1) : base(0x1766)
     {
         Name = "Cloth Scraps";
         Hue = 0x47E;
-        Weight = 0.1;
+        Weight = -1;
         Stackable = true;
         Amount = Math.Clamp(amount, 1, 60000);
     }

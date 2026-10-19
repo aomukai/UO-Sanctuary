@@ -32,6 +32,7 @@ def exercise(window, click, capture):
     click(335, 367)
     command('setup')
     time.sleep(.3)
+    click(130, 182)  # Production asks for a profession; processing remains open.
     capture('crafting-choice.png')
     click(130, 322)
     command('confirmed')

@@ -16,6 +16,7 @@ public static class BalanceCatalog
     {
         EquipmentBalance.Load();
         PotionBeltCatalog.Load();
+        EquipmentCrafting.Load();
         EquipmentEconomy.Load();
         AffixBalance.Load();
         MonsterBalance.Load();

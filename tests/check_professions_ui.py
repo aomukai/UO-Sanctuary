@@ -31,6 +31,7 @@ def exercise(window, click, capture):
     click(552, 105)  # Close status before opening the tool.
     command('tool')
     time.sleep(.3)
+    click(130, 182)
     capture('profession-first-choice.png')
     click(400, 322)
     command('cancelled')

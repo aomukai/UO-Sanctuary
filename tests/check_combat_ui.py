@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1":
+        from check_equipment_crafting_ui import exercise as equipment_exercise
+        equipment_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1":
+        from check_processing_ui import exercise as processing_exercise
+        processing_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1":
         from check_crafting_ui import exercise as crafting_exercise
         crafting_exercise(window, click, capture)
@@ -51,7 +59,7 @@ def exercise(window, click, capture):
         from check_loot_ui import exercise as loot_exercise
         loot_exercise(window, click, capture)
         return
-    serverlog = ROOT / ".local/logs/britain-baseline-check.log"
+    serverlog = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
     statefile = Path(os.environ["SANCTUARY_TEST_UI_STATE"])
     console = int(os.environ["SANCTUARY_TEST_CONSOLE_FD"])
 

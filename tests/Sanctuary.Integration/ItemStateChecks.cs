@@ -54,12 +54,12 @@ public static class ItemStateChecks
         return writer.Buffer[..(int)writer.Position];
     }
     // Emit the original version-0 layout from the real current serialized records.
-    private static byte[] VersionZero()
+    private static byte[] VersionZero(int outputVersion = 0)
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 1, "Expected gear version 1");
-        writer.Write(0);
+        Require(reader.ReadInt() == 2, "Expected gear version 2");
+        writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
         for (int i = 0; i < migrations; i++) { writer.Write(reader.ReadUInt()); }
@@ -83,7 +83,12 @@ public static class ItemStateChecks
                 writer.Write(id);
                 foreach (var modifier in AffixBalance.Find(id).Modifiers) { writer.Write(reader.ReadInt()); }
             }
-            reader.ReadByte(); reader.ReadByte(); reader.ReadInt(); reader.ReadInt(); reader.ReadBool(); reader.ReadInt();
+            byte tier = reader.ReadByte(), quality = reader.ReadByte();
+            int native = reader.ReadInt(), tinker = reader.ReadInt(); bool identified = reader.ReadBool(); int offer = reader.ReadInt();
+            if (outputVersion == 1)
+            { writer.Write(tier); writer.Write(quality); writer.Write(native); writer.Write(tinker); writer.Write(identified); writer.Write(offer); }
+            reader.ReadBool(); reader.ReadInt(); int materials = reader.ReadInt();
+            for (int j = 0; j < materials; j++) { reader.ReadString(); reader.ReadInt(); }
         }
         return writer.Buffer[..(int)writer.Position];
     }
@@ -172,6 +177,9 @@ public static class ItemStateChecks
         byte[] current = Serialize();
         try
         {
+            ClassGear.Profiles.Deserialize(new BufferReader(VersionZero(1)));
+            ClassGear.Profiles.PostDeserialize();
+            foreach (var row in saved) { Require(State(World.FindItem((Serial)row.Serial)) == row.State, "Version-1 metadata changed"); }
             ClassGear.Profiles.Deserialize(new BufferReader(VersionZero()));
             ClassGear.Profiles.PostDeserialize();
             foreach (var row in saved)
@@ -238,10 +246,10 @@ public static class ItemStateChecks
     {
         ClassGear.Profiles.Prune();
         byte[] current = Serialize();
-        foreach (int offset in new[] { 0, current.Length - 15, current.Length - 14, current.Length - 9, current.Length - 4 })
+        foreach (int offset in new[] { 0, current.Length - 24, current.Length - 23, current.Length - 18, current.Length - 13, current.Length - 8, current.Length - 4 })
         {
             var corrupt = (byte[])current.Clone();
-            if (offset == current.Length - 15 || offset == current.Length - 14) { corrupt[offset] = 255; }
+            if (offset == current.Length - 24 || offset == current.Length - 23) { corrupt[offset] = 255; }
             else { BinaryPrimitives.WriteInt32LittleEndian(corrupt.AsSpan(offset), int.MaxValue); }
             bool rejected = false;
             try

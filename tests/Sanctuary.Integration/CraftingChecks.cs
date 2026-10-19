@@ -62,7 +62,7 @@ public static class CraftingChecks
         var player = Player("CraftTransactions");
         var tool = new TinkerTools(500);
         player.Backpack.DropItem(tool);
-        player.Backpack.DropItem(new IronIngot(500));
+        player.Backpack.DropItem(new IronIngot(200));
         player.Backpack.DropItem(new Gold(321));
         player.AcquireRecipe(9876001);
         var saved = new List<Saved>();

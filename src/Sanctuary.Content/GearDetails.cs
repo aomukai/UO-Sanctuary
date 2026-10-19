@@ -16,7 +16,9 @@ public static class GearDetails
     // Native serializers remain the sole owners of resource, maker and wear state.
     public static NativeGearDetails Read(Item item)
     {
-        var material = item is BaseArmor { MaterialType: ArmorMaterialType.Bone } ? GearMaterial.Bone
+        var material = item is BaseArmor { MaterialType: ArmorMaterialType.Bone }
+            || ClassGear.State(item)?.CraftedEquipment == true && EquipmentCrafting.PhysicalMaterial(item.GetType()) == GearMaterial.Bone
+            ? GearMaterial.Bone
             : EquipmentEconomy.Material(item) switch
             {
                 SalvageMaterial.Metal => GearMaterial.Metal,

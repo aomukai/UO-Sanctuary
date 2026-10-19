@@ -82,10 +82,14 @@ def check(output):
         if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':
             config['settings']['sanctuary.professions.enabled'] = 'True'
         (folder / 'Configuration/modernuo.json').write_text(json.dumps(config))
+        processing = os.environ.get('SANCTUARY_TEST_PROCESSING') == '1'
         snapshots = []
         progression = []
         with (output / 'copied-world-server.log').open('w') as log:
-            for iteration in range(2):
+            for iteration in range(3 if processing else 2):
+                if processing:
+                    config['settings']['sanctuary.professions.enabled'] = 'False' if iteration == 0 else 'True'
+                    (folder / 'Configuration/modernuo.json').write_text(json.dumps(config))
                 session = Session(folder, log)
                 try:
                     session.expect(f'Listening: 127.0.0.1:{listen}')
@@ -104,17 +108,26 @@ def check(output):
                 finally:
                     session.close()
         for key in ('Players', 'Gear'):
-            assert snapshots[0][key] == snapshots[1][key], f'{key} changed after copied-world restart'
-        assert progression[0] == progression[1], 'Serialized class/talent/allocation history changed on restart'
+            assert snapshots[-2][key] == snapshots[-1][key], f'{key} changed after copied-world restart'
+        assert all(p == progression[0] for p in progression), 'Serialized class/talent/allocation history changed on restart'
         if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':
-            for player in snapshots[0]['Players']:
+            for player in snapshots[-1]['Players']:
                 expected = {'Craft': 0, 'Confirmed': False} if player['Profile'] and player['Access'] == 'Player' else None
                 assert player['Profession'] == expected, 'Installed character was assigned a confirmed craft or staff restricted'
         claims = {c['Serial']: c['SanctuaryNoRewards'] for c in snapshots[1]['Corpses']}
         for corpse in snapshots[0]['Corpses']:
             if corpse['SanctuaryNoRewards']:
                 assert claims.get(corpse['Serial']) is True, 'Spent corpse claim lost on restart'
-        print('Copied installed save: two boots/save/shutdowns; player profiles, allocations, all native skill values/caps/locks, worn identities and gear rolls/origins preserved.')
+        if processing:
+            for before, after in zip(snapshots[0]['Players'], snapshots[1]['Players'], strict=True):
+                assert {k: v for k, v in before.items() if k != 'Profession'} == {k: v for k, v in after.items() if k != 'Profession'}
+            def identities(rows):
+                return [{k: v for k, v in row.items() if k not in ('Weight', 'CanonicalWeight')} for row in rows]
+            assert identities(snapshots[0]['Materials']) == identities(snapshots[1]['Materials']) == identities(snapshots[2]['Materials'])
+            assert snapshots[1]['Materials'] == snapshots[2]['Materials']
+            assert all(m['CanonicalWeight'] is None or m['Weight'] == m['CanonicalWeight'] for m in snapshots[1]['Materials'])
+            print(f"Processing migration: disabled/enabled/enabled boots; {len(snapshots[1]['Materials'])} existing material/bandage identities, amounts, subtypes and origins retained; canonical weights stable.")
+        print('Copied installed save: boots/save/shutdowns; player profiles, allocations, all native skill values/caps/locks, worn identities and gear rolls/origins preserved.')
         print(f"Players={len(snapshots[0]['Players'])}; gear={len(snapshots[0]['Gear'])}; origins={snapshots[0]['Origins']}; corpses={snapshots[0]['Corpses']}; raised={snapshots[0]['Raised']}")
         print(f'Local evidence: {output}')
 

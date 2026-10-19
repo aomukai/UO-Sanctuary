@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "e50bb9fdd1835e5185cdb2ae03d9dae257a6173aaef94a75846cbf91ad25fa7f",
-  "ContentAssemblySha256": "062c10772dd901e147dbf991e83d24b43c7889e7c122cd98e06f871fd1fd1627",
+  "ContentAssemblySha256": "d93e9a76f9395a65dfbf468788b7afdd2537b8298b1a03478914265a4bab9411",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -9,10 +9,10 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "src/Sanctuary.Content/ActionTiming.cs": "b287c8434a321c4a22a219ee4cc9fa1efa5e4cb6c1464b3e7fd57f71cb6ec9eb",
     "src/Sanctuary.Content/AffixBalance.cs": "66be8e6966be814360fa49b2ae2aa74db4035d154e1a6747839bc23e0582380e",
-    "src/Sanctuary.Content/ClassGear.cs": "e94ff7c13860b67c775e5c025f97968831d7ee7efbc94abd82a2ea08f0b540e7",
+    "src/Sanctuary.Content/ClassGear.cs": "3c8cb12e4fb2989b09b2bde0b9f92360bc4d06c44cd2dc5ca6bcd8b85a11d34f",
     "src/Sanctuary.Content/ClassStats.cs": "4fdbfd98817e8f7d3cdd194e93188721ca019dacfb622090f2b86ba9fbbb7250",
-    "src/Sanctuary.Content/EquipmentEconomy.cs": "3f72a6854e3b5421a9866788ecbde99e2f57fbb07e71838478273bdad544bc4c",
-    "src/Sanctuary.Content/GearProfiles.cs": "0e72529baead316e26dbbc0a0a6abf97e7a7a1e160e68fd4f936e06bd6ef52dd",
+    "src/Sanctuary.Content/EquipmentEconomy.cs": "818204c8db335282309e73eb163b0cb85c094d56212c11f9ae1e0f763a958045",
+    "src/Sanctuary.Content/GearProfiles.cs": "4c1d11faa97722cb2a152d3a1c1c775fee59792cffa891465532ae6ec97d44c9",
     "src/Sanctuary.Content/HitRecovery.cs": "a0fa0b0aef5ec0da4f6cd428160af13636e73307a177a47e1e8dc7ff67635f4c"
   },
   "ImplementedCodes": [

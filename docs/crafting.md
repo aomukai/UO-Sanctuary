@@ -12,9 +12,9 @@ The [worksheet](economy-open-questions.md) retains stable IDs and tracks unresol
 - Ordinary crafting uses UO-style success/failure behavior. Valid Imbuing always produces a magical item; repairs succeed when requirements are met; socket failures can destroy their item.
 - Ordinary successful crafts have 10% High Quality, 1% Superior, otherwise Average, once eligible. **Provisional eligibility rule:** `min(recipe required skill + 10, 120)`. Below eligibility, Average only. These are mutually exclusive quality outcomes after crafting success, not additional craft-success rolls. Runes have their own eligibility thresholds.
 - Mining/Lumberjacking/Fishing remain active alongside one selected crafting job and class. Cartography is a crafting job. Level 80 in a class or 100 in a crafting job unlocks recognition/wardrobe/housing rights; gathering does not qualify. Profession caps start at 100 and use 105/110/115/120 Power Scroll unlocks. Other wardrobe details remain in Q.
-- New characters initially show Alchemy active. Their first crafting-tool use asks them to confirm their first profession before any action/cost/gain, and that confirmed craft remains selected until the wardrobe unlock. The initial alphabetical default does not itself lock the choice. Gathering is exempt. Wardrobe opening preselects the current class and craft; Swap requires exactly one checked entry in each list. See [wardrobe progression](wardrobe-progression.md) for the confirmation/access rules and remaining migration questions.
+- New characters initially show Alchemy active. Production or practice with a crafting tool asks them to confirm their first profession before its action/cost/gain, and that confirmed craft remains selected until the wardrobe unlock. The initial alphabetical default does not itself lock the choice. Gathering is exempt. Wardrobe opening preselects the current class and craft; Swap requires exactly one checked entry in each list. See [wardrobe progression](wardrobe-progression.md) for the confirmation/access rules and remaining migration questions.
 - **Confirmed T05, 19 October:** existing class characters preserve every skill value/cap and start with an unconfirmed first profession; existing staff settings remain intact. Craft trainers offer the same first-choice confirmation before payment; afterwards only the active craft can be trained. Gathering trainers remain unrestricted. Native total-skill-cap mechanics must not erase or block independent retained-skill progression.
-- **Confirmed T05 processing access:** anyone can smelt ore, make boards, process wool/yarn/cloth and use the planned scrap conversions without selecting a craft. Crafting-skill gains require the matching active craft; gathering gains remain active. This settles access, not the remaining conversion weights/recipes or station rules.
+- **Confirmed T05 processing access:** anyone can smelt ore, make boards, process wool/yarn/cloth and use the planned scrap conversions without selecting a craft. Crafting-skill gains require the matching active craft; gathering gains remain active. T07 below settles conversion weights, tools and gains; T06 settles station rules.
 - Craft/repair assignment follows physical material: metal to Blacksmithing; cloth/leather/studded to Tailoring; wooden weapons/shields to Bowcraft/Fletching. Bone armour is a **heavy Tailoring** product. Repair is handled by the craft that makes the item.
 
 | Profession/action | Specified tool/station |
@@ -42,9 +42,9 @@ Ordinary equipment crafters produce white bases. Imbuing is the separate magical
 | Exceptional | 80–110 | 70 | 60 |
 | Elite | 110–120 | 99 | 80 |
 
-Strength/Dexterity requirements also apply; subsequent affix and filled-socket requirements must still be respected. Individual recipe requirements, resource quantities and exceptional/elite UO-to-D2 base mappings remain to be authored. Jewellery has the separate E01 ladder below.
+Strength/Dexterity requirements also apply; subsequent affix and filled-socket requirements must still be respected. The standard-material recipe book now has201 identities /603 approved recipes and explicit tier mappings in [T08](t08-white-bases.md), including gloves, boots and potion tabards. Ten exotic glass/stone/dragon-scale recipes are explicitly deferred. Jewellery has the separate E01 ladder below.
 
-At crafting skill 100+, eligible bases receive +10–20% durability and the crafter's name. Quality can also create native starting sockets at 100+: Average 0, High Quality 1, Superior 2, on bases that permit sockets. These quality sockets are distinct from tinkerer-added sockets. Exact durability rounding/application and the complete per-recipe table are not specified.
+At crafting skill 100+, eligible bases receive +10–20% durability and the crafter's name. Quality can also create native starting sockets at 100+: Average 0, High Quality 1, Superior 2, on bases that permit sockets. These quality sockets are distinct from tinkerer-added sockets. **Confirmed T08:** roll an independent integer10–20%, apply once to the ordinary native maximum with upward rounding, and set current durability to that new maximum. Native exceptional/coloured durability bonuses do not stack. The complete ordinary per-recipe table is in [T08](t08-recipe-book.md).
 
 Retain native ore/wood gathering and hide/species assignments as the starting baseline, adding the new bark/gem byproducts. Retain native hunting/skinning quantities, without taking the user's illustrative dragon quantity as a newly verified value. Butchering/skinning requires no skill.
 
@@ -52,7 +52,7 @@ Metal, wood and leather come from gathering/hunting, not NPC resource sales. Clo
 
 ### Material bonus directions
 
-Armour's ordinary material bonus range is 1–5% resistance; weapons add elemental/physical damage worth 5–10% of base weapon damage, subject to the exceptions below. Exact roll/scaling rules, damage application and random-element pool are not yet specified.
+Armour rolls1–5 resistance percentage points independently for each listed resistance. Weapons roll5–10% added damage of the material's type, based on the unmodified reference weapon damage before global bonuses; existing physical damage is retained. **Confirmed T08:** random elements are Fire/Cold/Lightning/Poison; Barbed's random resistance excludes Poison. Rolls are stored once. T09 owns measured activation/rounding in combat; MF/GF remain gated until reward consumers exist. See [T08](t08-white-bases.md).
 
 | Ore | Property identity / exception |
 | --- | --- |
@@ -89,8 +89,19 @@ Starter items remain newbie-protected, cannot be salvaged/imbued/socketed, and s
 
 ## Processing and salvage — C01–C04
 
-- One ore/ingot → 10 Metal Scraps; one log/board → 10 Wooden Chips; one leather → 10 Leather Strips; one cloth → 10 Cloth Scraps.
-- Use the corresponding production tool but no tool charges. These actions can train the appropriate skill to 30, then become trivial. Intended total output weight is half the input weight; different native weights for raw/processed inputs require a consistent stack-weight rule before implementation.
+**Confirmed T07, 19 October:** raw→processed halves weight; processed→ten scraps preserves total weight. This supersedes the earlier half-weight-at-every-step wording. Scraps have only generic family identities, with a warning before deliberate conversion of coloured inputs. Normal processing retains its native subtype.
+
+| Family | Raw weight | Processed weight | Generic output weight / yield |
+| --- | ---: | ---: | --- |
+| Wood | Log2 | Board1 | Wooden Chips0.1; ten per log/board |
+| Metal | Small/medium/large ore1/2/4 | Ingot1 | Metal Scraps0.1;5/10/20 per ore clump, ten per ingot |
+| Leather | Hide2 | Leather1 | Leather Strips0.1; ten per hide/leather |
+| Textile exception | Native wool4 and yarn/thread1 | Cloth0.1; bolt5 for50 cloth | Cloth Scraps0.01; ten per cloth,500 per bolt |
+
+Native ore yields remain½/1/2 ingots per small/medium/large clump. Native wool/yarn/loom quantities remain. Existing material stacks receive the same canonical weights when the release flag is enabled; amounts, subtype, hue and origin stay intact. Keep native integer per-stack weight rounding and ordinary encumbrance, with no deletion or automatic dropping.
+
+- Processing uses smithing hammer→Blacksmithing, tinker's tools→Tinkering, fletching tools→Fletching, saw→Carpentry, tailoring kit→Tailoring for leather/cloth. Anyone may process without selecting a craft or using a town facility. Valid conversions always produce their output and spend no charges. One native-style skill check per action can gain only for the matching confirmed active craft, through30, respecting individual caps/locks; no checks once trivial. Partial quantities and all-input batches must preflight exact stack/item/weight capacity before consumption. Normal forge/wheel/loom equipment requirements remain. See [T07](t07-processing.md).
+- Disable new cloth/uncut-cloth/oil-cloth bandage cutting and NPC bandage supply, including buyback. Existing bandages remain. NPC raw/processed metal, wood and leather supplies and their generic scraps are excluded from stock/restock/buyback; cloth supply stays allowed. Full vendor prices/restocking remain T11.
 - Scraps/strips supply ordinary profession recipes. Tinkering uses materials for tools/keys; Cooking uses Wooden Chips as fuel. Metal/leather/cloth repairs also consume their corresponding scrap/strip material; wooden repairs use appropriate boards, not chips. The additional scrap quantities are not specified.
 - Anyone can salvage eligible equipment with the corresponding crafting tool. No skill requirement, no charge consumption, no gold fee. No new salvage skill gain rule was selected.
 - Drop/crafted/gambled-origin eligibility and separate rarity/item-level rolls remain. Keep the existing provisional recovery values: Magic essence 80% / 1–2; Rare 90% / 2–5; each physical material 85% / `[1+s, 3+s]`, `s=floor((itemLevel−1)/10)`. Unique 95% / 5–12 remains reserved until real Unique support.
