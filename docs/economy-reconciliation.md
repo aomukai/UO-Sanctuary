@@ -37,7 +37,7 @@ These are the residual fields in existing IDs, not a new request to re-answer th
 | --- | --- |
 | Practice/processing — A04, C01 | T05 settles crafting-only practice, the linear100%→1% curve, configurable1gold/0.1 training and unrestricted basic-processing access with active-craft gains. Consistent conversion weights and remaining station/portable details still need a rule. |
 | Materials/jewellery — B04, E01/E02 | Material bonus roll/scaling and random-element pool; jewellery item levels/equip/cost mapping. |
-| Repairs — C03, D03/D04/D08/D10/D13 | Scrap quantities, repair extent/partial behavior, Unique essence cost, max-durability floor, saving-roll scope, chitin rates/recipe and restoration amount/limits. Tools still need exact charge handling. |
+| Repairs — C03, D03/D04/D08/D10/D13 | T12 confirms full repair/floor1, scraps1/3/5, reserved Unique3×, all-resource saving, charged repair tools/workshops and NPC handling; see [T12](t12-repairs.md). Chitin rates/recipe and maximum-restoration amount/limits remain T36. |
 | Socket tools — F02/F05 | Intuition retry charge use/one-retry handling; exact acquisition/mapping of the +1/+2/+3 success bonuses. |
 | Gems/gathering — H02–H08, L08 | Per-find quantity/full-pack behavior; nine-family mapping and second flat effect; gem upgrade recipe. Is treasure-chest “random gem” an intentional usable-gem exception to mining-only supply or a decorative legacy reward? |
 | Potions/food — J01/J02, K01 | Magical Penetration's component formula; Protection mitigation ordering; coexistence of different potion buffs; minimum gathering duration and aggro-delay application/reset conditions. |

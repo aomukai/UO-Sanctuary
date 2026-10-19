@@ -1,0 +1,77 @@
+--- a/Projects/UOContent/Engines/Craft/Core/Repair.cs
++++ b/Projects/UOContent/Engines/Craft/Core/Repair.cs
+@@ -10,6 +10,7 @@
+     {
+         public static void Do(Mobile from, CraftSystem craftSystem, BaseTool tool)
+         {
++            if (TradeSkillHooks.RepairUsed?.Invoke(from, craftSystem, tool, null) == true) { return; }
+             if (!TradeSkillHooks.Check(from, craftSystem.MainSkill, tool, true)) { return; }
+             from.Target = new InternalTarget(craftSystem, tool);
+             from.SendLocalizedMessage(1044276); // Target an item to repair.
+@@ -17,6 +18,7 @@
+ 
+         public static void Do(Mobile from, CraftSystem craftSystem, RepairDeed deed)
+         {
++            if (TradeSkillHooks.RepairUsed?.Invoke(from, craftSystem, null, deed) == true) { return; }
+             if (!TradeSkillHooks.Check(from, craftSystem.MainSkill, deed, true)) { return; }
+             from.Target = new InternalTarget(craftSystem, deed);
+             from.SendLocalizedMessage(1044276); // Target an item to repair.
+--- a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
++++ b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+@@ -11,6 +11,8 @@
+ {
+     public static Func<Mobile, SkillName, Item, bool, bool> ActionAllowed { get; set; }
+     public static Func<Mobile, BaseTool, bool> ToolUsed { get; set; }
++    public static Func<Mobile, CraftSystem, BaseTool, RepairDeed, bool> RepairUsed { get; set; }
++    public static Action<BaseWand, int> WandCreated { get; set; }
+     public static Func<Mobile, SkillName, Type, BaseTool, bool, bool> RecipeAllowed { get; set; }
+     public static Func<Mobile, CraftSystem, CraftItem, BaseTool, bool> RecipeSelected { get; set; }
+     public static Func<Mobile, CraftSystem, CraftItem, double?> MinimumChance { get; set; }
+--- a/Projects/UOContent/Items/ClassEconomyHooks.cs
++++ b/Projects/UOContent/Items/ClassEconomyHooks.cs
+@@ -1,12 +1,17 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ using System;
+ using System.Collections.Generic;
++using Server.Collections;
++using Server.ContextMenus;
+ using Server.Mobiles;
+ 
+ namespace Server;
+ 
++public delegate void VendorServiceEntries(BaseVendor vendor, Mobile from, ref PooledRefList<ContextMenuEntry> entries);
++
+ public static class ClassEconomyHooks
+ {
++    public static VendorServiceEntries ServiceEntries { get; set; }
+     public static Func<BaseVendor, IBuyItemInfo[]> Stock { get; set; }
+     public static Func<BaseVendor, IShopSellInfo[], IShopSellInfo[]> SellInfo { get; set; }
+     public static Func<BaseVendor, Mobile, List<BuyItemResponse>, bool?> BuyItems { get; set; }
+--- a/Projects/UOContent/Items/Wands/BaseWand.cs
++++ b/Projects/UOContent/Items/Wands/BaseWand.cs
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using System.Runtime.CompilerServices;
+ using ModernUO.Serialization;
++using Server.Engines.Craft;
+ using Server.Network;
+ using Server.Spells;
+ using Server.Targeting;
+@@ -40,6 +41,7 @@
+     {
+         _wandEffect = effect;
+         _charges = Utility.RandomMinMax(minCharges, maxCharges);
++        TradeSkillHooks.WandCreated?.Invoke(this, _charges);
+         Attributes.SpellChanneling = 1;
+         Attributes.CastSpeed = -1;
+         WeaponAttributes.MageWeapon = Utility.RandomMinMax(1, 10);
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -1378,6 +1378,7 @@
+ 
+         public override void AddCustomContextEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
+         {
++            ClassEconomyHooks.ServiceEntries?.Invoke(this, from, ref list);
+             if (from.Alive && IsActiveVendor)
+             {
+                 if (ContentFeatureFlags.BulkOrders && SupportsBulkOrders(from))

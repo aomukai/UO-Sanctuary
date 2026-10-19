@@ -1,0 +1,18 @@
+[
+  {
+    "OrdinaryItemLevel": 41,
+    "BritainItemLevel": 70,
+    "WhiteOffers": 9,
+    "MagicOffers": 3,
+    "RefreshMinutes": 60,
+    "WhitePriceMultiplier": 2,
+    "MagicPriceMultiplier": 4,
+    "VendorResalePercent": 10,
+    "NormalMin": 100,
+    "NormalMax": 500,
+    "ExceptionalMin": 500,
+    "ExceptionalMax": 1000,
+    "EliteMin": 2500,
+    "EliteMax": 5000
+  }
+]

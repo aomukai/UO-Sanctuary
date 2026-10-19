@@ -41,6 +41,17 @@ public static class CraftFacilities
             }
         }
     }
+    internal static void Register(CraftFacility site)
+    {
+        if (!Array.Exists(_sites, row => row == site)) { _sites = [.. _sites, site]; }
+        Map.TryParse(site.Map, null, out var map);
+        var point = new Point3D(site.X, site.Y, site.Z);
+        foreach (var station in map.GetItemsAt<TownCraftStation>(point))
+        {
+            if (station.Skill == site.Skill && station.ItemID == site.ItemID) { return; }
+        }
+        new TownCraftStation(site.Skill, site.ItemID).MoveToWorld(point, map);
+    }
     public static bool Allows(Mobile from, SkillName skill, bool message = true)
     {
         if (!ClassProfessions.Affected(from)) { return true; }

@@ -58,7 +58,7 @@ public static class ItemStateChecks
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 2, "Expected gear version 2");
+        Require(reader.ReadInt() == 3, "Expected gear version 3");
         writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
@@ -89,6 +89,7 @@ public static class ItemStateChecks
             { writer.Write(tier); writer.Write(quality); writer.Write(native); writer.Write(tinker); writer.Write(identified); writer.Write(offer); }
             reader.ReadBool(); reader.ReadInt(); int materials = reader.ReadInt();
             for (int j = 0; j < materials; j++) { reader.ReadString(); reader.ReadInt(); }
+            reader.ReadInt(); // Version 3 vendor purchase price.
         }
         return writer.Buffer[..(int)writer.Position];
     }
@@ -119,9 +120,15 @@ public static class ItemStateChecks
             var item = ItemOrigins.Create(i % 2 == 0 ? ItemOrigin.Crafted : ItemOrigin.Drop, factory);
             player.Backpack.DropItem(item);
             SetNative(item);
-            var state = ClassGear.Profiles.Convert(item, 35, GearRarity.Magic, new Random(50 + i));
-            state = state with { Quality = CraftQuality.Superior, NativeSockets = GearDetails.Socketable(item) ? 2 : 0,
-                TinkerSockets = GearDetails.Socketable(item) ? 3 : 0, Identified = false, IdentifiedSaleOffer = 234 + i };
+            bool historicalCloth = ClassGear.CosmeticClothing(item) && ClassGear.Definition(item).Slot == GearSlot.Head;
+            var state = ClassGear.Profiles.Convert(item, 35, historicalCloth ? GearRarity.Normal : GearRarity.Magic, new Random(50 + i));
+            if (historicalCloth)
+            {
+                state = state with { Roll = AffixBalance.Roll(ClassGear.Base(item), 35, GearRarity.Magic, new Random(50 + i), ClassGear.Implemented) };
+            }
+            bool storedSockets = GearDetails.Socketable(item) || historicalCloth;
+            state = state with { Quality = CraftQuality.Superior, NativeSockets = storedSockets ? 2 : 0,
+                TinkerSockets = storedSockets ? 3 : 0, Identified = false, IdentifiedSaleOffer = 234 + i };
             ClassGear.Profiles.Store(item, state);
             var details = GearDetails.Read(item);
             Require(details.Material == materials[i] && details.Durability == 17 && details.MaximumDurability == 73,
@@ -167,9 +174,9 @@ public static class ItemStateChecks
             Reject(item, state with { NativeSockets = 3 });
             Reject(item, state with { TinkerSockets = 6 });
             Reject(item, state with { IdentifiedSaleOffer = -1 });
-            Reject(item, state with { IdentifiedSaleOffer = 501 });
+            Reject(item, state with { IdentifiedSaleOffer = 60001 });
             Reject(item, state with { Quality = CraftQuality.Average, NativeSockets = 1 });
-            if (!GearDetails.Socketable(item)) { Reject(item, state with { TinkerSockets = 1 }); }
+            if (!GearDetails.Socketable(item) && !historicalCloth) { Reject(item, state with { TinkerSockets = 1 }); }
         }
         CheckImplicitCopy();
         CheckImbuing(player);

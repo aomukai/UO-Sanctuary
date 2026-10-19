@@ -1,0 +1,472 @@
+[
+  {
+    "Roles": [
+      "Smith"
+    ],
+    "Type": "SmithHammer",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Tailor"
+    ],
+    "Type": "SewingKit",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Bowyer"
+    ],
+    "Type": "FletcherTools",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Carpenter"
+    ],
+    "Type": "Saw",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "MortarPestle",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Skillet",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cartographer"
+    ],
+    "Type": "MapmakersPen",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "ScribesPen",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Tinker"
+    ],
+    "Type": "TinkerTools",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Imbuer"
+    ],
+    "Type": "ImbuingLadle",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Miner"
+    ],
+    "Type": "Pickaxe",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Lumberjack"
+    ],
+    "Type": "Hatchet",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Fisher"
+    ],
+    "Type": "FishingPole",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "BlackPearl",
+    "Price": 5,
+    "SellPrice": 3,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "Bloodmoss",
+    "Price": 5,
+    "SellPrice": 3,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "Garlic",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "Ginseng",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "MandrakeRoot",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "Nightshade",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "SpidersSilk",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "SulfurousAsh",
+    "Price": 3,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "Bottle",
+    "Price": 5,
+    "SellPrice": 3,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Apple",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Peach",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Pear",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Grapes",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Carrot",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Cabbage",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Onion",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "Lettuce",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "SackFlour",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cook"
+    ],
+    "Type": "CookingSpices",
+    "Price": 3,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Tailor"
+    ],
+    "Type": "Cloth",
+    "Price": 20,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Tailor"
+    ],
+    "Type": "BoltOfCloth",
+    "Price": 1000,
+    "SellPrice": 50,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "BlankScroll",
+    "Price": 5,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Cartographer"
+    ],
+    "Type": "BlankMap",
+    "Price": 5,
+    "SellPrice": 2,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 30,
+    "SellPrice": 0,
+    "Kind": "Healing",
+    "Tier": 1
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 75,
+    "SellPrice": 0,
+    "Kind": "Healing",
+    "Tier": 2
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 125,
+    "SellPrice": 0,
+    "Kind": "Healing",
+    "Tier": 3
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 250,
+    "SellPrice": 0,
+    "Kind": "Healing",
+    "Tier": 4
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 60,
+    "SellPrice": 0,
+    "Kind": "Mana",
+    "Tier": 1
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 150,
+    "SellPrice": 0,
+    "Kind": "Mana",
+    "Tier": 2
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 300,
+    "SellPrice": 0,
+    "Kind": "Mana",
+    "Tier": 3
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "RestorationPotion",
+    "Price": 500,
+    "SellPrice": 0,
+    "Kind": "Mana",
+    "Tier": 4
+  },
+  {
+    "Roles": [
+      "Tailor"
+    ],
+    "Type": "Scissors",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Smith"
+    ],
+    "Type": "RepairHammer",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Tailor"
+    ],
+    "Type": "TailoringRepairKit",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  }
+]

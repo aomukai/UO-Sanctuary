@@ -6,7 +6,7 @@ The first production cohort is the ten profession tools. Reuse the nine native T
 
 Acceptance: native start/timer/completion paths revalidate profession, facility, tool, selected material, resources, attributes and connection before costs/gains. Full packs reject before consumption; no output drops to the ground. A completion ticket is single-use and transient across reconnect/restart. Test all ten outputs, quality boundaries, failure, cancellation, duplicate/stale replies, material selection, full pack, concurrent users and save/reload. Test the real client and a disposable copy of installed saves. Reproduce the cumulative native patch stack. Keep the profession release flag disabled by default and installed runtime/saves unchanged.
 
-Status: **implemented and verified for the first tool cohort; disabled by default and not deployed**. Equipment recipes remain T08; vendor stock and broader world authoring remain their roadmap cards. This is not a complete production acquisition loop.
+Status: **implemented, verified and deployed for all ten approved tools; enabled in the installed runtime**. See the [T01–T09 deployment](deployment-t01-t09.md). Equipment recipes remain T08; vendor stock and broader world authoring remain their roadmap cards. This is not a complete production acquisition loop.
 
 ## Transactions and state ownership
 

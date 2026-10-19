@@ -46,11 +46,15 @@ public static class CombatTiming
         ["Sai"] = -20, ["Kama"] = -10, ["Tessen"] = -10, ["Nunchaku"] = -10,
         ["Bokuto"] = 0, ["Lajatang"] = 0, ["Tetsubo"] = 20, ["Fists"] = 0
     };
-    public static BaseWeapon Equipped(PlayerMobile from) => from.FindItemOnLayer(Layer.OneHanded) as BaseWeapon
-        ?? from.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
+    public static BaseWeapon Equipped(PlayerMobile from)
+    {
+        var weapon = from.FindItemOnLayer(Layer.OneHanded) as BaseWeapon
+            ?? from.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
+        return ClassGear.Broken(weapon) ? null : weapon;
+    }
     public static WeaponTiming Weapon(BaseWeapon weapon)
     {
-        if (weapon == null || weapon.Type == WeaponType.Fists)
+        if (weapon == null || ClassGear.Broken(weapon) || weapon.Type == WeaponType.Fists)
         {
             return new WeaponTiming(AttackFamily.Unarmed, 0);
         }
@@ -84,15 +88,16 @@ public static class CombatTiming
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
     {
         ClassCreation.Profiles.TryGet(from.Serial, out var profile);
-        return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from));
+        return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
+            ability == CombatAbility.BasicAttack ? GearEffects.ChillPercent(from) : 0);
     }
-    public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0)
+    public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0)
     {
         int row = Math.Clamp((int)characterClass - 101, 0, 6);
         bool cast = ability is CombatAbility.Teeth or CombatAbility.RaiseSkeleton;
         int bonus = Math.Clamp(cast ? fcr : ias, 0, 10000);
         int effective = 120 * bonus / (120 + bonus);
-        int rate = Math.Clamp(100 + effective - (cast ? 0 : weapon.Modifier), 15, 175);
+        int rate = Math.Clamp(100 + effective - (cast ? 0 : weapon.Modifier) - Math.Clamp(chill, 0, 50), 15, 175);
         int advance = 256 * rate / 100;
         int baseFrames = cast ? _casts[row] : _attacks[row][(int)weapon.Family];
         int frames = Math.Max(4, ((baseFrames + 1) * 256 + advance - 1) / advance - 1);
@@ -107,6 +112,7 @@ public static class CombatTiming
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {
+        if (ClassGear.Broken(weapon)) { return 1; }
         // Provisional class-combat comparison; native UO reach and other bases stay intact.
         int range = Math.Max(weapon?.MaxRange ?? 1, weapon is Halberd ? 2 : 1);
         return Math.Clamp(range, 1, CombatProtocol.SightRange);
@@ -121,7 +127,7 @@ public static class CombatTiming
             list.Add(1061167, $"{Label(timing.Frames)} ({DiabloClasses.DisplayName(profile.Class, player.Female)}, {timing.DurationMs / 1000.0:0.00}s)");
             if (weapon is Halberd)
             {
-                list.Add($"Class melee reach: {WeaponRange(weapon)} tiles");
+                list.Add($"{"Class melee reach: "}{WeaponRange(weapon)}{" tiles"}");
             }
         }
         else

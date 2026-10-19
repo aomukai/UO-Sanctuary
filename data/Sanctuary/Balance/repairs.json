@@ -1,0 +1,25 @@
+[
+  {
+    "Tiers": [
+      { "Tier": "Normal", "Min": 1, "Max": 3, "Scraps": 1, "Gold": 100 },
+      { "Tier": "Exceptional", "Min": 3, "Max": 5, "Scraps": 3, "Gold": 500 },
+      { "Tier": "Elite", "Min": 5, "Max": 10, "Scraps": 5, "Gold": 2500 }
+    ],
+    "Skills": [
+      { "Minimum": 0, "LossChance": 50, "LossMin": 1, "LossMax": 3, "SavingChance": 10 },
+      { "Minimum": 80, "LossChance": 25, "LossMin": 1, "LossMax": 2, "SavingChance": 20 },
+      { "Minimum": 100, "LossChance": 10, "LossMin": 1, "LossMax": 2, "SavingChance": 25 },
+      { "Minimum": 120, "LossChance": 5, "LossMin": 1, "LossMax": 1, "SavingChance": 30 }
+    ],
+    "RareEssenceMultiplier": 2,
+    "UniqueEssenceMultiplier": 3,
+    "MinimumMaximumDurability": 1,
+    "EssencePerCharge": 1,
+    "NpcSkill": 80,
+    "ToolRequiredSkill": 25,
+    "HammerIngots": 2,
+    "HammerScraps": 1,
+    "KitIngots": 2,
+    "KitStrips": 1
+  }
+]

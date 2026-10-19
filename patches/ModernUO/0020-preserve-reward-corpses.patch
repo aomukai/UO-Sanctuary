@@ -1,0 +1,24 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3669,9 +3669,10 @@
+ 
+             // The base death handler deletes NPCs and clears their ownership.
+             ClassLootHooks.CreatureDied?.Invoke(this, c);
++            var preserveCorpse = ClassLootHooks.PreserveCorpse?.Invoke(this, c) == true;
+             base.OnDeath(c);
+ 
+-            if (DeleteCorpseOnDeath)
++            if (DeleteCorpseOnDeath && !preserveCorpse)
+             {
+                 c.Delete();
+             }
+--- a/Projects/UOContent/Mobiles/ClassLootHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassLootHooks.cs
+@@ -4,6 +4,7 @@
+ public static class ClassLootHooks
+ {
+     public static Func<BaseCreature, bool> SuppressDrops { get; set; }
++    public static Func<BaseCreature, Container, bool> PreserveCorpse { get; set; }
+     public static Action<BaseCreature, Container> CreatureDied { get; set; }
+     public static Action<Mobile, Corpse> Carved { get; set; }
+     public static Action<Corpse> ContentsChanged { get; set; }

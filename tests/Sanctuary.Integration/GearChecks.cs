@@ -64,7 +64,7 @@ public static class GearChecks
                     "A normal base received intrinsic UO magical properties");
                 if (ClassGear.Slot(item) == GearSlot.Cosmetic)
                 {
-                    Require(!definition.AllowsAffixes && ClassGear.Defense(item) == 0
+                    Require((!definition.AllowsAffixes || ClassGear.CosmeticClothing(item)) && ClassGear.Defense(item) == 0
                         && ClassGear.Stat(item, ClassGearStat.StrengthRequirement) == 0,
                         $"Cosmetic base contributes stats: {definition.Type}");
                     Rejected(() => ClassGear.Profiles.Convert(item, 99, GearRarity.Magic), "Cosmetic equipment accepted magic rarity");

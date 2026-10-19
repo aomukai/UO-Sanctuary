@@ -21,6 +21,9 @@ public static class BalanceCatalog
         AffixBalance.Load();
         MonsterBalance.Load();
         CreatureProfiles.Load();
+        CreatureGold.Load();
+        TownMarkets.Load();
+        EquipmentRepairs.Load();
     }
     private static JsonSerializerOptions CreateOptions()
     {

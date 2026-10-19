@@ -115,14 +115,14 @@ public static class EquipmentEconomyChecks
         info.Add(typeof(Bandage), 20);
         var dagger = Gear(new Dagger(), GearRarity.Magic);
         int raw = info.GetSellPriceFor(dagger), buy = info.GetBuyPriceFor(dagger);
-        Require(BaseVendor.GetSellPriceFor(dagger, info) == EquipmentEconomy.Settings.MagicResaleCap
+        Require(BaseVendor.GetSellPriceFor(dagger, info) is >= 100 and <= 500
             && info.GetSellPriceFor(dagger) == raw && info.GetBuyPriceFor(dagger) == buy,
-            "Resale cap changed stock/buyback prices or failed to cap the magic offer");
+            "Persistent resale changed native valuation or missed the Normal band");
         var bandage = new Bandage();
         _items.Add(bandage);
         Require(BaseVendor.GetSellPriceFor(bandage, info) == 20, "Non-equipment profession goods were repriced");
-        Require(EquipmentEconomy.SellPrice(dagger, 1) == 1 && EquipmentEconomy.SellPrice(dagger, 0) == 0,
-            "Resale rounding fabricated a positive offer for zero-value goods");
+        Require(EquipmentEconomy.SellPrice(dagger, 1) == EquipmentEconomy.SellPrice(dagger, 0),
+            "A native quote changed the saved equipment offer");
         var shopInfo = vendor.GetSellInfo().First(i => i.IsSellable(dagger));
         int expected = BaseVendor.GetSellPriceFor(dagger, shopInfo), gold = Count<Gold>();
         Require(vendor.OnSellItems(_player, [new SellItemResponse(dagger, 1)]) && Count<Gold>() == gold + expected,

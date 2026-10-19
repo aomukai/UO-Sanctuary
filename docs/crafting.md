@@ -28,7 +28,7 @@ The [worksheet](economy-open-questions.md) retains stable IDs and tracks unresol
 | Cooking | Inn hearth/kitchen; existing portable campfire exception remains |
 | Chitin processing | Alchemy mortar and pestle |
 
-**Confirmed T06:** the first tool cohort uses mortar/pestle, smithing hammer, fletching tools, saw, cartography pen, skillet, inscription pen, tailoring kit, tinker's tools and Imbuing ladle. Reuse their nine native Tinkering recipes; the ladle provisionally requires25 Tinkering and2 iron ingots. Vendor tools cost10gold and receive20–30 uses once supplied. Crafted tools have100 uses, High Quality110, Superior120, and10% charge saving on committed production/practice attempts, including failures. One use covers one attempt/batch; cancellation/rejection and charge-free processing/salvage use none. Existing tools retain their current uses without retroactive refills or quality conversion. Prices/capacities are tuning data. Vendor stock/replenishment, additional tools and repair tools remain later authoring. Trainer prices follow T05.
+**Confirmed T06:** the first tool cohort uses mortar/pestle, smithing hammer, fletching tools, saw, cartography pen, skillet, inscription pen, tailoring kit, tinker's tools and Imbuing ladle. Reuse their nine native Tinkering recipes; the ladle provisionally requires25 Tinkering and2 iron ingots. Vendor tools cost10gold and receive20–30 uses once supplied. Crafted tools have100 uses, High Quality110, Superior120, and10% charge saving on committed production/practice attempts, including failures. One use covers one attempt/batch; cancellation/rejection and charge-free processing/salvage use none. Existing tools retain their current uses without retroactive refills or quality conversion. Prices/capacities are tuning data. T11 supplies vendor tools; T12 adds the separate repair tools and their recipes. Additional profession tools retain their own recipe cards. Trainer prices follow T05.
 
 **Confirmed T06 facilities:** ordinary production and practice for all ten crafts require the appropriate public town facility within two tiles. Initial usage is free and stations support concurrent users. Private workshops remain deferred. Basic processing/salvage remain portable while preserving native equipment needs such as a forge or spinning wheel/loom. Campfires permit simple meat/fish cooking; baking still needs a kitchen. Native per-character recipe unlocks persist across profession changes. The initial Britain registry and the first tool transaction cohort are recorded in [T06](t06-crafting.md); equipment production remains T08.
 
@@ -52,7 +52,7 @@ Metal, wood and leather come from gathering/hunting, not NPC resource sales. Clo
 
 ### Material bonus directions
 
-Armour rolls1–5 resistance percentage points independently for each listed resistance. Weapons roll5–10% added damage of the material's type, based on the unmodified reference weapon damage before global bonuses; existing physical damage is retained. **Confirmed T08:** random elements are Fire/Cold/Lightning/Poison; Barbed's random resistance excludes Poison. Rolls are stored once. T09 owns measured activation/rounding in combat; MF/GF remain gated until reward consumers exist. See [T08](t08-white-bases.md).
+Armour rolls1–5 resistance percentage points independently for each listed resistance. Weapons roll5–10% added damage of the material's type, based on the unmodified reference weapon damage before global bonuses; existing physical damage is retained. **Confirmed T08:** random elements are Fire/Cold/Lightning/Poison; Barbed's random resistance excludes Poison. Rolls are stored once. T09 activates the saved combat rolls: cold adds a base2-second chill, poison delivers its total bonus over3 seconds without repeated-hit stacking, and Verite pieces stack. [T10](t10-rewards.md) activates Gold Find for corpse gold; Magic Find remains gated until its gear-reward consumer exists. See the implementation/verification status in [T09](t09-effective-gear.md). See [T08](t08-white-bases.md).
 
 | Ore | Property identity / exception |
 | --- | --- |
@@ -83,7 +83,7 @@ Armour rolls1–5 resistance percentage points independently for each listed res
 | Horned | Fire and physical |
 | Barbed | Poison plus a random element |
 
-Starter items remain newbie-protected, cannot be salvaged/imbued/socketed, and sell for 1 gold. Belts/tabards receive combat affixes but no sockets. Gloves/boots and jewellery have no sockets. Socketable slots are helmet, chest, **weapon (including swords)** and shield. Other designated layers—arms, gorget, pants, cloak—are cosmetic without stats/sockets.
+Starter items remain newbie-protected, cannot be salvaged/imbued/socketed, and sell for 1 gold. Belts/tabards receive combat affixes but no sockets. Gloves/boots and jewellery have no sockets. Socketable slots are helmet, chest, **weapon (including swords)** and shield. Other designated layers—arms, gorget, pants, cloak—are cosmetic without stats/sockets. **Confirmed T09:** ordinary cloth clothing, including cloth hats, is cosmetic and wearable; belts/tabards are exceptions. Leather footwear retains its combat role, including naturally non-wearing0/0 footwear. Old cloth-hat affixes/socket history remain saved but inactive; new cloth hats cannot receive combat affixes or sockets.
 
 **Explicit clarification, 19 October:** eligible white weapons, shields, rings and amulets are imbueable alongside white helmets/chests/gloves/boots/belts. Drop/crafted/gambled-origin, starter/vendor exclusions, skill requirements and the tinker-added-socket restriction still apply. Being imbueable does not imply being socketable; swords qualify for both as weapons, while rings/amulets do not acquire socket permission.
 
@@ -102,14 +102,14 @@ Native ore yields remain½/1/2 ingots per small/medium/large clump. Native wool/
 
 - Processing uses smithing hammer→Blacksmithing, tinker's tools→Tinkering, fletching tools→Fletching, saw→Carpentry, tailoring kit→Tailoring for leather/cloth. Anyone may process without selecting a craft or using a town facility. Valid conversions always produce their output and spend no charges. One native-style skill check per action can gain only for the matching confirmed active craft, through30, respecting individual caps/locks; no checks once trivial. Partial quantities and all-input batches must preflight exact stack/item/weight capacity before consumption. Normal forge/wheel/loom equipment requirements remain. See [T07](t07-processing.md).
 - Disable new cloth/uncut-cloth/oil-cloth bandage cutting and NPC bandage supply, including buyback. Existing bandages remain. NPC raw/processed metal, wood and leather supplies and their generic scraps are excluded from stock/restock/buyback; cloth supply stays allowed. Full vendor prices/restocking remain T11.
-- Scraps/strips supply ordinary profession recipes. Tinkering uses materials for tools/keys; Cooking uses Wooden Chips as fuel. Metal/leather/cloth repairs also consume their corresponding scrap/strip material; wooden repairs use appropriate boards, not chips. The additional scrap quantities are not specified.
+- Scraps/strips supply ordinary profession recipes. Tinkering uses materials for tools/keys; Cooking uses Wooden Chips as fuel. Metal/leather/cloth repairs also consume their corresponding scrap/strip material; wooden repairs use appropriate boards, not chips. T12 sets the additional metal/leather/cloth repair scraps or strips to1/3/5 by base tier; bone uses bones without extra scraps.
 - Anyone can salvage eligible equipment with the corresponding crafting tool. No skill requirement, no charge consumption, no gold fee. No new salvage skill gain rule was selected.
 - Drop/crafted/gambled-origin eligibility and separate rarity/item-level rolls remain. Keep the existing provisional recovery values: Magic essence 80% / 1–2; Rare 90% / 2–5; each physical material 85% / `[1+s, 3+s]`, `s=floor((itemLevel−1)/10)`. Unique 95% / 5–12 remains reserved until real Unique support.
 - Installed gems/runes are destroyed by salvage and do not add recovery yield. A socketed item still supplies its ordinary physical output and any rarity-based essence entitlement.
 
 ## Repair and recharge — D01–D14
 
-Use processed materials: ingots, boards, cut leather and cloth. Coloured equipment requires its exact material subtype; bone is usable directly for bone armour. C03 additionally requires corresponding scraps/strips for metal/leather/cloth, with quantities still missing.
+Use processed materials: ingots, boards, cut leather and cloth. Coloured equipment requires its exact material subtype; bone is usable directly for bone armour. C03 additionally requires1/3/5 generic scraps/strips for Normal/Exceptional/Elite metal/leather/cloth gear. Wood takes no chips, and bone takes no scraps.
 
 | Base tier | Matching processed material | Magic essence | Rare essence | NPC gold surcharge |
 | --- | --- | --- | --- | ---: |
@@ -117,7 +117,7 @@ Use processed materials: ingots, boards, cut leather and cloth. Coloured equipme
 | Exceptional | Random 3–5 | Random 3–5 | Twice Magic cost | 500 |
 | Elite | Random 5–10 | Random 5–10 | Twice Magic cost | 2,500 |
 
-White gear needs no essence. Unique repair costs are not specified. Repair draws are made per repair; exact repair extent/partial-repair behavior is not stated. Recharge costs **1 essence per restored charge**, and a combined repair/recharge combines applicable costs. Charge-only work needs no physical material and causes no durability loss. Mere use of spell charges does not wear durability.
+White gear needs no essence. Rare costs twice the independently drawn Magic essence cost; a3× Unique multiplier is reserved for the future Unique item implementation. Each repair restores current durability to its post-loss maximum, with a maximum-durability floor of1. There are no partial durability repairs. Draws are quoted once for the same damaged state and survive cancel/reopen/relog. Recharge costs **1 Magic Essence per restored charge**, with quantity/fill controls and a persisted capacity. Combined work adds applicable costs. Charge-only work needs no physical material and causes no durability loss; mere use of spell charges does not wear durability.
 
 | Repairer skill | Chance to lose maximum durability | Loss when triggered | Resource-saving chance |
 | --- | ---: | --- | ---: |
@@ -126,9 +126,11 @@ White gear needs no essence. Unique repair costs are not specified. Repair draws
 | 100 to below 120 | 10% | 1–2 | 25% |
 | 120 | 5% | 1 | 30% |
 
-The 100–119.9 bracket is the reply file's explicit **provisional gap fix**. Repair success itself is reliable when requirements are met. The saving roll's eligible resources/scope, maximum-durability floor and exact rounding remain open. NPCs require the same resources as player repair plus the tier fee, and operate as skill 80 repairers; the exact hand-in/payment handling still needs definition.
+The 100–119.9 bracket is the reply file's explicit **provisional gap fix**. Repair success itself is reliable when requirements are met. One saving roll waives the whole action's material/essence bill, including recharge. Full quoted resources must be available before the roll; tool use and NPC fees remain payable. NPCs take the same resources automatically from the backpack plus the tier fee once per completed single/combined action, operating at skill80 with20% resource saving. Player repairs require their active craft, the public workshop and appropriate repair tool; NPCs require no matching active craft or personal tool. Repairs grant no skill gains.
 
-Keep native wear rates initially. At zero current durability, equipment may remain worn but contributes no weapon damage, defense or stats; a broken weapon uses unarmed attacks. The item is not deleted.
+Keep native wear rates initially. At zero current durability, equipment may remain worn but contributes no weapon damage, defense or stats; a broken weapon uses unarmed attacks. The item is not deleted. **Confirmed T09:** broken worn items retain weight and existing armor/shield running penalties. Their material effects, block, numerical bonuses and item-granted skills switch off. Broken weapons use unarmed reach/timing as well as damage; changing equipment never refunds a committed action deadline. Numeric FHR rolls are enabled through the existing recovery formulas.
+
+**Confirmed T12, 20 October:** [repair/recharge implementation](t12-repairs.md) records all six approved defaults and settles the remaining action rules: full durability repair, maximum floor1, additional generic scraps/strips1/3/5, reserved Unique3× Magic essence cost, one all-resource saving roll, one tool use, separate repair tools/public workshops, no repair skill gains, automatic NPC backpack payment and quantity/fill recharge for functioning native wands. Tools and consumable tomes cannot be refilled. Prices and quantities remain configurable.
 
 Solen, Terathan and other arachnid creatures can drop **chitin**, processed with mortar/pestle into **Powder of Fortifying** for restoring maximum durability. Drop probabilities, processing recipe/skill, amount restored and restoration floor/ceiling are still unspecified.
 
@@ -191,6 +193,8 @@ Consume one mould, the listed bark quantity and one pen charge. Higher bark subs
 | Named dungeon super-unique | 10% |
 
 Previously spent lives cannot reward again; owner credit for pet kills remains. Mould quantity and stat weights are not explicitly specified. The common level-85 roster ceiling must not cap future dungeon content: level 3+ dungeons progress from 60–70 near the entrance through 70–80 and 80–90 to 90–99 near the boss, providing T8 sources.
+
+World difficulty direction confirmed on 20 October 2026: Trammel has Normal and Nightmare outdoor mobs, with Hell mobs restricted to dungeon floor 3. Felucca has Hell mobs in the open world, providing more high-level hunting areas. Specific locations and dungeon populations will be authored later; this does not activate new difficulties in the current runtime. The higher-level dungeon progression above remains a separate encounter-authoring requirement.
 
 Filled sockets raise equipment's minimum character level: 1/2/3/4/5 filled require 30/40/50/60/70. Empty sockets add no requirement. Rune/gem identity itself adds none under this design; existing base/affix/attribute requirements still apply.
 
@@ -282,7 +286,7 @@ Fishing/bottles/kraken rules are delegated to UO references/native behavior. Res
 - Adopt D2-derived gold/drop chances and randomness tentatively, with a target that a 30-minute outing covers repairs and leaves a surplus. Exact UO encounter/base mappings and unsupported rarity handling require authoring/testing, not invented final balance claims.
 - **Remove automatic kill-gold collection.** Gold remains in the corpse and is looted through the existing grid. Pet ownership/revived-life reward rules remain.
 - Ordinary vendors sell random white/blue gear up to level 41; Britain vendors up to 70. “Level” needs definition as item level versus required character/base level. Drop the class-specific town stock proposal.
-- Player-sold items are gone; **no buyback**. Drop/crafted gear gets a generated persistent identified sale offer by base tier: Normal **100–500**, Exceptional **500–1,000**, Elite **2,500–5,000 gold**. Generate it when a vendor first sees the item; do not reroll it by reopening the sales list. Unidentified sells for 10% of the identified offer. Starter items sell for 1. Other origin cases remain unspecified.
+- Player-sold items are gone; **no buyback**. Drop/crafted gear gets a generated persistent identified sale offer by base tier: Normal **100–500**, Exceptional **500–1,000**, Elite **2,500–5,000 gold**. Generate it when a vendor first sees the item; do not reroll it by reopening the sales list. Unidentified sells for 10% of the identified offer. Starter items sell for 1. **Confirmed T11:** Vendor-origin gear refunds10% of its original recorded purchase price; legacy unknown-price Vendor gear sells for1 gold. Trades/copy/reload preserve those records.
 - Those sale prices **replace**, rather than combine with, the prototype's 10%-of-native/10–25–50 caps. No extra rarity scaling was specified for these new bands.
 - Shop lists should provide item-stat tooltips. The current client already has an OPL tooltip hook; actual serial/properties delivery must be checked before adding a replacement UI.
 - Put a gambler in every tavern, accessed like a vendor but showing hidden-stat gamble stock. Use D2-derived price/item-level/rarity/base-tier generation as the initial baseline, adapted to the project's item families. All intended item types should be offered; actual Set/Unique support is not thereby implemented.

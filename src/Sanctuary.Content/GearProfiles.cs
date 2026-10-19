@@ -24,6 +24,7 @@ public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, 
     public MaterialRoll[] MaterialRolls { get; init; } = [];
     public bool Identified { get; init; } = true;
     public int? IdentifiedSaleOffer { get; init; }
+    public int? VendorPurchasePrice { get; init; }
     public int SocketCount => NativeSockets + TinkerSockets;
 }
 
@@ -51,7 +52,8 @@ public sealed class GearProfiles : GenericPersistence
     private static GearState DefaultState(Item item)
     {
         var basis = ClassGear.Base(item);
-        return new(ClassGear.Definition(item).BaseCode, ClassGear.Defense(item), false,
+        int defense = basis == null ? 0 : basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));
+        return new(ClassGear.Definition(item).BaseCode, defense, false,
             new(GearRarity.Normal, 1, basis == null ? 1 : AffixBalance.Level(1, basis.QualityLevel, basis.MagicLevel),
                 basis?.RequiredLevel ?? 0, []));
     }
@@ -112,7 +114,7 @@ public sealed class GearProfiles : GenericPersistence
     {
         var basis = ClassGear.Base(item);
         var before = Find(item.Serial);
-        if (basis == null || before is { StarterTeeth: true } or { TinkerSockets: > 0 }
+        if (basis == null || ClassGear.Slot(item) == GearSlot.Cosmetic || before is { StarterTeeth: true } or { TinkerSockets: > 0 }
             || (before?.Roll.Rarity ?? GearRarity.Normal) != GearRarity.Normal
             || rarity is not (GearRarity.Magic or GearRarity.Rare))
         {
@@ -164,19 +166,22 @@ public sealed class GearProfiles : GenericPersistence
             || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
             || state.TinkerSockets > 5 || state.SocketCount > 5
             || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
-            || state.SocketCount > 0 && (state.StarterTeeth || item.LootType == LootType.Newbied || !GearDetails.Socketable(item))
-            || state.IdentifiedSaleOffer is { } offer && (offer < 100 || offer > 500 || state.StarterTeeth
+            || state.SocketCount > 0 && (state.StarterTeeth || item.LootType == LootType.Newbied
+                || !GearDetails.Socketable(item) && !(ClassGear.CosmeticClothing(item) && definition.Slot == GearSlot.Head))
+            || state.IdentifiedSaleOffer is { } offer && (!ValidOffer(offer) || state.StarterTeeth
                 || item.LootType == LootType.Newbied || item.Origin == ItemOrigin.Vendor))
         {
             throw new InvalidDataException("Invalid equipment tier, quality, socket provenance or sale offer.");
         }
+        if (state.VendorPurchasePrice is < 0 or > 60000 || state.VendorPurchasePrice != null && item.Origin != ItemOrigin.Vendor)
+        { throw new InvalidDataException("Invalid vendor purchase price."); }
         if (!EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode)
             || !EquipmentCrafting.ValidMaterialRolls(item, state) || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
             || state.StarterTeeth && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal))
         {
             throw new InvalidDataException("Invalid converted equipment identity or level.");
         }
-        if (ClassGear.Slot(item) == GearSlot.Cosmetic)
+        if (ClassGear.Slot(item) == GearSlot.Cosmetic && (!ClassGear.CosmeticClothing(item) || definition.BaseCode == null))
         {
             if (state.Defense != 0 || state.Roll.Rarity != GearRarity.Normal || state.Roll.Affixes.Length != 0)
             {
@@ -224,9 +229,11 @@ public sealed class GearProfiles : GenericPersistence
             throw new InvalidDataException("Invalid affix prefix/suffix budget or required level.");
         }
     }
+    // Saved quotes are independent of later price-band tuning.
+    private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(2);
+        writer.Write(3);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -262,12 +269,13 @@ public sealed class GearProfiles : GenericPersistence
             writer.Write(state.DurabilityPercent);
             writer.Write(state.MaterialRolls.Length);
             foreach (var material in state.MaterialRolls) { writer.Write(material.Code); writer.Write(material.Value); }
+            writer.Write(state.VendorPurchasePrice ?? -1);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 2)
+        if (version is < 0 or > 3)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -331,6 +339,12 @@ public sealed class GearProfiles : GenericPersistence
                 var materials = new MaterialRoll[countMaterials];
                 for (int j = 0; j < materials.Length; j++) { materials[j] = new(reader.ReadString(), reader.ReadInt()); }
                 state = state with { CraftedEquipment = crafted, DurabilityPercent = durability, MaterialRolls = materials };
+            }
+            if (version >= 3)
+            {
+                int paid = reader.ReadInt();
+                if (paid < -1) { throw new InvalidDataException("Invalid saved purchase price."); }
+                state = state with { VendorPurchasePrice = paid < 0 ? null : paid };
             }
             _items.Add(serial, state);
         }

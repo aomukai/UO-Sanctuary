@@ -11,9 +11,11 @@ class EquipmentEconomyTests(unittest.TestCase):
         rows = json.loads((BALANCE / 'economy.json').read_text())
         self.assertEqual(len(rows), 1)
         row = rows[0]
-        self.assertLess(row['resalePercent'], 100)
-        self.assertLessEqual(row['normalResaleCap'], row['magicResaleCap'])
-        self.assertLessEqual(row['magicResaleCap'], row['rareResaleCap'])
+        market = json.loads((BALANCE / 'market-settings.json').read_text())[0]
+        self.assertEqual(market['VendorResalePercent'], 10)
+        self.assertEqual([(market[t + 'Min'], market[t + 'Max']) for t in ['Normal', 'Exceptional', 'Elite']],
+                         [(100, 500), (500, 1000), (2500, 5000)])
+        self.assertNotIn('resalePercent', row)
         for name in ['magicEssence', 'rareEssence', 'reservedUniqueEssence',
                      'metalScraps', 'woodenChips', 'leatherStrips', 'clothScraps']:
             rule = row[name]

@@ -1,0 +1,14 @@
+{
+  "nativeRevision": "eff9de028136b11e544fd81375d1e0e710e22dd6",
+  "catalogSha256": "53779bd94f32f3d50d54c19f701a08ee90408f055cd17c09c3a425f042ed42ac",
+  "sources": {
+    "regions.json": "cbfe5df4097d16185ce3fd9b902b42f71029227c366247214ca16a401340687d",
+    "Spawns/post-uoml/felucca/Vendors.json": "42dc32ac7d7fa5b69a84482102412f9c29239660a9b53494da0598541e9c4844",
+    "Spawns/shared/felucca/Vendors.json": "acc0d004ead4d81e681eefeae62e54dfb3fe8420c4067dc83a3fc3271c9bd31d",
+    "Spawns/post-uoml/trammel/Vendors.json": "ea974465a990daf423e8ee0cd2117d8a74cd1e9b2dd845bcd9e0334b93f501d0",
+    "Spawns/shared/trammel/Vendors.json": "102abacbc8d4a953628fa9a68c98ed47be03f6eb43c63fee9c1546e55fef8b01",
+    "Spawns/uoml/trammel/Vendors.json": "a4e6c6d88fcb45e69a2164642ae51b032582d12db7d8b3d3028fb37450d7016a"
+  },
+  "townsFacets": 34,
+  "services": 476
+}

@@ -1,9 +1,5 @@
 [
   {
-    "resalePercent": 10,
-    "normalResaleCap": 10,
-    "magicResaleCap": 25,
-    "rareResaleCap": 50,
     "magicEssence": {
       "min": 1,
       "max": 2,

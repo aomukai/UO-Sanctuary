@@ -168,6 +168,11 @@ public static class ClassStats
     }
     public static (int Min, int Max) DamageRange(PlayerMobile player)
     {
+        int min = (int)Math.Floor(GearEffects.Damage(player, 0).Total);
+        return (min, Math.Max(min, (int)Math.Floor(GearEffects.Damage(player, 1).Total)));
+    }
+    public static (int Min, int Max) PhysicalDamageRange(PlayerMobile player)
+    {
         var weapon = CombatTiming.Equipped(player);
         int bonus = Math.Max(0, 100 + DamageBonus(player, weapon));
         int flatMin = 0, flatMax = 0;

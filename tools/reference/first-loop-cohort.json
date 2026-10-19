@@ -85,8 +85,9 @@
       "slot": "Head",
       "targetWeight": "Light",
       "progression": "equipment",
-      "targetSocketCap": 5,
-      "notes": "UO SkullCap uses D2 Cap, not D2 Skull Cap. Physical cloth is distinct from its head stat slot."
+      "targetSocketCap": 0,
+      "notes": "T09: cloth hats are cosmetic. Preserve the legacy Cap identity for saved history; no active combat stats, affixes or sockets.",
+      "effectiveSlot": "Cosmetic"
     },
     {
       "type": "BoneChest",
@@ -98,7 +99,7 @@
       "targetWeight": "Heavy",
       "progression": "equipment",
       "targetSocketCap": 5,
-      "notes": "Retain Ring Mail numerical analogue for the bounded cohort; target Heavy is an explicit Sanctuary weight override, pending T08/T09. Existing runtime weight is Medium."
+      "notes": "Ring Mail numerical analogue retained; physical bone is Heavy under the completed T08 material rule."
     }
   ],
   "materials": [
@@ -384,6 +385,34 @@
       "consumer": "src/Sanctuary.Content/ClassGear.cs#BlockChance",
       "scope": "Added before Dexterity/level formula and 75% cap. Blocking disabled by project running rule.",
       "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "balance1",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Fhr",
+      "scope": "Numeric FHR totals enter the existing class/weapon recovery breakpoints. Broken or cosmetic gear contributes zero.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "balance2",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Fhr",
+      "scope": "Numeric FHR totals enter the existing class/weapon recovery breakpoints. Broken or cosmetic gear contributes zero.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "balance3",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Fhr",
+      "scope": "Numeric FHR totals enter the existing class/weapon recovery breakpoints. Broken or cosmetic gear contributes zero.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "gold%",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/CreatureGold.cs#GoldFind",
+      "scope": "Working equipped numeric bonuses add to saved gold-material bonuses at death; increase corpse gold amount only.",
+      "status": "consumer-and-generation-guard-enabled"
     }
   ],
   "affixQueryItemLevels": [
@@ -441,15 +470,6 @@
   "gatedEffects": [
     {
       "codes": [
-        "balance1",
-        "balance2",
-        "balance3"
-      ],
-      "status": "consumer-exists-generation-disabled",
-      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Fhr"
-    },
-    {
-      "codes": [
         "res-physical"
       ],
       "status": "resistance-hook-exists-generation-disabled"
@@ -457,7 +477,6 @@
     {
       "codes": [
         "mag%",
-        "gold%",
         "lifesteal",
         "manasteal",
         "regen",

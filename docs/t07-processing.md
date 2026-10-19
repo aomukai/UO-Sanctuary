@@ -1,6 +1,6 @@
 # T07 — gathering and ordinary material processing
 
-Implemented and tested 19 October 2026 (JST), **not deployed**. This card uses the existing disabled-by-default `sanctuary.professions.enabled` release flag. It does not enable the profession release or change installed saves, configuration, runtimes or client preferences. Equipment recipes remain T08, full vendor pricing/restock/trainer authoring T11, corresponding-tool equipment salvage T16, and tiered Imbuing T17. Gems and bark retain their own cards.
+Implemented, tested and **deployed**19 October2026 (JST). See the [T01–T09 deployment](deployment-t01-t09.md); its explicit activation decision supersedes the historical disabled-release notes below. This card uses the existing disabled-by-default `sanctuary.professions.enabled` release flag. It does not enable the profession release or change installed saves, configuration, runtimes or client preferences. Equipment recipes remain T08, full vendor pricing/restock/trainer authoring T11, corresponding-tool equipment salvage T16, and tiered Imbuing T17. Gems and bark retain their own cards.
 
 ## Confirmed model
 

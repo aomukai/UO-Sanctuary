@@ -320,7 +320,7 @@ public static class EquipmentCrafting
         if (state.MaterialRolls == null || state.MaterialRolls.Length > 2
             || state.DurabilityPercent != 0 && state.DurabilityPercent is < 10 or > 20) { return false; }
         if (!state.CraftedEquipment)
-        { return state.DurabilityPercent == 0 && state.MaterialRolls.Length == 0 && state.Tier == GearTier.Normal; }
+        { return state.DurabilityPercent == 0 && state.MaterialRolls.Length == 0 && (state.Tier == GearTier.Normal || item.Origin == ItemOrigin.Vendor); }
         if (!Craftable(item.GetType())) { return false; }
         var native = GearDetails.Read(item);
         var resource = native.Resource;

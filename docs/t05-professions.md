@@ -15,7 +15,7 @@ Acceptance checks before implementation:
 - Test old-character defaults, new selection persistence, independent gains over the native total cap, exceptions and native bypass entry points; exercise actual client confirmation/practice/trainer interaction and save/restart.
 - Preserve installed binaries/saves/configuration/preferences. `sanctuary.professions.enabled` defaults to false until T14/T15 supply the earned switching route; test it only in disposable worlds. New trainer/tool types may be tested with fixtures; their production stock/placement remains T11/T17, not a GM-kit acquisition claim.
 
-Status: **implemented and verified; disabled by default and not deployed**.
+Status: **implemented, verified and deployed; enabled in the installed runtime by explicit user request**. The code default remains opt-in. See the [T01–T09 deployment](deployment-t01-t09.md), which supersedes the historical release hold below.
 
 ## Result and state ownership
 
@@ -99,7 +99,7 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 
 `SANCTUARY_TEST_PROFESSIONS=1` enables the feature **only in the disposable harness configuration**. It runs the profession fixture separately from the ordinary comparison fixtures, which intentionally assume all retained crafts are usable. For the normal comparison suite omit this switch and use the existing T04 flags; harnesses sharing `britain-baseline-check.log` must run sequentially.
 
-The runtime setting **`sanctuary.professions.enabled` defaults to false**. Keep it false until T14/T15 supply recognition and the public craft-switch route. No live console command, deployment, account/progression change or preference change was made. All322 existing protected runtime/configuration/save/preference files recorded at entry remained byte-identical, and the same installed server process remained running.
+The runtime setting **`sanctuary.professions.enabled` defaults to false**. The original release hold kept it false until T14/T15; the later explicit deployment request overrides that hold and enables it in this installation. The earned recognition/switch route itself is still T14/T15. No live console command, deployment, account/progression change or preference change was made. All322 existing protected runtime/configuration/save/preference files recorded at entry remained byte-identical, and the same installed server process remained running.
 
 Deployment later requires the matching cumulative server/content/client artifacts, save/backup/stop/install/restart checks and the release bundle's completed access route. Do not stage the integration assembly, fixtures or test kits. Disabling the feature suspends activation enforcement; rollback after real training needs the pre-upgrade save and matching prior binaries to restore the prior game state. Native skill caps/locks/values remain native throughout.
 

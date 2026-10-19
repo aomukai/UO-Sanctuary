@@ -67,12 +67,12 @@ public static class FirstLoopCatalogueChecks
                     && definition.Tier == entry.GetProperty("baseTier").GetString()
                     && definition.Slot.ToString() == entry.GetProperty("slot").GetString(), $"Mapping drift: {name}");
                 codes.Add(definition.BaseCode);
-                baseFactories[definition.BaseCode] = factory;
+                baseFactories.TryAdd(definition.BaseCode, factory);
                 var white = ClassGear.Profiles.Convert(item, 35, GearRarity.Normal, new Random(42));
                 Require(white.Roll.Affixes.Length == 0, $"White {name} acquired affixes");
                 items.Add(new
                 {
-                    Type = name, definition.BaseCode, Slot = definition.Slot.ToString(),
+                    Type = name, definition.BaseCode, Slot = definition.Slot.ToString(), EffectiveSlot = ClassGear.Slot(item).ToString(),
                     CurrentWeight = definition.Weight.ToString(), TargetWeight = entry.GetProperty("targetWeight").GetString(),
                     NativeResource = item switch { BaseArmor a => a.Resource.ToString(), BaseWeapon w => w.Resource.ToString(),
                         BaseClothing c => c.Resource.ToString(), BaseJewel j => j.Resource.ToString(), _ => "None" },
@@ -129,7 +129,7 @@ public static class FirstLoopCatalogueChecks
             ContentAssemblySha256 = Hash(typeof(ClassGear).Assembly.Location),
             InputHashes = new[] { "src/Sanctuary.Content/ClassGear.cs", "src/Sanctuary.Content/AffixBalance.cs",
                 "src/Sanctuary.Content/GearProfiles.cs", "src/Sanctuary.Content/EquipmentEconomy.cs",
-                "src/Sanctuary.Content/HitRecovery.cs",
+                "src/Sanctuary.Content/HitRecovery.cs", "src/Sanctuary.Content/GearEffects.cs", "src/Sanctuary.Content/EquipmentCrafting.cs",
                 "data/Sanctuary/Balance/affixes.json", "data/Sanctuary/Balance/item-types.json",
                 "data/Sanctuary/Balance/normal-bases.json", "data/Sanctuary/Balance/uo-equipment.json" }
                 .Concat(manifest.RootElement.GetProperty("effects").EnumerateArray()

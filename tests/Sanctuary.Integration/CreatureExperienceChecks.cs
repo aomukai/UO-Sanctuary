@@ -73,7 +73,14 @@ public static class CreatureExperienceChecks
         if (!creature.Deleted && creature.Alive) { creature.Kill(); }
         var corpse = creature.Corpse as Corpse;
         Require(corpse is { Deleted: false } || creature.Summoned, $"Real {creature.GetType().Name} death did not leave a corpse (deleted={creature.Deleted}, alive={creature.Alive})");
-        if (corpse != null) { _items.Add(corpse); }
+        if (corpse != null)
+        {
+            _items.Add(corpse);
+            if (creature is GraveyardUndead { Raised: true })
+            {
+                Require(corpse.SanctuaryNoRewards && corpse.GetAmount(typeof(Gold)) == 0, "Revived life paid gold");
+            }
+        }
         return corpse;
     }
     private static void Setup()

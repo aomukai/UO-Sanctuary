@@ -21,23 +21,9 @@ public static class ClassLoot
     public static void Configure()
     {
         ClassLootHooks.SuppressDrops = creature => creature is not BaseVendor && !creature.Controlled && !creature.Summoned;
-        ClassLootHooks.CreatureDied = (creature, corpse) =>
-        {
-            if (ClassLootHooks.SuppressDrops(creature))
-            {
-                using var items = Server.Collections.PooledRefList<Item>.Create();
-                foreach (var item in corpse.Items)
-                {
-                    items.Add(item);
-                }
-                foreach (var item in items)
-                {
-                    item.Delete();
-                }
-            }
-            AwardGold(creature, corpse);
-            CreatureExperience.Award(creature, corpse);
-        };
+        ClassLootHooks.PreserveCorpse = (creature, container) => !creature.Controlled && !creature.Summoned
+            && CreatureGold.Policy(creature.GetType()) is { Eligible: true } && container is Corpse corpse && HasContents(corpse);
+        ClassLootHooks.CreatureDied = (creature, corpse) => RewardLife.Process(creature, corpse);
         ClassLootHooks.Carved = (from, corpse) =>
         {
             if (from is PlayerMobile player && ClassCombat.Enabled(player) && corpse.OwnerWasBaseCreature)
@@ -113,39 +99,6 @@ public static class ClassLoot
     }
     public static PlayerMobile Killer(BaseCreature creature) => creature.LastKiller as PlayerMobile
         ?? (creature.LastKiller as BaseCreature)?.GetMaster() as PlayerMobile;
-    public static void AwardGold(BaseCreature creature, Container container)
-    {
-        if (container is not Corpse corpse || creature.Summoned || creature.Controlled || creature.NoKillAwards
-            || creature is BaseVendor || Killer(creature) is not { } player || !CanOpen(player, corpse, LootProtocol.SightRange))
-        {
-            return;
-        }
-        var amount = 0;
-        // A failed deposit leaves the original stack in the corpse.
-        using var gold = Server.Collections.PooledRefList<Gold>.Create();
-        foreach (var item in corpse.Items)
-        {
-            if (item is Gold stack && CanTakeGold(player, corpse, stack))
-            {
-                gold.Add(stack);
-            }
-        }
-        foreach (var stack in gold)
-        {
-            var count = stack.Amount;
-            if (player.TotalWeight + stack.PileWeight <= player.MaxWeight && player.Backpack?.TryDropItem(player, stack, true) == true)
-            {
-                corpse.OnItemLifted(player, stack);
-                amount += count;
-            }
-        }
-        if (amount > 0)
-        {
-            player.SendMessage($"Gold +{amount}");
-        }
-    }
-    private static bool CanTakeGold(PlayerMobile from, Corpse corpse, Gold item) =>
-        item.Movable && corpse.IsChildVisibleTo(from, item) && corpse.CanLoot(from, item);
     private static void Receive(NetState state, SpanReader reader)
     {
         if (state.Mobile is not PlayerMobile from || !ClassCombat.Enabled(from) || reader.Remaining != 6

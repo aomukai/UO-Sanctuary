@@ -1,6 +1,8 @@
 # T08 — ordinary white equipment and tools
 
-Approved and implemented 19 October 2026 (JST). **Agreed standard-material scope complete and tested; not deployed.** The profession release flag stays disabled by default; installed runtime/configuration/saves/preferences remain untouched. The user confirmed completion of the standard-material recipe book, using the native/analogue baseline and deferring exotic materials.
+Approved and implemented 19 October 2026 (JST). **Agreed standard-material scope complete, tested and deployed.** The [T01–T09 deployment](deployment-t01-t09.md) supersedes the historical disabled-release statements below. The profession release flag stays disabled by default; installed runtime/configuration/saves/preferences remain untouched. The user confirmed completion of the standard-material recipe book, using the native/analogue baseline and deferring exotic materials.
+
+**Subsequent T09 decision:** cloth clothing/hats are now cosmetic except belts/tabards; leather footwear remains functional. The T08 recipe/history records below are retained. [T09](t09-effective-gear.md) supersedes their cloth-hat combat/socket eligibility and activates the stored material effects.
 
 ## Approved scope
 

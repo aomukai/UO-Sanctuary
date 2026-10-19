@@ -11,7 +11,7 @@ Started 19 October 2026 (JST). T02 is complete. Extend the existing serial-keyed
 - Reject invalid socket slots/counts/provenance, starter sockets and invalid quotes; a tinkerer-added socket must block the existing Imbuing transaction. Imbuing must preserve all other metadata.
 - Test version-0/version-1 buffers, malformed records, the eight-base native save graph, copy/split/transfer paths and repeated world save/restart. Exercise the existing client economy flow against the matching test build. Preserve installed binaries, accounts, saved progression, configuration and client preferences.
 
-Status: **implemented and verified for the current Normal-base metadata contract; not deployed**.
+Status: **implemented, verified and deployed**, with subsequent T08/T09 tier/material consumers. See the [T01–T09 deployment](deployment-t01-t09.md). [T11](t11-vendors.md) advances gear persistence to version3 for original vendor purchase prices and activates saved sale quotes; versions0–2 remain readable.
 
 ## State ownership and legacy defaults
 

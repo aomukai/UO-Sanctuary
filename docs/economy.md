@@ -33,7 +33,9 @@ The [current specification](crafting.md) contains the full numeric tables; [the 
 
 Tools do not replace repair material/essence costs. Earlier assistant recommendations contrary to the completed replies are not adopted. Most numbers now have starting values; missing fields are identified in the tracker rather than treated as permission to invent a rule.
 
-## Installed prototype resale
+The subsequent [T11 implementation](t11-vendors.md) replaces the prototype resale/stock behavior below. The old percentage/cap settings are removed; current prices live in `market-settings.json` and `market-supplies.json`.
+
+## Historical prototype resale
 
 `data/Sanctuary/Balance/economy.json` contains the comparison settings. Converted equipment pays `floor(native NPC offer * resalePercent / 100)`, with a minimum of one gold for an already-positive native offer and a rarity cap. A zero native offer remains zero.
 

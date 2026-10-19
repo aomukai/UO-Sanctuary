@@ -78,7 +78,9 @@ def build(source, audit_path, root=ROOT):
         require(item['maker'] == expected_maker, f'Maker/material mismatch: {name}')
         require(definition['baseCode'] == code and definition['slot'] == item['slot']
                 and definition['tier'] == item['baseTier'] == 'Normal', f'Runtime mapping drift: {name}')
-        require(item['targetSocketCap'] == (0 if item['slot'] in ['Ring', 'Amulet'] else 5), f'Socket-policy drift: {name}')
+        effective_slot = item.get('effectiveSlot', item['slot'])
+        require(observations[name]['EffectiveSlot'] == effective_slot, f'Effective-slot drift: {name}')
+        require(item['targetSocketCap'] == (0 if effective_slot in ['Ring', 'Amulet', 'Cosmetic'] else 5), f'Socket-policy drift: {name}')
         source_path = root / 'upstream/ModernUO/Projects/UOContent' / definition['source']
         require(source_path.is_file(), f'Missing UO source: {name}')
         table = 'Misc' if item['progression'] == 'jewellery' else 'Weapons' if item['slot'] == 'Weapon' else 'Armor'

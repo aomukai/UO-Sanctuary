@@ -17,7 +17,8 @@ public static class CraftTransactions
     public static CraftToolProfiles Profiles { get; private set; }
     public static CraftToolSettings Settings { get; private set; }
     private static readonly HashSet<Type> _toolTypes = [typeof(MortarPestle), typeof(SmithHammer), typeof(FletcherTools),
-        typeof(Saw), typeof(MapmakersPen), typeof(Skillet), typeof(ScribesPen), typeof(SewingKit), typeof(TinkerTools), typeof(ImbuingLadle)];
+        typeof(Saw), typeof(MapmakersPen), typeof(Skillet), typeof(ScribesPen), typeof(SewingKit), typeof(TinkerTools), typeof(ImbuingLadle),
+        typeof(RepairHammer), typeof(TailoringRepairKit)];
     internal sealed class Request(Mobile owner, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
     {
         public Mobile Owner { get; } = owner;
@@ -53,7 +54,7 @@ public static class CraftTransactions
             SpendUse(from, tool);
         };
         TradeSkillHooks.AdditionalTinkerTools = () => ClassProfessions.Enabled
-            ? [typeof(FletcherTools), typeof(MapmakersPen), typeof(ScribesPen), typeof(Skillet), typeof(ImbuingLadle)] : [];
+            ? [typeof(FletcherTools), typeof(MapmakersPen), typeof(ScribesPen), typeof(Skillet), typeof(ImbuingLadle), typeof(RepairHammer), typeof(TailoringRepairKit)] : [];
         TradeSkillHooks.ToolPrice = type => ClassProfessions.Enabled && ToolType(type) ? Settings.VendorPrice : null;
         TradeSkillHooks.ToolSupplied = tool =>
         {
@@ -74,6 +75,19 @@ public static class CraftTransactions
     {
         if (!ClassProfessions.Enabled) { return; }
         var system = DefTinkering.CraftSystem;
+        var repair = EquipmentRepairs.Settings;
+        if (system.CraftItems.SearchFor(typeof(RepairHammer)) == null)
+        {
+            int index = system.AddCraft(typeof(RepairHammer), 1044046, "repair hammer", repair.ToolRequiredSkill,
+                repair.ToolRequiredSkill + 50, typeof(IronIngot), "Iron Ingots", repair.HammerIngots, "You need iron ingots.");
+            system.AddRes(index, typeof(MetalScraps), "Metal Scraps", repair.HammerScraps, "You need metal scraps.");
+        }
+        if (system.CraftItems.SearchFor(typeof(TailoringRepairKit)) == null)
+        {
+            int index = system.AddCraft(typeof(TailoringRepairKit), 1044046, "tailoring repair kit", repair.ToolRequiredSkill,
+                repair.ToolRequiredSkill + 50, typeof(IronIngot), "Iron Ingots", repair.KitIngots, "You need iron ingots.");
+            system.AddRes(index, typeof(LeatherStrips), "Leather Strips", repair.KitStrips, "You need leather strips.");
+        }
         if (system.CraftItems.SearchFor(typeof(ImbuingLadle)) == null)
         {
             system.AddCraft(typeof(ImbuingLadle), 1044046, "imbuing ladle", Settings.LadleRequiredSkill,

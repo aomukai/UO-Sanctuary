@@ -1,0 +1,301 @@
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -89,10 +89,12 @@
+         private bool ShouldSerializeIdentified() => _identified;
+ 
+         [EncodedInt]
+-        [SerializableField(8)]
++        [SerializableField(8, fieldChanged: nameof(MaximumDurabilityChanged))]
+         [SaveFlag(nameof(ShouldSerializeMaxHitPoints))]
+         [SerializedCommandProperty(AccessLevel.GameMaster)]
+         private int _maxHitPoints;
++
++        private void MaximumDurabilityChanged(int oldValue, int newValue) => ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+         private bool ShouldSerializeMaxHitPoints() => _maxHitPoints != 0;
+ 
+@@ -689,7 +691,8 @@
+             {
+                 if (value != _hitPoints && MaxHitPoints > 0)
+                 {
+-                    _hitPoints = value;
++                    _hitPoints = ClassGearHooks.KeepBroken?.Invoke(this) == true ? Math.Max(0, value) : value;
++                    ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+                     if (_hitPoints < 0)
+                     {
+@@ -735,6 +738,11 @@
+ 
+         public virtual int OnHit(BaseWeapon weapon, int damageTaken)
+         {
++            if (ClassGearHooks.KeepBroken?.Invoke(this) == true && _hitPoints <= 0)
++            {
++                return damageTaken;
++            }
++
+             var halfar = ArmorRating / 2.0;
+             var absorbed = (int)(halfar + halfar * Utility.RandomDouble());
+ 
+@@ -764,7 +772,7 @@
+                             HitPoints = 0;
+                         }
+ 
+-                        if (wear > 0)
++                        if (wear > 0 && ClassGearHooks.KeepBroken?.Invoke(this) != true)
+                         {
+                             if (_maxHitPoints > wear)
+                             {
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,10 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Item, bool> KeepBroken { get; set; }
++    public static Action<Item> DurabilityChanged { get; set; }
++    public static Func<Mobile, double, double> MovementDelay { get; set; }
++    public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+     public static Func<Item, bool> CanEnhance { get; set; }
+     public static Func<Item, bool> PersistResource { get; set; }
+     public static Func<Item, int?> NativeDurabilityBonus { get; set; }
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -70,10 +70,12 @@
+ 
+         [EncodedInt]
+         [InvalidateProperties]
+-        [SerializableField(5)]
++        [SerializableField(5, fieldChanged: nameof(MaximumDurabilityChanged))]
+         [SaveFlag(nameof(ShouldSerializeMaxHitPoints))]
+         [SerializedCommandProperty(AccessLevel.GameMaster)]
+         private int _maxHitPoints;
++
++        private void MaximumDurabilityChanged(int oldValue, int newValue) => ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+         private bool ShouldSerializeMaxHitPoints() => _maxHitPoints != 0;
+ 
+@@ -305,7 +307,8 @@
+             {
+                 if (value != _hitPoints && MaxHitPoints > 0)
+                 {
+-                    _hitPoints = value;
++                    _hitPoints = ClassGearHooks.KeepBroken?.Invoke(this) == true ? Math.Max(0, value) : value;
++                    ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+                     if (_hitPoints < 0)
+                     {
+@@ -329,6 +332,11 @@
+ 
+         public virtual int OnHit(BaseWeapon weapon, int damageTaken)
+         {
++            if (ClassGearHooks.KeepBroken?.Invoke(this) == true && _hitPoints <= 0)
++            {
++                return damageTaken;
++            }
++
+             var absorbed = Utility.RandomMinMax(1, 4);
+ 
+             // Don't go below zero
+@@ -366,7 +374,7 @@
+                             HitPoints = 0;
+                         }
+ 
+-                        if (wear > 0)
++                        if (wear > 0 && ClassGearHooks.KeepBroken?.Invoke(this) != true)
+                         {
+                             if (_maxHitPoints > wear)
+                             {
+--- a/Projects/UOContent/Items/Jewels/BaseJewel.cs
++++ b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+@@ -23,9 +23,11 @@
+ {
+     [EncodedInt]
+     [InvalidateProperties]
+-    [SerializableField(0)]
++    [SerializableField(0, fieldChanged: nameof(MaximumDurabilityChanged))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+     private int _maxHitPoints;
++
++    private void MaximumDurabilityChanged(int oldValue, int newValue) => ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+     [SerializableField(3)]
+     [InvalidateProperties]
+@@ -76,7 +78,8 @@
+         {
+             if (value != _hitPoints && _maxHitPoints > 0)
+             {
+-                _hitPoints = value;
++                _hitPoints = ClassGearHooks.KeepBroken?.Invoke(this) == true ? Math.Max(0, value) : value;
++                ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+                 if (_hitPoints < 0)
+                 {
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -64,12 +64,14 @@
+     private bool ShouldSerializeDamageLevel() => _damageLevel != WeaponDamageLevel.Regular;
+ 
+     [InvalidateProperties]
+-    [SerializableField(5)]
++    [SerializableField(5, fieldChanged: nameof(MaximumDurabilityChanged))]
+     [SaveFlag(nameof(ShouldSerializeMaxHitPoints))]
+     [SerializedCommandProperty(AccessLevel.GameMaster)]
+     private int _maxHitPoints;
+ 
+     [MethodImpl(MethodImplOptions.AggressiveInlining)]
++    private void MaximumDurabilityChanged(int oldValue, int newValue) => ClassGearHooks.DurabilityChanged?.Invoke(this);
++
+     private bool ShouldSerializeMaxHitPoints() => _maxHitPoints != 0;
+ 
+     [InvalidateProperties]
+@@ -376,7 +378,8 @@
+                 value = _maxHitPoints;
+             }
+ 
+-            _hitPoints = value;
++            _hitPoints = ClassGearHooks.KeepBroken?.Invoke(this) == true ? Math.Max(0, value) : value;
++            ClassGearHooks.DurabilityChanged?.Invoke(this);
+ 
+             InvalidateProperties();
+             this.MarkDirty();
+@@ -1510,7 +1513,8 @@
+             delayInSeconds = 15000.0 / v;
+         }
+ 
+-        return TimeSpan.FromSeconds(delayInSeconds);
++        var delay = TimeSpan.FromSeconds(delayInSeconds);
++        return ClassGearHooks.AttackDelay?.Invoke(m, delay) ?? delay;
+     }
+ 
+     public static bool CheckParry(Mobile defender)
+@@ -1753,6 +1757,50 @@
+             2    => 25,
+             _    => 0
+         };
++    }
++
++    public void WearOnHit(Mobile attacker, Mobile defender)
++    {
++        if (ClassGearHooks.KeepBroken?.Invoke(this) == true && _hitPoints <= 0)
++        {
++            return;
++        }
++            var isAcidMonster =
++                _maxHitPoints > 0 && MaxRange <= 1 && Attributes.SpellChanneling == 0 &&
++                defender is Slime or AcidElemental;
++
++            // Stratics says 50% chance, seems more like 4%..
++            if (isAcidMonster || Utility.Random(25) == 0)
++            {
++                if (isAcidMonster)
++                {
++                    attacker.LocalOverheadMessage(MessageType.Regular, 0x3B2, 500263); // *Acid blood scars your weapon!*
++                }
++
++                if (Core.AOS && WeaponAttributes.SelfRepair > Utility.Random(10))
++                {
++                    HitPoints += 2;
++                }
++                else if (_hitPoints > 0)
++                {
++                    --HitPoints;
++                }
++                else if (_maxHitPoints > 1)
++                {
++                    --MaxHitPoints;
++
++                    if (Parent is Mobile mobile)
++                    {
++                        // Your equipment is severely damaged.
++                        mobile.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121);
++                    }
++                }
++                else
++                {
++                    Delete();
++                }
++            }
++
+     }
+ 
+     public virtual void OnHit(Mobile attacker, Mobile defender, double damageBonus = 1.0)
+@@ -2088,41 +2136,7 @@
+                 }
+             }
+ 
+-            var isAcidMonster =
+-                _maxHitPoints > 0 && MaxRange <= 1 && Attributes.SpellChanneling == 0 &&
+-                defender is Slime or AcidElemental;
+-
+-            // Stratics says 50% chance, seems more like 4%..
+-            if (isAcidMonster || Utility.Random(25) == 0)
+-            {
+-                if (isAcidMonster)
+-                {
+-                    attacker.LocalOverheadMessage(MessageType.Regular, 0x3B2, 500263); // *Acid blood scars your weapon!*
+-                }
+-
+-                if (Core.AOS && WeaponAttributes.SelfRepair > Utility.Random(10))
+-                {
+-                    HitPoints += 2;
+-                }
+-                else if (_hitPoints > 0)
+-                {
+-                    --HitPoints;
+-                }
+-                else if (_maxHitPoints > 1)
+-                {
+-                    --MaxHitPoints;
+-
+-                    if (Parent is Mobile mobile)
+-                    {
+-                        // Your equipment is severely damaged.
+-                        mobile.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1061121);
+-                    }
+-                }
+-                else
+-                {
+-                    Delete();
+-                }
+-            }
++            WearOnHit(attacker, defender);
+ 
+             if (attacker is VampireBatFamiliar bc)
+             {
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
+@@ -84,7 +84,8 @@
+     {
+         var stepDelay = Mobile.CurrentMoveSpeed;
+ 
+-        return Core.AOS && IsFollowingMaster() ? stepDelay : BadlyHurtMoveDelay(Mobile, stepDelay);
++        stepDelay = Core.AOS && IsFollowingMaster() ? stepDelay : BadlyHurtMoveDelay(Mobile, stepDelay);
++        return ClassGearHooks.MovementDelay?.Invoke(Mobile, stepDelay) ?? stepDelay;
+     }
+ 
+     // The Running bit only selects the client's per-step interpolation (walk 400ms / run
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3948,14 +3948,14 @@
+ 
+             var onHorse = Mount != null;
+ 
+-            if (onHorse || AnimalForm.GetContext(this)?.SpeedBoost == true)
+-            {
+-                return running ? ClassCombatHooks.RunningDelay?.Invoke(this, CalcMoves.RunMountDelay)
+-                    ?? CalcMoves.RunMountDelay : CalcMoves.WalkMountDelay;
+-            }
+-
+-            return running ? ClassCombatHooks.RunningDelay?.Invoke(this, CalcMoves.RunFootDelay)
+-                ?? CalcMoves.RunFootDelay : CalcMoves.WalkFootDelay;
++            var mounted = onHorse || AnimalForm.GetContext(this)?.SpeedBoost == true;
++            var delay = mounted ? running ? CalcMoves.RunMountDelay : CalcMoves.WalkMountDelay
++                : running ? CalcMoves.RunFootDelay : CalcMoves.WalkFootDelay;
++            if (running)
++            {
++                delay = ClassCombatHooks.RunningDelay?.Invoke(this, delay) ?? delay;
++            }
++            return (int)Math.Ceiling(ClassGearHooks.MovementDelay?.Invoke(this, delay) ?? delay);
+         }
+ 
+         private void DeltaEnemies(Type oldType, Type newType)

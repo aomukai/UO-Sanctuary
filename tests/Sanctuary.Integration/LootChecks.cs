@@ -69,14 +69,14 @@ public static class LootChecks
             var gold = new Gold(25);
             corpse.DropItem(gold);
             owner.LastKiller = player;
-            ClassLoot.AwardGold(owner, corpse);
-            Require(player.Backpack.GetAmount(typeof(Gold)) == 25 && !ClassLoot.HasContents(corpse), "Kill gold was not deposited");
+            Require(gold.Parent == corpse && player.Backpack.GetAmount(typeof(Gold)) == 0, "Corpse gold moved automatically");
+            Require(ClassLoot.Take(player, gold) && player.Backpack.GetAmount(typeof(Gold)) == 25, "Manual gold transfer failed");
             var full = new Dagger { Weight = 500 };
             player.Backpack.DropItem(full);
             var retainedGold = new Gold(25);
             corpse.DropItem(retainedGold);
-            ClassLoot.AwardGold(owner, corpse);
-            Require(retainedGold.Parent == corpse && retainedGold.Amount == 25, "Failed automatic gold deposit lost the stack");
+            Require(!ClassLoot.Take(player, retainedGold), "Overweight gold was taken");
+            Require(retainedGold.Parent == corpse && retainedGold.Amount == 25, "Failed manual gold transfer lost the stack");
             full.Delete();
             bird.MoveToWorld(point, Map.Felucca);
             bird.Hits = 1;

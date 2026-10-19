@@ -7,29 +7,17 @@ namespace Sanctuary;
 
 public static class CreatureExperience
 {
-    internal static bool Award(BaseCreature creature, Container container)
+    internal static bool Award(BaseCreature creature, Container container) => RewardLife.Process(creature, container);
+    internal static bool Award(RewardLife life)
     {
-        if (creature is not { Deleted: false } || container is not Corpse corpse || corpse.Deleted || !corpse.OwnerWasBaseCreature
-            || corpse.Owner != creature || corpse.SanctuaryNoRewards)
+        var player = life.Player;
+        if (!player.Alive || life.Corpse.Map != player.Map || !player.InRange(life.Corpse, LootProtocol.SightRange))
         {
             return false;
         }
-        // A life is spent even when nobody qualifies for its XP. The saved corpse
-        // flag also carries that fact through the existing revival chain.
-        corpse.SanctuaryNoRewards = true;
-        if (creature is BaseVendor || creature.Controlled || creature.Summoned || creature.IsAnimatedDead
-            || creature.NoKillAwards || creature is GraveyardUndead { Raised: true }
-            || ClassLoot.Killer(creature) is not { Deleted: false, Alive: true } player || !ClassCombat.Enabled(player)
-            || corpse.Map != player.Map || !player.InRange(corpse, LootProtocol.SightRange))
-        {
-            return false;
-        }
-        int basis = CreatureProfiles.Experience(creature);
-        if (basis <= 0)
-        {
-            return false;
-        }
-        int amount = MonsterExperience.Award(basis, CreatureProfiles.Level(creature), ClassStats.Level(player));
+        int basis = CreatureProfiles.Experience(life.Creature);
+        if (basis <= 0) { return false; }
+        int amount = MonsterExperience.Award(basis, life.Level, ClassStats.Level(player));
         return ClassCreation.Profiles.AwardExperience(player, amount);
     }
 }

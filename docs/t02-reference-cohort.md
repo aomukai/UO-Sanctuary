@@ -1,5 +1,7 @@
 # T02 — first reference/catalogue cohort
 
+Current audited effect/pool tables include the subsequent [T09](t09-effective-gear.md) FHR and cosmetic-clothing decisions. Original source facts and the original T02-only delivery boundary remain historical evidence.
+
 ## Bounded scope and acceptance
 
 Started 19 October 2026 (JST), after the [T01 baseline](t01-working-baseline.md).
@@ -43,7 +45,7 @@ The source extraction is a pinned mechanical-data mirror, not a Blizzard-authore
 | Flat attributes/pools/AR | Whole attribute/resource/attack-rating points. ItemStatCost's `ValShift=8` for maximum life/mana/stamina describes D2 internal encoding; do not multiply the affix-table whole-point values by 256 in Sanctuary. |
 | `dmg%`, `ac%`, `att%` | Percentage modifiers within their actual local/global consumer scope. `ac%` enhances item defense; it is not physical resistance. |
 | Resistances / increased block | Percentage points; all-resistance excludes physical resistance. Native Energy is the Lightning transport slot. |
-| IAS / FCR / FRW / FHR | Percentage bonus inputs to their respective formulas/breakpoints, not direct percentage reductions in action milliseconds. FHR generation remains disabled. |
+| IAS / FCR / FRW / FHR | Percentage bonus inputs to their respective formulas/breakpoints, not direct percentage reductions in action milliseconds. T09 enables numeric FHR generation through the existing recovery consumer. |
 | D2 `durability`, `gemsockets` | Reference counts only. Native durability remains the comparison baseline; Sanctuary's five-socket policy supersedes the source cap when later implemented. Misc's numeric socket field alone does not grant ring/amulet socket permission. |
 | D2 `cost`, `gamble cost` | Source cost fields, retained as evidence. They are not Sanctuary resale quotes, complete gamble prices, or an approved exchange-rate formula. T10/T11/T19/T45 own those consumers. |
 
@@ -61,8 +63,8 @@ All eight retain their existing **Normal reference base**. The six ordinary equi
 | RingmailChest | `rng` Ring Mail / body | Blacksmithing → plain iron | Defense **45–48**; Str **36**; qlvl **11** | Medium remains metal/Blacksmithing. |
 | GoldRing | `rin` Ring / ring | Tinkering → plain iron | No inherent damage/defense/attribute requirement; qlvl **1** | Native default is Iron despite its name/art. Target jewellery recipe, ilvl and equip values remain gated by E01/E02. No sockets. |
 | Necklace | `amu` Amulet / amulet | Tinkering → plain iron | No inherent damage/defense/attribute requirement; qlvl **1** | Uses amulet statistics despite native Neck layer. Same jewellery gate; no sockets. |
-| SkullCap | `cap` Cap / head | Tailoring → cloth | Defense **3–5**; no source attribute requirement; qlvl **1** | UO SkullCap maps to D2 **Cap**, not D2 Skull Cap. Cloth and leather share a stat analogue, not a material identity. |
-| BoneChest | `rng` Ring Mail / body | Tailoring → bone | Defense **45–48**; Str **36**; qlvl **11** | Keep existing numerical analogue; agreed target weight **Heavy**, current runtime **Medium**. Apply and measure the heavy penalty in T08/T09. |
+| SkullCap | `cap` Cap / head | Tailoring → cloth | Defense **3–5**; no source attribute requirement; qlvl **1** | UO SkullCap maps to D2 **Cap**, not D2 Skull Cap. T09 makes cloth hats cosmetic: this code is retained only for historical metadata. No active defense, affixes or sockets; leather headgear retains its combat role. |
+| BoneChest | `rng` Ring Mail / body | Tailoring → bone | Defense **45–48**; Str **36**; qlvl **11** | Keep existing numerical analogue; T08 crafted bone is **Heavy** and has the measured10% penalty; legacy comparison identities retain their existing weight. |
 
 Normal source base required level is **0** for these references. That does not waive attributes, rolled-affix requirements, later filled-socket requirements, or the future jewellery table.
 
@@ -84,7 +86,7 @@ Observed constructor facts show why a single resource enum cannot own the future
 
 Existing native recipe facts, **not adopted target recipes**: Longsword uses 12 IronIngot at skill 28–78; RingmailChest 18 IronIngot at 21.9–71.9; LeatherCap 2 Leather at 6.2–31.2; SkullCap 2 Cloth at 0–25; WoodenShield is a Carpentry recipe using 9 Logs at 52.6–77.6. BoneChest uses 12 Leather + 10 Bone at 96–121, which cannot simply become a Normal-band (0–80) recipe. Native GoldRing recipes include an IronIngot base and optional legacy-gem variants; they do not settle the new five-step jewellery recipe. There is no exact `Necklace` recipe entry in the native Tinkering catalogue. See native `Engines/Craft/DefBlacksmithy.cs`, `DefTailoring.cs`, `DefCarpentry.cs` and `DefTinkering.cs` for the baseline. T06/T08 must author the target transactions and quantities.
 
-Coloured ore/wood/leather identities remain recorded in [crafting B04](crafting.md#material-bonus-directions), outside this plain-material cohort. Their arithmetic, random element pool, typed damage, MF/GF and regeneration consumers are still gated. This catalogue does not import native UO resource bonuses or grant undeclared bone/cloth bonuses.
+Coloured ore/wood/leather identities remain recorded in [crafting B04](crafting.md#material-bonus-directions), outside this plain-material cohort. T08 stores their rolls; [T09](t09-effective-gear.md) activates their resistance, damage, chill/poison and Verite consumers. [T10](t10-rewards.md) activates Gold Find; Magic Find remains gated. This catalogue does not import native UO resource bonuses or grant undeclared bone/cloth bonuses.
 
 ## Independent progression axes
 
@@ -101,31 +103,31 @@ Coloured ore/wood/leather identities remain recorded in [crafting B04](crafting.
 
 ## Legal effects and query results
 
-All **29** numeric effect codes accepted by the current generation guard have a unit/scope/consumer entry in the manifest. The exporter queries `ClassGear.Implemented`, `AffixBalance.Eligible` and the real roller; it does not replace their rules. Every modifier of a compound affix must pass the guard. Source frequency/group/prefix/suffix constraints and rolled numerical ranges remain authoritative.
+All **33** numeric effect codes accepted by the current generation guard have a unit/scope/consumer entry in the manifest. The exporter queries `ClassGear.Implemented`, `AffixBalance.Eligible` and the real roller; it does not replace their rules. Every modifier of a compound affix must pass the guard. Source frequency/group/prefix/suffix constraints and rolled numerical ranges remain authoritative.
 
-There are **25** codes in complete currently spawnable source affixes. `att%`, `block`, `cast2` and `vit` have accepted numeric consumers but occur in no fully enabled spawnable affix record in the current catalogue. A consumer entry therefore does not promise an obtainable affix. Type restrictions further narrow each base's pool: for example these selected bases gain no FRW affix merely because FRW has a working consumer elsewhere.
+There are **28** codes in complete currently spawnable source affixes. `att%`, `block`, `cast2` and `vit` have accepted numeric consumers but occur in no fully enabled spawnable affix record in the current catalogue. A consumer entry therefore does not promise an obtainable affix. Type restrictions further narrow each base's pool: for example these selected bases gain no FRW affix merely because FRW has a working consumer elsewhere.
 
 | Base(s) | ilvl35 → alvl | Eligible single affixes, Magic / Rare at ilvl35 | Magic / Rare at ilvl99 → alvl99 |
 | --- | --- | --- | --- |
 | Longsword (`lsd`) | 25 | 31 / 31 | 63 / 58 |
-| WoodenShield (`sml`) | 33 | 29 / 29 | 39 / 36 |
-| LeatherCap, SkullCap (`cap`) | 35 | 26 / 25 | 31 / 29 |
-| RingmailChest, BoneChest (`rng`) | 30 | 27 / 27 | 41 / 37 |
-| GoldRing (`rin`) | 35 | 40 / 40 | 58 / 53 |
-| Necklace (`amu`) | 35 | 48 / 48 | 65 / 58 |
+| WoodenShield (`sml`) | 33 | 31 / 31 | 41 / 38 |
+| LeatherCap (`cap`) | 35 | 27 / 26 | 32 / 30 |
+| RingmailChest, BoneChest (`rng`) | 30 | 30 / 30 | 44 / 40 |
+| GoldRing (`rin`) | 35 | 41 / 41 | 59 / 54 |
+| Necklace (`amu`) | 35 | 50 / 50 | 67 / 60 |
 
 These are pool sizes, not an item's affix count or magnitude. The ilvl99 queries establish reachable reference boundaries; they enable no item source. Jewellery's ilvl35 query is a diagnostic example, not its adopted crafted item level. Exact IDs and source ranges/requirements are linked above. Gear rolls retain random eligible values; the rune category-minimum rule is not applied to gear. Ordinary crafted whites remain affix-free until a separate valid Imbuing transaction.
 
 Still disabled or incomplete:
 
-- FHR `balance1/2/3`: the recovery consumer exists, but generation remains excluded. Physical resistance also has a hook without an enabled affix generation path.
-- MF/GF, leech, item regeneration, typed elemental/poison damage and most ability effects: missing/incomplete consumers; no tooltip-only promises or coloured-material activation.
+- Physical resistance affixes still have no enabled generation path. T09 enables FHR `balance1/2/3`, T10 adds Gold Find, with33 accepted numeric codes and29 present in complete spawnable affixes.
+- MF, leech, generic regeneration/elemental affixes and most ability effects remain gated. T09 separately activates the saved coloured-material resistance/damage/Verite effects; this does not enable generic unsupported affixes.
 - Socket affixes/state/insertion, procs, charges and parameter-driven effects: excluded from live rolls. The new source socket counts do not bypass that exclusion.
-- Set/Unique generation, jewellery progression values, gem family/extra-flat mapping and upgrades, mould property weights, gold/gamble formulas, vendor stock-level meaning and vendor-origin resale: left to their gated later cards.
+- Set/Unique generation, jewellery progression values, gem family/extra-flat mapping and upgrades, mould property weights, gamble formulas, vendor stock-level meaning and vendor-origin resale: left to their gated later cards.
 
 ## Reproduction, outcomes and remaining cohorts
 
-From the repository root, fetch/check the 13 pinned tables, build only the integration assembly and export current eligibility using the disposable harness:
+From the repository root, fetch/check the14 pinned tables, build only the integration assembly and export current eligibility using the disposable harness:
 
 ```bash
 python3 tools/fetch_balance_sources.py --destination .local/research/foundation
@@ -152,10 +154,10 @@ No production C# source, protocol, upstream patch, numerical runtime catalogue, 
 
 Remaining content is explicitly outside completion of this bounded card:
 
-- [ ] T08: author usable Normal recipes for these materials, including WoodenShield's maker change and a legal Normal-band BoneChest recipe; apply/measure heavy bone. Add tools and remaining gear slots/families as separate recipe cohorts.
-- [ ] T08/T19: author and implement Exceptional/Elite UO variants from the selected source ladders, then extend beyond these four analogue families.
+- [x] T06/T08: all ten tools and603 approved standard-material recipes are authored and verified, including WoodenShield maker routing and Heavy Tailoring bone. See [T08](t08-white-bases.md).
+- [x] T08: authored Normal/Exceptional/Elite recipes and selected saved base identities across201 approved standard-material identities. T19 still owns dropped gear and reward acquisition.
 - [ ] E01/E02 and the jewellery recipe cohort: decide jewellery ilvl/equip/costs and author its five steps. The selected ring/amulet references do not complete that acquisition loop.
-- [ ] B04/T09: settle coloured-material arithmetic and implement each advertised effect before enabling its cohort.
+- [x] B04/T09: resistance, typed weapon damage, cold chill, poison over time and stacking Verite consumers implemented and verified. T10 activates GF; MF remains gated to its gear-reward consumer.
 - [ ] T17: resolve/implement bone salvage; retain existing origin and transaction protections.
 - [ ] T21–T26, T10/T19/T35/T45: expand mould/gem, reward/grade/difficulty and gamble references at the consuming cards. Set/Unique, proc/binary effects and unresolved rarity fallbacks remain unavailable.
 

@@ -24,7 +24,8 @@ public static class CraftingChecks
         public override int Next(int maxValue) => Math.Min(roll, maxValue - 1);
     }
     private static readonly Type[] _types = [typeof(MortarPestle), typeof(SmithHammer), typeof(FletcherTools), typeof(Saw),
-        typeof(MapmakersPen), typeof(Skillet), typeof(ScribesPen), typeof(SewingKit), typeof(TinkerTools), typeof(ImbuingLadle)];
+        typeof(MapmakersPen), typeof(Skillet), typeof(ScribesPen), typeof(SewingKit), typeof(TinkerTools), typeof(ImbuingLadle),
+        typeof(RepairHammer), typeof(TailoringRepairKit)];
     public static void Configure()
     {
         Register("crafting-check", Setup);
@@ -63,13 +64,15 @@ public static class CraftingChecks
         var tool = new TinkerTools(500);
         player.Backpack.DropItem(tool);
         player.Backpack.DropItem(new IronIngot(200));
+        player.Backpack.DropItem(new MetalScraps(10));
+        player.Backpack.DropItem(new LeatherStrips(10));
         player.Backpack.DropItem(new Gold(321));
         player.AcquireRecipe(9876001);
         var saved = new List<Saved>();
         foreach (var type in _types)
         {
             var recipe = Recipe(type);
-            Require(recipe != null && recipe.Resources.Count == 1, "Missing bounded tool recipe " + type.Name);
+            Require(recipe != null && recipe.Resources.Count == (type == typeof(RepairHammer) || type == typeof(TailoringRepairKit) ? 2 : 1), "Missing bounded tool recipe " + type.Name);
             int before = player.Backpack.GetAmount(typeof(IronIngot));
             int uses = tool.UsesRemaining;
             var ticket = Ticket(player, tool, recipe, typeof(IronIngot));

@@ -117,8 +117,9 @@ public static class ClassCombat
         {
             return 0;
         }
+        var weapon = CombatTiming.Equipped(from);
         return ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth")
-            + (ClassEquipment.IsStarter(from.FindItemOnLayer(Layer.OneHanded)) ? 1 : 0);
+            + (ClassEquipment.IsStarter(weapon) && ClassGear.Active(from, weapon) ? 1 : 0);
     }
     public static bool Available(PlayerMobile from, CombatAbility ability) => ability switch
     {
@@ -445,9 +446,7 @@ public static class ClassCombat
             }
             else if (ClassStats.CheckHit(from, target) == true)
             {
-                var damage = ClassStats.DamageRange(from);
-                AOS.Damage(target, from, Utility.RandomMinMax(damage.Min, damage.Max), false, 100, 0, 0, 0, 0,
-                    weaponDamage: true);
+                GearEffects.Strike(from, target, Utility.RandomDouble());
             }
             else
             {

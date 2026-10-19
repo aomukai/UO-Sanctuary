@@ -10,7 +10,7 @@ Acceptance checks:
 - Exercise the actual client creation controls and paperdoll/talent labels; keep native edits reproducible as a new client patch.
 - Preserve the live installation, accounts, saves and client preferences. No deployment is included. The planned wardrobe UI does not yet exist; it must use the same shared mapping when its card is implemented.
 
-Status: **implemented and verified; not deployed**.
+Status: **implemented, verified and deployed**. See the [T01–T09 deployment](deployment-t01-t09.md).
 
 ## Result and boundaries
 

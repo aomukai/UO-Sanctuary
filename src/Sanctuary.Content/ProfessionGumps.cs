@@ -85,17 +85,20 @@ public sealed class ProfessionToolGump : DynamicGump
     }
     protected override void BuildLayout(ref DynamicGumpBuilder b)
     {
-        b.AddPage(); b.AddBackground(0, 0, 500, 360, 5054);
+        b.AddPage(); b.AddBackground(0, 0, 500, 400, 5054);
         b.AddLabel(22, 20, 0x481, $"{ClassProfessions.Name(_skill)} tool");
-        b.AddLabel(22, 55, 0x47E, "Production and practice need your craft and town station.");
-        b.AddButton(22, 95, 4005, 4007, 1); b.AddLabel(57, 95, 0x481, "Open tool actions");
-        if (_band >= 0 && ProfessionPractice.Recipe(_skill) is { } recipe)
+        b.AddLabel(22, 55, 0x47E, EquipmentRepairs.DedicatedTool(_tool)
+            ? "Repairs need your craft and a public town workshop."
+            : "Production and practice need your craft and town station.");
+        if (!EquipmentRepairs.DedicatedTool(_tool))
+        { b.AddButton(22, 95, 4005, 4007, 1); b.AddLabel(57, 95, 0x481, "Open tool actions"); }
+        if (!EquipmentRepairs.DedicatedTool(_tool) && _band >= 0 && ProfessionPractice.Recipe(_skill) is { } recipe)
         {
             b.AddLabel(22, 140, 0x481, $"Practice: {30 + _band * 10}.0 to {40 + _band * 10}.0");
             b.AddLabel(22, 165, 0x47E, $"Cost: {recipe.Amounts[_band]} {ProfessionPractice.ResourceName(recipe.Resource)} and one tool use. No output.");
             b.AddButton(22, 205, 4005, 4007, 2); b.AddLabel(57, 205, 0x481, "Practice once");
         }
-        else { b.AddLabel(22, 145, 0x47E, "Practice is available from 30.0 to below 70.0."); }
+        else if (!EquipmentRepairs.DedicatedTool(_tool)) { b.AddLabel(22, 145, 0x47E, "Practice is available from 30.0 to below 70.0."); }
         if (EquipmentCrafting.Supports(_tool))
         {
             b.AddButton(22, 235, 4005, 4007, 4); b.AddLabel(57, 235, 0x481, "Craft white equipment");
@@ -105,6 +108,10 @@ public sealed class ProfessionToolGump : DynamicGump
             b.AddButton(22, 270, 4005, 4007, 3); b.AddLabel(57, 270, 0x481, "Process materials into scraps");
             b.AddLabel(22, 305, 0x47E, "Portable; no profession choice or tool uses needed.");
         }
+        if (EquipmentRepairs.RepairTool(_tool))
+        {
+            b.AddButton(22, 345, 4005, 4007, 5); b.AddLabel(57, 345, 0x481, "Repair / recharge equipment");
+        }
         b.AddButton(445, 20, 4017, 4019, 0);
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
@@ -113,6 +120,7 @@ public sealed class ProfessionToolGump : DynamicGump
             || !ClassProfessions.Ready(owner) || _tool is not { Deleted: false, UsesRemaining: > 0 }
             || !(_tool.IsChildOf(owner.Backpack) || _tool.Parent == owner) || _tool.CraftSystem.MainSkill != _skill) { return; }
         _used = true;
+        if (EquipmentRepairs.DedicatedTool(_tool) && info.ButtonID != 5) { return; }
         if (info.ButtonID == 1)
         {
             if (_skill == SkillName.Imbuing)
@@ -121,6 +129,7 @@ public sealed class ProfessionToolGump : DynamicGump
             }
             else if (ClassProfessions.Request(owner, _skill, _tool, true)) { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
         }
+        else if (info.ButtonID == 5) { RepairGump.Target(owner, _tool, null); }
         else if (info.ButtonID == 4) { EquipmentCraftGump.DisplayTo(owner, _tool); }
         else if (info.ButtonID == 3) { ProcessingGump.Target(owner, _tool); }
         else if (info.ButtonID == 2)

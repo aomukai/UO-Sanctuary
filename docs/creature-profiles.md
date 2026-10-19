@@ -13,6 +13,8 @@ This is a common data contract for every built-in UO creature, not a completed r
 
 All three difficulties have the same fields. Nightmare and Hell default to **disabled**; they are not spawned by the current world. Enabling difficulty content later also requires selecting/persisting its difficulty at spawn. It does not require a new creature implementation. Profiles do not silently reinterpret the existing 1–99 archetype source bands as world difficulty.
 
+The planned world distribution, confirmed on 20 October 2026, is Normal/Nightmare outdoors in Trammel, Hell restricted to Trammel dungeon floor 3, and Hell mobs outdoors in Felucca. Specific hunting areas and dungeon populations remain future world content; current spawns are unchanged. See roadmap T35 and the crafting specification's world difficulty direction.
+
 Example per-type override (inside an existing identity row):
 
 ```json

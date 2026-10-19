@@ -104,8 +104,8 @@ def check():
         config["settings"].update({"autosave.enabled": "False", "pingServer.enabled": "True",
                                     "pingServer.port": str(ping_port),
                                     "sanctuary.graveyard.enabled": "False", "world.savePath": "Saves", "crashGuard.restartServer": "False"})
+        config["settings"]["sanctuary.professions.enabled"] = "True" if professions else "False"
         if professions:
-            config["settings"]["sanctuary.professions.enabled"] = "True"
             # Registered facilities exist only in this disposable fixture world.
             facility_path = folder / "Data/Sanctuary/Balance/craft-facilities.json"
             sites = json.loads(facility_path.read_text()) + [{"Skill": skill, "Map": "Trammel", "X": x, "Y": y, "Z": 0, "ItemID": 0xB4A}
@@ -135,7 +135,23 @@ def check():
                     if creation and iteration == 0 and os.environ.get("SANCTUARY_RECIPE_AUDIT"):
                         session.send("equipment-recipe-audit")
                         assert session.expect(r"equipment-recipe-audit: (passed|failed)").group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_REPAIRS") == "1":
+                        repair_command = "repair-check" if iteration == 0 else "repair-reload-check"
+                        session.send(repair_command)
+                        assert session.expect(repair_command + r": (passed|failed)", timeout=90).group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_MARKETS") == "1":
+                        market_command = "market-check" if iteration == 0 else "market-reload-check"
+                        session.send(market_command)
+                        assert session.expect(market_command + r": (passed|failed)", timeout=90).group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_REWARD_LIFE") == "1":
+                        reward_command = "reward-life-check" if iteration == 0 else "reward-life-reload-check"
+                        session.send(reward_command)
+                        assert session.expect(reward_command + r": (passed|failed)", timeout=45).group(1) == "passed"
                     if professions:
+                        if os.environ.get("SANCTUARY_TEST_EFFECTIVE_GEAR") == "1":
+                            effective_command = "effective-gear-check" if iteration == 0 else "effective-gear-reload-check"
+                            session.send(effective_command)
+                            assert session.expect(effective_command + r": (passed|failed)", timeout=45).group(1) == "passed"
                         command = "profession-check" if iteration == 0 else "profession-reload-check"
                         session.send(command)
                         assert session.expect(command + r": (passed|failed)", timeout=45).group(1) == "passed"
@@ -157,14 +173,15 @@ def check():
                         if iteration == 0 and os.environ.get("SANCTUARY_TEST_FIRST_LOOP") == "1":
                             session.send("first-loop-catalogue-check")
                             assert session.expect(r"first-loop-catalogue-check: (passed|failed)").group(1) == "passed"
-                        if iteration == 0 and (os.environ.get("SANCTUARY_TEST_PROFESSIONS_UI") == "1"
+                        if iteration == 0 and (os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1"
+                                               or os.environ.get("SANCTUARY_TEST_PROFESSIONS_UI") == "1"
                                                or os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1"
                                                or os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1"
                                                or os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1"):
                             subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests/check_combat_ui.py"), str(port)],
                                 check=True, pass_fds=(session.master,),
                                 env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
-                            ui_final = "equipment-crafting-ui-final" if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" else "processing-ui-final" if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" else "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
+                            ui_final = "repair-ui-final" if os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1" else "equipment-crafting-ui-final" if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" else "processing-ui-final" if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" else "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
                             session.send(ui_final)
                             assert session.expect(ui_final + r": (passed|failed)").group(1) == "passed"
                     if creation and not professions:
@@ -232,10 +249,10 @@ def check():
                             subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests" / script),
                                             str(port)], check=True, pass_fds=(session.master,),
                                            env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
-                            final = "class-names-ui-check" if os.environ.get("SANCTUARY_TEST_CLASS_NAMES_UI") == "1" else "economy-ui-final" if os.environ.get("SANCTUARY_TEST_ECONOMY_UI") == "1" else "belt-ui-final" if os.environ.get("SANCTUARY_TEST_BELT_UI") == "1" else "movement-ui-final" if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" else "resurrection-ui-final" if os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" else "pet-ui-final" if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" else "stat-ui-final" if os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" else "loot-ui-closed" if os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1" else "combat-ui-final" if combat_ui else "creation-ui-check"
+                            final = "repair-ui-final" if os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1" else "market-ui-final" if os.environ.get("SANCTUARY_TEST_MARKET_UI") == "1" else "class-names-ui-check" if os.environ.get("SANCTUARY_TEST_CLASS_NAMES_UI") == "1" else "economy-ui-final" if os.environ.get("SANCTUARY_TEST_ECONOMY_UI") == "1" else "belt-ui-final" if os.environ.get("SANCTUARY_TEST_BELT_UI") == "1" else "movement-ui-final" if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" else "resurrection-ui-final" if os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") == "1" else "pet-ui-final" if os.environ.get("SANCTUARY_TEST_PETS_UI") == "1" else "stat-ui-final" if os.environ.get("SANCTUARY_TEST_STATS_UI") == "1" else "loot-ui-closed" if os.environ.get("SANCTUARY_TEST_LOOT_ONLY") == "1" or os.environ.get("SANCTUARY_TEST_TIMING_ONLY") == "1" else "combat-ui-final" if combat_ui else "creation-ui-check"
                             session.send(final)
                             assert session.expect(final + r": (passed|failed)").group(1) == "passed"
-                    if creation and os.environ.get("SANCTUARY_TEST_COMBAT_UI") == "1" and iteration > 0 and os.environ.get("SANCTUARY_TEST_ECONOMY_UI") != "1" and os.environ.get("SANCTUARY_TEST_BELT_UI") != "1" and os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") != "1" and os.environ.get("SANCTUARY_TEST_STATS_UI") != "1" and os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") != "1" and os.environ.get("SANCTUARY_TEST_PETS_UI") != "1":
+                    if creation and os.environ.get("SANCTUARY_TEST_COMBAT_UI") == "1" and iteration > 0 and os.environ.get("SANCTUARY_TEST_REPAIR_UI") != "1" and os.environ.get("SANCTUARY_TEST_MARKET_UI") != "1" and os.environ.get("SANCTUARY_TEST_ECONOMY_UI") != "1" and os.environ.get("SANCTUARY_TEST_BELT_UI") != "1" and os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") != "1" and os.environ.get("SANCTUARY_TEST_STATS_UI") != "1" and os.environ.get("SANCTUARY_TEST_RESURRECTION_UI") != "1" and os.environ.get("SANCTUARY_TEST_PETS_UI") != "1":
                         session.send("loot-ui-reload")
                         assert session.expect(r"loot-ui-reload: (passed|failed)").group(1) == "passed"
                     if professions and iteration == 0 and os.environ.get("SANCTUARY_TEST_PROCESSING") == "1":

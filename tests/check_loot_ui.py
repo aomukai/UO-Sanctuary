@@ -8,7 +8,7 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 
 def exercise(window, click, capture):
-    serverlog = ROOT / ".local/logs/britain-baseline-check.log"
+    serverlog = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
     statefile = Path(os.environ["SANCTUARY_TEST_UI_STATE"])
     console = int(os.environ["SANCTUARY_TEST_CONSOLE_FD"])
     def command(name):
@@ -65,4 +65,4 @@ def exercise(window, click, capture):
     time.sleep(0.3)
     command("closed")
     command("final")
-    print("Actual client: five-tile combined grid, single-click whole-stack transfer, grey empty usable bodies, bladed harvesting, delete only after final harvested item, and grid close passed.", flush=True)
+    print("Actual client: five-tile combined grid, manual generated-gold and whole-stack transfer, grey empty usable bodies, bladed harvesting, delete only after final harvested item, and grid close passed.", flush=True)

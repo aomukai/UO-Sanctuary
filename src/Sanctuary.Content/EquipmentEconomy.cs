@@ -25,8 +25,7 @@ public sealed record SalvageRange(int Min, int Max, int ChancePercent, int Level
         return random.Next(min, max + 1);
     }
 }
-public sealed record EconomySettings(int ResalePercent, int NormalResaleCap, int MagicResaleCap, int RareResaleCap,
-    SalvageRange MagicEssence, SalvageRange RareEssence, SalvageRange ReservedUniqueEssence,
+public sealed record EconomySettings(SalvageRange MagicEssence, SalvageRange RareEssence, SalvageRange ReservedUniqueEssence,
     SalvageRange MetalScraps, SalvageRange WoodenChips, SalvageRange LeatherStrips, SalvageRange ClothScraps, int SalvageGoldCost,
     int ImbueEssenceCost, int ImbueGoldCost, int RareChancePercent);
 public enum EssenceAction { Salvage, Imbue }
@@ -44,9 +43,7 @@ public static class EquipmentEconomy
             throw new InvalidDataException("Exactly one equipment economy configuration is required.");
         }
         var row = rows[0];
-        if (row.ResalePercent is < 1 or > 100 || row.NormalResaleCap is < 1 or > 60000
-            || row.MagicResaleCap is < 1 or > 60000 || row.RareResaleCap is < 1 or > 60000
-            || row.SalvageGoldCost is < 0 or > 60000 || row.ImbueEssenceCost is < 1 or > 60000
+        if (row.SalvageGoldCost is < 0 or > 60000 || row.ImbueEssenceCost is < 1 or > 60000
             || row.ImbueGoldCost is < 0 or > 60000 || row.RareChancePercent is < 0 or > 100)
         {
             throw new InvalidDataException("Invalid equipment economy configuration.");
@@ -76,20 +73,7 @@ public static class EquipmentEconomy
             return false;
         };
     }
-    public static int SellPrice(Item item, int nativePrice)
-    {
-        if (nativePrice <= 0 || !ClassGear.Converted(item))
-        {
-            return nativePrice;
-        }
-        int cap = ClassGear.State(item)?.Roll.Rarity switch
-        {
-            GearRarity.Magic => Settings.MagicResaleCap,
-            GearRarity.Rare => Settings.RareResaleCap,
-            _ => Settings.NormalResaleCap
-        };
-        return (int)Math.Min(cap, Math.Max(1L, (long)nativePrice * Settings.ResalePercent / 100));
-    }
+    public static int SellPrice(Item item, int nativePrice) => TradePrices.Quote(item, nativePrice);
     public static SalvageMaterial Material(Item item)
     {
         if (item is BaseArmor armor)

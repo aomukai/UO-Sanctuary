@@ -145,6 +145,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             return TimeSpan.FromMilliseconds(normal.StallMs);
         }
         _melee = Utility.RandomDouble() * 100 < normal.Attack1Chance ? normal.Attack1 : normal.Attack2;
+        _melee = _melee with { Speed = Math.Max(1, _melee.Speed * (100 - GearEffects.ChillPercent(this)) / 100) };
         StartAction(target);
         _nextAction = now + _melee.DurationMs + normal.AiDelayMs;
         AIObject?.ResetApproachState();
@@ -194,6 +195,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         if (!fire && target is PlayerMobile player)
         {
             HitRecovery.Apply(player, before - target.Hits, Core.TickCount);
+            GearEffects.WearArmor(player, (BaseWeapon)Weapon, damage);
         }
     }
     public override void OnThink()

@@ -120,13 +120,13 @@ public static class EquipmentCraftingChecks
                     "Tier/quality/origin/sockets/charges wrong: " + row.Id);
                 Require(inputs.All(i => i.Amount == 5) && GearDetails.Read(output) is { Creator: { Length: > 0 } } native
                     && native.Durability == native.MaximumDurability, "Resources or fresh durability/maker wrong");
-                Require(ClassGear.Stat(output, ClassGearStat.StrengthRequirement) == basis.Strength
-                    && ClassGear.RequiredLevel(output) == Math.Max(basis.RequiredLevel, EquipmentCrafting.EquipFloor(row.Tier))
+                Require(ClassGear.Stat(output, ClassGearStat.StrengthRequirement) == (ClassGear.CosmeticClothing(output) ? 0 : basis.Strength)
+                    && ClassGear.RequiredLevel(output) == (ClassGear.CosmeticClothing(output) ? 0 : Math.Max(basis.RequiredLevel, EquipmentCrafting.EquipFloor(row.Tier)))
                     && ClassGear.CanEquip(output, player) == true && GearDetails.Read(output).Material == EquipmentCrafting.PhysicalMaterial(output.GetType()), "Effective tier requirement/equip projection wrong");
                 if (row.Type == "Longsword") { Require(ClassGear.Damage(output) == (basis.MinDamage, basis.MaxDamage), "Tier weapon damage wrong"); }
                 Require(!CraftTransactions.Complete(ticket, new Roll()) && tool.UsesRemaining == 49, "Equipment response replayed");
                 string tooltip = Encoding.Unicode.GetString(output.PropertyList.Buffer.AsSpan(1));
-                Require(tooltip.Contains("Base tier: " + row.Tier) && tooltip.Contains("quality: " + CraftTransactions.QualityName(expected))
+                Require((ClassGear.CosmeticClothing(output) ? tooltip.Contains("Cosmetic") : tooltip.Contains("Base tier: " + row.Tier) && tooltip.Contains("quality: " + CraftTransactions.QualityName(expected)))
                     && (!GearDetails.Socketable(output) || expected == CraftQuality.Average || tooltip.Contains("Empty sockets: " + (int)expected)), "Compiled tooltip hides tier/quality/empty sockets");
                 saved.Add(Snapshot(output));
                 if (row.Type == "BoneChest")
@@ -232,7 +232,7 @@ public static class EquipmentCraftingChecks
                 "Material identity/roll lost");
             if (source is SpinedLeather or HornedLeather or BarbedLeather)
             { Require(ClassGear.State(output).MaterialRolls.Length == 2 && ClassGear.State(output).MaterialRolls.All(r => r.Value is >= 1 and <= 5), "Dual resistance budget wrong"); }
-            Require(ClassGear.Bonus(output, "res-fire") == 0 && ClassGear.Bonus(output, "dmg%") == 0, "Dormant material activated as affix");
+            Require(ClassGear.Bonus(output, "res-fire") == ClassGear.Material(output, "resistance-fire") && ClassGear.Bonus(output, "dmg%") == 0, "Material resistance or local damage modifier projected incorrectly");
             var native = GearDetails.Read(output);
             if (output is BaseArmor armor) { Require(armor.GetDurabilityBonus() == 0, "Native coloured durability stacked"); }
             if (output is BaseWeapon weapon) { Require(weapon.GetDurabilityBonus() == 0, "Native weapon durability stacked"); }

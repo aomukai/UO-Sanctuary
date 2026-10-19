@@ -1,0 +1,149 @@
+--- a/Projects/UOContent/Items/ClassEconomyHooks.cs
++++ b/Projects/UOContent/Items/ClassEconomyHooks.cs
+@@ -1,10 +1,18 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ using System;
++using System.Collections.Generic;
++using Server.Mobiles;
+ 
+ namespace Server;
+ 
+ public static class ClassEconomyHooks
+ {
++    public static Func<BaseVendor, IBuyItemInfo[]> Stock { get; set; }
++    public static Func<BaseVendor, IShopSellInfo[], IShopSellInfo[]> SellInfo { get; set; }
++    public static Func<BaseVendor, Mobile, List<BuyItemResponse>, bool?> BuyItems { get; set; }
++    public static Func<BaseVendor, Mobile, List<SellItemResponse>, bool?> SellItems { get; set; }
++    public static Func<Item, bool> SellAllowed { get; set; }
++    public static Func<Item, bool> ResaleAllowed { get; set; }
+     public static Func<Item, int, int> SellPrice { get; set; }
+     public static Func<Mobile, Item, bool> LegacySalvageAllowed { get; set; }
+     public static bool AllowLegacySalvage(Mobile from, Item item) => LegacySalvageAllowed?.Invoke(from, item) ?? true;
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -220,6 +220,8 @@
+                 return false;
+             }
+ 
++            if (ClassEconomyHooks.BuyItems?.Invoke(this, buyer, list) is bool handled) { return handled; }
++
+             UpdateBuyInfo();
+ 
+             var info = GetSellInfo();
+@@ -253,7 +255,7 @@
+                         }
+                     }
+                     else if (item != BuyPack && item.IsChildOf(BuyPack)
+-                        && MaterialProcessHooks.ResaleAllowed?.Invoke(item) != false)
++                        && MaterialProcessHooks.ResaleAllowed?.Invoke(item) != false && ClassEconomyHooks.ResaleAllowed?.Invoke(item) != false)
+                     {
+                         if (amount > item.Amount)
+                         {
+@@ -485,6 +487,8 @@
+                 return false;
+             }
+ 
++            if (ClassEconomyHooks.SellItems?.Invoke(this, seller, list) is bool handled) { return handled; }
++
+             seller.PlaySound(0x32);
+ 
+             var info = GetSellInfo();
+@@ -495,7 +499,7 @@
+ 
+             foreach (var resp in list)
+             {
+-                if (resp.Item.RootParent != seller || resp.Amount <= 0 || !resp.Item.IsStandardLoot() ||
++                if (resp.Item.RootParent != seller || resp.Amount <= 0 || !(ClassEconomyHooks.SellAllowed?.Invoke(resp.Item) ?? resp.Item.IsStandardLoot()) ||
+                     !resp.Item.Movable || resp.Item is Container container && container.Items.Count != 0)
+                 {
+                     continue;
+@@ -524,7 +528,7 @@
+ 
+             foreach (var resp in list)
+             {
+-                if (resp.Item.RootParent != seller || resp.Amount <= 0 || !resp.Item.IsStandardLoot() ||
++                if (resp.Item.RootParent != seller || resp.Amount <= 0 || !(ClassEconomyHooks.SellAllowed?.Invoke(resp.Item) ?? resp.Item.IsStandardLoot()) ||
+                     !resp.Item.Movable || resp.Item is Container container && container.Items.Count != 0)
+                 {
+                     continue;
+@@ -537,6 +541,8 @@
+                         continue;
+                     }
+ 
++                    var price = GetSellPriceFor(resp.Item, ssi);
++                    if (price <= 0) { break; }
+                     var amount = resp.Amount;
+ 
+                     if (amount > resp.Item.Amount)
+@@ -544,7 +550,7 @@
+                         amount = resp.Item.Amount;
+                     }
+ 
+-                    if (ssi.IsResellable(resp.Item))
++                    if (ssi.IsResellable(resp.Item) && ClassEconomyHooks.ResaleAllowed?.Invoke(resp.Item) != false)
+                     {
+                         var found = false;
+ 
+@@ -583,7 +589,7 @@
+                         }
+                     }
+ 
+-                    GiveGold += GetSellPriceFor(resp.Item, ssi) * amount;
++                    GiveGold += price * amount;
+                     break;
+                 }
+             }
+@@ -969,7 +975,7 @@
+             for (var i = 0; i < playerItems.Count; ++i)
+             {
+                 var item = playerItems[i];
+-                if (MaterialProcessHooks.ResaleAllowed?.Invoke(item) == false) { continue; }
++                if (MaterialProcessHooks.ResaleAllowed?.Invoke(item) == false || ClassEconomyHooks.ResaleAllowed?.Invoke(item) == false) { continue; }
+ 
+                 var price = 0;
+                 string name = null;
+@@ -1092,7 +1098,7 @@
+                         continue;
+                     }
+ 
+-                    if (item.IsStandardLoot() && item.Movable && ssi.IsSellable(item))
++                    if ((ClassEconomyHooks.SellAllowed?.Invoke(item) ?? item.IsStandardLoot()) && item.Movable && ssi.IsSellable(item))
+                     {
+                         set.Add(new SellItemState(item, GetSellPriceFor(item, ssi), ssi.GetNameFor(item)));
+                     }
+@@ -1104,6 +1110,7 @@
+                 SendPacksTo(from);
+ 
+                 from.NetState.SendVendorSellList(Serial, set);
++                foreach (var state in set) { from.NetState.Send(state.Item.PropertyList.Buffer); }
+             }
+             else
+             {
+@@ -1392,9 +1399,13 @@
+             base.AddCustomContextEntries(from, ref list);
+         }
+ 
+-        public virtual IShopSellInfo[] GetSellInfo() => _sellInfo.ToArray();
+-
+-        public virtual IBuyItemInfo[] GetBuyInfo() => _buyInfo.ToArray();
++        public virtual IShopSellInfo[] GetSellInfo()
++        {
++            var native = _sellInfo.ToArray();
++            return ClassEconomyHooks.SellInfo?.Invoke(this, native) ?? native;
++        }
++
++        public virtual IBuyItemInfo[] GetBuyInfo() => ClassEconomyHooks.Stock?.Invoke(this) ?? _buyInfo.ToArray();
+ 
+         public virtual int GetPriceScalar() => 100 + Town.FromRegion(Region)?.Tax ?? 0;
+ 
+--- a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
++++ b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+@@ -150,7 +150,7 @@
+             m_DisplayEntity = null;
+         }
+ 
+-        public IEntity GetDisplayEntity()
++        public virtual IEntity GetDisplayEntity()
+         {
+             if (m_DisplayEntity?.Deleted == false)
+             {

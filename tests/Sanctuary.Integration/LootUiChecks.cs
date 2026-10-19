@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Accounting;
@@ -57,9 +58,17 @@ public static class LootUiChecks
             _second = new Corpse(_owner, new List<Item>());
             _second.MoveToWorld(new Point3D(_player.X + 5, _player.Y, _player.Z), Map.Felucca);
             _one = new Dagger { Name = "Nearby Loot Dagger" };
-            _two = new Bow { Name = "Five Tile Loot Bow" };
+            using var oldGold = Server.Collections.PooledRefList<Item>.Create();
+            foreach (var gold in _player.Backpack.FindItemsByType(typeof(Gold), true)) { oldGold.Add(gold); }
+            foreach (var gold in oldGold) { gold.Delete(); }
+            _owner.LastKiller = _player;
+            int seed = 0;
+            while (CreatureGold.Roll(typeof(Skeleton), CreatureProfiles.Level(_owner), 0, new Random(seed)) == 0) { seed++; }
+            RewardLife.Process(_owner, _second, new Random(seed));
+            _two = _second.Items.OfType<Gold>().Single();
+            Require(_two.Parent == _second && _player.Backpack.GetAmount(typeof(Gold)) == 0, "Reward gold was automatically collected");
             _first.DropItem(_one);
-            _second.DropItem(_two);
+
             Require(ClassLoot.CanOpen(_player, _first) && ClassLoot.CanOpen(_player, _second), "Fixture corpses are not lootable");
         });
         Register("opened", () => Require(ClassLoot.IsOpen(_player), "Single corpse click did not open AoE loot"));

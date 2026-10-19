@@ -50,5 +50,9 @@
   "ItemStatCost": {
     "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/ItemStatCost.txt",
     "sha256": "4d743b7f3e260a6647f259de25a931fd2554d52315d316eac467f110ee096c27"
+  },
+  "TreasureClassEx": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/TreasureClassEx.txt",
+    "sha256": "1eb16226c402c72afd6b9ce19b9629f2d395b549047119103dab03b446e5654f"
   }
 }
