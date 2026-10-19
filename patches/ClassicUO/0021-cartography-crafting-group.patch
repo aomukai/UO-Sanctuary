@@ -1,0 +1,11 @@
+diff --git a/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs b/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
+--- a/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
++++ b/src/ClassicUO.Client/Game/Managers/SkillsGroupManager.cs
+@@ -237,7 +237,6 @@
+ 
+             AddTradeGroup("Gathering", TradeSkills.Gathering);
+             AddTradeGroup("Crafting", TradeSkills.Crafting);
+-            AddTradeGroup("Treasure Hunting", TradeSkills.TreasureHunting);
+ 
+             foreach (SkillsGroup g in Groups)
+             {

@@ -12,5 +12,5 @@ public static class ClassSkills
     }
 
     public static bool CanGain(PlayerMobile player, SkillName skill) =>
-        !ClassCombat.Enabled(player) || TradeSkills.Includes((int)skill);
+        !ClassCombat.Enabled(player) || TradeSkills.Includes((int)skill) && ClassProfessions.Active(player, skill);
 }

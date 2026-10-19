@@ -8,7 +8,19 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, GearRoll Roll);
+public enum GearTier : byte { Normal, Exceptional, Elite }
+public enum CraftQuality : byte { Average, HighQuality, Superior }
+
+public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, GearRoll Roll)
+{
+    public GearTier Tier { get; init; }
+    public CraftQuality Quality { get; init; }
+    public int NativeSockets { get; init; }
+    public int TinkerSockets { get; init; }
+    public bool Identified { get; init; } = true;
+    public int? IdentifiedSaleOffer { get; init; }
+    public int SocketCount => NativeSockets + TinkerSockets;
+}
 
 public sealed class GearProfiles : GenericPersistence
 {
@@ -17,6 +29,50 @@ public sealed class GearProfiles : GenericPersistence
     public bool BeginStarterMigration(Serial player) => _starterMigrations.Add(player);
     public GearProfiles() : base("SanctuaryEquipment", 110) { }
     public GearState Find(Serial serial) => _items.GetValueOrDefault(serial);
+    public GearState Ensure(Item item)
+    {
+        if (!ClassGear.Converted(item))
+        {
+            throw new ArgumentException("A catalogued item is required.");
+        }
+        if (Find(item.Serial) is { } saved)
+        {
+            return saved;
+        }
+        var state = DefaultState(item);
+        Store(item, state);
+        return state;
+    }
+    private static GearState DefaultState(Item item)
+    {
+        var basis = ClassGear.Base(item);
+        return new(ClassGear.Definition(item).BaseCode, ClassGear.Defense(item), false,
+            new(GearRarity.Normal, 1, basis == null ? 1 : AffixBalance.Level(1, basis.QualityLevel, basis.MagicLevel),
+                basis?.RequiredLevel ?? 0, []));
+    }
+    public void Store(Item item, GearState state)
+    {
+        Validate(item, state);
+        _items[item.Serial] = state;
+        item.InvalidateProperties();
+    }
+    public void Copy(Item source, Item destination)
+    {
+        if (!ClassGear.Converted(source))
+        {
+            _items.Remove(destination.Serial);
+            return;
+        }
+        var state = Ensure(source);
+        GearDetails.CopyNative(source, destination);
+        var affixes = new RolledAffix[state.Roll.Affixes.Length];
+        for (int i = 0; i < affixes.Length; i++)
+        {
+            var affix = state.Roll.Affixes[i];
+            affixes[i] = new(affix.Definition, (RolledModifier[])affix.Modifiers.Clone());
+        }
+        Store(destination, state with { Roll = state.Roll with { Affixes = affixes } });
+    }
     public GearState Convert(Item item, int itemLevel = 1, GearRarity rarity = GearRarity.Normal, Random random = null)
     {
         if (!ClassGear.Converted(item) || itemLevel is < 1 or > 99 || !Enum.IsDefined(rarity))
@@ -33,7 +89,8 @@ public sealed class GearProfiles : GenericPersistence
         var roll = basis == null ? new GearRoll(GearRarity.Normal, itemLevel, 1, 0, [])
             : AffixBalance.Roll(basis, itemLevel, rarity, random, ClassGear.Implemented);
         int defense = basis == null ? 0 : random.Next(basis.MinDefense, basis.MaxDefense + 1);
-        var state = new GearState(definition.BaseCode, defense, false, roll);
+        var before = Find(item.Serial) ?? new GearState(definition.BaseCode, defense, false, roll);
+        var state = before with { Defense = defense, Roll = roll };
         Validate(item, state);
         _items[item.Serial] = state;
         item.InvalidateProperties();
@@ -49,7 +106,7 @@ public sealed class GearProfiles : GenericPersistence
     {
         var basis = ClassGear.Base(item);
         var before = Find(item.Serial);
-        if (basis == null || before is { StarterTeeth: true }
+        if (basis == null || before is { StarterTeeth: true } or { TinkerSockets: > 0 }
             || (before?.Roll.Rarity ?? GearRarity.Normal) != GearRarity.Normal
             || rarity is not (GearRarity.Magic or GearRarity.Rare))
         {
@@ -60,14 +117,13 @@ public sealed class GearProfiles : GenericPersistence
         {
             return null;
         }
-        var state = new GearState(ClassGear.Definition(item).BaseCode, before?.Defense ?? ClassGear.Defense(item), false, roll);
+        var state = (before ?? DefaultState(item)) with { Roll = roll };
         Validate(item, state);
         return state;
     }
     internal void ApplyImbue(Item item, GearState state)
     {
-        _items[item.Serial] = state;
-        item.InvalidateProperties();
+        Store(item, state);
     }
     public void MarkStarter(Dagger dagger)
     {
@@ -76,8 +132,7 @@ public sealed class GearProfiles : GenericPersistence
         {
             throw new InvalidOperationException("Only the normal starter base may receive the starter skill grant.");
         }
-        _items[dagger.Serial] = state with { StarterTeeth = true };
-        dagger.InvalidateProperties();
+        Store(dagger, state with { StarterTeeth = true });
     }
     public void Prune()
     {
@@ -98,6 +153,16 @@ public sealed class GearProfiles : GenericPersistence
     public static void Validate(Item item, GearState state)
     {
         var definition = ClassGear.Definition(item) ?? throw new InvalidDataException("Unknown saved gear type.");
+        if (state == null || state.Roll == null || state.Tier != GearTier.Normal || !Enum.IsDefined(state.Quality)
+            || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
+            || state.TinkerSockets > 5 || state.SocketCount > 5
+            || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
+            || state.SocketCount > 0 && (state.StarterTeeth || item.LootType == LootType.Newbied || !GearDetails.Socketable(item))
+            || state.IdentifiedSaleOffer is { } offer && (offer < 100 || offer > 500 || state.StarterTeeth
+                || item.LootType == LootType.Newbied || item.Origin == ItemOrigin.Vendor))
+        {
+            throw new InvalidDataException("Invalid equipment tier, quality, socket provenance or sale offer.");
+        }
         if (state.BaseCode != definition.BaseCode || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
             || state.StarterTeeth && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal))
         {
@@ -153,7 +218,7 @@ public sealed class GearProfiles : GenericPersistence
     }
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(0);
+        writer.Write(1);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -179,11 +244,18 @@ public sealed class GearProfiles : GenericPersistence
                     writer.Write(mod.Value ?? 0);
                 }
             }
+            writer.Write((byte)state.Tier);
+            writer.Write((byte)state.Quality);
+            writer.Write(state.NativeSockets);
+            writer.Write(state.TinkerSockets);
+            writer.Write(state.Identified);
+            writer.Write(state.IdentifiedSaleOffer ?? 0);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
-        if (reader.ReadInt() != 0)
+        int version = reader.ReadInt();
+        if (version is < 0 or > 1)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -228,7 +300,18 @@ public sealed class GearProfiles : GenericPersistence
                 }
                 affixes[j] = new(source, modifiers);
             }
-            _items.Add(serial, new(basis, defense, starter, new(rarity, itemLevel, affixLevel, requirement, affixes)));
+            var state = new GearState(basis, defense, starter, new(rarity, itemLevel, affixLevel, requirement, affixes));
+            if (version >= 1)
+            {
+                var tier = (GearTier)reader.ReadByte();
+                var quality = (CraftQuality)reader.ReadByte();
+                int nativeSockets = reader.ReadInt(), tinkerSockets = reader.ReadInt();
+                bool identified = reader.ReadBool();
+                int offer = reader.ReadInt();
+                state = state with { Tier = tier, Quality = quality, NativeSockets = nativeSockets,
+                    TinkerSockets = tinkerSockets, Identified = identified, IdentifiedSaleOffer = offer == 0 ? null : offer };
+            }
+            _items.Add(serial, state);
         }
     }
     public override void PostDeserialize()

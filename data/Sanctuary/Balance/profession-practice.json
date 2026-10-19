@@ -1,0 +1,102 @@
+[
+  {
+    "skill": 0,
+    "resource": "Ginseng",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 7,
+    "resource": "IronIngot",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 8,
+    "resource": "Log",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 11,
+    "resource": "Board",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 12,
+    "resource": "BlankScroll",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 13,
+    "resource": "RawFishSteak",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 23,
+    "resource": "BlankScroll",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 34,
+    "resource": "Cloth",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 37,
+    "resource": "IronIngot",
+    "amounts": [
+      2,
+      4,
+      6,
+      8
+    ]
+  },
+  {
+    "skill": 56,
+    "resource": "MagicEssence",
+    "amounts": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+]

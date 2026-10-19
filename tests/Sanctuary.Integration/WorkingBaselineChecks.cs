@@ -29,6 +29,7 @@ public static class WorkingBaselineChecks
                             Serial = p.Serial.Value,
                             Access = p.AccessLevel.ToString(),
                             Profile = ClassCreation.Profiles.TryGet(p.Serial, out var profile) ? profile : null,
+                            Profession = ClassProfessions.Affected(p) ? ClassProfessions.Profiles.Find(p) : null,
                             Allocation = ClassCreation.Profiles.Stats(p.Serial),
                             SkillsCap = p.Skills.Cap,
                             Skills = Enumerable.Range(0, p.Skills.Length).Select(id => p.Skills[id]).Select(s => new

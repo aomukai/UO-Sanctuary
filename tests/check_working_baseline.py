@@ -7,12 +7,13 @@ installation, or writes to the source runtime are performed.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import socket
 import tempfile
 
-from check_britain import ROOT, Session
+from check_britain import ROOT, SERVER, Session
 
 
 def hashes(folder):
@@ -28,23 +29,33 @@ def port(kind=socket.SOCK_STREAM):
 
 def check(output):
     source = ROOT / '.local/server'
+    runtime = SERVER
     output.mkdir(parents=True, exist_ok=True)
     assert not (source / 'Assemblies/Sanctuary.Integration.dll').exists(), 'Live runtime contains integration assembly'
     config = json.loads((source / 'Configuration/modernuo.json').read_text())
     assert config['settings']['world.savePath'] == 'Saves', 'Review nonstandard live save path first'
     with tempfile.TemporaryDirectory(prefix='sanctuary-working-baseline-', dir='/dev/shm') as temporary:
         folder = Path(temporary)
-        for entry in source.iterdir():
+        for entry in runtime.iterdir():
             if entry.is_file() and entry.suffix in ('.dll', '.json', '.config'):
                 shutil.copy2(entry, folder / entry.name)
-        (folder / 'runtimes').symlink_to(source / 'runtimes', target_is_directory=True)
+        (folder / 'runtimes').symlink_to(runtime / 'runtimes', target_is_directory=True)
         shutil.copytree(source / 'Configuration', folder / 'Configuration')
         for name in ('Assemblies', 'Data'):
             (folder / name).mkdir()
-            for entry in (source / name).iterdir():
+            for entry in (runtime / name).iterdir():
                 if name == 'Data' and entry.name == 'assemblies.json':
                     continue
-                (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
+                target = entry
+                if runtime != source and entry.name == 'Sanctuary.Content.dll':
+                    target = ROOT / '.local/content/Sanctuary.Content.dll'
+                if runtime != source and entry.name == 'Sanctuary':
+                    target = ROOT / 'data/Sanctuary'
+                (folder / name / entry.name).symlink_to(target, target_is_directory=target.is_dir())
+        if not (folder / 'Assemblies/Sanctuary.Content.dll').exists():
+            (folder / 'Assemblies/Sanctuary.Content.dll').symlink_to(ROOT / '.local/content/Sanctuary.Content.dll')
+        if not (folder / 'Data/Sanctuary').exists():
+            (folder / 'Data/Sanctuary').symlink_to(ROOT / 'data/Sanctuary', target_is_directory=True)
         probe = ROOT / '.local/integration/Sanctuary.Integration.dll'
         assert probe.is_file(), 'Build the integration project first'
         (folder / 'Assemblies/Sanctuary.Integration.dll').symlink_to(probe)
@@ -68,6 +79,8 @@ def check(output):
         config['settings'].update({'autosave.enabled': 'False', 'world.savePath': 'Saves',
                                    'pingServer.port': str(ping), 'crashGuard.restartServer': 'False',
                                    'accountHandler.enableAutoAccountCreation': 'False'})
+        if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':
+            config['settings']['sanctuary.professions.enabled'] = 'True'
         (folder / 'Configuration/modernuo.json').write_text(json.dumps(config))
         snapshots = []
         progression = []
@@ -93,6 +106,10 @@ def check(output):
         for key in ('Players', 'Gear'):
             assert snapshots[0][key] == snapshots[1][key], f'{key} changed after copied-world restart'
         assert progression[0] == progression[1], 'Serialized class/talent/allocation history changed on restart'
+        if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':
+            for player in snapshots[0]['Players']:
+                expected = {'Craft': 0, 'Confirmed': False} if player['Profile'] and player['Access'] == 'Player' else None
+                assert player['Profession'] == expected, 'Installed character was assigned a confirmed craft or staff restricted'
         claims = {c['Serial']: c['SanctuaryNoRewards'] for c in snapshots[1]['Corpses']}
         for corpse in snapshots[0]['Corpses']:
             if corpse['SanctuaryNoRewards']:

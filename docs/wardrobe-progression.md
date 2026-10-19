@@ -32,7 +32,7 @@ Recorded from the user's A03 answer, 18 October 2026. This is a proposed progres
 
 `src/Sanctuary.Content/PersistentMinions.cs` already suspends opted-in class minions by internalizing the actual creatures on disconnect and resumes them on reconnect. That is useful groundwork, but it is keyed to the character's followers rather than an active class profile. It does not yet isolate separate class summon sets or provide a wardrobe snapshot.
 
-The retained trade-skill list exposes all professions. `shared/TradeSkills.cs` currently groups nine crafting skills, three gathering skills, and Cartography separately under TreasureHunting. The target design instead has ten selectable crafting professions including Cartography and three always-active gathering skills. Independent stored skills are not the same as enforcing the selected craft's actions, gains and skill-derived effects. No activation gate or UI regrouping is implemented by this documentation change.
+[T05](t05-professions.md) implements the shared ten-craft/three-gathering list, including Cartography in Crafting, plus persisted first-choice confirmation, action/gain checks and training. Its release flag defaults to disabled and it is not deployed; the installed comparison still has the older grouping and no selected-craft enforcement. Native stored skills remain authoritative. Full wardrobe class/summon/equipment switching is still absent.
 
 ## Recommendations, not adopted rules
 
@@ -52,7 +52,7 @@ Final class/skill title names, whether selection is independent of the active cl
 
 ## Details still requiring decisions
 
-The [decision worksheet](economy-open-questions.md), Q01–Q13, records the follow-ups. Q01's gathering-access issue is resolved; public access, alive/out-of-combat use and overweight behavior are decided in Q02/Q03/Q07. Q08 now records the new-character Alchemy default and first-tool confirmation. Existing-character craft migration and first activation of another class remain open, alongside shared versus class-specific state, health/status/summon handling, storage identity/capacity, achievement ownership, Power Scroll rules, town/home craft restrictions and the optional title catalogue. None of the remaining recommendations silently fills those answers.
+The [decision worksheet](economy-open-questions.md), Q01–Q13, records the follow-ups. Q01's gathering-access issue is resolved; public access, alive/out-of-combat use and overweight behavior are decided in Q02/Q03/Q07. Q08 now records the new-character Alchemy default and first-tool confirmation. Existing-character craft migration is now settled by T05: preserve values/caps and staff settings, leave the first craft unconfirmed, and use the same confirmation at a tool or crafting trainer. First activation of another class remains open, alongside shared versus class-specific state, health/status/summon handling, storage identity/capacity, achievement ownership, Power Scroll rules, town/home craft restrictions and the optional title catalogue. None of the remaining recommendations silently fills those answers.
 
 The [implementation roadmap](implementation-roadmap.md) separates the first-profession/public craft-switch loop from the later full class/gear/summon transaction. Both use this same selection design; the first slice keeps the current class selected without pretending other class profiles already work.
 

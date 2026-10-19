@@ -374,6 +374,12 @@ public static class ClassGear
     public static void Configure()
     {
         Profiles = new GearProfiles();
+        ItemStateHooks.Copied = (source, copy) =>
+        {
+            Profiles.Copy(source, copy);
+            CraftTransactions.Profiles?.Copy(source, copy);
+        };
+        ItemStateHooks.CanStack = (first, second) => !Converted(first) && !Converted(second);
         ClassGearHooks.Stat = Stat;
         ClassGearHooks.CanEquip = CanEquip;
         ClassGearHooks.Properties = AddProperties;

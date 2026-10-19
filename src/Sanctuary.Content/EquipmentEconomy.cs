@@ -180,18 +180,43 @@ public static class EquipmentEconomy
         {
             return null;
         }
+        if (action == EssenceAction.Imbue && !ClassProfessions.Active(player, SkillName.Imbuing)) { return null; }
+        ImbuingLadle ladle = null;
+        if (action == EssenceAction.Imbue && ClassProfessions.Affected(player))
+        {
+            ladle = ImbuingTool(player);
+            if (ladle == null)
+            {
+                player.SendMessage("Imbuing needs an accessible ladle with uses remaining.");
+                return null;
+            }
+            if (!CraftFacilities.Allows(player, SkillName.Imbuing)) { return null; }
+        }
         var state = ClassGear.State(item);
         var rarity = state?.Roll.Rarity ?? GearRarity.Normal;
         var material = Material(item);
         if (action == EssenceAction.Salvage ? EssenceRange(rarity) == null && material == SalvageMaterial.None
-            : rarity != GearRarity.Normal || ClassGear.Definition(item) is not { AllowsAffixes: true }
+            : rarity != GearRarity.Normal || state is { TinkerSockets: > 0 } || ClassGear.Definition(item) is not { AllowsAffixes: true }
                 || ClassGear.Slot(item) == GearSlot.Cosmetic)
         {
             return null;
         }
         return new(player.Serial, item.Serial, item.Origin, state, action, rarity, material, state?.Roll.ItemLevel ?? 1,
             action == EssenceAction.Salvage ? 0 : Settings.ImbueEssenceCost,
-            action == EssenceAction.Salvage ? Settings.SalvageGoldCost : Settings.ImbueGoldCost);
+            action == EssenceAction.Salvage ? Settings.SalvageGoldCost : Settings.ImbueGoldCost)
+        { Tool = ladle?.Serial ?? Serial.Zero, Connection = player.NetState };
+    }
+    private static ImbuingLadle ImbuingTool(PlayerMobile player)
+    {
+        foreach (var ladle in player.Backpack.FindItemsByType<ImbuingLadle>(true))
+        {
+            if (ladle is { Deleted: false, UsesRemaining: > 0 } && ladle.IsAccessibleTo(player)) { return ladle; }
+        }
+        foreach (var item in player.Items)
+        {
+            if (item is ImbuingLadle { Deleted: false, UsesRemaining: > 0 } ladle) { return ladle; }
+        }
+        return null;
     }
     internal static bool Commit(PlayerMobile player, EssenceQuote quote, out SalvageResult result, Random random = null)
     {
@@ -203,7 +228,9 @@ public static class EquipmentEconomy
             return false;
         }
         var fresh = Quote(player, item, quote.Action);
-        if (fresh == null || fresh.Essence != quote.Essence || fresh.Gold != quote.Gold || fresh.Material != quote.Material
+        if (fresh == null || ClassProfessions.Affected(player) && quote.Action == EssenceAction.Imbue
+                && (fresh.Tool != quote.Tool || !ReferenceEquals(player.NetState, quote.Connection))
+            || fresh.Essence != quote.Essence || fresh.Gold != quote.Gold || fresh.Material != quote.Material
             || fresh.Rarity != quote.Rarity || fresh.Level != quote.Level)
         {
             return false;
@@ -250,6 +277,11 @@ public static class EquipmentEconomy
             return false;
         }
         ClassGear.Profiles.ApplyImbue(item, rolled);
+        if (ClassProfessions.Affected(player) && World.FindItem(quote.Tool) is ImbuingLadle ladle)
+        {
+            CraftTransactions.SpendUse(player, ladle, random);
+            if (ladle.UsesRemaining < 1 && ladle.BreakOnDepletion) { ladle.Delete(); }
+        }
         return true;
     }
 }
@@ -267,6 +299,8 @@ public sealed class EssenceQuote(Serial owner, Serial item, ItemOrigin origin, G
     public int Level { get; } = level;
     public int Essence { get; } = essence;
     public int Gold { get; } = gold;
+    public Serial Tool { get; init; }
+    public Server.Network.NetState Connection { get; init; }
     private bool _claimed;
     internal bool Claim()
     {

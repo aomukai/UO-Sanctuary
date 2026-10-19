@@ -155,6 +155,8 @@ public sealed class EssenceGump : DynamicGump
             {
                 return;
             }
+            if (action == EssenceAction.Imbue && !ClassProfessions.Request(player, SkillName.Imbuing, selected as Item, true))
+            { return; }
             var quote = EquipmentEconomy.Quote(player, selected as Item, action);
             if (quote == null)
             {

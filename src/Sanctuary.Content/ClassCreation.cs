@@ -49,6 +49,10 @@ public static class ClassCreation
         Profiles.Assign(args.Mobile, characterClass);
         ClassEquipment.ProtectNewbieGear((Server.Mobiles.PlayerMobile)args.Mobile);
         ClassEquipment.Prepare(args.Mobile as Server.Mobiles.PlayerMobile, true);
+        if (ClassProfessions.Affected(args.Mobile))
+        {
+            args.Mobile.SendMessage("Alchemy is displayed initially; your first profession is still unchosen. Use [Profession, a crafting tool or a trainer.");
+        }
     }
 
     private static void ShowClass(CommandEventArgs args)

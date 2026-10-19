@@ -35,7 +35,7 @@ These are the residual fields in existing IDs, not a new request to re-answer th
 
 | Area / IDs | Still missing |
 | --- | --- |
-| Practice/processing — A04, C01 | Practice gain interpolation/scope; consistent conversion weights across differing raw/processed item weights. Which preprocessing actions are portable/active-craft exceptions also needs a defined rule. |
+| Practice/processing — A04, C01 | T05 settles crafting-only practice, the linear100%→1% curve, configurable1gold/0.1 training and unrestricted basic-processing access with active-craft gains. Consistent conversion weights and remaining station/portable details still need a rule. |
 | Materials/jewellery — B04, E01/E02 | Material bonus roll/scaling and random-element pool; jewellery item levels/equip/cost mapping. |
 | Repairs — C03, D03/D04/D08/D10/D13 | Scrap quantities, repair extent/partial behavior, Unique essence cost, max-durability floor, saving-roll scope, chitin rates/recipe and restoration amount/limits. Tools still need exact charge handling. |
 | Socket tools — F02/F05 | Intuition retry charge use/one-retry handling; exact acquisition/mapping of the +1/+2/+3 success bonuses. |
@@ -67,3 +67,5 @@ The supplied Fandom pages were unavailable to direct browsing; UOGuide direct op
 - Fixed stack weights and1→10 conversions cannot deliver exactly half input weight for every raw/processed input form without an explicit normalization or stack-weight policy. Current ingots/cloth weigh 0.1, leather 1.0, and project scrap stacks 0.1 per unit.
 
 No code, live state, balance catalogues, binaries, accounts, saves or client preferences changed in this review. No commit or push was made. Documentation snapshots are under `.local/research/economy-reconciliation-20261019/`.
+
+T06 follow-up: the user confirmed the six shared crafting choices in [T06](t06-crafting.md): public/free/concurrent town stations and practice, explicit portable exceptions,10gold/20–30-use vendor tools,100/110/120-use crafted tools with10% saving on committed attempts, preserved existing uses and the ten-tool recipe cohort. Prices/capacities remain tunable. The tracker/specification record these decisions; the implementation remains disabled and undeployed. Original replies remain unchanged.

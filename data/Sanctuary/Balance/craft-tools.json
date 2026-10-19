@@ -1,0 +1,13 @@
+[
+  {
+    "VendorPrice": 10,
+    "VendorMinUses": 20,
+    "VendorMaxUses": 30,
+    "AverageUses": 100,
+    "HighQualityUses": 110,
+    "SuperiorUses": 120,
+    "SaveChancePercent": 10,
+    "LadleRequiredSkill": 25,
+    "LadleIngots": 2
+  }
+]

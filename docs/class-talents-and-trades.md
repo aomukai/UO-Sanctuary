@@ -36,17 +36,16 @@ Click anywhere on a skill card to select it, then anywhere across **Learn — 1 
 
 `CharacterProfiles.AdvanceLevel` is a trusted server API for progression up to a provisional level 99; the client has no level-grant command. Graveyard kill XP now uses the Diablo II level thresholds. Teeth, Raise Skeleton and Skeleton Mastery have gameplay effects; the other 207 talent effects remain pending. Class → Mouse skills assigns implemented actions to either button, and Class → Pets displays guardian stats. See [progression and pets](death-and-pets.md) for the current loop and hotkey controls.
 
-The Skills window contains exactly these professions:
+The T05 development client groups the thirteen retained skills as follows; this client is tested, not deployed:
 
 | Group | Skills |
 | --- | --- |
 | Gathering | Fishing, Lumberjacking, Mining |
-| Crafting | Alchemy, Blacksmithing, Bowcraft/Fletching, Carpentry, Cooking, Imbuing, Inscription, Tailoring, Tinkering |
-| Treasure hunting | Cartography |
+| Crafting | Alchemy, Blacksmithing, Bowcraft/Fletching, Carpentry, Cartography, Cooking, Imbuing, Inscription, Tailoring, Tinkering |
 
-This table describes the current implemented grouping. The later [wardrobe design](wardrobe-progression.md) moves Cartography into the ten selectable crafting jobs: it produces maps and provides the prerequisite for treasure hunting, which remains an activity. Mining, Lumberjacking and Fishing remain always active alongside one selected class and crafting job. Only crafting at 100, including Cartography, qualifies for Pillar of Society. The UI regrouping and active-craft enforcement are not implemented by the design documentation.
+[T05](t05-professions.md) implements this grouping and profession selection/training; its server release flag defaults to disabled until T14/T15 provide earned public switching. The installed comparison retains Cartography in its separate Treasure Hunting section and all retained crafts usable. In the target [wardrobe design](wardrobe-progression.md), treasure hunting remains an activity; only crafting100, including Cartography, qualifies for Pillar of Society.
 
-Both traditional and advanced skills windows use [the shared list](../shared/TradeSkills.cs), and totals include only those skills. The three sections are fixed and rebuilt on login. Reset Groups, New Group, group renaming/deletion, and skill drag-and-drop are removed. Dragging a skill neither transfers it between sections nor creates a floating shortcut; the same shortcut drag is disabled in the advanced view. Section collapsing, use buttons, skill locks, and the real/cap toggles remain available. Actual server skill values, skill gain, recipes, tools, and caps are unchanged. Imbuing now opens the white-to-magic/rare and salvage prototype described below; profession training/tool rules remain future work. Skinning stays a bladed-tool action supplying hides for Tailoring.
+Both traditional and advanced skills windows use [the shared list](../shared/TradeSkills.cs), and totals include only those skills. The two development-client sections (three in the installed comparison) are fixed and rebuilt on login. Reset Groups, New Group, group renaming/deletion, and skill drag-and-drop are removed. Dragging a skill neither transfers it between sections nor creates a floating shortcut; the same shortcut drag is disabled in the advanced view. Section collapsing, use buttons, skill locks, and the real/cap toggles remain available. The installed comparison's server skill values/gain rules, recipes, tools and caps remain unchanged. The tested T05 feature adds confirmation, active-craft checks, training/practice and independent progression when enabled; native values/caps/locks remain saved normally. Imbuing opens the white-to-magic/rare and salvage prototype described below. Skinning stays a bladed-tool action supplying hides for Tailoring.
 
 ## Verification
 

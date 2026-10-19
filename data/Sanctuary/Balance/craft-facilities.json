@@ -1,0 +1,90 @@
+[
+  {
+    "Skill": 0,
+    "Map": "Felucca",
+    "X": 1496,
+    "Y": 1660,
+    "Z": 27,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 7,
+    "Map": "Felucca",
+    "X": 1423,
+    "Y": 1556,
+    "Z": 30,
+    "ItemID": 4015
+  },
+  {
+    "Skill": 7,
+    "Map": "Felucca",
+    "X": 1424,
+    "Y": 1558,
+    "Z": 30,
+    "ItemID": 4017
+  },
+  {
+    "Skill": 8,
+    "Map": "Felucca",
+    "X": 1470,
+    "Y": 1577,
+    "Z": 20,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 11,
+    "Map": "Felucca",
+    "X": 1430,
+    "Y": 1596,
+    "Z": 20,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 12,
+    "Map": "Felucca",
+    "X": 1418,
+    "Y": 1753,
+    "Z": 10,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 13,
+    "Map": "Felucca",
+    "X": 1425,
+    "Y": 1714,
+    "Z": 20,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 23,
+    "Map": "Felucca",
+    "X": 1494,
+    "Y": 1714,
+    "Z": 6,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 34,
+    "Map": "Felucca",
+    "X": 1468,
+    "Y": 1686,
+    "Z": 0,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 37,
+    "Map": "Felucca",
+    "X": 1423,
+    "Y": 1653,
+    "Z": 10,
+    "ItemID": 2890
+  },
+  {
+    "Skill": 56,
+    "Map": "Felucca",
+    "X": 1497,
+    "Y": 1657,
+    "Z": 27,
+    "ItemID": 2420
+  }
+]

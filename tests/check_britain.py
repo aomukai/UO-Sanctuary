@@ -68,6 +68,7 @@ class Session:
 
 def check():
     creation = os.environ.get("SANCTUARY_TEST_CREATION") == "1"
+    professions = os.environ.get("SANCTUARY_TEST_PROFESSIONS") == "1"
     with tempfile.TemporaryDirectory(prefix="sanctuary-britain-check-", dir="/dev/shm") as temp:
         folder = Path(temp)
         for entry in SERVER.iterdir():
@@ -82,7 +83,7 @@ def check():
                 if entry.name not in ("Sanctuary.Content.dll", "Sanctuary", "assemblies.json"):
                     (destination / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
         (folder / "Assemblies/Sanctuary.Content.dll").symlink_to(ROOT / ".local/content/Sanctuary.Content.dll")
-        (folder / "Data/Sanctuary").symlink_to(ROOT / "data/Sanctuary", target_is_directory=True)
+        shutil.copytree(ROOT / "data/Sanctuary", folder / "Data/Sanctuary")
         assemblies = json.loads((SERVER / "Data/assemblies.json").read_text())
         if "Sanctuary.Content.dll" not in assemblies:
             assemblies.append("Sanctuary.Content.dll")
@@ -103,6 +104,14 @@ def check():
         config["settings"].update({"autosave.enabled": "False", "pingServer.enabled": "True",
                                     "pingServer.port": str(ping_port),
                                     "sanctuary.graveyard.enabled": "False", "world.savePath": "Saves", "crashGuard.restartServer": "False"})
+        if professions:
+            config["settings"]["sanctuary.professions.enabled"] = "True"
+            # Registered facilities exist only in this disposable fixture world.
+            facility_path = folder / "Data/Sanctuary/Balance/craft-facilities.json"
+            sites = json.loads(facility_path.read_text()) + [{"Skill": skill, "Map": "Trammel", "X": x, "Y": y, "Z": 0, "ItemID": 0xB4A}
+                     for skill in (0, 7, 8, 11, 12, 13, 23, 34, 37, 56)
+                     for x, y in ((5550, 1150), (5450, 1160))]
+            facility_path.write_text(json.dumps(sites))
         if creation:
             config["settings"]["accountHandler.enableAutoAccountCreation"] = "True"
             config["settings"]["accountHandler.maxAccountsPerIP"] = "50"
@@ -123,11 +132,35 @@ def check():
                     signatures.append(status[5])
                     session.send("sanctuary-status")
                     assert session.expect(STATUS).groups() == status
-                    if creation:
+                    if professions:
+                        command = "profession-check" if iteration == 0 else "profession-reload-check"
+                        session.send(command)
+                        assert session.expect(command + r": (passed|failed)", timeout=45).group(1) == "passed"
+                        if os.environ.get("SANCTUARY_TEST_CRAFTING") == "1":
+                            craft_command = "crafting-check" if iteration == 0 else "crafting-reload-check"
+                            session.send(craft_command)
+                            assert session.expect(craft_command + r": (passed|failed)", timeout=45).group(1) == "passed"
+                        if iteration == 0 and os.environ.get("SANCTUARY_TEST_FIRST_LOOP") == "1":
+                            session.send("first-loop-catalogue-check")
+                            assert session.expect(r"first-loop-catalogue-check: (passed|failed)").group(1) == "passed"
+                        if iteration == 0 and (os.environ.get("SANCTUARY_TEST_PROFESSIONS_UI") == "1"
+                                               or os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1"):
+                            subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests/check_combat_ui.py"), str(port)],
+                                check=True, pass_fds=(session.master,),
+                                env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
+                            ui_final = "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
+                            session.send(ui_final)
+                            assert session.expect(ui_final + r": (passed|failed)").group(1) == "passed"
+                    if creation and not professions:
                         command = ["creation-check", "creation-reload-check", "creation-migration-check", "creation-migration-check"][iteration]
                         session.send(command)
                         result = session.expect(command + r": (passed|failed)").group(1)
                         assert result == "passed", f"{command} failed; inspect {logfile}"
+                        if os.environ.get("SANCTUARY_TEST_ITEM_STATE") == "1":
+                            state_command = ["item-state-check", "item-state-reload-check",
+                                             "item-state-legacy-reload-check", "item-state-legacy-reload-check"][iteration]
+                            session.send(state_command)
+                            assert session.expect(state_command + r": (passed|failed)").group(1) == "passed"
                         if iteration < 2 and os.environ.get("SANCTUARY_TEST_CLASS_NAMES") == "1":
                             name_command = "class-names-check" if iteration == 0 else "class-names-reload-check"
                             session.send(name_command)
@@ -188,6 +221,9 @@ def check():
                         assert session.expect(r"loot-ui-reload: (passed|failed)").group(1) == "passed"
                     session.send("save")
                     session.expect("Writing world save snapshot done")
+                    if creation and iteration == 1 and os.environ.get("SANCTUARY_TEST_ITEM_STATE") == "1":
+                        session.send("item-state-write-legacy")
+                        assert session.expect(r"item-state-write-legacy: (passed|failed)").group(1) == "passed"
                     session.send("shutdown")
                     session.expect("Shutting down", timeout=20)
                     session.process.wait(timeout=20)
@@ -195,7 +231,7 @@ def check():
                 finally:
                     session.close()
                 print(f"Boot {iteration + 1}: 8 doors, 3 spawners, 6 residents; save and shutdown passed.")
-                if creation and iteration in (1, 2):
+                if creation and not professions and iteration in (1, 2):
                     serials = json.loads((folder / "creation-checks.json").read_text())[:7]
                     legacy = struct.pack("<ii", 1 if iteration == 1 else 0, 7)
                     for index, serial in enumerate(serials):

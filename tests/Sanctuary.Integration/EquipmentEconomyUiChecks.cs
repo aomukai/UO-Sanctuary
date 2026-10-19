@@ -26,6 +26,8 @@ public static class EquipmentEconomyUiChecks
             _player.RawStr = 200;
             _salvage = Make(ItemOrigin.Drop, GearRarity.Magic);
             _white = Make(ItemOrigin.Crafted, GearRarity.Normal);
+            ClassGear.Profiles.Store(_white, ClassGear.State(_white) with
+            { Quality = CraftQuality.HighQuality, NativeSockets = 1, IdentifiedSaleOffer = 321 });
             _vendor = Make(ItemOrigin.Vendor, GearRarity.Magic);
             _player.Backpack.DropItem(ItemOrigins.Create(ItemOrigin.Crafted, () => new MagicEssence(20)));
             _player.Backpack.DropItem(new Gold(1000));
@@ -45,6 +47,7 @@ public static class EquipmentEconomyUiChecks
         });
         Register("final", () => Require(!_vendor.Deleted && ClassGear.State(_white).Roll.Rarity is GearRarity.Magic or GearRarity.Rare
             && _white.Origin == ItemOrigin.Crafted && _player.Backpack.GetAmount(typeof(Gold)) == _gold - EquipmentEconomy.Settings.ImbueGoldCost
+            && ClassGear.State(_white) is { Quality: CraftQuality.HighQuality, NativeSockets: 1, TinkerSockets: 0, IdentifiedSaleOffer: 321 }
             && _player.Backpack.GetAmount(typeof(MagicEssence)) == _essence - EquipmentEconomy.Settings.ImbueEssenceCost,
             "Vendor restriction, actual confirmation or imbuing costs failed"));
     }

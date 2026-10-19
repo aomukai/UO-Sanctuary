@@ -1,0 +1,64 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/MenuGump.cs
+@@ -1,6 +1,7 @@
+ ﻿// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using ClassicUO.Game.Scenes;
++using ClassicUO.Input;
+ using ClassicUO.Game.UI.Controls;
+ using ClassicUO.Network;
+ using ClassicUO.Renderer;
+@@ -12,6 +13,7 @@
+     internal class MenuGump : Gump
+     {
+         private readonly ContainerHorizontal _container;
++        private bool _answered;
+         private bool _isDown,
+             _isLeft;
+         private readonly HSliderBar _slider;
+@@ -96,6 +98,16 @@
+         {
+             base.Update();
+ 
++            // Keep the menu under the release event so it cannot click the world beneath it.
++            if (_answered)
++            {
++                if (!Mouse.LButtonPressed && !Mouse.RButtonPressed)
++                {
++                    Dispose();
++                }
++                return;
++            }
++
+             if (_isDown)
+             {
+                 _container.Value += _isLeft ? -1 : 1;
+@@ -112,6 +124,8 @@
+ 
+             view.MouseDoubleClick += (sender, e) =>
+             {
++                if (_answered) { e.Result = true; return; }
++                _answered = true;
+                 NetClient.Socket.Send_MenuResponse(
+                     LocalSerial,
+                     (ushort)ServerSerial,
+@@ -119,7 +133,6 @@
+                     graphic,
+                     hue
+                 );
+-                Dispose();
+                 e.Result = true;
+             };
+ 
+@@ -133,8 +146,8 @@
+ 
+         protected override void CloseWithRightClick()
+         {
+-            base.CloseWithRightClick();
+-
++            if (_answered) { return; }
++            _answered = true;
+             NetClient.Socket.Send_MenuResponse(LocalSerial, (ushort)ServerSerial, 0, 0, 0);
+         }
+ 

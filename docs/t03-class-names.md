@@ -66,4 +66,4 @@ Of **203 existing source/data/runtime/protected files** recorded at entry, only 
 
 T01 is the verified prerequisite; the confirmed class-name table supplies the only design choice needed. Changes comprise those four source/shared files, four reproducible client edits/new patch, the class-name fixtures/UI harness switches, T02 provenance refresh and documentation. Character save version **2** and native serialization are unchanged; no migration is required. Existing class titles derive their cosmetic aliases on load. A rollback uses the prior matching content/client binaries and their existing title derivation; no new save format is introduced.
 
-T03 is complete for all current presentation surfaces. The future wardrobe must adopt the shared helper when implemented. The next recommended card is **T04 — persisted item state for the bounded cohort**.
+T03 is complete for all current presentation surfaces. The future wardrobe must adopt the shared helper when implemented. [T04 — persisted item state](t04-item-state.md) and [T05 — professions](t05-professions.md) are also complete; the roadmap's next recommended card is **T06 — shared crafting/tool/station rules**.

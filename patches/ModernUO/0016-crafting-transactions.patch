@@ -1,0 +1,230 @@
+diff --git a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+--- a/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
++++ b/Projects/UOContent/Engines/Craft/Core/CraftItem.cs
+@@ -975,7 +975,7 @@
+                 return;
+             }
+ 
+-            if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { return; }
++            if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { from.EndAction<CraftSystem>(); return; }
+             var badCraft = craftSystem.CanCraft(from, tool, ItemType);
+ 
+             if (badCraft > 0)
+@@ -1066,7 +1066,7 @@
+                 return;
+             }
+ 
+-            if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { return; }
++            if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { from.EndAction<CraftSystem>(); return; }
+             var badCraft = craftSystem.CanCraft(from, tool, ItemType);
+ 
+             if (badCraft > 0)
+@@ -1155,7 +1155,7 @@
+         /// </summary>
+         private bool ConsumeHuedRes(
+             Mobile from, Type typeRes, CraftSystem craftSystem, int targetHue,
+-            ref int resHue, ConsumeType consumeType
++            ref int resHue, ConsumeType consumeType, bool isFailure = false
+         )
+         {
+             var ourPack = from.Backpack;
+@@ -1199,6 +1199,8 @@
+                     }
+                 }
+ 
++                if (isFailure && !craftSystem.ConsumeOnFailure(from, baseType, this)) { amount = 0; }
++                else if (isFailure && !Core.UOTD) { amount -= amount / 2; }
+                 if (consumeType == ConsumeType.Half)
+                 {
+                     amount = Math.Max(1, amount / 2);
+@@ -1315,11 +1317,18 @@
+             };
+         }
+ 
++        public bool ConsumeSelectedResources(Mobile from, Type typeRes, CraftSystem system, int targetHue,
++            ref int hue, ref int amount, ConsumeType consume, ref TextDefinition message, bool failure = false) =>
++            targetHue < 0
++                ? ConsumeRes(from, typeRes, system, ref hue, ref amount, consume, ref message, failure)
++                : ConsumeHuedRes(from, typeRes, system, targetHue, ref hue, consume, failure);
++
+         public void CompleteCraft(
+             int quality, bool makersMark, Mobile from, CraftSystem craftSystem, Type typeRes,
+             BaseTool tool, CustomCraft customCraft
+         )
+         {
++            if (TradeSkillHooks.CompleteCraft?.Invoke(from, craftSystem, this, typeRes, tool, -1, null) == true) { return; }
+             if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { return; }
+             var badCraft = craftSystem.CanCraft(from, tool, ItemType);
+ 
+@@ -1415,7 +1424,7 @@
+ 
+                 if (tool != null)
+                 {
+-                    tool.UsesRemaining--;
++                    TradeSkillHooks.SpendUse(from, tool, ItemType);
+ 
+                     if (craftSystem is DefBlacksmithy)
+                     {
+@@ -1615,7 +1624,7 @@
+ 
+             if (tool != null)
+             {
+-                tool.UsesRemaining--;
++                TradeSkillHooks.SpendUse(from, tool, ItemType);
+ 
+                 if (tool.UsesRemaining < 1 && tool.BreakOnDepletion)
+                 {
+@@ -1650,6 +1659,7 @@
+             BaseTool tool, CustomCraft customCraft, int targetHue
+         )
+         {
++            if (TradeSkillHooks.CompleteCraft?.Invoke(from, craftSystem, this, typeRes, tool, targetHue, null) == true) { return; }
+             if (!TradeSkillHooks.CheckRecipe(from, craftSystem, this, tool)) { return; }
+             var badCraft = craftSystem.CanCraft(from, tool, ItemType);
+ 
+@@ -1715,7 +1725,7 @@
+ 
+                 if (tool != null)
+                 {
+-                    tool.UsesRemaining--;
++                    TradeSkillHooks.SpendUse(from, tool, ItemType);
+ 
+                     if (craftSystem is DefBlacksmithy)
+                     {
+@@ -1819,7 +1829,7 @@
+ 
+             if (tool != null)
+             {
+-                tool.UsesRemaining--;
++                TradeSkillHooks.SpendUse(from, tool, ItemType);
+ 
+                 if (tool.UsesRemaining < 1 && tool.BreakOnDepletion)
+                 {
+@@ -1854,6 +1864,7 @@
+             private readonly Type m_TypeRes;
+             private readonly int m_ResHue;
+             private int m_iCount;
++            private readonly object _transaction;
+ 
+             public InternalTimer(
+                 Mobile from, CraftSystem craftSystem, CraftItem craftItem, Type typeRes, BaseTool tool,
+@@ -1868,6 +1879,7 @@
+                 m_TypeRes = typeRes;
+                 m_Tool = tool;
+                 m_ResHue = resHue;
++                _transaction = TradeSkillHooks.BeginCraft?.Invoke(from, craftSystem, craftItem, typeRes, tool, resHue);
+             }
+ 
+             protected override void OnTick()
+@@ -1903,6 +1915,12 @@
+                         m_From.SendLocalizedMessage(badCraft);
+                     }
+ 
++                    return;
++                }
++
++                if (TradeSkillHooks.CompleteCraft?.Invoke(m_From, m_CraftSystem, m_CraftItem, m_TypeRes,
++                    m_Tool, m_ResHue, _transaction) == true)
++                {
+                     return;
+                 }
+ 
+diff --git a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+--- a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
++++ b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+@@ -16,6 +16,18 @@
+     public static Func<Mobile, SkillName, bool> TeachingAllowed { get; set; }
+     public static TradeTraining Training { get; set; }
+     public static Func<BaseCreature, Mobile, Gold, bool?> TrainingPayment { get; set; }
++    public static Func<Mobile, CraftSystem, CraftItem, Type, BaseTool, int, object> BeginCraft { get; set; }
++    public static Func<Mobile, CraftSystem, CraftItem, Type, BaseTool, int, object, bool> CompleteCraft { get; set; }
++    public static Action<Mobile, BaseTool, Type> ToolUse { get; set; }
++    public static Action<BaseTool, IPropertyList> ToolProperties { get; set; }
++    public static Action<BaseTool> ToolSupplied { get; set; }
++    public static Func<Type[]> AdditionalTinkerTools { get; set; }
++    public static Func<Type, int?> ToolPrice { get; set; }
++    public static void SpendUse(Mobile from, BaseTool tool, Type output)
++    {
++        if (ToolUse != null) { ToolUse(from, tool, output); }
++        else { tool.UsesRemaining--; }
++    }
+     public static bool Check(Mobile from, SkillName skill, Item source, bool prompt = false) =>
+         ActionAllowed?.Invoke(from, skill, source, prompt) != false;
+     public static bool Independent(Mobile from) => IndependentSkills?.Invoke(from) == true;
+diff --git a/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs b/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
+--- a/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
++++ b/Projects/UOContent/Engines/Craft/T2A/TinkeringMenu.cs
+@@ -30,7 +30,7 @@
+         typeof(ClockFrame), typeof(Axle), typeof(RollingPin)
+     ];
+ 
+-    private static readonly Type[] ToolTypes =
++    private static readonly Type[] NativeToolTypes =
+     [
+         typeof(SewingKit), typeof(TinkerTools),
+         typeof(DrawKnife), typeof(Froe), typeof(Inshave), typeof(Scorp),
+@@ -39,6 +39,19 @@
+         typeof(SmithHammer), typeof(SledgeHammer), typeof(Shovel),
+         typeof(MortarPestle), typeof(Hatchet), typeof(Pickaxe), typeof(Lockpick)
+     ];
++
++    private static Type[] ToolTypes
++    {
++        get
++        {
++            var extra = TradeSkillHooks.AdditionalTinkerTools?.Invoke();
++            if (extra == null || extra.Length == 0) { return NativeToolTypes; }
++            var types = new Type[NativeToolTypes.Length + extra.Length];
++            NativeToolTypes.CopyTo(types, 0);
++            extra.CopyTo(types, NativeToolTypes.Length);
++            return types;
++        }
++    }
+ 
+     private static readonly Type[] PartTypes =
+     [
+diff --git a/Projects/UOContent/Items/Skill Items/Tools/BaseTool.cs b/Projects/UOContent/Items/Skill Items/Tools/BaseTool.cs
+--- a/Projects/UOContent/Items/Skill Items/Tools/BaseTool.cs
++++ b/Projects/UOContent/Items/Skill Items/Tools/BaseTool.cs
+@@ -115,6 +115,7 @@
+             list.Add(1060636); // exceptional
+         }
+ 
++        TradeSkillHooks.ToolProperties?.Invoke(this, list);
+         list.Add(1060584, _usesRemaining); // uses remaining: ~1_val~
+     }
+ 
+diff --git a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+--- a/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
++++ b/Projects/UOContent/Mobiles/Vendors/GenericBuy.cs
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using ModernUO.Serialization;
+ using Server.Items;
++using Server.Engines.Craft;
+ 
+ namespace Server.Mobiles
+ {
+@@ -58,6 +59,7 @@
+         {
+             get
+             {
++                if (TradeSkillHooks.ToolPrice?.Invoke(Type) is int toolPrice) { return toolPrice; }
+                 if (DefaultPrice != 0)
+                 {
+                     if (m_Price > 5000000)
+@@ -97,8 +99,12 @@
+         public int MaxAmount { get; set; }
+ 
+         // get a new instance of an object (we just bought it)
+-        public virtual IEntity GetEntity() =>
+-            ItemOrigins.Create(ItemOrigin.Vendor, () => Type.CreateInstance<IEntity>(Args));
++        public virtual IEntity GetEntity()
++        {
++            var entity = ItemOrigins.Create(ItemOrigin.Vendor, () => Type.CreateInstance<IEntity>(Args));
++            if (entity is BaseTool tool) { TradeSkillHooks.ToolSupplied?.Invoke(tool); }
++            return entity;
++        }
+ 
+         // Attempt to restock with item, (return true if restock successful)
+         public bool Restock(Item item, int amount) => false;

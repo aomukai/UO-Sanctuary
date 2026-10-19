@@ -1,0 +1,54 @@
+diff --git a/Projects/Server/Items/Item.cs b/Projects/Server/Items/Item.cs
+--- a/Projects/Server/Items/Item.cs
++++ b/Projects/Server/Items/Item.cs
+@@ -2524,6 +2524,7 @@
+     public virtual bool CanStackWith(Item dropped) =>
+         dropped.Stackable && Stackable &&
+         dropped.Origin == Origin &&
++        (ItemStateHooks.CanStack?.Invoke(this, dropped) ?? true) &&
+         dropped.GetType() == GetType() &&
+         dropped.ItemID == ItemID &&
+         dropped.Hue == Hue &&
+@@ -2535,7 +2536,7 @@
+ 
+     public virtual bool StackWith(Mobile from, Item dropped, bool playSound)
+     {
+-        if (dropped.Origin != Origin || !CanStackWith(dropped))
++        if (dropped.Origin != Origin || !(ItemStateHooks.CanStack?.Invoke(this, dropped) ?? true) || !CanStackWith(dropped))
+         {
+             return false;
+         }
+@@ -3704,6 +3705,7 @@
+                 // ignored
+             }
+         }
++        ItemStateHooks.Copied?.Invoke(src, dest);
+     }
+ 
+     public virtual bool OnDragLift(Mobile from) => true;
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -5276,6 +5276,7 @@
+             item.Map = oldItem.Map;
+         }
+ 
++        ItemStateHooks.Copied?.Invoke(oldItem, item);
+         oldItem.OnAfterDuped(item);
+ 
+         if (oldItem.Parent is Mobile parentMobile)
+diff --git a/Projects/Server/Items/ItemStateHooks.cs b/Projects/Server/Items/ItemStateHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/Server/Items/ItemStateHooks.cs
+@@ -0,0 +1,10 @@
++using System;
++
++namespace Server;
++
++// Optional content-owned state follows native item copies without an engine dependency on content.
++public static class ItemStateHooks
++{
++    public static Action<Item, Item> Copied { get; set; }
++    public static Func<Item, Item, bool> CanStack { get; set; }
++}
