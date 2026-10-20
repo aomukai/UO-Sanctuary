@@ -171,10 +171,10 @@ public static class ClassStats
         int min = (int)Math.Floor(GearEffects.Damage(player, 0).Total);
         return (min, Math.Max(min, (int)Math.Floor(GearEffects.Damage(player, 1).Total)));
     }
-    public static (int Min, int Max) PhysicalDamageRange(PlayerMobile player)
+    public static (int Min, int Max) PhysicalDamageRange(PlayerMobile player, int targetBonus = 0)
     {
         var weapon = CombatTiming.Equipped(player);
-        int bonus = Math.Max(0, 100 + DamageBonus(player, weapon));
+        int bonus = Math.Max(0, 100 + DamageBonus(player, weapon) + targetBonus);
         int flatMin = 0, flatMax = 0;
         foreach (var item in player.Items)
         {
@@ -186,7 +186,8 @@ public static class ClassStats
         }
         int min = Math.Max(1, ((weapon?.MinDamage ?? 1) + flatMin) * bonus / 100);
         int max = Math.Max(min, ((weapon?.MaxDamage ?? 2) + flatMax) * bonus / 100);
-        return (min, max);
+        int added = CombatPotions.Bonus(player, "deep-wounds");
+        return (min + added, max + added);
     }
     public static int[] Snapshot(PlayerMobile player)
     {
@@ -197,6 +198,6 @@ public static class ClassStats
             profile.Level, AttackRating(player), Defense(player), damage.Min, damage.Max, CombatTiming.Ias(player), CombatTiming.Fcr(player),
             basis.LifeVitality4, basis.ManaEnergy4, basis.StaminaVitality4, (int)profile.Class,
             basis.LifeLevel4, basis.ManaLevel4, basis.StaminaLevel4, ClassCreation.Profiles.AvailablePoints(player.Serial),
-            EquipmentBalance.RunPenalty(player), ClassGear.RunBonus(player), GearDrops.MagicFind(player)];
+            EquipmentBalance.RunPenalty(player), CombatPotions.RunBonus(player), GearDrops.MagicFind(player)];
     }
 }

@@ -35,13 +35,16 @@ public static class PotionBeltCatalog
         }
         foreach (var row in BalanceCatalog.Read<RestorationBase>("restoration-potions"))
         {
-            if (!Enum.IsDefined(row.Kind) || row.Tier is < 1 or > 5 || row.Amount < 1 || row.DurationMs is < 100 or > 60000)
+            if (!Enum.IsDefined(row.Kind) || row.Tier is < 1 or > 5 || row.Amount < 1
+                || (row.Kind is RestorationKind.Healing or RestorationKind.Mana ? row.DurationMs is < 100 or > 60000
+                    : row.Kind == RestorationKind.CombatBuff ? row.DurationMs != 30000 || row.Amount is < 1 or > 100
+                    : row.DurationMs != 0 || row.Amount is < 1 or > 100 || (row.Kind == RestorationKind.Rejuvenation ? row.Tier > 2 : row.Tier != 1)))
             {
                 throw new InvalidDataException("Invalid restoration potion.");
             }
             _potions.Add((row.Kind, row.Tier), row);
         }
-        if (_belts.Count != 5 || _potions.Count != 10)
+        if (_belts.Count != 5 || _potions.Count != 19)
         {
             throw new InvalidDataException("Potion belt catalog is incomplete.");
         }
@@ -129,7 +132,19 @@ public partial class RestorationPotion : BasePotion
     {
         base.GetProperties(list);
         var row = PotionBeltCatalog.Potion(Kind, Tier);
-        list.Add($"{"Restores over "}{row.DurationMs / 1000.0:0.00}{" seconds"}");
+        if (row.Kind == RestorationKind.CombatBuff)
+        {
+            list.Add($"{CombatPotions.Description(row.Tier)}");
+            list.Add($"{"One potion buff; +30 seconds, at most90 seconds. A different buff replaces it."}");
+        }
+        else if (row.DurationMs > 0)
+        {
+            list.Add($"{"Restores over "}{row.DurationMs / 1000.0:0.00}{" seconds"}");
+            list.Add($"{"Class-scaled amount; Vitality/Energy can double restoration"}");
+        }
+        else if (row.Kind == RestorationKind.Rejuvenation) { list.Add($"{"Instantly restores "}{row.Amount}{"% of maximum life and mana"}"); }
+        else if (row.Kind == RestorationKind.InstantHealing) { list.Add($"{"Instantly restores "}{row.Amount}{"% of maximum life"}"); }
+        else { list.Add($"{"Instantly restores "}{row.Amount}{"% of maximum mana"}"); }
     }
 }
 

@@ -1,0 +1,22 @@
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -59,7 +59,7 @@
+         if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
+             || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490
+             || values[(int)StatField.TalentPoints] > 98 || values[(int)StatField.RunPenalty] > 20
+-            || values[(int)StatField.RunBonus] > 120)
++            || values[(int)StatField.RunBonus] > 150)
+         {
+             return;
+         }
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+@@ -76,6 +76,8 @@
+         string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
+         return potion.Kind switch
+         {
++            RestorationKind.CombatBuff => potion.Tier switch
++            { 1 => "Second Wind potion", 2 => "Deep Wounds potion", 3 => "Magical Penetration potion", 4 => "Stealing potion", 5 => "Protection potion", _ => "Combat potion" },
+             RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",
+             RestorationKind.InstantHealing => "Instant Heal potion",
+             RestorationKind.InstantMana => "Instant Recharge potion",

@@ -20,4 +20,4 @@ Gear metadata advances from version 3 to 4. Versions 0–3 load with an empty in
 
 Verification covers all stat families and permitted slots, level30–70 equip boundaries, five-rune actual FHR, cross-slot damage/defense, copy/trade/reload, break/repair, unchanged salvage yield, capacity, stale/cancel/replay and invalid-host guards. The actual ClassicUO client double-clicks a rune, targets, cancels, confirms and displays the installed host, then checks equip/unequip totals. Source and installed four-boot cumulative suites, separate legacy migrations, 26 Python checks and native patch round trips pass. Production deployment uses full runtime backup, protected-file hashes, copied-world comparison and two saved live boots with a clean restart. Fixture assemblies and worlds are excluded from production.
 
-Gem insertion and activation remain [T26](implementation-roadmap.md). T24 already stores their family/quality effects for that next card.
+[T26](t26-gem-sockets.md) now adds gem insertion and real slot effects. Runes and gems share capacity and filled-socket level requirements; gear persistencev5 preserves allv4 rune records.

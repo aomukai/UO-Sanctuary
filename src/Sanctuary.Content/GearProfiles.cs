@@ -26,6 +26,7 @@ public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, 
     public int? IdentifiedSaleOffer { get; init; }
     public int? VendorPurchasePrice { get; init; }
     public InstalledRune[] Runes { get; init; } = [];
+    public InstalledGem[] Gems { get; init; } = [];
     public int SocketCount => NativeSockets + TinkerSockets;
 }
 
@@ -80,7 +81,7 @@ public sealed class GearProfiles : GenericPersistence
             var affix = state.Roll.Affixes[i];
             affixes[i] = new(affix.Definition, (RolledModifier[])affix.Modifiers.Clone());
         }
-        Store(destination, state with { Roll = state.Roll with { Affixes = affixes }, MaterialRolls = (MaterialRoll[])state.MaterialRolls.Clone(), Runes = (InstalledRune[])state.Runes.Clone() });
+        Store(destination, state with { Roll = state.Roll with { Affixes = affixes }, MaterialRolls = (MaterialRoll[])state.MaterialRolls.Clone(), Runes = (InstalledRune[])state.Runes.Clone(), Gems = GemSockets.Copy(state.Gems) });
     }
     public GearState Convert(Item item, int itemLevel = 1, GearRarity rarity = GearRarity.Normal, Random random = null)
     {
@@ -197,10 +198,11 @@ public sealed class GearProfiles : GenericPersistence
         {
             throw new InvalidDataException("Invalid equipment tier, quality, socket provenance or sale offer.");
         }
-        if (state.Runes == null || state.Runes.Length > state.SocketCount || state.Runes.Length > 0
+        if (state.Runes == null || state.Gems == null || RuneSockets.Filled(state) > state.SocketCount || RuneSockets.Filled(state) > 0
             && (!GearDetails.Socketable(item) || item.Origin == ItemOrigin.Vendor))
         { throw new InvalidDataException("Invalid installed rune count or host."); }
         foreach (var rune in state.Runes) { RuneSockets.Validate(rune); }
+        foreach (var gem in state.Gems) { GemSockets.Validate(gem); }
         if (state.VendorPurchasePrice is < 0 or > 60000 || state.VendorPurchasePrice != null && item.Origin != ItemOrigin.Vendor)
         { throw new InvalidDataException("Invalid vendor purchase price."); }
         if (!EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode)
@@ -265,7 +267,7 @@ public sealed class GearProfiles : GenericPersistence
     private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(4);
+        writer.Write(5);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -303,12 +305,13 @@ public sealed class GearProfiles : GenericPersistence
             foreach (var material in state.MaterialRolls) { writer.Write(material.Code); writer.Write(material.Value); }
             writer.Write(state.VendorPurchasePrice ?? -1);
             RuneSockets.Write(writer, state.Runes);
+            GemSockets.Write(writer, state.Gems);
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 4)
+        if (version is < 0 or > 5)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -380,6 +383,7 @@ public sealed class GearProfiles : GenericPersistence
                 state = state with { VendorPurchasePrice = paid < 0 ? null : paid };
             }
             if (version >= 4) { state = state with { Runes = RuneSockets.Read(reader) }; }
+            if (version >= 5) { state = state with { Gems = GemSockets.Read(reader) }; }
             _items.Add(serial, state);
         }
     }

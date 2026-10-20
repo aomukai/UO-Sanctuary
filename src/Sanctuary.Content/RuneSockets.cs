@@ -40,9 +40,10 @@ public static class RuneSockets
     internal static bool Current(PlayerMobile owner, long session) => session != 0 && _sessions.GetValueOrDefault(owner.Serial) == session;
     internal static void End(PlayerMobile owner, long session) { if (Current(owner, session)) { _sessions.Remove(owner.Serial); } }
     public static int RequiredLevel(int filled) => filled == 0 ? 0 : filled is >= 1 and <= 5 ? 20 + 10 * filled : throw new ArgumentOutOfRangeException(nameof(filled));
-    internal static bool Accessible(PlayerMobile owner, Item item) => item is { Deleted: false, Movable: true, Amount: 1,
+    public static int Filled(GearState state) => state.Runes.Length + state.Gems.Length;
+    internal static bool Accessible(PlayerMobile owner, Item item, bool stack = false) => item is { Deleted: false, Movable: true, Amount: > 0,
         Insured: false, Nontransferable: false, QuestItem: false } && item.IsChildOf(owner.Backpack)
-        && item.IsStandardLoot() && item.BlessedFor == null && !item.IsLockedDown && !item.IsSecure
+        && (stack || item.Amount == 1) && item.IsStandardLoot() && item.BlessedFor == null && !item.IsLockedDown && !item.IsSecure
         && item.IsAccessibleTo(owner) && item.VerifyMove(owner);
     public static bool Ready(PlayerMobile owner) => ClassProfessions.Affected(owner) && ClassProfessions.Ready(owner)
         && owner.CanBeginAction<CraftSystem>();
@@ -51,7 +52,7 @@ public static class RuneSockets
         if (!Ready(owner) || !Accessible(owner, rune) || !Accessible(owner, host) || !ClassGear.Converted(host)
             || !GearDetails.Socketable(host) || host.Origin == ItemOrigin.Vendor) { return null; }
         var state = ClassGear.State(host);
-        if (state is not { Identified: true, StarterTeeth: false } || state.Runes.Length >= state.SocketCount) { return null; }
+        if (state is not { Identified: true, StarterTeeth: false } || Filled(state) >= state.SocketCount) { return null; }
         return new(owner, rune, host, state, new(rune.Pattern, rune.Quality), owner.NetState, Begin(owner))
         { RuneParent = rune.Parent, HostParent = host.Parent, RuneSnapshot = new(rune), HostSnapshot = new(host) };
     }
@@ -63,7 +64,7 @@ public static class RuneSockets
             || !Accessible(q.Owner, q.Rune) || !Accessible(q.Owner, q.Host) || !ReferenceEquals(q.Rune.Parent, q.RuneParent)
             || !ReferenceEquals(q.Host.Parent, q.HostParent) || !ReferenceEquals(ClassGear.State(q.Host), q.State)
             || !q.RuneSnapshot.Valid || !q.HostSnapshot.Valid || q.Rune.Pattern != q.Content.Pattern || q.Rune.Quality != q.Content.Quality
-            || q.State.Runes.Length >= q.State.SocketCount || !GearDetails.Socketable(q.Host) || q.Host.Origin == ItemOrigin.Vendor) { return false; }
+            || Filled(q.State) >= q.State.SocketCount || !GearDetails.Socketable(q.Host) || q.Host.Origin == ItemOrigin.Vendor) { return false; }
         var contents = new InstalledRune[q.State.Runes.Length + 1]; q.State.Runes.CopyTo(contents, 0); contents[^1] = q.Content;
         // Store one frozen value record, then consume the rune. No native affix or stat mutation adds a second copy.
         ClassGear.Profiles.Store(q.Host, q.State with { Runes = contents }); q.Rune.Consume();

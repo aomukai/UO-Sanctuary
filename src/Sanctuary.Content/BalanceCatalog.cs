@@ -16,6 +16,7 @@ public static class BalanceCatalog
     {
         EquipmentBalance.Load();
         PotionBeltCatalog.Load();
+        AlchemyRestoratives.Load();
         EquipmentCrafting.Load();
         EquipmentEconomy.Load();
         TieredImbuing.Load();

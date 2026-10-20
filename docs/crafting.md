@@ -214,7 +214,7 @@ Use **trained Base skill**. A successful wood/ore harvest makes one 5% byproduct
 
 New Mining quality unlocks are **40/50/60/70/80** for Chipped/Flawed/Standard/Flawless/Perfect. Bark unlocks are **45/50/55/60/65/70/75/80**, as above. These replace the old 50–90 gem and 50–120 bark thresholds.
 
-Retain all nine UO families. Use original D2 gem effects, including equipment-category differences, for the mapped families; the two additions use flat-number effects regardless of slot. **Confirmed T24 mapping:** Amethyst/Diamond/Emerald/Ruby/Sapphire retain their counterparts, Citrine uses Topaz and Tourmaline uses Skull. Amber gives flat Attacker Takes Damage4/8/12/16/20; Star Sapphire gives the user-selected Magic Damage Reduced1/2/3/4/5. The [catalogue and source](t24-gems.md) record all five-quality slot-specific values. Authored upgrade defaults:3matching gems →1next quality, active Tinkering/public bench, trained40/50/60/70, guaranteed success, one tool use with saving and no gold. Bark upgrading remains disallowed. Gem effects are frozen for T26 activation.
+Retain all nine UO families. Use original D2 gem effects, including equipment-category differences, for the mapped families; the two additions use flat-number effects regardless of slot. **Confirmed T24 mapping:** Amethyst/Diamond/Emerald/Ruby/Sapphire retain their counterparts, Citrine uses Topaz and Tourmaline uses Skull. Amber gives flat Attacker Takes Damage4/8/12/16/20; Star Sapphire gives the user-selected Magic Damage Reduced1/2/3/4/5. The [catalogue and source](t24-gems.md) record all five-quality slot-specific values. Authored upgrade defaults:3matching gems →1next quality, active Tinkering/public bench, trained40/50/60/70, guaranteed success, one tool use with saving and no gold. Bark upgrading remains disallowed. [T26](t26-gem-sockets.md) permanently installs these frozen effects and activates their real slot consumers. Gems and runes share capacity, level floors and guarded confirmation, consuming one socketable with no other fee.
 
 | Gem quality | NPC purchase price |
 | --- | ---: |
@@ -234,21 +234,21 @@ Crafting a full tome at skill 100 has a 1% chance to additionally produce a sing
 
 ## Alchemy — J01–J05
 
-Combat buffs last 30 seconds; repeated use adds duration, not magnitude, up to 90 seconds. A remaining 12 seconds plus one dose becomes 42. Cross-effect coexistence and damage/mitigation arithmetic need definition where not explicit. Keep D2 restorative values/class behavior as the requested baseline; ordinary heal/mana NPC prices are delegated to D2 reference data.
+Combat buffs last 30 seconds; repeated use adds duration, not magnitude, up to 90 seconds. A remaining 12 seconds plus one dose becomes 42. Confirmed for T27: one combat potion buff per character, independent of the one food effect and one map effect. A different potion replaces the previous buff with a fresh30seconds; it inherits no remaining duration. Food refreshes/replaces to one hour, maps to30minutes. Temporary effects, poison/chill and unfinished restorative potions belong to the character, survive class/craft changes and advance during logout and server downtime; death clears them. Existing heal/mana restorative lanes remain separate from combat buffs. See [T27](t27-timed-effects.md). T29 defines combat arithmetic below. Keep D2 restorative values/class behavior as the requested baseline; ordinary heal/mana NPC prices are delegated to D2 reference data.
 
 | Potion | Skill | Effect | Listed recipe, plus one empty bottle |
 | --- | ---: | --- | --- |
-| Second Wind | 30 | +30% run speed | Bloodmoss, Mandrake Root, Sulfurous Ash |
+| Second Wind | 30 | +30% run speed | 5 each: Bloodmoss, Mandrake Root, Sulfurous Ash |
 | Instant Heal | 50 | Full health | 3 Super Heal |
 | Instant Recharge | 60 | Full mana | 3 Super Mana |
 | Rejuvenation | 70 | D2 rejuvenation baseline | 3 Greater Heal + 3 Greater Mana |
 | Full Rejuvenation | 80 | D2 full rejuvenation baseline | 3 Super Heal + 3 Super Mana |
-| Deep Wounds | 100 | +10 minimum/+10 maximum physical damage | Nightshade, Spider's Silk |
-| Magical Penetration | 100 | +10% damage of every element added to spells; precise component formula unresolved | Nightshade, Sulfurous Ash, Bloodmoss |
-| Stealing | 110 | +7% life and mana steal | Garlic, Ginseng, Nightshade, Spider's Silk |
-| Protection | 120 | −10 damage taken of any type; mitigation ordering unresolved | Garlic, Ginseng, Mandrake Root, Sulfurous Ash |
+| Deep Wounds | 100 | +10 minimum/+10 maximum physical damage | 10 each: Nightshade, Spider's Silk |
+| Magical Penetration | 100 | 10% of original spell damage added as each fire/cold/lightning/poison component | 10 each: Nightshade, Sulfurous Ash, Bloodmoss |
+| Stealing | 110 | +7% life and mana steal | 15 each: Garlic, Ginseng, Nightshade, Spider's Silk |
+| Protection | 120 | Subtract10 once after resistance/MDR per hit or poison tick, minimum0 | 20 each: Garlic, Ginseng, Mandrake Root, Sulfurous Ash |
 
-Quantities for ingredients without numbers and output counts are not explicitly given. Every town/city alchemist sells heal/mana tiers through Greater with unlimited availability. Super tiers are drop-only; rejuvenations remain crafted. Keep 20% empty-bottle recovery and existing capacity-safe handling. Tool/recipe progression must account for the gaps between these initial examples.
+**Implemented T28:** the four instant/restorative mixtures above produce one potion from the listed potion inputs plus one empty bottle, with one mortar use and crafted-tool saving at a public Alchemy station. User-approved failures consume half of each ingredient rounded up and one tool use; native success/gain runs from required skill to+50. [T28](t28-alchemy-restoratives.md) also activates Vitality/Energy-based D2 double restoration, frozen once per ordinary dose, and the existing heal/mana treasure leaves across all difficulties. [T29](t29-combat-potions.md) implements all five craft-only combat potions at the listed reagent costs, with the same output/tool/failure rules. Protection requires120 and is guaranteed there; other recipes retain the+50 curve. Deep Wounds adds flat10 after player physical modifiers and before enemy resistance; Stealing adds7 percentage points to physical-hit leech with drain/difficulty penalties. Added spell elements combine before per-element mitigation and do not add statuses; Protection subtracts once after the combined hit. Offline poison evaluates Protection at each historical tick. Every town/city alchemist sells heal/mana tiers through Greater with unlimited availability. Super tiers are drop-only; rejuvenations remain crafted. Keep 20% empty-bottle recovery and existing capacity-safe handling. Tool/recipe progression must account for the gaps between these initial examples.
 
 ## Cooking — K01–K05
 

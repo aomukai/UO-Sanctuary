@@ -1,0 +1,29 @@
+# T29 — Combat potions
+
+A mortar and pestle now opens **Craft Alchemy potions**, with Restoratives and Combat buffs tabs. Brewing requires active Alchemy, the trained skill shown below, a public Alchemy station, the listed quantity of **each** reagent and one empty bottle. Each success produces one fixed-effect potion and spends one mortar use, with crafted-tool saving. Failure loses half of each ingredient rounded up and one mortar use. Existing transaction guards, output-capacity planning and native brewing timers apply to both tabs.
+
+| Potion | Alchemy | Each listed reagent | Effect |
+| --- | ---: | --- | --- |
+| Second Wind | 30 | 5 Bloodmoss, Mandrake Root, Sulfurous Ash | +30% running speed |
+| Deep Wounds | 100 | 10 Nightshade, Spider's Silk | +10 physical minimum and maximum weapon damage |
+| Magical Penetration | 100 | 10 Nightshade, Sulfurous Ash, Bloodmoss | Spells add 10% of their original damage as each of four elements |
+| Stealing | 110 | 15 Garlic, Ginseng, Nightshade, Spider's Silk | +7 percentage points to life and mana steal |
+| Protection | 120 | 20 Garlic, Ginseng, Mandrake Root, Sulfurous Ash | Subtract 10 damage once after mitigation |
+
+These quantities and the mastery exception were explicitly approved on 20 October 2026. Ordinary recipes use the native required-skill→required+50 success/gain curve and normal caps/locks. Protection requires trained Alchemy 120 and is guaranteed there. It does not permit brewing at 119.9. At 120 the other combat recipes have 100%/40%/40%/20% success respectively. Quality does not alter output or potency. Combat potions are craft-only; NPC stock and treasure outcomes stay as defined in T28.
+
+All five potions work from the backpack or the existing 1–4 belt keys, including at full life/mana. They use T27's one shared combat-potion slot, independent of food and restorative lanes: 30 seconds, another dose adds 30 seconds up to 90 seconds remaining, and a different buff replaces it with a fresh 30 seconds. No magnitude stacking occurs. Class/craft changes retain the buff; offline time and downtime advance it; death clears it. Drinking keeps the existing action/recovery timing and 20% capacity-safe empty-bottle recovery.
+
+Second Wind adds 30 to the existing running-speed bonus, using the same server and client delay formula and equipment penalties. Walking, turning, steering, collisions and hit recovery retain their rules. Expiry returns running to its gear-adjusted speed; the status packet supports the additional 30 without a protocol-shape change.
+
+Deep Wounds adds 10 to each final physical weapon bound after existing player damage modifiers, before enemy physical resistance. It does not increase elemental weapon components or spells. Stealing adds 7 to each existing gear leech percentage; only actual physical weapon damage can feed it. Target drain effectiveness, Normal/Nightmare/Hell divisors 1/2/3, whole-point downward rounding and pool caps remain. Spells, poison and reflection do not leech.
+
+Magical Penetration gives a 100-damage spell 10 fire + 10 cold + 10 lightning + 10 poison extra immediate damage. The original damage supplies the base for all four additions; additions never compound. An element's original and added portions combine before that element's flat magic reduction and resistance; the sum rounds down once. Poison stays outside the existing magic-reduction rule. Components cause no additional chill or poison status. Typed native spell hits, delayed spell impacts, native direct spells/fields/Strangle and the current custom Teeth consumer are covered; weapon attacks and weapon-triggered procs do not acquire the bonus. The buff is checked when damage lands.
+
+Protection subtracts 10 once per damaging hit or poison tick after resistance and existing magic reduction, with a floor of zero. It applies to the combined spell hit rather than each element. Offline poison settlement evaluates the buff at each historical tick, so an expired buff protects only the ticks before its deadline. No blocked damage is banked for later.
+
+Persistence keeps old potion enum values and v0 item records intact, adding CombatBuff=6 with tiers1–5. Existing T27 records save the id, magnitude and absolute expiry. Belt packet version/shape remains1. Native content patch 0031 adds optional spell/final-damage consumers; client patch 0025 adds names and the expanded speed bound. Server engine/application and dependency pins remain unchanged.
+
+Verification covers all five recipes, costs/failure losses/mastery, saved potion identities and absolute deadlines, single-slot replacement/extension, real native spell and weapon damage, custom magic, reduction ordering, zero-damage hits, historical poison expiry, craft changes/death and difficulty/drain leech. The actual client checks combat-menu cancellation/confirmation/native brewing, exact costs, belt drinking and running cadence before, during and after Second Wind.
+
+Completed and deployed on 20 October 2026 (JST). Native/content/integration builds have zero warnings or errors; the client builds with nine existing upstream warnings. Source and installed cumulative/legacy suites, source restorative/belt client regressions, 30 Python checks, refreshed catalogue evidence and exact reproduction/reversal of 31 server and 25 client patches pass. Real client running steps measure 200 → 154 → 200 ms before, during and after Second Wind. The full rollback backup, protected configuration/preferences and source/installed/final saved-world comparisons retain all prior characters, gear, materials and gold. Both live saved boots pass; production has only the content assemblies, professions enabled and no fixture world or population changes.

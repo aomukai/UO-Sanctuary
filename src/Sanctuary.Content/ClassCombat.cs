@@ -70,7 +70,7 @@ public static class ClassCombat
         ClassCombatHooks.Moved = ClassMovement.Moved;
         ClassCombatHooks.MovementAllowed = from => !HitRecovery.Active(from, Core.TickCount);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), ClassGear.RunBonus(from)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))
@@ -438,7 +438,7 @@ public static class ClassCombat
                 int before = target.Hits;
                 int resistance = target is BaseCreature creature && CreatureProfiles.For(creature) is { ApplyStats: true } creatureProfile
                     ? creatureProfile.Resistances.Magic ?? 0 : 0;
-                target.Damage((4 + TeethRank(from) * 2) * Math.Clamp(100 - resistance, 0, 200) / 100, from);
+                target.Damage((int)CombatPotions.TeethDamage(from, target, 4 + TeethRank(from) * 2, resistance), from);
                 if (target is BaseCreature victim)
                 {
                     CreatureHitRecovery.Apply(victim, from, Math.Max(0, before - target.Hits));

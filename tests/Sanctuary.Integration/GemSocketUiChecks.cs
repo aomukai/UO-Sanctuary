@@ -23,6 +23,7 @@ public static class GemSocketUiChecks
     private static Item _host;
     private static GemUpgradeGump _gemGump;
     private static RuneInsertionGump _runeGump;
+    private static GemInsertionGump _insertionGump;
     private static string _state;
     private sealed class Find : Random
     { private int _calls; public override int Next(int max) => _calls++ switch { 0 => 0, 1 => 3, _ => 0 }; }
@@ -70,8 +71,30 @@ public static class GemSocketUiChecks
             Require(_host.PropertyList.Buffer.AsSpan().IndexOf(Encoding.Unicode.GetBytes("filled: 1")) >= 0, "Host tooltip lost socket count");
             _state = JsonSerializer.Serialize(ClassGear.State(_host));
         });
+        Register("gem-insertion-setup", () =>
+        {
+            _host.Location = new Point3D(100, 120, 0); _upgraded.Location = new Point3D(45, 65, 0);
+            _player.Backpack.OnDoubleClick(_player);
+        });
+        Register("gem-insertion-target", () =>
+        { Target(_host); Require(_player.HasGump<GemInsertionGump>(), "Gem did not request host confirmation"); _insertionGump = _player.FindGump<GemInsertionGump>(); });
+        Register("gem-insertion-cancelled", () =>
+        { Require(!_upgraded.Deleted && ClassGear.State(_host).Gems.Length == 0, "Gem cancel consumed/installed"); _upgraded.OnDoubleClick(_player); });
+        Register("gem-inserted", () =>
+        {
+            Require(_upgraded.Deleted && ClassGear.State(_host).Gems.Length == 1 && ClassGear.State(_host).Runes.Length == 1
+                && ClassGear.RequiredLevel(_host) == 40, "Mixed rune/gem count/level wrong");
+            _insertionGump.OnResponse(_player.NetState, new RelayInfo(1, [], [], [], []));
+            Require(ClassGear.State(_host).Gems.Length == 1, "Gem insertion replayed");
+            _player.AddItem(_host); Require(GearEffects.Damage(_player, 0).Fire == 5 && GearEffects.Damage(_player, 1).Fire == 8
+                && HitRecovery.Fhr(_player) == 10, "Equipped mixed host effects wrong");
+            _player.Backpack.DropItem(_host); Require(GearEffects.Damage(_player, 0).Fire == 0, "Unequipped gem damage active");
+            _host.Location = new Point3D(45, 65, 0); _player.Backpack.OnDoubleClick(_player);
+            Require(_host.PropertyList.Buffer.AsSpan().IndexOf(Encoding.Unicode.GetBytes("Installed Flawed Ruby")) >= 0, "Host tooltip missing gem");
+            _state = JsonSerializer.Serialize(ClassGear.State(_host));
+        });
         Register("final", () => Require(_rune.Deleted && JsonSerializer.Serialize(ClassGear.State(_host)) == _state
-            && !_upgraded.Deleted && _tool.UsesRemaining == 19, "Final client state changed"));
+            && _upgraded.Deleted && _tool.UsesRemaining == 19, "Final client state changed"));
     }
     private static void Target(Item item) { Require(_player.Target != null, "Actual client did not request a target"); _player.Target.Invoke(_player, item); }
     private static void Setup()

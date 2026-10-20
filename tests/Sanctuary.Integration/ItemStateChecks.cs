@@ -45,20 +45,20 @@ public static class ItemStateChecks
     private static GearState Legacy(GearState state) => state with
     {
         Tier = GearTier.Normal, Quality = CraftQuality.Average, NativeSockets = 0, TinkerSockets = 0,
-        Identified = true, IdentifiedSaleOffer = null, Runes = []
+        Identified = true, IdentifiedSaleOffer = null, Runes = [], Gems = []
     };
-    private static byte[] Serialize()
+    internal static byte[] Serialize()
     {
         var writer = new BufferWriter(new byte[1024 * 1024], true);
         ClassGear.Profiles.Serialize(writer);
         return writer.Buffer[..(int)writer.Position];
     }
     // Emit the original version-0 layout from the real current serialized records.
-    private static byte[] VersionZero(int outputVersion = 0)
+    internal static byte[] VersionZero(int outputVersion = 0)
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 4, "Expected gear version 4");
+        Require(reader.ReadInt() == 5, "Expected gear version 5");
         writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
@@ -85,12 +85,18 @@ public static class ItemStateChecks
             }
             byte tier = reader.ReadByte(), quality = reader.ReadByte();
             int native = reader.ReadInt(), tinker = reader.ReadInt(); bool identified = reader.ReadBool(); int offer = reader.ReadInt();
-            if (outputVersion == 1)
+            if (outputVersion >= 1)
             { writer.Write(tier); writer.Write(quality); writer.Write(native); writer.Write(tinker); writer.Write(identified); writer.Write(offer); }
-            reader.ReadBool(); reader.ReadInt(); int materials = reader.ReadInt();
-            for (int j = 0; j < materials; j++) { reader.ReadString(); reader.ReadInt(); }
-            reader.ReadInt(); // Version 3 vendor purchase price.
-            RuneSockets.Read(reader); // Version 4 frozen socket contents.
+            bool crafted = reader.ReadBool(); int durability = reader.ReadInt(), materials = reader.ReadInt();
+            if (outputVersion >= 2) { writer.Write(crafted); writer.Write(durability); writer.Write(materials); }
+            for (int j = 0; j < materials; j++)
+            {
+                string code = reader.ReadString(); int value = reader.ReadInt();
+                if (outputVersion >= 2) { writer.Write(code); writer.Write(value); }
+            }
+            int purchase = reader.ReadInt(); if (outputVersion >= 3) { writer.Write(purchase); }
+            var runes = RuneSockets.Read(reader); if (outputVersion >= 4) { RuneSockets.Write(writer, runes); }
+            GemSockets.Read(reader); // Version 5 frozen gem contents.
         }
         return writer.Buffer[..(int)writer.Position];
     }

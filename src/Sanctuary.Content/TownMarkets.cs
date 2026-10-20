@@ -65,7 +65,7 @@ public static partial class TownMarkets
             var type = EquipmentCrafting.Resolve(row.Type);
             if (!MaterialProcessing.StockAllowed(type) || row.Price is < 1 or > 60000 || row.SellPrice < 0
                 || row.SellPrice >= row.Price || row.Roles.Length == 0 || row.Roles.Any(r => !Enum.IsDefined(r))
-                || row.Kind != null && (type != typeof(RestorationPotion) || row.Tier is < 1 or > 4)
+                || row.Kind != null && (type != typeof(RestorationPotion) || row.Kind is not (RestorationKind.Healing or RestorationKind.Mana) || row.Tier is < 1 or > 4)
                 || row.Kind == null && row.Tier != 0)
             { throw new InvalidDataException("Invalid merchant supply."); }
             _supplies.Add(SupplyId(row), row);

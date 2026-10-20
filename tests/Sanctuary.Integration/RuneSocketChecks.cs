@@ -106,12 +106,12 @@ public static class RuneSocketChecks
         public override int Next(int max) => 0;
         public override int Next(int min, int max) => min;
     }
-    private static void Salvage(PlayerMobile p, Item filled)
+    internal static void Salvage(PlayerMobile p, Item filled)
     {
         var tool = new SmithHammer(); p.Backpack.DropItem(tool); int uses = tool.UsesRemaining;
         var host = filled.GetType().CreateInstance<Item>(); filled.Dupe(host); p.Backpack.DropItem(host);
         var plain = filled.GetType().CreateInstance<Item>(); filled.Dupe(plain); p.Backpack.DropItem(plain);
-        ClassGear.Profiles.Store(plain, ClassGear.State(plain) with { Runes = [] });
+        ClassGear.Profiles.Store(plain, ClassGear.State(plain) with { Runes = [], Gems = [] });
         int runes = p.Backpack.Items.OfType<InscribedRune>().Count();
         SalvageResult withRunes = null;
         var q = EquipmentEconomy.Quote(p, host, EssenceAction.Salvage, tool);

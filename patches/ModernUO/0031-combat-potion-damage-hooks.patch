@@ -1,0 +1,115 @@
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,8 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Mobile, Mobile, int, int, int, int, int, int, int?> SpellResistedDamage { get; set; }
++    public static Func<Mobile, Mobile, int, int> DirectSpellDamage { get; set; }
+     public static Func<Mobile, int, int, int, int, int, int, int?> ResistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> WeaponHit { get; set; }
+     public static Func<Item, bool> Unidentified { get; set; }
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -47,7 +47,7 @@
+         public static int Damage(
+             Mobile m, Mobile from, int damage, bool ignoreArmor, int phys, int fire, int cold, int pois,
+             int nrgy, int chaos = 0, int direct = 0, bool keepAlive = false, bool archer = false, bool deathStrike = false,
+-            bool weaponDamage = false
++            bool weaponDamage = false, bool spellDamage = false
+         )
+         {
+             if (m?.Deleted != false || !m.Alive || damage <= 0 || ClassCombatHooks.Friendly?.Invoke(from, m) == true)
+@@ -138,7 +138,8 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
+-                var projectResistance = ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
++                var projectResistance = (spellDamage ? ClassGearHooks.SpellResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy) : null)
++                    ?? ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
+                     ?? (m is BaseCreature profileTarget
+                         ? ClassCombatHooks.CreatureResistedDamage?.Invoke(profileTarget, damage, phys, fire, cold, pois, nrgy)
+                         : null);
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -14,6 +14,7 @@
+     public static Action<PlayerMobile, SkillName, double> SkillChanged { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
++    public static Func<PlayerMobile, int, int> FinalDamage { get; set; }
+     public static Func<PlayerMobile, int, int> RunningDelay { get; set; }
+     public static Action<PlayerMobile> EquipmentChanged { get; set; }
+     public static Func<Mobile, Mobile, bool?> ClassHitCheck { get; set; }
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -2775,7 +2775,9 @@
+                 }
+             }
+ 
+-            base.Damage((int)(amount * damageBonus), from, informMount);
++            var finalDamage = (int)(amount * damageBonus);
++            finalDamage = ClassCombatHooks.FinalDamage?.Invoke(this, finalDamage) ?? finalDamage;
++            base.Damage(finalDamage, from, informMount);
+ 
+             // If the blood oath caster will die then damage is not reflected back to the attacker
+             if (hasBloodOath && Alive && !Deleted && !IsDeadBondedPet)
+--- a/Projects/UOContent/Spells/Base/SpellHelper.cs
++++ b/Projects/UOContent/Spells/Base/SpellHelper.cs
+@@ -922,7 +922,7 @@
+                 bcFrom?.AlterSpellDamageTo(target, ref damageGiven);
+                 bcTarget?.AlterSpellDamageFrom(from, ref damageGiven);
+ 
+-                target.Damage(damageGiven, from);
++                target.Damage(ClassGearHooks.DirectSpellDamage?.Invoke(target, from, damageGiven) ?? damageGiven, from);
+ 
+                 bcFrom?.OnDamageSpell(target, damageGiven);
+ 
+@@ -998,7 +998,7 @@
+ 
+                 StaminaSystem.DFA = dfa;
+ 
+-                var damageGiven = AOS.Damage(target, from, dmg, phys, fire, cold, pois, nrgy, chaos);
++                var damageGiven = AOS.Damage(target, from, dmg, false, phys, fire, cold, pois, nrgy, chaos, spellDamage: true);
+                 Mysticism.SpellPlagueSpell.OnMobileDamaged(target);
+ 
+                 StaminaSystem.DFA = DFAlgorithm.Standard;
+@@ -1074,7 +1074,7 @@
+                 (m_From as BaseCreature)?.AlterSpellDamageTo(m_Target, ref m_Damage);
+                 (m_Target as BaseCreature)?.AlterSpellDamageFrom(m_From, ref m_Damage);
+ 
+-                m_Target.Damage(m_Damage);
++                m_Target.Damage(ClassGearHooks.DirectSpellDamage?.Invoke(m_Target, m_From, m_Damage) ?? m_Damage, m_From);
+                 m_Spell?.RemoveDelayedDamageContext(m_Target);
+             }
+         }
+--- a/Projects/UOContent/Spells/Fourth/FireField.cs
++++ b/Projects/UOContent/Spells/Fourth/FireField.cs
+@@ -148,7 +148,7 @@
+                 m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.
+             }
+ 
+-            AOS.Damage(m, _caster, damage, 0, 100, 0, 0, 0);
++            AOS.Damage(m, _caster, damage, false, 0, 100, 0, 0, 0, spellDamage: true);
+             m.PlaySound(0x208);
+ 
+             (m as BaseCreature)?.OnHarmfulSpell(_caster);
+@@ -245,7 +245,7 @@
+                         m.SendLocalizedMessage(501783); // You feel yourself resisting magical energy.
+                     }
+ 
+-                    AOS.Damage(m, caster, damage, 0, 100, 0, 0, 0);
++                    AOS.Damage(m, caster, damage, false, 0, 100, 0, 0, 0, spellDamage: true);
+                     m.PlaySound(0x208);
+ 
+                     (m as BaseCreature)?.OnHarmfulSpell(caster);
+--- a/Projects/UOContent/Spells/Necromancy/Strangle.cs
++++ b/Projects/UOContent/Spells/Necromancy/Strangle.cs
+@@ -197,7 +197,7 @@
+                 damage *= 1.75;
+             }
+ 
+-            AOS.Damage(_target, _from, (int)damage, 0, 0, 0, 100, 0);
++            AOS.Damage(_target, _from, (int)damage, false, 0, 0, 0, 100, 0, spellDamage: true);
+ 
+             // OSI: randomly revealed between first and third damage tick, guessing 60% chance
+             if (Utility.RandomDouble() < 0.40)

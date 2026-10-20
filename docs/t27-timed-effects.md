@@ -1,0 +1,23 @@
+# T27 — Shared timed effects and persistence
+
+Temporary effects belong to the character. They continue through craft changes and future class switches, advance during logout and server downtime, and clear on death. These ownership, offline and category choices were explicitly confirmed on20October2026. Remaining class pool/inventory ownership decisions are unchanged.
+
+| Category | Capacity | Reapplication |
+| --- | --- | --- |
+| Combat potion buff | One | Same identity and frozen magnitude adds30seconds, up to90seconds remaining;12+30=42. A different potion replaces it and starts30seconds. |
+| Food | One, independent of potion | Refresh or replacement starts one hour. |
+| Map | One, independent of potion/food | Refresh or replacement starts30minutes. |
+
+The shared category API stores a validated identity, frozen magnitude, optional context and absolute UTC expiration. At the cap, repeated potion use returns failure so a future consumer can avoid spending an item. Categories expire independently; replacement inherits no duration. [T29](t29-combat-potions.md) consumes the potion slot for five combat buffs; food and map recipes/effects remain T30/T32. [T28](t28-alchemy-restoratives.md) adds instant restoratives and saves each ordinary dose’s rolled double-restoration amount in these existing lanes. Dungeon versus floor boundaries remain a T32 decision.
+
+Existing healing and mana potions retain their two independent restorative lanes. These are separate from the combat potion-buff slot. The remaining amount, duration and fractional points persist without rerolling the class-adjusted dose. Mixed doses retain the existing weighted rate. A full pool discards that lane's remainder; death discards both. Holding an item, becoming busy or disconnecting no longer cancels an unfinished restorative.
+
+Gear poison and chill use the same character/creature registry. Chill saves its original absolute deadline. Poison saves its remaining duration, source serial, damage rate and fractional carry, including completed fractional amounts available to the next application. Weaker poison still cannot replace stronger poison; equal/stronger poison replaces the rate/duration while preserving fractional carry. Periodic damage retains the existing direct-damage/kill path, without weapon on-hit, leech or recovery rolls.
+
+Online advancement uses the monotonic game clock anchored to UTC; persisted UTC timestamps provide elapsed downtime on reload. Catch-up processes poison and restoration in100ms steps while poison is active, with poison first in each step. Lethal damage ends the sequence and clears all state; later healing cannot reverse death. Remaining pure restoration settles directly. Expired positive effects simply disappear. Ordinary native regeneration retains its existing scheduling; this card persists explicit timed effects, not passive offline regeneration.
+
+`SanctuaryTimedEffects` persistence version0 is additive: old worlds start with no timed rows, and gear stays version5. The game loop captures value-only snapshots before save workers encode them. Serialization never applies damage/healing, so saved native health and remaining amounts stay aligned. Reconnect, logout and craft commit settle elapsed time without refreshing clocks or clearing effects. Full class switching is a later card and must retain this shared registry.
+
+Integration checks cover independent category replacement/expiry,12+30/cap90, frozen magnitude, fractional poison/healing roundtrips, concurrent offline damage/restoration, lethal catch-up, native death clearing, reconnect/craft changes and actual saved-world restarts. Existing source/installed cumulative systems, legacy item-state/economy, potion-belt client controls and copied production worlds are also checked. Production deployment and preservation evidence is recorded in the local T27 deployment manifest.
+
+Completed and deployed on20October2026(JST). Content and integration builds have zero warnings/errors. Source/installed cumulative and separate legacy suites, actual potion-belt controls,26Python checks, exact native patch reproduction and two saved live boots pass. The full backup retains the previous runtime; source/installed/post-live copied-world comparisons preserve both characters and all tracked gear, materials and485gold stacks. All61protected files were retained at installation, and34non-save configuration/client payloads remain byte-identical afterward. The server is running with professions enabled, production assemblies only and no fixture rows; engine, application, native content, client and populations are unchanged.

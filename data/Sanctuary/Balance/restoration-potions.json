@@ -88,5 +88,86 @@
     "durationMs": 5120,
     "graphic": 3853,
     "hue": 5
+  },
+  {
+    "kind": "Rejuvenation",
+    "tier": 1,
+    "name": "Rejuvenation potion",
+    "amount": 35,
+    "durationMs": 0,
+    "graphic": 3852,
+    "hue": 1153
+  },
+  {
+    "kind": "Rejuvenation",
+    "tier": 2,
+    "name": "Full Rejuvenation potion",
+    "amount": 100,
+    "durationMs": 0,
+    "graphic": 3852,
+    "hue": 1153
+  },
+  {
+    "kind": "InstantHealing",
+    "tier": 1,
+    "name": "Instant Heal potion",
+    "amount": 100,
+    "durationMs": 0,
+    "graphic": 3852,
+    "hue": 33
+  },
+  {
+    "kind": "InstantMana",
+    "tier": 1,
+    "name": "Instant Recharge potion",
+    "amount": 100,
+    "durationMs": 0,
+    "graphic": 3853,
+    "hue": 1150
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 1,
+    "name": "Second Wind potion",
+    "amount": 30,
+    "durationMs": 30000,
+    "graphic": 3854,
+    "hue": 5
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 2,
+    "name": "Deep Wounds potion",
+    "amount": 10,
+    "durationMs": 30000,
+    "graphic": 3854,
+    "hue": 33
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 3,
+    "name": "Magical Penetration potion",
+    "amount": 10,
+    "durationMs": 30000,
+    "graphic": 3854,
+    "hue": 66
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 4,
+    "name": "Stealing potion",
+    "amount": 7,
+    "durationMs": 30000,
+    "graphic": 3854,
+    "hue": 1109
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 5,
+    "name": "Protection potion",
+    "amount": 10,
+    "durationMs": 30000,
+    "graphic": 3854,
+    "hue": 1153
   }
 ]

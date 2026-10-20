@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "5f26f67efa975f60c677515f31ca5c679e53c931369130f15eca56e90c88480a",
+  "ContentAssemblySha256": "66649c232c19ed2853d64c5065582ded488051b2d9f1ececf5977c11df5e9866",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -9,14 +9,14 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "src/Sanctuary.Content/ActionTiming.cs": "9fa0891f595a3f5d3061b9dcd203dbc624fb99bb4d8f9c49003300ce4567ea14",
     "src/Sanctuary.Content/AffixBalance.cs": "66be8e6966be814360fa49b2ae2aa74db4035d154e1a6747839bc23e0582380e",
-    "src/Sanctuary.Content/ClassGear.cs": "ed92b08a274ca2343620bae9cf95b626f618522208be59b6d17cc4ab65e8cb5f",
-    "src/Sanctuary.Content/ClassStats.cs": "0258315306e03239ab3ca23cd127e19a06eb73b7cdb5afab4728ff5af66a1274",
+    "src/Sanctuary.Content/ClassGear.cs": "8276e5479c42876b73098cf8cd1db7c3ac7dcaa2b73ffbe90d57898272fb5b94",
+    "src/Sanctuary.Content/ClassStats.cs": "6693201b024256d6739fb521e35ae129cd468b2e12acd692e0df17e231f3db0a",
     "src/Sanctuary.Content/CreatureGold.cs": "43f9c83c6f0cea43fbe7a12215206e15bfe4077719401c0ec3d4b64e93e56cf3",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "f90225d72e5f9fe63fea0a75707823b6928124b8c9e1f060df330d24694ab3ec",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "7a5f9415bbd7c6996ea0e0771ef7bb4c84d221d55ef3b5c7a99cd88ecbc17983",
-    "src/Sanctuary.Content/GearDrops.cs": "4c91ae7b10361371330e5abd30e03353833ba7c6b3c1e28b75dba0923f93ee61",
-    "src/Sanctuary.Content/GearEffects.cs": "46687b6cbc60f93dfb4cfa90d1e4db06add4292c8fe10680b55f5eda96123f81",
-    "src/Sanctuary.Content/GearProfiles.cs": "4406eda79aac1d9e95b2c90836efc1217b2f348cebe582b40e1cf9a93a40a56a",
+    "src/Sanctuary.Content/GearDrops.cs": "9fafa560473075c3c32f49f11253f90c9e9dc513521deeca47dec15b403ce06e",
+    "src/Sanctuary.Content/GearEffects.cs": "0a381a23ce30fe71b3633691c39df136ad9e57bede8e9e8eae80f95c6eded3fc",
+    "src/Sanctuary.Content/GearProfiles.cs": "73d2d171f03d831a38a82b86ff36b5ca3a6ca6e33abae1890dae713cf56b39d0",
     "src/Sanctuary.Content/HitRecovery.cs": "a0fa0b0aef5ec0da4f6cd428160af13636e73307a177a47e1e8dc7ff67635f4c"
   },
   "ImplementedCodes": [

@@ -1,0 +1,38 @@
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,8 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Mobile, int, int, int, int, int, int, int?> ResistedDamage { get; set; }
++    public static Action<Mobile, Mobile, int, bool> WeaponHit { get; set; }
+     public static Func<Item, bool> Unidentified { get; set; }
+     public static Func<Item, bool> KeepBroken { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -138,9 +138,10 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
+-                var projectResistance = m is BaseCreature profileTarget
+-                    ? ClassCombatHooks.CreatureResistedDamage?.Invoke(profileTarget, damage, phys, fire, cold, pois, nrgy)
+-                    : null;
++                var projectResistance = ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
++                    ?? (m is BaseCreature profileTarget
++                        ? ClassCombatHooks.CreatureResistedDamage?.Invoke(profileTarget, damage, phys, fire, cold, pois, nrgy)
++                        : null);
+                 if (projectResistance.HasValue)
+                 {
+                     totalDamage = projectResistance.Value;
+@@ -260,6 +261,10 @@
+             if (m is BaseCreature creatureTarget && canRecover)
+             {
+                 ClassCombatHooks.CreatureDamaged?.Invoke(creatureTarget, from, Math.Max(0, beforeDamage - m.Hits), weaponDamage);
++            }
++            if (weaponDamage)
++            {
++                ClassGearHooks.WeaponHit?.Invoke(from, m, Math.Max(0, beforeDamage - m.Hits), archer);
+             }
+             return totalDamage;
+         }

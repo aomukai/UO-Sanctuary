@@ -18,7 +18,7 @@ public sealed class RuneInsertionGump : DynamicGump
     {
         if (owner?.NetState == null || !RuneSockets.Ready(owner) || !RuneSockets.Accessible(owner, rune)) { return; }
         if (owner.Target != null) { owner.SendMessage("Finish your current target first."); return; }
-        owner.CloseGump<RuneInsertionGump>(); long session = RuneSockets.Begin(owner);
+        owner.CloseGump<RuneInsertionGump>(); owner.CloseGump<GemInsertionGump>(); long session = RuneSockets.Begin(owner);
         owner.Target = new HostTarget(owner, rune, owner.NetState, session);
         owner.SendMessage("Choose identified equipment in your backpack with an empty socket. Installation is permanent.");
     }
@@ -36,13 +36,13 @@ public sealed class RuneInsertionGump : DynamicGump
     }
     protected override void BuildLayout(ref DynamicGumpBuilder b)
     {
-        var q = _request; int count = q.State.Runes.Length + 1;
+        var q = _request; int count = RuneSockets.Filled(q.State) + 1;
         b.AddPage(); b.AddBackground(0, 0, 550, 375, 5054);
         b.AddLabel(22, 18, 0x481, "Permanently install this rune");
         b.AddLabel(22, 55, 0x481, $"{q.Content.Pattern.Name}");
         b.AddLabel(22, 82, 0x47E, $"{q.Content.Pattern.StatLabel}: +{q.Content.Percentage}% — {CraftTransactions.QualityName(q.Content.Quality)}");
         b.AddLabel(22, 115, 0x481, $"Into: {q.Host.Name ?? ClassGear.Base(q.Host)?.Name ?? "Equipment"}");
-        b.AddLabel(22, 145, 0x47E, $"Filled sockets: {q.State.Runes.Length} → {count} of {q.State.SocketCount}");
+        b.AddLabel(22, 145, 0x47E, $"Filled sockets: {RuneSockets.Filled(q.State)} → {count} of {q.State.SocketCount}");
         b.AddLabel(22, 175, 0x481, $"Result requires level {Math.Max(ClassGear.RequiredLevel(q.Host), RuneSockets.RequiredLevel(count))} plus its existing attribute requirements.");
         b.AddLabel(22, 210, 0x47E, "Cost: this rune only. No gold, tools or crafting skill needed.");
         b.AddLabel(22, 245, 0x21, "Permanent: no extraction or replacement. Salvage destroys it.");

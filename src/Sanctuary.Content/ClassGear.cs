@@ -103,7 +103,7 @@ public static class ClassGear
         {
             return 0;
         }
-        int value = 0;
+        int value = GemSockets.Bonus(item, state, code);
         foreach (var affix in state.Roll.Affixes)
         {
             foreach (var mod in affix.Modifiers)
@@ -206,7 +206,7 @@ public static class ClassGear
         return (min, Math.Max(min, max));
     }
     public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0
-        : Math.Max(State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0, RuneSockets.RequiredLevel(State(item)?.Runes.Length ?? 0));
+        : Math.Max(State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0, RuneSockets.RequiredLevel(State(item) is { } saved ? RuneSockets.Filled(saved) : 0));
     public static int BlockChance(PlayerMobile player)
     {
         Item shield = null;
@@ -372,7 +372,8 @@ public static class ClassGear
         if (saved != null)
         {
             list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
-            if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount - saved.Runes.Length}{"; filled: "}{saved.Runes.Length}"); }
+            if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount - RuneSockets.Filled(saved)}{"; filled: "}{RuneSockets.Filled(saved)}"); }
+            GemSockets.Properties(item, saved, list);
             foreach (var rune in saved.Runes)
             { list.Add($"{"Installed "}{rune.Pattern.Name}{": "}{rune.Pattern.StatLabel}{" +"}{rune.Percentage}{"%"}"); }
             if (saved.CraftedEquipment)

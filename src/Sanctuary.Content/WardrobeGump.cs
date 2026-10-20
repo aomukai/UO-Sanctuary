@@ -15,6 +15,8 @@ public static class WardrobeSwitch
             || !ClassCreation.Profiles.TryGet(player.Serial, out var active) || active != quoted
             || selectedClass != active.Class || !TradeSkills.IsCraft((int)craft)
             || !ReferenceEquals(ClassProfessions.Profiles.Find(player), profession)) { return false; }
+        TimedEffects.Settle(player, TimedEffects.Now);
+        if (!WardrobeAccess.Ready(player, wardrobe)) { return false; }
         if (profession is { Confirmed: true } && profession.Craft == craft)
         { player.SendMessage("Your class and craft are already selected. Nothing changed."); }
         else

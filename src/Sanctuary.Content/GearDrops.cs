@@ -173,7 +173,7 @@ public static class GearDrops
         // Gold and gear share one terminal treasure outcome, not independent rolls.
         string leaf = CreatureGold.Select(life.Creature.GetType(), random, life.Difficulty);
         if (leaf == "gld") { CreatureGold.Award(life, random); return; }
-        var item = Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
+        var item = AlchemyRestoratives.Drop(leaf) ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
         if (item != null) { life.Corpse.DropItem(item); }
     }
 }

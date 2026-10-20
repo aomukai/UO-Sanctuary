@@ -38,13 +38,15 @@ public partial class SocketGem : Item
     {
         base.GetProperties(list); list.Add($"{"Socket gem — "}{_quality}");
         AddEffects(list, "Weapon", _effects.Weapon); AddEffects(list, "Shield", _effects.Shield); AddEffects(list, "Armour", _effects.Armor);
-        list.Add($"{"Recorded socket effects; gem insertion is a later step."}");
+        list.Add($"{"Double-click to install one gem permanently into owned equipment."}");
     }
     private static void AddEffects(IPropertyList list, string slot, GemEffect[] effects)
     {
         foreach (var effect in effects)
         {
-            if (effect.DurationMs > 0)
+            if (effect.Code == "cold-damage")
+            { list.Add($"{slot}{": "}{effect.Label}{" "}{effect.Minimum}{"–"}{effect.Maximum}{"; chill "}{effect.DurationMs / 1000.0:F1}{" seconds"}"); }
+            else if (effect.DurationMs > 0)
             { list.Add($"{slot}{": "}{effect.Label}{" "}{effect.Minimum}{"–"}{effect.Maximum}{" over "}{effect.DurationMs / 1000.0:F1}{" seconds"}"); }
             else if (effect.Minimum != effect.Maximum)
             { list.Add($"{slot}{": "}{effect.Label}{" "}{effect.Minimum}{"–"}{effect.Maximum}"); }
@@ -52,7 +54,7 @@ public partial class SocketGem : Item
         }
     }
     public override void OnDoubleClick(Mobile from)
-    { if (from.InRange(GetWorldLocation(), 2)) { from.SendMessage("Keep this gem for socket insertion, or upgrade three matching gems using tinker's tools."); } }
+    { if (from is Server.Mobiles.PlayerMobile player) { GemInsertionGump.Target(player, this); } }
     internal static void Copy(Item source, Item destination)
     {
         if (source is not SocketGem a || destination is not SocketGem b) { return; }

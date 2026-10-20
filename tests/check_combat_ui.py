@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_COMBAT_POTIONS_UI") == "1":
+        from check_combat_potions_ui import exercise as combat_potions_exercise
+        combat_potions_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_ALCHEMY_UI") == "1":
+        from check_alchemy_ui import exercise as alchemy_exercise
+        alchemy_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_GEM_SOCKETS_UI") == "1":
         from check_gem_socket_ui import exercise as gem_socket_exercise
         gem_socket_exercise(window, click, capture)

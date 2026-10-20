@@ -1,0 +1,60 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using Server;
+using Server.Mobiles;
+
+namespace Sanctuary;
+
+public static class CombatPotions
+{
+    private static readonly string[] _ids = ["second-wind", "deep-wounds", "magical-penetration", "stealing", "protection"];
+    public static void Configure()
+    {
+        ClassCombatHooks.FinalDamage = (target, damage) => Math.Max(0, damage - Bonus(target, "protection"));
+        ClassGearHooks.SpellResistedDamage = SpellDamage;
+        ClassGearHooks.DirectSpellDamage = (target, source, damage) => damage + (int)Math.Floor(AddedElements(source, target, damage));
+    }
+    public static string Description(int tier) => tier switch
+    {
+        1 => "+30% running speed; walking and turning unchanged",
+        2 => "+10 minimum and maximum physical weapon damage before enemy resistance",
+        3 => "Spells add 10% of their original damage as each fire/cold/lightning/poison component",
+        4 => "+7% physical-hit life and mana steal; normal drain and difficulty rules",
+        5 => "Subtract 10 once per hit or poison tick after mitigation, down to zero",
+        _ => throw new ArgumentOutOfRangeException(nameof(tier))
+    };
+    public static bool Apply(PlayerMobile owner, int tier, DateTime? at = null)
+    {
+        if (tier is < 1 or > 5) { return false; }
+        var row = PotionBeltCatalog.Potion(RestorationKind.CombatBuff, tier);
+        if (!TimedEffects.ApplyBuff(owner, TimedEffectCategory.Potion, _ids[tier - 1], row.Amount, at: at)) { return false; }
+        StatNetwork.Send(owner); return true;
+    }
+    public static int Bonus(PlayerMobile owner, string id) => owner != null && ClassCombat.Enabled(owner)
+        && TimedEffects.Buff(owner, TimedEffectCategory.Potion, TimedEffects.DamageTime) is { } buff && buff.Id == id ? buff.Magnitude : 0;
+    public static int RunBonus(PlayerMobile owner) => ClassGear.RunBonus(owner) + Bonus(owner, "second-wind");
+    private static double ElementAmount(Mobile source, double damage) => source is PlayerMobile p
+        ? Math.Max(0, damage) * Bonus(p, "magical-penetration") / 100.0 : 0;
+    private static double AddedElements(Mobile source, Mobile target, double damage)
+    {
+        double added = ElementAmount(source, damage);
+        return added <= 0 ? 0 : GemCombat.Component(target, added, target.FireResistance, true)
+            + GemCombat.Component(target, added, target.ColdResistance, true)
+            + GemCombat.Component(target, added, target.EnergyResistance, true)
+            + GemCombat.Component(target, added, target.PoisonResistance, false);
+    }
+    public static double TeethDamage(PlayerMobile source, Mobile target, double damage, int magicResistance) =>
+        GemCombat.Component(target, damage, magicResistance, true) + AddedElements(source, target, damage);
+    public static int? SpellDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning)
+    {
+        double added = ElementAmount(source, damage);
+        if (added <= 0) { return null; }
+        // Combine each original/added element before applying that element's flat reduction and resistance.
+        double total = GemCombat.Component(target, damage * physical / 100.0, target.PhysicalResistance, false)
+            + GemCombat.Component(target, damage * fire / 100.0 + added, target.FireResistance, true)
+            + GemCombat.Component(target, damage * cold / 100.0 + added, target.ColdResistance, true)
+            + GemCombat.Component(target, damage * lightning / 100.0 + added, target.EnergyResistance, true)
+            + GemCombat.Component(target, damage * poison / 100.0 + added, target.PoisonResistance, false);
+        return Math.Max(0, (int)Math.Floor(total));
+    }
+}

@@ -136,7 +136,7 @@ public static class PotionBelts
                 {
                     continue;
                 }
-                var source = potions.FirstOrDefault(p => !p.Deleted && p.Amount > 0 && p.Kind == kind && InBackpack(player, p));
+                var source = potions.FirstOrDefault(p => !p.Deleted && p.Amount > 0 && p.Kind == kind && (kind != RestorationKind.CombatBuff || p.Tier == Cell(player, column)?.Tier) && InBackpack(player, p));
                 if (source == null)
                 {
                     break;
@@ -149,7 +149,7 @@ public static class PotionBelts
     {
         if (Ready(player) && player.Target == null && cell >= 0 && cell < Rows(player) * 4 && Cell(player, cell) == null)
         {
-            player.SendMessage("Choose a healing or mana potion in your backpack.");
+            player.SendMessage("Choose a restorative potion in your backpack.");
             player.Target = new LoadTarget(cell);
         }
     }

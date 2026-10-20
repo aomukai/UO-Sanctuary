@@ -1,0 +1,182 @@
+[
+  {
+    "kind": "InstantHealing",
+    "tier": 1,
+    "skill": 50,
+    "healingTier": 5,
+    "healing": 3,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1
+  },
+  {
+    "kind": "InstantMana",
+    "tier": 1,
+    "skill": 60,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 5,
+    "mana": 3,
+    "bottles": 1
+  },
+  {
+    "kind": "Rejuvenation",
+    "tier": 1,
+    "skill": 70,
+    "healingTier": 4,
+    "healing": 3,
+    "manaTier": 4,
+    "mana": 3,
+    "bottles": 1
+  },
+  {
+    "kind": "Rejuvenation",
+    "tier": 2,
+    "skill": 80,
+    "healingTier": 5,
+    "healing": 3,
+    "manaTier": 5,
+    "mana": 3,
+    "bottles": 1
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 1,
+    "skill": 30,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1,
+    "reagents": [
+      {
+        "type": "Bloodmoss",
+        "name": "Bloodmoss",
+        "amount": 5
+      },
+      {
+        "type": "MandrakeRoot",
+        "name": "Mandrake root",
+        "amount": 5
+      },
+      {
+        "type": "SulfurousAsh",
+        "name": "Sulfurous ash",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 2,
+    "skill": 100,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1,
+    "reagents": [
+      {
+        "type": "Nightshade",
+        "name": "Nightshade",
+        "amount": 10
+      },
+      {
+        "type": "SpidersSilk",
+        "name": "Spider's silk",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 3,
+    "skill": 100,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1,
+    "reagents": [
+      {
+        "type": "Nightshade",
+        "name": "Nightshade",
+        "amount": 10
+      },
+      {
+        "type": "SulfurousAsh",
+        "name": "Sulfurous ash",
+        "amount": 10
+      },
+      {
+        "type": "Bloodmoss",
+        "name": "Bloodmoss",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 4,
+    "skill": 110,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1,
+    "reagents": [
+      {
+        "type": "Garlic",
+        "name": "Garlic",
+        "amount": 15
+      },
+      {
+        "type": "Ginseng",
+        "name": "Ginseng",
+        "amount": 15
+      },
+      {
+        "type": "Nightshade",
+        "name": "Nightshade",
+        "amount": 15
+      },
+      {
+        "type": "SpidersSilk",
+        "name": "Spider's silk",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "kind": "CombatBuff",
+    "tier": 5,
+    "skill": 120,
+    "healingTier": 0,
+    "healing": 0,
+    "manaTier": 0,
+    "mana": 0,
+    "bottles": 1,
+    "reagents": [
+      {
+        "type": "Garlic",
+        "name": "Garlic",
+        "amount": 20
+      },
+      {
+        "type": "Ginseng",
+        "name": "Ginseng",
+        "amount": 20
+      },
+      {
+        "type": "MandrakeRoot",
+        "name": "Mandrake root",
+        "amount": 20
+      },
+      {
+        "type": "SulfurousAsh",
+        "name": "Sulfurous ash",
+        "amount": 20
+      }
+    ]
+  }
+]

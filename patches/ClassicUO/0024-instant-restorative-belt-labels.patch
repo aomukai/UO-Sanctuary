@@ -1,0 +1,26 @@
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+@@ -43,7 +43,7 @@
+                 bool locked = row >= ClassBeltClient.Rows;
+                 var control = new ActionControl(8 + column * Size, 25 + (rows - 1 - row) * Size, Size - 2, Size - 2,
+                     potion.Serial == 0 ? "+" : "", locked ? "Inactive overflow: right-click to return to backpack" :
+-                    potion.Serial == 0 ? "Click to load a healing or mana potion from your backpack" :
++                    potion.Serial == 0 ? "Click to load a restorative potion from your backpack" :
+                     $"{PotionName(potion)}: click to drink; right-click to return to backpack",
+                     button =>
+                     {
+@@ -74,7 +74,13 @@
+     private static string PotionName(ClassBeltClient.Cell potion)
+     {
+         string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
+-        return $"{strength}{potion.Kind} potion";
++        return potion.Kind switch
++        {
++            RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",
++            RestorationKind.InstantHealing => "Instant Heal potion",
++            RestorationKind.InstantMana => "Instant Recharge potion",
++            _ => $"{strength}{potion.Kind} potion"
++        };
+     }
+     private sealed class ActionControl : Control
+     {

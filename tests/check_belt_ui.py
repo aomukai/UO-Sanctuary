@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def command(name):
-    log = ROOT / ".local/logs/britain-baseline-check.log"
+    log = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
     offset = log.stat().st_size
     os.write(int(os.environ["SANCTUARY_TEST_CONSOLE_FD"]), ("belt-ui-" + name + "\n").encode())
     deadline = time.monotonic() + 6

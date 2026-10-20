@@ -23,6 +23,7 @@ public static class ClassDeath
         {
             return;
         }
+        TimedEffects.Clear(player);
         PotionBelts.OnDeath(player, corpse);
         ClassCombat.Stop(player);
         ClassCombat.For(player).RecoveryUntil = Core.TickCount;
