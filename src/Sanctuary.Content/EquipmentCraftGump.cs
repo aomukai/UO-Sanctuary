@@ -72,6 +72,7 @@ public sealed class EquipmentCraftGump : DynamicGump
     }
     public static void ChooseMaterial(Mobile owner, BaseTool tool, EquipmentRecipe row)
     {
+        if (!RareRecipes.Allowed(owner, RareRecipes.Equipment(row))) { return; }
         if (owner.Target != null) { owner.SendMessage("Finish your current target first."); return; }
         owner.SendMessage("Target the first ingredient. Its material subtype and colour will be used.");
         owner.Target = new MaterialTarget(row, tool, owner.NetState);

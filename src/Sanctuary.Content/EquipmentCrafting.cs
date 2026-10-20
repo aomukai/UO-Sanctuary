@@ -96,7 +96,9 @@ public static class EquipmentCrafting
     public static bool Craftable(Type type) => _outputs.Contains(type);
     public static void Configure()
     {
-        TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from) && recipe.ItemType == typeof(SocketGem) ? 1.0
+        TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from) && recipe.ItemType == typeof(TreasureSkeletonKey)
+            && recipe.Skills.Count == 1 && recipe.Skills[0].SkillToMake == SkillName.Tinkering && recipe.Skills[0].MinSkill == 120 ? 1.0
+            : ClassProfessions.Affected(from) && recipe.ItemType == typeof(SocketGem) ? 1.0
             : ClassProfessions.Affected(from) && _selections.TryGetValue(recipe, out var selection) && selection.Row.RequiredSkill == 120
             ? Math.Max(.01, system.GetChanceAtMin(recipe)) : null;
         TradeSkillHooks.RecipeSelected = (from, system, recipe, tool) =>
@@ -188,7 +190,7 @@ public static class EquipmentCrafting
     internal static Work Begin(CraftTransactions.Request ticket)
     {
         if (!MaterialProcessing.ToolValid(ticket.Owner, ticket.Tool) || !_selections.TryGetValue(ticket.Recipe, out var selection) || selection.Row.Skill != ticket.System.MainSkill
-            || ticket.Hue < 0 || ticket.Material != null) { return null; }
+            || ticket.Hue < 0 || ticket.Material != null || !RareRecipes.Allowed(ticket.Owner, RareRecipes.Equipment(selection.Row))) { return null; }
         var groups = new List<Group>();
         for (int i = 0; i < selection.Row.Ingredients.Length; i++)
         {
@@ -217,7 +219,7 @@ public static class EquipmentCrafting
         ticket.Claimed = true;
         var work = ticket.Equipment;
         var from = ticket.Owner;
-        if (work == null || !CraftTransactions.Valid(ticket) || !(Supports(ticket.Tool) || JewelleryCrafting.Contains(work.Row) && ticket.Tool is TinkerTools) || !MaterialProcessing.ToolValid(from, ticket.Tool)
+        if (work == null || !RareRecipes.Allowed(from, RareRecipes.Equipment(work.Row)) || !CraftTransactions.Valid(ticket) || !(Supports(ticket.Tool) || JewelleryCrafting.Contains(work.Row) && ticket.Tool is TinkerTools) || !MaterialProcessing.ToolValid(from, ticket.Tool)
             || !ReferenceEquals(work.ToolParent, ticket.Tool.Parent) || work.Uses != ticket.Tool.UsesRemaining
             || from.Skills[work.Row.Skill].Base < Math.Max(work.Row.RequiredSkill, MaterialSkill(ticket.System, work.Resource))) { return false; }
         int freed = 0, freedWeight = 0;

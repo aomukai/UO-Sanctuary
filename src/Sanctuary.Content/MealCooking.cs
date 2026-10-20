@@ -53,7 +53,7 @@ public static class MealCooking
     internal static int Quantity(MealRecipe r, int group) => group == r.Ingredients.Length ? r.Chips : r.Ingredients[group].Amount;
     public static MealRequest Quote(PlayerMobile owner, Skillet tool, MealRecipe row)
     {
-        if (Array.IndexOf(Meals.Recipes, row) < 0 || !Ready(owner, tool) || !owner.CanBeginAction<CraftSystem>() || owner.Skills.Cooking.Base < row.Skill) { return null; }
+        if (Array.IndexOf(Meals.Recipes, row) < 0 || !RareRecipes.Allowed(owner, RareRecipes.Meal(row)) || !Ready(owner, tool) || !owner.CanBeginAction<CraftSystem>() || owner.Skills.Cooking.Base < row.Skill) { return null; }
         var inputs = new List<MealInput>();
         for (int group = 0; group <= row.Ingredients.Length; group++)
         {
@@ -78,7 +78,7 @@ public static class MealCooking
     }
     private static bool Valid(MealRequest q)
     {
-        if (q is not { Claimed: false } || _sessions.GetValueOrDefault(q.Owner.Serial) != q.Session || !Ready(q.Owner, q.Tool)
+        if (q is not { Claimed: false } || !RareRecipes.Allowed(q.Owner, RareRecipes.Meal(q.Row)) || _sessions.GetValueOrDefault(q.Owner.Serial) != q.Session || !Ready(q.Owner, q.Tool)
             || q.Owner.Skills.Cooking.BaseFixedPoint != q.Skill || !ReferenceEquals(q.Owner.NetState, q.Connection)
             || !ReferenceEquals(ClassProfessions.Profiles.Find(q.Owner), q.Profession) || q.Tool.Parent != q.ToolParent
             || q.Tool.UsesRemaining != q.Uses || q.Tool.Origin != q.ToolOrigin || CraftTransactions.Profiles.Find(q.Tool) != q.ToolState) { return false; }

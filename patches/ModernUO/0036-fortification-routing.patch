@@ -1,0 +1,26 @@
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,7 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Mobile, Item, bool> FortifyUsed { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, int?> SpellResistedDamage { get; set; }
+     public static Func<Mobile, Mobile, int, int> DirectSpellDamage { get; set; }
+     public static Func<Mobile, int, int, int, int, int, int, int?> ResistedDamage { get; set; }
+diff --git a/Projects/UOContent/Items/Special/Bulk Order Rewards/Blacksmithy/PowderOfTemperament.cs b/Projects/UOContent/Items/Special/Bulk Order Rewards/Blacksmithy/PowderOfTemperament.cs
+--- a/Projects/UOContent/Items/Special/Bulk Order Rewards/Blacksmithy/PowderOfTemperament.cs
++++ b/Projects/UOContent/Items/Special/Bulk Order Rewards/Blacksmithy/PowderOfTemperament.cs
+@@ -50,6 +50,11 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
++        if (ClassGearHooks.FortifyUsed?.Invoke(from, this) == true)
++        {
++            return;
++        }
++
+         if (IsChildOf(from.Backpack))
+         {
+             from.Target = new InternalTarget(this);

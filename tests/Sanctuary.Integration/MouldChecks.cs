@@ -24,7 +24,7 @@ public static class MouldChecks
         private int _ordinaryCalls;
         public override int Next(int maximum)
         {
-            if (maximum == 10000) { ChanceCalls++; return mould ? 9 : 10; }
+            if (maximum == 10000) { ChanceCalls++; return ChanceCalls == 1 ? mould ? 9 : 10 : 9999; }
             if (maximum == MouldRewards.TotalWeight) { return statTicket; }
             return gold && _ordinaryCalls++ == 0 ? 100 : 0;
         }
@@ -109,7 +109,7 @@ public static class MouldChecks
             var body = GearDropChecks.Body(victim, player); var random = new Drops(true);
             bool xp = RewardLife.Process(victim, body, random);
             var mould = body.Items.OfType<RuneMould>().Single();
-            Require(!xp && random.ChanceCalls == 1 && mould.Difficulty == difficulty
+            Require(!xp && random.ChanceCalls == 2 && mould.Difficulty == difficulty
                 && mould.Tier == MouldRewards.TierForLevel(CreatureProfiles.Level(victim))
                 && mould.SourceLevel == CreatureProfiles.Level(victim) && body.SanctuaryNoRewards,
                 "Mould entitlement depended on XP or lost difficulty/level");

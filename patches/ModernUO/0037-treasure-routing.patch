@@ -1,0 +1,94 @@
+--- a/Projects/UOContent/Mobiles/ClassMapHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+@@ -1,10 +1,15 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ using System;
++using Server.Items;
+ 
+ namespace Server.Mobiles;
+ 
+ public static class ClassMapHooks
+ {
++    public static Func<Item, bool> FishingCargo { get; set; }
++    public static Func<Item, bool> TreasureItem { get; set; }
++    public static Func<Mobile, TreasureMap, bool> TreasureUsed { get; set; }
++    public static Func<Mobile, int, Map, Item> TreasureFished { get; set; }
+     public static Action<Mobile> LocationChanged { get; set; }
+     public static Func<Mobile, int, int> SearchRange { get; set; }
+ }
+--- a/Projects/UOContent/Items/Maps/TreasureMap.cs
++++ b/Projects/UOContent/Items/Maps/TreasureMap.cs
+@@ -295,6 +295,7 @@
+ 
+     public void OnBeginDig(Mobile from)
+     {
++        if (ClassMapHooks.TreasureUsed?.Invoke(from, this) == true) { return; }
+         if (_completed)
+         {
+             from.SendLocalizedMessage(503028); // The treasure for this map has already been found.
+@@ -331,6 +332,7 @@
+ 
+     public override void OnDoubleClick(Mobile from)
+     {
++        if (ClassMapHooks.TreasureUsed?.Invoke(from, this) == true) { return; }
+         if (!from.InRange(GetWorldLocation(), 2))
+         {
+             from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1019045); // I can't reach that.
+@@ -387,6 +389,7 @@
+ 
+     public void Decode(Mobile from)
+     {
++        if (ClassMapHooks.TreasureUsed?.Invoke(from, this) == true) { return; }
+         if (!TradeSkillHooks.Check(from, SkillName.Cartography, this)) { return; }
+         if (_completed || _decoder != null)
+         {
+@@ -432,6 +435,7 @@
+ 
+     public override void DisplayTo(Mobile from)
+     {
++        if (ClassMapHooks.TreasureUsed?.Invoke(from, this) == true) { return; }
+         if (_completed)
+         {
+             SendLocalizedMessageTo(from, 503014); // This treasure hunt has already been completed.
+--- a/Projects/UOContent/Engines/Harvest/Fishing.cs
++++ b/Projects/UOContent/Engines/Harvest/Fishing.cs
+@@ -231,7 +231,8 @@
+                     level = 1;
+                 }
+ 
+-                return new TreasureMap(level, from.Map == Map.Felucca ? Map.Felucca : Map.Trammel);
++                return ClassMapHooks.TreasureFished?.Invoke(from, level, from.Map == Map.Felucca ? Map.Felucca : Map.Trammel)
++                    ?? new TreasureMap(level, from.Map == Map.Felucca ? Map.Felucca : Map.Trammel);
+             }
+ 
+             if (type == typeof(MessageInABottle))
+@@ -332,7 +333,7 @@
+ 
+         public override bool Give(Mobile m, Item item, bool placeAtFeet)
+         {
+-            if (item is TreasureMap or MessageInABottle or SpecialFishingNet)
++            if (item is TreasureMap or MessageInABottle or SpecialFishingNet || ClassMapHooks.TreasureItem?.Invoke(item) == true)
+             {
+                 BaseCreature serp;
+ 
+@@ -411,7 +412,7 @@
+                     number = 1008124;
+                     name = item.ItemData.Name;
+                 }
+-                else if (item is TreasureMap)
++                else if (item is TreasureMap || ClassMapHooks.TreasureItem?.Invoke(item) == true)
+                 {
+                     number = 1008125;
+                     name = "a sodden piece of parchment";
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -5740,7 +5740,8 @@
+                 return;
+             }
+ 
+-            if (Summoned || ClassLootHooks.SuppressDrops?.Invoke(this) == true)
++            if (Summoned || ClassLootHooks.SuppressDrops?.Invoke(this) == true
++                && ClassMapHooks.FishingCargo?.Invoke(item) != true)
+             {
+                 item.Delete();
+                 return;

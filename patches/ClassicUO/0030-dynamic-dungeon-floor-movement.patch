@@ -1,0 +1,36 @@
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -443,7 +443,7 @@
+             // Keep ordinary single/double click and context-menu interaction for friendlies.
+             return false;
+         }
+-        if (obj is Land or Static or Multi)
++        if (IsGround(obj))
+         {
+             Stop(world);
+             if (!Keyboard.Shift && obj is GameObject point)
+@@ -517,11 +517,14 @@
+             }
+         }
+     }
++    private static bool IsGround(object obj) => obj is Land or Static or Multi
++        || obj is Item { IsLocked: true, ItemData.IsSurface: true, ItemData.IsImpassable: false, ItemData.Height: 0 };
++
+     public static bool BeginGroundHold(World world)
+     {
+         if (!Enabled || !UIManager.IsMouseOverWorld || world.TargetManager.IsTargeting
+             || Client.Game.UO.GameCursor.ItemHold.Enabled || world.CustomHouseManager != null
+-            || SelectedObject.Object is not (Land or Static or Multi))
++            || !IsGround(SelectedObject.Object))
+         {
+             return false;
+         }
+@@ -571,7 +574,7 @@
+             return;
+         }
+         if (unchecked((int)(Time.Ticks - _nextGroundUpdate)) < 0
+-            || SelectedObject.Object is not (Land or Static or Multi)
++            || !IsGround(SelectedObject.Object)
+             || SelectedObject.Object is not GameObject point)
+         {
+             return;

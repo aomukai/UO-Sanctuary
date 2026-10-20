@@ -54,7 +54,7 @@ def check(port, combat=False):
         env = {**os.environ, "LD_LIBRARY_PATH": str(ROOT / ".local/client"),
                "DOTNET_ROOT": str(ROOT / ".tools/dotnet"), "SDL_AUDIODRIVER": "dummy",
                "LIBGL_ALWAYS_SOFTWARE": "1"}
-        if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1":
+        if os.environ.get("SANCTUARY_TEST_MOVEMENT_UI") == "1" or os.environ.get("SANCTUARY_TEST_TREASURE_UI") == "1":
             env["SANCTUARY_TRACE_MOVEMENT"] = "1"
         client_assembly = Path(os.environ.get("SANCTUARY_TEST_CLIENT_DLL", ROOT / "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll"))
         with logfile.open("w") as output:

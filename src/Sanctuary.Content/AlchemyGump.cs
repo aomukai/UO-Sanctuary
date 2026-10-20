@@ -60,6 +60,7 @@ public sealed class AlchemyGump : DynamicGump
         }
         else
         {
+            b.AddButton(22, 365, 4005, 4007, 22); b.AddLabel(57, 365, 0x481, "Powder of Fortifying");
             b.AddLabel(22, 50, 0x47E, "Public Alchemy station; one output, bottle and mortar use.");
             int visible = 0;
             for (int i = 0; i < AlchemyRestoratives.Recipes.Length; i++)
@@ -82,6 +83,7 @@ public sealed class AlchemyGump : DynamicGump
             else { _request.Claimed = true; AlchemyRestoratives.End(_request); }
             return;
         }
+        if (info.ButtonID == 22) { AlchemyRestoratives.Invalidate(_owner); FortificationCraftGump.DisplayTo(_owner, _tool); return; }
         if (info.ButtonID is 20 or 21)
         { AlchemyRestoratives.Invalidate(_owner); _owner.SendGump(new AlchemyGump(_owner, _tool, combat: info.ButtonID == 21)); return; }
         if (info.ButtonID < 1 || info.ButtonID > AlchemyRestoratives.Recipes.Length) { return; }

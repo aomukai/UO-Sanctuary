@@ -33,7 +33,7 @@ public static class Teleportation
     {
         var map = p.Map;
         return map != null && map != Map.Internal && point.X >= 0 && point.Y >= 0 && point.X < map.Width && point.Y < map.Height
-            && point.Z is >= -128 and <= 127 && point != p.Location && p.InRange(point, Range)
+            && TreasureHunts.CanLand(p, map, point) && point.Z is >= -128 and <= 127 && point != p.Location && p.InRange(point, Range)
             && SpellHelper.CheckTravel(p, TravelCheckType.TeleportFrom, out _)
             && SpellHelper.CheckTravel(p, map, point, TravelCheckType.TeleportTo, out _)
             && !SpellHelper.CheckMulti(point, map) && !Region.Find(point, map).IsPartOf<HouseRegion>()

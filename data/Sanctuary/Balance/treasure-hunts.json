@@ -1,0 +1,184 @@
+[
+  {
+    "SchemaVersion": 1,
+    "DropDenominator": 10000,
+    "DropTickets": 100,
+    "LifetimeMinutes": 120,
+    "SlotSize": 224,
+    "SlotX": 5400,
+    "SlotY": 560,
+    "SlotsPerRow": 3,
+    "SlotsPerFacet": 9,
+    "MinimumRooms": 8,
+    "MaximumRooms": 12,
+    "CellSize": 48,
+    "PackSize": 3,
+    "Tiers": [
+      {
+        "Tier": 1,
+        "Name": "Stash",
+        "MinimumLevel": 1,
+        "MaximumLevel": 20,
+        "Cartography": 27,
+        "KeyName": "Primitive",
+        "KeySkill": 25,
+        "KeyMaterial": "IronIngot",
+        "Gold": 1000,
+        "GearRolls": 1,
+        "ItemLevel": 20,
+        "GemQuality": 0,
+        "Resources": 20,
+        "RecipePercent": 20,
+        "Creatures": [
+          {
+            "Type": "Lich",
+            "Difficulty": "Normal"
+          },
+          {
+            "Type": "Wraith",
+            "Difficulty": "Normal"
+          },
+          {
+            "Type": "HellHound",
+            "Difficulty": "Normal"
+          }
+        ],
+        "MonsterMinimum": 15,
+        "MonsterMaximum": 20,
+        "Difficulty": "Normal"
+      },
+      {
+        "Tier": 2,
+        "Name": "Supply",
+        "MinimumLevel": 21,
+        "MaximumLevel": 40,
+        "Cartography": 70,
+        "KeyName": "Clunky",
+        "KeySkill": 50,
+        "KeyMaterial": "ShadowIronIngot",
+        "Gold": 2000,
+        "GearRolls": 2,
+        "ItemLevel": 40,
+        "GemQuality": 1,
+        "Resources": 40,
+        "RecipePercent": 40,
+        "Creatures": [
+          {
+            "Type": "Skeleton",
+            "Difficulty": "Nightmare"
+          },
+          {
+            "Type": "BoneMagi",
+            "Difficulty": "Nightmare"
+          },
+          {
+            "Type": "Zombie",
+            "Difficulty": "Nightmare"
+          }
+        ],
+        "MonsterMinimum": 30,
+        "MonsterMaximum": 40,
+        "Difficulty": "Nightmare"
+      },
+      {
+        "Tier": 3,
+        "Name": "Cache",
+        "MinimumLevel": 41,
+        "MaximumLevel": 60,
+        "Cartography": 90,
+        "KeyName": "Simple",
+        "KeySkill": 75,
+        "KeyMaterial": "BronzeIngot",
+        "Gold": 3000,
+        "GearRolls": 3,
+        "ItemLevel": 60,
+        "GemQuality": 2,
+        "Resources": 60,
+        "RecipePercent": 60,
+        "Creatures": [
+          {
+            "Type": "LichLord",
+            "Difficulty": "Nightmare"
+          },
+          {
+            "Type": "DreadSpider",
+            "Difficulty": "Nightmare"
+          },
+          {
+            "Type": "Daemon",
+            "Difficulty": "Nightmare"
+          }
+        ],
+        "MonsterMinimum": 50,
+        "MonsterMaximum": 60,
+        "Difficulty": "Nightmare"
+      },
+      {
+        "Tier": 4,
+        "Name": "Hoard",
+        "MinimumLevel": 61,
+        "MaximumLevel": 80,
+        "Cartography": 100,
+        "KeyName": "Intricate",
+        "KeySkill": 100,
+        "KeyMaterial": "AgapiteIngot",
+        "Gold": 4000,
+        "GearRolls": 4,
+        "ItemLevel": 80,
+        "GemQuality": 3,
+        "Resources": 80,
+        "RecipePercent": 80,
+        "Creatures": [
+          {
+            "Type": "BoneKnight",
+            "Difficulty": "Hell"
+          },
+          {
+            "Type": "BoneMagi",
+            "Difficulty": "Hell"
+          },
+          {
+            "Type": "Wraith",
+            "Difficulty": "Hell"
+          }
+        ],
+        "MonsterMinimum": 70,
+        "MonsterMaximum": 80,
+        "Difficulty": "Hell"
+      },
+      {
+        "Tier": 5,
+        "Name": "Trove",
+        "MinimumLevel": 81,
+        "MaximumLevel": 99,
+        "Cartography": 100,
+        "KeyName": "Splendid",
+        "KeySkill": 120,
+        "KeyMaterial": "ValoriteIngot",
+        "Gold": 5000,
+        "GearRolls": 5,
+        "ItemLevel": 99,
+        "GemQuality": 4,
+        "Resources": 100,
+        "RecipePercent": 100,
+        "Creatures": [
+          {
+            "Type": "TerathanMatriarch",
+            "Difficulty": "Hell"
+          },
+          {
+            "Type": "LichLord",
+            "Difficulty": "Hell"
+          },
+          {
+            "Type": "Daemon",
+            "Difficulty": "Hell"
+          }
+        ],
+        "MonsterMinimum": 85,
+        "MonsterMaximum": 99,
+        "Difficulty": "Hell"
+      }
+    ]
+  }
+]

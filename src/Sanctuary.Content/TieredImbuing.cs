@@ -58,6 +58,7 @@ public static class TieredImbuing
     {
         if (!ToolValid(player, ladle) || !ClassProfessions.Active(player, SkillName.Imbuing)) { return false; }
         int required = Cost(item).Skill;
+        if (required == 120 && !RareRecipes.Allowed(player, "imbuing/elite")) { return false; }
         if (player.Skills.Imbuing.BaseFixedPoint < required * 10)
         { player.SendMessage($"This item requires {required} Imbuing."); return false; }
         return CraftFacilities.Allows(player, SkillName.Imbuing);

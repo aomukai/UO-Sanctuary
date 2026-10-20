@@ -116,7 +116,7 @@ public static class RewardLifeChecks
         long before = Xp(player);
         Require(!RewardLife.Process(victim, body, new Choices(100, 9)), "Level-99 death increased XP");
         int expected = 11 * (100 + gf) / 100;
-        Require(body.SanctuaryNoRewards && GoldIn(body) == expected && body.Items.Count == 1
+        Require(body.SanctuaryNoRewards && GoldIn(body) == expected && body.Items.Count(i => i is Gold) == 1 && body.Items.All(i => i is Gold or TreasureChart)
             && player.Backpack.GetAmount(typeof(Gold)) == 0, "Gold was auto-collected, native loot survived or level99 lost rewards");
         ClassLootHooks.CreatureDied(victim, body);
         Require(GoldIn(body) == expected && Xp(player) == before, "Repeated callback erased or duplicated rewards");

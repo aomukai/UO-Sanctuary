@@ -126,11 +126,11 @@ public static class SurveyChecks
     private static void Search()
     {
         var p = Player(); p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5716, 1140), Map.Trammel); p.Skills.Mining.Base = 0;
-        var map = new TreasureMap(1, p.Map) { Decoder = p, ChestLocation = new Point2D(5712, 1140) }; p.Backpack.DropItem(map); p.Backpack.DropItem(new Shovel());
-        void Dig() { map.OnBeginDig(p); Require(p.Target != null, "No native dig target"); p.Target.Invoke(p, new LandTarget(new Point3D(5717, 1140, p.Z), p.Map)); p.Target = null; }
-        Dig(); Require(p.CanBeginAction<TreasureMap>(), "Baseline search unexpectedly found chest"); Use(p, "world"); Dig();
-        Require(!p.CanBeginAction<TreasureMap>() && ClassMapHooks.SearchRange(p, 4) == 9, "World map did not change actual native search");
-        p.NextActionTime++; p.EndAction<TreasureMap>(); map.Delete();
+        var map = new TreasureChart(1, p.Map, new Point2D(5712, 1140), 222) { Decoder = p }; p.Backpack.DropItem(map); p.Backpack.DropItem(new Shovel());
+        var target = new Point3D(5717, 1140, p.Z);
+        Require(!map.FindEntrance(p, target) && !map.Spent, "Baseline search unexpectedly found entrance"); Use(p, "world");
+        Require(map.FindEntrance(p, target) && map.Spent && ClassMapHooks.SearchRange(p, 4) == 9, "World map did not change actual treasure search");
+        TreasureHunts.Profiles.Expire(TreasureHunts.Profiles.Find(map.Serial)); map.Delete();
     }
     private static void Reload()
     {

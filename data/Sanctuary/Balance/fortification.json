@@ -1,0 +1,36 @@
+[
+  {
+    "SchemaVersion": 1,
+    "DropDenominator": 10000,
+    "DropTickets": 1000,
+    "DropQuantity": 1,
+    "MagicFindAffects": false,
+    "GradeAffects": false,
+    "Species": [
+      "Server.Mobiles.BlackSolenWorker",
+      "Server.Mobiles.RedSolenWorker",
+      "Server.Mobiles.BlackSolenWarrior",
+      "Server.Mobiles.RedSolenWarrior",
+      "Server.Mobiles.BlackSolenQueen",
+      "Server.Mobiles.RedSolenQueen",
+      "Server.Mobiles.BlackSolenInfiltratorWarrior",
+      "Server.Mobiles.RedSolenInfiltratorWarrior",
+      "Server.Mobiles.BlackSolenInfiltratorQueen",
+      "Server.Mobiles.RedSolenInfiltratorQueen",
+      "Server.Mobiles.TerathanDrone",
+      "Server.Mobiles.TerathanWarrior",
+      "Server.Mobiles.TerathanAvenger",
+      "Server.Mobiles.TerathanMatriarch",
+      "Server.Mobiles.GiantSpider",
+      "Server.Mobiles.FrostSpider",
+      "Server.Mobiles.DreadSpider",
+      "Server.Mobiles.GiantBlackWidow",
+      "Server.Mobiles.Scorpion"
+    ],
+    "RequiredSkill": 80,
+    "ChitinCost": 10,
+    "MaximumRestored": 5,
+    "Ceiling": "NaturalWithCraftBonus",
+    "RestoreCurrent": false
+  }
+]

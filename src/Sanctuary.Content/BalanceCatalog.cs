@@ -34,12 +34,15 @@ public static class BalanceCatalog
         MouldRewards.Load();
         EncounterProfiles.Load();
         EncounterTreasure.Load();
+        Fortification.Load();
         RunebarkHarvesting.Load();
         RuneCrafting.Load();
         SocketGems.Load();
         TownMarkets.Load();
         EquipmentRepairs.Load();
         TownRecognition.Load();
+        RareRecipes.Load();
+        TreasureHunts.Load();
     }
     private static JsonSerializerOptions CreateOptions()
     {

@@ -87,7 +87,7 @@ public static class AlchemyRestoratives
         && ClassProfessions.Active(owner, SkillName.Alchemy) && CraftFacilities.Allows(owner, SkillName.Alchemy);
     public static AlchemyRequest Quote(PlayerMobile owner, MortarPestle tool, AlchemyRecipe row)
     {
-        if (Array.IndexOf(Recipes, row) < 0 || !Ready(owner, tool) || !owner.CanBeginAction<CraftSystem>() || owner.Skills.Alchemy.Base < row.Skill) { return null; }
+        if (Array.IndexOf(Recipes, row) < 0 || !RareRecipes.Allowed(owner, RareRecipes.Alchemy(row)) || !Ready(owner, tool) || !owner.CanBeginAction<CraftSystem>() || owner.Skills.Alchemy.Base < row.Skill) { return null; }
         var inputs = new List<AlchemyInput>();
         for (int group = 0; group < 3 + (row.Reagents?.Length ?? 0); group++)
         {
@@ -114,7 +114,7 @@ public static class AlchemyRestoratives
     }
     private static bool Valid(AlchemyRequest q)
     {
-        if (q is not { Claimed: false } || _sessions.GetValueOrDefault(q.Owner.Serial) != q.Session
+        if (q is not { Claimed: false } || !RareRecipes.Allowed(q.Owner, RareRecipes.Alchemy(q.Row)) || _sessions.GetValueOrDefault(q.Owner.Serial) != q.Session
             || !Ready(q.Owner, q.Tool) || q.Owner.Skills.Alchemy.BaseFixedPoint != q.Skill
             || !ReferenceEquals(q.Owner.NetState, q.Connection) || !ReferenceEquals(ClassProfessions.Profiles.Find(q.Owner), q.Profession)
             || q.Tool.Parent != q.ToolParent || q.Tool.UsesRemaining != q.Uses || q.Tool.Origin != q.ToolOrigin

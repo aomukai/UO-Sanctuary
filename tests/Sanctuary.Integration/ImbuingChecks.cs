@@ -41,6 +41,7 @@ public static class ImbuingChecks
         CraftFacilities.Register(new(craft,"Trammel",p.X+1,p.Y,p.Z,0xB4A));
         ClassProfessions.Profiles.Confirm(p, craft);
         p.Skills[craft].Cap = 120; p.Skills[craft].Base = 120;
+        TreasureChecks.LearnAll(p);
         return p;
     }
     private static T Put<T>(Mobile p, T item) where T : Item { p.Backpack.DropItem(item); return item; }

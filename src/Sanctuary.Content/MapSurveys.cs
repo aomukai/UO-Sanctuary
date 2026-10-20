@@ -51,7 +51,7 @@ public static class MapSurveys
         for (var r = Region.Find(point, map); r != null; r = r.Parent)
         { if (r is DungeonRegion d) { dungeon = d; } }
         string key = dungeon == null ? null : map.Name + "/" + dungeon.Name;
-        return key != null && _dungeons.Contains(key) ? key : null;
+        return key != null && (_dungeons.Contains(key) || dungeon is ExpeditionRegion) ? key : null;
     }
     internal static void CheckLocation(Mobile owner)
     {

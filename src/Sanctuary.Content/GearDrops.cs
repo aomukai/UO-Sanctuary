@@ -175,10 +175,10 @@ public static class GearDrops
         }
         catch { item.Delete(); throw; }
     }
-    internal static void Award(RewardLife life, Random random)
+    internal static void Award(RewardLife life, Random random, Type source = null)
     {
         // Gold and gear share one terminal treasure outcome, not independent rolls.
-        string leaf = CreatureGold.Select(life.Creature.GetType(), random, life.Difficulty);
+        string leaf = CreatureGold.Select(source ?? life.Creature.GetType(), random, life.Difficulty);
         if (leaf == "gld") { CreatureGold.Award(life, random); return; }
         var item = AlchemyRestoratives.Drop(leaf) ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
         if (item != null) { life.Corpse.DropItem(item); }

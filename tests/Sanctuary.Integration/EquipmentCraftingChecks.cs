@@ -85,6 +85,7 @@ public static class EquipmentCraftingChecks
         { CraftFacilities.Register(new(row.Skill,player.Map.Name,player.X+1,player.Y+1,player.Z,0xFB1)); }
         player.RawStr = 1000; player.RawDex = 1000;
         ClassCreation.Profiles.AdvanceLevel(player, 99); player.RawStr = 1000; player.RawDex = 1000;
+        TreasureChecks.LearnAll(player);
         return player;
     }
     internal static CraftTransactions.Request Ticket(Mobile player, BaseTool tool, EquipmentRecipe row, Item primary)

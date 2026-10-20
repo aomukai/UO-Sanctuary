@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_TREASURE_UI") == "1":
+        from check_treasure_ui import exercise as treasure_exercise
+        treasure_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_FORTIFICATION_UI") == "1":
+        from check_fortification_ui import exercise as fortification_exercise
+        fortification_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_ALLIED_OVERLAP_UI") == "1":
         from check_allied_overlap_ui import exercise as allied_exercise
         allied_exercise(window, click, capture)

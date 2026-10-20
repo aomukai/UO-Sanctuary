@@ -30,7 +30,7 @@ public static class EncounterProfiles
     public static IReadOnlyCollection<DungeonProfile> All => _profiles.Values;
     public static IReadOnlyCollection<NamedEncounter> Named => _named.Values;
     public static DungeonProfile Profile(string id) => _profiles.TryGetValue(id ?? "", out var row) ? row
-        : throw new ArgumentException("Unknown dungeon encounter profile.", nameof(id));
+        : TreasureHunts.Profile(id) ?? throw new ArgumentException("Unknown dungeon encounter profile.", nameof(id));
     public static void Load()
     {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow };

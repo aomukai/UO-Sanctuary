@@ -16,7 +16,7 @@ All six defaults were confirmed on 20 October 2026 (JST). Implemented, tested an
 
 Confirmation shows actual resources, fee, requested charges and the durability-loss/saving odds. Item identity/ownership/parent/state, damage, material, charges, tool uses/parent, profession/skill/workshop, connection and NPC proximity/access are checked again before consumption. A request can commit only once; rejected requests consume no resources, fees or tool uses and draw no saving/loss outcome. Material resource properties and concrete subtypes both match, preventing another coloured resource from satisfying the bill.
 
-The player entry points are repair-tool menus and `[Repair`; native repair menus route into the same flow, and native repair deeds cannot bypass resource costs for class characters. Town services share the same transaction. Chitin/Powder of Fortifying and maximum-durability restoration remain T36.
+The player entry points are repair-tool menus and `[Repair`; native repair menus route into the same flow, and native repair deeds cannot bypass resource costs for class characters. Town services share the same transaction. [T36](t36-fortification.md) adds Chitin/Powder of Fortifying for maximum-only restoration before ordinary repair.
 
 ## Verification and deployment
 

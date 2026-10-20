@@ -170,7 +170,7 @@ Dependencies refer to completed behavior, not just documentation. Spec IDs resol
 
 - [x] **T12 — Player and NPC repair/recharge.**
   - Depends: T09, T11. Owners: Economy, Production, Gear. Spec: C03/D01–D12/D14.
-  - All six defaults confirmed 20 October: [T12 scope and verification](t12-repairs.md). Full repair/floor1, generic scraps1/3/5, all-resource saving, dedicated repair tools/public workshops, NPC backpack resources plus existing fee, and quantity/fill recharge for functioning wands. Chitin/Powder remains T36; later charge-affix and Unique acquisition retain their own consumers.
+  - All six defaults confirmed 20 October: [T12 scope and verification](t12-repairs.md). Full repair/floor1, generic scraps1/3/5, all-resource saving, dedicated repair tools/public workshops, NPC backpack resources plus existing fee, and quantity/fill recharge for functioning wands. Chitin/Powder is implemented in [T36](t36-fortification.md); later charge-affix and Unique acquisition retain their own consumers.
   - Implement exact processed-material subtype plus rarity essence, resource-saving and max-durability-loss rolls; NPCs need the same resources plus tier fee and skill80 behavior. Recharge-only uses essence and no durability loss, for charge types with real consumers. Settle extra scrap quantities, repair extent/floor, saving scope and tool charge handling.
   - Accept: worn/broken/partly damaged equipment repairs consistently; cancel/stale/insufficient costs cannot partially consume or reroll accepted work. Save/reload max losses. White repair works before new magic drops; repeat magic cases after T17/T19. Tool charges alone never replace material/essence costs.
   - Implemented, tested and deployed: [T12 evidence](t12-repairs.md). All 486 durable recipe identities, all tiers/current rarities and skill boundaries, exact coloured materials, persistent quotes, saving/loss/floor, tool crafting/uses, NPC fees and quantity/combined recharge pass. Installed four-boot cumulative and legacy suites, actual repair/recharge and shop UI, 16 Python checks, exact 22/22 patch reproduction, copied live saves and live save/restart pass. Both characters, shops and all 13 client preference files are preserved; no fixture assembly is installed. Reserved Unique costs and future charge-affix consumers do not enable their acquisition.
@@ -247,7 +247,7 @@ Dependencies refer to completed behavior, not just documentation. Spec IDs resol
 - [x] **T24 — Mining gem families, quality and upgrades.**
   - Depends: T07, T11. Owners: Production, Gear, Economy. Spec: H01/H02/H05–H09.
   - Add nine families/five qualities at Base40–80, one5% roll per successful ore harvest and purchase-only prices. Legacy gems are decorative. Resolve family→D2 mapping, second added flat stat, family/quality quantity weights, capacity behavior and upgrade recipe/ratio/profession before enabling the relevant outputs.
-  - Accept: no vendor/monster usable-gem supply; upgrades preserve identity rules and consume once; actual stored effects differ correctly by quality. Keep the L08 treasure exception unresolved until explicitly answered.
+  - Accept: no vendor/monster usable-gem supply; upgrades preserve identity rules and consume once; actual stored effects differ correctly by quality. T37 subsequently adds the explicitly approved one-usable-gem treasure-chest exception.
   - Completed20 October: [T24](t24-gems.md) supplies all45 identities, typed ore-only5% finds, nine-family mapping, confirmed Star Sapphire MDR1–5, decorative legacy gems and36 guarded upgrades. One piece/uniform family and unlocked quality/full-pack feet plus guaranteed3:1 public Tinkering40–70 upgrades are authored starting defaults. Source/installed cumulative and legacy suites, actual-client mining/upgrade flow,26 Python checks and copied-world preservation pass; deployed with full backup and saved live restart. Gem effect activation remains T26.
 
 - [x] **T25 — Permanent rune insertion and equipment requirements.**
@@ -318,15 +318,15 @@ Dependencies refer to completed behavior, not just documentation. Spec IDs resol
   - Implemented champion/random unique+five minions/named super-unique grades, full modifier/champion/aura roster and1/5/10% mould chances; minions retain ordinary0.1%. Monster grade is distinct from Unique item rarity. Build bounded adapted dungeon cohorts reaching90–99 beyond current ceilings, using creative UO counterparts and verified profiles; no act-boss system is required.
   - Accept: real encounter level, offense/defense/resists/speed/reaction/recovery, converted abilities and rewards agree. Test doors/corners/pursuit and pet targeting. Merely lifting an85 cap is not a balanced level99 monster; the requested [Nightmare/Hell variant infrastructure](t19-difficulties.md) is now separate completed work; T35 delivers the [spawnable profiles and encounter groups](t35-encounters.md); permanent world placement is explicitly deferred by the user.
 
-- [ ] **T36 — Chitin and maximum-durability restoration.**
-  - Depends: T12, T28. Owners: Rewards, Production, Economy. Spec: D13.
-  - Settle eligible species/drop rates, Alchemy processing skill/recipe and Powder of Fortifying restoration amount/floor/ceiling. Hook chitin into T10's reward entitlement, not a second native loot path.
+- [x] **T36 — Chitin and maximum-durability restoration.**
+  - Depends: T12, T28. Owners: Rewards, Production, Economy. Spec: D10.
+  - Implemented [T36](t36-fortification.md): one separate10% chitin roll for wild Solen/Terathan/spider/scorpion families in all difficulties; Alchemy80/10-chitin single-use powder with ordinary success/gain/failure/tool rules. Each dose adds up to5 maximum durability to the natural type ceiling including crafted bonus, leaving current durability unchanged. Uses T10’s saved reward-life claim.
   - Accept: eligible Solen/Terathan/arachnid kill→chitin→powder→restore max→ordinary repair completes. No free refill beyond defined extent, repeat-revival drops or restoration past the permitted maximum.
 
-- [ ] **T37 — Treasure maps, keys and rare recipe acquisition.**
+- [x] **T37 — Treasure maps, keys and rare recipe acquisition.**
   - Depends: T20, T31, T32, T35. Owners: Maps, Production, Rewards. Spec: L06–L10.
-  - Map modern five named tiers to native six-level behavior, author skeleton keys/charges and small adapted dungeon sections. Add1% level-band map drops and20/40/60/80/100% one-recipe rewards, tier3 Cooking/all120 recipes; separate native Fishing/bottle/SOS research from land treasure.
-  - Accept: map→decipher/search→key→encounter/chest→learn recipe works with retained skills. No hidden Lockpicking/Remove Trap reintroduction or repeated chest reward. Settle cash/gear/resource quantities and usable-versus-decorative treasure gem exception before enabling those rewards.
+  - [T37](t37-treasure-hunts.md) implements five named tiers, independent1% map drops, modern decode thresholds, spacious authored rooms with randomized connections, owner/pet two-hour persistent hunts, matching single-use keys and20/40/60/80/100% rare recipes. User-confirmed difficulty bands culminate in Hell85–99 with a shared random immunity pair, disclosed on deciphering; Hoard uses Hell70–80 with one immunity plus high elemental resistance. Native Fishing/SOS research remains a separate sea route.
+  - Acceptance: map→decipher/search→encounter→key/chest→learn recipe, retained skills, once-only rewards, offline persistence and expiry recovery. Approved configurable rewards include one usable socket gem per chest. Deployment verification is recorded in the T37 document.
 
 - [ ] **T38 — Boss Power Scroll drops and cap unlocks.**
   - Depends: T05, T35. Owners: Career, Rewards. Spec: A03/Q09.

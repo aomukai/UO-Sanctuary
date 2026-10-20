@@ -224,7 +224,7 @@ Retain all nine UO families. Use original D2 gem effects, including equipment-ca
 | Flawless | 500 |
 | Perfect | 1,500 |
 
-**Replacement provisional bark prices:** T1–T8 pay **10/20/30/40/50/60/70/80 gold** per unit. Do not restore the discarded exponential rule. Vendors buy but never resell gems/bark. Legacy native gems become decoration only. Gathering-only gem supply conflicts with the new treasure-chest random-gem reward in L08; identify whether that is a usable-gem exception or decorative legacy reward before implementing it.
+**Replacement provisional bark prices:** T1–T8 pay **10/20/30/40/50/60/70/80 gold** per unit. Do not restore the discarded exponential rule. Vendors buy but never resell gems/bark. Legacy native gems become decoration only. **Confirmed T37:** one usable socket gem per land-treasure chest is an explicit exception to mining-only gem supply.
 
 ## Inscription scrolls and tomes — I01–I04
 
@@ -279,7 +279,7 @@ Cartography creates maps and gates treasure hunting; it is the selected crafting
 | Dungeon level 2, 80–100 | +20 Magic Find |
 | Dungeon level 3+, 100–120 | +30 Magic Find |
 
-City/world effects can operate anywhere. Dungeon effects apply only in the dungeon where activated and end on leaving; **Confirmed T32:** whole named dungeon, across floors/subregions; facet change or exit removes it immediately, with no revival on re-entry. [T32](t32-map-surveys.md) implements all five consumable map recipes with one Blank Map and one pen use per attempt, crafted-tool saving, and normal success/gain within the exact listed bands. Failed attempts spoil the map and spend a use. City prices round each unit upward to whole gold; stale discount quotes require reopening the shop. World maps add5tiles to native treasure-dig search tolerance, retaining its6-tile targeting reach and other checks. Dungeon surveys bind to one of33 named Britannian dungeon/facet identities on use; no maker/user skill is needed to consume. Deciphering treasure-map progression remains T36.
+City/world effects can operate anywhere. Dungeon effects apply only in the dungeon where activated and end on leaving; **Confirmed T32:** whole named dungeon, across floors/subregions; facet change or exit removes it immediately, with no revival on re-entry. [T32](t32-map-surveys.md) implements all five consumable map recipes with one Blank Map and one pen use per attempt, crafted-tool saving, and normal success/gain within the exact listed bands. Failed attempts spoil the map and spend a use. City prices round each unit upward to whole gold; stale discount quotes require reopening the shop. World maps add5tiles to native treasure-dig search tolerance, retaining its6-tile targeting reach and other checks. Dungeon surveys bind to one of33 named Britannian dungeon/facet identities on use; no maker/user skill is needed to consume. Deciphering and treasure dungeons are implemented in [T37](t37-treasure-hunts.md).
 
 | Treasure tier | Monster level band, 1% map drop | Skeleton key | Key skill/material | Chance of one random recipe reward |
 | --- | --- | --- | --- | ---: |
@@ -289,9 +289,9 @@ City/world effects can operate anywhere. Dungeon effects apply only in the dunge
 | Hoard | 61–80 | Intricate | 100 / 1 agapite ingot | 80% |
 | Trove | 81–99 | Splendid | 120 / 1 valorite ingot | 100% |
 
-Recipe rewards include tier-3 Cooking recipes and all skill-120 crafting recipes. Chests also have cash, random gear, random gem and random resources; exact quantities/weights and key charges remain missing. Target encounters are small adapted/copied existing dungeon areas with project spawns; concrete layouts remain later world work. Maps no longer imply new Lockpicking/Remove Trap skills.
+**Implemented T37:** recipe rewards include tier-3 Cooking and current skill-120 recipes, uniformly selected including tradable duplicates and permanently learned per character. Keys are single-use, consumed only on successful matching unlock after guardians die. Chests contain1000/2000/3000/4000/5000gold,1/2/3/4/5gear rolls at ilvl20/40/60/80/99, one usable gem Chipped through Perfect and one random resource stack20/40/60/80/100. Dungeons join8–12 spacious hand-built rooms with randomized connections, owner/pet access and two-hour persistence/expiry recovery. Dungeon bands are Normal15–20, Nightmare30–40 and50–60, Hell70–80 with one immunity plus high elemental resistance, and Hell85–99 with a random immunity pair. Deciphering reveals fixed defenses. Maps do not introduce Lockpicking/Remove Trap.
 
-Fishing/bottles/kraken rules are delegated to UO references/native behavior. Research must resolve differences between modern five-tier treasure maps, this checkout's native six-level map code, and sea SOS encounters. Do not copy the references' unrelated Magery/Lockpicking/Remove Trap requirements into the retained skill set.
+T37 records the native/reference Fishing, bottle and kraken research. Deep-water mutation thresholds remain80/90/100; fished land maps enter the custom Stash route. Native bottle/SOS salvage remains a separate sea system. Modern decode thresholds27/70/90/100/100 and native0–1/2–3/4–5/6/7 conversion are explicit. See [T37](t37-treasure-hunts.md) for exact native probabilities and retained net encounters.
 
 ## Gold, vendors and gambling — M01–N03
 
@@ -327,7 +327,7 @@ The supplied Fandom pages could not be opened directly and UOGuide direct reques
 
 Confirmed code implications:
 
-- Native `TreasureMap.GetMinSkillLevel` in this checkout uses six map levels with thresholds −3/41/51/61/70/70, rather than the modern five named tiers. A version/name mapping is necessary; blindly importing the modern site would change rules beyond the user's custom maps/keys.
+- Native `TreasureMap.GetMinSkillLevel` in this checkout uses six map levels with thresholds −3/41/51/61/70/70, rather than the modern five named tiers. T37 explicitly adapts those native levels to five named tiers and uses modern decode thresholds for the custom expedition route.
 - Native `Fishing` has table-based deep-water item chances, including separate TreasureMap and MessageInABottle entries. Its `MessageInABottle` constructs an SOS source; it is not automatically the same as the custom five-tier land-map/dungeon entrance reward.
 - Native ingots and cloth weigh 0.1 per unit, leather 1.0; the existing project salvage stacks weigh 0.1 per unit. A fixed 10-unit output with exactly half input weight cannot reuse those weights unchanged for every input form.
 - `ShopGump.ShopItem` already calls `SetTooltip(LocalSerial)` when tooltips are enabled. The outstanding check is live vendor OPL availability, not whether any client tooltip mechanism exists.

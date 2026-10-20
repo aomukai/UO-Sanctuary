@@ -87,6 +87,7 @@ public partial class EncounterCreature : GraveyardUndead
         Hue = grade switch { EncounterGrade.Champion => 0x482, EncounterGrade.Unique or EncounterGrade.SuperUnique => 0x489, _ => 0 };
         CreatureProfiles.Session(this).Initialized = false; CreatureProfiles.Initialize(this); Hits = HitsMax;
     }
+    protected virtual int[] AdjustResistances(int[] resistances) => resistances;
     private void EnsureProfile()
     {
         if (_profile != null) { return; }
@@ -113,6 +114,7 @@ public partial class EncounterCreature : GraveyardUndead
         if (Has(EliteModifier.StoneSkin)) { defense *= 2; }
         int[] res = EncounterProfiles.Resistances(dungeon.Resistances, _grade == EncounterGrade.Champion ? _champion : null,
             _grade == EncounterGrade.Minion ? [] : Modifiers);
+        res = AdjustResistances(res);
         int min = basis.MinDamage * (100 + damageBonus) / 100, max = basis.MaxDamage * (100 + damageBonus) / 100;
         rating = rating * (100 + ratingBonus) / 100;
         int move = Math.Max(40, basis.MoveMs * 100 / (100 + moveBonus));

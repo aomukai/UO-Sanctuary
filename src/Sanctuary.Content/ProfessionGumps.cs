@@ -133,6 +133,7 @@ public sealed class ProfessionToolGump : DynamicGump
         }
         if (_tool is TinkerTools)
         { b.AddButton(22, 210, 4005, 4007, 9); b.AddLabel(57, 210, 0x481, "Add one socket — failure destroys gear"); }
+        if (_tool is TinkerTools) { b.AddButton(22, 375, 4005, 4007, 16); b.AddLabel(57, 375, 0x481, "Craft skeleton keys"); }
         b.AddButton(445, 20, 4017, 4019, 0);
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
@@ -153,6 +154,7 @@ public sealed class ProfessionToolGump : DynamicGump
         else if (info.ButtonID == 15 && _tool is MapmakersPen mapPen) { SurveyGump.DisplayTo(owner, mapPen); }
         else if (info.ButtonID == 14 && CarpentryCrafting.Supports(_tool)) { CarpentryGump.DisplayTo(owner, _tool); }
         else if (info.ButtonID == 13 && _tool is Skillet skillet) { MealGump.DisplayTo(owner, skillet); }
+        else if (info.ButtonID == 16 && _tool is TinkerTools keyTool) { TreasureKeyGump.DisplayTo(owner, keyTool); }
         else if (info.ButtonID == 12 && _tool is MortarPestle mortar) { AlchemyGump.DisplayTo(owner, mortar); }
         else if (info.ButtonID == 11 && _tool is TinkerTools gemTool) { GemUpgradeGump.Target(owner, gemTool); }
         else if (info.ButtonID == 10 && _tool is ScribesPen pen) { RuneCraftGump.Target(owner, pen); }

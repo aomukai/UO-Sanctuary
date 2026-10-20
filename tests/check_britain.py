@@ -143,6 +143,14 @@ def check():
                         command = "gem-check" if iteration == 0 else "gem-reload-check"
                         session.send(command)
                         assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_TREASURE") == "1":
+                        command = "treasure-check" if iteration == 0 else "treasure-reload-check"
+                        session.send(command)
+                        assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_FORTIFICATION") == "1":
+                        command = "fortification-check" if iteration == 0 else "fortification-reload-check"
+                        session.send(command)
+                        assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
                     if creation and os.environ.get("SANCTUARY_TEST_ENCOUNTERS") == "1":
                         command = "encounter-check" if iteration == 0 else "encounter-reload-check"
                         session.send(command)
@@ -295,7 +303,7 @@ def check():
                             subprocess.run(["xvfb-run", "-a", "python3", str(ROOT / "tests/check_combat_ui.py"), str(port)],
                                 check=True, pass_fds=(session.master,),
                                 env={**os.environ, "SANCTUARY_TEST_CONSOLE_FD": str(session.master)})
-                            ui_final = "allied-ui-final" if os.environ.get("SANCTUARY_TEST_ALLIED_OVERLAP_UI") == "1" else "inscription-ui-final" if os.environ.get("SANCTUARY_TEST_INSCRIPTION_UI") == "1" else "teleport-ui-final" if os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1" else "survey-ui-final" if os.environ.get("SANCTUARY_TEST_SURVEYS_UI") == "1" else "carpentry-ui-final" if os.environ.get("SANCTUARY_TEST_CARPENTRY_UI") == "1" else "meal-ui-final" if os.environ.get("SANCTUARY_TEST_MEALS_UI") == "1" else "combat-potion-ui-final" if os.environ.get("SANCTUARY_TEST_COMBAT_POTIONS_UI") == "1" else "alchemy-ui-final" if os.environ.get("SANCTUARY_TEST_ALCHEMY_UI") == "1" else "gem-socket-ui-final" if os.environ.get("SANCTUARY_TEST_GEM_SOCKETS_UI") == "1" else "rune-ui-final" if os.environ.get("SANCTUARY_TEST_RUNES_UI") == "1" else "runebark-ui-final" if os.environ.get("SANCTUARY_TEST_RUNEBARK_UI") == "1" else "mould-ui-final" if os.environ.get("SANCTUARY_TEST_MOULDS_UI") == "1" else "socket-ui-final" if os.environ.get("SANCTUARY_TEST_SOCKETS_UI") == "1" else "gear-drop-ui-final" if os.environ.get("SANCTUARY_TEST_GEAR_DROPS_UI") == "1" else "imbuing-ui-final" if os.environ.get("SANCTUARY_TEST_IMBUING_UI") == "1" else "salvage-ui-final" if os.environ.get("SANCTUARY_TEST_SALVAGE_UI") == "1" else "wardrobe-ui-final" if os.environ.get("SANCTUARY_TEST_WARDROBE_UI") == "1" else "recognition-ui-final" if os.environ.get("SANCTUARY_TEST_RECOGNITION_UI") == "1" else "repair-ui-final" if os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1" else "equipment-crafting-ui-final" if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" else "processing-ui-final" if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" else "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
+                            ui_final = "treasure-ui-final" if os.environ.get("SANCTUARY_TEST_TREASURE_UI") == "1" else "fortification-ui-final" if os.environ.get("SANCTUARY_TEST_FORTIFICATION_UI") == "1" else "allied-ui-final" if os.environ.get("SANCTUARY_TEST_ALLIED_OVERLAP_UI") == "1" else "inscription-ui-final" if os.environ.get("SANCTUARY_TEST_INSCRIPTION_UI") == "1" else "teleport-ui-final" if os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1" else "survey-ui-final" if os.environ.get("SANCTUARY_TEST_SURVEYS_UI") == "1" else "carpentry-ui-final" if os.environ.get("SANCTUARY_TEST_CARPENTRY_UI") == "1" else "meal-ui-final" if os.environ.get("SANCTUARY_TEST_MEALS_UI") == "1" else "combat-potion-ui-final" if os.environ.get("SANCTUARY_TEST_COMBAT_POTIONS_UI") == "1" else "alchemy-ui-final" if os.environ.get("SANCTUARY_TEST_ALCHEMY_UI") == "1" else "gem-socket-ui-final" if os.environ.get("SANCTUARY_TEST_GEM_SOCKETS_UI") == "1" else "rune-ui-final" if os.environ.get("SANCTUARY_TEST_RUNES_UI") == "1" else "runebark-ui-final" if os.environ.get("SANCTUARY_TEST_RUNEBARK_UI") == "1" else "mould-ui-final" if os.environ.get("SANCTUARY_TEST_MOULDS_UI") == "1" else "socket-ui-final" if os.environ.get("SANCTUARY_TEST_SOCKETS_UI") == "1" else "gear-drop-ui-final" if os.environ.get("SANCTUARY_TEST_GEAR_DROPS_UI") == "1" else "imbuing-ui-final" if os.environ.get("SANCTUARY_TEST_IMBUING_UI") == "1" else "salvage-ui-final" if os.environ.get("SANCTUARY_TEST_SALVAGE_UI") == "1" else "wardrobe-ui-final" if os.environ.get("SANCTUARY_TEST_WARDROBE_UI") == "1" else "recognition-ui-final" if os.environ.get("SANCTUARY_TEST_RECOGNITION_UI") == "1" else "repair-ui-final" if os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1" else "equipment-crafting-ui-final" if os.environ.get("SANCTUARY_TEST_EQUIPMENT_CRAFTING_UI") == "1" else "processing-ui-final" if os.environ.get("SANCTUARY_TEST_PROCESSING_UI") == "1" else "crafting-ui-final" if os.environ.get("SANCTUARY_TEST_CRAFTING_UI") == "1" else "profession-ui-final"
                             session.send(ui_final)
                             assert session.expect(ui_final + r": (passed|failed)").group(1) == "passed"
                     if creation and not professions:
@@ -372,6 +380,9 @@ def check():
                     if professions and iteration == 0 and os.environ.get("SANCTUARY_TEST_PROCESSING") == "1":
                         session.send("processing-pending-check")
                         assert session.expect(r"processing-pending-check: (passed|failed)").group(1) == "passed"
+                    if creation and iteration == 0 and os.environ.get("SANCTUARY_TEST_TREASURE") == "1":
+                        session.send("treasure-expiry-prepare")
+                        assert session.expect(r"treasure-expiry-prepare: (passed|failed)").group(1) == "passed"
                     session.send("save")
                     session.expect("Writing world save snapshot done")
                     if creation and iteration == 1 and os.environ.get("SANCTUARY_TEST_ITEM_STATE") == "1":
