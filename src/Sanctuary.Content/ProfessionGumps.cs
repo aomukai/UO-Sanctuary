@@ -108,10 +108,14 @@ public sealed class ProfessionToolGump : DynamicGump
         { b.AddButton(22, 235, 4005, 4007, 7); b.AddLabel(57, 235, 0x481, "Craft white jewellery"); }
         if (_tool is Skillet)
         { b.AddButton(22, 235, 4005, 4007, 13); b.AddLabel(57, 235, 0x481, "Cook prepared meals"); }
+        if (_tool is MapmakersPen)
+        { b.AddButton(22, 235, 4005, 4007, 15); b.AddLabel(57, 235, 0x481, "Draw consumable maps"); }
+        if (CarpentryCrafting.Supports(_tool))
+        { b.AddButton(22, 235, 4005, 4007, 14); b.AddLabel(57, 235, 0x481, "Craft furniture, stations and kegs"); }
         if (_tool is MortarPestle)
         { b.AddButton(22, 235, 4005, 4007, 12); b.AddLabel(57, 235, 0x481, "Craft Alchemy potions"); }
         if (_tool is ScribesPen)
-        { b.AddButton(22, 235, 4005, 4007, 8); b.AddLabel(57, 235, 0x481, "Scribe Identify scroll"); }
+        { b.AddButton(22, 235, 4005, 4007, 8); b.AddLabel(57, 235, 0x481, "Scribe scrolls and tomes"); }
         if (_tool is ScribesPen)
         { b.AddButton(22, 270, 4005, 4007, 10); b.AddLabel(57, 270, 0x481, "Craft rune from mould"); }
         if (_tool is TinkerTools)
@@ -146,14 +150,14 @@ public sealed class ProfessionToolGump : DynamicGump
             }
             else if (ClassProfessions.Request(owner, _skill, _tool, true)) { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
         }
+        else if (info.ButtonID == 15 && _tool is MapmakersPen mapPen) { SurveyGump.DisplayTo(owner, mapPen); }
+        else if (info.ButtonID == 14 && CarpentryCrafting.Supports(_tool)) { CarpentryGump.DisplayTo(owner, _tool); }
         else if (info.ButtonID == 13 && _tool is Skillet skillet) { MealGump.DisplayTo(owner, skillet); }
         else if (info.ButtonID == 12 && _tool is MortarPestle mortar) { AlchemyGump.DisplayTo(owner, mortar); }
         else if (info.ButtonID == 11 && _tool is TinkerTools gemTool) { GemUpgradeGump.Target(owner, gemTool); }
         else if (info.ButtonID == 10 && _tool is ScribesPen pen) { RuneCraftGump.Target(owner, pen); }
         else if (info.ButtonID == 9 && _tool is TinkerTools socketTool) { SocketGump.Target(owner, socketTool); }
-        else if (info.ButtonID == 8 && _tool is ScribesPen && MaterialProcessing.ToolValid(owner, _tool)
-            && ClassProfessions.Request(owner, _skill, _tool, true))
-        { Identification.Recipe?.Craft(owner, _tool.CraftSystem, null, _tool, 0); }
+        else if (info.ButtonID == 8 && _tool is ScribesPen) { InscriptionGump.DisplayTo(owner, _tool); }
         else if (info.ButtonID == 7 && _tool is TinkerTools tinker) { JewelleryGump.DisplayTo(owner, tinker); }
         else if (info.ButtonID == 6) { EssenceGump.TargetSalvage(owner, _tool); }
         else if (info.ButtonID == 5) { RepairGump.Target(owner, _tool, null); }

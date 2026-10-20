@@ -50,7 +50,7 @@ public static class ClassLoot
         return false;
     }
     public static bool CanOpen(PlayerMobile from, Corpse corpse, int range = LootProtocol.Range) =>
-        ClassCombat.Enabled(from) && from.Alive && !from.Deleted && corpse is { Deleted: false, OwnerWasBaseCreature: true }
+        ClassCombat.Enabled(from) && from.Alive && !from.Deleted && AlliedOverlap.Allowed(from) && corpse is { Deleted: false, OwnerWasBaseCreature: true }
         && corpse.Parent == null && corpse.Map == from.Map && from.InRange(corpse, range)
         && Math.Abs(from.Z - corpse.Z) < 16 && from.CanSee(corpse) && from.InLOS(corpse)
         && corpse.CanLoot(from, null) && !corpse.IsCriminalAction(from);

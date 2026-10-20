@@ -1,0 +1,78 @@
+diff --git a/Projects/UOContent/Items/ClassEconomyHooks.cs b/Projects/UOContent/Items/ClassEconomyHooks.cs
+--- a/Projects/UOContent/Items/ClassEconomyHooks.cs	
++++ b/Projects/UOContent/Items/ClassEconomyHooks.cs	
+@@ -13,6 +13,8 @@
+ {
+     public static VendorServiceEntries ServiceEntries { get; set; }
+     public static Func<BaseVendor, IBuyItemInfo[]> Stock { get; set; }
++    public static Action<BaseVendor, Mobile> PurchaseOpened { get; set; }
++    public static Func<BaseVendor, Mobile, int, int> PurchasePrice { get; set; }
+     public static Func<BaseVendor, IShopSellInfo[], IShopSellInfo[]> SellInfo { get; set; }
+     public static Func<BaseVendor, Mobile, List<BuyItemResponse>, bool?> BuyItems { get; set; }
+     public static Func<BaseVendor, Mobile, List<SellItemResponse>, bool?> SellItems { get; set; }
+diff --git a/Projects/UOContent/Items/Maps/TreasureMap.cs b/Projects/UOContent/Items/Maps/TreasureMap.cs
+--- a/Projects/UOContent/Items/Maps/TreasureMap.cs	
++++ b/Projects/UOContent/Items/Maps/TreasureMap.cs	
+@@ -595,6 +595,7 @@
+                 };
+ 
+                 var loc = m_Map.ChestLocation;
++                maxRange = ClassMapHooks.SearchRange?.Invoke(from, maxRange) ?? maxRange;
+                 int x = loc.X, y = loc.Y;
+ 
+                 var chest3D0 = new Point3D(loc, 0);
+diff --git a/Projects/UOContent/Mobiles/ClassMapHooks.cs b/Projects/UOContent/Mobiles/ClassMapHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassMapHooks.cs	
+@@ -0,0 +1,10 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++
++namespace Server.Mobiles;
++
++public static class ClassMapHooks
++{
++    public static Action<Mobile> LocationChanged { get; set; }
++    public static Func<Mobile, int, int> SearchRange { get; set; }
++}
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs	
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs	
+@@ -2304,6 +2304,7 @@
+ 
+         protected override void OnLocationChange(Point3D oldLocation)
+         {
++            ClassMapHooks.LocationChanged?.Invoke(this);
+             CheckLightLevels(false);
+ 
+             DuelContext?.OnLocationChanged(this);
+@@ -2359,6 +2360,7 @@
+ 
+         protected override void OnMapChange(Map oldMap)
+         {
++            ClassMapHooks.LocationChanged?.Invoke(this);
+             if (Map != Faction.Facet && oldMap == Faction.Facet || Map == Faction.Facet && oldMap != Faction.Facet)
+             {
+                 InvalidateProperties();
+diff --git a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs	
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs	
+@@ -928,6 +928,8 @@
+ 
+             UpdateBuyInfo();
+ 
++            ClassEconomyHooks.PurchaseOpened?.Invoke(this, from);
++
+             var buyInfo = GetBuyInfo();
+             var sellInfo = GetSellInfo();
+ 
+@@ -957,7 +959,7 @@
+                         buyItem.Name,
+                         cont.Serial,
+                         disp?.Serial ?? _COFFEE,
+-                        buyItem.Price,
++                        ClassEconomyHooks.PurchasePrice?.Invoke(this, from, buyItem.Price) ?? buyItem.Price,
+                         buyItem.Amount,
+                         buyItem.ItemID,
+                         buyItem.Hue

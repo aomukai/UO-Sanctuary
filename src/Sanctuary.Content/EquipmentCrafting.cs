@@ -101,6 +101,9 @@ public static class EquipmentCrafting
             ? Math.Max(.01, system.GetChanceAtMin(recipe)) : null;
         TradeSkillHooks.RecipeSelected = (from, system, recipe, tool) =>
         {
+            if (ClassProfessions.Affected(from) && (CarpentryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(PotionKeg))
+                && !CarpentryCrafting.Bound(from, recipe))
+            { from.SendMessage("Use the Carpentry book for furniture and potion kegs."); return false; }
             if (ClassProfessions.Affected(from))
             {
                 foreach (var resource in recipe.Resources)

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "city",
+    "name": "City trade map",
+    "skill": 0,
+    "maximum": 30,
+    "effect": "city",
+    "magnitude": 5
+  },
+  {
+    "id": "world",
+    "name": "World explorer map",
+    "skill": 30,
+    "maximum": 60,
+    "effect": "world",
+    "magnitude": 5
+  },
+  {
+    "id": "dungeon-1",
+    "name": "Dungeon survey I",
+    "skill": 60,
+    "maximum": 80,
+    "effect": "dungeon",
+    "magnitude": 10
+  },
+  {
+    "id": "dungeon-2",
+    "name": "Dungeon survey II",
+    "skill": 80,
+    "maximum": 100,
+    "effect": "dungeon",
+    "magnitude": 20
+  },
+  {
+    "id": "dungeon-3",
+    "name": "Dungeon survey III",
+    "skill": 100,
+    "maximum": 120,
+    "effect": "dungeon",
+    "magnitude": 30
+  }
+]

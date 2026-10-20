@@ -45,7 +45,9 @@ public static class CraftingChecks
         new Account(name.ToLowerInvariant(), Guid.NewGuid().ToString("N"))[0] = player;
         ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
         player.RawStr = 200; player.AddItem(new Backpack());
-        player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5550, 1150), Map.Trammel);
+        FixtureSpace.Place(player,new Point3D(5550,1150,0), Map.Trammel);
+        foreach(byte siteSkill in TradeSkills.Crafting)
+        { CraftFacilities.Register(new((SkillName)siteSkill,player.Map.Name,player.X+1,player.Y,player.Z,0xB4A)); }
         ClassProfessions.Profiles.Confirm(player, craft);
         player.Skills.Tinkering.Cap = 120; player.Skills.Tinkering.Base = 120;
         return player;
@@ -203,7 +205,7 @@ public static class CraftingChecks
         Require(!CraftTransactions.Complete(missing), "Stale missing-tool request committed");
         player.Backpack.DropItem(tool);
         var moved = Ticket(player, tool, recipe);
-        var point = player.Location; player.MoveToWorld(new Point3D(point.X + 10, point.Y, point.Z), player.Map);
+        var point = player.Location; player.MoveToWorld(new Point3D(point.X + 100, point.Y, point.Z), player.Map);
         Require(!CraftTransactions.Complete(moved), "Out-of-station request committed");
         player.MoveToWorld(point, player.Map);
         var full = Ticket(player, tool, recipe);
@@ -263,7 +265,7 @@ public static class CraftingChecks
             "Unpaid Imbuing used ladle");
         player.Backpack.DropItem(new MagicEssence(100)); player.Backpack.DropItem(new Gold(1000));
         var stale = EquipmentEconomy.Quote(player, gear, EssenceAction.Imbue);
-        var point = player.Location; player.MoveToWorld(new Point3D(point.X + 10, point.Y, point.Z), player.Map);
+        var point = player.Location; player.MoveToWorld(new Point3D(point.X + 100, point.Y, point.Z), player.Map);
         Require(!EquipmentEconomy.Commit(player, stale, out _) && ladle.UsesRemaining == 25,
             "Imbuing stale station request consumed");
         player.MoveToWorld(point, player.Map);
@@ -317,7 +319,7 @@ public static class CraftingChecks
         foreach (byte skill in TradeSkills.Crafting)
         { Require(CraftFacilities.Allows(player, (SkillName)skill, false), "Missing registered facility"); }
         var point = player.Location;
-        player.MoveToWorld(new Point3D(point.X + 15, point.Y, point.Z), player.Map);
+        player.MoveToWorld(new Point3D(point.X + 100, point.Y, point.Z), player.Map);
         var fake = new TownCraftStation(SkillName.Tinkering, 0xB4A);
         fake.MoveToWorld(player.Location, player.Map);
         Require(!CraftFacilities.Allows(player, SkillName.Tinkering, false), "Private/unregistered station accepted");

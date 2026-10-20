@@ -136,7 +136,7 @@ public static class AlchemyChecks
         stale = Quote(); ClassProfessions.Profiles.Select(p, SkillName.Tinkering);
         Require(!CraftTransactions.Complete(Ticket(stale), new Roll(0)), "Craft switch completed old mixture"); ClassProfessions.Profiles.Select(p, SkillName.Alchemy);
         stale = Quote(); p.MoveToWorld(new Point3D(p.X + 30, p.Y, p.Z), p.Map);
-        Require(!CraftTransactions.Complete(Ticket(stale), new Roll(0)), "Remote mixture completed"); p.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Require(!CraftTransactions.Complete(Ticket(stale), new Roll(0)), "Remote mixture completed"); FixtureSpace.Place(p,new Point3D(5550, 1151, 0), Map.Trammel);
         stale = Quote(); p.Backpack.MaxItems = 1;
         Require(!CraftTransactions.Complete(Ticket(stale), new Roll(0)) && tool.UsesRemaining == 100, "Full pack mixture consumed inputs"); p.Backpack.MaxItems = 125;
         var forged = new CraftItem(typeof(RestorationPotion), "Forged", "Forged"); forged.AddSkill(SkillName.Alchemy, 0, 50);
@@ -170,7 +170,7 @@ public static class AlchemyChecks
     }
     private static void Vendors()
     {
-        var p = Player(); var vendor = TownMarkets.Profiles.At("Felucca/Britain/Alchemist"); p.MoveToWorld(vendor.Location, vendor.Map); Put(p, new Gold(60000));
+        var p = Player(); var home=p.Location; var homeMap=p.Map; var vendor = TownMarkets.Profiles.At("Felucca/Britain/Alchemist"); p.MoveToWorld(vendor.Location, vendor.Map); Put(p, new Gold(60000));
         var market = TownMarkets.Market(vendor); var offers = market.Offers.Where(o => World.FindItem(o.Item) is RestorationPotion).ToArray();
         Require(offers.Length == 8 && offers.All(o => World.FindItem(o.Item) is RestorationPotion { Kind: RestorationKind.Healing or RestorationKind.Mana, Tier: <= 4 }), "Alchemist tiers or craft-only supply wrong");
         foreach (var offer in offers)
@@ -182,6 +182,7 @@ public static class AlchemyChecks
         }
         var potion = p.Backpack.Items.OfType<RestorationPotion>().First(); Require(potion.Origin == ItemOrigin.Vendor, "Bought potion origin wrong");
         p.Hits = 1; p.Mana = 0; Require(PotionRestoration.Drink(p, potion, new Roll()), "Bought potion unusable");
+        p.MoveToWorld(home,homeMap);
     }
     private static void Reload()
     {

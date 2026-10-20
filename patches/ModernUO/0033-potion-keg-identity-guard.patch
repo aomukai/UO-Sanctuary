@@ -1,0 +1,25 @@
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Misc/PotionKeg.cs b/Projects/UOContent/Items/Skill Items/Magical/Misc/PotionKeg.cs
+index a989655..4ac5b85 100644
+--- a/Projects/UOContent/Items/Skill Items/Magical/Misc/PotionKeg.cs	
++++ b/Projects/UOContent/Items/Skill Items/Magical/Misc/PotionKeg.cs	
+@@ -144,7 +144,7 @@ public override void OnDoubleClick(Mobile from)
+ 
+     public override bool OnDragDrop(Mobile from, Item item)
+     {
+-        if (item is not BasePotion pot)
++        if (item is not BasePotion { CanPourIntoKeg: true } pot)
+         {
+             from.SendLocalizedMessage(502232); // The keg is not designed to hold that type of object.
+             return false;
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Potions/BasePotion.cs b/Projects/UOContent/Items/Skill Items/Magical/Potions/BasePotion.cs
+index dbbec18..bd6f1ad 100644
+--- a/Projects/UOContent/Items/Skill Items/Magical/Potions/BasePotion.cs	
++++ b/Projects/UOContent/Items/Skill Items/Magical/Potions/BasePotion.cs	
+@@ -58,6 +58,7 @@ public BasePotion(int itemID, PotionEffect effect) : base(itemID)
+     public override int LabelNumber => 1041314 + (int)_potionEffect;
+ 
+     public virtual bool RequireFreeHand => true;
++    public virtual bool CanPourIntoKeg => true;
+ 
+     public virtual bool IsThrowablePotion => false;
+ 

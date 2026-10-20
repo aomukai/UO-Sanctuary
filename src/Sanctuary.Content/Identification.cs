@@ -32,35 +32,33 @@ public static class Identification
         system.AddRes(index, typeof(BlackPearl), "Black Pearl", 1, "You need black pearl.");
         Recipe = system.CraftItems.SearchFor(typeof(IdentifyScroll));
     }
-    internal static bool ScrollReady(PlayerMobile p, IdentifyScroll scroll) => EquipmentEconomy.Ready(p)
-        && scroll is { Deleted: false, Movable: true, Amount: 1, IsLockedDown: false, IsSecure: false }
-        && scroll.IsChildOf(p.Backpack) && scroll.IsAccessibleTo(p) && scroll.VerifyMove(p);
-    internal static bool Reveal(PlayerMobile p, IdentifyScroll scroll, Item item)
+    internal static bool ScrollReady(PlayerMobile p, IdentifyScroll scroll) => UtilityScrolls.Ready(p, scroll);
+    internal static bool Reveal(PlayerMobile p, Item source, Item item, int cell = -1)
     {
-        if (!ScrollReady(p, scroll) || item is not { Deleted: false, Amount: 1 }
-            || !item.IsChildOf(p.Backpack) || !item.IsAccessibleTo(p)
+        if (source is not (IdentifyScroll or IdentifyTome) || !UtilityScrolls.Ready(p, source, cell)
+            || item is not { Deleted: false, Amount: 1 } || !item.IsChildOf(p.Backpack) || !item.IsAccessibleTo(p)
             || !ClassGear.Converted(item) || ClassGear.State(item) is not { Identified: false } state) { return false; }
-        // Store the same roll and existing sale offer. No generation or price roll.
         ClassGear.Profiles.Store(item, state with { Identified = true });
-        scroll.Consume(); p.SendMessage("The item's properties have been revealed.");
+        UtilityScrolls.Spend(p, source, cell); p.SendMessage("The item's properties have been revealed."); return true;
+    }
+    internal static bool Use(PlayerMobile p, Item source, int cell = -1)
+    {
+        if (source is not (IdentifyScroll or IdentifyTome) || !UtilityScrolls.Ready(p, source, cell) || p.Target != null) { return false; }
+        p.SendMessage("Target unidentified equipment in your backpack. A charge is used only on success.");
+        p.Target = new IdentifyTarget(p.Serial, source.Serial, source.Parent, p.NetState, source is UtilityTome t ? t.Charges : 1, cell);
         return true;
     }
-    internal static void Use(PlayerMobile p, IdentifyScroll scroll)
-    {
-        if (!ScrollReady(p, scroll) || p.Target != null) { return; }
-        p.SendMessage("Target unidentified equipment in your backpack. The scroll is used only on success.");
-        p.Target = new IdentifyTarget(p.Serial, scroll.Serial, scroll.Parent, p.NetState);
-    }
-    private sealed class IdentifyTarget(Serial owner, Serial scroll, object parent, NetState connection) : Target(1, false, TargetFlags.None)
+    private sealed class IdentifyTarget(Serial owner, Serial source, object parent, NetState connection, int charges, int cell) : Target(1, false, TargetFlags.None)
     {
         private bool _used;
         protected override void OnTarget(Mobile from, object targeted)
         {
             if (_used) { return; } _used = true;
+            var item = World.FindItem(source);
             if (from is not PlayerMobile p || p.Serial != owner || !ReferenceEquals(p.NetState, connection)
-                || World.FindItem(scroll) is not IdentifyScroll item || !ReferenceEquals(item.Parent, parent)
-                || targeted is not Item gear || !Reveal(p, item, gear))
-            { from.SendMessage("No scroll was used. Choose unidentified equipment in your own backpack."); }
+                || item == null || !ReferenceEquals(item.Parent, parent) || (item is UtilityTome t ? t.Charges : 1) != charges
+                || targeted is not Item gear || !Reveal(p, item, gear, cell))
+            { from.SendMessage("Nothing was spent. Choose unidentified equipment in your own backpack."); }
         }
     }
 }

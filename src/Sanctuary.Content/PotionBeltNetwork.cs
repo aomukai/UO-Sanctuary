@@ -24,7 +24,7 @@ public static class PotionBeltNetwork
     public static unsafe void Initialize() => IncomingExtendedCommandPackets.RegisterExtended(BeltProtocol.SubCommand, true, &Receive);
     private static void Receive(NetState state, SpanReader reader)
     {
-        if (state.Mobile is not PlayerMobile player || !ClassCombat.Enabled(player) || reader.Remaining != 7
+        if (state.Mobile is not PlayerMobile player || !ClassCombat.Enabled(player) || reader.Remaining is not (7 or 13)
             || reader.ReadByte() != BeltProtocol.Version)
         {
             return;
@@ -32,7 +32,7 @@ public static class PotionBeltNetwork
         var action = (BeltRequest)reader.ReadByte();
         int cell = reader.ReadByte();
         uint sequence = reader.ReadUInt32();
-        if (action > BeltRequest.Fill || cell >= BeltProtocol.Cells)
+        if (action > BeltRequest.Fill || cell >= BeltProtocol.Cells || reader.Remaining != (action == BeltRequest.Use ? 6 : 0))
         {
             return;
         }
@@ -71,7 +71,10 @@ public static class PotionBeltNetwork
             }
             switch (action)
             {
-                case BeltRequest.Use: PotionBelts.Use(player, cell); break;
+                case BeltRequest.Use:
+                    bool valid = reader.ReadByte() == 1;
+                    var aim = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
+                    PotionBelts.Use(player, cell, valid ? aim : null); break;
                 case BeltRequest.Load: PotionBelts.Target(player, cell); break;
                 case BeltRequest.Remove: PotionBelts.Remove(player, cell); break;
                 case BeltRequest.Fill: PotionBelts.Fill(player); break;
@@ -96,10 +99,11 @@ public static class PotionBeltNetwork
         writer.Write((byte)(PotionBelts.Ready(player) ? 1 : 0));
         for (int cell = 0; cell < BeltProtocol.Cells; cell++)
         {
-            var potion = PotionBelts.Cell(player, cell);
+            var potion = PotionBelts.Entry(player, cell);
+            var restoration = potion as RestorationPotion;
             writer.Write(potion?.Serial.Value ?? 0);
-            writer.Write((byte)(potion?.Kind ?? 0));
-            writer.Write((byte)(potion?.Tier ?? 0));
+            writer.Write((byte)(potion switch { TeleportScroll => RestorationKind.TeleportScroll, IdentifyScroll => RestorationKind.IdentifyScroll, TownPortalScroll => RestorationKind.TownPortalScroll, _ => restoration?.Kind ?? 0 }));
+            writer.Write((byte)(restoration?.Tier ?? 0));
             writer.Write((ushort)(potion?.ItemID ?? 0));
             writer.Write((ushort)(potion?.Hue ?? 0));
         }

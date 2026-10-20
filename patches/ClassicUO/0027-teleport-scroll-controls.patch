@@ -1,0 +1,212 @@
+diff --git a/src/ClassicUO.Client/Game/ClassBeltClient.cs b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+--- a/src/ClassicUO.Client/Game/ClassBeltClient.cs
++++ b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: BSD-2-Clause
+ using System;
+ using ClassicUO.Game.Managers;
++using ClassicUO.Game.GameObjects;
+ using ClassicUO.Game.UI.Gumps;
+ using ClassicUO.IO;
+ using ClassicUO.Network;
+@@ -56,16 +57,42 @@
+     public static void Send(BeltRequest request, int cell = 0)
+     {
+         if (!ClassCombatClient.Enabled || cell < 0 || cell >= BeltProtocol.Cells) { return; }
+-        var writer = new StackDataWriter(BeltProtocol.RequestLength);
++        int length = request == BeltRequest.Use ? BeltProtocol.UseRequestLength : BeltProtocol.RequestLength;
++        var writer = new StackDataWriter(length);
+         writer.WriteUInt8(0xBF);
+-        writer.WriteUInt16BE(BeltProtocol.RequestLength);
++        writer.WriteUInt16BE((ushort)length);
+         writer.WriteUInt16BE(BeltProtocol.SubCommand);
+         writer.WriteUInt8(BeltProtocol.Version);
+         writer.WriteUInt8((byte)request);
+         writer.WriteUInt8((byte)cell);
+         writer.WriteUInt32BE(++_sequence);
++        if (request == BeltRequest.Use)
++        {
++            bool valid = TryAim(Client.Game.UO.World, out var x, out var y, out var z);
++            writer.WriteUInt8((byte)(valid ? 1 : 0));
++            writer.WriteUInt16BE(x); writer.WriteUInt16BE(y); writer.WriteUInt8((byte)z);
++        }
+         NetClient.Socket.Send(writer.BufferWritten);
+         writer.Dispose();
++    }
++    public static bool TryAim(World world, out ushort x, out ushort y, out sbyte z)
++    {
++        x = y = 0; z = 0;
++        if (!world.InGame || !Client.Game.IsActive || !UIManager.IsMouseOverWorld || world.TargetManager.IsTargeting
++            || Client.Game.UO.GameCursor.ItemHold.Enabled || SelectedObject.Object is not GameObject point) { return false; }
++        int height = point.Z;
++        if (point is Land land) { height = land.IsStretched ? land.AverageZ : land.Z; }
++        else if (point is Static tile && tile.ItemData.IsSurface) { height += tile.ItemData.IsBridge ? tile.ItemData.Height / 2 : tile.ItemData.Height; }
++        else if (point is Item item && item.ItemData.IsSurface) { height += item.ItemData.IsBridge ? item.ItemData.Height / 2 : item.ItemData.Height; }
++        if (height is < -128 or > 127) { return false; }
++        x = point.X; y = point.Y; z = (sbyte)height; return true;
++    }
++    public static bool UseInventoryScroll(World world, uint serial)
++    {
++        var item = world.Items.Get(serial);
++        if (!ClassCombatClient.Enabled || item == null || item.Graphic != BeltProtocol.TeleportGraphic || item.Hue != BeltProtocol.TeleportHue
++            || item.RootContainer != world.Player.Serial || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled) { return false; }
++        GameActions.DoubleClick(world, serial); return true;
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -354,6 +354,7 @@
+         CombatAbility ability = text.Trim().ToLowerInvariant() switch
+         {
+             "[cast raiseskeleton" => CombatAbility.RaiseSkeleton,
++            "[cast teleport" => CombatAbility.Teleport,
+             "[cast teeth" => CombatAbility.Teeth,
+             "[cast basicattack" => CombatAbility.BasicAttack,
+             _ => CombatAbility.None
+@@ -367,6 +368,10 @@
+         {
+             SendSummonAim(world, CombatRequest.Cast);
+         }
++        else if (ability == CombatAbility.Teleport)
++        {
++            SendPointAim(world, CombatRequest.Cast, ability);
++        }
+         else if (SelectedObject.Object is Mobile target)
+         {
+             if (Hostile(target))
+@@ -393,6 +398,8 @@
+             return false;
+         }
+         var obj = SelectedObject.Object;
++        if (Left == CombatAbility.Teleport && UIManager.IsMouseOverWorld)
++        { Stop(world); SendPointAim(world, CombatRequest.Cast, CombatAbility.Teleport); return true; }
+         if (Left == CombatAbility.RaiseSkeleton && !world.Player.IsDead
+             && (obj is Item { IsCorpse: true } || obj is Mobile enemy && Hostile(enemy)))
+         {
+@@ -581,7 +588,7 @@
+             return true;
+         }
+         var obj = SelectedObject.Object;
+-        if (obj is Mobile mobile && !Hostile(mobile) && Right != CombatAbility.RaiseSkeleton)
++        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport))
+         {
+             Stop(world);
+             return true;
+@@ -591,7 +598,7 @@
+         _target = 0;
+         _rightHeld = true;
+         _heldAbility = Right;
+-        _heldUnit = obj is Mobile enemy ? enemy.Serial : 0;
++        _heldUnit = Right != CombatAbility.Teleport && obj is Mobile enemy ? enemy.Serial : 0;
+         SendHeldAim(world);
+         _nextHoldUpdate = Time.Ticks + CombatProtocol.HoldHeartbeatMs;
+         return true;
+@@ -626,6 +633,8 @@
+     }
+     private static void SendHeldAim(World world)
+     {
++        if (_heldAbility == CombatAbility.Teleport)
++        { SendPointAim(world, CombatRequest.HoldCast, _heldAbility); return; }
+         if (_heldAbility == CombatAbility.RaiseSkeleton)
+         {
+             SendSummonAim(world, CombatRequest.HoldCast);
+@@ -651,6 +660,11 @@
+     }
+     private static void SendPointAim(World world, CombatRequest action, CombatAbility ability)
+     {
++        if (ability == CombatAbility.Teleport)
++        {
++            if (ClassBeltClient.TryAim(world, out var tx, out var ty, out var tz)) { Send(action, 0, ability, tx, ty, tz); }
++            return;
++        }
+         if (SelectedObject.Object is GameObject point)
+         {
+             Send(action, 0, ability, point.X, point.Y, point.Z);
+diff --git a/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs b/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Controls/ItemGump.cs
+@@ -1,4 +1,4 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using ClassicUO.Configuration;
+ using ClassicUO.Game.Data;
+@@ -229,6 +229,12 @@
+             return false;
+         }
+ 
++        protected override void CloseWithRightClick()
++        {
++            if (ClassBeltClient.UseInventoryScroll(_gump.World, LocalSerial)) { return; }
++            base.CloseWithRightClick();
++        }
++
+         protected override void OnMouseUp(int x, int y, MouseButtonType button)
+         {
+             SelectedObject.Object = _gump.World.Get(LocalSerial);
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+@@ -30,7 +30,7 @@
+         int rows = ClassBeltClient.Overflow ? 4 : ClassBeltClient.Expanded ? ClassBeltClient.Rows : 1;
+         int height = 26 + rows * Size + 17;
+         Add(new AlphaBlendControl(0.9f) { Width = PanelWidth, Height = height, AcceptMouseInput = false });
+-        Add(new Label($"Potions  {ClassBeltClient.Rows} row{(ClassBeltClient.Rows == 1 ? "" : "s")}", true, 0x35)
++        Add(new Label($"Belt  {ClassBeltClient.Rows} row{(ClassBeltClient.Rows == 1 ? "" : "s")}", true, 0x35)
+         { X = 8, Y = 3, AcceptMouseInput = false });
+         Add(new ActionControl(114, 2, 20, 21, ClassBeltClient.Expanded ? "v" : "^", "Show/hide belt rows", _ => ClassBeltClient.Toggle()));
+         Add(new ActionControl(136, 2, 24, 21, "+", "Fill from backpack: healing left, mana right", _ => ClassBeltClient.Send(BeltRequest.Fill)));
+@@ -43,8 +43,8 @@
+                 bool locked = row >= ClassBeltClient.Rows;
+                 var control = new ActionControl(8 + column * Size, 25 + (rows - 1 - row) * Size, Size - 2, Size - 2,
+                     potion.Serial == 0 ? "+" : "", locked ? "Inactive overflow: right-click to return to backpack" :
+-                    potion.Serial == 0 ? "Click to load a restorative potion from your backpack" :
+-                    $"{PotionName(potion)}: click to drink; right-click to return to backpack",
++                    potion.Serial == 0 ? "Click to load a potion or Teleport scroll from your backpack" :
++                    potion.Kind == RestorationKind.TeleportScroll ? "Teleport scroll: use column hotkey with cursor over the world; right-click to return" : $"{PotionName(potion)}: click to drink; right-click to return to backpack",
+                     button =>
+                     {
+                         if (button == MouseButtonType.Right) { ClassBeltClient.Send(BeltRequest.Remove, cell); }
+@@ -76,6 +76,7 @@
+         string strength = potion.Tier switch { 1 => "Minor ", 2 => "Light ", 4 => "Greater ", 5 => "Super ", _ => "" };
+         return potion.Kind switch
+         {
++            RestorationKind.TeleportScroll => "Teleport scroll",
+             RestorationKind.CombatBuff => potion.Tier switch
+             { 1 => "Second Wind potion", 2 => "Deep Wounds potion", 3 => "Magical Penetration potion", 4 => "Stealing potion", 5 => "Protection potion", _ => "Combat potion" },
+             RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",
+diff --git a/src/ClassicUO.Client/Game/GameActions.cs b/src/ClassicUO.Client/Game/GameActions.cs
+--- a/src/ClassicUO.Client/Game/GameActions.cs
++++ b/src/ClassicUO.Client/Game/GameActions.cs
+@@ -1,4 +1,4 @@
+-﻿// SPDX-License-Identifier: BSD-2-Clause
++// SPDX-License-Identifier: BSD-2-Clause
+ 
+ using System;
+ using ClassicUO.Configuration;
+@@ -641,6 +641,11 @@
+ 
+         public static void CastSpellFromBook(int index, uint bookSerial)
+         {
++            if (index == 22 && ClassCombatClient.Enabled)
++            {
++                ClassCombatClient.TrySkillMacro(Client.Game.UO.World, "[Cast Teleport");
++                return;
++            }
+             if (index >= 0)
+             {
+                 LastSpellIndex = index;
+@@ -650,6 +655,11 @@
+ 
+         public static void CastSpell(int index)
+         {
++            if (index == 22 && ClassCombatClient.Enabled)
++            {
++                ClassCombatClient.TrySkillMacro(Client.Game.UO.World, "[Cast Teleport");
++                return;
++            }
+             if (index >= 0)
+             {
+                 LastSpellIndex = index;

@@ -12,6 +12,26 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_ALLIED_OVERLAP_UI") == "1":
+        from check_allied_overlap_ui import exercise as allied_exercise
+        allied_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_INSCRIPTION_UI") == "1":
+        from check_inscription_ui import exercise as inscription_exercise
+        inscription_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_TELEPORT_UI") == "1":
+        from check_teleport_ui import exercise as teleport_exercise
+        teleport_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_SURVEYS_UI") == "1":
+        from check_survey_ui import exercise as survey_exercise
+        survey_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_CARPENTRY_UI") == "1":
+        from check_carpentry_ui import exercise as carpentry_exercise
+        carpentry_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_MEALS_UI") == "1":
         from check_meals_ui import exercise as meals_exercise
         meals_exercise(window, click, capture)

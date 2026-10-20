@@ -14,6 +14,7 @@ public static class ClassMovement
         }
         PersistentMinions.Resume(player);
         var session = ClassCombat.For(player);
+        if (session.PendingTeleport != null) { session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; }
         session.RunningStep = (direction & Direction.Running) != 0;
         session.RunningUntil = Core.TickCount + player.ComputeMovementSpeed(direction, false);
         session.StepPosition = player.Location;

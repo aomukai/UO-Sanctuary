@@ -54,6 +54,7 @@ public static class CorpseRecoveryChecks
                 Require(!ClassDeath.Recover(player, corpse), "Ghost recovered its own corpse");
                 player.Resurrect();
                 Require(!ClassDeath.Recover(other, corpse) && weapon.Parent == corpse, "Another player recovered the corpse");
+                other.MoveToWorld(new Point3D(floor.X+1,floor.Y,floor.Z),Map.Trammel);
                 player.MoveToWorld(new Point3D(floor.X + 5, floor.Y, floor.Z), Map.Trammel);
                 Require(!ClassDeath.Recover(player, corpse), "Corpse recovery worked remotely");
                 player.MoveToWorld(floor, Map.Trammel);

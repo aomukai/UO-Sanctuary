@@ -46,12 +46,12 @@ public static class EffectiveGearChecks
         ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
         ClassCreation.Profiles.AdvanceLevel(player, 99);
         player.RawStr = 200; player.RawDex = 200;
-        player.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        player.MoveToWorld(new Point3D(5900, 1151, 0), Map.Trammel);
         var enemy = new Ogre { Frozen = true };
         enemy.SetHits(2000); enemy.Hits = 2000;
         enemy.SetResistance(ResistanceType.Physical, 0); enemy.SetResistance(ResistanceType.Poison, 0);
         enemy.SetResistance(ResistanceType.Cold, 0); enemy.SetResistance(ResistanceType.Fire, 0);
-        enemy.MoveToWorld(new Point3D(5551, 1151, 0), player.Map);
+        enemy.MoveToWorld(new Point3D(player.X+1, player.Y, player.Z), player.Map);
         var bow = Craft<Bow>(player, CraftResource.Frostwood);
         var cap = Craft<LeatherCap>(player, CraftResource.SpinedLeather);
         var shoes = Craft<Boots>(player, CraftResource.HornedLeather);

@@ -68,7 +68,7 @@ public sealed class SkillBindings : GenericPersistence
             var serial = (Serial)reader.ReadUInt();
             var left = (CombatAbility)reader.ReadByte();
             var right = (CombatAbility)reader.ReadByte();
-            if (left > CombatAbility.RaiseSkeleton || right > CombatAbility.RaiseSkeleton)
+            if (left > CombatAbility.Teleport || right > CombatAbility.Teleport)
             {
                 throw new InvalidDataException("Invalid saved skill binding.");
             }
@@ -107,10 +107,10 @@ public sealed class BindingGump : DynamicGump
     protected override void BuildLayout(ref DynamicGumpBuilder builder)
     {
         var bindings = SkillBindings.Instance.Get(_owner);
-        builder.AddBackground(0, 0, 440, 300, 5054);
+        builder.AddBackground(0, 0, 440, 345, 5054);
         builder.AddLabel(20, 15, 0x481, "Mouse skills");
         builder.AddLabel(20, 42, 0x47E, $"Left: {CombatProtocol.Label(bindings.Left)}    Right: {CombatProtocol.Label(bindings.Right)}");
-        string[] names = ["None", "Basic attack", "Teeth", "Raise Skeleton"];
+        string[] names = ["None", "Basic attack", "Teeth", "Raise Skeleton", "Teleport"];
         for (int i = 0; i < names.Length; i++)
         {
             int y = 78 + 36 * i;
@@ -127,14 +127,14 @@ public sealed class BindingGump : DynamicGump
                 builder.AddLabel(220, y, 0x3B2, "Not available");
             }
         }
-        builder.AddHtml(20, 230, 400, 54,
-            "<BASEFONT COLOR=#FFFFFF>Hotkey / macro: Say [Cast RaiseSkeleton<BR>Raise Skeleton uses a hovered or nearby corpse.</BASEFONT>",
+        builder.AddHtml(20, 270, 400, 54,
+            "<BASEFONT COLOR=#FFFFFF>Macros: Say [Cast Teleport or [Cast RaiseSkeleton<BR>Teleport uses the world cursor; Raise Skeleton uses a corpse.</BASEFONT>",
             background: false, scrollbar: false);
     }
     public override void OnResponse(NetState sender, in RelayInfo info)
     {
         int button = info.ButtonID;
-        if (sender.Mobile != _owner || button is not (>= 100 and <= 103 or >= 200 and <= 203))
+        if (sender.Mobile != _owner || button is not (>= 100 and <= 104 or >= 200 and <= 204))
         {
             return;
         }

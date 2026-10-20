@@ -30,23 +30,25 @@ public static class PotionBelts
         player.AddItem(result);
         return result;
     }
-    public static RestorationPotion Cell(PlayerMobile player, int cell) => cell is >= 0 and < BeltProtocol.Cells
-        ? Storage(player)?.Items?.OfType<RestorationPotion>().FirstOrDefault(p => p.X == cell % 4 && p.Y == cell / 4) : null;
+    public static Item Entry(PlayerMobile player, int cell) => cell is >= 0 and < BeltProtocol.Cells
+        ? Storage(player)?.Items?.FirstOrDefault(p => p.X == cell % 4 && p.Y == cell / 4) : null;
+    public static RestorationPotion Cell(PlayerMobile player, int cell) => Entry(player, cell) as RestorationPotion;
     public static bool Active(PlayerMobile player, RestorationPotion potion) => potion.Parent == Storage(player)
         && potion.X is >= 0 and < 4 && potion.Y >= 0 && potion.Y < Rows(player);
-    public static bool Ready(PlayerMobile player) => !player.Deleted && player.Alive && ClassCombat.Enabled(player);
+    public static bool Ready(PlayerMobile player) => !player.Deleted && player.Alive && ClassCombat.Enabled(player) && AlliedOverlap.Allowed(player);
     private static bool InBackpack(PlayerMobile player, Item item) => player.Backpack != null && item.IsChildOf(player.Backpack);
-    public static bool Load(PlayerMobile player, int cell, RestorationPotion potion)
+    public static bool Load(PlayerMobile player, int cell, Item potion)
     {
-        if (!Ready(player) || player.Holding != null || cell < 0 || cell >= Rows(player) * 4 || Cell(player, cell) != null
-            || potion is not { Deleted: false, Movable: true } || !InBackpack(player, potion) || potion.Amount < 1)
+        if (!Ready(player) || player.Holding != null || cell < 0 || cell >= Rows(player) * 4 || Entry(player, cell) != null
+            || potion is not (RestorationPotion or TeleportScroll or IdentifyScroll or TownPortalScroll) || potion is not { Deleted: false, Movable: true } || !InBackpack(player, potion) || potion.Amount < 1 || !potion.IsAccessibleTo(player) || !potion.VerifyMove(player))
         {
             return false;
         }
-        RestorationPotion unit = potion;
+        Item unit = potion;
         if (potion.Amount > 1)
         {
-            unit = new RestorationPotion(potion.Kind, potion.Tier);
+            if (potion is not RestorationPotion source) { return false; }
+            unit = new RestorationPotion(source.Kind, source.Tier);
             potion.Dupe(unit); // Includes the source origin; never creates an extra unit.
             unit.Amount = 1;
             potion.Amount--;
@@ -58,11 +60,11 @@ public static class PotionBelts
     }
     public static bool Remove(PlayerMobile player, int cell)
     {
-        if (!Ready(player) || player.Holding != null || Cell(player, cell) is not { } potion || player.Backpack == null)
+        if (!Ready(player) || player.Holding != null || Entry(player, cell) is not { } potion || player.Backpack == null)
         {
             return false;
         }
-        potion.Stackable = true;
+        potion.Stackable = potion is RestorationPotion;
         if (!player.Backpack.TryDropItem(player, potion, true))
         {
             potion.Stackable = false;
@@ -77,7 +79,7 @@ public static class PotionBelts
         // Inactive overflow never refills an active column: that would bypass capacity.
         for (int row = 0; row < Rows(player); row++)
         {
-            if (Cell(player, row * 4 + column) is { } potion)
+            if (Entry(player, row * 4 + column) is { } potion)
             {
                 potion.Location = new Point3D(column, next++, 0);
             }
@@ -92,9 +94,9 @@ public static class PotionBelts
         for (int cell = Rows(player) * 4; cell < BeltProtocol.Cells; cell++)
         {
             // A full pack leaves clearly marked, unusable overflow until it can be returned.
-            if (Cell(player, cell) is { } potion && player.Backpack != null)
+            if (Entry(player, cell) is { } potion && player.Backpack != null)
             {
-                potion.Stackable = true;
+                potion.Stackable = potion is RestorationPotion;
                 if (!player.Backpack.TryDropItem(player, potion, false))
                 {
                     potion.Stackable = false;
@@ -102,13 +104,17 @@ public static class PotionBelts
             }
         }
     }
-    public static bool Use(PlayerMobile player, int cell)
+    public static bool Use(PlayerMobile player, int cell, Point3D? aim = null)
     {
-        if (!Ready(player) || cell < 0 || cell >= Rows(player) * 4 || Cell(player, cell) is not { } potion)
+        if (!Ready(player) || cell < 0 || cell >= Rows(player) * 4 || Entry(player, cell) is not { } potion)
         {
             return false;
         }
-        bool result = PotionRestoration.Drink(player, potion);
+        if (potion is IdentifyScroll identify) { return Identification.Use(player, identify, cell); }
+        if (potion is TownPortalScroll portal) { return TownPortals.Open(player, portal, cell); }
+        if (potion is TeleportScroll scroll)
+        { return aim.HasValue && Teleportation.Begin(player, aim.Value, Core.TickCount, scroll, cell); }
+        bool result = potion is RestorationPotion restoration && PotionRestoration.Drink(player, restoration);
         if (result)
         {
             Compact(player, cell % 4);
@@ -128,11 +134,12 @@ public static class PotionBelts
         }
         for (int column = 0; column < 4; column++)
         {
+            if (Entry(player, column) is TeleportScroll or IdentifyScroll or TownPortalScroll) { continue; }
             var kind = Cell(player, column)?.Kind ?? (column < 2 ? RestorationKind.Healing : RestorationKind.Mana);
             for (int row = 0; row < Rows(player); row++)
             {
                 int cell = row * 4 + column;
-                if (Cell(player, cell) != null)
+                if (Entry(player, cell) != null)
                 {
                     continue;
                 }
@@ -147,9 +154,9 @@ public static class PotionBelts
     }
     public static void Target(PlayerMobile player, int cell)
     {
-        if (Ready(player) && player.Target == null && cell >= 0 && cell < Rows(player) * 4 && Cell(player, cell) == null)
+        if (Ready(player) && player.Target == null && cell >= 0 && cell < Rows(player) * 4 && Entry(player, cell) == null)
         {
-            player.SendMessage("Choose a restorative potion in your backpack.");
+            player.SendMessage("Choose a potion or single-use utility scroll in your backpack.");
             player.Target = new LoadTarget(cell);
         }
     }
@@ -159,9 +166,9 @@ public static class PotionBelts
         {
             if (from is PlayerMobile player)
             {
-                if (targeted is not RestorationPotion potion || !Load(player, cell, potion))
+                if (targeted is not Item potion || !Load(player, cell, potion))
                 {
-                    player.SendMessage("Load a restoration potion from your own backpack into an empty active slot.");
+                    player.SendMessage("Load a potion or single-use utility scroll from your own backpack into an empty active slot.");
                 }
                 PotionBeltNetwork.Send(player);
             }
@@ -176,7 +183,7 @@ public static class PotionBelts
         }
         foreach (var potion in Storage(player).Items.ToArray())
         {
-            potion.Stackable = true;
+            potion.Stackable = potion is RestorationPotion;
             corpse.DropItem(potion);
         }
     }

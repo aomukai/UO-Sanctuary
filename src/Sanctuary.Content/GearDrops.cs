@@ -106,7 +106,7 @@ public static class GearDrops
         }
     }
     public static int MagicFind(PlayerMobile player) => Math.Max(0,
-        checked(ClassGear.Bonus(player, "mag%") + ClassGear.Material(player, "magic-find")));
+        checked(ClassGear.Bonus(player, "mag%") + ClassGear.Material(player, "magic-find") + MapSurveys.MagicFind(player)));
     internal static DropBase Base(string code) => _bases.GetValueOrDefault(code);
     internal static DropBase SelectBase(string leaf, Random random)
     {

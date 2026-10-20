@@ -41,6 +41,8 @@ Minions log out with their owner, like bonded pets, and return beside the owner 
 
 A consumed monster corpse is unavailable to both player summoning and lich resurrection. Empty consumed bodies disappear immediately. Unclaimed loot keeps its actual corpse container until looted or normally decayed; consuming a body never deletes equipment inside it. Repeatedly resurrected wild monsters can be consumed normally but never become a new source of rewards.
 
+Allies now follow the [occupied-tile movement rule](allied-movement.md): pets and owners can pass through one another, only the newcomer becomes movement-only, and tile holders never yield automatically. A passing pet unable to move for five seconds regroups safely beside its summoner without healing.
+
 ## Death and recovery
 
 Seren, the free, invulnerable healer at **1380, 1504, Felucca**, stands west of the Britain graveyard. Walk a ghost within four tiles to receive the normal resurrection prompt. Class characters return with full life, including resurrection routes that normally apply a partial-life scalar. Existing non-class characters retain their original resurrection behavior.

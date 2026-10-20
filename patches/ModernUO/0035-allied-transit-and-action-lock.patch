@@ -1,0 +1,261 @@
+--- a/Projects/UOContent/Engines/Pathing/Movement.cs
++++ b/Projects/UOContent/Engines/Pathing/Movement.cs
+@@ -81,7 +81,8 @@
+         var mobsLeft = _mobPools[1];
+         var mobsRight = _mobPools[2];
+ 
+-        var checkMobs = (m as BaseCreature)?.Controlled == false && (xForward != _goal.X || yForward != _goal.Y);
++        var checkMobs = ClassCombatHooks.Friendly?.Invoke(m, m) == true ||
++                        (m as BaseCreature)?.Controlled == false && (xForward != _goal.X || yForward != _goal.Y);
+ 
+         if (checkMobs)
+         {
+@@ -482,6 +483,7 @@
+ 
+     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+     private static bool CanMoveOver(Mobile m, Mobile t) =>
++        ClassCombatHooks.PassThrough?.Invoke(m, t) == true ||
+         !t.Alive || !m.Alive || t.IsDeadBondedPet || m.IsDeadBondedPet || t.Hidden && t.AccessLevel > AccessLevel.Player;
+ 
+     private static void GetStartZ(Mobile m, Map map, Point3D loc, List<Item> itemList, out int zLow, out int zTop)
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -836,6 +836,7 @@
+ 
+     public virtual TimeSpan OnSwing(Mobile attacker, Mobile defender, double damageBonus = 1.0)
+     {
++        if (ClassCombatHooks.ActionAllowed?.Invoke(attacker) == false) { return TimeSpan.FromMilliseconds(100); }
+         if (attacker is BaseCreature creature && ClassCombatHooks.CreatureRecoveryRemaining?.Invoke(creature) is > 0 and var recovery)
+         {
+             return TimeSpan.FromMilliseconds(recovery);
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/AIGroupMovement.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/AIGroupMovement.cs
+@@ -202,7 +202,8 @@
+ 
+     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+     private bool CanMoveTo(Point3D location) =>
+-        Mobile.Map?.CanFit(location.X, location.Y, location.Z, 16, false, false) == true;
++        Mobile.Map?.CanFit(location.X, location.Y, location.Z, 16, false,
++            ClassCombatHooks.Friendly?.Invoke(Mobile, Mobile) == true) == true;
+ 
+     private static Direction GetAdjustedDirection(Direction original)
+     {
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
+@@ -370,6 +370,8 @@
+             return false;
+         }
+ 
++        ClassCombatHooks.MovementGoal?.Invoke(Mobile, target, range);
++
+         if (Mobile.InRange(target, range))
+         {
+             LastApproach = ApproachOutcome.Arrived;
+@@ -466,6 +468,12 @@
+         {
+             ClearMoveIntent();
+             return false;
++        }
++
++        ClassCombatHooks.MovementGoal?.Invoke(Mobile, goal, range);
++        if (range == 0 && ClassCombatHooks.FreeDestination?.Invoke(Mobile, goal) is { } free)
++        {
++            goal = free;
+         }
+ 
+         if (Path?.Goal != goal)
+@@ -618,6 +626,8 @@
+             return false;
+         }
+ 
++        ClassCombatHooks.MovementGoal?.Invoke(Mobile, m, range);
++
+         if (Mobile.InRange(m, range))
+         {
+             LastApproach = ApproachOutcome.Arrived;
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/AITimer.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/AITimer.cs
+@@ -134,6 +134,13 @@
+             return;
+         }
+ 
++        if (ClassCombatHooks.OverlapMovement?.Invoke(_owner.Mobile) == true)
++        {
++            _nextThink = Core.TickCount + 100;
++            ScheduleNext();
++            return;
++        }
++
+         if (ClassCombatHooks.CreatureRecoveryRemaining?.Invoke(_owner.Mobile) is > 0 and var recovery)
+         {
+             _owner.ClearMoveIntent();
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -2822,8 +2822,11 @@
+             }
+         }
+ 
++        public override bool CheckShove(Mobile shoved) => ClassCombatHooks.PassThrough?.Invoke(this, shoved) == true || base.CheckShove(shoved);
++
+         public override bool OnMoveOver(Mobile m)
+         {
++            if (ClassCombatHooks.PassThrough?.Invoke(this, m) == true) { return true; }
+             if (m is BaseCreature creature && !creature.Controlled)
+             {
+                 return !Alive || !creature.Alive || IsDeadBondedPet || creature.IsDeadBondedPet ||
+@@ -3061,6 +3064,7 @@
+ 
+         protected override void OnMapChange(Map oldMap)
+         {
++            ClassCombatHooks.OccupancyChanged?.Invoke(this);
+             CheckAIActive();
+ 
+             base.OnMapChange(oldMap);
+@@ -3068,6 +3072,7 @@
+ 
+         protected override void OnLocationChange(Point3D oldLocation)
+         {
++            ClassCombatHooks.OccupancyChanged?.Invoke(this);
+             CheckAIActive();
+ 
+             base.OnLocationChange(oldLocation);
+@@ -3508,6 +3513,7 @@
+                 Mana = 0;
+ 
+                 IsDeadPet = true;
++                ClassCombatHooks.OccupancyChanged?.Invoke(this);
+                 IssueOrder(OrderType.Follow, null, ControlMaster);
+ 
+                 ProcessDelta();
+@@ -4161,6 +4167,7 @@
+             ProcessDelta();
+ 
+             IsDeadPet = false;
++            ClassCombatHooks.OccupancyChanged?.Invoke(this);
+ 
+             var buffer = stackalloc byte[OutgoingMobilePackets.BondedStatusPacketLength].InitializePacket();
+             OutgoingMobilePackets.CreateBondedStatus(buffer, Serial, false);
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -8,6 +8,12 @@
+     public static Func<BaseCreature, bool> PersistentMinion { get; set; }
+     public static Action<PlayerMobile> SuspendMinions { get; set; }
+     public static Action<PlayerMobile> ResumeMinions { get; set; }
++    public static Action<Mobile> OccupancyChanged { get; set; }
++    public static Func<Mobile, bool> ActionAllowed { get; set; }
++    public static Func<Mobile, Mobile, bool> PassThrough { get; set; }
++    public static Action<BaseCreature, IPoint3D, int> MovementGoal { get; set; }
++    public static Func<BaseCreature, IPoint3D, Point3D?> FreeDestination { get; set; }
++    public static Func<BaseCreature, bool> OverlapMovement { get; set; }
+     public static Func<Mobile, Mobile, bool> Friendly { get; set; }
+     public static Action<PlayerMobile, Container> PlayerDied { get; set; }
+     public static Action<PlayerMobile, Corpse> PlayerCorpseCreated { get; set; }
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -858,7 +858,7 @@
+ 
+         public override bool OnDroppedItemToWorld(Item item, Point3D location)
+         {
+-            if (!base.OnDroppedItemToWorld(item, location))
++            if (ClassCombatHooks.ActionAllowed?.Invoke(this) == false || !base.OnDroppedItemToWorld(item, location))
+             {
+                 return false;
+             }
+@@ -1816,8 +1816,19 @@
+             return newX >= startX && newY >= startY && newX < endX && newY < endY && Map == foundation.Map;
+         }
+ 
++        public override bool OnDragLift(Item item) => ClassCombatHooks.ActionAllowed?.Invoke(this) != false && base.OnDragLift(item);
++        public override bool OnDroppedItemInto(Item item, Container container, Point3D loc) => ClassCombatHooks.ActionAllowed?.Invoke(this) != false && base.OnDroppedItemInto(item, container, loc);
++        public override bool OnDroppedItemOnto(Item item, Item target) => ClassCombatHooks.ActionAllowed?.Invoke(this) != false && base.OnDroppedItemOnto(item, target);
++        public override bool OnDroppedItemToItem(Item item, Item target, Point3D loc) => ClassCombatHooks.ActionAllowed?.Invoke(this) != false && base.OnDroppedItemToItem(item, target, loc);
++        public override bool OnDroppedItemToMobile(Item item, Mobile target) => ClassCombatHooks.ActionAllowed?.Invoke(this) != false && base.OnDroppedItemToMobile(item, target);
++        public override void Use(Mobile target)
++        {
++            if (ClassCombatHooks.ActionAllowed?.Invoke(this) != false) { base.Use(target); }
++        }
++
+         public override bool AllowItemUse(Item item)
+         {
++            if (ClassCombatHooks.ActionAllowed?.Invoke(this) == false) { return false; }
+             if (AccessLevel < FeatureFlagSettings.RequiredAccessLevel &&
+                 FeatureFlagManager.IsItemUseBlocked(item.GetType(), out var reason))
+             {
+@@ -1830,6 +1841,7 @@
+ 
+         public override bool AllowSkillUse(SkillName skill)
+         {
++            if (ClassCombatHooks.ActionAllowed?.Invoke(this) == false) { return false; }
+             if (AccessLevel < FeatureFlagSettings.RequiredAccessLevel
+                 && FeatureFlagManager.IsSkillBlocked(skill, out var reason))
+             {
+@@ -2096,6 +2108,7 @@
+ 
+         public override bool CheckEquip(Item item)
+         {
++            if (ClassCombatHooks.ActionAllowed?.Invoke(this) == false) { return false; }
+             if (AccessLevel < FeatureFlagSettings.RequiredAccessLevel
+                 && FeatureFlagManager.IsItemEquipBlocked(item.GetType(), out var reason))
+             {
+@@ -2304,6 +2317,7 @@
+ 
+         protected override void OnLocationChange(Point3D oldLocation)
+         {
++            ClassCombatHooks.OccupancyChanged?.Invoke(this);
+             ClassMapHooks.LocationChanged?.Invoke(this);
+             CheckLightLevels(false);
+ 
+@@ -2346,20 +2360,23 @@
+         }
+ 
+         public override bool OnMoveOver(Mobile m) =>
+-            m is BaseCreature creature && !creature.Controlled
++            ClassCombatHooks.PassThrough?.Invoke(this, m) == true ||
++            (m is BaseCreature creature && !creature.Controlled
+                 ? !Alive || !creature.Alive || IsDeadBondedPet || creature.IsDeadBondedPet ||
+                   Hidden && AccessLevel > AccessLevel.Player
+                 : Region.IsPartOf<SafeZone>() && m is PlayerMobile pm &&
+                 (pm.DuelContext == null || pm.DuelPlayer == null || !pm.DuelContext.Started || pm.DuelContext.Finished ||
+-                 pm.DuelPlayer.Eliminated) || base.OnMoveOver(m);
++                 pm.DuelPlayer.Eliminated) || base.OnMoveOver(m));
+ 
+         public override bool CheckShove(Mobile shoved) =>
++            ClassCombatHooks.PassThrough?.Invoke(this, shoved) == true ||
+             IgnoreMobiles || shoved.IgnoreMobiles ||
+             TransformationSpellHelper.UnderTransformation(shoved, typeof(WraithFormSpell)) ||
+             base.CheckShove(shoved);
+ 
+         protected override void OnMapChange(Map oldMap)
+         {
++            ClassCombatHooks.OccupancyChanged?.Invoke(this);
+             ClassMapHooks.LocationChanged?.Invoke(this);
+             if (Map != Faction.Facet && oldMap == Faction.Facet || Map == Faction.Facet && oldMap != Faction.Facet)
+             {
+@@ -2436,6 +2453,7 @@
+ 
+             if (Alive && !wasAlive)
+             {
++                ClassCombatHooks.OccupancyChanged?.Invoke(this);
+                 var deathRobe = new DeathRobe();
+ 
+                 if (!EquipItem(deathRobe))
+--- a/Projects/UOContent/Spells/Base/Spell.cs
++++ b/Projects/UOContent/Spells/Base/Spell.cs
+@@ -469,7 +469,7 @@
+                 spell.Disturb(DisturbType.NewCast);
+             }
+ 
+-            if (!Caster.CheckAlive())
++            if (ClassCombatHooks.ActionAllowed?.Invoke(Caster) == false || !Caster.CheckAlive())
+             {
+                 return false;
+             }
+@@ -737,7 +737,7 @@
+         {
+             var mana = ScaleMana(GetMana());
+ 
+-            if (Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
++            if (ClassCombatHooks.ActionAllowed?.Invoke(Caster) == false || Caster.Deleted || !Caster.Alive || Caster.Spell != this || State != SpellState.Sequencing)
+             {
+                 DoFizzle();
+             }

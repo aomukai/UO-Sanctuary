@@ -75,6 +75,9 @@ public static partial class TownMarkets
     {
         Profiles = new MarketProfiles();
         ClassEconomyHooks.Stock = Stock;
+        ClassEconomyHooks.PurchaseOpened = OpenPurchase;
+        ClassEconomyHooks.PurchasePrice = ShownPurchasePrice;
+        EventSink.Disconnected += buyer => _purchaseQuotes.Remove(buyer.Serial);
         ClassEconomyHooks.SellInfo = SellInfo;
         ClassEconomyHooks.BuyItems = Buy;
         ClassEconomyHooks.SellItems = Sell;

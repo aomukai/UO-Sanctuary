@@ -24,11 +24,12 @@ public static class ClassCombat
         public ActionTiming Timing { get; internal set; }
         public byte Animation { get; internal set; }
         internal Serial PendingTarget, PendingWeapon;
+        internal TeleportCast PendingTeleport;
         internal Point3D PendingPoint, ActionOrigin;
         internal Map ActionMap;
         internal bool PendingLeft;
         internal int TooltipSignature;
-        internal bool TooltipKnown;
+        internal bool TooltipKnown, WasOverlapped;
         public bool Running { get; internal set; } = true;
         internal bool RunningStep;
         internal long RunningUntil = Core.TickCount;
@@ -126,11 +127,12 @@ public static class ClassCombat
         CombatAbility.BasicAttack => Enabled(from),
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
+        CombatAbility.Teleport => Teleportation.Rank(from) > 0,
         _ => false
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
-        if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null
+        if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || HitRecovery.Active(from, now))
         {
             return false;
@@ -167,7 +169,7 @@ public static class ClassCombat
     {
         var session = For(from);
         Stop(from);
-        if (!Enabled(from) || !from.Alive || !Available(from, session.Left) || !IsHostile(from, target)
+        if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || !Available(from, session.Left) || !IsHostile(from, target)
             || !from.InRange(target, CombatProtocol.SightRange))
         {
             return false;
@@ -188,6 +190,7 @@ public static class ClassCombat
     {
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
+        For(from).PendingTeleport = null;
         ReleaseCast(from);
     }
     public static int ActionInterval(PlayerMobile from, CombatAbility ability) => CombatTiming.For(from, ability).DurationMs;
@@ -212,7 +215,7 @@ public static class ClassCombat
         session.CastTarget = target?.Serial ?? Serial.Zero;
         session.CastPoint = point;
         session.HoldUntil = now + CombatProtocol.HoldLeaseMs;
-        if (session.PendingAbility == ability && session.PendingLeft == attack)
+        if (ability != CombatAbility.Teleport && session.PendingAbility == ability && session.PendingLeft == attack)
         {
             session.PendingTarget = session.CastTarget;
             session.PendingPoint = point;
@@ -243,6 +246,13 @@ public static class ClassCombat
     }
     public static void UpdateCombat(PlayerMobile from, long now)
     {
+        if (!AlliedOverlap.Allowed(from))
+        {
+            var overlap = For(from);
+            if (!overlap.WasOverlapped) { from.SendMessage("You are sharing a tile with an ally. Walk clear before taking another action."); }
+            overlap.WasOverlapped = true; Stop(from); return;
+        }
+        For(from).WasOverlapped = false;
         ResolveAction(from, now);
         var session = For(from);
         if (session.HeldAbility != CombatAbility.None)
@@ -286,12 +296,16 @@ public static class ClassCombat
 
     private static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attackInPlace)
     {
+        if (ability == CombatAbility.Teleport)
+        {
+            return Teleportation.Begin(from, point, now);
+        }
         if (ability == CombatAbility.RaiseSkeleton)
         {
             return CastSummon(from, Serial.Zero, now);
         }
         var session = For(from);
-        if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null
+        if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || HitRecovery.Active(from, now) || !Available(from, ability) || now - session.NextAction < 0 || session.PendingAbility != CombatAbility.None)
         {
             return false;
@@ -382,7 +396,8 @@ public static class ClassCombat
         {
             return false;
         }
-        if (!Enabled(from) || !from.Alive || from.Frozen || from.Paralyzed || from.Spell != null
+        if (ability == CombatAbility.Teleport) { return Teleportation.Resolve(from, now); }
+        if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || !Available(from, ability) || from.Location != session.ActionOrigin || from.Map != session.ActionMap
             || (CombatTiming.Equipped(from)?.Serial ?? Serial.Zero) != session.PendingWeapon)
         {
@@ -554,6 +569,13 @@ public static class ClassCombat
                 var ability = (CombatAbility)reader.ReadByte();
                 var target = (Serial)reader.ReadUInt32();
                 var point = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
+                if (ability == CombatAbility.Teleport)
+                {
+                    if (action == CombatRequest.Cast) { Teleportation.Begin(from, point, Core.TickCount); }
+                    else if (ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right))
+                    { ContinueHold(from, ability, null, point, Core.TickCount, action == CombatRequest.HoldAttack); }
+                    break;
+                }
                 if (ability == CombatAbility.RaiseSkeleton
                     && (action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right)))
                 {
@@ -622,8 +644,10 @@ public static class ClassCombat
         }
         Span<uint> hostiles = stackalloc uint[CombatProtocol.MaxHostiles];
         var count = 0;
+        Span<uint> allies = stackalloc uint[CombatProtocol.MaxAllies]; int allyCount = 0;
         foreach (var candidate in from.Map.GetMobilesInRange<Mobile>(from.Location, CombatProtocol.SightRange))
         {
+            if (allyCount < allies.Length && AlliedOverlap.PassThrough(from, candidate)) { allies[allyCount++] = candidate.Serial.Value; }
             if (count < hostiles.Length && IsHostile(from, candidate))
             {
                 hostiles[count++] = candidate.Serial.Value;
@@ -637,7 +661,7 @@ public static class ClassCombat
             session.TooltipSignature = signature;
             weapon?.InvalidateProperties();
         }
-        var length = 31 + count * 4;
+        var length = 33 + (count + allyCount) * 4;
         Span<byte> data = stackalloc byte[length];
         var writer = new SpanWriter(data);
         writer.Write((byte)0xBF);
@@ -658,10 +682,13 @@ public static class ClassCombat
         writer.Write((ushort)session.Timing.DurationMs);
         writer.Write((ushort)Math.Clamp(session.NextAction - Core.TickCount, 0, session.Timing.DurationMs));
         writer.Write((ushort)Math.Clamp(session.RecoveryUntil - Core.TickCount, 0, 2000));
+        writer.Write((byte)(AlliedOverlap.Blocked(from) ? 1 : 0));
         for (var i = 0; i < count; i++)
         {
             writer.Write(hostiles[i]);
         }
+        writer.Write((byte)allyCount);
+        for (int i = 0; i < allyCount; i++) { writer.Write(allies[i]); }
         from.NetState.Send(data);
     }
 }

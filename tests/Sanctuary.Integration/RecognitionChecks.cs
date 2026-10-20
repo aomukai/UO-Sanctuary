@@ -42,7 +42,7 @@ public static class RecognitionChecks
     {
         var hall = TownRecognition.Halls[index];
         var wardrobe = TownRecognition.PublicWardrobe(hall.Id);
-        player.MoveToWorld(wardrobe.Location, wardrobe.Map);
+        FixtureSpace.Place(player,wardrobe.Location, wardrobe.Map);
         Require(TownRecognition.AtOffice(player, hall.Id) && ClassRespec.SourceValid(player, wardrobe),
             $"Office is inaccessible at {hall.Id}/{wardrobe.Location}");
         return hall.Id;

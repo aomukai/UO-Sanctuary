@@ -61,7 +61,7 @@ public static class GearDropChecks
     {
         var p = new PlayerMobile { Body = 0x190, Player = true, Name = "GearDropCheck" }; p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p, DiabloClass.Necromancer); ClassCreation.Profiles.AdvanceLevel(p, 99);
-        p.RawStr = p.RawDex = 1000; p.MoveToWorld(_point, Map.Trammel); return p;
+        p.RawStr = p.RawDex = 1000; FixtureSpace.Place(p, _point, Map.Trammel); return p;
     }
     private static T Put<T>(PlayerMobile p, T item) where T : Item { p.Backpack.DropItem(item); return item; }
     internal static Corpse Body(BaseCreature victim, Mobile killer, Point3D? point = null, Map map = null)
@@ -233,7 +233,7 @@ public static class GearDropChecks
         var quote = EquipmentEconomy.Quote(p, salvage, EssenceAction.Salvage, hammer); int uses = hammer.UsesRemaining;
         Require(quote != null && EquipmentEconomy.Commit(p, quote, out var result, new PathRoll(0, 0, 0, 0)) && salvage.Deleted
             && result.Essence > 0 && hammer.UsesRemaining == uses && !EquipmentEconomy.Commit(p, quote, out _), "Actual drop salvage failed/replayed");
-        p.MoveToWorld(_point, Map.Trammel);
+        FixtureSpace.Place(p, _point, Map.Trammel);
     }
     private static void Exclusions(PlayerMobile p)
     {
@@ -259,7 +259,7 @@ public static class GearDropChecks
             "Pet kill did not use owner MF");
         p.MoveToWorld(new Point3D(_point.X + 30, _point.Y, 0), Map.Trammel);
         enemy = new Skeleton(); corpse = Body(enemy, pet); RewardLife.Process(enemy, corpse, new PathRoll(121, 0, 0, 0, -1, -1, -1, 0));
-        Require(corpse.Items.Count == 1, "Distant pet owner lost gear"); corpse.Delete(); enemy.Delete(); p.MoveToWorld(_point, Map.Trammel);
+        Require(corpse.Items.Count == 1, "Distant pet owner lost gear"); corpse.Delete(); enemy.Delete(); FixtureSpace.Place(p, _point, Map.Trammel);
         p.Kill(); enemy = new Skeleton(); corpse = Body(enemy, pet);
         RewardLife.Process(enemy, corpse, new PathRoll(121, 0, 0, 0, -1, -1, -1, 0));
         Require(corpse.Items.Count == 1 && GearDrops.MagicFind(p) == 0, "Dead pet owner lost gear or retained corpse MF");

@@ -248,7 +248,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
             }
         }
     }
-    private bool CanHit(Mobile target) => Alive && !Deleted && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
+    private bool CanHit(Mobile target) => Alive && !Deleted && AlliedOverlap.Allowed(this) && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
         && IsEnemy(target) && target.Map == Map && InRange(target, 1) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
     public TimeSpan BeginMelee(Mobile target)
     {

@@ -41,7 +41,8 @@ public static class ProcessingChecks
         new Account(name.ToLowerInvariant(), Guid.NewGuid().ToString("N"))[0] = player;
         ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
         player.RawStr = 200; player.AddItem(new Backpack());
-        player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5550, 1150), Map.Trammel);
+        FixtureSpace.Place(player,new Point3D(5550,1150,0), Map.Trammel);
+        if(craft.HasValue) { CraftFacilities.Register(new(craft.Value,player.Map.Name,player.X+1,player.Y,player.Z,0xB4A)); }
         if (craft.HasValue) { ClassProfessions.Profiles.Confirm(player, craft.Value); }
         return player;
     }

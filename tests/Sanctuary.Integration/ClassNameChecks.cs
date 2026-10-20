@@ -66,6 +66,7 @@ public static class ClassNameChecks
                 Require(!args.Rejected && player != null && player.Female == female
                     && ClassCreation.Profiles.TryGet(player.Serial, out var initial) && (byte)initial.Class == id
                     && player.Title == $"Level 1 {expected}", "Sex/class identity or initial title changed during real creation");
+                FixtureSpace.Place(player,new Point3D(1450,1705,0),Map.Felucca);
                 var profiles = ClassCreation.Profiles;
                 Require(profiles.AwardExperience(player, 123) && profiles.AdvanceLevel(player, 12), "Could not establish earned progression");
                 string talent = TalentCatalog.ForClass(identity).Trees.SelectMany(t => t.Skills)

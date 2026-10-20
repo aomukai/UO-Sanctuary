@@ -94,7 +94,7 @@ public static class CombatTiming
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0)
     {
         int row = Math.Clamp((int)characterClass - 101, 0, 6);
-        bool cast = ability is CombatAbility.Teeth or CombatAbility.RaiseSkeleton;
+        bool cast = ability is CombatAbility.Teeth or CombatAbility.RaiseSkeleton or CombatAbility.Teleport;
         int bonus = Math.Clamp(cast ? fcr : ias, 0, 10000);
         int effective = 120 * bonus / (120 + bonus);
         int rate = Math.Clamp(100 + effective - (cast ? 0 : weapon.Modifier) - Math.Clamp(chill, 0, 50), 15, 175);
@@ -108,7 +108,7 @@ public static class CombatTiming
     {
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
-    public static int Range(PlayerMobile from, CombatAbility ability) => ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
+    public static int Range(PlayerMobile from, CombatAbility ability) => ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {

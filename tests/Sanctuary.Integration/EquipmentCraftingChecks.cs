@@ -79,7 +79,10 @@ public static class EquipmentCraftingChecks
         ClassCreation.Profiles.Assign(player, craftClass);
         ClassProfessions.Profiles.Confirm(player, row.Skill);
         player.Skills[row.Skill].Cap = 120; player.Skills[row.Skill].Base = 120;
-        player.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        FixtureSpace.Place(player, new Point3D(5750, 1151, 0), Map.Trammel);
+        CraftFacilities.Register(new(row.Skill,player.Map.Name,player.X+1,player.Y,player.Z,0xFAF));
+        if(row.Skill==SkillName.Blacksmith)
+        { CraftFacilities.Register(new(row.Skill,player.Map.Name,player.X+1,player.Y+1,player.Z,0xFB1)); }
         player.RawStr = 1000; player.RawDex = 1000;
         ClassCreation.Profiles.AdvanceLevel(player, 99); player.RawStr = 1000; player.RawDex = 1000;
         return player;
@@ -134,6 +137,8 @@ public static class EquipmentCraftingChecks
                     Require(player.EquipItem(output) && EquipmentBalance.RunPenalty(player) == 10, "Crafted bone is not Heavy");
                     player.Backpack.DropItem(output);
                 }
+                // Keep saved items/owners, but vacate the workshop for the next independent recipe.
+                player.MoveToWorld(new Point3D(5750,1200,0),Map.Trammel);
             }
         }
         Colours(saved); ExpandedMaterials(saved); Boundaries(saved); Transfers(saved); ExactSelectionAndSaving(); Rejects(); BookCoverage();

@@ -44,7 +44,11 @@ public static class ProfessionChecks
         ClassCreation.Profiles.Assign(player, DiabloClass.Necromancer);
         player.RawStr = 200;
         player.AddItem(new Backpack());
-        player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5550, 1150), Map.Trammel);
+        FixtureSpace.Place(player,new Point3D(5550,1150,0), Map.Trammel);
+        foreach(byte skill in TradeSkills.Crafting)
+        { CraftFacilities.Register(new((SkillName)skill,player.Map.Name,player.X+1,player.Y,player.Z,0xB4A)); }
+        new Static(0xFAF).MoveToWorld(new Point3D(player.X+1,player.Y,player.Z),player.Map);
+        new Static(0xFB1).MoveToWorld(new Point3D(player.X+1,player.Y+1,player.Z),player.Map);
         return player;
     }
     private static void Ask(PlayerMobile player, BaseTool tool, bool confirm)

@@ -49,6 +49,8 @@ def exercise(window, click, capture):
     time.sleep(.3)
     capture('t18-scribe-tool.png')
     click(130, 322)
+    click(75, 150)
+    click(75, 455)
     time.sleep(4)
     command('scribed')
     capture('t18-identify-target.png')

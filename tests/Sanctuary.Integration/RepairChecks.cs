@@ -48,8 +48,17 @@ public static class RepairChecks
         player.RawStr = 200; player.RawDex = 200;
         ClassProfessions.Profiles.Confirm(player, skill);
         player.Skills[skill].Cap = 120; player.Skills[skill].Base = 120;
-        player.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Workshop(player);
         return player;
+    }
+    private static void Workshop(PlayerMobile player)
+    {
+        FixtureSpace.Place(player,new Point3D(5550,1151,0),Map.Trammel);
+        var skill=ClassProfessions.Profiles.Find(player).Craft;
+        CraftFacilities.Register(new(skill,player.Map.Name,player.X+1,player.Y,player.Z,0xFAF));
+        if(skill==SkillName.Blacksmith)
+        { new Static(0xFAF).MoveToWorld(new Point3D(player.X+1,player.Y,player.Z),player.Map);
+          new Static(0xFB1).MoveToWorld(new Point3D(player.X+1,player.Y+1,player.Z),player.Map); }
     }
     private static void Fund(PlayerMobile player, RepairRequest request)
     {
@@ -97,16 +106,16 @@ public static class RepairChecks
     }
     private static void Approach(PlayerMobile player, BaseVendor vendor)
     {
-        for (int x = -1; x <= 1; x++)
+        for (int x = -3; x <= 3; x++)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int y = -3; y <= 3; y++)
             {
                 var point = new Point3D(vendor.X + x, vendor.Y + y, vendor.Z);
-                if (vendor.Map.CanFit(point, 16, false, false, true) && vendor.Map.LineOfSight(point, vendor.Location))
+                if (vendor.Map.CanFit(point,16,false,false,true) && FixtureSpace.ClearOfAllies(player,point,vendor.Map) && vendor.Map.LineOfSight(point, vendor.Location))
                 { player.MoveToWorld(point, vendor.Map); return; }
             }
         }
-        throw new InvalidOperationException("Cannot approach repair vendor");
+        throw new InvalidOperationException("Cannot approach repair vendor at "+vendor.Location);
     }
     private static void Check()
     {
@@ -176,7 +185,7 @@ public static class RepairChecks
         var moved = EquipmentRepairs.Quote(smith, sword, hammer);
         smith.MoveToWorld(new Point3D(5570, 1151, 0), Map.Trammel);
         Require(!EquipmentRepairs.Commit(moved, out _) && EquipmentRepairs.Quote(smith, sword, hammer) == null, "Remote workshop accepted");
-        smith.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Workshop(smith);
         Require(EquipmentRepairs.Quote(players[SkillName.Tailoring], sword, tools[SkillName.Tailoring]) == null,
             "Foreign item/wrong profession accepted");
         var nativeTool = new SmithHammer(); smith.Backpack.DropItem(nativeTool);
@@ -262,7 +271,7 @@ public static class RepairChecks
                 && result.LostMaximum == 2 && smith.Backpack.GetAmount(typeof(Gold)) == 0, "NPC saving/loss/gold incorrect");
             item.Delete(); ClearResources(smith);
         }
-        smith.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Workshop(smith);
         var wood = players[SkillName.Fletching]; var fletcher = tools[SkillName.Fletching];
         var wand = new HealWand(); wood.Backpack.DropItem(wand);
         int capacity = EquipmentRepairs.Capacity(wand); wand.ConsumeCharge(wood);
@@ -289,7 +298,7 @@ public static class RepairChecks
         before = Inventory(wood);
         Require(!EquipmentRepairs.Commit(insufficientFee, out _, new Rolls(true, false)) && Inventory(wood) == before,
             "Insufficient NPC fee consumed essence");
-        wood.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Workshop(wood);
         ClearResources(wood);
         var retained = new WoodenShield(); wood.Backpack.DropItem(retained); Damage(retained, 0);
         var loseMaximum = EquipmentRepairs.Quote(wood, retained, fletcher); Fund(wood, loseMaximum);
@@ -320,7 +329,7 @@ public static class RepairChecks
         var player = (PlayerMobile)World.FindMobile((Serial)saved.Player);
         var item = World.FindItem((Serial)saved.Item);
         var tool = (BaseTool)World.FindItem((Serial)saved.Tool);
-        player.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        Workshop(player);
         var quote = EquipmentRepairs.Quote(player, item, tool, random: new Random(54321));
         Require(quote != null && JsonSerializer.Serialize(quote.Costs.Select(c => new { Type = c.Type.Name, c.Amount })) == saved.Quote,
             $"Unaccepted quote changed after reboot: quote={quote != null}; map={player.Map}; ready={EquipmentRepairs.Ready(player)}; tool={tool?.UsesRemaining}; skill={player.Skills[SkillName.Blacksmith].Base}; active={ClassProfessions.Active(player, SkillName.Blacksmith)}; native={GearDetails.Read(item)}; price={EquipmentRepairs.Profiles.Price(item)}");

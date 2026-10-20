@@ -1,0 +1,886 @@
+[
+  {
+    "type": "BarrelStaves",
+    "name": "Barrel Staves",
+    "category": "Parts",
+    "skill": 0.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "type": "BarrelLid",
+    "name": "Barrel Lid",
+    "category": "Parts",
+    "skill": 11.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "type": "Keg",
+    "name": "Keg",
+    "category": "Parts",
+    "skill": 57.8,
+    "ingredients": [
+      {
+        "type": "BarrelStaves",
+        "amount": 3
+      },
+      {
+        "type": "BarrelHoops",
+        "amount": 1
+      },
+      {
+        "type": "BarrelLid",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "type": "FootStool",
+    "name": "Foot Stool",
+    "category": "Seating",
+    "skill": 11.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 9
+      }
+    ]
+  },
+  {
+    "type": "Stool",
+    "name": "Stool",
+    "category": "Seating",
+    "skill": 11.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 9
+      }
+    ]
+  },
+  {
+    "type": "BambooChair",
+    "name": "Bamboo Chair",
+    "category": "Seating",
+    "skill": 21.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 13
+      }
+    ]
+  },
+  {
+    "type": "WoodenChair",
+    "name": "Wooden Chair",
+    "category": "Seating",
+    "skill": 21.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 13
+      }
+    ]
+  },
+  {
+    "type": "FancyWoodenChairCushion",
+    "name": "Fancy cushioned chair",
+    "category": "Seating",
+    "skill": 42.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "type": "WoodenChairCushion",
+    "name": "Cushioned chair",
+    "category": "Seating",
+    "skill": 42.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 13
+      }
+    ]
+  },
+  {
+    "type": "WoodenBench",
+    "name": "Wooden Bench",
+    "category": "Seating",
+    "skill": 52.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 17
+      }
+    ]
+  },
+  {
+    "type": "WoodenThrone",
+    "name": "Wooden Throne",
+    "category": "Seating",
+    "skill": 52.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 17
+      }
+    ]
+  },
+  {
+    "type": "Throne",
+    "name": "Throne",
+    "category": "Seating",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 19
+      }
+    ]
+  },
+  {
+    "type": "Nightstand",
+    "name": "Nightstand",
+    "category": "Tables",
+    "skill": 42.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 17
+      }
+    ]
+  },
+  {
+    "type": "WritingTable",
+    "name": "Writing Table",
+    "category": "Tables",
+    "skill": 63.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 17
+      }
+    ]
+  },
+  {
+    "type": "YewWoodTable",
+    "name": "Yew Wood Table",
+    "category": "Tables",
+    "skill": 63.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 23
+      }
+    ]
+  },
+  {
+    "type": "LargeTable",
+    "name": "Large Table",
+    "category": "Tables",
+    "skill": 84.2,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 27
+      }
+    ]
+  },
+  {
+    "type": "ElegantLowTable",
+    "name": "Elegant Low Table",
+    "category": "Tables",
+    "skill": 80.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "PlainLowTable",
+    "name": "Plain Low Table",
+    "category": "Tables",
+    "skill": 80.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "ShortMusicStand",
+    "name": "Short Music Stand",
+    "category": "Tables",
+    "skill": 78.9,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "type": "TallMusicStand",
+    "name": "Tall Music Stand",
+    "category": "Tables",
+    "skill": 81.5,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "type": "Easel",
+    "name": "Easel",
+    "category": "Tables",
+    "skill": 86.8,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "type": "WoodenBox",
+    "name": "Wooden Box",
+    "category": "Storage",
+    "skill": 21.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "type": "SmallCrate",
+    "name": "Small Crate",
+    "category": "Storage",
+    "skill": 10.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 8
+      }
+    ]
+  },
+  {
+    "type": "MediumCrate",
+    "name": "Medium Crate",
+    "category": "Storage",
+    "skill": 31.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 15
+      }
+    ]
+  },
+  {
+    "type": "LargeCrate",
+    "name": "Large Crate",
+    "category": "Storage",
+    "skill": 47.3,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 18
+      }
+    ]
+  },
+  {
+    "type": "WoodenChest",
+    "name": "Wooden Chest",
+    "category": "Storage",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 20
+      }
+    ]
+  },
+  {
+    "type": "EmptyBookcase",
+    "name": "Empty Bookcase",
+    "category": "Storage",
+    "skill": 31.5,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "type": "FancyArmoire",
+    "name": "Fancy Armoire",
+    "category": "Storage",
+    "skill": 84.2,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "Armoire",
+    "name": "Armoire",
+    "category": "Storage",
+    "skill": 84.2,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "PlainWoodenChest",
+    "name": "Plain Wooden Chest",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "type": "OrnateWoodenChest",
+    "name": "Ornate Wooden Chest",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "type": "GildedWoodenChest",
+    "name": "Gilded Wooden Chest",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "type": "WoodenFootLocker",
+    "name": "Wooden Foot Locker",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "type": "FinishedWoodenChest",
+    "name": "Finished Wooden Chest",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 30
+      }
+    ]
+  },
+  {
+    "type": "TallCabinet",
+    "name": "Tall Cabinet",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "ShortCabinet",
+    "name": "Short Cabinet",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 35
+      }
+    ]
+  },
+  {
+    "type": "RedArmoire",
+    "name": "Red Armoire",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 40
+      }
+    ]
+  },
+  {
+    "type": "ElegantArmoire",
+    "name": "Elegant Armoire",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 40
+      }
+    ]
+  },
+  {
+    "type": "MapleArmoire",
+    "name": "Maple Armoire",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 40
+      }
+    ]
+  },
+  {
+    "type": "CherryArmoire",
+    "name": "Cherry Armoire",
+    "category": "Storage",
+    "skill": 90.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 40
+      }
+    ]
+  },
+  {
+    "type": "SmallBedSouthDeed",
+    "name": "Small Bed South deed",
+    "category": "Household",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 100
+      },
+      {
+        "type": "Cloth",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "type": "SmallBedEastDeed",
+    "name": "Small Bed East deed",
+    "category": "Household",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 100
+      },
+      {
+        "type": "Cloth",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "type": "LargeBedSouthDeed",
+    "name": "Large Bed South deed",
+    "category": "Household",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 150
+      },
+      {
+        "type": "Cloth",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "LargeBedEastDeed",
+    "name": "Large Bed East deed",
+    "category": "Household",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 150
+      },
+      {
+        "type": "Cloth",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "DartBoardSouthDeed",
+    "name": "Dart Board South deed",
+    "category": "Household",
+    "skill": 15.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "type": "DartBoardEastDeed",
+    "name": "Dart Board East deed",
+    "category": "Household",
+    "skill": 15.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "type": "BallotBoxDeed",
+    "name": "Ballot Box deed",
+    "category": "Household",
+    "skill": 47.3,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "type": "SmallForgeDeed",
+    "name": "Small Forge deed",
+    "category": "Stations",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      },
+      {
+        "type": "IronIngot",
+        "amount": 75
+      }
+    ]
+  },
+  {
+    "type": "LargeForgeEastDeed",
+    "name": "Large Forge East deed",
+    "category": "Stations",
+    "skill": 78.9,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      },
+      {
+        "type": "IronIngot",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "type": "LargeForgeSouthDeed",
+    "name": "Large Forge South deed",
+    "category": "Stations",
+    "skill": 78.9,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      },
+      {
+        "type": "IronIngot",
+        "amount": 100
+      }
+    ]
+  },
+  {
+    "type": "AnvilEastDeed",
+    "name": "Anvil East deed",
+    "category": "Stations",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      },
+      {
+        "type": "IronIngot",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "AnvilSouthDeed",
+    "name": "Anvil South deed",
+    "category": "Stations",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 5
+      },
+      {
+        "type": "IronIngot",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "Dressform",
+    "name": "Dressform",
+    "category": "Stations",
+    "skill": 63.1,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 25
+      },
+      {
+        "type": "Cloth",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "type": "SpinningWheelEastDeed",
+    "name": "Spinning Wheel East deed",
+    "category": "Stations",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 75
+      },
+      {
+        "type": "Cloth",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "type": "SpinningWheelSouthDeed",
+    "name": "Spinning Wheel South deed",
+    "category": "Stations",
+    "skill": 73.6,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 75
+      },
+      {
+        "type": "Cloth",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "type": "LoomEastDeed",
+    "name": "Loom East deed",
+    "category": "Stations",
+    "skill": 84.2,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 85
+      },
+      {
+        "type": "Cloth",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "type": "LoomSouthDeed",
+    "name": "Loom South deed",
+    "category": "Stations",
+    "skill": 84.2,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 85
+      },
+      {
+        "type": "Cloth",
+        "amount": 25
+      }
+    ]
+  },
+  {
+    "type": "StoneOvenEastDeed",
+    "name": "Stone Oven East deed",
+    "category": "Stations",
+    "skill": 68.4,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 85
+      },
+      {
+        "type": "IronIngot",
+        "amount": 125
+      }
+    ]
+  },
+  {
+    "type": "StoneOvenSouthDeed",
+    "name": "Stone Oven South deed",
+    "category": "Stations",
+    "skill": 68.4,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 85
+      },
+      {
+        "type": "IronIngot",
+        "amount": 125
+      }
+    ]
+  },
+  {
+    "type": "FlourMillEastDeed",
+    "name": "Flour Mill East deed",
+    "category": "Stations",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 100
+      },
+      {
+        "type": "IronIngot",
+        "amount": 50
+      }
+    ]
+  },
+  {
+    "type": "FlourMillSouthDeed",
+    "name": "Flour Mill South deed",
+    "category": "Stations",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 100
+      },
+      {
+        "type": "IronIngot",
+        "amount": 50
+      }
+    ]
+  },
+  {
+    "type": "WaterTroughEastDeed",
+    "name": "Water Trough East deed",
+    "category": "Stations",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "WaterTroughSouthDeed",
+    "name": "Water Trough South deed",
+    "category": "Stations",
+    "skill": 94.7,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 150
+      }
+    ]
+  },
+  {
+    "type": "AlchemistTableSouthDeed",
+    "name": "Alchemist Table South deed",
+    "category": "Stations",
+    "skill": 85.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 70
+      }
+    ]
+  },
+  {
+    "type": "AlchemistTableEastDeed",
+    "name": "Alchemist Table East deed",
+    "category": "Stations",
+    "skill": 85.0,
+    "ingredients": [
+      {
+        "type": "Board",
+        "amount": 70
+      }
+    ]
+  },
+  {
+    "type": "SanctuaryPotionKeg",
+    "name": "Potion keg",
+    "category": "Parts",
+    "skill": 75,
+    "ingredients": [
+      {
+        "type": "Keg",
+        "amount": 1
+      },
+      {
+        "type": "Bottle",
+        "amount": 10
+      },
+      {
+        "type": "BarrelLid",
+        "amount": 1
+      },
+      {
+        "type": "BarrelTap",
+        "amount": 1
+      }
+    ]
+  }
+]

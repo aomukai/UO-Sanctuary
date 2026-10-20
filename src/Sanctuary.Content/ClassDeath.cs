@@ -24,6 +24,7 @@ public static class ClassDeath
             return;
         }
         TimedEffects.Clear(player);
+        TownPortals.Close(player.Serial);
         PotionBelts.OnDeath(player, corpse);
         ClassCombat.Stop(player);
         ClassCombat.For(player).RecoveryUntil = Core.TickCount;
@@ -92,7 +93,7 @@ public static class ClassDeath
     }
     public static bool Recover(PlayerMobile player, Corpse corpse)
     {
-        if (!ClassCombat.Enabled(player) || !player.Alive || player.Deleted || player.Frozen || player.Paralyzed
+        if (!ClassCombat.Enabled(player) || !player.Alive || player.Deleted || player.Frozen || player.Paralyzed || !AlliedOverlap.Allowed(player)
             || player.Holding != null || player.Backpack == null || corpse is not { Deleted: false, Parent: null }
             || corpse.Owner != player || corpse.OwnerWasBaseCreature || corpse.Map != player.Map
             || !player.InRange(corpse, 2) || Math.Abs(player.Z - corpse.Z) >= 16

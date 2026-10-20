@@ -37,7 +37,8 @@ public static class ImbuingChecks
         var p = new PlayerMobile { Body = 0x190, Player = true, Name = "TieredImbuing" };
         ClassCreation.Profiles.Assign(p, DiabloClass.Necromancer); ClassCreation.Profiles.AdvanceLevel(p, 99);
         p.AddItem(new Backpack()); p.RawStr = p.RawDex = 1000;
-        p.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        FixtureSpace.Place(p,new Point3D(5550, 1151, 0), Map.Trammel);
+        CraftFacilities.Register(new(craft,"Trammel",p.X+1,p.Y,p.Z,0xB4A));
         ClassProfessions.Profiles.Confirm(p, craft);
         p.Skills[craft].Cap = 120; p.Skills[craft].Base = 120;
         return p;

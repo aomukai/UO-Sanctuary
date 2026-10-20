@@ -72,6 +72,11 @@ public static class TimedEffects
     }
     public static void ClearRestoration(Mobile owner)
     { if (owner != null && _actors.TryGetValue(owner.Serial, out var a)) { a.Life.Clear(); a.Mana.Clear(); } }
+    public static void RemoveBuff(Mobile owner, TimedEffectCategory category)
+    {
+        if (owner != null && _actors.TryGetValue(owner.Serial, out var a) && a.Buffs.Remove(category)
+            && category == TimedEffectCategory.Food && owner is PlayerMobile p) { FoodEffects.Refresh(p); }
+    }
     internal static void DiscardFullRestoration(PlayerMobile owner)
     {
         if (_actors.TryGetValue(owner.Serial, out var a))

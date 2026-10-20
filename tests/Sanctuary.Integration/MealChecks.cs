@@ -27,9 +27,9 @@ public static class MealChecks
     private static void Require(bool value, string why) => RuneChecks.Require(value, why);
     internal static PlayerMobile Player()
     {
-        var p = ImbuingChecks.Player(SkillName.Cooking); p.MoveToWorld(new Point3D(5450, 1160, 0), Map.Trammel);
+        var p = ImbuingChecks.Player(SkillName.Cooking); FixtureSpace.Place(p,new Point3D(5450, 1160, 0), Map.Trammel);
         p.Skills.Cooking.SetLockNoRelay(SkillLock.Locked);
-        CraftFacilities.Register(new(SkillName.Cooking, "Trammel", 5451, 1160, 0, 0x461)); return p;
+        CraftFacilities.Register(new(SkillName.Cooking, "Trammel", p.X+1,p.Y,p.Z,0x461)); return p;
     }
     internal static void Inputs(PlayerMobile p, MealRecipe r, int batches = 1)
     {
@@ -85,7 +85,7 @@ public static class MealChecks
         quote = Quote(); ClassProfessions.Profiles.Select(owner, SkillName.Alchemy);
         Require(!CraftTransactions.Complete(Ticket(quote)), "Craft change completed meal"); ClassProfessions.Profiles.Select(owner, SkillName.Cooking);
         quote = Quote(); owner.MoveToWorld(new Point3D(owner.X + 30, owner.Y, owner.Z), owner.Map);
-        Require(!CraftTransactions.Complete(Ticket(quote)), "Remote cook completed"); owner.MoveToWorld(new Point3D(5450, 1160, 0), Map.Trammel);
+        Require(!CraftTransactions.Complete(Ticket(quote)), "Remote cook completed"); FixtureSpace.Place(owner,new Point3D(5450, 1160, 0), Map.Trammel);
         skillet.Delete(); skillet = ItemOrigins.Create(ItemOrigin.Crafted, () => new Skillet(100)); owner.Backpack.DropItem(skillet); CraftTransactions.Profiles.Store(skillet, new(CraftQuality.Superior, true, 100));
         quote = Quote(); Require(CraftTransactions.Complete(Ticket(quote), new AlchemyChecks.Roll(0, 0)) && skillet.UsesRemaining == 100, "Crafted skillet saving missing");
         var forged = new CraftItem(typeof(PreparedMeal), "Meal", "Forged"); forged.AddSkill(SkillName.Cooking, 0, 50);

@@ -54,12 +54,12 @@ public static class MarketChecks
     private static BaseVendor Vendor(string town, MarketRole role) => TownMarkets.Profiles.At($"Felucca/{town}/{role}");
     private static void Approach(PlayerMobile player, BaseVendor vendor)
     {
-        for (int dx = -1; dx <= 1; dx++)
+        for (int dx = -3; dx <= 3; dx++)
         {
-            for (int dy = -1; dy <= 1; dy++)
+            for (int dy = -3; dy <= 3; dy++)
             {
                 var point = new Point3D(vendor.X + dx, vendor.Y + dy, vendor.Z);
-                if (vendor.Map.CanFit(point, 16, false, false, true) && vendor.Map.LineOfSight(point, vendor.Location))
+                if (vendor.Map.CanFit(point,16,false,false,true) && FixtureSpace.ClearOfAllies(player,point,vendor.Map) && vendor.Map.LineOfSight(point, vendor.Location))
                 { player.MoveToWorld(point, vendor.Map); return; }
             }
         }

@@ -125,13 +125,14 @@ public static class IdentificationChecks
             var offer = TownMarkets.Market(vendor).Offers.Single(o => World.FindItem(o.Item) is IdentifyScroll);
             Require(offer.Price == 80 && offer.Supply != null && !offer.Equipment, "Scribe scroll supply/price missing");
         }
+        var home=p.Location; var homeMap=p.Map;
         var shop = vendors[0]; p.MoveToWorld(shop.Location, shop.Map); Put(p, new Gold(1000));
         var row = TownMarkets.Market(shop).Offers.Single(o => World.FindItem(o.Item) is IdentifyScroll);
         int before = p.Backpack.GetAmount(typeof(Gold));
         Require(ClassEconomyHooks.BuyItems(shop, p, [new(row.Item, 1)]) == true
             && p.Backpack.GetAmount(typeof(Gold)) == before - 80 && p.Backpack.Items.OfType<IdentifyScroll>().Any(s => s.Origin == ItemOrigin.Vendor),
             "Real merchant purchase failed");
-        p.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        p.MoveToWorld(home, homeMap);
     }
     private static void Recipe(PlayerMobile p, List<Saved> saved)
     {

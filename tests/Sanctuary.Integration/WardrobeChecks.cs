@@ -144,7 +144,8 @@ public static class WardrobeChecks
     {
         string site = RecognitionChecks.Place(p); var wardrobe = TownRecognition.PublicWardrobe(site);
         Require(Swap(p, wardrobe, SkillName.Tinkering), "Tinkering setup failed");
-        p.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5550, 1150), Map.Trammel);
+        FixtureSpace.Place(p,new Point3D(5550,1150,0), Map.Trammel);
+        CraftFacilities.Register(new(SkillName.Tinkering,p.Map.Name,p.X+1,p.Y,p.Z,0xB4A));
         p.Skills.Tinkering.SetLockNoRelay(SkillLock.Up); p.Skills.Tinkering.Base = 0;
         var trainer = new ProfessionInstructor(); trainer.MoveToWorld(p.Location, p.Map); trainer.AIObject.AITimer.Stop();
         Require(trainer.Teach(SkillName.Tinkering, p, 0, false), "Trainer quote failed");

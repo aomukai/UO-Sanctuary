@@ -80,8 +80,9 @@ public static class RuneSocketChecks
         Require(HitRecovery.Fhr(p) == 50, "Restored durability did not restore rune bonuses");
         p.Backpack.DropItem(full); ClassProfessions.Profiles.Select(p, SkillName.Blacksmith);
         p.Skills.Blacksmith.Cap = 120; p.Skills.Blacksmith.Base = 120;
-        new Static(0xFAF).MoveToWorld(new Point3D(5551, 1150, 0), Map.Trammel);
-        new Static(0xFB1).MoveToWorld(new Point3D(5551, 1151, 0), Map.Trammel);
+        CraftFacilities.Register(new(SkillName.Blacksmith,p.Map.Name,p.X+1,p.Y,p.Z,0xFAF));
+        new Static(0xFAF).MoveToWorld(new Point3D(p.X+1,p.Y-1,p.Z), p.Map);
+        new Static(0xFB1).MoveToWorld(new Point3D(p.X+1,p.Y,p.Z), p.Map);
         var hammer = new RepairHammer(); p.Backpack.DropItem(hammer); weapon.HitPoints--;
         var repair = EquipmentRepairs.Quote(p, full, hammer); Require(repair != null, "No filled-host repair quote");
         foreach (var cost in repair.Costs)

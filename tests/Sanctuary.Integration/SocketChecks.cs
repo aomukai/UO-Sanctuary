@@ -216,9 +216,9 @@ public static class SocketChecks
         var vendor = Put(player, ItemOrigins.Create(ItemOrigin.Vendor, () => new Longsword())); Require(Quote(player, tool, vendor) == null, "Vendor gear accepted"); vendor.Delete();
         item = Gear(player); quote = Quote(player, tool, item); Ready(player, 119.9);
         Require(!TinkeringSockets.Commit(player, quote, out _), "Changed quoted skill accepted"); Ready(player);
-        quote = Quote(player, tool, item); player.MoveToWorld(new Point3D(5100, 1000, 0), Map.Trammel);
+        quote = Quote(player, tool, item); var home=player.Location; player.MoveToWorld(new Point3D(5100, 1000, 0), Map.Trammel);
         Require(!TinkeringSockets.Commit(player, quote, out _), "Remote workbench commit accepted"); item.Delete();
-        player.MoveToWorld(new Point3D(5550, 1151, 0), Map.Trammel);
+        player.MoveToWorld(home, Map.Trammel);
     }
     private static void NativeProvenance(PlayerMobile player, TinkerTools tool, List<Saved> saved)
     {

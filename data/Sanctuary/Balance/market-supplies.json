@@ -498,5 +498,35 @@
     "SellPrice": 1,
     "Kind": null,
     "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "TownPortalScroll",
+    "Price": 100,
+    "SellPrice": 0,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "IdentifyTome",
+    "Price": 300,
+    "SellPrice": 0,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "TownPortalTome",
+    "Price": 360,
+    "SellPrice": 0,
+    "Kind": null,
+    "Tier": 0
   }
 ]

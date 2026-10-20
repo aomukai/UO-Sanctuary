@@ -109,6 +109,7 @@ public static class CreationChecks
             Require(!args.Rejected && args.Mobile != null, "Valid class creation failed");
             Require(owner.AccessLevel == AccessLevel.Owner, "Account privileges changed");
             Verify(args.Mobile, characterClass);
+            FixtureSpace.Place((PlayerMobile)args.Mobile,new Point3D(1450,1696,0),Map.Felucca);
             serials.Add(args.Mobile.Serial.Value);
         }
 
@@ -180,6 +181,7 @@ public static class CreationChecks
         var args = Args((int)DiabloClass.Sorceress, account);
         CharacterCreation.CharacterCreatedEvent(args);
         var mobile = args.Mobile;
+        FixtureSpace.Place((PlayerMobile)mobile,new Point3D(1450,1696,0),Map.Felucca);
         var profiles = ClassCreation.Profiles;
         Require(!profiles.TryTrain(mobile.Serial, "sorceress.firebolt", out _), "Level 1 has unearned points");
         Require(profiles.AdvanceLevel(mobile, 3) && profiles.AvailablePoints(mobile.Serial) == 2, "Level rewards are wrong");

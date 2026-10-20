@@ -176,7 +176,8 @@ public static class GemActivationChecks
         var host = (BaseWeapon)RuneSocketChecks.Host(p); Install(p, Gem(p, "Ruby"), host);
         Require(RuneSockets.Commit(RuneSockets.Quote(p, RuneSocketChecks.Rune(p), host)), "Mixed repair setup failed");
         ClassProfessions.Profiles.Select(p, SkillName.Blacksmith); p.Skills.Blacksmith.Cap = 120; p.Skills.Blacksmith.Base = 120;
-        new Static(0xFAF).MoveToWorld(new Point3D(5551, 1150, 0), Map.Trammel); new Static(0xFB1).MoveToWorld(new Point3D(5551, 1151, 0), Map.Trammel);
+        CraftFacilities.Register(new(SkillName.Blacksmith,p.Map.Name,p.X+1,p.Y,p.Z,0xFAF));
+        new Static(0xFAF).MoveToWorld(new Point3D(p.X+1,p.Y-1,p.Z), p.Map); new Static(0xFB1).MoveToWorld(new Point3D(p.X+1,p.Y,p.Z), p.Map);
         var tool = new RepairHammer(); p.Backpack.DropItem(tool); host.HitPoints = 0; var quote = EquipmentRepairs.Quote(p, host, tool);
         Require(quote != null, "Broken gem host not repairable");
         foreach (var cost in quote.Costs) { var resource = cost.Type.CreateInstance<Item>(); resource.Amount = cost.Amount; p.Backpack.DropItem(resource); }

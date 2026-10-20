@@ -108,7 +108,7 @@ public static class PersistentMinions
         }
     }
 
-    private static bool FindPosition(PlayerMobile owner, out Point3D point)
+    internal static bool FindPosition(PlayerMobile owner, out Point3D point)
     {
         // A blocked login spot leaves the minion parked; accepted movement retries.
         for (int radius = 1; radius <= 4; radius++)

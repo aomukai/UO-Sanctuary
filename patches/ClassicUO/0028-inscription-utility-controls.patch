@@ -1,0 +1,33 @@
+--- a/src/ClassicUO.Client/Game/ClassBeltClient.cs
++++ b/src/ClassicUO.Client/Game/ClassBeltClient.cs
+@@ -90,7 +90,7 @@
+     public static bool UseInventoryScroll(World world, uint serial)
+     {
+         var item = world.Items.Get(serial);
+-        if (!ClassCombatClient.Enabled || item == null || item.Graphic != BeltProtocol.TeleportGraphic || item.Hue != BeltProtocol.TeleportHue
++        if (!ClassCombatClient.Enabled || item == null || item.Graphic is not (BeltProtocol.TeleportGraphic or BeltProtocol.IdentifyGraphic or BeltProtocol.PortalGraphic or BeltProtocol.IdentifyTomeGraphic or BeltProtocol.PortalTomeGraphic) || item.Hue != BeltProtocol.TeleportHue && !(item.Graphic == BeltProtocol.IdentifyGraphic && item.Hue == 0)
+             || item.RootContainer != world.Player.Serial || world.TargetManager.IsTargeting || Client.Game.UO.GameCursor.ItemHold.Enabled) { return false; }
+         GameActions.DoubleClick(world, serial); return true;
+     }
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PotionBeltGump.cs
+@@ -43,8 +43,8 @@
+                 bool locked = row >= ClassBeltClient.Rows;
+                 var control = new ActionControl(8 + column * Size, 25 + (rows - 1 - row) * Size, Size - 2, Size - 2,
+                     potion.Serial == 0 ? "+" : "", locked ? "Inactive overflow: right-click to return to backpack" :
+-                    potion.Serial == 0 ? "Click to load a potion or Teleport scroll from your backpack" :
+-                    potion.Kind == RestorationKind.TeleportScroll ? "Teleport scroll: use column hotkey with cursor over the world; right-click to return" : $"{PotionName(potion)}: click to drink; right-click to return to backpack",
++                    potion.Serial == 0 ? "Click to load a potion or single-use utility scroll from your backpack" :
++                    potion.Kind == RestorationKind.TeleportScroll ? "Teleport scroll: use column hotkey with cursor over the world; right-click to return" : $"{PotionName(potion)}: click to use; right-click to return to backpack",
+                     button =>
+                     {
+                         if (button == MouseButtonType.Right) { ClassBeltClient.Send(BeltRequest.Remove, cell); }
+@@ -77,6 +77,8 @@
+         return potion.Kind switch
+         {
+             RestorationKind.TeleportScroll => "Teleport scroll",
++            RestorationKind.IdentifyScroll => "Identify scroll",
++            RestorationKind.TownPortalScroll => "Town Portal scroll",
+             RestorationKind.CombatBuff => potion.Tier switch
+             { 1 => "Second Wind potion", 2 => "Deep Wounds potion", 3 => "Magical Penetration potion", 4 => "Stealing potion", 5 => "Protection potion", _ => "Combat potion" },
+             RestorationKind.Rejuvenation => potion.Tier == 2 ? "Full Rejuvenation potion" : "Rejuvenation potion",

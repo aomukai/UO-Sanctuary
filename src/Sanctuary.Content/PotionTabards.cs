@@ -120,6 +120,7 @@ public partial class RestorationPotion : BasePotion
     public override bool CanStackWith(Item dropped) => dropped is RestorationPotion other
         && other.Kind == Kind && other.Tier == Tier && base.CanStackWith(dropped);
     public override bool RequireFreeHand => false;
+    public override bool CanPourIntoKeg => false;
     public override bool CanDrink(Mobile from) => from is PlayerMobile player && PotionRestoration.CanUse(player, this);
     public override void Drink(Mobile from)
     {

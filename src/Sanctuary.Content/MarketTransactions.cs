@@ -10,13 +10,25 @@ namespace Sanctuary;
 
 public static partial class TownMarkets
 {
+    private sealed record PurchaseQuote(Serial Vendor, TimedBuff City, Server.Network.NetState Connection);
+    private static readonly Dictionary<Serial, PurchaseQuote> _purchaseQuotes = new();
+    private static void OpenPurchase(BaseVendor vendor, Mobile buyer)
+    { if (Role(vendor) != null) { _purchaseQuotes[buyer.Serial] = new(vendor.Serial, MapSurveys.City(buyer), buyer.NetState); } }
+    private static int ShownPurchasePrice(BaseVendor vendor, Mobile buyer, int price) => Role(vendor) != null
+        && _purchaseQuotes.GetValueOrDefault(buyer.Serial) is { } quote && quote.Vendor == vendor.Serial
+        ? MapSurveys.Price(price, quote.City != null) : price;
     private static bool Trading(BaseVendor vendor, Mobile from) => vendor is { Deleted: false, Alive: true }
         && from is { Deleted: false, Alive: true, Backpack: not null, Holding: null }
-        && from.Map == vendor.Map && from.InRange(vendor, 3) && from.InLOS(vendor) && vendor.CheckVendorAccess(from);
+        && AlliedOverlap.Allowed(from) && from.Map == vendor.Map && from.InRange(vendor, 3) && from.InLOS(vendor) && vendor.CheckVendorAccess(from);
     private static bool? Buy(BaseVendor vendor, Mobile buyer, List<BuyItemResponse> list)
     {
         if (Role(vendor) == null) { return null; }
         if (!Trading(vendor, buyer) || list is not { Count: > 0 and <= 249 }) { return false; }
+        var city = MapSurveys.City(buyer);
+        if (_purchaseQuotes.TryGetValue(buyer.Serial, out var quote)
+            ? quote.Vendor != vendor.Serial || quote.City != city || !ReferenceEquals(quote.Connection, buyer.NetState)
+            : city != null || buyer.NetState != null)
+        { buyer.SendMessage("Your map discount or shop changed. Reopen the shop before purchasing. Nothing was charged."); return false; }
         var market = Market(vendor);
         var selected = new List<(MarketOffer Offer, int Amount)>();
         var seen = new HashSet<Serial>();
@@ -27,7 +39,7 @@ public static partial class TownMarkets
             if (!seen.Add(request.Serial) || offer == null || request.Amount < 1 || request.Amount > (offer.Equipment ? 1 : 999)
                 || World.FindItem(offer.Item) is not { Deleted: false } item || item.Parent != World.FindItem(market.Shelf))
             { buyer.SendMessage("That shop offer has changed. Please reopen the shop."); return false; }
-            total += (long)offer.Price * request.Amount;
+            total += (long)MapSurveys.Price(offer.Price, city != null) * request.Amount;
             if (total > int.MaxValue) { return false; }
             selected.Add((offer, request.Amount));
         }
@@ -81,7 +93,7 @@ public static partial class TownMarkets
                     if (ClassGear.Converted(item))
                     {
                         ClassGear.Profiles.Store(item, ClassGear.Profiles.Ensure(item) with
-                        { VendorPurchasePrice = cost == 0 ? 0 : offer.Price });
+                        { VendorPurchasePrice = cost == 0 ? 0 : MapSurveys.Price(offer.Price, city != null) });
                     }
                 }
             }
@@ -155,10 +167,10 @@ internal sealed class MarketDelivery
     private bool _committed;
     private MarketDelivery(Mobile owner, List<(Item, int)> consumes, List<(Item, Item)> merges, List<Item> outputs)
     { _owner = owner; _consumes = consumes; _merges = merges; _outputs = outputs; }
-    public static MarketDelivery Create(Mobile owner, List<(Item Item, int Amount)> consumes, List<Item> outputs)
+    public static MarketDelivery Create(Mobile owner, List<(Item Item, int Amount)> consumes, List<Item> outputs, int additionalWeight = 0)
     {
         var amounts = new Dictionary<Item, int>();
-        int slots = 0, weight = 0;
+        int slots = 0, weight = additionalWeight;
         foreach (var (item, amount) in consumes)
         {
             if (item.Deleted || !item.IsChildOf(owner.Backpack) || amount < 1 || amount > item.Amount || !amounts.TryAdd(item, item.Amount - amount))

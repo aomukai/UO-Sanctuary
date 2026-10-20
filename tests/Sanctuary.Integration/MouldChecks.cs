@@ -156,7 +156,7 @@ public static class MouldChecks
                 "Mould replaced or altered the ordinary gold drop");
             if (success) { final = victim; finalBody = body; } else { body.Delete(); victim.Delete(); }
         }
-        player.MoveToWorld(finalBody.Location, finalBody.Map);
+        FixtureSpace.Place(player, finalBody.Location, finalBody.Map);
         var loot = finalBody.Items.OfType<RuneMould>().Single(); string before = Identity(loot);
         var filler = new Ruby(); player.Backpack.DropItem(filler);
         int limit = player.Backpack.MaxItems; player.Backpack.MaxItems = player.Backpack.TotalItems;

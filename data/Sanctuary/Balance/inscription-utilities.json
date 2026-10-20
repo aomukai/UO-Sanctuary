@@ -1,0 +1,302 @@
+[
+  {
+    "Id": "IdentifyScroll",
+    "Type": "IdentifyScroll",
+    "Name": "Identify scroll",
+    "Category": "Identify",
+    "Skill": 0,
+    "Charges": 1,
+    "Ingredients": [
+      {
+        "Type": "BlankScroll",
+        "Amount": 1
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 1
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll50",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (3 charges)",
+    "Category": "Identify",
+    "Skill": 50,
+    "Charges": 3,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 3
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 3
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll60",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (4 charges)",
+    "Category": "Identify",
+    "Skill": 60,
+    "Charges": 4,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 4
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 4
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll70",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (5 charges)",
+    "Category": "Identify",
+    "Skill": 70,
+    "Charges": 5,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 5
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 5
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll80",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (6 charges)",
+    "Category": "Identify",
+    "Skill": 80,
+    "Charges": 6,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 6
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 6
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll90",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (7 charges)",
+    "Category": "Identify",
+    "Skill": 90,
+    "Charges": 7,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 7
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 7
+      }
+    ]
+  },
+  {
+    "Id": "IdentifyScroll100",
+    "Type": "IdentifyTome",
+    "Name": "Identify tome (10 charges)",
+    "Category": "Identify",
+    "Skill": 100,
+    "Charges": 10,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 10
+      },
+      {
+        "Type": "BlackPearl",
+        "Amount": 10
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll",
+    "Type": "TownPortalScroll",
+    "Name": "Town Portal scroll",
+    "Category": "Town Portal",
+    "Skill": 0,
+    "Charges": 1,
+    "Ingredients": [
+      {
+        "Type": "BlankScroll",
+        "Amount": 1
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 1
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll50",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (3 charges)",
+    "Category": "Town Portal",
+    "Skill": 50,
+    "Charges": 3,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 3
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 3
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll60",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (4 charges)",
+    "Category": "Town Portal",
+    "Skill": 60,
+    "Charges": 4,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 4
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 4
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll70",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (5 charges)",
+    "Category": "Town Portal",
+    "Skill": 70,
+    "Charges": 5,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 5
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 5
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll80",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (6 charges)",
+    "Category": "Town Portal",
+    "Skill": 80,
+    "Charges": 6,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 6
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 6
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll90",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (7 charges)",
+    "Category": "Town Portal",
+    "Skill": 90,
+    "Charges": 7,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 7
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 7
+      }
+    ]
+  },
+  {
+    "Id": "TownPortalScroll100",
+    "Type": "TownPortalTome",
+    "Name": "Town Portal tome (10 charges)",
+    "Category": "Town Portal",
+    "Skill": 100,
+    "Charges": 10,
+    "Ingredients": [
+      {
+        "Type": "Leather",
+        "Amount": 1
+      },
+      {
+        "Type": "BlankScroll",
+        "Amount": 10
+      },
+      {
+        "Type": "Bloodmoss",
+        "Amount": 10
+      }
+    ]
+  }
+]

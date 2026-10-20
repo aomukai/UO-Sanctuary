@@ -35,6 +35,9 @@ public static class CraftTransactions
         public GemUpgradeRequest GemUpgrade { get; set; }
         public AlchemyRequest Alchemy { get; set; }
         public MealRequest Meal { get; set; }
+        public CarpentryRequest Carpentry { get; set; }
+        public SurveyRequest Survey { get; set; }
+        public InscriptionRequest Scribing { get; set; }
     }
     public static bool ToolType(Type type) => _toolTypes.Contains(type);
     public static void Configure()
@@ -133,7 +136,7 @@ public static class CraftTransactions
             && (random ?? Random.Shared).Next(100) < Settings.SaveChancePercent) { return; }
         tool.UsesRemaining--;
     }
-    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll) || recipe.ItemType == typeof(InscribedRune) || recipe.ItemType == typeof(SocketGem) || recipe.ItemType == typeof(RestorationPotion) || recipe.ItemType == typeof(PreparedMeal));
+    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (InscriptionCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(SurveyMap) || CarpentryCrafting.IsOutput(recipe.ItemType) || ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll) || recipe.ItemType == typeof(InscribedRune) || recipe.ItemType == typeof(SocketGem) || recipe.ItemType == typeof(RestorationPotion) || recipe.ItemType == typeof(PreparedMeal));
     internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
     {
         if (!Managed(from, recipe)) { return null; }
@@ -141,6 +144,9 @@ public static class CraftTransactions
         if (EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
         if (recipe.ItemType == typeof(InscribedRune)) { ticket.Rune = RuneCrafting.Attach(ticket); }
         if (recipe.ItemType == typeof(PreparedMeal)) { ticket.Meal = MealCooking.Attach(ticket); }
+        if (InscriptionCrafting.IsOutput(recipe.ItemType)) { ticket.Scribing = InscriptionCrafting.Attach(ticket); }
+        if (recipe.ItemType == typeof(SurveyMap)) { ticket.Survey = MapDrawing.Attach(ticket); }
+        if (CarpentryCrafting.IsOutput(recipe.ItemType)) { ticket.Carpentry = CarpentryCrafting.Attach(ticket); }
         if (recipe.ItemType == typeof(RestorationPotion)) { ticket.Alchemy = AlchemyRestoratives.Attach(ticket); }
         if (recipe.ItemType == typeof(SocketGem)) { ticket.GemUpgrade = GemUpgrading.Attach(ticket); }
         return ticket;
@@ -168,6 +174,9 @@ public static class CraftTransactions
     }
     internal static bool Complete(Request request, Random random = null)
     {
+        if (request.Scribing != null || InscriptionCrafting.IsOutput(request.Recipe.ItemType) && request.Recipe.ItemType != typeof(IdentifyScroll)) { return InscriptionCrafting.Complete(request, random); }
+        if (request.Recipe.ItemType == typeof(SurveyMap)) { return MapDrawing.Complete(request, random); }
+        if (CarpentryCrafting.IsOutput(request.Recipe.ItemType)) { return CarpentryCrafting.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(PreparedMeal)) { return MealCooking.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(RestorationPotion)) { return AlchemyRestoratives.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(SocketGem)) { return GemUpgrading.Complete(request, random); }
@@ -215,7 +224,7 @@ public static class CraftTransactions
             var quality = Quality(from.Skills[system.MainSkill].Base, required, random.Next(100));
             if (output is BaseTool craftedTool) { FinishTool(craftedTool, from, quality); }
             else { output.PlayerConstructed = true; }
-            output.Hue = hue;
+            if (!scroll) { output.Hue = hue; }
             from.Backpack.DropItem(output);
             if (scroll) { from.SendMessage("You crafted an Identify scroll."); }
             else { from.SendMessage($"You crafted {QualityName(quality)} {output.DefaultName ?? output.GetType().Name}."); }

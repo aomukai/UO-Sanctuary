@@ -57,7 +57,7 @@ public static class ClassProfessions
     public static bool Affected(Mobile from) => Enabled && from is PlayerMobile { AccessLevel: AccessLevel.Player }
         && ClassCombat.Enabled(from as PlayerMobile);
     public static bool Ready(Mobile from) => from is PlayerMobile { Deleted: false, Alive: true, Frozen: false, Paralyzed: false }
-        && from.Backpack != null && from.Holding == null;
+        && from.Backpack != null && from.Holding == null && AlliedOverlap.Allowed(from);
     public static string Name(SkillName skill) => skill switch
     {
         SkillName.Blacksmith => "Blacksmithing", SkillName.Fletching => "Bowcraft/Fletching",
@@ -102,7 +102,7 @@ public static class ClassProfessions
     }
     private static bool SourceValid(Mobile from, Item tool, BaseCreature trainer, SkillName skill, Gold payment = null) =>
         (Ready(from) || payment != null && from is PlayerMobile { Deleted: false, Alive: true, Frozen: false, Paralyzed: false }
-            && from.Backpack != null && ReferenceEquals(from.Holding, payment))
+            && from.Backpack != null && ReferenceEquals(from.Holding, payment) && AlliedOverlap.Allowed(from))
         && (tool != null ? tool is { Deleted: false } && (tool.IsChildOf(from.Backpack) || tool.Parent == from)
             && (tool is not BaseTool craftTool || craftTool.UsesRemaining > 0 && craftTool.CraftSystem.MainSkill == skill)
             : trainer is { Deleted: false, Alive: true, CanTeach: true } && from.Map == trainer.Map

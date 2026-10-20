@@ -28,7 +28,7 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public bool TrySpendStat(PlayerMobile mobile, CharacterStat stat)
     {
-        if (mobile == null || mobile.Deleted || !mobile.Alive || (byte)stat > (byte)CharacterStat.Vitality
+        if (mobile == null || mobile.Deleted || !mobile.Alive || !AlliedOverlap.Allowed(mobile) || (byte)stat > (byte)CharacterStat.Vitality
             || !TryGet(mobile.Serial, out var profile) || AvailableStatPoints(mobile.Serial) <= 0)
         {
             return false;
@@ -97,6 +97,8 @@ public sealed class CharacterProfiles : GenericPersistence
 
     public bool TryTrain(Serial serial, string talentId, out string reason)
     {
+        if (World.FindMobile(serial) is { } actor && !AlliedOverlap.Allowed(actor))
+        { reason = "Walk clear of your ally before training a talent."; return false; }
         reason = TrainingRequirement(serial, talentId);
         if (reason != null)
         {

@@ -19,6 +19,9 @@ public static class BalanceCatalog
         AlchemyRestoratives.Load();
         Meals.Load();
         EquipmentCrafting.Load();
+        CarpentryCrafting.Load();
+        InscriptionCrafting.Load();
+        MapSurveys.Load();
         EquipmentEconomy.Load();
         TieredImbuing.Load();
         TinkeringSockets.Load();

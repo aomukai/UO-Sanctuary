@@ -152,7 +152,7 @@ public static class EquipmentEconomy
         player.Backpack.DropItem(resource);
     }
     public static bool Ready(PlayerMobile player) => player is { Deleted: false, Alive: true, Frozen: false, Paralyzed: false }
-        && player.Backpack != null && player.Holding == null && ClassCombat.Enabled(player);
+        && player.Backpack != null && player.Holding == null && ClassCombat.Enabled(player) && AlliedOverlap.Allowed(player);
     private static bool Eligible(PlayerMobile player, Item item) => Ready(player)
         && item is { Deleted: false, Movable: true, Amount: 1, Insured: false, Nontransferable: false }
         && item.Origin is ItemOrigin.Drop or ItemOrigin.Crafted && item.IsChildOf(player.Backpack)

@@ -167,7 +167,7 @@ public static class PotionBeltChecks
             var dead = new PlayerMobile { Player = true, Body = 0x190, Name = "BeltDeath" };
             ClassCreation.Profiles.Assign(dead, DiabloClass.Necromancer);
             dead.AddItem(new Backpack());
-            dead.MoveToWorld(_player.Location, _player.Map);
+            FixtureSpace.Place(dead,_player.Location, _player.Map);
             var potion = new RestorationPotion { Amount = 5 };
             dead.Backpack.DropItem(potion);
             PotionBelts.Fill(dead);

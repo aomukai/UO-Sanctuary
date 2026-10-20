@@ -1,0 +1,136 @@
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -17,6 +17,7 @@
+ internal static class ClassCombatClient
+ {
+     private static readonly HashSet<uint> _hostiles = new();
++    private static readonly HashSet<uint> _allies = new();
+     private static bool _queried, _pursuing, _wasDead;
+     private static Entity _selectionFallback;
+     private static uint _sequence, _target, _lastPath, _recoveryUntil;
+@@ -121,10 +122,23 @@
+         _attackHeld = _attackGesture = false;
+         _sequence = _target = 0;
+         _lastPath = Time.Ticks - PursuitUpdateMs;
+-        _hostiles.Clear();
++        _hostiles.Clear(); _allies.Clear(); MovementOnly = false;
+         _selectionFallback = null;
+         _leftRange = 1;
+         _animationUntil = _recoveryUntil = Time.Ticks;
++    }
++    public static bool MovementOnly { get; private set; }
++    public static bool Ally(Mobile target) => Enabled && target != null && !target.IsDead && !target.IsDestroyed && _allies.Contains(target.Serial);
++    public static bool Occupied(World world, int x, int y, int z)
++    {
++        if (world.Player.IsDead) { return false; }
++        if (x == world.Player.X && y == world.Player.Y && Math.Abs(z - world.Player.Z) < 16 && !MovementOnly) { return false; }
++        var tile = world.Map.GetTile(x, y, false);
++        if (tile == null) { return false; }
++        while (tile.TPrevious != null) { tile = tile.TPrevious; }
++        for (var obj = tile; obj != null; obj = obj.TNext)
++        { if (obj is Mobile mob && mob != world.Player && !mob.IsDead && mob.Z + 16 > z && z + 16 > mob.Z) { return true; } }
++        return false;
+     }
+     public static bool Hostile(Mobile target) => target != null && !target.IsDead && !target.IsDestroyed && _hostiles.Contains(target.Serial);
+ 
+@@ -268,7 +282,7 @@
+     }
+     public static void Receive(World world, ref StackDataReader reader)
+     {
+-        if (!world.InGame || reader.Remaining < 26 || reader.ReadUInt8() != CombatProtocol.Version)
++        if (!world.InGame || reader.Remaining < 28 || reader.ReadUInt8() != CombatProtocol.Version)
+         {
+             return;
+         }
+@@ -286,7 +300,8 @@
+         _animationCycle = reader.ReadUInt16BE();
+         _animationUntil = Time.Ticks + reader.ReadUInt16BE();
+         _recoveryUntil = Time.Ticks + reader.ReadUInt16BE();
+-        if (count > CombatProtocol.MaxHostiles || reader.Remaining != count * 4)
++        MovementOnly = reader.ReadUInt8() != 0;
++        if (count > CombatProtocol.MaxHostiles || reader.Remaining < count * 4 + 1)
+         {
+             return;
+         }
+@@ -296,6 +311,10 @@
+         {
+             _hostiles.Add(reader.ReadUInt32BE());
+         }
++        int allyCount = reader.ReadUInt8();
++        if (allyCount > CombatProtocol.MaxAllies || reader.Remaining != allyCount * 4) { return; }
++        _allies.Clear();
++        for (int i = 0; i < allyCount; i++) { _allies.Add(reader.ReadUInt32BE()); }
+         if (unchecked((int)(ack - _sequence)) >= 0)
+         {
+             ProfileManager.CurrentProfile.DiabloRun = running;
+--- a/src/ClassicUO.Client/Game/Pathfinder.cs
++++ b/src/ClassicUO.Client/Game/Pathfinder.cs
+@@ -148,7 +148,8 @@
+                         {
+                             case Mobile mobile:
+                             {
+-                                if (!ignoreGameCharacters && !mobile.IsDead && !mobile.IgnoreCharacters)
++                                if (!mobile.IsDead && !mobile.IgnoreCharacters && !ClassCombatClient.Ally(mobile)
++                                    && (!ignoreGameCharacters || ClassCombatClient.Enabled && !_world.Player.IsDead))
+                                 {
+                                     list.Add
+                                     (
+@@ -713,7 +714,8 @@
+                                 node.Cost = node.DistFromGoalCost + node.DistFromStartCost;
+                                 node.Parent = parent;
+ 
+-                                if (MathHelper.GetDistance(_endPoint, p) <= _pathfindDistance)
++                                if (MathHelper.GetDistance(_endPoint, p) <= _pathfindDistance
++                                    && (!ClassCombatClient.Enabled || !ClassCombatClient.Occupied(_world, x, y, z)))
+                                 {
+                                     _goalFound = true;
+                                     _goalNode = i;
+@@ -906,7 +908,7 @@
+ 
+                 if (curNode == -1)
+                 {
+-                    return false;
++                    return ClassCombatClient.Enabled && BuildPartialPath();
+                 }
+ 
+                 if (_activeCloseNodes >= maxNodes)
+@@ -960,7 +962,9 @@
+ 
+             void Consider(PathNode node)
+             {
+-                if (!node.Used || node.Parent == null || node.DistFromGoalCost >= GetGoalDistCost(_startPoint, 0))
++                if (!node.Used || node.Parent == null || (node.DistFromGoalCost >= GetGoalDistCost(_startPoint, 0)
++                        && !ClassCombatClient.MovementOnly)
++                    || ClassCombatClient.Enabled && ClassCombatClient.Occupied(_world, node.X, node.Y, node.Z))
+                 {
+                     return;
+                 }
+@@ -995,7 +999,8 @@
+             if (responsive)
+             {
+                 _world.Player.GetEndPosition(out int endX, out int endY, out sbyte endZ, out _);
+-                if (Math.Max(Math.Abs(endX - x), Math.Abs(endY - y)) <= distance && Math.Abs(endZ - z) < 16)
++                if (Math.Max(Math.Abs(endX - x), Math.Abs(endY - y)) <= distance && Math.Abs(endZ - z) < 16
++                    && (!ClassCombatClient.Enabled || !ClassCombatClient.Occupied(_world, endX, endY, endZ)))
+                 {
+                     StopAutoWalk();
+                     _startPoint = new Point(endX, endY);
+@@ -1005,7 +1010,7 @@
+                 }
+             }
+ 
+-            if (distance == 0 && IsBlocked(x, y, z))
++            if (distance == 0 && (IsBlocked(x, y, z) || ClassCombatClient.Enabled && ClassCombatClient.Occupied(_world, x, y, z)))
+             {
+                 // Don't do time-consuming computations and freeze the client if the final field is not reachable
+                 // instead we should just move to a field beside it
+@@ -1112,7 +1117,8 @@
+                 node.Direction = direction;
+                 _path[i] = node;
+ 
+-                if (i > 0 && MathHelper.GetDistance(_endPoint, new Point(x, y)) <= _pathfindDistance && Math.Abs(z - _destinationZ) < 16)
++                if (i > 0 && MathHelper.GetDistance(_endPoint, new Point(x, y)) <= _pathfindDistance && Math.Abs(z - _destinationZ) < 16
++                    && (!ClassCombatClient.Enabled || !ClassCombatClient.Occupied(_world, x, y, z)))
+                 {
+                     _pathSize = i + 1;
+                     _goalFound = true;
