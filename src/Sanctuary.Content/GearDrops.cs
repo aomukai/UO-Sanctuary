@@ -129,8 +129,9 @@ public static class GearDrops
         int factor = quality switch { DropQuality.Unique => 250, DropQuality.Set => 500, DropQuality.Rare => 600, _ => 0 };
         return factor == 0 ? 0 : (int)((long)factor * find / (find + (long)factor));
     }
-    internal static int Denominator(DropBase basis, int level, int find, DropQuality quality)
+    internal static int Denominator(DropBase basis, int level, int find, DropQuality quality, int factor = 0)
     {
+        if (factor is < 0 or > 1024) { throw new ArgumentOutOfRangeException(nameof(factor)); }
         if (level is < 1 or > 99 || find < 0) { throw new ArgumentOutOfRangeException(); }
         var ratio = _ratios[(basis.Tier != GearTier.Normal, basis.ClassSpecific)];
         var chance = quality switch
@@ -141,22 +142,28 @@ public static class GearDrops
         };
         long value = (chance.Value - (level - basis.QualityLevel) / chance.Divisor) * 128L;
         if (find != 0) { value = value * 100 / (100L + EffectiveFind(find, quality)); }
-        return (int)Math.Max(chance.Minimum, value);
+        value = Math.Max(chance.Minimum, value);
+        return (int)(value - value * factor / 1024);
     }
-    internal static DropQuality Quality(DropBase basis, int level, int find, Random random)
+    internal static DropQuality Quality(DropBase basis, int level, int find, Random random, int[] factors = null)
     {
-        if (random.Next(Denominator(basis, level, find, DropQuality.Unique)) < 128) { return DropQuality.Unique; }
-        if (random.Next(Denominator(basis, level, find, DropQuality.Set)) < 128) { return DropQuality.Set; }
-        if (basis.Rare && random.Next(Denominator(basis, level, find, DropQuality.Rare)) < 128) { return DropQuality.Rare; }
-        if (basis.AlwaysMagic || random.Next(Denominator(basis, level, find, DropQuality.Magic)) < 128) { return DropQuality.Magic; }
+        if (QualityPass(basis, level, find, DropQuality.Unique, random, factors?[0] ?? 0)) { return DropQuality.Unique; }
+        if (QualityPass(basis, level, find, DropQuality.Set, random, factors?[1] ?? 0)) { return DropQuality.Set; }
+        if (basis.Rare && QualityPass(basis, level, find, DropQuality.Rare, random, factors?[2] ?? 0)) { return DropQuality.Rare; }
+        if (basis.AlwaysMagic || QualityPass(basis, level, find, DropQuality.Magic, random, factors?[3] ?? 0)) { return DropQuality.Magic; }
         return DropQuality.Normal;
     }
-    internal static Item Generate(DropBase basis, int level, int find, Random random)
+    private static bool QualityPass(DropBase basis, int level, int find, DropQuality quality, Random random, int factor)
+    {
+        int denominator = Denominator(basis, level, find, quality, factor);
+        return denominator <= 0 || random.Next(denominator) < 128;
+    }
+    internal static Item Generate(DropBase basis, int level, int find, Random random, int[] factors = null)
     {
         if (basis == null || basis.Variants.Length == 0) { return null; }
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
-        var quality = Quality(basis, level, find, random);
+        var quality = Quality(basis, level, find, random, factors);
         if (quality is DropQuality.Set or DropQuality.Unique) { return null; }
         var rarity = quality switch { DropQuality.Rare => GearRarity.Rare, DropQuality.Magic => GearRarity.Magic, _ => GearRarity.Normal };
         var item = ItemOrigins.Create(ItemOrigin.Drop, () => EquipmentCrafting.Resolve(variant.Type).CreateInstance<Item>());

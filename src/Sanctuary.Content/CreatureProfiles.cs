@@ -183,7 +183,8 @@ public static class CreatureProfiles
             "native", null, "Unmapped custom type; native values retained");
     }
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
+        => creature is EncounterCreature encounter ? encounter.EncounterProfile
+            : _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
     internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
         _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };
     public static CreatureVariant For(BaseCreature creature)

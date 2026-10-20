@@ -32,6 +32,8 @@ public static class BalanceCatalog
         CreatureGold.Load();
         GearDrops.Load();
         MouldRewards.Load();
+        EncounterProfiles.Load();
+        EncounterTreasure.Load();
         RunebarkHarvesting.Load();
         RuneCrafting.Load();
         SocketGems.Load();

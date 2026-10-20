@@ -37,7 +37,7 @@ public static class GearEffects
         return TimeSpan.FromTicks(Math.Max(1, (long)(TimeSpan.TicksPerSecond / perSecond)));
     }
     public static int ChillPercent(Mobile mobile) => ChillPercent(mobile, Core.TickCount);
-    public static int ChillPercent(Mobile mobile, long now) => TimedEffects.Chill(mobile, TimedEffects.TimeAt(now));
+    public static int ChillPercent(Mobile mobile, long now) => Math.Max(TimedEffects.Chill(mobile, TimedEffects.TimeAt(now)), EliteAuras.Slow(mobile));
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000)
     {
         if (target.Deleted || !target.Alive || target.ColdResistance >= 100) { return false; }

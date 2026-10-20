@@ -48,7 +48,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         GraveyardZombie => MonsterBalance.For(MonsterArchetype.Tank, 1),
         _ => null
     };
-    public NormalMonsterStats NormalStats => MonsterVariants.Melee(this, this switch
+    public virtual NormalMonsterStats NormalStats => MonsterVariants.Melee(this, this switch
     {
         GraveyardSkeleton => EarlyNormalMonsters.Skeleton,
         GraveyardZombie => EarlyNormalMonsters.Zombie,
@@ -155,7 +155,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         Timer.StartTimer(TimeSpan.FromMilliseconds(_melee.EffectMs), ResolveMelee, out _actionTimer);
         return TimeSpan.FromMilliseconds(_melee.DurationMs + normal.AiDelayMs);
     }
-    private void StartAction(Mobile target)
+    protected void StartAction(Mobile target)
     {
         _actionTarget = target;
         _actionOrigin = Location;
@@ -163,6 +163,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         _nextAction = Core.TickCount + CombatProfile.AttackMs;
         DoHarmful(target);
     }
+    protected bool ActionReady => !_actionTimer.Running && !_impactTimer.Running && Core.TickCount - _nextAction >= 0;
     private bool SameOrigin => Map == _actionMap && Location == _actionOrigin;
     private void ResolveMelee()
     {
@@ -186,7 +187,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         _actionMap = null;
     }
-    private void Deal(Mobile target, int damage, bool fire)
+    protected virtual void Deal(Mobile target, int damage, bool fire)
     {
         DoHarmful(target);
         int before = target.Hits;
@@ -242,7 +243,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             _recoveryFraction = 0;
         }
     }
-    public bool BeginFirebolt(Mobile target)
+    public virtual bool BeginFirebolt(Mobile target)
     {
         if (!Caster || !ValidEnemy(target, 12) || _actionTimer.Running || _impactTimer.Running
             || Core.TickCount - _nextAction < 0)
@@ -283,7 +284,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         _actionMap = null;
     }
-    public bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
+    public virtual bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
         Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, IsBones: false, OwnerWasSummoned: false }
         && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
         && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse);
@@ -367,7 +368,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         base.OnDeath(corpse);
     }
-    internal void StopCombatActions()
+    internal virtual void StopCombatActions()
     {
         _actionTimer.Cancel();
         _impactTimer.Cancel();

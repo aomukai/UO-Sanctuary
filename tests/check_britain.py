@@ -143,6 +143,10 @@ def check():
                         command = "gem-check" if iteration == 0 else "gem-reload-check"
                         session.send(command)
                         assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
+                    if creation and os.environ.get("SANCTUARY_TEST_ENCOUNTERS") == "1":
+                        command = "encounter-check" if iteration == 0 else "encounter-reload-check"
+                        session.send(command)
+                        assert session.expect(command + r": (passed|failed)", timeout=120).group(1) == "passed"
                     if creation and os.environ.get("SANCTUARY_TEST_ALLIED_OVERLAP") == "1" and iteration == 0:
                         session.send("allied-overlap-check")
                         assert session.expect(r"allied-overlap-check: (passed|failed)", timeout=120).group(1) == "passed"

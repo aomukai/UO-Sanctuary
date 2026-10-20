@@ -13,7 +13,7 @@ namespace Sanctuary;
 public static class MonsterVariants
 {
     internal static MonsterVariantProfiles Profiles { get; private set; }
-    public static MonsterDifficulty Difficulty(BaseCreature creature) => Profiles?.Find(creature.Serial) ?? MonsterDifficulty.Normal;
+    public static MonsterDifficulty Difficulty(BaseCreature creature) => creature is EncounterCreature encounter ? encounter.Difficulty : Profiles?.Find(creature.Serial) ?? MonsterDifficulty.Normal;
     internal static NormalMonsterStats Melee(GraveyardUndead creature, NormalMonsterStats normal)
     {
         if (normal == null || Difficulty(creature) == MonsterDifficulty.Normal) { return normal; }
@@ -51,7 +51,7 @@ public static class MonsterVariants
     }
     private static int? ResistedDamage(BaseCreature creature, int damage, int physical, int fire, int cold, int poison, int lightning)
     {
-        if (Difficulty(creature) == MonsterDifficulty.Normal || !CreatureProfiles.For(creature).ApplyStats) { return null; }
+        if (creature is not EncounterCreature && Difficulty(creature) == MonsterDifficulty.Normal || !CreatureProfiles.For(creature).ApplyStats) { return null; }
         // Clamp each component before summing: an immune channel cannot cancel another channel or force one point through.
         long weighted = (long)physical * Math.Clamp(100 - creature.PhysicalResistance, 0, 200)
             + (long)fire * Math.Clamp(100 - creature.FireResistance, 0, 200)

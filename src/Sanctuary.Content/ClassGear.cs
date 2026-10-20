@@ -514,12 +514,12 @@ public static class ClassGear
         ClassGearHooks.Attribute = (attributes, mask) => attributes.Owner is Item item && Converted(item)
             ? attributes is AosAttributes ? Attribute(item, (AosAttribute)mask) : 0 : null;
         ClassGearHooks.MobileAttribute = MobileAttribute;
-        ClassGearHooks.Resistance = (player, type) => !ClassCombat.Enabled(player) ? null : Math.Clamp(
+        ClassGearHooks.Resistance = (player, type) => !ClassCombat.Enabled(player) ? null : EliteAuras.PlayerResistance(player, type, Math.Clamp(
             Bonus(player, type switch
             {
                 ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold",
                 ResistanceType.Poison => "res-pois", ResistanceType.Energy => "res-ltng", _ => "res-physical"
-            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, 75);
+            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, 75));
         EventSink.WorldSave += Profiles.Prune;
     }
 }

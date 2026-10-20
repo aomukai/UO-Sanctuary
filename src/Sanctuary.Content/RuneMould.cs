@@ -23,15 +23,15 @@ public partial class RuneMould : Item
     [SerializableField(10, setter: "private")] private MonsterDifficulty _difficulty;
     [SerializableField(11, setter: "private")] private MouldGrade _grade;
     [Constructible] public RuneMould() : this(1, "cast-rate", 20, MonsterDifficulty.Normal) { }
-    public RuneMould(int tier, string statId, int sourceLevel, MonsterDifficulty difficulty) : base(0x1F14)
+    public RuneMould(int tier, string statId, int sourceLevel, MonsterDifficulty difficulty, MouldGrade grade = MouldGrade.Ordinary) : base(0x1F14)
     {
-        if (MouldRewards.TierForLevel(sourceLevel) != tier || tier == 0 || !Enum.IsDefined(difficulty))
+        if (MouldRewards.TierForLevel(sourceLevel) != tier || tier == 0 || !Enum.IsDefined(difficulty) || !Enum.IsDefined(grade))
         { throw new ArgumentException("Mould tier must match its source monster level."); }
         var stat = MouldRewards.Stat(statId); var band = MouldRewards.Tier(tier);
         _tier = tier; _tierName = band.Name; _statId = stat.Id; _effectCode = stat.Code;
         _baseline = stat.Baseline; _statLabel = stat.Label; _sourceAffix = stat.SourceAffix;
         _affixName = stat.AffixName; _affixKind = stat.AffixKind; _sourceLevel = sourceLevel;
-        _difficulty = difficulty; _grade = MouldGrade.Ordinary;
+        _difficulty = difficulty; _grade = grade;
         Name = stat.AffixKind == AffixKind.Suffix ? $"{band.Name} Mould {stat.AffixName}" : $"{band.Name} {stat.AffixName} Mould";
         Weight = 1; Hue = 0x835; Stackable = false;
     }
@@ -47,7 +47,7 @@ public partial class RuneMould : Item
         list.Add($"{"Declared rune stat: "}{_statLabel}");
         list.Add($"{"Mould tier: "}{_tier}{" / 8 — "}{_tierName}");
         list.Add($"{"Rune percentages (Average / High / Superior): "}{Percentage(CraftQuality.Average)}{"% / "}{Percentage(CraftQuality.HighQuality)}{"% / "}{Percentage(CraftQuality.Superior)}{"%"}");
-        list.Add($"{"Source monster: Level "}{_sourceLevel}{", "}{_difficulty}");
+        list.Add($"{"Source monster: Level "}{_sourceLevel}{", "}{_difficulty}{" / "}{_grade}");
         list.Add($"{"Single-use Inscription pattern. Use Craft rune on a scribe’s pen."}");
     }
     public override void OnDoubleClick(Mobile from)

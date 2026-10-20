@@ -51,6 +51,7 @@ public static class CreatureHitRecovery
     // Called after final damage is applied; pure poison and periodic damage are excluded by callers.
     public static void Apply(BaseCreature creature, Mobile attacker, int damage, bool weaponDamage = false)
     {
+        EliteCombat.OnStruck(creature, attacker, damage);
         if (creature.Deleted || !creature.Alive || creature.Hits <= 0 || creature.Blessed || creature.IsDeadBondedPet
             || Remaining(creature) > 0)
         {

@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "id": "crypt-sentinel-60",
+      "family": "crypt-sentinel",
+      "name": "Crypt Sentinel",
+      "archetype": "Melee",
+      "reference": "skeleton1",
+      "minimumLevel": 60,
+      "maximumLevel": 69,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "crypt-sentinel-70",
+      "family": "crypt-sentinel",
+      "name": "Crypt Sentinel",
+      "archetype": "Melee",
+      "reference": "skeleton1",
+      "minimumLevel": 70,
+      "maximumLevel": 79,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "crypt-sentinel-80",
+      "family": "crypt-sentinel",
+      "name": "Crypt Sentinel",
+      "archetype": "Melee",
+      "reference": "skeleton1",
+      "minimumLevel": 80,
+      "maximumLevel": 89,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "crypt-sentinel-90",
+      "family": "crypt-sentinel",
+      "name": "Crypt Sentinel",
+      "archetype": "Melee",
+      "reference": "skeleton1",
+      "minimumLevel": 90,
+      "maximumLevel": 99,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "bog-revenant-60",
+      "family": "bog-revenant",
+      "name": "Bog Revenant",
+      "archetype": "Tank",
+      "reference": "zombie1",
+      "minimumLevel": 60,
+      "maximumLevel": 69,
+      "body": 3,
+      "sound": 471,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 70
+      }
+    },
+    {
+      "id": "bog-revenant-70",
+      "family": "bog-revenant",
+      "name": "Bog Revenant",
+      "archetype": "Tank",
+      "reference": "zombie1",
+      "minimumLevel": 70,
+      "maximumLevel": 79,
+      "body": 3,
+      "sound": 471,
+      "resistances": {
+        "Physical": 10,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 80
+      }
+    },
+    {
+      "id": "bog-revenant-80",
+      "family": "bog-revenant",
+      "name": "Bog Revenant",
+      "archetype": "Tank",
+      "reference": "zombie1",
+      "minimumLevel": 80,
+      "maximumLevel": 89,
+      "body": 3,
+      "sound": 471,
+      "resistances": {
+        "Physical": 20,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 90
+      }
+    },
+    {
+      "id": "bog-revenant-90",
+      "family": "bog-revenant",
+      "name": "Bog Revenant",
+      "archetype": "Tank",
+      "reference": "zombie1",
+      "minimumLevel": 90,
+      "maximumLevel": 99,
+      "body": 3,
+      "sound": 471,
+      "resistances": {
+        "Physical": 30,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 100
+      }
+    },
+    {
+      "id": "ossuary-archer-60",
+      "family": "ossuary-archer",
+      "name": "Ossuary Archer",
+      "archetype": "Ranged",
+      "reference": "sk_archer1",
+      "minimumLevel": 60,
+      "maximumLevel": 69,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 20,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "ossuary-archer-70",
+      "family": "ossuary-archer",
+      "name": "Ossuary Archer",
+      "archetype": "Ranged",
+      "reference": "sk_archer1",
+      "minimumLevel": 70,
+      "maximumLevel": 79,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 40,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "ossuary-archer-80",
+      "family": "ossuary-archer",
+      "name": "Ossuary Archer",
+      "archetype": "Ranged",
+      "reference": "sk_archer1",
+      "minimumLevel": 80,
+      "maximumLevel": 89,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 60,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "ossuary-archer-90",
+      "family": "ossuary-archer",
+      "name": "Ossuary Archer",
+      "archetype": "Ranged",
+      "reference": "sk_archer1",
+      "minimumLevel": 90,
+      "maximumLevel": 99,
+      "body": 50,
+      "sound": 1165,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 0,
+        "Lightning": 0,
+        "Cold": 80,
+        "Poison": 50
+      }
+    },
+    {
+      "id": "cinder-hierophant-60",
+      "family": "cinder-hierophant",
+      "name": "Cinder Hierophant",
+      "archetype": "Caster",
+      "reference": "fallenshaman1",
+      "minimumLevel": 60,
+      "maximumLevel": 69,
+      "body": 24,
+      "sound": 1001,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 40,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 0
+      }
+    },
+    {
+      "id": "cinder-hierophant-70",
+      "family": "cinder-hierophant",
+      "name": "Cinder Hierophant",
+      "archetype": "Caster",
+      "reference": "fallenshaman1",
+      "minimumLevel": 70,
+      "maximumLevel": 79,
+      "body": 24,
+      "sound": 1001,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 60,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 0
+      }
+    },
+    {
+      "id": "cinder-hierophant-80",
+      "family": "cinder-hierophant",
+      "name": "Cinder Hierophant",
+      "archetype": "Caster",
+      "reference": "fallenshaman1",
+      "minimumLevel": 80,
+      "maximumLevel": 89,
+      "body": 24,
+      "sound": 1001,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 80,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 0
+      }
+    },
+    {
+      "id": "cinder-hierophant-90",
+      "family": "cinder-hierophant",
+      "name": "Cinder Hierophant",
+      "archetype": "Caster",
+      "reference": "fallenshaman1",
+      "minimumLevel": 90,
+      "maximumLevel": 99,
+      "body": 24,
+      "sound": 1001,
+      "resistances": {
+        "Physical": 0,
+        "Magic": 0,
+        "Fire": 100,
+        "Lightning": 0,
+        "Cold": 0,
+        "Poison": 0
+      }
+    }
+  ],
+  "named": [
+    {
+      "id": "ossuary-warden",
+      "name": "The Ossuary Warden",
+      "profile": "crypt-sentinel-90",
+      "baseLevel": 94,
+      "modifiers": [
+        "ExtraStrong",
+        "StoneSkin",
+        "Cursed"
+      ],
+      "aura": "None"
+    },
+    {
+      "id": "carrion-matriarch",
+      "name": "The Carrion Matriarch",
+      "profile": "bog-revenant-90",
+      "baseLevel": 95,
+      "modifiers": [
+        "ColdEnchanted",
+        "AuraEnchanted",
+        "ManaBurn"
+      ],
+      "aura": "HolyFreeze"
+    },
+    {
+      "id": "ashen-hierophant",
+      "name": "The Ashen Hierophant",
+      "profile": "cinder-hierophant-90",
+      "baseLevel": 96,
+      "modifiers": [
+        "FireEnchanted",
+        "Multishot",
+        "Teleport"
+      ],
+      "aura": "None"
+    }
+  ],
+  "teleportCooldownMs": 8000,
+  "teleportRadius": 6,
+  "teleportHealPercent": 25,
+  "auraPulseMs": 2000,
+  "maximumAddedImmunities": 2
+}

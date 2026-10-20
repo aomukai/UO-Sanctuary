@@ -27,13 +27,14 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         }
         if (creature is BaseVendor || creature.Controlled || creature.Summoned || creature.IsAnimatedDead
             || creature.NoKillAwards || creature is GraveyardUndead { Raised: true }
-            || CreatureGold.Policy(creature.GetType(), MonsterVariants.Difficulty(creature)) is not { Eligible: true }
+            || creature is not EncounterCreature && CreatureGold.Policy(creature.GetType(), MonsterVariants.Difficulty(creature)) is not { Eligible: true }
             || ClassLoot.Killer(creature) is not { Deleted: false } player || !ClassCombat.Enabled(player))
         {
             return false;
         }
         var life = new RewardLife(creature, corpse, player, CreatureProfiles.Level(creature), CreatureGold.GoldFind(player), GearDrops.MagicFind(player), MonsterVariants.Difficulty(creature));
-        GearDrops.Award(life, random);
+        if (creature is EncounterCreature encounter) { EncounterTreasure.Award(life, encounter, random); }
+        else { GearDrops.Award(life, random); }
         MouldRewards.Award(life, random);
         return CreatureExperience.Award(life);
     }

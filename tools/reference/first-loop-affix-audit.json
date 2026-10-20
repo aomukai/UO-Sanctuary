@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "6dcd9b4156ca5db146d02f5810f03c30ae7ec675e4798053e671f6e3a6a9bbe8",
+  "ContentAssemblySha256": "1b10b62c3021d5ad45104475b43ced3e9a516ca26026ab9d55c822929ea138c8",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -9,13 +9,13 @@
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
     "src/Sanctuary.Content/ActionTiming.cs": "760efd44163e0604791b861f74d5a12516c3f110f68a634d2acef4172b15b6fb",
     "src/Sanctuary.Content/AffixBalance.cs": "66be8e6966be814360fa49b2ae2aa74db4035d154e1a6747839bc23e0582380e",
-    "src/Sanctuary.Content/ClassGear.cs": "8276e5479c42876b73098cf8cd1db7c3ac7dcaa2b73ffbe90d57898272fb5b94",
-    "src/Sanctuary.Content/ClassStats.cs": "cbad247ecefca1fc8cddf4a124f2b4a2ff2dc2bbdbe1375c73dd7965324bee3a",
+    "src/Sanctuary.Content/ClassGear.cs": "40060683b320f0521f05ee25dbed1ef77cdc6aa4d2d0ae4d1e09c861e65cc623",
+    "src/Sanctuary.Content/ClassStats.cs": "679e6ba0e9d2dbf6106bd25dd1ecd4eca98f7acbfd7f58bd30b2dbb2d1b3eeb0",
     "src/Sanctuary.Content/CreatureGold.cs": "43f9c83c6f0cea43fbe7a12215206e15bfe4077719401c0ec3d4b64e93e56cf3",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c19b594d5827e2f6469bf9fad3e0159098d0723cc33cda6b7eb517057f4a0aeb",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "844a2614f5efd2641023e96080e8acd5c022025cadba4112c8ce83d9b75e0058",
-    "src/Sanctuary.Content/GearDrops.cs": "06d8e47505b6c2fadbe161642683a9a79d499b2cf8a440b4d0772abd78091cf8",
-    "src/Sanctuary.Content/GearEffects.cs": "0a381a23ce30fe71b3633691c39df136ad9e57bede8e9e8eae80f95c6eded3fc",
+    "src/Sanctuary.Content/GearDrops.cs": "eac0b63ebd5cdfff05c3c5fe96aa4a474e4bda6568ca8f34e9ad230b20963cbf",
+    "src/Sanctuary.Content/GearEffects.cs": "02e58104aa5a752fbeb9610954ee013a7d06716efe96185aa5716a02681a1e49",
     "src/Sanctuary.Content/GearProfiles.cs": "73d2d171f03d831a38a82b86ff36b5ca3a6ca6e33abae1890dae713cf56b39d0",
     "src/Sanctuary.Content/HitRecovery.cs": "889d990aaa3d8a741eb0f6a74d1df37f877386f499180746b797eaf8c694f0f6"
   },

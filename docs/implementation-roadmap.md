@@ -312,11 +312,11 @@ Dependencies refer to completed behavior, not just documentation. Spec IDs resol
 
 - Additional movement rule after T34: [allied transit](allied-movement.md), incumbent priority, passing-only action restrictions, blocked-front retreat and five-second stationary pet regroup. This does not advance T35.
 
-- [ ] **T35 — Encounter grades and higher-level dungeon profiles.**
+- [x] **T35 — Encounter grades and higher-level dungeon profiles.**
   - Depends: T19, T21. Owners: Rewards, creature AI/profile content. Spec: G06/G09/M02.
   - Confirmed world direction (20 October 2026): Trammel supports Normal/Nightmare mobs above ground; Hell mobs there are restricted to dungeon floor 3. Felucca supports Hell mobs in the open world, providing additional high-level areas. Specific outdoor spots, dungeon layouts and populations remain later world-authoring work. This records the planned distribution; the current Normal-only spawns remain unchanged.
-  - Author champion/random unique+minions/named super-unique grade semantics and1/5/10% mould chances. Monster grade is distinct from Unique item rarity. Build bounded adapted dungeon cohorts reaching90–99 beyond current ceilings, using creative UO counterparts and verified profiles; no act-boss system is required.
-  - Accept: real encounter level, offense/defense/resists/speed/reaction/recovery, converted abilities and rewards agree. Test doors/corners/pursuit and pet targeting. Merely lifting an85 cap is not a balanced level99 monster; the requested [Nightmare/Hell variant infrastructure](t19-difficulties.md) is now separate completed work; this card still owns encounter grades and world placement.
+  - Implemented champion/random unique+five minions/named super-unique grades, full modifier/champion/aura roster and1/5/10% mould chances; minions retain ordinary0.1%. Monster grade is distinct from Unique item rarity. Build bounded adapted dungeon cohorts reaching90–99 beyond current ceilings, using creative UO counterparts and verified profiles; no act-boss system is required.
+  - Accept: real encounter level, offense/defense/resists/speed/reaction/recovery, converted abilities and rewards agree. Test doors/corners/pursuit and pet targeting. Merely lifting an85 cap is not a balanced level99 monster; the requested [Nightmare/Hell variant infrastructure](t19-difficulties.md) is now separate completed work; T35 delivers the [spawnable profiles and encounter groups](t35-encounters.md); permanent world placement is explicitly deferred by the user.
 
 - [ ] **T36 — Chitin and maximum-durability restoration.**
   - Depends: T12, T28. Owners: Rewards, Production, Economy. Spec: D13.

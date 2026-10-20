@@ -92,7 +92,8 @@ public static class ClassStats
     }
     public static int Level(Mobile mobile) => mobile is BaseCreature creature ? CreatureProfiles.Level(creature) : mobile is PlayerMobile && ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
         ? profile.Level : 1;
-    public static int AttackRating(Mobile mobile)
+    public static int AttackRating(Mobile mobile) => EliteAuras.AttackRating(mobile, BaseAttackRating(mobile));
+    private static int BaseAttackRating(Mobile mobile)
     {
         if (mobile is BaseCreature creature)
         {
@@ -105,7 +106,8 @@ public static class ClassStats
         int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att"));
         return Math.Max(1, baseRating * (100 + AosAttributes.GetValue(player, AosAttribute.AttackChance)) / 100);
     }
-    public static int Defense(Mobile mobile)
+    public static int Defense(Mobile mobile) => EliteAuras.Defense(mobile, BaseDefense(mobile));
+    private static int BaseDefense(Mobile mobile)
     {
         if (mobile is BaseCreature creature)
         {

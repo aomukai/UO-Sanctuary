@@ -123,17 +123,20 @@ public static class MouldRewards
         foreach (var stat in Settings.Stats) { ticket -= stat.Weight; if (ticket < 0) { return stat; } }
         throw new InvalidDataException("Mould selection escaped its catalogue.");
     }
-    internal static RuneMould Roll(int level, MonsterDifficulty difficulty, Random random)
+    internal static RuneMould Roll(int level, MonsterDifficulty difficulty, Random random, MouldGrade grade = MouldGrade.Ordinary)
     {
         int tier = TierForLevel(level);
-        if (tier == 0 || random.Next(Settings.DropDenominator) >= Settings.OrdinaryTickets) { return null; }
+        int tickets = grade switch { MouldGrade.Ordinary => Settings.OrdinaryTickets, MouldGrade.Champion => 100,
+            MouldGrade.Unique => 500, MouldGrade.SuperUnique => 1000, _ => throw new ArgumentOutOfRangeException(nameof(grade)) };
+        if (tier == 0 || random.Next(Settings.DropDenominator) >= tickets) { return null; }
         var stat = Select(random.Next(TotalWeight));
-        return ItemOrigins.Create(ItemOrigin.Drop, () => new RuneMould(tier, stat.Id, level, difficulty));
+        return ItemOrigins.Create(ItemOrigin.Drop, () => new RuneMould(tier, stat.Id, level, difficulty, grade));
     }
     internal static void Award(RewardLife life, Random random)
     {
         // Moulds are a separate reward after the shared gold/gear draw and life claim.
-        var item = Roll(life.Level, life.Difficulty, random);
+        var item = Roll(life.Level, life.Difficulty, random, life.Creature is EncounterCreature encounter
+            ? EncounterProfiles.MouldGrade(encounter.Grade) : MouldGrade.Ordinary);
         if (item != null) { life.Corpse.DropItem(item); }
     }
 }
