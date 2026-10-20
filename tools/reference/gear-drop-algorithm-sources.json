@@ -1,0 +1,22 @@
+{
+  "ItemsTbls.cpp": {
+    "url": "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/80169009eea696f83d949cc3a6f1bc9302f2fd53/source/D2Common/src/DataTbls/ItemsTbls.cpp",
+    "sha256": "d4f7fb34065ab2072529c378f9a7fa09e99ff23e830342501d3deff0b5aec343"
+  },
+  "ItemMode.cpp": {
+    "url": "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/80169009eea696f83d949cc3a6f1bc9302f2fd53/source/D2Game/src/ITEMS/ItemMode.cpp",
+    "sha256": "88c7ff5a499a21a8ffa4b0bb0d45b2031ef00128df04c51ef3339d3967e79d69"
+  },
+  "ItemsMagic.cpp": {
+    "url": "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/80169009eea696f83d949cc3a6f1bc9302f2fd53/source/D2Game/src/ITEMS/ItemsMagic.cpp",
+    "sha256": "ff65c78c37e031da46bbd13d83626c39ce0ddc6971c6e4a7791e594d25b57ede"
+  },
+  "MonsterTbls.cpp": {
+    "url": "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/80169009eea696f83d949cc3a6f1bc9302f2fd53/source/D2Common/src/DataTbls/MonsterTbls.cpp",
+    "sha256": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5"
+  },
+  "Items.cpp": {
+    "url": "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/80169009eea696f83d949cc3a6f1bc9302f2fd53/source/D2Game/src/ITEMS/Items.cpp",
+    "sha256": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4"
+  }
+}

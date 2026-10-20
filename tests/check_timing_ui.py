@@ -8,7 +8,7 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 
 def exercise(window, click, capture, project):
-    log = ROOT / ".local/logs/britain-baseline-check.log"
+    log = Path(os.environ.get("SANCTUARY_TEST_LOG", ROOT / ".local/logs/britain-baseline-check.log"))
     statefile = Path(os.environ["SANCTUARY_TEST_UI_STATE"])
     console = int(os.environ["SANCTUARY_TEST_CONSOLE_FD"])
     def command(name):

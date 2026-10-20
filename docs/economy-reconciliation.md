@@ -19,7 +19,7 @@ The [current specification](crafting.md) consolidates the answers. The [decision
 
 ## Clarifications resolved after this review
 
-The user explicitly answered these on 19 October 2026. They supersede the ambiguous wording in the otherwise unchanged replies file:
+The user explicitly answered these on 19 October 2026, with the T20 socket clarification added on 20 October. They supersede the ambiguous wording in the otherwise unchanged replies file:
 
 | IDs | Confirmed rule |
 | --- | --- |
@@ -28,6 +28,8 @@ The user explicitly answered these on 19 October 2026. They supersede the ambigu
 | B11/E01/F04 | Eligible white weapons, shields, rings and amulets are included in Imbuing. Swords are weapons and are also socketable, subject to the normal origin/cap/provenance rules. |
 | A01 | Implement in small, dependency-ordered playable slices; retain all professions in the eventual scope. |
 | A03/Q08 | Wardrobe opens with current class/craft checked; exactly one of each enables Swap. New characters default to Alchemy, with first crafting-tool use confirming the actual first-profession lock until class80 OR craft100 and wardrobe access. Gathering tools are exempt. |
+| F02/F05 (20 October) | Resolved20 October in [T20](t20-sockets.md): crafted Average/High Quality/Superior tools give+1/+2/+3 percentage points; shop/legacy+0. Intuition stops before acting with no charge/item change, then offers safe abort or one paid retry with normal charge saving and no recursive intuition. |
+| G03/G08 (20 October) | T21 uses one independent0.1% roll for one mould alongside ordinary loot, without MF scaling. User chose Diablo affix frequencies: sum distinct applicable equipment affix rows once per semantic percentage family, with aliases collapsed. Catalogue and baselines: [T21](t21-moulds.md). |
 
 ## Other remaining design decisions
 
@@ -38,7 +40,6 @@ These are the residual fields in existing IDs, not a new request to re-answer th
 | Practice/processing — A04, C01 | T05 settles crafting-only practice, the linear100%→1% curve, configurable1gold/0.1 training and unrestricted basic-processing access with active-craft gains. Consistent conversion weights and remaining station/portable details still need a rule. |
 | Materials/jewellery — B04, E01/E02 | Material bonus roll/scaling and random-element pool; jewellery item levels/equip/cost mapping. |
 | Repairs — C03, D03/D04/D08/D10/D13 | T12 confirms full repair/floor1, scraps1/3/5, reserved Unique3×, all-resource saving, charged repair tools/workshops and NPC handling; see [T12](t12-repairs.md). Chitin rates/recipe and maximum-restoration amount/limits remain T36. |
-| Socket tools — F02/F05 | Intuition retry charge use/one-retry handling; exact acquisition/mapping of the +1/+2/+3 success bonuses. |
 | Gems/gathering — H02–H08, L08 | Per-find quantity/full-pack behavior; nine-family mapping and second flat effect; gem upgrade recipe. Is treasure-chest “random gem” an intentional usable-gem exception to mining-only supply or a decorative legacy reward? |
 | Potions/food — J01/J02, K01 | Magical Penetration's component formula; Protection mitigation ordering; coexistence of different potion buffs; minimum gathering duration and aggro-delay application/reset conditions. |
 | Tomes/maps/keys — I02, L04/L05/L07 | Vendor tome charges/prices; whether5% vendor benefit affects purchases/sales/both; whole-dungeon versus floor boundaries; skeleton-key charges. |

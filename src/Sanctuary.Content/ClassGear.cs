@@ -16,7 +16,7 @@ public static class ClassGear
         "str", "dex", "enr", "vit", "hp", "mana", "stam", "att", "att%", "ac", "ac%",
         "dmg%", "dmg-min", "dmg-max", "res-all", "res-fire", "res-cold", "res-ltng", "res-pois",
         "swing1", "swing2", "swing3", "cast1", "cast2", "cast3", "move1", "move2", "move3", "block",
-        "balance1", "balance2", "balance3", "gold%"
+        "balance1", "balance2", "balance3", "gold%", "mag%"
     };
     public static bool Implemented(AffixDefinition affix)
     {
@@ -66,7 +66,7 @@ public static class ClassGear
     public static bool Active(PlayerMobile player, Item item)
     {
         var slot = Slot(item);
-        if (item.Parent != player || slot == GearSlot.Cosmetic || Broken(item))
+        if (item.Parent != player || slot == GearSlot.Cosmetic || Broken(item) || State(item) is { Identified: false })
         {
             return false;
         }
@@ -99,7 +99,7 @@ public static class ClassGear
     }
     public static int Bonus(Item item, string code)
     {
-        if (Slot(item) == GearSlot.Cosmetic || Broken(item) || State(item) is not { } state)
+        if (Slot(item) == GearSlot.Cosmetic || Broken(item) || State(item) is not { Identified: true } state)
         {
             return 0;
         }
@@ -289,6 +289,11 @@ public static class ClassGear
         {
             return false;
         }
+        if (State(item) is { Identified: false })
+        {
+            player.SendMessage("Identify this item before equipping it.");
+            return false;
+        }
         if (ClassStats.Level(player) < RequiredLevel(item)
             || player.Str < (Stat(item, ClassGearStat.StrengthRequirement) ?? 0)
             || player.Dex < (Stat(item, ClassGearStat.DexterityRequirement) ?? 0))
@@ -358,7 +363,7 @@ public static class ClassGear
                 foreach (var material in saved.MaterialRolls)
                 {
                     if (material.Code == "magic-find")
-                    { list.Add($"{material.Code}{": "}{material.Value}{"% (inactive; reward consumer pending)"}"); }
+                    { list.Add($"{"Better chance of finding magic items: +"}{material.Value}{"%"}"); }
                     else if (material.Code == "gold-find")
                     { list.Add($"{"Extra gold from monsters: +"}{material.Value}{"%"}"); }
                     else if (material.Code is "life-per-five" or "mana-per-five")
@@ -404,7 +409,9 @@ public static class ClassGear
             {
                 foreach (var modifier in affix.Modifiers)
                 {
-                    list.Add($"{affix.Definition.Name}{": "}{modifier.Code}{" "}{modifier.Value}");
+                    if (modifier.Code == "mag%")
+                    { list.Add($"{affix.Definition.Name}{": better chance of finding magic items +"}{modifier.Value}{"%"}"); }
+                    else { list.Add($"{affix.Definition.Name}{": "}{modifier.Code}{" "}{modifier.Value}"); }
                 }
             }
         }
@@ -457,6 +464,7 @@ public static class ClassGear
         Profiles = new GearProfiles();
         ItemStateHooks.Copied = (source, copy) =>
         {
+            RuneMould.Copy(source, copy);
             Profiles.Copy(source, copy);
             CraftTransactions.Profiles?.Copy(source, copy);
             EquipmentRepairs.Profiles?.Copy(source, copy);
@@ -477,6 +485,7 @@ public static class ClassGear
         ClassGearHooks.Stat = Stat;
         ClassGearHooks.CanEquip = CanEquip;
         ClassGearHooks.Properties = AddProperties;
+        ClassGearHooks.Unidentified = item => State(item) is { Identified: false };
         ClassGearHooks.Attribute = (attributes, mask) => attributes.Owner is Item item && Converted(item)
             ? attributes is AosAttributes ? Attribute(item, (AosAttribute)mask) : 0 : null;
         ClassGearHooks.MobileAttribute = MobileAttribute;

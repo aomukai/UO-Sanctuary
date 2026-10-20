@@ -252,6 +252,7 @@ public static class CraftingChecks
     private static void Imbuing()
     {
         var player = Player("CraftImbuing", SkillName.Imbuing);
+        player.Skills.Imbuing.Cap = 120; player.Skills.Imbuing.Base = 120;
         var gear = ItemOrigins.Create(ItemOrigin.Crafted, () => new Longsword());
         player.Backpack.DropItem(gear);
         ClassGear.Profiles.Convert(gear, 35);

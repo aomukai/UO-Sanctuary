@@ -1,0 +1,8442 @@
+{
+  "sourceCommit": "45112569deb9384738ccafe5c24ebbb71f41c7c9",
+  "difficulty": "Nightmare",
+  "players": 1,
+  "maxDrops": 6,
+  "policies": [
+    {
+      "id": "lesser-undead",
+      "types": [
+        "Sanctuary.GraveyardZombie",
+        "Server.Mobiles.Zombie"
+      ],
+      "eligible": true,
+      "reference": "zombie1",
+      "treasureClass": "Act 1 (N) H2H A"
+    },
+    {
+      "id": "skeleton",
+      "types": [
+        "Sanctuary.GraveyardSkeleton",
+        "Server.Mobiles.Skeleton"
+      ],
+      "eligible": true,
+      "reference": "skeleton1",
+      "treasureClass": "Act 1 (N) H2H A"
+    },
+    {
+      "id": "skeletal-knight",
+      "types": [
+        "Server.Mobiles.BoneKnight",
+        "Server.Mobiles.SkeletalKnight"
+      ],
+      "eligible": true,
+      "reference": "skeleton4",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "skeletal-mage",
+      "types": [
+        "Server.Mobiles.BoneMagi",
+        "Server.Mobiles.SkeletalMage"
+      ],
+      "eligible": true,
+      "reference": "skmage_fire2",
+      "treasureClass": "Act 1 (N) Cast C"
+    },
+    {
+      "id": "ghoul",
+      "types": [
+        "Server.Mobiles.Cursed",
+        "Server.Mobiles.Ghoul"
+      ],
+      "eligible": true,
+      "reference": "zombie3",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "rotting-corpse",
+      "types": [
+        "Server.Mobiles.RottingCorpse"
+      ],
+      "eligible": true,
+      "reference": "zombie4",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "patchwork-skeleton",
+      "types": [
+        "Server.Mobiles.PatchworkSkeleton"
+      ],
+      "eligible": true,
+      "reference": "reanimatedhorde1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "mummy",
+      "types": [
+        "Server.Mobiles.Mummy"
+      ],
+      "eligible": true,
+      "reference": "mummy2",
+      "treasureClass": "Act 2 (N) H2H B"
+    },
+    {
+      "id": "greater-mummy",
+      "types": [
+        "Server.Mobiles.UnfrozenMummy"
+      ],
+      "eligible": true,
+      "reference": "mummy5",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "restless-spirit",
+      "types": [
+        "Server.Mobiles.RestlessSoul"
+      ],
+      "eligible": true,
+      "reference": "wraith1",
+      "treasureClass": "Act 1 (N) Wraith B"
+    },
+    {
+      "id": "wraith",
+      "types": [
+        "Server.Mobiles.Bogle",
+        "Server.Mobiles.Shade",
+        "Server.Mobiles.Spectre",
+        "Server.Mobiles.Wraith"
+      ],
+      "eligible": true,
+      "reference": "wraith3",
+      "treasureClass": "Act 3 (N) Wraith B"
+    },
+    {
+      "id": "banshee",
+      "types": [
+        "Server.Mobiles.WailingBanshee"
+      ],
+      "eligible": true,
+      "reference": "wraith5",
+      "treasureClass": "Act 5 (N) Wraith A"
+    },
+    {
+      "id": "lich",
+      "types": [
+        "Server.Mobiles.KhaldunSummoner",
+        "Server.Mobiles.Lich"
+      ],
+      "eligible": true,
+      "reference": "unraveler1",
+      "treasureClass": "Act 2 (N) Cast B"
+    },
+    {
+      "id": "lich-lord",
+      "types": [
+        "Server.Mobiles.LichLord"
+      ],
+      "eligible": true,
+      "reference": "unraveler4",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "ancient-lich",
+      "types": [
+        "Server.Mobiles.AncientLich"
+      ],
+      "eligible": true,
+      "reference": "unraveler5",
+      "treasureClass": "Act 1 (H) Cast A"
+    },
+    {
+      "id": "graveyard-lich",
+      "types": [
+        "Sanctuary.GraveyardLich"
+      ],
+      "eligible": true,
+      "reference": "unraveler1",
+      "treasureClass": "Act 2 (N) Cast A"
+    },
+    {
+      "id": "bone-demon",
+      "types": [
+        "Server.Mobiles.BoneDemon"
+      ],
+      "eligible": true,
+      "reference": "doomknight2",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "death-knight",
+      "types": [
+        "Server.Mobiles.KhaldunRevenant",
+        "Server.Mobiles.ShadowKnight"
+      ],
+      "eligible": true,
+      "reference": "doomknight1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "spectral-armour",
+      "types": [
+        "Server.Mobiles.SpectralArmour"
+      ],
+      "eligible": true,
+      "reference": "doomknight2",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "corrupted-soul",
+      "types": [
+        "Server.Mobiles.CorruptedSoul",
+        "Server.Mobiles.WandererOfTheVoid"
+      ],
+      "eligible": true,
+      "reference": "wraith5",
+      "treasureClass": "Act 5 (N) Wraith A"
+    },
+    {
+      "id": "pestilent-bandage",
+      "types": [
+        "Server.Mobiles.PestilentBandage"
+      ],
+      "eligible": true,
+      "reference": "swarm3",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "khaldun-archer",
+      "types": [
+        "Server.Mobiles.GrimmochDrummel"
+      ],
+      "eligible": true,
+      "reference": "sk_archer5",
+      "treasureClass": "Act 3 (N) Miss A"
+    },
+    {
+      "id": "khaldun-mage",
+      "types": [
+        "Server.Mobiles.LysanderGathenwale",
+        "Server.Mobiles.TavaraSewel"
+      ],
+      "eligible": true,
+      "reference": "skmage_fire4",
+      "treasureClass": "Act 3 (N) Cast A"
+    },
+    {
+      "id": "khaldun-warrior",
+      "types": [
+        "Server.Mobiles.KhaldunZealot",
+        "Server.Mobiles.MorgBergen"
+      ],
+      "eligible": true,
+      "reference": "skeleton5",
+      "treasureClass": "Act 2 (N) H2H B"
+    },
+    {
+      "id": "small-flying-demon",
+      "types": [
+        "Server.Mobiles.GreaterMongbat",
+        "Server.Mobiles.Mongbat"
+      ],
+      "eligible": true,
+      "reference": "foulcrow1",
+      "treasureClass": "Act 1 (N) Cast A"
+    },
+    {
+      "id": "strong-flying-demon",
+      "types": [
+        "Server.Mobiles.ShadowFiend",
+        "Server.Mobiles.StrongMongbat",
+        "Server.Mobiles.VampireBat"
+      ],
+      "eligible": true,
+      "reference": "foulcrow2",
+      "treasureClass": "Act 1 (N) Cast B"
+    },
+    {
+      "id": "lesser-minion",
+      "types": [
+        "Server.Mobiles.Gibberling",
+        "Server.Mobiles.HordeMinion"
+      ],
+      "eligible": true,
+      "reference": "fallen1",
+      "treasureClass": "Act 1 (N) H2H A"
+    },
+    {
+      "id": "orc",
+      "types": [
+        "Server.Mobiles.Orc"
+      ],
+      "eligible": true,
+      "reference": "goatman2",
+      "treasureClass": "Act 1 (N) H2H B"
+    },
+    {
+      "id": "orc-captain",
+      "types": [
+        "Server.Mobiles.OrcCaptain",
+        "Server.Mobiles.OrcishLord",
+        "Server.Mobiles.SpawnedOrcishLord"
+      ],
+      "eligible": true,
+      "reference": "goatman5",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "orc-bomber",
+      "types": [
+        "Server.Mobiles.OrcBomber"
+      ],
+      "eligible": true,
+      "reference": "slinger1",
+      "treasureClass": "Act 2 (N) Miss A"
+    },
+    {
+      "id": "orc-shaman",
+      "types": [
+        "Server.Mobiles.OrcishMage"
+      ],
+      "eligible": true,
+      "reference": "fallenshaman3",
+      "treasureClass": "Act 1 (N) Cast C"
+    },
+    {
+      "id": "orc-brute",
+      "types": [
+        "Server.Mobiles.OrcBrute"
+      ],
+      "eligible": true,
+      "reference": "blunderbore3",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "ratman",
+      "types": [
+        "Server.Mobiles.Ratman"
+      ],
+      "eligible": true,
+      "reference": "fetish1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "ratman-archer",
+      "types": [
+        "Server.Mobiles.RatmanArcher"
+      ],
+      "eligible": true,
+      "reference": "fetishblow1",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "ratman-mage",
+      "types": [
+        "Server.Mobiles.RatmanMage"
+      ],
+      "eligible": true,
+      "reference": "fetishshaman1",
+      "treasureClass": "Act 1 (N) Cast C"
+    },
+    {
+      "id": "bandit",
+      "types": [
+        "Server.Mobiles.Brigand",
+        "Server.Mobiles.ElfBrigand"
+      ],
+      "eligible": true,
+      "reference": "corruptrogue2",
+      "treasureClass": "Act 1 (N) H2H B"
+    },
+    {
+      "id": "executioner",
+      "types": [
+        "Server.Mobiles.Executioner"
+      ],
+      "eligible": true,
+      "reference": "cr_lancer4",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "savage",
+      "types": [
+        "Server.Mobiles.Savage"
+      ],
+      "eligible": true,
+      "reference": "fetish3",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "savage-rider",
+      "types": [
+        "Server.Mobiles.SavageRider"
+      ],
+      "eligible": true,
+      "reference": "pantherwoman4",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "savage-shaman",
+      "types": [
+        "Server.Mobiles.SavageShaman"
+      ],
+      "eligible": true,
+      "reference": "fetishshaman3",
+      "treasureClass": "Act 3 (N) Cast C"
+    },
+    {
+      "id": "evil-mage",
+      "types": [
+        "Server.Mobiles.EvilMage",
+        "Server.Mobiles.GolemController",
+        "Server.Mobiles.Spellbinder"
+      ],
+      "eligible": true,
+      "reference": "cantor1",
+      "treasureClass": "Act 3 (N) Cast A"
+    },
+    {
+      "id": "evil-mage-lord",
+      "types": [
+        "Server.Mobiles.EvilMageLord"
+      ],
+      "eligible": true,
+      "reference": "cantor3",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "headless",
+      "types": [
+        "Server.Mobiles.HeadlessOne"
+      ],
+      "eligible": true,
+      "reference": "brute1",
+      "treasureClass": "Act 1 (N) H2H A"
+    },
+    {
+      "id": "ettin",
+      "types": [
+        "Server.Mobiles.Ettin"
+      ],
+      "eligible": true,
+      "reference": "brute3",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "ogre",
+      "types": [
+        "Server.Mobiles.Ogre"
+      ],
+      "eligible": true,
+      "reference": "brute4",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "troll",
+      "types": [
+        "Server.Mobiles.Troll"
+      ],
+      "eligible": true,
+      "reference": "brute4",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "frost-troll",
+      "types": [
+        "Server.Mobiles.FrostTroll"
+      ],
+      "eligible": true,
+      "reference": "snowyeti1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "ogre-lord",
+      "types": [
+        "Server.Mobiles.OgreLord"
+      ],
+      "eligible": true,
+      "reference": "blunderbore3",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "arctic-ogre-lord",
+      "types": [
+        "Server.Mobiles.ArcticOgreLord"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "cyclops",
+      "types": [
+        "Server.Mobiles.Cyclops",
+        "Server.Mobiles.Moloch"
+      ],
+      "eligible": true,
+      "reference": "blunderbore2",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "titan",
+      "types": [
+        "Server.Mobiles.Titan"
+      ],
+      "eligible": true,
+      "reference": "overseer3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "troglodyte",
+      "types": [
+        "Server.Mobiles.Troglodyte"
+      ],
+      "eligible": true,
+      "reference": "brute4",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "minotaur",
+      "types": [
+        "Server.Mobiles.Minotaur",
+        "Server.Mobiles.TormentedMinotaur"
+      ],
+      "eligible": true,
+      "reference": "bloodlord1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "minotaur-scout",
+      "types": [
+        "Server.Mobiles.MinotaurScout"
+      ],
+      "eligible": true,
+      "reference": "bloodlord1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "minotaur-captain",
+      "types": [
+        "Server.Mobiles.MinotaurCaptain"
+      ],
+      "eligible": true,
+      "reference": "bloodlord3",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "juka-warrior",
+      "types": [
+        "Server.Mobiles.ChaosDragoon",
+        "Server.Mobiles.JukaWarrior"
+      ],
+      "eligible": true,
+      "reference": "zealot1",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "juka-mage",
+      "types": [
+        "Server.Mobiles.JukaMage"
+      ],
+      "eligible": true,
+      "reference": "cantor2",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "juka-lord",
+      "types": [
+        "Server.Mobiles.ChaosDragoonElite",
+        "Server.Mobiles.JukaLord"
+      ],
+      "eligible": true,
+      "reference": "overseer3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "meer-warrior",
+      "types": [
+        "Server.Mobiles.MeerWarrior"
+      ],
+      "eligible": true,
+      "reference": "zealot1",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "meer-mage",
+      "types": [
+        "Server.Mobiles.MeerMage"
+      ],
+      "eligible": true,
+      "reference": "cantor2",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "meer-captain",
+      "types": [
+        "Server.Mobiles.MeerCaptain"
+      ],
+      "eligible": true,
+      "reference": "zealot3",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "meer-eternal",
+      "types": [
+        "Server.Mobiles.MeerEternal"
+      ],
+      "eligible": true,
+      "reference": "cantor3",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "ronin",
+      "types": [
+        "Server.Mobiles.Ronin"
+      ],
+      "eligible": true,
+      "reference": "cr_lancer5",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "elite-ninja",
+      "types": [
+        "Server.Mobiles.EliteNinja"
+      ],
+      "eligible": true,
+      "reference": "cr_lancer5",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "fan-dancer",
+      "types": [
+        "Server.Mobiles.FanDancer"
+      ],
+      "eligible": true,
+      "reference": "succubus1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "yomotsu-warrior",
+      "types": [
+        "Server.Mobiles.YomotsuWarrior"
+      ],
+      "eligible": true,
+      "reference": "zealot3",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "yomotsu-priest",
+      "types": [
+        "Server.Mobiles.YomotsuPriest"
+      ],
+      "eligible": true,
+      "reference": "cantor3",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "yomotsu-elder",
+      "types": [
+        "Server.Mobiles.YomotsuElder"
+      ],
+      "eligible": true,
+      "reference": "overseer3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "imp",
+      "types": [
+        "Server.Mobiles.Imp"
+      ],
+      "eligible": true,
+      "reference": "fallen4",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "daemon",
+      "types": [
+        "Server.Mobiles.ArcaneDaemon",
+        "Server.Mobiles.ChaosDaemon",
+        "Server.Mobiles.Daemon"
+      ],
+      "eligible": true,
+      "reference": "megademon1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "balron",
+      "types": [
+        "Server.Mobiles.Balron"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "ice-fiend",
+      "types": [
+        "Server.Mobiles.IceFiend"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror3",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "succubus",
+      "types": [
+        "Server.Mobiles.Succubus"
+      ],
+      "eligible": true,
+      "reference": "succubus3",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "abysmal-horror",
+      "types": [
+        "Server.Mobiles.AbysmalHorror"
+      ],
+      "eligible": true,
+      "reference": "doomknight3",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "demon-knight",
+      "types": [
+        "Server.Mobiles.DemonKnight"
+      ],
+      "eligible": true,
+      "reference": "doomknight3",
+      "treasureClass": "Act 1 (H) H2H C"
+    },
+    {
+      "id": "ravager",
+      "types": [
+        "Server.Mobiles.Ravager"
+      ],
+      "eligible": true,
+      "reference": "bloodlord4",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "flesh-renderer",
+      "types": [
+        "Server.Mobiles.FleshRenderer",
+        "Server.Mobiles.Impaler"
+      ],
+      "eligible": true,
+      "reference": "bloodlord2",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "flesh-golem",
+      "types": [
+        "Server.Mobiles.FleshGolem"
+      ],
+      "eligible": true,
+      "reference": "blunderbore4",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "gore-fiend",
+      "types": [
+        "Server.Mobiles.GoreFiend"
+      ],
+      "eligible": true,
+      "reference": "vampire4",
+      "treasureClass": "Act 5 (N) Cast B"
+    },
+    {
+      "id": "devourer",
+      "types": [
+        "Server.Mobiles.Devourer"
+      ],
+      "eligible": true,
+      "reference": "regurgitator2",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "darknight-creeper",
+      "types": [
+        "Server.Mobiles.DarknightCreeper"
+      ],
+      "eligible": true,
+      "reference": "deathmauler2",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "maggots",
+      "types": [
+        "Server.Mobiles.MoundOfMaggots"
+      ],
+      "eligible": true,
+      "reference": "swarm3",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "gazer-larva",
+      "types": [
+        "Server.Mobiles.GazerLarva"
+      ],
+      "eligible": true,
+      "reference": "bighead3",
+      "treasureClass": "Act 1 (N) Cast B"
+    },
+    {
+      "id": "gazer",
+      "types": [
+        "Server.Mobiles.Gazer"
+      ],
+      "eligible": true,
+      "reference": "bighead1",
+      "treasureClass": "Act 2 (N) Cast A"
+    },
+    {
+      "id": "elder-gazer",
+      "types": [
+        "Server.Mobiles.ElderGazer"
+      ],
+      "eligible": true,
+      "reference": "bighead5",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "gargoyle",
+      "types": [
+        "Server.Mobiles.EnslavedGargoyle",
+        "Server.Mobiles.Gargoyle",
+        "Server.Mobiles.StoneGargoyle"
+      ],
+      "eligible": true,
+      "reference": "clawviper2",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "fire-gargoyle",
+      "types": [
+        "Server.Mobiles.FireGargoyle"
+      ],
+      "eligible": true,
+      "reference": "megademon1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "greater-gargoyle",
+      "types": [
+        "Server.Mobiles.GargoyleDestroyer",
+        "Server.Mobiles.GargoyleEnforcer"
+      ],
+      "eligible": true,
+      "reference": "blunderbore3",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "air-elemental",
+      "types": [
+        "Server.Mobiles.AirElemental",
+        "Server.Mobiles.CrystalWisp",
+        "Server.Mobiles.DarkWisp",
+        "Server.Mobiles.ShadowWisp",
+        "Server.Mobiles.Wisp"
+      ],
+      "eligible": true,
+      "reference": "willowisp1",
+      "treasureClass": "Act 3 (N) Wraith C"
+    },
+    {
+      "id": "fire-elemental",
+      "types": [
+        "Server.Mobiles.Efreet",
+        "Server.Mobiles.FireElemental"
+      ],
+      "eligible": true,
+      "reference": "vampire2",
+      "treasureClass": "Act 4 (N) Cast B"
+    },
+    {
+      "id": "water-elemental",
+      "types": [
+        "Server.Mobiles.CorporealBrume",
+        "Server.Mobiles.WaterElemental"
+      ],
+      "eligible": true,
+      "reference": "frogdemon1",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "earth-elemental",
+      "types": [
+        "Server.Mobiles.EarthElemental"
+      ],
+      "eligible": true,
+      "reference": "thornhulk1",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "snow-elemental",
+      "types": [
+        "Server.Mobiles.SnowElemental"
+      ],
+      "eligible": true,
+      "reference": "snowyeti1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "ice-elemental",
+      "types": [
+        "Server.Mobiles.IceElemental"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "acid-elemental",
+      "types": [
+        "Server.Mobiles.AcidElemental",
+        "Server.Mobiles.FetidEssence"
+      ],
+      "eligible": true,
+      "reference": "regurgitator1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "blood-elemental",
+      "types": [
+        "Server.Mobiles.BloodElemental"
+      ],
+      "eligible": true,
+      "reference": "vampire4",
+      "treasureClass": "Act 5 (N) Cast B"
+    },
+    {
+      "id": "poison-elemental",
+      "types": [
+        "Server.Mobiles.PoisonElemental"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "crystal-elemental",
+      "types": [
+        "Server.Mobiles.CrystalElemental",
+        "Server.Mobiles.CrystalVortex"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror2",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "base-ore-elemental",
+      "types": [
+        "Server.Mobiles.CopperElemental",
+        "Server.Mobiles.DullCopperElemental"
+      ],
+      "eligible": true,
+      "reference": "thornhulk1",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "mid-ore-elemental",
+      "types": [
+        "Server.Mobiles.BronzeElemental",
+        "Server.Mobiles.GoldenElemental",
+        "Server.Mobiles.ShadowIronElemental"
+      ],
+      "eligible": true,
+      "reference": "thornhulk3",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "high-ore-elemental",
+      "types": [
+        "Server.Mobiles.AgapiteElemental",
+        "Server.Mobiles.VeriteElemental"
+      ],
+      "eligible": true,
+      "reference": "thornhulk4",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "valorite-elemental",
+      "types": [
+        "Server.Mobiles.ValoriteElemental"
+      ],
+      "eligible": true,
+      "reference": "thornhulk4",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "drake",
+      "types": [
+        "Server.Mobiles.Drake"
+      ],
+      "eligible": true,
+      "reference": "megademon1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "dragon",
+      "types": [
+        "Server.Mobiles.Dragon",
+        "Server.Mobiles.SerpentineDragon"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "greater-dragon",
+      "types": [
+        "Server.Mobiles.GreaterDragon"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "ancient-wyrm",
+      "types": [
+        "Server.Mobiles.AncientWyrm"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "shadow-wyrm",
+      "types": [
+        "Server.Mobiles.ShadowWyrm"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 1 (H) H2H C"
+    },
+    {
+      "id": "white-wyrm",
+      "types": [
+        "Server.Mobiles.WhiteWyrm"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror3",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "skeletal-dragon",
+      "types": [
+        "Server.Mobiles.SkeletalDragon"
+      ],
+      "eligible": true,
+      "reference": "doomknight3",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "wyvern",
+      "types": [
+        "Server.Mobiles.Wyvern"
+      ],
+      "eligible": true,
+      "reference": "clawviper4",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "reptalon",
+      "types": [
+        "Server.Mobiles.Reptalon"
+      ],
+      "eligible": true,
+      "reference": "megademon2",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "sea-serpent",
+      "types": [
+        "Server.Mobiles.SeaSerpent"
+      ],
+      "eligible": true,
+      "reference": "tentaclehead1",
+      "treasureClass": ""
+    },
+    {
+      "id": "deep-sea-serpent",
+      "types": [
+        "Server.Mobiles.CrystalSeaSerpent",
+        "Server.Mobiles.DeepSeaSerpent"
+      ],
+      "eligible": true,
+      "reference": "tentaclehead3",
+      "treasureClass": ""
+    },
+    {
+      "id": "kraken",
+      "types": [
+        "Server.Mobiles.Kraken"
+      ],
+      "eligible": true,
+      "reference": "tentaclehead3",
+      "treasureClass": ""
+    },
+    {
+      "id": "leviathan",
+      "types": [
+        "Server.Mobiles.Leviathan"
+      ],
+      "eligible": true,
+      "reference": "tentaclehead3",
+      "treasureClass": ""
+    },
+    {
+      "id": "hydra",
+      "types": [
+        "Server.Mobiles.Hydra"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "lizardman",
+      "types": [
+        "Server.Mobiles.Lizardman"
+      ],
+      "eligible": true,
+      "reference": "goatman3",
+      "treasureClass": "Act 1 (N) H2H B"
+    },
+    {
+      "id": "ophidian-warrior",
+      "types": [
+        "Server.Mobiles.OphidianWarrior"
+      ],
+      "eligible": true,
+      "reference": "clawviper3",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "ophidian-knight",
+      "types": [
+        "Server.Mobiles.OphidianKnight"
+      ],
+      "eligible": true,
+      "reference": "clawviper4",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "ophidian-mage",
+      "types": [
+        "Server.Mobiles.OphidianMage"
+      ],
+      "eligible": true,
+      "reference": "skmage_pois3",
+      "treasureClass": "Act 3 (N) Cast C"
+    },
+    {
+      "id": "ophidian-archmage",
+      "types": [
+        "Server.Mobiles.OphidianArchmage"
+      ],
+      "eligible": true,
+      "reference": "skmage_pois4",
+      "treasureClass": "Act 4 (N) Cast B"
+    },
+    {
+      "id": "ophidian-matriarch",
+      "types": [
+        "Server.Mobiles.OphidianMatriarch"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "giant-spider",
+      "types": [
+        "Server.Mobiles.FrostSpider",
+        "Server.Mobiles.GiantSpider"
+      ],
+      "eligible": true,
+      "reference": "arach1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "widow",
+      "types": [
+        "Server.Mobiles.GiantBlackWidow"
+      ],
+      "eligible": true,
+      "reference": "arach3",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "dread-spider",
+      "types": [
+        "Server.Mobiles.DreadSpider"
+      ],
+      "eligible": true,
+      "reference": "arach5",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "scorpion",
+      "types": [
+        "Server.Mobiles.Scorpion"
+      ],
+      "eligible": true,
+      "reference": "scarab1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "terathan-drone",
+      "types": [
+        "Server.Mobiles.TerathanDrone"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "terathan-warrior",
+      "types": [
+        "Server.Mobiles.TerathanWarrior"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot3",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "terathan-avenger",
+      "types": [
+        "Server.Mobiles.TerathanAvenger"
+      ],
+      "eligible": true,
+      "reference": "scarab5",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "terathan-matriarch",
+      "types": [
+        "Server.Mobiles.TerathanMatriarch"
+      ],
+      "eligible": true,
+      "reference": "maggotqueen5",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "solen-worker",
+      "types": [
+        "Server.Mobiles.BlackSolenWorker",
+        "Server.Mobiles.RedSolenWorker"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "solen-warrior",
+      "types": [
+        "Server.Mobiles.BlackSolenInfiltratorWarrior",
+        "Server.Mobiles.BlackSolenWarrior",
+        "Server.Mobiles.RedSolenInfiltratorWarrior",
+        "Server.Mobiles.RedSolenWarrior"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot3",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "solen-queen",
+      "types": [
+        "Server.Mobiles.BlackSolenInfiltratorQueen",
+        "Server.Mobiles.BlackSolenQueen",
+        "Server.Mobiles.RedSolenInfiltratorQueen",
+        "Server.Mobiles.RedSolenQueen"
+      ],
+      "eligible": true,
+      "reference": "maggotqueen4",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "ant-lion",
+      "types": [
+        "Server.Mobiles.AntLion"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot3",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "deathwatch-hatchling",
+      "types": [
+        "Server.Mobiles.DeathwatchBeetleHatchling"
+      ],
+      "eligible": true,
+      "reference": "maggotbaby2",
+      "treasureClass": ""
+    },
+    {
+      "id": "deathwatch-beetle",
+      "types": [
+        "Server.Mobiles.DeathwatchBeetle"
+      ],
+      "eligible": true,
+      "reference": "scarab3",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "rune-beetle",
+      "types": [
+        "Server.Mobiles.RuneBeetle"
+      ],
+      "eligible": true,
+      "reference": "scarab5",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "skittering-hopper",
+      "types": [
+        "Server.Mobiles.SkitteringHopper"
+      ],
+      "eligible": true,
+      "reference": "sandleaper1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "giant-ice-worm",
+      "types": [
+        "Server.Mobiles.GiantIceWorm"
+      ],
+      "eligible": true,
+      "reference": "sandmaggot4",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "reaper",
+      "types": [
+        "Server.Mobiles.Reaper",
+        "Server.Mobiles.Treefellow"
+      ],
+      "eligible": true,
+      "reference": "thornhulk1",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "feral-treefellow",
+      "types": [
+        "Server.Mobiles.FeralTreefellow"
+      ],
+      "eligible": true,
+      "reference": "thornhulk4",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "bogling",
+      "types": [
+        "Server.Mobiles.Bogling"
+      ],
+      "eligible": true,
+      "reference": "vilechild1",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "bog-thing",
+      "types": [
+        "Server.Mobiles.BogThing",
+        "Server.Mobiles.Quagmire"
+      ],
+      "eligible": true,
+      "reference": "thornhulk2",
+      "treasureClass": "Act 3 (N) H2H C"
+    },
+    {
+      "id": "corpser",
+      "types": [
+        "Server.Mobiles.Corpser"
+      ],
+      "eligible": true,
+      "reference": "tentaclehead1",
+      "treasureClass": ""
+    },
+    {
+      "id": "vines",
+      "types": [
+        "Server.Mobiles.SwampTentacle",
+        "Server.Mobiles.WhippingVine"
+      ],
+      "eligible": true,
+      "reference": "tentacle1",
+      "treasureClass": ""
+    },
+    {
+      "id": "slime",
+      "types": [
+        "Server.Mobiles.FrostOoze",
+        "Server.Mobiles.Jwilson",
+        "Server.Mobiles.Slime"
+      ],
+      "eligible": true,
+      "reference": "swarm1",
+      "treasureClass": "Swarm 1 (N)"
+    },
+    {
+      "id": "corrosive-slime",
+      "types": [
+        "Server.Mobiles.CorrosiveSlime"
+      ],
+      "eligible": true,
+      "reference": "swarm4",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "plague-beast",
+      "types": [
+        "Server.Mobiles.PlagueBeast"
+      ],
+      "eligible": true,
+      "reference": "vilemother2",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "plague-lord",
+      "types": [
+        "Server.Mobiles.PlagueBeastLord"
+      ],
+      "eligible": true,
+      "reference": "vilemother3",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "plague-spawn",
+      "types": [
+        "Server.Mobiles.PlagueSpawn"
+      ],
+      "eligible": true,
+      "reference": "vilechild2",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "golem",
+      "types": [
+        "Server.Mobiles.Golem"
+      ],
+      "eligible": true,
+      "reference": "blunderbore1",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "juggernaut",
+      "types": [
+        "Server.Mobiles.Juggernaut"
+      ],
+      "eligible": true,
+      "reference": "siegebeast1",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "exodus-minion",
+      "types": [
+        "Server.Mobiles.ExodusMinion"
+      ],
+      "eligible": true,
+      "reference": "minion3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "exodus-overseer",
+      "types": [
+        "Server.Mobiles.Betrayer",
+        "Server.Mobiles.ExodusOverseer"
+      ],
+      "eligible": true,
+      "reference": "overseer4",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "sand-vortex",
+      "types": [
+        "Server.Mobiles.SandVortex"
+      ],
+      "eligible": true,
+      "reference": "willowisp1",
+      "treasureClass": "Act 3 (N) Wraith C"
+    },
+    {
+      "id": "animated-weapon",
+      "types": [
+        "Server.Mobiles.AnimatedWeapon"
+      ],
+      "eligible": true,
+      "reference": "flyingscimitar",
+      "treasureClass": "Flying Scimitar (N)"
+    },
+    {
+      "id": "centaur",
+      "types": [
+        "Server.Mobiles.Centaur"
+      ],
+      "eligible": true,
+      "reference": "cr_archer5",
+      "treasureClass": "Act 4 (N) Miss B"
+    },
+    {
+      "id": "harpy",
+      "types": [
+        "Server.Mobiles.Harpy"
+      ],
+      "eligible": true,
+      "reference": "vulture2",
+      "treasureClass": "Swarm 1 (N)"
+    },
+    {
+      "id": "stone-harpy",
+      "types": [
+        "Server.Mobiles.StoneHarpy"
+      ],
+      "eligible": true,
+      "reference": "vulture4",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "pixie",
+      "types": [
+        "Server.Mobiles.Pixie"
+      ],
+      "eligible": true,
+      "reference": "willowisp1",
+      "treasureClass": "Act 3 (N) Wraith A"
+    },
+    {
+      "id": "ethereal-warrior",
+      "types": [
+        "Server.Mobiles.EtherealWarrior"
+      ],
+      "eligible": true,
+      "reference": "zealot3",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "dryad",
+      "types": [
+        "Server.Mobiles.InsaneDryad",
+        "Server.Mobiles.MLDryad"
+      ],
+      "eligible": true,
+      "reference": "cantor2",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "satyr",
+      "types": [
+        "Server.Mobiles.EnslavedSatyr",
+        "Server.Mobiles.Satyr"
+      ],
+      "eligible": true,
+      "reference": "goatman4",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "changeling",
+      "types": [
+        "Server.Mobiles.Changeling",
+        "Server.Mobiles.Doppleganger"
+      ],
+      "eligible": true,
+      "reference": "zealot2",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "crystal-daemon",
+      "types": [
+        "Server.Mobiles.CrystalDaemon"
+      ],
+      "eligible": true,
+      "reference": "megademon2",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "lattice-seeker",
+      "types": [
+        "Server.Mobiles.CrystalLatticeSeeker"
+      ],
+      "eligible": true,
+      "reference": "scarab5",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "crystal-protector",
+      "types": [
+        "Server.Mobiles.Protector"
+      ],
+      "eligible": true,
+      "reference": "doomknight1",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "crystal-spirit",
+      "types": [
+        "Server.Mobiles.MantraEffervescence"
+      ],
+      "eligible": true,
+      "reference": "willowisp4",
+      "treasureClass": "Act 5 (N) Wraith A"
+    },
+    {
+      "id": "flying-cold-beast",
+      "types": [
+        "Server.Mobiles.LadyOfTheSnow"
+      ],
+      "eligible": true,
+      "reference": "frozenhorror1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "oni",
+      "types": [
+        "Server.Mobiles.Oni"
+      ],
+      "eligible": true,
+      "reference": "blunderbore3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "kappa",
+      "types": [
+        "Server.Mobiles.Kappa"
+      ],
+      "eligible": true,
+      "reference": "frogdemon1",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "kaze-kemono",
+      "types": [
+        "Server.Mobiles.KazeKemono"
+      ],
+      "eligible": true,
+      "reference": "sandleaper4",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "raiju",
+      "types": [
+        "Server.Mobiles.RaiJu"
+      ],
+      "eligible": true,
+      "reference": "willowisp2",
+      "treasureClass": "Act 4 (N) Wraith B"
+    },
+    {
+      "id": "tsuki-wolf",
+      "types": [
+        "Server.Mobiles.TsukiWolf"
+      ],
+      "eligible": true,
+      "reference": "bloodlord1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "yamandon",
+      "types": [
+        "Server.Mobiles.Yamandon"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "kitsune",
+      "types": [
+        "Server.Mobiles.BakeKitsune"
+      ],
+      "eligible": true,
+      "reference": "succubuswitch1",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "revenant-lion",
+      "types": [
+        "Server.Mobiles.RevenantLion"
+      ],
+      "eligible": true,
+      "reference": "reanimatedhorde2",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "hell-hound",
+      "types": [
+        "Server.Mobiles.HellCat",
+        "Server.Mobiles.HellHound",
+        "Server.Mobiles.PredatorHellCat"
+      ],
+      "eligible": true,
+      "reference": "vampire1",
+      "treasureClass": "Act 3 (N) Cast B"
+    },
+    {
+      "id": "giant-rat",
+      "types": [
+        "Server.Mobiles.GiantRat"
+      ],
+      "eligible": true,
+      "reference": "quillrat1",
+      "treasureClass": "Quill 2 (N)"
+    },
+    {
+      "id": "snake",
+      "types": [
+        "Server.Mobiles.IceSnake",
+        "Server.Mobiles.LavaSnake",
+        "Server.Mobiles.Snake"
+      ],
+      "eligible": true,
+      "reference": "quillrat1",
+      "treasureClass": "Quill 3 (N)"
+    },
+    {
+      "id": "large-serpent",
+      "types": [
+        "Server.Mobiles.GiantSerpent",
+        "Server.Mobiles.IceSerpent",
+        "Server.Mobiles.LavaSerpent",
+        "Server.Mobiles.SilverSerpent"
+      ],
+      "eligible": true,
+      "reference": "clawviper1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "lava-lizard",
+      "types": [
+        "Server.Mobiles.LavaLizard"
+      ],
+      "eligible": true,
+      "reference": "clawviper2",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "alligator",
+      "types": [
+        "Server.Mobiles.Alligator"
+      ],
+      "eligible": true,
+      "reference": "clawviper1",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "raptor",
+      "types": [
+        "Server.Mobiles.Raptor"
+      ],
+      "eligible": true,
+      "reference": "sandleaper3",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "slith",
+      "types": [
+        "Server.Mobiles.Slith"
+      ],
+      "eligible": true,
+      "reference": "clawviper2",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "stone-slith",
+      "types": [
+        "Server.Mobiles.StoneSlith"
+      ],
+      "eligible": true,
+      "reference": "clawviper4",
+      "treasureClass": "Act 4 (N) H2H A"
+    },
+    {
+      "id": "toxic-slith",
+      "types": [
+        "Server.Mobiles.ToxicSlith"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "toad",
+      "types": [
+        "Server.Mobiles.BullFrog",
+        "Server.Mobiles.GiantToad"
+      ],
+      "eligible": true,
+      "reference": "frogdemon1",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "black-bear",
+      "types": [
+        "Server.Mobiles.BlackBear"
+      ],
+      "eligible": true,
+      "reference": "brute1",
+      "treasureClass": "Act 1 (N) H2H A"
+    },
+    {
+      "id": "brown-bear",
+      "types": [
+        "Server.Mobiles.BrownBear"
+      ],
+      "eligible": true,
+      "reference": "brute2",
+      "treasureClass": "Act 1 (N) H2H B"
+    },
+    {
+      "id": "grizzly-bear",
+      "types": [
+        "Server.Mobiles.GrizzlyBear"
+      ],
+      "eligible": true,
+      "reference": "brute3",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "polar-bear",
+      "types": [
+        "Server.Mobiles.PolarBear"
+      ],
+      "eligible": true,
+      "reference": "snowyeti1",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "raging-grizzly",
+      "types": [
+        "Server.Mobiles.RagingGrizzlyBear"
+      ],
+      "eligible": true,
+      "reference": "brute4",
+      "treasureClass": "Act 3 (N) H2H B"
+    },
+    {
+      "id": "wolf",
+      "types": [
+        "Server.Mobiles.GreyWolf",
+        "Server.Mobiles.TimberWolf"
+      ],
+      "eligible": true,
+      "reference": "quillrat2",
+      "treasureClass": "Quill 2 (N)"
+    },
+    {
+      "id": "white-wolf",
+      "types": [
+        "Server.Mobiles.WhiteWolf"
+      ],
+      "eligible": true,
+      "reference": "quillrat3",
+      "treasureClass": "Quill 3 (N)"
+    },
+    {
+      "id": "dire-wolf",
+      "types": [
+        "Server.Mobiles.DireWolf"
+      ],
+      "eligible": true,
+      "reference": "brute3",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "cat-predator",
+      "types": [
+        "Server.Mobiles.Cougar",
+        "Server.Mobiles.Panther",
+        "Server.Mobiles.SnowLeopard"
+      ],
+      "eligible": true,
+      "reference": "sandleaper1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "gorilla",
+      "types": [
+        "Server.Mobiles.Gorilla"
+      ],
+      "eligible": true,
+      "reference": "baboon1",
+      "treasureClass": "Act 2 (N) H2H B"
+    },
+    {
+      "id": "gaman",
+      "types": [
+        "Server.Mobiles.Gaman"
+      ],
+      "eligible": true,
+      "reference": "brute3",
+      "treasureClass": "Act 1 (N) H2H C"
+    },
+    {
+      "id": "phoenix",
+      "types": [
+        "Server.Mobiles.Phoenix"
+      ],
+      "eligible": true,
+      "reference": "vampire2",
+      "treasureClass": "Act 5 (N) Cast A"
+    },
+    {
+      "id": "vorpal-bunny",
+      "types": [
+        "Server.Mobiles.VorpalBunny"
+      ],
+      "eligible": true,
+      "reference": "sandleaper5",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "cu-sidhe",
+      "types": [
+        "Server.Mobiles.CuSidhe"
+      ],
+      "eligible": true,
+      "reference": "bloodlord1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "hiryu",
+      "types": [
+        "Server.Mobiles.Hiryu"
+      ],
+      "eligible": true,
+      "reference": "megademon2",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "lesser-hiryu",
+      "types": [
+        "Server.Mobiles.LesserHiryu"
+      ],
+      "eligible": true,
+      "reference": "megademon1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "nightmare",
+      "types": [
+        "Server.Mobiles.FireSteed",
+        "Server.Mobiles.HellSteed",
+        "Server.Mobiles.Nightmare"
+      ],
+      "eligible": true,
+      "reference": "megademon1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "kirin",
+      "types": [
+        "Server.Mobiles.Kirin",
+        "Server.Mobiles.Unicorn"
+      ],
+      "eligible": true,
+      "reference": "cantor3",
+      "treasureClass": "Act 4 (N) Cast A"
+    },
+    {
+      "id": "swamp-dragon",
+      "types": [
+        "Server.Mobiles.ScaledSwampDragon",
+        "Server.Mobiles.SwampDragon"
+      ],
+      "eligible": true,
+      "reference": "clawviper3",
+      "treasureClass": "Act 3 (N) H2H A"
+    },
+    {
+      "id": "beetle-mount",
+      "types": [
+        "Server.Mobiles.Beetle",
+        "Server.Mobiles.FireBeetle"
+      ],
+      "eligible": true,
+      "reference": "scarab3",
+      "treasureClass": "Act 2 (N) H2H C"
+    },
+    {
+      "id": "ridgeback",
+      "types": [
+        "Server.Mobiles.Ridgeback",
+        "Server.Mobiles.SavageRidgeback"
+      ],
+      "eligible": true,
+      "reference": "sandleaper1",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "frenzied-ostard",
+      "types": [
+        "Server.Mobiles.FrenziedOstard"
+      ],
+      "eligible": true,
+      "reference": "sandleaper2",
+      "treasureClass": "Act 2 (N) H2H B"
+    },
+    {
+      "id": "skeletal-mount",
+      "types": [
+        "Server.Mobiles.SkeletalMount"
+      ],
+      "eligible": true,
+      "reference": "skeleton4",
+      "treasureClass": "Act 2 (N) H2H A"
+    },
+    {
+      "id": "dark-guardian",
+      "types": [
+        "Server.Mobiles.DarkGuardian"
+      ],
+      "eligible": true,
+      "reference": "doomknight1",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "servant-of-semidar",
+      "types": [
+        "Server.Mobiles.ServantOfSemidar"
+      ],
+      "eligible": true,
+      "reference": "megademon2",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "event-pumpkin",
+      "types": [
+        "Server.Mobiles.PumpkinHead"
+      ],
+      "eligible": true,
+      "reference": "reanimatedhorde2",
+      "treasureClass": "Act 5 (N) H2H C"
+    },
+    {
+      "id": "named-heavy-brute",
+      "types": [
+        "Server.Mobiles.Lurg",
+        "Server.Mobiles.MougGuur"
+      ],
+      "eligible": true,
+      "reference": "blunderbore3",
+      "treasureClass": "Act 5 (N) H2H A"
+    },
+    {
+      "id": "named-bear",
+      "types": [
+        "Server.Mobiles.Grobu"
+      ],
+      "eligible": true,
+      "reference": "brute5",
+      "treasureClass": "Act 4 (N) H2H B"
+    },
+    {
+      "id": "named-reptalon",
+      "types": [
+        "Server.Mobiles.Rend"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "named-phoenix",
+      "types": [
+        "Server.Mobiles.Pyre"
+      ],
+      "eligible": true,
+      "reference": "vampire4",
+      "treasureClass": "Act 1 (H) Cast A"
+    },
+    {
+      "id": "named-scorpion",
+      "types": [
+        "Server.Mobiles.Miasma"
+      ],
+      "eligible": true,
+      "reference": "scarab5",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "named-undead",
+      "types": [
+        "Server.Mobiles.LadyJennifyr",
+        "Server.Mobiles.LadyMarai",
+        "Server.Mobiles.RedDeath",
+        "Server.Mobiles.SirPatrick"
+      ],
+      "eligible": true,
+      "reference": "reanimatedhorde4",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "named-undead-caster",
+      "types": [
+        "Server.Mobiles.MasterJonath",
+        "Server.Mobiles.MasterMikael"
+      ],
+      "eligible": true,
+      "reference": "doomknight3",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "named-mage",
+      "types": [
+        "Server.Mobiles.MasterTheophilus"
+      ],
+      "eligible": true,
+      "reference": "cantor3",
+      "treasureClass": "Act 1 (H) Cast A"
+    },
+    {
+      "id": "named-hydra",
+      "types": [
+        "Server.Mobiles.Abscess"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 1 (H) H2H C"
+    },
+    {
+      "id": "named-harpy",
+      "types": [
+        "Server.Mobiles.Saliva"
+      ],
+      "eligible": true,
+      "reference": "vulture4",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "named-balron",
+      "types": [
+        "Server.Mobiles.Putrefier"
+      ],
+      "eligible": true,
+      "reference": "megademon3",
+      "treasureClass": "Act 1 (H) H2H B"
+    },
+    {
+      "id": "named-serpent",
+      "types": [
+        "Server.Mobiles.Coil",
+        "Server.Mobiles.Thrasher"
+      ],
+      "eligible": true,
+      "reference": "clawviper5",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "named-wolf",
+      "types": [
+        "Server.Mobiles.Gnaw"
+      ],
+      "eligible": true,
+      "reference": "bloodlord1",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "named-spider",
+      "types": [
+        "Server.Mobiles.LadyLissith",
+        "Server.Mobiles.LadySabrix",
+        "Server.Mobiles.Silk"
+      ],
+      "eligible": true,
+      "reference": "arach5",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "named-dread-spider",
+      "types": [
+        "Server.Mobiles.Malefic",
+        "Server.Mobiles.Virulent"
+      ],
+      "eligible": true,
+      "reference": "arach5",
+      "treasureClass": "Act 1 (H) H2H A"
+    },
+    {
+      "id": "named-changeling",
+      "types": [
+        "Server.Mobiles.Guile",
+        "Server.Mobiles.Irk",
+        "Server.Mobiles.Spite"
+      ],
+      "eligible": true,
+      "reference": "succubuswitch3",
+      "treasureClass": "Act 5 (N) Cast C"
+    },
+    {
+      "id": "named-bird",
+      "types": [
+        "Server.Mobiles.Swoop"
+      ],
+      "eligible": true,
+      "reference": "vulture4",
+      "treasureClass": "Swarm 2 (N)"
+    },
+    {
+      "id": "named-ratman-mage",
+      "types": [
+        "Server.Mobiles.Chiikkaha"
+      ],
+      "eligible": true,
+      "reference": "fetishshaman3",
+      "treasureClass": "Act 4 (N) Cast B"
+    },
+    {
+      "id": "named-succubus",
+      "types": [
+        "Server.Mobiles.Szavetra"
+      ],
+      "eligible": true,
+      "reference": "succubus3",
+      "treasureClass": "Act 5 (N) H2H B"
+    },
+    {
+      "id": "boss-reserved",
+      "types": [
+        "Server.Mobiles.Barracoon",
+        "Server.Mobiles.Harrower",
+        "Server.Mobiles.HarrowerTentacles",
+        "Server.Mobiles.Ilhenir",
+        "Server.Mobiles.InterredGrizzle",
+        "Server.Mobiles.LordOaks",
+        "Server.Mobiles.Mephitis",
+        "Server.Mobiles.Meraktus",
+        "Server.Mobiles.Neira",
+        "Server.Mobiles.Rikktor",
+        "Server.Mobiles.Semidar",
+        "Server.Mobiles.Serado",
+        "Server.Mobiles.Silvani",
+        "Server.Mobiles.Tangle",
+        "Server.Mobiles.Twaulo"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "summon-helper",
+      "types": [
+        "Sanctuary.SkeletonGuardian",
+        "Server.Engines.Quests.Necro.SummonedPaladin",
+        "Server.Mobiles.ArcaneFey",
+        "Server.Mobiles.ArcaneFiend",
+        "Server.Mobiles.BaseEnraged",
+        "Server.Mobiles.BaseTalismanSummon",
+        "Server.Mobiles.BladeSpirits",
+        "Server.Mobiles.CapturedHordeMinion",
+        "Server.Mobiles.Clone",
+        "Server.Mobiles.DarkWolfFamiliar",
+        "Server.Mobiles.DeathAdder",
+        "Server.Mobiles.EnergyVortex",
+        "Server.Mobiles.EnragedBlackBear",
+        "Server.Mobiles.EnragedEagle",
+        "Server.Mobiles.EnragedHart",
+        "Server.Mobiles.EnragedHind",
+        "Server.Mobiles.EnragedRabbit",
+        "Server.Mobiles.HolyFamiliar",
+        "Server.Mobiles.HolySteed",
+        "Server.Mobiles.HordeMinionFamiliar",
+        "Server.Mobiles.NatureFury",
+        "Server.Mobiles.Revenant",
+        "Server.Mobiles.ShadowWispFamiliar",
+        "Server.Mobiles.UnholyFamiliar",
+        "Server.Mobiles.UnholySteed",
+        "Server.Mobiles.VampireBatFamiliar"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "quest-trial",
+      "types": [
+        "Server.Engines.Quests.Haven.MilitiaFighter",
+        "Server.Engines.Quests.Ninja.Henchman",
+        "Server.Engines.Quests.Samurai.CursedSoul",
+        "Server.Engines.Quests.Samurai.DeadlyImp",
+        "Server.Engines.Quests.Samurai.DiseasedCat",
+        "Server.Engines.Quests.Samurai.FierceDragon",
+        "Server.Engines.Quests.Samurai.InjuredWolf",
+        "Server.Engines.Quests.Samurai.YoungNinja",
+        "Server.Engines.Quests.Samurai.YoungRonin"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "event-copy",
+      "types": [
+        "Server.Engines.Events.NaughtyTwin",
+        "Server.Engines.Events.ZombieSkeleton"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "town-guard",
+      "types": [
+        "Server.Factions.FactionBerserker",
+        "Server.Factions.FactionDeathKnight",
+        "Server.Factions.FactionDragoon",
+        "Server.Factions.FactionHenchman",
+        "Server.Factions.FactionKnight",
+        "Server.Factions.FactionMercenary",
+        "Server.Factions.FactionNecromancer",
+        "Server.Factions.FactionPaladin",
+        "Server.Factions.FactionSorceress",
+        "Server.Factions.FactionWarHorse",
+        "Server.Factions.FactionWizard",
+        "Server.Mobiles.ChaosGuard",
+        "Server.Mobiles.Guardian",
+        "Server.Mobiles.OrderGuard"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "domestic-wildlife",
+      "types": [
+        "Server.Mobiles.Bird",
+        "Server.Mobiles.Boar",
+        "Server.Mobiles.Bull",
+        "Server.Mobiles.Cat",
+        "Server.Mobiles.Chicken",
+        "Server.Mobiles.CoMWarHorse",
+        "Server.Mobiles.Cow",
+        "Server.Mobiles.Crane",
+        "Server.Mobiles.DesertOstard",
+        "Server.Mobiles.Dog",
+        "Server.Mobiles.Dolphin",
+        "Server.Mobiles.Eagle",
+        "Server.Mobiles.Ferret",
+        "Server.Mobiles.ForestOstard",
+        "Server.Mobiles.Goat",
+        "Server.Mobiles.GreatHart",
+        "Server.Mobiles.GrizzledMare",
+        "Server.Mobiles.Hind",
+        "Server.Mobiles.Horse",
+        "Server.Mobiles.JackRabbit",
+        "Server.Mobiles.Llama",
+        "Server.Mobiles.MinaxWarHorse",
+        "Server.Mobiles.MountainGoat",
+        "Server.Mobiles.PackHorse",
+        "Server.Mobiles.PackLlama",
+        "Server.Mobiles.Parrot",
+        "Server.Mobiles.Pig",
+        "Server.Mobiles.Rabbit",
+        "Server.Mobiles.Rat",
+        "Server.Mobiles.RidableLlama",
+        "Server.Mobiles.SLWarHorse",
+        "Server.Mobiles.SeaHorse",
+        "Server.Mobiles.SewerRat",
+        "Server.Mobiles.Sheep",
+        "Server.Mobiles.SilverSteed",
+        "Server.Mobiles.Squirrel",
+        "Server.Mobiles.TBWarHorse",
+        "Server.Mobiles.TropicalBird",
+        "Server.Mobiles.Walrus"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "vendors",
+      "types": [
+        "Server.Engines.ConPVP.TournamentRegistrar",
+        "Server.Engines.MLQuests.Definitions.Aelorn",
+        "Server.Engines.MLQuests.Definitions.AmeliaYoungstone",
+        "Server.Engines.MLQuests.Definitions.GeorgeHephaestus",
+        "Server.Engines.MLQuests.Definitions.Hamato",
+        "Server.Engines.MLQuests.Definitions.Morganna",
+        "Server.Engines.MLQuests.Definitions.Mulcivikh",
+        "Server.Engines.MLQuests.Definitions.Robyn",
+        "Server.Engines.MLQuests.Definitions.Ryuichi",
+        "Server.Engines.MLQuests.Mobiles.SirHelper",
+        "Server.Engines.Quests.Ambitious.BlackAmbitiousSolenQueen",
+        "Server.Engines.Quests.Ambitious.RedAmbitiousSolenQueen",
+        "Server.Engines.Quests.Collector.AlbertaGiacco",
+        "Server.Engines.Quests.Collector.ElwoodMcCarrin",
+        "Server.Engines.Quests.Collector.GabrielPiete",
+        "Server.Engines.Quests.Collector.Impresario",
+        "Server.Engines.Quests.Collector.TomasONeerlan",
+        "Server.Engines.Quests.Doom.Chyloth",
+        "Server.Engines.Quests.Doom.Victoria",
+        "Server.Engines.Quests.Hag.Blackheart",
+        "Server.Engines.Quests.Hag.Grizelda",
+        "Server.Engines.Quests.Hag.Zeefzorpul",
+        "Server.Engines.Quests.Haven.Dryad",
+        "Server.Engines.Quests.Haven.MansionGuard",
+        "Server.Engines.Quests.Haven.MilitiaCanoneer",
+        "Server.Engines.Quests.Haven.Schmendrick",
+        "Server.Engines.Quests.Haven.Uzeraan",
+        "Server.Engines.Quests.Matriarch.BlackSolenMatriarch",
+        "Server.Engines.Quests.Matriarch.RedSolenMatriarch",
+        "Server.Engines.Quests.Naturalist.Naturalist",
+        "Server.Engines.Quests.Necro.Horus",
+        "Server.Engines.Quests.Necro.Maabus",
+        "Server.Engines.Quests.Necro.Mardoth",
+        "Server.Engines.Quests.Ninja.Emino",
+        "Server.Engines.Quests.Ninja.EnshroudedFigure",
+        "Server.Engines.Quests.Ninja.HiddenFigure",
+        "Server.Engines.Quests.Ninja.JedahEntille",
+        "Server.Engines.Quests.Ninja.Zoel",
+        "Server.Engines.Quests.Samurai.Haochi",
+        "Server.Engines.Quests.Samurai.HaochisGuardsman",
+        "Server.Engines.Quests.Samurai.Relnia",
+        "Server.Engines.Quests.Zento.AnsellaGryen",
+        "Server.Factions.FactionBoardVendor",
+        "Server.Factions.FactionBottleVendor",
+        "Server.Factions.FactionHorseVendor",
+        "Server.Factions.FactionOreVendor",
+        "Server.Factions.FactionReagentVendor",
+        "Server.Mobiles.Alchemist",
+        "Server.Mobiles.AnimalTrainer",
+        "Server.Mobiles.Architect",
+        "Server.Mobiles.Armorer",
+        "Server.Mobiles.Baker",
+        "Server.Mobiles.Banker",
+        "Server.Mobiles.Bard",
+        "Server.Mobiles.BardGuildmaster",
+        "Server.Mobiles.Barkeeper",
+        "Server.Mobiles.Beekeeper",
+        "Server.Mobiles.Blacksmith",
+        "Server.Mobiles.BlacksmithGuildmaster",
+        "Server.Mobiles.Bowyer",
+        "Server.Mobiles.Butcher",
+        "Server.Mobiles.Carpenter",
+        "Server.Mobiles.Cobbler",
+        "Server.Mobiles.Cook",
+        "Server.Mobiles.CustomHairstylist",
+        "Server.Mobiles.EvilHealer",
+        "Server.Mobiles.EvilWanderingHealer",
+        "Server.Mobiles.Farmer",
+        "Server.Mobiles.FisherGuildmaster",
+        "Server.Mobiles.Fisherman",
+        "Server.Mobiles.FortuneTeller",
+        "Server.Mobiles.Furtrader",
+        "Server.Mobiles.Glassblower",
+        "Server.Mobiles.GolemCrafter",
+        "Server.Mobiles.GypsyAnimalTrainer",
+        "Server.Mobiles.GypsyBanker",
+        "Server.Mobiles.GypsyMaiden",
+        "Server.Mobiles.HairStylist",
+        "Server.Mobiles.Healer",
+        "Server.Mobiles.HealerGuildmaster",
+        "Server.Mobiles.Herbalist",
+        "Server.Mobiles.HolyMage",
+        "Server.Mobiles.IharaSoko",
+        "Server.Mobiles.InnKeeper",
+        "Server.Mobiles.IronWorker",
+        "Server.Mobiles.Jeweler",
+        "Server.Mobiles.KeeperOfChivalry",
+        "Server.Mobiles.LeatherWorker",
+        "Server.Mobiles.Mage",
+        "Server.Mobiles.MageGuildmaster",
+        "Server.Mobiles.Mapmaker",
+        "Server.Mobiles.MerchantGuildmaster",
+        "Server.Mobiles.Miller",
+        "Server.Mobiles.Miner",
+        "Server.Mobiles.MinerGuildmaster",
+        "Server.Mobiles.Minter",
+        "Server.Mobiles.Monk",
+        "Server.Mobiles.PlayerBarkeeper",
+        "Server.Mobiles.PricedHealer",
+        "Server.Mobiles.Provisioner",
+        "Server.Mobiles.Rancher",
+        "Server.Mobiles.Ranger",
+        "Server.Mobiles.RangerGuildmaster",
+        "Server.Mobiles.RealEstateBroker",
+        "Server.Mobiles.Scribe",
+        "Server.Mobiles.Shipwright",
+        "Server.Mobiles.StoneCrafter",
+        "Server.Mobiles.Tailor",
+        "Server.Mobiles.TailorGuildmaster",
+        "Server.Mobiles.Tanner",
+        "Server.Mobiles.TavernKeeper",
+        "Server.Mobiles.Thief",
+        "Server.Mobiles.ThiefGuildmaster",
+        "Server.Mobiles.Tinker",
+        "Server.Mobiles.TinkerGuildmaster",
+        "Server.Mobiles.Vagabond",
+        "Server.Mobiles.VarietyDealer",
+        "Server.Mobiles.Veterinarian",
+        "Server.Mobiles.Waiter",
+        "Server.Mobiles.WanderingHealer",
+        "Server.Mobiles.WarriorGuildmaster",
+        "Server.Mobiles.Weaponsmith",
+        "Server.Mobiles.Weaver"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "quest-npcs",
+      "types": [
+        "Server.Engines.MLQuests.Definitions.Aeluva",
+        "Server.Engines.MLQuests.Definitions.Aernya",
+        "Server.Engines.MLQuests.Definitions.Ahie",
+        "Server.Engines.MLQuests.Definitions.AldenArmstrong",
+        "Server.Engines.MLQuests.Definitions.Alefian",
+        "Server.Engines.MLQuests.Definitions.Alejaha",
+        "Server.Engines.MLQuests.Definitions.Alelle",
+        "Server.Engines.MLQuests.Definitions.Aluniol",
+        "Server.Engines.MLQuests.Definitions.AndreasVesalius",
+        "Server.Engines.MLQuests.Definitions.Andric",
+        "Server.Engines.MLQuests.Definitions.Andros",
+        "Server.Engines.MLQuests.Definitions.Aniel",
+        "Server.Engines.MLQuests.Definitions.Anolly",
+        "Server.Engines.MLQuests.Definitions.Arielle",
+        "Server.Engines.MLQuests.Definitions.Asandos",
+        "Server.Engines.MLQuests.Definitions.Athailon",
+        "Server.Engines.MLQuests.Definitions.Aulan",
+        "Server.Engines.MLQuests.Definitions.Aurelia",
+        "Server.Engines.MLQuests.Definitions.Avicenna",
+        "Server.Engines.MLQuests.Definitions.Belulah",
+        "Server.Engines.MLQuests.Definitions.Ben",
+        "Server.Engines.MLQuests.Definitions.Beotham",
+        "Server.Engines.MLQuests.Definitions.Bolaevin",
+        "Server.Engines.MLQuests.Definitions.Braen",
+        "Server.Engines.MLQuests.Definitions.Bravehorn",
+        "Server.Engines.MLQuests.Definitions.BravehornsMate",
+        "Server.Engines.MLQuests.Definitions.Brinnae",
+        "Server.Engines.MLQuests.Definitions.Caelas",
+        "Server.Engines.MLQuests.Definitions.Cailla",
+        "Server.Engines.MLQuests.Definitions.Canir",
+        "Server.Engines.MLQuests.Definitions.Chiyo",
+        "Server.Engines.MLQuests.Definitions.Churchill",
+        "Server.Engines.MLQuests.Definitions.Ciala",
+        "Server.Engines.MLQuests.Definitions.Cillitha",
+        "Server.Engines.MLQuests.Definitions.Clairesse",
+        "Server.Engines.MLQuests.Definitions.Clehin",
+        "Server.Engines.MLQuests.Definitions.Cloorne",
+        "Server.Engines.MLQuests.Definitions.Daelas",
+        "Server.Engines.MLQuests.Definitions.Dallid",
+        "Server.Engines.MLQuests.Definitions.Danoel",
+        "Server.Engines.MLQuests.Definitions.Dimethro",
+        "Server.Engines.MLQuests.Definitions.Drithen",
+        "Server.Engines.MLQuests.Definitions.ElderAbbein",
+        "Server.Engines.MLQuests.Definitions.ElderAcob",
+        "Server.Engines.MLQuests.Definitions.ElderAlethanian",
+        "Server.Engines.MLQuests.Definitions.ElderBrae",
+        "Server.Engines.MLQuests.Definitions.ElderJothan",
+        "Server.Engines.MLQuests.Definitions.ElderMallew",
+        "Server.Engines.MLQuests.Definitions.ElderOnallan",
+        "Server.Engines.MLQuests.Definitions.ElderTaellia",
+        "Server.Engines.MLQuests.Definitions.ElderVicaie",
+        "Server.Engines.MLQuests.Definitions.Emerillo",
+        "Server.Engines.MLQuests.Definitions.Emilio",
+        "Server.Engines.MLQuests.Definitions.Enigma",
+        "Server.Engines.MLQuests.Definitions.Evan",
+        "Server.Engines.MLQuests.Definitions.Frederic",
+        "Server.Engines.MLQuests.Definitions.Gervis",
+        "Server.Engines.MLQuests.Definitions.Gorrow",
+        "Server.Engines.MLQuests.Definitions.GrandpaCharley",
+        "Server.Engines.MLQuests.Definitions.Gustar",
+        "Server.Engines.MLQuests.Definitions.Hargrove",
+        "Server.Engines.MLQuests.Definitions.Huntsman",
+        "Server.Engines.MLQuests.Definitions.Iosep",
+        "Server.Engines.MLQuests.Definitions.JacobWaltz",
+        "Server.Engines.MLQuests.Definitions.Jamal",
+        "Server.Engines.MLQuests.Definitions.Jelrice",
+        "Server.Engines.MLQuests.Definitions.Jillian",
+        "Server.Engines.MLQuests.Definitions.Jockles",
+        "Server.Engines.MLQuests.Definitions.Jun",
+        "Server.Engines.MLQuests.Definitions.Jusae",
+        "Server.Engines.MLQuests.Definitions.Kaelynna",
+        "Server.Engines.MLQuests.Definitions.Kashiel",
+        "Server.Engines.MLQuests.Definitions.Kia",
+        "Server.Engines.MLQuests.Definitions.Koole",
+        "Server.Engines.MLQuests.Definitions.Landy",
+        "Server.Engines.MLQuests.Definitions.Leon",
+        "Server.Engines.MLQuests.Definitions.Lissbet",
+        "Server.Engines.MLQuests.Definitions.Lohn",
+        "Server.Engines.MLQuests.Definitions.LorekeeperAneen",
+        "Server.Engines.MLQuests.Definitions.LorekeeperBroolol",
+        "Server.Engines.MLQuests.Definitions.LorekeeperCalendor",
+        "Server.Engines.MLQuests.Definitions.LorekeeperNillaen",
+        "Server.Engines.MLQuests.Definitions.LorekeeperOolua",
+        "Server.Engines.MLQuests.Definitions.LorekeeperRollarn",
+        "Server.Engines.MLQuests.Definitions.LorekeeperRyal",
+        "Server.Engines.MLQuests.Definitions.LorekeeperSiarra",
+        "Server.Engines.MLQuests.Definitions.Lowel",
+        "Server.Engines.MLQuests.Definitions.Lyle",
+        "Server.Engines.MLQuests.Definitions.MasterGnosos",
+        "Server.Engines.MLQuests.Definitions.MaulTheBear",
+        "Server.Engines.MLQuests.Definitions.Mielan",
+        "Server.Engines.MLQuests.Definitions.Mithneral",
+        "Server.Engines.MLQuests.Definitions.Mugg",
+        "Server.Engines.MLQuests.Definitions.Nibbet",
+        "Server.Engines.MLQuests.Definitions.Norton",
+        "Server.Engines.MLQuests.Definitions.Nythalia",
+        "Server.Engines.MLQuests.Definitions.Olaeni",
+        "Server.Engines.MLQuests.Definitions.Olla",
+        "Server.Engines.MLQuests.Definitions.Patricus",
+        "Server.Engines.MLQuests.Definitions.Rebinil",
+        "Server.Engines.MLQuests.Definitions.Recaro",
+        "Server.Engines.MLQuests.Definitions.Regina",
+        "Server.Engines.MLQuests.Definitions.Sadrah",
+        "Server.Engines.MLQuests.Definitions.Salaenih",
+        "Server.Engines.MLQuests.Definitions.Saril",
+        "Server.Engines.MLQuests.Definitions.SarsmeaSmythe",
+        "Server.Engines.MLQuests.Definitions.SkeletonOfSzandor",
+        "Server.Engines.MLQuests.Definitions.Sledge",
+        "Server.Engines.MLQuests.Definitions.Sleen",
+        "Server.Engines.MLQuests.Definitions.Strongroot",
+        "Server.Engines.MLQuests.Definitions.Synaeva",
+        "Server.Engines.MLQuests.Definitions.Tallinin",
+        "Server.Engines.MLQuests.Definitions.Tamm",
+        "Server.Engines.MLQuests.Definitions.Thalia",
+        "Server.Engines.MLQuests.Definitions.Thallary",
+        "Server.Engines.MLQuests.Definitions.Tholef",
+        "Server.Engines.MLQuests.Definitions.Tiana",
+        "Server.Engines.MLQuests.Definitions.Tillanil",
+        "Server.Engines.MLQuests.Definitions.Tyeelor",
+        "Server.Engines.MLQuests.Definitions.TylAriadne",
+        "Server.Engines.MLQuests.Definitions.Unoelil",
+        "Server.Engines.MLQuests.Definitions.Vilo",
+        "Server.Engines.MLQuests.Definitions.Waelian",
+        "Server.Engines.MLQuests.Definitions.Walker",
+        "Server.Engines.MLQuests.Definitions.Yellienir",
+        "Server.Engines.MLQuests.Definitions.Yorus",
+        "Server.Engines.MLQuests.Mobiles.Darius",
+        "Server.Engines.MLQuests.Mobiles.Nedrick"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "townfolk",
+      "types": [
+        "Server.Mobiles.Actor",
+        "Server.Mobiles.Artist",
+        "Server.Mobiles.BaseEscortable",
+        "Server.Mobiles.BrideGroom",
+        "Server.Mobiles.EscortableMage",
+        "Server.Mobiles.Gypsy",
+        "Server.Mobiles.HarborMaster",
+        "Server.Mobiles.Merchant",
+        "Server.Mobiles.Messenger",
+        "Server.Mobiles.Ninja",
+        "Server.Mobiles.Noble",
+        "Server.Mobiles.Peasant",
+        "Server.Mobiles.Samurai",
+        "Server.Mobiles.Sculptor",
+        "Server.Mobiles.SeekerOfAdventure",
+        "Server.Mobiles.Townfolk.Prisoner"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "hirelings",
+      "types": [
+        "Server.Mobiles.BaseHire",
+        "Server.Mobiles.HireBard",
+        "Server.Mobiles.HireBardArcher",
+        "Server.Mobiles.HireBeggar",
+        "Server.Mobiles.HireFighter",
+        "Server.Mobiles.HireMage",
+        "Server.Mobiles.HirePaladin",
+        "Server.Mobiles.HirePeasant",
+        "Server.Mobiles.HireRanger",
+        "Server.Mobiles.HireRangerArcher",
+        "Server.Mobiles.HireSailor",
+        "Server.Mobiles.HireThief"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    },
+    {
+      "id": "summoned-types",
+      "types": [
+        "Server.Mobiles.SummonedAirElemental",
+        "Server.Mobiles.SummonedAntLion",
+        "Server.Mobiles.SummonedArcticOgreLord",
+        "Server.Mobiles.SummonedBakeKitsune",
+        "Server.Mobiles.SummonedBogling",
+        "Server.Mobiles.SummonedBullFrog",
+        "Server.Mobiles.SummonedChicken",
+        "Server.Mobiles.SummonedCow",
+        "Server.Mobiles.SummonedDaemon",
+        "Server.Mobiles.SummonedDoppleganger",
+        "Server.Mobiles.SummonedEarthElemental",
+        "Server.Mobiles.SummonedFireElemental",
+        "Server.Mobiles.SummonedFrostSpider",
+        "Server.Mobiles.SummonedGreatHart",
+        "Server.Mobiles.SummonedLavaSerpent",
+        "Server.Mobiles.SummonedOrcBrute",
+        "Server.Mobiles.SummonedPanther",
+        "Server.Mobiles.SummonedSheep",
+        "Server.Mobiles.SummonedSkeletalKnight",
+        "Server.Mobiles.SummonedVorpalBunny",
+        "Server.Mobiles.SummonedWailingBanshee",
+        "Server.Mobiles.SummonedWaterElemental"
+      ],
+      "eligible": false,
+      "reference": null,
+      "treasureClass": null
+    }
+  ],
+  "classes": [
+    {
+      "name": "Act 1 (H) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (H) Equip A",
+          "weight": 15,
+          "nested": "Act 1 (H) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Junk",
+          "weight": 18,
+          "nested": "Act 1 (H) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Good",
+          "weight": 2,
+          "nested": "Act 1 (H) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Magic A",
+          "weight": 7,
+          "nested": "Act 1 (H) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap54",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap57",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap60",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo60",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap63",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo63",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Equip C",
+          "weight": 1785,
+          "nested": "Act 5 (N) Equip C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap57",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap60",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo60",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap63",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo63",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap66",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo66",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Equip A",
+          "weight": 1530,
+          "nested": "Act 1 (H) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 4,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 10,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 14,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 28,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 13",
+          "weight": 14,
+          "nested": "Runes 13",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (H) Equip A",
+          "weight": 16,
+          "nested": "Act 1 (H) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Junk",
+          "weight": 21,
+          "nested": "Act 1 (H) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Good",
+          "weight": 2,
+          "nested": "Act 1 (H) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (H) Equip B",
+          "weight": 16,
+          "nested": "Act 1 (H) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Junk",
+          "weight": 21,
+          "nested": "Act 1 (H) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Good",
+          "weight": 2,
+          "nested": "Act 1 (H) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) H2H C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (H) Equip B",
+          "weight": 16,
+          "nested": "Act 1 (H) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Junk",
+          "weight": 21,
+          "nested": "Act 1 (H) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (H) Good",
+          "weight": 2,
+          "nested": "Act 1 (H) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (H) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow12",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Bow C",
+          "weight": 630,
+          "nested": "Act 5 Bow C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow15",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Bow A",
+          "weight": 770,
+          "nested": "Act 1 (N) Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip A",
+          "weight": 15,
+          "nested": "Act 1 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 18,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Magic A",
+          "weight": 7,
+          "nested": "Act 1 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Cast B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 1 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 18,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 1 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Cast C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 1 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 18,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 1 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap39",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap42",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Equip C",
+          "weight": 935,
+          "nested": "Act 5 Equip C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap39",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap42",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Equip A",
+          "weight": 1105,
+          "nested": "Act 1 (N) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 6,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 8,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 28,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 14,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 8",
+          "weight": 14,
+          "nested": "Runes 8",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip A",
+          "weight": 16,
+          "nested": "Act 1 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 21,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 1 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 21,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) H2H C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 1 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 21,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 2,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Magic B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 (N) Wraith B",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 4,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Magic B",
+          "weight": 25,
+          "nested": "Act 1 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 Equip C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap3",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo3",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap6",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo6",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap9",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo9",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap12",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo12",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 1 Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Potion 1",
+          "weight": 8,
+          "nested": "Potion 1",
+          "gold": false
+        },
+        {
+          "item": "Misc 0",
+          "weight": 4,
+          "nested": "Misc 0",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow18",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Bow B",
+          "weight": 920,
+          "nested": "Act 1 (N) Bow B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow21",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow42",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Bow A",
+          "weight": 1070,
+          "nested": "Act 2 (N) Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip A",
+          "weight": 15,
+          "nested": "Act 2 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 18,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Magic A",
+          "weight": 7,
+          "nested": "Act 2 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Cast B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 2 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 18,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 2 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap36",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap39",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap42",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap45",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo45",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Equip B",
+          "weight": 1233,
+          "nested": "Act 1 (N) Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap39",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap42",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap45",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo45",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap48",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo48",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Equip A",
+          "weight": 1105,
+          "nested": "Act 2 (N) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 4,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 10,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 14,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 28,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 9",
+          "weight": 14,
+          "nested": "Runes 9",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip A",
+          "weight": 16,
+          "nested": "Act 2 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 21,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 2 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 21,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) H2H C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 2 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 21,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Magic B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 (N) Miss A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 2 (N) Equip A",
+          "weight": 13,
+          "nested": "Act 2 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Junk",
+          "weight": 18,
+          "nested": "Act 2 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 2,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Bow A",
+          "weight": 6,
+          "nested": "Act 2 (N) Bow A",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 3,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap6",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo6",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap9",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo9",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap12",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo12",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap15",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo15",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 1 Equip C",
+          "weight": 30,
+          "nested": "Act 1 Equip C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap9",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo9",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap12",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo12",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap15",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo15",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap18",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo18",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 Equip A",
+          "weight": 60,
+          "nested": "Act 2 Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 Equip C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap12",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo12",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap15",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo15",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap18",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo18",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap21",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo21",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 Equip B",
+          "weight": 80,
+          "nested": "Act 2 Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 2 Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 1 Junk",
+          "weight": 2,
+          "nested": "Act 1 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 2",
+          "weight": 8,
+          "nested": "Potion 2",
+          "gold": false
+        },
+        {
+          "item": "Misc 0",
+          "weight": 4,
+          "nested": "Misc 0",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow24",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow42",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow45",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Bow B",
+          "weight": 1220,
+          "nested": "Act 2 (N) Bow B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow27",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow42",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow45",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow48",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Bow A",
+          "weight": 1370,
+          "nested": "Act 3 (N) Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip A",
+          "weight": 15,
+          "nested": "Act 3 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 18,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic A",
+          "weight": 7,
+          "nested": "Act 3 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Cast B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 3 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 18,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 3 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Cast C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 3 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 18,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 3 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap42",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap45",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo45",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap48",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo48",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap51",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Equip B",
+          "weight": 1190,
+          "nested": "Act 2 (N) Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap42",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo42",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap45",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo45",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap48",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo48",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap51",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Equip A",
+          "weight": 1445,
+          "nested": "Act 3 (N) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 4,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 10,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 14,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 28,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 10",
+          "weight": 14,
+          "nested": "Runes 10",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip A",
+          "weight": 16,
+          "nested": "Act 3 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 21,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 3 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 21,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) H2H C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 3 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 21,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Magic B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Miss A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 3 (N) Equip A",
+          "weight": 13,
+          "nested": "Act 3 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Junk",
+          "weight": 18,
+          "nested": "Act 3 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 2,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Bow A",
+          "weight": 6,
+          "nested": "Act 3 (N) Bow A",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 3,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Wraith A",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 4,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic A",
+          "weight": 25,
+          "nested": "Act 3 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Wraith B",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 4,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic B",
+          "weight": 25,
+          "nested": "Act 3 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 (N) Wraith C",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 4,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic B",
+          "weight": 25,
+          "nested": "Act 3 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 Bow C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow3",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow6",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow9",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap15",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo15",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap18",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo18",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap21",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo21",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap24",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo24",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 2 Equip C",
+          "weight": 100,
+          "nested": "Act 2 Equip C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap18",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo18",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap21",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo21",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap24",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo24",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap27",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo27",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 Equip A",
+          "weight": 200,
+          "nested": "Act 3 Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 Equip C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap21",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo21",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap24",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo24",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap27",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo27",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 Equip B",
+          "weight": 340,
+          "nested": "Act 3 Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 3 Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 2 Junk",
+          "weight": 2,
+          "nested": "Act 2 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 3",
+          "weight": 8,
+          "nested": "Potion 3",
+          "gold": false
+        },
+        {
+          "item": "Misc 1",
+          "weight": 4,
+          "nested": "Misc 1",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow30",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow42",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow45",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow48",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow51",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Bow B",
+          "weight": 1520,
+          "nested": "Act 3 (N) Bow B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow33",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow36",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow39",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow42",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow45",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow48",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow51",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow54",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Bow A",
+          "weight": 1670,
+          "nested": "Act 4 (N) Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 4 (N) Equip A",
+          "weight": 15,
+          "nested": "Act 4 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 18,
+          "nested": "Act 4 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 2,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Magic A",
+          "weight": 7,
+          "nested": "Act 4 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Cast B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 4 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 4 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 18,
+          "nested": "Act 4 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 2,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 4 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap45",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo45",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap48",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo48",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap51",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap54",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Equip B",
+          "weight": 1530,
+          "nested": "Act 3 (N) Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap48",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo48",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap51",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap54",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap57",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Equip A",
+          "weight": 1360,
+          "nested": "Act 4 (N) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 4,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 10,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 14,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 28,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 11",
+          "weight": 14,
+          "nested": "Runes 11",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 4 (N) Equip A",
+          "weight": 16,
+          "nested": "Act 4 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 21,
+          "nested": "Act 4 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 2,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 4 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 4 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 21,
+          "nested": "Act 4 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 2,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Magic B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Miss B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 4 (N) Equip B",
+          "weight": 13,
+          "nested": "Act 4 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Junk",
+          "weight": 18,
+          "nested": "Act 4 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 2,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Bow B",
+          "weight": 6,
+          "nested": "Act 4 (N) Bow B",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 3,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 (N) Wraith B",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 4 (N) Good",
+          "weight": 4,
+          "nested": "Act 4 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Magic B",
+          "weight": 25,
+          "nested": "Act 4 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow6",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow9",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 Bow C",
+          "weight": 110,
+          "nested": "Act 3 Bow C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow6",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow9",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 Bow A",
+          "weight": 180,
+          "nested": "Act 4 Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap24",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo24",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap27",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo27",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap30",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 3 Equip C",
+          "weight": 430,
+          "nested": "Act 3 Equip C",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap27",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo27",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap30",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap33",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 Equip A",
+          "weight": 500,
+          "nested": "Act 4 Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 4 Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 3 Junk",
+          "weight": 2,
+          "nested": "Act 3 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 4",
+          "weight": 8,
+          "nested": "Potion 4",
+          "gold": false
+        },
+        {
+          "item": "Misc 1",
+          "weight": 4,
+          "nested": "Misc 1",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Cast A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip A",
+          "weight": 15,
+          "nested": "Act 5 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 18,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Magic A",
+          "weight": 7,
+          "nested": "Act 5 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Cast B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip B",
+          "weight": 15,
+          "nested": "Act 5 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 18,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 5 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Cast C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 18,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip C",
+          "weight": 15,
+          "nested": "Act 5 (N) Equip C",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 18,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Magic B",
+          "weight": 7,
+          "nested": "Act 5 (N) Magic B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap51",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap54",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap57",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap60",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo60",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 (N) Equip B",
+          "weight": 1445,
+          "nested": "Act 4 (N) Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap51",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo51",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap54",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap57",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap60",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo60",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Equip A",
+          "weight": 1743,
+          "nested": "Act 5 (N) Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Equip C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap54",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo54",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap57",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo57",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap60",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo60",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap63",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo63",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Equip B",
+          "weight": 1530,
+          "nested": "Act 5 (N) Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Good",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Jewelry C",
+          "weight": 60,
+          "nested": "Jewelry C",
+          "gold": false
+        },
+        {
+          "item": "Chipped Gem",
+          "weight": 4,
+          "nested": "Chipped Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawed Gem",
+          "weight": 10,
+          "nested": "Flawed Gem",
+          "gold": false
+        },
+        {
+          "item": "Normal Gem",
+          "weight": 14,
+          "nested": "Normal Gem",
+          "gold": false
+        },
+        {
+          "item": "Flawless Gem",
+          "weight": 28,
+          "nested": "Flawless Gem",
+          "gold": false
+        },
+        {
+          "item": "Runes 12",
+          "weight": 14,
+          "nested": "Runes 12",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) H2H A",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip A",
+          "weight": 16,
+          "nested": "Act 5 (N) Equip A",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 21,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) H2H B",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip B",
+          "weight": 16,
+          "nested": "Act 5 (N) Equip B",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 21,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) H2H C",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 21,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 5 (N) Equip C",
+          "weight": 16,
+          "nested": "Act 5 (N) Equip C",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Junk",
+          "weight": 21,
+          "nested": "Act 5 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 2,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 5 Junk",
+          "weight": 2,
+          "nested": "Act 5 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 6",
+          "weight": 8,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Magic A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Magic B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "tsc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 (N) Wraith A",
+      "picks": 1,
+      "noDrop": 75,
+      "entries": [
+        {
+          "item": "Act 5 (N) Good",
+          "weight": 4,
+          "nested": "Act 5 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 5 (N) Magic A",
+          "weight": 25,
+          "nested": "Act 5 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Bow A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow9",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 Bow B",
+          "weight": 270,
+          "nested": "Act 4 Bow B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Bow B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow9",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Bow A",
+          "weight": 380,
+          "nested": "Act 5 Bow A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Bow C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "bow9",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow12",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow15",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow18",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow21",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow24",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow27",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "bow30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Bow B",
+          "weight": 500,
+          "nested": "Act 5 Bow B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Equip A",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap27",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo27",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap30",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap33",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 4 Equip B",
+          "weight": 629,
+          "nested": "Act 4 Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Equip B",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap33",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap39",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Equip A",
+          "weight": 731,
+          "nested": "Act 5 Equip A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Equip C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "weap30",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo30",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap33",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo33",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap36",
+          "weight": 14,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo36",
+          "weight": 7,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "weap39",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "armo39",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Act 5 Equip B",
+          "weight": 833,
+          "nested": "Act 5 Equip B",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Act 5 Junk",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "Act 4 Junk",
+          "weight": 2,
+          "nested": "Act 4 Junk",
+          "gold": false
+        },
+        {
+          "item": "Potion 5",
+          "weight": 8,
+          "nested": "Potion 5",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 4,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Ammo",
+          "weight": 4,
+          "nested": "Ammo",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Ammo",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "aqv",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "cqv",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Chipped Gem",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "gcv",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gcy",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gcb",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gcg",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gcr",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gcw",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "skc",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Flawed Gem",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "gfv",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gfy",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gfb",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gfg",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gfr",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gfw",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "skf",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Flawless Gem",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "gzv",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gly",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "glb",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "glg",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "glr",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "glw",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "skl",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Flying Scimitar (N)",
+      "picks": 1,
+      "noDrop": 100,
+      "entries": [
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 3,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "scm",
+          "weight": 25,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "9sm",
+          "weight": 32,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Jewelry C",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "rin",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "amu",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "jew",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "cm3",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "cm2",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "cm1",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Misc 0",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "key",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "tsc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "opl",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gpl",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Misc 1",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "key",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "tsc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "opm",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gpm",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Misc 2",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "key",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "tsc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "isc",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "ops",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Normal Gem",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "gsv",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gsy",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gsb",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gsg",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gsr",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "gsw",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "sku",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 1",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp1",
+          "weight": 12,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp2",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp1",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp2",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 2",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp1",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp2",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp3",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp2",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp3",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "yps",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "wms",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 3",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp2",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp3",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp4",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp3",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "yps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "wms",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 4",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp3",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp4",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp5",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "yps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "wms",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 5",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp3",
+          "weight": 4,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp4",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp5",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "yps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "wms",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Potion 6",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "hp4",
+          "weight": 6,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "hp5",
+          "weight": 8,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp4",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "mp5",
+          "weight": 5,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "rvs",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "vps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "yps",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "wms",
+          "weight": 1,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Quill 2 (N)",
+      "picks": 1,
+      "noDrop": 125,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 19,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 19,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 1,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Quill 3 (N)",
+      "picks": 1,
+      "noDrop": 125,
+      "entries": [
+        {
+          "item": "gld",
+          "weight": 19,
+          "nested": null,
+          "gold": true
+        },
+        {
+          "item": "Act 1 (N) Junk",
+          "weight": 19,
+          "nested": "Act 1 (N) Junk",
+          "gold": false
+        },
+        {
+          "item": "Act 1 (N) Good",
+          "weight": 1,
+          "nested": "Act 1 (N) Good",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 1",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r01",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r02",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 10",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r19",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r20",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 9",
+          "weight": 360,
+          "nested": "Runes 9",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 11",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r21",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r22",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 10",
+          "weight": 720,
+          "nested": "Runes 10",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 12",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r23",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r24",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 11",
+          "weight": 1066,
+          "nested": "Runes 11",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 13",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r25",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r26",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 12",
+          "weight": 1519,
+          "nested": "Runes 12",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 2",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r03",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r04",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 1",
+          "weight": 2,
+          "nested": "Runes 1",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 3",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r05",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r06",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 2",
+          "weight": 5,
+          "nested": "Runes 2",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 4",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r07",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r08",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 3",
+          "weight": 7,
+          "nested": "Runes 3",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 5",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r09",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r10",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 4",
+          "weight": 12,
+          "nested": "Runes 4",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 6",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r11",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r12",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 5",
+          "weight": 22,
+          "nested": "Runes 5",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 7",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r13",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r14",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 6",
+          "weight": 45,
+          "nested": "Runes 6",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 8",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r15",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r16",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 7",
+          "weight": 90,
+          "nested": "Runes 7",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Runes 9",
+      "picks": 1,
+      "noDrop": 0,
+      "entries": [
+        {
+          "item": "r17",
+          "weight": 3,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "r18",
+          "weight": 2,
+          "nested": null,
+          "gold": false
+        },
+        {
+          "item": "Runes 8",
+          "weight": 180,
+          "nested": "Runes 8",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Swarm 1 (N)",
+      "picks": 1,
+      "noDrop": 125,
+      "entries": [
+        {
+          "item": "Potion 6",
+          "weight": 12,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 6,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Good",
+          "weight": 1,
+          "nested": "Act 2 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 2 (N) Magic A",
+          "weight": 6,
+          "nested": "Act 2 (N) Magic A",
+          "gold": false
+        }
+      ]
+    },
+    {
+      "name": "Swarm 2 (N)",
+      "picks": 1,
+      "noDrop": 125,
+      "entries": [
+        {
+          "item": "Potion 6",
+          "weight": 12,
+          "nested": "Potion 6",
+          "gold": false
+        },
+        {
+          "item": "Misc 2",
+          "weight": 6,
+          "nested": "Misc 2",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Good",
+          "weight": 1,
+          "nested": "Act 3 (N) Good",
+          "gold": false
+        },
+        {
+          "item": "Act 3 (N) Magic A",
+          "weight": 6,
+          "nested": "Act 3 (N) Magic A",
+          "gold": false
+        }
+      ]
+    }
+  ]
+}

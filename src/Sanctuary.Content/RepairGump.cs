@@ -57,6 +57,8 @@ public sealed class RepairGump : DynamicGump
     public static void DisplayTo(PlayerMobile player, Item item, BaseTool tool = null, BaseVendor vendor = null)
     {
         if (player.NetState == null) { return; }
+        if (ClassGear.State(item) is { Identified: false })
+        { player.SendMessage("Identify this item before repairing or recharging it."); return; }
         var check = EquipmentRepairs.Quote(player, item, tool, vendor, true, -1);
         if (check == null)
         {

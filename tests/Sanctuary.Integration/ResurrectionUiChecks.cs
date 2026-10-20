@@ -62,7 +62,7 @@ public static class ResurrectionUiChecks
         Register("recovery-setup", () => _player.MoveToWorld(
             CombatPractice.FindFloor(Map.Felucca, _death.X + 2, _death.Y), Map.Felucca));
         Register("recovered", () => Require(_player.FindItemOnLayer(Layer.OneHanded) is Server.Items.Dagger
-            && _player.Backpack.GetAmount(typeof(Server.Items.Gold)) == 990
+            && _player.Backpack.GetAmount(typeof(Server.Items.Gold)) == 800
             && !ClassLoot.HasContents((Server.Items.Corpse)_player.Corpse),
             $"Actual corpse click did not re-equip protected starting gear and reclaim gold: equipped={_player.FindItemOnLayer(Layer.OneHanded)?.GetType().Name}, gold={_player.Backpack.GetAmount(typeof(Server.Items.Gold))}, frozen={_player.Frozen}"));
         Register("final", () => Require(_player.Alive && _player.Hits == _player.HitsMax

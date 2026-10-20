@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract the reachable Normal players-1 gold projection from pinned LoD tables."""
+"""Extract the difficulty-specific players-1 gold projection from pinned LoD tables."""
 import argparse
 import csv
 import hashlib
@@ -11,7 +11,9 @@ BALANCE = ROOT / 'data/Sanctuary/Balance'
 COMMIT = '45112569deb9384738ccafe5c24ebbb71f41c7c9'
 
 
-def build(source):
+def build(source, difficulty="Normal"):
+    assert difficulty in ("Normal", "Nightmare", "Hell")
+    suffix = {"Normal": "", "Nightmare": "(N)", "Hell": "(H)"}[difficulty]
     sources = json.loads((BALANCE / 'sources.json').read_text())
     tables = {}
     for name in ['MonStats', 'TreasureClassEx']:
@@ -21,13 +23,25 @@ def build(source):
     monsters = {r['Id']: r for r in tables['MonStats'] if r['Id']}
     classes = {r['Treasure Class']: r for r in tables['TreasureClassEx'] if r['Treasure Class']}
     policies, extracted = [], {}
+    ordered = list(classes.values())
+    def upgrade(name, level, mon):
+        if difficulty == 'Normal' or mon.get('noRatio') == '1' or mon.get('boss') == '1' or not name:
+            return name
+        index = ordered.index(classes[name])
+        group = classes[name].get('group')
+        if group:
+            for row in ordered[index + 1:]:
+                if row.get('group') != group or int(row.get('level') or 0) > level:
+                    break
+                name = row['Treasure Class']
+        return name
 
     def visit(name, path=()):
         assert name not in path, f'Treasure class cycle: {path} -> {name}'
         if name in extracted:
             return
         row = classes[name]
-        # The entire approved Normal roster uses one positive pick. Fail closed
+        # The approved ordinary roster uses one positive pick. Fail closed
         # if an input change needs additional source semantics.
         assert int(row['Picks']) == 1, name
         entries = []
@@ -45,14 +59,16 @@ def build(source):
 
     rewards = json.loads((BALANCE / 'creature-rewards.json').read_text())
     for group in rewards['groups']:
-        row = group['variants']['Normal']
+        row = group['variants'][difficulty]
         reference = row['reference'] if row['enabled'] else None
-        tc = monsters[reference]['TreasureClass1'] if reference else None
+        tc = monsters[reference]['TreasureClass1' + suffix] if reference else None
+        if tc and difficulty != 'Normal':
+            tc = upgrade(tc, row['level'], monsters[reference])
         if tc:
             visit(tc)
         policies.append(dict(id=group['id'], types=group['types'], eligible=row['enabled'],
                              reference=reference, treasureClass=tc))
-    return dict(sourceCommit=COMMIT, difficulty='Normal', players=1, maxDrops=6,
+    return dict(sourceCommit=COMMIT, difficulty=difficulty, players=1, maxDrops=6,
                 policies=policies, classes=[extracted[k] for k in sorted(extracted)])
 
 
@@ -60,9 +76,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-dir', type=Path, required=True)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--difficulty', choices=['Normal', 'Nightmare', 'Hell'], default='Normal')
     args = parser.parse_args()
-    text = json.dumps(build(args.source_dir), indent=2) + '\n'
-    target = BALANCE / 'creature-gold.json'
+    text = json.dumps(build(args.source_dir, args.difficulty), indent=2) + '\n'
+    target = BALANCE / ('creature-gold' + ('' if args.difficulty == 'Normal' else '-' + args.difficulty.lower()) + '.json')
     if args.check:
         assert target.read_text() == text, 'Stale creature gold extraction'
     else:

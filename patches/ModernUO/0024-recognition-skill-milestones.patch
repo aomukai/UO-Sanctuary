@@ -1,0 +1,23 @@
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3869,6 +3869,8 @@
+             {
+                 MLQuestSystem.HandleSkillGain(this, skill);
+             }
++
++            ClassCombatHooks.SkillChanged?.Invoke(this, skill, oldBase);
+         }
+ 
+         public override void OnAccessLevelChanged(AccessLevel oldLevel)
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -11,6 +11,7 @@
+     public static Func<Mobile, Mobile, bool> Friendly { get; set; }
+     public static Action<PlayerMobile, Container> PlayerDied { get; set; }
+     public static Action<PlayerMobile, Corpse> PlayerCorpseCreated { get; set; }
++    public static Action<PlayerMobile, SkillName, double> SkillChanged { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+     public static Func<PlayerMobile, int, int> RunningDelay { get; set; }

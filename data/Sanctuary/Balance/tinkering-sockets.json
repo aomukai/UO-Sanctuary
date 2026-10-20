@@ -1,0 +1,29 @@
+[
+  {
+    "TierSkills": [
+      30,
+      80,
+      100
+    ],
+    "SocketSkills": [
+      30,
+      50,
+      70,
+      90,
+      110
+    ],
+    "BaseChances": [
+      100,
+      50,
+      25,
+      5,
+      5
+    ],
+    "CraftedToolBonuses": [
+      1,
+      2,
+      3
+    ],
+    "IntuitionChance": 5
+  }
+]

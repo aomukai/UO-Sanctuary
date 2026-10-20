@@ -47,9 +47,9 @@ public static class CorpseRecoveryChecks
                 corpse = player.Corpse as Corpse;
                 Require(corpse != null && weapon.Parent == corpse && bag.Parent == corpse && player.Location == floor,
                     "Death protection retained gear or teleported the ghost");
-                int expected = 1000 - 1000 * Math.Min(level, 20) / 100;
+                int expected = 800;
                 Require(corpse.GetAmount(typeof(Gold)) == expected && player.BankBox.GetAmount(typeof(Gold)) == 10000,
-                    "Death gold penalty did not use the capped carried-gold percentage or touched the bank");
+                    "Death gold penalty did not use flat 20% or touched the bank");
                 Require(GetProfile(player) == profile, "Death changed class XP, level or other progression");
                 Require(!ClassDeath.Recover(player, corpse), "Ghost recovered its own corpse");
                 player.Resurrect();

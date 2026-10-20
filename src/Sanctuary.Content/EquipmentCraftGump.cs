@@ -68,8 +68,13 @@ public sealed class EquipmentCraftGump : DynamicGump
         { DisplayTo(_owner, _tool, _tier, _page + (info.ButtonID == 201 ? -1 : 1)); return; }
         if (info.ButtonID is < 1 || info.ButtonID > _rows.Length || !MaterialProcessing.ToolValid(_owner, _tool)
             || !ClassProfessions.Active(_owner, _tool.CraftSystem.MainSkill)) { return; }
-        _owner.SendMessage("Target the first ingredient. Its material subtype and colour will be used.");
-        _owner.Target = new MaterialTarget(_rows[info.ButtonID - 1], _tool, sender);
+        ChooseMaterial(_owner, _tool, _rows[info.ButtonID - 1]);
+    }
+    public static void ChooseMaterial(Mobile owner, BaseTool tool, EquipmentRecipe row)
+    {
+        if (owner.Target != null) { owner.SendMessage("Finish your current target first."); return; }
+        owner.SendMessage("Target the first ingredient. Its material subtype and colour will be used.");
+        owner.Target = new MaterialTarget(row, tool, owner.NetState);
     }
     private sealed class MaterialTarget(EquipmentRecipe row, BaseTool tool, NetState connection) : Target(2, false, TargetFlags.None)
     {

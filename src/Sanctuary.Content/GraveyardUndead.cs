@@ -48,12 +48,12 @@ public abstract partial class GraveyardUndead : BaseCreature
         GraveyardZombie => MonsterBalance.For(MonsterArchetype.Tank, 1),
         _ => null
     };
-    public NormalMonsterStats NormalStats => this switch
+    public NormalMonsterStats NormalStats => MonsterVariants.Melee(this, this switch
     {
         GraveyardSkeleton => EarlyNormalMonsters.Skeleton,
         GraveyardZombie => EarlyNormalMonsters.Zombie,
         _ => null
-    };
+    });
     public abstract MonsterProfile CombatProfile { get; }
     protected virtual int RaiseKind => 0;
     protected virtual bool Caster => false;
@@ -109,7 +109,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     public override void GetProperties(IPropertyList list)
     {
         base.GetProperties(list);
-        list.Add($"{"Level "}{CombatProfile.Level}");
+        list.Add($"{"Level "}{CreatureProfiles.Level(this)}");
         if (Raised)
         {
             list.Add($"{"Revived undead"}");
@@ -276,7 +276,10 @@ public abstract partial class GraveyardUndead : BaseCreature
         {
             target.FixedParticles(0x3709, 10, 10, 5052, EffectLayer.LeftFoot);
             target.PlaySound(0x208);
-            Deal(target, Utility.RandomMinMax(6, 10), true);
+            var row = CreatureProfiles.For(this);
+            int minimum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 6 : row.Attack1.MinDamage ?? 6;
+            int maximum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 10 : row.Attack1.MaxDamage ?? 10;
+            Deal(target, Utility.RandomMinMax(minimum, maximum), true);
         }
         _actionMap = null;
     }
@@ -337,6 +340,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             }
         }
         GraveyardUndead raised = corpse.SanctuaryUndeadKind == 1 ? new GraveyardSkeleton() : new GraveyardZombie();
+        if (MonsterVariants.Difficulty(this) is not MonsterDifficulty.Normal and var difficulty) { MonsterVariants.Assign(raised, difficulty); }
         raised.MarkRaised(corpse.SanctuaryNoRewards);
         raised.MoveToWorld(corpse.Location, corpse.Map);
         raised.Combatant = Combatant;

@@ -107,7 +107,7 @@ def check(output):
                     assert session.process.returncode == 0
                 finally:
                     session.close()
-        for key in ('Players', 'Gear'):
+        for key in ('Players', 'Gear', 'Gold'):
             assert snapshots[-2][key] == snapshots[-1][key], f'{key} changed after copied-world restart'
         assert all(p == progression[0] for p in progression), 'Serialized class/talent/allocation history changed on restart'
         if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':
@@ -118,6 +118,9 @@ def check(output):
         for corpse in snapshots[0]['Corpses']:
             if corpse['SanctuaryNoRewards']:
                 assert claims.get(corpse['Serial']) is True, 'Spent corpse claim lost on restart'
+        death_claims = {c['Serial']: c['SanctuaryDeathCharged'] for c in snapshots[-1]['Corpses']}
+        for corpse in snapshots[-2]['Corpses']:
+            assert death_claims.get(corpse['Serial']) == corpse['SanctuaryDeathCharged'], 'Existing death claim changed on restart'
         if processing:
             for before, after in zip(snapshots[0]['Players'], snapshots[1]['Players'], strict=True):
                 assert {k: v for k, v in before.items() if k != 'Profession'} == {k: v for k, v in after.items() if k != 'Profession'}

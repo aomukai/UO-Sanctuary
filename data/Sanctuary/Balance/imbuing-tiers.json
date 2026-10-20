@@ -1,0 +1,20 @@
+[
+  {
+    "tier": "Normal",
+    "skill": 80,
+    "gold": 100,
+    "essence": 5
+  },
+  {
+    "tier": "Exceptional",
+    "skill": 100,
+    "gold": 500,
+    "essence": 10
+  },
+  {
+    "tier": "Elite",
+    "skill": 120,
+    "gold": 1000,
+    "essence": 20
+  }
+]

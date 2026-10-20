@@ -57,6 +57,7 @@ public static class CreatureProfiles
     {
         internal long RecoveryUntil = Core.TickCount;
         internal bool Initialized;
+        internal NormalMonsterStats DifficultyMelee;
     }
     private static readonly ConditionalWeakTable<BaseCreature, State> _states = new();
     internal static State Session(BaseCreature creature) => _states.GetValue(creature, static _ => new State());
@@ -74,6 +75,15 @@ public static class CreatureProfiles
             {
                 rewards.Add(type.GetValue<string>(), group["variants"]);
             }
+        }
+        var higher = new Dictionary<string, JsonNode>(StringComparer.Ordinal);
+        var higherCatalog = JsonNode.Parse(File.ReadAllText(Path.Join(folder, "creature-difficulties.json")));
+        if (higherCatalog["sourceCommit"].GetValue<string>() != "45112569deb9384738ccafe5c24ebbb71f41c7c9"
+            || higherCatalog["players"].GetValue<int>() != 1 || higherCatalog["lifePolicy"].GetValue<string>() != "SourceMaximum")
+        { throw new InvalidDataException("Unsupported higher-difficulty source rules."); }
+        foreach (var group in higherCatalog["groups"].AsArray())
+        {
+            foreach (var type in group["types"].AsArray()) { higher.Add(type.GetValue<string>(), group["variants"]); }
         }
         _native = templates["defaults"]["Normal"].Deserialize<CreatureVariant>(_options);
         foreach (var node in JsonNode.Parse(File.ReadAllText(Path.Join(folder, "uo-creatures.json"))).AsArray())
@@ -100,6 +110,7 @@ public static class CreatureProfiles
                     merged = Merge(merged, templates["defaults"][key]);
                     merged = Merge(merged, template[key]);
                     merged["rewards"] = Merge(merged["rewards"], reward[key]);
+                    if (higher.TryGetValue(definition.Type, out var numeric)) { merged = Merge(merged, numeric[key]); }
                     merged = Merge(merged, row["variants"]?[key]);
                 }
                 var variant = merged.Deserialize<CreatureVariant>(_options);
@@ -171,21 +182,24 @@ public static class CreatureProfiles
         return new(creature.GetType().FullName, creature.GetType().BaseType.FullName, "Native", "Custom subclass",
             "native", null, "Unmapped custom type; native values retained");
     }
-    public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
-        => _variants.TryGetValue((Definition(creature).Type, difficulty), out var row) ? row : _native;
+    public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
+        => _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
+    internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
+        _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };
     public static CreatureVariant For(BaseCreature creature)
     {
         var row = Variant(creature);
         return row.Enabled ? row : _native;
     }
 
-    // Spawn systems can inspect all three variants. Normal is the only active world difficulty.
-    public static CreatureSnapshot Snapshot(BaseCreature creature, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
+    // Explicit arguments preview variants; omitted arguments use the persisted spawn identity.
+    public static CreatureSnapshot Snapshot(BaseCreature creature, MonsterDifficulty? difficulty = null)
     {
+        difficulty ??= MonsterVariants.Difficulty(creature);
         var identity = Definition(creature);
         var row = Variant(creature, difficulty);
         var res = row.Resistances;
-        return new(identity.Type, difficulty, row.Rewards.Reference ?? identity.Reference, identity.Status,
+        return new(identity.Type, difficulty.Value, row.Rewards.Reference ?? identity.Reference, identity.Status,
             Level(creature, difficulty), row.Life ?? creature.HitsMax,
             row.Attack1.AttackRating ?? NativeAttack(creature), row.Defense ?? NativeDefense(creature),
             new(res.Physical ?? creature.PhysicalResistance, res.Magic ?? 0, res.Fire ?? creature.FireResistance,
@@ -198,15 +212,15 @@ public static class CreatureProfiles
         : mob is SkeletonGuardian pet ? pet.CombatProfile.AttackRating : Math.Max(5, mob.Dex * 2);
     internal static int NativeDefense(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Defense
         : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
-    public static int Level(BaseCreature mob, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
+    public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
         var row = Variant(mob, difficulty);
         return row is { Enabled: true, ApplyStats: true, Level: { } level } ? level
             : row.Rewards is { Enabled: true, Level: { } rewardLevel } ? rewardLevel : NativeLevel(mob);
     }
     // Reward policy has its own opt-in: a reviewed level/XP mapping does not
-    // activate a disabled combat proposal. Only Normal is selected by the world.
-    public static int Experience(BaseCreature creature, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
+    // activate an unrelated combat proposal.
+    public static int Experience(BaseCreature creature, MonsterDifficulty? difficulty = null)
         => Variant(creature, difficulty).Rewards is { Enabled: true, Experience: { } xp } ? xp : 0;
     public static int AttackRating(BaseCreature mob) => For(mob) is { ApplyStats: true, Attack1.AttackRating: { } rating }
         ? rating : NativeAttack(mob);

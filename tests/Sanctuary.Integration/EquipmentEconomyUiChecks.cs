@@ -24,6 +24,9 @@ public static class EquipmentEconomyUiChecks
             ClassCombat.Stop(_player);
             _player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5450, 1160), Map.Trammel);
             _player.RawStr = 200;
+            _player.Backpack.DropItem(new SmithHammer());
+            _player.Backpack.DropItem(new ImbuingLadle());
+            _player.Skills.Imbuing.Cap = 120; _player.Skills.Imbuing.Base = 120;
             _salvage = Make(ItemOrigin.Drop, GearRarity.Magic);
             _white = Make(ItemOrigin.Crafted, GearRarity.Normal);
             ClassGear.Profiles.Store(_white, ClassGear.State(_white) with

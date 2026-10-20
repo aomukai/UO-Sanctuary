@@ -1,0 +1,109 @@
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,7 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Item, bool> Unidentified { get; set; }
+     public static Func<Item, bool> KeepBroken { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -3174,6 +3174,11 @@
+ 
+     public override void OnSingleClick(Mobile from)
+     {
++        if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++        {
++            LabelTo(from, "Unidentified equipment");
++            return;
++        }
+         if (!Core.UOTD)
+         {
+             OnSingleClickPreUOTD(from);
+diff --git a/Projects/UOContent/Items/Armor/BaseArmor.cs b/Projects/UOContent/Items/Armor/BaseArmor.cs
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -1365,6 +1365,11 @@
+ 
+         public override void OnSingleClick(Mobile from)
+         {
++            if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++            {
++                LabelTo(from, "Unidentified equipment");
++                return;
++            }
+             if (!Core.UOTD)
+             {
+                 OnSingleClickPreUOTD(from);
+diff --git a/Projects/UOContent/Items/Clothing/BaseClothing.cs b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -791,6 +791,11 @@
+ 
+         public override void OnSingleClick(Mobile from)
+         {
++            if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++            {
++                LabelTo(from, "Unidentified equipment");
++                return;
++            }
+             if (!Core.UOTD)
+             {
+                 OnSingleClickPreUOTD(from);
+diff --git a/Projects/UOContent/Items/Jewels/BaseJewel.cs b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+--- a/Projects/UOContent/Items/Jewels/BaseJewel.cs
++++ b/Projects/UOContent/Items/Jewels/BaseJewel.cs
+@@ -217,6 +217,11 @@
+ 
+     public override void OnSingleClick(Mobile from)
+     {
++        if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++        {
++            LabelTo(from, "Unidentified equipment");
++            return;
++        }
+         if (!Core.UOTD)
+         {
+             OnSingleClickPreUOTD(from);
+diff --git a/Projects/UOContent/Items/Wands/BaseWand.cs b/Projects/UOContent/Items/Wands/BaseWand.cs
+--- a/Projects/UOContent/Items/Wands/BaseWand.cs
++++ b/Projects/UOContent/Items/Wands/BaseWand.cs
+@@ -131,6 +131,7 @@
+     public override void GetProperties(IPropertyList list)
+     {
+         base.GetProperties(list);
++        if (ClassGearHooks.Unidentified?.Invoke(this) == true) { return; }
+ 
+         switch (_wandEffect)
+         {
+@@ -172,6 +173,11 @@
+ 
+     public override void OnSingleClick(Mobile from)
+     {
++        if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++        {
++            LabelTo(from, "Unidentified equipment");
++            return;
++        }
+         if (!Core.UOTD)
+         {
+             OnSingleClickPreUOTD(from);
+diff --git a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+--- a/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
++++ b/Projects/UOContent/Items/Skill Items/Magical/Spellbook.cs
+@@ -680,6 +680,11 @@
+ 
+     public override void OnSingleClick(Mobile from)
+     {
++        if (ClassGearHooks.Unidentified?.Invoke(this) == true)
++        {
++            LabelTo(from, "Unidentified equipment");
++            return;
++        }
+         base.OnSingleClick(from);
+ 
+         if (_crafter != null)

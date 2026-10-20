@@ -10,11 +10,16 @@ namespace Sanctuary;
 
 public static class ClassDeath
 {
-    public static void Configure() => ClassCombatHooks.PlayerDied = OnDeath;
+    public static void Configure()
+    {
+        ClassCombatHooks.PlayerDied = OnDeath;
+        ClassCombatHooks.PlayerCorpseCreated = ChargeGold;
+    }
 
     private static void OnDeath(PlayerMobile player, Container corpse)
     {
-        if (!ClassCreation.Profiles.TryGet(player.Serial, out var profile))
+        if (!ClassCombat.Enabled(player) || player.Alive || player.Deleted
+            || corpse is not Corpse { Deleted: false } body || body.Owner != player || player.Corpse != body)
         {
             return;
         }
@@ -22,22 +27,29 @@ public static class ClassDeath
         ClassCombat.Stop(player);
         ClassCombat.For(player).RecoveryUntil = Core.TickCount;
         PersistentMinions.Dismiss(player);
+    }
+
+    private static void ChargeGold(PlayerMobile player, Corpse corpse)
+    {
+        if (!ClassCombat.Enabled(player) || player.Deleted || corpse is not { Deleted: false }
+            || corpse.Owner != player || corpse.OwnerWasBaseCreature || player.Corpse != corpse
+            || corpse.SanctuaryDeathCharged)
+        {
+            return;
+        }
+        // Claim even a zero-gold death before touching stacks; the flag survives world saves.
+        corpse.SanctuaryDeathCharged = true;
         using var gold = PooledRefList<Item>.Create();
         long carried = 0;
-        for (int source = 0; source < 2; source++)
+        if (player.Backpack is { Deleted: false } backpack)
         {
-            var container = source == 0 ? player.Backpack : corpse;
-            if (container == null)
-            {
-                continue;
-            }
-            foreach (var item in container.FindItemsByType(typeof(Gold), true))
+            foreach (var item in backpack.FindItemsByType(typeof(Gold), true))
             {
                 gold.Add(item);
                 carried += item.Amount;
             }
         }
-        long loss = carried * Math.Min(profile.Level, 20) / 100;
+        long loss = carried / 5;
         long remaining = loss;
         foreach (var item in gold)
         {

@@ -5,6 +5,7 @@ using Server;
 using Server.Commands;
 using Server.Engines.Craft;
 using Server.Items;
+using Server.Gumps;
 using Server.Mobiles;
 using Server.Network;
 
@@ -64,6 +65,12 @@ public static class ClassProfessions
     };
     public static bool Active(Mobile from, SkillName skill) => !Affected(from) || TradeSkills.IsGathering((int)skill)
         || Profiles.Find(from) is { Confirmed: true } state && state.Craft == skill;
+    internal static void InvalidateChoices(PlayerMobile player)
+    {
+        _choices.Remove(player.Serial); _training.Remove(player.Serial);
+        player.Learning = (SkillName)(-1);
+        player.CloseGump<ProfessionChoiceGump>(); player.CloseGump<ProfessionToolGump>();
+    }
     internal static Choice Pending(Mobile from) => _choices.GetValueOrDefault(from.Serial);
     private static void Cleanup()
     {
@@ -145,7 +152,7 @@ public static class ClassProfessions
     {
         if (!Affected(from)) { return false; }
         if (!SourceValid(from, tool, null, tool.CraftSystem.MainSkill)) { return true; }
-        if (!Profiles.Find(from).Confirmed && !MaterialProcessing.Supports(tool))
+        if (!Profiles.Find(from).Confirmed && !MaterialProcessing.Supports(tool) && !EquipmentSalvage.Supports(tool))
         {
             Request(from, tool.CraftSystem.MainSkill, tool, true);
         }

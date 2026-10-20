@@ -1,6 +1,6 @@
 # Equipment economy, salvage and imbuing
 
-> **Current design versus installed build — 19 October 2026:** The completed [user replies](economy-open-questions-replies.md) are reconciled in [crafting.md](crafting.md). They supersede earlier target values: new tier-based resale/no buyback, skill/cost-tiered Imbuing, irreversible tinker-added-socket exclusion, stat-specific moulds, new gathering thresholds, manual corpse gold and flat20% carried-gold death loss. None of those changes is claimed installed here. The prototype behavior and deployment evidence below remain historical/implementation facts.
+> **Current design versus installed build — 19 October 2026:** The completed [user replies](economy-open-questions-replies.md) are reconciled in [crafting.md](crafting.md). They supersede earlier target values: new tier-based resale/no buyback, skill/cost-tiered Imbuing, irreversible tinker-added-socket exclusion, stat-specific moulds, new gathering thresholds, manual corpse gold and flat20% carried-gold death loss. The current rows and linked card documents record implemented changes; the older prototype/deployment history below remains historical evidence.
 
 18 October 2026. These notes distinguish the installed equipment-economy prototype from the user's design handoffs. The later [crafting handoff](../sanctuary-crafting.md) supersedes conflicting parts of the [older economy draft](../sanctuary-economy.md); subsequent explicit user confirmations settle single-use moulds and nine gem families. The handoffs have now been reconciled. This document is not authorization to implement every proposed sink, profession recipe or drop table.
 
@@ -24,14 +24,16 @@ The [current specification](crafting.md) contains the full numeric tables; [the 
 | System | First-implementation target | Installed comparison status |
 | --- | --- | --- |
 | Repair/recharge | Exact matching processed materials plus corresponding scraps where specified; Magic essence ranges by base tier, Rare double, white none; recharge1essence/charge. Skill-based max-durability loss and saving tables, chitin→Powder of Fortifying restoration | Revised repair/recharge/restoration system not installed. Floors, scrap quantities, saving scope and restoration amounts still need definition. |
-| Imbuing | Normal 80/100gold+5essence; Exceptional 100/500+10; Elite 120/1000+20.75/25 Magic/Rare below 120,70/30 at 120; jewellery exceptions. Native quality sockets permitted; tinker-added sockets prohibit later Imbuing | Installed prototype remains skill-free,100gold+5essence and75/25, without socket provenance. Valid-action output/no destruction already matches. |
-| Socket creation | Max5 on helm/chest/weapon/shield. Base success100/50/25/5/5%; skill gates, additive tool bonuses, charge-only cost and120intuition retry. Contents permanent | Not installed; no general socket application model. |
+| Imbuing | Normal 80/100gold+5essence; Exceptional 100/500+10; Elite 120/1000+20.75/25 Magic/Rare below 120,70/30 at 120; jewellery exceptions. Native quality sockets permitted; tinker-added sockets prohibit later Imbuing | [T17](t17-imbuing.md) implements the full tier/grade ladders, ladle/cauldron,120 odds and socket-provenance restriction. |
+| Socket creation | Max5 on helm/chest/weapon/shield. Base success100/50/25/5/5%; skill gates, additive tool bonuses, charge-only cost and120intuition retry. Contents permanent | [T20](t20-sockets.md) adds empty sockets and destructive attempts; rune/gem insertion remains T25/T26. |
 | Professions/materials | Physical-material routing; leather/cloth and heavy bone armour to Tailoring. Useful recipes/practice training, crafted quality/material benefits, tool rules | Recipe/progression/repair rewrite not installed. Existing salvage already follows physical material. |
-| Salvage/processing | Corresponding tool, no skill/charges/gold; keep current provisional essence/physical recovery. Direct1→10 resource conversion and intended half-weight outputs | Recovery/origin foundation installed. New tool requirement and direct conversions not installed; weight rule needs definition. |
+| Salvage/processing | Corresponding tool, no skill/charges/gold; retain independent essence/physical recovery. Raw processing halves weight; processed→ten scraps preserves it | [T07](t07-processing.md) processing and [T16](t16-salvage.md) corresponding-tool salvage are implemented and deployed. |
 | Runes/gems | Stat fixed by mould; Inscription30–100, new bark45–80/gem40–80 unlocks,5% byproducts. Revised rune formula/quality, prices, legacy gems decorative | Not installed. See [runes and gems](runes-and-gems.md). |
-| Vendors/death | Tier sale bands100–500/500–1000/2500–5000, persistent quote, unidentified10%, no buyback; manual corpse gold; flat20% carried-gold death loss | Old resale caps/stock buyback and min(level,20)% death loss remain in code. Drops remain suppressed. |
+| Vendors/death | Tier sale bands100–500/500–1000/2500–5000, persistent quote, unidentified10%, no buyback; manual corpse gold; flat20% carried-gold death loss | [T10](t10-rewards.md), [T11](t11-vendors.md) and [T13](t13-death-gold.md) implement these rules. T19 adds mapped Normal gear outcomes to the shared reward draw. |
 
 Tools do not replace repair material/essence costs. Earlier assistant recommendations contrary to the completed replies are not adopted. Most numbers now have starting values; missing fields are identified in the tracker rather than treated as permission to invent a rule.
+
+The subsequent [T13 implementation](t13-death-gold.md) replaces the historical level-based death penalty below with flat20% of backpack gold, rounded down once, with a saved corpse claim; bank gold and XP remain safe.
 
 The subsequent [T11 implementation](t11-vendors.md) replaces the prototype resale/stock behavior below. The old percentage/cap settings are removed; current prices live in `market-settings.json` and `market-supplies.json`.
 
@@ -52,7 +54,7 @@ The optional UOContent `ClassEconomyHooks` hook is applied at the two native ven
 
 ## Installed salvage rolls and material selection
 
-Use **Imbuing** in Skills or enter **`[Essence`** in chat. Choose Salvage, target an eligible item in your backpack and review its icon/tooltip, rarity, item level, ranges, chances and fee before confirming. Cancel consumes nothing. The item must still be owned, eligible and unchanged when confirmed. A completed quote cannot be replayed.
+Double-click the corresponding production tool and choose **Salvage gear**: smithing hammer for metal gear, fletching tools for wood, tailoring kit for leather/cloth/bone, tinker's tools for jewellery, and a scribe's pen for magical spellbooks. Target eligible backpack gear and review its icon/tooltip, known rarity/item level and recovery ranges (hidden for unidentified gear), zero cost and contents-destruction warning before confirming. No matching skill, active craft, tool uses, gold or town facility is required; the functional tool remains required. The **Imbuing** / **`[Essence`** menu remains a shortcut and binds the same actual tool. See [T16](t16-salvage.md). Cancel consumes nothing. The item must still be owned, eligible and unchanged when confirmed. A completed quote cannot be replayed.
 
 | Output | Provisional recovery |
 | --- | --- |
@@ -61,7 +63,7 @@ Use **Imbuing** in Skills or enter **`[Essence`** in chat. Choose Salvage, targe
 | Magic Essence from unique gear | Reserved 95% / 5–12 configuration; **not active** |
 | Each physical material | 85% chance of its item-level quantity range |
 
-For each physical material, the initial range is `1–3 + floor((itemLevel - 1) / 10)`. Thus level 1 gives 1–3, level 30 gives 3–5, and level 99 gives 10–12 on a successful recovery roll. Metal, wood, leather and cloth have separate range/chance/level-step settings so they can diverge later. Chance and quantity are rolled independently for essence and the physical material, only after confirmation. No gold or gear is lost for a rejected request, insufficient fee or capacity failure. Successful recovery can be partial or empty; an empty result is not a rejected request and does destroy the input.
+For each physical material, the initial range is `1–3 + floor((itemLevel - 1) / 10)`. Thus level 1 gives 1–3, level 30 gives 3–5, and level 99 gives 10–12 on a successful recovery roll. Metal, wood, leather and cloth have separate range/chance/level-step settings so they can diverge later. Chance and quantity are rolled independently for essence and the physical material, only after confirmation. Rejected, cancelled, stale or capacity-failed requests preserve gear and contents and spend no gold or uses. Newer quotes and reconnects invalidate old salvage confirmations. Tool identity/ownership/parent/uses, native wear/material/charges, item state and attached contents are rechecked. Successful recovery can be partial or empty; an empty result is not a rejected request and does destroy the input.
 
 | Physical equipment | Resource |
 | --- | --- |
@@ -70,7 +72,7 @@ For each physical material, the initial range is `1–3 + floor((itemLevel - 1) 
 | Leather/studded leather armour and leather clothing/footwear | Leather Strips |
 | Cloth clothing and cloth armour | Cloth Scraps |
 
-Weapons with mixed construction supply their primary material, not simultaneous wood and metal. Native weapon resource fields default to iron even for some wooden bases, so the physical weapon family and explicit wooden exceptions are used. Native armour material metadata distinguishes chain, leather, wood and cloth; clothing uses its leather resource or cloth fallback. Glass/stone/bone weapon exceptions and bone/scale/stone armour have no new physical resource in this pass; magic/rare examples can still recover essence. Cosmetic metal/leather/cloth pieces can recover physical material without acquiring combat affixes. Uncatalogued tools, furniture and raw resource recycling are outside this gear pass.
+Weapons with mixed construction supply their primary material, not simultaneous wood and metal. Native weapon resource fields default to iron even for some wooden bases, so the physical weapon family and explicit wooden exceptions are used. Native armour material metadata distinguishes chain, leather, wood and cloth; clothing uses its leather resource or cloth fallback. Glass/stone/bone weapon exceptions and bone/scale/stone armour have no new physical resource in this pass; magic/rare examples can still recover essence with their family's tool. Filled contents and native wand charges are destroyed with the host and add no yield. Cosmetic metal/leather/cloth pieces can recover physical material without acquiring combat affixes. Uncatalogued tools, furniture and raw resource recycling are outside this gear pass.
 
 Unprofiled converted gear starts at item level 1; player level, UO fame, native rarity labels and material value are not substituted for item level. Current gear state supports Normal, Magic and Rare only. Native UO artifact names are not treated as project Unique rarity. The reserved unique yield becomes meaningful only when actual unique item identities and their rarity policy exist.
 
@@ -82,7 +84,7 @@ All recovered materials are real stackable items, created with Crafted origin, c
 
 ## Installed essence-funded imbuing
 
-The other menu action targets an eligible, unprotected dropped/crafted/gambled **white** base. Imbuing costs a provisional **5 Magic Essence plus 100 backpack gold** and rolls **75% Magic / 25% Rare**, followed by the existing legal affix roller. It does not have a separate destructive-failure roll. Invalid inputs, unavailable affixes or missing resources consume nothing. An imbued item cannot be re-imbued by this action.
+The other menu action targets an eligible, unprotected dropped/crafted/gambled **white** base. [T17](t17-imbuing.md) requires an owned ladle, active Imbuing, the matching base skill and a public cauldron. Equipment tiers require80/100/120 skill,100/500/1000 gold and5/10/20 essence; jewellery uses its five-grade ladder. Outcomes are75% Magic /25% Rare below120 and70% /30% at120, followed by ordinary eligible affix rolls. It does not have a separate destructive-failure roll. Invalid inputs, unavailable affixes or missing resources consume nothing. An imbued item cannot be re-imbued by this action.
 
 The same item is updated in place. Its identity, base, base defense, item level, origin, material, name/hue and durability remain; affixes and their resulting requirements/stats change. Native socket fields are not replaced, and no new socket system is introduced. The pending roll is validated before both costs are consumed together on the game loop. No materials or affixes are saved in a UI-only state.
 
@@ -125,3 +127,18 @@ Evidence: `.local/logs/economy-combined-tests.log`, `economy-combined-server.log
 Installed after a fresh save and clean shutdown, with backup `.local/backups/pre-economy-20261018-185348/`. All 91 protected save/configuration/client-preference files were byte-identical during installation. Live reload/status/save passed with the same town identities and all 75 progression/configuration/preference payloads preserved; only the normal Accounts.idx save-start timestamp changed. UOContent/project content and all installed catalogs match their built outputs. Existing application, core, logger and client binaries stayed byte-identical. No test assembly, fixture, test account, automatic kit, gear reset or XP reset was installed. The server is running; the client remains closed.
 
 Deployment record: `.local/logs/economy-deploy.json`. Live server log: `.local/logs/server-economy.log`. At that deployment, the original `sanctuary-economy.md`, prior gear/potion/creature catalogs and XP-curve/progression source retained their recorded hashes. The subsequent document reconciliation changes the handoffs and documentation only; it does not alter the installed build, catalogs or world state. Final yields, prices, income budgets, recipes, skill progression and unique items remain future work.
+
+
+## Identification — T18
+
+[T18](t18-identification.md) is deployed. Scribes sell single-use Identify scrolls for80gold; Inscription can craft them from1BlankScroll+1BlackPearl at a public desk with a pen (0–50 band). A successful own-backpack reveal consumes the scroll and changes only the saved identification flag. New magical drops start hidden and cannot equip; crafted/imbued/ordinary shop items are known, and existing items retain their state. Unidentified resale pays10% of the persistent identified offer. Native tooltips/labels and salvage/repair views respect hidden state. Charged tomes remain T34; [T19](t19-gear-drops.md) supplies the mapped Normal encounter gear tables.
+
+
+## Production gear drops and Magic Find — T19
+
+[T19](t19-gear-drops.md) uses the existing mapped Normal reward roster and pinned players-1 treasure tables. Gold and gear share one terminal draw; unsupported bases, later-system branches and successful Set/Unique rolls stay empty without rerolls. White subqualities produce ordinary white bases. New Magic/Rare drops are unidentified and use the existing identify, resale, equip and salvage paths. Equipped working numeric/material Magic Find affects quality selection with the source diminishing returns; the status panel displays its active total. Full Set/Unique identities, distinct dropped-white quality bonuses and higher-difficulty encounters remain separate work.
+
+
+The subsequent [Nightmare/Hell extension](t19-difficulties.md) adds explicitly spawned persistent variants with matching numeric stats/XP/loot. Existing populations remain Normal and placement is deferred. The higher treasure tables retain source group/level upgrades and the same empty Set/Unique policy.
+
+[T21 known-stat moulds](t21-moulds.md) add one independent0.1% ordinary reward roll with source-frequency stat weights. Rune crafting/Runebark and socket insertion remain later cards.

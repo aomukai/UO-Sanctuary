@@ -1,0 +1,7977 @@
+{
+  "sourceCommit": "45112569deb9384738ccafe5c24ebbb71f41c7c9",
+  "difficulty": "Normal",
+  "players": 1,
+  "maxDrops": 1,
+  "setUniquePolicy": "Empty",
+  "whiteQuality": "Normal",
+  "ratios": [
+    {
+      "uber": false,
+      "classSpecific": false,
+      "unique": {
+        "value": 400,
+        "divisor": 1,
+        "minimum": 6400
+      },
+      "set": {
+        "value": 160,
+        "divisor": 2,
+        "minimum": 5600
+      },
+      "rare": {
+        "value": 100,
+        "divisor": 2,
+        "minimum": 3200
+      },
+      "magic": {
+        "value": 34,
+        "divisor": 3,
+        "minimum": 192
+      }
+    },
+    {
+      "uber": true,
+      "classSpecific": false,
+      "unique": {
+        "value": 400,
+        "divisor": 1,
+        "minimum": 6400
+      },
+      "set": {
+        "value": 160,
+        "divisor": 2,
+        "minimum": 5600
+      },
+      "rare": {
+        "value": 100,
+        "divisor": 2,
+        "minimum": 3200
+      },
+      "magic": {
+        "value": 34,
+        "divisor": 3,
+        "minimum": 192
+      }
+    },
+    {
+      "uber": false,
+      "classSpecific": true,
+      "unique": {
+        "value": 240,
+        "divisor": 3,
+        "minimum": 6400
+      },
+      "set": {
+        "value": 120,
+        "divisor": 3,
+        "minimum": 5600
+      },
+      "rare": {
+        "value": 80,
+        "divisor": 3,
+        "minimum": 3200
+      },
+      "magic": {
+        "value": 17,
+        "divisor": 6,
+        "minimum": 192
+      }
+    },
+    {
+      "uber": true,
+      "classSpecific": true,
+      "unique": {
+        "value": 240,
+        "divisor": 3,
+        "minimum": 6400
+      },
+      "set": {
+        "value": 120,
+        "divisor": 3,
+        "minimum": 5600
+      },
+      "rare": {
+        "value": 80,
+        "divisor": 3,
+        "minimum": 3200
+      },
+      "magic": {
+        "value": 17,
+        "divisor": 6,
+        "minimum": 192
+      }
+    }
+  ],
+  "pools": [
+    {
+      "name": "armo12",
+      "entries": [
+        {
+          "code": "hlm",
+          "weight": 3
+        },
+        {
+          "code": "rng",
+          "weight": 3
+        },
+        {
+          "code": "lrg",
+          "weight": 3
+        },
+        {
+          "code": "mgl",
+          "weight": 3
+        },
+        {
+          "code": "mbt",
+          "weight": 3
+        },
+        {
+          "code": "mbl",
+          "weight": 3
+        },
+        {
+          "code": "spk",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo15",
+      "entries": [
+        {
+          "code": "fhl",
+          "weight": 3
+        },
+        {
+          "code": "scl",
+          "weight": 3
+        },
+        {
+          "code": "chn",
+          "weight": 3
+        },
+        {
+          "code": "kit",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo18",
+      "entries": [
+        {
+          "code": "brs",
+          "weight": 3
+        },
+        {
+          "code": "dr3",
+          "weight": 1
+        },
+        {
+          "code": "ba3",
+          "weight": 1
+        },
+        {
+          "code": "pa3",
+          "weight": 1
+        },
+        {
+          "code": "ne3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo21",
+      "entries": [
+        {
+          "code": "msk",
+          "weight": 3
+        },
+        {
+          "code": "spl",
+          "weight": 3
+        },
+        {
+          "code": "tgl",
+          "weight": 3
+        },
+        {
+          "code": "tbt",
+          "weight": 3
+        },
+        {
+          "code": "tbl",
+          "weight": 3
+        },
+        {
+          "code": "bsh",
+          "weight": 3
+        },
+        {
+          "code": "dr4",
+          "weight": 1
+        },
+        {
+          "code": "ba4",
+          "weight": 1
+        },
+        {
+          "code": "pa4",
+          "weight": 1
+        },
+        {
+          "code": "ne4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo24",
+      "entries": [
+        {
+          "code": "ghm",
+          "weight": 3
+        },
+        {
+          "code": "plt",
+          "weight": 3
+        },
+        {
+          "code": "tow",
+          "weight": 3
+        },
+        {
+          "code": "bhm",
+          "weight": 3
+        },
+        {
+          "code": "dr5",
+          "weight": 1
+        },
+        {
+          "code": "ba5",
+          "weight": 1
+        },
+        {
+          "code": "pa5",
+          "weight": 1
+        },
+        {
+          "code": "ne5",
+          "weight": 1
+        },
+        {
+          "code": "ci0",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo27",
+      "entries": [
+        {
+          "code": "hgl",
+          "weight": 3
+        },
+        {
+          "code": "hbt",
+          "weight": 3
+        },
+        {
+          "code": "hbl",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo3",
+      "entries": [
+        {
+          "code": "cap",
+          "weight": 3
+        },
+        {
+          "code": "qui",
+          "weight": 3
+        },
+        {
+          "code": "lea",
+          "weight": 3
+        },
+        {
+          "code": "buc",
+          "weight": 3
+        },
+        {
+          "code": "lgl",
+          "weight": 3
+        },
+        {
+          "code": "lbt",
+          "weight": 3
+        },
+        {
+          "code": "lbl",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo30",
+      "entries": [
+        {
+          "code": "crn",
+          "weight": 3
+        },
+        {
+          "code": "fld",
+          "weight": 3
+        },
+        {
+          "code": "gts",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "armo33",
+      "entries": [
+        {
+          "code": "gth",
+          "weight": 3
+        },
+        {
+          "code": "xlg",
+          "weight": 3
+        },
+        {
+          "code": "ba6",
+          "weight": 1
+        },
+        {
+          "code": "ne6",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo36",
+      "entries": [
+        {
+          "code": "ltp",
+          "weight": 3
+        },
+        {
+          "code": "xap",
+          "weight": 3
+        },
+        {
+          "code": "xui",
+          "weight": 3
+        },
+        {
+          "code": "xea",
+          "weight": 3
+        },
+        {
+          "code": "xuc",
+          "weight": 3
+        },
+        {
+          "code": "xlb",
+          "weight": 3
+        },
+        {
+          "code": "zlb",
+          "weight": 3
+        },
+        {
+          "code": "dr6",
+          "weight": 1
+        },
+        {
+          "code": "pa6",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo39",
+      "entries": [
+        {
+          "code": "ful",
+          "weight": 3
+        },
+        {
+          "code": "xkp",
+          "weight": 3
+        },
+        {
+          "code": "xla",
+          "weight": 3
+        },
+        {
+          "code": "xml",
+          "weight": 3
+        },
+        {
+          "code": "xvg",
+          "weight": 3
+        },
+        {
+          "code": "xvb",
+          "weight": 3
+        },
+        {
+          "code": "zvb",
+          "weight": 3
+        },
+        {
+          "code": "ba7",
+          "weight": 1
+        },
+        {
+          "code": "ne7",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo6",
+      "entries": [
+        {
+          "code": "skp",
+          "weight": 3
+        },
+        {
+          "code": "hla",
+          "weight": 3
+        },
+        {
+          "code": "sml",
+          "weight": 3
+        },
+        {
+          "code": "dr1",
+          "weight": 1
+        },
+        {
+          "code": "ba1",
+          "weight": 1
+        },
+        {
+          "code": "pa1",
+          "weight": 1
+        },
+        {
+          "code": "ne1",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "armo9",
+      "entries": [
+        {
+          "code": "stu",
+          "weight": 3
+        },
+        {
+          "code": "vgl",
+          "weight": 3
+        },
+        {
+          "code": "vbt",
+          "weight": 3
+        },
+        {
+          "code": "vbl",
+          "weight": 3
+        },
+        {
+          "code": "dr2",
+          "weight": 1
+        },
+        {
+          "code": "ba2",
+          "weight": 1
+        },
+        {
+          "code": "pa2",
+          "weight": 1
+        },
+        {
+          "code": "ne2",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "bow12",
+      "entries": [
+        {
+          "code": "cbw",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "bow15",
+      "entries": []
+    },
+    {
+      "name": "bow18",
+      "entries": [
+        {
+          "code": "sbb",
+          "weight": 3
+        },
+        {
+          "code": "am1",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "bow21",
+      "entries": []
+    },
+    {
+      "name": "bow24",
+      "entries": [
+        {
+          "code": "lbb",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "bow3",
+      "entries": [
+        {
+          "code": "sbw",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "bow6",
+      "entries": [
+        {
+          "code": "hbw",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "bow9",
+      "entries": [
+        {
+          "code": "lbw",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "weap12",
+      "entries": [
+        {
+          "code": "bax",
+          "weight": 3
+        },
+        {
+          "code": "ywn",
+          "weight": 1
+        },
+        {
+          "code": "flc",
+          "weight": 3
+        },
+        {
+          "code": "crs",
+          "weight": 3
+        },
+        {
+          "code": "2hs",
+          "weight": 3
+        },
+        {
+          "code": "pil",
+          "weight": 3
+        },
+        {
+          "code": "vou",
+          "weight": 3
+        },
+        {
+          "code": "cst",
+          "weight": 1
+        },
+        {
+          "code": "cbw",
+          "weight": 3
+        },
+        {
+          "code": "axf",
+          "weight": 2
+        },
+        {
+          "code": "ob3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap15",
+      "entries": [
+        {
+          "code": "2ax",
+          "weight": 3
+        },
+        {
+          "code": "gsc",
+          "weight": 1
+        },
+        {
+          "code": "mst",
+          "weight": 3
+        },
+        {
+          "code": "bsd",
+          "weight": 3
+        },
+        {
+          "code": "bkf",
+          "weight": 3
+        },
+        {
+          "code": "ssp",
+          "weight": 3
+        },
+        {
+          "code": "scy",
+          "weight": 3
+        },
+        {
+          "code": "mxb",
+          "weight": 3
+        },
+        {
+          "code": "ces",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "weap18",
+      "entries": [
+        {
+          "code": "btx",
+          "weight": 3
+        },
+        {
+          "code": "bwn",
+          "weight": 1
+        },
+        {
+          "code": "clm",
+          "weight": 3
+        },
+        {
+          "code": "kri",
+          "weight": 3
+        },
+        {
+          "code": "bal",
+          "weight": 3
+        },
+        {
+          "code": "brn",
+          "weight": 3
+        },
+        {
+          "code": "bst",
+          "weight": 1
+        },
+        {
+          "code": "sbb",
+          "weight": 3
+        },
+        {
+          "code": "clw",
+          "weight": 2
+        },
+        {
+          "code": "ob4",
+          "weight": 1
+        },
+        {
+          "code": "am1",
+          "weight": 1
+        },
+        {
+          "code": "am3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap21",
+      "entries": [
+        {
+          "code": "mpi",
+          "weight": 3
+        },
+        {
+          "code": "wsp",
+          "weight": 1
+        },
+        {
+          "code": "fla",
+          "weight": 3
+        },
+        {
+          "code": "mau",
+          "weight": 3
+        },
+        {
+          "code": "lsd",
+          "weight": 3
+        },
+        {
+          "code": "gis",
+          "weight": 3
+        },
+        {
+          "code": "spt",
+          "weight": 3
+        },
+        {
+          "code": "pax",
+          "weight": 3
+        },
+        {
+          "code": "btl",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "weap24",
+      "entries": [
+        {
+          "code": "gax",
+          "weight": 3
+        },
+        {
+          "code": "bsw",
+          "weight": 3
+        },
+        {
+          "code": "bld",
+          "weight": 3
+        },
+        {
+          "code": "glv",
+          "weight": 3
+        },
+        {
+          "code": "pik",
+          "weight": 3
+        },
+        {
+          "code": "wst",
+          "weight": 1
+        },
+        {
+          "code": "lbb",
+          "weight": 3
+        },
+        {
+          "code": "hxb",
+          "weight": 3
+        },
+        {
+          "code": "skr",
+          "weight": 2
+        },
+        {
+          "code": "ob5",
+          "weight": 1
+        },
+        {
+          "code": "am5",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap27",
+      "entries": [
+        {
+          "code": "wax",
+          "weight": 3
+        },
+        {
+          "code": "gix",
+          "weight": 3
+        },
+        {
+          "code": "gwn",
+          "weight": 1
+        },
+        {
+          "code": "whm",
+          "weight": 3
+        },
+        {
+          "code": "wsd",
+          "weight": 3
+        },
+        {
+          "code": "flb",
+          "weight": 3
+        },
+        {
+          "code": "swb",
+          "weight": 3
+        },
+        {
+          "code": "am2",
+          "weight": 1
+        },
+        {
+          "code": "am4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap3",
+      "entries": [
+        {
+          "code": "hax",
+          "weight": 3
+        },
+        {
+          "code": "wnd",
+          "weight": 1
+        },
+        {
+          "code": "clb",
+          "weight": 3
+        },
+        {
+          "code": "scp",
+          "weight": 1
+        },
+        {
+          "code": "ssd",
+          "weight": 3
+        },
+        {
+          "code": "dgr",
+          "weight": 3
+        },
+        {
+          "code": "tkf",
+          "weight": 3
+        },
+        {
+          "code": "jav",
+          "weight": 3
+        },
+        {
+          "code": "sst",
+          "weight": 1
+        },
+        {
+          "code": "sbw",
+          "weight": 3
+        },
+        {
+          "code": "ktr",
+          "weight": 2
+        },
+        {
+          "code": "ob1",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap30",
+      "entries": [
+        {
+          "code": "tsp",
+          "weight": 3
+        },
+        {
+          "code": "hal",
+          "weight": 3
+        },
+        {
+          "code": "9cl",
+          "weight": 3
+        },
+        {
+          "code": "9ss",
+          "weight": 3
+        },
+        {
+          "code": "9ja",
+          "weight": 3
+        },
+        {
+          "code": "8ss",
+          "weight": 1
+        },
+        {
+          "code": "8sb",
+          "weight": 3
+        },
+        {
+          "code": "9ar",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "name": "weap33",
+      "entries": [
+        {
+          "code": "gma",
+          "weight": 3
+        },
+        {
+          "code": "gsd",
+          "weight": 3
+        },
+        {
+          "code": "lwb",
+          "weight": 3
+        },
+        {
+          "code": "rxb",
+          "weight": 3
+        },
+        {
+          "code": "9ha",
+          "weight": 3
+        },
+        {
+          "code": "9wn",
+          "weight": 1
+        },
+        {
+          "code": "9sc",
+          "weight": 1
+        },
+        {
+          "code": "9sp",
+          "weight": 3
+        },
+        {
+          "code": "9dg",
+          "weight": 3
+        },
+        {
+          "code": "9tk",
+          "weight": 3
+        },
+        {
+          "code": "9sr",
+          "weight": 3
+        },
+        {
+          "code": "9b7",
+          "weight": 3
+        },
+        {
+          "code": "8hb",
+          "weight": 3
+        },
+        {
+          "code": "9wb",
+          "weight": 2
+        },
+        {
+          "code": "ob6",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap36",
+      "entries": [
+        {
+          "code": "wsc",
+          "weight": 3
+        },
+        {
+          "code": "9ax",
+          "weight": 3
+        },
+        {
+          "code": "9la",
+          "weight": 3
+        },
+        {
+          "code": "9ma",
+          "weight": 3
+        },
+        {
+          "code": "9sb",
+          "weight": 3
+        },
+        {
+          "code": "9di",
+          "weight": 3
+        },
+        {
+          "code": "9ta",
+          "weight": 3
+        },
+        {
+          "code": "9tr",
+          "weight": 3
+        },
+        {
+          "code": "9pa",
+          "weight": 3
+        },
+        {
+          "code": "8ls",
+          "weight": 1
+        },
+        {
+          "code": "8lb",
+          "weight": 3
+        },
+        {
+          "code": "8lx",
+          "weight": 3
+        },
+        {
+          "code": "9xf",
+          "weight": 2
+        },
+        {
+          "code": "ama",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap39",
+      "entries": [
+        {
+          "code": "92a",
+          "weight": 3
+        },
+        {
+          "code": "9ba",
+          "weight": 3
+        },
+        {
+          "code": "9yw",
+          "weight": 1
+        },
+        {
+          "code": "9mt",
+          "weight": 3
+        },
+        {
+          "code": "9fc",
+          "weight": 3
+        },
+        {
+          "code": "9cr",
+          "weight": 3
+        },
+        {
+          "code": "92h",
+          "weight": 3
+        },
+        {
+          "code": "9bk",
+          "weight": 3
+        },
+        {
+          "code": "9pi",
+          "weight": 3
+        },
+        {
+          "code": "9vo",
+          "weight": 3
+        },
+        {
+          "code": "8cs",
+          "weight": 1
+        },
+        {
+          "code": "8cb",
+          "weight": 3
+        },
+        {
+          "code": "ob7",
+          "weight": 1
+        },
+        {
+          "code": "am6",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "weap6",
+      "entries": [
+        {
+          "code": "lax",
+          "weight": 3
+        },
+        {
+          "code": "spc",
+          "weight": 3
+        },
+        {
+          "code": "scm",
+          "weight": 3
+        },
+        {
+          "code": "spr",
+          "weight": 3
+        },
+        {
+          "code": "bar",
+          "weight": 3
+        },
+        {
+          "code": "hbw",
+          "weight": 3
+        },
+        {
+          "code": "lxb",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "name": "weap9",
+      "entries": [
+        {
+          "code": "axe",
+          "weight": 3
+        },
+        {
+          "code": "mac",
+          "weight": 3
+        },
+        {
+          "code": "sbr",
+          "weight": 3
+        },
+        {
+          "code": "dir",
+          "weight": 3
+        },
+        {
+          "code": "tax",
+          "weight": 3
+        },
+        {
+          "code": "tri",
+          "weight": 3
+        },
+        {
+          "code": "lst",
+          "weight": 1
+        },
+        {
+          "code": "lbw",
+          "weight": 3
+        },
+        {
+          "code": "wrb",
+          "weight": 2
+        },
+        {
+          "code": "ob2",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "bases": [
+    {
+      "code": "2ax",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DoubleAxe",
+          "name": "DoubleAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "2hs",
+      "qualityLevel": 10,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Daisho",
+          "name": "Daisho"
+        },
+        {
+          "type": "NoDachi",
+          "name": "NoDachi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6bs",
+      "qualityLevel": 83,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "QuarterStaff",
+          "name": "Quarter Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6cb",
+      "qualityLevel": 68,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CompositeBow",
+          "name": "Composite Bow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6cs",
+      "qualityLevel": 74,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GnarledStaff",
+          "name": "Gnarled Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6hx",
+      "qualityLevel": 75,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeavyCrossbow",
+          "name": "Heavy Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6lb",
+      "qualityLevel": 63,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bow",
+          "name": "Bow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6lw",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ElvenCompositeLongbow",
+          "name": "Elven Composite Longbow"
+        },
+        {
+          "type": "Yumi",
+          "name": "Yumi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6mx",
+      "qualityLevel": 67,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Crossbow",
+          "name": "Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6rx",
+      "qualityLevel": 84,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RepeatingCrossbow",
+          "name": "Repeating Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6sb",
+      "qualityLevel": 55,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicalShortbow",
+          "name": "Magical Shortbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6ss",
+      "qualityLevel": 58,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ShepherdsCrook",
+          "name": "Shepherds Crook"
+        },
+        {
+          "type": "WildStaff",
+          "name": "Wild Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "6ws",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BlackStaff",
+          "name": "Black Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "72a",
+      "qualityLevel": 70,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DoubleAxe",
+          "name": "Double Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "72h",
+      "qualityLevel": 59,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Daisho",
+          "name": "Daisho"
+        },
+        {
+          "type": "NoDachi",
+          "name": "No Dachi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ax",
+      "qualityLevel": 61,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Axe",
+          "name": "Axe"
+        },
+        {
+          "type": "DualShortAxes",
+          "name": "Dual Short Axes"
+        },
+        {
+          "type": "OrnateAxe",
+          "name": "Ornate Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7b8",
+      "qualityLevel": 80,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cyclone",
+          "name": "Cyclone"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ba",
+      "qualityLevel": 65,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "TwoHandedAxe",
+          "name": "Two Handed Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7bl",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cleaver",
+          "name": "Cleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7br",
+      "qualityLevel": 74,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ShortSpear",
+          "name": "Short Spear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7bs",
+      "qualityLevel": 78,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Broadsword",
+          "name": "Broadsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7bt",
+      "qualityLevel": 73,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BattleAxe",
+          "name": "Battle Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7cl",
+      "qualityLevel": 52,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Club",
+          "name": "Club"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7cm",
+      "qualityLevel": 66,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CrescentBlade",
+          "name": "Crescent Blade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7cr",
+      "qualityLevel": 73,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RuneBlade",
+          "name": "Rune Blade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7dg",
+      "qualityLevel": 58,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "AssassinSpike",
+          "name": "Assassin Spike"
+        },
+        {
+          "type": "Dagger",
+          "name": "Dagger"
+        },
+        {
+          "type": "ElvenSpellblade",
+          "name": "Elven Spellblade"
+        },
+        {
+          "type": "Leafblade",
+          "name": "Leafblade"
+        },
+        {
+          "type": "WarCleaver",
+          "name": "War Cleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7di",
+      "qualityLevel": 70,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ButcherKnife",
+          "name": "Butcher Knife"
+        },
+        {
+          "type": "SkinningKnife",
+          "name": "Skinning Knife"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7fc",
+      "qualityLevel": 69,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHarvester",
+          "name": "Bone Harvester"
+        },
+        {
+          "type": "Cutlass",
+          "name": "Cutlass"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ga",
+      "qualityLevel": 82,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LargeBattleAxe",
+          "name": "Large Battle Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7gi",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ExecutionersAxe",
+          "name": "Executioners Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7gl",
+      "qualityLevel": 79,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "SoulGlaive",
+          "name": "Soul Glaive"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7h7",
+      "qualityLevel": 84,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Halberd",
+          "name": "Halberd"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ha",
+      "qualityLevel": 54,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Hatchet",
+          "name": "Hatchet"
+        },
+        {
+          "type": "Kama",
+          "name": "Kama"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7kr",
+      "qualityLevel": 83,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Kryss",
+          "name": "Kryss"
+        },
+        {
+          "type": "Sai",
+          "name": "Sai"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ls",
+      "qualityLevel": 82,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Longsword",
+          "name": "Longsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7lw",
+      "qualityLevel": 78,
+      "tier": "Elite",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Tekagi",
+          "name": "Tekagi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7m7",
+      "qualityLevel": 69,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Maul",
+          "name": "Maul"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ma",
+      "qualityLevel": 63,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DiamondMace",
+          "name": "Diamond Mace"
+        },
+        {
+          "type": "DiscMace",
+          "name": "Disc Mace"
+        },
+        {
+          "type": "Mace",
+          "name": "Mace"
+        },
+        {
+          "type": "Nunchaku",
+          "name": "Nunchaku"
+        },
+        {
+          "type": "Tessen",
+          "name": "Tessen"
+        },
+        {
+          "type": "Tetsubo",
+          "name": "Tetsubo"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7mp",
+      "qualityLevel": 79,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pickaxe",
+          "name": "Pickaxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7mt",
+      "qualityLevel": 70,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarMace",
+          "name": "War Mace"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7o7",
+      "qualityLevel": 60,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bardiche",
+          "name": "Bardiche"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7p7",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lance",
+          "name": "Lance"
+        },
+        {
+          "type": "Pike",
+          "name": "Pike"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7s8",
+      "qualityLevel": 71,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scythe",
+          "name": "Scythe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7sb",
+      "qualityLevel": 63,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Katana",
+          "name": "Katana"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7sc",
+      "qualityLevel": 62,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scepter",
+          "name": "Scepter"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7sm",
+      "qualityLevel": 61,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scimitar",
+          "name": "Scimitar"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7sr",
+      "qualityLevel": 58,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BladedStaff",
+          "name": "Bladed Staff"
+        },
+        {
+          "type": "DoubleBladedStaff",
+          "name": "Double Bladed Staff"
+        },
+        {
+          "type": "DualPointedSpear",
+          "name": "Dual Pointed Spear"
+        },
+        {
+          "type": "Spear",
+          "name": "Spear"
+        },
+        {
+          "type": "TribalSpear",
+          "name": "Tribal Spear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ss",
+      "qualityLevel": 56,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BloodBlade",
+          "name": "Blood Blade"
+        },
+        {
+          "type": "Bokuto",
+          "name": "Bokuto"
+        },
+        {
+          "type": "DreadSword",
+          "name": "Dread Sword"
+        },
+        {
+          "type": "ElvenMachete",
+          "name": "Elven Machete"
+        },
+        {
+          "type": "GargishTalwar",
+          "name": "Gargish Talwar"
+        },
+        {
+          "type": "RadiantScimitar",
+          "name": "Radiant Scimitar"
+        },
+        {
+          "type": "ThinLongsword",
+          "name": "Thin Longsword"
+        },
+        {
+          "type": "Wakizashi",
+          "name": "Wakizashi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7ta",
+      "qualityLevel": 56,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boomerang",
+          "name": "Boomerang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7tr",
+      "qualityLevel": 66,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pitchfork",
+          "name": "Pitchfork"
+        },
+        {
+          "type": "WarFork",
+          "name": "War Fork"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7wa",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarAxe",
+          "name": "War Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7wc",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lajatang",
+          "name": "Lajatang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7wd",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "VikingSword",
+          "name": "Viking Sword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7wh",
+      "qualityLevel": 82,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HammerPick",
+          "name": "Hammer Pick"
+        },
+        {
+          "type": "WarHammer",
+          "name": "War Hammer"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "7wn",
+      "qualityLevel": 55,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicWand",
+          "name": "Magic Wand"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8bs",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "QuarterStaff",
+          "name": "Quarter Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8cb",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CompositeBow",
+          "name": "Composite Bow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8cs",
+      "qualityLevel": 38,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GnarledStaff",
+          "name": "Gnarled Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8hb",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "8hx",
+      "qualityLevel": 47,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeavyCrossbow",
+          "name": "Heavy Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8lb",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bow",
+          "name": "Bow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8ls",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "8lw",
+      "qualityLevel": 52,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ElvenCompositeLongbow",
+          "name": "Elven Composite Longbow"
+        },
+        {
+          "type": "Yumi",
+          "name": "Yumi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8lx",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "8mx",
+      "qualityLevel": 40,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Crossbow",
+          "name": "Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8rx",
+      "qualityLevel": 54,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RepeatingCrossbow",
+          "name": "Repeating Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8sb",
+      "qualityLevel": 30,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicalShortbow",
+          "name": "Magical Shortbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8ss",
+      "qualityLevel": 30,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ShepherdsCrook",
+          "name": "Shepherds Crook"
+        },
+        {
+          "type": "WildStaff",
+          "name": "Wild Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "8ws",
+      "qualityLevel": 47,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BlackStaff",
+          "name": "Black Staff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "92a",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DoubleAxe",
+          "name": "Double Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "92h",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Daisho",
+          "name": "Daisho"
+        },
+        {
+          "type": "NoDachi",
+          "name": "No Dachi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ar",
+      "qualityLevel": 28,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9ax",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Axe",
+          "name": "Axe"
+        },
+        {
+          "type": "DualShortAxes",
+          "name": "Dual Short Axes"
+        },
+        {
+          "type": "OrnateAxe",
+          "name": "Ornate Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9b7",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bardiche",
+          "name": "Bardiche"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9b8",
+      "qualityLevel": 41,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cyclone",
+          "name": "Cyclone"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ba",
+      "qualityLevel": 38,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "TwoHandedAxe",
+          "name": "Two Handed Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9bk",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9bl",
+      "qualityLevel": 46,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cleaver",
+          "name": "Cleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9br",
+      "qualityLevel": 41,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ShortSpear",
+          "name": "Short Spear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9bs",
+      "qualityLevel": 40,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Broadsword",
+          "name": "Broadsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9bt",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BattleAxe",
+          "name": "Battle Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9cl",
+      "qualityLevel": 30,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Club",
+          "name": "Club"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9cm",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CrescentBlade",
+          "name": "Crescent Blade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9cr",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RuneBlade",
+          "name": "Rune Blade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9dg",
+      "qualityLevel": 31,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "AssassinSpike",
+          "name": "Assassin Spike"
+        },
+        {
+          "type": "Dagger",
+          "name": "Dagger"
+        },
+        {
+          "type": "ElvenSpellblade",
+          "name": "Elven Spellblade"
+        },
+        {
+          "type": "Leafblade",
+          "name": "Leafblade"
+        },
+        {
+          "type": "WarCleaver",
+          "name": "War Cleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9di",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ButcherKnife",
+          "name": "Butcher Knife"
+        },
+        {
+          "type": "SkinningKnife",
+          "name": "Skinning Knife"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9fc",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHarvester",
+          "name": "Bone Harvester"
+        },
+        {
+          "type": "Cutlass",
+          "name": "Cutlass"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ga",
+      "qualityLevel": 46,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LargeBattleAxe",
+          "name": "Large Battle Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9gi",
+      "qualityLevel": 51,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ExecutionersAxe",
+          "name": "Executioners Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9gl",
+      "qualityLevel": 46,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "SoulGlaive",
+          "name": "Soul Glaive"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9h9",
+      "qualityLevel": 51,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Halberd",
+          "name": "Halberd"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ha",
+      "qualityLevel": 31,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Hatchet",
+          "name": "Hatchet"
+        },
+        {
+          "type": "Kama",
+          "name": "Kama"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ja",
+      "qualityLevel": 30,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9kr",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Kryss",
+          "name": "Kryss"
+        },
+        {
+          "type": "Sai",
+          "name": "Sai"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9la",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9ls",
+      "qualityLevel": 44,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Longsword",
+          "name": "Longsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9lw",
+      "qualityLevel": 45,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Tekagi",
+          "name": "Tekagi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9m9",
+      "qualityLevel": 45,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Maul",
+          "name": "Maul"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ma",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DiamondMace",
+          "name": "Diamond Mace"
+        },
+        {
+          "type": "DiscMace",
+          "name": "Disc Mace"
+        },
+        {
+          "type": "Mace",
+          "name": "Mace"
+        },
+        {
+          "type": "Nunchaku",
+          "name": "Nunchaku"
+        },
+        {
+          "type": "Tessen",
+          "name": "Tessen"
+        },
+        {
+          "type": "Tetsubo",
+          "name": "Tetsubo"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9mp",
+      "qualityLevel": 43,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pickaxe",
+          "name": "Pickaxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9mt",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarMace",
+          "name": "War Mace"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9p9",
+      "qualityLevel": 47,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lance",
+          "name": "Lance"
+        },
+        {
+          "type": "Pike",
+          "name": "Pike"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9pa",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9pi",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9s8",
+      "qualityLevel": 40,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scythe",
+          "name": "Scythe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9sb",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Katana",
+          "name": "Katana"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9sc",
+      "qualityLevel": 31,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scepter",
+          "name": "Scepter"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9sm",
+      "qualityLevel": 43,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scimitar",
+          "name": "Scimitar"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9sp",
+      "qualityLevel": 32,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9sr",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BladedStaff",
+          "name": "Bladed Staff"
+        },
+        {
+          "type": "DoubleBladedStaff",
+          "name": "Double Bladed Staff"
+        },
+        {
+          "type": "DualPointedSpear",
+          "name": "Dual Pointed Spear"
+        },
+        {
+          "type": "Spear",
+          "name": "Spear"
+        },
+        {
+          "type": "TribalSpear",
+          "name": "Tribal Spear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ss",
+      "qualityLevel": 30,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BloodBlade",
+          "name": "Blood Blade"
+        },
+        {
+          "type": "Bokuto",
+          "name": "Bokuto"
+        },
+        {
+          "type": "DreadSword",
+          "name": "Dread Sword"
+        },
+        {
+          "type": "ElvenMachete",
+          "name": "Elven Machete"
+        },
+        {
+          "type": "GargishTalwar",
+          "name": "Gargish Talwar"
+        },
+        {
+          "type": "RadiantScimitar",
+          "name": "Radiant Scimitar"
+        },
+        {
+          "type": "ThinLongsword",
+          "name": "Thin Longsword"
+        },
+        {
+          "type": "Wakizashi",
+          "name": "Wakizashi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9ta",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boomerang",
+          "name": "Boomerang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9tk",
+      "qualityLevel": 31,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9tr",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pitchfork",
+          "name": "Pitchfork"
+        },
+        {
+          "type": "WarFork",
+          "name": "War Fork"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9vo",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9wa",
+      "qualityLevel": 48,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarAxe",
+          "name": "War Axe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9wb",
+      "qualityLevel": 32,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9wc",
+      "qualityLevel": 55,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lajatang",
+          "name": "Lajatang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9wd",
+      "qualityLevel": 49,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "VikingSword",
+          "name": "Viking Sword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9wh",
+      "qualityLevel": 48,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HammerPick",
+          "name": "Hammer Pick"
+        },
+        {
+          "type": "WarHammer",
+          "name": "War Hammer"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9wn",
+      "qualityLevel": 31,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicWand",
+          "name": "Magic Wand"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "9xf",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "9yw",
+      "qualityLevel": 38,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am1",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am2",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am3",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am4",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am5",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "am6",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ama",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "amu",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Beads",
+          "name": "Beads"
+        },
+        {
+          "type": "GoldBeadNecklace",
+          "name": "GoldBeadNecklace"
+        },
+        {
+          "type": "GoldNecklace",
+          "name": "GoldNecklace"
+        },
+        {
+          "type": "Necklace",
+          "name": "Necklace"
+        },
+        {
+          "type": "SilverBeadNecklace",
+          "name": "SilverBeadNecklace"
+        },
+        {
+          "type": "SilverNecklace",
+          "name": "SilverNecklace"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "aqv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "axe",
+      "qualityLevel": 7,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Axe",
+          "name": "Axe"
+        },
+        {
+          "type": "DualShortAxes",
+          "name": "DualShortAxes"
+        },
+        {
+          "type": "OrnateAxe",
+          "name": "OrnateAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "axf",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba1",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba2",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba3",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba4",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba5",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba6",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ba7",
+      "qualityLevel": 38,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "bal",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cyclone",
+          "name": "Cyclone"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bar",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bardiche",
+          "name": "Bardiche"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bax",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "TwoHandedAxe",
+          "name": "TwoHandedAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bhm",
+      "qualityLevel": 22,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHelm",
+          "name": "BoneHelm"
+        },
+        {
+          "type": "ChainCoif",
+          "name": "ChainCoif"
+        },
+        {
+          "type": "ChainHatsuburi",
+          "name": "ChainHatsuburi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bkf",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "bld",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Cleaver",
+          "name": "Cleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "brn",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ShortSpear",
+          "name": "ShortSpear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "brs",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "bsd",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Broadsword",
+          "name": "Broadsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bsh",
+      "qualityLevel": 19,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "bst",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "QuarterStaff",
+          "name": "QuarterStaff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bsw",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "btl",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "btx",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BattleAxe",
+          "name": "BattleAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "buc",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Buckler",
+          "name": "Buckler"
+        },
+        {
+          "type": "ChaosShield",
+          "name": "ChaosShield"
+        },
+        {
+          "type": "GargishWoodenShield",
+          "name": "GargishWoodenShield"
+        },
+        {
+          "type": "OrderShield",
+          "name": "OrderShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "bwn",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "cap",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LeatherCap",
+          "name": "LeatherCap"
+        },
+        {
+          "type": "LeatherJingasa",
+          "name": "LeatherJingasa"
+        },
+        {
+          "type": "LeatherNinjaHood",
+          "name": "LeatherNinjaHood"
+        },
+        {
+          "type": "OrcHelm",
+          "name": "OrcHelm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "cbw",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CompositeBow",
+          "name": "CompositeBow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ces",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "chn",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ChainChest",
+          "name": "ChainChest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ci0",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Circlet",
+          "name": "Circlet"
+        },
+        {
+          "type": "GemmedCirclet",
+          "name": "GemmedCirclet"
+        },
+        {
+          "type": "RoyalCirclet",
+          "name": "RoyalCirclet"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ci2",
+      "qualityLevel": 70,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Circlet",
+          "name": "Circlet"
+        },
+        {
+          "type": "GemmedCirclet",
+          "name": "Gemmed Circlet"
+        },
+        {
+          "type": "RoyalCirclet",
+          "name": "Royal Circlet"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ci3",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Circlet",
+          "name": "Circlet"
+        },
+        {
+          "type": "GemmedCirclet",
+          "name": "Gemmed Circlet"
+        },
+        {
+          "type": "RoyalCirclet",
+          "name": "Royal Circlet"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "clb",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Club",
+          "name": "Club"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "clm",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "CrescentBlade",
+          "name": "CrescentBlade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "clw",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Tekagi",
+          "name": "Tekagi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "cm1",
+      "qualityLevel": 28,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "cm2",
+      "qualityLevel": 14,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "cm3",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "cqv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "crn",
+      "qualityLevel": 29,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "crs",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RuneBlade",
+          "name": "RuneBlade"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "cst",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GnarledStaff",
+          "name": "GnarledStaff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "dgr",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "AssassinSpike",
+          "name": "AssassinSpike"
+        },
+        {
+          "type": "Dagger",
+          "name": "Dagger"
+        },
+        {
+          "type": "ElvenSpellblade",
+          "name": "ElvenSpellblade"
+        },
+        {
+          "type": "Leafblade",
+          "name": "Leafblade"
+        },
+        {
+          "type": "WarCleaver",
+          "name": "WarCleaver"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "dir",
+      "qualityLevel": 9,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ButcherKnife",
+          "name": "ButcherKnife"
+        },
+        {
+          "type": "SkinningKnife",
+          "name": "SkinningKnife"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "dr1",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "dr2",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "dr3",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "dr4",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "dr5",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "dr6",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "fhl",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bascinet",
+          "name": "Bascinet"
+        },
+        {
+          "type": "CloseHelm",
+          "name": "CloseHelm"
+        },
+        {
+          "type": "DecorativePlateKabuto",
+          "name": "DecorativePlateKabuto"
+        },
+        {
+          "type": "DragonHelm",
+          "name": "DragonHelm"
+        },
+        {
+          "type": "HeavyPlateJingasa",
+          "name": "HeavyPlateJingasa"
+        },
+        {
+          "type": "Helmet",
+          "name": "Helmet"
+        },
+        {
+          "type": "LightPlateJingasa",
+          "name": "LightPlateJingasa"
+        },
+        {
+          "type": "NorseHelm",
+          "name": "NorseHelm"
+        },
+        {
+          "type": "PlateBattleKabuto",
+          "name": "PlateBattleKabuto"
+        },
+        {
+          "type": "PlateHatsuburi",
+          "name": "PlateHatsuburi"
+        },
+        {
+          "type": "PlateHelm",
+          "name": "PlateHelm"
+        },
+        {
+          "type": "RavenHelm",
+          "name": "RavenHelm"
+        },
+        {
+          "type": "SmallPlateJingasa",
+          "name": "SmallPlateJingasa"
+        },
+        {
+          "type": "StandardPlateKabuto",
+          "name": "StandardPlateKabuto"
+        },
+        {
+          "type": "VultureHelm",
+          "name": "VultureHelm"
+        },
+        {
+          "type": "WingedHelm",
+          "name": "WingedHelm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "fla",
+      "qualityLevel": 19,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "flb",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "flc",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHarvester",
+          "name": "BoneHarvester"
+        },
+        {
+          "type": "Cutlass",
+          "name": "Cutlass"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "fld",
+      "qualityLevel": 28,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ful",
+      "qualityLevel": 37,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DragonChest",
+          "name": "DragonChest"
+        },
+        {
+          "type": "GargishStoneChestType1",
+          "name": "GargishStoneChestType1"
+        },
+        {
+          "type": "GargishStoneChestType2",
+          "name": "GargishStoneChestType2"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "gax",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LargeBattleAxe",
+          "name": "LargeBattleAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "gcb",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gcg",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gcr",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gcv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gcw",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gcy",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfb",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfg",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfr",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfw",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gfy",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ghm",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gis",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gix",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ExecutionersAxe",
+          "name": "ExecutionersAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "glb",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "glg",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "glr",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "glv",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "SoulGlaive",
+          "name": "SoulGlaive"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "glw",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gly",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gma",
+      "qualityLevel": 32,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gpl",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gpm",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gps",
+      "qualityLevel": 32,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsb",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsc",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsd",
+      "qualityLevel": 33,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsg",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsr",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsw",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gsy",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gth",
+      "qualityLevel": 32,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gts",
+      "qualityLevel": 30,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeaterShield",
+          "name": "HeaterShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "gwn",
+      "qualityLevel": 26,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "gzv",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hal",
+      "qualityLevel": 29,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Halberd",
+          "name": "Halberd"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "hax",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Hatchet",
+          "name": "Hatchet"
+        },
+        {
+          "type": "Kama",
+          "name": "Kama"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "hbl",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hbt",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hbw",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hgl",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DragonGloves",
+          "name": "DragonGloves"
+        },
+        {
+          "type": "GargishStoneKiltType1",
+          "name": "GargishStoneKiltType1"
+        },
+        {
+          "type": "GargishStoneKiltType2",
+          "name": "GargishStoneKiltType2"
+        },
+        {
+          "type": "PlateGloves",
+          "name": "PlateGloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "hla",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hlm",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hp1",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hp2",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hp3",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hp4",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hp5",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "hxb",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeavyCrossbow",
+          "name": "HeavyCrossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "isc",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "jav",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "jew",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "key",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "kit",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenKiteShield",
+          "name": "WoodenKiteShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "kri",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Kryss",
+          "name": "Kryss"
+        },
+        {
+          "type": "Sai",
+          "name": "Sai"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ktr",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "lax",
+      "qualityLevel": 6,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "lbb",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "lbl",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HalfApron",
+          "name": "HalfApron"
+        },
+        {
+          "type": "Obi",
+          "name": "Obi"
+        },
+        {
+          "type": "WoodlandBelt",
+          "name": "WoodlandBelt"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lbt",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boots",
+          "name": "Boots"
+        },
+        {
+          "type": "ElvenBoots",
+          "name": "ElvenBoots"
+        },
+        {
+          "type": "Sandals",
+          "name": "Sandals"
+        },
+        {
+          "type": "Shoes",
+          "name": "Shoes"
+        },
+        {
+          "type": "ThighBoots",
+          "name": "ThighBoots"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lbw",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bow",
+          "name": "Bow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lea",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleLeafChest",
+          "name": "FemaleLeafChest"
+        },
+        {
+          "type": "FemaleLeatherChest",
+          "name": "FemaleLeatherChest"
+        },
+        {
+          "type": "GargishLeatherChestType1",
+          "name": "GargishLeatherChestType1"
+        },
+        {
+          "type": "GargishLeatherChestType2",
+          "name": "GargishLeatherChestType2"
+        },
+        {
+          "type": "LeafChest",
+          "name": "LeafChest"
+        },
+        {
+          "type": "LeatherBustierArms",
+          "name": "LeatherBustierArms"
+        },
+        {
+          "type": "LeatherChest",
+          "name": "LeatherChest"
+        },
+        {
+          "type": "LeatherDo",
+          "name": "LeatherDo"
+        },
+        {
+          "type": "LeatherNinjaJacket",
+          "name": "LeatherNinjaJacket"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lgl",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothKiltType1",
+          "name": "GargishClothKiltType1"
+        },
+        {
+          "type": "GargishClothKiltType2",
+          "name": "GargishClothKiltType2"
+        },
+        {
+          "type": "GargishLeatherKiltType1",
+          "name": "GargishLeatherKiltType1"
+        },
+        {
+          "type": "GargishLeatherKiltType2",
+          "name": "GargishLeatherKiltType2"
+        },
+        {
+          "type": "LeafGloves",
+          "name": "LeafGloves"
+        },
+        {
+          "type": "LeatherGloves",
+          "name": "LeatherGloves"
+        },
+        {
+          "type": "LeatherNinjaMitts",
+          "name": "LeatherNinjaMitts"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lrg",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BronzeShield",
+          "name": "BronzeShield"
+        },
+        {
+          "type": "MetalShield",
+          "name": "MetalShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lsd",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Longsword",
+          "name": "Longsword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lst",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ltp",
+      "qualityLevel": 35,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "lwb",
+      "qualityLevel": 31,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ElvenCompositeLongbow",
+          "name": "ElvenCompositeLongbow"
+        },
+        {
+          "type": "Yumi",
+          "name": "Yumi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "lxb",
+      "qualityLevel": 6,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mac",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "DiamondMace",
+          "name": "DiamondMace"
+        },
+        {
+          "type": "DiscMace",
+          "name": "DiscMace"
+        },
+        {
+          "type": "Mace",
+          "name": "Mace"
+        },
+        {
+          "type": "Nunchaku",
+          "name": "Nunchaku"
+        },
+        {
+          "type": "Tessen",
+          "name": "Tessen"
+        },
+        {
+          "type": "Tetsubo",
+          "name": "Tetsubo"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "mau",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Maul",
+          "name": "Maul"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "mbl",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mbt",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mgl",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneGloves",
+          "name": "BoneGloves"
+        },
+        {
+          "type": "GargishStuddedKiltType1",
+          "name": "GargishStuddedKiltType1"
+        },
+        {
+          "type": "GargishStuddedKiltType2",
+          "name": "GargishStuddedKiltType2"
+        },
+        {
+          "type": "HideGloves",
+          "name": "HideGloves"
+        },
+        {
+          "type": "RingmailGloves",
+          "name": "RingmailGloves"
+        },
+        {
+          "type": "StuddedGloves",
+          "name": "StuddedGloves"
+        },
+        {
+          "type": "WoodlandGloves",
+          "name": "WoodlandGloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "mp1",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mp2",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mp3",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mp4",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mp5",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mpi",
+      "qualityLevel": 19,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pickaxe",
+          "name": "Pickaxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "msk",
+      "qualityLevel": 19,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "mst",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarMace",
+          "name": "WarMace"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "mxb",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Crossbow",
+          "name": "Crossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ne1",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne2",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne3",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne4",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne5",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne6",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ne7",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob1",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob2",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob3",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob4",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob5",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob6",
+      "qualityLevel": 32,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ob7",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "opl",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "opm",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ops",
+      "qualityLevel": 28,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa1",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa2",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa3",
+      "qualityLevel": 16,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa4",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa5",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pa6",
+      "qualityLevel": 35,
+      "tier": "Exceptional",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pax",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "pik",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lance",
+          "name": "Lance"
+        },
+        {
+          "type": "Pike",
+          "name": "Pike"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "pil",
+      "qualityLevel": 10,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "plt",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemalePlateChest",
+          "name": "FemalePlateChest"
+        },
+        {
+          "type": "PlateChest",
+          "name": "PlateChest"
+        },
+        {
+          "type": "PlateDo",
+          "name": "PlateDo"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "qui",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothChestType1",
+          "name": "GargishClothChestType1"
+        },
+        {
+          "type": "GargishClothChestType2",
+          "name": "GargishClothChestType2"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "r01",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r02",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r03",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r04",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r05",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r06",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r07",
+      "qualityLevel": 17,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r08",
+      "qualityLevel": 19,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r09",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r10",
+      "qualityLevel": 23,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r11",
+      "qualityLevel": 25,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r12",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r13",
+      "qualityLevel": 29,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "r14",
+      "qualityLevel": 31,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "rin",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": true,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GoldRing",
+          "name": "GoldRing"
+        },
+        {
+          "type": "SilverRing",
+          "name": "SilverRing"
+        },
+        {
+          "type": "WeddingRing",
+          "name": "WeddingRing"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "rng",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneChest",
+          "name": "BoneChest"
+        },
+        {
+          "type": "RingmailChest",
+          "name": "RingmailChest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "rvs",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "rxb",
+      "qualityLevel": 33,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "RepeatingCrossbow",
+          "name": "RepeatingCrossbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "sbb",
+      "qualityLevel": 18,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "sbr",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Katana",
+          "name": "Katana"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "sbw",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicalShortbow",
+          "name": "MagicalShortbow"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "scl",
+      "qualityLevel": 13,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "scm",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scimitar",
+          "name": "Scimitar"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "scp",
+      "qualityLevel": 3,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scepter",
+          "name": "Scepter"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "scy",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Scythe",
+          "name": "Scythe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "skc",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "skf",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "skl",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "skp",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "skr",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "sku",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "sml",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenShield",
+          "name": "WoodenShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "spc",
+      "qualityLevel": 4,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "spk",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "spl",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "spr",
+      "qualityLevel": 5,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BladedStaff",
+          "name": "BladedStaff"
+        },
+        {
+          "type": "DoubleBladedStaff",
+          "name": "DoubleBladedStaff"
+        },
+        {
+          "type": "DualPointedSpear",
+          "name": "DualPointedSpear"
+        },
+        {
+          "type": "Spear",
+          "name": "Spear"
+        },
+        {
+          "type": "TribalSpear",
+          "name": "TribalSpear"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "spt",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ssd",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BloodBlade",
+          "name": "BloodBlade"
+        },
+        {
+          "type": "Bokuto",
+          "name": "Bokuto"
+        },
+        {
+          "type": "DreadSword",
+          "name": "DreadSword"
+        },
+        {
+          "type": "ElvenMachete",
+          "name": "ElvenMachete"
+        },
+        {
+          "type": "GargishTalwar",
+          "name": "GargishTalwar"
+        },
+        {
+          "type": "GlassSword",
+          "name": "GlassSword"
+        },
+        {
+          "type": "RadiantScimitar",
+          "name": "RadiantScimitar"
+        },
+        {
+          "type": "ThinLongsword",
+          "name": "ThinLongsword"
+        },
+        {
+          "type": "Wakizashi",
+          "name": "Wakizashi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ssp",
+      "qualityLevel": 15,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "sst",
+      "qualityLevel": 1,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GlassStaff",
+          "name": "GlassStaff"
+        },
+        {
+          "type": "SerpentstoneStaff",
+          "name": "SerpentstoneStaff"
+        },
+        {
+          "type": "ShepherdsCrook",
+          "name": "ShepherdsCrook"
+        },
+        {
+          "type": "WildStaff",
+          "name": "WildStaff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "stu",
+      "qualityLevel": 8,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleElvenPlateChest",
+          "name": "FemaleElvenPlateChest"
+        },
+        {
+          "type": "FemaleStuddedChest",
+          "name": "FemaleStuddedChest"
+        },
+        {
+          "type": "GargishStuddedChestType1",
+          "name": "GargishStuddedChestType1"
+        },
+        {
+          "type": "GargishStuddedChestType2",
+          "name": "GargishStuddedChestType2"
+        },
+        {
+          "type": "HideChest",
+          "name": "HideChest"
+        },
+        {
+          "type": "HideFemaleChest",
+          "name": "HideFemaleChest"
+        },
+        {
+          "type": "StuddedBustierArms",
+          "name": "StuddedBustierArms"
+        },
+        {
+          "type": "StuddedChest",
+          "name": "StuddedChest"
+        },
+        {
+          "type": "StuddedDo",
+          "name": "StuddedDo"
+        },
+        {
+          "type": "WoodlandChest",
+          "name": "WoodlandChest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "swb",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tax",
+      "qualityLevel": 7,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boomerang",
+          "name": "Boomerang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "tbl",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tbt",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tgl",
+      "qualityLevel": 20,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tkf",
+      "qualityLevel": 2,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tow",
+      "qualityLevel": 22,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MetalKiteShield",
+          "name": "MetalKiteShield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "tri",
+      "qualityLevel": 9,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Pitchfork",
+          "name": "Pitchfork"
+        },
+        {
+          "type": "WarFork",
+          "name": "WarFork"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "tsc",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "tsp",
+      "qualityLevel": 29,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "uap",
+      "qualityLevel": 58,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LeatherCap",
+          "name": "Leather Cap"
+        },
+        {
+          "type": "LeatherJingasa",
+          "name": "Leather Jingasa"
+        },
+        {
+          "type": "LeatherNinjaHood",
+          "name": "Leather Ninja Hood"
+        },
+        {
+          "type": "OrcHelm",
+          "name": "Orc Helm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uea",
+      "qualityLevel": 67,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleLeafChest",
+          "name": "Female Leaf Chest"
+        },
+        {
+          "type": "FemaleLeatherChest",
+          "name": "Female Leather Chest"
+        },
+        {
+          "type": "GargishLeatherChestType1",
+          "name": "Gargish Leather Chest Type1"
+        },
+        {
+          "type": "GargishLeatherChestType2",
+          "name": "Gargish Leather Chest Type2"
+        },
+        {
+          "type": "LeafChest",
+          "name": "Leaf Chest"
+        },
+        {
+          "type": "LeatherBustierArms",
+          "name": "Leather Bustier Arms"
+        },
+        {
+          "type": "LeatherChest",
+          "name": "Leather Chest"
+        },
+        {
+          "type": "LeatherDo",
+          "name": "Leather Do"
+        },
+        {
+          "type": "LeatherNinjaJacket",
+          "name": "Leather Ninja Jacket"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uh9",
+      "qualityLevel": 84,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHelm",
+          "name": "Bone Helm"
+        },
+        {
+          "type": "ChainCoif",
+          "name": "Chain Coif"
+        },
+        {
+          "type": "ChainHatsuburi",
+          "name": "Chain Hatsuburi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uhg",
+      "qualityLevel": 85,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "PlateGloves",
+          "name": "Plate Gloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uhl",
+      "qualityLevel": 54,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bascinet",
+          "name": "Bascinet"
+        },
+        {
+          "type": "CloseHelm",
+          "name": "Close Helm"
+        },
+        {
+          "type": "DecorativePlateKabuto",
+          "name": "Decorative Plate Kabuto"
+        },
+        {
+          "type": "HeavyPlateJingasa",
+          "name": "Heavy Plate Jingasa"
+        },
+        {
+          "type": "Helmet",
+          "name": "Helmet"
+        },
+        {
+          "type": "LightPlateJingasa",
+          "name": "Light Plate Jingasa"
+        },
+        {
+          "type": "NorseHelm",
+          "name": "Norse Helm"
+        },
+        {
+          "type": "PlateBattleKabuto",
+          "name": "Plate Battle Kabuto"
+        },
+        {
+          "type": "PlateHatsuburi",
+          "name": "Plate Hatsuburi"
+        },
+        {
+          "type": "PlateHelm",
+          "name": "Plate Helm"
+        },
+        {
+          "type": "RavenHelm",
+          "name": "Raven Helm"
+        },
+        {
+          "type": "SmallPlateJingasa",
+          "name": "Small Plate Jingasa"
+        },
+        {
+          "type": "StandardPlateKabuto",
+          "name": "Standard Plate Kabuto"
+        },
+        {
+          "type": "VultureHelm",
+          "name": "Vulture Helm"
+        },
+        {
+          "type": "WingedHelm",
+          "name": "Winged Helm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uhn",
+      "qualityLevel": 62,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ChainChest",
+          "name": "Chain Chest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uit",
+      "qualityLevel": 72,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenKiteShield",
+          "name": "Wooden Kite Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ulb",
+      "qualityLevel": 60,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boots",
+          "name": "Boots"
+        },
+        {
+          "type": "ElvenBoots",
+          "name": "Elven Boots"
+        },
+        {
+          "type": "Sandals",
+          "name": "Sandals"
+        },
+        {
+          "type": "Shoes",
+          "name": "Shoes"
+        },
+        {
+          "type": "ThighBoots",
+          "name": "Thigh Boots"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ulc",
+      "qualityLevel": 61,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HalfApron",
+          "name": "Half Apron"
+        },
+        {
+          "type": "Obi",
+          "name": "Obi"
+        },
+        {
+          "type": "WoodlandBelt",
+          "name": "Woodland Belt"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ulg",
+      "qualityLevel": 57,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothKiltType1",
+          "name": "Gargish Cloth Kilt Type1"
+        },
+        {
+          "type": "GargishClothKiltType2",
+          "name": "Gargish Cloth Kilt Type2"
+        },
+        {
+          "type": "GargishLeatherKiltType1",
+          "name": "Gargish Leather Kilt Type1"
+        },
+        {
+          "type": "GargishLeatherKiltType2",
+          "name": "Gargish Leather Kilt Type2"
+        },
+        {
+          "type": "LeafGloves",
+          "name": "Leaf Gloves"
+        },
+        {
+          "type": "LeatherGloves",
+          "name": "Leather Gloves"
+        },
+        {
+          "type": "LeatherNinjaMitts",
+          "name": "Leather Ninja Mitts"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ult",
+      "qualityLevel": 78,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemalePlateChest",
+          "name": "Female Plate Chest"
+        },
+        {
+          "type": "PlateChest",
+          "name": "Plate Chest"
+        },
+        {
+          "type": "PlateDo",
+          "name": "Plate Do"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "umg",
+      "qualityLevel": 69,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneGloves",
+          "name": "Bone Gloves"
+        },
+        {
+          "type": "GargishStuddedKiltType1",
+          "name": "Gargish Studded Kilt Type1"
+        },
+        {
+          "type": "GargishStuddedKiltType2",
+          "name": "Gargish Studded Kilt Type2"
+        },
+        {
+          "type": "HideGloves",
+          "name": "Hide Gloves"
+        },
+        {
+          "type": "RingmailGloves",
+          "name": "Ringmail Gloves"
+        },
+        {
+          "type": "StuddedGloves",
+          "name": "Studded Gloves"
+        },
+        {
+          "type": "WoodlandGloves",
+          "name": "Woodland Gloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uml",
+      "qualityLevel": 61,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenShield",
+          "name": "Wooden Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "ung",
+      "qualityLevel": 72,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneChest",
+          "name": "Bone Chest"
+        },
+        {
+          "type": "RingmailChest",
+          "name": "Ring Mail"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uow",
+      "qualityLevel": 79,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MetalKiteShield",
+          "name": "Metal Kite Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "urg",
+      "qualityLevel": 64,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BronzeShield",
+          "name": "Bronze Shield"
+        },
+        {
+          "type": "MetalShield",
+          "name": "Metal Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uts",
+      "qualityLevel": 84,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeaterShield",
+          "name": "Heater Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "utu",
+      "qualityLevel": 70,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleElvenPlateChest",
+          "name": "Female Elven Plate Chest"
+        },
+        {
+          "type": "FemaleStuddedChest",
+          "name": "Female Studded Chest"
+        },
+        {
+          "type": "GargishStuddedChestType1",
+          "name": "Gargish Studded Chest Type1"
+        },
+        {
+          "type": "GargishStuddedChestType2",
+          "name": "Gargish Studded Chest Type2"
+        },
+        {
+          "type": "HideChest",
+          "name": "Hide Chest"
+        },
+        {
+          "type": "HideFemaleChest",
+          "name": "Hide Female Chest"
+        },
+        {
+          "type": "StuddedBustierArms",
+          "name": "Studded Bustier Arms"
+        },
+        {
+          "type": "StuddedChest",
+          "name": "Studded Chest"
+        },
+        {
+          "type": "StuddedDo",
+          "name": "Studded Do"
+        },
+        {
+          "type": "WoodlandChest",
+          "name": "Woodland Chest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uuc",
+      "qualityLevel": 58,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Buckler",
+          "name": "Buckler"
+        },
+        {
+          "type": "ChaosShield",
+          "name": "Chaos Shield"
+        },
+        {
+          "type": "GargishWoodenShield",
+          "name": "Gargish Wooden Shield"
+        },
+        {
+          "type": "OrderShield",
+          "name": "Order Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "uui",
+      "qualityLevel": 65,
+      "tier": "Elite",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothChestType1",
+          "name": "Gargish Cloth Chest Type1"
+        },
+        {
+          "type": "GargishClothChestType2",
+          "name": "Gargish Cloth Chest Type2"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "vbl",
+      "qualityLevel": 7,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "vbt",
+      "qualityLevel": 7,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "vgl",
+      "qualityLevel": 7,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "vou",
+      "qualityLevel": 11,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "vps",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "wax",
+      "qualityLevel": 25,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WarAxe",
+          "name": "WarAxe"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "whm",
+      "qualityLevel": 25,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HammerPick",
+          "name": "HammerPick"
+        },
+        {
+          "type": "WarHammer",
+          "name": "WarHammer"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "wms",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "wnd",
+      "qualityLevel": 2,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MagicWand",
+          "name": "MagicWand"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "wrb",
+      "qualityLevel": 9,
+      "tier": "Normal",
+      "classSpecific": true,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "wsc",
+      "qualityLevel": 34,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Lajatang",
+          "name": "Lajatang"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "wsd",
+      "qualityLevel": 27,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "VikingSword",
+          "name": "VikingSword"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "wsp",
+      "qualityLevel": 21,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "wst",
+      "qualityLevel": 24,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BlackStaff",
+          "name": "BlackStaff"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xap",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "LeatherCap",
+          "name": "Leather Cap"
+        },
+        {
+          "type": "LeatherJingasa",
+          "name": "Leather Jingasa"
+        },
+        {
+          "type": "LeatherNinjaHood",
+          "name": "Leather Ninja Hood"
+        },
+        {
+          "type": "OrcHelm",
+          "name": "Orc Helm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xea",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleLeafChest",
+          "name": "Female Leaf Chest"
+        },
+        {
+          "type": "FemaleLeatherChest",
+          "name": "Female Leather Chest"
+        },
+        {
+          "type": "GargishLeatherChestType1",
+          "name": "Gargish Leather Chest Type1"
+        },
+        {
+          "type": "GargishLeatherChestType2",
+          "name": "Gargish Leather Chest Type2"
+        },
+        {
+          "type": "LeafChest",
+          "name": "Leaf Chest"
+        },
+        {
+          "type": "LeatherBustierArms",
+          "name": "Leather Bustier Arms"
+        },
+        {
+          "type": "LeatherChest",
+          "name": "Leather Chest"
+        },
+        {
+          "type": "LeatherDo",
+          "name": "Leather Do"
+        },
+        {
+          "type": "LeatherNinjaJacket",
+          "name": "Leather Ninja Jacket"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xh9",
+      "qualityLevel": 50,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneHelm",
+          "name": "Bone Helm"
+        },
+        {
+          "type": "ChainCoif",
+          "name": "Chain Coif"
+        },
+        {
+          "type": "ChainHatsuburi",
+          "name": "Chain Hatsuburi"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xhg",
+      "qualityLevel": 54,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "PlateGloves",
+          "name": "Plate Gloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xhl",
+      "qualityLevel": 45,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Bascinet",
+          "name": "Bascinet"
+        },
+        {
+          "type": "CloseHelm",
+          "name": "Close Helm"
+        },
+        {
+          "type": "DecorativePlateKabuto",
+          "name": "Decorative Plate Kabuto"
+        },
+        {
+          "type": "HeavyPlateJingasa",
+          "name": "Heavy Plate Jingasa"
+        },
+        {
+          "type": "Helmet",
+          "name": "Helmet"
+        },
+        {
+          "type": "LightPlateJingasa",
+          "name": "Light Plate Jingasa"
+        },
+        {
+          "type": "NorseHelm",
+          "name": "Norse Helm"
+        },
+        {
+          "type": "PlateBattleKabuto",
+          "name": "Plate Battle Kabuto"
+        },
+        {
+          "type": "PlateHatsuburi",
+          "name": "Plate Hatsuburi"
+        },
+        {
+          "type": "PlateHelm",
+          "name": "Plate Helm"
+        },
+        {
+          "type": "RavenHelm",
+          "name": "Raven Helm"
+        },
+        {
+          "type": "SmallPlateJingasa",
+          "name": "Small Plate Jingasa"
+        },
+        {
+          "type": "StandardPlateKabuto",
+          "name": "Standard Plate Kabuto"
+        },
+        {
+          "type": "VultureHelm",
+          "name": "Vulture Helm"
+        },
+        {
+          "type": "WingedHelm",
+          "name": "Winged Helm"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xhn",
+      "qualityLevel": 45,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "ChainChest",
+          "name": "Chain Chest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xit",
+      "qualityLevel": 45,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenKiteShield",
+          "name": "Wooden Kite Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xkp",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "xla",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "xlb",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Boots",
+          "name": "Boots"
+        },
+        {
+          "type": "ElvenBoots",
+          "name": "Elven Boots"
+        },
+        {
+          "type": "Sandals",
+          "name": "Sandals"
+        },
+        {
+          "type": "Shoes",
+          "name": "Shoes"
+        },
+        {
+          "type": "ThighBoots",
+          "name": "Thigh Boots"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xlg",
+      "qualityLevel": 33,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothKiltType1",
+          "name": "Gargish Cloth Kilt Type1"
+        },
+        {
+          "type": "GargishClothKiltType2",
+          "name": "Gargish Cloth Kilt Type2"
+        },
+        {
+          "type": "GargishLeatherKiltType1",
+          "name": "Gargish Leather Kilt Type1"
+        },
+        {
+          "type": "GargishLeatherKiltType2",
+          "name": "Gargish Leather Kilt Type2"
+        },
+        {
+          "type": "LeafGloves",
+          "name": "Leaf Gloves"
+        },
+        {
+          "type": "LeatherGloves",
+          "name": "Leather Gloves"
+        },
+        {
+          "type": "LeatherNinjaMitts",
+          "name": "Leather Ninja Mitts"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xlt",
+      "qualityLevel": 52,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemalePlateChest",
+          "name": "Female Plate Chest"
+        },
+        {
+          "type": "PlateChest",
+          "name": "Plate Chest"
+        },
+        {
+          "type": "PlateDo",
+          "name": "Plate Do"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xmg",
+      "qualityLevel": 43,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneGloves",
+          "name": "Bone Gloves"
+        },
+        {
+          "type": "GargishStuddedKiltType1",
+          "name": "Gargish Studded Kilt Type1"
+        },
+        {
+          "type": "GargishStuddedKiltType2",
+          "name": "Gargish Studded Kilt Type2"
+        },
+        {
+          "type": "HideGloves",
+          "name": "Hide Gloves"
+        },
+        {
+          "type": "RingmailGloves",
+          "name": "Ringmail Gloves"
+        },
+        {
+          "type": "StuddedGloves",
+          "name": "Studded Gloves"
+        },
+        {
+          "type": "WoodlandGloves",
+          "name": "Woodland Gloves"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xml",
+      "qualityLevel": 37,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "WoodenShield",
+          "name": "Wooden Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xng",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BoneChest",
+          "name": "Bone Chest"
+        },
+        {
+          "type": "RingmailChest",
+          "name": "Ring Mail"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xow",
+      "qualityLevel": 50,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "MetalKiteShield",
+          "name": "Metal Kite Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xrg",
+      "qualityLevel": 42,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "BronzeShield",
+          "name": "Bronze Shield"
+        },
+        {
+          "type": "MetalShield",
+          "name": "Metal Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xts",
+      "qualityLevel": 56,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HeaterShield",
+          "name": "Heater Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xtu",
+      "qualityLevel": 40,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "FemaleElvenPlateChest",
+          "name": "Female Elven Plate Chest"
+        },
+        {
+          "type": "FemaleStuddedChest",
+          "name": "Female Studded Chest"
+        },
+        {
+          "type": "GargishStuddedChestType1",
+          "name": "Gargish Studded Chest Type1"
+        },
+        {
+          "type": "GargishStuddedChestType2",
+          "name": "Gargish Studded Chest Type2"
+        },
+        {
+          "type": "HideChest",
+          "name": "Hide Chest"
+        },
+        {
+          "type": "HideFemaleChest",
+          "name": "Hide Female Chest"
+        },
+        {
+          "type": "StuddedBustierArms",
+          "name": "Studded Bustier Arms"
+        },
+        {
+          "type": "StuddedChest",
+          "name": "Studded Chest"
+        },
+        {
+          "type": "StuddedDo",
+          "name": "Studded Do"
+        },
+        {
+          "type": "WoodlandChest",
+          "name": "Woodland Chest"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xuc",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "Buckler",
+          "name": "Buckler"
+        },
+        {
+          "type": "ChaosShield",
+          "name": "Chaos Shield"
+        },
+        {
+          "type": "GargishWoodenShield",
+          "name": "Gargish Wooden Shield"
+        },
+        {
+          "type": "OrderShield",
+          "name": "Order Shield"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xui",
+      "qualityLevel": 34,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "GargishClothChestType1",
+          "name": "Gargish Cloth Chest Type1"
+        },
+        {
+          "type": "GargishClothChestType2",
+          "name": "Gargish Cloth Chest Type2"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "xvb",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "xvg",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "yps",
+      "qualityLevel": 0,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": false,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "ywn",
+      "qualityLevel": 12,
+      "tier": "Normal",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    },
+    {
+      "code": "zlb",
+      "qualityLevel": 36,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [
+        {
+          "type": "HalfApron",
+          "name": "Half Apron"
+        },
+        {
+          "type": "Obi",
+          "name": "Obi"
+        },
+        {
+          "type": "WoodlandBelt",
+          "name": "Woodland Belt"
+        }
+      ],
+      "excludedReason": null
+    },
+    {
+      "code": "zvb",
+      "qualityLevel": 39,
+      "tier": "Exceptional",
+      "classSpecific": false,
+      "alwaysMagic": false,
+      "rare": true,
+      "variants": [],
+      "excludedReason": "No current usable UO gear mapping; no reroll"
+    }
+  ],
+  "excludedLeaves": [
+    {
+      "item": "aqv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "cm1",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "cm2",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "cm3",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "cqv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcb",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcg",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcr",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcw",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gcy",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfb",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfg",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfr",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfw",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gfy",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "glb",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "glg",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "glr",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "glw",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gly",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gpl",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gpm",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gps",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsb",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsg",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsr",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsw",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gsy",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "gzv",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "hp1",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "hp2",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "hp3",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "hp4",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "hp5",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "isc",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "jew",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "key",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "mp1",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "mp2",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "mp3",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "mp4",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "mp5",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "opl",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "opm",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "ops",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r01",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r02",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r03",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r04",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r05",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r06",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r07",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r08",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r09",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r10",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r11",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r12",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r13",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "r14",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "rvs",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "skc",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "skf",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "skl",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "sku",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "tsc",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "vps",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "wms",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    },
+    {
+      "item": "yps",
+      "reason": "Reserved non-gear system or unmapped base; no reroll"
+    }
+  ]
+}

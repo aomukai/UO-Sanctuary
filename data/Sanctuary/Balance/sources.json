@@ -54,5 +54,9 @@
   "TreasureClassEx": {
     "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/TreasureClassEx.txt",
     "sha256": "1eb16226c402c72afd6b9ce19b9629f2d395b549047119103dab03b446e5654f"
+  },
+  "ItemRatio": {
+    "url": "https://raw.githubusercontent.com/fabd/diablo2/45112569deb9384738ccafe5c24ebbb71f41c7c9/code/d2_113_data/ItemRatio.txt",
+    "sha256": "965793f982fed16f768ff117059dc460f24e5bc7290e309951b0a8dc9b4534de"
   }
 }

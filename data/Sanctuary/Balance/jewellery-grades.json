@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Shoddy",
+    "skill": 30,
+    "itemLevel": 20,
+    "equipLevel": 0,
+    "ingots": 4,
+    "gold": 100,
+    "essence": 5
+  },
+  {
+    "name": "Plain",
+    "skill": 50,
+    "itemLevel": 40,
+    "equipLevel": 20,
+    "ingots": 6,
+    "gold": 250,
+    "essence": 8
+  },
+  {
+    "name": "Solid",
+    "skill": 70,
+    "itemLevel": 60,
+    "equipLevel": 40,
+    "ingots": 8,
+    "gold": 500,
+    "essence": 10
+  },
+  {
+    "name": "Elegant",
+    "skill": 90,
+    "itemLevel": 80,
+    "equipLevel": 60,
+    "ingots": 10,
+    "gold": 750,
+    "essence": 15
+  },
+  {
+    "name": "Fancy",
+    "skill": 110,
+    "itemLevel": 99,
+    "equipLevel": 80,
+    "ingots": 12,
+    "gold": 1000,
+    "essence": 20
+  }
+]

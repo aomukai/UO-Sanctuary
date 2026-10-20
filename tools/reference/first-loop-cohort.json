@@ -413,6 +413,13 @@
       "consumer": "src/Sanctuary.Content/CreatureGold.cs#GoldFind",
       "scope": "Working equipped numeric bonuses add to saved gold-material bonuses at death; increase corpse gold amount only.",
       "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "mag%",
+      "unit": "percent",
+      "consumer": "src/Sanctuary.Content/GearDrops.cs#MagicFind",
+      "scope": "Working equipped numeric affixes and saved gold-armour material rolls are snapshotted at death. Source item-quality checks use MF without changing treasure/base selection; unsupported Set/Unique outcomes remain empty.",
+      "status": "consumer-and-generation-guard-enabled"
     }
   ],
   "affixQueryItemLevels": [

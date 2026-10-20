@@ -28,6 +28,7 @@ public static class CraftTransactions
         public BaseTool Tool { get; } = tool;
         public int Hue { get; } = hue;
         public NetState Connection { get; } = owner.NetState;
+        public ProfessionState Profession { get; } = ClassProfessions.Profiles.Find(owner);
         public bool Claimed { get; set; }
         public EquipmentCrafting.Work Equipment { get; set; }
     }
@@ -67,6 +68,8 @@ public static class CraftTransactions
                 list.Add(1060658, $"{"Quality"}\t{QualityName(state.Quality)}");
                 if (state.Crafted) { list.Add(1060659, $"{"Tool use saving"}\t{Settings.SaveChancePercent}%"); }
             }
+            if (ClassProfessions.Enabled && tool is TinkerTools)
+            { list.Add(1060660, $"{"Socket success bonus"}\t+{TinkeringSockets.ToolBonus(tool)} percentage points"); }
         };
         EventSink.WorldSave += Profiles.Prune;
     }
@@ -126,12 +129,12 @@ public static class CraftTransactions
             && (random ?? Random.Shared).Next(100) < Settings.SaveChancePercent) { return; }
         tool.UsesRemaining--;
     }
-    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType));
+    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll));
     internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
     {
         if (!Managed(from, recipe)) { return null; }
         var ticket = new Request(from, system, recipe, material, tool, hue);
-        if (EquipmentCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
+        if (EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
         return ticket;
     }
     private static bool Handle(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue, object ticket)
@@ -146,7 +149,9 @@ public static class CraftTransactions
     {
         var from = request.Owner; var tool = request.Tool; var recipe = request.Recipe; var system = request.System;
         return !(!ClassProfessions.Affected(from) || !ClassProfessions.Ready(from)
-            || !ReferenceEquals(from.NetState, request.Connection) || !ClassProfessions.Active(from, system.MainSkill)
+            || !ReferenceEquals(from.NetState, request.Connection)
+            || !ReferenceEquals(ClassProfessions.Profiles.Find(from), request.Profession)
+            || !ClassProfessions.Active(from, system.MainSkill)
             || tool is not { Deleted: false, UsesRemaining: > 0 } || tool.CraftSystem != system
             || !(tool.IsChildOf(from.Backpack) || tool.Parent == from)
             || !CraftFacilities.AllowsRecipe(from, system.MainSkill, recipe.ItemType)
@@ -155,7 +160,7 @@ public static class CraftTransactions
     }
     internal static bool Complete(Request request, Random random = null)
     {
-        if (EquipmentCrafting.IsOutput(request.Recipe.ItemType)) { return EquipmentCrafting.Complete(request, random); }
+        if (EquipmentCrafting.IsOutput(request.Recipe.ItemType) || JewelleryCrafting.IsOutput(request.Recipe.ItemType)) { return EquipmentCrafting.Complete(request, random); }
         if (request.Claimed) { return false; }
         request.Claimed = true;
         var from = request.Owner;
@@ -163,13 +168,15 @@ public static class CraftTransactions
         var recipe = request.Recipe;
         var system = request.System;
         if (!Valid(request)) { return false; }
+        bool scroll = recipe.ItemType == typeof(IdentifyScroll);
+        if (scroll && (!ReferenceEquals(recipe, Identification.Recipe) || system != DefInscription.CraftSystem || tool is not ScribesPen)) { return false; }
         double chance = recipe.GetSuccessChance(from, request.Material, system, false, out bool allSkills);
         if (!allSkills || chance <= 0) { return false; }
         int hue = 0, amount = 0;
         TextDefinition message = null;
         if (!recipe.ConsumeSelectedResources(from, request.Material, system, request.Hue, ref hue, ref amount,
                 ConsumeType.None, ref message) || !recipe.ConsumeAttributes(from, ref message, false)) { return false; }
-        var output = ItemOrigins.Create(ItemOrigin.Crafted, () => recipe.ItemType.CreateInstance<BaseTool>());
+        var output = ItemOrigins.Create(ItemOrigin.Crafted, () => recipe.ItemType.CreateInstance<Item>());
         if (output == null) { return false; }
         if (from.TotalWeight + output.PileWeight > from.MaxWeight || !from.Backpack.CheckHold(from, output, false))
         {
@@ -194,11 +201,13 @@ public static class CraftTransactions
             foreach (var skill in recipe.Skills)
             { if (skill.SkillToMake == system.MainSkill) { required = skill.MinSkill; } }
             var quality = Quality(from.Skills[system.MainSkill].Base, required, random.Next(100));
-            FinishTool(output, from, quality);
+            if (output is BaseTool craftedTool) { FinishTool(craftedTool, from, quality); }
+            else { output.PlayerConstructed = true; }
             output.Hue = hue;
             from.Backpack.DropItem(output);
-            from.SendMessage($"You crafted {QualityName(quality)} {output.DefaultName ?? output.GetType().Name}.");
-            endQuality = quality == CraftQuality.Average ? 1 : 2;
+            if (scroll) { from.SendMessage("You crafted an Identify scroll."); }
+            else { from.SendMessage($"You crafted {QualityName(quality)} {output.DefaultName ?? output.GetType().Name}."); }
+            endQuality = scroll || quality == CraftQuality.Average ? 1 : 2;
         }
         else { output.Delete(); }
         recipe.GetSuccessChance(from, request.Material, system, true, out _);

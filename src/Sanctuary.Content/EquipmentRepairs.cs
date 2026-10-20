@@ -123,7 +123,8 @@ public static class EquipmentRepairs
         && item is { Deleted: false, Movable: true, Amount: 1, IsLockedDown: false, IsSecure: false }
         && item.IsChildOf(player.Backpack) && item.IsAccessibleTo(player) && item.VerifyMove(player)
         && (item.BlessedFor == null || item.BlessedFor == player)
-        && (ClassGear.Converted(item) || item is BaseWand) && !ClassGear.CosmeticClothing(item);
+        && (ClassGear.Converted(item) || item is BaseWand) && !ClassGear.CosmeticClothing(item)
+        && ClassGear.State(item) is not { Identified: false };
     private static bool ToolReady(PlayerMobile player, BaseTool tool, SkillName skill)
     {
         if (!RepairTool(tool) || tool is not { Deleted: false, UsesRemaining: > 0 } || tool.CraftSystem.MainSkill != skill

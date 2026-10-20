@@ -1,0 +1,57 @@
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -89,7 +89,8 @@
+     SanctuarySkeleton = 0x00002000,
+     SanctuaryZombie = 0x00004000,
+     SanctuaryNoRewards = 0x00008000,
+-    SanctuaryConsumed = 0x00010000
++    SanctuaryConsumed = 0x00010000,
++    SanctuaryDeathCharged = 0x00020000
+ }
+ 
+ [SerializationGenerator(19, false)]
+@@ -412,6 +413,12 @@
+     {
+         get => GetFlag(CorpseFlag.SanctuaryConsumed);
+         set => SetFlag(CorpseFlag.SanctuaryConsumed, value);
++    }
++
++    public bool SanctuaryDeathCharged
++    {
++        get => GetFlag(CorpseFlag.SanctuaryDeathCharged);
++        set => SetFlag(CorpseFlag.SanctuaryDeathCharged, value);
+     }
+ 
+     public bool SanctuaryNoRewards
+@@ -672,9 +679,19 @@
+ 
+         owner.Corpse = c;
+ 
++        if (owner is PlayerMobile player)
++        {
++            ClassCombatHooks.PlayerCorpseCreated?.Invoke(player, c);
++        }
++
+         for (var i = 0; i < initialContent.Count; ++i)
+         {
+             var item = initialContent[i];
++
++            if (item.Deleted)
++            {
++                continue;
++            }
+ 
+             if (Core.AOS && owner.Player && item.Parent == owner.Backpack)
+             {
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -10,6 +10,7 @@
+     public static Action<PlayerMobile> ResumeMinions { get; set; }
+     public static Func<Mobile, Mobile, bool> Friendly { get; set; }
+     public static Action<PlayerMobile, Container> PlayerDied { get; set; }
++    public static Action<PlayerMobile, Corpse> PlayerCorpseCreated { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
+     public static Func<PlayerMobile, int, int> RunningDelay { get; set; }

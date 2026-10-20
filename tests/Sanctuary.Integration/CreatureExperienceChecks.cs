@@ -213,7 +213,8 @@ public static class CreatureExperienceChecks
             && CreatureProfiles.Experience(dragon, MonsterDifficulty.Nightmare) == 13057
             && CreatureProfiles.Snapshot(dragon, MonsterDifficulty.Hell).Level == 84
             && CreatureProfiles.Experience(dragon, MonsterDifficulty.Hell) == 64786
-            && !CreatureProfiles.Variant(dragon, MonsterDifficulty.Hell).Enabled,
+            && CreatureProfiles.Variant(dragon, MonsterDifficulty.Hell).Enabled
+            && MonsterVariants.Difficulty(dragon) == MonsterDifficulty.Normal && !CreatureProfiles.For(dragon).ApplyStats,
             "Prepared difficulty rewards mixed percentages, levels or active world difficulty");
         var pet = At(new Skeleton { Controlled = true, ControlMaster = player });
         Kill(dragon, pet);

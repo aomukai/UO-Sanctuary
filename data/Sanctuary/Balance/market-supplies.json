@@ -468,5 +468,15 @@
     "SellPrice": 1,
     "Kind": null,
     "Tier": 0
+  },
+  {
+    "Roles": [
+      "Scribe"
+    ],
+    "Type": "IdentifyScroll",
+    "Price": 80,
+    "SellPrice": 0,
+    "Kind": null,
+    "Tier": 0
   }
 ]

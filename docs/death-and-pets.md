@@ -45,7 +45,7 @@ A consumed monster corpse is unavailable to both player summoning and lich resur
 
 Seren, the free, invulnerable healer at **1380, 1504, Felucca**, stands west of the Britain graveyard. Walk a ghost within four tiles to receive the normal resurrection prompt. Class characters return with full life, including resurrection routes that normally apply a partial-life scalar. Existing non-class characters retain their original resurrection behavior.
 
-Death destroys a percentage of carried gold equal to the character level, capped at 20%; bank gold is safe. This adapts the [Diablo II gold penalty](https://classic.battle.net/diablo2exp/basics/characters.shtml) to our corpse recovery loop. Remaining carried gold stays recoverable. There is no XP penalty.
+Death destroys **20% of backpack-carried gold at every level**, rounded down once across all stacks, including nested bags and protected gold. Bank gold and older corpses are excluded. A saved corpse claim prevents duplicate charges, including after resurrection, reconnect or restart. Remaining carried gold follows normal recovery, and there is no XP penalty. See [T13](t13-death-gold.md) for rounding, stack handling and verification.
 
 After resurrection, single-click your own corpse within two tiles. Original equipment is re-equipped where requirements and free equipment slots permit, then remaining contents transfer into your backpack. Weight and capacity restrictions leave excess items in the corpse and allow another attempt later. New equipment already worn is not replaced. The temporary resurrection robe is removed after original equipment is restored.
 

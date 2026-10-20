@@ -1,0 +1,37 @@
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -20,6 +20,7 @@
+     public static Func<BaseWeapon, IPropertyList, bool> WeaponSpeedProperties { get; set; }
+     public static Action<Dagger, IPropertyList> DaggerProperties { get; set; }
+     public static Func<PlayerMobile, bool> MovementAllowed { get; set; }
++    public static Func<BaseCreature, int, int, int, int, int, int, int?> CreatureResistedDamage { get; set; }
+     public static Func<BaseCreature, int> CreatureRecoveryRemaining { get; set; }
+     public static Action<BaseCreature, Mobile, int, bool> CreatureDamaged { get; set; }
+     public static Action<PlayerMobile, Direction> Moved { get; set; }
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -138,6 +138,13 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
++                var projectResistance = m is BaseCreature profileTarget
++                    ? ClassCombatHooks.CreatureResistedDamage?.Invoke(profileTarget, damage, phys, fire, cold, pois, nrgy)
++                    : null;
++                if (projectResistance.HasValue)
++                {
++                    totalDamage = projectResistance.Value;
++                }
+ 
+                 if (Core.ML)
+                 {
+@@ -151,6 +158,10 @@
+ 
+                 if (totalDamage < 1)
+                 {
++                    if (projectResistance.HasValue)
++                    {
++                        return 0;
++                    }
+                     totalDamage = 1;
+                 }
+             }

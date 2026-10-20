@@ -22,6 +22,7 @@ public sealed class ProfessionProfiles : GenericPersistence
         _profiles[owner.Serial] = new(skill, true);
         return true;
     }
+    internal void Select(Mobile owner, SkillName skill) => _profiles[owner.Serial] = new(skill, true);
     public void Prune()
     {
         var removed = new List<Serial>();

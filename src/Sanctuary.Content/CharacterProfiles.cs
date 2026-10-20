@@ -112,6 +112,36 @@ public sealed class CharacterProfiles : GenericPersistence
         return true;
     }
 
+    internal void ResetAllocatedPoints(PlayerMobile player, CharacterProfile profile)
+    {
+        int hits = player.Hits, mana = player.Mana, stam = player.Stam;
+        using var equipment = Server.Collections.PooledRefList<Item>.Create();
+        foreach (var item in player.Items)
+        {
+            if (item.Layer is not (Layer.Backpack or Layer.Bank or Layer.Hair or Layer.FacialHair or Layer.Mount)
+                && item.Movable) { equipment.Add(item); }
+        }
+        // Keep real gear in the pack even if the reset lowers capacity or equipment requirements fail.
+        foreach (var item in equipment) { player.Backpack.DropItem(item); }
+        _stats.Remove(player.Serial);
+        _ranks.Remove(player.Serial);
+        ClassStats.ApplyBase(player, profile, default);
+        for (int pass = 0; pass < equipment.Count; pass++)
+        {
+            bool changed = false;
+            foreach (var item in equipment)
+            {
+                if (item.Parent == player.Backpack && player.EquipItem(item)) { changed = true; }
+            }
+            if (!changed) { break; }
+        }
+        player.Hits = Math.Min(hits, player.HitsMax);
+        player.Mana = Math.Min(mana, player.ManaMax);
+        player.Stam = Math.Min(stam, player.StamMax);
+        ClassGear.Changed(player);
+        StatNetwork.Send(player);
+    }
+
     public bool AwardExperience(PlayerMobile mobile, int amount)
     {
         if (mobile == null || mobile.Deleted || !mobile.Alive || amount <= 0
@@ -153,6 +183,7 @@ public sealed class CharacterProfiles : GenericPersistence
         if (mobile is PlayerMobile player)
         {
             StatNetwork.Send(player);
+            TownRecognition.Refresh(player);
         }
         return true;
     }

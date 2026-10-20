@@ -12,6 +12,34 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_MOULDS_UI") == "1":
+        from check_mould_ui import exercise as mould_exercise
+        mould_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_SOCKETS_UI") == "1":
+        from check_socket_ui import exercise as socket_exercise
+        socket_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_GEAR_DROPS_UI") == "1":
+        from check_gear_drop_ui import exercise as gear_exercise
+        gear_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_IMBUING_UI") == "1":
+        from check_imbuing_ui import exercise as imbuing_exercise
+        imbuing_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_SALVAGE_UI") == "1":
+        from check_salvage_ui import exercise as salvage_exercise
+        salvage_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_WARDROBE_UI") == "1":
+        from check_wardrobe_ui import exercise as wardrobe_exercise
+        wardrobe_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_RECOGNITION_UI") == "1":
+        from check_recognition_ui import exercise as recognition_exercise
+        recognition_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_REPAIR_UI") == "1":
         from check_repair_ui import exercise as repair_exercise
         repair_exercise(window, click, capture)

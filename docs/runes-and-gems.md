@@ -1,10 +1,10 @@
 # Runes, Runebark and socket gems
 
-Reconciled 19 October 2026 (JST) from [the completed replies](economy-open-questions-replies.md), G01–H09, and [the current specification](crafting.md). These are first-implementation rules, not installed mechanics. Later replies supersede the old 50–120 bark / 50–90 gem thresholds, stat rolling at craft time and universal 1–8% rune assumption.
+Reconciled 19 October 2026 (JST) from [the completed replies](economy-open-questions-replies.md), G01–H09, and [the current specification](crafting.md). These are first-implementation rules; [T20](t20-sockets.md) installs empty-socket creation and [T21](t21-moulds.md) installs collectible known-stat moulds. Rune crafting/insertion and gathering byproducts remain later cards. Later replies supersede the old 50–120 bark / 50–90 gem thresholds, stat rolling at craft time and universal 1–8% rune assumption.
 
 ## Runes and moulds — G01–G09
 
-**The mould now determines the stat.** Crafting no longer chooses a random property: a Crude Mould of the Apprentice or Flawless Mould of Chance produces its corresponding percentage property. Exact property weights and complete mapping still require a catalogue. Flat/binary properties are excluded; no runewords.
+**The mould now determines the stat.** Crafting no longer chooses a random property: a Crude Mould of the Apprentice or Flawless Mould of Chance produces its corresponding percentage property. The [T21 catalogue](t21-moulds.md) defines15 working percentage families with equipment-derived minima and source affix-frequency weights. Flat/binary properties are excluded; no runewords.
 
 | Tier | Mould monster levels | Inscription | New minimum Lumberjacking | Bark consumed | Working tier name |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -28,7 +28,7 @@ Consume one mould, the listed bark quantity and one pen charge. Higher bark subs
 | Unique random boss with minions | 5% |
 | Named dungeon super-unique | 10% |
 
-Previously spent lives cannot reward again; owner credit for pet kills remains. Mould quantity and stat weights are not explicitly specified. The common level-85 roster ceiling must not cap future dungeon content: level 3+ dungeons progress from 60–70 near the entrance through 70–80 and 80–90 to 90–99 near the boss, providing T8 sources.
+Previously spent lives cannot reward again; owner credit for pet kills remains. Confirmed20 October for T21: one mould per successful independent0.1% roll, alongside ordinary loot and unaffected by MF; stat weights sum each applicable Diablo equipment affix row’s frequency once, with aliases grouped semantically. See the [catalogue](t21-moulds.md). The common level-85 roster ceiling must not cap future dungeon content: level 3+ dungeons progress from 60–70 near the entrance through 70–80 and 80–90 to 90–99 near the boss, providing T8 sources.
 
 Filled sockets raise equipment's minimum character level: 1/2/3/4/5 filled require 30/40/50/60/70. Empty sockets add no requirement. Rune/gem identity itself adds none under this design; existing base/affix/attribute requirements still apply.
 
@@ -58,8 +58,8 @@ Native crafted quality sockets (0/1/2 at skill 100+) may survive Imbuing. Any ti
 
 ## Confirmed implementation baseline
 
-The native gem roster has nine families, but no project five-quality socket-gem model. Current native bonus harvesting/ML gems/BarkFragment do not implement the new rules. The client/server prototype has no general project mould, Runebark, rune crafting or socket installation/application system. Reference affixes are broader than currently implemented gear effects; never output an inert advertised stat. Existing player gems remain unchanged until the approved decorative-only migration is implemented.
+The native gem roster has nine families, but no project five-quality socket-gem model. Current native bonus harvesting/ML gems/BarkFragment do not implement the new rules. T21 supplies persistent known-stat moulds through shared reward lives. Runebark, rune crafting and filled-socket installation/application remain future cards. Reference affixes are broader than currently implemented gear effects; never output an inert advertised stat. Existing player gems remain unchanged until the approved decorative-only migration is implemented.
 
 The monster reward lifecycle already suppresses repeated rewards from revived lives. New mould/treasure rewards must share that entitlement while preserving pet-owner credit, and must not depend on positive XP after level penalties. Future 90–99dungeon spawns require extending encounter/profile generation rather than silently altering the existing XP curve.
 
-No gameplay code, catalogs, binaries or live state changed during this documentation reconciliation.
+The original documentation reconciliation changed no gameplay. T20/T21 implementation and deployment are recorded in their linked cards.

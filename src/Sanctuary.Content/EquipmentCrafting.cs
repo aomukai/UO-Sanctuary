@@ -101,9 +101,10 @@ public static class EquipmentCrafting
             ? Math.Max(.01, system.GetChanceAtMin(recipe)) : null;
         TradeSkillHooks.RecipeSelected = (from, system, recipe, tool) =>
         {
-            if (!ClassProfessions.Affected(from) || !IsOutput(recipe.ItemType)) { return true; }
+            if (!ClassProfessions.Affected(from) || !IsOutput(recipe.ItemType) && !JewelleryCrafting.IsOutput(recipe.ItemType)) { return true; }
             if (_selections.TryGetValue(recipe, out var selection) && selection.Row.Skill == system.MainSkill) { return true; }
-            if (Craftable(recipe.ItemType)) { from.SendMessage("Use Craft white equipment on the appropriate profession tool for this item."); }
+            if (JewelleryCrafting.IsOutput(recipe.ItemType)) { from.SendMessage("Use Craft white jewellery on tinkers tools."); }
+            else if (Craftable(recipe.ItemType)) { from.SendMessage("Use Craft white equipment on the appropriate profession tool for this item."); }
             else { from.SendMessage("This item has no ordinary equipment recipe in the current recipe book."); }
             return false;
         };
@@ -129,8 +130,9 @@ public static class EquipmentCrafting
     }
     public static CraftItem Prepare(EquipmentRecipe row, Item material)
     {
-        if (Array.IndexOf(Recipes, row) < 0 || material == null) { return null; }
+        if (Array.IndexOf(Recipes, row) < 0 && !JewelleryCrafting.Contains(row) || material == null) { return null; }
         Type required = Resolve(row.Ingredients[0].Type), selected = material.GetType();
+        if (JewelleryCrafting.Contains(row) && selected != typeof(IronIngot)) { return null; }
         bool allowed = required == typeof(IronIngot) ? material is BaseIngot
             : required == typeof(Board) ? material is Board
             : required == typeof(Leather) ? material is BaseLeather : selected == required;
@@ -204,7 +206,7 @@ public static class EquipmentCrafting
         ticket.Claimed = true;
         var work = ticket.Equipment;
         var from = ticket.Owner;
-        if (work == null || !CraftTransactions.Valid(ticket) || !Supports(ticket.Tool) || !MaterialProcessing.ToolValid(from, ticket.Tool)
+        if (work == null || !CraftTransactions.Valid(ticket) || !(Supports(ticket.Tool) || JewelleryCrafting.Contains(work.Row) && ticket.Tool is TinkerTools) || !MaterialProcessing.ToolValid(from, ticket.Tool)
             || !ReferenceEquals(work.ToolParent, ticket.Tool.Parent) || work.Uses != ticket.Tool.UsesRemaining
             || from.Skills[work.Row.Skill].Base < Math.Max(work.Row.RequiredSkill, MaterialSkill(ticket.System, work.Resource))) { return false; }
         int freed = 0, freedWeight = 0;
@@ -246,7 +248,8 @@ public static class EquipmentCrafting
         if (success)
         {
             quality = CraftTransactions.Quality(from.Skills[work.Row.Skill].Base, work.Row.RequiredSkill, random.Next(100));
-            Finish(output, from, work.Row, work.Resource, ticket.Hue, quality, random);
+            if (JewelleryCrafting.Contains(work.Row)) { JewelleryCrafting.Finish(output, work.Row, quality, random); }
+            else { Finish(output, from, work.Row, work.Resource, ticket.Hue, quality, random); }
             from.Backpack.DropItem(output);
             from.SendMessage($"You crafted {CraftTransactions.QualityName(quality)} {work.Row.Tier} {work.Row.Name}.");
         }
@@ -320,7 +323,9 @@ public static class EquipmentCrafting
         if (state.MaterialRolls == null || state.MaterialRolls.Length > 2
             || state.DurabilityPercent != 0 && state.DurabilityPercent is < 10 or > 20) { return false; }
         if (!state.CraftedEquipment)
-        { return state.DurabilityPercent == 0 && state.MaterialRolls.Length == 0 && (state.Tier == GearTier.Normal || item.Origin == ItemOrigin.Vendor); }
+        { return state.DurabilityPercent == 0 && state.MaterialRolls.Length == 0
+            && (state.Tier == GearTier.Normal || item.Origin is ItemOrigin.Vendor or ItemOrigin.Drop); }
+        if (JewelleryCrafting.IsOutput(item.GetType())) { return JewelleryCrafting.Valid(item, state); }
         if (!Craftable(item.GetType())) { return false; }
         var native = GearDetails.Read(item);
         var resource = native.Resource;

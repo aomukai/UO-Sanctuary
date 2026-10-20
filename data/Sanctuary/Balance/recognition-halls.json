@@ -1,0 +1,200 @@
+[
+  {
+    "Id": "Felucca/Vesper",
+    "Town": "Vesper",
+    "Map": "Felucca",
+    "X": 2848,
+    "Y": 929,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Vesper",
+    "Town": "Vesper",
+    "Map": "Trammel",
+    "X": 2848,
+    "Y": 929,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Nujel'm",
+    "Town": "Nujel'm",
+    "Map": "Felucca",
+    "X": 3776,
+    "Y": 1196,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Nujel'm",
+    "Town": "Nujel'm",
+    "Map": "Trammel",
+    "X": 3776,
+    "Y": 1196,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Magincia",
+    "Town": "Magincia",
+    "Map": "Felucca",
+    "X": 3720,
+    "Y": 2184,
+    "Z": 20,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Magincia",
+    "Town": "Magincia",
+    "Map": "Trammel",
+    "X": 3720,
+    "Y": 2184,
+    "Z": 20,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Moonglow",
+    "Town": "Moonglow",
+    "Map": "Felucca",
+    "X": 4477,
+    "Y": 1130,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Moonglow",
+    "Town": "Moonglow",
+    "Map": "Trammel",
+    "X": 4477,
+    "Y": 1130,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Yew",
+    "Town": "Yew",
+    "Map": "Felucca",
+    "X": 616,
+    "Y": 984,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Yew",
+    "Town": "Yew",
+    "Map": "Trammel",
+    "X": 616,
+    "Y": 984,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Skara Brae",
+    "Town": "Skara Brae",
+    "Map": "Felucca",
+    "X": 576,
+    "Y": 2209,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016258 Skara Brae Town Hall"
+  },
+  {
+    "Id": "Trammel/Skara Brae",
+    "Town": "Skara Brae",
+    "Map": "Trammel",
+    "X": 576,
+    "Y": 2209,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016258 Skara Brae Town Hall"
+  },
+  {
+    "Id": "Felucca/Jhelom",
+    "Town": "Jhelom",
+    "Map": "Felucca",
+    "X": 1425,
+    "Y": 3704,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Jhelom",
+    "Town": "Jhelom",
+    "Map": "Trammel",
+    "X": 1425,
+    "Y": 3704,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Britain",
+    "Town": "Britain",
+    "Map": "Felucca",
+    "X": 1634,
+    "Y": 1673,
+    "Z": 26,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Britain",
+    "Town": "Britain",
+    "Map": "Trammel",
+    "X": 1634,
+    "Y": 1673,
+    "Z": 26,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Serpent's Hold",
+    "Town": "Serpent's Hold",
+    "Map": "Felucca",
+    "X": 2968,
+    "Y": 3367,
+    "Z": 15,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Serpent's Hold",
+    "Town": "Serpent's Hold",
+    "Map": "Trammel",
+    "X": 2968,
+    "Y": 3367,
+    "Z": 15,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Trinsic",
+    "Town": "Trinsic",
+    "Map": "Felucca",
+    "X": 1896,
+    "Y": 2842,
+    "Z": 20,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Trammel/Trinsic",
+    "Town": "Trinsic",
+    "Map": "Trammel",
+    "X": 1896,
+    "Y": 2842,
+    "Z": 20,
+    "Source": "ModernUO Data/signs.cfg: 1016091 Counselor's Guild; civic recognition office"
+  },
+  {
+    "Id": "Felucca/Minoc",
+    "Town": "Minoc",
+    "Map": "Felucca",
+    "X": 2428,
+    "Y": 536,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016181 Minoc Town Hall"
+  },
+  {
+    "Id": "Trammel/Minoc",
+    "Town": "Minoc",
+    "Map": "Trammel",
+    "X": 2428,
+    "Y": 536,
+    "Z": 0,
+    "Source": "ModernUO Data/signs.cfg: 1016181 Minoc Town Hall"
+  }
+]

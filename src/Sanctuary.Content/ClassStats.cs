@@ -197,6 +197,6 @@ public static class ClassStats
             profile.Level, AttackRating(player), Defense(player), damage.Min, damage.Max, CombatTiming.Ias(player), CombatTiming.Fcr(player),
             basis.LifeVitality4, basis.ManaEnergy4, basis.StaminaVitality4, (int)profile.Class,
             basis.LifeLevel4, basis.ManaLevel4, basis.StaminaLevel4, ClassCreation.Profiles.AvailablePoints(player.Serial),
-            EquipmentBalance.RunPenalty(player), ClassGear.RunBonus(player)];
+            EquipmentBalance.RunPenalty(player), ClassGear.RunBonus(player), GearDrops.MagicFind(player)];
     }
 }

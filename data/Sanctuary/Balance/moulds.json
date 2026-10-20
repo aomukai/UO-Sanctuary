@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "45112569deb9384738ccafe5c24ebbb71f41c7c9",
+  "dropDenominator": 10000,
+  "ordinaryTickets": 10,
+  "quantity": 1,
+  "magicFindAffects": false,
+  "selection": "SumMappedEquipmentAffixFrequencies",
+  "inputHashes": {
+    "affixes": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
+    "item-types": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
+    "normal-bases": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
+    "equipment-tier-bases": "fae7408453cdcc905f605283e6d04f68cdce5e0f23b826b53649c3a7751d32e0",
+    "gear-drops": "c4149644bcbc473f0dd66af25843fa828b48c315c75ba161b73ffb4f75873f9f"
+  },
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Crude",
+      "minimumLevel": 20,
+      "maximumLevel": 29
+    },
+    {
+      "tier": 2,
+      "name": "Rough",
+      "minimumLevel": 30,
+      "maximumLevel": 39
+    },
+    {
+      "tier": 3,
+      "name": "Shaped",
+      "minimumLevel": 40,
+      "maximumLevel": 49
+    },
+    {
+      "tier": 4,
+      "name": "Etched",
+      "minimumLevel": 50,
+      "maximumLevel": 59
+    },
+    {
+      "tier": 5,
+      "name": "Refined",
+      "minimumLevel": 60,
+      "maximumLevel": 69
+    },
+    {
+      "tier": 6,
+      "name": "Polished",
+      "minimumLevel": 70,
+      "maximumLevel": 79
+    },
+    {
+      "tier": 7,
+      "name": "Flawless",
+      "minimumLevel": 80,
+      "maximumLevel": 89
+    },
+    {
+      "tier": 8,
+      "name": "Perfect",
+      "minimumLevel": 90,
+      "maximumLevel": 99
+    }
+  ],
+  "stats": [
+    {
+      "id": "enhanced-defense",
+      "label": "Enhanced defense",
+      "code": "ac%",
+      "aliases": [
+        "ac%"
+      ],
+      "baseline": 10,
+      "weight": 58,
+      "sourceAffix": "MagicPrefix:143",
+      "affixName": "Sturdy",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:143",
+        "MagicPrefix:144",
+        "MagicPrefix:145",
+        "MagicPrefix:146",
+        "MagicPrefix:147",
+        "MagicPrefix:148",
+        "MagicPrefix:149",
+        "MagicPrefix:150",
+        "MagicPrefix:668"
+      ]
+    },
+    {
+      "id": "enhanced-damage",
+      "label": "Enhanced physical damage",
+      "code": "dmg%",
+      "aliases": [
+        "dmg%"
+      ],
+      "baseline": 10,
+      "weight": 127,
+      "sourceAffix": "MagicPrefix:186",
+      "affixName": "Jagged",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:186",
+        "MagicPrefix:187",
+        "MagicPrefix:188",
+        "MagicPrefix:189",
+        "MagicPrefix:190",
+        "MagicPrefix:191",
+        "MagicPrefix:192",
+        "MagicPrefix:193",
+        "MagicPrefix:194",
+        "MagicPrefix:257",
+        "MagicPrefix:258",
+        "MagicPrefix:259",
+        "MagicPrefix:260",
+        "MagicPrefix:261",
+        "MagicPrefix:262",
+        "MagicPrefix:263",
+        "MagicPrefix:264",
+        "MagicPrefix:265",
+        "MagicPrefix:669"
+      ]
+    },
+    {
+      "id": "attack-rating",
+      "label": "Attack rating",
+      "code": "att%",
+      "aliases": [
+        "att%"
+      ],
+      "baseline": 5,
+      "weight": 1,
+      "sourceAffix": "MagicSuffix:312",
+      "affixName": "of the Sun",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:312"
+      ]
+    },
+    {
+      "id": "all-resistance",
+      "label": "All resistances",
+      "code": "res-all",
+      "aliases": [
+        "res-all"
+      ],
+      "baseline": 3,
+      "weight": 52,
+      "sourceAffix": "MagicPrefix:323",
+      "affixName": "Shimmering",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:323",
+        "MagicPrefix:324",
+        "MagicPrefix:325",
+        "MagicPrefix:326",
+        "MagicPrefix:327",
+        "MagicPrefix:328",
+        "MagicPrefix:329",
+        "MagicPrefix:330",
+        "MagicPrefix:331",
+        "MagicPrefix:332",
+        "MagicPrefix:333",
+        "MagicPrefix:334",
+        "MagicPrefix:335"
+      ]
+    },
+    {
+      "id": "fire-resistance",
+      "label": "Fire resistance",
+      "code": "res-fire",
+      "aliases": [
+        "res-fire"
+      ],
+      "baseline": 5,
+      "weight": 19,
+      "sourceAffix": "MagicPrefix:665",
+      "affixName": "Crimson",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:370",
+        "MagicPrefix:371",
+        "MagicPrefix:372",
+        "MagicPrefix:373",
+        "MagicPrefix:374",
+        "MagicPrefix:601",
+        "MagicPrefix:665"
+      ]
+    },
+    {
+      "id": "cold-resistance",
+      "label": "Cold resistance",
+      "code": "res-cold",
+      "aliases": [
+        "res-cold"
+      ],
+      "baseline": 5,
+      "weight": 19,
+      "sourceAffix": "MagicPrefix:664",
+      "affixName": "Azure",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:350",
+        "MagicPrefix:351",
+        "MagicPrefix:352",
+        "MagicPrefix:353",
+        "MagicPrefix:354",
+        "MagicPrefix:355",
+        "MagicPrefix:664"
+      ]
+    },
+    {
+      "id": "lightning-resistance",
+      "label": "Lightning resistance",
+      "code": "res-ltng",
+      "aliases": [
+        "res-ltng"
+      ],
+      "baseline": 5,
+      "weight": 19,
+      "sourceAffix": "MagicPrefix:666",
+      "affixName": "Tangerine",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:389",
+        "MagicPrefix:390",
+        "MagicPrefix:391",
+        "MagicPrefix:392",
+        "MagicPrefix:393",
+        "MagicPrefix:394",
+        "MagicPrefix:666"
+      ]
+    },
+    {
+      "id": "poison-resistance",
+      "label": "Poison resistance",
+      "code": "res-pois",
+      "aliases": [
+        "res-pois"
+      ],
+      "baseline": 5,
+      "weight": 19,
+      "sourceAffix": "MagicPrefix:667",
+      "affixName": "Beryl",
+      "affixKind": "Prefix",
+      "weightAffixes": [
+        "MagicPrefix:409",
+        "MagicPrefix:410",
+        "MagicPrefix:411",
+        "MagicPrefix:412",
+        "MagicPrefix:413",
+        "MagicPrefix:414",
+        "MagicPrefix:667"
+      ]
+    },
+    {
+      "id": "attack-speed",
+      "label": "Increased attack speed",
+      "code": "swing1",
+      "aliases": [
+        "swing1",
+        "swing2",
+        "swing3"
+      ],
+      "baseline": 10,
+      "weight": 29,
+      "sourceAffix": "MagicSuffix:166",
+      "affixName": "of Readiness",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:166",
+        "MagicSuffix:167",
+        "MagicSuffix:168",
+        "MagicSuffix:169",
+        "MagicSuffix:170",
+        "MagicSuffix:675"
+      ]
+    },
+    {
+      "id": "cast-rate",
+      "label": "Faster cast rate",
+      "code": "cast1",
+      "aliases": [
+        "cast1",
+        "cast2",
+        "cast3"
+      ],
+      "baseline": 10,
+      "weight": 11,
+      "sourceAffix": "MagicSuffix:174",
+      "affixName": "of the Apprentice",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:174",
+        "MagicSuffix:175"
+      ]
+    },
+    {
+      "id": "run-walk",
+      "label": "Faster run/walk",
+      "code": "move1",
+      "aliases": [
+        "move1",
+        "move2",
+        "move3"
+      ],
+      "baseline": 10,
+      "weight": 19,
+      "sourceAffix": "MagicSuffix:394",
+      "affixName": "of Pacing",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:394",
+        "MagicSuffix:395",
+        "MagicSuffix:396",
+        "MagicSuffix:397",
+        "MagicSuffix:398"
+      ]
+    },
+    {
+      "id": "block-chance",
+      "label": "Chance to block",
+      "code": "block",
+      "aliases": [
+        "block"
+      ],
+      "baseline": 10,
+      "weight": 13,
+      "sourceAffix": "MagicSuffix:172",
+      "affixName": "of Blocking",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:172",
+        "MagicSuffix:173"
+      ]
+    },
+    {
+      "id": "hit-recovery",
+      "label": "Faster hit recovery",
+      "code": "balance1",
+      "aliases": [
+        "balance1",
+        "balance2",
+        "balance3"
+      ],
+      "baseline": 10,
+      "weight": 12,
+      "sourceAffix": "MagicSuffix:262",
+      "affixName": "of Balance",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:262",
+        "MagicSuffix:263",
+        "MagicSuffix:264"
+      ]
+    },
+    {
+      "id": "gold-find",
+      "label": "Extra gold from monsters",
+      "code": "gold%",
+      "aliases": [
+        "gold%"
+      ],
+      "baseline": 25,
+      "weight": 8,
+      "sourceAffix": "MagicSuffix:277",
+      "affixName": "of Greed",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicSuffix:277",
+        "MagicSuffix:278"
+      ]
+    },
+    {
+      "id": "magic-find",
+      "label": "Better chance of finding magic items",
+      "code": "mag%",
+      "aliases": [
+        "mag%"
+      ],
+      "baseline": 5,
+      "weight": 24,
+      "sourceAffix": "MagicSuffix:286",
+      "affixName": "of Chance",
+      "affixKind": "Suffix",
+      "weightAffixes": [
+        "MagicPrefix:281",
+        "MagicPrefix:282",
+        "MagicSuffix:286",
+        "MagicSuffix:287",
+        "MagicSuffix:288",
+        "MagicSuffix:289"
+      ]
+    }
+  ]
+}

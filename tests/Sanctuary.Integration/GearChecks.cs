@@ -39,7 +39,7 @@ public static class GearChecks
     {
         for (int seed = 0; seed < 2000; seed++)
         {
-            var state = ClassGear.Profiles.FromMonster(item, 99, GearRarity.Magic, new Random(seed));
+            var state = ClassGear.Profiles.Convert(item, 99, GearRarity.Magic, new Random(seed));
             if (state.Roll.Affixes.Any(a => a.Modifiers.Any(m => m.Code == code)))
             {
                 return state;

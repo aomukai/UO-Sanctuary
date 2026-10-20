@@ -2,7 +2,7 @@
 
 18 October 2026. Generated review view of the authored `creature-reward-rules.json` assignments and resolved `creature-rewards.json` values. All 730 common creature types have an explicit policy: **324 reward-bearing types and 406 exclusions**, including the four project types. [Runtime contract, sources and verification](creature-experience.md).
 
-Values are base players-1 XP before player-level penalties. Normal / Nightmare / Hell columns are `level : XP`. Only Normal is live. Counterparts and level adjustments are project balance choices, not a claim of identical abilities. Named advanced ordinary encounters have authored levels but no act-boss, unique or champion XP multiplier. Champion/peerless encounters are explicitly reserved below.
+Values are base players-1 XP before player-level penalties. Normal / Nightmare / Hell columns are `level : XP`. Existing populations remain Normal; [persistent Nightmare/Hell variants](t19-difficulties.md) are available for explicit spawning, with world placement deferred. Counterparts and level adjustments are project balance choices, not a claim of identical abilities. Named advanced ordinary encounters have authored levels but no act-boss, unique or champion XP multiplier. Champion/peerless encounters are explicitly reserved below.
 
 | UO types | D2 source ID | Normal | Nightmare | Hell | Reason |
 | --- | --- | ---: | ---: | ---: | --- |

@@ -31,6 +31,8 @@ public static class WorkingBaselineChecks
                             Profile = ClassCreation.Profiles.TryGet(p.Serial, out var profile) ? profile : null,
                             Profession = ClassProfessions.Affected(p) ? ClassProfessions.Profiles.Find(p) : null,
                             Allocation = ClassCreation.Profiles.Stats(p.Serial),
+                            Recognition = TownRecognition.Profiles.Find(p),
+                            p.RawStr, p.RawDex, p.RawInt,
                             SkillsCap = p.Skills.Cap,
                             Skills = Enumerable.Range(0, p.Skills.Length).Select(id => p.Skills[id]).Select(s => new
                             {
@@ -48,12 +50,15 @@ public static class WorkingBaselineChecks
                                     Log log => (int)log.Resource, Board board => (int)board.Resource, BaseHides hides => (int)hides.Resource,
                                     BaseLeather leather => (int)leather.Resource, _ => null }
                             }).ToArray(),
+                        Gold = World.Items.Values.OfType<Gold>().OrderBy(i => i.Serial.Value)
+                            .Select(i => new { Serial = i.Serial.Value, i.Amount, i.Origin,
+                                Parent = i.Parent is IEntity entity ? entity.Serial.Value : 0 }).ToArray(),
                         Origins = World.Items.Values.GroupBy(i => i.Origin).OrderBy(g => g.Key)
                             .Select(g => new { Origin = g.Key.ToString(), Count = g.Count() }).ToArray(),
                         Gear = World.Items.Values.Where(i => ClassGear.State(i) != null).OrderBy(i => i.Serial.Value)
                             .Select(i => new { Serial = i.Serial.Value, Origin = i.Origin.ToString(), State = ClassGear.State(i) }).ToArray(),
                         Corpses = World.Items.Values.OfType<Corpse>().OrderBy(i => i.Serial.Value)
-                            .Select(c => new { Serial = c.Serial.Value, c.SanctuaryNoRewards }).ToArray(),
+                            .Select(c => new { Serial = c.Serial.Value, c.SanctuaryNoRewards, c.SanctuaryDeathCharged }).ToArray(),
                         Raised = World.Mobiles.Values.OfType<GraveyardUndead>().Where(m => m.Raised).OrderBy(m => m.Serial.Value)
                             .Select(m => new { Serial = m.Serial.Value, m.NoKillAwards }).ToArray()
                     };

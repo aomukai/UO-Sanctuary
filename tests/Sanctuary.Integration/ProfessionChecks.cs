@@ -244,7 +244,9 @@ public static class ProfessionChecks
             == EnhanceResult.None, "Inactive enhancement was permitted");
         var white = new Longsword(); player.Backpack.DropItem(white);
         Require(EquipmentEconomy.Quote(player, white, EssenceAction.Imbue) == null, "Prototype Imbuing bypassed activation");
+        var salvageHammer = new SmithHammer(); player.Backpack.DropItem(salvageHammer);
         Require(EquipmentEconomy.Quote(player, white, EssenceAction.Salvage) != null, "Salvage was craft-locked");
+        salvageHammer.Delete();
         var logs = new Log(5); player.Backpack.DropItem(logs);
         Require(logs.Axe(player, null) && player.Backpack.GetAmount(typeof(Board)) == 5,
             "Basic board processing required selected Carpentry");

@@ -1,0 +1,17 @@
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassStatusPanel.cs
+@@ -54,11 +54,11 @@
+         Tip(124, 154, 69, 24, "Defense Rating. Reduces physical hit chance; disabled while running. Armor contributes defense separately from physical resistance.");
+         int middle = uop ? 240 : 220;
+         Value(middle, 77, 42, () => Get(StatField.Level).ToString());
+-        Value(middle, 105, 42, () => world.Player.Luck.ToString());
++        Value(middle, 105, 42, () => Get(StatField.MagicFind) + "%");
+         Pair(middle - 10, 126, () => world.Player.Weight, () => world.Player.WeightMax);
+         Value(middle, 161, 42, () => Get(StatField.Points).ToString(), hue: 0x35);
+         Tip(uop ? 205 : 188, 70, 65, 24, "Character Level. Each level awards 5 attribute points and 1 talent point.");
+-        Tip(uop ? 205 : 188, 98, 65, 24, "Luck. Existing UO equipment value; Diablo magic find is not implemented yet.");
++        Tip(uop ? 205 : 188, 98, 65, 24, "Magic Find. Working equipped bonuses improve equipment quality. They do not increase drop count or base tier; Rare/Set/Unique checks have diminishing returns.");
+         Tip(uop ? 205 : 188, 126, 65, 24, "Carried Weight / Maximum Weight. Strength increases carrying capacity.");
+         Tip(uop ? 205 : 188, 154, 65, 24, "Unspent attribute points. Click a left-column attribute to spend one point. Earn 5 per level.");
+         int attackX = uop ? 320 : 280;

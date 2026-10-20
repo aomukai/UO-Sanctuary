@@ -44,7 +44,7 @@ public static class CreatureProfileChecks
         var proposal = CreatureProfiles.Snapshot(dragon);
         var hell = CreatureProfiles.Snapshot(dragon, MonsterDifficulty.Hell);
         Require(proposal.Reference == "megademon3" && proposal.Resistances.Fire == 70 && hell.Resistances.Fire == 130
-            && !proposal.Profile.ApplyStats && !hell.Profile.Enabled && ClassStats.Level(dragon) == 30
+            && !proposal.Profile.ApplyStats && hell.Profile.Enabled && hell.Profile.ApplyStats && ClassStats.Level(dragon) == 30
             && CreatureProfiles.Experience(dragon) == 1001 && dragon.FireResistance < 100,
             "Creative dragon proposal leaked disabled stats into the live native creature");
         Require(proposal.Profile.SourceStats.Count == 255 && proposal.Profile.SourceModes.ContainsKey("mGH"),

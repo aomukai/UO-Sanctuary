@@ -272,6 +272,8 @@ public static class ItemStateChecks
     }
     private static void CheckImbuing(PlayerMobile player)
     {
+        player.Skills.Imbuing.Cap = 120; player.Skills.Imbuing.Base = 120;
+        player.Backpack.DropItem(new ImbuingLadle());
         var implicitWhite = new Longsword();
         player.Backpack.DropItem(implicitWhite);
         var unpaid = EquipmentEconomy.Quote(player, implicitWhite, EssenceAction.Imbue);

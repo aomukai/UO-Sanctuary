@@ -35,6 +35,7 @@ public sealed class GearProfiles : GenericPersistence
     public bool BeginStarterMigration(Serial player) => _starterMigrations.Add(player);
     public GearProfiles() : base("SanctuaryEquipment", 110) { }
     public GearState Find(Serial serial) => _items.GetValueOrDefault(serial);
+    internal GearState Preview(Item item) => Find(item.Serial) ?? DefaultState(item);
     public GearState Ensure(Item item)
     {
         if (!ClassGear.Converted(item))
@@ -109,7 +110,29 @@ public sealed class GearProfiles : GenericPersistence
         return state;
     }
     public GearState FromMonster(Item item, int monsterLevel, GearRarity rarity, Random random = null)
-        => Convert(item, monsterLevel, rarity, random);
+    {
+        bool fresh = Find(item.Serial) == null;
+        var state = Convert(item, monsterLevel, rarity, random);
+        if (fresh && item.Origin == ItemOrigin.Drop && rarity is GearRarity.Magic or GearRarity.Rare)
+        {
+            state = state with { Identified = false };
+            Store(item, state);
+        }
+        return state;
+    }
+    public GearState FromMonster(Item item, int monsterLevel, GearRarity rarity, string baseCode, GearTier tier, Random random = null)
+    {
+        if (!ClassGear.Converted(item) || Find(item.Serial) != null || item.Origin != ItemOrigin.Drop
+            || !Enum.IsDefined(tier) || monsterLevel is < 1 or > 99
+            || !EquipmentCrafting.Identity(item.GetType(), tier, baseCode, ClassGear.Definition(item).BaseCode))
+        { throw new ArgumentException("A fresh mapped Drop item and valid base tier/level are required."); }
+        var basis = EquipmentBalance.Base(baseCode); random ??= Random.Shared;
+        var roll = AffixBalance.Roll(basis, monsterLevel, rarity, random, ClassGear.Implemented);
+        roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(tier), roll.RequiredLevel) };
+        var state = new GearState(baseCode, random.Next(basis.MinDefense, basis.MaxDefense + 1), false, roll)
+        { Tier = tier, Identified = rarity == GearRarity.Normal };
+        Store(item, state); return state;
+    }
     internal GearState PrepareImbue(Item item, GearRarity rarity, Random random)
     {
         var basis = ClassGear.Base(item);
@@ -125,8 +148,8 @@ public sealed class GearProfiles : GenericPersistence
         {
             return null;
         }
-        roll = roll with { RequiredLevel = Math.Max(EquipmentCrafting.EquipFloor(before?.Tier ?? GearTier.Normal), roll.RequiredLevel) };
-        var state = (before ?? DefaultState(item)) with { Roll = roll };
+        roll = roll with { RequiredLevel = Math.Max(before?.Roll.RequiredLevel ?? EquipmentCrafting.EquipFloor(GearTier.Normal), roll.RequiredLevel) };
+        var state = (before ?? DefaultState(item)) with { Roll = roll, Identified = true };
         Validate(item, state);
         return state;
     }
@@ -224,7 +247,11 @@ public sealed class GearProfiles : GenericPersistence
             }
         }
         int perKind = state.Roll.Rarity == GearRarity.Magic ? 1 : 3;
-        if (prefixes > perKind || suffixes > perKind || state.Roll.RequiredLevel != requirement)
+        // Jewellery saves its craft-time equip floor in the roll. A later table
+        // edit must not lower it or invalidate existing items when loading.
+        bool savedJewelleryFloor = item is BaseJewel && state.CraftedEquipment;
+        if (prefixes > perKind || suffixes > perKind || (savedJewelleryFloor
+                ? state.Roll.RequiredLevel < requirement || state.Roll.RequiredLevel > 99 : state.Roll.RequiredLevel != requirement))
         {
             throw new InvalidDataException("Invalid affix prefix/suffix budget or required level.");
         }

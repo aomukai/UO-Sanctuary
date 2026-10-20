@@ -18,12 +18,18 @@ public static class BalanceCatalog
         PotionBeltCatalog.Load();
         EquipmentCrafting.Load();
         EquipmentEconomy.Load();
+        TieredImbuing.Load();
+        TinkeringSockets.Load();
+        JewelleryCrafting.Load();
         AffixBalance.Load();
         MonsterBalance.Load();
         CreatureProfiles.Load();
         CreatureGold.Load();
+        GearDrops.Load();
+        MouldRewards.Load();
         TownMarkets.Load();
         EquipmentRepairs.Load();
+        TownRecognition.Load();
     }
     private static JsonSerializerOptions CreateOptions()
     {

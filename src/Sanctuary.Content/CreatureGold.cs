@@ -17,19 +17,48 @@ public sealed record GoldCatalog(string SourceCommit, string Difficulty, int Pla
 
 public static class CreatureGold
 {
-    private static readonly Dictionary<string, GoldPolicy> _policies = new(StringComparer.Ordinal);
+    private static readonly Dictionary<(string, MonsterDifficulty), GoldPolicy> _policies = new();
     private static readonly Dictionary<string, GoldTreasureClass> _classes = new(StringComparer.Ordinal);
-    public static IReadOnlyCollection<GoldPolicy> Policies => _policies.Values;
+    private static readonly List<GoldPolicy> _normalPolicies = new();
+    public static IReadOnlyCollection<GoldPolicy> Policies => _normalPolicies;
+    internal static IEnumerable<string> Leaves
+    {
+        get
+        {
+            foreach (var row in _classes.Values)
+            { foreach (var entry in row.Entries) { if (entry.Nested == null) { yield return entry.Item; } } }
+        }
+    }
+    internal static IEnumerable<string> LeavesFor(MonsterDifficulty difficulty)
+    {
+        var visited = new HashSet<string>();
+        var pending = new Stack<string>();
+        foreach (var ((_, key), policy) in _policies)
+        { if (key == difficulty && !string.IsNullOrEmpty(policy.TreasureClass)) { pending.Push(policy.TreasureClass); } }
+        while (pending.Count > 0)
+        {
+            string name = pending.Pop();
+            if (!visited.Add(name)) { continue; }
+            foreach (var entry in _classes[name].Entries)
+            { if (entry.Nested != null) { pending.Push(entry.Nested); } else { yield return entry.Item; } }
+        }
+    }
     public static void Load()
     {
+        _normalPolicies.Clear();
+        _policies.Clear();
+        _classes.Clear();
+        foreach (var difficulty in Enum.GetValues<MonsterDifficulty>()) { Load(difficulty); }
+    }
+    private static void Load(MonsterDifficulty difficulty)
+    {
+        string suffix = difficulty == MonsterDifficulty.Normal ? "" : "-" + difficulty.ToString().ToLowerInvariant();
         var catalog = JsonSerializer.Deserialize<GoldCatalog>(File.ReadAllText(Path.Join(Core.BaseDirectory,
-            "Data", "Sanctuary", "Balance", "creature-gold.json")), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-        if (catalog is not { Difficulty: "Normal", Players: 1, MaxDrops: 6 })
+            "Data", "Sanctuary", "Balance", "creature-gold" + suffix + ".json")), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        if (catalog is not { Players: 1, MaxDrops: 6 } || catalog.Difficulty != difficulty.ToString())
         {
             throw new InvalidDataException("Unsupported gold source rules.");
         }
-        _policies.Clear();
-        _classes.Clear();
         foreach (var row in catalog.Classes)
         {
             if (row.Picks != 1 || row.NoDrop < 0 || row.Entries is not { Length: > 0 })
@@ -43,7 +72,11 @@ public static class CreatureGold
                     throw new InvalidDataException("Invalid gold treasure entry.");
                 }
             }
-            _classes.Add(row.Name, row);
+            if (_classes.TryGetValue(row.Name, out var existing))
+            {
+                if (JsonSerializer.Serialize(existing) != JsonSerializer.Serialize(row)) { throw new InvalidDataException("Inconsistent shared treasure class."); }
+            }
+            else { _classes.Add(row.Name, row); }
         }
         foreach (var row in catalog.Policies)
         {
@@ -53,15 +86,19 @@ public static class CreatureGold
                 throw new InvalidDataException("Invalid creature gold policy.");
             }
             if (!string.IsNullOrEmpty(row.TreasureClass)) { ValidateTree(row.TreasureClass, new HashSet<string>()); }
-            foreach (string type in row.Types) { _policies.Add(type, row); }
+            foreach (string type in row.Types)
+            {
+                _policies.Add((type, difficulty), row);
+                if (difficulty == MonsterDifficulty.Normal) { _normalPolicies.Add(row); }
+            }
         }
-        if (_policies.Count != CreatureProfiles.All.Count)
+        if (_policies.Count != CreatureProfiles.All.Count * ((int)difficulty + 1))
         {
             throw new InvalidDataException("Incomplete creature gold coverage.");
         }
         foreach (var definition in CreatureProfiles.All)
         {
-            if (!_policies.ContainsKey(definition.Type)) { throw new InvalidDataException($"Missing gold policy: {definition.Type}"); }
+            if (!_policies.ContainsKey((definition.Type, difficulty))) { throw new InvalidDataException($"Missing gold policy: {definition.Type}"); }
         }
     }
     private static void ValidateTree(string name, HashSet<string> path)
@@ -76,15 +113,21 @@ public static class CreatureGold
         }
         path.Remove(name);
     }
-    public static GoldPolicy Policy(Type type) => _policies.GetValueOrDefault(type.FullName);
+    public static GoldPolicy Policy(Type type, MonsterDifficulty difficulty = MonsterDifficulty.Normal) => _policies.GetValueOrDefault((type.FullName, difficulty));
     public static int GoldFind(PlayerMobile player) => Math.Max(0,
         checked(ClassGear.Bonus(player, "gold%") + ClassGear.Material(player, "gold-find")));
-    public static int Roll(Type type, int level, int goldFind, Random random) =>
-        Policy(type) is { Eligible: true } policy ? RollTreasureClass(policy.TreasureClass, level, goldFind, random) : 0;
+    public static int Roll(Type type, int level, int goldFind, Random random, MonsterDifficulty difficulty = MonsterDifficulty.Normal) =>
+        Policy(type, difficulty) is { Eligible: true } policy ? RollTreasureClass(policy.TreasureClass, level, goldFind, random) : 0;
     internal static int RollTreasureClass(string name, int level, int goldFind, Random random)
     {
         if (level is < 1 or > 99 || goldFind < 0) { throw new ArgumentOutOfRangeException(); }
-        // All reachable Normal rows have exactly one pick; nested rows keep their
+        return SelectTreasureClass(name, random) == "gld" ? Amount(level, goldFind, random) : 0;
+    }
+    internal static string Select(Type type, Random random, MonsterDifficulty difficulty = MonsterDifficulty.Normal) => Policy(type, difficulty) is { Eligible: true } policy
+        ? SelectTreasureClass(policy.TreasureClass, random) : null;
+    private static string SelectTreasureClass(string name, Random random)
+    {
+        // All reachable ordinary rows have exactly one pick; nested rows keep their
         // original NoDrop and non-gold weights instead of redistributing them.
         while (!string.IsNullOrEmpty(name))
         {
@@ -92,25 +135,26 @@ public static class CreatureGold
             int total = row.NoDrop;
             foreach (var entry in row.Entries) { total = checked(total + entry.Weight); }
             int choice = random.Next(total) - row.NoDrop;
-            if (choice < 0) { return 0; }
+            if (choice < 0) { return null; }
             GoldEntry selected = null;
             foreach (var entry in row.Entries)
             {
                 choice -= entry.Weight;
                 if (choice < 0) { selected = entry; break; }
             }
-            if (selected.Gold)
-            {
-                int basis = level + random.Next(5 * level);
-                return checked((int)((long)basis * (100L + goldFind) / 100));
-            }
+            if (selected.Nested == null) { return selected.Item; }
             name = selected.Nested;
         }
-        return 0;
+        return null;
+    }
+    private static int Amount(int level, int goldFind, Random random)
+    {
+        int basis = level + random.Next(5 * level);
+        return checked((int)((long)basis * (100L + goldFind) / 100));
     }
     internal static void Award(RewardLife life, Random random)
     {
-        int amount = Roll(life.Creature.GetType(), life.Level, life.GoldFind, random);
+        int amount = Amount(life.Level, life.GoldFind, random);
         while (amount > 0)
         {
             int stack = Math.Min(amount, 60000);

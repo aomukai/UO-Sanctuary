@@ -56,6 +56,10 @@ public static class EquipmentEconomyChecks
         ClassCreation.Profiles.AdvanceLevel(player, 99);
         player.RawStr = 200;
         player.AddItem(new Backpack());
+        player.Skills.Imbuing.Cap = 120; player.Skills.Imbuing.Base = 120;
+        player.Backpack.DropItem(new ImbuingLadle());
+        foreach (var tool in new BaseTool[] { new SmithHammer(), new FletcherTools(), new SewingKit(), new TinkerTools(), new ScribesPen() })
+        { player.Backpack.DropItem(tool); }
         player.MoveToWorld(CombatPractice.FindFloor(Map.Trammel, 5550, 1150), Map.Trammel);
         return player;
     }
