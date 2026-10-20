@@ -48,12 +48,12 @@ public partial class RuneMould : Item
         list.Add($"{"Mould tier: "}{_tier}{" / 8 — "}{_tierName}");
         list.Add($"{"Rune percentages (Average / High / Superior): "}{Percentage(CraftQuality.Average)}{"% / "}{Percentage(CraftQuality.HighQuality)}{"% / "}{Percentage(CraftQuality.Superior)}{"%"}");
         list.Add($"{"Source monster: Level "}{_sourceLevel}{", "}{_difficulty}");
-        list.Add($"{"A single-use pattern for an Inscription rune. Keep it for rune crafting."}");
+        list.Add($"{"Single-use Inscription pattern. Use Craft rune on a scribe’s pen."}");
     }
     public override void OnDoubleClick(Mobile from)
     {
         if (!from.InRange(GetWorldLocation(), 2)) { from.SendLocalizedMessage(500446); return; }
-        from.SendMessage($"This mould declares {_statLabel}. Keep it for rune crafting; no mould or tool is consumed here.");
+        from.SendMessage($"This mould declares {_statLabel}. Use Craft rune on a scribe’s pen at a public desk. Nothing is consumed here.");
     }
     [AfterDeserialization]
     private void ValidateIdentity()

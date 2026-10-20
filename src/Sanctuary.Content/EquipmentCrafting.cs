@@ -96,11 +96,19 @@ public static class EquipmentCrafting
     public static bool Craftable(Type type) => _outputs.Contains(type);
     public static void Configure()
     {
-        TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from)
-            && _selections.TryGetValue(recipe, out var selection) && selection.Row.RequiredSkill == 120
+        TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from) && recipe.ItemType == typeof(SocketGem) ? 1.0
+            : ClassProfessions.Affected(from) && _selections.TryGetValue(recipe, out var selection) && selection.Row.RequiredSkill == 120
             ? Math.Max(.01, system.GetChanceAtMin(recipe)) : null;
         TradeSkillHooks.RecipeSelected = (from, system, recipe, tool) =>
         {
+            if (ClassProfessions.Affected(from))
+            {
+                foreach (var resource in recipe.Resources)
+                {
+                    if (SocketGems.Legacy(resource.ItemType))
+                    { from.SendMessage("Legacy gems are decorative and cannot be consumed by crafting."); return false; }
+                }
+            }
             if (!ClassProfessions.Affected(from) || !IsOutput(recipe.ItemType) && !JewelleryCrafting.IsOutput(recipe.ItemType)) { return true; }
             if (_selections.TryGetValue(recipe, out var selection) && selection.Row.Skill == system.MainSkill) { return true; }
             if (JewelleryCrafting.IsOutput(recipe.ItemType)) { from.SendMessage("Use Craft white jewellery on tinkers tools."); }

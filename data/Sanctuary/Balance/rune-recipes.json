@@ -1,0 +1,50 @@
+[
+  {
+    "tier": 1,
+    "requiredSkill": 30,
+    "maximumSkill": 80,
+    "bark": 1
+  },
+  {
+    "tier": 2,
+    "requiredSkill": 40,
+    "maximumSkill": 90,
+    "bark": 2
+  },
+  {
+    "tier": 3,
+    "requiredSkill": 50,
+    "maximumSkill": 100,
+    "bark": 3
+  },
+  {
+    "tier": 4,
+    "requiredSkill": 60,
+    "maximumSkill": 110,
+    "bark": 4
+  },
+  {
+    "tier": 5,
+    "requiredSkill": 70,
+    "maximumSkill": 120,
+    "bark": 5
+  },
+  {
+    "tier": 6,
+    "requiredSkill": 80,
+    "maximumSkill": 130,
+    "bark": 6
+  },
+  {
+    "tier": 7,
+    "requiredSkill": 90,
+    "maximumSkill": 140,
+    "bark": 7
+  },
+  {
+    "tier": 8,
+    "requiredSkill": 100,
+    "maximumSkill": 150,
+    "bark": 8
+  }
+]

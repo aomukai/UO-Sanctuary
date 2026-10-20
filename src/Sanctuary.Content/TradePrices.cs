@@ -24,6 +24,8 @@ public static class TradePrices
         && (item is not Container container || container.Items.Count == 0);
     public static int Quote(Item item, int nativePrice = 0)
     {
+        if (item is SocketGem gem) { return gem.SellPrice; }
+        if (item is Runebark bark) { return bark.SellPrice; }
         if (!ClassGear.Converted(item)) { return nativePrice; }
         if (Starter(item)) { return 1; }
         var state = ClassGear.Profiles.Ensure(item);

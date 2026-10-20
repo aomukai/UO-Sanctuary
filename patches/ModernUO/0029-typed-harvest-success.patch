@@ -1,0 +1,22 @@
+diff --git a/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs b/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs
+--- a/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs
+@@ -6,5 +6,5 @@
+ // Raised exactly once after successful primary extraction, including a full backpack.
+ public static class ClassHarvestHooks
+ {
+-    public static Action<Mobile, HarvestDefinition, double> Successful { get; set; }
++    public static Action<Mobile, HarvestDefinition, double, Type> Successful { get; set; }
+ }
+diff --git a/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs b/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
+--- a/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
+@@ -206,7 +206,7 @@
+                             item.Delete();
+                         }
+ 
+-                        ClassHarvestHooks.Successful?.Invoke(from, def, skillBase);
++                        ClassHarvestHooks.Successful?.Invoke(from, def, skillBase, type);
+ 
+                         var bonus = def.GetBonusResource();
+ 

@@ -27,6 +27,9 @@ public static class BalanceCatalog
         CreatureGold.Load();
         GearDrops.Load();
         MouldRewards.Load();
+        RunebarkHarvesting.Load();
+        RuneCrafting.Load();
+        SocketGems.Load();
         TownMarkets.Load();
         EquipmentRepairs.Load();
         TownRecognition.Load();

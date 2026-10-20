@@ -45,7 +45,7 @@ public static class ItemStateChecks
     private static GearState Legacy(GearState state) => state with
     {
         Tier = GearTier.Normal, Quality = CraftQuality.Average, NativeSockets = 0, TinkerSockets = 0,
-        Identified = true, IdentifiedSaleOffer = null
+        Identified = true, IdentifiedSaleOffer = null, Runes = []
     };
     private static byte[] Serialize()
     {
@@ -58,7 +58,7 @@ public static class ItemStateChecks
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 3, "Expected gear version 3");
+        Require(reader.ReadInt() == 4, "Expected gear version 4");
         writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
@@ -90,6 +90,7 @@ public static class ItemStateChecks
             reader.ReadBool(); reader.ReadInt(); int materials = reader.ReadInt();
             for (int j = 0; j < materials; j++) { reader.ReadString(); reader.ReadInt(); }
             reader.ReadInt(); // Version 3 vendor purchase price.
+            RuneSockets.Read(reader); // Version 4 frozen socket contents.
         }
         return writer.Buffer[..(int)writer.Position];
     }

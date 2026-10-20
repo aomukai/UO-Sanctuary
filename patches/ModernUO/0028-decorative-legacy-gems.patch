@@ -1,0 +1,144 @@
+diff --git a/Projects/UOContent/Items/Gems/Amber.cs b/Projects/UOContent/Items/Gems/Amber.cs
+index 99760ef..a6d764d 100644
+--- a/Projects/UOContent/Items/Gems/Amber.cs
++++ b/Projects/UOContent/Items/Gems/Amber.cs
+@@ -12,5 +12,11 @@ public Amber(int amount = 1) : base(0xF25)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Amethyst.cs b/Projects/UOContent/Items/Gems/Amethyst.cs
+index 4e1cefd..cdbb765 100644
+--- a/Projects/UOContent/Items/Gems/Amethyst.cs
++++ b/Projects/UOContent/Items/Gems/Amethyst.cs
+@@ -12,5 +12,11 @@ public Amethyst(int amount = 1) : base(0xF16)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Citrine.cs b/Projects/UOContent/Items/Gems/Citrine.cs
+index cd06a37..a380c66 100644
+--- a/Projects/UOContent/Items/Gems/Citrine.cs
++++ b/Projects/UOContent/Items/Gems/Citrine.cs
+@@ -12,5 +12,11 @@ public Citrine(int amount = 1) : base(0xF15)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Diamond.cs b/Projects/UOContent/Items/Gems/Diamond.cs
+index 22194b6..158023a 100644
+--- a/Projects/UOContent/Items/Gems/Diamond.cs
++++ b/Projects/UOContent/Items/Gems/Diamond.cs
+@@ -12,5 +12,11 @@ public Diamond(int amount = 1) : base(0xF26)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Emerald.cs b/Projects/UOContent/Items/Gems/Emerald.cs
+index de02a09..ecc7f16 100644
+--- a/Projects/UOContent/Items/Gems/Emerald.cs
++++ b/Projects/UOContent/Items/Gems/Emerald.cs
+@@ -12,5 +12,11 @@ public Emerald(int amount = 1) : base(0xF10)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Ruby.cs b/Projects/UOContent/Items/Gems/Ruby.cs
+index 9d27128..91a3356 100644
+--- a/Projects/UOContent/Items/Gems/Ruby.cs
++++ b/Projects/UOContent/Items/Gems/Ruby.cs
+@@ -12,5 +12,11 @@ public Ruby(int amount = 1) : base(0xF13)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Sapphire.cs b/Projects/UOContent/Items/Gems/Sapphire.cs
+index 870e434..dd22360 100644
+--- a/Projects/UOContent/Items/Gems/Sapphire.cs
++++ b/Projects/UOContent/Items/Gems/Sapphire.cs
+@@ -12,5 +12,11 @@ public Sapphire(int amount = 1) : base(0xF19)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/StarSapphire.cs b/Projects/UOContent/Items/Gems/StarSapphire.cs
+index 06e4646..56af850 100644
+--- a/Projects/UOContent/Items/Gems/StarSapphire.cs
++++ b/Projects/UOContent/Items/Gems/StarSapphire.cs
+@@ -12,5 +12,11 @@ public StarSapphire(int amount = 1) : base(0xF21)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }
+diff --git a/Projects/UOContent/Items/Gems/Tourmaline.cs b/Projects/UOContent/Items/Gems/Tourmaline.cs
+index 8ead426..359391f 100644
+--- a/Projects/UOContent/Items/Gems/Tourmaline.cs
++++ b/Projects/UOContent/Items/Gems/Tourmaline.cs
+@@ -12,5 +12,11 @@ public Tourmaline(int amount = 1) : base(0xF2D)
+         Amount = amount;
+     }
+ 
++    public override void GetProperties(IPropertyList list)
++    {
++        base.GetProperties(list);
++        ClassGearHooks.Properties?.Invoke(this, list);
++    }
++
+     public override double DefaultWeight => 0.1;
+ }

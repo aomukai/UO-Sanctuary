@@ -114,6 +114,7 @@ public static class ClassGear
                 }
             }
         }
+        foreach (var rune in state.Runes) { if (rune.Pattern.EffectCode == code) { value += rune.Percentage; } }
         string materialCode = code switch
         {
             "res-fire" => "resistance-fire", "res-cold" => "resistance-cold", "res-ltng" => "resistance-lightning",
@@ -155,13 +156,28 @@ public static class ClassGear
         }
         return value;
     }
+    private static int Enhanced(Item item, string code)
+    {
+        int value = Bonus(item, code);
+        // Rune percentages apply in every permitted host slot. Local affixes stay local.
+        if (item.Parent is PlayerMobile player && Active(player, item))
+        {
+            foreach (var other in player.Items)
+            {
+                if (other == item || !Active(player, other) || State(other) is not { } state) { continue; }
+                foreach (var rune in state.Runes) { if (rune.Pattern.EffectCode == code) { value += rune.Percentage; } }
+            }
+        }
+        return value;
+    }
     public static int Defense(Item item)
     {
         if (Slot(item) == GearSlot.Cosmetic || Broken(item) || Base(item) is not { } basis)
         {
             return 0;
         }
-        int enhanced = Bonus(item, "ac%");
+        if (basis.MaxDefense <= 0) { return 0; }
+        int enhanced = Enhanced(item, "ac%");
         int defense = enhanced > 0 ? basis.MaxDefense + 1 : State(item)?.Defense
             ?? basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));
         return defense * (100 + enhanced) / 100 + Bonus(item, "ac");
@@ -184,12 +200,13 @@ public static class ClassGear
             min = basis.MissileMin;
             max = basis.MissileMax;
         }
-        int enhanced = Bonus(item, "dmg%");
+        int enhanced = Enhanced(item, "dmg%");
         min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min");
         max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max");
         return (min, Math.Max(min, max));
     }
-    public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0 : State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0;
+    public static int RequiredLevel(Item item) => Slot(item) == GearSlot.Cosmetic ? 0
+        : Math.Max(State(item)?.Roll.RequiredLevel ?? Base(item)?.RequiredLevel ?? 0, RuneSockets.RequiredLevel(State(item)?.Runes.Length ?? 0));
     public static int BlockChance(PlayerMobile player)
     {
         Item shield = null;
@@ -332,6 +349,8 @@ public static class ClassGear
     }
     public static bool AddProperties(Item item, IPropertyList list)
     {
+        if (ClassProfessions.Enabled && SocketGems.Legacy(item.GetType()))
+        { list.Add($"{"Decorative legacy gem — not for crafting or sockets."}"); return true; }
         if (!Converted(item))
         {
             return false;
@@ -353,7 +372,9 @@ public static class ClassGear
         if (saved != null)
         {
             list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
-            if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount}"); }
+            if (saved.SocketCount > 0) { list.Add($"{"Empty sockets: "}{saved.SocketCount - saved.Runes.Length}{"; filled: "}{saved.Runes.Length}"); }
+            foreach (var rune in saved.Runes)
+            { list.Add($"{"Installed "}{rune.Pattern.Name}{": "}{rune.Pattern.StatLabel}{" +"}{rune.Percentage}{"%"}"); }
             if (saved.CraftedEquipment)
             {
                 var native = GearDetails.Read(item);
@@ -465,6 +486,9 @@ public static class ClassGear
         ItemStateHooks.Copied = (source, copy) =>
         {
             RuneMould.Copy(source, copy);
+            Runebark.Copy(source, copy);
+            InscribedRune.Copy(source, copy);
+            SocketGem.Copy(source, copy);
             Profiles.Copy(source, copy);
             CraftTransactions.Profiles?.Copy(source, copy);
             EquipmentRepairs.Profiles?.Copy(source, copy);

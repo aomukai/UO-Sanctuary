@@ -108,9 +108,14 @@ public sealed class ProfessionToolGump : DynamicGump
         { b.AddButton(22, 235, 4005, 4007, 7); b.AddLabel(57, 235, 0x481, "Craft white jewellery"); }
         if (_tool is ScribesPen)
         { b.AddButton(22, 235, 4005, 4007, 8); b.AddLabel(57, 235, 0x481, "Scribe Identify scroll"); }
+        if (_tool is ScribesPen)
+        { b.AddButton(22, 270, 4005, 4007, 10); b.AddLabel(57, 270, 0x481, "Craft rune from mould"); }
+        if (_tool is TinkerTools)
+        { b.AddButton(22, 260, 4005, 4007, 11); b.AddLabel(57, 260, 0x481, "Upgrade matching socket gems"); }
         if (MaterialProcessing.Supports(_tool))
         {
-            b.AddButton(22, 270, 4005, 4007, 3); b.AddLabel(57, 270, 0x481, "Process materials into scraps");
+            int processingY = _tool is TinkerTools ? 285 : 270;
+            b.AddButton(22, processingY, 4005, 4007, 3); b.AddLabel(57, processingY, 0x481, "Process materials into scraps");
         }
         if (EquipmentSalvage.Supports(_tool))
         { b.AddButton(22, 310, 4005, 4007, 6); b.AddLabel(57, 310, 0x481, "Salvage gear — no skill, uses or fee"); }
@@ -137,6 +142,8 @@ public sealed class ProfessionToolGump : DynamicGump
             }
             else if (ClassProfessions.Request(owner, _skill, _tool, true)) { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
         }
+        else if (info.ButtonID == 11 && _tool is TinkerTools gemTool) { GemUpgradeGump.Target(owner, gemTool); }
+        else if (info.ButtonID == 10 && _tool is ScribesPen pen) { RuneCraftGump.Target(owner, pen); }
         else if (info.ButtonID == 9 && _tool is TinkerTools socketTool) { SocketGump.Target(owner, socketTool); }
         else if (info.ButtonID == 8 && _tool is ScribesPen && MaterialProcessing.ToolValid(owner, _tool)
             && ClassProfessions.Request(owner, _skill, _tool, true))

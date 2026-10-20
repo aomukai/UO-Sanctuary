@@ -31,6 +31,8 @@ public static class CraftTransactions
         public ProfessionState Profession { get; } = ClassProfessions.Profiles.Find(owner);
         public bool Claimed { get; set; }
         public EquipmentCrafting.Work Equipment { get; set; }
+        public RuneRequest Rune { get; set; }
+        public GemUpgradeRequest GemUpgrade { get; set; }
     }
     public static bool ToolType(Type type) => _toolTypes.Contains(type);
     public static void Configure()
@@ -129,12 +131,14 @@ public static class CraftTransactions
             && (random ?? Random.Shared).Next(100) < Settings.SaveChancePercent) { return; }
         tool.UsesRemaining--;
     }
-    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll));
+    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll) || recipe.ItemType == typeof(InscribedRune) || recipe.ItemType == typeof(SocketGem));
     internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
     {
         if (!Managed(from, recipe)) { return null; }
         var ticket = new Request(from, system, recipe, material, tool, hue);
         if (EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
+        if (recipe.ItemType == typeof(InscribedRune)) { ticket.Rune = RuneCrafting.Attach(ticket); }
+        if (recipe.ItemType == typeof(SocketGem)) { ticket.GemUpgrade = GemUpgrading.Attach(ticket); }
         return ticket;
     }
     private static bool Handle(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue, object ticket)
@@ -160,6 +164,8 @@ public static class CraftTransactions
     }
     internal static bool Complete(Request request, Random random = null)
     {
+        if (request.Recipe.ItemType == typeof(SocketGem)) { return GemUpgrading.Complete(request, random); }
+        if (request.Recipe.ItemType == typeof(InscribedRune)) { return RuneCrafting.Complete(request, random); }
         if (EquipmentCrafting.IsOutput(request.Recipe.ItemType) || JewelleryCrafting.IsOutput(request.Recipe.ItemType)) { return EquipmentCrafting.Complete(request, random); }
         if (request.Claimed) { return false; }
         request.Claimed = true;

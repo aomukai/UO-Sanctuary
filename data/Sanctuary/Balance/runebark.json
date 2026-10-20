@@ -1,0 +1,50 @@
+[
+  {
+    "tier": 1,
+    "name": "Crude",
+    "minimumSkill": 45,
+    "sellPrice": 10
+  },
+  {
+    "tier": 2,
+    "name": "Rough",
+    "minimumSkill": 50,
+    "sellPrice": 20
+  },
+  {
+    "tier": 3,
+    "name": "Shaped",
+    "minimumSkill": 55,
+    "sellPrice": 30
+  },
+  {
+    "tier": 4,
+    "name": "Etched",
+    "minimumSkill": 60,
+    "sellPrice": 40
+  },
+  {
+    "tier": 5,
+    "name": "Refined",
+    "minimumSkill": 65,
+    "sellPrice": 50
+  },
+  {
+    "tier": 6,
+    "name": "Polished",
+    "minimumSkill": 70,
+    "sellPrice": 60
+  },
+  {
+    "tier": 7,
+    "name": "Flawless",
+    "minimumSkill": 75,
+    "sellPrice": 70
+  },
+  {
+    "tier": 8,
+    "name": "Perfect",
+    "minimumSkill": 80,
+    "sellPrice": 80
+  }
+]

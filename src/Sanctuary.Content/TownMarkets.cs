@@ -225,12 +225,12 @@ public static partial class TownMarkets
     private sealed class MarketSellInfo(MarketRole role) : IShopSellInfo
     {
         public Type[] Types { get; } = EquipmentBalance.All.Where(g => g.Category != "Unarmed").Select(g => _itemTypes[g.Type])
-            .Concat(Supplies.Where(s => s.Roles.Contains(role)).Select(s => EquipmentCrafting.Resolve(s.Type))).Distinct().ToArray();
-        public bool IsSellable(Item item) => TradePrices.CanSell(item) && (ClassGear.Converted(item)
+            .Append(typeof(Runebark)).Append(typeof(SocketGem)).Concat(Supplies.Where(s => s.Roles.Contains(role)).Select(s => EquipmentCrafting.Resolve(s.Type))).Distinct().ToArray();
+        public bool IsSellable(Item item) => TradePrices.CanSell(item) && (item is Runebark or SocketGem || ClassGear.Converted(item)
             || Supplies.Any(s => s.SellPrice > 0 && s.Roles.Contains(role) && s.Type == item.GetType().Name && s.Kind == null));
         public bool IsResellable(Item item) => false;
         public string GetNameFor(Item item) => item.Name ?? item.LabelNumber.ToString();
-        public int GetSellPriceFor(Item item) => ClassGear.Converted(item) ? TradePrices.Quote(item) : Supplies.FirstOrDefault(s =>
+        public int GetSellPriceFor(Item item) => item is Runebark bark ? bark.SellPrice : item is SocketGem gem ? gem.SellPrice : ClassGear.Converted(item) ? TradePrices.Quote(item) : Supplies.FirstOrDefault(s =>
             s.Roles.Contains(role) && s.Type == item.GetType().Name && s.Kind == null)?.SellPrice ?? 0;
         public int GetBuyPriceFor(Item item) => 0;
     }

@@ -1,0 +1,1490 @@
+[
+  {
+    "schemaVersion": 1,
+    "source": "https://classic.battle.net/diablo2exp/items/gems.shtml",
+    "dropDenominator": 100,
+    "dropTickets": 5,
+    "quantity": 1,
+    "selection": "uniform-family-and-unlocked-quality",
+    "fullPackAtFeet": true,
+    "minimumSkills": [
+      40,
+      50,
+      60,
+      70,
+      80
+    ],
+    "prices": [
+      25,
+      75,
+      250,
+      500,
+      1500
+    ],
+    "upgradeRatio": 3,
+    "upgradeSkills": [
+      40,
+      50,
+      60,
+      70
+    ],
+    "families": [
+      {
+        "id": "Amethyst",
+        "name": "Amethyst",
+        "source": "amethyst",
+        "art": 3862,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "ac",
+                "label": "Defense",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "str",
+                "label": "Strength",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 60,
+                "maximum": 60,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "ac",
+                "label": "Defense",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "str",
+                "label": "Strength",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 80,
+                "maximum": 80,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "ac",
+                "label": "Defense",
+                "minimum": 18,
+                "maximum": 18,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "str",
+                "label": "Strength",
+                "minimum": 6,
+                "maximum": 6,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 100,
+                "maximum": 100,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "ac",
+                "label": "Defense",
+                "minimum": 24,
+                "maximum": 24,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "str",
+                "label": "Strength",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 150,
+                "maximum": 150,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "ac",
+                "label": "Defense",
+                "minimum": 30,
+                "maximum": 30,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "str",
+                "label": "Strength",
+                "minimum": 10,
+                "maximum": 10,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Diamond",
+        "name": "Diamond",
+        "source": "diamond",
+        "art": 3878,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "dmg-undead%",
+                "label": "Damage to Undead (%)",
+                "minimum": 28,
+                "maximum": 28,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-all",
+                "label": "All Resistances (%)",
+                "minimum": 6,
+                "maximum": 6,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "dmg-undead%",
+                "label": "Damage to Undead (%)",
+                "minimum": 34,
+                "maximum": 34,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-all",
+                "label": "All Resistances (%)",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "dmg-undead%",
+                "label": "Damage to Undead (%)",
+                "minimum": 44,
+                "maximum": 44,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-all",
+                "label": "All Resistances (%)",
+                "minimum": 11,
+                "maximum": 11,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 60,
+                "maximum": 60,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "dmg-undead%",
+                "label": "Damage to Undead (%)",
+                "minimum": 54,
+                "maximum": 54,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-all",
+                "label": "All Resistances (%)",
+                "minimum": 14,
+                "maximum": 14,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 80,
+                "maximum": 80,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "dmg-undead%",
+                "label": "Damage to Undead (%)",
+                "minimum": 68,
+                "maximum": 68,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-all",
+                "label": "All Resistances (%)",
+                "minimum": 19,
+                "maximum": 19,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "att",
+                "label": "Attack Rating",
+                "minimum": 100,
+                "maximum": 100,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Emerald",
+        "name": "Emerald",
+        "source": "emerald",
+        "art": 3856,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "poison-damage",
+                "label": "Poison Damage",
+                "minimum": 10,
+                "maximum": 10,
+                "durationMs": 3000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-pois",
+                "label": "Poison Resistance (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "dex",
+                "label": "Dexterity",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "poison-damage",
+                "label": "Poison Damage",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 4000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-pois",
+                "label": "Poison Resistance (%)",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "dex",
+                "label": "Dexterity",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "poison-damage",
+                "label": "Poison Damage",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 5000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-pois",
+                "label": "Poison Resistance (%)",
+                "minimum": 22,
+                "maximum": 22,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "dex",
+                "label": "Dexterity",
+                "minimum": 6,
+                "maximum": 6,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "poison-damage",
+                "label": "Poison Damage",
+                "minimum": 60,
+                "maximum": 60,
+                "durationMs": 6000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-pois",
+                "label": "Poison Resistance (%)",
+                "minimum": 28,
+                "maximum": 28,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "dex",
+                "label": "Dexterity",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "poison-damage",
+                "label": "Poison Damage",
+                "minimum": 100,
+                "maximum": 100,
+                "durationMs": 7000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-pois",
+                "label": "Poison Resistance (%)",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "dex",
+                "label": "Dexterity",
+                "minimum": 10,
+                "maximum": 10,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Ruby",
+        "name": "Ruby",
+        "source": "ruby",
+        "art": 3859,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "fire-damage",
+                "label": "Fire Damage",
+                "minimum": 3,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-fire",
+                "label": "Fire Resistance (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "hp",
+                "label": "Maximum Life",
+                "minimum": 10,
+                "maximum": 10,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "fire-damage",
+                "label": "Fire Damage",
+                "minimum": 5,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-fire",
+                "label": "Fire Resistance (%)",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "hp",
+                "label": "Maximum Life",
+                "minimum": 17,
+                "maximum": 17,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "fire-damage",
+                "label": "Fire Damage",
+                "minimum": 8,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-fire",
+                "label": "Fire Resistance (%)",
+                "minimum": 22,
+                "maximum": 22,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "hp",
+                "label": "Maximum Life",
+                "minimum": 24,
+                "maximum": 24,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "fire-damage",
+                "label": "Fire Damage",
+                "minimum": 10,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-fire",
+                "label": "Fire Resistance (%)",
+                "minimum": 28,
+                "maximum": 28,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "hp",
+                "label": "Maximum Life",
+                "minimum": 31,
+                "maximum": 31,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "fire-damage",
+                "label": "Fire Damage",
+                "minimum": 15,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-fire",
+                "label": "Fire Resistance (%)",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "hp",
+                "label": "Maximum Life",
+                "minimum": 38,
+                "maximum": 38,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Sapphire",
+        "name": "Sapphire",
+        "source": "sapphire",
+        "art": 3865,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "cold-damage",
+                "label": "Cold Damage",
+                "minimum": 1,
+                "maximum": 3,
+                "durationMs": 1000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-cold",
+                "label": "Cold Resistance (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mana",
+                "label": "Maximum Mana",
+                "minimum": 10,
+                "maximum": 10,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "cold-damage",
+                "label": "Cold Damage",
+                "minimum": 3,
+                "maximum": 5,
+                "durationMs": 1400
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-cold",
+                "label": "Cold Resistance (%)",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mana",
+                "label": "Maximum Mana",
+                "minimum": 17,
+                "maximum": 17,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "cold-damage",
+                "label": "Cold Damage",
+                "minimum": 4,
+                "maximum": 7,
+                "durationMs": 2000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-cold",
+                "label": "Cold Resistance (%)",
+                "minimum": 22,
+                "maximum": 22,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mana",
+                "label": "Maximum Mana",
+                "minimum": 24,
+                "maximum": 24,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "cold-damage",
+                "label": "Cold Damage",
+                "minimum": 6,
+                "maximum": 10,
+                "durationMs": 2400
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-cold",
+                "label": "Cold Resistance (%)",
+                "minimum": 28,
+                "maximum": 28,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mana",
+                "label": "Maximum Mana",
+                "minimum": 31,
+                "maximum": 31,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "cold-damage",
+                "label": "Cold Damage",
+                "minimum": 10,
+                "maximum": 14,
+                "durationMs": 3000
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-cold",
+                "label": "Cold Resistance (%)",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mana",
+                "label": "Maximum Mana",
+                "minimum": 38,
+                "maximum": 38,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Citrine",
+        "name": "Citrine",
+        "source": "topaz",
+        "art": 3861,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "lightning-damage",
+                "label": "Lightning Damage",
+                "minimum": 1,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-ltng",
+                "label": "Lightning Resistance (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mag%",
+                "label": "Magic Find (%)",
+                "minimum": 9,
+                "maximum": 9,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "lightning-damage",
+                "label": "Lightning Damage",
+                "minimum": 1,
+                "maximum": 14,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-ltng",
+                "label": "Lightning Resistance (%)",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mag%",
+                "label": "Magic Find (%)",
+                "minimum": 13,
+                "maximum": 13,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "lightning-damage",
+                "label": "Lightning Damage",
+                "minimum": 1,
+                "maximum": 22,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-ltng",
+                "label": "Lightning Resistance (%)",
+                "minimum": 22,
+                "maximum": 22,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mag%",
+                "label": "Magic Find (%)",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "lightning-damage",
+                "label": "Lightning Damage",
+                "minimum": 1,
+                "maximum": 30,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-ltng",
+                "label": "Lightning Resistance (%)",
+                "minimum": 28,
+                "maximum": 28,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mag%",
+                "label": "Magic Find (%)",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "lightning-damage",
+                "label": "Lightning Damage",
+                "minimum": 1,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "res-ltng",
+                "label": "Lightning Resistance (%)",
+                "minimum": 40,
+                "maximum": 40,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "mag%",
+                "label": "Magic Find (%)",
+                "minimum": 24,
+                "maximum": 24,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Tourmaline",
+        "name": "Tourmaline",
+        "source": "skull",
+        "art": 3885,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "life-steal%",
+                "label": "Life Stolen (%)",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-steal%",
+                "label": "Mana Stolen (%)",
+                "minimum": 1,
+                "maximum": 1,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "replenish-life",
+                "label": "Replenish Life",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-regen%",
+                "label": "Regenerate Mana (%)",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "life-steal%",
+                "label": "Life Stolen (%)",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-steal%",
+                "label": "Mana Stolen (%)",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "replenish-life",
+                "label": "Replenish Life",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-regen%",
+                "label": "Regenerate Mana (%)",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "life-steal%",
+                "label": "Life Stolen (%)",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-steal%",
+                "label": "Mana Stolen (%)",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "replenish-life",
+                "label": "Replenish Life",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-regen%",
+                "label": "Regenerate Mana (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "life-steal%",
+                "label": "Life Stolen (%)",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-steal%",
+                "label": "Mana Stolen (%)",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "replenish-life",
+                "label": "Replenish Life",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-regen%",
+                "label": "Regenerate Mana (%)",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "life-steal%",
+                "label": "Life Stolen (%)",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-steal%",
+                "label": "Mana Stolen (%)",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "replenish-life",
+                "label": "Replenish Life",
+                "minimum": 5,
+                "maximum": 5,
+                "durationMs": 0
+              },
+              {
+                "code": "mana-regen%",
+                "label": "Regenerate Mana (%)",
+                "minimum": 19,
+                "maximum": 19,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Amber",
+        "name": "Amber",
+        "source": "extra-thorns",
+        "art": 3877,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 8,
+                "maximum": 8,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 12,
+                "maximum": 12,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 16,
+                "maximum": 16,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "thorns",
+                "label": "Attacker Takes Damage",
+                "minimum": 20,
+                "maximum": 20,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "StarSapphire",
+        "name": "Star Sapphire",
+        "source": "extra-magic-reduction",
+        "art": 3873,
+        "hue": 0,
+        "effects": [
+          {
+            "weapon": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 1,
+                "maximum": 1,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 1,
+                "maximum": 1,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 1,
+                "maximum": 1,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 2,
+                "maximum": 2,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 3,
+                "maximum": 3,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 4,
+                "maximum": 4,
+                "durationMs": 0
+              }
+            ]
+          },
+          {
+            "weapon": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 5,
+                "maximum": 5,
+                "durationMs": 0
+              }
+            ],
+            "shield": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 5,
+                "maximum": 5,
+                "durationMs": 0
+              }
+            ],
+            "armor": [
+              {
+                "code": "magic-reduction",
+                "label": "Magic Damage Reduced",
+                "minimum": 5,
+                "maximum": 5,
+                "durationMs": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

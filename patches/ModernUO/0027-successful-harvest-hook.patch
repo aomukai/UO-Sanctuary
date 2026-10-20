@@ -1,0 +1,29 @@
+diff --git a/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs b/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
+index b67665d..7b6b36e 100644
+--- a/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
+@@ -206,6 +206,8 @@ public virtual void FinishHarvesting(Mobile from, Item tool, HarvestDefinition d
+                             item.Delete();
+                         }
+ 
++                        ClassHarvestHooks.Successful?.Invoke(from, def, skillBase);
++
+                         var bonus = def.GetBonusResource();
+ 
+                         if (bonus?.Type != null && skillBase >= bonus.ReqSkill)
+diff --git a/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs b/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs
+new file mode 100644
+index 0000000..f05237a
+--- /dev/null
++++ b/Projects/UOContent/Engines/Harvest/Core/ClassHarvestHooks.cs
+@@ -0,0 +1,10 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++
++namespace Server.Engines.Harvest;
++
++// Raised exactly once after successful primary extraction, including a full backpack.
++public static class ClassHarvestHooks
++{
++    public static Action<Mobile, HarvestDefinition, double> Successful { get; set; }
++}

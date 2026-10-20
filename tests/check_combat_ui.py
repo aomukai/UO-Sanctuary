@@ -12,6 +12,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_GEM_SOCKETS_UI") == "1":
+        from check_gem_socket_ui import exercise as gem_socket_exercise
+        gem_socket_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_RUNES_UI") == "1":
+        from check_rune_ui import exercise as rune_exercise
+        rune_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_RUNEBARK_UI") == "1":
+        from check_runebark_ui import exercise as runebark_exercise
+        runebark_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_MOULDS_UI") == "1":
         from check_mould_ui import exercise as mould_exercise
         mould_exercise(window, click, capture)

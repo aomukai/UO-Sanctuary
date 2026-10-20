@@ -41,7 +41,7 @@ public static class MaterialProcessing
         && !typeof(BaseIngot).IsAssignableFrom(type) && !typeof(Log).IsAssignableFrom(type)
         && !typeof(Board).IsAssignableFrom(type) && !typeof(BaseHides).IsAssignableFrom(type)
         && !typeof(BaseLeather).IsAssignableFrom(type) && !typeof(Bandage).IsAssignableFrom(type)
-        && type != typeof(MetalScraps) && type != typeof(WoodenChips) && type != typeof(LeatherStrips);
+        && type != typeof(SocketGem) && type != typeof(Runebark) && type != typeof(MetalScraps) && type != typeof(WoodenChips) && type != typeof(LeatherStrips);
     public static bool ResaleAllowed(Item item)
     {
         if (!StockAllowed(item.GetType())) { return false; }
