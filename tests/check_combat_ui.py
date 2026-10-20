@@ -12,6 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_MEALS_UI") == "1":
+        from check_meals_ui import exercise as meals_exercise
+        meals_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_COMBAT_POTIONS_UI") == "1":
         from check_combat_potions_ui import exercise as combat_potions_exercise
         combat_potions_exercise(window, click, capture)

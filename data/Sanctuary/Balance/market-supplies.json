@@ -478,5 +478,25 @@
     "SellPrice": 0,
     "Kind": null,
     "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "BatWing",
+    "Price": 10,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
+  },
+  {
+    "Roles": [
+      "Alchemist"
+    ],
+    "Type": "DaemonBlood",
+    "Price": 15,
+    "SellPrice": 1,
+    "Kind": null,
+    "Tier": 0
   }
 ]

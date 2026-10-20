@@ -1,0 +1,171 @@
+--- a/Projects/UOContent/Engines/Harvest/Core/HarvestSoundTimer.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/HarvestSoundTimer.cs
+@@ -1,3 +1,5 @@
++using System;
++
+ namespace Server.Engines.Harvest
+ {
+     public class HarvestSoundTimer : Timer
+@@ -12,8 +14,8 @@
+ 
+         public HarvestSoundTimer(
+             Mobile from, Item tool, HarvestSystem system, HarvestDefinition def, object toHarvest,
+-            object locked, bool last
+-        ) : base(def.EffectSoundDelay)
++            object locked, bool last, TimeSpan? delay = null
++        ) : base(delay ?? def.EffectSoundDelay)
+         {
+             m_From = from;
+             m_Tool = tool;
+--- a/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/HarvestSystem.cs
+@@ -195,6 +195,7 @@
+                         }
+ 
+                         bank.Consume(item.Amount, from);
++                        Server.Mobiles.ClassFoodHooks.Harvested?.Invoke(from, def, item);
+ 
+                         if (Give(from, item, def.PlaceAtFeetIfFull))
+                         {
+@@ -355,7 +356,7 @@
+ 
+         public virtual bool OnHarvesting(
+             Mobile from, Item tool, HarvestDefinition def, object toHarvest, object locked,
+-            bool last
++            bool last, TimeSpan? soundDelay = null
+         )
+         {
+             if (!CheckHarvest(from, tool))
+@@ -398,7 +399,7 @@
+ 
+             DoHarvestingEffect(from, tool, def, map, loc);
+ 
+-            new HarvestSoundTimer(from, tool, this, def, toHarvest, locked, last).Start();
++            new HarvestSoundTimer(from, tool, this, def, toHarvest, locked, last, soundDelay).Start();
+ 
+             return !last;
+         }
+--- a/Projects/UOContent/Engines/Harvest/Core/HarvestTimer.cs
++++ b/Projects/UOContent/Engines/Harvest/Core/HarvestTimer.cs
+@@ -12,6 +12,7 @@
+         private readonly object m_ToHarvest;
+         private readonly Item m_Tool;
+         private int m_Index;
++        private readonly TimeSpan _soundDelay;
+ 
+         public HarvestTimer(
+             Mobile from, Item tool, HarvestSystem system, HarvestDefinition def, object toHarvest,
+@@ -25,11 +26,16 @@
+             m_ToHarvest = toHarvest;
+             m_Locked = locked;
+             m_Count = def.EffectCounts.RandomElement();
++            var original = TimeSpan.FromTicks((m_Count - 1) * def.EffectDelay.Ticks + def.EffectSoundDelay.Ticks);
++            var duration = Server.Mobiles.ClassFoodHooks.HarvestDuration?.Invoke(from, def, original) ?? original;
++            var factor = original.Ticks > 0 ? duration.Ticks / (double)original.Ticks : 1;
++            Interval = TimeSpan.FromTicks((long)(def.EffectDelay.Ticks * factor));
++            _soundDelay = original.Ticks > 0 ? TimeSpan.FromTicks((long)(def.EffectSoundDelay.Ticks * factor)) : duration;
+         }
+ 
+         protected override void OnTick()
+         {
+-            if (!m_System.OnHarvesting(m_From, m_Tool, m_Definition, m_ToHarvest, m_Locked, ++m_Index == m_Count))
++            if (!m_System.OnHarvesting(m_From, m_Tool, m_Definition, m_ToHarvest, m_Locked, ++m_Index == m_Count, _soundDelay))
+             {
+                 Stop();
+             }
+--- a/Projects/UOContent/Items/Food/Food.cs
++++ b/Projects/UOContent/Items/Food/Food.cs
+@@ -83,6 +83,11 @@
+ 
+     public static bool FillHunger(Mobile from, int fillFactor)
+     {
++        if (Server.Mobiles.ClassFoodHooks.NoHunger?.Invoke(from) == true)
++        {
++            return true;
++        }
++
+         if (from.Hunger >= 20)
+         {
+             from.SendLocalizedMessage(500867); // You are simply too full to eat any more!
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+@@ -905,7 +905,8 @@
+ 
+         // Reaction time is the approach path (BaseCreature.ScheduleAcquireOnApproach),
+         // not this poll — every scan honors the full delay.
+-        Mobile.NextReacquireTime = Core.TickCount + reacquireDelay;
++        var deadline = Core.TickCount + reacquireDelay;
++        Mobile.NextReacquireTime = ClassFoodHooks.AcquireDeadline?.Invoke(Mobile, deadline) ?? deadline;
+ 
+         return acquired;
+     }
+@@ -1024,6 +1025,11 @@
+                 continue;
+             }
+ 
++            if (Mobile.InLOS(m) && ClassFoodHooks.CanAcquire?.Invoke(Mobile, m) == false)
++            {
++                continue;
++            }
++
+             var theirVal = Mobile.GetFightModeRanking(m, acqType, bPlayerOnly);
+ 
+             if (theirVal > val && Mobile.InLOS(m))
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -2009,7 +2009,8 @@
+             var hides = Hides;
+             var scales = Scales;
+ 
+-            if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0 || Summoned || IsBonded ||
++            if (feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0
++                && ClassFoodHooks.ExtraCarvable?.Invoke(this) != true || Summoned || IsBonded ||
+                 corpse.Animated)
+             {
+                 if (corpse.Animated)
+@@ -2040,6 +2041,12 @@
+                         scales *= 2;
+                     }
+                 }
++
++                var foodBonus = ClassFoodHooks.CarveBonus?.Invoke(from, corpse) ?? 0;
++                if (meat > 0) { meat += foodBonus; }
++                if (hides > 0) { hides += foodBonus; }
++                if (feathers > 0) { feathers += foodBonus; }
++                ClassFoodHooks.ExtraCarved?.Invoke(from, this, corpse);
+ 
+                 new Blood(0x122D).MoveToWorld(corpse.Location, corpse.Map);
+ 
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassFoodHooks.cs
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Engines.Harvest;
++using Server.Items;
++
++namespace Server.Mobiles;
++
++public static class ClassFoodHooks
++{
++    public static Func<Mobile, bool> NoHunger { get; set; }
++    public static Func<PlayerMobile, int> CarryCapacity { get; set; }
++    public static Func<Mobile, HarvestDefinition, TimeSpan, TimeSpan> HarvestDuration { get; set; }
++    public static Action<Mobile, HarvestDefinition, Item> Harvested { get; set; }
++    public static Func<BaseCreature, bool> ExtraCarvable { get; set; }
++    public static Func<Mobile, Corpse, int> CarveBonus { get; set; }
++    public static Action<Mobile, BaseCreature, Corpse> ExtraCarved { get; set; }
++    public static Func<BaseCreature, Mobile, bool> CanAcquire { get; set; }
++    public static Func<BaseCreature, long, long> AcquireDeadline { get; set; }
++}
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -229,7 +229,7 @@
+ 
+         public BlockMountType MountBlockReason => _mountBlock?.MountBlockReason ?? BlockMountType.None;
+ 
+-        public override int MaxWeight => (Core.ML && Race == Race.Human ? 100 : 40) + (int)(3.5 * Str);
++        public override int MaxWeight => (Core.ML && Race == Race.Human ? 100 : 40) + (int)(3.5 * Str) + (ClassFoodHooks.CarryCapacity?.Invoke(this) ?? 0);
+ 
+         public override double ArmorRating
+         {

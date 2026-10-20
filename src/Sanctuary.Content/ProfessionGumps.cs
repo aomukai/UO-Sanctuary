@@ -106,6 +106,8 @@ public sealed class ProfessionToolGump : DynamicGump
         }
         if (_tool is TinkerTools)
         { b.AddButton(22, 235, 4005, 4007, 7); b.AddLabel(57, 235, 0x481, "Craft white jewellery"); }
+        if (_tool is Skillet)
+        { b.AddButton(22, 235, 4005, 4007, 13); b.AddLabel(57, 235, 0x481, "Cook prepared meals"); }
         if (_tool is MortarPestle)
         { b.AddButton(22, 235, 4005, 4007, 12); b.AddLabel(57, 235, 0x481, "Craft Alchemy potions"); }
         if (_tool is ScribesPen)
@@ -144,6 +146,7 @@ public sealed class ProfessionToolGump : DynamicGump
             }
             else if (ClassProfessions.Request(owner, _skill, _tool, true)) { CraftItem.ShowCraftMenu(owner, _tool.CraftSystem, _tool); }
         }
+        else if (info.ButtonID == 13 && _tool is Skillet skillet) { MealGump.DisplayTo(owner, skillet); }
         else if (info.ButtonID == 12 && _tool is MortarPestle mortar) { AlchemyGump.DisplayTo(owner, mortar); }
         else if (info.ButtonID == 11 && _tool is TinkerTools gemTool) { GemUpgradeGump.Target(owner, gemTool); }
         else if (info.ButtonID == 10 && _tool is ScribesPen pen) { RuneCraftGump.Target(owner, pen); }

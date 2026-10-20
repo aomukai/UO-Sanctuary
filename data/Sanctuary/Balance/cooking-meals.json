@@ -1,0 +1,548 @@
+[
+  {
+    "id": "lamplighter-broth",
+    "name": "Lamplighter's Broth",
+    "tier": 1,
+    "effect": "light",
+    "magnitude": 1,
+    "skill": 0,
+    "chips": 5,
+    "graphic": 5636,
+    "ingredients": [
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "porter-flatbread",
+    "name": "Porter's Flatbread",
+    "tier": 1,
+    "effect": "capacity",
+    "magnitude": 25,
+    "skill": 8,
+    "chips": 5,
+    "graphic": 4155,
+    "ingredients": [
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "Apple",
+        "name": "apple",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "forager-skewers",
+    "name": "Forager's Skewers",
+    "tier": 1,
+    "effect": "resources",
+    "magnitude": 1,
+    "skill": 16,
+    "chips": 5,
+    "graphic": 2546,
+    "ingredients": [
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "quickhand-fish",
+    "name": "Quickhand Fish",
+    "tier": 1,
+    "effect": "speed",
+    "magnitude": 1,
+    "skill": 24,
+    "chips": 5,
+    "graphic": 2427,
+    "ingredients": [
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "hunter-ribs",
+    "name": "Hunter's Ribs",
+    "tier": 1,
+    "effect": "carving",
+    "magnitude": 1,
+    "skill": 32,
+    "chips": 5,
+    "graphic": 2487,
+    "ingredients": [
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "batwing-bites",
+    "name": "Twilight Batwing Bites",
+    "tier": 1,
+    "effect": "quiet",
+    "magnitude": 1,
+    "skill": 40,
+    "chips": 5,
+    "graphic": 2545,
+    "ingredients": [
+      {
+        "type": "BatWing",
+        "name": "bat wing bits",
+        "amount": 1
+      },
+      {
+        "type": "Apple",
+        "name": "apple",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "watchman-fish-stew",
+    "name": "Watchman's Fish Stew",
+    "tier": 2,
+    "effect": "light",
+    "magnitude": 2,
+    "skill": 50,
+    "chips": 10,
+    "graphic": 5636,
+    "ingredients": [
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "trailwarden-pie",
+    "name": "Trailwarden's Pie",
+    "tier": 2,
+    "effect": "capacity",
+    "magnitude": 50,
+    "skill": 58,
+    "chips": 10,
+    "graphic": 4155,
+    "ingredients": [
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "prospector-fishcakes",
+    "name": "Prospector's Fishcakes",
+    "tier": 2,
+    "effect": "resources",
+    "magnitude": 2,
+    "skill": 66,
+    "chips": 10,
+    "graphic": 2546,
+    "ingredients": [
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "rushlight-skewers",
+    "name": "Rushlight Skewers",
+    "tier": 2,
+    "effect": "speed",
+    "magnitude": 2,
+    "skill": 74,
+    "chips": 10,
+    "graphic": 2427,
+    "ingredients": [
+      {
+        "type": "RawBird",
+        "name": "raw bird",
+        "amount": 1
+      },
+      {
+        "type": "Apple",
+        "name": "apple",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "trapper-pie",
+    "name": "Trapper's Pie",
+    "tier": 2,
+    "effect": "carving",
+    "magnitude": 2,
+    "skill": 82,
+    "chips": 10,
+    "graphic": 2487,
+    "ingredients": [
+      {
+        "type": "RawBird",
+        "name": "raw bird",
+        "amount": 1
+      },
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "stalker-batwing-stew",
+    "name": "Stalker's Batwing Stew",
+    "tier": 2,
+    "effect": "quiet",
+    "magnitude": 2,
+    "skill": 90,
+    "chips": 10,
+    "graphic": 2545,
+    "ingredients": [
+      {
+        "type": "BatWing",
+        "name": "bat wing bits",
+        "amount": 1
+      },
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "dawnwatch-chowder",
+    "name": "Dawnwatch Chowder",
+    "tier": 3,
+    "effect": "light",
+    "magnitude": 3,
+    "skill": 100,
+    "chips": 30,
+    "graphic": 5636,
+    "ingredients": [
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      },
+      {
+        "type": "BatWing",
+        "name": "bat wing bits",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "giant-hearthpot",
+    "name": "Giant's Hearthpot",
+    "tier": 3,
+    "effect": "capacity",
+    "magnitude": 74,
+    "skill": 103,
+    "chips": 30,
+    "graphic": 4155,
+    "ingredients": [
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "Cabbage",
+        "name": "cabbage",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "SackFlour",
+        "name": "flour portion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "red-harvest-ragout",
+    "name": "Red Harvest Ragout",
+    "tier": 3,
+    "effect": "resources",
+    "magnitude": 3,
+    "skill": 106,
+    "chips": 30,
+    "graphic": 2546,
+    "ingredients": [
+      {
+        "type": "RawRibs",
+        "name": "raw ribs",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      },
+      {
+        "type": "DaemonBlood",
+        "name": "daemon blood",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "fleetfinger-feast",
+    "name": "Fleetfinger Feast",
+    "tier": 3,
+    "effect": "speed",
+    "magnitude": 3,
+    "skill": 109,
+    "chips": 30,
+    "graphic": 2427,
+    "ingredients": [
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "RawBird",
+        "name": "raw bird",
+        "amount": 1
+      },
+      {
+        "type": "Carrot",
+        "name": "carrot",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      },
+      {
+        "type": "Ginseng",
+        "name": "ginseng",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "master-hunter-roast",
+    "name": "Master Hunter's Roast",
+    "tier": 3,
+    "effect": "carving",
+    "magnitude": 3,
+    "skill": 112,
+    "chips": 30,
+    "graphic": 2487,
+    "ingredients": [
+      {
+        "type": "RawLambLeg",
+        "name": "raw lamb leg",
+        "amount": 1
+      },
+      {
+        "type": "RawBird",
+        "name": "raw bird",
+        "amount": 1
+      },
+      {
+        "type": "Onion",
+        "name": "onion",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      },
+      {
+        "type": "Garlic",
+        "name": "garlic",
+        "amount": 1
+      }
+    ]
+  },
+  {
+    "id": "ghostwalk-supper",
+    "name": "Ghostwalk Supper",
+    "tier": 3,
+    "effect": "quiet",
+    "magnitude": 3,
+    "skill": 115,
+    "chips": 30,
+    "graphic": 2545,
+    "ingredients": [
+      {
+        "type": "BatWing",
+        "name": "bat wing bits",
+        "amount": 1
+      },
+      {
+        "type": "RawFishSteak",
+        "name": "raw fish steak",
+        "amount": 1
+      },
+      {
+        "type": "RawLambLeg",
+        "name": "raw lamb leg",
+        "amount": 1
+      },
+      {
+        "type": "CookingSpices",
+        "name": "cooking spices",
+        "amount": 1
+      },
+      {
+        "type": "DaemonBlood",
+        "name": "daemon blood",
+        "amount": 1
+      }
+    ]
+  }
+]

@@ -65,7 +65,11 @@ public static class TimedEffects
         if (!_actors.TryGetValue(owner.Serial, out var actor)) { _actors.Add(owner.Serial, actor = new(now)); }
         return actor;
     }
-    public static void Clear(Mobile owner) { if (owner != null) { _actors.Remove(owner.Serial); } }
+    public static void Clear(Mobile owner)
+    {
+        if (owner != null && _actors.Remove(owner.Serial, out var actor) && actor.Buffs.ContainsKey(TimedEffectCategory.Food)
+            && owner is PlayerMobile p) { FoodEffects.Refresh(p); }
+    }
     public static void ClearRestoration(Mobile owner)
     { if (owner != null && _actors.TryGetValue(owner.Serial, out var a)) { a.Life.Clear(); a.Mana.Clear(); } }
     internal static void DiscardFullRestoration(PlayerMobile owner)
@@ -152,7 +156,10 @@ public static class TimedEffects
         }
         a.Updated = now;
         foreach (var category in new[] { TimedEffectCategory.Potion, TimedEffectCategory.Food, TimedEffectCategory.Map })
-        { if (a.Buffs.TryGetValue(category, out var b) && b.ExpiresUtc <= now) { a.Buffs.Remove(category); } }
+        {
+            if (a.Buffs.TryGetValue(category, out var b) && b.ExpiresUtc <= now)
+            { a.Buffs.Remove(category); if (category == TimedEffectCategory.Food && owner is PlayerMobile p) { FoodEffects.Refresh(p); } }
+        }
         if (a.ChillUntil <= now) { a.ChillPercent = 0; }
         if (a.Buffs.Count == 0 && a.ChillPercent == 0 && a.PoisonMs == 0 && a.PoisonFraction < 1e-12
             && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }

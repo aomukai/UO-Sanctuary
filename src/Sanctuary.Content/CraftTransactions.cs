@@ -34,6 +34,7 @@ public static class CraftTransactions
         public RuneRequest Rune { get; set; }
         public GemUpgradeRequest GemUpgrade { get; set; }
         public AlchemyRequest Alchemy { get; set; }
+        public MealRequest Meal { get; set; }
     }
     public static bool ToolType(Type type) => _toolTypes.Contains(type);
     public static void Configure()
@@ -132,13 +133,14 @@ public static class CraftTransactions
             && (random ?? Random.Shared).Next(100) < Settings.SaveChancePercent) { return; }
         tool.UsesRemaining--;
     }
-    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll) || recipe.ItemType == typeof(InscribedRune) || recipe.ItemType == typeof(SocketGem) || recipe.ItemType == typeof(RestorationPotion));
+    private static bool Managed(Mobile from, CraftItem recipe) => ClassProfessions.Affected(from) && (ToolType(recipe.ItemType) || EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType) || recipe.ItemType == typeof(IdentifyScroll) || recipe.ItemType == typeof(InscribedRune) || recipe.ItemType == typeof(SocketGem) || recipe.ItemType == typeof(RestorationPotion) || recipe.ItemType == typeof(PreparedMeal));
     internal static object Begin(Mobile from, CraftSystem system, CraftItem recipe, Type material, BaseTool tool, int hue)
     {
         if (!Managed(from, recipe)) { return null; }
         var ticket = new Request(from, system, recipe, material, tool, hue);
         if (EquipmentCrafting.IsOutput(recipe.ItemType) || JewelleryCrafting.IsOutput(recipe.ItemType)) { ticket.Equipment = EquipmentCrafting.Begin(ticket); }
         if (recipe.ItemType == typeof(InscribedRune)) { ticket.Rune = RuneCrafting.Attach(ticket); }
+        if (recipe.ItemType == typeof(PreparedMeal)) { ticket.Meal = MealCooking.Attach(ticket); }
         if (recipe.ItemType == typeof(RestorationPotion)) { ticket.Alchemy = AlchemyRestoratives.Attach(ticket); }
         if (recipe.ItemType == typeof(SocketGem)) { ticket.GemUpgrade = GemUpgrading.Attach(ticket); }
         return ticket;
@@ -166,6 +168,7 @@ public static class CraftTransactions
     }
     internal static bool Complete(Request request, Random random = null)
     {
+        if (request.Recipe.ItemType == typeof(PreparedMeal)) { return MealCooking.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(RestorationPotion)) { return AlchemyRestoratives.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(SocketGem)) { return GemUpgrading.Complete(request, random); }
         if (request.Recipe.ItemType == typeof(InscribedRune)) { return RuneCrafting.Complete(request, random); }

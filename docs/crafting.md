@@ -252,18 +252,20 @@ Combat buffs last 30 seconds; repeated use adds duration, not magnitude, up to 9
 
 ## Cooking — K01–K05
 
-One food effect at a time, lasting one hour. No hunger system. Names and concrete economical recipes are delegated for authoring using fish/meat and vendor fruit/vegetables/flour/spices; most ingredient examples use one unit. Tier-1 recipes span skill 0–50, tier-2 50–100, tier-3 100–120, spaced through each band rather than all unlocking together. Proposed Wooden Chip costs are 5/10/30 per tier.
+One food effect at a time, lasting one hour. No hunger system. Names and concrete economical recipes were delegated for authoring using fish/meat and vendor fruit/vegetables/flour/spices; most ingredient examples use one unit. Tier-1 recipes span skill 0–50, tier-2 50–100, tier-3 100–120, spaced through each band rather than all unlocking together. Implemented Wooden Chip fuel costs are5/10/30 per tier.
 
 | Meal effect | Tier 1 / 2 / 3 |
 | --- | --- |
 | Light radius | +1 / +2 / +3 |
 | Carry capacity | +25 / +50 / **+74** stones, as written |
 | Extra gathering resources | 10% chance of +1 / +2 / +3 |
-| Faster gathering | Subtract 1 / 2 / 3 seconds; minimum action duration unspecified |
+| Faster gathering | Subtract 1 / 2 / 3 seconds; user-approved minimum1 second |
 | Extra corpse materials | +1 / +2 / +3 meat/skins/feathers on eligible corpses |
-| Delayed monster aggression | +1 / +2 / +3 seconds before aggression; application/reset conditions unspecified |
+| Delayed monster aggression | +1 / +2 / +3 seconds before first acquisition;10s continuous absence resets; retaliation immediate |
 
 On carry-buff expiry, normal encumbrance applies. **Explicit clarification, 19 October: the player manually drops items if needed to move; the game does not automatically spill or select inventory.** Manually dropped items follow normal world-decay rules. Food expiry does not itself remove possessions. This food catalogue supersedes the earlier suggestion that only light/carry effects would be initially considered.
+
+**Implemented T30:** [The travelling cook's recipe book](t30-cooking.md) lists18 distinct meals with skill gates spaced across0–50/50–100/100–120, one unit of each listed ingredient, one output and one skillet use with saving. Native+50 success/gain and half-each rounded failure losses apply, including fuel. Flour uses1/20sack portions. Meals use carved raw meat, caught/cut fish, produce, spices and selected bat wing/daemon blood recipes. Appropriate wild corpses yield the exotic ingredient once; alchemists provide10/15gold fallback supplies. All six effects have live consumers. Primary-resource food never rerolls byproducts; speed scales the real action with a1s floor. Carving adds once after native multipliers. Light uses the matching client's real1/2/3tile circle; carry expiry applies normal encumbrance without spilling. Re-eating restarts one hour. Quiet meals do not refresh an encounter until10s outside perception/LOS, and attacks permit immediate retaliation. No hunger or native food-restoration system applies to enabled class characters.
 
 ## Cartography, treasure and Fishing — L01–L10
 

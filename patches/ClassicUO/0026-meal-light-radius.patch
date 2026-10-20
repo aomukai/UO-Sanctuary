@@ -1,0 +1,73 @@
+--- a/src/ClassicUO.Client/Game/ClassStatsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassStatsClient.cs
+@@ -59,7 +59,7 @@
+         if (!DiabloClasses.TryFromWire(values[(int)StatField.Class], out _)
+             || values[(int)StatField.Level] is < 1 or > 99 || values[(int)StatField.Points] > 490
+             || values[(int)StatField.TalentPoints] > 98 || values[(int)StatField.RunPenalty] > 20
+-            || values[(int)StatField.RunBonus] > 150)
++            || values[(int)StatField.RunBonus] > 150 || values[(int)StatField.FoodLight] > 3)
+         {
+             return;
+         }
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -46,6 +46,11 @@
+ 
+             drawX += 22;
+             drawY += 22;
++
++            if (this == World.Player && !IsDead && ClassStatsClient.Ready)
++            {
++                Client.Game.GetScene<GameScene>().AddMealLight(drawX, drawY, ClassStatsClient.Get(Sanctuary.StatField.FoodLight));
++            }
+ 
+             bool hasShadow = !IsDead && !IsHidden && ProfileManager.CurrentProfile.ShadowsEnabled;
+ 
+--- a/src/ClassicUO.Client/Game/Scenes/GameScene.cs
++++ b/src/ClassicUO.Client/Game/Scenes/GameScene.cs
+@@ -401,6 +401,14 @@
+             );
+         }
+ 
++        internal void AddMealLight(int x, int y, int tiles)
++        {
++            if (tiles is < 1 or > 3 || !UseLights && !UseAltLights || _lightCount >= _lights.Length) { return; }
++            ref var light = ref _lights[_lightCount++];
++            light.ID = 1; light.Color = 0; light.IsHue = false;
++            light.DrawX = x; light.DrawY = y; light.Radius = tiles * 44;
++        }
++
+         public void AddLight(GameObject obj, GameObject lightObject, int x, int y)
+         {
+             if (
+@@ -513,6 +521,7 @@
+                     }
+                 }
+ 
++                light.Radius = 0;
+                 light.Color = 0;
+                 light.IsHue = false;
+ 
+@@ -1123,6 +1132,14 @@
+                             : ShaderHueTranslator.SHADER_LIGHTS
+                         : ShaderHueTranslator.SHADER_NONE;
+ 
++                if (l.Radius > 0)
++                {
++                    batcher.Draw(lightInfo.Texture,
++                        new Rectangle(l.DrawX - l.Radius, l.DrawY - l.Radius, l.Radius * 2, l.Radius * 2),
++                        lightInfo.UV, hue, 0f, Vector2.Zero, SpriteEffects.None, 0f);
++                    continue;
++                }
++
+                 batcher.Draw(
+                     lightInfo.Texture,
+                     new Vector2(
+@@ -1277,6 +1294,7 @@
+ 
+         private struct LightData
+         {
++            public int Radius;
+             public byte ID;
+             public ushort Color;
+             public bool IsHue;
