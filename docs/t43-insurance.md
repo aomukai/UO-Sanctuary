@@ -1,6 +1,6 @@
 # T43 — Equipment insurance
 
-Status: implemented, tested and deployed. User approved the defaults on 21 October 2026 and explicitly deferred Set and Unique equipment/support until later. Production runs the matching T43 native/content build.
+Status: implemented, tested and deployed. User approved the defaults on 21 October 2026 and explicitly deferred Set and Unique equipment/support until later. The deployed evidence below describes the original T43 scope.
 
 ## Approved policy
 
@@ -9,6 +9,8 @@ Status: implemented, tested and deployed. User approved the defaults on 21 Octob
 | White | 100 | 200 | 300 |
 | Magic | 250 | 500 | 750 |
 | Rare | 500 | 1,000 | 1,500 |
+| Set (T49 staging) | 500 | 1,000 | 1,500 |
+| Unique (T49 staging) | 1,000 | 2,000 | 3,000 |
 
 Pay from the character's bank upfront. Each item purchase covers its next insured death without a time expiry. Covered equipment moves into the character's backpack on death; uninsured belongings follow ordinary corpse rules. Automatic renewal is optional and defaults off. With renewal on, protection is consumed and the next death purchased from the bank at the current item premium. Insufficient renewal funds never revoke the death just covered; that item's future protection lapses and the player receives a warning. Renewals occur per item through native death processing. No insurance cash reward goes to a player killer. The separate flat 20% backpack-gold death penalty remains unchanged.
 
@@ -16,7 +18,7 @@ Insurance is character-owned per real item. Moving between the character's own e
 
 Supported catalogued weapons, armor/shields, clothing/belts and jewelry are eligible while worn or in the backpack, including nested bags. Containers and their contents as a package, gold, stackable ammunition, consumables, mounts, already blessed/newbied or cursed objects and unsupported item families are excluded. A potion tabard's own equipment can be insured; its potion reserve remains subject to the ordinary belt-death rules. Identify equipment before insuring it, so premiums cannot reveal hidden rarity. Native crafted quality is distinct from Normal/Exceptional/Elite base tier.
 
-Set and Unique are deliberately absent from the implementation and price data. The older Unique price row remains design reference for a later item-family task; it does not enable Unique insurance or create fake Set/Unique drops. Existing unsupported-rarity drop behavior remains intact.
+T49 staging now supports eligible real named items at the approved rates above; Set follows Rare upkeep. Named salvage uses90%/2–5 essence for Set and95%/5–12 for Unique; repairs use2×/3× Magic essence. Unsupported definitions remain unavailable. The [complete return list](named-item-readiness.md) tracks their exact prerequisites. Production remains T45 until an explicit deployment.
 
 ## Player flow and implementation
 

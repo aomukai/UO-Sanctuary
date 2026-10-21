@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_MERCENARY_CARE_UI") == "1":
+        from check_mercenary_care_ui import exercise as care_exercise
+        care_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_GAMBLING_UI") == "1":
+        from check_gambling_ui import exercise as gambling_exercise
+        gambling_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_ESCROW_UI") == "1":
         from check_escrow_ui import exercise as escrow_exercise
         escrow_exercise(window, click, capture)

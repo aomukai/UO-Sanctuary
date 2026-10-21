@@ -1,5 +1,7 @@
 # Nightmare and Hell monster variants
 
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45.
+
 Implemented, verified and deployed, 20 October 2026 JST. The user requested Nightmare/Hell monster versions with matching loot, and confirmed **create variants now; place them later**. Existing world populations keep their current difficulty. This extends T19's reward system; T20 and T35's encounter grades/world placements remain separate cards.
 
 ## Spawn identity and combat

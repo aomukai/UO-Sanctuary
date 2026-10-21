@@ -58,15 +58,17 @@ public static class ItemStateChecks
     {
         var reader = new BufferReader(Serialize());
         var writer = new BufferWriter(new byte[1024 * 1024], true);
-        Require(reader.ReadInt() == 5, "Expected gear version 5");
+        Require(reader.ReadInt() == 6, "Expected gear version 6");
         writer.Write(outputVersion);
         int migrations = reader.ReadInt();
         writer.Write(migrations);
         for (int i = 0; i < migrations; i++) { writer.Write(reader.ReadUInt()); }
         int count = reader.ReadInt();
-        writer.Write(count);
+        long countPosition = writer.Position;
+        writer.Write(0); int legacyCount = 0;
         for (int i = 0; i < count; i++)
         {
+            long recordPosition = writer.Position;
             writer.Write(reader.ReadUInt());
             writer.Write(reader.ReadString());
             writer.Write(reader.ReadInt());
@@ -97,7 +99,22 @@ public static class ItemStateChecks
             int purchase = reader.ReadInt(); if (outputVersion >= 3) { writer.Write(purchase); }
             var runes = RuneSockets.Read(reader); if (outputVersion >= 4) { RuneSockets.Write(writer, runes); }
             GemSockets.Read(reader); // Version 5 frozen gem contents.
+            string namedId = reader.ReadString();
+            int namedSockets = reader.ReadInt(), properties = reader.ReadInt();
+            for (int j = 0; j < properties; j++)
+            { reader.ReadString(); reader.ReadInt(); reader.ReadInt(); }
+            // A real pre-v6 world could not contain named gear. Omit those
+            // rows from this synthetic old-world payload; callers restore
+            // the complete current snapshot after checking migration.
+            if (namedId != null) { writer.Seek(recordPosition, SeekOrigin.Begin); }
+            else
+            {
+                Require(namedSockets == 0 && properties == 0, "Ordinary fixture has named metadata");
+                legacyCount++;
+            }
         }
+        long end = writer.Position;
+        writer.Seek(countPosition, SeekOrigin.Begin); writer.Write(legacyCount); writer.Seek(end, SeekOrigin.Begin);
         return writer.Buffer[..(int)writer.Position];
     }
     private static void Reject(Item item, GearState state)

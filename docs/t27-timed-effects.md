@@ -2,6 +2,8 @@
 
 Temporary effects belong to the character. They continue through craft changes and future class switches, advance during logout and server downtime, and clear on death. These ownership, offline and category choices were explicitly confirmed on20October2026. Remaining class pool/inventory ownership decisions are unchanged.
 
+T49 clarification (22 October 2026): active poison suppresses natural life regeneration until it expires or is cleared. This covers player regeneration, native creature regeneration and the separate graveyard-monster/skeleton-pet recovery loops. Suppressed recovery is discarded; expiry cannot release accumulated healing. Mana regeneration and explicit healing retain their existing behavior. The shared guard also covers Open Wounds and Prevent Monster Heal.
+
 | Category | Capacity | Reapplication |
 | --- | --- | --- |
 | Combat potion buff | One | Same identity and frozen magnitude adds30seconds, up to90seconds remaining;12+30=42. A different potion replaces it and starts30seconds. |

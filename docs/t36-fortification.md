@@ -1,5 +1,7 @@
 # T36 — Chitin and maximum-durability restoration
 
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45.
+
 Wild Solen, Terathans, spiders and scorpions have one separate 10% chance to drop one chitin. The same chance applies in Normal, Nightmare and Hell, independently of Magic Find and encounter grade. The configured 19 native family roots include their derived species. Summons, controlled pets, animated/raised creatures, vendors and reward-disabled lives remain excluded.
 
 Chitin uses the existing saved reward-life claim, alongside ordinary treasure, moulds and XP. Killing or reviving the same claimed life cannot pay it again. A qualifying arachnid outside the ordinary gold/gear roster can award chitin without enabling its other rewards.

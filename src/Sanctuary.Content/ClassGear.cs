@@ -31,9 +31,11 @@ public static class ClassGear
     }
     public static bool Converted(Item item) => item != null && EquipmentBalance.TryGet(item, out var definition)
         && definition.Category != "Unarmed";
-    public static GearDefinition Definition(Item item) => EquipmentBalance.TryGet(item, out var definition) ? definition : null;
+    public static GearDefinition Definition(Item item) => NamedGear.Definition(item, State(item))
+        ?? (EquipmentBalance.TryGet(item, out var definition) ? definition : null);
     public static bool CosmeticClothing(Item item) => Definition(item) is { Category: "Clothing" } definition
-        && definition.Slot != GearSlot.Belt && EquipmentCrafting.PhysicalMaterial(item.GetType()) != GearMaterial.Leather;
+        && State(item)?.NamedItemId == null && definition.Slot != GearSlot.Belt
+        && EquipmentCrafting.PhysicalMaterial(item.GetType()) != GearMaterial.Leather;
     public static bool Broken(Item item) => item switch
     {
         BaseWeapon weapon => weapon.HitPoints <= 0 && (weapon.MaxHitPoints > 0 || weapon.InitMaxHits > 0),
@@ -103,7 +105,7 @@ public static class ClassGear
         {
             return 0;
         }
-        int value = GemSockets.Bonus(item, state, code);
+        int value = GemSockets.Bonus(item, state, code) + NamedGear.Bonus(item, code);
         foreach (var affix in state.Roll.Affixes)
         {
             foreach (var mod in affix.Modifiers)
@@ -146,7 +148,7 @@ public static class ClassGear
     }
     public static int Bonus(PlayerMobile player, string code)
     {
-        int value = 0;
+        int value = NamedGear.SetBonus(player, code);
         foreach (var item in player.Items)
         {
             if (Active(player, item))
@@ -162,6 +164,7 @@ public static class ClassGear
         // Rune percentages apply in every permitted host slot. Local affixes stay local.
         if (item.Parent is PlayerMobile player && Active(player, item))
         {
+            if (code == "ac%") { value += NamedGear.SetBonus(player, code); }
             foreach (var other in player.Items)
             {
                 if (other == item || !Active(player, other) || State(other) is not { } state) { continue; }
@@ -180,6 +183,7 @@ public static class ClassGear
         int enhanced = Enhanced(item, "ac%");
         int defense = enhanced > 0 ? basis.MaxDefense + 1 : State(item)?.Defense
             ?? basis.MinDefense + (int)(item.Serial.Value % (uint)(basis.MaxDefense - basis.MinDefense + 1));
+        if (NamedGear.Ethereal(item)) { defense = defense * 3 / 2; }
         return defense * (100 + enhanced) / 100 + Bonus(item, "ac");
     }
     public static (int Min, int Max) Damage(Item item)
@@ -201,6 +205,7 @@ public static class ClassGear
             max = basis.MissileMax;
         }
         int enhanced = Enhanced(item, "dmg%");
+        if (NamedGear.Ethereal(item)) { min = min * 3 / 2; max = max * 3 / 2; }
         min = min * (100 + enhanced) / 100 + Bonus(item, "dmg-min");
         max = max * (100 + enhanced) / 100 + Bonus(item, "dmg-max");
         return (min, Math.Max(min, max));
@@ -244,8 +249,8 @@ public static class ClassGear
             ClassGearStat.MinDamage => Damage(item).Min,
             ClassGearStat.MaxDamage => Damage(item).Max,
             ClassGearStat.Defense => Defense(item),
-            ClassGearStat.StrengthRequirement => basis?.Strength ?? 0,
-            ClassGearStat.DexterityRequirement => basis?.Dexterity ?? 0,
+            ClassGearStat.StrengthRequirement => Math.Max(0, (basis?.Strength ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + NamedGear.Bonus(item, "ease")) / 100,
+            ClassGearStat.DexterityRequirement => Math.Max(0, (basis?.Dexterity ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + NamedGear.Bonus(item, "ease")) / 100,
             ClassGearStat.IntelligenceRequirement => 0,
             ClassGearStat.StrengthBonus => EffectiveBonus(item, "str"),
             ClassGearStat.DexterityBonus => EffectiveBonus(item, "dex"),
@@ -369,6 +374,7 @@ public static class ClassGear
         var basis = Base(item);
         var saved = State(item);
         var roll = saved?.Roll;
+        if (saved?.NamedItemId != null) { NamedGear.Properties(item, saved, list); }
         if (saved != null)
         {
             list.Add($"{"Base tier: "}{saved.Tier}{"; quality: "}{CraftTransactions.QualityName(saved.Quality)}");
@@ -453,7 +459,13 @@ public static class ClassGear
                 return;
             }
             Refresh(player);
+            foreach (var item in player.Items)
+            {
+                if (State(item) is { NamedItemId: not null }) { item.InvalidateProperties(); }
+            }
             StatNetwork.Send(player);
+            if (player.NetState != null)
+            { player.CheckLightLevels(false); ClassCombat.SendState(player, ClassCombat.For(player)); SkillBindingNetwork.Send(player); }
         });
     }
     public static void Refresh(PlayerMobile player)
@@ -475,15 +487,24 @@ public static class ClassGear
                 }
             }
         }
+        foreach (var (stat, code) in new[] { (StatType.Str, "str"), (StatType.Dex, "dex"), (StatType.Int, "enr") })
+        {
+            string name = "SanctuaryNamedSet/" + code;
+            player.RemoveStatMod(name);
+            int value = NamedGear.SetBonus(player, code);
+            if (value != 0) { player.AddStatMod(new StatMod(stat, name, value, TimeSpan.Zero)); }
+        }
         player.UpdateResistances();
         ClassStats.Refresh(player);
         player.Hits = Math.Min(player.Hits, player.HitsMax);
         player.Mana = Math.Min(player.Mana, player.ManaMax);
         player.Stam = Math.Min(player.Stam, player.StamMax);
+        NamedSetVisuals.Track(player);
     }
     public static void Configure()
     {
         Profiles = new GearProfiles();
+        ClassGearHooks.IgnoreAppearanceRestrictions = item => State(item)?.NamedItemId != null;
         ItemStateHooks.Copied = (source, copy) =>
         {
             RuneMould.Copy(source, copy);
@@ -499,8 +520,11 @@ public static class ClassGear
         ClassGearHooks.CanEnhance = item => State(item)?.CraftedEquipment != true;
         ClassGearHooks.NativeDurabilityBonus = item => State(item)?.CraftedEquipment == true ? 0 : null;
         ClassGearHooks.KeepBroken = KeepBroken;
+        ClassGearHooks.WearAllowed = item => !NamedGear.Indestructible(item);
+        ClassGearHooks.LightBonus = player => ClassCombat.Enabled(player) && player.Alive ? Bonus(player, "light") : 0;
         ClassGearHooks.DurabilityChanged = item =>
         {
+            NamedMaintenance.Track(item);
             if (item.Parent is PlayerMobile player && ClassCombat.Enabled(player))
             {
                 Refresh(player);
@@ -519,7 +543,7 @@ public static class ClassGear
             {
                 ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold",
                 ResistanceType.Poison => "res-pois", ResistanceType.Energy => "res-ltng", _ => "res-physical"
-            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, 75));
+            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, NamedCombat.ResistanceCap(player, type)));
         EventSink.WorldSave += Profiles.Prune;
     }
 }

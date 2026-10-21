@@ -127,8 +127,9 @@ public static class GearDropChecks
             && GearDrops.Quality(basis, 35, 0, new PathRoll(u - 1, s - 1, r - 1, 127)) == DropQuality.Magic
             && GearDrops.Quality(basis, 35, 0, new PathRoll(u - 1, s - 1, r - 1, m - 1)) == DropQuality.Normal,
             "Quality order or 128-ticket threshold drifted");
-        Require(GearDrops.Generate(basis, 35, 500, new QualityRoll(DropQuality.Unique)) == null
-            && GearDrops.Generate(basis, 35, 500, new QualityRoll(DropQuality.Set)) == null, "Reserved rarity was replaced/rerolled");
+        var absent = GearDrops.Base("clw"); // No source normal-tier Set/Unique claw.
+        Require(GearDrops.Generate(absent, 35, 500, new QualityRoll(DropQuality.Unique)) == null
+            && GearDrops.Generate(absent, 35, 500, new QualityRoll(DropQuality.Set)) == null, "Absent named result was replaced/rerolled");
         foreach (int find in new[] { 0, 100, 500, int.MaxValue })
         {
             foreach (var q in new[] { DropQuality.Unique, DropQuality.Set, DropQuality.Rare, DropQuality.Magic })

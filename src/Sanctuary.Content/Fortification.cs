@@ -76,7 +76,7 @@ public static class Fortification
             BaseJewel jewel => jewel.InitMaxHits, _ => 0 };
         if (natural <= 0 || ClassGear.CosmeticClothing(item)) { return 0; }
         int bonus = ClassGear.State(item) is { CraftedEquipment: true } state ? state.DurabilityPercent : 0;
-        return Math.Clamp((int)Math.Ceiling(natural * (100 + bonus) / 100.0), 0, 65535);
+        return Math.Clamp((int)Math.Ceiling(natural * (100 + bonus) / 100.0) + NamedGear.Bonus(item, "dur"), 0, 65535);
     }
     private static bool PowderReady(PlayerMobile owner, Item powder) => EquipmentRepairs.Ready(owner)
         && RuneCrafting.Accessible(owner, powder) && powder is { IsLockedDown: false, IsSecure: false, Movable: true }
@@ -87,7 +87,7 @@ public static class Fortification
         && ClassGear.State(item) is not { Identified: false } && !ClassGear.CosmeticClothing(item);
     internal static FortifyRequest Quote(PlayerMobile owner, Item powder, Item item)
     {
-        if (!PowderReady(owner, powder) || !ItemReady(owner, item)) { return null; }
+        if (!PowderReady(owner, powder) || !ItemReady(owner, item) || NamedGear.Ethereal(item)) { return null; }
         var native = GearDetails.Read(item); int ceiling = Ceiling(item);
         if (native.MaximumDurability is not > 0 || native.Durability is not >= 0 || native.MaximumDurability >= ceiling) { return null; }
         return new() { Owner = owner, Powder = powder, Item = item, PowderParent = powder.Parent, ItemParent = item.Parent,

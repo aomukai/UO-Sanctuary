@@ -38,23 +38,24 @@ public static class CombatPotions
     private static double AddedElements(Mobile source, Mobile target, double damage)
     {
         double added = ElementAmount(source, damage);
-        return added <= 0 ? 0 : GemCombat.Component(target, added, target.FireResistance, true)
-            + GemCombat.Component(target, added, target.ColdResistance, true)
-            + GemCombat.Component(target, added, target.EnergyResistance, true)
-            + GemCombat.Component(target, added, target.PoisonResistance, false);
+        return added <= 0 ? 0 : NamedElements.Damage(source, target, added, "fire")
+            + NamedElements.Damage(source, target, added, "cold")
+            + NamedElements.Damage(source, target, added, "ltng")
+            + NamedElements.Damage(source, target, added, "pois");
     }
     public static double TeethDamage(PlayerMobile source, Mobile target, double damage, int magicResistance) =>
-        GemCombat.Component(target, damage, magicResistance, true) + AddedElements(source, target, damage);
+        NamedElements.Damage(source, target, damage, "mag", target is PlayerMobile ? NamedElements.MagicResistance(target) : magicResistance)
+            + AddedElements(source, target, damage);
     public static int? SpellDamage(Mobile target, Mobile source, int damage, int physical, int fire, int cold, int poison, int lightning)
     {
         double added = ElementAmount(source, damage);
-        if (added <= 0) { return null; }
+        if (added <= 0 && !NamedElements.Attack(source) && !NamedElements.Defense(target)) { return null; }
         // Combine each original/added element before applying that element's flat reduction and resistance.
         double total = GemCombat.Component(target, damage * physical / 100.0, target.PhysicalResistance, false)
-            + GemCombat.Component(target, damage * fire / 100.0 + added, target.FireResistance, true)
-            + GemCombat.Component(target, damage * cold / 100.0 + added, target.ColdResistance, true)
-            + GemCombat.Component(target, damage * lightning / 100.0 + added, target.EnergyResistance, true)
-            + GemCombat.Component(target, damage * poison / 100.0 + added, target.PoisonResistance, false);
+            + NamedElements.Damage(source, target, damage * fire / 100.0 + added, "fire")
+            + NamedElements.Damage(source, target, damage * cold / 100.0 + added, "cold")
+            + NamedElements.Damage(source, target, damage * lightning / 100.0 + added, "ltng")
+            + NamedElements.Damage(source, target, damage * poison / 100.0 + added, "pois");
         return Math.Max(0, (int)Math.Floor(total));
     }
 }

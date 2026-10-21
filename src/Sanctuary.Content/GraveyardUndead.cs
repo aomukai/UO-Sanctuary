@@ -125,7 +125,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     internal TimeSpan BeginMelee(Mobile target, long now)
     {
-        if (Caster || !ValidEnemy(target, 1))
+        if (Caster && !NamedControl.Blind(this) || !ValidEnemy(target, 1))
         {
             return TimeSpan.FromMilliseconds(40);
         }
@@ -145,7 +145,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             return TimeSpan.FromMilliseconds(normal.StallMs);
         }
         _melee = Utility.RandomDouble() * 100 < normal.Attack1Chance ? normal.Attack1 : normal.Attack2;
-        _melee = _melee with { Speed = Math.Max(1, _melee.Speed * (100 - GearEffects.ChillPercent(this)) / 100) };
+        _melee = _melee with { Speed = Math.Max(1, _melee.Speed * (100 - GearEffects.AttackSlow(this)) / 100) };
         StartAction(target);
         _nextAction = now + _melee.DurationMs + normal.AiDelayMs;
         AIObject?.ResetApproachState();
@@ -208,7 +208,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         base.OnThink();
         long now = Core.TickCount;
-        if (!Caster || _actionTimer.Running || _impactTimer.Running || now - _nextAction < 0
+        if (!Caster || !NamedControl.SpecialAllowed(this) || _actionTimer.Running || _impactTimer.Running || now - _nextAction < 0
             || !ValidEnemy(Combatant, 12))
         {
             return;
@@ -222,7 +222,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     internal void RecoverLife(long now)
     {
         var normal = NormalStats;
-        if (normal == null || _lastRecovery == 0 || Deleted || !Alive || Poisoned || ReturningHome
+        if (normal == null || _lastRecovery == 0 || Deleted || !Alive || Poisoned || !TimedEffects.CanRegenerateHits(this) || ReturningHome
             || Map == null || Map == Map.Internal || Hits >= HitsMax)
         {
             _lastRecovery = now;
@@ -245,7 +245,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public virtual bool BeginFirebolt(Mobile target)
     {
-        if (!Caster || !ValidEnemy(target, 12) || _actionTimer.Running || _impactTimer.Running
+        if (!Caster || !NamedControl.SpecialAllowed(this) || !ValidEnemy(target, 12) || _actionTimer.Running || _impactTimer.Running
             || Core.TickCount - _nextAction < 0)
         {
             return false;
@@ -285,7 +285,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         _actionMap = null;
     }
     public virtual bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
-        Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, IsBones: false, OwnerWasSummoned: false }
+        Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false, OwnerWasSummoned: false }
         && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
         && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse);
     private Corpse FindRaiseTarget()
@@ -305,7 +305,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public bool BeginRaise(Corpse corpse)
     {
-        if (!Alive || Deleted || Frozen || Paralyzed || !CanRaise(corpse) || _actionTimer.Running
+        if (!Alive || Deleted || Frozen || Paralyzed || !NamedControl.SpecialAllowed(this) || !CanRaise(corpse) || _actionTimer.Running
             || _impactTimer.Running || Core.TickCount - _nextAction < 0 || Core.TickCount - _nextRaise < 0)
         {
             return false;
@@ -325,7 +325,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     {
         var corpse = _raiseTarget;
         _raiseTarget = null;
-        if (!SameOrigin || !Alive || Deleted || Frozen || Paralyzed || !CanRaise(corpse)
+        if (!SameOrigin || !Alive || Deleted || Frozen || Paralyzed || !NamedControl.SpecialAllowed(this) || !CanRaise(corpse)
             || !Map.CanSpawnMobile(corpse.X, corpse.Y, corpse.Z))
         {
             _actionMap = null;

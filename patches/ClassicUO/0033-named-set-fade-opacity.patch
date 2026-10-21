@@ -1,0 +1,81 @@
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -33,6 +33,7 @@
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
++    <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+     <Compile Include="../../../../shared/LootProtocol.cs" Link="Game/Data/LootProtocol.cs" />
+--- a/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Mobile.cs
+@@ -15,6 +15,7 @@
+ {
+     internal partial class Mobile : Entity
+     {
++        public byte NamedOpacity { get; set; } = Sanctuary.NamedVisualProtocol.Opaque;
+         //private static readonly QueuedPool<Mobile> _pool = new QueuedPool<Mobile>(
+         //    Constants.PREDICTABLE_CHUNKS,
+         //    mobile =>
+--- a/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
++++ b/src/ClassicUO.Client/Game/GameObjects/Views/MobileView.cs
+@@ -73,7 +73,7 @@
+                 Client.Game.UO.Version >= ClientVersion.CV_7000
+                 && (Graphic == 666 || Graphic == 667 || Graphic == 0x02B7 || Graphic == 0x02B6);
+ 
+-            Vector3 hueVec = ShaderHueTranslator.GetHueVector(0, false, AlphaHue / 255f);
++            Vector3 hueVec = ShaderHueTranslator.GetHueVector(0, false, AlphaHue / 255f * NamedOpacity / 255f);
+ 
+             if (
+                 ProfileManager.CurrentProfile.HighlightGameObjects
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4127,6 +4127,11 @@
+         {
+             ushort cmd = p.ReadUInt16BE();
+ 
++            if (cmd == Sanctuary.NamedVisualProtocol.SubCommand)
++            {
++                NamedVisualsClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.StatProtocol.SubCommand)
+             {
+                 ClassStatsClient.Receive(world, ref p);
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/NamedVisualsClient.cs
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using ClassicUO.IO;
++using System;
++using System.IO;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class NamedVisualsClient
++{
++    private static readonly string _trace = Environment.GetEnvironmentVariable("SANCTUARY_NAMED_VISUAL_TRACE");
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (!world.InGame || reader.Remaining != 6 || reader.ReadUInt8() != NamedVisualProtocol.Version)
++        {
++            return;
++        }
++        uint serial = reader.ReadUInt32BE();
++        byte opacity = reader.ReadUInt8();
++        if (opacity is not (NamedVisualProtocol.Faded or NamedVisualProtocol.Opaque))
++        {
++            return;
++        }
++        if (world.Mobiles.TryGetValue(serial, out var mobile))
++        {
++            mobile.NamedOpacity = opacity;
++            if (_trace != null)
++            {
++                File.WriteAllText(_trace, $"{serial} {opacity}");
++            }
++        }
++    }
++}

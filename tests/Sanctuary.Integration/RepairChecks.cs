@@ -51,7 +51,7 @@ public static class RepairChecks
         Workshop(player);
         return player;
     }
-    private static void Workshop(PlayerMobile player)
+    internal static void Workshop(PlayerMobile player)
     {
         FixtureSpace.Place(player,new Point3D(5550,1151,0),Map.Trammel);
         var skill=ClassProfessions.Profiles.Find(player).Craft;
@@ -273,6 +273,7 @@ public static class RepairChecks
         }
         Workshop(smith);
         var wood = players[SkillName.Fletching]; var fletcher = tools[SkillName.Fletching];
+        ThrowingRefills(wood, fletcher);
         var wand = new HealWand(); wood.Backpack.DropItem(wand);
         int capacity = EquipmentRepairs.Capacity(wand); wand.ConsumeCharge(wood);
         Require(wand.Charges == capacity - 1, "Native charge consumer did not spend charge");
@@ -322,6 +323,42 @@ public static class RepairChecks
             JsonSerializer.Serialize(new[] { EquipmentRepairs.Settings with
             { Tiers = EquipmentRepairs.Settings.Tiers.Select(t => t with { Min = t.Min + 10, Max = t.Max + 10 }).ToArray() } }));
         _logger.Information("Repair cohort: {Count} durable recipe identities; all tiers, rarities, skill boundaries, NPC routes and charge transactions passed", repaired);
+    }
+    private static void ThrowingRefills(PlayerMobile worker, BaseTool tool)
+    {
+        ClearResources(worker);
+        var item = (BaseWeapon)NamedGear.Create("unique/335", 99, new Random(43)); worker.Backpack.DropItem(item);
+        int capacity = NamedAmmunition.Maximum(item), hits = item.HitPoints, maximum = item.MaxHitPoints;
+        var state = ClassGear.State(item); var now = TimedEffects.Now;
+        for (int i = 0; i < capacity; i++) { Require(NamedAmmunition.Consume(item, now), "Could not empty refill fixture"); }
+        var quote = EquipmentRepairs.Quote(worker, item, tool, durability: false, charges: -1);
+        Require(quote is { Durability: false } && quote.RestoreCharges == capacity && quote.Costs.Any(c => c.Type == EquipmentRepairs.Processed(GearDetails.Read(item)))
+            && quote.Costs.Any(c => c.Type == typeof(MagicEssence)), "Throwing refill bypassed the named repair resource bundle");
+        var before = Inventory(worker);
+        Require(!EquipmentRepairs.Commit(quote, out _) && Inventory(worker) == before && NamedAmmunition.Remaining(item) == 0,
+            "Insufficient refill resources consumed or restored anything");
+        quote = EquipmentRepairs.Quote(worker, item, tool, durability: false, charges: 2); Fund(worker, quote);
+        Require(EquipmentRepairs.Commit(quote, out var result, new Rolls(false, true)) && result.Charges == 2 && result.LostMaximum == 0
+            && NamedAmmunition.Remaining(item) == 2 && item.HitPoints == hits && item.MaxHitPoints == maximum
+            && ReferenceEquals(ClassGear.State(item), state) && !EquipmentRepairs.Commit(quote, out _),
+            "Partial refill changed durability/identity or allowed replay");
+        ClearResources(worker);
+        quote = EquipmentRepairs.Quote(worker, item, tool, durability: false, charges: -1); Fund(worker, quote);
+        NamedAmmunition.Consume(item, now); before = Inventory(worker);
+        Require(!EquipmentRepairs.Commit(quote, out _) && Inventory(worker) == before, "Changed throwing quantity accepted stale refill");
+        ClearResources(worker);
+        var vendor = TownMarkets.Profiles.At("Felucca/Britain/Bowyer"); Approach(worker, vendor);
+        quote = EquipmentRepairs.Quote(worker, item, vendor: vendor, durability: false, charges: -1); Fund(worker, quote);
+        Require(quote.Gold == EquipmentRepairs.Tier(state.Tier).Gold
+            && EquipmentRepairs.Commit(quote, out result, new Rolls(false, true)) && NamedAmmunition.Remaining(item) == capacity
+            && item.HitPoints == hits && item.MaxHitPoints == maximum, "NPC refill failed or changed durability");
+        Require(EquipmentRepairs.Quote(worker, item, vendor: vendor, durability: false, charges: -1) == null, "Full throwing weapon accepted refill");
+        item.Delete(); ClearResources(worker); Workshop(worker);
+        var ethereal = NamedGear.Create("unique/386", 99, new Random(2)); worker.Backpack.DropItem(ethereal);
+        Require(NamedGear.Ethereal(ethereal), "Ethereal refill fixture changed");
+        NamedAmmunition.Consume(ethereal, now);
+        Require(EquipmentRepairs.Quote(worker, ethereal, tool, durability: false, charges: -1) == null,
+            "Ethereal throwing weapon bypassed ordinary repair restrictions"); ethereal.Delete();
     }
     private static void Reload()
     {

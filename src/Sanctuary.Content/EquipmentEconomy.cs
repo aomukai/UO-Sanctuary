@@ -113,7 +113,8 @@ public static class EquipmentEconomy
     public static SalvageRange EssenceRange(GearRarity rarity) => rarity switch
     {
         GearRarity.Magic => Settings.MagicEssence,
-        GearRarity.Rare => Settings.RareEssence,
+        GearRarity.Rare or GearRarity.Set => Settings.RareEssence,
+        GearRarity.Unique => Settings.ReservedUniqueEssence,
         _ => null
     };
     public static SalvageRange MaterialRange(SalvageMaterial material) => material switch

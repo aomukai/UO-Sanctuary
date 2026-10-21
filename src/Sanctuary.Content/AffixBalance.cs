@@ -113,7 +113,8 @@ public static class AffixBalance
     public static GearRoll Roll(string itemType, int itemLevel, int qualityLevel, int magicLevel,
         int requiredLevel, GearRarity rarity, Random random, Func<AffixDefinition, bool> filter = null)
     {
-        if (!Enum.IsDefined(rarity) || !EquipmentBalance.Types.TryGetValue(itemType, out var type))
+        if (rarity is not (GearRarity.Normal or GearRarity.Magic or GearRarity.Rare)
+            || !EquipmentBalance.Types.TryGetValue(itemType, out var type))
         {
             throw new ArgumentOutOfRangeException(nameof(rarity));
         }

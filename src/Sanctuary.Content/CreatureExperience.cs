@@ -18,6 +18,7 @@ public static class CreatureExperience
         int basis = CreatureProfiles.Experience(life.Creature);
         if (basis <= 0) { return false; }
         int amount = MonsterExperience.Award(basis, life.Level, ClassStats.Level(player));
+        amount = (int)System.Math.Clamp((long)amount * System.Math.Max(0, 100 + ClassGear.Bonus(player, "addxp")) / 100, 0, int.MaxValue);
         return ClassCreation.Profiles.AwardExperience(player, amount);
     }
 }

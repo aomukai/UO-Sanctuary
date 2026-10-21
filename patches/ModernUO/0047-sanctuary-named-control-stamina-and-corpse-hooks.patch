@@ -1,0 +1,105 @@
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -90,7 +90,8 @@
+     SanctuaryZombie = 0x00004000,
+     SanctuaryNoRewards = 0x00008000,
+     SanctuaryConsumed = 0x00010000,
+-    SanctuaryDeathCharged = 0x00020000
++    SanctuaryDeathCharged = 0x00020000,
++    SanctuaryRestInPeace = 0x00040000
+ }
+ 
+ [SerializationGenerator(19, false)]
+@@ -408,6 +409,12 @@
+ 
+     [CommandProperty(AccessLevel.GameMaster)]
+     public bool OwnerWasAnimatedDead => GetFlag(CorpseFlag.OwnerWasAnimatedDead);
++
++    public bool SanctuaryRestInPeace
++    {
++        get => GetFlag(CorpseFlag.SanctuaryRestInPeace);
++        set => SetFlag(CorpseFlag.SanctuaryRestInPeace, value);
++    }
+ 
+     public bool SanctuaryConsumed
+     {
+--- a/Projects/UOContent/Misc/StaminaSystem.cs
++++ b/Projects/UOContent/Misc/StaminaSystem.cs
+@@ -348,7 +348,7 @@
+ 
+         if (AdditionalLossWhenBelow > 0 && from.Stam / Math.Max(from.StamMax, 1.0) < AdditionalLossWhenBelow)
+         {
+-            --from.Stam;
++            from.Stam -= ClassCombatHooks.RunningStaminaCost?.Invoke(from, 1) ?? 1;
+         }
+ 
+         if (CannotRunWhenFatigued && from.Stam <= 0)
+@@ -373,7 +373,7 @@
+ 
+             if (steps > maxSteps)
+             {
+-                --pm.Stam;
++                pm.Stam -= ClassCombatHooks.RunningStaminaCost?.Invoke(pm, 1) ?? 1;
+                 stepsTaken.Steps = 0;
+             }
+ 
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/BaseAI.cs
+@@ -272,6 +272,11 @@
+             return false;
+         }
+ 
++        if (ClassCombatHooks.ControlThink?.Invoke(Mobile) == true)
++        {
++            return true;
++        }
++
+         if (CheckFlee())
+         {
+             return true;
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -3741,6 +3741,11 @@
+ 
+         public override bool CanBeHarmful(Mobile target, bool message, bool ignoreOurBlessedness)
+         {
++            if (ClassCombatHooks.TargetAllowed?.Invoke(this, target) == false)
++            {
++                return false;
++            }
++
+             if (target is BaseFactionGuard)
+             {
+                 return false;
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,6 +5,9 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public static class ClassCombatHooks
+ {
++    public static Func<BaseCreature, bool> ControlThink { get; set; }
++    public static Func<Mobile, Mobile, bool> TargetAllowed { get; set; }
++    public static Func<Mobile, int, int> RunningStaminaCost { get; set; }
+     public static Func<BaseCreature, bool> PersistentMinion { get; set; }
+     public static Action<PlayerMobile> SuspendMinions { get; set; }
+     public static Action<PlayerMobile> ResumeMinions { get; set; }
+--- a/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs
++++ b/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs
+@@ -136,7 +136,7 @@
+         {
+             var type = c.Owner?.GetType();
+ 
+-            if (c.ItemID != 0x2006 || c.Animated || type == typeof(PlayerMobile) || type == null ||
++            if (c.ItemID != 0x2006 || c.SanctuaryRestInPeace || c.Animated || type == typeof(PlayerMobile) || type == null ||
+                 c.Owner?.Fame < 100 ||
+                 c.Owner is BaseCreature creature && (creature.Summoned || creature.IsBonded))
+             {
+@@ -298,7 +298,7 @@
+ 
+     private static void SummonDelay_Callback(Mobile caster, Corpse corpse, Point3D loc, Map map, CreatureGroup group)
+     {
+-        if (corpse.Animated || corpse.Deleted || caster.Deleted)
++        if (corpse.SanctuaryRestInPeace || corpse.Animated || corpse.Deleted || caster.Deleted)
+         {
+             return;
+         }

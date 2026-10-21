@@ -1,0 +1,33 @@
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -22,6 +22,7 @@
+     public static Func<Item, bool> KeepBroken { get; set; }
+     public static Func<Item, bool> WearAllowed { get; set; }
+     public static Func<PlayerMobile, int> LightBonus { get; set; }
++    public static Func<Mobile, bool> CanRegenerateHits { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+     public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1391,7 +1391,8 @@
+         public virtual TimeSpan BondingDelay => TimeSpan.FromDays(7.0);
+         public virtual TimeSpan BondingAbandonDelay => TimeSpan.FromDays(1.0);
+ 
+-        public override bool CanRegenHits => !IsDeadPet && !Summoned && base.CanRegenHits;
++        public override bool CanRegenHits => !IsDeadPet && !Summoned && base.CanRegenHits
++            && ClassGearHooks.CanRegenerateHits?.Invoke(this) != false;
+         public override bool CanRegenStam => !IsParagon && !IsDeadPet && base.CanRegenStam;
+         public override bool CanRegenMana => !IsDeadPet && base.CanRegenMana;
+ 
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1169,6 +1169,8 @@
+             }
+         }
+ 
++        public override bool CanRegenHits => base.CanRegenHits && ClassGearHooks.CanRegenerateHits?.Invoke(this) != false;
++
+         public override void ComputeLightLevels(out int global, out int personal)
+         {
+             base.ComputeLightLevels(out global, out personal);

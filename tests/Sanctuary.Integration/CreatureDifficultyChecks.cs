@@ -183,7 +183,11 @@ public static class CreatureDifficultyChecks
             Require(chosen >= 0, "Reserved source quality was unreachable");
             victim = (Skeleton)Create(typeof(Skeleton), difficulty); corpse = GearDropChecks.Body(victim, player, _point);
             RewardLife.Process(victim, corpse, new Random(chosen));
-            Require(corpse.Items.Count == 0 && corpse.SanctuaryNoRewards, "Reserved higher quality rerolled or fell back to other gear");
+            var rarity = quality == DropQuality.Unique ? GearRarity.Unique : GearRarity.Set;
+            Require(corpse.Items.Count <= 1 && corpse.SanctuaryNoRewards
+                && corpse.Items.All(i => ClassGear.State(i) is { NamedItemId: not null } state
+                    && state.Roll.Rarity == rarity && NamedGear.Available(state.NamedItemId)),
+                "Named higher quality rerolled or fell back to another rarity");
             corpse.Delete(); victim.Delete();
         }
         victim = (Skeleton)Create(typeof(Skeleton), difficulty); victim.NoKillAwards = true; corpse = GearDropChecks.Body(victim, pet, _point);

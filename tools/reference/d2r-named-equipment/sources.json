@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/blizzhackers/d2data",
+  "commit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "edition": "Diablo II: Resurrected, Reign of the Warlock",
+  "retrievedOn": "2026-10-21",
+  "license": "MIT; see LICENSE.txt",
+  "files": {
+    "json/uniqueitems.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/uniqueitems.json",
+      "sha256": "e6f28489942a6145d99190728071c0e7557313239517bb03c627d3d41bbad8e7"
+    },
+    "json/setitems.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/setitems.json",
+      "sha256": "c9987086caa820e8642149248d3138d3ebb89215f971525aec8e20e97fac4c5b"
+    },
+    "json/sets.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/sets.json",
+      "sha256": "879e0c6d28028255426a671f5e947eb7d61f097e82eba8df20eed10e60861058"
+    },
+    "json/weapons.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/weapons.json",
+      "sha256": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88"
+    },
+    "json/armor.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/armor.json",
+      "sha256": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271"
+    },
+    "json/misc.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/misc.json",
+      "sha256": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072"
+    },
+    "json/properties.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/properties.json",
+      "sha256": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34"
+    },
+    "json/propertygroups.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/propertygroups.json",
+      "sha256": "c2701dd1b09bc58c275d3267326a57ff2450c56dcdc1ad011b088298e1e47564"
+    },
+    "json/itemstatcost.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/itemstatcost.json",
+      "sha256": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+    },
+    "json/itemtypes.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/itemtypes.json",
+      "sha256": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae"
+    },
+    "json/skills.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/skills.json",
+      "sha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "json/charstats.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/charstats.json",
+      "sha256": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564"
+    },
+    "json/cubemain.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/cubemain.json",
+      "sha256": "0b3deb18f4b1605e72a11a8d72e8ce73f1fbd662546d2a875d182be9b70b53e8"
+    },
+    "json/allstrings-eng.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/allstrings-eng.json",
+      "sha256": "27f09255a8c77d43153845b0f85c9a85848df2b315a012cbf234b09e1e319ddc"
+    },
+    "json/base/uniqueitems.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/base/uniqueitems.json",
+      "sha256": "f7fbe2f7eabcc5eafd660854f10642e16e51af21c7d579fc8e26d421073fadcc"
+    },
+    "json/base/setitems.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/base/setitems.json",
+      "sha256": "5b43788fdb39999aa47988fc1a4c2bb08530dc815bd13d9ea6e4f6126496c52b"
+    },
+    "json/base/sets.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/base/sets.json",
+      "sha256": "782a70ed92da47fb90579d3bf3e3faf6506f7fff708f4fc57b359f2cf2b707a3"
+    },
+    "LICENSE.txt": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/LICENSE",
+      "sha256": "db3b92f0571d2ed0e51bd00ff588999d41bd28a9582fb7262740167ee3b1ac20"
+    },
+    "json/skilldesc.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/skilldesc.json",
+      "sha256": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+    },
+    "json/states.json": {
+      "sha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/states.json"
+    }
+  }
+}

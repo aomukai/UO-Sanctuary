@@ -3,7 +3,7 @@
   "difficulty": "Hell",
   "players": 1,
   "maxDrops": 1,
-  "setUniquePolicy": "Empty",
+  "setUniquePolicy": "NamedWhenAvailable",
   "whiteQuality": "Normal",
   "ratios": [
     {

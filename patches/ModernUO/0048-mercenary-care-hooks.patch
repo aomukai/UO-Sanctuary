@@ -1,0 +1,128 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1397,6 +1397,8 @@
+         public override bool CanRegenMana => !IsDeadPet && base.CanRegenMana;
+ 
+         public override bool IsDeadBondedPet => IsDeadPet;
++
++        public override bool KeepsItemsOnDeath => ClassMercenaryHooks.KeepEquipment?.Invoke(this) == true || base.KeepsItemsOnDeath;
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+         public Spawner MySpawner => Spawner as Spawner;
+@@ -2851,6 +2853,7 @@
+         public override void GetContextMenuEntries(Mobile from, ref PooledRefList<ContextMenuEntry> list)
+         {
+             base.GetContextMenuEntries(from, ref list);
++            ClassMercenaryHooks.ContextEntries?.Invoke(this, from, ref list);
+ 
+             if (Commandable)
+             {
+@@ -2896,6 +2899,7 @@
+ 
+         public override void OnSpeech(SpeechEventArgs e)
+         {
++            ClassMercenaryHooks.Conversation?.Invoke(this, e.Mobile, e.Speech);
+             var speechType = SpeechType;
+ 
+             if (speechType?.OnSpeech(this, e.Mobile, e.Speech) == true)
+@@ -4155,6 +4159,10 @@
+ 
+         public virtual void ResurrectPet()
+         {
++            if (ClassMercenaryHooks.ResurrectionAllowed?.Invoke(this) == false)
++            {
++                return;
++            }
+             if (!IsDeadPet)
+             {
+                 return;
+@@ -6024,6 +6032,13 @@
+                     continue;
+                 }
+ 
++                if (ClassMercenaryHooks.KeepEquipment?.Invoke(c) == true)
++                {
++                    c.OwnerAbandonTime = DateTime.MinValue;
++                    c.Loyalty = BaseCreature.MaxLoyalty;
++                    continue;
++                }
++
+                 if (c.IsDeadPet)
+                 {
+                     var owner = c.ControlMaster;
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassMercenaryHooks.cs
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Collections;
++using Server.ContextMenus;
++
++namespace Server.Mobiles;
++
++public delegate void MercenaryContextEntries(BaseCreature healer, Mobile owner, ref PooledRefList<ContextMenuEntry> entries);
++public static class ClassMercenaryHooks
++{
++    public static Func<BaseCreature, bool> KeepEquipment { get; set; }
++    public static Func<BaseCreature, bool> ResurrectionAllowed { get; set; }
++    public static MercenaryContextEntries ContextEntries { get; set; }
++    public static Action<BaseCreature, Mobile, string> Conversation { get; set; }
++    public static Action<BaseCreature, Mobile> TradeOpened { get; set; }
++    public static Func<BaseCreature, Mobile, bool> ReleaseOrder { get; set; }
++}
+--- a/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
++++ b/Projects/UOContent/Mobiles/Vendors/BaseVendor.cs
+@@ -929,6 +929,7 @@
+             UpdateBuyInfo();
+ 
+             ClassEconomyHooks.PurchaseOpened?.Invoke(this, from);
++            ClassMercenaryHooks.TradeOpened?.Invoke(this, from);
+ 
+             var buyInfo = GetBuyInfo();
+             var sellInfo = GetSellInfo();
+@@ -1075,6 +1076,8 @@
+                 return;
+             }
+ 
++            ClassMercenaryHooks.TradeOpened?.Invoke(this, from);
++
+             var pack = from.Backpack;
+ 
+             if (pack == null)
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/PetOrders.cs
+@@ -114,7 +114,7 @@
+             OrderType.Unfriend => IssueUnfriend(previous, interruptedTarget),
+             OrderType.Guard    => IssueGuard(resuming),
+             OrderType.Attack   => IssueAttack(resuming),
+-            OrderType.Release  => IssueRelease(),
++            OrderType.Release  => IssueRelease(issuer),
+             OrderType.Stay     => IssueStay(resuming),
+             OrderType.Stop     => IssueStop(previous),
+             OrderType.Follow   => IssueFollow(resuming),
+@@ -381,6 +381,10 @@
+ 
+     private OrderType IssueTransfer()
+     {
++        if (ClassMercenaryHooks.KeepEquipment?.Invoke(Mobile) == true)
++        {
++            return PersistentOrder;
++        }
+         if (Mobile.IsDeadPet)
+         {
+             return PersistentOrder;
+@@ -473,8 +477,12 @@
+     }
+ 
+     // SetControlMaster(null) assigns ControlOrder = None underneath; the funnel keeps that write.
+-    private OrderType IssueRelease()
+-    {
++    private OrderType IssueRelease(Mobile issuer)
++    {
++        if (ClassMercenaryHooks.ReleaseOrder?.Invoke(Mobile, issuer) == true)
++        {
++            return Mobile.Map == Map.Internal ? OrderType.None : PersistentOrder;
++        }
+         if (Mobile.Summoned)
+         {
+             Mobile.Kill();

@@ -18,15 +18,19 @@ public static class GemCombat
     public static int Reduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
         ? Math.Max(0, ClassGear.Bonus(p, "magic-reduction")) : 0;
     internal static double Component(Mobile target, double damage, int resistance, bool magical)
-        => Math.Max(0, damage - (magical ? Reduction(target) : 0)) * Math.Clamp(100 - resistance, 0, 200) / 100.0;
+        => Math.Max(0, damage - (magical ? Reduction(target) : PhysicalReduction(target))) * Math.Clamp(100 - resistance, 0, 200) / 100.0;
+    internal static double PoisonComponent(Mobile target, double damage)
+        => Math.Max(0, damage) * Math.Clamp(100 - target.PoisonResistance, 0, 200) / 100.0;
+    public static int PhysicalReduction(Mobile target) => target is PlayerMobile p && ClassCombat.Enabled(p)
+        ? Math.Max(0, ClassGear.Bonus(p, "physical-reduction")) : 0;
     public static int? ResistedDamage(Mobile target, int damage, int physical, int fire, int cold, int poison, int lightning)
     {
-        if (Reduction(target) == 0) { return null; }
+        if (Reduction(target) == 0 && PhysicalReduction(target) == 0 && !NamedElements.Defense(target)) { return null; }
         double value = Component(target, damage * physical / 100.0, target.PhysicalResistance, false)
-            + Component(target, damage * fire / 100.0, target.FireResistance, true)
-            + Component(target, damage * cold / 100.0, target.ColdResistance, true)
-            + Component(target, damage * poison / 100.0, target.PoisonResistance, false)
-            + Component(target, damage * lightning / 100.0, target.EnergyResistance, true);
+            + NamedElements.Damage(null, target, damage * fire / 100.0, "fire")
+            + NamedElements.Damage(null, target, damage * cold / 100.0, "cold")
+            + PoisonComponent(target, damage * poison / 100.0)
+            + NamedElements.Damage(null, target, damage * lightning / 100.0, "ltng");
         return Math.Max(0, (int)Math.Floor(value));
     }
     internal static double Value(Item host, string code, double roll)
@@ -48,8 +52,11 @@ public static class GemCombat
         return total;
     }
     internal static (double Total, int Duration) Poison(Item host, double material)
+        => PoisonCombined(host, material, default);
+    internal static (double Total, int Duration) PoisonCombined(Item host, double material, (double Rate, int Length, int Count) named)
     {
-        double rate = material / 3000.0; int length = material > 0 ? 3000 : 0, count = material > 0 ? 1 : 0;
+        double rate = material / 3000.0 + named.Rate;
+        int length = (material > 0 ? 3000 : 0) + named.Length, count = (material > 0 ? 1 : 0) + named.Count;
         if (host != null && !ClassGear.Broken(host) && ClassGear.State(host) is { Identified: true } state)
         {
             foreach (var gem in state.Gems)
@@ -82,11 +89,18 @@ public static class GemCombat
     }
     public static void WeaponHit(Mobile attacker, Mobile target, int loss, bool ranged)
     {
+        if (loss > 0 && target is PlayerMobile { Alive: true } victim && ClassCombat.Enabled(victim)
+            && attacker != null && attacker != victim && ClassCombatHooks.Friendly?.Invoke(attacker, victim) != true)
+        {
+            int percent = Math.Max(0, ClassGear.Bonus(victim, "dmg-to-mana"));
+            victim.Mana += (int)Math.Min(victim.ManaMax, (long)loss * percent / 100);
+        }
         if (ranged || loss <= 0 || attacker == null || attacker == target || attacker.Deleted || !attacker.Alive
             || target is not PlayerMobile p || !ClassCombat.Enabled(p) || attacker.Blessed
             || ClassCombatHooks.Friendly?.Invoke(attacker, target) == true) { return; }
         int thorns = Math.Max(0, ClassGear.Bonus(p, "thorns"));
-        int damage = (int)Math.Floor(Component(attacker, thorns, attacker.PhysicalResistance, false));
+        int damage = (int)Math.Floor(Component(attacker, thorns, attacker.PhysicalResistance, false)
+            + Component(attacker, Math.Max(0, ClassGear.Bonus(p, "light-thorns")), attacker.EnergyResistance, true));
         if (damage > 0)
         {
             // Reflection is not another weapon strike: no recursive thorns, leech or on-hit effects.

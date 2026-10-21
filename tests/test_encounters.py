@@ -46,7 +46,7 @@ class EncounterCatalogueTests(unittest.TestCase):
         citem = self.rows['Act 1 Citem A']
         gold = next(e for e in citem['entries'] if e['item']=='gld')
         self.assertEqual((gold['weight'],gold['goldMultiplier']),(60,1280))
-        self.assertEqual(self.treasure['setUniquePolicy'],'Empty')
+        self.assertEqual(self.treasure['setUniquePolicy'],'NamedWhenAvailable')
         self.assertEqual(self.treasure['maxDrops'],6)
 
     def test_reachable_trees_are_acyclic_and_bounded(self):

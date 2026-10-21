@@ -54,7 +54,7 @@ def build(source):
                             picks=int(row['Picks'] or 0), noDrop=int(row['NoDrop'] or 0),
                             factors=[int(row[k] or 0) for k in ['Unique', 'Set', 'Rare', 'Magic']], entries=entries)
     provenance = {name: hashlib.sha256((source/name).read_bytes()).hexdigest() for name in ['MonStats.txt', 'TreasureClassEx.txt']}
-    treasure = dict(sourceCommit=COMMIT, sourceSha256=provenance, maxDrops=6, setUniquePolicy='Empty',
+    treasure = dict(sourceCommit=COMMIT, sourceSha256=provenance, maxDrops=6, setUniquePolicy='NamedWhenAvailable',
                     roots=roots, classes=sorted(result.values(), key=lambda r:r['name']))
     profiles = []
     for family, name, archetype, ref, body, sound in FAMILIES:

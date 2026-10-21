@@ -80,7 +80,7 @@ public static class ClassStats
         var vit = Vitality(player) - basis.Vitality;
         var energy = player.Int - basis.Energy;
         var levels = profile.Level - 1;
-        return Math.Clamp(resource switch
+        int total = resource switch
         {
             0 => basis.Life + (levels * basis.LifeLevel4 + vit * basis.LifeVitality4) / 4
                 + AosAttributes.GetValue(player, AosAttribute.BonusHits),
@@ -88,7 +88,9 @@ public static class ClassStats
                 + AosAttributes.GetValue(player, AosAttribute.BonusStam),
             _ => basis.Mana + (levels * basis.ManaLevel4 + energy * basis.ManaEnergy4) / 4
                 + AosAttributes.GetValue(player, AosAttribute.BonusMana)
-        }, 1, 65000);
+        };
+        int percent = resource == 0 ? ClassGear.Bonus(player, "hp%") : resource == 2 ? ClassGear.Bonus(player, "mana%") : 0;
+        return (int)Math.Clamp((long)total * Math.Max(0, 100 + percent) / 100, 1, 65000);
     }
     public static int Level(Mobile mobile) => mobile is BaseCreature creature ? CreatureProfiles.Level(creature) : mobile is PlayerMobile && ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
         ? profile.Level : 1;
@@ -106,7 +108,7 @@ public static class ClassStats
         int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att"));
         return Math.Max(1, baseRating * (100 + AosAttributes.GetValue(player, AosAttribute.AttackChance)) / 100);
     }
-    public static int Defense(Mobile mobile) => EliteAuras.Defense(mobile, BaseDefense(mobile));
+    public static int Defense(Mobile mobile) => EliteAuras.Defense(mobile, Math.Max(0, BaseDefense(mobile) - TimedEffects.DefenseLoss(mobile)));
     private static int BaseDefense(Mobile mobile)
     {
         if (mobile is BaseCreature creature)
@@ -127,7 +129,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return Math.Max(0, player.Dex / 4 + armor);
+            return Math.Max(0, player.Dex / 4 + armor + NamedGear.SetBonus(player, "ac"));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
@@ -147,10 +149,14 @@ public static class ClassStats
         {
             return true;
         }
-        bool hit = Utility.RandomDouble() < HitChance(AttackRating(attacker), Defense(defender), Level(attacker), Level(defender));
+        int attack = AttackRating(attacker);
+        if (attacker is PlayerMobile owner)
+        { attack += GemCombat.Undead(defender) ? ClassGear.Bonus(owner, "att-undead") : NamedCombat.Demon(defender) ? ClassGear.Bonus(owner, "att-demon") : 0; }
+        bool hit = Utility.RandomDouble() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender)), Level(attacker), Level(defender));
         if (hit && classDefense && ClassGear.BlockChance((PlayerMobile)defender) is > 0 and var chance)
         {
             hit = Utility.RandomDouble() * 100 >= chance;
+            if (!hit) { HitRecovery.Block((PlayerMobile)defender, Core.TickCount); }
         }
         return hit;
     }
@@ -166,7 +172,7 @@ public static class ClassStats
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
         }
-        return statBonus;
+        return statBonus + NamedGear.SetBonus(player, "dmg%");
     }
     public static (int Min, int Max) DamageRange(PlayerMobile player)
     {
@@ -177,7 +183,7 @@ public static class ClassStats
     {
         var weapon = CombatTiming.Equipped(player);
         int bonus = Math.Max(0, 100 + DamageBonus(player, weapon) + targetBonus);
-        int flatMin = 0, flatMax = 0;
+        int flatMin = NamedGear.SetBonus(player, "dmg-min"), flatMax = NamedGear.SetBonus(player, "dmg-max");
         foreach (var item in player.Items)
         {
             if (item != weapon && ClassGear.Active(player, item))

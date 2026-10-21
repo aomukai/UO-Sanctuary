@@ -39,12 +39,12 @@ public static class SkeletonPets
 {
     public const int Range = 8;
     public static int Rank(PlayerMobile owner) => ClassCreation.Profiles.TryGet(owner.Serial, out var profile)
-        && profile.Class == DiabloClass.Necromancer ? ClassCreation.Profiles.GetRank(owner.Serial, "necromancer.raiseskeleton") : 0;
+        && profile.Class == DiabloClass.Necromancer ? NamedSkills.Rank(owner, "necromancer.raiseskeleton") : 0;
     public static int Limit(int rank) => rank <= 3 ? rank : 3 + (rank - 3) / 3;
     public static int Mana(PlayerMobile owner) => 5 + Rank(owner);
     public static bool Usable(PlayerMobile owner, Corpse corpse) => owner.Alive
         && corpse is { Deleted: false, Parent: null, OwnerWasBaseCreature: true, OwnerWasSummoned: false,
-            Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, IsBones: false }
+            Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false }
         && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
         && corpse.Map == owner.Map && owner.InRange(corpse, Range) && Math.Abs(owner.Z - corpse.Z) < 16
         && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner, null) && !corpse.IsCriminalAction(owner);
@@ -102,7 +102,7 @@ public static class SkeletonPets
             }
         }
         var pet = new SkeletonGuardian();
-        pet.Initialize(owner, Rank(owner), ClassCreation.Profiles.GetRank(owner.Serial, "necromancer.skeletonmastery"));
+        pet.Initialize(owner, Rank(owner), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         if (!pet.SetControlMaster(owner))
         {
             pet.Delete();
@@ -229,7 +229,8 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     internal void RecoverLife(long now)
     {
-        if (_lastRecovery == 0 || !Alive || Deleted || Map == null || Map == Map.Internal || Hits >= HitsMax)
+        if (_lastRecovery == 0 || !Alive || Deleted || Poisoned || !TimedEffects.CanRegenerateHits(this)
+            || Map == null || Map == Map.Internal || Hits >= HitsMax)
         {
             _lastRecovery = now;
             _recoveryFraction = 0;

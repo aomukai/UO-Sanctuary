@@ -1,0 +1,45 @@
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -749,7 +749,7 @@
+             damageTaken = Math.Max(0, damageTaken - absorbed);
+ 
+             // 25% chance to lower durability
+-            if (Utility.Random(4) == 0)
++            if (ClassGearHooks.WearAllowed?.Invoke(this) != false && Utility.Random(4) == 0)
+             {
+                 if (Core.AOS && ArmorAttributes.SelfRepair > Utility.Random(10))
+                 {
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -20,6 +20,7 @@
+     public static Action<Mobile, Mobile, int, bool> WeaponHit { get; set; }
+     public static Func<Item, bool> Unidentified { get; set; }
+     public static Func<Item, bool> KeepBroken { get; set; }
++    public static Func<Item, bool> WearAllowed { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+     public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -342,7 +342,7 @@
+             // Don't go below zero
+             damageTaken = Math.Min(absorbed, damageTaken);
+ 
+-            if (Utility.Random(100) < 25) // 25% chance to lower durability
++            if (ClassGearHooks.WearAllowed?.Invoke(this) != false && Utility.Random(100) < 25) // 25% chance to lower durability
+             {
+                 if (Core.AOS && ClothingAttributes.SelfRepair > Utility.Random(10))
+                 {
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -1762,6 +1762,10 @@
+ 
+     public void WearOnHit(Mobile attacker, Mobile defender)
+     {
++        if (ClassGearHooks.WearAllowed?.Invoke(this) == false)
++        {
++            return;
++        }
+         if (ClassGearHooks.KeepBroken?.Invoke(this) == true && _hitPoints <= 0)
+         {
+             return;

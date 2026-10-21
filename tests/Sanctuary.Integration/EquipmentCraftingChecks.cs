@@ -71,7 +71,7 @@ public static class EquipmentCraftingChecks
     { SkillName.Blacksmith => new SmithHammer(50), SkillName.Fletching => new FletcherTools(50), _ => new SewingKit(50) };
     internal static EquipmentRecipe Row(string type, GearTier tier = GearTier.Normal) => EquipmentCrafting.Recipes.Single(r => r.Type == type && r.Tier == tier);
     internal static T Put<T>(Mobile owner, T item) where T : Item { owner.Backpack.DropItem(item); return item; }
-    private static PlayerMobile Player(string name, EquipmentRecipe row)
+    internal static PlayerMobile Player(string name, EquipmentRecipe row)
     {
         var player = new PlayerMobile { Body = 0x190, Player = true, Name = name, RawStr = 200 };
         player.AddItem(new Backpack()); var basis = EquipmentBalance.Base(row.BaseCode);

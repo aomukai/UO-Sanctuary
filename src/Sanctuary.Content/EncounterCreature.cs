@@ -144,14 +144,14 @@ public partial class EncounterCreature : GraveyardUndead
         { return false; }
         StartAction(target); _shotTarget = target; _shotMap = Map; _shotOrigin = Location;
         Direction = GetDirectionTo(target); Animate(4, 5, 1, true, false, 0);
-        int delay = Math.Max(40, Basis.EffectMs * 100 / (100 + EliteAuras.Speed(this)) * 100 / (100 - GearEffects.ChillPercent(this)));
+        int delay = Math.Max(40, Basis.EffectMs * 100 / (100 + EliteAuras.Speed(this)) * 100 / (100 - GearEffects.AttackSlow(this)));
         Timer.StartTimer(TimeSpan.FromMilliseconds(delay), ReleaseShot, out _shot);
         return true;
     }
     private void ReleaseShot()
     {
         var target = _shotTarget; _shotTarget = null; var map = _shotMap; _shotMap = null;
-        if (Map != map || Location != _shotOrigin || Frozen || Paralyzed || !EliteCombat.Enemy(this, target, Basis.Range)
+        if (!NamedControl.SpecialAllowed(this) || Map != map || Location != _shotOrigin || Frozen || Paralyzed || !EliteCombat.Enemy(this, target, Basis.Range)
             || CreatureHitRecovery.Remaining(this) > 0) { return; }
         bool fire = Dungeon.Archetype == MonsterArchetype.Caster;
         EliteBolts.Fan(this, target, Has(EliteModifier.Multishot) ? 3 : 1, fire);
@@ -159,7 +159,7 @@ public partial class EncounterCreature : GraveyardUndead
     public override void OnThink()
     {
         EliteAuras.Observe(this);
-        if (Has(EliteModifier.Teleport) && Core.TickCount - _teleportAfter >= 0 && !Frozen && !Paralyzed
+        if (NamedControl.SpecialAllowed(this) && Has(EliteModifier.Teleport) && Core.TickCount - _teleportAfter >= 0 && !Frozen && !Paralyzed
             && CreatureHitRecovery.Remaining(this) == 0 && EliteCombat.Enemy(this, Combatant, 18)
             && (Hits * 100L < HitsMax * 30L || Caster && InRange(Combatant, 2)) && EliteCombat.CanAct(this))
         {

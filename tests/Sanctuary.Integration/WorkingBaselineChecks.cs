@@ -57,6 +57,14 @@ public static class WorkingBaselineChecks
                                     Log log => (int)log.Resource, Board board => (int)board.Resource, BaseHides hides => (int)hides.Resource,
                                     BaseLeather leather => (int)leather.Resource, _ => null }
                             }).ToArray(),
+                        Gamblers = Gambling.Sites.Select(s => new
+                            { s.Id, Mobile = World.FindMobile(Gambling.Profiles.At(s.Id)) as TavernGambler })
+                            .Where(e => e.Mobile is { Deleted: false }).Select(e => new
+                            {
+                                Site = e.Id, Serial = e.Mobile.Serial.Value,
+                                Backpack = e.Mobile.Backpack?.Serial.Value ?? 0,
+                                GoldSerials = e.Mobile.Backpack?.Items.OfType<Gold>().Select(i => i.Serial.Value).ToArray() ?? []
+                            }).ToArray(),
                         Architects = TownRecognition.Halls.Select(h => new
                             { h.Id, Mobile = World.FindMobile(Housing.Profiles.Architect(h.Id)) as Architect })
                             .Where(e => e.Mobile is { Deleted: false }).Select(e => new

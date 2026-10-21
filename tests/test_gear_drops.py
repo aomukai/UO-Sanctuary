@@ -21,7 +21,7 @@ class GearDropTests(unittest.TestCase):
         bases = {b['code']: b for b in catalog['bases']}
         pools = {p['name']: p for p in catalog['pools']}
         exclusions = {e['item'] for e in catalog['excludedLeaves']}
-        self.assertEqual(catalog['setUniquePolicy'], 'Empty')
+        self.assertEqual(catalog['setUniquePolicy'], 'NamedWhenAvailable')
         self.assertEqual(catalog['whiteQuality'], 'Normal')
         for row in treasure['classes']:
             for entry in row['entries']:

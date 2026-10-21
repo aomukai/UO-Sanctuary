@@ -27,7 +27,7 @@ class CreatureDifficultyTests(unittest.TestCase):
             drops = json.loads((BALANCE / ('gear-drops-' + difficulty.lower() + '.json')).read_text())
             self.assertEqual(treasure['difficulty'], difficulty)
             self.assertEqual(drops['difficulty'], difficulty)
-            self.assertEqual(drops['setUniquePolicy'], 'Empty')
+            self.assertEqual(drops['setUniquePolicy'], 'NamedWhenAvailable')
             self.assertEqual(drops['whiteQuality'], 'Normal')
             pool = {r['name']: r for r in drops['pools']}
             bases = {r['code']: r for r in drops['bases']}

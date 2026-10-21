@@ -85,7 +85,11 @@ public sealed class TalentGump : DynamicGump
 
         builder.AddBackground(384, 108, 210, 291, 5120);
         builder.AddHtml(395, 118, 188, 46, $"<BASEFONT COLOR=#FFD37A>{selected.Name}</BASEFONT>", background: false, scrollbar: false);
-        builder.AddLabel(395, 165, 0x47E, $"Rank {profiles.GetRank(_owner, selected.Id)} / {TalentCatalog.MaxRank}");
+        int learned = profiles.GetRank(_owner, selected.Id);
+        int effective = World.FindMobile(_owner) is PlayerMobile player ? NamedSkills.Rank(player, selected.Id) : learned;
+        if (effective != learned)
+        { builder.AddLabel(395, 165, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank} (+{effective - learned} gear)"); }
+        else { builder.AddLabel(395, 165, 0x47E, $"Rank {learned}/{TalentCatalog.MaxRank}"); }
         builder.AddLabel(395, 187, 0x47E, $"Required level: {selected.RequiredLevel}");
         builder.AddHtml(395, 211, 188, 100, PrerequisiteText(selected), background: false, scrollbar: selected.Prerequisites.Length > 5);
 

@@ -18,17 +18,17 @@ public static class EliteCombat
     internal static int Roll(int minimum, int maximum, Random random) => random.Next(Math.Max(0, minimum), Math.Max(minimum, maximum) + 1);
     internal static int ElementRoll(EncounterCreature source, bool minion, Random random)
         => Roll(source.Basis.MinDamage * (minion ? 33 : 66) / 100, source.Basis.MaxDamage * (minion ? 50 : 100) / 100, random);
-    internal static int MagicResistance(Mobile target) => target is BaseCreature creature ? CreatureProfiles.For(creature).Resistances.Magic ?? 0 : 0;
+    internal static int MagicResistance(Mobile target) => NamedElements.MagicResistance(target);
     // One composite hit reaches PlayerMobile once, so Protection and hit recovery are not multiplied by its component count.
     internal static int Damage(EncounterCreature source, Mobile target, double physical = 0, double fire = 0,
         double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
         double total = GemCombat.Component(target, physical, target.PhysicalResistance, false)
-            + GemCombat.Component(target, fire, target.FireResistance, true)
-            + GemCombat.Component(target, cold, target.ColdResistance, true)
-            + GemCombat.Component(target, lightning, target.EnergyResistance, true)
-            + GemCombat.Component(target, magic, MagicResistance(target), true);
+            + NamedElements.Damage(source, target, fire, "fire")
+            + NamedElements.Damage(source, target, cold, "cold")
+            + NamedElements.Damage(source, target, lightning, "ltng")
+            + NamedElements.Damage(source, target, magic, "mag");
         int amount = (int)Math.Floor(total), before = target.Hits;
         if (amount > 0)
         {

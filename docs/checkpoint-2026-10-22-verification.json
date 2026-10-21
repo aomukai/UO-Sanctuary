@@ -1,0 +1,41 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Deployed": false,
+  "Scope": "T46 preparation and T47 progression coverage; full mercenaries after class skills",
+  "NativeSha256": "66ab42e7ad5964873562362ae08ef6b697381aaa1161d5c56ac635a7d5eb23b5",
+  "ContentSha256": "ccd96ada214f9a945e35cdf86b0522632e65549d5a99447a1a743b6f01f2ba8f",
+  "IntegrationSha256": "6dd8612703ece10589800f0eada8cc43b871b9d0fb62941d5466c011003d1614",
+  "Professions": 13,
+  "CraftingTenthsCovered": 5000,
+  "NamedEligibility": {
+    "Unique": 245,
+    "Set": 88
+  },
+  "Checks": {
+    "CumulativeFourBoots": "passed",
+    "LegacyFourBoots": "passed",
+    "CareLoyaltyFourBoots": "passed",
+    "ActualClientCareAndAutomaticPotions": "passed",
+    "CopiedLiveWorld": "passed",
+    "PythonTests": 62,
+    "NamedStandalone": "573 rows /35 sets /692 subsets passed",
+    "PatchReplay": {
+      "ModernUO": "48 patches /99 paths",
+      "ClassicUO": "33 patches /41 paths"
+    },
+    "UpdatedDocLinks": "passed"
+  },
+  "NativePins": {
+    "ModernUO": "eff9de028136b11e544fd81375d1e0e710e22dd6",
+    "ClassicUO": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93"
+  },
+  "ArtifactDistribution": "Locally verified development artifacts; GitHub checkpoint contains source and patches.",
+  "ClientSha256": "859d03746b36b493458c6e7e4b91349272051f7be269e4f0e8b42e2a9fbb93c2",
+  "Charms": "Excluded; no class-return tasks",
+  "RemainingNamedDefinitions": {
+    "HeldSpawnable": 196,
+    "OtherRestricted": 29,
+    "ExcludedCharms": 15
+  }
+}

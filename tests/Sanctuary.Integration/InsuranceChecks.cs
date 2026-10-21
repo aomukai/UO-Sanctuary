@@ -46,7 +46,8 @@ public static class InsuranceChecks
         Require(NativeInsurance.Enabled, "Insurance is disabled");
         var pricing = Player();
         int[,] expected = { { 100, 200, 300 }, { 250, 500, 750 }, { 500, 1000, 1500 } };
-        foreach (var rarity in Enum.GetValues<GearRarity>())
+        // Named definitions have their own factory and integration fixture.
+        foreach (var rarity in new[] { GearRarity.Normal, GearRarity.Magic, GearRarity.Rare })
         {
             foreach (var tier in Enum.GetValues<GearTier>())
             {

@@ -27,7 +27,7 @@ public static class EncounterTreasure
         options.Converters.Add(new JsonStringEnumConverter());
         var catalog = JsonSerializer.Deserialize<EncounterTreasureCatalog>(File.ReadAllText(Path.Join(Core.BaseDirectory,
             "Data", "Sanctuary", "Balance", "encounter-treasure.json")), options);
-        if (catalog is not { SourceCommit: "45112569deb9384738ccafe5c24ebbb71f41c7c9", MaxDrops: 6, SetUniquePolicy: "Empty", Roots.Length: 36 })
+        if (catalog is not { SourceCommit: "45112569deb9384738ccafe5c24ebbb71f41c7c9", MaxDrops: 6, SetUniquePolicy: "NamedWhenAvailable", Roots.Length: 36 })
         { throw new InvalidDataException("Unsupported encounter treasure source."); }
         _classes.Clear(); _roots.Clear();
         foreach (var row in catalog.Classes)

@@ -99,6 +99,7 @@ public static class EquipmentCrafting
         TradeSkillHooks.MinimumChance = (from, system, recipe) => ClassProfessions.Affected(from) && recipe.ItemType == typeof(TreasureSkeletonKey)
             && recipe.Skills.Count == 1 && recipe.Skills[0].SkillToMake == SkillName.Tinkering && recipe.Skills[0].MinSkill == 120 ? 1.0
             : ClassProfessions.Affected(from) && recipe.ItemType == typeof(SocketGem) ? 1.0
+            : ClassProfessions.Affected(from) && recipe.ItemType == typeof(SurveyMap) ? Math.Max(.01, system.GetChanceAtMin(recipe))
             : ClassProfessions.Affected(from) && _selections.TryGetValue(recipe, out var selection) && selection.Row.RequiredSkill == 120
             ? Math.Max(.01, system.GetChanceAtMin(recipe)) : null;
         TradeSkillHooks.RecipeSelected = (from, system, recipe, tool) =>
@@ -130,7 +131,8 @@ public static class EquipmentCrafting
     {
         if (tier == GearTier.Normal) { return code == normal; }
         foreach (var row in Recipes) { if (row.Type == type.Name && row.Tier == tier && row.BaseCode == code) { return true; } }
-        return false;
+        // Source loot tiers do not require enabling a crafting recipe for the appearance.
+        return EquipmentBalance.LootTierIdentity(type, tier, code, normal);
     }
     public static string Cost(EquipmentRecipe row, int start = 0)
     {

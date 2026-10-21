@@ -120,7 +120,7 @@ public static class SocketChecks
         };
         try
         {
-            foreach (var rarity in Enum.GetValues<GearRarity>())
+            foreach (var rarity in new[] { GearRarity.Normal, GearRarity.Magic, GearRarity.Rare })
             {
                 foreach (var candidate in new Item[] { new ChainChest(), new Helmet(), new WoodenShield(),
                     new Bow(), new QuarterStaff(), new MagicArrowWand(), new Spellbook { LootType = LootType.Regular, Content = 7 } })
@@ -134,7 +134,7 @@ public static class SocketChecks
                     saved.Add(Snapshot(item));
                 }
             }
-            Require(checks == Enum.GetValues<GearRarity>().Length * 7 && player.Skills.Tinkering.Base == 30,
+            Require(checks == 3 * 7 && player.Skills.Tinkering.Base == 30,
                 "Success omitted native gain check or ignored locked skill");
         }
         finally { Mobile.SkillCheckLocationHandler = original; }

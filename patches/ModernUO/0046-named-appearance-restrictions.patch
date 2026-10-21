@@ -1,0 +1,156 @@
+--- a/Projects/UOContent/Items/Armor/BaseArmor.cs
++++ b/Projects/UOContent/Items/Armor/BaseArmor.cs
+@@ -940,11 +940,11 @@
+ 
+                 if (item is BaseArmor armor)
+                 {
+-                    if (!armor.CheckRace(m))
++                    if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.CheckRace(m))
+                     {
+                         m.AddToBackpack(armor);
+                     }
+-                    else if (!armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
++                    else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                     {
+                         if (armor.AllowFemaleWearer)
+                         {
+@@ -957,7 +957,7 @@
+ 
+                         m.AddToBackpack(armor);
+                     }
+-                    else if (!armor.AllowFemaleWearer && m.Female && m.AccessLevel < AccessLevel.GameMaster)
++                    else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.AllowFemaleWearer && m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                     {
+                         if (armor.AllowMaleWearer)
+                         {
+@@ -1099,12 +1099,12 @@
+                 return false;
+             }
+ 
+-            if (!CheckRace(from))
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !CheckRace(from))
+             {
+                 return false;
+             }
+ 
+-            if (!AllowMaleWearer && !from.Female)
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !AllowMaleWearer && !from.Female)
+             {
+                 if (AllowFemaleWearer)
+                 {
+@@ -1118,7 +1118,7 @@
+                 return false;
+             }
+ 
+-            if (!AllowFemaleWearer && from.Female)
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !AllowFemaleWearer && from.Female)
+             {
+                 if (AllowMaleWearer)
+                 {
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -13,6 +13,7 @@
+ 
+ public static class ClassGearHooks
+ {
++    public static Func<Item, bool> IgnoreAppearanceRestrictions { get; set; }
+     public static Func<Mobile, Item, bool> FortifyUsed { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, int?> SpellResistedDamage { get; set; }
+     public static Func<Mobile, Mobile, int, int> DirectSpellDamage { get; set; }
+--- a/Projects/UOContent/Items/Clothing/BaseClothing.cs
++++ b/Projects/UOContent/Items/Clothing/BaseClothing.cs
+@@ -440,7 +440,7 @@
+                 return false;
+             }
+ 
+-            if (RequiredRace != null && from.Race != RequiredRace)
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && RequiredRace != null && from.Race != RequiredRace)
+             {
+                 if (RequiredRace == Race.Elf)
+                 {
+@@ -454,7 +454,7 @@
+                 return false;
+             }
+ 
+-            if (!AllowMaleWearer && !from.Female)
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !AllowMaleWearer && !from.Female)
+             {
+                 if (AllowFemaleWearer)
+                 {
+@@ -468,7 +468,7 @@
+                 return false;
+             }
+ 
+-            if (!AllowFemaleWearer && from.Female)
++            if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !AllowFemaleWearer && from.Female)
+             {
+                 if (AllowMaleWearer)
+                 {
+@@ -552,7 +552,7 @@
+ 
+                 if (item is BaseClothing clothing)
+                 {
+-                    if (clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
++                    if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(clothing) != true && clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
+                     {
+                         if (clothing.RequiredRace == Race.Elf)
+                         {
+@@ -565,7 +565,7 @@
+ 
+                         m.AddToBackpack(clothing);
+                     }
+-                    else if (!clothing.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
++                    else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(clothing) != true && !clothing.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                     {
+                         if (clothing.AllowFemaleWearer)
+                         {
+@@ -578,7 +578,7 @@
+ 
+                         m.AddToBackpack(clothing);
+                     }
+-                    else if (!clothing.AllowFemaleWearer && m.Female && m.AccessLevel < AccessLevel.GameMaster)
++                    else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(clothing) != true && !clothing.AllowFemaleWearer && m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                     {
+                         if (clothing.AllowMaleWearer)
+                         {
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -1032,7 +1032,7 @@
+             return false;
+         }
+ 
+-        if (!CheckRace(from))
++        if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(this) != true && !CheckRace(from))
+         {
+             return false;
+         }
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1381,7 +1381,7 @@
+                         {
+                             drop = true;
+                         }
+-                        else if (!weapon.CheckRace(Race))
++                        else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(weapon) != true && !weapon.CheckRace(Race))
+                         {
+                             drop = true;
+                         }
+@@ -1398,15 +1398,15 @@
+                     {
+                         var drop = false;
+ 
+-                        if (!armor.AllowMaleWearer && !from.Female && from.AccessLevel < AccessLevel.GameMaster)
++                        if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.AllowMaleWearer && !from.Female && from.AccessLevel < AccessLevel.GameMaster)
+                         {
+                             drop = true;
+                         }
+-                        else if (!armor.AllowFemaleWearer && from.Female && from.AccessLevel < AccessLevel.GameMaster)
++                        else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.AllowFemaleWearer && from.Female && from.AccessLevel < AccessLevel.GameMaster)
+                         {
+                             drop = true;
+                         }
+-                        else if (!armor.CheckRace(Race))
++                        else if (ClassGearHooks.IgnoreAppearanceRestrictions?.Invoke(armor) != true && !armor.CheckRace(Race))
+                         {
+                             drop = true;
+                         }

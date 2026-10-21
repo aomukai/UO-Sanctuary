@@ -2,6 +2,12 @@
 
 Diablo II combat and itemisation in a persistent Ultima Online world. The design baseline is [the kickoff brief](Britannia-Diablo-Project-Kickoff.md). Agreed direction and candidate mechanics remain distinct.
 
+[T46 mercenary care preparation](docs/t46-mercenary-preparation.md) and [T47 profession coverage](docs/t47-profession-coverage.md) are complete in isolated staging. All 13 professions have a route to 120. Classes/skills come next; full mercenaries follow skills, then final T49 integration and T48 gameplay balance. Production remains T45.
+
+The [22 October build checkpoint](docs/checkpoint-2026-10-22.md) records today’s implementation, settled choices, verification and the return list for classes, mercenaries and final integration.
+
+The [complete Unique/Set catalogue](docs/named-equipment-catalogue.md) now contains every pinned D2R named-item/set row, including newer expansion entries, with full properties and bonus definitions. Shared [T49 integration](docs/set-unique-audit.md) is staged for245 Unique variants and88 Set pieces; the [held item return list](docs/named-item-readiness.md) follows its class/mercenary prerequisites. Production remains T45.
+
 **Start here for the next implementation:** the [crafting/economy roadmap](docs/implementation-roadmap.md) orders small tasks by dependency and playable loop, with current code entry points, open-decision gates and acceptance checks. Pick one ready task rather than implementing the whole design at once.
 
 The [allied movement rule](docs/allied-movement.md) allows transit through friends while preserving the incumbent’s actions; only passing units must walk clear, with safe delayed pet regroup and no chain retreat.
@@ -13,6 +19,8 @@ The [T01 working baseline](docs/t01-working-baseline.md) records the comparison 
 [T43 equipment insurance](docs/t43-insurance.md) adds bank-paid protection for identified White, Magic and Rare equipment. Use **[Insurance** or the character's insurance menu, review the charge, then confirm. Each premium covers one death without expiry; optional renewal defaults off. Covered items stay in your backpack. Set and Unique support is deferred.
 
 [T44 corpse escrow](docs/t44-corpse-escrow.md) keeps player corpses for24 real hours, then preserves remaining belongings in private escrow. Say **recover** to a banker or use **[Recover** nearby to review and pay for whole-claim bank recovery. Closing, insufficient funds and a full bank preserve the claim; only separately confirmed forfeiture deletes its contents.
+
+[T45](docs/t45-gambling.md) adds tavern gambling with hidden stock, guarded purchases, loot-eligible real gear and refunded deferred outcomes. Source, installed, client and save/restart checks passed; deployed. The required [T49 Set/Unique pass](docs/implementation-roadmap.md) follows the current implementation roadmap and precedes further class work.
 
 
 

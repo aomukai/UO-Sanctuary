@@ -69,7 +69,8 @@ public static class SalvageChecks
     }
     private static void Check()
     {
-        Require(EquipmentEconomy.Settings.SalvageGoldCost == 0 && EquipmentEconomy.EssenceRange((GearRarity)3) == null, "Fee or Unique recovery enabled");
+        Require(EquipmentEconomy.Settings.SalvageGoldCost == 0 && EquipmentEconomy.EssenceRange((GearRarity)99) == null,
+            "Fee or unknown rarity recovery enabled");
         var p = Player();
         var tools = new BaseTool[] { new SmithHammer(77), new FletcherTools(77), new SewingKit(77), new TinkerTools(77), new ScribesPen(77) };
         foreach (var tool in tools) { p.Backpack.DropItem(tool); }

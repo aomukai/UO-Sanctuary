@@ -123,10 +123,14 @@ public static class FirstLoopCatalogueChecks
             }
         }
         ClassGear.Profiles.Prune();
+        string assembly = typeof(ClassGear).Assembly.Location;
+        string artifact = Path.GetRelativePath(root, new FileInfo(assembly).ResolveLinkTarget(true)?.FullName ?? assembly).Replace('\\', '/');
+        Require(!artifact.StartsWith("../", StringComparison.Ordinal) && !Path.IsPathRooted(artifact), "Audited content assembly must belong to the authoring workspace");
         var evidence = new
         {
             SchemaVersion = 1, ManifestSha256 = Hash(manifestPath),
             ContentAssemblySha256 = Hash(typeof(ClassGear).Assembly.Location),
+            ContentAssemblyPath = artifact,
             InputHashes = new[] { "src/Sanctuary.Content/ClassGear.cs", "src/Sanctuary.Content/AffixBalance.cs",
                 "src/Sanctuary.Content/GearProfiles.cs", "src/Sanctuary.Content/EquipmentEconomy.cs",
                 "src/Sanctuary.Content/HitRecovery.cs", "src/Sanctuary.Content/GearEffects.cs", "src/Sanctuary.Content/EquipmentCrafting.cs",

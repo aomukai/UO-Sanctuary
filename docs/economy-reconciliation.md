@@ -1,5 +1,9 @@
 # Completed-replies review — 19 October 2026
 
+**Confirmed22 October — pre-class cleanup:** [T46 care preparation](t46-mercenary-preparation.md) uses level×1,000 bank-funded resurrection, retained gear, unlimited non-withdrawable healing doses, ≤50% life/10-second drinks,9/5/1 warnings and retirement dose loss. Merchant/healer living pet/mercenary healing is free; death is separate. Full mercenaries follow class skills. [T47](t47-profession-coverage.md) requires all13 professions to reach120, preserves ordered Power Scroll caps, repairs Cartography boundary stalls and exhausted gathering gain windows. T48 balance and final T49 wait for complete classes/mercenaries; charms are excluded. These confirmations supersede older unresolved reserve/capacity notes.
+
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45. The immutable replies retain their original hash.
+
 Read all 735 lines of [the completed replies](economy-open-questions-replies.md). Their contents are preserved unchanged, including the explicitly provisional interpretations/corrections at the top. The original reply-file SHA-256 is `f2ddcefa818c73adb5c135c92b18865e28c4185f9e209513b58c19e60f0c3a94`.
 
 The [current specification](crafting.md) consolidates the answers. The [decision tracker](economy-open-questions.md) reconciles 117 rows while retaining A03 and later Q answers, including always-active gathering, Cartography as a craft, public wardrobe access and sex-specific class names. Older handoffs are explicitly historical. Current implementation descriptions remain separate; no target is claimed already installed.
@@ -76,3 +80,5 @@ The supplied Fandom pages were unavailable to direct browsing; UOGuide direct op
 No code, live state, balance catalogues, binaries, accounts, saves or client preferences changed in this review. No commit or push was made. Documentation snapshots are under `.local/research/economy-reconciliation-20261019/`.
 
 T06 follow-up: the user confirmed the six shared crafting choices in [T06](t06-crafting.md): public/free/concurrent town stations and practice, explicit portable exceptions,10gold/20–30-use vendor tools,100/110/120-use crafted tools with10% saving on committed attempts, preserved existing uses and the ten-tool recipe cohort. Prices/capacities remain tunable. The tracker/specification record these decisions; the implementation remains disabled and undeployed. Original replies remain unchanged.
+
+T45 completion on21 October adds the confirmed refund/no-replacement rule for deferred Set/Unique gambling outcomes. The user also requires T49 to audit and implement real Set/Unique support across loot, gambling and all item paths after the current roadmap and before class work. The original replies remain unchanged.

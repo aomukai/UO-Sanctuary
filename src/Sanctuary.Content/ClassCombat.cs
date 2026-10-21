@@ -119,12 +119,12 @@ public static class ClassCombat
             return 0;
         }
         var weapon = CombatTiming.Equipped(from);
-        return ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth")
-            + (ClassEquipment.IsStarter(weapon) && ClassGear.Active(from, weapon) ? 1 : 0);
+        return NamedSkills.Rank(from, "necromancer.teeth", ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth")
+            + (ClassEquipment.IsStarter(weapon) && ClassGear.Active(from, weapon) ? 1 : 0));
     }
     public static bool Available(PlayerMobile from, CombatAbility ability) => ability switch
     {
-        CombatAbility.BasicAttack => Enabled(from),
+        CombatAbility.BasicAttack => Enabled(from) && NamedAmmunition.CanAttack(CombatTiming.Equipped(from)),
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
@@ -440,11 +440,14 @@ public static class ClassCombat
             {
                 return true;
             }
+            if (!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
             if (CombatTiming.Weapon(CombatTiming.Equipped(from)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
             {
                 from.MovingEffect(target, 0xF42, 5, 0, false, false);
             }
         }
+        int pierces = ability == CombatAbility.BasicAttack ? NamedProjectiles.Budget(from) : 0;
+        bool weaponHit = false;
         if (target != null)
         {
             from.DoHarmful(target, true);
@@ -461,13 +464,20 @@ public static class ClassCombat
             }
             else if (ClassStats.CheckHit(from, target) == true)
             {
-                GearEffects.Strike(from, target, Utility.RandomDouble());
+                GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0); weaponHit = true;
             }
             else
             {
                 from.PlaySound(0x238);
             }
             CombatDamage.Finish(target, from);
+            if (pierces > 0)
+            {
+                var releasedWeapon = CombatTiming.Equipped(from);
+                NamedProjectiles.Continue(from, target, point, pierces);
+                if (weaponHit && releasedWeapon != null && NamedAmmunition.Maximum(releasedWeapon) == 0)
+                { releasedWeapon.WearOnHit(from, target); }
+            }
             if (session.PendingTarget == target.Serial && (!target.Alive || target.Deleted))
             {
                 Stop(from);

@@ -76,7 +76,8 @@ public static class TreasureChecks
             Require(chest.Items.OfType<Gold>().Sum(i => i.Amount) == row.Gold && chest.Items.OfType<SocketGem>().Single().Quality == (GemQuality)row.GemQuality
                 && chest.Items.OfType<RareRecipeScroll>().Count() == 1 && chest.Items.OfType<IronIngot>().Single().Amount == row.Resources,
                 "Chest rewards or quality tiers wrong");
-            Require(!chest.Items.Any(ClassGear.Converted), "Reserved Unique rolls rerolled or substituted"); chest.Delete();
+            Require(chest.Items.Where(ClassGear.Converted).All(i => ClassGear.State(i) is { NamedItemId: not null, Roll.Rarity: GearRarity.Unique }),
+                "Unique chest outcome was replaced with an ordinary quality"); chest.Delete();
         }
         Require(RareRecipes.All.Count > 50 && !RareRecipes.Profiles.Knows(p, "key/splendid"), "Fresh character knew rare recipes");
         var scroll = Put(p, new RareRecipeScroll("key/splendid")); Require(RareRecipes.Learn(p, scroll) && scroll.Deleted, "Recipe could not be learned");

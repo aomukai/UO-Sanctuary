@@ -40,7 +40,7 @@ public static class GearDrops
         options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
         var catalog = JsonSerializer.Deserialize<DropCatalog>(File.ReadAllText(Path.Join(Core.BaseDirectory,
             "Data", "Sanctuary", "Balance", "gear-drops" + suffix + ".json")), options);
-        if (catalog is not { Players: 1, MaxDrops: 1, SetUniquePolicy: "Empty", WhiteQuality: "Normal" }
+        if (catalog is not { Players: 1, MaxDrops: 1, SetUniquePolicy: "NamedWhenAvailable", WhiteQuality: "Normal" }
             || catalog.Difficulty != difficulty.ToString() || catalog.SourceCommit != "45112569deb9384738ccafe5c24ebbb71f41c7c9" || catalog.Ratios.Length != 4)
         { throw new InvalidDataException("Unsupported ordinary gear-drop policy."); }
         foreach (var row in catalog.Ratios)
@@ -164,7 +164,8 @@ public static class GearDrops
         // Pick the UO appearance before quality so MF cannot select another base.
         var variant = basis.Variants[random.Next(basis.Variants.Length)];
         var quality = Quality(basis, level, find, random, factors);
-        if (quality is DropQuality.Set or DropQuality.Unique) { return null; }
+        if (quality is DropQuality.Set or DropQuality.Unique)
+        { return NamedGear.Generate(basis.Code, quality == DropQuality.Unique ? GearRarity.Unique : GearRarity.Set, level, random, false, variant.Type); }
         var rarity = quality switch { DropQuality.Rare => GearRarity.Rare, DropQuality.Magic => GearRarity.Magic, _ => GearRarity.Normal };
         var item = ItemOrigins.Create(ItemOrigin.Drop, () => EquipmentCrafting.Resolve(variant.Type).CreateInstance<Item>());
         try

@@ -1,6 +1,8 @@
 # T44 — Corpse escrow and banker recovery
 
-Status: implemented, tested and deployed. All gameplay defaults below were confirmed on 21 October 2026. Production runs the matching T44 native/content build. Set/Unique equipment remains deferred.
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45.
+
+Status: implemented, tested and deployed. All gameplay defaults below were confirmed on 21 October 2026. The deployed evidence below describes the original T44 scope, when Set/Unique equipment was deferred.
 
 ## Confirmed rules
 

@@ -1,0 +1,290 @@
+[
+  {
+    "id": "Felucca/4540/2301/-1",
+    "map": "Felucca",
+    "x": 4540,
+    "y": 2301,
+    "z": -1,
+    "source": "Spawns/post-uoml/felucca/Vendors.json#056fee00-19c9-459b-8062-bb8d32aa9684"
+  },
+  {
+    "id": "TerMur/713/3438/-20",
+    "map": "TerMur",
+    "x": 713,
+    "y": 3438,
+    "z": -20,
+    "source": "Spawns/post-uoml/termur/Vendors.json#27644d88-d3d5-458f-902d-78b7b59eaf95"
+  },
+  {
+    "id": "Trammel/3437/2566/53",
+    "map": "Trammel",
+    "x": 3437,
+    "y": 2566,
+    "z": 53,
+    "source": "Spawns/post-uoml/trammel/Vendors.json#30b62d0b-446f-4577-bc8f-1614e1e579c9"
+  },
+  {
+    "id": "Trammel/4540/2301/-1",
+    "map": "Trammel",
+    "x": 4540,
+    "y": 2301,
+    "z": -1,
+    "source": "Spawns/post-uoml/trammel/Vendors.json#e79907c6-57d3-4ed4-963d-bf9fc8574b09"
+  },
+  {
+    "id": "Felucca/3729/1258/0",
+    "map": "Felucca",
+    "x": 3729,
+    "y": 1258,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#1411c07d-db5c-45db-aef9-5ca1c7f9c769"
+  },
+  {
+    "id": "Felucca/1935/2796/0",
+    "map": "Felucca",
+    "x": 1935,
+    "y": 2796,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#15b48a52-8c02-438e-bd97-aae13dada523"
+  },
+  {
+    "id": "Felucca/2972/3425/15",
+    "map": "Felucca",
+    "x": 2972,
+    "y": 3425,
+    "z": 15,
+    "source": "Spawns/shared/felucca/Vendors.json#3037b09f-4d00-4b90-b77f-4a9c77d446bd"
+  },
+  {
+    "id": "Felucca/1620/1586/0",
+    "map": "Felucca",
+    "x": 1620,
+    "y": 1586,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#30a5dc4e-3f06-4dd4-b3aa-d66d55905b62"
+  },
+  {
+    "id": "Felucca/1498/1691/20",
+    "map": "Felucca",
+    "x": 1498,
+    "y": 1691,
+    "z": 20,
+    "source": "Spawns/shared/felucca/Vendors.json#347d6ccf-8681-4dc3-b6be-0b0edecb9d03"
+  },
+  {
+    "id": "Felucca/3009/3455/15",
+    "map": "Felucca",
+    "x": 3009,
+    "y": 3455,
+    "z": 15,
+    "source": "Spawns/shared/felucca/Vendors.json#60ff9933-37fb-44e0-8794-2dfc53969609"
+  },
+  {
+    "id": "Felucca/3769/1218/0",
+    "map": "Felucca",
+    "x": 3769,
+    "y": 1218,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#8883ad81-f99d-4ccb-8d1d-65ada7848c65"
+  },
+  {
+    "id": "Felucca/2475/397/15",
+    "map": "Felucca",
+    "x": 2475,
+    "y": 397,
+    "z": 15,
+    "source": "Spawns/shared/felucca/Vendors.json#89aa4fc3-f834-4499-bbc6-ac47b395ce13"
+  },
+  {
+    "id": "Felucca/1427/1716/20",
+    "map": "Felucca",
+    "x": 1427,
+    "y": 1716,
+    "z": 20,
+    "source": "Spawns/shared/felucca/Vendors.json#9240f638-d05a-4e70-93bc-8be1c163e508"
+  },
+  {
+    "id": "Felucca/1547/1768/10",
+    "map": "Felucca",
+    "x": 1547,
+    "y": 1768,
+    "z": 10,
+    "source": "Spawns/shared/felucca/Vendors.json#9ac62908-35f4-43c6-a40a-dba3a693666f"
+  },
+  {
+    "id": "Felucca/2901/908/0",
+    "map": "Felucca",
+    "x": 2901,
+    "y": 908,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#a027a96b-cea5-4bfb-b048-2d7fcda9edd7"
+  },
+  {
+    "id": "Felucca/2680/2238/2",
+    "map": "Felucca",
+    "x": 2680,
+    "y": 2238,
+    "z": 2,
+    "source": "Spawns/shared/felucca/Vendors.json#cc8af24a-c3f4-4029-b238-a76b951d104e"
+  },
+  {
+    "id": "Felucca/1452/3770/0",
+    "map": "Felucca",
+    "x": 1452,
+    "y": 3770,
+    "z": 0,
+    "source": "Spawns/shared/felucca/Vendors.json#cd42cc6c-c177-4292-b22f-8e150bc833d7"
+  },
+  {
+    "id": "Felucca/3727/2224/20",
+    "map": "Felucca",
+    "x": 3727,
+    "y": 2224,
+    "z": 20,
+    "source": "Spawns/shared/felucca/Vendors.json#ebf29920-68ce-4aee-8a6d-84c0576c4c0d"
+  },
+  {
+    "id": "Malas/2027/1353/-90",
+    "map": "Malas",
+    "x": 2027,
+    "y": 1353,
+    "z": -90,
+    "source": "Spawns/shared/malas/Vendors.json#b4f71d7e-8c76-47db-a1c1-b81c4484741b"
+  },
+  {
+    "id": "Tokuno/692/1213/25",
+    "map": "Tokuno",
+    "x": 692,
+    "y": 1213,
+    "z": 25,
+    "source": "Spawns/shared/tokuno/Vendors.json#1f9e3288-f988-4ea3-95e8-251aa38d064c"
+  },
+  {
+    "id": "Trammel/2972/3425/15",
+    "map": "Trammel",
+    "x": 2972,
+    "y": 3425,
+    "z": 15,
+    "source": "Spawns/shared/trammel/Vendors.json#2377d397-cf7b-41f0-a761-429f83c4fd93"
+  },
+  {
+    "id": "Trammel/1547/1768/10",
+    "map": "Trammel",
+    "x": 1547,
+    "y": 1768,
+    "z": 10,
+    "source": "Spawns/shared/trammel/Vendors.json#2bb96113-3a2f-4092-b055-1883f7842b22"
+  },
+  {
+    "id": "Trammel/1935/2796/0",
+    "map": "Trammel",
+    "x": 1935,
+    "y": 2796,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#2e0e6946-627a-4f89-b9d4-795be9b51694"
+  },
+  {
+    "id": "Trammel/1620/1586/0",
+    "map": "Trammel",
+    "x": 1620,
+    "y": 1586,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#41161b38-3f7c-478f-92c2-53f0dd3e9dad"
+  },
+  {
+    "id": "Trammel/3727/2224/20",
+    "map": "Trammel",
+    "x": 3727,
+    "y": 2224,
+    "z": 20,
+    "source": "Spawns/shared/trammel/Vendors.json#482cd8b9-c3af-4b1c-9154-f722aa67b0ed"
+  },
+  {
+    "id": "Trammel/1427/1716/20",
+    "map": "Trammel",
+    "x": 1427,
+    "y": 1716,
+    "z": 20,
+    "source": "Spawns/shared/trammel/Vendors.json#5f4a1c5c-64b3-4636-9067-b309c48b93d3"
+  },
+  {
+    "id": "Trammel/2901/908/0",
+    "map": "Trammel",
+    "x": 2901,
+    "y": 908,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#82e5da86-576b-4065-9dc1-b79b154de3fb"
+  },
+  {
+    "id": "Trammel/1452/3770/0",
+    "map": "Trammel",
+    "x": 1452,
+    "y": 3770,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#98464fd7-e5b6-4caa-a6a2-9164399191e6"
+  },
+  {
+    "id": "Trammel/3009/3455/15",
+    "map": "Trammel",
+    "x": 3009,
+    "y": 3455,
+    "z": 15,
+    "source": "Spawns/shared/trammel/Vendors.json#a20fa086-8694-465b-a8bc-0988b5017b61"
+  },
+  {
+    "id": "Trammel/3729/1258/0",
+    "map": "Trammel",
+    "x": 3729,
+    "y": 1258,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#ae951a02-cc60-40f1-b810-9f09c34b4b7a"
+  },
+  {
+    "id": "Trammel/1498/1691/20",
+    "map": "Trammel",
+    "x": 1498,
+    "y": 1691,
+    "z": 20,
+    "source": "Spawns/shared/trammel/Vendors.json#b46e3bb9-2dba-4235-9d9a-e9a40e1b142a"
+  },
+  {
+    "id": "Trammel/2475/397/15",
+    "map": "Trammel",
+    "x": 2475,
+    "y": 397,
+    "z": 15,
+    "source": "Spawns/shared/trammel/Vendors.json#ba540c4e-a870-4886-90ba-d6c2f466d287"
+  },
+  {
+    "id": "Trammel/3769/1218/0",
+    "map": "Trammel",
+    "x": 3769,
+    "y": 1218,
+    "z": 0,
+    "source": "Spawns/shared/trammel/Vendors.json#de025061-4683-42e7-aaae-a864a81ea5a9"
+  },
+  {
+    "id": "Trammel/2680/2238/2",
+    "map": "Trammel",
+    "x": 2680,
+    "y": 2238,
+    "z": 2,
+    "source": "Spawns/shared/trammel/Vendors.json#f723423b-7c27-48c1-b662-335797e6dff2"
+  },
+  {
+    "id": "Malas/1051/1434/-85",
+    "map": "Malas",
+    "x": 1051,
+    "y": 1434,
+    "z": -85,
+    "source": "Spawns/uoml/malas/Vendors.json#706b7616-e5d6-465d-9f4f-3094eda8a29f"
+  },
+  {
+    "id": "Trammel/3668/2652/0",
+    "map": "Trammel",
+    "x": 3668,
+    "y": 2652,
+    "z": 0,
+    "source": "Spawns/uoml/trammel/Vendors.json#0ef8d67e-4e4c-4a53-ab5e-2474e573f096"
+  }
+]

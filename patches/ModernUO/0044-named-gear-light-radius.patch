@@ -1,0 +1,30 @@
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -21,6 +21,7 @@
+     public static Func<Item, bool> Unidentified { get; set; }
+     public static Func<Item, bool> KeepBroken { get; set; }
+     public static Func<Item, bool> WearAllowed { get; set; }
++    public static Func<PlayerMobile, int> LightBonus { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+     public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1169,6 +1169,17 @@
+             }
+         }
+ 
++        public override void ComputeLightLevels(out int global, out int personal)
++        {
++            base.ComputeLightLevels(out global, out personal);
++            var adjusted = personal + (ClassGearHooks.LightBonus?.Invoke(this) ?? 0);
++            if (adjusted < 0)
++            {
++                global = Math.Clamp(global - adjusted, 0, 30);
++            }
++            personal = Math.Clamp(adjusted, 0, 30);
++        }
++
+         public override void CheckLightLevels(bool forceResend)
+         {
+             var ns = NetState;

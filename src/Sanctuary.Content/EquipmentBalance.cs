@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Server;
 using Server.Items;
 
 namespace Sanctuary;
 
 public enum GearWeight { None, Light, Medium, Heavy }
-public enum GearRarity { Normal, Magic, Rare }
+public enum GearRarity { Normal = 0, Magic = 1, Rare = 2, Set = 3, Unique = 4 }
 public enum GearSlot { Cosmetic, Weapon, Shield, Head, Body, Hands, Feet, Belt, Ring, Amulet }
 public sealed record GearDefinition(string Type, string Category, string AffixType, GearWeight Weight,
     string Tier, bool NormalDrop, int? MaxSockets, string Source, string ExcludedReason,
@@ -24,12 +25,40 @@ public static class EquipmentBalance
     private static readonly Dictionary<string, GearDefinition> _gear = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, NormalBase> _bases = new(StringComparer.Ordinal);
     private static readonly Dictionary<string, GearItemType> _types = new(StringComparer.Ordinal);
+    private static readonly Dictionary<string, GamblingCostRow> _sourceFamilies = new(StringComparer.Ordinal);
     public static IReadOnlyCollection<GearDefinition> All => _gear.Values;
     public static IReadOnlyCollection<NormalBase> NormalBases => _bases.Values;
     public static IReadOnlyDictionary<string, GearItemType> Types => _types;
     public static bool TryGet(Item item, out GearDefinition gear) => _gear.TryGetValue(item.GetType().Name, out gear);
     public static bool TryGet(Type type, out GearDefinition gear) => _gear.TryGetValue(type.Name, out gear);
     public static NormalBase Base(string code) => _bases[code];
+    internal static void AddNamedAppearances()
+    {
+        _gear[nameof(NamedThrowingKnife)] = new(nameof(NamedThrowingKnife), "Throwing", "tkni", GearWeight.None,
+            "Normal", false, null, "Named throwing knife using native dagger art", "Named factory only", GearSlot.Weapon, "9tk", true);
+    }
+    internal static void AddNamedBase(NamedBaseDefinition definition)
+    {
+        if (_bases.ContainsKey(definition.Code) || definition.SourceTable == "misc") { return; }
+        var row = definition.SourceFields;
+        int Number(string key) => row.TryGetProperty(key, out var value) && value.TryGetInt32(out int n) ? n : 0;
+        bool Flag(string key) => Number(key) != 0;
+        // Quest-only source bases remain catalogue records, outside the
+        // ordinary affix pool and its quality-level 1–99 contract.
+        if (Number("level") is < 1 or > 99) { return; }
+        // Future classes/families need their real affix ancestry before they
+        // can join the runtime base pool. Their source definitions stay intact.
+        if (definition.RequiredClass == "war" || !_types.ContainsKey(definition.ItemType)) { return; }
+        _bases.Add(definition.Code, new(definition.Code, definition.Name, definition.ItemType, Number("level"),
+            Number("magic lvl"), Number("levelreq"), Number("reqstr"), Number("reqdex"), Number("mindam"), Number("maxdam"),
+            Number("2handmindam"), Number("2handmaxdam"), Number("minmisdam"), Number("maxmisdam"), Number("minac"), Number("maxac"),
+            Number("speed"), Number("block"), Number("StrBonus"), Number("DexBonus"), Number("gemsockets"), definition.Tier,
+            Flag("2handed"), Flag("1or2handed")));
+    }
+    internal static bool LootTierIdentity(Type type, GearTier tier, string code, string normal)
+        => tier is GearTier.Exceptional or GearTier.Elite && TryGet(type, out var gear) && gear.NormalDrop && gear.AllowsAffixes
+            && gear.BaseCode == normal && _sourceFamilies.TryGetValue(normal, out var row)
+            && (tier == GearTier.Exceptional ? row.Exceptional : row.Elite) == code && Base(code).Tier == tier.ToString();
     internal static void AddProjectBelt(string type, string code) => _gear.Add(type,
         new(type, "Clothing", "belt", GearWeight.None, "Normal", false, null,
             "src/Sanctuary.Content/PotionTabards.cs", null, GearSlot.Belt, code, true));
@@ -91,7 +120,9 @@ public static class EquipmentBalance
     {
         _gear.Clear();
         _bases.Clear();
-        _types.Clear();
+        _types.Clear(); _sourceFamilies.Clear();
+        foreach (var row in BalanceCatalog.Read<GamblingCostRow>("gambling-costs"))
+        { if (row.Code == row.Normal) { _sourceFamilies.Add(row.Code, row); } }
         foreach (var type in BalanceCatalog.Read<GearItemType>("item-types"))
         {
             _types.Add(type.Code, type);
@@ -110,7 +141,7 @@ public static class EquipmentBalance
             }
             _bases.Add(basis.Code, basis);
         }
-        foreach (var basis in BalanceCatalog.Read<NormalBase>("equipment-tier-bases"))
+        foreach (var basis in BalanceCatalog.Read<NormalBase>("equipment-tier-bases").Concat(BalanceCatalog.Read<NormalBase>("gambling-tier-bases")))
         {
             if (basis.Tier is not ("Exceptional" or "Elite") || !_types.ContainsKey(basis.Type)
                 || basis.QualityLevel is < 1 or > 99 || basis.MinDamage > basis.MaxDamage || basis.MinDefense > basis.MaxDefense)

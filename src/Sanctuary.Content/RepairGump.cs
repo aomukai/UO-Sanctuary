@@ -43,7 +43,7 @@ public sealed class RepairGump : DynamicGump
             || (vendor != null ? !EquipmentRepairs.ServiceReady(player, vendor)
                 : !EquipmentRepairs.RepairTool(tool) || !ClassProfessions.Request(player, tool.CraftSystem.MainSkill, tool, true)))
         { return; }
-        player.SendMessage("Select equipment in your backpack to repair or recharge. A cost confirmation follows.");
+        player.SendMessage("Select equipment in your backpack to repair, recharge or refill. A cost confirmation follows.");
         player.Target = new ItemTarget(tool, vendor, player.NetState);
     }
     private sealed class ItemTarget(BaseTool tool, BaseVendor vendor, NetState connection) : Target(2, false, TargetFlags.None)
@@ -68,10 +68,11 @@ public sealed class RepairGump : DynamicGump
         player.SendGump(new RepairGump(player, item, tool, vendor, null));
     }
     private string Name => _item.Name ?? ClassGear.Base(_item)?.Name ?? _item.GetType().Name;
+    private bool Throwing => NamedAmmunition.Maximum(_item) > 0;
     protected override void BuildLayout(ref DynamicGumpBuilder b)
     {
         b.AddPage(); b.AddBackground(0, 0, 570, 440, 5054);
-        b.AddLabel(22, 18, 0x481, _vendor == null ? "Repair / recharge equipment" : "Town repair / recharge service");
+        b.AddLabel(22, 18, 0x481, _vendor == null ? "Repair / recharge / refill equipment" : "Town repair / recharge / refill service");
         b.AddLabel(22, 50, 0x481, $"{Name}");
         b.AddItem(510, 55, _item.ItemID, _item.Hue); b.AddItemProperty(_item.Serial);
         var native = GearDetails.Read(_item);
@@ -83,21 +84,23 @@ public sealed class RepairGump : DynamicGump
             {
                 b.AddButton(22, 135, 4005, 4007, 1); b.AddLabel(57, 135, 0x481, "Repair durability");
             }
-            if (_item is BaseWand wand)
+            if (_item is BaseWand || Throwing)
             {
-                b.AddLabel(22, 175, 0x481, $"Spell charges: {wand.Charges} / {EquipmentRepairs.Capacity(wand)}");
-                b.AddLabel(22, 210, 0x47E, "Charges to restore:");
+                int current = _item is BaseWand wand ? wand.Charges : NamedAmmunition.Remaining(_item);
+                int capacity = _item is BaseWand charged ? EquipmentRepairs.Capacity(charged) : NamedAmmunition.Maximum(_item);
+                b.AddLabel(22, 175, 0x481, $"{(Throwing ? "Throwing quantity" : "Spell charges")}: {current} / {capacity}");
+                b.AddLabel(22, 210, 0x47E, Throwing ? "Quantity to restore:" : "Charges to restore:");
                 b.AddBackground(205, 204, 100, 30, 3000); b.AddTextEntry(215, 210, 80, 22, 0, 0, "1");
-                b.AddButton(22, 250, 4005, 4007, 2); b.AddLabel(57, 250, 0x481, "Recharge quantity");
-                b.AddButton(300, 250, 4005, 4007, 3); b.AddLabel(335, 250, 0x481, "Fill charges");
+                b.AddButton(22, 250, 4005, 4007, 2); b.AddLabel(57, 250, 0x481, Throwing ? "Refill quantity" : "Recharge quantity");
+                b.AddButton(300, 250, 4005, 4007, 3); b.AddLabel(335, 250, 0x481, Throwing ? "Fill quantity" : "Fill charges");
                 if (damaged)
                 {
-                    b.AddButton(22, 290, 4005, 4007, 4); b.AddLabel(57, 290, 0x481, "Repair + recharge quantity");
+                    b.AddButton(22, 290, 4005, 4007, 4); b.AddLabel(57, 290, 0x481, Throwing ? "Repair + refill quantity" : "Repair + recharge quantity");
                     b.AddButton(300, 290, 4005, 4007, 5); b.AddLabel(335, 290, 0x481, "Repair + fill");
                 }
             }
             b.AddLabel(22, 325, 0x47E, "Repairs restore durability to its remaining maximum.");
-            b.AddLabel(22, 350, 0x47E, "Charge-only work does not lower maximum durability.");
+            b.AddLabel(22, 350, 0x47E, "Charge/refill-only work does not lower maximum durability.");
             b.AddLabel(22, 375, 0x47E, "The next screen shows the cost before you commit.");
         }
         else
@@ -107,13 +110,13 @@ public sealed class RepairGump : DynamicGump
             {
                 b.AddLabel(22, y, 0x481, $"{cost.Amount} x {ResourceName(cost.Type)}"); y += 26;
             }
-            b.AddLabel(22, 235, 0x481, $"Gold fee: {_request.Gold}. Charges restored: {_request.RestoreCharges}.");
+            b.AddLabel(22, 235, 0x481, $"Gold fee: {_request.Gold}. {(Throwing ? "Quantity" : "Charges")} restored: {_request.RestoreCharges}.");
             var bracket = EquipmentRepairs.Bracket(_request.SkillValue);
             if (_request.Durability)
             {
                 b.AddLabel(22, 275, 0x21, $"Maximum durability: {bracket.LossChance}% chance to lose {bracket.LossMin}-{bracket.LossMax}, floor 1.");
             }
-            else { b.AddLabel(22, 275, 0x47E, "No durability loss or physical material cost."); }
+            else { b.AddLabel(22, 275, 0x47E, Throwing ? "No maximum durability loss." : "No durability loss or physical material cost."); }
             b.AddLabel(22, 310, 0x47E, $"{bracket.SavingChance}% chance to save all materials and essence.");
             b.AddLabel(22, 345, 0x47E, _vendor == null ? "One tool use; crafted tools may save the use." : "Resources come from your backpack. No personal tool needed.");
             b.AddLabel(22, 375, 0x47E, "Have the full quoted resources available before confirming.");
@@ -134,7 +137,7 @@ public sealed class RepairGump : DynamicGump
             if (info.ButtonID != 6) { return; }
             if (EquipmentRepairs.Commit(_request, out var result))
             {
-                _owner.SendMessage($"Work complete. Maximum durability lost: {result.LostMaximum}; charges restored: {result.Charges}.");
+                _owner.SendMessage($"Work complete. Maximum durability lost: {result.LostMaximum}; {(Throwing ? "quantity" : "charges")} restored: {result.Charges}.");
                 if (result.SavedResources) { _owner.SendMessage("Your materials and essence were saved."); }
             }
             else { _owner.SendMessage("Nothing was consumed. Check the item, resources, tool/workshop or merchant, then try again."); }
@@ -148,6 +151,6 @@ public sealed class RepairGump : DynamicGump
         else { return; }
         var request = EquipmentRepairs.Quote(_owner, _item, _tool, _vendor, durability, charges);
         if (request != null) { _owner.SendGump(new RepairGump(_owner, _item, _tool, _vendor, request)); }
-        else { _owner.SendMessage("The item or service has changed, or that charge quantity is invalid. Nothing was consumed."); }
+        else { _owner.SendMessage("The item or service has changed, or that quantity is invalid. Nothing was consumed."); }
     }
 }

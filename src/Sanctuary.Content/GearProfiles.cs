@@ -27,7 +27,10 @@ public sealed record GearState(string BaseCode, int Defense, bool StarterTeeth, 
     public int? VendorPurchasePrice { get; init; }
     public InstalledRune[] Runes { get; init; } = [];
     public InstalledGem[] Gems { get; init; } = [];
-    public int SocketCount => NativeSockets + TinkerSockets;
+    public string NamedItemId { get; init; }
+    public NamedPropertyRoll[] NamedProperties { get; init; } = [];
+    public int NamedSockets { get; init; }
+    public int SocketCount => NativeSockets + TinkerSockets + NamedSockets;
 }
 
 public sealed class GearProfiles : GenericPersistence
@@ -64,7 +67,10 @@ public sealed class GearProfiles : GenericPersistence
     {
         Validate(item, state);
         _items[item.Serial] = state;
+        NamedMaintenance.Track(item);
+        NamedGear.UpdateName(item, state);
         item.InvalidateProperties();
+        if (state.NamedItemId != null && item.Parent is PlayerMobile wearer) { ClassGear.Changed(wearer); }
     }
     public void Copy(Item source, Item destination)
     {
@@ -81,11 +87,13 @@ public sealed class GearProfiles : GenericPersistence
             var affix = state.Roll.Affixes[i];
             affixes[i] = new(affix.Definition, (RolledModifier[])affix.Modifiers.Clone());
         }
-        Store(destination, state with { Roll = state.Roll with { Affixes = affixes }, MaterialRolls = (MaterialRoll[])state.MaterialRolls.Clone(), Runes = (InstalledRune[])state.Runes.Clone(), Gems = GemSockets.Copy(state.Gems) });
+        Store(destination, state with { Roll = state.Roll with { Affixes = affixes }, MaterialRolls = (MaterialRoll[])state.MaterialRolls.Clone(), Runes = (InstalledRune[])state.Runes.Clone(), Gems = GemSockets.Copy(state.Gems), NamedProperties = (NamedPropertyRoll[])state.NamedProperties.Clone() });
+        NamedAmmunition.Copy(source, destination); NamedMaintenance.Copy(source, destination);
     }
     public GearState Convert(Item item, int itemLevel = 1, GearRarity rarity = GearRarity.Normal, Random random = null)
     {
-        if (!ClassGear.Converted(item) || itemLevel is < 1 or > 99 || !Enum.IsDefined(rarity))
+        if (!ClassGear.Converted(item) || itemLevel is < 1 or > 99
+            || rarity is not (GearRarity.Normal or GearRarity.Magic or GearRarity.Rare) || Find(item.Serial)?.NamedItemId != null)
         {
             throw new ArgumentException("A catalogued item, item level 1–99, and supported rarity are required.");
         }
@@ -104,6 +112,7 @@ public sealed class GearProfiles : GenericPersistence
         var state = before with { Defense = defense, Roll = roll };
         Validate(item, state);
         _items[item.Serial] = state;
+        NamedMaintenance.Track(item);
         item.InvalidateProperties();
         if (item.Parent is PlayerMobile player)
         {
@@ -186,10 +195,11 @@ public sealed class GearProfiles : GenericPersistence
     }
     public static void Validate(Item item, GearState state)
     {
-        var definition = ClassGear.Definition(item) ?? throw new InvalidDataException("Unknown saved gear type.");
+        var definition = NamedGear.Definition(item, state) ?? ClassGear.Definition(item)
+            ?? throw new InvalidDataException("Unknown saved gear type.");
         if (state == null || state.Roll == null || !Enum.IsDefined(state.Tier) || !Enum.IsDefined(state.Quality)
             || state.NativeSockets < 0 || state.TinkerSockets < 0 || state.NativeSockets > 2
-            || state.TinkerSockets > 5 || state.SocketCount > 5
+            || state.NamedSockets < 0 || state.NamedSockets > 5 || state.TinkerSockets > 5 || state.SocketCount > 5
             || state.NativeSockets != 0 && state.NativeSockets != (int)state.Quality
             || state.SocketCount > 0 && (state.StarterTeeth || item.LootType == LootType.Newbied
                 || !GearDetails.Socketable(item) && !(ClassGear.CosmeticClothing(item) && definition.Slot == GearSlot.Head))
@@ -205,7 +215,8 @@ public sealed class GearProfiles : GenericPersistence
         foreach (var gem in state.Gems) { GemSockets.Validate(gem); }
         if (state.VendorPurchasePrice is < 0 or > 60000 || state.VendorPurchasePrice != null && item.Origin != ItemOrigin.Vendor)
         { throw new InvalidDataException("Invalid vendor purchase price."); }
-        if (!EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode)
+        if (!(state.NamedItemId != null ? NamedGear.Identity(item, state)
+                : EquipmentCrafting.Identity(item.GetType(), state.Tier, state.BaseCode, definition.BaseCode))
             || !EquipmentCrafting.ValidMaterialRolls(item, state) || state.Roll.ItemLevel is < 1 or > 99 || !Enum.IsDefined(state.Roll.Rarity)
             || state.StarterTeeth && (item is not Dagger || state.Roll.Rarity != GearRarity.Normal))
         {
@@ -221,6 +232,14 @@ public sealed class GearProfiles : GenericPersistence
         }
         var basis = EquipmentBalance.Base(state.BaseCode);
         int affixLevel = AffixBalance.Level(state.Roll.ItemLevel, basis.QualityLevel, basis.MagicLevel);
+        if (state.NamedItemId != null)
+        {
+            NamedGear.Validate(item, state);
+            return;
+        }
+        if (state.NamedProperties == null || state.NamedProperties.Length != 0 || state.NamedSockets != 0
+            || state.Roll.Rarity is GearRarity.Set or GearRarity.Unique)
+        { throw new InvalidDataException("Ordinary equipment contains named-item state."); }
         int limit = state.Roll.Rarity switch { GearRarity.Normal => 0, GearRarity.Magic => 2, _ => 6 };
         if (state.Defense < basis.MinDefense || state.Defense > basis.MaxDefense || state.Roll.AffixLevel != affixLevel
             || state.Roll.Affixes.Length > limit || state.Roll.Rarity != GearRarity.Normal && state.Roll.Affixes.Length == 0)
@@ -267,7 +286,7 @@ public sealed class GearProfiles : GenericPersistence
     private static bool ValidOffer(int offer) => offer is >= 1 and <= 60000;
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(5);
+        writer.Write(6);
         writer.Write(_starterMigrations.Count);
         foreach (var serial in _starterMigrations)
         {
@@ -306,12 +325,17 @@ public sealed class GearProfiles : GenericPersistence
             writer.Write(state.VendorPurchasePrice ?? -1);
             RuneSockets.Write(writer, state.Runes);
             GemSockets.Write(writer, state.Gems);
+            writer.Write(state.NamedItemId);
+            writer.Write(state.NamedSockets);
+            writer.Write(state.NamedProperties.Length);
+            foreach (var property in state.NamedProperties)
+            { writer.Write(property.Key); writer.Write(property.Value); writer.Write(property.Maximum); }
         }
     }
     public override void Deserialize(IGenericReader reader)
     {
         int version = reader.ReadInt();
-        if (version is < 0 or > 5)
+        if (version is < 0 or > 6)
         {
             throw new InvalidDataException("Unsupported equipment persistence version.");
         }
@@ -384,6 +408,14 @@ public sealed class GearProfiles : GenericPersistence
             }
             if (version >= 4) { state = state with { Runes = RuneSockets.Read(reader) }; }
             if (version >= 5) { state = state with { Gems = GemSockets.Read(reader) }; }
+            if (version >= 6)
+            {
+                string named = reader.ReadString(); int sockets = reader.ReadInt(), countProperties = reader.ReadInt();
+                if (countProperties is < 0 or > 64) { throw new InvalidDataException("Invalid named-property count."); }
+                var properties = new NamedPropertyRoll[countProperties];
+                for (int n = 0; n < properties.Length; n++) { properties[n] = new(reader.ReadString(), reader.ReadInt(), reader.ReadInt()); }
+                state = state with { NamedItemId = named, NamedSockets = sockets, NamedProperties = properties };
+            }
             _items.Add(serial, state);
         }
     }
@@ -393,6 +425,7 @@ public sealed class GearProfiles : GenericPersistence
         foreach (var (serial, state) in _items)
         {
             Validate(World.FindItem(serial), state);
+            NamedMaintenance.Track(World.FindItem(serial));
         }
     }
 }

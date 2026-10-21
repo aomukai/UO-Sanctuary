@@ -1,5 +1,7 @@
 # T19 — Production gear drops and Magic Find
 
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45.
+
 Implemented, verified and deployed 20 October 2026 JST. User-confirmed scope: the existing mapped Normal reward roster, ordinary white bases for inferior/superior white outcomes, and **empty Set/Unique outcomes** until actual item systems exist. Nothing rerolls or redistributes those probabilities. This is the Normal encounter cohort, not a claim of full D2 item-system/world parity.
 
 The subsequent [Nightmare/Hell extension](t19-difficulties.md) adds persistent spawn identities and difficulty-specific stats/XP/loot. The Normal catalogue and its recorded scope below remain unchanged; world placement is deferred by user decision.

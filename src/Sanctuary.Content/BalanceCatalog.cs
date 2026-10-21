@@ -27,10 +27,12 @@ public static class BalanceCatalog
         TinkeringSockets.Load();
         JewelleryCrafting.Load();
         AffixBalance.Load();
+        NamedGear.Load();
         MonsterBalance.Load();
         CreatureProfiles.Load();
         CreatureGold.Load();
         GearDrops.Load();
+        Gambling.Load();
         MouldRewards.Load();
         EncounterProfiles.Load();
         EncounterTreasure.Load();

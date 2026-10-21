@@ -5,7 +5,7 @@
     "TreasureClassEx.txt": "1eb16226c402c72afd6b9ce19b9629f2d395b549047119103dab03b446e5654f"
   },
   "maxDrops": 6,
-  "setUniquePolicy": "Empty",
+  "setUniquePolicy": "NamedWhenAvailable",
   "roots": [
     {
       "family": "crypt-sentinel",

@@ -69,7 +69,7 @@ public static partial class TownMarkets
         }
         _logger.Information("Town markets: {Sites} service sites; {Created} merchants created", Sites.Length, created);
     }
-    private static Point3D Floor(Map map, Point3D anchor, HashSet<(Map, Point3D)> used, bool mobile)
+    internal static Point3D Floor(Map map, Point3D anchor, HashSet<(Map, Point3D)> used, bool mobile)
     {
         for (int radius = 0; radius <= 32; radius++)
         {

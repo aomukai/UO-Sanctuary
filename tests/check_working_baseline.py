@@ -13,7 +13,7 @@ import shutil
 import socket
 import tempfile
 
-from check_britain import ROOT, SERVER, Session
+from check_britain import ROOT, SERVER, CONTENT, INTEGRATION, Session
 
 
 def hashes(folder):
@@ -48,15 +48,15 @@ def check(output):
                     continue
                 target = entry
                 if runtime != source and entry.name == 'Sanctuary.Content.dll':
-                    target = ROOT / '.local/content/Sanctuary.Content.dll'
+                    target = CONTENT
                 if runtime != source and entry.name == 'Sanctuary':
                     target = ROOT / 'data/Sanctuary'
                 (folder / name / entry.name).symlink_to(target, target_is_directory=target.is_dir())
         if not (folder / 'Assemblies/Sanctuary.Content.dll').exists():
-            (folder / 'Assemblies/Sanctuary.Content.dll').symlink_to(ROOT / '.local/content/Sanctuary.Content.dll')
+            (folder / 'Assemblies/Sanctuary.Content.dll').symlink_to(CONTENT)
         if not (folder / 'Data/Sanctuary').exists():
             (folder / 'Data/Sanctuary').symlink_to(ROOT / 'data/Sanctuary', target_is_directory=True)
-        probe = ROOT / '.local/integration/Sanctuary.Integration.dll'
+        probe = INTEGRATION
         assert probe.is_file(), 'Build the integration project first'
         (folder / 'Assemblies/Sanctuary.Integration.dll').symlink_to(probe)
         assemblies = json.loads((source / 'Data/assemblies.json').read_text())
@@ -109,7 +109,7 @@ def check(output):
                     assert session.process.returncode == 0
                 finally:
                     session.close()
-        for key in ('Players', 'Gear', 'Gold', 'Architects'):
+        for key in ('Players', 'Gear', 'Gold', 'Architects', 'Gamblers'):
             assert snapshots[-2][key] == snapshots[-1][key], f'{key} changed after copied-world restart'
         assert all(p == progression[0] for p in progression), 'Serialized class/talent/allocation history changed on restart'
         if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':

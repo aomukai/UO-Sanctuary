@@ -96,7 +96,7 @@ def build(source, difficulty="Normal"):
     excluded_leaves = [dict(item=leaf, reason='T28 restorative potion supply; excluded from gear rolls' if re.fullmatch(r'[hm]p[1-5]', leaf) else 'Reserved non-gear system or unmapped base; no reroll')
                        for leaf in leaves if leaf not in pool_names and leaf not in supported]
     return dict(sourceCommit=COMMIT, difficulty=difficulty, players=1, maxDrops=1,
-                setUniquePolicy='Empty', whiteQuality='Normal',
+                setUniquePolicy='NamedWhenAvailable', whiteQuality='Normal',
                 ratios=ratios, pools=pools, bases=bases, excludedLeaves=excluded_leaves)
 
 

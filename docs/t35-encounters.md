@@ -1,5 +1,7 @@
 # T35 — Dungeon encounter grades
 
+Staged T49 update (22 October2026): actual eligible named items now share this path. The [complete return list](named-item-readiness.md) records every held definition and its prerequisites; unavailable outcomes retain their original weight. These changes are isolated staging; production remains T45.
+
 T35 adds spawnable encounters and bounded level 60–99 profiles. Permanent dungeon layouts, outdoor populations and automatic placement remain world-authoring work. Existing spawners and the T19 creature/difficulty catalogues retain their current distributions.
 
 ## Profiles and identity

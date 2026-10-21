@@ -115,7 +115,10 @@ public static class FoundationChecks
                 {
                     for (int seed = 0; seed < 4; seed++)
                     {
-                        var roll = AffixBalance.Roll(basis, itemLevel, rarity, new Random(seed));
+                        GearRoll roll;
+                        try { roll = AffixBalance.Roll(basis, itemLevel, rarity, new Random(seed)); }
+                        catch (Exception error)
+                        { throw new InvalidOperationException($"Affix foundation: {basis.Code}/{basis.Type}/{itemLevel}/{rarity}", error); }
                         Require(roll.Affixes.Length >= 1 && roll.Affixes.Length <= (rarity == GearRarity.Magic ? 2 : 6),
                             "Affix count escaped rarity bounds");
                         Require(roll.Affixes.Count(a => a.Definition.Kind == AffixKind.Prefix) <= (rarity == GearRarity.Magic ? 1 : 3)

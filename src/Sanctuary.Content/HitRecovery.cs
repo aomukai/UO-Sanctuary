@@ -25,6 +25,38 @@ public static class HitRecovery
     public static int Fhr(PlayerMobile player) => Math.Clamp(ClassGear.Bonus(player, "balance1")
         + ClassGear.Bonus(player, "balance2") + ClassGear.Bonus(player, "balance3"), 0, 10000);
 
+    public static int BlockFrames(DiabloClass characterClass, int fasterBlock, BaseWeapon weapon = null)
+    {
+        int frames = characterClass switch
+        {
+            DiabloClass.Amazon or DiabloClass.Paladin or DiabloClass.Assassin => 3,
+            DiabloClass.Barbarian => 4, DiabloClass.Sorceress => 5, _ => 6
+        };
+        int bonus = Math.Clamp(fasterBlock, 0, 10000);
+        var basis = weapon == null ? null : ClassGear.Base(weapon);
+        bool amazonSwing = characterClass == DiabloClass.Amazon && weapon != null && !ClassGear.Broken(weapon)
+            && (basis != null
+                ? EquipmentBalance.IsType(basis.Type, "swor") || EquipmentBalance.IsType(basis.Type, "axe")
+                    || EquipmentBalance.IsType(basis.Type, "blun") || EquipmentBalance.IsType(basis.Type, "taxe")
+                : CombatTiming.Weapon(weapon).Family == AttackFamily.Swing);
+        int speed = amazonSwing ? 88 : 256;
+        int advance = Math.Max(1, speed * (50 + 120 * bonus / (120 + bonus)) / 100);
+        return Math.Max(1, (frames * 256 + advance - 1) / advance - 1);
+    }
+    public static void Block(PlayerMobile player, long now)
+    {
+        if (!ClassCreation.Profiles.TryGet(player.Serial, out var profile)) { return; }
+        if (Active(player, now)) { return; }
+        int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player));
+        var session = ClassCombat.For(player);
+        session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
+        session.PendingAbility = CombatAbility.None; session.PendingTeleport = null;
+        session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
+        ClassCombat.SendState(player, session);
+        ClassCombat.SendAnimation(player, 20, frames * ActionTiming.FrameMs);
+        player.Animate(20, 5, 1, true, false, 0);
+    }
+
     public static int Frames(DiabloClass characterClass, int fhr = 0, BaseWeapon weapon = null)
     {
         int frames = characterClass switch

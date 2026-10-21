@@ -1,0 +1,1892 @@
+[
+  {
+    "sourceId": 6,
+    "sourceKey": "Magic Arrow",
+    "talentId": "amazon.magicarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": null
+  },
+  {
+    "sourceId": 7,
+    "sourceKey": "Fire Arrow",
+    "talentId": "amazon.firearrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "fire"
+  },
+  {
+    "sourceId": 8,
+    "sourceKey": "Inner Sight",
+    "talentId": "amazon.innersight",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 9,
+    "sourceKey": "Critical Strike",
+    "talentId": "amazon.criticalstrike",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 10,
+    "sourceKey": "Jab",
+    "talentId": "amazon.jab",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": null
+  },
+  {
+    "sourceId": 11,
+    "sourceKey": "Cold Arrow",
+    "talentId": "amazon.coldarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "cold"
+  },
+  {
+    "sourceId": 12,
+    "sourceKey": "Multiple Shot",
+    "talentId": "amazon.multipleshot",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": null
+  },
+  {
+    "sourceId": 13,
+    "sourceKey": "Dodge",
+    "talentId": "amazon.dodge",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 14,
+    "sourceKey": "Power Strike",
+    "talentId": "amazon.powerstrike",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 15,
+    "sourceKey": "Poison Javelin",
+    "talentId": "amazon.poisonjavelin",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "pois"
+  },
+  {
+    "sourceId": 16,
+    "sourceKey": "Exploding Arrow",
+    "talentId": "amazon.explodingarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "fire"
+  },
+  {
+    "sourceId": 17,
+    "sourceKey": "Slow Missiles",
+    "talentId": "amazon.slowmissiles",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 18,
+    "sourceKey": "Avoid",
+    "talentId": "amazon.avoid",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 19,
+    "sourceKey": "Impale",
+    "talentId": "amazon.impale",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": null
+  },
+  {
+    "sourceId": 20,
+    "sourceKey": "Lightning Bolt",
+    "talentId": "amazon.lightningbolt",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 21,
+    "sourceKey": "Ice Arrow",
+    "talentId": "amazon.icearrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "cold"
+  },
+  {
+    "sourceId": 22,
+    "sourceKey": "Guided Arrow",
+    "talentId": "amazon.guidedarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": null
+  },
+  {
+    "sourceId": 23,
+    "sourceKey": "Penetrate",
+    "talentId": "amazon.penetrate",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 24,
+    "sourceKey": "Charged Strike",
+    "talentId": "amazon.chargedstrike",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 25,
+    "sourceKey": "Plague Javelin",
+    "talentId": "amazon.plaguejavelin",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "pois"
+  },
+  {
+    "sourceId": 26,
+    "sourceKey": "Strafe",
+    "talentId": "amazon.strafe",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": null
+  },
+  {
+    "sourceId": 27,
+    "sourceKey": "Immolation Arrow",
+    "talentId": "amazon.immolationarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "fire"
+  },
+  {
+    "sourceId": 28,
+    "sourceKey": "Dopplezon",
+    "talentId": "amazon.decoy",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 29,
+    "sourceKey": "Evade",
+    "talentId": "amazon.evade",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 30,
+    "sourceKey": "Fend",
+    "talentId": "amazon.fend",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": null
+  },
+  {
+    "sourceId": 31,
+    "sourceKey": "Freezing Arrow",
+    "talentId": "amazon.freezingarrow",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 0,
+    "element": "cold"
+  },
+  {
+    "sourceId": 32,
+    "sourceKey": "Valkyrie",
+    "talentId": "amazon.valkyrie",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 33,
+    "sourceKey": "Pierce",
+    "talentId": "amazon.pierce",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 1,
+    "element": null
+  },
+  {
+    "sourceId": 34,
+    "sourceKey": "Lightning Strike",
+    "talentId": "amazon.lightningstrike",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 35,
+    "sourceKey": "Lightning Fury",
+    "talentId": "amazon.lightningfury",
+    "characterClass": "Amazon",
+    "classCode": "ama",
+    "sourceTab": 2,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 36,
+    "sourceKey": "Fire Bolt",
+    "talentId": "sorceress.firebolt",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 37,
+    "sourceKey": "Warmth",
+    "talentId": "sorceress.warmth",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 38,
+    "sourceKey": "Charged Bolt",
+    "talentId": "sorceress.chargedbolt",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 39,
+    "sourceKey": "Ice Bolt",
+    "talentId": "sorceress.icebolt",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 40,
+    "sourceKey": "Frozen Armor",
+    "talentId": "sorceress.frozenarmor",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": null
+  },
+  {
+    "sourceId": 41,
+    "sourceKey": "Inferno",
+    "talentId": "sorceress.inferno",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 42,
+    "sourceKey": "Static Field",
+    "talentId": "sorceress.staticfield",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 43,
+    "sourceKey": "Telekinesis",
+    "talentId": "sorceress.telekinesis",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 44,
+    "sourceKey": "Frost Nova",
+    "talentId": "sorceress.frostnova",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 45,
+    "sourceKey": "Ice Blast",
+    "talentId": "sorceress.iceblast",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 46,
+    "sourceKey": "Blaze",
+    "talentId": "sorceress.blaze",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 47,
+    "sourceKey": "Fire Ball",
+    "talentId": "sorceress.fireball",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 48,
+    "sourceKey": "Nova",
+    "talentId": "sorceress.nova",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 49,
+    "sourceKey": "Lightning",
+    "talentId": "sorceress.lightning",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 50,
+    "sourceKey": "Shiver Armor",
+    "talentId": "sorceress.shiverarmor",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 51,
+    "sourceKey": "Fire Wall",
+    "talentId": "sorceress.firewall",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 52,
+    "sourceKey": "Enchant",
+    "talentId": "sorceress.enchant",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 53,
+    "sourceKey": "Chain Lightning",
+    "talentId": "sorceress.chainlightning",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 54,
+    "sourceKey": "Teleport",
+    "talentId": "sorceress.teleport",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": null
+  },
+  {
+    "sourceId": 55,
+    "sourceKey": "Glacial Spike",
+    "talentId": "sorceress.glacialspike",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 56,
+    "sourceKey": "Meteor",
+    "talentId": "sorceress.meteor",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 57,
+    "sourceKey": "Thunder Storm",
+    "talentId": "sorceress.thunderstorm",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 58,
+    "sourceKey": "Energy Shield",
+    "talentId": "sorceress.energyshield",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": null
+  },
+  {
+    "sourceId": 59,
+    "sourceKey": "Blizzard",
+    "talentId": "sorceress.blizzard",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 60,
+    "sourceKey": "Chilling Armor",
+    "talentId": "sorceress.chillingarmor",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 61,
+    "sourceKey": "Fire Mastery",
+    "talentId": "sorceress.firemastery",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 62,
+    "sourceKey": "Hydra",
+    "talentId": "sorceress.hydra",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 3,
+    "element": "fire"
+  },
+  {
+    "sourceId": 63,
+    "sourceKey": "Lightning Mastery",
+    "talentId": "sorceress.lightningmastery",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 4,
+    "element": null
+  },
+  {
+    "sourceId": 64,
+    "sourceKey": "Frozen Orb",
+    "talentId": "sorceress.frozenorb",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": "cold"
+  },
+  {
+    "sourceId": 65,
+    "sourceKey": "Cold Mastery",
+    "talentId": "sorceress.coldmastery",
+    "characterClass": "Sorceress",
+    "classCode": "sor",
+    "sourceTab": 5,
+    "element": null
+  },
+  {
+    "sourceId": 66,
+    "sourceKey": "Amplify Damage",
+    "talentId": "necromancer.amplifydamage",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 67,
+    "sourceKey": "Teeth",
+    "talentId": "necromancer.teeth",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "mag"
+  },
+  {
+    "sourceId": 68,
+    "sourceKey": "Bone Armor",
+    "talentId": "necromancer.bonearmor",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": null
+  },
+  {
+    "sourceId": 69,
+    "sourceKey": "Skeleton Mastery",
+    "talentId": "necromancer.skeletonmastery",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 70,
+    "sourceKey": "Raise Skeleton",
+    "talentId": "necromancer.raiseskeleton",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 71,
+    "sourceKey": "Dim Vision",
+    "talentId": "necromancer.dimvision",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 72,
+    "sourceKey": "Weaken",
+    "talentId": "necromancer.weaken",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 73,
+    "sourceKey": "Poison Dagger",
+    "talentId": "necromancer.poisondagger",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "pois"
+  },
+  {
+    "sourceId": 74,
+    "sourceKey": "Corpse Explosion",
+    "talentId": "necromancer.corpseexplosion",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "fire"
+  },
+  {
+    "sourceId": 75,
+    "sourceKey": "Clay Golem",
+    "talentId": "necromancer.claygolem",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 76,
+    "sourceKey": "Iron Maiden",
+    "talentId": "necromancer.ironmaiden",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 77,
+    "sourceKey": "Terror",
+    "talentId": "necromancer.terror",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 78,
+    "sourceKey": "Bone Wall",
+    "talentId": "necromancer.bonewall",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": null
+  },
+  {
+    "sourceId": 79,
+    "sourceKey": "Golem Mastery",
+    "talentId": "necromancer.golemmastery",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 80,
+    "sourceKey": "Raise Skeletal Mage",
+    "talentId": "necromancer.skeletalmage",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 81,
+    "sourceKey": "Confuse",
+    "talentId": "necromancer.confuse",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 82,
+    "sourceKey": "Life Tap",
+    "talentId": "necromancer.lifetap",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 83,
+    "sourceKey": "Poison Explosion",
+    "talentId": "necromancer.poisonexplosion",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "pois"
+  },
+  {
+    "sourceId": 84,
+    "sourceKey": "Bone Spear",
+    "talentId": "necromancer.bonespear",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "mag"
+  },
+  {
+    "sourceId": 85,
+    "sourceKey": "BloodGolem",
+    "talentId": "necromancer.bloodgolem",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 86,
+    "sourceKey": "Attract",
+    "talentId": "necromancer.attract",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 87,
+    "sourceKey": "Decrepify",
+    "talentId": "necromancer.decrepify",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 88,
+    "sourceKey": "Bone Prison",
+    "talentId": "necromancer.boneprison",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": null
+  },
+  {
+    "sourceId": 89,
+    "sourceKey": "Summon Resist",
+    "talentId": "necromancer.summonresist",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 90,
+    "sourceKey": "IronGolem",
+    "talentId": "necromancer.irongolem",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 91,
+    "sourceKey": "Lower Resist",
+    "talentId": "necromancer.lowerresist",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 6,
+    "element": null
+  },
+  {
+    "sourceId": 92,
+    "sourceKey": "Poison Nova",
+    "talentId": "necromancer.poisonnova",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "pois"
+  },
+  {
+    "sourceId": 93,
+    "sourceKey": "Bone Spirit",
+    "talentId": "necromancer.bonespirit",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 7,
+    "element": "mag"
+  },
+  {
+    "sourceId": 94,
+    "sourceKey": "FireGolem",
+    "talentId": "necromancer.firegolem",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": "fire"
+  },
+  {
+    "sourceId": 95,
+    "sourceKey": "Revive",
+    "talentId": "necromancer.revive",
+    "characterClass": "Necromancer",
+    "classCode": "nec",
+    "sourceTab": 8,
+    "element": null
+  },
+  {
+    "sourceId": 96,
+    "sourceKey": "Sacrifice",
+    "talentId": "paladin.sacrifice",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 97,
+    "sourceKey": "Smite",
+    "talentId": "paladin.smite",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 98,
+    "sourceKey": "Might",
+    "talentId": "paladin.might",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 99,
+    "sourceKey": "Prayer",
+    "talentId": "paladin.prayer",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 100,
+    "sourceKey": "Resist Fire",
+    "talentId": "paladin.resistfire",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 101,
+    "sourceKey": "Holy Bolt",
+    "talentId": "paladin.holybolt",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": "mag"
+  },
+  {
+    "sourceId": 102,
+    "sourceKey": "Holy Fire",
+    "talentId": "paladin.holyfire",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": "fire"
+  },
+  {
+    "sourceId": 103,
+    "sourceKey": "Thorns",
+    "talentId": "paladin.thorns",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 104,
+    "sourceKey": "Defiance",
+    "talentId": "paladin.defiance",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 105,
+    "sourceKey": "Resist Cold",
+    "talentId": "paladin.resistcold",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 106,
+    "sourceKey": "Zeal",
+    "talentId": "paladin.zeal",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 107,
+    "sourceKey": "Charge",
+    "talentId": "paladin.charge",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 108,
+    "sourceKey": "Blessed Aim",
+    "talentId": "paladin.blessedaim",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 109,
+    "sourceKey": "Cleansing",
+    "talentId": "paladin.cleansing",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 110,
+    "sourceKey": "Resist Lightning",
+    "talentId": "paladin.resistlightning",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 111,
+    "sourceKey": "Vengeance",
+    "talentId": "paladin.vengeance",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": "cold"
+  },
+  {
+    "sourceId": 112,
+    "sourceKey": "Blessed Hammer",
+    "talentId": "paladin.blessedhammer",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": "mag"
+  },
+  {
+    "sourceId": 113,
+    "sourceKey": "Concentration",
+    "talentId": "paladin.concentration",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 114,
+    "sourceKey": "Holy Freeze",
+    "talentId": "paladin.holyfreeze",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": "cold"
+  },
+  {
+    "sourceId": 115,
+    "sourceKey": "Vigor",
+    "talentId": "paladin.vigor",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 116,
+    "sourceKey": "Conversion",
+    "talentId": "paladin.conversion",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 117,
+    "sourceKey": "Holy Shield",
+    "talentId": "paladin.holyshield",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": null
+  },
+  {
+    "sourceId": 118,
+    "sourceKey": "Holy Shock",
+    "talentId": "paladin.holyshock",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 119,
+    "sourceKey": "Sanctuary",
+    "talentId": "paladin.sanctuary",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": "mag"
+  },
+  {
+    "sourceId": 120,
+    "sourceKey": "Meditation",
+    "talentId": "paladin.meditation",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 121,
+    "sourceKey": "Fist of the Heavens",
+    "talentId": "paladin.fistoftheheavens",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 9,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 122,
+    "sourceKey": "Fanaticism",
+    "talentId": "paladin.fanaticism",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 123,
+    "sourceKey": "Conviction",
+    "talentId": "paladin.conviction",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 10,
+    "element": null
+  },
+  {
+    "sourceId": 124,
+    "sourceKey": "Redemption",
+    "talentId": "paladin.redemption",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 125,
+    "sourceKey": "Salvation",
+    "talentId": "paladin.salvation",
+    "characterClass": "Paladin",
+    "classCode": "pal",
+    "sourceTab": 11,
+    "element": null
+  },
+  {
+    "sourceId": 126,
+    "sourceKey": "Bash",
+    "talentId": "barbarian.bash",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 127,
+    "sourceKey": "Blade Mastery",
+    "talentId": "barbarian.swordmastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 128,
+    "sourceKey": "Axe Mastery",
+    "talentId": "barbarian.axemastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 129,
+    "sourceKey": "Mace Mastery",
+    "talentId": "barbarian.macemastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 130,
+    "sourceKey": "Howl",
+    "talentId": "barbarian.howl",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 131,
+    "sourceKey": "Find Potion",
+    "talentId": "barbarian.findpotion",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 132,
+    "sourceKey": "Leap",
+    "talentId": "barbarian.leap",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 133,
+    "sourceKey": "Double Swing",
+    "talentId": "barbarian.doubleswing",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 134,
+    "sourceKey": "Pole Arm Mastery",
+    "talentId": "barbarian.polearmmastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 135,
+    "sourceKey": "Throwing Mastery",
+    "talentId": "barbarian.throwingmastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 136,
+    "sourceKey": "Spear Mastery",
+    "talentId": "barbarian.spearmastery",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 137,
+    "sourceKey": "Taunt",
+    "talentId": "barbarian.taunt",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 138,
+    "sourceKey": "Shout",
+    "talentId": "barbarian.shout",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 139,
+    "sourceKey": "Stun",
+    "talentId": "barbarian.stun",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": "stun"
+  },
+  {
+    "sourceId": 140,
+    "sourceKey": "Double Throw",
+    "talentId": "barbarian.doublethrow",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 141,
+    "sourceKey": "Increased Stamina",
+    "talentId": "barbarian.increasedstamina",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 142,
+    "sourceKey": "Find Item",
+    "talentId": "barbarian.finditem",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 143,
+    "sourceKey": "Leap Attack",
+    "talentId": "barbarian.leapattack",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 144,
+    "sourceKey": "Concentrate",
+    "talentId": "barbarian.concentrate",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": "mag"
+  },
+  {
+    "sourceId": 145,
+    "sourceKey": "Iron Skin",
+    "talentId": "barbarian.ironskin",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 146,
+    "sourceKey": "Battle Cry",
+    "talentId": "barbarian.battlecry",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 147,
+    "sourceKey": "Frenzy",
+    "talentId": "barbarian.frenzy",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": "mag"
+  },
+  {
+    "sourceId": 148,
+    "sourceKey": "Increased Speed",
+    "talentId": "barbarian.increasedspeed",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 149,
+    "sourceKey": "Battle Orders",
+    "talentId": "barbarian.battleorders",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 150,
+    "sourceKey": "Grim Ward",
+    "talentId": "barbarian.grimward",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 151,
+    "sourceKey": "Whirlwind",
+    "talentId": "barbarian.whirlwind",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": null
+  },
+  {
+    "sourceId": 152,
+    "sourceKey": "Berserk",
+    "talentId": "barbarian.berserk",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 12,
+    "element": "mag"
+  },
+  {
+    "sourceId": 153,
+    "sourceKey": "Natural Resistance",
+    "talentId": "barbarian.naturalresistance",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 13,
+    "element": null
+  },
+  {
+    "sourceId": 154,
+    "sourceKey": "War Cry",
+    "talentId": "barbarian.warcry",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 155,
+    "sourceKey": "Battle Command",
+    "talentId": "barbarian.battlecommand",
+    "characterClass": "Barbarian",
+    "classCode": "bar",
+    "sourceTab": 14,
+    "element": null
+  },
+  {
+    "sourceId": 221,
+    "sourceKey": "Raven",
+    "talentId": "druid.raven",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 222,
+    "sourceKey": "Plague Poppy",
+    "talentId": "druid.poisoncreeper",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": "pois"
+  },
+  {
+    "sourceId": 223,
+    "sourceKey": "Wearwolf",
+    "talentId": "druid.werewolf",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 224,
+    "sourceKey": "Shape Shifting",
+    "talentId": "druid.lycanthropy",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 225,
+    "sourceKey": "Firestorm",
+    "talentId": "druid.firestorm",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "fire"
+  },
+  {
+    "sourceId": 226,
+    "sourceKey": "Oak Sage",
+    "talentId": "druid.oaksage",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 227,
+    "sourceKey": "Summon Spirit Wolf",
+    "talentId": "druid.summonspiritwolf",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": "cold"
+  },
+  {
+    "sourceId": 228,
+    "sourceKey": "Wearbear",
+    "talentId": "druid.werebear",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 229,
+    "sourceKey": "Molten Boulder",
+    "talentId": "druid.moltenboulder",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "fire"
+  },
+  {
+    "sourceId": 230,
+    "sourceKey": "Arctic Blast",
+    "talentId": "druid.arcticblast",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "cold"
+  },
+  {
+    "sourceId": 231,
+    "sourceKey": "Cycle of Life",
+    "talentId": "druid.carrionvine",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 232,
+    "sourceKey": "Feral Rage",
+    "talentId": "druid.feralrage",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 233,
+    "sourceKey": "Maul",
+    "talentId": "druid.maul",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 234,
+    "sourceKey": "Eruption",
+    "talentId": "druid.fissure",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "fire"
+  },
+  {
+    "sourceId": 235,
+    "sourceKey": "Cyclone Armor",
+    "talentId": "druid.cyclonearmor",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": null
+  },
+  {
+    "sourceId": 236,
+    "sourceKey": "Heart of Wolverine",
+    "talentId": "druid.heartofwolverine",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 237,
+    "sourceKey": "Summon Fenris",
+    "talentId": "druid.summondirewolf",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 238,
+    "sourceKey": "Rabies",
+    "talentId": "druid.rabies",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": "pois"
+  },
+  {
+    "sourceId": 239,
+    "sourceKey": "Fire Claws",
+    "talentId": "druid.fireclaws",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": "fire"
+  },
+  {
+    "sourceId": 240,
+    "sourceKey": "Twister",
+    "talentId": "druid.twister",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": null
+  },
+  {
+    "sourceId": 241,
+    "sourceKey": "Vines",
+    "talentId": "druid.solarcreeper",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 242,
+    "sourceKey": "Hunger",
+    "talentId": "druid.hunger",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 243,
+    "sourceKey": "Shock Wave",
+    "talentId": "druid.shockwave",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 244,
+    "sourceKey": "Volcano",
+    "talentId": "druid.volcano",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "fire"
+  },
+  {
+    "sourceId": 245,
+    "sourceKey": "Tornado",
+    "talentId": "druid.tornado",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": null
+  },
+  {
+    "sourceId": 246,
+    "sourceKey": "Spirit of Barbs",
+    "talentId": "druid.spiritofbarbs",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 247,
+    "sourceKey": "Summon Grizzly",
+    "talentId": "druid.summongrizzly",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 15,
+    "element": null
+  },
+  {
+    "sourceId": 248,
+    "sourceKey": "Fury",
+    "talentId": "druid.fury",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 16,
+    "element": null
+  },
+  {
+    "sourceId": 249,
+    "sourceKey": "Armageddon",
+    "talentId": "druid.armageddon",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "fire"
+  },
+  {
+    "sourceId": 250,
+    "sourceKey": "Hurricane",
+    "talentId": "druid.hurricane",
+    "characterClass": "Druid",
+    "classCode": "dru",
+    "sourceTab": 17,
+    "element": "cold"
+  },
+  {
+    "sourceId": 251,
+    "sourceKey": "Fire Trauma",
+    "talentId": "assassin.fireblast",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "fire"
+  },
+  {
+    "sourceId": 252,
+    "sourceKey": "Claw Mastery",
+    "talentId": "assassin.clawmastery",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 253,
+    "sourceKey": "Psychic Hammer",
+    "talentId": "assassin.psychichammer",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": "mag"
+  },
+  {
+    "sourceId": 254,
+    "sourceKey": "Tiger Strike",
+    "talentId": "assassin.tigerstrike",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  },
+  {
+    "sourceId": 255,
+    "sourceKey": "Dragon Talon",
+    "talentId": "assassin.dragontalon",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  },
+  {
+    "sourceId": 256,
+    "sourceKey": "Shock Field",
+    "talentId": "assassin.shockweb",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 257,
+    "sourceKey": "Blade Sentinel",
+    "talentId": "assassin.bladesentinel",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": null
+  },
+  {
+    "sourceId": 258,
+    "sourceKey": "Quickness",
+    "talentId": "assassin.burstofspeed",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 259,
+    "sourceKey": "Fists of Fire",
+    "talentId": "assassin.fistsoffire",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": "fire"
+  },
+  {
+    "sourceId": 260,
+    "sourceKey": "Dragon Claw",
+    "talentId": "assassin.dragonclaw",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  },
+  {
+    "sourceId": 261,
+    "sourceKey": "Charged Bolt Sentry",
+    "talentId": "assassin.chargedboltsentry",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 262,
+    "sourceKey": "Wake of Fire Sentry",
+    "talentId": "assassin.wakeoffire",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "fire"
+  },
+  {
+    "sourceId": 263,
+    "sourceKey": "Weapon Block",
+    "talentId": "assassin.weaponblock",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 264,
+    "sourceKey": "Cloak of Shadows",
+    "talentId": "assassin.cloakofshadows",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 265,
+    "sourceKey": "Cobra Strike",
+    "talentId": "assassin.cobrastrike",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  },
+  {
+    "sourceId": 266,
+    "sourceKey": "Blade Fury",
+    "talentId": "assassin.bladefury",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": null
+  },
+  {
+    "sourceId": 267,
+    "sourceKey": "Fade",
+    "talentId": "assassin.fade",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 268,
+    "sourceKey": "Shadow Warrior",
+    "talentId": "assassin.shadowwarrior",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 269,
+    "sourceKey": "Claws of Thunder",
+    "talentId": "assassin.clawsofthunder",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 270,
+    "sourceKey": "Dragon Tail",
+    "talentId": "assassin.dragontail",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": "fire"
+  },
+  {
+    "sourceId": 271,
+    "sourceKey": "Lightning Sentry",
+    "talentId": "assassin.lightningsentry",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 272,
+    "sourceKey": "Inferno Sentry",
+    "talentId": "assassin.wakeofinferno",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "fire"
+  },
+  {
+    "sourceId": 273,
+    "sourceKey": "Mind Blast",
+    "talentId": "assassin.mindblast",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": "stun"
+  },
+  {
+    "sourceId": 274,
+    "sourceKey": "Blades of Ice",
+    "talentId": "assassin.bladesofice",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": "cold"
+  },
+  {
+    "sourceId": 275,
+    "sourceKey": "Dragon Flight",
+    "talentId": "assassin.dragonflight",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  },
+  {
+    "sourceId": 276,
+    "sourceKey": "Death Sentry",
+    "talentId": "assassin.deathsentry",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": "ltng"
+  },
+  {
+    "sourceId": 277,
+    "sourceKey": "Blade Shield",
+    "talentId": "assassin.bladeshield",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 18,
+    "element": null
+  },
+  {
+    "sourceId": 278,
+    "sourceKey": "Venom",
+    "talentId": "assassin.venom",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": "pois"
+  },
+  {
+    "sourceId": 279,
+    "sourceKey": "Shadow Master",
+    "talentId": "assassin.shadowmaster",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 19,
+    "element": null
+  },
+  {
+    "sourceId": 280,
+    "sourceKey": "Royal Strike",
+    "talentId": "assassin.phoenixstrike",
+    "characterClass": "Assassin",
+    "classCode": "ass",
+    "sourceTab": 20,
+    "element": null
+  }
+]

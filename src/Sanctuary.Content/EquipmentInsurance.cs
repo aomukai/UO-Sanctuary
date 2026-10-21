@@ -24,7 +24,7 @@ public static class EquipmentInsurance
         public bool MissedRenewal;
     }
     private static readonly Dictionary<Serial, DeathCover> _deaths = new();
-    private static readonly int[,] _prices = new int[3, 3];
+    private static readonly Dictionary<GearRarity, int[]> _prices = new();
     public static InsuranceProfiles Profiles { get; private set; }
 
     public static void Configure()
@@ -33,14 +33,15 @@ public static class EquipmentInsurance
         var rows = JsonSerializer.Deserialize<InsurancePriceRow[]>(File.ReadAllText(
             Path.Join(Core.BaseDirectory, "Data", "Sanctuary", "Balance", "insurance.json")));
         var seen = new HashSet<GearRarity>();
-        if (rows?.Length != 3) { throw new InvalidDataException("Insurance needs exactly the three supported rarities."); }
+        _prices.Clear();
+        if (rows?.Length != Enum.GetValues<GearRarity>().Length) { throw new InvalidDataException("Insurance needs every supported rarity."); }
         foreach (var row in rows)
         {
             if (row == null || !Enum.TryParse<GearRarity>(row.Rarity, out var rarity) || !Enum.IsDefined(rarity)
                 || !seen.Add(rarity) || row.Normal is < 1 or > 1000000 || row.Exceptional is < 1 or > 1000000
                 || row.Elite is < 1 or > 1000000)
             { throw new InvalidDataException("Invalid insurance price row."); }
-            _prices[(int)rarity, 0] = row.Normal; _prices[(int)rarity, 1] = row.Exceptional; _prices[(int)rarity, 2] = row.Elite;
+            _prices.Add(rarity, [row.Normal, row.Exceptional, row.Elite]);
         }
         InsuranceContentHooks.Cost = (_, item) => Cost(item);
         InsuranceContentHooks.Eligible = (from, item) => from is PlayerMobile p && Owned(p, item) && Cost(item) > 0;
@@ -64,7 +65,7 @@ public static class EquipmentInsurance
     }
 
     public static void Deleted(PlayerMobile player)
-    { _deaths.Remove(player.Serial); InsuranceGump.Forget(player.Serial); }
+    { _deaths.Remove(player.Serial); InsuranceGump.Forget(player.Serial); NamedGear.Forget(player.Serial); }
 
     public static int Cost(Item item)
     {
@@ -75,7 +76,7 @@ public static class EquipmentInsurance
         var state = ClassGear.State(item);
         var rarity = state?.Roll.Rarity ?? GearRarity.Normal;
         var tier = state?.Tier ?? GearTier.Normal;
-        return Enum.IsDefined(rarity) && Enum.IsDefined(tier) ? _prices[(int)rarity, (int)tier] : 0;
+        return Enum.IsDefined(tier) && _prices.TryGetValue(rarity, out var prices) ? prices[(int)tier] : 0;
     }
     public static bool Owned(PlayerMobile p, Item item) => item is { Deleted: false }
         && (item.Parent == p || p.Backpack != null && item.IsChildOf(p.Backpack));

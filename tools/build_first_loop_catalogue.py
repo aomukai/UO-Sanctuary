@@ -51,7 +51,9 @@ def build(source, audit_path, root=ROOT):
     require(audit['ManifestSha256'] == digest(manifest_path), 'Stale affix audit: export the current manifest through the server fixture')
     for name, expected in audit['InputHashes'].items():
         require(digest(root / name) == expected, f'Stale runtime/input evidence: {name}')
-    require(audit['ContentAssemblySha256'] == digest(root / '.local/content/Sanctuary.Content.dll'), 'Content DLL differs from audited assembly')
+    assembly = (root / audit.get('ContentAssemblyPath', '.local/content/Sanctuary.Content.dll')).resolve()
+    require(assembly.is_relative_to(root.resolve()), 'Content assembly path escapes workspace')
+    require(audit['ContentAssemblySha256'] == digest(assembly), 'Content DLL differs from audited assembly')
     units = {e['code']: e for e in manifest['effects']}
     require(len(units) == len(manifest['effects']), 'Duplicate effect code')
     require(set(units) == set(audit['ImplementedCodes']), 'Consumer units differ from audited guard')

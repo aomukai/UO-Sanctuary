@@ -24,7 +24,7 @@ public static class Teleportation
 {
     public const int Range = 18;
     public static int Rank(PlayerMobile p) => ClassCreation.Profiles.TryGet(p.Serial, out var profile)
-        && profile.Class == DiabloClass.Sorceress ? ClassCreation.Profiles.GetRank(p.Serial, "sorceress.teleport") : 0;
+        && profile.Class == DiabloClass.Sorceress ? NamedSkills.Rank(p, "sorceress.teleport") : 0;
     public static int ManaCost(int rank) => Math.Max(1, 25 - rank);
     private static bool Ready(PlayerMobile p, long now) => EquipmentEconomy.Ready(p)
         && p.Map != null && p.Map != Map.Internal && p.Spell == null && !HitRecovery.Active(p, now)

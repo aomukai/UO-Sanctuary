@@ -1,0 +1,5321 @@
+{
+  "schemaVersion": 1,
+  "skills": [
+    "Alchemy",
+    "Blacksmith",
+    "Fletching",
+    "Carpentry",
+    "Cartography",
+    "Cooking",
+    "Imbuing",
+    "Inscribe",
+    "Tailoring",
+    "Tinkering",
+    "Fishing",
+    "Lumberjacking",
+    "Mining"
+  ],
+  "training": [
+    0,
+    30
+  ],
+  "craftPractice": [
+    30,
+    70
+  ],
+  "caps": [
+    100,
+    105,
+    110,
+    115,
+    120
+  ],
+  "productionTenthChecks": 5000,
+  "routes": {
+    "Alchemy": [
+      {
+        "name": "InstantHealing/1",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "InstantMana/1",
+        "minimum": 60,
+        "maximum": 110,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rejuvenation/1",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rejuvenation/2",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "CombatBuff/1",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "CombatBuff/2",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "CombatBuff/3",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "CombatBuff/4",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "alchemy-restoratives",
+        "rareUnlock": false
+      },
+      {
+        "name": "CombatBuff/5",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "alchemy-restoratives",
+        "rareUnlock": true
+      }
+    ],
+    "Blacksmith": [
+      {
+        "name": "Longsword (Normal)",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Longsword (Exceptional)",
+        "minimum": 92,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Longsword (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ring Mail (Normal)",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ring Mail (Exceptional)",
+        "minimum": 92,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ring Mail (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Assassin Spike (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Assassin Spike (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Assassin Spike (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Axe (Normal)",
+        "minimum": 35,
+        "maximum": 85.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Axe (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Axe (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bardiche (Normal)",
+        "minimum": 32,
+        "maximum": 82.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bardiche (Exceptional)",
+        "minimum": 92,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bardiche (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bascinet (Normal)",
+        "minimum": 9,
+        "maximum": 59.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bascinet (Exceptional)",
+        "minimum": 84,
+        "maximum": 134.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bascinet (Elite)",
+        "minimum": 112,
+        "maximum": 162.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Battle Axe (Normal)",
+        "minimum": 31,
+        "maximum": 81.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Battle Axe (Exceptional)",
+        "minimum": 92,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Battle Axe (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bladed Staff (Normal)",
+        "minimum": 40,
+        "maximum": 90,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bladed Staff (Exceptional)",
+        "minimum": 95,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bladed Staff (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Blood Blade (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Blood Blade (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Blood Blade (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Broadsword (Normal)",
+        "minimum": 36,
+        "maximum": 86.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Broadsword (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Broadsword (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bronze Shield (Normal)",
+        "minimum": 0,
+        "maximum": 50.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bronze Shield (Exceptional)",
+        "minimum": 80,
+        "maximum": 130.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bronze Shield (Elite)",
+        "minimum": 110,
+        "maximum": 160.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Buckler (Normal)",
+        "minimum": 0,
+        "maximum": 50,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Buckler (Exceptional)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Buckler (Elite)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Butcher Knife (Normal)",
+        "minimum": 25,
+        "maximum": 75,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Butcher Knife (Exceptional)",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Butcher Knife (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Chest (Normal)",
+        "minimum": 40,
+        "maximum": 90.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Chest (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Chest (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Coif (Normal)",
+        "minimum": 15,
+        "maximum": 65.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Coif (Exceptional)",
+        "minimum": 86,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Coif (Elite)",
+        "minimum": 112,
+        "maximum": 162.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Hatsuburi (Normal)",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Hatsuburi (Exceptional)",
+        "minimum": 92,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chain Hatsuburi (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chaos Shield (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chaos Shield (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Chaos Shield (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Circlet (Normal)",
+        "minimum": 63,
+        "maximum": 113.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Circlet (Exceptional)",
+        "minimum": 104,
+        "maximum": 154.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Circlet (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cleaver (Normal)",
+        "minimum": 20,
+        "maximum": 70,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cleaver (Exceptional)",
+        "minimum": 88,
+        "maximum": 138,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cleaver (Elite)",
+        "minimum": 113,
+        "maximum": 163,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Close Helm (Normal)",
+        "minimum": 38,
+        "maximum": 88.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Close Helm (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Close Helm (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crescent Blade (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crescent Blade (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crescent Blade (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cutlass (Normal)",
+        "minimum": 25,
+        "maximum": 75.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cutlass (Exceptional)",
+        "minimum": 90,
+        "maximum": 140.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cutlass (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dagger (Normal)",
+        "minimum": 0,
+        "maximum": 50.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dagger (Exceptional)",
+        "minimum": 80,
+        "maximum": 130.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dagger (Elite)",
+        "minimum": 110,
+        "maximum": 160.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Daisho (Normal)",
+        "minimum": 60,
+        "maximum": 110,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Daisho (Exceptional)",
+        "minimum": 103,
+        "maximum": 153,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Daisho (Elite)",
+        "minimum": 118,
+        "maximum": 168,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Decorative Plate Kabuto (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Decorative Plate Kabuto (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Decorative Plate Kabuto (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Diamond Mace (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Diamond Mace (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Diamond Mace (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Disc Mace (Normal)",
+        "minimum": 15,
+        "maximum": 65.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Disc Mace (Exceptional)",
+        "minimum": 86,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Disc Mace (Elite)",
+        "minimum": 112,
+        "maximum": 162.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Axe (Normal)",
+        "minimum": 30,
+        "maximum": 80.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Axe (Exceptional)",
+        "minimum": 92,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Axe (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Bladed Staff (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Bladed Staff (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Double Bladed Staff (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dread Sword (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dread Sword (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dread Sword (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Pointed Spear (Normal)",
+        "minimum": 49,
+        "maximum": 99,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Pointed Spear (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Pointed Spear (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Short Axes (Normal)",
+        "minimum": 35,
+        "maximum": 85.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Short Axes (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dual Short Axes (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Machete (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Machete (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Machete (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Spellblade (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Spellblade (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Spellblade (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Executioners Axe (Normal)",
+        "minimum": 35,
+        "maximum": 85.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Executioners Axe (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Executioners Axe (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Plate Chest (Normal)",
+        "minimum": 45,
+        "maximum": 95.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Plate Chest (Exceptional)",
+        "minimum": 97,
+        "maximum": 147.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Plate Chest (Elite)",
+        "minimum": 116,
+        "maximum": 166.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Talwar (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Talwar (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Talwar (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gemmed Circlet (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gemmed Circlet (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gemmed Circlet (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Halberd (Normal)",
+        "minimum": 40,
+        "maximum": 90.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Halberd (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Halberd (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hammer Pick (Normal)",
+        "minimum": 35,
+        "maximum": 85.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hammer Pick (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hammer Pick (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hatchet (Normal)",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hatchet (Exceptional)",
+        "minimum": 92,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hatchet (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heater Shield (Normal)",
+        "minimum": 25,
+        "maximum": 75.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heater Shield (Exceptional)",
+        "minimum": 90,
+        "maximum": 140.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heater Shield (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Plate Jingasa (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Plate Jingasa (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Plate Jingasa (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Helmet (Normal)",
+        "minimum": 38,
+        "maximum": 88.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Helmet (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Helmet (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kama (Normal)",
+        "minimum": 40,
+        "maximum": 90,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kama (Exceptional)",
+        "minimum": 95,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kama (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Katana (Normal)",
+        "minimum": 45,
+        "maximum": 95.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Katana (Exceptional)",
+        "minimum": 97,
+        "maximum": 147.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Katana (Elite)",
+        "minimum": 116,
+        "maximum": 166.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kryss (Normal)",
+        "minimum": 37,
+        "maximum": 87.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kryss (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kryss (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Lajatang (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Lajatang (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Lajatang (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Lance (Normal)",
+        "minimum": 48,
+        "maximum": 98,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Lance (Exceptional)",
+        "minimum": 98,
+        "maximum": 148,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Lance (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Battle Axe (Normal)",
+        "minimum": 28,
+        "maximum": 78,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Battle Axe (Exceptional)",
+        "minimum": 91,
+        "maximum": 141,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Battle Axe (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leafblade (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leafblade (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leafblade (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Plate Jingasa (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Plate Jingasa (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Plate Jingasa (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Mace (Normal)",
+        "minimum": 15,
+        "maximum": 65.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Mace (Exceptional)",
+        "minimum": 86,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Mace (Elite)",
+        "minimum": 112,
+        "maximum": 162.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wand (Normal)",
+        "minimum": 0,
+        "maximum": 50,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wand (Exceptional)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wand (Elite)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Maul (Normal)",
+        "minimum": 20,
+        "maximum": 70.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Maul (Exceptional)",
+        "minimum": 88,
+        "maximum": 138.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Maul (Elite)",
+        "minimum": 113,
+        "maximum": 163.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Kite Shield (Normal)",
+        "minimum": 5,
+        "maximum": 55.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Kite Shield (Exceptional)",
+        "minimum": 82,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Kite Shield (Elite)",
+        "minimum": 111,
+        "maximum": 161.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Shield (Normal)",
+        "minimum": 0,
+        "maximum": 50.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Shield (Exceptional)",
+        "minimum": 80,
+        "maximum": 130.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Metal Shield (Elite)",
+        "minimum": 110,
+        "maximum": 160.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "No Dachi (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "No Dachi (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "No Dachi (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Norse Helm (Normal)",
+        "minimum": 38,
+        "maximum": 88.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Norse Helm (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Norse Helm (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Order Shield (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Order Shield (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Order Shield (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Ornate Axe (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ornate Axe (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ornate Axe (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pickaxe (Normal)",
+        "minimum": 40,
+        "maximum": 90,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pickaxe (Exceptional)",
+        "minimum": 95,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pickaxe (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pike (Normal)",
+        "minimum": 47,
+        "maximum": 97,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pike (Exceptional)",
+        "minimum": 98,
+        "maximum": 148,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pike (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pitchfork (Normal)",
+        "minimum": 43,
+        "maximum": 93.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pitchfork (Exceptional)",
+        "minimum": 97,
+        "maximum": 147.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Pitchfork (Elite)",
+        "minimum": 116,
+        "maximum": 166.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Battle Kabuto (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Battle Kabuto (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Battle Kabuto (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Plate Chest (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Chest (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Chest (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Plate Do (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Do (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Do (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Plate Gloves (Normal)",
+        "minimum": 59,
+        "maximum": 109.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Gloves (Exceptional)",
+        "minimum": 103,
+        "maximum": 153.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Gloves (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Hatsuburi (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Hatsuburi (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Hatsuburi (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Helm (Normal)",
+        "minimum": 63,
+        "maximum": 113.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Helm (Exceptional)",
+        "minimum": 104,
+        "maximum": 154.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plate Helm (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Radiant Scimitar (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Radiant Scimitar (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Radiant Scimitar (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Raven Helm (Normal)",
+        "minimum": 65,
+        "maximum": 115,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Raven Helm (Exceptional)",
+        "minimum": 105,
+        "maximum": 155,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Raven Helm (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ringmail Gloves (Normal)",
+        "minimum": 12,
+        "maximum": 62,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ringmail Gloves (Exceptional)",
+        "minimum": 85,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ringmail Gloves (Elite)",
+        "minimum": 112,
+        "maximum": 162,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Royal Circlet (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Royal Circlet (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Royal Circlet (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rune Blade (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rune Blade (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rune Blade (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sai (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sai (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sai (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scepter (Normal)",
+        "minimum": 22,
+        "maximum": 72.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scepter (Exceptional)",
+        "minimum": 89,
+        "maximum": 139.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scepter (Elite)",
+        "minimum": 113,
+        "maximum": 163.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scimitar (Normal)",
+        "minimum": 32,
+        "maximum": 82.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scimitar (Exceptional)",
+        "minimum": 92,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scimitar (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scythe (Normal)",
+        "minimum": 39,
+        "maximum": 89,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scythe (Exceptional)",
+        "minimum": 95,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Scythe (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Short Spear (Normal)",
+        "minimum": 46,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Short Spear (Exceptional)",
+        "minimum": 98,
+        "maximum": 148.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Short Spear (Elite)",
+        "minimum": 116,
+        "maximum": 166.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Skinning Knife (Normal)",
+        "minimum": 25,
+        "maximum": 75,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Skinning Knife (Exceptional)",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Skinning Knife (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Plate Jingasa (Normal)",
+        "minimum": 45,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Plate Jingasa (Exceptional)",
+        "minimum": 97,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Plate Jingasa (Elite)",
+        "minimum": 116,
+        "maximum": 166,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Spear (Normal)",
+        "minimum": 49,
+        "maximum": 99,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Spear (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Spear (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Standard Plate Kabuto (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Standard Plate Kabuto (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Standard Plate Kabuto (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Tekagi (Normal)",
+        "minimum": 55,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tekagi (Exceptional)",
+        "minimum": 101,
+        "maximum": 151,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tekagi (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tessen (Normal)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tessen (Exceptional)",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tessen (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Thin Longsword (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Thin Longsword (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Thin Longsword (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Spear (Normal)",
+        "minimum": 49,
+        "maximum": 99,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Spear (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Spear (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Two Handed Axe (Normal)",
+        "minimum": 33,
+        "maximum": 83,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Two Handed Axe (Exceptional)",
+        "minimum": 93,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Two Handed Axe (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Viking Sword (Normal)",
+        "minimum": 25,
+        "maximum": 75.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Viking Sword (Exceptional)",
+        "minimum": 90,
+        "maximum": 140.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Viking Sword (Elite)",
+        "minimum": 114,
+        "maximum": 164.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Vulture Helm (Normal)",
+        "minimum": 64,
+        "maximum": 114.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Vulture Helm (Exceptional)",
+        "minimum": 104,
+        "maximum": 154.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Vulture Helm (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wakizashi (Normal)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wakizashi (Exceptional)",
+        "minimum": 99,
+        "maximum": 149,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wakizashi (Elite)",
+        "minimum": 117,
+        "maximum": 167,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Axe (Normal)",
+        "minimum": 40,
+        "maximum": 90.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Axe (Exceptional)",
+        "minimum": 95,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Axe (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Cleaver (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Cleaver (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Cleaver (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Fork (Normal)",
+        "minimum": 43,
+        "maximum": 93.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Fork (Exceptional)",
+        "minimum": 97,
+        "maximum": 147.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Fork (Elite)",
+        "minimum": 116,
+        "maximum": 166.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Hammer (Normal)",
+        "minimum": 35,
+        "maximum": 85.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Hammer (Exceptional)",
+        "minimum": 94,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Hammer (Elite)",
+        "minimum": 115,
+        "maximum": 165.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Mace (Normal)",
+        "minimum": 28,
+        "maximum": 78,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Mace (Exceptional)",
+        "minimum": 91,
+        "maximum": 141,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "War Mace (Elite)",
+        "minimum": 114,
+        "maximum": 164,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Winged Helm (Normal)",
+        "minimum": 59,
+        "maximum": 109.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Winged Helm (Exceptional)",
+        "minimum": 103,
+        "maximum": 153.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Winged Helm (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      }
+    ],
+    "Fletching": [
+      {
+        "name": "Wooden Shield (Normal)",
+        "minimum": 50,
+        "maximum": 75,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Shield (Exceptional)",
+        "minimum": 99,
+        "maximum": 124,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Shield (Elite)",
+        "minimum": 117,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Black Staff (Normal)",
+        "minimum": 79,
+        "maximum": 104.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Black Staff (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Black Staff (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Bokuto (Normal)",
+        "minimum": 70,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bokuto (Exceptional)",
+        "minimum": 107,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bokuto (Elite)",
+        "minimum": 119,
+        "maximum": 144,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boomerang (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boomerang (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boomerang (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Bow (Normal)",
+        "minimum": 30,
+        "maximum": 70,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bow (Exceptional)",
+        "minimum": 92,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bow (Elite)",
+        "minimum": 114,
+        "maximum": 154,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Club (Normal)",
+        "minimum": 74,
+        "maximum": 99.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Club (Exceptional)",
+        "minimum": 108,
+        "maximum": 133.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Club (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Composite Bow (Normal)",
+        "minimum": 70,
+        "maximum": 110,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Composite Bow (Exceptional)",
+        "minimum": 107,
+        "maximum": 147,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Composite Bow (Elite)",
+        "minimum": 119,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crossbow (Normal)",
+        "minimum": 60,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crossbow (Exceptional)",
+        "minimum": 103,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Crossbow (Elite)",
+        "minimum": 118,
+        "maximum": 158,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cyclone (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cyclone (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cyclone (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Elven Composite Longbow (Normal)",
+        "minimum": 80,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Composite Longbow (Exceptional)",
+        "minimum": 110,
+        "maximum": 150,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Composite Longbow (Elite)",
+        "minimum": 120,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Female Elven Plate Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Elven Plate Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Elven Plate Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Gargish Wooden Shield (Normal)",
+        "minimum": 53,
+        "maximum": 78.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Wooden Shield (Exceptional)",
+        "minimum": 100,
+        "maximum": 125.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Wooden Shield (Elite)",
+        "minimum": 117,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gnarled Staff (Normal)",
+        "minimum": 79,
+        "maximum": 104.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gnarled Staff (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gnarled Staff (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Heavy Crossbow (Normal)",
+        "minimum": 80,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Crossbow (Exceptional)",
+        "minimum": 110,
+        "maximum": 150,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Crossbow (Elite)",
+        "minimum": 120,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Magical Shortbow (Normal)",
+        "minimum": 30,
+        "maximum": 70,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magical Shortbow (Exceptional)",
+        "minimum": 92,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magical Shortbow (Elite)",
+        "minimum": 114,
+        "maximum": 154,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Nunchaku (Normal)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Nunchaku (Exceptional)",
+        "minimum": 107,
+        "maximum": 157,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Nunchaku (Elite)",
+        "minimum": 119,
+        "maximum": 169,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Quarter Staff (Normal)",
+        "minimum": 74,
+        "maximum": 99.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Quarter Staff (Exceptional)",
+        "minimum": 108,
+        "maximum": 133.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Quarter Staff (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Repeating Crossbow (Normal)",
+        "minimum": 80,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Repeating Crossbow (Exceptional)",
+        "minimum": 110,
+        "maximum": 150,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Repeating Crossbow (Elite)",
+        "minimum": 120,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Shepherds Crook (Normal)",
+        "minimum": 79,
+        "maximum": 104.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Shepherds Crook (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Shepherds Crook (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Soul Glaive (Normal)",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Soul Glaive (Exceptional)",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Soul Glaive (Elite)",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Tetsubo (Normal)",
+        "minimum": 80,
+        "maximum": 140.3,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tetsubo (Exceptional)",
+        "minimum": 110,
+        "maximum": 170.3,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tetsubo (Elite)",
+        "minimum": 120,
+        "maximum": 180.3,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Wild Staff (Normal)",
+        "minimum": 64,
+        "maximum": 114.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wild Staff (Exceptional)",
+        "minimum": 104,
+        "maximum": 154.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wild Staff (Elite)",
+        "minimum": 118,
+        "maximum": 168.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Kite Shield (Normal)",
+        "minimum": 0,
+        "maximum": 50.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Kite Shield (Exceptional)",
+        "minimum": 80,
+        "maximum": 130.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Kite Shield (Elite)",
+        "minimum": 110,
+        "maximum": 160.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Woodland Gloves (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Gloves (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Gloves (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Yumi (Normal)",
+        "minimum": 80,
+        "maximum": 120,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Yumi (Exceptional)",
+        "minimum": 110,
+        "maximum": 150,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Yumi (Elite)",
+        "minimum": 120,
+        "maximum": 160,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      }
+    ],
+    "Carpentry": [
+      {
+        "name": "Barrel Staves",
+        "minimum": 0.0,
+        "maximum": 50.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Barrel Lid",
+        "minimum": 11.0,
+        "maximum": 61.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Keg",
+        "minimum": 57.8,
+        "maximum": 107.8,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Foot Stool",
+        "minimum": 11.0,
+        "maximum": 61.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Stool",
+        "minimum": 11.0,
+        "maximum": 61.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bamboo Chair",
+        "minimum": 21.0,
+        "maximum": 71.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Chair",
+        "minimum": 21.0,
+        "maximum": 71.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fancy cushioned chair",
+        "minimum": 42.1,
+        "maximum": 92.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cushioned chair",
+        "minimum": 42.1,
+        "maximum": 92.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Bench",
+        "minimum": 52.6,
+        "maximum": 102.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Throne",
+        "minimum": 52.6,
+        "maximum": 102.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Throne",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Nightstand",
+        "minimum": 42.1,
+        "maximum": 92.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Writing Table",
+        "minimum": 63.1,
+        "maximum": 113.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Yew Wood Table",
+        "minimum": 63.1,
+        "maximum": 113.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Table",
+        "minimum": 84.2,
+        "maximum": 134.2,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elegant Low Table",
+        "minimum": 80.0,
+        "maximum": 130.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plain Low Table",
+        "minimum": 80.0,
+        "maximum": 130.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Short Music Stand",
+        "minimum": 78.9,
+        "maximum": 128.9,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tall Music Stand",
+        "minimum": 81.5,
+        "maximum": 131.5,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Easel",
+        "minimum": 86.8,
+        "maximum": 136.8,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Box",
+        "minimum": 21.0,
+        "maximum": 71.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Crate",
+        "minimum": 10.0,
+        "maximum": 60.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Medium Crate",
+        "minimum": 31.0,
+        "maximum": 81.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Crate",
+        "minimum": 47.3,
+        "maximum": 97.3,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Chest",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Empty Bookcase",
+        "minimum": 31.5,
+        "maximum": 81.5,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fancy Armoire",
+        "minimum": 84.2,
+        "maximum": 134.2,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Armoire",
+        "minimum": 84.2,
+        "maximum": 134.2,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plain Wooden Chest",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ornate Wooden Chest",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gilded Wooden Chest",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wooden Foot Locker",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Finished Wooden Chest",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tall Cabinet",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Short Cabinet",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Red Armoire",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elegant Armoire",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Maple Armoire",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cherry Armoire",
+        "minimum": 90.0,
+        "maximum": 140.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Bed South deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Bed East deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Bed South deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Bed East deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dart Board South deed",
+        "minimum": 15.7,
+        "maximum": 65.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dart Board East deed",
+        "minimum": 15.7,
+        "maximum": 65.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ballot Box deed",
+        "minimum": 47.3,
+        "maximum": 97.3,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Small Forge deed",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Forge East deed",
+        "minimum": 78.9,
+        "maximum": 128.9,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Large Forge South deed",
+        "minimum": 78.9,
+        "maximum": 128.9,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Anvil East deed",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Anvil South deed",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dressform",
+        "minimum": 63.1,
+        "maximum": 113.1,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Spinning Wheel East deed",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Spinning Wheel South deed",
+        "minimum": 73.6,
+        "maximum": 123.6,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Loom East deed",
+        "minimum": 84.2,
+        "maximum": 134.2,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Loom South deed",
+        "minimum": 84.2,
+        "maximum": 134.2,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Stone Oven East deed",
+        "minimum": 68.4,
+        "maximum": 118.4,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Stone Oven South deed",
+        "minimum": 68.4,
+        "maximum": 118.4,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Flour Mill East deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Flour Mill South deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Water Trough East deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Water Trough South deed",
+        "minimum": 94.7,
+        "maximum": 144.7,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Alchemist Table South deed",
+        "minimum": 85.0,
+        "maximum": 135.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Alchemist Table East deed",
+        "minimum": 85.0,
+        "maximum": 135.0,
+        "source": "carpentry",
+        "rareUnlock": false
+      },
+      {
+        "name": "Potion keg",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "carpentry",
+        "rareUnlock": false
+      }
+    ],
+    "Cartography": [
+      {
+        "name": "City trade map",
+        "minimum": 0,
+        "maximum": 30,
+        "source": "map-surveys",
+        "rareUnlock": false
+      },
+      {
+        "name": "World explorer map",
+        "minimum": 30,
+        "maximum": 60,
+        "source": "map-surveys",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dungeon survey I",
+        "minimum": 60,
+        "maximum": 80,
+        "source": "map-surveys",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dungeon survey II",
+        "minimum": 80,
+        "maximum": 100,
+        "source": "map-surveys",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dungeon survey III",
+        "minimum": 100,
+        "maximum": 120,
+        "source": "map-surveys",
+        "rareUnlock": false
+      }
+    ],
+    "Cooking": [
+      {
+        "name": "Lamplighter's Broth",
+        "minimum": 0,
+        "maximum": 50,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Porter's Flatbread",
+        "minimum": 8,
+        "maximum": 58,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Forager's Skewers",
+        "minimum": 16,
+        "maximum": 66,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Quickhand Fish",
+        "minimum": 24,
+        "maximum": 74,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hunter's Ribs",
+        "minimum": 32,
+        "maximum": 82,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Twilight Batwing Bites",
+        "minimum": 40,
+        "maximum": 90,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Watchman's Fish Stew",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Trailwarden's Pie",
+        "minimum": 58,
+        "maximum": 108,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Prospector's Fishcakes",
+        "minimum": 66,
+        "maximum": 116,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Rushlight Skewers",
+        "minimum": 74,
+        "maximum": 124,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Trapper's Pie",
+        "minimum": 82,
+        "maximum": 132,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Stalker's Batwing Stew",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "cooking-meals",
+        "rareUnlock": false
+      },
+      {
+        "name": "Dawnwatch Chowder",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      },
+      {
+        "name": "Giant's Hearthpot",
+        "minimum": 103,
+        "maximum": 153,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      },
+      {
+        "name": "Red Harvest Ragout",
+        "minimum": 106,
+        "maximum": 156,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      },
+      {
+        "name": "Fleetfinger Feast",
+        "minimum": 109,
+        "maximum": 159,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      },
+      {
+        "name": "Master Hunter's Roast",
+        "minimum": 112,
+        "maximum": 162,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      },
+      {
+        "name": "Ghostwalk Supper",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "cooking-meals",
+        "rareUnlock": true
+      }
+    ],
+    "Imbuing": [
+      {
+        "name": "Shoddy jewellery imbuing",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plain jewellery imbuing",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Solid jewellery imbuing",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elegant jewellery imbuing",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fancy jewellery imbuing",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Normal equipment imbuing",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "imbuing-tiers",
+        "rareUnlock": false
+      },
+      {
+        "name": "Exceptional equipment imbuing",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "imbuing-tiers",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elite equipment imbuing",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "imbuing-tiers",
+        "rareUnlock": true
+      }
+    ],
+    "Inscribe": [
+      {
+        "name": "Identify scroll",
+        "minimum": 0,
+        "maximum": 50,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (3 charges)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (4 charges)",
+        "minimum": 60,
+        "maximum": 110,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (5 charges)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (6 charges)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (7 charges)",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Identify tome (10 charges)",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal scroll",
+        "minimum": 0,
+        "maximum": 50,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (3 charges)",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (4 charges)",
+        "minimum": 60,
+        "maximum": 110,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (5 charges)",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (6 charges)",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (7 charges)",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Town Portal tome (10 charges)",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "inscription-utilities",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier1 declared rune",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier2 declared rune",
+        "minimum": 40,
+        "maximum": 90,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier3 declared rune",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier4 declared rune",
+        "minimum": 60,
+        "maximum": 110,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier5 declared rune",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier6 declared rune",
+        "minimum": 80,
+        "maximum": 130,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier7 declared rune",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tier8 declared rune",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "rune-recipes",
+        "rareUnlock": false
+      }
+    ],
+    "Tailoring": [
+      {
+        "name": "Skull Cap (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Skull Cap (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Skull Cap (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Cap (Normal)",
+        "minimum": 10,
+        "maximum": 35,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Cap (Exceptional)",
+        "minimum": 84,
+        "maximum": 109,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Cap (Elite)",
+        "minimum": 112,
+        "maximum": 137,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Chest (Normal)",
+        "minimum": 70,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Chest (Exceptional)",
+        "minimum": 107,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Chest (Elite)",
+        "minimum": 119,
+        "maximum": 144,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bandana (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bandana (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bandana (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bear Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bear Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bear Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Gloves (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Gloves (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Gloves (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Bone Harvester (Normal)",
+        "minimum": 33,
+        "maximum": 83,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Harvester (Exceptional)",
+        "minimum": 93,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Harvester (Elite)",
+        "minimum": 115,
+        "maximum": 165,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Helm (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Helm (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bone Helm (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Bonnet (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bonnet (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Bonnet (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boots (Normal)",
+        "minimum": 34,
+        "maximum": 59.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boots (Exceptional)",
+        "minimum": 93,
+        "maximum": 118.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Boots (Elite)",
+        "minimum": 115,
+        "maximum": 140.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cap (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cap (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cap (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cloth Ninja Hood (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cloth Ninja Hood (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Cloth Ninja Hood (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Deer Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Deer Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Deer Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Boots (Normal)",
+        "minimum": 34,
+        "maximum": 59.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Boots (Exceptional)",
+        "minimum": 93,
+        "maximum": 118.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elven Boots (Elite)",
+        "minimum": 115,
+        "maximum": 140.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Feathered Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Feathered Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Feathered Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leaf Chest (Normal)",
+        "minimum": 71,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leaf Chest (Exceptional)",
+        "minimum": 107,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leaf Chest (Elite)",
+        "minimum": 119,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leather Chest (Normal)",
+        "minimum": 63,
+        "maximum": 88.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leather Chest (Exceptional)",
+        "minimum": 104,
+        "maximum": 129.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Leather Chest (Elite)",
+        "minimum": 118,
+        "maximum": 143.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Studded Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Studded Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Female Studded Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Floppy Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Floppy Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Floppy Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Flower Garland (Normal)",
+        "minimum": 10,
+        "maximum": 35,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Flower Garland (Exceptional)",
+        "minimum": 84,
+        "maximum": 109,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Flower Garland (Elite)",
+        "minimum": 112,
+        "maximum": 137,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fur Boots (Normal)",
+        "minimum": 50,
+        "maximum": 75,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fur Boots (Exceptional)",
+        "minimum": 99,
+        "maximum": 124,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fur Boots (Elite)",
+        "minimum": 117,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type1 (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type1 (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type1 (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type2 (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type2 (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Chest Type2 (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type1 (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type1 (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type1 (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type2 (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type2 (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Cloth Kilt Type2 (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type1 (Normal)",
+        "minimum": 71,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type1 (Exceptional)",
+        "minimum": 107,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type1 (Elite)",
+        "minimum": 119,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type2 (Normal)",
+        "minimum": 71,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type2 (Exceptional)",
+        "minimum": 107,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Chest Type2 (Elite)",
+        "minimum": 119,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type1 (Normal)",
+        "minimum": 58,
+        "maximum": 83,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type1 (Exceptional)",
+        "minimum": 102,
+        "maximum": 127,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type1 (Elite)",
+        "minimum": 118,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type2 (Normal)",
+        "minimum": 58,
+        "maximum": 83,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type2 (Exceptional)",
+        "minimum": 102,
+        "maximum": 127,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Leather Kilt Type2 (Elite)",
+        "minimum": 118,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Chest Type1 (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Chest Type1 (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Chest Type1 (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Gargish Studded Chest Type2 (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Chest Type2 (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Chest Type2 (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Gargish Studded Kilt Type1 (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Kilt Type1 (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Kilt Type1 (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Gargish Studded Kilt Type2 (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Kilt Type2 (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Gargish Studded Kilt Type2 (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Half Apron (Normal)",
+        "minimum": 21,
+        "maximum": 46.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Half Apron (Exceptional)",
+        "minimum": 88,
+        "maximum": 113.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Half Apron (Elite)",
+        "minimum": 113,
+        "maximum": 138.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Hide Female Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Female Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Female Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Hide Gloves (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Gloves (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Hide Gloves (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Horned Tribal Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Horned Tribal Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Horned Tribal Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Jester Hat (Normal)",
+        "minimum": 8,
+        "maximum": 33.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Jester Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Jester Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kasa (Normal)",
+        "minimum": 60,
+        "maximum": 85,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kasa (Exceptional)",
+        "minimum": 103,
+        "maximum": 128,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Kasa (Elite)",
+        "minimum": 118,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Chest (Normal)",
+        "minimum": 71,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Chest (Exceptional)",
+        "minimum": 107,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Chest (Elite)",
+        "minimum": 119,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Gloves (Normal)",
+        "minimum": 52,
+        "maximum": 77.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Gloves (Exceptional)",
+        "minimum": 100,
+        "maximum": 125.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leaf Gloves (Elite)",
+        "minimum": 117,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Bustier Arms (Normal)",
+        "minimum": 58,
+        "maximum": 83,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Bustier Arms (Exceptional)",
+        "minimum": 102,
+        "maximum": 127,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Bustier Arms (Elite)",
+        "minimum": 118,
+        "maximum": 143,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Chest (Normal)",
+        "minimum": 71,
+        "maximum": 96.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Chest (Exceptional)",
+        "minimum": 107,
+        "maximum": 132.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Chest (Elite)",
+        "minimum": 119,
+        "maximum": 144.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Do (Normal)",
+        "minimum": 75,
+        "maximum": 100,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Do (Exceptional)",
+        "minimum": 109,
+        "maximum": 134,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Do (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Leather Gloves (Normal)",
+        "minimum": 52,
+        "maximum": 77.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Gloves (Exceptional)",
+        "minimum": 100,
+        "maximum": 125.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Gloves (Elite)",
+        "minimum": 117,
+        "maximum": 142.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Jingasa (Normal)",
+        "minimum": 45,
+        "maximum": 70,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Jingasa (Exceptional)",
+        "minimum": 97,
+        "maximum": 122,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Jingasa (Elite)",
+        "minimum": 116,
+        "maximum": 141,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Hood (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Hood (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Hood (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Leather Ninja Jacket (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Jacket (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Jacket (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Leather Ninja Mitts (Normal)",
+        "minimum": 65,
+        "maximum": 90,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Mitts (Exceptional)",
+        "minimum": 105,
+        "maximum": 130,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Leather Ninja Mitts (Elite)",
+        "minimum": 119,
+        "maximum": 144,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wizards Hat (Normal)",
+        "minimum": 8,
+        "maximum": 33.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wizards Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Magic Wizards Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ninja Tabi (Normal)",
+        "minimum": 70,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ninja Tabi (Exceptional)",
+        "minimum": 107,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Ninja Tabi (Elite)",
+        "minimum": 119,
+        "maximum": 144,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Obi (Normal)",
+        "minimum": 20,
+        "maximum": 45,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Obi (Exceptional)",
+        "minimum": 88,
+        "maximum": 113,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Obi (Elite)",
+        "minimum": 113,
+        "maximum": 138,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Orc Helm (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Orc Helm (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Orc Helm (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Orcish Kin Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Orcish Kin Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Orcish Kin Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Samurai Tabi (Normal)",
+        "minimum": 20,
+        "maximum": 45,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Samurai Tabi (Exceptional)",
+        "minimum": 88,
+        "maximum": 113,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Samurai Tabi (Elite)",
+        "minimum": 113,
+        "maximum": 138,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sandals (Normal)",
+        "minimum": 13,
+        "maximum": 38.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sandals (Exceptional)",
+        "minimum": 85,
+        "maximum": 110.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sandals (Elite)",
+        "minimum": 112,
+        "maximum": 137.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Savage Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Savage Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Savage Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Shoes (Normal)",
+        "minimum": 17,
+        "maximum": 42.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Shoes (Exceptional)",
+        "minimum": 87,
+        "maximum": 112.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Shoes (Elite)",
+        "minimum": 113,
+        "maximum": 138.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Straw Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Straw Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Straw Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Bustier Arms (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Bustier Arms (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Bustier Arms (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Studded Chest (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Chest (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Chest (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Studded Do (Normal)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Do (Exceptional)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Do (Elite)",
+        "minimum": 120,
+        "maximum": 145,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Studded Gloves (Normal)",
+        "minimum": 80,
+        "maximum": 105.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Gloves (Exceptional)",
+        "minimum": 110,
+        "maximum": 135.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Studded Gloves (Elite)",
+        "minimum": 120,
+        "maximum": 145.0,
+        "source": "equipment-recipes",
+        "rareUnlock": true
+      },
+      {
+        "name": "Tall Straw Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tall Straw Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tall Straw Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Thigh Boots (Normal)",
+        "minimum": 42,
+        "maximum": 67.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Thigh Boots (Exceptional)",
+        "minimum": 96,
+        "maximum": 121.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Thigh Boots (Elite)",
+        "minimum": 116,
+        "maximum": 141.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Mask (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Mask (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tribal Mask (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tricorne Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tricorne Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Tricorne Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Waraji (Normal)",
+        "minimum": 20,
+        "maximum": 45,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Waraji (Exceptional)",
+        "minimum": 88,
+        "maximum": 113,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Waraji (Elite)",
+        "minimum": 113,
+        "maximum": 138,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wide Brim Hat (Normal)",
+        "minimum": 7,
+        "maximum": 32.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wide Brim Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wide Brim Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wizards Hat (Normal)",
+        "minimum": 8,
+        "maximum": 33.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wizards Hat (Exceptional)",
+        "minimum": 83,
+        "maximum": 108.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Wizards Hat (Elite)",
+        "minimum": 111,
+        "maximum": 136.0,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Belt (Normal)",
+        "minimum": 20,
+        "maximum": 45,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Belt (Exceptional)",
+        "minimum": 88,
+        "maximum": 113,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Woodland Belt (Elite)",
+        "minimum": 113,
+        "maximum": 138,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sash Tabard (Normal)",
+        "minimum": 0,
+        "maximum": 25,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sash Tabard (Exceptional)",
+        "minimum": 80,
+        "maximum": 105,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Sash Tabard (Elite)",
+        "minimum": 110,
+        "maximum": 135,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Belt Tabard (Normal)",
+        "minimum": 15,
+        "maximum": 40,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Belt Tabard (Exceptional)",
+        "minimum": 86,
+        "maximum": 111,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Light Belt Tabard (Elite)",
+        "minimum": 112,
+        "maximum": 137,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Belt Tabard (Normal)",
+        "minimum": 30,
+        "maximum": 55,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Belt Tabard (Exceptional)",
+        "minimum": 92,
+        "maximum": 117,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Belt Tabard (Elite)",
+        "minimum": 114,
+        "maximum": 139,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Belt Tabard (Normal)",
+        "minimum": 50,
+        "maximum": 75,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Belt Tabard (Exceptional)",
+        "minimum": 99,
+        "maximum": 124,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Heavy Belt Tabard (Elite)",
+        "minimum": 117,
+        "maximum": 142,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plated Belt Tabard (Normal)",
+        "minimum": 70,
+        "maximum": 95,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plated Belt Tabard (Exceptional)",
+        "minimum": 107,
+        "maximum": 132,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plated Belt Tabard (Elite)",
+        "minimum": 119,
+        "maximum": 144,
+        "source": "equipment-recipes",
+        "rareUnlock": false
+      }
+    ],
+    "Tinkering": [
+      {
+        "name": "Shoddy white jewellery",
+        "minimum": 30,
+        "maximum": 80,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Plain white jewellery",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Solid white jewellery",
+        "minimum": 70,
+        "maximum": 120,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Elegant white jewellery",
+        "minimum": 90,
+        "maximum": 140,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Fancy white jewellery",
+        "minimum": 110,
+        "maximum": 160,
+        "source": "jewellery-grades",
+        "rareUnlock": false
+      },
+      {
+        "name": "Primitive skeleton key",
+        "minimum": 25,
+        "maximum": 75,
+        "source": "treasure-hunts",
+        "rareUnlock": false
+      },
+      {
+        "name": "Clunky skeleton key",
+        "minimum": 50,
+        "maximum": 100,
+        "source": "treasure-hunts",
+        "rareUnlock": false
+      },
+      {
+        "name": "Simple skeleton key",
+        "minimum": 75,
+        "maximum": 125,
+        "source": "treasure-hunts",
+        "rareUnlock": false
+      },
+      {
+        "name": "Intricate skeleton key",
+        "minimum": 100,
+        "maximum": 150,
+        "source": "treasure-hunts",
+        "rareUnlock": false
+      },
+      {
+        "name": "Splendid skeleton key",
+        "minimum": 120,
+        "maximum": 170,
+        "source": "treasure-hunts",
+        "rareUnlock": true
+      }
+    ]
+  },
+  "productionDetails": {
+    "Alchemy": [
+      "Mortar/pestle; Alchemy workshop",
+      "Town reagents/bottles; gathers and chips for advanced recipes",
+      "Belt and manual-keg consumables",
+      "crafting.md#alchemy--j01j05"
+    ],
+    "Blacksmith": [
+      "Smithing hammer; public forge/anvil",
+      "Mined/smelted metal and mapped equipment ingredients",
+      "Wearable weapons/armour; sockets and salvage",
+      "t08-recipe-book.md"
+    ],
+    "Fletching": [
+      "Fletcher tools; Bowcraft workshop",
+      "Harvested boards and mapped equipment ingredients",
+      "Bows, crossbows, wooden weapons/shields",
+      "t08-recipe-book.md"
+    ],
+    "Carpentry": [
+      "Carpentry tool; Carpentry workshop",
+      "Boards, cloth, metal; crafted keg components",
+      "Furniture, household/storage deeds and manual kegs",
+      "t31-carpentry.md"
+    ],
+    "Cartography": [
+      "Mapmaker pen; Cartography workshop",
+      "Town Blank Maps and crafted/vendor pens",
+      "Activated surveys, purchase discounts and dungeon/search effects",
+      "t32-map-surveys.md"
+    ],
+    "Cooking": [
+      "Skillet; public kitchen",
+      "Hunted/fished/gathered food, inn supplies and farm ingredients",
+      "Meals with one timed food effect",
+      "t30-cooking.md"
+    ],
+    "Imbuing": [
+      "Imbuing interface; Imbuing workshop",
+      "White equipment, salvaged essence and gold",
+      "Equipped Magic/Rare items",
+      "crafting.md#imbuing--e01e05"
+    ],
+    "Inscribe": [
+      "Scribe pen; Inscription workshop",
+      "Town scrolls/reagents, leather, moulds and Runebark",
+      "Identify/Portal scrolls and charged tomes; mould/rune outputs",
+      "t34-inscription.md"
+    ],
+    "Tailoring": [
+      "Sewing kit; Tailoring workshop",
+      "Hunted leather/bone; bought cloth or wool/yarn/loom",
+      "Cloth/leather/studded/bone equipment",
+      "t08-recipe-book.md"
+    ],
+    "Tinkering": [
+      "Tinker tools; Tinkering workshop",
+      "Mined ingots/gems, Runebark and other mapped components",
+      "Tools, keys, white jewellery, keg parts and gem upgrades",
+      "crafting.md#tinkering-sockets--f01f08"
+    ]
+  },
+  "inputHashes": {
+    "data/Sanctuary/Balance/equipment-recipes.json": "9fd7507d4282f4e8a88ba7fb1435efbe58ad5050b417d0253cdf7c3917f6d2fc",
+    "data/Sanctuary/Balance/carpentry.json": "d87ad679575aafaaada4773a6acde2ee1c99aa71fd19cd19872451b94547a18d",
+    "data/Sanctuary/Balance/cooking-meals.json": "111293e84995c8b1b2cb862ca6ab04d8461a69cf3e700a345b58989ed99418f1",
+    "data/Sanctuary/Balance/inscription-utilities.json": "b582330f29557a74f0e991150abf182ac2f6c2e208ae8b65652c213617affd67",
+    "data/Sanctuary/Balance/alchemy-restoratives.json": "15d82f3a3c74aa7c6df41aaa1a6fe288c99364fbd77d6e1bc913880559790319",
+    "data/Sanctuary/Balance/map-surveys.json": "9b8d6e4d755df99525d09550d18aedecdcbdd6082ba56a49754cad0b0a7f271d",
+    "data/Sanctuary/Balance/rune-recipes.json": "02d28f2bab3188129dfeb09b1ff8ad798d97a1847477503927f4351888a510a6",
+    "data/Sanctuary/Balance/jewellery-grades.json": "941828b133ef89e4c6a1f61460f5bdfd064a08fd09f653527c4cfe2b898f4025",
+    "data/Sanctuary/Balance/imbuing-tiers.json": "0bb3fb6968e86c86b0bfae4abebcde9dadd89b594aa7706f8c7ba32d1cf118ce",
+    "data/Sanctuary/Balance/treasure-hunts.json": "aafcfdc4124e0f49e4062515469d4fada1d8fac4662697ed753220778e9795e1",
+    "src/Sanctuary.Content/ProfessionPractice.cs": "848296ca84e0e5f26e08d4f86d4b513a79b6620d7f0826acde59e7d37a7ffd04",
+    "src/Sanctuary.Content/ProfessionProgression.cs": "8e6f559e2532e3eb6b25fd642eec0e409f0f209b32e935bd0663163f95e0c9b9",
+    "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
+    "src/Sanctuary.Content/ProfessionPowerScrolls.cs": "4e4f337ecdc798bc0feafd51783a8e35187a3c475690343ebe6525ffac1808d9"
+  }
+}

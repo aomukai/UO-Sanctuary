@@ -1,0 +1,6592 @@
+[
+  {
+    "code": "0sc",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "0sc",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "2ax",
+    "level": 13,
+    "cost": 873,
+    "gambleCost": 20349,
+    "normal": "2ax",
+    "exceptional": "92a",
+    "elite": "72a",
+    "stack": 1
+  },
+  {
+    "code": "2hs",
+    "level": 10,
+    "cost": 644,
+    "gambleCost": 13940,
+    "normal": "2hs",
+    "exceptional": "92h",
+    "elite": "72h",
+    "stack": 1
+  },
+  {
+    "code": "6bs",
+    "level": 83,
+    "cost": 7986,
+    "gambleCost": 706838,
+    "normal": "bst",
+    "exceptional": "8bs",
+    "elite": "6bs",
+    "stack": 1
+  },
+  {
+    "code": "6cb",
+    "level": 68,
+    "cost": 17743,
+    "gambleCost": 1243024,
+    "normal": "cbw",
+    "exceptional": "8cb",
+    "elite": "6cb",
+    "stack": 1
+  },
+  {
+    "code": "6cs",
+    "level": 74,
+    "cost": 9048,
+    "gambleCost": 709052,
+    "normal": "cst",
+    "exceptional": "8cs",
+    "elite": "6cs",
+    "stack": 1
+  },
+  {
+    "code": "6hb",
+    "level": 60,
+    "cost": 21350,
+    "gambleCost": 1313500,
+    "normal": "hbw",
+    "exceptional": "8hb",
+    "elite": "6hb",
+    "stack": 1
+  },
+  {
+    "code": "6hx",
+    "level": 75,
+    "cost": 26065,
+    "gambleCost": 1994875,
+    "normal": "hxb",
+    "exceptional": "8hx",
+    "elite": "6hx",
+    "stack": 1
+  },
+  {
+    "code": "6l7",
+    "level": 77,
+    "cost": 18105,
+    "gambleCost": 1435085,
+    "normal": "lbb",
+    "exceptional": "8l8",
+    "elite": "6l7",
+    "stack": 1
+  },
+  {
+    "code": "6lb",
+    "level": 63,
+    "cost": 25610,
+    "gambleCost": 1647430,
+    "normal": "lbw",
+    "exceptional": "8lb",
+    "elite": "6lb",
+    "stack": 1
+  },
+  {
+    "code": "6ls",
+    "level": 66,
+    "cost": 5367,
+    "gambleCost": 389722,
+    "normal": "lst",
+    "exceptional": "8ls",
+    "elite": "6ls",
+    "stack": 1
+  },
+  {
+    "code": "6lw",
+    "level": 85,
+    "cost": 19375,
+    "gambleCost": 1691875,
+    "normal": "lwb",
+    "exceptional": "8lw",
+    "elite": "6lw",
+    "stack": 1
+  },
+  {
+    "code": "6lx",
+    "level": 57,
+    "cost": 19512,
+    "gambleCost": 1143184,
+    "normal": "lxb",
+    "exceptional": "8lx",
+    "elite": "6lx",
+    "stack": 1
+  },
+  {
+    "code": "6mx",
+    "level": 67,
+    "cost": 22305,
+    "gambleCost": 1530435,
+    "normal": "mxb",
+    "exceptional": "8mx",
+    "elite": "6mx",
+    "stack": 1
+  },
+  {
+    "code": "6rx",
+    "level": 84,
+    "cost": 25851,
+    "gambleCost": 2215984,
+    "normal": "rxb",
+    "exceptional": "8rx",
+    "elite": "6rx",
+    "stack": 1
+  },
+  {
+    "code": "6s7",
+    "level": 72,
+    "cost": 24605,
+    "gambleCost": 1810060,
+    "normal": "sbb",
+    "exceptional": "8s8",
+    "elite": "6s7",
+    "stack": 1
+  },
+  {
+    "code": "6sb",
+    "level": 55,
+    "cost": 21091,
+    "gambleCost": 1190005,
+    "normal": "sbw",
+    "exceptional": "8sb",
+    "elite": "6sb",
+    "stack": 1
+  },
+  {
+    "code": "6ss",
+    "level": 58,
+    "cost": 8154,
+    "gambleCost": 504432,
+    "normal": "sst",
+    "exceptional": "8ss",
+    "elite": "6ss",
+    "stack": 1
+  },
+  {
+    "code": "6sw",
+    "level": 80,
+    "cost": 15042,
+    "gambleCost": 1245860,
+    "normal": "swb",
+    "exceptional": "8sw",
+    "elite": "6sw",
+    "stack": 1
+  },
+  {
+    "code": "6ws",
+    "level": 85,
+    "cost": 10001,
+    "gambleCost": 895085,
+    "normal": "wst",
+    "exceptional": "8ws",
+    "elite": "6ws",
+    "stack": 1
+  },
+  {
+    "code": "72a",
+    "level": 70,
+    "cost": 13496,
+    "gambleCost": 982220,
+    "normal": "2ax",
+    "exceptional": "92a",
+    "elite": "72a",
+    "stack": 1
+  },
+  {
+    "code": "72h",
+    "level": 59,
+    "cost": 23789,
+    "gambleCost": 1435551,
+    "normal": "2hs",
+    "exceptional": "92h",
+    "elite": "72h",
+    "stack": 1
+  },
+  {
+    "code": "7ar",
+    "level": 59,
+    "cost": 16205,
+    "gambleCost": 988095,
+    "normal": "ktr",
+    "exceptional": "9ar",
+    "elite": "7ar",
+    "stack": 1
+  },
+  {
+    "code": "7ax",
+    "level": 61,
+    "cost": 15781,
+    "gambleCost": 995641,
+    "normal": "axe",
+    "exceptional": "9ax",
+    "elite": "7ax",
+    "stack": 1
+  },
+  {
+    "code": "7b7",
+    "level": 77,
+    "cost": 19939,
+    "gambleCost": 1576303,
+    "normal": "bsw",
+    "exceptional": "9b9",
+    "elite": "7b7",
+    "stack": 1
+  },
+  {
+    "code": "7b8",
+    "level": 80,
+    "cost": 251,
+    "gambleCost": 62580,
+    "normal": "bal",
+    "exceptional": "9b8",
+    "elite": "7b8",
+    "stack": 98
+  },
+  {
+    "code": "7ba",
+    "level": 65,
+    "cost": 18956,
+    "gambleCost": 1267140,
+    "normal": "bax",
+    "exceptional": "9ba",
+    "elite": "7ba",
+    "stack": 1
+  },
+  {
+    "code": "7bk",
+    "level": 77,
+    "cost": 248,
+    "gambleCost": 60096,
+    "normal": "bkf",
+    "exceptional": "9bk",
+    "elite": "7bk",
+    "stack": 115
+  },
+  {
+    "code": "7bl",
+    "level": 85,
+    "cost": 16076,
+    "gambleCost": 1411460,
+    "normal": "bld",
+    "exceptional": "9bl",
+    "elite": "7bl",
+    "stack": 1
+  },
+  {
+    "code": "7br",
+    "level": 74,
+    "cost": 14658,
+    "gambleCost": 1124192,
+    "normal": "brn",
+    "exceptional": "9br",
+    "elite": "7br",
+    "stack": 1
+  },
+  {
+    "code": "7bs",
+    "level": 78,
+    "cost": 19044,
+    "gambleCost": 1526932,
+    "normal": "bsd",
+    "exceptional": "9bs",
+    "elite": "7bs",
+    "stack": 1
+  },
+  {
+    "code": "7bt",
+    "level": 73,
+    "cost": 16377,
+    "gambleCost": 1234521,
+    "normal": "btx",
+    "exceptional": "9bt",
+    "elite": "7bt",
+    "stack": 1
+  },
+  {
+    "code": "7bw",
+    "level": 75,
+    "cost": 9208,
+    "gambleCost": 730600,
+    "normal": "bwn",
+    "exceptional": "9bw",
+    "elite": "7bw",
+    "stack": 1
+  },
+  {
+    "code": "7cl",
+    "level": 52,
+    "cost": 1488,
+    "gambleCost": 105876,
+    "normal": "clb",
+    "exceptional": "9cl",
+    "elite": "7cl",
+    "stack": 1
+  },
+  {
+    "code": "7cm",
+    "level": 66,
+    "cost": 14391,
+    "gambleCost": 985306,
+    "normal": "clm",
+    "exceptional": "9cm",
+    "elite": "7cm",
+    "stack": 1
+  },
+  {
+    "code": "7cr",
+    "level": 73,
+    "cost": 25680,
+    "gambleCost": 1913640,
+    "normal": "crs",
+    "exceptional": "9cr",
+    "elite": "7cr",
+    "stack": 1
+  },
+  {
+    "code": "7cs",
+    "level": 73,
+    "cost": 15537,
+    "gambleCost": 1173201,
+    "normal": "ces",
+    "exceptional": "9cs",
+    "elite": "7cs",
+    "stack": 1
+  },
+  {
+    "code": "7dg",
+    "level": 58,
+    "cost": 12429,
+    "gambleCost": 752382,
+    "normal": "dgr",
+    "exceptional": "9dg",
+    "elite": "7dg",
+    "stack": 1
+  },
+  {
+    "code": "7di",
+    "level": 70,
+    "cost": 17988,
+    "gambleCost": 1296660,
+    "normal": "dir",
+    "exceptional": "9di",
+    "elite": "7di",
+    "stack": 1
+  },
+  {
+    "code": "7fb",
+    "level": 80,
+    "cost": 24800,
+    "gambleCost": 2026500,
+    "normal": "flb",
+    "exceptional": "9fb",
+    "elite": "7fb",
+    "stack": 1
+  },
+  {
+    "code": "7fc",
+    "level": 69,
+    "cost": 18479,
+    "gambleCost": 1312051,
+    "normal": "flc",
+    "exceptional": "9fc",
+    "elite": "7fc",
+    "stack": 1
+  },
+  {
+    "code": "7fl",
+    "level": 76,
+    "cost": 19532,
+    "gambleCost": 1524932,
+    "normal": "fla",
+    "exceptional": "9fl",
+    "elite": "7fl",
+    "stack": 1
+  },
+  {
+    "code": "7ga",
+    "level": 82,
+    "cost": 19245,
+    "gambleCost": 1621590,
+    "normal": "gax",
+    "exceptional": "9ga",
+    "elite": "7ga",
+    "stack": 1
+  },
+  {
+    "code": "7gd",
+    "level": 85,
+    "cost": 22259,
+    "gambleCost": 1937015,
+    "normal": "gsd",
+    "exceptional": "9gd",
+    "elite": "7gd",
+    "stack": 1
+  },
+  {
+    "code": "7gi",
+    "level": 85,
+    "cost": 18431,
+    "gambleCost": 1611635,
+    "normal": "gix",
+    "exceptional": "9gi",
+    "elite": "7gi",
+    "stack": 1
+  },
+  {
+    "code": "7gl",
+    "level": 79,
+    "cost": 241,
+    "gambleCost": 61039,
+    "normal": "glv",
+    "exceptional": "9gl",
+    "elite": "7gl",
+    "stack": 41
+  },
+  {
+    "code": "7gm",
+    "level": 85,
+    "cost": 17821,
+    "gambleCost": 1559785,
+    "normal": "gma",
+    "exceptional": "9gm",
+    "elite": "7gm",
+    "stack": 1
+  },
+  {
+    "code": "7gs",
+    "level": 71,
+    "cost": 16331,
+    "gambleCost": 1197501,
+    "normal": "gis",
+    "exceptional": "9gs",
+    "elite": "7gs",
+    "stack": 1
+  },
+  {
+    "code": "7gw",
+    "level": 86,
+    "cost": 7687,
+    "gambleCost": 706582,
+    "normal": "gwn",
+    "exceptional": "9gw",
+    "elite": "7gw",
+    "stack": 1
+  },
+  {
+    "code": "7h7",
+    "level": 84,
+    "cost": 21554,
+    "gambleCost": 1855036,
+    "normal": "hal",
+    "exceptional": "9h9",
+    "elite": "7h7",
+    "stack": 1
+  },
+  {
+    "code": "7ha",
+    "level": 54,
+    "cost": 14033,
+    "gambleCost": 787282,
+    "normal": "hax",
+    "exceptional": "9ha",
+    "elite": "7ha",
+    "stack": 1
+  },
+  {
+    "code": "7ja",
+    "level": 54,
+    "cost": 211,
+    "gambleCost": 40894,
+    "normal": "jav",
+    "exceptional": "9ja",
+    "elite": "7ja",
+    "stack": 65
+  },
+  {
+    "code": "7kr",
+    "level": 83,
+    "cost": 13729,
+    "gambleCost": 1183507,
+    "normal": "kri",
+    "exceptional": "9kr",
+    "elite": "7kr",
+    "stack": 1
+  },
+  {
+    "code": "7la",
+    "level": 57,
+    "cost": 17430,
+    "gambleCost": 1024510,
+    "normal": "lax",
+    "exceptional": "9la",
+    "elite": "7la",
+    "stack": 1
+  },
+  {
+    "code": "7ls",
+    "level": 82,
+    "cost": 14306,
+    "gambleCost": 1216592,
+    "normal": "lsd",
+    "exceptional": "9ls",
+    "elite": "7ls",
+    "stack": 1
+  },
+  {
+    "code": "7lw",
+    "level": 78,
+    "cost": 16035,
+    "gambleCost": 1292230,
+    "normal": "clw",
+    "exceptional": "9lw",
+    "elite": "7lw",
+    "stack": 1
+  },
+  {
+    "code": "7m7",
+    "level": 69,
+    "cost": 12156,
+    "gambleCost": 875764,
+    "normal": "mau",
+    "exceptional": "9m9",
+    "elite": "7m7",
+    "stack": 1
+  },
+  {
+    "code": "7ma",
+    "level": 63,
+    "cost": 14765,
+    "gambleCost": 964195,
+    "normal": "mac",
+    "exceptional": "9ma",
+    "elite": "7ma",
+    "stack": 1
+  },
+  {
+    "code": "7mp",
+    "level": 79,
+    "cost": 16108,
+    "gambleCost": 1314532,
+    "normal": "mpi",
+    "exceptional": "9mp",
+    "elite": "7mp",
+    "stack": 1
+  },
+  {
+    "code": "7mt",
+    "level": 70,
+    "cost": 15674,
+    "gambleCost": 1134680,
+    "normal": "mst",
+    "exceptional": "9mt",
+    "elite": "7mt",
+    "stack": 1
+  },
+  {
+    "code": "7o7",
+    "level": 60,
+    "cost": 9871,
+    "gambleCost": 624760,
+    "normal": "bar",
+    "exceptional": "9b7",
+    "elite": "7o7",
+    "stack": 1
+  },
+  {
+    "code": "7p7",
+    "level": 85,
+    "cost": 16070,
+    "gambleCost": 1410950,
+    "normal": "pik",
+    "exceptional": "9p9",
+    "elite": "7p7",
+    "stack": 1
+  },
+  {
+    "code": "7pa",
+    "level": 79,
+    "cost": 16509,
+    "gambleCost": 1346211,
+    "normal": "pax",
+    "exceptional": "9pa",
+    "elite": "7pa",
+    "stack": 1
+  },
+  {
+    "code": "7pi",
+    "level": 62,
+    "cost": 220,
+    "gambleCost": 47140,
+    "normal": "pil",
+    "exceptional": "9pi",
+    "elite": "7pi",
+    "stack": 57
+  },
+  {
+    "code": "7qr",
+    "level": 85,
+    "cost": 18002,
+    "gambleCost": 1575170,
+    "normal": "skr",
+    "exceptional": "9qr",
+    "elite": "7qr",
+    "stack": 1
+  },
+  {
+    "code": "7qs",
+    "level": 76,
+    "cost": 23501,
+    "gambleCost": 1826576,
+    "normal": "gsc",
+    "exceptional": "9qs",
+    "elite": "7qs",
+    "stack": 1
+  },
+  {
+    "code": "7s7",
+    "level": 71,
+    "cost": 232,
+    "gambleCost": 54472,
+    "normal": "ssp",
+    "exceptional": "9s9",
+    "elite": "7s7",
+    "stack": 50
+  },
+  {
+    "code": "7s8",
+    "level": 71,
+    "cost": 11086,
+    "gambleCost": 825106,
+    "normal": "scy",
+    "exceptional": "9s8",
+    "elite": "7s8",
+    "stack": 1
+  },
+  {
+    "code": "7sb",
+    "level": 63,
+    "cost": 22785,
+    "gambleCost": 1469455,
+    "normal": "sbr",
+    "exceptional": "9sb",
+    "elite": "7sb",
+    "stack": 1
+  },
+  {
+    "code": "7sc",
+    "level": 62,
+    "cost": 20199,
+    "gambleCost": 1285838,
+    "normal": "scp",
+    "exceptional": "9sc",
+    "elite": "7sc",
+    "stack": 1
+  },
+  {
+    "code": "7sm",
+    "level": 61,
+    "cost": 16103,
+    "gambleCost": 1015283,
+    "normal": "scm",
+    "exceptional": "9sm",
+    "elite": "7sm",
+    "stack": 1
+  },
+  {
+    "code": "7sp",
+    "level": 57,
+    "cost": 6793,
+    "gambleCost": 418201,
+    "normal": "spc",
+    "exceptional": "9sp",
+    "elite": "7sp",
+    "stack": 1
+  },
+  {
+    "code": "7sr",
+    "level": 58,
+    "cost": 15900,
+    "gambleCost": 953700,
+    "normal": "spr",
+    "exceptional": "9sr",
+    "elite": "7sr",
+    "stack": 1
+  },
+  {
+    "code": "7ss",
+    "level": 56,
+    "cost": 15680,
+    "gambleCost": 908580,
+    "normal": "ssd",
+    "exceptional": "9ss",
+    "elite": "7ss",
+    "stack": 1
+  },
+  {
+    "code": "7st",
+    "level": 83,
+    "cost": 17248,
+    "gambleCost": 1475584,
+    "normal": "spt",
+    "exceptional": "9st",
+    "elite": "7st",
+    "stack": 1
+  },
+  {
+    "code": "7ta",
+    "level": 56,
+    "cost": 230,
+    "gambleCost": 43380,
+    "normal": "tax",
+    "exceptional": "9ta",
+    "elite": "7ta",
+    "stack": 98
+  },
+  {
+    "code": "7tk",
+    "level": 64,
+    "cost": 215,
+    "gambleCost": 48260,
+    "normal": "tkf",
+    "exceptional": "9tk",
+    "elite": "7tk",
+    "stack": 120
+  },
+  {
+    "code": "7tr",
+    "level": 66,
+    "cost": 17347,
+    "gambleCost": 1180402,
+    "normal": "tri",
+    "exceptional": "9tr",
+    "elite": "7tr",
+    "stack": 1
+  },
+  {
+    "code": "7ts",
+    "level": 85,
+    "cost": 199,
+    "gambleCost": 61915,
+    "normal": "tsp",
+    "exceptional": "9ts",
+    "elite": "7ts",
+    "stack": 56
+  },
+  {
+    "code": "7tw",
+    "level": 81,
+    "cost": 17396,
+    "gambleCost": 1452076,
+    "normal": "btl",
+    "exceptional": "9tw",
+    "elite": "7tw",
+    "stack": 1
+  },
+  {
+    "code": "7vo",
+    "level": 64,
+    "cost": 12822,
+    "gambleCost": 855108,
+    "normal": "vou",
+    "exceptional": "9vo",
+    "elite": "7vo",
+    "stack": 1
+  },
+  {
+    "code": "7wa",
+    "level": 85,
+    "cost": 15957,
+    "gambleCost": 1401345,
+    "normal": "wax",
+    "exceptional": "9wa",
+    "elite": "7wa",
+    "stack": 1
+  },
+  {
+    "code": "7wb",
+    "level": 62,
+    "cost": 16996,
+    "gambleCost": 1087252,
+    "normal": "wrb",
+    "exceptional": "9wb",
+    "elite": "7wb",
+    "stack": 1
+  },
+  {
+    "code": "7wc",
+    "level": 85,
+    "cost": 17692,
+    "gambleCost": 1548820,
+    "normal": "wsc",
+    "exceptional": "9wc",
+    "elite": "7wc",
+    "stack": 1
+  },
+  {
+    "code": "7wd",
+    "level": 85,
+    "cost": 20187,
+    "gambleCost": 1760895,
+    "normal": "wsd",
+    "exceptional": "9wd",
+    "elite": "7wd",
+    "stack": 1
+  },
+  {
+    "code": "7wh",
+    "level": 82,
+    "cost": 14388,
+    "gambleCost": 1223316,
+    "normal": "whm",
+    "exceptional": "9wh",
+    "elite": "7wh",
+    "stack": 1
+  },
+  {
+    "code": "7wn",
+    "level": 55,
+    "cost": 9412,
+    "gambleCost": 547660,
+    "normal": "wnd",
+    "exceptional": "9wn",
+    "elite": "7wn",
+    "stack": 1
+  },
+  {
+    "code": "7ws",
+    "level": 85,
+    "cost": 22870,
+    "gambleCost": 1988950,
+    "normal": "wsp",
+    "exceptional": "9ws",
+    "elite": "7ws",
+    "stack": 1
+  },
+  {
+    "code": "7xf",
+    "level": 68,
+    "cost": 15784,
+    "gambleCost": 1109812,
+    "normal": "axf",
+    "exceptional": "9xf",
+    "elite": "7xf",
+    "stack": 1
+  },
+  {
+    "code": "7yw",
+    "level": 65,
+    "cost": 8786,
+    "gambleCost": 606090,
+    "normal": "ywn",
+    "exceptional": "9yw",
+    "elite": "7yw",
+    "stack": 1
+  },
+  {
+    "code": "8bs",
+    "level": 42,
+    "cost": 3969,
+    "gambleCost": 190198,
+    "normal": "bst",
+    "exceptional": "8bs",
+    "elite": "6bs",
+    "stack": 1
+  },
+  {
+    "code": "8cb",
+    "level": 39,
+    "cost": 2481,
+    "gambleCost": 118759,
+    "normal": "cbw",
+    "exceptional": "8cb",
+    "elite": "6cb",
+    "stack": 1
+  },
+  {
+    "code": "8cs",
+    "level": 38,
+    "cost": 2598,
+    "gambleCost": 120224,
+    "normal": "cst",
+    "exceptional": "8cs",
+    "elite": "6cs",
+    "stack": 1
+  },
+  {
+    "code": "8hb",
+    "level": 33,
+    "cost": 1350,
+    "gambleCost": 63550,
+    "normal": "hbw",
+    "exceptional": "8hb",
+    "elite": "6hb",
+    "stack": 1
+  },
+  {
+    "code": "8hx",
+    "level": 47,
+    "cost": 12588,
+    "gambleCost": 617636,
+    "normal": "hxb",
+    "exceptional": "8hx",
+    "elite": "6hx",
+    "stack": 1
+  },
+  {
+    "code": "8l8",
+    "level": 46,
+    "cost": 4935,
+    "gambleCost": 252510,
+    "normal": "lbb",
+    "exceptional": "8l8",
+    "elite": "6l7",
+    "stack": 1
+  },
+  {
+    "code": "8lb",
+    "level": 35,
+    "cost": 1770,
+    "gambleCost": 81950,
+    "normal": "lbw",
+    "exceptional": "8lb",
+    "elite": "6lb",
+    "stack": 1
+  },
+  {
+    "code": "8ls",
+    "level": 35,
+    "cost": 1689,
+    "gambleCost": 79115,
+    "normal": "lst",
+    "exceptional": "8ls",
+    "elite": "6ls",
+    "stack": 1
+  },
+  {
+    "code": "8lw",
+    "level": 52,
+    "cost": 11025,
+    "gambleCost": 601800,
+    "normal": "lwb",
+    "exceptional": "8lw",
+    "elite": "6lw",
+    "stack": 1
+  },
+  {
+    "code": "8lx",
+    "level": 34,
+    "cost": 2709,
+    "gambleCost": 111606,
+    "normal": "lxb",
+    "exceptional": "8lx",
+    "elite": "6lx",
+    "stack": 1
+  },
+  {
+    "code": "8mx",
+    "level": 40,
+    "cost": 7335,
+    "gambleCost": 315900,
+    "normal": "mxb",
+    "exceptional": "8mx",
+    "elite": "6mx",
+    "stack": 1
+  },
+  {
+    "code": "8rx",
+    "level": 54,
+    "cost": 8517,
+    "gambleCost": 489418,
+    "normal": "rxb",
+    "exceptional": "8rx",
+    "elite": "6rx",
+    "stack": 1
+  },
+  {
+    "code": "8s8",
+    "level": 43,
+    "cost": 3435,
+    "gambleCost": 171705,
+    "normal": "sbb",
+    "exceptional": "8s8",
+    "elite": "6s7",
+    "stack": 1
+  },
+  {
+    "code": "8sb",
+    "level": 30,
+    "cost": 600,
+    "gambleCost": 35500,
+    "normal": "sbw",
+    "exceptional": "8sb",
+    "elite": "6sb",
+    "stack": 1
+  },
+  {
+    "code": "8ss",
+    "level": 30,
+    "cost": 804,
+    "gambleCost": 41620,
+    "normal": "sst",
+    "exceptional": "8ss",
+    "elite": "6ss",
+    "stack": 1
+  },
+  {
+    "code": "8sw",
+    "level": 49,
+    "cost": 7800,
+    "gambleCost": 409200,
+    "normal": "swb",
+    "exceptional": "8sw",
+    "elite": "6sw",
+    "stack": 1
+  },
+  {
+    "code": "8ws",
+    "level": 47,
+    "cost": 6255,
+    "gambleCost": 319985,
+    "normal": "wst",
+    "exceptional": "8ws",
+    "elite": "6ws",
+    "stack": 1
+  },
+  {
+    "code": "92a",
+    "level": 39,
+    "cost": 2919,
+    "gambleCost": 135841,
+    "normal": "2ax",
+    "exceptional": "92a",
+    "elite": "72a",
+    "stack": 1
+  },
+  {
+    "code": "92h",
+    "level": 37,
+    "cost": 2232,
+    "gambleCost": 103584,
+    "normal": "2hs",
+    "exceptional": "92h",
+    "elite": "72h",
+    "stack": 1
+  },
+  {
+    "code": "9ar",
+    "level": 28,
+    "cost": 2334,
+    "gambleCost": 81852,
+    "normal": "ktr",
+    "exceptional": "9ar",
+    "elite": "7ar",
+    "stack": 1
+  },
+  {
+    "code": "9ax",
+    "level": 34,
+    "cost": 1509,
+    "gambleCost": 70806,
+    "normal": "axe",
+    "exceptional": "9ax",
+    "elite": "7ax",
+    "stack": 1
+  },
+  {
+    "code": "9b7",
+    "level": 33,
+    "cost": 1206,
+    "gambleCost": 58798,
+    "normal": "bar",
+    "exceptional": "9b7",
+    "elite": "7o7",
+    "stack": 1
+  },
+  {
+    "code": "9b8",
+    "level": 41,
+    "cost": 110,
+    "gambleCost": 27510,
+    "normal": "bal",
+    "exceptional": "9b8",
+    "elite": "7b8",
+    "stack": 73
+  },
+  {
+    "code": "9b9",
+    "level": 48,
+    "cost": 6213,
+    "gambleCost": 324724,
+    "normal": "bsw",
+    "exceptional": "9b9",
+    "elite": "7b7",
+    "stack": 1
+  },
+  {
+    "code": "9ba",
+    "level": 38,
+    "cost": 2718,
+    "gambleCost": 124784,
+    "normal": "bax",
+    "exceptional": "9ba",
+    "elite": "7ba",
+    "stack": 1
+  },
+  {
+    "code": "9bk",
+    "level": 39,
+    "cost": 100,
+    "gambleCost": 25900,
+    "normal": "bkf",
+    "exceptional": "9bk",
+    "elite": "7bk",
+    "stack": 95
+  },
+  {
+    "code": "9bl",
+    "level": 46,
+    "cost": 5592,
+    "gambleCost": 282732,
+    "normal": "bld",
+    "exceptional": "9bl",
+    "elite": "7bl",
+    "stack": 1
+  },
+  {
+    "code": "9br",
+    "level": 41,
+    "cost": 3786,
+    "gambleCost": 178226,
+    "normal": "brn",
+    "exceptional": "9br",
+    "elite": "7br",
+    "stack": 1
+  },
+  {
+    "code": "9bs",
+    "level": 40,
+    "cost": 3387,
+    "gambleCost": 157980,
+    "normal": "bsd",
+    "exceptional": "9bs",
+    "elite": "7bs",
+    "stack": 1
+  },
+  {
+    "code": "9bt",
+    "level": 42,
+    "cost": 4086,
+    "gambleCost": 195112,
+    "normal": "btx",
+    "exceptional": "9bt",
+    "elite": "7bt",
+    "stack": 1
+  },
+  {
+    "code": "9bw",
+    "level": 43,
+    "cost": 4188,
+    "gambleCost": 204084,
+    "normal": "bwn",
+    "exceptional": "9bw",
+    "elite": "7bw",
+    "stack": 1
+  },
+  {
+    "code": "9cl",
+    "level": 30,
+    "cost": 396,
+    "gambleCost": 29380,
+    "normal": "clb",
+    "exceptional": "9cl",
+    "elite": "7cl",
+    "stack": 1
+  },
+  {
+    "code": "9cm",
+    "level": 42,
+    "cost": 4086,
+    "gambleCost": 195112,
+    "normal": "clm",
+    "exceptional": "9cm",
+    "elite": "7cm",
+    "stack": 1
+  },
+  {
+    "code": "9cr",
+    "level": 37,
+    "cost": 6681,
+    "gambleCost": 268197,
+    "normal": "crs",
+    "exceptional": "9cr",
+    "elite": "7cr",
+    "stack": 1
+  },
+  {
+    "code": "9cs",
+    "level": 41,
+    "cost": 2964,
+    "gambleCost": 144524,
+    "normal": "ces",
+    "exceptional": "9cs",
+    "elite": "7cs",
+    "stack": 1
+  },
+  {
+    "code": "9dg",
+    "level": 31,
+    "cost": 480,
+    "gambleCost": 32880,
+    "normal": "dgr",
+    "exceptional": "9dg",
+    "elite": "7dg",
+    "stack": 1
+  },
+  {
+    "code": "9di",
+    "level": 36,
+    "cost": 1896,
+    "gambleCost": 88756,
+    "normal": "dir",
+    "exceptional": "9di",
+    "elite": "7di",
+    "stack": 1
+  },
+  {
+    "code": "9fb",
+    "level": 49,
+    "cost": 7500,
+    "gambleCost": 394500,
+    "normal": "flb",
+    "exceptional": "9fb",
+    "elite": "7fb",
+    "stack": 1
+  },
+  {
+    "code": "9fc",
+    "level": 37,
+    "cost": 2349,
+    "gambleCost": 107913,
+    "normal": "flc",
+    "exceptional": "9fc",
+    "elite": "7fc",
+    "stack": 1
+  },
+  {
+    "code": "9fl",
+    "level": 43,
+    "cost": 4536,
+    "gambleCost": 219048,
+    "normal": "fla",
+    "exceptional": "9fl",
+    "elite": "7fl",
+    "stack": 1
+  },
+  {
+    "code": "9ga",
+    "level": 46,
+    "cost": 6048,
+    "gambleCost": 303708,
+    "normal": "gax",
+    "exceptional": "9ga",
+    "elite": "7ga",
+    "stack": 1
+  },
+  {
+    "code": "9gd",
+    "level": 54,
+    "cost": 10653,
+    "gambleCost": 604762,
+    "normal": "gsd",
+    "exceptional": "9gd",
+    "elite": "7gd",
+    "stack": 1
+  },
+  {
+    "code": "9gi",
+    "level": 51,
+    "cost": 7530,
+    "gambleCost": 412030,
+    "normal": "gix",
+    "exceptional": "9gi",
+    "elite": "7gi",
+    "stack": 1
+  },
+  {
+    "code": "9gl",
+    "level": 46,
+    "cost": 145,
+    "gambleCost": 32170,
+    "normal": "glv",
+    "exceptional": "9gl",
+    "elite": "7gl",
+    "stack": 14
+  },
+  {
+    "code": "9gm",
+    "level": 53,
+    "cost": 9945,
+    "gambleCost": 556085,
+    "normal": "gma",
+    "exceptional": "9gm",
+    "elite": "7gm",
+    "stack": 1
+  },
+  {
+    "code": "9gs",
+    "level": 45,
+    "cost": 4677,
+    "gambleCost": 235465,
+    "normal": "gis",
+    "exceptional": "9gs",
+    "elite": "7gs",
+    "stack": 1
+  },
+  {
+    "code": "9gw",
+    "level": 49,
+    "cost": 6594,
+    "gambleCost": 350106,
+    "normal": "gwn",
+    "exceptional": "9gw",
+    "elite": "7gw",
+    "stack": 1
+  },
+  {
+    "code": "9h9",
+    "level": 51,
+    "cost": 8418,
+    "gambleCost": 457318,
+    "normal": "hal",
+    "exceptional": "9h9",
+    "elite": "7h7",
+    "stack": 1
+  },
+  {
+    "code": "9ha",
+    "level": 31,
+    "cost": 810,
+    "gambleCost": 43110,
+    "normal": "hax",
+    "exceptional": "9ha",
+    "elite": "7ha",
+    "stack": 1
+  },
+  {
+    "code": "9ja",
+    "level": 30,
+    "cost": 120,
+    "gambleCost": 21100,
+    "normal": "jav",
+    "exceptional": "9ja",
+    "elite": "7ja",
+    "stack": 45
+  },
+  {
+    "code": "9kr",
+    "level": 42,
+    "cost": 3981,
+    "gambleCost": 190702,
+    "normal": "kri",
+    "exceptional": "9kr",
+    "elite": "7kr",
+    "stack": 1
+  },
+  {
+    "code": "9la",
+    "level": 34,
+    "cost": 1362,
+    "gambleCost": 65808,
+    "normal": "lax",
+    "exceptional": "9la",
+    "elite": "7la",
+    "stack": 1
+  },
+  {
+    "code": "9ls",
+    "level": 44,
+    "cost": 4860,
+    "gambleCost": 238340,
+    "normal": "lsd",
+    "exceptional": "9ls",
+    "elite": "7ls",
+    "stack": 1
+  },
+  {
+    "code": "9lw",
+    "level": 45,
+    "cost": 5061,
+    "gambleCost": 252745,
+    "normal": "clw",
+    "exceptional": "9lw",
+    "elite": "7lw",
+    "stack": 1
+  },
+  {
+    "code": "9m9",
+    "level": 45,
+    "cost": 5310,
+    "gambleCost": 263950,
+    "normal": "mau",
+    "exceptional": "9m9",
+    "elite": "7m7",
+    "stack": 1
+  },
+  {
+    "code": "9ma",
+    "level": 35,
+    "cost": 1689,
+    "gambleCost": 79115,
+    "normal": "mac",
+    "exceptional": "9ma",
+    "elite": "7ma",
+    "stack": 1
+  },
+  {
+    "code": "9mp",
+    "level": 43,
+    "cost": 4563,
+    "gambleCost": 220209,
+    "normal": "mpi",
+    "exceptional": "9mp",
+    "elite": "7mp",
+    "stack": 1
+  },
+  {
+    "code": "9mt",
+    "level": 39,
+    "cost": 2832,
+    "gambleCost": 132448,
+    "normal": "mst",
+    "exceptional": "9mt",
+    "elite": "7mt",
+    "stack": 1
+  },
+  {
+    "code": "9p9",
+    "level": 47,
+    "cost": 6369,
+    "gambleCost": 325343,
+    "normal": "pik",
+    "exceptional": "9p9",
+    "elite": "7p7",
+    "stack": 1
+  },
+  {
+    "code": "9pa",
+    "level": 35,
+    "cost": 5403,
+    "gambleCost": 209105,
+    "normal": "pax",
+    "exceptional": "9pa",
+    "elite": "7pa",
+    "stack": 1
+  },
+  {
+    "code": "9pi",
+    "level": 37,
+    "cost": 125,
+    "gambleCost": 25625,
+    "normal": "pil",
+    "exceptional": "9pi",
+    "elite": "7pi",
+    "stack": 37
+  },
+  {
+    "code": "9qr",
+    "level": 54,
+    "cost": 14223,
+    "gambleCost": 797542,
+    "normal": "skr",
+    "exceptional": "9qr",
+    "elite": "7qr",
+    "stack": 1
+  },
+  {
+    "code": "9qs",
+    "level": 40,
+    "cost": 3627,
+    "gambleCost": 167580,
+    "normal": "gsc",
+    "exceptional": "9qs",
+    "elite": "7qs",
+    "stack": 1
+  },
+  {
+    "code": "9s8",
+    "level": 40,
+    "cost": 2844,
+    "gambleCost": 136260,
+    "normal": "scy",
+    "exceptional": "9s8",
+    "elite": "7s8",
+    "stack": 1
+  },
+  {
+    "code": "9s9",
+    "level": 40,
+    "cost": 135,
+    "gambleCost": 27900,
+    "normal": "ssp",
+    "exceptional": "9s9",
+    "elite": "7s7",
+    "stack": 30
+  },
+  {
+    "code": "9sb",
+    "level": 35,
+    "cost": 1698,
+    "gambleCost": 79430,
+    "normal": "sbr",
+    "exceptional": "9sb",
+    "elite": "7sb",
+    "stack": 1
+  },
+  {
+    "code": "9sc",
+    "level": 31,
+    "cost": 1350,
+    "gambleCost": 59850,
+    "normal": "scp",
+    "exceptional": "9sc",
+    "elite": "7sc",
+    "stack": 1
+  },
+  {
+    "code": "9sm",
+    "level": 43,
+    "cost": 1122,
+    "gambleCost": 72246,
+    "normal": "scm",
+    "exceptional": "9sm",
+    "elite": "7sm",
+    "stack": 1
+  },
+  {
+    "code": "9sp",
+    "level": 32,
+    "cost": 975,
+    "gambleCost": 49700,
+    "normal": "spc",
+    "exceptional": "9sp",
+    "elite": "7sp",
+    "stack": 1
+  },
+  {
+    "code": "9sr",
+    "level": 33,
+    "cost": 1200,
+    "gambleCost": 58600,
+    "normal": "spr",
+    "exceptional": "9sr",
+    "elite": "7sr",
+    "stack": 1
+  },
+  {
+    "code": "9ss",
+    "level": 30,
+    "cost": 516,
+    "gambleCost": 32980,
+    "normal": "ssd",
+    "exceptional": "9ss",
+    "elite": "7ss",
+    "stack": 1
+  },
+  {
+    "code": "9st",
+    "level": 44,
+    "cost": 5316,
+    "gambleCost": 258404,
+    "normal": "spt",
+    "exceptional": "9st",
+    "elite": "7st",
+    "stack": 1
+  },
+  {
+    "code": "9ta",
+    "level": 34,
+    "cost": 90,
+    "gambleCost": 22560,
+    "normal": "tax",
+    "exceptional": "9ta",
+    "elite": "7ta",
+    "stack": 73
+  },
+  {
+    "code": "9tk",
+    "level": 31,
+    "cost": 80,
+    "gambleCost": 20480,
+    "normal": "tkf",
+    "exceptional": "9tk",
+    "elite": "7tk",
+    "stack": 100
+  },
+  {
+    "code": "9tr",
+    "level": 36,
+    "cost": 2349,
+    "gambleCost": 105064,
+    "normal": "tri",
+    "exceptional": "9tr",
+    "elite": "7tr",
+    "stack": 1
+  },
+  {
+    "code": "9ts",
+    "level": 51,
+    "cost": 150,
+    "gambleCost": 35650,
+    "normal": "tsp",
+    "exceptional": "9ts",
+    "elite": "7ts",
+    "stack": 56
+  },
+  {
+    "code": "9tw",
+    "level": 50,
+    "cost": 9291,
+    "gambleCost": 492050,
+    "normal": "btl",
+    "exceptional": "9tw",
+    "elite": "7tw",
+    "stack": 1
+  },
+  {
+    "code": "9vo",
+    "level": 37,
+    "cost": 2133,
+    "gambleCost": 99921,
+    "normal": "vou",
+    "exceptional": "9vo",
+    "elite": "7vo",
+    "stack": 1
+  },
+  {
+    "code": "9wa",
+    "level": 48,
+    "cost": 6669,
+    "gambleCost": 346612,
+    "normal": "wax",
+    "exceptional": "9wa",
+    "elite": "7wa",
+    "stack": 1
+  },
+  {
+    "code": "9wb",
+    "level": 32,
+    "cost": 4203,
+    "gambleCost": 152996,
+    "normal": "wrb",
+    "exceptional": "9wb",
+    "elite": "7wb",
+    "stack": 1
+  },
+  {
+    "code": "9wc",
+    "level": 55,
+    "cost": 10464,
+    "gambleCost": 605520,
+    "normal": "wsc",
+    "exceptional": "9wc",
+    "elite": "7wc",
+    "stack": 1
+  },
+  {
+    "code": "9wd",
+    "level": 49,
+    "cost": 6291,
+    "gambleCost": 335259,
+    "normal": "wsd",
+    "exceptional": "9wd",
+    "elite": "7wd",
+    "stack": 1
+  },
+  {
+    "code": "9wh",
+    "level": 48,
+    "cost": 6543,
+    "gambleCost": 340564,
+    "normal": "whm",
+    "exceptional": "9wh",
+    "elite": "7wh",
+    "stack": 1
+  },
+  {
+    "code": "9wn",
+    "level": 31,
+    "cost": 915,
+    "gambleCost": 46365,
+    "normal": "wnd",
+    "exceptional": "9wn",
+    "elite": "7wn",
+    "stack": 1
+  },
+  {
+    "code": "9ws",
+    "level": 45,
+    "cost": 7269,
+    "gambleCost": 352105,
+    "normal": "wsp",
+    "exceptional": "9ws",
+    "elite": "7ws",
+    "stack": 1
+  },
+  {
+    "code": "9xf",
+    "level": 36,
+    "cost": 4203,
+    "gambleCost": 171808,
+    "normal": "axf",
+    "exceptional": "9xf",
+    "elite": "7xf",
+    "stack": 1
+  },
+  {
+    "code": "9yw",
+    "level": 38,
+    "cost": 2535,
+    "gambleCost": 117830,
+    "normal": "ywn",
+    "exceptional": "9yw",
+    "elite": "7yw",
+    "stack": 1
+  },
+  {
+    "code": "aar",
+    "level": 40,
+    "cost": 73864,
+    "gambleCost": 761140,
+    "normal": "aar",
+    "exceptional": "xar",
+    "elite": "uar",
+    "stack": 1
+  },
+  {
+    "code": "am1",
+    "level": 18,
+    "cost": 2500,
+    "gambleCost": 56500,
+    "normal": "am1",
+    "exceptional": "am6",
+    "elite": "amb",
+    "stack": 1
+  },
+  {
+    "code": "am2",
+    "level": 27,
+    "cost": 3575,
+    "gambleCost": 112525,
+    "normal": "am2",
+    "exceptional": "am7",
+    "elite": "amc",
+    "stack": 1
+  },
+  {
+    "code": "am3",
+    "level": 18,
+    "cost": 1672,
+    "gambleCost": 41596,
+    "normal": "am3",
+    "exceptional": "am8",
+    "elite": "amd",
+    "stack": 1
+  },
+  {
+    "code": "am4",
+    "level": 27,
+    "cost": 2023,
+    "gambleCost": 70621,
+    "normal": "am4",
+    "exceptional": "am9",
+    "elite": "ame",
+    "stack": 1
+  },
+  {
+    "code": "am5",
+    "level": 23,
+    "cost": 48,
+    "gambleCost": 15104,
+    "normal": "am5",
+    "exceptional": "ama",
+    "elite": "amf",
+    "stack": 56
+  },
+  {
+    "code": "am6",
+    "level": 39,
+    "cost": 7800,
+    "gambleCost": 326200,
+    "normal": "am1",
+    "exceptional": "am6",
+    "elite": "amb",
+    "stack": 1
+  },
+  {
+    "code": "am7",
+    "level": 47,
+    "cost": 11025,
+    "gambleCost": 544175,
+    "normal": "am2",
+    "exceptional": "am7",
+    "elite": "amc",
+    "stack": 1
+  },
+  {
+    "code": "am8",
+    "level": 43,
+    "cost": 5316,
+    "gambleCost": 252588,
+    "normal": "am3",
+    "exceptional": "am8",
+    "elite": "amd",
+    "stack": 1
+  },
+  {
+    "code": "am9",
+    "level": 51,
+    "cost": 6369,
+    "gambleCost": 352819,
+    "normal": "am4",
+    "exceptional": "am9",
+    "elite": "ame",
+    "stack": 1
+  },
+  {
+    "code": "ama",
+    "level": 35,
+    "cost": 444,
+    "gambleCost": 35540,
+    "normal": "am5",
+    "exceptional": "ama",
+    "elite": "amf",
+    "stack": 56
+  },
+  {
+    "code": "amb",
+    "level": 53,
+    "cost": 23700,
+    "gambleCost": 1285100,
+    "normal": "am1",
+    "exceptional": "am6",
+    "elite": "amb",
+    "stack": 1
+  },
+  {
+    "code": "amc",
+    "level": 78,
+    "cost": 33375,
+    "gambleCost": 2644750,
+    "normal": "am2",
+    "exceptional": "am7",
+    "elite": "amc",
+    "stack": 1
+  },
+  {
+    "code": "amd",
+    "level": 61,
+    "cost": 16248,
+    "gambleCost": 1024128,
+    "normal": "am3",
+    "exceptional": "am8",
+    "elite": "amd",
+    "stack": 1
+  },
+  {
+    "code": "ame",
+    "level": 81,
+    "cost": 19407,
+    "gambleCost": 1614967,
+    "normal": "am4",
+    "exceptional": "am9",
+    "elite": "ame",
+    "stack": 1
+  },
+  {
+    "code": "amf",
+    "level": 65,
+    "cost": 302,
+    "gambleCost": 54630,
+    "normal": "am5",
+    "exceptional": "ama",
+    "elite": "amf",
+    "stack": 56
+  },
+  {
+    "code": "amu",
+    "level": 1,
+    "cost": 2400,
+    "gambleCost": 63000,
+    "normal": "amu",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "aqv",
+    "level": 0,
+    "cost": 256,
+    "gambleCost": 0,
+    "normal": "aqv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 225
+  },
+  {
+    "code": "ass",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "ass",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "axe",
+    "level": 7,
+    "cost": 403,
+    "gambleCost": 8821,
+    "normal": "axe",
+    "exceptional": "9ax",
+    "elite": "7ax",
+    "stack": 1
+  },
+  {
+    "code": "axf",
+    "level": 12,
+    "cost": 466,
+    "gambleCost": 14092,
+    "normal": "axf",
+    "exceptional": "9xf",
+    "elite": "7xf",
+    "stack": 1
+  },
+  {
+    "code": "ba1",
+    "level": 4,
+    "cost": 320,
+    "gambleCost": 4750,
+    "normal": "ba1",
+    "exceptional": "ba6",
+    "elite": "bab",
+    "stack": 1
+  },
+  {
+    "code": "ba2",
+    "level": 8,
+    "cost": 750,
+    "gambleCost": 8250,
+    "normal": "ba2",
+    "exceptional": "ba7",
+    "elite": "bac",
+    "stack": 1
+  },
+  {
+    "code": "ba3",
+    "level": 16,
+    "cost": 2750,
+    "gambleCost": 20750,
+    "normal": "ba3",
+    "exceptional": "ba8",
+    "elite": "bad",
+    "stack": 1
+  },
+  {
+    "code": "ba4",
+    "level": 20,
+    "cost": 3420,
+    "gambleCost": 29360,
+    "normal": "ba4",
+    "exceptional": "ba9",
+    "elite": "bae",
+    "stack": 1
+  },
+  {
+    "code": "ba5",
+    "level": 24,
+    "cost": 5785,
+    "gambleCost": 49280,
+    "normal": "ba5",
+    "exceptional": "baa",
+    "elite": "baf",
+    "stack": 1
+  },
+  {
+    "code": "ba6",
+    "level": 33,
+    "cost": 16603,
+    "gambleCost": 82061,
+    "normal": "ba1",
+    "exceptional": "ba6",
+    "elite": "bab",
+    "stack": 1
+  },
+  {
+    "code": "ba7",
+    "level": 38,
+    "cost": 21378,
+    "gambleCost": 82062,
+    "normal": "ba2",
+    "exceptional": "ba7",
+    "elite": "bac",
+    "stack": 1
+  },
+  {
+    "code": "ba8",
+    "level": 44,
+    "cost": 30063,
+    "gambleCost": 82063,
+    "normal": "ba3",
+    "exceptional": "ba8",
+    "elite": "bad",
+    "stack": 1
+  },
+  {
+    "code": "ba9",
+    "level": 49,
+    "cost": 36398,
+    "gambleCost": 82064,
+    "normal": "ba4",
+    "exceptional": "ba9",
+    "elite": "bae",
+    "stack": 1
+  },
+  {
+    "code": "baa",
+    "level": 54,
+    "cost": 46633,
+    "gambleCost": 82065,
+    "normal": "ba5",
+    "exceptional": "baa",
+    "elite": "baf",
+    "stack": 1
+  },
+  {
+    "code": "bab",
+    "level": 60,
+    "cost": 60650,
+    "gambleCost": 413918,
+    "normal": "ba1",
+    "exceptional": "ba6",
+    "elite": "bab",
+    "stack": 1
+  },
+  {
+    "code": "bac",
+    "level": 66,
+    "cost": 68211,
+    "gambleCost": 413919,
+    "normal": "ba2",
+    "exceptional": "ba7",
+    "elite": "bac",
+    "stack": 1
+  },
+  {
+    "code": "bad",
+    "level": 73,
+    "cost": 78881,
+    "gambleCost": 413920,
+    "normal": "ba3",
+    "exceptional": "ba8",
+    "elite": "bad",
+    "stack": 1
+  },
+  {
+    "code": "bae",
+    "level": 80,
+    "cost": 88278,
+    "gambleCost": 413921,
+    "normal": "ba4",
+    "exceptional": "ba9",
+    "elite": "bae",
+    "stack": 1
+  },
+  {
+    "code": "baf",
+    "level": 85,
+    "cost": 97844,
+    "gambleCost": 413922,
+    "normal": "ba5",
+    "exceptional": "baa",
+    "elite": "baf",
+    "stack": 1
+  },
+  {
+    "code": "bal",
+    "level": 16,
+    "cost": 35,
+    "gambleCost": 11060,
+    "normal": "bal",
+    "exceptional": "9b8",
+    "elite": "7b8",
+    "stack": 73
+  },
+  {
+    "code": "bar",
+    "level": 5,
+    "cost": 302,
+    "gambleCost": 6510,
+    "normal": "bar",
+    "exceptional": "9b7",
+    "elite": "7o7",
+    "stack": 1
+  },
+  {
+    "code": "bax",
+    "level": 12,
+    "cost": 806,
+    "gambleCost": 18172,
+    "normal": "bax",
+    "exceptional": "9ba",
+    "elite": "7ba",
+    "stack": 1
+  },
+  {
+    "code": "bbb",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "bbb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bet",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "bet",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bey",
+    "level": 0,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "bey",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bhm",
+    "level": 22,
+    "cost": 6323,
+    "gambleCost": 48276,
+    "normal": "bhm",
+    "exceptional": "xh9",
+    "elite": "uh9",
+    "stack": 1
+  },
+  {
+    "code": "bkd",
+    "level": 0,
+    "cost": 12000,
+    "gambleCost": 0,
+    "normal": "bkd",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bkf",
+    "level": 13,
+    "cost": 15,
+    "gambleCost": 9195,
+    "normal": "bkf",
+    "exceptional": "9bk",
+    "elite": "7bk",
+    "stack": 95
+  },
+  {
+    "code": "bks",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "bks",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bld",
+    "level": 23,
+    "cost": 1764,
+    "gambleCost": 54572,
+    "normal": "bld",
+    "exceptional": "9bl",
+    "elite": "7bl",
+    "stack": 1
+  },
+  {
+    "code": "box",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "box",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bpl",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "bpl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 7
+  },
+  {
+    "code": "bps",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "bps",
+    "exceptional": null,
+    "elite": null,
+    "stack": 7
+  },
+  {
+    "code": "brn",
+    "level": 16,
+    "cost": 1162,
+    "gambleCost": 29092,
+    "normal": "brn",
+    "exceptional": "9br",
+    "elite": "7br",
+    "stack": 1
+  },
+  {
+    "code": "brs",
+    "level": 18,
+    "cost": 10078,
+    "gambleCost": 56851,
+    "normal": "brs",
+    "exceptional": "xrs",
+    "elite": "urs",
+    "stack": 1
+  },
+  {
+    "code": "brz",
+    "level": 0,
+    "cost": 60,
+    "gambleCost": 0,
+    "normal": "brz",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "bsd",
+    "level": 15,
+    "cost": 1029,
+    "gambleCost": 25435,
+    "normal": "bsd",
+    "exceptional": "9bs",
+    "elite": "7bs",
+    "stack": 1
+  },
+  {
+    "code": "bsh",
+    "level": 19,
+    "cost": 3175,
+    "gambleCost": 27081,
+    "normal": "bsh",
+    "exceptional": "xsh",
+    "elite": "ush",
+    "stack": 1
+  },
+  {
+    "code": "bst",
+    "level": 17,
+    "cost": 1223,
+    "gambleCost": 31791,
+    "normal": "bst",
+    "exceptional": "8bs",
+    "elite": "6bs",
+    "stack": 1
+  },
+  {
+    "code": "bsw",
+    "level": 24,
+    "cost": 1971,
+    "gambleCost": 61804,
+    "normal": "bsw",
+    "exceptional": "9b9",
+    "elite": "7b7",
+    "stack": 1
+  },
+  {
+    "code": "btl",
+    "level": 21,
+    "cost": 847,
+    "gambleCost": 30787,
+    "normal": "btl",
+    "exceptional": "9tw",
+    "elite": "7tw",
+    "stack": 1
+  },
+  {
+    "code": "btx",
+    "level": 17,
+    "cost": 1262,
+    "gambleCost": 32454,
+    "normal": "btx",
+    "exceptional": "9bt",
+    "elite": "7bt",
+    "stack": 1
+  },
+  {
+    "code": "buc",
+    "level": 1,
+    "cost": 68,
+    "gambleCost": 3017,
+    "normal": "buc",
+    "exceptional": "xuc",
+    "elite": "uuc",
+    "stack": 1
+  },
+  {
+    "code": "bwn",
+    "level": 18,
+    "cost": 1296,
+    "gambleCost": 34828,
+    "normal": "bwn",
+    "exceptional": "9bw",
+    "elite": "7bw",
+    "stack": 1
+  },
+  {
+    "code": "cap",
+    "level": 1,
+    "cost": 64,
+    "gambleCost": 3016,
+    "normal": "cap",
+    "exceptional": "xap",
+    "elite": "uap",
+    "stack": 1
+  },
+  {
+    "code": "cbw",
+    "level": 12,
+    "cost": 727,
+    "gambleCost": 17224,
+    "normal": "cbw",
+    "exceptional": "8cb",
+    "elite": "6cb",
+    "stack": 1
+  },
+  {
+    "code": "ceh",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "ceh",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "ces",
+    "level": 15,
+    "cost": 514,
+    "gambleCost": 17710,
+    "normal": "ces",
+    "exceptional": "9cs",
+    "elite": "7cs",
+    "stack": 1
+  },
+  {
+    "code": "chn",
+    "level": 15,
+    "cost": 9360,
+    "gambleCost": 45100,
+    "normal": "chn",
+    "exceptional": "xhn",
+    "elite": "uhn",
+    "stack": 1
+  },
+  {
+    "code": "ci0",
+    "level": 24,
+    "cost": 12000,
+    "gambleCost": 85625,
+    "normal": "ci0",
+    "exceptional": "ci2",
+    "elite": "ci3",
+    "stack": 1
+  },
+  {
+    "code": "ci1",
+    "level": 52,
+    "cost": 23000,
+    "gambleCost": 171250,
+    "normal": "ci1",
+    "exceptional": "ci2",
+    "elite": "ci3",
+    "stack": 1
+  },
+  {
+    "code": "ci2",
+    "level": 70,
+    "cost": 35000,
+    "gambleCost": 700000,
+    "normal": "ci1",
+    "exceptional": "ci2",
+    "elite": "ci3",
+    "stack": 1
+  },
+  {
+    "code": "ci3",
+    "level": 85,
+    "cost": 58000,
+    "gambleCost": 1382500,
+    "normal": "ci1",
+    "exceptional": "ci2",
+    "elite": "ci3",
+    "stack": 1
+  },
+  {
+    "code": "clb",
+    "level": 1,
+    "cost": 32,
+    "gambleCost": 3032,
+    "normal": "clb",
+    "exceptional": "9cl",
+    "elite": "7cl",
+    "stack": 1
+  },
+  {
+    "code": "clm",
+    "level": 17,
+    "cost": 1262,
+    "gambleCost": 32454,
+    "normal": "clm",
+    "exceptional": "9cm",
+    "elite": "7cm",
+    "stack": 1
+  },
+  {
+    "code": "clw",
+    "level": 18,
+    "cost": 683,
+    "gambleCost": 23794,
+    "normal": "clw",
+    "exceptional": "9lw",
+    "elite": "7lw",
+    "stack": 1
+  },
+  {
+    "code": "cm1",
+    "level": 28,
+    "cost": 2000,
+    "gambleCost": 45000,
+    "normal": "cm1",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "cm2",
+    "level": 14,
+    "cost": 1000,
+    "gambleCost": 38000,
+    "normal": "cm2",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "cm3",
+    "level": 1,
+    "cost": 600,
+    "gambleCost": 32000,
+    "normal": "cm3",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "cqv",
+    "level": 0,
+    "cost": 256,
+    "gambleCost": 0,
+    "normal": "cqv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 155
+  },
+  {
+    "code": "crn",
+    "level": 29,
+    "cost": 8345,
+    "gambleCost": 77501,
+    "normal": "crn",
+    "exceptional": "xrn",
+    "elite": "urn",
+    "stack": 1
+  },
+  {
+    "code": "crs",
+    "level": 11,
+    "cost": 2127,
+    "gambleCost": 31397,
+    "normal": "crs",
+    "exceptional": "9cr",
+    "elite": "7cr",
+    "stack": 1
+  },
+  {
+    "code": "cst",
+    "level": 12,
+    "cost": 766,
+    "gambleCost": 17692,
+    "normal": "cst",
+    "exceptional": "8cs",
+    "elite": "6cs",
+    "stack": 1
+  },
+  {
+    "code": "d33",
+    "level": 0,
+    "cost": 666,
+    "gambleCost": 0,
+    "normal": "d33",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "dgr",
+    "level": 3,
+    "cost": 60,
+    "gambleCost": 4180,
+    "normal": "dgr",
+    "exceptional": "9dg",
+    "elite": "7dg",
+    "stack": 1
+  },
+  {
+    "code": "dhn",
+    "level": 0,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "dhn",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "dir",
+    "level": 9,
+    "cost": 532,
+    "gambleCost": 11788,
+    "normal": "dir",
+    "exceptional": "9di",
+    "elite": "7di",
+    "stack": 1
+  },
+  {
+    "code": "dr1",
+    "level": 4,
+    "cost": 364,
+    "gambleCost": 4868,
+    "normal": "dr1",
+    "exceptional": "dr6",
+    "elite": "drb",
+    "stack": 1
+  },
+  {
+    "code": "dr2",
+    "level": 8,
+    "cost": 664,
+    "gambleCost": 7840,
+    "normal": "dr2",
+    "exceptional": "dr7",
+    "elite": "drc",
+    "stack": 1
+  },
+  {
+    "code": "dr3",
+    "level": 16,
+    "cost": 2832,
+    "gambleCost": 21852,
+    "normal": "dr3",
+    "exceptional": "dr8",
+    "elite": "drd",
+    "stack": 1
+  },
+  {
+    "code": "dr4",
+    "level": 20,
+    "cost": 3332,
+    "gambleCost": 29200,
+    "normal": "dr4",
+    "exceptional": "dr9",
+    "elite": "dre",
+    "stack": 1
+  },
+  {
+    "code": "dr5",
+    "level": 24,
+    "cost": 5670,
+    "gambleCost": 48550,
+    "normal": "dr5",
+    "exceptional": "dra",
+    "elite": "drf",
+    "stack": 1
+  },
+  {
+    "code": "dr6",
+    "level": 35,
+    "cost": 16300,
+    "gambleCost": 82061,
+    "normal": "dr1",
+    "exceptional": "dr6",
+    "elite": "drb",
+    "stack": 1
+  },
+  {
+    "code": "dr7",
+    "level": 40,
+    "cost": 18564,
+    "gambleCost": 82062,
+    "normal": "dr2",
+    "exceptional": "dr7",
+    "elite": "drc",
+    "stack": 1
+  },
+  {
+    "code": "dr8",
+    "level": 46,
+    "cost": 27768,
+    "gambleCost": 82063,
+    "normal": "dr3",
+    "exceptional": "dr8",
+    "elite": "drd",
+    "stack": 1
+  },
+  {
+    "code": "dr9",
+    "level": 50,
+    "cost": 29518,
+    "gambleCost": 82064,
+    "normal": "dr4",
+    "exceptional": "dr9",
+    "elite": "dre",
+    "stack": 1
+  },
+  {
+    "code": "dra",
+    "level": 55,
+    "cost": 38127,
+    "gambleCost": 82065,
+    "normal": "dr5",
+    "exceptional": "dra",
+    "elite": "drf",
+    "stack": 1
+  },
+  {
+    "code": "drb",
+    "level": 62,
+    "cost": 61755,
+    "gambleCost": 413914,
+    "normal": "dr1",
+    "exceptional": "dr6",
+    "elite": "drb",
+    "stack": 1
+  },
+  {
+    "code": "drc",
+    "level": 69,
+    "cost": 68617,
+    "gambleCost": 413915,
+    "normal": "dr2",
+    "exceptional": "dr7",
+    "elite": "drc",
+    "stack": 1
+  },
+  {
+    "code": "drd",
+    "level": 76,
+    "cost": 79730,
+    "gambleCost": 413916,
+    "normal": "dr3",
+    "exceptional": "dr8",
+    "elite": "drd",
+    "stack": 1
+  },
+  {
+    "code": "dre",
+    "level": 83,
+    "cost": 86575,
+    "gambleCost": 413917,
+    "normal": "dr4",
+    "exceptional": "dr9",
+    "elite": "dre",
+    "stack": 1
+  },
+  {
+    "code": "drf",
+    "level": 85,
+    "cost": 92143,
+    "gambleCost": 413918,
+    "normal": "dr5",
+    "exceptional": "dra",
+    "elite": "drf",
+    "stack": 1
+  },
+  {
+    "code": "ear",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "ear",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "elx",
+    "level": 21,
+    "cost": 20,
+    "gambleCost": 0,
+    "normal": "elx",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "eyz",
+    "level": 0,
+    "cost": 45,
+    "gambleCost": 0,
+    "normal": "eyz",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "fed",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "fed",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "fhl",
+    "level": 15,
+    "cost": 3095,
+    "gambleCost": 21606,
+    "normal": "fhl",
+    "exceptional": "xhl",
+    "elite": "uhl",
+    "stack": 1
+  },
+  {
+    "code": "fla",
+    "level": 19,
+    "cost": 1412,
+    "gambleCost": 38828,
+    "normal": "fla",
+    "exceptional": "9fl",
+    "elite": "7fl",
+    "stack": 1
+  },
+  {
+    "code": "flb",
+    "level": 27,
+    "cost": 2400,
+    "gambleCost": 80800,
+    "normal": "flb",
+    "exceptional": "9fb",
+    "elite": "7fb",
+    "stack": 1
+  },
+  {
+    "code": "flc",
+    "level": 11,
+    "cost": 683,
+    "gambleCost": 15513,
+    "normal": "flc",
+    "exceptional": "9fc",
+    "elite": "7fc",
+    "stack": 1
+  },
+  {
+    "code": "fld",
+    "level": 28,
+    "cost": 23841,
+    "gambleCost": 183387,
+    "normal": "fld",
+    "exceptional": "xld",
+    "elite": "uld",
+    "stack": 1
+  },
+  {
+    "code": "flg",
+    "level": 0,
+    "cost": 98,
+    "gambleCost": 0,
+    "normal": "flg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "fng",
+    "level": 0,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "fng",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "ful",
+    "level": 37,
+    "cost": 47192,
+    "gambleCost": 457526,
+    "normal": "ful",
+    "exceptional": "xul",
+    "elite": "uul",
+    "stack": 1
+  },
+  {
+    "code": "g33",
+    "level": 0,
+    "cost": 666,
+    "gambleCost": 0,
+    "normal": "g33",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "g34",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "g34",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gax",
+    "level": 23,
+    "cost": 1916,
+    "gambleCost": 58068,
+    "normal": "gax",
+    "exceptional": "9ga",
+    "elite": "7ga",
+    "stack": 1
+  },
+  {
+    "code": "gcb",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gcg",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gcr",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gcv",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gcw",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gcy",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "gcy",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfb",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfg",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfr",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfv",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfw",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gfy",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "gfy",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "ghm",
+    "level": 23,
+    "cost": 6177,
+    "gambleCost": 49517,
+    "normal": "ghm",
+    "exceptional": "xhm",
+    "elite": "uhm",
+    "stack": 1
+  },
+  {
+    "code": "gis",
+    "level": 21,
+    "cost": 1459,
+    "gambleCost": 43639,
+    "normal": "gis",
+    "exceptional": "9gs",
+    "elite": "7gs",
+    "stack": 1
+  },
+  {
+    "code": "gix",
+    "level": 27,
+    "cost": 2410,
+    "gambleCost": 81070,
+    "normal": "gix",
+    "exceptional": "9gi",
+    "elite": "7gi",
+    "stack": 1
+  },
+  {
+    "code": "glb",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "glb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gld",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "gld",
+    "exceptional": null,
+    "elite": null,
+    "stack": 2500
+  },
+  {
+    "code": "glg",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "glg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "glr",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "glr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "glv",
+    "level": 23,
+    "cost": 36,
+    "gambleCost": 14828,
+    "normal": "glv",
+    "exceptional": "9gl",
+    "elite": "7gl",
+    "stack": 27
+  },
+  {
+    "code": "glw",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "glw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gly",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "gly",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gma",
+    "level": 32,
+    "cost": 3215,
+    "gambleCost": 121380,
+    "normal": "gma",
+    "exceptional": "9gm",
+    "elite": "7gm",
+    "stack": 1
+  },
+  {
+    "code": "gpb",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gpg",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gpl",
+    "level": 8,
+    "cost": 40,
+    "gambleCost": 0,
+    "normal": "gpl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "gpm",
+    "level": 20,
+    "cost": 120,
+    "gambleCost": 0,
+    "normal": "gpm",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "gpr",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gps",
+    "level": 32,
+    "cost": 200,
+    "gambleCost": 0,
+    "normal": "gps",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "gpv",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gpw",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gpy",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "gpy",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsb",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsc",
+    "level": 15,
+    "cost": 1109,
+    "gambleCost": 26635,
+    "normal": "gsc",
+    "exceptional": "9qs",
+    "elite": "7qs",
+    "stack": 1
+  },
+  {
+    "code": "gsd",
+    "level": 33,
+    "cost": 3451,
+    "gambleCost": 132883,
+    "normal": "gsd",
+    "exceptional": "9gd",
+    "elite": "7gd",
+    "stack": 1
+  },
+  {
+    "code": "gsg",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsr",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsv",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsw",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gsy",
+    "level": 0,
+    "cost": 5000,
+    "gambleCost": 0,
+    "normal": "gsy",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "gth",
+    "level": 32,
+    "cost": 34646,
+    "gambleCost": 295668,
+    "normal": "gth",
+    "exceptional": "xth",
+    "elite": "uth",
+    "stack": 1
+  },
+  {
+    "code": "gts",
+    "level": 30,
+    "cost": 8000,
+    "gambleCost": 77500,
+    "normal": "gts",
+    "exceptional": "xts",
+    "elite": "uts",
+    "stack": 1
+  },
+  {
+    "code": "gwn",
+    "level": 26,
+    "cost": 2098,
+    "gambleCost": 70048,
+    "normal": "gwn",
+    "exceptional": "9gw",
+    "elite": "7gw",
+    "stack": 1
+  },
+  {
+    "code": "gzv",
+    "level": 0,
+    "cost": 15000,
+    "gambleCost": 0,
+    "normal": "gzv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hal",
+    "level": 29,
+    "cost": 2706,
+    "gambleCost": 95474,
+    "normal": "hal",
+    "exceptional": "9h9",
+    "elite": "7h7",
+    "stack": 1
+  },
+  {
+    "code": "hax",
+    "level": 3,
+    "cost": 170,
+    "gambleCost": 4510,
+    "normal": "hax",
+    "exceptional": "9ha",
+    "elite": "7ha",
+    "stack": 1
+  },
+  {
+    "code": "hbl",
+    "level": 27,
+    "cost": 2068,
+    "gambleCost": 29959,
+    "normal": "hbl",
+    "exceptional": "zhb",
+    "elite": "uhc",
+    "stack": 1
+  },
+  {
+    "code": "hbt",
+    "level": 27,
+    "cost": 2954,
+    "gambleCost": 35939,
+    "normal": "hbt",
+    "exceptional": "xhb",
+    "elite": "uhb",
+    "stack": 1
+  },
+  {
+    "code": "hbw",
+    "level": 5,
+    "cost": 350,
+    "gambleCost": 6750,
+    "normal": "hbw",
+    "exceptional": "8hb",
+    "elite": "6hb",
+    "stack": 1
+  },
+  {
+    "code": "hdm",
+    "level": 0,
+    "cost": 600,
+    "gambleCost": 0,
+    "normal": "hdm",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hfh",
+    "level": 0,
+    "cost": 600,
+    "gambleCost": 0,
+    "normal": "hfh",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hgl",
+    "level": 27,
+    "cost": 2964,
+    "gambleCost": 36007,
+    "normal": "hgl",
+    "exceptional": "xhg",
+    "elite": "uhg",
+    "stack": 1
+  },
+  {
+    "code": "hla",
+    "level": 5,
+    "cost": 1060,
+    "gambleCost": 6325,
+    "normal": "hla",
+    "exceptional": "xla",
+    "elite": "ula",
+    "stack": 1
+  },
+  {
+    "code": "hlm",
+    "level": 11,
+    "cost": 1558,
+    "gambleCost": 12284,
+    "normal": "hlm",
+    "exceptional": "xlm",
+    "elite": "ulm",
+    "stack": 1
+  },
+  {
+    "code": "hp1",
+    "level": 0,
+    "cost": 30,
+    "gambleCost": 0,
+    "normal": "hp1",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hp2",
+    "level": 0,
+    "cost": 75,
+    "gambleCost": 0,
+    "normal": "hp2",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hp3",
+    "level": 0,
+    "cost": 125,
+    "gambleCost": 0,
+    "normal": "hp3",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hp4",
+    "level": 0,
+    "cost": 250,
+    "gambleCost": 0,
+    "normal": "hp4",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hp5",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "hp5",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hpf",
+    "level": 0,
+    "cost": 150,
+    "gambleCost": 0,
+    "normal": "hpf",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hpo",
+    "level": 0,
+    "cost": 30,
+    "gambleCost": 0,
+    "normal": "hpo",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hrb",
+    "level": 3,
+    "cost": 75,
+    "gambleCost": 0,
+    "normal": "hrb",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hrn",
+    "level": 0,
+    "cost": 48,
+    "gambleCost": 0,
+    "normal": "hrn",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hrt",
+    "level": 0,
+    "cost": 60,
+    "gambleCost": 0,
+    "normal": "hrt",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hst",
+    "level": 0,
+    "cost": 1223,
+    "gambleCost": 0,
+    "normal": "hst",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "hxb",
+    "level": 24,
+    "cost": 4096,
+    "gambleCost": 112804,
+    "normal": "hxb",
+    "exceptional": "8hx",
+    "elite": "6hx",
+    "stack": 1
+  },
+  {
+    "code": "ibk",
+    "level": 0,
+    "cost": 200,
+    "gambleCost": 0,
+    "normal": "ibk",
+    "exceptional": null,
+    "elite": null,
+    "stack": 10
+  },
+  {
+    "code": "ice",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "ice",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "isc",
+    "level": 0,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "isc",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "j34",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "j34",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "jav",
+    "level": 1,
+    "cost": 5,
+    "gambleCost": 3005,
+    "normal": "jav",
+    "exceptional": "9ja",
+    "elite": "7ja",
+    "stack": 45
+  },
+  {
+    "code": "jaw",
+    "level": 0,
+    "cost": 75,
+    "gambleCost": 0,
+    "normal": "jaw",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "jew",
+    "level": 1,
+    "cost": 1000,
+    "gambleCost": 0,
+    "normal": "jew",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "key",
+    "level": 0,
+    "cost": 45,
+    "gambleCost": 0,
+    "normal": "key",
+    "exceptional": null,
+    "elite": null,
+    "stack": 6
+  },
+  {
+    "code": "kit",
+    "level": 15,
+    "cost": 2129,
+    "gambleCost": 17983,
+    "normal": "kit",
+    "exceptional": "xit",
+    "elite": "uit",
+    "stack": 1
+  },
+  {
+    "code": "kri",
+    "level": 17,
+    "cost": 1227,
+    "gambleCost": 31859,
+    "normal": "kri",
+    "exceptional": "9kr",
+    "elite": "7kr",
+    "stack": 1
+  },
+  {
+    "code": "ktr",
+    "level": 1,
+    "cost": 72,
+    "gambleCost": 3072,
+    "normal": "ktr",
+    "exceptional": "9ar",
+    "elite": "7ar",
+    "stack": 1
+  },
+  {
+    "code": "lax",
+    "level": 6,
+    "cost": 354,
+    "gambleCost": 7624,
+    "normal": "lax",
+    "exceptional": "9la",
+    "elite": "7la",
+    "stack": 1
+  },
+  {
+    "code": "lbb",
+    "level": 23,
+    "cost": 1545,
+    "gambleCost": 49535,
+    "normal": "lbb",
+    "exceptional": "8l8",
+    "elite": "6l7",
+    "stack": 1
+  },
+  {
+    "code": "lbl",
+    "level": 3,
+    "cost": 64,
+    "gambleCost": 4048,
+    "normal": "lbl",
+    "exceptional": "zlb",
+    "elite": "ulc",
+    "stack": 1
+  },
+  {
+    "code": "lbt",
+    "level": 3,
+    "cost": 80,
+    "gambleCost": 4060,
+    "normal": "lbt",
+    "exceptional": "xlb",
+    "elite": "ulb",
+    "stack": 1
+  },
+  {
+    "code": "lbw",
+    "level": 8,
+    "cost": 490,
+    "gambleCost": 10420,
+    "normal": "lbw",
+    "exceptional": "8lb",
+    "elite": "6lb",
+    "stack": 1
+  },
+  {
+    "code": "lea",
+    "level": 3,
+    "cost": 481,
+    "gambleCost": 4360,
+    "normal": "lea",
+    "exceptional": "xea",
+    "elite": "uea",
+    "stack": 1
+  },
+  {
+    "code": "leg",
+    "level": 0,
+    "cost": 20,
+    "gambleCost": 0,
+    "normal": "leg",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "lgl",
+    "level": 3,
+    "cost": 80,
+    "gambleCost": 4060,
+    "normal": "lgl",
+    "exceptional": "xlg",
+    "elite": "ulg",
+    "stack": 1
+  },
+  {
+    "code": "lrg",
+    "level": 11,
+    "cost": 1214,
+    "gambleCost": 11338,
+    "normal": "lrg",
+    "exceptional": "xrg",
+    "elite": "urg",
+    "stack": 1
+  },
+  {
+    "code": "lsd",
+    "level": 20,
+    "cost": 1520,
+    "gambleCost": 42900,
+    "normal": "lsd",
+    "exceptional": "9ls",
+    "elite": "7ls",
+    "stack": 1
+  },
+  {
+    "code": "lst",
+    "level": 8,
+    "cost": 463,
+    "gambleCost": 10204,
+    "normal": "lst",
+    "exceptional": "8ls",
+    "elite": "6ls",
+    "stack": 1
+  },
+  {
+    "code": "ltp",
+    "level": 35,
+    "cost": 28327,
+    "gambleCost": 267861,
+    "normal": "ltp",
+    "exceptional": "xtp",
+    "elite": "utp",
+    "stack": 1
+  },
+  {
+    "code": "luv",
+    "level": 0,
+    "cost": 99999,
+    "gambleCost": 0,
+    "normal": "luv",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "lwb",
+    "level": 31,
+    "cost": 3575,
+    "gambleCost": 128825,
+    "normal": "lwb",
+    "exceptional": "8lw",
+    "elite": "6lw",
+    "stack": 1
+  },
+  {
+    "code": "lxb",
+    "level": 6,
+    "cost": 803,
+    "gambleCost": 10318,
+    "normal": "lxb",
+    "exceptional": "8lx",
+    "elite": "6lx",
+    "stack": 1
+  },
+  {
+    "code": "mac",
+    "level": 8,
+    "cost": 463,
+    "gambleCost": 10204,
+    "normal": "mac",
+    "exceptional": "9ma",
+    "elite": "7ma",
+    "stack": 1
+  },
+  {
+    "code": "mau",
+    "level": 21,
+    "cost": 1670,
+    "gambleCost": 48070,
+    "normal": "mau",
+    "exceptional": "9m9",
+    "elite": "7m7",
+    "stack": 1
+  },
+  {
+    "code": "mbl",
+    "level": 12,
+    "cost": 495,
+    "gambleCost": 9985,
+    "normal": "mbl",
+    "exceptional": "zmb",
+    "elite": "umc",
+    "stack": 1
+  },
+  {
+    "code": "mbr",
+    "level": 0,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "mbr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mbt",
+    "level": 12,
+    "cost": 854,
+    "gambleCost": 11062,
+    "normal": "mbt",
+    "exceptional": "xmb",
+    "elite": "umb",
+    "stack": 1
+  },
+  {
+    "code": "mgl",
+    "level": 12,
+    "cost": 859,
+    "gambleCost": 11077,
+    "normal": "mgl",
+    "exceptional": "xmg",
+    "elite": "umg",
+    "stack": 1
+  },
+  {
+    "code": "mp1",
+    "level": 0,
+    "cost": 60,
+    "gambleCost": 0,
+    "normal": "mp1",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mp2",
+    "level": 0,
+    "cost": 150,
+    "gambleCost": 0,
+    "normal": "mp2",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mp3",
+    "level": 0,
+    "cost": 300,
+    "gambleCost": 0,
+    "normal": "mp3",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mp4",
+    "level": 0,
+    "cost": 500,
+    "gambleCost": 0,
+    "normal": "mp4",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mp5",
+    "level": 0,
+    "cost": 1000,
+    "gambleCost": 0,
+    "normal": "mp5",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mpf",
+    "level": 0,
+    "cost": 150,
+    "gambleCost": 0,
+    "normal": "mpf",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mpi",
+    "level": 19,
+    "cost": 1421,
+    "gambleCost": 38999,
+    "normal": "mpi",
+    "exceptional": "9mp",
+    "elite": "7mp",
+    "stack": 1
+  },
+  {
+    "code": "mpo",
+    "level": 0,
+    "cost": 30,
+    "gambleCost": 0,
+    "normal": "mpo",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "msf",
+    "level": 0,
+    "cost": 1223,
+    "gambleCost": 0,
+    "normal": "msf",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "msk",
+    "level": 19,
+    "cost": 2857,
+    "gambleCost": 25570,
+    "normal": "msk",
+    "exceptional": "xsk",
+    "elite": "usk",
+    "stack": 1
+  },
+  {
+    "code": "mss",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "mss",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "mst",
+    "level": 13,
+    "cost": 844,
+    "gambleCost": 19972,
+    "normal": "mst",
+    "exceptional": "9mt",
+    "elite": "7mt",
+    "stack": 1
+  },
+  {
+    "code": "mxb",
+    "level": 15,
+    "cost": 2345,
+    "gambleCost": 45175,
+    "normal": "mxb",
+    "exceptional": "8mx",
+    "elite": "6mx",
+    "stack": 1
+  },
+  {
+    "code": "ne1",
+    "level": 4,
+    "cost": 128,
+    "gambleCost": 4628,
+    "normal": "ne1",
+    "exceptional": "ne6",
+    "elite": "neb",
+    "stack": 1
+  },
+  {
+    "code": "ne2",
+    "level": 8,
+    "cost": 418,
+    "gambleCost": 7336,
+    "normal": "ne2",
+    "exceptional": "ne7",
+    "elite": "neg",
+    "stack": 1
+  },
+  {
+    "code": "ne3",
+    "level": 16,
+    "cost": 1070,
+    "gambleCost": 14780,
+    "normal": "ne3",
+    "exceptional": "ne8",
+    "elite": "ned",
+    "stack": 1
+  },
+  {
+    "code": "ne4",
+    "level": 20,
+    "cost": 2164,
+    "gambleCost": 23320,
+    "normal": "ne4",
+    "exceptional": "ne9",
+    "elite": "nee",
+    "stack": 1
+  },
+  {
+    "code": "ne5",
+    "level": 24,
+    "cost": 3475,
+    "gambleCost": 35350,
+    "normal": "ne5",
+    "exceptional": "nea",
+    "elite": "nef",
+    "stack": 1
+  },
+  {
+    "code": "ne6",
+    "level": 33,
+    "cost": 11590,
+    "gambleCost": 82069,
+    "normal": "ne1",
+    "exceptional": "ne6",
+    "elite": "neb",
+    "stack": 1
+  },
+  {
+    "code": "ne7",
+    "level": 39,
+    "cost": 14839,
+    "gambleCost": 82070,
+    "normal": "ne2",
+    "exceptional": "ne7",
+    "elite": "neg",
+    "stack": 1
+  },
+  {
+    "code": "ne8",
+    "level": 45,
+    "cost": 18169,
+    "gambleCost": 82071,
+    "normal": "ne3",
+    "exceptional": "ne8",
+    "elite": "ned",
+    "stack": 1
+  },
+  {
+    "code": "ne9",
+    "level": 49,
+    "cost": 22750,
+    "gambleCost": 82072,
+    "normal": "ne4",
+    "exceptional": "ne9",
+    "elite": "nee",
+    "stack": 1
+  },
+  {
+    "code": "nea",
+    "level": 54,
+    "cost": 27993,
+    "gambleCost": 82073,
+    "normal": "ne5",
+    "exceptional": "nea",
+    "elite": "nef",
+    "stack": 1
+  },
+  {
+    "code": "neb",
+    "level": 59,
+    "cost": 56131,
+    "gambleCost": 82069,
+    "normal": "ne1",
+    "exceptional": "ne6",
+    "elite": "neb",
+    "stack": 1
+  },
+  {
+    "code": "ned",
+    "level": 66,
+    "cost": 64122,
+    "gambleCost": 82071,
+    "normal": "ne3",
+    "exceptional": "ne8",
+    "elite": "ned",
+    "stack": 1
+  },
+  {
+    "code": "nee",
+    "level": 81,
+    "cost": 80462,
+    "gambleCost": 82072,
+    "normal": "ne4",
+    "exceptional": "ne9",
+    "elite": "nee",
+    "stack": 1
+  },
+  {
+    "code": "nef",
+    "level": 85,
+    "cost": 86238,
+    "gambleCost": 82073,
+    "normal": "ne5",
+    "exceptional": "nea",
+    "elite": "nef",
+    "stack": 1
+  },
+  {
+    "code": "neg",
+    "level": 67,
+    "cost": 64437,
+    "gambleCost": 82070,
+    "normal": "ne2",
+    "exceptional": "ne7",
+    "elite": "neg",
+    "stack": 1
+  },
+  {
+    "code": "ob1",
+    "level": 1,
+    "cost": 168,
+    "gambleCost": 3168,
+    "normal": "ob1",
+    "exceptional": "ob6",
+    "elite": "obb",
+    "stack": 1
+  },
+  {
+    "code": "ob2",
+    "level": 8,
+    "cost": 463,
+    "gambleCost": 10204,
+    "normal": "ob2",
+    "exceptional": "ob7",
+    "elite": "obc",
+    "stack": 1
+  },
+  {
+    "code": "ob3",
+    "level": 12,
+    "cost": 766,
+    "gambleCost": 17692,
+    "normal": "ob3",
+    "exceptional": "ob8",
+    "elite": "obd",
+    "stack": 1
+  },
+  {
+    "code": "ob4",
+    "level": 17,
+    "cost": 1223,
+    "gambleCost": 31791,
+    "normal": "ob4",
+    "exceptional": "ob9",
+    "elite": "obe",
+    "stack": 1
+  },
+  {
+    "code": "ob5",
+    "level": 24,
+    "cost": 1985,
+    "gambleCost": 62140,
+    "normal": "ob5",
+    "exceptional": "oba",
+    "elite": "obf",
+    "stack": 1
+  },
+  {
+    "code": "ob6",
+    "level": 32,
+    "cost": 804,
+    "gambleCost": 44228,
+    "normal": "ob1",
+    "exceptional": "ob6",
+    "elite": "obb",
+    "stack": 1
+  },
+  {
+    "code": "ob7",
+    "level": 37,
+    "cost": 1689,
+    "gambleCost": 83493,
+    "normal": "ob2",
+    "exceptional": "ob7",
+    "elite": "obc",
+    "stack": 1
+  },
+  {
+    "code": "ob8",
+    "level": 41,
+    "cost": 2598,
+    "gambleCost": 129518,
+    "normal": "ob3",
+    "exceptional": "ob8",
+    "elite": "obd",
+    "stack": 1
+  },
+  {
+    "code": "ob9",
+    "level": 46,
+    "cost": 3969,
+    "gambleCost": 208074,
+    "normal": "ob4",
+    "exceptional": "ob9",
+    "elite": "obe",
+    "stack": 1
+  },
+  {
+    "code": "oba",
+    "level": 50,
+    "cost": 6255,
+    "gambleCost": 340250,
+    "normal": "ob5",
+    "exceptional": "oba",
+    "elite": "obf",
+    "stack": 1
+  },
+  {
+    "code": "obb",
+    "level": 59,
+    "cost": 21051,
+    "gambleCost": 1274009,
+    "normal": "ob1",
+    "exceptional": "ob6",
+    "elite": "obb",
+    "stack": 1
+  },
+  {
+    "code": "obc",
+    "level": 67,
+    "cost": 19367,
+    "gambleCost": 1333589,
+    "normal": "ob2",
+    "exceptional": "ob7",
+    "elite": "obc",
+    "stack": 1
+  },
+  {
+    "code": "obd",
+    "level": 75,
+    "cost": 22094,
+    "gambleCost": 1697050,
+    "normal": "ob3",
+    "exceptional": "ob8",
+    "elite": "obd",
+    "stack": 1
+  },
+  {
+    "code": "obe",
+    "level": 84,
+    "cost": 25207,
+    "gambleCost": 2161888,
+    "normal": "ob4",
+    "exceptional": "ob9",
+    "elite": "obe",
+    "stack": 1
+  },
+  {
+    "code": "obf",
+    "level": 85,
+    "cost": 20065,
+    "gambleCost": 1750525,
+    "normal": "ob5",
+    "exceptional": "oba",
+    "elite": "obf",
+    "stack": 1
+  },
+  {
+    "code": "opl",
+    "level": 4,
+    "cost": 24,
+    "gambleCost": 0,
+    "normal": "opl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "opm",
+    "level": 16,
+    "cost": 80,
+    "gambleCost": 0,
+    "normal": "opm",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "ops",
+    "level": 28,
+    "cost": 150,
+    "gambleCost": 0,
+    "normal": "ops",
+    "exceptional": null,
+    "elite": null,
+    "stack": 14
+  },
+  {
+    "code": "pa1",
+    "level": 4,
+    "cost": 384,
+    "gambleCost": 6317,
+    "normal": "pa1",
+    "exceptional": "pa6",
+    "elite": "pab",
+    "stack": 1
+  },
+  {
+    "code": "pa2",
+    "level": 8,
+    "cost": 982,
+    "gambleCost": 10517,
+    "normal": "pa2",
+    "exceptional": "pa7",
+    "elite": "pac",
+    "stack": 1
+  },
+  {
+    "code": "pa3",
+    "level": 16,
+    "cost": 2816,
+    "gambleCost": 21240,
+    "normal": "pa3",
+    "exceptional": "pa8",
+    "elite": "pad",
+    "stack": 1
+  },
+  {
+    "code": "pa4",
+    "level": 20,
+    "cost": 5158,
+    "gambleCost": 43557,
+    "normal": "pa4",
+    "exceptional": "pa9",
+    "elite": "pae",
+    "stack": 1
+  },
+  {
+    "code": "pa5",
+    "level": 24,
+    "cost": 6935,
+    "gambleCost": 82075,
+    "normal": "pa5",
+    "exceptional": "paa",
+    "elite": "paf",
+    "stack": 1
+  },
+  {
+    "code": "pa6",
+    "level": 35,
+    "cost": 32500,
+    "gambleCost": 82065,
+    "normal": "pa1",
+    "exceptional": "pa6",
+    "elite": "pab",
+    "stack": 1
+  },
+  {
+    "code": "pa7",
+    "level": 40,
+    "cost": 40941,
+    "gambleCost": 82066,
+    "normal": "pa2",
+    "exceptional": "pa7",
+    "elite": "pac",
+    "stack": 1
+  },
+  {
+    "code": "pa8",
+    "level": 46,
+    "cost": 52947,
+    "gambleCost": 82067,
+    "normal": "pa3",
+    "exceptional": "pa8",
+    "elite": "pad",
+    "stack": 1
+  },
+  {
+    "code": "pa9",
+    "level": 51,
+    "cost": 64807,
+    "gambleCost": 82068,
+    "normal": "pa4",
+    "exceptional": "pa9",
+    "elite": "pae",
+    "stack": 1
+  },
+  {
+    "code": "paa",
+    "level": 55,
+    "cost": 75374,
+    "gambleCost": 82069,
+    "normal": "pa5",
+    "exceptional": "paa",
+    "elite": "paf",
+    "stack": 1
+  },
+  {
+    "code": "pab",
+    "level": 63,
+    "cost": 72618,
+    "gambleCost": 82065,
+    "normal": "pa1",
+    "exceptional": "pa6",
+    "elite": "pab",
+    "stack": 1
+  },
+  {
+    "code": "pac",
+    "level": 70,
+    "cost": 85659,
+    "gambleCost": 82066,
+    "normal": "pa2",
+    "exceptional": "pa7",
+    "elite": "pac",
+    "stack": 1
+  },
+  {
+    "code": "pad",
+    "level": 74,
+    "cost": 97676,
+    "gambleCost": 82067,
+    "normal": "pa3",
+    "exceptional": "pa8",
+    "elite": "pad",
+    "stack": 1
+  },
+  {
+    "code": "pae",
+    "level": 82,
+    "cost": 120042,
+    "gambleCost": 82068,
+    "normal": "pa4",
+    "exceptional": "pa9",
+    "elite": "pae",
+    "stack": 1
+  },
+  {
+    "code": "paf",
+    "level": 85,
+    "cost": 139860,
+    "gambleCost": 82069,
+    "normal": "pa5",
+    "exceptional": "paa",
+    "elite": "paf",
+    "stack": 1
+  },
+  {
+    "code": "pax",
+    "level": 21,
+    "cost": 1701,
+    "gambleCost": 48721,
+    "normal": "pax",
+    "exceptional": "9pa",
+    "elite": "7pa",
+    "stack": 1
+  },
+  {
+    "code": "pik",
+    "level": 24,
+    "cost": 2023,
+    "gambleCost": 63052,
+    "normal": "pik",
+    "exceptional": "9p9",
+    "elite": "7p7",
+    "stack": 1
+  },
+  {
+    "code": "pil",
+    "level": 10,
+    "cost": 18,
+    "gambleCost": 7680,
+    "normal": "pil",
+    "exceptional": "9pi",
+    "elite": "7pi",
+    "stack": 37
+  },
+  {
+    "code": "pk1",
+    "level": 0,
+    "cost": 99999,
+    "gambleCost": 0,
+    "normal": "pk1",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "pk2",
+    "level": 0,
+    "cost": 99999,
+    "gambleCost": 0,
+    "normal": "pk2",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "pk3",
+    "level": 0,
+    "cost": 99999,
+    "gambleCost": 0,
+    "normal": "pk3",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "plt",
+    "level": 24,
+    "cost": 22335,
+    "gambleCost": 148510,
+    "normal": "plt",
+    "exceptional": "xlt",
+    "elite": "ult",
+    "stack": 1
+  },
+  {
+    "code": "qbr",
+    "level": 0,
+    "cost": 60,
+    "gambleCost": 0,
+    "normal": "qbr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qey",
+    "level": 0,
+    "cost": 45,
+    "gambleCost": 0,
+    "normal": "qey",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qf1",
+    "level": 0,
+    "cost": 1412,
+    "gambleCost": 0,
+    "normal": "fla",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qf2",
+    "level": 0,
+    "cost": 1412,
+    "gambleCost": 0,
+    "normal": "fla",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qhr",
+    "level": 0,
+    "cost": 60,
+    "gambleCost": 0,
+    "normal": "qhr",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qll",
+    "level": 0,
+    "cost": 32,
+    "gambleCost": 0,
+    "normal": "qll",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "qui",
+    "level": 1,
+    "cost": 140,
+    "gambleCost": 3035,
+    "normal": "qui",
+    "exceptional": "xui",
+    "elite": "uui",
+    "stack": 1
+  },
+  {
+    "code": "r01",
+    "level": 11,
+    "cost": 560,
+    "gambleCost": 0,
+    "normal": "r01",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r02",
+    "level": 11,
+    "cost": 560,
+    "gambleCost": 0,
+    "normal": "r02",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r03",
+    "level": 13,
+    "cost": 1260,
+    "gambleCost": 0,
+    "normal": "r03",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r04",
+    "level": 13,
+    "cost": 1260,
+    "gambleCost": 0,
+    "normal": "r04",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r05",
+    "level": 15,
+    "cost": 2240,
+    "gambleCost": 0,
+    "normal": "r05",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r06",
+    "level": 15,
+    "cost": 2240,
+    "gambleCost": 0,
+    "normal": "r06",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r07",
+    "level": 17,
+    "cost": 3500,
+    "gambleCost": 0,
+    "normal": "r07",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r08",
+    "level": 19,
+    "cost": 5040,
+    "gambleCost": 0,
+    "normal": "r08",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r09",
+    "level": 21,
+    "cost": 6860,
+    "gambleCost": 0,
+    "normal": "r09",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r10",
+    "level": 23,
+    "cost": 8960,
+    "gambleCost": 0,
+    "normal": "r10",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r11",
+    "level": 25,
+    "cost": 11340,
+    "gambleCost": 0,
+    "normal": "r11",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r12",
+    "level": 27,
+    "cost": 14000,
+    "gambleCost": 0,
+    "normal": "r12",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r13",
+    "level": 29,
+    "cost": 16940,
+    "gambleCost": 0,
+    "normal": "r13",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r14",
+    "level": 31,
+    "cost": 20160,
+    "gambleCost": 0,
+    "normal": "r14",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r15",
+    "level": 33,
+    "cost": 1715,
+    "gambleCost": 0,
+    "normal": "r15",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r16",
+    "level": 35,
+    "cost": 27440,
+    "gambleCost": 0,
+    "normal": "r16",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r17",
+    "level": 37,
+    "cost": 31500,
+    "gambleCost": 0,
+    "normal": "r17",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r18",
+    "level": 39,
+    "cost": 35840,
+    "gambleCost": 0,
+    "normal": "r18",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r19",
+    "level": 41,
+    "cost": 40460,
+    "gambleCost": 0,
+    "normal": "r19",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r20",
+    "level": 43,
+    "cost": 45360,
+    "gambleCost": 0,
+    "normal": "r20",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r21",
+    "level": 45,
+    "cost": 50540,
+    "gambleCost": 0,
+    "normal": "r21",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r22",
+    "level": 47,
+    "cost": 56000,
+    "gambleCost": 0,
+    "normal": "r22",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r23",
+    "level": 49,
+    "cost": 61740,
+    "gambleCost": 0,
+    "normal": "r23",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r24",
+    "level": 51,
+    "cost": 67760,
+    "gambleCost": 0,
+    "normal": "r24",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r25",
+    "level": 53,
+    "cost": 74060,
+    "gambleCost": 0,
+    "normal": "r25",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r26",
+    "level": 55,
+    "cost": 80640,
+    "gambleCost": 0,
+    "normal": "r26",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r27",
+    "level": 57,
+    "cost": 87500,
+    "gambleCost": 0,
+    "normal": "r27",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r28",
+    "level": 59,
+    "cost": 94640,
+    "gambleCost": 0,
+    "normal": "r28",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r29",
+    "level": 61,
+    "cost": 102060,
+    "gambleCost": 0,
+    "normal": "r29",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r30",
+    "level": 63,
+    "cost": 109760,
+    "gambleCost": 0,
+    "normal": "r30",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r31",
+    "level": 65,
+    "cost": 117740,
+    "gambleCost": 0,
+    "normal": "r31",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r32",
+    "level": 67,
+    "cost": 126000,
+    "gambleCost": 0,
+    "normal": "r32",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "r33",
+    "level": 69,
+    "cost": 134540,
+    "gambleCost": 0,
+    "normal": "r33",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "rin",
+    "level": 1,
+    "cost": 1800,
+    "gambleCost": 50000,
+    "normal": "rin",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "rng",
+    "level": 11,
+    "cost": 4428,
+    "gambleCost": 20177,
+    "normal": "rng",
+    "exceptional": "xng",
+    "elite": "ung",
+    "stack": 1
+  },
+  {
+    "code": "rpl",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "rpl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 7
+  },
+  {
+    "code": "rps",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "rps",
+    "exceptional": null,
+    "elite": null,
+    "stack": 7
+  },
+  {
+    "code": "rvl",
+    "level": 0,
+    "cost": 1500,
+    "gambleCost": 0,
+    "normal": "rvl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "rvs",
+    "level": 0,
+    "cost": 400,
+    "gambleCost": 0,
+    "normal": "rvs",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "rxb",
+    "level": 33,
+    "cost": 2739,
+    "gambleCost": 109387,
+    "normal": "rxb",
+    "exceptional": "8rx",
+    "elite": "6rx",
+    "stack": 1
+  },
+  {
+    "code": "sbb",
+    "level": 18,
+    "cost": 1045,
+    "gambleCost": 30310,
+    "normal": "sbb",
+    "exceptional": "8s8",
+    "elite": "6s7",
+    "stack": 1
+  },
+  {
+    "code": "sbr",
+    "level": 8,
+    "cost": 466,
+    "gambleCost": 10228,
+    "normal": "sbr",
+    "exceptional": "9sb",
+    "elite": "7sb",
+    "stack": 1
+  },
+  {
+    "code": "sbw",
+    "level": 1,
+    "cost": 100,
+    "gambleCost": 3100,
+    "normal": "sbw",
+    "exceptional": "8sb",
+    "elite": "6sb",
+    "stack": 1
+  },
+  {
+    "code": "scl",
+    "level": 13,
+    "cost": 6508,
+    "gambleCost": 30151,
+    "normal": "scl",
+    "exceptional": "xcl",
+    "elite": "ucl",
+    "stack": 1
+  },
+  {
+    "code": "scm",
+    "level": 5,
+    "cost": 274,
+    "gambleCost": 6370,
+    "normal": "scm",
+    "exceptional": "9sm",
+    "elite": "7sm",
+    "stack": 1
+  },
+  {
+    "code": "scp",
+    "level": 3,
+    "cost": 350,
+    "gambleCost": 5050,
+    "normal": "scp",
+    "exceptional": "9sc",
+    "elite": "7sc",
+    "stack": 1
+  },
+  {
+    "code": "scy",
+    "level": 15,
+    "cost": 848,
+    "gambleCost": 22720,
+    "normal": "scy",
+    "exceptional": "9s8",
+    "elite": "7s8",
+    "stack": 1
+  },
+  {
+    "code": "scz",
+    "level": 0,
+    "cost": 40,
+    "gambleCost": 0,
+    "normal": "scz",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "skc",
+    "level": 0,
+    "cost": 1000,
+    "gambleCost": 0,
+    "normal": "skc",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "skf",
+    "level": 0,
+    "cost": 3000,
+    "gambleCost": 0,
+    "normal": "skf",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "skl",
+    "level": 0,
+    "cost": 30000,
+    "gambleCost": 0,
+    "normal": "skl",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "skp",
+    "level": 5,
+    "cost": 441,
+    "gambleCost": 5551,
+    "normal": "skp",
+    "exceptional": "xkp",
+    "elite": "ukp",
+    "stack": 1
+  },
+  {
+    "code": "skr",
+    "level": 24,
+    "cost": 1029,
+    "gambleCost": 39196,
+    "normal": "skr",
+    "exceptional": "9qr",
+    "elite": "7qr",
+    "stack": 1
+  },
+  {
+    "code": "sku",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "sku",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "skz",
+    "level": 0,
+    "cost": 100000,
+    "gambleCost": 0,
+    "normal": "skz",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "sml",
+    "level": 5,
+    "cost": 410,
+    "gambleCost": 5512,
+    "normal": "sml",
+    "exceptional": "xml",
+    "elite": "uml",
+    "stack": 1
+  },
+  {
+    "code": "sol",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "sol",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "spc",
+    "level": 4,
+    "cost": 225,
+    "gambleCost": 5400,
+    "normal": "spc",
+    "exceptional": "9sp",
+    "elite": "7sp",
+    "stack": 1
+  },
+  {
+    "code": "spe",
+    "level": 0,
+    "cost": 85,
+    "gambleCost": 0,
+    "normal": "spe",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "spk",
+    "level": 11,
+    "cost": 1890,
+    "gambleCost": 13197,
+    "normal": "spk",
+    "exceptional": "xpk",
+    "elite": "upk",
+    "stack": 1
+  },
+  {
+    "code": "spl",
+    "level": 20,
+    "cost": 15489,
+    "gambleCost": 89945,
+    "normal": "spl",
+    "exceptional": "xpl",
+    "elite": "upl",
+    "stack": 1
+  },
+  {
+    "code": "spr",
+    "level": 5,
+    "cost": 300,
+    "gambleCost": 6500,
+    "normal": "spr",
+    "exceptional": "9sr",
+    "elite": "7sr",
+    "stack": 1
+  },
+  {
+    "code": "spt",
+    "level": 20,
+    "cost": 1672,
+    "gambleCost": 45940,
+    "normal": "spt",
+    "exceptional": "9st",
+    "elite": "7st",
+    "stack": 1
+  },
+  {
+    "code": "ssd",
+    "level": 1,
+    "cost": 72,
+    "gambleCost": 3072,
+    "normal": "ssd",
+    "exceptional": "9ss",
+    "elite": "7ss",
+    "stack": 1
+  },
+  {
+    "code": "ssp",
+    "level": 15,
+    "cost": 24,
+    "gambleCost": 10360,
+    "normal": "ssp",
+    "exceptional": "9s9",
+    "elite": "7s7",
+    "stack": 30
+  },
+  {
+    "code": "sst",
+    "level": 1,
+    "cost": 168,
+    "gambleCost": 3168,
+    "normal": "sst",
+    "exceptional": "8ss",
+    "elite": "6ss",
+    "stack": 1
+  },
+  {
+    "code": "std",
+    "level": 90,
+    "cost": 2000,
+    "gambleCost": 0,
+    "normal": "std",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "stu",
+    "level": 8,
+    "cost": 2385,
+    "gambleCost": 11270,
+    "normal": "stu",
+    "exceptional": "xtu",
+    "elite": "utu",
+    "stack": 1
+  },
+  {
+    "code": "swb",
+    "level": 27,
+    "cost": 2500,
+    "gambleCost": 83500,
+    "normal": "swb",
+    "exceptional": "8sw",
+    "elite": "6sw",
+    "stack": 1
+  },
+  {
+    "code": "tal",
+    "level": 0,
+    "cost": 63,
+    "gambleCost": 0,
+    "normal": "tal",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tax",
+    "level": 7,
+    "cost": 11,
+    "gambleCost": 6077,
+    "normal": "tax",
+    "exceptional": "9ta",
+    "elite": "7ta",
+    "stack": 73
+  },
+  {
+    "code": "tbk",
+    "level": 0,
+    "cost": 250,
+    "gambleCost": 0,
+    "normal": "tbk",
+    "exceptional": null,
+    "elite": null,
+    "stack": 10
+  },
+  {
+    "code": "tbl",
+    "level": 20,
+    "cost": 963,
+    "gambleCost": 17315,
+    "normal": "tbl",
+    "exceptional": "ztb",
+    "elite": "utc",
+    "stack": 1
+  },
+  {
+    "code": "tbt",
+    "level": 20,
+    "cost": 1630,
+    "gambleCost": 20650,
+    "normal": "tbt",
+    "exceptional": "xtb",
+    "elite": "utb",
+    "stack": 1
+  },
+  {
+    "code": "tch",
+    "level": 0,
+    "cost": 50,
+    "gambleCost": 0,
+    "normal": "tch",
+    "exceptional": null,
+    "elite": null,
+    "stack": 6
+  },
+  {
+    "code": "tes",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "tes",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tgl",
+    "level": 20,
+    "cost": 1635,
+    "gambleCost": 20675,
+    "normal": "tgl",
+    "exceptional": "xtg",
+    "elite": "utg",
+    "stack": 1
+  },
+  {
+    "code": "tkf",
+    "level": 2,
+    "cost": 6,
+    "gambleCost": 3512,
+    "normal": "tkf",
+    "exceptional": "9tk",
+    "elite": "7tk",
+    "stack": 100
+  },
+  {
+    "code": "toa",
+    "level": 0,
+    "cost": 99999,
+    "gambleCost": 0,
+    "normal": "toa",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tow",
+    "level": 22,
+    "cost": 4249,
+    "gambleCost": 36869,
+    "normal": "tow",
+    "exceptional": "xow",
+    "elite": "uow",
+    "stack": 1
+  },
+  {
+    "code": "tr1",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "tr1",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tr2",
+    "level": 0,
+    "cost": 0,
+    "gambleCost": 0,
+    "normal": "tr2",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tri",
+    "level": 9,
+    "cost": 683,
+    "gambleCost": 13147,
+    "normal": "tri",
+    "exceptional": "9tr",
+    "elite": "7tr",
+    "stack": 1
+  },
+  {
+    "code": "tsc",
+    "level": 0,
+    "cost": 100,
+    "gambleCost": 0,
+    "normal": "tsc",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "tsp",
+    "level": 29,
+    "cost": 48,
+    "gambleCost": 18392,
+    "normal": "tsp",
+    "exceptional": "9ts",
+    "elite": "7ts",
+    "stack": 56
+  },
+  {
+    "code": "uap",
+    "level": 58,
+    "cost": 56307,
+    "gambleCost": 503591,
+    "normal": "cap",
+    "exceptional": "xap",
+    "elite": "uap",
+    "stack": 1
+  },
+  {
+    "code": "uar",
+    "level": 85,
+    "cost": 373558,
+    "gambleCost": 4872212,
+    "normal": "aar",
+    "exceptional": "xar",
+    "elite": "uar",
+    "stack": 1
+  },
+  {
+    "code": "ucl",
+    "level": 73,
+    "cost": 262166,
+    "gambleCost": 2382039,
+    "normal": "scl",
+    "exceptional": "xcl",
+    "elite": "ucl",
+    "stack": 1
+  },
+  {
+    "code": "uea",
+    "level": 67,
+    "cost": 226927,
+    "gambleCost": 1785276,
+    "normal": "lea",
+    "exceptional": "xea",
+    "elite": "uea",
+    "stack": 1
+  },
+  {
+    "code": "uh9",
+    "level": 84,
+    "cost": 87274,
+    "gambleCost": 598161,
+    "normal": "bhm",
+    "exceptional": "xh9",
+    "elite": "uh9",
+    "stack": 1
+  },
+  {
+    "code": "uhb",
+    "level": 85,
+    "cost": 45459,
+    "gambleCost": 497859,
+    "normal": "hbt",
+    "exceptional": "xhb",
+    "elite": "uhb",
+    "stack": 1
+  },
+  {
+    "code": "uhc",
+    "level": 85,
+    "cost": 45051,
+    "gambleCost": 493775,
+    "normal": "hbl",
+    "exceptional": "zhb",
+    "elite": "uhc",
+    "stack": 1
+  },
+  {
+    "code": "uhg",
+    "level": 85,
+    "cost": 45481,
+    "gambleCost": 498191,
+    "normal": "hgl",
+    "exceptional": "xhg",
+    "elite": "uhg",
+    "stack": 1
+  },
+  {
+    "code": "uhl",
+    "level": 54,
+    "cost": 57806,
+    "gambleCost": 757863,
+    "normal": "fhl",
+    "exceptional": "xhl",
+    "elite": "uhl",
+    "stack": 1
+  },
+  {
+    "code": "uhm",
+    "level": 79,
+    "cost": 87168,
+    "gambleCost": 920880,
+    "normal": "ghm",
+    "exceptional": "xhm",
+    "elite": "uhm",
+    "stack": 1
+  },
+  {
+    "code": "uhn",
+    "level": 62,
+    "cost": 227700,
+    "gambleCost": 2536340,
+    "normal": "chn",
+    "exceptional": "xhn",
+    "elite": "uhn",
+    "stack": 1
+  },
+  {
+    "code": "uit",
+    "level": 72,
+    "cost": 81896,
+    "gambleCost": 576154,
+    "normal": "kit",
+    "exceptional": "xit",
+    "elite": "uit",
+    "stack": 1
+  },
+  {
+    "code": "ukp",
+    "level": 63,
+    "cost": 62739,
+    "gambleCost": 568276,
+    "normal": "skp",
+    "exceptional": "xkp",
+    "elite": "ukp",
+    "stack": 1
+  },
+  {
+    "code": "ula",
+    "level": 68,
+    "cost": 232573,
+    "gambleCost": 1891607,
+    "normal": "hla",
+    "exceptional": "xla",
+    "elite": "ula",
+    "stack": 1
+  },
+  {
+    "code": "ulb",
+    "level": 60,
+    "cost": 28315,
+    "gambleCost": 269938,
+    "normal": "lbt",
+    "exceptional": "xlb",
+    "elite": "ulb",
+    "stack": 1
+  },
+  {
+    "code": "ulc",
+    "level": 61,
+    "cost": 28842,
+    "gambleCost": 270466,
+    "normal": "lbl",
+    "exceptional": "zlb",
+    "elite": "ulc",
+    "stack": 1
+  },
+  {
+    "code": "uld",
+    "level": 81,
+    "cost": 308015,
+    "gambleCost": 3411990,
+    "normal": "fld",
+    "exceptional": "xld",
+    "elite": "uld",
+    "stack": 1
+  },
+  {
+    "code": "ulg",
+    "level": 57,
+    "cost": 26920,
+    "gambleCost": 269938,
+    "normal": "lgl",
+    "exceptional": "xlg",
+    "elite": "ulg",
+    "stack": 1
+  },
+  {
+    "code": "ulm",
+    "level": 68,
+    "cost": 69940,
+    "gambleCost": 671703,
+    "normal": "hlm",
+    "exceptional": "xlm",
+    "elite": "ulm",
+    "stack": 1
+  },
+  {
+    "code": "ult",
+    "level": 78,
+    "cost": 300130,
+    "gambleCost": 3197721,
+    "normal": "plt",
+    "exceptional": "xlt",
+    "elite": "ult",
+    "stack": 1
+  },
+  {
+    "code": "umb",
+    "level": 72,
+    "cost": 36456,
+    "gambleCost": 352010,
+    "normal": "mbt",
+    "exceptional": "xmb",
+    "elite": "umb",
+    "stack": 1
+  },
+  {
+    "code": "umc",
+    "level": 75,
+    "cost": 37134,
+    "gambleCost": 345000,
+    "normal": "mbl",
+    "exceptional": "zmb",
+    "elite": "umc",
+    "stack": 1
+  },
+  {
+    "code": "umg",
+    "level": 69,
+    "cost": 34964,
+    "gambleCost": 352152,
+    "normal": "mgl",
+    "exceptional": "xmg",
+    "elite": "umg",
+    "stack": 1
+  },
+  {
+    "code": "uml",
+    "level": 61,
+    "cost": 57189,
+    "gambleCost": 436543,
+    "normal": "sml",
+    "exceptional": "xml",
+    "elite": "uml",
+    "stack": 1
+  },
+  {
+    "code": "ung",
+    "level": 72,
+    "cost": 254435,
+    "gambleCost": 2243423,
+    "normal": "rng",
+    "exceptional": "xng",
+    "elite": "ung",
+    "stack": 1
+  },
+  {
+    "code": "uow",
+    "level": 79,
+    "cost": 97701,
+    "gambleCost": 693568,
+    "normal": "tow",
+    "exceptional": "xow",
+    "elite": "uow",
+    "stack": 1
+  },
+  {
+    "code": "upk",
+    "level": 68,
+    "cost": 85443,
+    "gambleCost": 413914,
+    "normal": "spk",
+    "exceptional": "xpk",
+    "elite": "upk",
+    "stack": 1
+  },
+  {
+    "code": "upl",
+    "level": 76,
+    "cost": 285351,
+    "gambleCost": 2882894,
+    "normal": "spl",
+    "exceptional": "xpl",
+    "elite": "upl",
+    "stack": 1
+  },
+  {
+    "code": "urg",
+    "level": 64,
+    "cost": 65914,
+    "gambleCost": 514278,
+    "normal": "lrg",
+    "exceptional": "xrg",
+    "elite": "urg",
+    "stack": 1
+  },
+  {
+    "code": "urn",
+    "level": 85,
+    "cost": 94770,
+    "gambleCost": 1042170,
+    "normal": "crn",
+    "exceptional": "xrn",
+    "elite": "urn",
+    "stack": 1
+  },
+  {
+    "code": "urs",
+    "level": 75,
+    "cost": 272206,
+    "gambleCost": 2676189,
+    "normal": "brs",
+    "exceptional": "xrs",
+    "elite": "urs",
+    "stack": 1
+  },
+  {
+    "code": "ush",
+    "level": 76,
+    "cost": 101842,
+    "gambleCost": 586580,
+    "normal": "bsh",
+    "exceptional": "xsh",
+    "elite": "ush",
+    "stack": 1
+  },
+  {
+    "code": "usk",
+    "level": 74,
+    "cost": 76578,
+    "gambleCost": 799703,
+    "normal": "msk",
+    "exceptional": "xsk",
+    "elite": "usk",
+    "stack": 1
+  },
+  {
+    "code": "utb",
+    "level": 81,
+    "cost": 41658,
+    "gambleCost": 420465,
+    "normal": "tbt",
+    "exceptional": "xtb",
+    "elite": "utb",
+    "stack": 1
+  },
+  {
+    "code": "utc",
+    "level": 82,
+    "cost": 41183,
+    "gambleCost": 411380,
+    "normal": "tbl",
+    "exceptional": "ztb",
+    "elite": "utc",
+    "stack": 1
+  },
+  {
+    "code": "utg",
+    "level": 76,
+    "cost": 39119,
+    "gambleCost": 420620,
+    "normal": "tgl",
+    "exceptional": "xtg",
+    "elite": "utg",
+    "stack": 1
+  },
+  {
+    "code": "uth",
+    "level": 82,
+    "cost": 323094,
+    "gambleCost": 3803464,
+    "normal": "gth",
+    "exceptional": "xth",
+    "elite": "uth",
+    "stack": 1
+  },
+  {
+    "code": "utp",
+    "level": 84,
+    "cost": 317526,
+    "gambleCost": 3851372,
+    "normal": "ltp",
+    "exceptional": "xtp",
+    "elite": "utp",
+    "stack": 1
+  },
+  {
+    "code": "uts",
+    "level": 84,
+    "cost": 109635,
+    "gambleCost": 856602,
+    "normal": "gts",
+    "exceptional": "xts",
+    "elite": "uts",
+    "stack": 1
+  },
+  {
+    "code": "utu",
+    "level": 70,
+    "cost": 243050,
+    "gambleCost": 2059887,
+    "normal": "stu",
+    "exceptional": "xtu",
+    "elite": "utu",
+    "stack": 1
+  },
+  {
+    "code": "uuc",
+    "level": 58,
+    "cost": 48303,
+    "gambleCost": 385227,
+    "normal": "buc",
+    "exceptional": "xuc",
+    "elite": "uuc",
+    "stack": 1
+  },
+  {
+    "code": "uui",
+    "level": 65,
+    "cost": 218357,
+    "gambleCost": 1685148,
+    "normal": "qui",
+    "exceptional": "xui",
+    "elite": "uui",
+    "stack": 1
+  },
+  {
+    "code": "uul",
+    "level": 83,
+    "cost": 336644,
+    "gambleCost": 4274953,
+    "normal": "ful",
+    "exceptional": "xul",
+    "elite": "uul",
+    "stack": 1
+  },
+  {
+    "code": "uvb",
+    "level": 66,
+    "cost": 32271,
+    "gambleCost": 305620,
+    "normal": "vbt",
+    "exceptional": "xvb",
+    "elite": "uvb",
+    "stack": 1
+  },
+  {
+    "code": "uvc",
+    "level": 68,
+    "cost": 32656,
+    "gambleCost": 300879,
+    "normal": "vbl",
+    "exceptional": "zvb",
+    "elite": "uvc",
+    "stack": 1
+  },
+  {
+    "code": "uvg",
+    "level": 63,
+    "cost": 30862,
+    "gambleCost": 306103,
+    "normal": "vgl",
+    "exceptional": "xvg",
+    "elite": "uvg",
+    "stack": 1
+  },
+  {
+    "code": "vbl",
+    "level": 7,
+    "cost": 192,
+    "gambleCost": 6336,
+    "normal": "vbl",
+    "exceptional": "zvb",
+    "elite": "uvc",
+    "stack": 1
+  },
+  {
+    "code": "vbt",
+    "level": 7,
+    "cost": 334,
+    "gambleCost": 6584,
+    "normal": "vbt",
+    "exceptional": "xvb",
+    "elite": "uvb",
+    "stack": 1
+  },
+  {
+    "code": "vgl",
+    "level": 7,
+    "cost": 352,
+    "gambleCost": 6616,
+    "normal": "vgl",
+    "exceptional": "xvg",
+    "elite": "uvg",
+    "stack": 1
+  },
+  {
+    "code": "vip",
+    "level": 15,
+    "cost": 400,
+    "gambleCost": 0,
+    "normal": "vip",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "vou",
+    "level": 11,
+    "cost": 611,
+    "gambleCost": 14721,
+    "normal": "vou",
+    "exceptional": "9vo",
+    "elite": "7vo",
+    "stack": 1
+  },
+  {
+    "code": "vps",
+    "level": 0,
+    "cost": 25,
+    "gambleCost": 0,
+    "normal": "vps",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "wax",
+    "level": 25,
+    "cost": 2123,
+    "gambleCost": 68075,
+    "normal": "wax",
+    "exceptional": "9wa",
+    "elite": "7wa",
+    "stack": 1
+  },
+  {
+    "code": "whm",
+    "level": 25,
+    "cost": 2081,
+    "gambleCost": 67025,
+    "normal": "whm",
+    "exceptional": "9wh",
+    "elite": "7wh",
+    "stack": 1
+  },
+  {
+    "code": "wms",
+    "level": 0,
+    "cost": 25,
+    "gambleCost": 0,
+    "normal": "wms",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "wnd",
+    "level": 2,
+    "cost": 205,
+    "gambleCost": 3910,
+    "normal": "wnd",
+    "exceptional": "9wn",
+    "elite": "7wn",
+    "stack": 1
+  },
+  {
+    "code": "wrb",
+    "level": 9,
+    "cost": 220,
+    "gambleCost": 8980,
+    "normal": "wrb",
+    "exceptional": "9wb",
+    "elite": "7wb",
+    "stack": 1
+  },
+  {
+    "code": "wsc",
+    "level": 34,
+    "cost": 3388,
+    "gambleCost": 134692,
+    "normal": "wsc",
+    "exceptional": "9wc",
+    "elite": "7wc",
+    "stack": 1
+  },
+  {
+    "code": "wsd",
+    "level": 27,
+    "cost": 1997,
+    "gambleCost": 69919,
+    "normal": "wsd",
+    "exceptional": "9wd",
+    "elite": "7wd",
+    "stack": 1
+  },
+  {
+    "code": "wsp",
+    "level": 21,
+    "cost": 2323,
+    "gambleCost": 61783,
+    "normal": "wsp",
+    "exceptional": "9ws",
+    "elite": "7ws",
+    "stack": 1
+  },
+  {
+    "code": "wst",
+    "level": 24,
+    "cost": 1985,
+    "gambleCost": 62140,
+    "normal": "wst",
+    "exceptional": "8ws",
+    "elite": "6ws",
+    "stack": 1
+  },
+  {
+    "code": "xap",
+    "level": 34,
+    "cost": 13560,
+    "gambleCost": 82061,
+    "normal": "cap",
+    "exceptional": "xap",
+    "elite": "uap",
+    "stack": 1
+  },
+  {
+    "code": "xar",
+    "level": 64,
+    "cost": 225120,
+    "gambleCost": 2696482,
+    "normal": "aar",
+    "exceptional": "xar",
+    "elite": "uar",
+    "stack": 1
+  },
+  {
+    "code": "xcl",
+    "level": 43,
+    "cost": 64242,
+    "gambleCost": 473193,
+    "normal": "scl",
+    "exceptional": "xcl",
+    "elite": "ucl",
+    "stack": 1
+  },
+  {
+    "code": "xea",
+    "level": 36,
+    "cost": 34960,
+    "gambleCost": 197896,
+    "normal": "lea",
+    "exceptional": "xea",
+    "elite": "uea",
+    "stack": 1
+  },
+  {
+    "code": "xh9",
+    "level": 50,
+    "cost": 37683,
+    "gambleCost": 348947,
+    "normal": "bhm",
+    "exceptional": "xh9",
+    "elite": "uh9",
+    "stack": 1
+  },
+  {
+    "code": "xhb",
+    "level": 54,
+    "cost": 20885,
+    "gambleCost": 223574,
+    "normal": "hbt",
+    "exceptional": "xhb",
+    "elite": "uhb",
+    "stack": 1
+  },
+  {
+    "code": "xhg",
+    "level": 54,
+    "cost": 20900,
+    "gambleCost": 223744,
+    "normal": "hgl",
+    "exceptional": "xhg",
+    "elite": "uhg",
+    "stack": 1
+  },
+  {
+    "code": "xhl",
+    "level": 45,
+    "cost": 29083,
+    "gambleCost": 233910,
+    "normal": "fhl",
+    "exceptional": "xhl",
+    "elite": "uhl",
+    "stack": 1
+  },
+  {
+    "code": "xhm",
+    "level": 51,
+    "cost": 37846,
+    "gambleCost": 355900,
+    "normal": "ghm",
+    "exceptional": "xhm",
+    "elite": "uhm",
+    "stack": 1
+  },
+  {
+    "code": "xhn",
+    "level": 45,
+    "cost": 75440,
+    "gambleCost": 574094,
+    "normal": "chn",
+    "exceptional": "xhn",
+    "elite": "uhn",
+    "stack": 1
+  },
+  {
+    "code": "xit",
+    "level": 45,
+    "cost": 23094,
+    "gambleCost": 189944,
+    "normal": "kit",
+    "exceptional": "xit",
+    "elite": "uit",
+    "stack": 1
+  },
+  {
+    "code": "xkp",
+    "level": 37,
+    "cost": 17210,
+    "gambleCost": 113647,
+    "normal": "skp",
+    "exceptional": "xkp",
+    "elite": "ukp",
+    "stack": 1
+  },
+  {
+    "code": "xla",
+    "level": 37,
+    "cost": 39090,
+    "gambleCost": 236758,
+    "normal": "hla",
+    "exceptional": "xla",
+    "elite": "ula",
+    "stack": 1
+  },
+  {
+    "code": "xlb",
+    "level": 36,
+    "cost": 9230,
+    "gambleCost": 64102,
+    "normal": "lbt",
+    "exceptional": "xlb",
+    "elite": "ulb",
+    "stack": 1
+  },
+  {
+    "code": "xld",
+    "level": 55,
+    "cost": 111674,
+    "gambleCost": 1103159,
+    "normal": "fld",
+    "exceptional": "xld",
+    "elite": "uld",
+    "stack": 1
+  },
+  {
+    "code": "xlg",
+    "level": 33,
+    "cost": 8480,
+    "gambleCost": 64102,
+    "normal": "lgl",
+    "exceptional": "xlg",
+    "elite": "ulg",
+    "stack": 1
+  },
+  {
+    "code": "xlm",
+    "level": 42,
+    "cost": 23075,
+    "gambleCost": 171804,
+    "normal": "hlm",
+    "exceptional": "xlm",
+    "elite": "ulm",
+    "stack": 1
+  },
+  {
+    "code": "xlt",
+    "level": 52,
+    "cost": 111395,
+    "gambleCost": 1017928,
+    "normal": "plt",
+    "exceptional": "xlt",
+    "elite": "ult",
+    "stack": 1
+  },
+  {
+    "code": "xmb",
+    "level": 43,
+    "cost": 14103,
+    "gambleCost": 114742,
+    "normal": "mbt",
+    "exceptional": "xmb",
+    "elite": "umb",
+    "stack": 1
+  },
+  {
+    "code": "xmg",
+    "level": 43,
+    "cost": 14111,
+    "gambleCost": 114806,
+    "normal": "mgl",
+    "exceptional": "xmg",
+    "elite": "umg",
+    "stack": 1
+  },
+  {
+    "code": "xml",
+    "level": 37,
+    "cost": 15451,
+    "gambleCost": 103735,
+    "normal": "sml",
+    "exceptional": "xml",
+    "elite": "uml",
+    "stack": 1
+  },
+  {
+    "code": "xng",
+    "level": 42,
+    "cost": 56600,
+    "gambleCost": 393748,
+    "normal": "rng",
+    "exceptional": "xng",
+    "elite": "ung",
+    "stack": 1
+  },
+  {
+    "code": "xow",
+    "level": 50,
+    "cost": 29550,
+    "gambleCost": 278500,
+    "normal": "tow",
+    "exceptional": "xow",
+    "elite": "uow",
+    "stack": 1
+  },
+  {
+    "code": "xpk",
+    "level": 42,
+    "cost": 23155,
+    "gambleCost": 172324,
+    "normal": "spk",
+    "exceptional": "xpk",
+    "elite": "upk",
+    "stack": 1
+  },
+  {
+    "code": "xpl",
+    "level": 49,
+    "cost": 93404,
+    "gambleCost": 788235,
+    "normal": "spl",
+    "exceptional": "xpl",
+    "elite": "upl",
+    "stack": 1
+  },
+  {
+    "code": "xrg",
+    "level": 42,
+    "cost": 19537,
+    "gambleCost": 148359,
+    "normal": "lrg",
+    "exceptional": "xrg",
+    "elite": "urg",
+    "stack": 1
+  },
+  {
+    "code": "xrn",
+    "level": 55,
+    "cost": 42458,
+    "gambleCost": 448816,
+    "normal": "crn",
+    "exceptional": "xrn",
+    "elite": "urn",
+    "stack": 1
+  },
+  {
+    "code": "xrs",
+    "level": 47,
+    "cost": 74719,
+    "gambleCost": 613456,
+    "normal": "brs",
+    "exceptional": "xrs",
+    "elite": "urs",
+    "stack": 1
+  },
+  {
+    "code": "xsh",
+    "level": 48,
+    "cost": 39143,
+    "gambleCost": 337523,
+    "normal": "bsh",
+    "exceptional": "xsh",
+    "elite": "ush",
+    "stack": 1
+  },
+  {
+    "code": "xsk",
+    "level": 48,
+    "cost": 27190,
+    "gambleCost": 241184,
+    "normal": "msk",
+    "exceptional": "xsk",
+    "elite": "usk",
+    "stack": 1
+  },
+  {
+    "code": "xtb",
+    "level": 49,
+    "cost": 16905,
+    "gambleCost": 160950,
+    "normal": "tbt",
+    "exceptional": "xtb",
+    "elite": "utb",
+    "stack": 1
+  },
+  {
+    "code": "xtg",
+    "level": 49,
+    "cost": 16913,
+    "gambleCost": 161025,
+    "normal": "tgl",
+    "exceptional": "xtg",
+    "elite": "utg",
+    "stack": 1
+  },
+  {
+    "code": "xth",
+    "level": 58,
+    "cost": 137817,
+    "gambleCost": 1457493,
+    "normal": "gth",
+    "exceptional": "xth",
+    "elite": "uth",
+    "stack": 1
+  },
+  {
+    "code": "xtp",
+    "level": 60,
+    "cost": 118407,
+    "gambleCost": 1327498,
+    "normal": "ltp",
+    "exceptional": "xtp",
+    "elite": "utp",
+    "stack": 1
+  },
+  {
+    "code": "xts",
+    "level": 56,
+    "cost": 39220,
+    "gambleCost": 422340,
+    "normal": "gts",
+    "exceptional": "xts",
+    "elite": "uts",
+    "stack": 1
+  },
+  {
+    "code": "xtu",
+    "level": 40,
+    "cost": 47582,
+    "gambleCost": 305707,
+    "normal": "stu",
+    "exceptional": "xtu",
+    "elite": "utu",
+    "stack": 1
+  },
+  {
+    "code": "xuc",
+    "level": 34,
+    "cost": 12562,
+    "gambleCost": 77123,
+    "normal": "buc",
+    "exceptional": "xuc",
+    "elite": "uuc",
+    "stack": 1
+  },
+  {
+    "code": "xui",
+    "level": 34,
+    "cost": 30552,
+    "gambleCost": 165635,
+    "normal": "qui",
+    "exceptional": "xui",
+    "elite": "uui",
+    "stack": 1
+  },
+  {
+    "code": "xul",
+    "level": 61,
+    "cost": 162672,
+    "gambleCost": 1888411,
+    "normal": "ful",
+    "exceptional": "xul",
+    "elite": "uul",
+    "stack": 1
+  },
+  {
+    "code": "xvb",
+    "level": 39,
+    "cost": 11393,
+    "gambleCost": 84859,
+    "normal": "vbt",
+    "exceptional": "xvb",
+    "elite": "uvb",
+    "stack": 1
+  },
+  {
+    "code": "xvg",
+    "level": 39,
+    "cost": 11420,
+    "gambleCost": 85063,
+    "normal": "vgl",
+    "exceptional": "xvg",
+    "elite": "uvg",
+    "stack": 1
+  },
+  {
+    "code": "xyz",
+    "level": 0,
+    "cost": 10000,
+    "gambleCost": 0,
+    "normal": "xyz",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "yps",
+    "level": 0,
+    "cost": 40,
+    "gambleCost": 0,
+    "normal": "yps",
+    "exceptional": null,
+    "elite": null,
+    "stack": 1
+  },
+  {
+    "code": "ywn",
+    "level": 12,
+    "cost": 745,
+    "gambleCost": 17440,
+    "normal": "ywn",
+    "exceptional": "9yw",
+    "elite": "7yw",
+    "stack": 1
+  },
+  {
+    "code": "zhb",
+    "level": 54,
+    "cost": 20350,
+    "gambleCost": 218512,
+    "normal": "hbl",
+    "exceptional": "zhb",
+    "elite": "uhc",
+    "stack": 1
+  },
+  {
+    "code": "zlb",
+    "level": 36,
+    "cost": 9304,
+    "gambleCost": 64486,
+    "normal": "lbl",
+    "exceptional": "zlb",
+    "elite": "ulc",
+    "stack": 1
+  },
+  {
+    "code": "zmb",
+    "level": 43,
+    "cost": 13143,
+    "gambleCost": 108261,
+    "normal": "mbl",
+    "exceptional": "zmb",
+    "elite": "umc",
+    "stack": 1
+  },
+  {
+    "code": "ztb",
+    "level": 49,
+    "cost": 15713,
+    "gambleCost": 151185,
+    "normal": "tbl",
+    "exceptional": "ztb",
+    "elite": "utc",
+    "stack": 1
+  },
+  {
+    "code": "zvb",
+    "level": 39,
+    "cost": 10700,
+    "gambleCost": 80809,
+    "normal": "vbl",
+    "exceptional": "zvb",
+    "elite": "uvc",
+    "stack": 1
+  }
+]

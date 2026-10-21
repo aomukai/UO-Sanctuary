@@ -29,6 +29,7 @@ public static class RunebarkHarvesting
     internal static void Successful(Mobile from, HarvestDefinition definition, double trainedSkill, Type resourceType, Random random = null)
     {
         if (!ClassProfessions.Enabled) { return; }
+        ProfessionProgression.HarvestGain(from, definition, trainedSkill, resourceType);
         if (definition.Skill == SkillName.Lumberjacking && typeof(Log).IsAssignableFrom(resourceType)) { Award(from, trainedSkill, random); }
         else if (definition.Skill == SkillName.Mining && typeof(BaseOre).IsAssignableFrom(resourceType)) { SocketGems.Award(from, trainedSkill, random); }
     }
