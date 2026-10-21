@@ -1,0 +1,155 @@
+diff --git a/Projects/UOContent/Engines/Insurance/InsuranceContentHooks.cs b/Projects/UOContent/Engines/Insurance/InsuranceContentHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Engines/Insurance/InsuranceContentHooks.cs
+@@ -0,0 +1,17 @@
++using System;
++using Server.Mobiles;
++
++namespace Server.Engines.Insurance;
++
++public static class InsuranceContentHooks
++{
++    public static Func<Mobile, Item, int> Cost { get; set; }
++    public static Func<Mobile, Item, bool> Eligible { get; set; }
++    public static Action<Mobile, Item, bool> Toggle { get; set; }
++    public static Action<Mobile> OpenMenu { get; set; }
++    public static Action<Mobile> BeforeDeath { get; set; }
++    public static Func<PlayerMobile, Item, bool> DeathItem { get; set; }
++    public static Action<Mobile> AfterDeath { get; set; }
++    public static Action<Mobile, Item> Received { get; set; }
++    public static Action<PlayerMobile> Deleted { get; set; }
++}
+diff --git a/Projects/UOContent/Engines/Insurance/Insurance.cs b/Projects/UOContent/Engines/Insurance/Insurance.cs
+--- a/Projects/UOContent/Engines/Insurance/Insurance.cs
++++ b/Projects/UOContent/Engines/Insurance/Insurance.cs
+@@ -19,10 +19,16 @@
+         ServerFeatureFlags.InsuranceEnabled = ServerConfiguration.GetSetting("insurance.enable", Core.AOS);
+     }
+ 
+-    public static int GetInsuranceCost(Mobile from, Item item) => 600;
++    public static int GetInsuranceCost(Mobile from, Item item) => InsuranceContentHooks.Cost?.Invoke(from, item) ?? 600;
+ 
+     public static void CheckInsuranceBeforeDeath(Mobile from)
+     {
++        if (InsuranceContentHooks.BeforeDeath != null)
++        {
++            InsuranceContentHooks.BeforeDeath(from);
++            return;
++        }
++
+         if (!Enabled)
+         {
+             return;
+@@ -47,6 +53,12 @@
+ 
+     public static void CheckInsuranceOnDeath(Mobile from)
+     {
++        if (InsuranceContentHooks.AfterDeath != null)
++        {
++            InsuranceContentHooks.AfterDeath(from);
++            return;
++        }
++
+         if (!Enabled || !_insuranceContexts.Remove(from, out var context))
+         {
+             return;
+@@ -67,6 +79,11 @@
+ 
+     public static bool CheckItemInsuranceOnDeath(PlayerMobile from, Item item)
+     {
++        if (InsuranceContentHooks.DeathItem != null)
++        {
++            return InsuranceContentHooks.DeathItem(from, item);
++        }
++
+         if (!Enabled || !item.Insured)
+         {
+             return false;
+@@ -118,6 +135,11 @@
+ 
+     public static bool CanInsure(Mobile from, Item item)
+     {
++        if (InsuranceContentHooks.Eligible != null)
++        {
++            return InsuranceContentHooks.Eligible(from, item);
++        }
++
+         if (!Enabled)
+         {
+             return false;
+@@ -174,6 +196,12 @@
+ 
+     public static void ToggleItemInsurance(Mobile from, Item item, bool target)
+     {
++        if (InsuranceContentHooks.Toggle != null)
++        {
++            InsuranceContentHooks.Toggle(from, item, target);
++            return;
++        }
++
+         if (item?.IsChildOf(from) != true)
+         {
+             if (target)
+@@ -271,6 +299,12 @@
+ 
+     public static void OpenItemInsuranceMenu(Mobile from)
+     {
++        if (InsuranceContentHooks.OpenMenu != null)
++        {
++            InsuranceContentHooks.OpenMenu(from);
++            return;
++        }
++
+         if (!from.CheckAlive() || from.NetState == null)
+         {
+             return;
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1,4 +1,4 @@
+-using System;
++﻿using System;
+ using System.Collections.Generic;
+ using System.Runtime.CompilerServices;
+ using ModernUO.CodeGeneratedEvents;
+@@ -1627,6 +1627,7 @@
+ 
+         public override void OnSubItemAdded(Item item)
+         {
++            InsuranceContentHooks.Received?.Invoke(this, item);
+             if (AccessLevel < AccessLevel.GameMaster && item.IsChildOf(Backpack))
+             {
+                 var maxWeight = StaminaSystem.GetMaxWeight(this);
+@@ -1714,6 +1715,7 @@
+ 
+         public override void OnItemAdded(Item item)
+         {
++            InsuranceContentHooks.Received?.Invoke(this, item);
+             base.OnItemAdded(item);
+             ClassCombatHooks.EquipmentChanged?.Invoke(this);
+ 
+@@ -2479,6 +2481,7 @@
+             state?.CancelAllTrades();
+ 
+             DropHolding();
++            Insurance.CheckInsuranceBeforeDeath(this);
+ 
+             // During AOS+, insured/blessed items are moved out of their child containers and put directly into the backpack.
+             // This fixes a "bug" where players put blessed items in nested bags and they were dropped on death
+@@ -2492,7 +2495,6 @@
+             }
+ 
+             EquipSnapshot = [..Items];
+-            Insurance.CheckInsuranceBeforeDeath(this);
+ 
+             ReceivedHonorContext?.OnTargetKilled();
+             SentHonorContext?.OnSourceKilled();
+@@ -3909,6 +3911,7 @@
+ 
+         public override void OnDelete()
+         {
++            InsuranceContentHooks.Deleted?.Invoke(this);
+             ReceivedHonorContext?.Cancel();
+             SentHonorContext?.Cancel();
+ 

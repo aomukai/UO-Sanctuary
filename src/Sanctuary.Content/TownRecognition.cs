@@ -60,7 +60,7 @@ public static partial class TownRecognition
         Invite(player);
         return true;
     }
-    public static bool HasHousingRights(Mobile player) => HasAccess(player);
+    public static bool HasHousingRights(Mobile player) => Housing.HasRights(player);
     public static bool HasAccess(Mobile player) => player is { Deleted: false } && Profiles != null && Profiles.Find(player).Earned != 0;
     public static void Open(PlayerMobile player, string site, Item wardrobe = null)
     {
@@ -76,6 +76,7 @@ public static partial class TownRecognition
         if (honor is not (RecognitionHonor.Hero or RecognitionHonor.Pillar)
             || (state.Eligible & honor) == 0 || (state.Earned & honor) != 0) { return false; }
         Profiles.Store(player, state with { Earned = state.Earned | honor });
+        Housing.Grant(player);
         player.SendMessage($"{Title(honor)}: {player.Name}, your service is recognized. You have permanent wardrobe access and the right to acquire a home. A house must still be purchased.");
         Registrar(site)?.Say($"{player.Name}, we recognize you as {Title(honor)}. May your deeds inspire our people.");
         Collect(player, site);

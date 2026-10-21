@@ -57,6 +57,14 @@ public static class WorkingBaselineChecks
                                     Log log => (int)log.Resource, Board board => (int)board.Resource, BaseHides hides => (int)hides.Resource,
                                     BaseLeather leather => (int)leather.Resource, _ => null }
                             }).ToArray(),
+                        Architects = TownRecognition.Halls.Select(h => new
+                            { h.Id, Mobile = World.FindMobile(Housing.Profiles.Architect(h.Id)) as Architect })
+                            .Where(e => e.Mobile is { Deleted: false }).Select(e => new
+                            {
+                                Hall = e.Id, Serial = e.Mobile.Serial.Value,
+                                Backpack = e.Mobile.Backpack?.Serial.Value ?? 0,
+                                GoldSerials = e.Mobile.Backpack?.Items.OfType<Gold>().Select(i => i.Serial.Value).ToArray() ?? []
+                            }).ToArray(),
                         Gold = World.Items.Values.OfType<Gold>().OrderBy(i => i.Serial.Value)
                             .Select(i => new { Serial = i.Serial.Value, i.Amount, i.Origin,
                                 Parent = i.Parent is IEntity entity ? entity.Serial.Value : 0 }).ToArray(),

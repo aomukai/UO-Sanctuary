@@ -42,12 +42,14 @@ public sealed class RecognitionGump : DynamicGump
         if (_site != null && TownRecognition.Pending(World.FindMobile(_owner)))
         { b.AddButton(22, 345, 4005, 4007, 3); b.AddLabel(57, 345, 0x481, "Collect pending awards"); }
         else
-        { b.AddLabel(22, 345, 0x47E, "A house must still be purchased. Furniture is awarded once."); }
+        { b.AddLabel(22, 345, 0x47E, "First wardrobe awarded free."); }
         if (_state.Earned == RecognitionHonor.Both && _wardrobe != null)
         { b.AddButton(22, 390, 4005, 4007, 4); b.AddLabel(57, 390, 0x481, "Reset active class points — 5,000 gold"); }
         else if (_state.Earned == RecognitionHonor.Both)
         { b.AddLabel(22, 390, 0x47E, "Use a nearby placed or public wardrobe for point resets."); }
         else { b.AddLabel(22, 390, 0x47E, "Both ceremonies unlock active-class point resets."); }
+        if (_site != null && _state.Earned != 0)
+        { b.AddButton(300, 345, 4005, 4007, 6); b.AddLabel(335, 345, 0x481, $"Wardrobe: {Housing.WardrobePrice} gold"); }
         b.AddButton(510, 18, 4017, 4019, 0);
     }
     private void Row(ref DynamicGumpBuilder b, RecognitionHonor honor, int y)
@@ -66,6 +68,7 @@ public sealed class RecognitionGump : DynamicGump
         { return; }
         _used = true;
         if (info.ButtonID == 0) { return; }
+        if (info.ButtonID == 6) { Housing.ReplaceWardrobe(player, _site); return; }
         if (info.ButtonID == 5) { WardrobeGump.DisplayTo(player, _wardrobe); return; }
         if (info.ButtonID == 4) { ClassRespec.DisplayTo(player, _wardrobe); return; }
         if (info.ButtonID == 3) { TownRecognition.Collect(player, _site); }

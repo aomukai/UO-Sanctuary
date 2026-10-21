@@ -1,0 +1,104 @@
+diff --git a/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs b/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs
+@@ -0,0 +1,14 @@
++using System;
++using Server.Mobiles;
++
++namespace Server.Items;
++
++public static class CorpseRecoveryHooks
++{
++    public static Func<Corpse, bool> ManagedDecay;
++    public static Action<Corpse> Created;
++    public static Action<Corpse> Loaded;
++    public static Action<Corpse> Deleted;
++    public static Func<Corpse, bool> Available;
++    public static Action<Mobile, Banker> Open;
++}
+diff --git a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/Corpse.cs
+@@ -447,6 +447,10 @@
+ 
+     public void Carve(Mobile from, Item item)
+     {
++        if (CorpseRecoveryHooks.Available?.Invoke(this) == false)
++        {
++            return;
++        }
+         if (SanctuaryConsumed)
+         {
+             from.SendMessage("This corpse has already been used.");
+@@ -639,12 +643,21 @@
+     public void BeginDecay(TimeSpan delay)
+     {
+         _decayTimer?.Stop();
++        _decayTimer = null;
++        if (CorpseRecoveryHooks.ManagedDecay?.Invoke(this) == true)
++        {
++            return;
++        }
+         _decayTimer = new InternalTimer(this, delay);
+         _decayTimer.Start();
+     }
+ 
++    [AfterDeserialization]
++    private void RestoreRecovery() => CorpseRecoveryHooks.Loaded?.Invoke(this);
++
+     public override void OnAfterDelete()
+     {
++        CorpseRecoveryHooks.Deleted?.Invoke(this);
+         _decayTimer?.Stop();
+         _decayTimer = null;
+         _liftingWornItem = null;
+@@ -727,6 +740,7 @@
+         }
+ 
+         c.MoveToWorld(loc, map);
++        CorpseRecoveryHooks.Created?.Invoke(c);
+ 
+         return c;
+     }
+@@ -841,10 +855,10 @@
+     }
+ 
+     public override bool CheckItemUse(Mobile from, Item item) =>
+-        base.CheckItemUse(from, item) && (item == this || CanLoot(from, item));
++        CorpseRecoveryHooks.Available?.Invoke(this) != false && base.CheckItemUse(from, item) && (item == this || CanLoot(from, item));
+ 
+     public override bool CheckLift(Mobile from, Item item, ref LRReason reject) =>
+-        base.CheckLift(from, item, ref reject) && CanLoot(from, item);
++        CorpseRecoveryHooks.Available?.Invoke(this) != false && base.CheckLift(from, item, ref reject) && CanLoot(from, item);
+ 
+     public override void OnItemUsed(Mobile from, Item item)
+     {
+@@ -985,6 +999,10 @@
+ 
+     public virtual void Open(Mobile from, bool checkSelfLoot)
+     {
++        if (CorpseRecoveryHooks.Available?.Invoke(this) == false)
++        {
++            return;
++        }
+         if (from.AccessLevel <= AccessLevel.Player && !from.InRange(GetWorldLocation(), 2))
+         {
+             from.SendLocalizedMessage(500446); // That is too far away.
+diff --git a/Projects/UOContent/Mobiles/Townfolk/Banker.cs b/Projects/UOContent/Mobiles/Townfolk/Banker.cs
+--- a/Projects/UOContent/Mobiles/Townfolk/Banker.cs
++++ b/Projects/UOContent/Mobiles/Townfolk/Banker.cs
+@@ -451,6 +451,13 @@
+ 
+     public override void OnSpeech(SpeechEventArgs e)
+     {
++        if (!e.Handled && e.Speech.Trim().Equals("recover", StringComparison.OrdinalIgnoreCase)
++            && CorpseRecoveryHooks.Open != null && e.Mobile.InRange(Location, 3))
++        {
++            e.Handled = true;
++            CorpseRecoveryHooks.Open(e.Mobile, this);
++            return;
++        }
+         if (!e.Handled && e.Mobile.InRange(Location, 12))
+         {
+             for (var i = 0; i < e.Keywords.Length; ++i)

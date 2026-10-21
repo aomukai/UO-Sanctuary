@@ -45,13 +45,17 @@ public static class SalvageChecks
     }
     internal static T Gear<T>(PlayerMobile p, T item, ItemOrigin origin = ItemOrigin.Drop, GearRarity rarity = GearRarity.Magic, int level = 30) where T : Item
     {
+        var insured = item.Insured;
         if (item.Origin != origin)
         {
             var replacement = ItemOrigins.Create(origin, () => item.GetType().CreateInstance<T>());
             item.Delete(); item = replacement;
         }
         if (!ClassGear.Definition(item).AllowsAffixes || ClassGear.CosmeticClothing(item)) { rarity = GearRarity.Normal; }
-        ClassGear.Profiles.Convert(item, level, rarity, new Random(42)); p.Backpack.DropItem(item); return item;
+        ClassGear.Profiles.Convert(item, level, rarity, new Random(42)); p.Backpack.DropItem(item);
+        // Install the protected-item fixture after receipt, which cancels inherited insurance.
+        item.Insured = insured;
+        return item;
     }
     private static string Skills(PlayerMobile p) => JsonSerializer.Serialize(Enumerable.Range(0, p.Skills.Length)
         .Select(i => p.Skills[i]).Select(s => new { s.BaseFixedPoint, s.CapFixedPoint, s.Lock }));

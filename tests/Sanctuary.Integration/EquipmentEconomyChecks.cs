@@ -65,9 +65,12 @@ public static class EquipmentEconomyChecks
     }
     private static T Gear<T>(T item, GearRarity rarity = GearRarity.Normal, int level = 30) where T : Item
     {
+        var insured = item.Insured;
         _items.Add(item);
         ClassGear.Profiles.Convert(item, level, rarity, new Random(42));
         _player.Backpack.DropItem(item);
+        // Install the protected-item fixture after receipt, which cancels inherited insurance.
+        item.Insured = insured;
         return item;
     }
     private static int Count<T>() where T : Item => _player.Backpack.GetAmount(typeof(T));

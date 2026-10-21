@@ -1,5 +1,7 @@
 # T14 — recognition and earned wardrobe access
 
+> T42 update: housing eligibility and full property access now extend across the account, with one home across architect/town routes. Recognition, certificates, wardrobe eligibility and class progression remain per character. See [T42 housing](t42-housing.md).
+
 Scope: permanent, per-character recognition from class level80 or any crafting skill100. Gathering does not qualify; Cartography does. Eligible characters receive a town-hall invitation. Recognition confers wardrobe/housing rights and named painting certificates; the first completed ceremony also awards one bookshelf wardrobe. Rights permit acquiring a house, without granting a free one. Craft switching is delivered by [T15](t15-wardrobe.md); actual housing acquisition/placement remains T42.
 
 User decisions confirmed20 October2026 (JST): rights survive lost/sold furniture or housing; ceremonies can be completed at any supported town hall; both honors can be earned separately, with one certificate each and furniture only once. Hero of the People uses the combat route; Pillar of Society uses the crafting route. These are stored honors, without changing the existing level/class display or deciding the later selectable-title catalogue.

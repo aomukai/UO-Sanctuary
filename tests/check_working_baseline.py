@@ -109,7 +109,7 @@ def check(output):
                     assert session.process.returncode == 0
                 finally:
                     session.close()
-        for key in ('Players', 'Gear', 'Gold'):
+        for key in ('Players', 'Gear', 'Gold', 'Architects'):
             assert snapshots[-2][key] == snapshots[-1][key], f'{key} changed after copied-world restart'
         assert all(p == progression[0] for p in progression), 'Serialized class/talent/allocation history changed on restart'
         if os.environ.get('SANCTUARY_TEST_PROFESSIONS') == '1':

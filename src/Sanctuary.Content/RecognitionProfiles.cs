@@ -22,6 +22,13 @@ public sealed class RecognitionProfiles : GenericPersistence
     public void Store(Mobile player, RecognitionState state) => _players[player.Serial] = state;
     public RecognitionOffice Office(string site) => _offices.GetValueOrDefault(site);
     public void Office(string site, RecognitionOffice office) => _offices[site] = office;
+    public IEnumerable<Serial> RecognizedOwners()
+    {
+        foreach (var (owner, state) in _players)
+        {
+            if (state.Earned != 0) { yield return owner; }
+        }
+    }
     public void Prune()
     {
         var removed = new List<Serial>();

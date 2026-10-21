@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using Server;
 using Server.Items;
+using Server.Accounting;
 using Server.Logging;
 using Server.Mobiles;
 
@@ -34,6 +35,7 @@ public static class RecognitionChecks
     private static PlayerMobile Player(DiabloClass characterClass = DiabloClass.Necromancer)
     {
         var player = new PlayerMobile { Player = true, Body = 0x190, Name = "RecognitionCheck" };
+        new Account("recognition-" + Guid.NewGuid().ToString("N"), Guid.NewGuid().ToString("N"))[0] = player;
         ClassCreation.Profiles.Assign(player, characterClass);
         player.AddItem(new Backpack());
         return player;

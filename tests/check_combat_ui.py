@@ -12,6 +12,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_ESCROW_UI") == "1":
+        from check_escrow_ui import exercise as escrow_exercise
+        escrow_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_INSURANCE_UI") == "1":
+        from check_insurance_ui import exercise as insurance_exercise
+        insurance_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_HOUSING_UI") == "1":
+        from check_housing_ui import exercise as housing_exercise
+        housing_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_EARNED_TITLES_UI") == "1":
         from check_earned_titles_ui import exercise as title_exercise
         title_exercise(window, click, capture)

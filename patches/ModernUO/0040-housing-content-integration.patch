@@ -1,0 +1,314 @@
+diff --git a/Projects/UOContent/Multis/Houses/HousingContentHooks.cs b/Projects/UOContent/Multis/Houses/HousingContentHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Multis/Houses/HousingContentHooks.cs
+@@ -0,0 +1,22 @@
++using System;
++
++namespace Server.Multis;
++
++public static class HousingContentHooks
++{
++    public static Func<Mobile, bool> AcquisitionAllowed { get; set; }
++    public static Func<Mobile, BaseHouse, bool> DemolitionRequested { get; set; }
++    public static bool AccountOwners { get; set; }
++    public static Action<BaseHouse, Mobile> OwnershipChanged { get; set; }
++
++    public static bool CanAcquire(Mobile from)
++    {
++        if (AcquisitionAllowed?.Invoke(from) != false)
++        {
++            return true;
++        }
++
++        from.SendMessage("Someone on your account must receive civic recognition before acquiring a home.");
++        return false;
++    }
++}
+diff --git a/Projects/UOContent/Multis/Houses/BaseHouse.cs b/Projects/UOContent/Multis/Houses/BaseHouse.cs
+--- a/Projects/UOContent/Multis/Houses/BaseHouse.cs
++++ b/Projects/UOContent/Multis/Houses/BaseHouse.cs
+@@ -282,6 +282,7 @@
+         public virtual bool IsAosRules => Core.AOS;
+ 
+         public virtual bool IsActive => true;
++        public virtual bool KeepUnowned => false;
+ 
+         public bool HasPersonalVendors
+         {
+@@ -349,6 +350,7 @@
+                     return;
+                 }
+ 
++                var previousOwner = m_Owner;
+                 if (m_Owner != null)
+                 {
+                     if (m_Table.TryGetValue(m_Owner, out var list) && list.Remove(this) && list.Count == 0)
+@@ -373,6 +375,7 @@
+                 }
+ 
+                 Sign?.InvalidateProperties();
++                HousingContentHooks.OwnershipChanged?.Invoke(this, previousOwner);
+             }
+         }
+ 
+@@ -437,6 +440,7 @@
+         public int MaxLockDowns { get; set; }
+ 
+         public Region Region => m_Region;
++        public virtual Region HouseRegionParent => null;
+         public List<Mobile> CoOwners { get; set; }
+ 
+         public List<Mobile> Friends { get; set; }
+@@ -1438,6 +1442,12 @@
+                 return null;
+             }
+ 
++            var regionalHouse = Region.Find(loc, map).GetRegion<HouseRegion>()?.House;
++            if (regionalHouse?.IsInside(loc, height) == true)
++            {
++                return regionalHouse;
++            }
++
+             foreach (var house in map.GetMultisInSector<BaseHouse>(loc))
+             {
+                 if (house.IsInside(loc, height))
+@@ -1509,6 +1519,8 @@
+                 Dices or RecallRune or TreasureMap or Clock or
+                 BaseInstrument or Dyes or VendorRentalContract or RewardBrazier;
+         }
++
++        public virtual bool IsPrivateAt(Point3D p) => !Public && IsInside(p, 16);
+ 
+         public virtual bool IsInside(Point3D p, int height)
+         {
+@@ -2284,6 +2296,10 @@
+             {
+                 from.SendLocalizedMessage(1005330); // You cannot transfer a house to yourself, silly.
+             }
++            else if (!HousingContentHooks.CanAcquire(to))
++            {
++                return;
++            }
+             else if (HasAccountHouse(to))
+             {
+                 from.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
+@@ -2357,6 +2373,10 @@
+             {
+                 transferor.SendLocalizedMessage(1005330); // You cannot transfer a house to yourself, silly.
+             }
++            else if (!HousingContentHooks.CanAcquire(transferee))
++            {
++                return;
++            }
+             else if (HasAccountHouse(transferee))
+             {
+                 transferor.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
+@@ -2536,7 +2556,7 @@
+             };
+         }
+ 
+-        public void ReleaseSecure(Mobile m, Item item)
++        public virtual void ReleaseSecure(Mobile m, Item item)
+         {
+             if (Secures == null || !IsOwner(m) || item is StrongBox || !IsActive)
+             {
+@@ -3255,7 +3275,7 @@
+                     Timer.StartTimer(RestoreRelocatedEntities);
+                 }
+ 
+-                if (m_Owner == null && Friends.Count == 0 && CoOwners.Count == 0)
++                if (!KeepUnowned && m_Owner == null && Friends.Count == 0 && CoOwners.Count == 0)
+                 {
+                     Timer.StartTimer(TimeSpan.FromSeconds(10.0), Delete);
+                 }
+@@ -3558,11 +3578,11 @@
+ 
+         public bool IsOwner(Mobile m) =>
+             m != null && (m == m_Owner || m.AccessLevel >= AccessLevel.GameMaster ||
+-                          IsAosRules && AccountHandler.CheckAccount(m, m_Owner));
++                          (IsAosRules || HousingContentHooks.AccountOwners) && AccountHandler.CheckAccount(m, m_Owner));
+ 
+         public bool IsCoOwner(Mobile m) =>
+             m != null && CoOwners != null &&
+-            (IsOwner(m) || CoOwners.Contains(m) || !IsAosRules && AccountHandler.CheckAccount(m, m_Owner));
++            (IsOwner(m) || CoOwners.Contains(m) || !(IsAosRules || HousingContentHooks.AccountOwners) && AccountHandler.CheckAccount(m, m_Owner));
+ 
+         public bool IsGuildMember(Mobile m) => m != null && Owner?.Guild != null && m.Guild == Owner.Guild;
+ 
+@@ -3796,7 +3816,7 @@
+                     return false;
+                 }
+ 
+-                if (HasAccountHouse(to))
++                if (!HousingContentHooks.CanAcquire(to) || HasAccountHouse(to))
+                 {
+                     from.SendLocalizedMessage(501388); // You cannot transfer ownership to another house owner or co-owner!
+                     return false;
+@@ -3819,7 +3839,7 @@
+                     return;
+                 }
+ 
+-                if (!accepted)
++                if (!accepted || !HousingContentHooks.CanAcquire(to) || HasAccountHouse(to))
+                 {
+                     return;
+                 }
+@@ -3837,6 +3857,7 @@
+                 _house.Bans.Clear();
+                 _house.Friends.Clear();
+                 _house.CoOwners.Clear();
++                _house.Access.Clear();
+                 _house.ChangeLocks(to);
+                 _house.LastTraded = Core.Now;
+             }
+diff --git a/Projects/UOContent/Multis/Houses/HousePlacementTool.cs b/Projects/UOContent/Multis/Houses/HousePlacementTool.cs
+--- a/Projects/UOContent/Multis/Houses/HousePlacementTool.cs
++++ b/Projects/UOContent/Multis/Houses/HousePlacementTool.cs
+@@ -192,7 +192,7 @@
+         {
+             _from.SendGump(new HousePlacementCategoryGump());
+         }
+-        else if (_from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(_from))
++        else if (_from.AccessLevel < AccessLevel.GameMaster && (!HousingContentHooks.CanAcquire(_from) || BaseHouse.HasAccountHouse(_from)))
+         {
+             _from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+         }
+@@ -1986,7 +1986,7 @@
+         {
+             case HousePlacementResult.Valid:
+                 {
+-                    if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
++                    if (from.AccessLevel < AccessLevel.GameMaster && (!HousingContentHooks.CanAcquire(from) || BaseHouse.HasAccountHouse(from)))
+                     {
+                         from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+                     }
+@@ -2089,7 +2089,7 @@
+         {
+             case HousePlacementResult.Valid:
+                 {
+-                    if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
++                    if (from.AccessLevel < AccessLevel.GameMaster && (!HousingContentHooks.CanAcquire(from) || BaseHouse.HasAccountHouse(from)))
+                     {
+                         from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+                     }
+diff --git a/Projects/UOContent/Multis/HouseDeed.cs b/Projects/UOContent/Multis/HouseDeed.cs
+--- a/Projects/UOContent/Multis/HouseDeed.cs
++++ b/Projects/UOContent/Multis/HouseDeed.cs
+@@ -33,7 +33,7 @@
+         {
+             from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+         }
+-        else if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
++        else if (from.AccessLevel < AccessLevel.GameMaster && (!HousingContentHooks.CanAcquire(from) || BaseHouse.HasAccountHouse(from)))
+         {
+             from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+         }
+@@ -61,7 +61,7 @@
+         {
+             from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
+         }
+-        else if (from.AccessLevel < AccessLevel.GameMaster && BaseHouse.HasAccountHouse(from))
++        else if (from.AccessLevel < AccessLevel.GameMaster && (!HousingContentHooks.CanAcquire(from) || BaseHouse.HasAccountHouse(from)))
+         {
+             from.SendLocalizedMessage(501271); // You already own a house, you may not place another!
+         }
+diff --git a/Projects/UOContent/Multis/Houses/HouseSign.cs b/Projects/UOContent/Multis/Houses/HouseSign.cs
+--- a/Projects/UOContent/Multis/Houses/HouseSign.cs
++++ b/Projects/UOContent/Multis/Houses/HouseSign.cs
+@@ -142,7 +142,7 @@
+         {
+             var canClaim = Owner.CoOwners?.Count > 0 && Owner.IsCoOwner(from) || Owner.IsFriend(from);
+ 
+-            if (canClaim && !BaseHouse.HasAccountHouse(from))
++            if (canClaim && HousingContentHooks.CanAcquire(from) && !BaseHouse.HasAccountHouse(from))
+             {
+                 Owner.Owner = from;
+                 Owner.LastTraded = Core.Now;
+@@ -164,7 +164,7 @@
+         {
+             var canClaim = Owner.IsCoOwner(m) || Owner.IsFriend(m);
+ 
+-            if (canClaim && !BaseHouse.HasAccountHouse(m))
++            if (canClaim && HousingContentHooks.CanAcquire(m) && !BaseHouse.HasAccountHouse(m))
+             {
+                 m.SendGump(
+                     new ClaimHouseWarningGump(okay => ClaimGump_Callback(m, okay))
+diff --git a/Projects/UOContent/Regions/HouseRegion.cs b/Projects/UOContent/Regions/HouseRegion.cs
+--- a/Projects/UOContent/Regions/HouseRegion.cs
++++ b/Projects/UOContent/Regions/HouseRegion.cs
+@@ -15,7 +15,7 @@
+ 
+     private bool m_Recursion;
+ 
+-    public HouseRegion(BaseHouse house) : base(null, house.Map, HousePriority, GetArea(house))
++    public HouseRegion(BaseHouse house) : base(null, house.Map, house.HouseRegionParent, HousePriority, GetArea(house))
+     {
+         House = house;
+ 
+@@ -35,7 +35,7 @@
+     {
+         var house = BaseHouse.FindHouseAt(pm);
+ 
+-        if (house?.Public == false && !house.IsFriend(pm))
++        if (house?.IsPrivateAt(pm.Location) == true && !house.HasAccess(pm))
+         {
+             pm.Location = house.BanLocation;
+         }
+@@ -103,7 +103,7 @@
+                     m.SendLocalizedMessage(501284); // You may not enter.
+                 }
+             }
+-            else if (House.IsAosRules && !House.Public && !House.HasAccess(m) && House.IsInside(m))
++            else if (House.IsPrivateAt(m.Location) && !House.HasAccess(m))
+             {
+                 m.Location = House.BanLocation;
+ 
+@@ -152,7 +152,7 @@
+             }
+ 
+             // Untamed creatures cannot enter private houses
+-            if (House.IsAosRules && !House.Public && bc?.Controlled == false)
++            if (House.IsPrivateAt(newLocation) && bc?.Controlled == false)
+             {
+                 return false;
+             }
+@@ -169,7 +169,7 @@
+                 return false;
+             }
+ 
+-            if (House.IsAosRules && !House.Public && !House.HasAccess(from) && House.IsInside(newLocation, 16))
++            if (House.IsPrivateAt(newLocation) && !House.HasAccess(from))
+             {
+                 if (!Core.SE)
+                 {
+diff --git a/Projects/UOContent/Gumps/Houses/ConfirmDemolishHouseGump.cs b/Projects/UOContent/Gumps/Houses/ConfirmDemolishHouseGump.cs
+--- a/Projects/UOContent/Gumps/Houses/ConfirmDemolishHouseGump.cs
++++ b/Projects/UOContent/Gumps/Houses/ConfirmDemolishHouseGump.cs
+@@ -61,6 +61,11 @@
+         if (!_house.IsOwner(from))
+         {
+             from.SendLocalizedMessage(501320); // Only the house owner may do this.
++            return;
++        }
++
++        if (HousingContentHooks.DemolitionRequested?.Invoke(from, _house) == true)
++        {
+             return;
+         }
+ 
+diff --git a/Projects/UOContent/Gumps/Houses/HouseGumpAOS.cs b/Projects/UOContent/Gumps/Houses/HouseGumpAOS.cs
+--- a/Projects/UOContent/Gumps/Houses/HouseGumpAOS.cs
++++ b/Projects/UOContent/Gumps/Houses/HouseGumpAOS.cs
+@@ -1446,6 +1446,11 @@
+                         {
+                             case 0: // Demolish
+                                 {
++                                    if (isOwner && HousingContentHooks.DemolitionRequested?.Invoke(from, _house) == true)
++                                    {
++                                        break;
++                                    }
++
+                                     if (isOwner && _house.MovingCrate == null && _house.InternalizedVendors.Count == 0)
+                                     {
+                                         if (!Guild.NewGuildSystem && _house.FindGuildstone() != null)

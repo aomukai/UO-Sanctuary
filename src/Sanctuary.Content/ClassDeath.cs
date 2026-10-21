@@ -93,6 +93,7 @@ public static class ClassDeath
     }
     public static bool Recover(PlayerMobile player, Corpse corpse)
     {
+        if (!CorpseEscrow.Available(corpse)) { return false; }
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Deleted || player.Frozen || player.Paralyzed || !AlliedOverlap.Allowed(player)
             || player.Holding != null || player.Backpack == null || corpse is not { Deleted: false, Parent: null }
             || corpse.Owner != player || corpse.OwnerWasBaseCreature || corpse.Map != player.Map

@@ -1,0 +1,5 @@
+[
+  { "Rarity": "Normal", "Normal": 100, "Exceptional": 200, "Elite": 300 },
+  { "Rarity": "Magic", "Normal": 250, "Exceptional": 500, "Elite": 750 },
+  { "Rarity": "Rare", "Normal": 500, "Exceptional": 1000, "Elite": 1500 }
+]
