@@ -51,7 +51,7 @@ These are the residual fields in existing IDs, not a new request to re-answer th
 | Tomes/maps/keys — I02, L04/L05/L07 | T34 implements tome supply. T37 implements matching-tier single-use keys, consumed only on successful unlock. **T32 confirmed/implemented:** City5% applies only to ordinary town-shop purchases; whole named dungeon across floors, bound to facet/name, expires on exit. See [T32](t32-map-surveys.md). |
 | Shops/drop adaptation — M05/M06, N02 | What “level41/70” stock caps measure; Vendor-origin resale cases; unsupported Set/Unique outcomes when adapting D2 generation. |
 | Death/companions — O02/O03/O05 | Escrow fee/timing/capacity and deletion decision point; insurance duration/payment/renewal/retention; mercenary drink thresholds and reserve-capacity meaning. |
-| Wardrobe/titles — Q02–Q13 | Unfilled class pool/status/timer, summon, shared state, storage, ownership/first-class setup, Power Scroll, workshop-exception and title choices remain as previously listed. Copied blank Q rows are not answers. |
+| Wardrobe/titles — Q02–Q13 | T39/T40 settle shared percentage pools, independent histories/bindings, real class equipment storage/retrieval and summon parking/lifetimes/follower accounting. T41 settles permanent class99 prefixes, Grandmaster100/Elder110/Legendary120 skill suffixes, independent earned selections/hides and cosmetic legacy-title replacement. Workshop exceptions and housing acquisition remain open. T38 resolves all13 skill-specific, tradable Power Scrolls, ordered cap use per character and rare boss drop weights. Copied blank Q rows are not answers. |
 
 ## Delegated authoring and reference work
 

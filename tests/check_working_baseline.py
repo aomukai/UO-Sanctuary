@@ -100,7 +100,9 @@ def check(output):
                     (output / f'copied-world-{iteration + 1}.json').write_text(json.dumps(snapshot, indent=2))
                     session.send('save')
                     session.expect('Writing world save snapshot done')
-                    progression.append(hashes(folder / 'Saves/SanctuaryCharacters'))
+                    progression.append({'Characters': hashes(folder / 'Saves/SanctuaryCharacters'),
+                                        'Bindings': hashes(folder / 'Saves/SanctuaryBindings'),
+                                        'Titles': hashes(folder / 'Saves/SanctuaryEarnedTitles')})
                     session.send('shutdown')
                     session.expect('Shutting down')
                     session.process.wait(timeout=20)

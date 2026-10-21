@@ -41,6 +41,7 @@ public sealed record RewardLife(BaseCreature Creature, Corpse Corpse, PlayerMobi
         MouldRewards.Award(life, random);
         Fortification.Award(life, random);
         TreasureHunts.Award(life, random);
+        ProfessionPowerScrolls.Award(life, random);
         return CreatureExperience.Award(life);
     }
 }

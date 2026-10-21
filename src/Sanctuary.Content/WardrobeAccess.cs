@@ -43,7 +43,7 @@ public static class WardrobeAccess
         var session = ClassCombat.For(player);
         long now = Core.TickCount;
         if (session.Target != Serial.Zero || session.CastTarget != Serial.Zero || session.HeldAttack || session.PendingAbility != CombatAbility.None || session.HeldAbility != CombatAbility.None
-            || now - session.NextAction < 0 || HitRecovery.Active(player, now)
+            || now - session.NextAction < 0 || now - session.RecoveryUntil < 0 || HitRecovery.Active(player, now)
             || now - player.NextSkillTime < 0 || now - player.NextSpellTime < 0
             || !player.CanBeginAction<Server.Engines.Craft.CraftSystem>()) { return false; }
         foreach (var aggression in player.Aggressors)

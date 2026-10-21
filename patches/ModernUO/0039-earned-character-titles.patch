@@ -1,0 +1,113 @@
+diff --git a/Projects/UOContent/Misc/Titles.cs b/Projects/UOContent/Misc/Titles.cs
+--- a/Projects/UOContent/Misc/Titles.cs
++++ b/Projects/UOContent/Misc/Titles.cs
+@@ -289,6 +289,10 @@
+ 
+         public static string ComputeTitle(Mobile beholder, Mobile beheld)
+         {
++            if (beheld is PlayerMobile player && CharacterTitleHooks.Display?.Invoke(player) is { } display)
++            {
++                return display.Paperdoll(player.Name ?? "");
++            }
+             using var title = ValueStringBuilder.Create();
+ 
+             var fame = beheld.Fame;
+diff --git a/Projects/UOContent/Mobiles/CharacterTitleHooks.cs b/Projects/UOContent/Mobiles/CharacterTitleHooks.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/CharacterTitleHooks.cs
+@@ -0,0 +1,64 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Guilds;
++using Server.Network;
++
++namespace Server.Mobiles;
++
++public readonly record struct CharacterTitleDisplay(string Prefix, string Suffix, string Progression)
++{
++    public string Name(string name) => Prefix.Length == 0
++        ? Suffix.Length == 0 ? name : $"{name}, {Suffix}"
++        : Suffix.Length == 0 ? $"{Prefix} {name}" : $"{Prefix} {name}, {Suffix}";
++    public string Paperdoll(string name) => $"{Name(name)} {Progression}";
++}
++
++public static class CharacterTitleHooks
++{
++    public static Func<PlayerMobile, CharacterTitleDisplay?> Display { get; set; }
++}
++
++public partial class PlayerMobile
++{
++    private string TitleGuildType => Guild?.Type switch
++    {
++        GuildType.Chaos => " (Chaos)", GuildType.Order => " (Order)", _ => ""
++    };
++
++    public override void AddNameProperties(IPropertyList list)
++    {
++        if (CharacterTitleHooks.Display?.Invoke(this) is not { } display)
++        {
++            base.AddNameProperties(list);
++            return;
++        }
++        string prefix = display.Prefix.Length == 0 ? " " : $"{display.Prefix} ";
++        string suffix = display.Suffix.Length == 0 ? "" : $", {display.Suffix}";
++        if (Guild != null) { suffix = $"{suffix} [{Guild.Abbreviation.FixHtmlFormattable()}]"; }
++        list.Add(1050045, $"{prefix}\t{Name ?? " "}\t{suffix}");
++        list.Add($"{display.Progression}");
++        // Keep guild presentation independent from the two achievement slots.
++        if (Guild != null && (DisplayGuildTitle || Guild.Type != GuildType.Regular))
++        {
++            string guildTitle = GuildTitle?.Trim() ?? "";
++            if (guildTitle.Length == 0) { list.Add(Guild.Name.FixHtml()); }
++            else if (NewGuildDisplay) { list.Add($"{guildTitle.FixHtmlFormattable()}{", "}{Guild.Name.FixHtmlFormattable()}"); }
++            else { list.Add($"{guildTitle.FixHtmlFormattable()}{", "}{Guild.Name.FixHtmlFormattable()}{" Guild"}{TitleGuildType}"); }
++        }
++    }
++
++    private bool SingleClickCharacterTitle(Mobile from)
++    {
++        if (CharacterTitleHooks.Display?.Invoke(this) is not { } display) { return false; }
++        if (Deleted || AccessLevel == AccessLevel.Player && DisableHiddenSelfClick && Hidden && from == this) { return true; }
++        if (GuildClickMessage && Guild != null && (DisplayGuildTitle || Guild.Type != GuildType.Regular))
++        {
++            string title = GuildTitle?.Trim() ?? "";
++            if (title.Length == 0) { PrivateOverheadMessage(MessageType.Regular, SpeechHue, true, $"[{Guild.Abbreviation}]{TitleGuildType}", from.NetState); }
++            else { PrivateOverheadMessage(MessageType.Regular, SpeechHue, true, $"[{title}, {Guild.Abbreviation}]{TitleGuildType}", from.NetState); }
++        }
++        int hue = NameHue != -1 ? NameHue : AccessLevel > AccessLevel.Player ? 11 : Notoriety.GetHue(Notoriety.Compute(from, this));
++        PrivateOverheadMessage(MessageType.Label, hue, AsciiClickMessage, display.Paperdoll(Name ?? ""), from.NetState);
++        return true;
++    }
++}
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3418,7 +3418,7 @@
+ 
+             // TODO: Add the Titles Menu for later Eras:
+             // https://uo.com/wiki/ultima-online-wiki/player/skill-titles-order/
+-            if (DisplayChampionTitle)
++            if (DisplayChampionTitle && CharacterTitleHooks.Display?.Invoke(this) == null)
+             {
+                 var titleLabel = ChampionTitleSystem.GetChampionTitleLabel(this);
+                 if (titleLabel > 0)
+@@ -3481,7 +3481,7 @@
+                 }
+             }
+ 
+-            base.OnSingleClick(from);
++            if (!SingleClickCharacterTitle(from)) { base.OnSingleClick(from); }
+         }
+ 
+         protected override bool OnMove(Direction d)
+@@ -4250,7 +4250,7 @@
+                 return;
+             }
+ 
+-            if (DisplayChampionTitle)
++            if (DisplayChampionTitle && CharacterTitleHooks.Display?.Invoke(this) == null)
+             {
+                 // You have chosen to hide your monster kill title.
+                 SendLocalizedMessage(1062419, "", 0x23);

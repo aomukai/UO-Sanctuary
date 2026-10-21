@@ -94,7 +94,7 @@ public static class WardrobeUiChecks
     }
     private static void Guards()
     {
-        foreach (int[] switches in new int[][] { [], [103], [1000], [103, 1000, 103], [103, 1000, 1037], [104, 1037], [103, 1018], [103, -1] })
+        foreach (int[] switches in new int[][] { [], [103], [1000], [103, 1000, 103], [103, 1000, 1037], [255, 1037], [103, 1018], [103, -1] })
         {
             var gump = new WardrobeGump(_player, Wardrobe);
             var reply = new RelayInfo(1, switches, [], [], []); gump.OnResponse(_player.NetState, reply);

@@ -132,8 +132,8 @@ public static class WardrobeChecks
         TownRecognition.BeginSession(p);
         Require(!WardrobeSwitch.Commit(p, wardrobe, token, profile, profession, profile.Class, SkillName.Imbuing), "Old session accepted");
         token = TownRecognition.BeginSession(p);
-        Require(!WardrobeSwitch.Commit(p, wardrobe, token, profile, profession, DiabloClass.Paladin, SkillName.Imbuing)
-            && !WardrobeSwitch.Commit(p, wardrobe, token, profile, profession, profile.Class, SkillName.Mining), "Class/gathering selection accepted");
+        Require(!WardrobeSwitch.Commit(p, wardrobe, token, profile, profession, (DiabloClass)255, SkillName.Imbuing)
+            && !WardrobeSwitch.Commit(p, wardrobe, token, profile, profession, profile.Class, SkillName.Mining), "Invalid class/gathering selection accepted");
         var location = p.Location; p.MoveToWorld(new Point3D(p.X + 40, p.Y, p.Z), p.Map); Reject("Remote switch accepted"); p.MoveToWorld(location, p.Map);
         var fake = new PublicRecognitionWardrobe("Felucca/Britain", "Fake"); fake.MoveToWorld(p.Location, p.Map);
         Require(!Swap(p, fake, SkillName.Imbuing), "Unregistered wardrobe accepted"); fake.Delete();

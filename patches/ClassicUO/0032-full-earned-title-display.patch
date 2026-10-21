@@ -1,0 +1,113 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -31,6 +31,7 @@
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
++    <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/StatProtocol.cs" Link="Game/Data/StatProtocol.cs" />
+     <Compile Include="../../../../shared/BeltProtocol.cs" Link="Game/Data/BeltProtocol.cs" />
+diff --git a/src/ClassicUO.Client/Game/CharacterTitlesClient.cs b/src/ClassicUO.Client/Game/CharacterTitlesClient.cs
+new file mode 100644
+--- /dev/null
++++ b/src/ClassicUO.Client/Game/CharacterTitlesClient.cs
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: BSD-2-Clause
++using System.Collections.Generic;
++using ClassicUO.Game.Managers;
++using ClassicUO.Game.UI.Gumps;
++using ClassicUO.IO;
++using Sanctuary;
++
++namespace ClassicUO.Game;
++
++internal static class CharacterTitlesClient
++{
++    private static readonly Dictionary<uint, string> _titles = new();
++    public static string Text(uint serial) => _titles.TryGetValue(serial, out string title) ? title : null;
++    public static void Reset() => _titles.Clear();
++    public static void Receive(World world, ref StackDataReader reader)
++    {
++        if (reader.Length - reader.Position < 6 || reader.ReadUInt8() != TitleProtocol.Version) { return; }
++        uint serial = reader.ReadUInt32BE(); int length = (int)(reader.Length - reader.Position);
++        if (length is < 1 or > TitleProtocol.MaxTextBytes || !world.Mobiles.TryGetValue(serial, out var mobile)) { return; }
++        string text = reader.ReadUTF8(length);
++        if (_titles.Count >= 256 && !_titles.ContainsKey(serial)) { _titles.Clear(); }
++        _titles[serial] = text;
++        UIManager.GetGump<PaperDollGump>(serial)?.UpdateTitle(mobile.Title);
++    }
++}
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -114,6 +114,7 @@
+         ClassLootClient.Reset();
+         ClassBeltClient.Reset();
+         ClassSkillBindingsClient.Reset();
++        CharacterTitlesClient.Reset();
+         _animations.Clear();
+         _nextAnimationCleanup = Time.Ticks;
+         Enabled = _queried = _pursuing = _rightHeld = _wasDead = false;
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/PaperdollGump.cs
+@@ -34,6 +34,8 @@
+         private GumpPic _profilePic;
+         private readonly List<EquipmentSlot> _slots = new List<EquipmentSlot>();
+         private Label _titleLabel;
++        private Label _earnedTitleLabel;
++        private AlphaBlendControl _earnedTitleBackground;
+         private string _paperdollTitle;
+         private GumpPic _virtueMenuPic;
+         private Button _warModeBtn;
+@@ -74,6 +76,7 @@
+                     }
+ 
+                     _picBase.IsVisible = true;
++                    if (_titleLabel != null) { UpdateTitle(_paperdollTitle); }
+                     WantUpdateSize = true;
+                 }
+             }
+@@ -318,6 +321,10 @@
+             _titleLabel = new Label("", false, 0x0386, 185, font: 1) { X = 39, Y = 262 };
+ 
+             Add(_titleLabel);
++            Add(_earnedTitleBackground = new AlphaBlendControl(0.9f)
++            { X = 16, Y = 256, Width = 230, Height = 50, IsVisible = false, AcceptMouseInput = false });
++            Add(_earnedTitleLabel = new Label("", true, 0x0481, 218, font: 1)
++            { X = 22, Y = 262, IsVisible = false, AcceptMouseInput = false });
+ 
+             RequestUpdateContents();
+         }
+@@ -333,7 +340,14 @@
+         public void UpdateTitle(string text)
+         {
+             _paperdollTitle = text;
++            string earned = CharacterTitlesClient.Text(LocalSerial);
++            bool custom = earned != null;
+             _titleLabel.Text = FormatTitle(text);
++            _titleLabel.IsVisible = !custom && !IsMinimized;
++            _earnedTitleLabel.Text = earned ?? "";
++            _earnedTitleLabel.IsVisible = _earnedTitleBackground.IsVisible = custom && !IsMinimized;
++            _earnedTitleBackground.Height = Math.Max(50, _earnedTitleLabel.Height + 12);
++            WantUpdateSize = true;
+         }
+ 
+         private static string FormatTitle(string text)
+diff --git a/src/ClassicUO.Client/Network/PacketHandlers.cs b/src/ClassicUO.Client/Network/PacketHandlers.cs
+--- a/src/ClassicUO.Client/Network/PacketHandlers.cs
++++ b/src/ClassicUO.Client/Network/PacketHandlers.cs
+@@ -4137,6 +4137,11 @@
+                 ClassCombatClient.ReceiveAnimation(world, ref p);
+                 return;
+             }
++            if (cmd == Sanctuary.TitleProtocol.SubCommand)
++            {
++                CharacterTitlesClient.Receive(world, ref p);
++                return;
++            }
+             if (cmd == Sanctuary.SkillBindingProtocol.SubCommand)
+             {
+                 ClassSkillBindingsClient.Receive(world, ref p);

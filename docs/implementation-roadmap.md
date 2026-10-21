@@ -328,25 +328,26 @@ Dependencies refer to completed behavior, not just documentation. Spec IDs resol
   - [T37](t37-treasure-hunts.md) implements five named tiers, independent1% map drops, modern decode thresholds, spacious authored rooms with randomized connections, owner/pet two-hour persistent hunts, matching single-use keys and20/40/60/80/100% rare recipes. User-confirmed difficulty bands culminate in Hell85–99 with a shared random immunity pair, disclosed on deciphering; Hoard uses Hell70–80 with one immunity plus high elemental resistance. Native Fishing/SOS research remains a separate sea route.
   - Acceptance: map→decipher/search→encounter→key/chest→learn recipe, retained skills, once-only rewards, offline persistence and expiry recovery. Approved configurable rewards include one usable socket gem per chest. Deployment verification is recorded in the T37 document.
 
-- [ ] **T38 — Boss Power Scroll drops and cap unlocks.**
+- [x] **T38 — Boss Power Scroll drops and cap unlocks.**
   - Depends: T05, T35. Owners: Career, Rewards. Spec: A03/Q09.
-  - Settle profession specificity, owner scope, order/tradability and rare boss weights; apply105/110/115/120 caps without granting skill levels. Use dungeon bosses authored in T35, not unsupported D2 act bosses.
+  - [T38](t38-power-scrolls.md) implements all13 skill-specific, freely tradable scrolls and permanent per-character sequential105/110/115/120 caps, including inactive crafts, without granting trained points. User-approved separate1% unique/5% named super-unique drops; actual boss levels60/70/80/90 unlock equally weighted cap tiers. Uses T35/T37 dungeon bosses and the shared saved reward-life claim, without MF.
   - Accept: dropped/traded/used scroll, already-unlocked/out-of-order cases, inactive craft and relog preserve the right cap and consume correctly. Both120 recipes and their skill caps have production acquisition.
 
-- [ ] **T39 — Migrate to independent class histories.**
+- [x] **T39 — Migrate to independent class histories.**
   - Depends: T15, T27. Owners: Career, Death/followers. Spec: Q04–Q08.
   - Settle pool/status/timer ownership, shared backpack/bank/gold/belt/quests/location, first activation gear/bindings and inactive advancement. Migrate the current single class/ranks/allocations into its initial class record without changing IDs or earned progress.
-  - Accept: old/new saves preserve all values; two class histories level independently and reload without free healing/cleansing/reset. Migration must be reviewable and recoverable before enabling swaps.
+  - Accepted: [T39](t39-class-histories.md) migrates versions0/1/2 into independent version3 histories and version1 per-class mouse/F1–F12 bindings; two histories advance independently and preserve shared pools/effects/deadlines. Raw old-byte audits, four-boot fixtures, actual S/hover/mouse/quick-cast client checks and installed/live save restarts pass. Complete pre-migration server/client backup retained; public class swaps remain disabled until T40.
 
-- [ ] **T40 — Full class/gear/binding/summon wardrobe transaction.**
+- [x] **T40 — Full class/gear/binding/summon wardrobe transaction.**
   - Depends: T39. Owners: Career, Gear, Death/followers, Client. Spec: Q03–Q07.
   - Expand the existing preselected two-list UI to all classes. Resolve real-item loadout storage/capacity/lost-item rules and summon suspension/lifetime/follower accounting, including ordinary pets/mercenaries. Move/save real entities; never clone them. Retain free/alive/out-of-combat access and allow normal encumbrance on a weaker class.
   - Accept: class-only/craft-only/both/unchanged choices, stale sessions, invalid gear/storage, active summons, disconnect and reload. Validation failure leaves the prior state intact; only the active class's permitted summon set remains active. Client hotkeys/talents/stats/belt resynchronize without resetting combat deadlines.
+  - Accepted: [T40](t40-wardrobe-transactions.md) stores one real equipment set per class outside carried weight, warns about shared items, supplies explicit retrieval, skips missing items and rolls back full-pack/low-life failures. Same-identity class summons park without healing or follower cost, retain absolute expiry, and return only with permission/capacity. Four-boot fixtures and actual client class/craft/retrieval/binding checks pass; copied-world preservation and local deployment are recorded with the task evidence.
 
-- [ ] **T41 — Optional earned titles.**
+- [x] **T41 — Optional earned titles.**
   - Depends: T14, T39. Owners: Career, Client. Spec: Q11–Q13.
   - Settle exact class99 prefixes/skill100 suffixes, any higher ranks, earned-versus-active selection and legacy/town-hall presentation. Either title slot can be hidden. Gathering100 earns skill-title eligibility, not wardrobe recognition.
-  - Accept: independently selected/hidden titles persist across class/craft swaps and reload. Sex aliases remain cosmetic; no stats/notoriety changes. Grandmaster100/Legendary120 is still a recommendation, not an adopted replacement for the user's example.
+  - Accepted: [T41](t41-earned-titles.md) permanently records all seven class99 prefixes and all13 trained skill ranks (Grandmaster100/Elder110/Legendary120), with any earned choice or independent hiding across class/craft swaps. User selected these ranks and sex-neutral achievement names; ordinary sex aliases remain unchanged. Honors stay on certificates/recognition, gathering grants no civic rights, and raw stats/name/fame/karma/notoriety are preserved. Strict save/session validation, four-boot source/installed regressions, actual title/paperdoll UI and copied-world preservation pass. A bounded full-title client message avoids the native60-byte paperdoll limit.
 
 - [ ] **T42 — Homes, architect/town purchases and personal wardrobes.**
   - Depends: T14, T40. Owners: world/housing content, Career. Spec: O06/O07/Q02/Q10.

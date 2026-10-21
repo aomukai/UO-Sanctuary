@@ -19,6 +19,8 @@ public static class AlliedOverlapChecks
     }
     internal static SkeletonGuardian Pet(PlayerMobile owner, Point3D at)
     {
+        if (ClassCreation.Profiles.GetRank(owner.Serial, "necromancer.raiseskeleton") == 0)
+        { Require(ClassCreation.Profiles.TryTrain(owner.Serial, "necromancer.raiseskeleton", out _), "Overlap owner needs a permitted summon skill"); }
         var pet = new SkeletonGuardian { Frozen = true }; pet.Initialize(owner,1,0); pet.SetControlMaster(owner);
         pet.MoveToWorld(at,owner.Map); pet.IssueOrder(OrderType.Guard,null); return pet;
     }

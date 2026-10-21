@@ -1,0 +1,35 @@
+--- a/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
++++ b/Projects/UOContent/Engines/Craft/Core/TradeSkillHooks.cs
+@@ -10,6 +10,7 @@
+ public static class TradeSkillHooks
+ {
+     public static Func<Mobile, SkillName, Item, bool, bool> ActionAllowed { get; set; }
++    public static Func<Mobile, PowerScroll, bool> PowerScrollUsed { get; set; }
+     public static Func<Mobile, BaseTool, bool> ToolUsed { get; set; }
+     public static Func<Mobile, CraftSystem, BaseTool, RepairDeed, bool> RepairUsed { get; set; }
+     public static Action<BaseWand, int> WandCreated { get; set; }
+--- a/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs
++++ b/Projects/UOContent/Items/Special/Special Scrolls/PowerScroll.cs
+@@ -1,5 +1,6 @@
+ using System;
+ using ModernUO.Serialization;
++using Server.Engines.Craft;
+ 
+ namespace Server.Items;
+ 
+@@ -259,8 +260,15 @@
+         return true;
+     }
+ 
++    public override void OnDoubleClick(Mobile from)
++    {
++        if (TradeSkillHooks.PowerScrollUsed?.Invoke(from, this) == true) { return; }
++        base.OnDoubleClick(from);
++    }
++
+     public override void Use(Mobile from)
+     {
++        if (TradeSkillHooks.PowerScrollUsed?.Invoke(from, this) == true) { return; }
+         if (!CanUse(from))
+         {
+             return;

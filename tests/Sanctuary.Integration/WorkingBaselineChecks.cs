@@ -31,6 +31,13 @@ public static class WorkingBaselineChecks
                             Profile = ClassCreation.Profiles.TryGet(p.Serial, out var profile) ? profile : null,
                             Profession = ClassProfessions.Affected(p) ? ClassProfessions.Profiles.Find(p) : null,
                             Allocation = ClassCreation.Profiles.Stats(p.Serial),
+                            p.Name, p.Title, p.Fame, p.Karma, p.Kills, p.ShowFameTitle,
+                            EarnedTitles = Sanctuary.EarnedTitles.Applies(p) ? Sanctuary.EarnedTitles.Profiles.Find(p.Serial) : null,
+                            ClassHistories = ClassCreation.Profiles.Histories(p.Serial),
+                            ClassBindings = Enum.GetValues<DiabloClass>().Where(c => ClassCreation.Profiles.HasHistory(p.Serial, c))
+                                .Select(c => new { Class = c, Left = SkillBindings.Instance.Get(p.Serial, c).Left,
+                                    Right = SkillBindings.Instance.Get(p.Serial, c).Right,
+                                    Quick = Enumerable.Range(0, SkillBindingProtocol.Slots).Select(slot => SkillBindings.Instance.GetQuick(p.Serial, c, slot)).ToArray() }).ToArray(),
                             Recognition = TownRecognition.Profiles.Find(p),
                             p.RawStr, p.RawDex, p.RawInt,
                             SkillsCap = p.Skills.Cap,

@@ -23,7 +23,7 @@ public static class ClassRespec
         profiles.TryGet(player.Serial, out var active);
         if (profiles.Stats(player.Serial).Total == 0 && profiles.AvailablePoints(player.Serial) == active.Level - 1)
         { player.SendMessage("You have no allocated class points to reset."); return; }
-        if (player.NetState != null) { player.CloseGump<RecognitionGump>(); player.CloseGump<WardrobeGump>(); player.SendGump(new RespecGump(player, wardrobe)); }
+        if (player.NetState != null) { player.CloseGump<WardrobeGearGump>(); player.CloseGump<RecognitionGump>(); player.CloseGump<WardrobeGump>(); player.SendGump(new RespecGump(player, wardrobe)); }
     }
     public static bool Commit(PlayerMobile player, Item wardrobe, CharacterProfile quoted, StatAllocation stats, int skillPoints)
     {
@@ -38,10 +38,10 @@ public static class ClassRespec
         else if (!Banker.Withdraw(player, GoldCost))
         { player.SendMessage("A point reset costs 5,000 gold. Nothing was changed."); return false; }
         ClassCombat.Stop(player);
-        PersistentMinions.Dismiss(player);
+        PersistentMinions.Dismiss(player, activeOnly: true);
         profiles.ResetAllocatedPoints(player, active);
         TownRecognition.EndSession(player);
-        player.CloseGump<RecognitionGump>(); player.CloseGump<RespecGump>(); player.CloseGump<WardrobeGump>();
+        player.CloseGump<WardrobeGearGump>(); player.CloseGump<RecognitionGump>(); player.CloseGump<RespecGump>(); player.CloseGump<WardrobeGump>();
         player.SendMessage("Your active class points are refunded. Your class, level, experience and trade skills are unchanged. Cost: 5,000 gold.");
         return true;
     }

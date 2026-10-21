@@ -18,7 +18,7 @@ public static partial class TownRecognition
     public static void Configure()
     {
         Profiles = new RecognitionProfiles();
-        ClassCombatHooks.SkillChanged = (player, skill, _) =>
+        ClassCombatHooks.SkillChanged += (player, skill, _) =>
         {
             if (TradeSkills.IsCraft((int)skill)) { Refresh(player); }
         };

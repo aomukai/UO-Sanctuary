@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections.ObjectModel;
 using Server;
 using Server.Mobiles;
 
@@ -9,19 +10,53 @@ namespace Sanctuary;
 
 public sealed record CharacterProfile(DiabloClass Class, int Level, long Experience);
 
+public sealed record ClassHistorySnapshot(CharacterProfile Profile, StatAllocation Allocation,
+    IReadOnlyDictionary<string, byte> Ranks);
+
 public sealed class CharacterProfiles : GenericPersistence
 {
-    private readonly Dictionary<Serial, StatAllocation> _stats = new();
-    private readonly Dictionary<Serial, CharacterProfile> _profiles = new();
-    private readonly Dictionary<Serial, Dictionary<string, byte>> _ranks = new();
-
-    public CharacterProfiles() : base("SanctuaryCharacters", 100)
+    private sealed class History(CharacterProfile profile)
     {
+        internal CharacterProfile Profile = profile;
+        internal StatAllocation Stats;
+        internal readonly Dictionary<string, byte> Ranks = new(StringComparer.Ordinal);
+    }
+    private sealed class Character(DiabloClass active)
+    {
+        internal DiabloClass Active = active;
+        internal readonly Dictionary<DiabloClass, History> Classes = new();
+    }
+    private Dictionary<Serial, Character> _characters = new();
+
+    public CharacterProfiles() : base("SanctuaryCharacters", 100) { }
+
+    private History Active(Serial serial) => _characters.TryGetValue(serial, out var character)
+        ? character.Classes[character.Active] : null;
+
+    public bool TryGet(Serial serial, out CharacterProfile profile)
+    {
+        profile = Active(serial)?.Profile;
+        return profile != null;
     }
 
-    public bool TryGet(Serial serial, out CharacterProfile profile) => _profiles.TryGetValue(serial, out profile);
+    // Value copies prevent inspection tools from mutating either active or inactive history.
+    public ClassHistorySnapshot[] Histories(Serial serial)
+    {
+        if (!_characters.TryGetValue(serial, out var character)) { return []; }
+        var snapshots = new List<ClassHistorySnapshot>();
+        foreach (var history in character.Classes.Values)
+        {
+            snapshots.Add(new(history.Profile, history.Stats,
+                new ReadOnlyDictionary<string, byte>(new Dictionary<string, byte>(history.Ranks, StringComparer.Ordinal))));
+        }
+        snapshots.Sort((a, b) => a.Profile.Class.CompareTo(b.Profile.Class));
+        return snapshots.ToArray();
+    }
 
-    public StatAllocation Stats(Serial serial) => _stats.GetValueOrDefault(serial);
+    public bool HasHistory(Serial serial, DiabloClass characterClass) =>
+        _characters.TryGetValue(serial, out var character) && character.Classes.ContainsKey(characterClass);
+
+    public StatAllocation Stats(Serial serial) => Active(serial)?.Stats ?? default;
 
     public int AvailableStatPoints(Serial serial) => TryGet(serial, out var profile)
         ? (profile.Level - 1) * 5 - Stats(serial).Total : 0;
@@ -35,7 +70,7 @@ public sealed class CharacterProfiles : GenericPersistence
         }
         int hits = mobile.Hits, mana = mobile.Mana, stam = mobile.Stam;
         int maxHits = mobile.HitsMax, maxMana = mobile.ManaMax, maxStam = mobile.StamMax;
-        _stats[mobile.Serial] = Stats(mobile.Serial).Add(stat);
+        Active(mobile.Serial).Stats = Stats(mobile.Serial).Add(stat);
         ClassStats.ApplyBase(mobile, profile, Stats(mobile.Serial));
         mobile.Hits = hits + Math.Max(0, mobile.HitsMax - maxHits);
         mobile.Mana = mana + Math.Max(0, mobile.ManaMax - maxMana);
@@ -44,7 +79,7 @@ public sealed class CharacterProfiles : GenericPersistence
     }
 
     public int GetRank(Serial serial, string talentId) =>
-        _ranks.TryGetValue(serial, out var ranks) ? ranks.GetValueOrDefault(talentId) : 0;
+        Active(serial)?.Ranks.GetValueOrDefault(talentId) ?? 0;
 
     public int AvailablePoints(Serial serial)
     {
@@ -54,7 +89,7 @@ public sealed class CharacterProfiles : GenericPersistence
         }
 
         var spent = 0;
-        if (_ranks.TryGetValue(serial, out var ranks))
+        if (Active(serial) is { Ranks: var ranks })
         {
             foreach (var rank in ranks.Values)
             {
@@ -105,11 +140,7 @@ public sealed class CharacterProfiles : GenericPersistence
             return false;
         }
 
-        if (!_ranks.TryGetValue(serial, out var ranks))
-        {
-            _ranks[serial] = ranks = new Dictionary<string, byte>(StringComparer.Ordinal);
-        }
-
+        var ranks = Active(serial).Ranks;
         ranks[talentId] = (byte)(ranks.GetValueOrDefault(talentId) + 1);
         return true;
     }
@@ -125,8 +156,8 @@ public sealed class CharacterProfiles : GenericPersistence
         }
         // Keep real gear in the pack even if the reset lowers capacity or equipment requirements fail.
         foreach (var item in equipment) { player.Backpack.DropItem(item); }
-        _stats.Remove(player.Serial);
-        _ranks.Remove(player.Serial);
+        Active(player.Serial).Stats = default;
+        Active(player.Serial).Ranks.Clear();
         ClassStats.ApplyBase(player, profile, default);
         for (int pass = 0; pass < equipment.Count; pass++)
         {
@@ -157,7 +188,7 @@ public sealed class CharacterProfiles : GenericPersistence
         {
             level++;
         }
-        _profiles[mobile.Serial] = profile with { Experience = experience };
+        Active(mobile.Serial).Profile = profile with { Experience = experience };
         if (level > profile.Level)
         {
             AdvanceLevel(mobile, level);
@@ -176,7 +207,7 @@ public sealed class CharacterProfiles : GenericPersistence
             return false;
         }
 
-        _profiles[mobile.Serial] = profile with { Level = level };
+        Active(mobile.Serial).Profile = profile with { Level = level };
         mobile.Title = $"Level {level} {DiabloClasses.DisplayName(profile.Class, mobile.Female)}";
         ClassStats.Refresh(mobile);
         mobile.Hits = mobile.HitsMax;
@@ -186,6 +217,7 @@ public sealed class CharacterProfiles : GenericPersistence
         {
             StatNetwork.Send(player);
             TownRecognition.Refresh(player);
+            if (!EarnedTitles.Refresh(player)) { EarnedTitles.Changed(player); }
         }
         return true;
     }
@@ -198,147 +230,224 @@ public sealed class CharacterProfiles : GenericPersistence
         }
 
         ((PlayerMobile)mobile).Young = false;
-        _profiles.Add(mobile.Serial, new CharacterProfile(characterClass, 1, 0));
+        var character = new Character(characterClass);
+        character.Classes.Add(characterClass, new(new(characterClass, 1, 0)));
+        _characters.Add(mobile.Serial, character);
         mobile.Title = $"Level 1 {DiabloClasses.DisplayName(characterClass, mobile.Female)}";
-        ClassStats.ApplyBase(mobile, _profiles[mobile.Serial], default);
+        ClassStats.ApplyBase(mobile, Active(mobile.Serial).Profile, default);
         mobile.Hits = mobile.HitsMax;
         mobile.Mana = mobile.ManaMax;
         mobile.Stam = mobile.StamMax;
     }
 
+    internal IEnumerable<PlayerMobile> Owners()
+    {
+        foreach (var serial in _characters.Keys)
+        { if (World.FindMobile(serial) is PlayerMobile { Deleted: false } player) { yield return player; } }
+    }
+
+    internal readonly record struct Selection(DiabloClass Previous, DiabloClass Next, bool Fresh);
+    internal Selection SelectHistory(PlayerMobile player, DiabloClass target)
+    {
+        if (!DiabloClasses.TryFromWire((int)target, out _) || !_characters.TryGetValue(player.Serial, out var character))
+        { throw new InvalidOperationException("Invalid class selection."); }
+        var result = new Selection(character.Active, target, !character.Classes.ContainsKey(target));
+        if (result.Fresh) { character.Classes.Add(target, new(new(target, 1, 0))); }
+        character.Active = target;
+        return result;
+    }
+    internal void UndoSelection(PlayerMobile player, Selection selection)
+    {
+        var character = _characters[player.Serial]; character.Active = selection.Previous;
+        if (selection.Fresh) { character.Classes.Remove(selection.Next); }
+    }
+    internal void ApplyActive(PlayerMobile player)
+    {
+        var history = Active(player.Serial);
+        ClassStats.ApplyBase(player, history.Profile, history.Stats);
+        player.Title = $"Level {history.Profile.Level} {DiabloClasses.DisplayName(history.Profile.Class, player.Female)}";
+    }
+
+    // Restricted fixture helper. Gameplay uses the complete wardrobe transaction.
+    internal bool TryActivateHistory(PlayerMobile player, DiabloClass characterClass)
+    {
+        if (!DiabloClasses.TryFromWire((int)characterClass, out _) || !ClassProfessions.Ready(player)
+            || !TryGet(player.Serial, out var old) || player.Combatant != null || player.Spell != null || player.Target != null
+            || player.Followers != 0) { return false; }
+        foreach (var item in player.Items)
+        {
+            if (item is not PotionBeltStorage && item.Layer is not (Layer.Backpack or Layer.Bank or Layer.Hair or Layer.FacialHair)) { return false; }
+        }
+        foreach (var follower in player.AllFollowers ?? [])
+        {
+            if (!follower.Deleted) { return false; }
+        }
+        var session = ClassCombat.For(player); long now = Core.TickCount;
+        if (session.Target != Serial.Zero || session.CastTarget != Serial.Zero || session.HeldAttack
+            || session.PendingAbility != CombatAbility.None || session.HeldAbility != CombatAbility.None
+            || now - session.NextAction < 0 || now - session.RecoveryUntil < 0 || HitRecovery.Active(player, now)
+            || now - player.NextSkillTime < 0 || now - player.NextSpellTime < 0
+            || !player.CanBeginAction<Server.Engines.Craft.CraftSystem>()) { return false; }
+        foreach (var aggression in player.Aggressors)
+        {
+            if (!aggression.Expired && Core.Now - aggression.LastCombatTime < TimeSpan.FromSeconds(10)) { return false; }
+        }
+        foreach (var aggression in player.Aggressed)
+        {
+            if (!aggression.Expired && Core.Now - aggression.LastCombatTime < TimeSpan.FromSeconds(10)) { return false; }
+        }
+        if (old.Class == characterClass) { return true; }
+        TimedEffects.Settle(player, TimedEffects.Now);
+        if (!ClassProfessions.Ready(player)) { return false; }
+        int hits = player.Hits, mana = player.Mana, stam = player.Stam;
+        int maxHits = player.HitsMax, maxMana = player.ManaMax, maxStam = player.StamMax;
+        var character = _characters[player.Serial];
+        bool fresh = !character.Classes.TryGetValue(characterClass, out var next);
+        if (fresh) { character.Classes.Add(characterClass, next = new(new(characterClass, 1, 0))); }
+        character.Active = characterClass;
+        ClassStats.ApplyBase(player, next.Profile, next.Stats);
+        int life = CarryPool(hits, maxHits, player.HitsMax);
+        // Do not invent a free one-hit-point heal when downward rounding reaches zero.
+        if (life == 0)
+        {
+            character.Active = old.Class;
+            if (fresh) { character.Classes.Remove(characterClass); }
+            ClassStats.ApplyBase(player, old, Stats(player.Serial));
+            player.Hits = hits; player.Mana = mana; player.Stam = stam;
+            return false;
+        }
+        player.Hits = life;
+        player.Mana = CarryPool(mana, maxMana, player.ManaMax);
+        player.Stam = CarryPool(stam, maxStam, player.StamMax);
+        player.Title = $"Level {next.Profile.Level} {DiabloClasses.DisplayName(characterClass, player.Female)}";
+        var bindings = SkillBindings.Instance.Get(player);
+        session.Left = bindings.Left; session.Right = bindings.Right;
+        ClassGear.Changed(player);
+        StatNetwork.Send(player);
+        return true;
+    }
+
+    internal static int CarryPool(int current, int oldMaximum, int newMaximum) =>
+        (int)((long)Math.Clamp(current, 0, oldMaximum) * newMaximum / Math.Max(1, oldMaximum));
+
     public void PruneDeleted()
     {
         var deleted = new List<Serial>();
-        foreach (var serial in _profiles.Keys)
+        foreach (var serial in _characters.Keys)
         {
-            if (World.FindMobile(serial) is not PlayerMobile { Deleted: false })
-            {
-                deleted.Add(serial);
-            }
+            if (World.FindMobile(serial) is not PlayerMobile { Deleted: false }) { deleted.Add(serial); }
         }
-
-        foreach (var serial in deleted)
-        {
-            _stats.Remove(serial);
-            _profiles.Remove(serial);
-            _ranks.Remove(serial);
-        }
+        foreach (var serial in deleted) { _characters.Remove(serial); }
     }
 
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(2);
-        writer.Write(_profiles.Count);
-        foreach (var (serial, profile) in _profiles)
+        writer.Write(3);
+        writer.Write(_characters.Count);
+        var serials = new List<Serial>(_characters.Keys); serials.Sort();
+        foreach (var serial in serials)
         {
+            var character = _characters[serial];
             writer.Write(serial.Value);
-            writer.Write((byte)profile.Class);
-            writer.Write(profile.Level);
-            writer.Write(profile.Experience);
-            var allocation = Stats(serial);
-            writer.Write(allocation.Strength);
-            writer.Write(allocation.Dexterity);
-            writer.Write(allocation.Energy);
-            writer.Write(allocation.Vitality);
-            var ranks = _ranks.GetValueOrDefault(serial);
-            writer.Write(ranks?.Count ?? 0);
-            if (ranks != null)
-            {
-                foreach (var (id, rank) in ranks)
-                {
-                    writer.Write(id);
-                    writer.Write(rank);
-                }
-            }
+            writer.Write((byte)character.Active);
+            writer.Write(character.Classes.Count);
+            var classes = new List<DiabloClass>(character.Classes.Keys); classes.Sort();
+            foreach (var id in classes) { WriteHistory(writer, character.Classes[id]); }
         }
+    }
+
+    private static void WriteHistory(IGenericWriter writer, History history)
+    {
+        writer.Write((byte)history.Profile.Class);
+        writer.Write(history.Profile.Level);
+        writer.Write(history.Profile.Experience);
+        writer.Write(history.Stats.Strength); writer.Write(history.Stats.Dexterity);
+        writer.Write(history.Stats.Energy); writer.Write(history.Stats.Vitality);
+        writer.Write(history.Ranks.Count);
+        var ids = new List<string>(history.Ranks.Keys); ids.Sort(StringComparer.Ordinal);
+        foreach (var id in ids) { writer.Write(id); writer.Write(history.Ranks[id]); }
     }
 
     public override void Deserialize(IGenericReader reader)
     {
-        var version = reader.ReadInt();
-        if (version is not (0 or 1 or 2))
-        {
-            throw new InvalidDataException($"Unsupported Sanctuary character data version {version}.");
-        }
-
-        var count = reader.ReadInt();
-        if (count < 0)
-        {
-            throw new InvalidDataException("Invalid Sanctuary character count.");
-        }
-
-        _stats.Clear();
-        _profiles.Clear();
-        _ranks.Clear();
-        for (var i = 0; i < count; i++)
+        int version = reader.ReadInt();
+        if (version is < 0 or > 3) { throw new InvalidDataException($"Unsupported Sanctuary character data version {version}."); }
+        int count = reader.ReadInt();
+        if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid Sanctuary character count."); }
+        // Decode and validate the complete replacement before changing the loaded authority.
+        var characters = new Dictionary<Serial, Character>();
+        for (int i = 0; i < count; i++)
         {
             var serial = (Serial)reader.ReadUInt();
-            var classId = reader.ReadByte();
-            var level = reader.ReadInt();
-            var experience = reader.ReadLong();
-            if (!DiabloClasses.TryFromWire(classId, out var characterClass) || level is < 1 or > 99 || experience < 0)
+            if (!serial.IsMobile) { throw new InvalidDataException("Invalid character serial."); }
+            Character character;
+            if (version < 3)
             {
-                throw new InvalidDataException("Invalid Sanctuary character profile.");
+                var history = ReadHistory(reader, version);
+                character = new(history.Profile.Class);
+                character.Classes.Add(history.Profile.Class, history);
             }
-
-            _profiles.Add(serial, new CharacterProfile(characterClass, level, experience));
-            if (version >= 2)
+            else
             {
-                var allocation = new StatAllocation(reader.ReadInt(), reader.ReadInt(), reader.ReadInt(), reader.ReadInt());
-                if (!allocation.Valid || allocation.Total > (level - 1) * 5)
+                if (!DiabloClasses.TryFromWire(reader.ReadByte(), out var active)) { throw new InvalidDataException("Invalid active class."); }
+                character = new(active); int classes = reader.ReadInt();
+                if (classes is < 1 or > 7) { throw new InvalidDataException("Invalid class history count."); }
+                for (int j = 0; j < classes; j++)
                 {
-                    throw new InvalidDataException("Invalid saved attribute allocations.");
+                    var history = ReadHistory(reader, version);
+                    if (!character.Classes.TryAdd(history.Profile.Class, history)) { throw new InvalidDataException("Duplicate class history."); }
                 }
-                _stats[serial] = allocation;
+                if (!character.Classes.ContainsKey(active)) { throw new InvalidDataException("Active class history is missing."); }
             }
-            if (version >= 1)
+            if (!characters.TryAdd(serial, character)) { throw new InvalidDataException("Duplicate character serial."); }
+        }
+        _characters = characters;
+    }
+
+    private static History ReadHistory(IGenericReader reader, int version)
+    {
+        byte classId = reader.ReadByte(); int level = reader.ReadInt(); long experience = reader.ReadLong();
+        if (!DiabloClasses.TryFromWire(classId, out var characterClass) || level is < 1 or > 99 || experience < 0)
+        { throw new InvalidDataException("Invalid Sanctuary character profile."); }
+        // Preserve legacy staff-granted levels and XP exactly; they need not agree with XP thresholds.
+        var history = new History(new(characterClass, level, experience));
+        if (version >= 2)
+        {
+            history.Stats = new(reader.ReadInt(), reader.ReadInt(), reader.ReadInt(), reader.ReadInt());
+            if (!history.Stats.Valid || history.Stats.Total > (level - 1) * 5)
+            { throw new InvalidDataException("Invalid saved attribute allocations."); }
+        }
+        if (version >= 1)
+        {
+            int count = reader.ReadInt(), spent = 0;
+            if (count is < 0 or > 30) { throw new InvalidDataException("Invalid talent allocation count."); }
+            for (int i = 0; i < count; i++)
             {
-                var allocations = reader.ReadInt();
-                if (allocations is < 0 or > 30)
+                string id = reader.ReadString(); byte rank = reader.ReadByte();
+                if (id == null || !TalentCatalog.TryGet(characterClass, id, out var talent)
+                    || rank is < 1 or > TalentCatalog.MaxRank || rank > level - talent.RequiredLevel + 1
+                    || !history.Ranks.TryAdd(id, rank)) { throw new InvalidDataException("Invalid saved talent rank."); }
+                spent += rank;
+            }
+            if (spent > level - 1) { throw new InvalidDataException("Saved talent allocations exceed earned points."); }
+            foreach (var id in history.Ranks.Keys)
+            {
+                TalentCatalog.TryGet(characterClass, id, out var talent);
+                foreach (var prerequisite in talent.Prerequisites)
                 {
-                    throw new InvalidDataException("Invalid talent allocation count.");
-                }
-
-                var ranks = new Dictionary<string, byte>(StringComparer.Ordinal);
-                for (var j = 0; j < allocations; j++)
-                {
-                    var id = reader.ReadString();
-                    var rank = reader.ReadByte();
-                    if (!TalentCatalog.TryGet(characterClass, id, out var talent)
-                        || rank is < 1 or > TalentCatalog.MaxRank || rank > level - talent.RequiredLevel + 1)
-                    {
-                        throw new InvalidDataException("Invalid saved talent rank.");
-                    }
-
-                    ranks.Add(id, rank);
-                }
-
-                _ranks[serial] = ranks;
-                if (AvailablePoints(serial) < 0)
-                {
-                    throw new InvalidDataException("Saved talent allocations exceed earned points.");
-                }
-
-                foreach (var id in ranks.Keys)
-                {
-                    TalentCatalog.TryGet(characterClass, id, out var talent);
-                    foreach (var prerequisite in talent.Prerequisites)
-                    {
-                        if (!ranks.ContainsKey(prerequisite))
-                        {
-                            throw new InvalidDataException("Saved talent prerequisites are missing.");
-                        }
-                    }
+                    if (!history.Ranks.ContainsKey(prerequisite)) { throw new InvalidDataException("Saved talent prerequisites are missing."); }
                 }
             }
         }
+        return history;
     }
 
     public override void PostDeserialize()
     {
         PruneDeleted();
-        foreach (var (serial, profile) in _profiles)
+        foreach (var (serial, character) in _characters)
         {
+            var profile = character.Classes[character.Active].Profile;
             var mobile = World.FindMobile(serial);
             ((PlayerMobile)mobile).Young = false;
             mobile.Title = $"Level {profile.Level} {DiabloClasses.DisplayName(profile.Class, mobile.Female)}";

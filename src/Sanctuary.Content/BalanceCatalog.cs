@@ -43,6 +43,7 @@ public static class BalanceCatalog
         TownRecognition.Load();
         RareRecipes.Load();
         TreasureHunts.Load();
+        ProfessionPowerScrolls.Load();
     }
     private static JsonSerializerOptions CreateOptions()
     {

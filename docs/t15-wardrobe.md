@@ -1,5 +1,7 @@
 # T15 — public craft switching
 
+T40 now extends this original craft-only slice to all seven classes, real equipment storage/retrieval and class summon parking. See [the complete wardrobe transaction](t40-wardrobe-transactions.md). The T15 scope and validation evidence below describe the original slice.
+
 T15 completes the first earned wardrobe loop. Either ceremony grants permanent character-owned access to free craft switching at all22 registered public wardrobes. Double-click a wardrobe after recognition, or use the recognition screen's wardrobe button. The selector preselects the current class and craft. Native radio groups keep one of each selected; the server rejects missing, duplicate, extra or unknown selections. Only the current combat class is selectable. Independent class histories, other class activation and class equipment/summon storage remain T39/T40.
 
 Selecting another craft activates its native tool/action/gain/training guards immediately. All native skill values, caps, locks and aggregate cap remain intact, including inactive crafts and the three always-active gathering skills. Cartography is one of the ten crafts. An eligible character whose first craft remains unconfirmed can confirm the preselected Alchemy or choose another craft through the wardrobe. An unchanged confirmed selection is a no-op. Every successful submission closes the selector. There is no fee or new switching cooldown.

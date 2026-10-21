@@ -108,6 +108,7 @@ public static class SkeletonPets
             pet.Delete();
             return false;
         }
+        PersistentMinions.Profiles.Track(pet);
         pet.MoveToWorld(corpse.Location, corpse.Map);
         if (count >= Limit(Rank(owner)))
         {
@@ -142,6 +143,7 @@ public static class SkeletonPets
 [SerializationGenerator(0)]
 public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
 {
+    public virtual DiabloClass SummonClass => DiabloClass.Necromancer;
     [SerializableField(0, setter: "private")]
     private int _level = 1;
     [SerializableField(1, setter: "private")]

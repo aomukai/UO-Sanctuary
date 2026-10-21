@@ -1,0 +1,14 @@
+[
+  {
+    "SchemaVersion": 1,
+    "DropDenominator": 10000,
+    "UniqueTickets": 100,
+    "SuperUniqueTickets": 500,
+    "Tiers": [
+      { "Cap": 105, "MinimumLevel": 60 },
+      { "Cap": 110, "MinimumLevel": 70 },
+      { "Cap": 115, "MinimumLevel": 80 },
+      { "Cap": 120, "MinimumLevel": 90 }
+    ]
+  }
+]

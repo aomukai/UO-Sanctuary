@@ -12,6 +12,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exercise(window, click, capture):
+    if os.environ.get("SANCTUARY_TEST_EARNED_TITLES_UI") == "1":
+        from check_earned_titles_ui import exercise as title_exercise
+        title_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_FULL_WARDROBE_UI") == "1":
+        from check_full_wardrobe_ui import exercise as wardrobe_exercise
+        wardrobe_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_QUICK_SKILLS_UI") == "1":
+        from check_quick_skills_ui import exercise as quick_exercise
+        quick_exercise(window, click, capture)
+        return
+    if os.environ.get("SANCTUARY_TEST_POWER_SCROLLS_UI") == "1":
+        from check_power_scroll_ui import exercise as power_exercise
+        power_exercise(window, click, capture)
+        return
     if os.environ.get("SANCTUARY_TEST_TREASURE_UI") == "1":
         from check_treasure_ui import exercise as treasure_exercise
         treasure_exercise(window, click, capture)

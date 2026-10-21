@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="../../shared/DiabloClass.cs" Link="DiabloClass.cs" />
     <Compile Include="../../shared/CombatProtocol.cs" Link="CombatProtocol.cs" />
+    <Compile Include="../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+    <Compile Include="../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
     <Compile Include="../../shared/StatProtocol.cs" Link="StatProtocol.cs" />
     <Compile Include="../../shared/LootProtocol.cs" Link="LootProtocol.cs" />
     <Compile Include="../../shared/BeltProtocol.cs" Link="BeltProtocol.cs" />
