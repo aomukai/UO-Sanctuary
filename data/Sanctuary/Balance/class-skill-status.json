@@ -1384,10 +1384,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 146,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared64-ray/12-velocity decelerating ring,5mana, LastCollide and independent4-frame NextHit. Reuses ordinary curse lane with Attract protection, same-rank creator retention/refresh, lower-rank rejection and stronger/other-curse replacement. Negative skill armor joins defense percentages; damagepercent joins weapon ED before the-90 floor. Shared Weaken/Decrepify consumers corrected; spells/retaliation excluded. Source983 bounded cases. Focused native three boots/two reloads pass; mapped source NPC/ISATT only, nonzero curse resistance, PvP/neutral/owner/geometry/frame/client acceptance remain open."
     },
     {
       "talentId": "barbarian.finditem",

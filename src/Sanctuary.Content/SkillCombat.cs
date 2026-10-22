@@ -125,7 +125,7 @@ public static class SkillCombat
         double added = spell && source is PlayerMobile caster ? damage.Total * CombatPotions.Bonus(caster, "magical-penetration") / 100.0 : 0;
         var raw = damage with
         {
-            Physical = NamedElements.Enhance(source, damage.Physical * Math.Max(0, NecromancerEffects.OutgoingPhysicalPercent(source)) / 100.0, "physical"),
+            Physical = NamedElements.Enhance(source, damage.Physical, "physical"),
             Fire = NamedElements.Enhance(source, damage.Fire + added, "fire"),
             Cold = NamedElements.Enhance(source, damage.Cold + added, "cold"),
             Lightning = NamedElements.Enhance(source, damage.Lightning + added, "ltng"),

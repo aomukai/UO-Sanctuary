@@ -120,7 +120,7 @@ public static class GearEffects
         int max = two && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
         if (ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)
         { min = basis.MissileMin; max = basis.MissileMax; }
-        double physicalReference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon)+(skillPhysicalPercent??0)) / 10000.0;
+        double physicalReference = (min + (max - min) * roll) * Math.Max(10, 100 + ClassStats.PhysicalDamageBonus(player, weapon)+(skillPhysicalPercent??0)) / 10000.0;
         double reference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon) - PaladinAuras.DamagePercent(player)) / 10000.0;
         var poison = GemCombat.PoisonCombined(weapon, reference * ClassGear.Material(weapon, "damage-poison"), NamedGear.Poison(player, roll));
         double cold = reference * ClassGear.Material(weapon, "damage-cold");
@@ -140,7 +140,7 @@ public static class GearEffects
     internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0)
     {
         bool ranged=NamedCombat.Ranged(player);
-        double rawPhysical=damage.Physical*NamedCombat.Deadly(player,effects)*Math.Max(0,NecromancerEffects.OutgoingPhysicalPercent(player))/100.0;
+        double rawPhysical=damage.Physical*NamedCombat.Deadly(player,effects);
         // Skill elements already include their source percentage/mastery rounding.
         // Ordinary weapon hits must also reach Energy Shield before resistance.
         double convertedMagic=0;

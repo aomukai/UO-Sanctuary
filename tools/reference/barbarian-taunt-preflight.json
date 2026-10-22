@@ -1,0 +1,129 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next Taunt source preflight only; no native handler or compiled Taunt certificate.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a"
+  },
+  "blockHashes": {
+    "SKILLS_Callback_FindTargetForTaunt": "0a3de9056de5cef42d1b877c265839c57248ed0164775289ab1bd12d1155f929",
+    "SKILLS_SrvDo071_Taunt": "e580e1fd744609b420468db0194e9a1d74d0e39bc80f9a744ba1de7f5738c59f",
+    "SKILLS_FindAuraTarget": "7078391b728a7069e546588a38d394dcfbbfa56f92978dcaa36e4651f41a60a5",
+    "sub_6FD106F0": "ef854e4d719a075d1ec8afc57075168585541f8cee7267c597d4b390000603ec",
+    "sub_6FD15190": "be6bd826853e0c11ca227cb359bff1f0e8396cf7cb315fa87b977cba0468e1bb",
+    "sub_6FD0B250": "d3818909d9aa77822fb366132fe3b567c59363e3b881f0a007d0b7ceeed81795",
+    "sub_6FD0B2B0": "b66f8ea13a21d87161427bfc4ea5cd4918f4fe7111469b03c9f1fc967085e52b",
+    "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b",
+    "D2GAME_AI_SpecialState12_6FCE81B0": "914417db3765d7f1872c835c1f90344957564cd569b641197a9f91c5087a7b39",
+    "AITHINK_SetAiControlParams": "ea80a6042dc0dd65375fceb0119b6e3e185c0ff60b178550155f655aa815a2fc",
+    "sub_6FCD0410": "1541de248a8c5adbfa4a8b775a7fff4945d1ffa84918e80348054af3a973f08c"
+  },
+  "skill": {
+    "skill": "Taunt",
+    "*Id": 137,
+    "charclass": "bar",
+    "skilldesc": "taunt",
+    "srvdofunc": 71,
+    "aurafilter": 34179,
+    "auratargetstate": "taunt",
+    "aurastat1": "item_tohit_percent",
+    "aurastatcalc1": "ln12",
+    "aurastat2": "damagepercent",
+    "aurastatcalc2": "ln34",
+    "stsoundclass": "barbarian_taunt_1",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "S1",
+    "UseAttackRate": 1,
+    "SearchEnemyNear": 1,
+    "ItemEffect": 1,
+    "reqlevel": 6,
+    "maxlvl": 20,
+    "reqskill1": "Howl",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 3,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "Param1": -5,
+    "*Param1 Description": "Monster Attack Rating % baseline",
+    "Param2": -2,
+    "*Param2 Description": "Monster Attack Rating % per level",
+    "Param3": -5,
+    "*Param3 Description": "Monster Damage % baseline",
+    "Param4": -2,
+    "*Param4 Description": "Monster Damage % per level",
+    "InGame": 1,
+    "HitShift": 8,
+    "aitype": 2,
+    "cost mult": 384,
+    "cost add": 3000,
+    "lineNumber": 137
+  },
+  "state": {
+    "state": "taunt",
+    "*ID": 27,
+    "curable": 1,
+    "curse": 1,
+    "attblue": 1,
+    "damblue": 1,
+    "overlay1": "taunt",
+    "onsound": "barbarian_battlecry_state",
+    "lineNumber": 27
+  },
+  "projectedTableGoldens": [
+    {
+      "rank": 1,
+      "mana": 3,
+      "attackPercent": -5,
+      "damagePercent": -5,
+      "frames": 0
+    },
+    {
+      "rank": 20,
+      "mana": 3,
+      "attackPercent": -43,
+      "damagePercent": -43,
+      "frames": 0
+    },
+    {
+      "rank": 21,
+      "mana": 3,
+      "attackPercent": -45,
+      "damagePercent": -45,
+      "frames": 0
+    }
+  ],
+  "reuse": [
+    "Battle Cry/Weaken/Decrepify now share the correct additive weapon damagepercent pool. Extend that shared stat consumer for Taunt instead of creating final packet reduction.",
+    "Taunt uses existing generic curse allocation and AI-switch helpers, shared source species/owner rules, dynamic target and native AI path/movement clocks. Review current SourceTerror and ordinary Necromancer AI-control payloads before choosing a shared saved phase representation.",
+    "Source fallback targeting uses SKILLS_FindAuraTarget, not the cursor-nearest FoH rule. Existing generic target/hitbox/LOS helpers are candidates only after checking this specific source metric."
+  ],
+  "findings": [
+    "Do71 validates explicit hostile eligible living monster without player owner, otherwise searches radius20 with callback and source filter0x8783. Fallback callback rejects player-owned pets and AI-switch/dead cases.",
+    "FindAuraTarget stores caster coordinates and chooses strict smaller squared distance to caster. Candidate scan order breaks equal distances; range/filter/terrain/modern metric need separate proof. Do not borrow FoH cursor-nearest acquisition silently.",
+    "Pinned Taunt has no auralencalc; source formula0 yields duration0, so generic curse has no expiry event. Establish removal/target/town/death semantics before introducing a deadline; do not invent an ordinary timed debuff.",
+    "Shared AI curse writer gates neutral alignment, AI switch, attackable/valid/targetable, live/hostile, walk mode and excluded monster type. It writes item_tohit_percent and damagepercent and installs the AI-removal callback.",
+    "Do71 ignores the curse writer return, calls AITHINK_SetAiControlParams(-666,-666,-666), clears owner GUID/type helper, schedules AI at nextframe and sets taunter as dynamic target. Sentinel-666 means leave parameter unchanged; it does not zero them.",
+    "Special AI12 returns to ordinary AI/idles1frame if dynamic target absent or in town. Initial phase walks toward target with flags7; later direct melee attacks it, otherwise nearby acquired melee target may be attacked/reset phase, else taunter is restored and approached. This is not unconditional attack-only-taunter behavior.",
+    "Approach helper sets native source velocity parameters13,0,0 then walks to target; map exact native movement/stale intent/exit callbacks separately."
+  ],
+  "nextSteps": [
+    "Compile unchanged do71/fallback callback/search metric/generic curse AI writer/AI12/sentinel/approach routines with declared owner/world/target services.",
+    "Trace duration0 curse removal, state callback, target override/owner helper, skill/item/NPC/elite eligibility and source item_tohit_percent stat pool before native integration.",
+    "Implement supported mapped cases with existing curse/stat/AI/movement/persistence systems; record individually unsupported branches and continue remaining Barbarian roadmap."
+  ],
+  "limits": [
+    "Hash-checked source review and pinned table goldens only; no compiled/runtime/modern Taunt parity claim.",
+    "User cannot provide Barbarian/Call to Arms observations; use source and native verification and keep nonblocking questions documented.",
+    "Final Taunt effects and talent/hotkey icons remain separate identified placeholders."
+  ]
+}

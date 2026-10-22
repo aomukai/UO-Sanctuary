@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next source preflight only; Battle Cry handler pending.",
+  "status": "Completed bounded source and native Battle Cry integration; source/native evidence records are authoritative.",
   "sourceHashes": {
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
@@ -140,12 +140,15 @@
     }
   ],
   "nextSteps": [
-    "Compile unchanged hit21/filter/generic statlist replacement and aura writer with explicit stubs; trace the source armor and damagepercent consumers.",
-    "Reuse shared saved rays/motion/LastCollide/skill-local NextHit plus existing state/defense/damage pipelines, with dedicated mana/target/rank/recast/expiry/owner and two-reload checks.",
-    "Keep uncertain native PvP/neutral/target categories, item/stat combinations and modern frame/geometry/client behavior explicit; move past individually blocked branches."
+    "Continue Taunt, then remaining Barbarian talents. Reuse the current shared curse/weapon-ED and native AI/control paths after source review.",
+    "Carry explicit modern/PvP/nonzero-curse-resistance/geometry/owner/client and old curse-recast gaps; missing final art stays independent."
   ],
   "limits": [
     "Source review/table goldens, not compiled or modern executable proof.",
     "No final effects/icons; existing placeholder registers remain independent."
+  ],
+  "evidence": [
+    "tools/reference/battlecry-engine-evidence.json",
+    "tools/reference/battlecry-native-evidence.json"
   ]
 }

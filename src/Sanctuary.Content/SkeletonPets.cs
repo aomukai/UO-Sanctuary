@@ -28,7 +28,7 @@ public static class SkeletonStats
         int ratingBonus = 15 * (rank + mastery);
         int levelAttack = level switch { 1 => 8, 2 => 12, 3 => 18, 4 => 26, 5 => 35, _ => 11 * level - 21 };
         int flatDamage = SkillValues.Tier(0, rank, i => new[] { 0, 1, 2, 3, 4 }[i - 1]) + 2 * mastery;
-        int damagePercent = 100 + 7 * extraRanks + auraDamagePercent;
+        int damagePercent = Math.Max(10,100 + 7 * extraRanks + auraDamagePercent);
         return new MonsterProfile(level, life, 5 + levelAttack + ratingBonus, 5 + 6 * level + ratingBonus,
             (1 + flatDamage) * damagePercent / 100, (2 + flatDamage) * damagePercent / 100,
             720, 240, 0, 0, 0, 0, 0);
@@ -161,7 +161,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     public virtual MonsterProfile CombatProfile => _profile ??= CreateProfile();
     public virtual (int Min,int Max) SkillWeaponDamage
     {
-        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)); return (profile.MinDamage,profile.MaxDamage); }
+        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)); return (profile.MinDamage,profile.MaxDamage); }
     }
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery);
     // Summon creation writes this FP256 result into its base life before BO.

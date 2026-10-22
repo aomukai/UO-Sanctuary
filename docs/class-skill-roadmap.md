@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 17 / 30 | 0 | 13 | Open |
+| 4 | Barbarian | 18 / 30 | 0 | 12 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -136,7 +136,7 @@ Howl source preparation now has1169 bounded compiled cases in [source evidence](
 | Find Potion | 131 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Shout | 138 | handler-present | Self state plus64 travelling decelerating rays, source6-mana do-event payment, stored effective rank/live hard duration synergies, repeated aligned recipient hits and weaker replacement are implemented. Cooperative players/pets receive additive defense, with Berserk retaining final zero defense. Dedicated native moving-ally, real gear, resource/interruption, lifecycle and two reloads exercise the bounded port. Source ring/hit/stat/acceleration routines compiled separately. D2 subtile-to-UO tiles, collision footprints/terrain/neutral NPC alignment, exact SC event/FCR, mid-windup mana-loss ordering, modern scheduling/snapshots and actual-client equivalence remain unverified; effects/icons are independent placeholders. |
 | Taunt | 137 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Battle Cry | 146 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Battle Cry | 146 | handler-present | Shared64-ray/12-velocity decelerating ring,5mana, LastCollide and independent4-frame NextHit. Reuses ordinary curse lane with Attract protection, same-rank creator retention/refresh, lower-rank rejection and stronger/other-curse replacement. Negative skill armor joins defense percentages; damagepercent joins weapon ED before the-90 floor. Shared Weaken/Decrepify consumers corrected; spells/retaliation excluded. Source983 bounded cases. Focused native three boots/two reloads pass; mapped source NPC/ISATT only, nonzero curse resistance, PvP/neutral/owner/geometry/frame/client acceptance remain open. |
 | Find Item | 142 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Orders | 149 | handler-present | Self state and64 travelling rays implement pinned7mana after self stats, stored effective rank/live hard duration, replacement and proportional FP256 current pools. NPC resource hooks preserve saved seeds/loading pools, Vigor joins additively, and summon creation fractions/HP regeneration have dedicated consumers. LastCollide initializes to caster; saved skill-local NextHit4-frame gates and rays resume across reloads. Focused player/pet/gear/zero-pool/expiry/lifecycle and two reloads pass. Exact modern NHD caster/cast scope, consume-failure edge, SC/frame/geometry/neutral/owner/client and approved whole-resource projection remain explicit limits; no class certificate. |
 | Grim Ward | 150 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

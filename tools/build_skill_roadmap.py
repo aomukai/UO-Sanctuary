@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'barbarian.battlecry':'Shared64-ray/12-velocity decelerating ring,5mana, LastCollide and independent4-frame NextHit. Reuses ordinary curse lane with Attract protection, same-rank creator retention/refresh, lower-rank rejection and stronger/other-curse replacement. Negative skill armor joins defense percentages; damagepercent joins weapon ED before the-90 floor. Shared Weaken/Decrepify consumers corrected; spells/retaliation excluded. Source983 bounded cases. Focused native three boots/two reloads pass; mapped source NPC/ISATT only, nonzero curse resistance, PvP/neutral/owner/geometry/frame/client acceptance remain open.',
     'barbarian.howl':'Reuses the64-ray controller with pinned4mana, rank velocity, source MaxVel clamp/deceleration disable, stored rank/live caster-level gate, LastCollide and no Terror refresh. Shared curse metadata preserves initial escape/cleared caster override/later threat selection, idle/close combat, move intent and expiry. Supported Skeleton/Zombie/Megademon source AIs only; native source pathing/scan/leash adapters, Attract/curse-resistance failure transients, other callback species, modern SC/FCR/geometry/owner/client remain explicit limits. Ranks81+ remain gated for uncertain signed32 source overflow. Focused/full native verification recorded separately; no class certificate.',
     'barbarian.battlecommand':'Immediate self state and shared64-ray warcry implement11mana, nonstacking allskills1, stored cast rank/live hard duration and saved LastCollide/skill-local NextHit gates. Effective ranks update learned/granted skills without changing hard synergies; native passives/resources refresh, summon creation snapshots stay fixed and pet caps remove oldest saved creation order on expiry. Focused native three-boot/two-reload checks pass, including new/old summon snapshots, FIFO cap removal, passive resource transitions and resumed saved rays. Combined and actual-client acceptance remain separate. Historical pet order falls back to serial; modern SC/FCR/geometry/NHD caster/cast scope, NPC own skills and full owner/item/client behavior remain unverified.',
     'necromancer.teeth':'Existing fan/missiles function, but fixed60-degree spread remains provisional. Pinned Teeth and Amazon Multiple Shot both use server do8; extract/verify the shared source fan before reusing it for Multiple Shot. Keep skill-specific missile, damage, hit-delay, piercing and proc rules separate. Native/client/modern fan equivalence remains open.',
@@ -99,7 +100,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
-    'barbarian.bash','barbarian.stun','barbarian.concentrate','barbarian.berserk','barbarian.shout','barbarian.battleorders','barbarian.battlecommand','barbarian.howl',
+    'barbarian.bash','barbarian.stun','barbarian.concentrate','barbarian.berserk','barbarian.shout','barbarian.battleorders','barbarian.battlecommand','barbarian.howl','barbarian.battlecry',
     'barbarian.swordmastery',
     'barbarian.axemastery',
     'barbarian.macemastery',

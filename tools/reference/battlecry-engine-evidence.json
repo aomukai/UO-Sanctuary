@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "probe": {
+    "caseCounts": {
+      "replacementCases": 240,
+      "filterCases": 480,
+      "curseGates": 8,
+      "defenseCases": 120,
+      "damageCases": 135
+    },
+    "blockHashes": {
+      "sub_6FCBD900": "3d210ccd4d501a522c16e84db9c77a5f88e564ed1ef364dfb341dc98c18cd022",
+      "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+      "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+      "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+      "MISSMODE_SrvHit21_BattleCry": "268a58fdcc6e37e2b83bd420eb566266a270e6bc0a2666caac9f2aa82d039e2e",
+      "UNITS_GetDefense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc",
+      "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+      "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+      "sub_6FD0D000": "7e6cbacb7c151956e7cba18de9be5eec5abd1888888329406221bbda6e1deab4",
+      "SKILLS_SrvDo055_CorpseExplosion": "ccd5ab16918a785e78c56f15ed590bc6e3ff76fc9f1104221137e2e55ef795ab",
+      "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    },
+    "dataPath": ".local/class-skills/battlecry-source-probe.json"
+  },
+  "established": [
+    "Hit21 replaces nonzero aura filter with42883; compiled filter includes player/monster living/attackable/valid/nontown/LOS and hostile relationship. It does not exclude bosses or prime evils. PvP flag8 and minion ownership are source relationship rules.",
+    "Full shared curse function compiles: NPC/ISATT/state and curse-resistance gates; Attract protection; one curse lane; lower same-skill rank rejected, equal rank refresh retains original creator, stronger/different curse replaces. Hit21 writer uses target formula context and can update equal-rank list stats.",
+    "Battle Cry zero-initialized curse writes a harmless zero stat0 entry at allocation; defense/damage stats are then supplied by aura writer. Writer skips zero formula values and mirrors attackrate to other_animrate, with animation refresh.",
+    "Defense adds item and skill armor percentages before any final armor override. Source can return a negative subtotal; native hit defense remains clamped nonnegative at its existing boundary.",
+    "Weapon ED is additive with STAT_DAMAGEPERCENT before the global-90 floor, endpoint truncation, random draw and source-damage scaling. Battle Cry, Weaken and Decrepify share this stat; they must not multiply the final physical packet.",
+    "Corpse Explosion prepares a separate physical spell packet and executes missile damage directly; it does not use ApplyDamageBonuses. Physical spells/retaliation must not inherit weapon ED penalties solely by damage channel."
+  ],
+  "stubs": [
+    "Unchanged compiled hit21/filter/relationship/full curse/aura writer/GetDefense/ApplyDamageBonuses routines with fixture tables, allocation/stat lists, owner/player flags, room/LOS, events, RNG and animation services.",
+    "Explicit endpoint damage cases use bGetStats=false, no item, SrcDam128. Remaining branches compile but do not receive a comprehensive item/dual-wield/strength/mastery/minmax-stat matrix.",
+    "Missile collision and physical spell dispatch are hash-checked source reviews; geometry, collision traversal and source final damage engine are not executed by this probe."
+  ],
+  "limits": [
+    "Bounded supplementary engine reconstruction; not modern executable certification. Native projection, town/hostility/LOS adapters and frame/animation/NHD exact scope remain separate acceptance.",
+    "Nonzero native curse resistance, player PvP, neutral/aligned/minion graphs and unmapped source monster stats require explicit support decisions. No native handler follows from this source-only evidence."
+  ]
+}

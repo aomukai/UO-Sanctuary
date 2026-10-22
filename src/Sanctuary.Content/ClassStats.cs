@@ -121,7 +121,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return ScaleDefense(CreatureProfiles.Defense(creature),PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature));
+            return ScaleDefense(CreatureProfiles.Defense(creature),PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
@@ -137,7 +137,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return ScaleDefense(player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player));
+            return ScaleDefense(player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+NecromancerEffects.DefenseStatPercent(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
@@ -151,7 +151,7 @@ public static class ClassStats
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !PaladinAuras.CombatStats(attacker) && !PaladinAuras.CombatStats(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian)
-            && SorceressEffects.Enchantment(attacker) == null)
+            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0)
         {
             return null;
         }
@@ -186,6 +186,7 @@ public static class ClassStats
     }
     internal static int WeaponStatPercent(int strength,int dexterity,int strengthBonus,int dexterityBonus)
         =>(int)((long)strengthBonus*strength/100+(long)dexterityBonus*dexterity/100);
+    internal static int PhysicalDamageBonus(PlayerMobile player,BaseWeapon weapon)=>DamageBonus(player,weapon)+NecromancerEffects.DamageStatPercent(player);
     public static (int Min, int Max) DamageRange(PlayerMobile player)
     {
         int min = (int)Math.Floor(GearEffects.Damage(player, 0).Total);
@@ -208,7 +209,7 @@ public static class ClassStats
     public static (int Min, int Max) PhysicalDamageRange(PlayerMobile player, int targetBonus = 0)
     {
         var weapon=CombatTiming.Equipped(player);var raw=WeaponBaseDamage(player);
-        int bonus=Math.Max(0,100+DamageBonus(player,weapon)+targetBonus);
+        int bonus=Math.Max(10,100+PhysicalDamageBonus(player,weapon)+targetBonus);
         int min = Math.Max(1, raw.Min * bonus / 100);
         int max = Math.Max(min, raw.Max * bonus / 100);
         int added = CombatPotions.Bonus(player, "deep-wounds");
@@ -225,7 +226,7 @@ public static class ClassStats
     internal static (int Min,int Max) SkillPhysicalRange256(PlayerMobile player,int skillPercent,int targetBonus)
     {
         var raw=WeaponBaseDamage(player);
-        return PhysicalEndpoints256(raw.Min,raw.Max,DamageBonus(player,CombatTiming.Equipped(player))+skillPercent+targetBonus);
+        return PhysicalEndpoints256(raw.Min,raw.Max,PhysicalDamageBonus(player,CombatTiming.Equipped(player))+skillPercent+targetBonus);
     }
     public static int[] Snapshot(PlayerMobile player)
     {

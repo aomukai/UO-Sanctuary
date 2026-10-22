@@ -43,7 +43,7 @@ public static class PaladinSmite
         int weaponStats=basis==null?owner.Str:ClassStats.WeaponStatPercent(owner.Str,owner.Dex,basis.StrengthBonus,basis.DexterityBonus);
         int global=ClassStats.DamageBonus(owner,weapon)-weaponStats;
         int bonus=global+ClassStats.WeaponStatPercent(owner.Str,owner.Dex,shield.StrengthBonus,shield.DexterityBonus)
-            +(int)values.Eval("calc1")+NecromancerEffects.OutgoingPhysicalPercent(owner)-100;
+            +(int)values.Eval("calc1")+NecromancerEffects.DamageStatPercent(owner);
         var holy=HolyShields.SmiteBonus(owner);
         // Only item_normaldamage augments both shield endpoints before percentages;
         // ordinary flat min/max and weapon-local ED are not Smite bases.

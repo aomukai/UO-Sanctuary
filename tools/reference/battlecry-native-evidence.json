@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests, current431 named/15 first-loop hashes, source/generator/catalogue checks and matching installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/battlecry-engine-evidence.json",
+  "implementation": [
+    "Right/quick-bound shared SC do-event pays pinned5mana once and launches the existing64-vector ring; no self debuff or damage. Battle Cry reuses Howl12-velocity/MaxVel12/Accel-1000/Range12 motion, saved LastCollide and a separate4-frame NextHit deadline.",
+    "Battle Cry lives in the existing ordinary curse persistence lane. Attract rejects; lower same-skill rank rejects; equal rank refresh retains original creator; stronger/different curse replaces. Replacing source Terror releases its native movement intent. The separate Necromancer handler registry remains restricted to Necromancer abilities.",
+    "Pinned duration300+60*(rank-1)frames, armor-50-2*(rank-1) and weapon ED-25-(rank-1) use stored missile rank. Armor joins Shout/aura/skill percentages before the existing final Berserk override/nonnegative defense boundary.",
+    "Curse damagepercent joins player skill/basic weapon ED before its-90 floor and FP256 endpoint scaling; physical material reference joins that physical pool. Elemental material references remain separate. Prepared critical/conversion no longer receives a duplicate final curse multiplier.",
+    "Live skeleton/golem and native creature weapon pools join their existing skill/aura ED with curse damagepercent. Smite retains its shield percentage pool. Generic physical spell/retaliation mitigation no longer applies a weapon-only stat by channel.",
+    "No new controller or persistence schema is introduced: existing saved curse JSON admits BattleCry and shared ray/delay JSON admits its enum. Existing effects/icons remain identified placeholders."
+  ],
+  "checks": [
+    "983 independent compiled source cases:240 curse replacement/resistance/Attract,480 filter,8 generic gates,120 defense and135 weapon damage. Full generic curse, target filter/relationship, hit21, aura writer and stat consumer routines compile unchanged with declared services.",
+    "Native135 weapon endpoint/draw and120 defense/override source goldens; rank1/20/21 formulas; right/quick binding and left rejection, one5mana debit, early/single effect, paralyzed cancellation and lost-mana release rejection.",
+    "Real Tarnhelm raises launched effective rank. Shared source ring initializes64 rays/velocity2304/owner LastCollide. The source4-frame delay remains active through159ms, clears at160ms and is isolated from Battle Orders.",
+    "48 bounded native rank/other-curse/Attract scenarios verify source rank acceptance, original equal-rank creator, replacement rank/creator/deadline and untouched rejection. Actual source Howl replacement releases fear intent; actual Necromancer Weaken replaces Battle Cry. Unknown Ogre is excluded explicitly.",
+    "Battle Cry defense joins an existing Shout bonus additively. Expired curse consumers return to ordinary defense/damage. Actual converted dagger/basic and skill damage verify additive ED for Battle Cry/Weaken/Decrepify; flat elements stay fixed and prepared impact does not scale twice. Physical spell and retaliation control packets retain the same life loss when source is cursed.",
+    "Native creature weapon multiplier excludes spell packets. Skeleton live damage joins the existing pool and excludes a second native multiplier.",
+    "Natural rank1 wave reaches a nearby mapped skeleton without damage, reduces defense and misses a farther target; its12-second state expires naturally. No held inspection timestamp substitutes for that expiry check.",
+    "Three boots/two actual reloads preserve curse rank/creator/deadline/defense, fractional mana, held mid-flight deceleration/counter/position/LastCollide and independent hit delay. A saved short state expires offline. Resumed rank20 ray applies its stored rank without another payment and expires; pending transient cast does not replay."
+  ],
+  "fixtureCorrections": [
+    "Initial focused run exposed a missing right-only binding entry; production SkillBindings now rejects left Battle Cry as pinned.",
+    "Final input review found the shared SelfTarget entry missing. The generator now includes Battle Cry for both client/server and the native fixture asserts that metadata before binding.",
+    "The initial fixture tried to equip a converted Broadsword on default Barbarian strength. It now uses a legal Dagger; no gameplay requirement was relaxed.",
+    "The expanded spell/retaliation matrix exhausted the small skeleton fixture life pool, so an uncursed control could hit a dead target. Each paired comparison now restores full life independently; runtime mechanics were unchanged.",
+    "Hour-long regen applies only to fixture constructors/names. Saved curse/ray/delay inspection deadlines are held10minutes after separate normal duration/motion/delay checks."
+  ],
+  "limits": [
+    "No modern executable or class completion certificate. Exact SC/FCR/first-frame/frame/footprint/Z/tile/terrain/LOS/owner/client and modern same-skill NextHit caster/cast scope remain acceptance work.",
+    "Native Battle Cry currently accepts source-mapped monsters with NPC=false and ISATT=true. It deliberately does not borrow Howl boss/AI-switch immunity. Unmapped creatures and native PvP remain unsupported; source player/minion relationship/neutral/party graphs are not certified by existing cooperative hostility adapters.",
+    "Current supported native monsters have source-default zero curse resistance. Nonzero curse resistance is compiled with duration and100+ rejection, but has no complete native stat adapter. Target special flags and exotic curse/stat/item/proc transitions remain unverified.",
+    "Shared Weaken/Decrepify/Battle Cry weapon ED is corrected, including prepared player attacks, live skeleton/golem damage and native creature weapon packets. Native ordinary whole-point basic/pet/creature rounding and special weapon/item/minmax/dual-wield cases retain their existing projection limits.",
+    "The source curse rank/creator rules are implemented for the new Battle Cry collision path. Earlier Necromancer cast paths have separate rank/recast acceptance remaining; this batch does not silently certify all curses.",
+    "Generic physical spell/retaliation packets exclude weapon ED. Dedicated native checks cover those boundaries and no duplicate prepared-hit scaling; exhaustive event/proc/retaliation/converted elemental ordering remains separate acceptance.",
+    "Effects and talent/hotkey icons remain separate240-entry registers with identified UO/text placeholders. No final imagegen, item acquisition gate, save reset or new native patch."
+  ]
+}

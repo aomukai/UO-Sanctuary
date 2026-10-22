@@ -84,7 +84,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         {
             if (Kind==CombatAbility.None) { return base.SkillWeaponDamage; }
             if (IsMage) { return (CombatProfile.MinDamage,CombatProfile.MaxDamage); }
-            string key=SkillMechanics.For(Kind).Text("summon"); int percent=100+Passive("damagepercent")+PaladinAuras.DamagePercent(this);
+            string key=SkillMechanics.For(Kind).Text("summon"); int percent=Math.Max(10,100+Passive("damagepercent")+PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
             int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD")*percent/100);
             return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD")*percent/100));
         }
