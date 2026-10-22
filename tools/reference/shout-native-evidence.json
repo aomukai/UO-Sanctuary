@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,428 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "status": "Focused/final combined native3boots/2reloads pass;70 Python tests,430 current named/15 first-loop input hashes, source/generator/catalogue checks and matching installed existing-world load/listen/clean shutdown pass.",
   "source": "tools/reference/shout-engine-evidence.json",
   "implementation": [
     "Right-only self-target skill with shared SC wind-up and source6-mana payment at its do-event; native interrupted/invalid/insufficient-mana release does not grant the buff.",

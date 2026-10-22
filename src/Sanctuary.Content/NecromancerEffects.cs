@@ -10,7 +10,7 @@ namespace Sanctuary;
 
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
-    NecromancerMotion Motion = null);
+    NecromancerMotion Motion = null, TerrorAi Terror = null);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
@@ -19,8 +19,10 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
     public NecromancerEffectProfiles() : base("SanctuaryNecromancerEffects", 112) { }
     public NecromancerState Find(Mobile actor) => actor is { Alive: true, Deleted: false }
         ? _states.GetValueOrDefault(actor.Serial) : null;
-    public void Store(Mobile actor, NecromancerState state) => _states[actor.Serial] = state;
-    public void Clear(Mobile actor) => _states.Remove(actor.Serial);
+    public void Store(Mobile actor, NecromancerState state)
+    {var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);}
+    public void Clear(Mobile actor)
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);}}
     public override void Serialize(IGenericWriter writer)
     {
         Prune(); writer.Write(0); writer.Write(_states.Count);
@@ -35,7 +37,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         {
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<NecromancerState>(reader.ReadString());
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
-                || state.Curse is { } curse && (!NecromancerEffects.IsCurse(curse.Ability) || curse.Rank is < 1 or > 255)
+                || state.Curse is { } curse && (!NecromancerEffects.IsCurse(curse.Ability) || curse.Rank is < 1 or > 255 || curse.Terror is{} terror && (curse.Ability!=CombatAbility.Terror || terror.Skill!=CombatAbility.Howl || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
         _states = states;
@@ -47,7 +49,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         { if (World.FindMobile(serial) is not { Alive: true, Deleted: false }) { removed.Add(serial); } }
         foreach (var serial in removed) { _states.Remove(serial); }
     }
-    public override void PostDeserialize() => Prune();
+    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);}
 }
 
 public static class NecromancerEffects
@@ -132,7 +134,7 @@ public static class NecromancerEffects
         if (Curse(actor) is not { } curse) { return true; }
         return curse.Ability switch
         {
-            CombatAbility.Terror => false,
+            CombatAbility.Terror => curse.Terror!=null && SourceTerror.TargetAllowed(actor,target),
             CombatAbility.DimVision => target != null && actor.Map == target.Map && actor.InRange(target, 1),
             _ => true
         };
@@ -153,6 +155,7 @@ public static class NecromancerEffects
         var curse = Curse(creature);
         if (curse?.Ability == CombatAbility.Terror)
         {
+            if(curse.Terror!=null){return SourceTerror.Think(creature,curse);}
             creature.Combatant = null; creature.FocusMob = null;
             var origin = new Point3D(curse.OriginX, curse.OriginY, creature.Z);
             ai.DoMove((Direction)(((int)creature.GetDirectionTo(origin) + 4) & 7)); return true;

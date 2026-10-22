@@ -8,7 +8,7 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-public sealed record ConversionSourceRule(string Source,string Base,bool Evil,bool SwitchAi,bool Walk,bool Boss);
+public sealed record ConversionSourceRule(string Source,string Base,bool Evil,bool SwitchAi,bool Walk,bool Boss,bool Run=false,bool Attack1=false,bool Attackable=false,bool Npc=false,bool Interact=false,int Velocity=0,int RunVelocity=0,int Size=0,string Ai=null);
 public sealed record ConversionAllegiance(uint Target,uint Source,DateTime UntilUtc);
 public sealed class ConversionProfiles:GenericPersistence
 {
@@ -80,6 +80,7 @@ public static class PaladinConversion
         // native consumer. Do not silently approximate either source branch.
         return rule.Base!="imp1" && ClassStats.Level(owner)>=ClassStats.Level(target);
     }
+    internal static ConversionSourceRule SourceRule(BaseCreature target)=>target==null?null:_rules.GetValueOrDefault(CreatureProfiles.Definition(target).Reference??"");
     private static bool Supported(PlayerMobile owner,BaseCreature target)
     {
         string key=target==null?null:CreatureProfiles.Definition(target).Reference;

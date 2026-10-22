@@ -1340,10 +1340,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 130,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Reuses the64-ray controller with pinned4mana, rank velocity, source MaxVel clamp/deceleration disable, stored rank/live caster-level gate, LastCollide and no Terror refresh. Shared curse metadata preserves initial escape/cleared caster override/later threat selection, idle/close combat, move intent and expiry. Supported Skeleton/Zombie/Megademon source AIs only; native source pathing/scan/leash adapters, Attract/curse-resistance failure transients, other callback species, modern SC/FCR/geometry/owner/client remain explicit limits. Ranks81+ remain gated for uncertain signed32 source overflow. Focused/full native verification recorded separately; no class certificate."
     },
     {
       "talentId": "barbarian.findpotion",

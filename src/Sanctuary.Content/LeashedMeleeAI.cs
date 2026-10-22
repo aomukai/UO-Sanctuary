@@ -28,6 +28,9 @@ public sealed class LeashedMeleeAI : MeleeAI
 
     internal bool UpdateLeash(long now)
     {
+        // Forced source fear owns movement until expiry; losing the combatant
+        // during that control state is not voluntary chase abandonment.
+        if(SourceTerror.State(Mobile)!=null){return false;}
         if (Mobile.Deleted || !Mobile.Alive || Mobile.Controlled || Mobile.Summoned
             || Mobile.Map == null || Mobile.Map == Map.Internal)
         {

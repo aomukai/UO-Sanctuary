@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined native3boots/2reloads pass;70 Python tests,430 current named/15 first-loop input hashes, source/generator/catalogue checks and matching installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/howl-engine-evidence.json",
+  "implementation": [
+    "Right-only shared SC do-event launches64 rays and consumes pinned4mana after release. Howl uses rank-based velocity, table MaxVel12/Accel-1000/Range12, LastCollide and no NextHit gate; it applies no self buff or damage.",
+    "Shared saved ray motion now retains optional current acceleration. High ordinary ranks clamp to3072FP on frame5 and disable acceleration permanently; lower ranks continue decelerating. Older saves default missing acceleration to their missile row. Swept lookup expands for high-velocity segments.",
+    "Hit uses stored missile rank and current caster level with strict rank+Param2+casterLevel>targetLevel. Existing Terror from Howl, ordinary Necromancer Terror or item fear is not refreshed.",
+    "An optional TerrorAi payload in existing Necromancer curse JSON stores source skill/rank, initial override, phase/focus, next decision, velocity and native movement goal. The curse remains Terror rank1 with explicit Howl duration; no Necromancer rank lookup or blanket difficulty division is introduced.",
+    "Common source dispatch retains initial escape/cleared caster override, later native threat acquisition and close A1 combat, weighted source distance/default30 idle boundary, capped velocity and source-shaped escape/fallback goals. Existing AI MoveToPoint/path/think/movement clocks drive movement; no second step scheduler is added.",
+    "Ordinary curse replacement and item fear clear the source payload/intent through the shared curse lane. A40ms expiry sweep and load cleanup remove stale payloads; later ordinary AI may resume. Active forced fear does not count as voluntary abandonment to the native leash.",
+    "Existing source species rules are extended with run/A1/attackability/NPC/interact/velocity/size/AI metadata and reused by Conversion/Howl rather than adding a second contradictory species table."
+  ],
+  "checks": [
+    "Independent1169 compiled source cases:18 launch/96 hit/128 eligibility/40 curse gates/32 helper/36 hit guards/384 AI dispatch/147 distance/44 motion/196 escape endpoints/48 fallback.",
+    "Native projected source dispatch/distance/velocity/fallback/motion goldens, rank1/20/21 formulas, actual right/quick binding and left rejection, one4mana debit, early/single effect, paralyzed cancellation and lost-mana wind-up.",
+    "Real Tarnhelm raises hard Howl1 to launched2/velocity2688. Saved owner actually trains Howl20 before its rank20 ray seed.",
+    "Initial in-melee target escapes before any later combat. New adjacent threat replaces caster focus; native A1 attack clock accepts it, other targets remain disallowed. Beyond30 source-distance yields10-frame idle without erasing initial override.",
+    "Actual Weaken replacement cancels source movement; Attract remains protected; ordinary Terror is not refreshed. Unknown native Ogre remains explicitly unsupported. A new Hell skeleton rejects low current caster level and accepts the same stored rank after caster level-up.",
+    "Natural rank1 wave reaches nearby mapped skeleton, causes actual AI movement without damage, and misses the farther target. Leash does not misread fear combatant loss as abandonment. Natural3-second fear expires.",
+    "Three boots/two actual reloads preserve exact mana, Terror rank/source/phase/override/focus/goal/deadline, hard20 and held frame6 ray/current acceleration0/velocity3072/counter0. Saved short fear expires offline. Resumed ray retains disabled acceleration, grants stored rank20 without payment, ends naturally and resumes AI escape phase.",
+    "Final combined suite includes all earlier class/gear checks across both reloads. Fresh573-definition named export matches430 inputs and first-loop15;70 Python/source/generator/catalogue checks and installed DLL/world smoke pass."
+  ],
+  "fixtureBoundary": [
+    "Controller assertions explicitly resolve actual release at selected timestamps; no connected natural SC/FCR/input certificate is claimed.",
+    "Natural complete wave/AI movement/expiry are separate from explicit synchronous AI phase checks and held saved ray inspection. Only inspection deadlines are held10minutes.",
+    "Named HowlFixture actors freeze resource recovery. Native WayPoint references keep isolated fixture sectors AI-active; explicit world-load freezing prevents fixtures moving before saved-field inspection. Production recovery/sector policy is unchanged.",
+    "Initial low-level fixture attempted training at level1 with no available talent point. It now trains Howl at level2 before testing level-up; no gameplay talent rule changed."
+  ],
+  "limits": [
+    "No modern executable or class completion certificate. Exact SC/FCR/first-frame, native footprint/Z/tile/terrain, path/fallback/scan/vision/tie/cadence and full owner/item/client acceptance remain open.",
+    "Supported mapped source AIs are Skeleton, Zombie and Megademon with no previous-AI exit callback. Unmapped native creatures, callback-bearing species, champion/unique/uninterruptable category differences and other special target branches remain individually unsupported; this is not a claim of D2R immunity.",
+    "Ranks81+ are unavailable because the supplementary signed32 axis product can overflow before the frame5 cap. Modern extreme-rank behavior is uncertain. Ordinary hard ranks1..20 and checked soft ranks remain available.",
+    "Current mapped monsters have source-default zero curse resistance. Nonzero resistance has independent pure source goldens but no full native stat adapter. Attract blocks allocation; the supplementary failed-allocation transient target/AI switch remains unsupported.",
+    "Native fear uses existing target acquisition/reacquisition cadence and pathing, weighted source-coordinate distance projected to two subtiles/tile, and existing movement clocks. These adapters are not full source target-scan/path/animation/velocity equivalence.",
+    "Forced source fear pauses native abandonment/home-return checks until expiry; home coordinates and subsequent native leash policy remain authoritative. The next source AI think clears a mismatched-map payload. Exact death/offline/party/owner edge equivalence remains open.",
+    "Earlier ordinary Necromancer Terror/item-fear variants remain separately gated acceptance work before adopting the source phase payload; they retain their existing behavior. This handler reuses their curse/control/movement systems without claiming all fear variants are complete.",
+    "Effects and talent/hotkey icons remain independent identified placeholders; no final imagegen, item gate or native patch changed."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/howl-focused.log",
+    "combined": ".local/class-skills/native-checks.log",
+    "source": ".local/class-skills/howl-source-probe-run.log",
+    "build": ".local/class-skills/howl-install-build.log",
+    "installed": ".local/class-skills/installed-smoke.log",
+    "trainingFailure": ".local/class-skills/howl-training-fixture-failure.log"
+  }
+}

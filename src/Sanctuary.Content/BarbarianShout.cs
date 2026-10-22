@@ -10,7 +10,7 @@ using Server.Spells;
 namespace Sanctuary;
 
 public sealed record ShoutState(uint Recipient,uint Creator,uint Supplier,int Rank,int DefensePercent,DateTime UntilUtc);
-public sealed record ShoutRay(long Id,uint Owner,int Map,int Rank,int Ray,double X,double Y,int Z,int Frame,int Velocity,int AccelerationCounter,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.Shout,uint LastCollision=0);
+public sealed record ShoutRay(long Id,uint Owner,int Map,int Rank,int Ray,double X,double Y,int Z,int Frame,int Velocity,int AccelerationCounter,DateTime UntilUtc,DateTime NextUtc,CombatAbility Ability=CombatAbility.Shout,uint LastCollision=0,int? Acceleration=null);
 public sealed record WarcryDelay(CombatAbility Ability,uint Recipient,DateTime UntilUtc);
 public sealed record ShoutSave(ShoutState[] States,ShoutRay[] Rays,WarcryDelay[] Delays=null);
 public sealed class ShoutProfiles:GenericPersistence
@@ -35,7 +35,7 @@ public static class BarbarianShout
     private static long _next;
     public static ShoutProfiles Profiles{get;private set;}
     public static int Frames=>NecromancerSummons.Source("shout","Range");
-    internal static string Missile(CombatAbility ability)=>ability==CombatAbility.BattleOrders?"battleorders":ability==CombatAbility.BattleCommand?"battlecommand":"shout";
+    internal static string Missile(CombatAbility ability)=>ability==CombatAbility.Howl?"howl":ability==CombatAbility.BattleOrders?"battleorders":ability==CombatAbility.BattleCommand?"battlecommand":"shout";
     internal static bool Delayed(CombatAbility ability,uint recipient,DateTime at)=>_delays.TryGetValue((ability,recipient),out var until) && until>at;
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),Tick);
@@ -71,33 +71,36 @@ public static class BarbarianShout
         {
             long id=++_next;
             _rays.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,ray,owner.X,owner.Y,owner.Z,0,
-                (NecromancerSummons.Source(Missile(ability),"Vel")<<8)*75/100,0,at.AddMilliseconds(NecromancerSummons.Source(Missile(ability),"Range")*40),at,ability,
+                ((NecromancerSummons.Source(Missile(ability),"Vel")+(ability==CombatAbility.Howl?(int)values.Eval("calc1"):0))<<8)*75/100,0,at.AddMilliseconds(NecromancerSummons.Source(Missile(ability),"Range")*40),at,ability,
                 NecromancerSummons.Source(Missile(ability),"LastCollide")!=0?owner.Serial.Value:0));
         }
-        if(ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,owner,values.Rank,at);}else{Apply(owner,owner,values.Rank,at);}
+        if(ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,owner,values.Rank,at);}else if(ability==CombatAbility.Shout){Apply(owner,owner,values.Rank,at);}
         owner.FixedEffect(0x375A,10,10,0x481,0);owner.PlaySound(0x1E5); // Identified UO placeholders; final cry/wave/state assets pending.
     }
     internal static bool Candidate(PlayerMobile owner,Mobile target)=>Alive(target) && !target.Blessed && target is not BaseVendor
         && target.Map==owner.Map && (target==owner || ClassCombat.Friendly(owner,target) || ClassCombat.IsHostile(owner,target));
-    internal static (int Velocity,int Counter,double X,double Y) Advance(int ray,int velocity,int counter)
+    internal static (int Velocity,int Counter,double X,double Y,int Acceleration) Advance(int ray,int velocity,int counter,CombatAbility ability=CombatAbility.Shout,int? acceleration=null)
     {
-        if(++counter>=5){velocity=Math.Max(0,velocity+NecromancerSummons.Source("shout","Accel"));counter=0;}
+        int accel=acceleration??NecromancerSummons.Source(Missile(ability),"Accel");
+        if(accel!=0 && ++counter>=5)
+        {velocity+=accel;int maximum=NecromancerSummons.Source(Missile(ability),"MaxVel")<<8;
+         if(velocity>maximum){velocity=maximum;accel=0;}else{velocity=Math.Max(0,velocity);}counter=0;}
         var direction=MissileVectors.Direction(_x[ray],_y[ray]);
         long magnitude=(1024L*velocity)>>6;
-        return(velocity,counter,SkillGeometry.Tiles(((magnitude*direction.X)>>12)/65536.0),SkillGeometry.Tiles(((magnitude*direction.Y)>>12)/65536.0));
+        return(velocity,counter,SkillGeometry.Tiles(((magnitude*direction.X)>>12)/65536.0),SkillGeometry.Tiles(((magnitude*direction.Y)>>12)/65536.0),accel);
     }
     private static void Step(PlayerMobile owner,ShoutRay ray,Map map)
     {
         string missile=Missile(ray.Ability);int frame=ray.Frame+1;
         if(frame>=NecromancerSummons.Source(missile,"Range")){_rays.Remove(ray.Id);return;} // SrvDo1 decrements Range before testing collision.
-        var motion=Advance(ray.Ray,ray.Velocity,ray.AccelerationCounter);
+        var motion=Advance(ray.Ray,ray.Velocity,ray.AccelerationCounter,ray.Ability,ray.Acceleration);
         double x=ray.X+motion.X,y=ray.Y+motion.Y;
         var from=new Point3D((int)Math.Round(ray.X),(int)Math.Round(ray.Y),ray.Z+12);
         var to=new Point3D((int)Math.Round(x),(int)Math.Round(y),ray.Z+12);
         // UO LOS is the current shared approximation for source missile barriers; equivalence remains documented as unverified.
         if(x<0 || y<0 || x>=map.Width || y>=map.Height || !map.LineOfSight(from,to)){_rays.Remove(ray.Id);return;}
         Mobile first=null;double nearest=double.MaxValue;
-        foreach(var target in map.GetMobilesInRange<Mobile>(new Point3D(to.X,to.Y,ray.Z),2))
+        foreach(var target in map.GetMobilesInRange<Mobile>(new Point3D(to.X,to.Y,ray.Z),(int)Math.Ceiling(Math.Sqrt((x-ray.X)*(x-ray.X)+(y-ray.Y)*(y-ray.Y)))+2))
         {
             if(Candidate(owner,target) && target.Serial.Value!=ray.LastCollision
                 && (NecromancerSummons.Source(missile,"NextHit")==0 || !Delayed(ray.Ability,target.Serial.Value,ray.NextUtc))
@@ -105,13 +108,14 @@ public static class BarbarianShout
                 && (entry<nearest || entry==nearest && target.Serial.Value<(first?.Serial.Value??uint.MaxValue)))
             {first=target;nearest=entry;}
         }
-        _rays[ray.Id]=ray with{X=x,Y=y,Frame=frame,Velocity=motion.Velocity,AccelerationCounter=motion.Counter,NextUtc=ray.NextUtc.AddMilliseconds(40),LastCollision=NecromancerSummons.Source(missile,"LastCollide")!=0?(first?.Serial.Value??ray.LastCollision):0};
+        _rays[ray.Id]=ray with{X=x,Y=y,Frame=frame,Velocity=motion.Velocity,AccelerationCounter=motion.Counter,Acceleration=motion.Acceleration,NextUtc=ray.NextUtc.AddMilliseconds(40),LastCollision=NecromancerSummons.Source(missile,"LastCollide")!=0?(first?.Serial.Value??ray.LastCollision):0};
         // LastCollide/NextHit belong to BO/BC; Shout retains neither. The modern
         // skill-local delay is shared across its suppliers/casts pending exact scope capture.
         if(first!=null)
         {
             if(NecromancerSummons.Source(missile,"NextHit")!=0){_delays[(ray.Ability,first.Serial.Value)]=ray.NextUtc.AddMilliseconds(NecromancerSummons.Source(missile,"NextDelay")*40);}
-            if(first==owner || ClassCombat.Friendly(owner,first))
+            if(ray.Ability==CombatAbility.Howl){BarbarianHowl.Hit(owner,first,ray.Rank,ray.NextUtc);}
+            else if(first==owner || ClassCombat.Friendly(owner,first))
             {if(ray.Ability==CombatAbility.BattleCommand){BattleCommand.Apply(owner,first,ray.Rank,ray.NextUtc);}else if(ray.Ability==CombatAbility.BattleOrders){BattleOrders.Apply(owner,first,ray.Rank,ray.NextUtc);}else{Apply(owner,first,ray.Rank,ray.NextUtc);}}
         }
         if(ray.Ray%8==0){Effects.SendLocationEffect(new(to.X,to.Y,ray.Z),map,0x375A,2,10,0x481,0);} // Sparse placeholder travelling wave.
@@ -165,7 +169,7 @@ public static class BarbarianShout
         {if(state.Recipient==0 || state.Creator==0 || state.Supplier==0 || state.Rank<1 || state.DefensePercent<0 || !_states.TryAdd(state.Recipient,state)){throw new InvalidDataException("Invalid Shout recipient");}}
         foreach(var ray in saved.Rays)
         {
-            if(ray.Ability is not (CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand) || ray.Id<=0 || ray.Owner==0 || ray.Rank<1 || ray.Ray is <0 or >=64 || ray.Map<0 || ray.Map>=Map.Maps.Length || Map.Maps[ray.Map]==null
+            if(ray.Ability is not (CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl) || ray.Id<=0 || ray.Owner==0 || ray.Rank<1 || ray.Ray is <0 or >=64 || ray.Map<0 || ray.Map>=Map.Maps.Length || Map.Maps[ray.Map]==null
                 || ray.Frame<0 || ray.Frame>=NecromancerSummons.Source(Missile(ray.Ability),"Range") || ray.Velocity<0 || ray.AccelerationCounter is <0 or >=5 || !double.IsFinite(ray.X+ray.Y)
                 || !_rays.TryAdd(ray.Id,ray)){throw new InvalidDataException("Invalid Shout ray");}
             _next=Math.Max(_next,ray.Id);

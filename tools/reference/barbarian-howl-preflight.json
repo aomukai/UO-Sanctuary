@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Compiled bounded supplementary source contract verified:881 cases. Native Howl/shared Terror integration is next; no handler enabled.",
+  "status": "Historical source preflight resolved by bounded Howl native implementation; remaining modern/native cases are in howl-native-evidence.json.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
@@ -137,10 +137,8 @@
     }
   ],
   "nextSteps": [
-    "Generalize existing warcry rays for Howl velocity/acceleration/range and skill-specific hit callback; preserve saved stored rank/LastCollide and existing Shout/BO/BC behavior.",
-    "Extend the shared fear/ordinary curse lane to retain initial escape/target override, subsequent threat selection, idle/movement/close-combat and expiry state. Reuse existing native AI movement rather than creating a second step scheduler; do not blindly call the current fixed-origin/unconditional-flee path.",
-    "Use existing source species/AI mappings plus required run/A1/size metadata. Keep unsupported callback/neutral/owner/collision branches explicit rather than guessing.",
-    "Verify native source level boundaries/no refresh, curse replacement/Attract, moving caster/other threats, first escape/later combat and idle, natural duration and saved mid-flight/AI phase through two reloads."
+    "Continue Battle Cry source hit/filter/curse replacement/stat-pool proof, reusing the current ray/motion/collision infrastructure.",
+    "Keep individually unsupported target/high-rank/curse-resistance/Attract-transient, path/scan/owner/client and earlier fear-variant acceptance work explicit."
   ],
   "limits": [
     "Source review/table goldens are not compiled proof or a modern executable capture.",
@@ -155,6 +153,10 @@
     "helperCases": 32,
     "hitGuardCases": 36,
     "terrorAiCases": 384,
-    "distanceCases": 147
-  }
+    "distanceCases": 147,
+    "motionCases": 44,
+    "escapeCases": 196,
+    "fallbackCases": 48
+  },
+  "nativeEvidence": "tools/reference/howl-native-evidence.json"
 }

@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 16 / 30 | 0 | 14 | Open |
+| 4 | Barbarian | 17 / 30 | 0 | 13 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -21,7 +21,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 
 Implementation rule: inspect existing handlers and shared mechanics before adding a new controller. Reuse verified geometry, movement, timing and resource consumers where the source agrees, keeping skill-specific damage, collision and targeting rules separate. Pinned Teeth and Multiple Shot both use server do8; verify/extract that common fan from the existing provisional Teeth implementation when reaching Amazon. Battle Command already reuses the Shout/Battle Orders travelling-ray and proportional-resource paths.
 
-Howl source preparation now has881 bounded compiled cases in [source evidence](../tools/reference/howl-engine-evidence.json). Its native handler remains pending: shared Terror AI includes initial escape, later threat selection/close combat and a default30-distance idle boundary. Existing unconditional-flee/fixed-origin behavior must not be copied as an exact substitute.
+Howl source preparation now has1169 bounded compiled cases in [source evidence](../tools/reference/howl-engine-evidence.json). Its native handler uses a separate source AI payload in the shared curse lane: Terror includes initial escape, later threat selection/close combat and a default30-distance idle boundary. Earlier ordinary-Terror/item-fear variants still need their own acceptance before adopting this payload; the native Howl consumer is verified separately.
 
 ## Necromancer
 
@@ -132,7 +132,7 @@ Howl source preparation now has881 bounded compiled cases in [source evidence](.
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
-| Howl | 130 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Howl | 130 | handler-present | Reuses the64-ray controller with pinned4mana, rank velocity, source MaxVel clamp/deceleration disable, stored rank/live caster-level gate, LastCollide and no Terror refresh. Shared curse metadata preserves initial escape/cleared caster override/later threat selection, idle/close combat, move intent and expiry. Supported Skeleton/Zombie/Megademon source AIs only; native source pathing/scan/leash adapters, Attract/curse-resistance failure transients, other callback species, modern SC/FCR/geometry/owner/client remain explicit limits. Ranks81+ remain gated for uncertain signed32 source overflow. Focused/full native verification recorded separately; no class certificate. |
 | Find Potion | 131 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Shout | 138 | handler-present | Self state plus64 travelling decelerating rays, source6-mana do-event payment, stored effective rank/live hard duration synergies, repeated aligned recipient hits and weaker replacement are implemented. Cooperative players/pets receive additive defense, with Berserk retaining final zero defense. Dedicated native moving-ally, real gear, resource/interruption, lifecycle and two reloads exercise the bounded port. Source ring/hit/stat/acceleration routines compiled separately. D2 subtile-to-UO tiles, collision footprints/terrain/neutral NPC alignment, exact SC event/FCR, mid-windup mana-loss ordering, modern scheduling/snapshots and actual-client equivalence remain unverified; effects/icons are independent placeholders. |
 | Taunt | 137 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

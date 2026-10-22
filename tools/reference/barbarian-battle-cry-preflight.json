@@ -1,0 +1,151 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next source preflight only; Battle Cry handler pending.",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "blockHashes": {
+    "MISSMODE_SrvHit21_BattleCry": "268a58fdcc6e37e2b83bd420eb566266a270e6bc0a2666caac9f2aa82d039e2e",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d"
+  },
+  "skill": {
+    "skill": "Battle Cry",
+    "*Id": 146,
+    "charclass": "bar",
+    "skilldesc": "battle cry",
+    "srvdofunc": 68,
+    "srvmissilea": "battlecry",
+    "aurafilter": 98304,
+    "auratargetstate": "battlecry",
+    "auralencalc": "ln12",
+    "aurastat1": "skill_armor_percent",
+    "aurastatcalc1": "ln34",
+    "aurastat2": "damagepercent",
+    "aurastatcalc2": "ln56",
+    "stsoundclass": "barbarian_battlecry_1",
+    "cltdofunc": 25,
+    "cltmissilea": "battlecry",
+    "cltcalc1": 0,
+    "*cltcalc1 desc": "Missile Velocity Adder",
+    "enhanceable": 1,
+    "attackrank": 9,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "reqlevel": 18,
+    "maxlvl": 20,
+    "reqskill1": "Taunt",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 5,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "Param1": 300,
+    "*Param1 Description": "Duration baseline",
+    "Param2": 60,
+    "*Param2 Description": "Duration per level",
+    "Param3": -50,
+    "*Param3 Description": "Enemy Armor % baseline",
+    "Param4": -2,
+    "*Param4 Description": "Enemy Armor % per level",
+    "Param5": -25,
+    "*Param5 Description": "Enemy Damage % baseline",
+    "Param6": -1,
+    "*Param6 Description": "Enemy Damage % per level",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 640,
+    "cost add": 16000,
+    "lineNumber": 146
+  },
+  "missile": {
+    "Missile": "battlecry",
+    "*ID": 219,
+    "pCltDoFunc": 1,
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 21,
+    "Vel": 12,
+    "MaxVel": 12,
+    "Accel": -1000,
+    "Range": 12,
+    "Red": 192,
+    "Green": 192,
+    "Blue": 192,
+    "InitSteps": 1,
+    "Activate": 0,
+    "LoopAnim": 0,
+    "CelFile": "BAYellShockWave01",
+    "animrate": 1024,
+    "AnimLen": 15,
+    "AnimSpeed": 16,
+    "CollideType": 3,
+    "LastCollide": 1,
+    "NextHit": 1,
+    "NextDelay": 4,
+    "Size": 1,
+    "Trans": 1,
+    "NumDirections": 32,
+    "TravelSound": "barbarian_circle_1",
+    "lineNumber": 219
+  },
+  "state": {
+    "state": "battlecry",
+    "*ID": 89,
+    "curse": 1,
+    "damblue": 1,
+    "armblue": 1,
+    "overlay1": "battlecry",
+    "stat": "skill_armor_percent",
+    "onsound": "barbarian_battlecry_state",
+    "lineNumber": 89
+  },
+  "reuse": [
+    "Common do68/ray factory is already used by Shout/BO/BC; Howl now supplies the12-velocity/MaxVel12/Accel-1000/Range12 motion contract shared by Battle Cry. Retain independent4-frame NextHit gate for this skill.",
+    "Generic curse/statlist construction is shared source behavior. Trace curse mask/Attract/statlist rank replacement and existing defense/outgoing-physical consumers before creating a separate debuff system."
+  ],
+  "findings": [
+    "Hit21 requires owner/target/skill/valid state, then replaces any nonzero source aura filter with42883 before sub_6FD0FA00. Decode and compile that filter rather than copying friendly warcry or fear eligibility.",
+    "Duration reads missile level and current owner formula context. Generic curse allocation/replacement uses skill/state/rank and source state masks; writer receives the target as its first argument.",
+    "Pinned stats are skill_armor_percent and damagepercent. Defense and physical damage need their correct additive source pools; a blanket final damage multiplier is not established by these rows.",
+    "Modern Battle Cry state and missile flags are retained verbatim below; no class/item/target eligibility certificate follows from this preflight."
+  ],
+  "projectedTableGoldens": [
+    {
+      "rank": 1,
+      "mana": 5,
+      "defensePercent": -50,
+      "damagePercent": -25,
+      "frames": 300
+    },
+    {
+      "rank": 20,
+      "mana": 5,
+      "defensePercent": -88,
+      "damagePercent": -44,
+      "frames": 1440
+    },
+    {
+      "rank": 21,
+      "mana": 5,
+      "defensePercent": -90,
+      "damagePercent": -45,
+      "frames": 1500
+    }
+  ],
+  "nextSteps": [
+    "Compile unchanged hit21/filter/generic statlist replacement and aura writer with explicit stubs; trace the source armor and damagepercent consumers.",
+    "Reuse shared saved rays/motion/LastCollide/skill-local NextHit plus existing state/defense/damage pipelines, with dedicated mana/target/rank/recast/expiry/owner and two-reload checks.",
+    "Keep uncertain native PvP/neutral/target categories, item/stat combinations and modern frame/geometry/client behavior explicit; move past individually blocked branches."
+  ],
+  "limits": [
+    "Source review/table goldens, not compiled or modern executable proof.",
+    "No final effects/icons; existing placeholder registers remain independent."
+  ]
+}

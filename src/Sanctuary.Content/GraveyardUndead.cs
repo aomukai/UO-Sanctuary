@@ -125,7 +125,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     internal TimeSpan BeginMelee(Mobile target, long now)
     {
-        if (Caster && !NamedControl.Blind(this) || !ValidEnemy(target, 1))
+        if (Caster && !NamedControl.Blind(this) && !SourceTerror.InCombat(this) || !ValidEnemy(target, 1))
         {
             return TimeSpan.FromMilliseconds(40);
         }

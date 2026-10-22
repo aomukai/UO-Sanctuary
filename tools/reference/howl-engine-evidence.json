@@ -10,7 +10,9 @@
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/include/AI/AiStates.h": "23590f1e50c99929533dc122519b5f7fd6567a4c043bccd6a9b6d5721f06184d",
     "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
-    "source/D2Game/src/MONSTER/MonsterAI.cpp": "e225823e8ccd85e6637461846a6823f158bc72045ae125e7db79501be6252cb2"
+    "source/D2Game/src/MONSTER/MonsterAI.cpp": "e225823e8ccd85e6637461846a6823f158bc72045ae125e7db79501be6252cb2",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
   },
   "probe": {
     "caseCounts": {
@@ -21,7 +23,10 @@
       "helperCases": 32,
       "hitGuardCases": 36,
       "terrorAiCases": 384,
-      "distanceCases": 147
+      "distanceCases": 147,
+      "motionCases": 44,
+      "escapeCases": 196,
+      "fallbackCases": 48
     },
     "blockHashes": {
       "SKILLS_SrvDo022_NovaAttack": "be31bbe6cf4fe5489d81e5a4828b9f3ed161cad9e806cbceb324ba3b04778fc0",
@@ -34,6 +39,10 @@
       "AIUTIL_GetDistanceToCoordinatesWithSize": "cca0a7743bf6e71455bafdc36eebbebd44fe461cb1e4d9598b4636c49a38d5d1",
       "AIUTIL_GetDistanceToCoordinates_FullUnitSize": "2280f19f84e99134245e5a6d320418269ed5a767462e5a616ea7fc921b2bb4d0",
       "AIUTIL_GetDistanceToCoordinates_NoUnitSize": "35482949496a744668dc3d3c2106ff0e2e83e818fe9c7b1f2dd6a3a692dd1066",
+      "advance": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+      "walkEscape": "529d9418a1aaa3a7fb7b5e8b624966bb26d5d8c9a786be8b0f3ebc3a0b53a83e",
+      "runEscape": "b670ba190b21fe07b9e4d9dafda667cc464bcd26503816751ca230a0dc4c8d13",
+      "walkNear": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
       "terrorInitializeReview": "66843ea0152cc7f96b60d5e30be1f95bed7173c007e2b947e0a969ef8aec05a1",
       "targetOverrideWriteReview": "e2c19a659bc68e253b6bdf059760b18da3cdc009c92fc2223042bce9b59b82fe",
       "targetOverrideClearReview": "284c1634922ae0c03f30d2acd43a1eb3583d0844ccf3e11fcd562c3d568f6522",
@@ -55,6 +64,8 @@
     "Common Terror AI defaults its distance parameter to30, idles10frames only when target distance>30, derives capped0..120 run percentage, initially escapes and deletes pending AI event, can attack in later combat, and falls back to walking near when later escape fails.",
     "Terror initialization records the caster target override; initial escape clears that override, allowing later common AI target selection. Do not make either fixed cast origin or permanent caster tracking the complete source behavior.",
     "Target distances use source integer weighted-axis distance and the target full-size subtraction, not Euclidean center distance;147 compiled raw-coordinate cases cover this contract before native tile projection.",
+    "Negative acceleration still applies the table maximum clamp. Howl rank20/21/80 exceed MaxVel12 after four frames; frame5 clamps to3072FP and disables acceleration permanently. Lower rank1 continues decelerating.44 compiled motion cases retain the source state change.",
+    "Walk/run escape helpers request sign(dx/dy)*30 source-coordinate endpoints; the walk-near fallback samples one fixed6 axis, one bounded0..5 axis and two sign bits.196 endpoint and48 fallback cases compile those unchanged helper routines.",
     "General AI initialization normally zeros all three parameters before special-state dispatch. Callback-bearing previous AI has an early transition branch; species-specific preservation needs separate handling."
   ],
   "stubs": [
@@ -65,9 +76,10 @@
     "No complete monster target acquisition, native projected distance/collision metric, animation/velocity integration, source callback dispatch or modern executable capture is claimed."
   ],
   "limits": [
-    "No Howl handler enabled by this evidence. Reuse current rays with per-skill motion and a shared fear consumer that can express source distance/idle/initial-escape/later-combat transitions.",
+    "This probe alone establishes bounded supplementary source contracts. The native Howl consumer is verified separately in howl-native-evidence.json; its path/scan/geometry adapters remain explicit limits.",
     "Current native Necromancer Terror and NamedControl fear do not fully express this common AI: fixed origin or unconditional flee differs from the compiled dispatch. Avoid silently equating those existing behaviors with Howl.",
     "Generic curse failure still switches AI transiently in supplementary source. Exact state/curse resistance/Attract and modern owner/death/item/client transitions remain acceptance work.",
+    "Howl ranks81+ overflow the signed32 axis product in this reconstruction before the frame5 clamp; modern behavior is uncertain and this native extreme-rank branch must stay gated.",
     "Native monster species mappings, champion/unique/uninterruptable/charged-item cases, missing caster/target selection, path fallbacks, exact SC/FCR/geometry/collision and modern duration/scheduling remain open."
   ]
 }

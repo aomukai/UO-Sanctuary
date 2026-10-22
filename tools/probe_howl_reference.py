@@ -17,6 +17,7 @@ sor=source('source/D2Game/src/SKILLS/SkillSor.cpp');miss=source('source/D2Game/s
 assert 'AISPECIALSTATE_TERROR = 11' in enums
 blocks={name:routine(text,name) for text,names in [(sor,['SKILLS_SrvDo022_NovaAttack']),(miss,['MISSMODE_SrvHit17_Howl']),(util,['AIUTIL_CanUnitSwitchAi','AIUTIL_ApplyTerrorCurseState']),(think,['AITHINK_CanUnitSwitchAi','D2GAME_AI_SpecialState11_6FCE7E80']),(units,['UNITS_CanSwitchAI'])] for name in names}
 tactics=source('source/D2Game/src/AI/AiTactics.cpp');monsterai=source('source/D2Game/src/MONSTER/MonsterAI.cpp')
+motion=source('source/D2Common/src/Path/PathMisc.cpp');missileFactory=source('source/D2Game/src/MISSILES/Missiles.cpp')
 curse=routine(skills,'sub_6FD10EC0');gate=curse[curse.index('{')+1:curse.index('    uint32_t nStatListFlags')]
 initialize=routine(think,'AITHINK_ExecuteAiFn');assert 'pAiControl->dwAiParam[0] = 0;' in initialize
 cpp=r'''#include <algorithm>
@@ -35,8 +36,8 @@ constexpr uint32_t gdwBitMasks[]={1,2,4,8,16};
 struct D2AiControlStrc{int dwAiParam[3]={};};
 struct D2MonStatsTxt{int wMonStatsEx=1;uint32_t dwMonStatsFlags=2;int nVelocity=8,nRun=12;};
 struct D2MonStats2Txt{uint32_t dwModeFlags=7,dwFlags=1;};
-struct MonsterData{D2AiControlStrc* pAiControl=nullptr;};
-struct D2UnitStrc{int dwUnitType=1,dwClassId=1,dwFlags=1,level=30,skill=130,rank=1,monType=0,curseResist=0,x=0,y=0,size=2;bool terror=false,attract=false,dead=false,locked=false;MonsterData* pMonsterData=nullptr;D2UnitStrc* owner=nullptr;D2UnitStrc* target=nullptr;};
+struct D2AiParamStrc{};struct MonsterData{D2AiControlStrc* pAiControl=nullptr;D2AiParamStrc* pAiParam=nullptr;};
+struct D2UnitStrc{int dwUnitType=1,dwClassId=1,dwFlags=1,level=30,skill=130,rank=1,monType=0,curseResist=0,x=0,y=0,size=2,pSeed=0;bool terror=false,attract=false,dead=false,locked=false;MonsterData* pMonsterData=nullptr;D2UnitStrc* owner=nullptr;D2UnitStrc* target=nullptr;};
 struct D2GameStrc{} game;struct D2StatListStrc{} statlist;struct D2StatesTxt{} stateRow;
 struct D2SkillsTxt{int wAuraTargetState=56,dwParam[6]={12,2,24,5,75,25},dwCalc[1]={0};} row;
 struct D2CurseStrc{D2UnitStrc* pUnit=nullptr;D2UnitStrc* pTarget=nullptr;int nSkillLevel=0,nDuration=0,nStat=0,nSkill=0,nState=0;};
@@ -77,7 +78,7 @@ bool sub_6FCD06D0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int distance,int flag){esc
 bool D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int distance,int flag){escape=1;escapeFlag=flag;escapeDistance=distance;return escapeResult;}
 void AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,unsigned){fallback++;}
 void sub_6FC61F00(D2UnitStrc*){clearedTarget++;}
-constexpr int EVENTTYPE_AITHINK=1;
+constexpr int MONMODE_WALK=2,EVENTTYPE_AITHINK=1;
 void D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*,D2UnitStrc*,int,int){deletedEvents++;}
 void Reset(){launched=launchVelocity=curseCalls=aiCalls=idle=neutral=attack=escape=fallback=deletedEvents=clearedTarget=0;appliedFrames=appliedSkill=appliedRank=escapeFlag=velocity=-1;escapeDistance=0;}
 '''
@@ -86,6 +87,18 @@ cpp+=r'''D2StatListStrc* sub_6FD10EC0(D2CurseStrc* p){curseCalls++;appliedFrames
 '''
 for name in ['AIUTIL_GetDistanceToCoordinatesWithSize','AIUTIL_GetDistanceToCoordinates_FullUnitSize','AIUTIL_GetDistanceToCoordinates_NoUnitSize']:blocks[name]=routine(util,name);cpp+=blocks[name]+'\n'
 for name in ['UNITS_CanSwitchAI','AITHINK_CanUnitSwitchAi','AIUTIL_CanUnitSwitchAi','AIUTIL_ApplyTerrorCurseState','MISSMODE_SrvHit17_Howl','SKILLS_SrvDo022_NovaAttack','D2GAME_AI_SpecialState11_6FCE7E80']:cpp+=blocks[name]+'\n'
+blocks['advance']=routine(motion,'sub_6FD5CEB0')
+cpp+=r'''struct Axis{int nX=4096,nY=0;};struct D2DynamicPathStrc{int dwAcceleration=-1000,dwAccelerationsCounter=0,dwMaxVelocity=3072,dwVelocity=2304;Axis tVelocityVector{},tDirectionVector{};};
+'''+blocks['advance']+'\n'
+blocks['walkEscape']=routine(tactics,'D2GAME_AICORE_Escape_6FCD0560');blocks['runEscape']=routine(tactics,'sub_6FCD06D0');blocks['walkNear']=routine(tactics,'AITACTICS_WalkCloseToUnit')
+cpp+=r'''namespace GeometryProbe{
+int endX,endY,mode,flags,step,draws[3],index,limited;
+int D2signum(int n){return (n>0)-(n<0);}
+void D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(D2AiParamStrc*,int,int,int){}
+int AITACTICS_MoveToTarget(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int m,int x,int y,uint8_t s,uint8_t f){endX=x;endY=y;mode=m;step=s;flags=f;return 1;}
+int ITEMS_RollRandomNumber(int*){return draws[index++];}
+int ITEMS_RollLimitedRandomNumber(int*,int){return limited;}
+'''+blocks['walkEscape']+'\n'+blocks['runEscape']+'\n'+blocks['walkNear']+'\n}\n'
 cpp+=r'''int main(){
 D2AiControlStrc control;MonsterData data{&control};D2UnitStrc owner;owner.dwUnitType=0;owner.level=30;
 std::printf("{\"launchCases\":[");bool first=true;
@@ -126,6 +139,18 @@ std::printf("],\"distanceCases\":[");first=true;
 for(int dx:{-35,-2,-1,0,1,2,35})for(int dy:{-35,-2,-1,0,1,2,35})for(int size:{1,2,3}){
  D2UnitStrc target;target.x=dx;target.y=dy;target.size=size;D2UnitStrc source;int full=AIUTIL_GetDistanceToCoordinates_FullUnitSize(&target,&source),plain=AIUTIL_GetDistanceToCoordinates_NoUnitSize(&target,0,0);
  if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d]",dx,dy,size,full,plain);
+}std::printf("],\"motionCases\":[");first=true;
+for(int rank:{1,20,21,80}){D2DynamicPathStrc path;path.dwVelocity=(12+2*(rank-1))*256*75/100;
+ for(int frame=1;frame<=11;frame++){sub_6FD5CEB0(&path,1024);if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d]",rank,frame,path.dwVelocity,path.dwAccelerationsCounter,path.dwAcceleration,path.tVelocityVector.nX);}}
+std::printf("],\"escapeCases\":[");first=true;
+for(int dx:{-35,-2,-1,0,1,2,35})for(int dy:{-35,-2,-1,0,1,2,35})for(int run:{0,1})for(int callback:{0,1}){
+ D2UnitStrc actor;actor.x=dx;actor.y=dy;D2UnitStrc target;if(run)GeometryProbe::sub_6FCD06D0(&game,&actor,&target,30,callback);else GeometryProbe::D2GAME_AICORE_Escape_6FCD0560(&game,&actor,&target,30,callback);
+ if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d,%d,%d]",dx,dy,run,callback,GeometryProbe::endX,GeometryProbe::endY,GeometryProbe::step,GeometryProbe::flags);
+}
+std::printf("],\"fallbackCases\":[");first=true;
+for(int branch:{0,1})for(int offset:{0,1,2,3,4,5})for(int flipX:{0,1})for(int flipY:{0,1}){
+ D2UnitStrc actor;GeometryProbe::index=0;GeometryProbe::draws[0]=branch;GeometryProbe::draws[1]=flipX;GeometryProbe::draws[2]=flipY;GeometryProbe::limited=offset;GeometryProbe::AITACTICS_WalkCloseToUnit(&game,&actor,6);
+ if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d]",branch,offset,flipX,flipY,GeometryProbe::endX,GeometryProbe::endY);
 }std::printf("]}\n");}
 '''
 path=STAGE/'howl-source-probe.cpp';path.write_text(cpp);binary=STAGE/'howl-source-probe';subprocess.run(['g++','-std=c++20','-O2',str(path),'-o',str(binary)],check=True)
@@ -160,6 +185,14 @@ for x in data['terrorAiCases']:
   assert (ai,idle,neutral,attack,escape,flag,dist,fallback,velocity,endstarted,deleted)==(0,0,0,0,2 if run else 1,started,30,int(bool(started and not success)),max(0,min(120,100*runSpeed//8-100)),1,0 if started else 1)
 for dx,dy,size,full,plain in data['distanceCases']:
  x,y=abs(abs(dx)-size),abs(abs(dy)-size);assert full==max(x,y)+min(x,y)//2 and plain==max(abs(dx),abs(dy))+min(abs(dx),abs(dy))//2
+for rank,frame,velocity,counter,accel,dx in data['motionCases']:
+ initial=(12+2*(rank-1))*256*75//100
+ if frame<5:assert (velocity,counter,accel)==(initial,frame,-1000)
+ elif initial-1000>3072:assert (velocity,counter,accel)==(3072,0,0)
+ else:assert (velocity,counter,accel)==(max(0,initial-1000*(frame//5)),frame%5,-1000)
+ assert dx==velocity*16
+for dx,dy,run,callback,x,y,step,flags in data['escapeCases']:assert (x,y,step,flags)==(dx+30*((dx>0)-(dx<0)),dy+30*((dy>0)-(dy<0)),1,4 if callback else 0)
+for branch,offset,flipX,flipY,x,y in data['fallbackCases']:assert (x,y)==((6 if branch else offset)*(-1 if flipX else 1),(offset if branch else 6)*(-1 if flipY else 1))
 (STAGE/'howl-source-probe.json').write_text(json.dumps(data,indent=2)+'\n')
 for name,text in [('terrorInitializeReview',routine(think,'D2GAME_AI_SpecialState11_6FCE7E20')),('targetOverrideWriteReview',routine(monsterai,'sub_6FC61E30')),('targetOverrideClearReview',routine(monsterai,'sub_6FC61F00')),('targetOverrideReadReview',routine(util,'sub_6FCF2920')),('targetSelectionReview',routine(util,'sub_6FCF2110')),('targetSelectionWrapperReview',routine(tactics,'sub_6FCCF9D0'))]:blocks[name]=text
 blocks['curseLeadingGates']=gate;blocks['curseCompleteReview']=curse;blocks['aiInitializationReview']=initialize
@@ -172,14 +205,17 @@ out=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],sourceHashes=hash
 'Common Terror AI defaults its distance parameter to30, idles10frames only when target distance>30, derives capped0..120 run percentage, initially escapes and deletes pending AI event, can attack in later combat, and falls back to walking near when later escape fails.',
 'Terror initialization records the caster target override; initial escape clears that override, allowing later common AI target selection. Do not make either fixed cast origin or permanent caster tracking the complete source behavior.',
 'Target distances use source integer weighted-axis distance and the target full-size subtraction, not Euclidean center distance;147 compiled raw-coordinate cases cover this contract before native tile projection.',
+'Negative acceleration still applies the table maximum clamp. Howl rank20/21/80 exceed MaxVel12 after four frames; frame5 clamps to3072FP and disables acceleration permanently. Lower rank1 continues decelerating.44 compiled motion cases retain the source state change.',
+'Walk/run escape helpers request sign(dx/dy)*30 source-coordinate endpoints; the walk-near fallback samples one fixed6 axis, one bounded0..5 axis and two sign bits.196 endpoint and48 fallback cases compile those unchanged helper routines.',
 'General AI initialization normally zeros all three parameters before special-state dispatch. Callback-bearing previous AI has an early transition branch; species-specific preservation needs separate handling.'],stubs=[
 'Unchanged do22/hit17/AI eligibility/helper/Terror tick functions compile with declared table/stat/event/target/path/movement/AI-selection stubs. Shared ring factory geometry was compiled separately in shout-engine-evidence.json; this probe records its launch arguments.',
 'Target override/selection/initialization functions are hash-checked reviews; source coordinate-distance helpers are additionally compiled. Full target acquisition/LOS/vision/player/monster scan remains outside this probe.',
 'Generic curse source leading gate block is compiled; the complete allocation/replacement/event/statlist function and AI initializer are hashed/reviewed, not linked into a full engine.',
 'Attackable state/skill rows, owner lookup, table flags, target distances/combat and escape success are supplied by fixture. Escape/path routines are recorded calls; no world movement/LOS/path selection is certified.',
 'No complete monster target acquisition, native projected distance/collision metric, animation/velocity integration, source callback dispatch or modern executable capture is claimed.'],limits=[
-'No Howl handler enabled by this evidence. Reuse current rays with per-skill motion and a shared fear consumer that can express source distance/idle/initial-escape/later-combat transitions.',
+'This probe alone establishes bounded supplementary source contracts. The native Howl consumer is verified separately in howl-native-evidence.json; its path/scan/geometry adapters remain explicit limits.',
 'Current native Necromancer Terror and NamedControl fear do not fully express this common AI: fixed origin or unconditional flee differs from the compiled dispatch. Avoid silently equating those existing behaviors with Howl.',
 'Generic curse failure still switches AI transiently in supplementary source. Exact state/curse resistance/Attract and modern owner/death/item/client transitions remain acceptance work.',
+'Howl ranks81+ overflow the signed32 axis product in this reconstruction before the frame5 clamp; modern behavior is uncertain and this native extreme-rank branch must stay gated.',
 'Native monster species mappings, champion/unique/uninterruptable/charged-item cases, missing caster/target selection, path fallbacks, exact SC/FCR/geometry/collision and modern duration/scheduling remain open.'])
 (ROOT/'tools/reference/howl-engine-evidence.json').write_text(json.dumps(out,indent=2)+'\n');print('Howl bounded source probes passed:',out['probe']['caseCounts'])
