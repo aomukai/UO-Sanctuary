@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Source preflight only; Shout/Battle Orders/Battle Command remain unimplemented. Shout next.",
+  "status": "Historical source preflight. Shout is now implemented with dedicated source/native evidence; Battle Orders/Battle Command remain pending.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
@@ -237,14 +237,16 @@
     "Shout grants additive skill_armor_percent and duration synergies from hard Battle Orders/Battle Command; Battle Orders separately modifies maximum life/mana/stamina; Battle Command grants one effective skill rank. All three are right-only, distinct SC actions with different source mana costs."
   ],
   "nextImplementation": [
-    "Compile unchanged launch vectors, aligned hit18 filter and stat refresh/expiry behavior with explicit stubs. Trace progressive missile selection and actual missile velocity/acceleration/activation/collision/terrain before choosing native geometry.",
-    "Implement Shout first with separate launched ring and saved recipient defense/duration state, source hard/effective rank rules, one source6mana cast payment and unmodified nativeSC timing.",
-    "Test actual travelling ally/pet hits, self/immediate state, target alignment/owner/lost/terrain edges, recast strength/expiry, defense pools, death/history/respec and both reloads. Track spell effects/icons independently.",
-    "Then implement Battle Orders resource collation/current-pool behavior and Battle Command effective-rank transitions; do not infer those from Shout alone."
+    "Battle Orders: trace maximum-resource collation, current life/mana/stamina changes and recalculation/recast/removal rules before implementation. Preserve its separate LastCollide/NextHit4-frame behavior.",
+    "Battle Command: trace effective-rank recalculation/stacking and duration snapshot rules. Preserve distinct missile collision flags and do not inherit Shout state/pool assumptions."
   ],
   "limits": [
     "Modern executable and subtile/tile equivalence remain unverified; legacy source is supplementary.",
     "Exact aligned NPC/party/minion eligibility, missile overlap/LastCollide and stat replacement/resource semantics still need tracing; do not invent permissive recipient rules."
   ],
-  "classComplete": false
+  "classComplete": false,
+  "currentEvidence": [
+    "tools/reference/shout-engine-evidence.json",
+    "tools/reference/shout-native-evidence.json"
+  ]
 }

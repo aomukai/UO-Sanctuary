@@ -135,7 +135,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return ScaleDefense(CreatureProfiles.Defense(creature),PaladinAuras.DefensePercent(creature));
+            return ScaleDefense(CreatureProfiles.Defense(creature),PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {
@@ -151,7 +151,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return ScaleDefense(player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player));
+            return ScaleDefense(player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }

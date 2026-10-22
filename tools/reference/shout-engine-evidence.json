@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "probe": {
+    "dataPath": ".local/class-skills/shout-source-probe.json",
+    "caseCounts": {
+      "rays": 64,
+      "refresh": 4,
+      "hit": 8,
+      "lastCollision": 2,
+      "motion": 15
+    },
+    "blockHashes": {
+      "stats": "579eeff9d53dabbd36e1fa857ebad5ed703ee68b2fed2f64ac8d34e37ee7a6fb",
+      "writer": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+      "launch": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349",
+      "cast": "47c005add42ec684a148b6bfdefe2d84dd8f516f159a3be5b17bc73c062de22a",
+      "hit": "63bd13df9e8e81b7c30180e269ed8558dabe885f5ca1cf4a3c353d794cb04bd9",
+      "advance": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+      "lastSet": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+      "lastCheck": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20"
+    }
+  },
+  "established": [
+    "Do68 launches64 distinct fixed integer-offset rays with stored skill rank and no velocity override, then applies the same state to self immediately.",
+    "ApplyWarcryStats refreshes existing recipient state without a stronger-rank or longer-duration guard. Nonzero supplier formulas replace its stat; expiry is game frame plus freshly evaluated caster duration. Existing state retains its original allocation owner metadata.",
+    "Hit18 applies to aligned collisions only, returns0 for any existing owner even on hostile/no-target hits, and returns1 for absent owner. Alignment is explicitly stubbed in this probe.",
+    "Shout has no LastCollide flag: SetOwner/CheckUnitIfOwner do not suppress repeated recipient collisions. BO/BC differ and are not covered by the Shout conclusion.",
+    "At supplied base velocity1024/direction4096, initial5760 decelerates500 on each fifth advance; frame1..4 displacement92160FP16 subtiles,5..9 is84160,10..14 is76160. Range15 collision ordering excludes frame15.",
+    "Generic no-start-function cast validates mana at start and consumes at successful do-event. Shout lacks InTown; native release must reject town. These generic branches are source-reviewed, not compiled by this probe."
+  ],
+  "stubs": [
+    "Formula evaluator supplies Shout modern arithmetic and current hard synergy sum; this is not an independent formula compiler proof.",
+    "Stat-list allocation, SetStat, event scheduling/removal, unit refresh and owner lookup are explicit stubs; existing-state versus allocation/call ordering is exercised.",
+    "Missile factory captures launch parameters only. Q12 normalization, room/path stepping, actual unit collision search, terrain, frame dispatch and alignment are outside this bounded executable.",
+    "Motion begins with zero acceleration counter; path allocation/initialization and modern scheduling equivalence remain source-review tasks."
+  ],
+  "limits": [
+    "Supplementary D2MOO source is not a modern D2R executable certificate.",
+    "D2 subtile to native UO tile geometry, hit footprints, source collision flags versus native actor eligibility, and missile-barrier terrain equivalence remain explicit open mappings.",
+    "The source PATH_D2Common_10142 body labels itself BROKEN outside its missile fast path; do not infer a complete path-engine certificate.",
+    "The generic legacy consume routine has the known rank1/minmana reconstruction discrepancy, so it does not certify the modern6-mana value. The pinned modern table governs6 mana; exact modern post-start mana-loss outcome remains unverified."
+  ]
+}

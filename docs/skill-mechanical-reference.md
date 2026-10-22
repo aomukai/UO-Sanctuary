@@ -197,3 +197,16 @@ Barbarian’s Increased Stamina, Iron Skin, Increased Speed and Natural Resistan
 
 
 The user prefers forgiving targeting in crowds, citing FoH cursor acquisition, pet classes and untargeted areas, and finds chasing small moving melee targets frustrating. The user agrees to a dedicated targeting/controls pass after all class mechanics are finished. Record this as a Sanctuary control-design preference. It does not by itself approve changing every skill's D2R acquisition, range or auto-movement rules; specific deviations remain explicit.
+
+
+## Shout working implementation
+
+Shout is the14th Barbarian handler. Its [bounded source probe](../tools/reference/shout-engine-evidence.json) compiles unchanged do68,64-ray launch, hit18, timed recipient stat refresh, aura writer, acceleration and LastCollide routines from the immutable supplementary source. The [native evidence](../tools/reference/shout-native-evidence.json) distinguishes current controller/timer/reload checks from unverified D2R equivalence.
+
+The self state applies at the do-event and64 rays travel outward. The source rank stays with each missile, while hard Battle Orders/Battle Command duration synergies are read when a recipient is hit. Shout has no LastCollide/NHD, so repeated collisions refresh expiry; weaker recasts replace its stat and deadline. Its additive defense joins other skill percentages before Berserk's final zero-defense override. Received state expires independently of its supplier and persists through save/reload. Recipient death/respec/class changes clear that recipient's state under the native lifecycle policy.
+
+Pinned modern mana is6. The handler retains native shared SC timing, source town restriction and a release-time payment/eligibility check. Exact modern SC event/FCR and first-ray timing, mana drained during wind-up, and generic legacy consume-after-do behavior remain unresolved acceptance items. The legacy rank1/minmana reconstruction discrepancy cannot establish the modern6-mana value. Do not interpret the native release-time rejection as a measured modern outcome.
+
+The existing two-subtile/tile scale, native swept footprints and UO LOS remain provisional for this ring. Source type3 missile barriers are not proven equivalent to UO LOS. Cooperative players and their pets follow approved shared alignment; neutral NPCs without supported eligibility remain excluded. Serial collision ties and offline/map/class handling are explicit native adaptations. Battle Orders and Battle Command have different missile flags and still require separate resource/skill-state work.
+
+The [effects register](skill-effects.md) identifies Shout's UO flash/sparse wave/sound placeholders; the [icons register](skill-icons.md) separately lists talent/hotkey icons. No final art was generated.

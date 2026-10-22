@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'barbarian.shout':'Self state plus64 travelling decelerating rays, source6-mana do-event payment, stored effective rank/live hard duration synergies, repeated aligned recipient hits and weaker replacement are implemented. Cooperative players/pets receive additive defense, with Berserk retaining final zero defense. Dedicated native moving-ally, real gear, resource/interruption, lifecycle and two reloads exercise the bounded port. Source ring/hit/stat/acceleration routines compiled separately. D2 subtile-to-UO tiles, collision footprints/terrain/neutral NPC alignment, exact SC event/FCR, mid-windup mana-loss ordering, modern scheduling/snapshots and actual-client equivalence remain unverified; effects/icons are independent placeholders.',
     'barbarian.berserk':'Prepared interruptible A1/IAS attack, linear AR, hard Howl/Battle Orders ED, one4-mana start payment and full physical-to-magic conversion after critical/before resistance. Timed final zero-defense override starts on hits/misses, persists through cancelled swings, replaces expiry on recast and saves independently. Do2 recreates an expired state only through the remaining animation. Connected natural timed/temporary expiry, real gear/physical-consumer controls, death/respec/history and two reloads have dedicated coverage. Modern snapshots/slow/modes/item/proc/owner/client, native magic-resistant species, low-mana fallback, automatic ground targeting and dual wield remain open.',
     'barbarian.concentrate':'Prepared ordinary melee hit/AR/hard Bash/Battle Orders damage and Berserk physical-to-magic split after critical/before resistance, with one2-mana start payment. Action-long defense starts at preparation, refreshes at impact and lasts through recovery; voluntary movement/get-hit/Stop/rebinding do not interrupt. Connected natural-loop, named gear, misses/immunity, death/history/respec and two reloads have dedicated coverage. Legacy mode/state/conversion blocks compiled separately. Low-mana fallback, empty-ground acquisition, exact modern snapshots/queues/item events/procs/owner/client and dual wield remain open; no modern equivalence certificate.',
     'barbarian.bash':'Prepared melee hit/AR/hard synergies, critical/mitigation snapshots, one2-mana start payment and source-mapped timed knockback implemented. Source calc2 adds to the physical-event field after allocation leaves the stored life total unchanged; the legacy health consumer commits that stored total. Current D2R stale-total behavior is unverified. Input/cancellation/real gear/immune/miss/native control and two reloads have dedicated coverage. Unknown/special control species and converted throwing melee are gated; low-mana AttackNoMana, empty-ground acquisition, PvP and exact modern events/procs/leech/owner/client remain open.',
@@ -94,7 +95,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
-    'barbarian.bash','barbarian.stun','barbarian.concentrate','barbarian.berserk',
+    'barbarian.bash','barbarian.stun','barbarian.concentrate','barbarian.berserk','barbarian.shout',
     'barbarian.swordmastery',
     'barbarian.axemastery',
     'barbarian.macemastery',

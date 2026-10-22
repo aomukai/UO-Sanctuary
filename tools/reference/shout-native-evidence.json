@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests and source/reference/generator/catalogue checks pass;424 named/15 first-loop input hashes current. Matching installed build and existing-world load/listen/clean shutdown passed.",
+  "source": "tools/reference/shout-engine-evidence.json",
+  "implementation": [
+    "Right-only self-target skill with shared SC wind-up and source6-mana payment at its do-event; native interrupted/invalid/insufficient-mana release does not grant the buff.",
+    "Do-event applies source skill_armor_percent immediately to self and launches64 stored-rank rays using the fixed source integer vectors and Q12 direction table.",
+    "Rays use source initial75%-scaled velocity, negative acceleration every fifth movement, and Range15 decrement-before-collision. Due frames across casts/rays are caught up chronologically, with serial/ID ties explicit.",
+    "Native swept footprint finds one collider per ray/frame, including hostiles; cooperative alignment alone receives the state. Source Shout lacks LastCollide/NHD, so repeated hits and expiry refreshes are allowed.",
+    "Current caster hard Battle Orders/Battle Command ranks determine duration at impact; effective missile rank stays stored. Weaker/shorter recasts replace values and expiry; original statlist creator is distinct from latest supplier metadata.",
+    "Player/pet defense joins the additive skill percentage pool. Berserk retains its final -100% override. Received buffs have independent absolute UTC expiry and survive supplier removal; recipient death/respec/successful class change clears its own state.",
+    "Timed recipient state and mid-flight ray frame/velocity/counter/position/deadlines persist separately from transient cast actions. Existing saves gain a new optional persistence collection without reset."
+  ],
+  "checks": [
+    "Pinned rank1/20/21 numeric goldens; all64 Q12 directions exercise14 acceleration steps.",
+    "Actual right and quick bindings accepted/left rejected; low-mana begin, early effect, paralyzed wind-up cancellation and mana loss before release reject delivery without payment.",
+    "Natural native-timer wave reaches cooperative players/pet without damaging hostile colliders; later-entering ally receives, departing ally escapes, distant ally remains unaffected.",
+    "Real Tarnhelm adds an effective Shout rank; self state and launched ranks persist when removed. Hard duration synergy learned after launch affects allied hit, without adopting the later raised Shout rank.",
+    "Weaker/shorter replacement and creator/latest-supplier metadata; additive Iron Skin defense and final Berserk override; town rejection, natural isolated recipient expiry and received-state survival after supplier deletion.",
+    "Two actual world reloads preserve recipient bonuses, exact paid mana and a held inspection ray at frame6/velocity5260/counter1; resumed ray buffs its new recipient at stored rank2 without payment. Expired saved state and transient action do not replay."
+  ],
+  "fixtureBoundary": [
+    "Begin/do-event assertions call the actual controller with explicit event timestamps; this fixture does not claim a connected natural cast wind-up or account/UI login.",
+    "Travelling wave movement/collision/expiry use ordinary server timers. A dedicated saved ray is explicitly advanced6 source steps and held10minutes for inspection, then resumed normally; this is separate from natural full-wave tests.",
+    "Mana recovery is frozen only for named Shout fixture actors through Configure/final Initialize and constructor scope; production recovery is unchanged.",
+    "The final combined suite independently repeats the dedicated Shout cases through both reloads, alongside earlier skills and named catalogue exports."
+  ],
+  "corrections": [
+    {
+      "finding": "New right-only Shout was accepted by the older binding API, whose explicit right-only guards covered Paladin auras/Holy Shield.",
+      "change": "Add Shout to that guard; generated right/self metadata and actual assignment checks pass."
+    },
+    {
+      "finding": "The expiry-only fixture stood inside the travelling wave, so legitimate hits refreshed its50ms state. Diagnostic output showed the moving ally received rank1 and the supposedly expired state had a new35-second expiry.",
+      "change": "Move the isolated expiry recipient outside the wave. Keep entering/departing targets on the fixture corridor with proved native LOS. No gameplay expiry or collision rule changed.",
+      "failureLog": ".local/class-skills/shout-expiry-fixture-failure.log"
+    }
+  ],
+  "limits": [
+    "No current-executable equivalence or class completion certificate. Exact modern SC/FCR event, first-frame scheduling, post-start mana-loss ordering, owner transitions and client presentation still need acceptance.",
+    "Source3.3.93847 and supplementary legacy contracts do not prove native UO tile scale, swept circles, terrain barriers or neutral-NPC/valid-target flag equivalence. Existing cooperative/friendly restrictions are retained; unsupported neutral recipients are excluded.",
+    "UO LineOfSight approximates source missile-barrier terrain and may block differently. Serial collision ties and offline/map/class handling are native adaptations, not measured D2R rules.",
+    "Battle Orders/Battle Command remain pending; their LastCollide/NHD and resource/skill state semantics must not be copied blindly from Shout.",
+    "Effects and icons are independent placeholders; no final art or imagegen generated."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/shout-focused.log",
+    "combined": ".local/class-skills/native-checks.log",
+    "source": ".local/class-skills/shout-source-probe-run.log",
+    "build": ".local/class-skills/shout-install-build.log",
+    "installed": ".local/class-skills/installed-smoke.log"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final full combined native3boots/2reloads passed;70 Python tests and source-reference/generator/catalogue checks pass;423 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests and source/reference/generator/catalogue checks pass;424 named/15 first-loop input hashes current. Matching installed build and existing-world load/listen/clean shutdown passed.",
   "handler": "Concentrate",
   "sourceEvidence": "tools/reference/concentrate-engine-evidence.json",
   "preflight": "tools/reference/barbarian-concentrate-preflight.json",

@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 13 / 30 | 0 | 17 | Open |
+| 4 | Barbarian | 14 / 30 | 0 | 16 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -130,7 +130,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 | --- | ---: | --- | --- |
 | Howl | 130 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Find Potion | 131 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Shout | 138 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Shout | 138 | handler-present | Self state plus64 travelling decelerating rays, source6-mana do-event payment, stored effective rank/live hard duration synergies, repeated aligned recipient hits and weaker replacement are implemented. Cooperative players/pets receive additive defense, with Berserk retaining final zero defense. Dedicated native moving-ally, real gear, resource/interruption, lifecycle and two reloads exercise the bounded port. Source ring/hit/stat/acceleration routines compiled separately. D2 subtile-to-UO tiles, collision footprints/terrain/neutral NPC alignment, exact SC event/FCR, mid-windup mana-loss ordering, modern scheduling/snapshots and actual-client equivalence remain unverified; effects/icons are independent placeholders. |
 | Taunt | 137 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Cry | 146 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Find Item | 142 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

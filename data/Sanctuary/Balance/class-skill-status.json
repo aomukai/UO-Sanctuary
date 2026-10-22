@@ -1362,10 +1362,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 138,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Self state plus64 travelling decelerating rays, source6-mana do-event payment, stored effective rank/live hard duration synergies, repeated aligned recipient hits and weaker replacement are implemented. Cooperative players/pets receive additive defense, with Berserk retaining final zero defense. Dedicated native moving-ally, real gear, resource/interruption, lifecycle and two reloads exercise the bounded port. Source ring/hit/stat/acceleration routines compiled separately. D2 subtile-to-UO tiles, collision footprints/terrain/neutral NPC alignment, exact SC event/FCR, mid-windup mana-loss ordering, modern scheduling/snapshots and actual-client equivalence remain unverified; effects/icons are independent placeholders."
     },
     {
       "talentId": "barbarian.taunt",

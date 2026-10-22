@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Source-reviewed next-step notes only. Battle Orders/Battle Command remain unimplemented; Shout is verified separately.",
+  "sourceHashes": {
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "reviewed": [
+    "Modern ItemStatCost: item_maxhp_percent/item_maxmana_percent use op11, skill_staminapercent uses op1, bonus energy op8 and bonus vitality op9.",
+    "D2StatList sub_6FDB5830 captures nPreviousOpStatValue before operation evaluation. Ops8/9 add resource contributions from non-base energy/vitality; op11 computes its percent from the pre-operation value. Do not blindly multiply every finished resource contribution by Battle Orders.",
+    "ComputeStatPercentage uses a floating percentage then truncates into int; exact FP/overflow boundaries need compiled cases rather than a blanket whole-number percent formula.",
+    "Warcry refresh sub_6FD14C30 refreshes passive skills and calls PlayerPets sub_6FC7DF40; the latter re-evaluates skill-based pet caps, rather than being a generic health refill. Battle Command must account for effective-rank/passive/pet consumers.",
+    "Modern BO/BC missiles differ from Shout: LastCollide1, NextHit1 and NextDelay4. Per-cast modern NHD policy and saved collision identity require their own consumer.",
+    "Shout source path initialization calls the missile fast path before setting acceleration; nInitSteps is loaded in the missile table but has no server-side consumer found in this cached source. Initial scheduling/modern comparison remains open."
+  ],
+  "nextSteps": [
+    "Compile stat operation ordering with declared base/bonus/percent fixtures and validate modern input fields. Trace stat callback and clamp/update rules for current life/mana/stamina on buff apply, recast, expiry and death, including pets.",
+    "Compare approved native resource foundation with the BO-required source base. Record any existing inconsistency before a shared formula change, and keep named/item gates intact.",
+    "Implement BO alone after source/resource contract is concrete; verify native maxima/current pools, injured/full states, repeated/weaker casts, equipment, owner changes and two reloads.",
+    "Then trace BC rank changes, duration snapshots, stacking, refreshed passives/pet limits and expiry; do not just add1 to already-computed fields."
+  ],
+  "limits": [
+    "These are source-review findings, not compiled operation proofs or a modern executable capture.",
+    "Full game stat operation ordering, event/callback edges, item per-level contributions, modern owner/party/client behavior and native resource adaptation still require work."
+  ]
+}

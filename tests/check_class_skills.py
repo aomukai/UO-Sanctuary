@@ -402,6 +402,11 @@ def check():
                     time.sleep(.15)
                     session.send('berserk-disconnect-check')
                     assert session.expect(r'berserk-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    shout_command='shout-check' if boot==0 else 'shout-reload-check'
+                    session.send(shout_command)
+                    assert session.expect(shout_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'shout-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('save'); session.expect(r'Writing world save snapshot done')
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()
