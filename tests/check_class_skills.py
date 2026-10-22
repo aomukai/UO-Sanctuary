@@ -430,6 +430,11 @@ def check():
                     assert session.expect(cry_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'battlecry-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
                     session.send('save'); session.expect(r'Writing world save snapshot done')
+                    taunt_command='taunt-check' if boot==0 else 'taunt-reload-check'
+                    session.send(taunt_command)
+                    assert session.expect(taunt_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'taunt-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('save'); session.expect(r'Writing world save snapshot done')
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

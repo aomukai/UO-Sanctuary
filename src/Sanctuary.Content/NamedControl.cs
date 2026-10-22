@@ -27,7 +27,8 @@ public static class NamedControl
         || NecromancerEffects.Curse(owner)?.Ability == CombatAbility.DimVision;
     public static bool Fear(Mobile owner) => State(owner)?.FearUntil > TimedEffects.Now;
     public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !Blind(owner) && !Fear(owner)
-        && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror);
+        && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror)
+        && SourceTerror.State(owner)?.Skill!=CombatAbility.Taunt;
     public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !Fear(owner)
         && (!Blind(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
     private static int DifficultyDivisor(BaseCreature creature) => MonsterVariants.Difficulty(creature) switch

@@ -125,6 +125,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',
         'barbarian.battlecry':'Staged shared UO0x375A cast/curse markers, sparse warcry wave and sound; final Battle Cry shockwave and state overlay pending',
         'barbarian.howl':'Staged UO0x375A cast/fear markers, sparse shared wave and sound; final Howl cry, BAYellShockWave01 ring and Terror/escape cue pending',
         'barbarian.battlecommand':'Staged UO0x375A self flash, sparse travelling wave and sound; final Battle Command cry, BAYellShockWave01 ring and recipient skill bonus cue pending',

@@ -1373,10 +1373,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 137,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared SC3mana and caster-nearest fallback radius20 source units, explicit supported hostile selection and untimed curse. Reuses saved source AI payload/native scan/path/movement; first approach, dynamic-target melee or nearby melee target with phase reset, ordinary-AI exit keeps stat penalties. Same/effective ranks/creator/lower rank and additive AR/weapon ED use existing pools. Source199 bounded cases; focused native three boots/two reloads pass. Shared source-control attacks force A1 instead of ordinary random attack/stall selection. Supported mapped no-exit-callback AIs only; automatic ties, Attract/item-fear failed allocation, nonzero curse resistance, ranks49+ negative-AR branch, modern geometry/SC/FCR/owner/client remain gated or unverified."
     },
     {
       "talentId": "barbarian.battlecry",

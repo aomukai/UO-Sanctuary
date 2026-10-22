@@ -12,6 +12,7 @@ namespace Sanctuary;
 public sealed record TerrorAi(CombatAbility Skill,int LaunchRank,int Map,bool Started,uint Override,uint Focus,
     DateTime NextUtc,int VelocityPercent=0,bool Combat=false,Point3D? Goal=null);
 public enum TerrorDecision{End,Idle,Attack,Escape}
+public enum TauntDecision{End,Approach,AttackTaunter,AttackNearby}
 public static class SourceTerror
 {
     private static readonly HashSet<Serial> _tracked=new();
@@ -29,7 +30,7 @@ public static class SourceTerror
         _tracked.Clear();foreach(var pair in states){if(pair.Value.Curse?.Terror!=null){_tracked.Add(pair.Key);}}
         Expire();
     }
-    private static void Reset(Mobile actor)
+    internal static void Reset(Mobile actor)
     {
         if(actor is not BaseCreature creature){return;}
         creature.Combatant=null;creature.FocusMob=null;creature.Warmode=false;
@@ -110,6 +111,7 @@ public static class SourceTerror
     internal static bool Think(BaseCreature creature,NecromancerCurse curse)
     {
         if(curse.Terror is not{} state || creature.AIObject is not{} ai){return false;}
+        if(state.Skill==CombatAbility.Taunt){return ThinkTaunt(creature,curse,state);}
         if(creature.Map?.MapID!=state.Map || curse.UntilUtc<=TimedEffects.Now)
         {var profile=NecromancerEffects.Profiles.Find(creature);if(profile!=null){NecromancerEffects.Profiles.Store(creature,profile with{Curse=null});}return false;}
         if(state.NextUtc>TimedEffects.Now){return true;}
@@ -144,5 +146,36 @@ public static class SourceTerror
             var current=State(creature);if(current!=null){Store(creature,curse,current with{Goal=fallback});}ai.MoveToPoint(fallback,0);
         }
         return true;
+    }
+    internal static TauntDecision DecideTaunt(bool present,bool town,bool started,bool melee,bool nearbyCombat)=>!present || town?TauntDecision.End:!started?TauntDecision.Approach:melee?TauntDecision.AttackTaunter:nearbyCombat?TauntDecision.AttackNearby:TauntDecision.Approach;
+    private static bool ThinkTaunt(BaseCreature creature,NecromancerCurse curse,TerrorAi state)
+    {
+        if(state.NextUtc>TimedEffects.Now){return true;}
+        var ai=creature.AIObject;var target=World.FindMobile((Serial)state.Override);
+        bool present=target is{Deleted:false} && target.Map==creature.Map;
+        bool town=present && !Server.Spells.SpellHelper.CheckTown(target.Location,target);
+        if(!present || town)
+        {
+            // Source AI12 ends its special AI without deleting the untimed stats.
+            var profile=NecromancerEffects.Profiles.Find(creature);
+            if(profile!=null){NecromancerEffects.Profiles.Store(creature,profile with{Curse=curse with{Terror=null}});}
+            return false;
+        }
+        bool melee=creature.InRange(target,1) && creature.InLOS(target);
+        Mobile nearby=null;
+        if(state.Started && !melee){nearby=Target(creature,state with{Override=0});}
+        bool nearbyCombat=nearby is{Alive:true,Deleted:false} && creature.InRange(nearby,1) && creature.InLOS(nearby);
+        var decision=DecideTaunt(true,false,state.Started,melee,nearbyCombat);
+        if(decision is TauntDecision.AttackTaunter or TauntDecision.AttackNearby)
+        {
+            var focus=decision==TauntDecision.AttackTaunter?target:nearby;
+            ai.ClearMoveIntent();Store(creature,curse,state with{Started=decision==TauntDecision.AttackTaunter,Override=focus.Serial.Value,Focus=focus.Serial.Value,Combat=true,Goal=null,NextUtc=TimedEffects.Now});
+            creature.Combatant=focus;creature.FocusMob=null;creature.Warmode=true;creature.Direction=creature.GetDirectionTo(focus);return true;
+        }
+        var goal=target.Location;
+        if(state.Combat || state.Goal!=goal){ai.ClearMoveIntent();}
+        creature.Combatant=null;creature.FocusMob=null;creature.Warmode=false;creature.SetCurrentSpeedToActive();
+        Store(creature,curse,state with{Started=true,Focus=target.Serial.Value,Combat=false,Goal=goal,VelocityPercent=0,NextUtc=TimedEffects.Now});
+        ai.MoveToPoint(goal,1);return true;
     }
 }

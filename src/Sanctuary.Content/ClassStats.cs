@@ -93,7 +93,8 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return CreatureProfiles.AttackRating(creature) * (100 + skillPercent + (SorceressEffects.Enchantment(creature)?.AttackPercent ?? 0) + PaladinAuras.AttackPercent(creature)) / 100;
+            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+PaladinAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature);
+            return basis+(int)((long)basis*percent/100);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
         {
@@ -151,7 +152,7 @@ public static class ClassStats
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !PaladinAuras.CombatStats(attacker) && !PaladinAuras.CombatStats(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian)
-            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0)
+            && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0)
         {
             return null;
         }

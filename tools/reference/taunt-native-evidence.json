@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined native3boots/2reloads pass;70 Python tests,current432 named/15 first-loop input hashes, source/generator/catalogue checks and matching installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/taunt-engine-evidence.json",
+  "implementation": [
+    "Right/quick enemy-targeted shared SC action pays pinned3mana after successful do. Explicit eligible selection is retained; otherwise caster-nearest squared distance within20 source units is used independently of ground cursor. No target releases no skill/payment. Source rank1/20/21 AR and ED are-5/-43/-45, with no invented armor reduction or timed duration.",
+    "Taunt reuses ordinary curse JSON and its historical optional TerrorAi payload with an explicit Skill=Taunt discriminator. No new controller persistence schema is introduced; older Howl JSON is unchanged. UntilUtc=DateTime.MaxValue represents source duration0.",
+    "Existing source AI/path/acquisition/target gates own initial approach, later dynamic-target melee, alternative acquired melee target and phase reset. Reviewed source mode-change path binds the attack target, so a nearby alternative becomes the dynamic target for subsequent decisions. Shared native A1 routing bypasses ordinary random attack/stall selection.",
+    "Same-rank recast restarts AI and retains original curse creator. Stronger rank replaces metadata/stats. Lower-rank rejected allocation retains stats/creator/phase but redirects the active dynamic target; do success still costs3mana. An already ended AI is not revived by a rejected lower-rank allocation.",
+    "Missing or unavailable dynamic target ends the special AI and clears native intent without deleting untimed AR/weapon ED. Ordinary curse replacement removes the shared payload and its stale movement. Shared40ms cleanup/load lifecycle retains active payloads and dead-target cleanup.",
+    "item_tohit_percent joins existing NPC AR percentages with basis+truncated percentage rounding, matching negative percentage source composition for supported ranks. damagepercent joins the existing weapon ED pool before its floor; existing defense remains unchanged.",
+    "Existing native leash pauses voluntary abandonment checks while the source control payload owns movement, then resumes its normal policy. Existing native timing/terrain/LOS/scan remain explicit adapters."
+  ],
+  "checks": [
+    "199 independent compiled source cases:36 casts/rank/Attract/explicit-or-fallback,16 callback gates,56 caster-distance selections,64 AI dispatch and27 sentinel-preservation cases. Shared full generic curse/filter/stat services come from the compiled Battle Cry probe.",
+    "Pinned rank1/20/21 formulas, enemy metadata, right/quick binding and left rejection; no-target/low-mana/early/single event/paralyzed cancellation/lost-mana release. Actual ground input near farther enemy still acquires the caster-nearest supported enemy; explicit farther target remains selected. Real Tarnhelm raises stored effective rank.",
+    "Native64 source AI dispatch goldens; first in-melee decision approaches before attacking. Later direct dynamic-target A1 is permitted and species special skills are suppressed. An isolated subclass with ordinary AttackChance0/Attack1Chance0 deterministically verifies source A1 bypasses the random stall path.",
+    "Native alternative adjacent threat is acquired, replaces dynamic target and resets phase. Next approach retains that alternative instead of silently restoring the original caster. Equal/stronger/lower recast creator/rank/phase/target and actual weaker-allocation payment paths are checked.",
+    "NPC AR uses additive truncated-division composition; weapon ED changes while defense stays fixed. Deleting a dynamic target removes special AI while retaining source untimed AR/ED and restoring ordinary special-skill eligibility. Actual Weaken replaces Taunt; Taunt replaces source Howl. Attract and unmapped/tied automatic branches reject without invented effects.",
+    "Natural real-time movement approaches without damage, retained no-expiry stats and no erroneous leash return. Saved owner actually trains Taunt20 and casts through normal do/payment. Three boots/two actual reloads preserve exact active payload/creator/rank/AR/fractional mana and separately ended-AI stat-only curse. Resumed native approach moves again without payment; transient cast does not replay.",
+    "Thunder Storm fixture separately retains its144-second rank1 duration assertion and gets an actual100ms scheduled-expiry/cleanup check. Its saved inspection deadline alone is held10minutes so the longer combined suite does not expire it before reload."
+  ],
+  "fixtureCorrections": [
+    "Initial A1 probe used a frozen target; only the isolated attack probe is unfrozen for its ordinary native attack gate.",
+    "An initial future-timestamp A1 probe on the same actor advanced its native species scan gate; the deterministic attack-choice probe now uses a separate actor, immediately deleted before real-time target acquisition tests. No native scan cooldown was relaxed.",
+    "The deleted derived attack fixture type still appears in the world type table; it now declares the ordinary serial constructor so type-table reload remains valid.",
+    "The first full run outlasted Thunder Storm rank1 initial144-second lifetime at reload. Only its saved inspection fixture deadline is held; normal source duration and actual expiry/cleanup have separate checks. Gameplay Thunder Storm is unchanged."
+  ],
+  "limits": [
+    "No modern executable or class completion certificate. Exact SC/FCR/first-frame/native footprint/Z/tile/terrain/source scan/cadence/velocity/path/mode refusal and full owner/client acceptance remain open.",
+    "Native Taunt uses the existing mapped source Skeleton/Zombie/Megademon no-exit-callback support and native hostility/visibility/path/acquisition services. Other species, elite/attached-imp/player-owned/neutral owner graphs and exotic callbacks remain unsupported or separately unverified, not declared D2R-immune.",
+    "Automatic fallback ties are gated because native scan ordering does not reproduce source room-list order; select a supported target explicitly. Explicit unmapped targets give an unsupported message. Auto-discovery filters to the supported mapped native subset; full unsupported-candidate scan equivalence remains open.",
+    "Attract and active item-fear failed-allocation AI transitions remain unavailable with an explicit message, rather than being approximated. Nonzero curse resistance has no full native stat adapter. Supported mapped targets retain source-default zero resistance.",
+    "Effective ranks49+ remain unavailable: negative resulting AR needs the full source negative-AR/defense hit-chance path. Ordinary hard1..20 and checked soft21 remain supported. Existing basic hit-chance/whole damage/FP/item/dual-wield projections are not full modern certificates.",
+    "Missing/different-map/town dynamic target ends native special AI while leaving the untimed stat curse. Missing target is directly checked; modern town/death/disconnect/map/owner and source mode-change refusal semantics remain separate acceptance.",
+    "Source-controlled melee now forces A1 and bypasses ordinary random attack/stall choice, shared with Howl. Native animation/cooldown/AI polling and exact interruption timing retain their projection limits. The isolated deterministic chooser probe uses a future timestamp and is deleted before real-time acquisition tests.",
+    "Effects and talent/hotkey icons remain independent240-entry registers with identified UO/text placeholders. No final imagegen, item acquisition gate, save reset or new native patch."
+  ]
+}

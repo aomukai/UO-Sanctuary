@@ -37,7 +37,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         {
             var serial = (Serial)reader.ReadUInt(); var state = JsonSerializer.Deserialize<NecromancerState>(reader.ReadString());
             if (!serial.IsMobile || state == null || state.BoneArmor < 0 || state.ManaFraction is < 0 or > 255
-                || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255 || curse.Terror is{} terror && (curse.Ability!=CombatAbility.Terror || terror.Skill!=CombatAbility.Howl || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
+                || state.Curse is { } curse && (!NecromancerEffects.KnownCurse(curse.Ability) || curse.Rank is < 1 or > 255 || curse.Terror is{} terror && (!(curse.Ability==CombatAbility.Terror && terror.Skill==CombatAbility.Howl || curse.Ability==CombatAbility.Taunt && terror.Skill==CombatAbility.Taunt) || terror.LaunchRank<1 || terror.Map<0 || terror.Map>=Map.Maps.Length || terror.VelocityPercent is <0 or >120))
                 || !states.TryAdd(serial, state)) { throw new InvalidDataException("Invalid Necromancer state."); }
         }
         _states = states;
@@ -64,7 +64,7 @@ public static class NecromancerEffects
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
         or CombatAbility.LifeTap or CombatAbility.Attract or CombatAbility.Decrepify or CombatAbility.LowerResist;
-    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a==CombatAbility.BattleCry;
+    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt;
     public static NecromancerCurse Curse(Mobile actor) => Profiles?.Find(actor)?.Curse is { } curse && curse.UntilUtc > TimedEffects.Now ? curse : null;
     internal static SkillValues Values(NecromancerCurse curse) => new(SkillMechanics.For(curse.Ability),
         key => key == SkillMechanics.For(curse.Ability).SourceKey ? curse.Rank : 0, _ => 0, 1);
@@ -129,17 +129,19 @@ public static class NecromancerEffects
     {
         CombatAbility.Weaken => Values(curse).Linear(5, 6),
         CombatAbility.Decrepify => -50,
-        CombatAbility.BattleCry => (int)Values(curse).Eval("aurastatcalc2"),
+        CombatAbility.BattleCry or CombatAbility.Taunt => (int)Values(curse).Eval("aurastatcalc2"),
         _ => 0
     } : 0;
     public static int OutgoingPhysicalPercent(Mobile actor)=>100+DamageStatPercent(actor);
     internal static int DefenseStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.BattleCry} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
+    internal static int AttackStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.Taunt} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
     public static int Slow(Mobile actor) => Curse(actor)?.Ability == CombatAbility.Decrepify ? 50 : 0;
     public static bool TargetAllowed(Mobile actor, Mobile target)
     {
         if (Curse(actor) is not { } curse) { return true; }
         return curse.Ability switch
         {
+            CombatAbility.Taunt when curse.Terror!=null => SourceTerror.TargetAllowed(actor,target),
             CombatAbility.Terror => curse.Terror!=null && SourceTerror.TargetAllowed(actor,target),
             CombatAbility.DimVision => target != null && actor.Map == target.Map && actor.InRange(target, 1),
             _ => true
@@ -159,6 +161,7 @@ public static class NecromancerEffects
             }
         }
         var curse = Curse(creature);
+        if(curse?.Ability==CombatAbility.Taunt && curse.Terror!=null){return SourceTerror.Think(creature,curse);}
         if (curse?.Ability == CombatAbility.Terror)
         {
             if(curse.Terror!=null){return SourceTerror.Think(creature,curse);}

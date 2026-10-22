@@ -1,0 +1,100 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next Find Potion source preflight only; no compiled or native handler certificate.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "blockHashes": {
+    "SKILLS_SrvSt33_FindPotion_GrimWard": "bdb77c90931eaf273962b428b986ec57c1616158d6d5f5fb014eb7d4c403a6a7",
+    "SKILLS_SrvDo069_FindPotion": "ca7c057e6c4d87c7c7ef46dc52a1073aa66b4fc55c328a34c275bd98c812b279",
+    "D2COMMON_11018": "fe7fabbf55f8b2423e7e79fe3b4afa547a5ad707079c4242a7e71027dcd994aa",
+    "D2Common_11020": "0b3637d530aabef4ea2ef06adfd258ed8fbafe169b1490134221bde97e0a509b",
+    "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+    "UNITS_IsSoftMonster": "f2e755a8b1e1780fed74fbf46e96ea956a0ebbafe14fad2e22ec70f3bdf51f66"
+  },
+  "skill": {
+    "skill": "Find Potion",
+    "*Id": 131,
+    "charclass": "bar",
+    "skilldesc": "find potion",
+    "srvstfunc": 33,
+    "srvdofunc": 69,
+    "stsuccessonly": 1,
+    "stsoundclass": "barbarian_findobject_1",
+    "tgtsound": "barbarian_findheart_1",
+    "cltstfunc": 26,
+    "cltdofunc": 38,
+    "enhanceable": 1,
+    "attackrank": 0,
+    "range": "h2h",
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "SearchEnemyNear": 1,
+    "SelectProc": 4,
+    "TargetCorpse": 1,
+    "reqlevel": 1,
+    "maxlvl": 20,
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 2,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "calc1": "dm12",
+    "*calc1 desc": "% chance to find any potion",
+    "Param1": 0,
+    "*Param1 Description": "% chance to find any potion Min",
+    "Param2": 100,
+    "*Param2 Description": "% chance to find any potion Max",
+    "Param3": 30,
+    "*Param3 Description": "% chance to find Mana potion",
+    "Param4": 10,
+    "*Param4 Description": "% chance to find Rejuvenation potion",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 256,
+    "cost add": 3000,
+    "lineNumber": 131
+  },
+  "findings": [
+    "Start33 and do69 require selectable dead soft monster and no corpse_noselect. This differs from generic Necromancer corpse consumption; corpse usability and softness must use source species data, not generic skeleton eligibility.",
+    "Do69 sets corpse_noselect before the random chance, so an unsuccessful roll still consumes the one attempt. Failure then returns1. Preserve loot contents and distinguish this from hiding/deleting the corpse.",
+    "Chance uses pinned calc1 dm12. A successful roll uses a second0..99 draw:0..29 mana,30..39 rejuvenation,40..99 healing with current pinned Param3=30/Param4=10.",
+    "Potion-code table indexes caster current room Act plus5*gameDifficulty. Valid rows span15 combinations; healing/mana are hp2..hp5/mp2..mp5, rejuvenation rvs/rvl. Missing room, invalid Act or index takes the source generic item-code0/quality2 fallback.",
+    "No source claim maps Britannia to D2R Acts/game difficulty. Native per-monster difficulty and corpse source Act are distinct contexts; do not silently substitute either."
+  ],
+  "reuse": [
+    "Review existing SkeletonPets.Usable/NecromancerCombat.Consume and saved Corpse.SanctuaryConsumed/Animated/harvest cleanup before adding any corpse flags. Preserve separate source corpse eligibility and noselect semantics.",
+    "RestorationPotion, PotionBeltCatalog/PotionRestoration and saved item-origin/drop placement already support healing/mana/rejuvenation tiers; use these consumers rather than creating another potion system.",
+    "Common SC/right binding/corpse selection/payment/persistence systems are reusable after start33/do69 timing and single-attempt proof."
+  ],
+  "questions": [
+    {
+      "blockingScope": "Native potion-tier context only; source chance/type/eligibility/consumption work can continue.",
+      "question": "How should Britannia map caster location to D2R Act and game difficulty?",
+      "status": "Asked asynchronously; no answer recorded yet.",
+      "options": [
+        "Use corpse source Act/difficulty as explicit Sanctuary deviation",
+        "Define Britannia region Act/difficulty tiers"
+      ],
+      "rule": "No selection/time elapsed is approval; keep this branch open until answered or an existing approved mapping is located."
+    }
+  ],
+  "nextSteps": [
+    "Compile unchanged start33/do69/corpse/softness helpers with explicit RNG/drop/world services; verify all15 potion-table rows and chance/consumption boundaries.",
+    "Resolve the location/difficulty mapping question for native output tiers while progressing unaffected source work/remaining Barbarian skills.",
+    "Keep source no-room/code0 fallback, unsupported corpse species/states and exact SC/target/proc/client behavior explicit; do not substitute arbitrary potion output."
+  ],
+  "limits": [
+    "Hash-checked review and pinned table only; no native handler or modern parity certificate.",
+    "Source Udead-state masks/softness/corpse_select need full native dead-species mapping. The existing generic corpse consumer is not automatically the same behavior.",
+    "Final effect and talent/hotkey icon remain separately tracked placeholders."
+  ]
+}

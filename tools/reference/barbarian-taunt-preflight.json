@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next Taunt source preflight only; no native handler or compiled Taunt certificate.",
+  "status": "Completed bounded Taunt source/native integration; separate evidence records define scope.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
@@ -114,16 +114,20 @@
     "Shared AI curse writer gates neutral alignment, AI switch, attackable/valid/targetable, live/hostile, walk mode and excluded monster type. It writes item_tohit_percent and damagepercent and installs the AI-removal callback.",
     "Do71 ignores the curse writer return, calls AITHINK_SetAiControlParams(-666,-666,-666), clears owner GUID/type helper, schedules AI at nextframe and sets taunter as dynamic target. Sentinel-666 means leave parameter unchanged; it does not zero them.",
     "Special AI12 returns to ordinary AI/idles1frame if dynamic target absent or in town. Initial phase walks toward target with flags7; later direct melee attacks it, otherwise nearby acquired melee target may be attacked/reset phase, else taunter is restored and approached. This is not unconditional attack-only-taunter behavior.",
-    "Approach helper sets native source velocity parameters13,0,0 then walks to target; map exact native movement/stale intent/exit callbacks separately."
+    "Approach helper sets native source velocity parameters13,0,0 then walks to target; map exact native movement/stale intent/exit callbacks separately.",
+    "Later mode-change review establishes that attacking a nearby acquired target can bind it as the new dynamic target. Native continuation preserves it; it must not unconditionally restore the original caster."
   ],
   "nextSteps": [
-    "Compile unchanged do71/fallback callback/search metric/generic curse AI writer/AI12/sentinel/approach routines with declared owner/world/target services.",
-    "Trace duration0 curse removal, state callback, target override/owner helper, skill/item/NPC/elite eligibility and source item_tohit_percent stat pool before native integration.",
-    "Implement supported mapped cases with existing curse/stat/AI/movement/persistence systems; record individually unsupported branches and continue remaining Barbarian roadmap."
+    "Continue Find Potion source eligibility/chance/consumption/output tables; native Act/difficulty context question remains open. Progress unaffected Barbarian skills if that branch cannot finish.",
+    "Retain recorded Taunt automatic tie/Attract/item fear/negative AR/species/owner/client limitations."
   ],
   "limits": [
     "Hash-checked source review and pinned table goldens only; no compiled/runtime/modern Taunt parity claim.",
     "User cannot provide Barbarian/Call to Arms observations; use source and native verification and keep nonblocking questions documented.",
     "Final Taunt effects and talent/hotkey icons remain separate identified placeholders."
+  ],
+  "evidence": [
+    "tools/reference/taunt-engine-evidence.json",
+    "tools/reference/taunt-native-evidence.json"
   ]
 }

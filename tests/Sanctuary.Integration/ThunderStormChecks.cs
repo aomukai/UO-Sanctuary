@@ -65,10 +65,22 @@ public static class ThunderStormChecks
                             {
                                 Require(first.Hits < a && second.Hits == b && outside.Hits == c,
                                     "Storm failed to wrap or respected no radius");
-                                var state = ThunderStorm.Active(owner);
+                                var state = ThunderStorm.Active(owner) with { UntilUtc = TimedEffects.Now.AddMinutes(10) };
+                                SorceressEffects.Profiles.Store(owner, SorceressEffects.Profiles.Find(owner) with { Storm = state });
+                                ThunderStorm.Schedule(owner.Serial, state); // Only the saved inspection deadline is held.
                                 File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, state.UntilUtc, state.IntervalFrames, state.Rank, owner.X, owner.Y, owner.Z)));
                                 first.Delete(); second.Delete(); outside.Delete();
-                                _log.Information("thunderstorm-result: passed");
+                                var expires = ClassSkillChecks.Player(DiabloClass.Sorceress);
+                                ThunderStorm.Cast(expires, SkillMechanics.Values(expires, CombatAbility.ThunderStorm));
+                                var shortState = ThunderStorm.Active(expires) with { UntilUtc = TimedEffects.Now.AddMilliseconds(100), NextStrikeUtc = TimedEffects.Now.AddMinutes(10) };
+                                SorceressEffects.Profiles.Store(expires, SorceressEffects.Profiles.Find(expires) with { Storm = shortState });
+                                ThunderStorm.Schedule(expires.Serial, shortState);
+                                Timer.StartTimer(TimeSpan.FromMilliseconds(400), () =>
+                                {
+                                    try { Require(ThunderStorm.Active(expires) == null && SorceressEffects.Profiles.Find(expires)?.Storm == null, "Storm scheduled expiry retained state"); _log.Information("thunderstorm-result: passed"); }
+                                    catch (Exception e) { Fail(owner, first, second, outside, e); }
+                                    finally { expires.Delete(); }
+                                });
                             }
                             catch (Exception e) { Fail(owner, first, second, outside, e); }
                         });

@@ -138,13 +138,14 @@ public abstract partial class GraveyardUndead : BaseCreature
             return TimeSpan.FromMilliseconds(Math.Max(40, wait));
         }
         var normal = NormalStats;
-        if (normal.AttackChance < 100 && Utility.RandomDouble() * 100 >= normal.AttackChance)
+        bool sourceAttack=SourceTerror.InCombat(this);
+        if (!sourceAttack && normal.AttackChance < 100 && Utility.RandomDouble() * 100 >= normal.AttackChance)
         {
             _nextAction = now + normal.StallMs;
             AIObject?.ResetApproachState();
             return TimeSpan.FromMilliseconds(normal.StallMs);
         }
-        _melee = Utility.RandomDouble() * 100 < normal.Attack1Chance ? normal.Attack1 : normal.Attack2;
+        _melee = sourceAttack || Utility.RandomDouble() * 100 < normal.Attack1Chance ? normal.Attack1 : normal.Attack2;
         _melee = _melee with { Speed = Math.Max(1, _melee.Speed * Math.Clamp(100+PaladinOffense.AttackRate(this)-GearEffects.AttackSlow(this),15,175) / 100) };
         StartAction(target);
         _nextAction = now + _melee.DurationMs + normal.AiDelayMs;
