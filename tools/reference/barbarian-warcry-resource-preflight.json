@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Historical resource preflight resolved by Battle Orders native implementation and focused/final combined3boots/2reloads; Battle Command remains next.",
+  "status": "Historical BO/BC resource preflight resolved by separate bounded source/native implementations; exact modern acceptance limits remain in linked evidence.",
   "sourceHashes": {
     "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
     "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
@@ -18,8 +18,8 @@
     "Pinned ItemMode server stat callback scales positive current HP/mana/stamina on maximum changes, with FP256 truncation, and recalculates monster HP regeneration. Compiled288 stat-operation and408 callback cases pass."
   ],
   "nextSteps": [
-    "Implement Battle Command effective-rank/passive/pet-limit transitions with its own duration/rank snapshots; inspect passive refresh and pet-cap removal source rather than treating it as a cosmetic+1.",
-    "Retain individually unsupported modern NHD caster/cast boundary, post-replacement mana failure and native geometry/owner/client acceptance gaps."
+    "Continue remaining Barbarian skills, beginning with Howl shared ring/Terror control source preflight.",
+    "Retain modern NHD caster/cast boundary, exact resource/SC/geometry/owner/client acceptance gaps; do not infer completion from handler registration."
   ],
   "limits": [
     "Bounded compiled source proofs and native runtime/reload checks are now available in the linked records; no modern executable capture exists.",
@@ -28,7 +28,9 @@
   "currentEvidence": [
     "tools/reference/battle-orders-engine-evidence.json",
     "tools/reference/resource-basis-native-evidence.json",
-    "tools/reference/battle-orders-native-evidence.json"
+    "tools/reference/battle-orders-native-evidence.json",
+    "tools/reference/battle-command-native-evidence.json",
+    "tools/reference/battle-command-engine-evidence.json"
   ],
   "userObservation": {
     "request": "Optional proportional life/recast observation through non-Barbarian Call to Arms use.",

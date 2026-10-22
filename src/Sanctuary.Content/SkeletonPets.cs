@@ -108,7 +108,7 @@ public static class SkeletonPets
             pet.Delete();
             return false;
         }
-        PersistentMinions.Profiles.Track(pet);
+        BattleCommand.Track(pet); PersistentMinions.Profiles.Track(pet);
         pet.MoveToWorld(corpse.Location, corpse.Map);
         if (count >= Limit(Rank(owner)))
         {

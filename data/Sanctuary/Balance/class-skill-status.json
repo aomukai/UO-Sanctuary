@@ -1439,10 +1439,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 155,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Immediate self state and shared64-ray warcry implement11mana, nonstacking allskills1, stored cast rank/live hard duration and saved LastCollide/skill-local NextHit gates. Effective ranks update learned/granted skills without changing hard synergies; native passives/resources refresh, summon creation snapshots stay fixed and pet caps remove oldest saved creation order on expiry. Focused native three-boot/two-reload checks pass, including new/old summon snapshots, FIFO cap removal, passive resource transitions and resumed saved rays. Combined and actual-client acceptance remain separate. Historical pet order falls back to serial; modern SC/FCR/geometry/NHD caster/cast scope, NPC own skills and full owner/item/client behavior remain unverified."
     },
     {
       "talentId": "barbarian.swordmastery",

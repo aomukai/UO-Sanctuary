@@ -46,7 +46,7 @@ public static class NecromancerSummons
         int limit = mage ? SkeletonPets.Limit(pet.Rank) : 1;
         int remove = Math.Max(0, replaced.Count + 1 - limit);
         for (int i = 0; i < remove; i++) { replaced[i].Explode(); replaced[i].Delete(); }
-        PersistentMinions.Profiles.Track(pet); pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null);
+        BattleCommand.Track(pet); PersistentMinions.Profiles.Track(pet); pet.MoveToWorld(point, owner.Map); pet.IssueOrder(OrderType.Guard, null);
         if (corpse != null) { NecromancerCombat.Consume(corpse); }
         pet.FixedParticles(0x376A, 9, 20, 5024, EffectLayer.Waist); return true;
     }

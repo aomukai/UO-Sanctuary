@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Historical source preflight. Shout is now implemented with dedicated source/native evidence; Battle Orders/Battle Command remain pending.",
+  "status": "Historical source preflight. Shout, Battle Orders and Battle Command now have separate native/source evidence; exact modern limits remain explicit.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",

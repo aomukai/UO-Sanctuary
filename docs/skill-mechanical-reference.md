@@ -207,7 +207,7 @@ The self state applies at the do-event and64 rays travel outward. The source ran
 
 Pinned modern mana is6. The handler retains native shared SC timing, source town restriction and a release-time payment/eligibility check. Exact modern SC event/FCR and first-ray timing, mana drained during wind-up, and generic legacy consume-after-do behavior remain unresolved acceptance items. The legacy rank1/minmana reconstruction discrepancy cannot establish the modern6-mana value. Do not interpret the native release-time rejection as a measured modern outcome.
 
-The existing two-subtile/tile scale, native swept footprints and UO LOS remain provisional for this ring. Source type3 missile barriers are not proven equivalent to UO LOS. Cooperative players and their pets follow approved shared alignment; neutral NPCs without supported eligibility remain excluded. Serial collision ties and offline/map/class handling are explicit native adaptations. Battle Orders now consumes its distinct missile/resource flags separately; Battle Command still needs skill-state/passive/pet-cap work.
+The existing two-subtile/tile scale, native swept footprints and UO LOS remain provisional for this ring. Source type3 missile barriers are not proven equivalent to UO LOS. Cooperative players and their pets follow approved shared alignment; neutral NPCs without supported eligibility remain excluded. Serial collision ties and offline/map/class handling are explicit native adaptations. Battle Orders now consumes its distinct missile/resource flags separately; Battle Command now has separate effective-rank/passive/pet-cap consumers and native evidence.
 
 The [effects register](skill-effects.md) identifies Shout's UO flash/sparse wave/sound placeholders; the [icons register](skill-icons.md) separately lists talent/hotkey icons. No final art was generated.
 
@@ -220,4 +220,20 @@ Self resources apply before the pinned7mana payment. Positive current life/mana/
 
 The64 travelling rays retain stored effective rank/live hard duration synergies. BO initializes LastCollide to caster and persists collider identity/four-frame skill-local NextHit gates. Old Shout saves decode without those fields. Native delay scope currently spans suppliers/casts for the same skill and recipient; the released2.7 primary note establishes same-skill isolation alone, so caster/cast scope remains unverified. A rare weaker replacement can reduce mana below7 before payment; supplementary source ignores that failed post-do payment, while modern behavior remains uncertain.
 
-The native whole maximum/65000 projection, exact SC/FCR/frame/geometry/neutral eligibility and full item/owner/client transitions remain explicit limits. Battle Command is pending. Effects and talent/hotkey icons remain separate identified placeholders.
+The native whole maximum/65000 projection, exact SC/FCR/frame/geometry/neutral eligibility and full item/owner/client transitions remain explicit limits. Battle Command is now implemented separately below. Effects and talent/hotkey icons remain separate identified placeholders.
+
+
+## Shared mechanics before new controllers
+
+Before implementing each skill, inspect existing handlers and the pinned dispatch/formula/missile data for reusable mechanics. The user explicitly requests this review. Reuse a verified geometry, timing, resource or collision consumer when the source contract agrees; keep skill-specific damage, targeting, hit-delay, piercing and proc behavior explicit. Avoid assuming visual similarity establishes identical mechanics.
+
+The pinned Teeth and Multiple Shot rows both dispatch server do8 and share the projectile-count formula `min(ln12,24)`. Their missile selections, start handler and calc3 differ. Current Teeth still uses a provisional fixed60-degree fan in `NecromancerCombat`; extract/verify the source do8 fan before reusing it for Amazon, and verify Teeth against that common implementation too. This is a recorded acceptance gap, not a claim that the existing spread is exact. Shout, Battle Orders and Battle Command already share the travelling-ray controller while retaining their own state, resource and missile-flag rules.
+
+
+## Battle Command working implementation
+
+Battle Command is the16th Barbarian handler. Its [source probe](../tools/reference/battle-command-engine-evidence.json) compiles72 rank,60 pet-cap,16 application-refresh and16 removal cases; [native evidence](../tools/reference/battle-command-native-evidence.json) covers current controller, timers, actual summons and both reloads.
+
+The existing effective-rank path adds a nonstacking allskills1 to learned/granted own-class talents, preserving hard synergies and leaving unlearned skills locked. Shared warcry rays carry launch rank and read current hard duration synergies. The first self cast stores rank1 and raises effective BC to2; the next cast stores2 without stacking.11mana is paid after self stats. Live passive consumers refresh, including proportional FP256 Increased Stamina through the shared BO resource transition. Existing spell/BO/summon snapshots stay stored; newly created spells and summons receive effective ranks.
+
+Source passive refresh also enforces pet limits at application and expiry. Supported skeleton/mage/golem creations now record persistent FIFO order; overflow deletes oldest creation. Unknown historical creation order uses an identified serial fallback. Inactive class histories retain Sanctuary's approved policy. Other class pet types, Revive/Iron Golem and NPC innate/item-owned charged skill systems remain unsupported individually. Native whole maxima, exact modern NHD caster/cast scope, SC/FCR/geometry/owner/item/client and complete equipment-change pet-cap routing remain acceptance gaps. Final cry/ring/recipient cue and talent/hotkey icons remain separate placeholders.

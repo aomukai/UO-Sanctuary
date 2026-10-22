@@ -24,7 +24,7 @@ public sealed class OrdersProfiles:GenericPersistence
 }
 public static class BattleOrders
 {
-    private readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256);
+    internal readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256);
     private static readonly Dictionary<uint,BattleOrdersState> _states=new();
     private static readonly Dictionary<uint,OrdersResources> _resources=new();
     private static readonly List<uint> _keys=new();
@@ -54,7 +54,7 @@ public static class BattleOrders
         amount256=Math.Clamp(amount256,0,actor.StamMax*256);actor.Stam=amount256/256;
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
-    private static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor));
+    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor));
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
@@ -70,7 +70,7 @@ public static class BattleOrders
     }
     internal static int Regeneration256(SkeletonGuardian actor)=>_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??5;
     private static void Remember(Mobile actor,int staminaFraction,int? regeneration)=>_resources[actor.Serial.Value]=new(actor.Serial.Value,actor.HitsMax,actor.ManaMax,actor.StamMax,staminaFraction,regeneration);
-    private static void Change(Mobile actor,Pools before)
+    internal static void Change(Mobile actor,Pools before)
     {
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;

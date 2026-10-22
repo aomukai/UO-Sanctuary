@@ -64,6 +64,6 @@ public static class NamedSkills
         }
         // General +skills raises learned/granted skills without spending points
         // or granting every unlearned skill. Specific staffmods may grant a skill.
-        return baseline + direct > 0 ? Math.Max(0, baseline + direct + general) : 0;
+        return baseline + direct > 0 ? Math.Max(0, baseline + direct + general + BattleCommand.Bonus(player)) : 0;
     }
 }

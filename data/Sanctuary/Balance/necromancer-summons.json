@@ -601,6 +601,37 @@
     }
   },
   {
+    "key": "battlecommand",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pSrvDoFunc": 1,
+      "pSrvHitFunc": 18,
+      "Vel": 30,
+      "MaxVel": 30,
+      "Accel": -500,
+      "Range": 15,
+      "Red": 192,
+      "Green": 192,
+      "Blue": 192,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "BAYellShockWave01",
+      "animrate": 1024,
+      "AnimLen": 15,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "CollideFriend": 1,
+      "LastCollide": 1,
+      "NextHit": 1,
+      "NextDelay": 4,
+      "Size": 1,
+      "Trans": 1,
+      "NumDirections": 32,
+      "TravelSound": "barbarian_circle_1"
+    }
+  },
+  {
     "key": "battleorders",
     "fields": {
       "pCltDoFunc": 1,

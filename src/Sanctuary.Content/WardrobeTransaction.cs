@@ -131,6 +131,7 @@ public static class WardrobeTransaction
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
+        BattleCommand.Clear(player);
         PersistentMinions.ParkClass(player, previous.Class);
         PersistentMinions.Resume(player);
         return true;

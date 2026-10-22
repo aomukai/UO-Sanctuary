@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb"
+  },
+  "probe": {
+    "caseCounts": {
+      "rankCases": 72,
+      "petCases": 60,
+      "applyRefreshCases": 16,
+      "refreshCases": 16
+    },
+    "blockHashes": {
+      "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+      "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd",
+      "SKILLS_RefreshPassiveSkills": "d3d4bf1cfc989a9e94bca1629e135488fe0eee719c8d32dab7fd188b59926d70",
+      "sub_6FC7D150": "edddc0f0c6bddac1bdb24d5d68a3c945645251d5258429d56778495a6b1c9ae0",
+      "sub_6FC7DF40": "1b32015dd9dd89012d5a883e36c3c5d9f862318775d5a224fc21e6700ae8cd62",
+      "sub_6FD14C30": "2588c5911b2ed1e2c633c3aaac1cfe82b6de78d4e42acf8fc62ee992ea5067a4",
+      "sub_6FD10E50": "591dd51e13d8500f8513f4538b6f8423752d71a35be3b8d36b6d503feeb3273f",
+      "applyWarcry": "579eeff9d53dabbd36e1fa857ebad5ed703ee68b2fed2f64ac8d34e37ee7a6fb",
+      "petAppend": "4463952dff2ffafa9a8c1af2f9a2f9f6bc55954e51dd680d23129a6467905836"
+    },
+    "dataPath": ".local/class-skills/battle-command-source-probe.json"
+  },
+  "established": [
+    "Battle Command contributes item_allskills1; effective levels add it to existing own skill nodes, while hard levels and item-owned charged skill nodes stay unchanged.",
+    "Warcry application refreshes active passives and player pet caps. Its removal callback unregisters events, removes state, updates animation/movement, refreshes active passives and re-evaluates player pet caps unless a stay-on-death state is retained.",
+    "Player pet counters take the greatest formula for each shared pet type with a minimum1; types with no skill fall back to baseMax. Overflow removes the linked-list head; source pet append walks to the tail, establishing FIFO creation order.",
+    "Pinned Battle Command parameters remain independent from legacy source and are consumed through the checked modern table/formula compiler."
+  ],
+  "stubs": [
+    "Whole source bonus-level/get-level/passive-refresh/pet-counter/pet-limit/refresh-wrapper/removal functions are compiled. Table records, skill-list enumeration, stat arrays, states, event/network/animation and pet removal are declared fixture stubs.",
+    "Pet fixture formulas supply rank-based skeleton cap; full game formula bytecode is verified elsewhere. Pet removal stub decrements counts only; FIFO ordering is source-inspected at append/removal, with native creation-order tests separate.",
+    "Expiry cases assert the callback removes state before passive refresh, so the isolated stub reports no active passive after removal. No complete source animation/event/stat dependency engine is claimed."
+  ],
+  "limits": [
+    "Supplementary reconstruction is not a modern executable certificate. Native NPC innate/charged skills, modern snapshots/rank-cap/owner/item/client transitions, exact SC/FCR and missile geometry/NextHit scope remain open.",
+    "Native retained class histories are approved departures. Unsupported Revive/Iron Golem and future-class pet types must stay individually gated; existing NPCs without modeled own skills cannot receive an invented skill system.",
+    "Original creation order of pre-ledger summons is unknowable; native historical serial fallback must be identified separately from new saved FIFO order."
+  ]
+}

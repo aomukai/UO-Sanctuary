@@ -1,0 +1,144 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next implementation source preflight; no Howl handler enabled.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b"
+  },
+  "blockHashes": {
+    "SKILLS_SrvDo022_NovaAttack": "be31bbe6cf4fe5489d81e5a4828b9f3ed161cad9e806cbceb324ba3b04778fc0",
+    "MISSMODE_SrvHit17_Howl": "38d97393e9a0f764047866da5934bb71f7334a981a6ebb6eeba00439f47b896b",
+    "AIUTIL_ApplyTerrorCurseState": "b4bdd5f7a126faec7f30268151e7c21ed29d3c3e107234f78c37169db6158323",
+    "AIUTIL_CanUnitSwitchAi": "c831bffb167fcfcd2264ee0ee568a2b427047f637fb4b680e32dbfcac03a3e2d"
+  },
+  "localCacheAlias": {
+    "source/D2Game/src/AI/AiUtil.cpp": "source/D2Game/src/AI/AIUtil.cpp"
+  },
+  "skill": {
+    "skill": "Howl",
+    "*Id": 130,
+    "charclass": "bar",
+    "skilldesc": "howl",
+    "srvdofunc": 22,
+    "srvmissilea": "howl",
+    "auratargetstate": "terror",
+    "stsoundclass": "barbarian_howl_1",
+    "cltdofunc": 25,
+    "cltmissilea": "howl",
+    "cltcalc1": "ln12-par1",
+    "*cltcalc1 desc": "Missile Velocity Adder",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "ItemEffect": 1,
+    "reqlevel": 1,
+    "maxlvl": 20,
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 4,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "calc1": "ln12-par1",
+    "*calc1 desc": "Missile Velocity Adder",
+    "calc2": "ln34",
+    "*calc2 desc": "Monster Fear Distance To Run",
+    "calc3": "ln56",
+    "*calc3 desc": "Monster Fear Duration",
+    "Param1": 12,
+    "*Param1 Description": "\"Missile Velocity baseline (Should match howl Missile Vel value, used for negation)\"",
+    "Param2": 2,
+    "*Param2 Description": "Missile Velocity per level",
+    "Param3": 24,
+    "*Param3 Description": "Monster Fear Distance To Run baseline",
+    "Param4": 5,
+    "*Param4 Description": "Monster Fear Distance To Run per level",
+    "Param5": 75,
+    "*Param5 Description": "Monster Fear Duration baseline",
+    "Param6": 25,
+    "*Param6 Description": "Monster Fear Duration per level",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 256,
+    "cost add": 1000,
+    "lineNumber": 130
+  },
+  "missile": {
+    "Missile": "howl",
+    "*ID": 148,
+    "pCltDoFunc": 1,
+    "pSrvDoFunc": 1,
+    "pSrvHitFunc": 17,
+    "Vel": 12,
+    "MaxVel": 12,
+    "Accel": -1000,
+    "Range": 12,
+    "Red": 192,
+    "Green": 192,
+    "Blue": 192,
+    "InitSteps": 1,
+    "Activate": 0,
+    "LoopAnim": 0,
+    "CelFile": "BAYellShockWave01",
+    "animrate": 1024,
+    "AnimLen": 15,
+    "AnimSpeed": 16,
+    "CollideType": 3,
+    "LastCollide": 1,
+    "Size": 1,
+    "Trans": 1,
+    "NumDirections": 32,
+    "TravelSound": "barbarian_circle_1",
+    "lineNumber": 148
+  },
+  "reuse": [
+    "Howl do22 launches the same source64-vector ring via sub_6FD14170 as existing warcries; generalize current motion for Howl velocity/acceleration/range instead of adding a separate ideal circle.",
+    "Howl hit17 applies shared Terror AI. Existing NecromancerEffects/NamedControl already supply fear/control consumers; trace their source eligibility, expiry and movement before choosing a reusable representation.",
+    "The user explicitly requests existing-mechanic review before new controllers; separate common fear state from skill-specific launch/payment/level checks."
+  ],
+  "sourceFindings": [
+    "Pinned Howl costs4mana, server do22, missile hit17/LastCollide1/Range12/Accel-1000. Do22 passes calc1 plus missile velocity to the common ring factory; higher ranks increase velocity.",
+    "Hit17 rejects missing skill/owner, invalid state, non-monsters, already-terrorized targets and targetLevel >= storedMissileRank + Param2 + currentOwnerLevel. Already-feared targets do not refresh.",
+    "Hit17 computes linear distance Param3/4 and duration Param5/6. The supplementary AIUTIL_ApplyTerrorCurseState receives both, but nParam1 distance is unused. Do not invent distance termination from tooltip alone.",
+    "AIUTIL stores SKILL_TERROR rank1 with supplied duration/state, sets target to caster, executes Terror AI and idles1frame. Eligibility checks dead/type/state/uninterruptable/CanSwitchAI/attackable/unique before AITHINK policy.",
+    "Native Terror stores fixed origin and applies its own difficulty divisor. Howl must not call the ordinary Necromancer player-class formula path blindly; target tracking, generic curse duration/difficulty and supported native species/control need verification."
+  ],
+  "projectedTableGoldens": [
+    {
+      "rank": 1,
+      "mana": 4,
+      "launchVelocity": 12,
+      "fearDistance": 24,
+      "fearFrames": 75
+    },
+    {
+      "rank": 20,
+      "mana": 4,
+      "launchVelocity": 50,
+      "fearDistance": 119,
+      "fearFrames": 550
+    },
+    {
+      "rank": 21,
+      "mana": 4,
+      "launchVelocity": 52,
+      "fearDistance": 124,
+      "fearFrames": 575
+    }
+  ],
+  "nextSteps": [
+    "Compile unchanged do22/hit17/AI helper eligibility/parameter flow; trace shared Terror special AI movement and generic curse duration rules.",
+    "Reuse current rays with explicit per-skill velocity/acceleration/collision callback; retain saved flags/rank/current caster-level lookup.",
+    "Test existing-Terror no-refresh, curse conflicts, level boundaries, moving caster, immune/unique filters, natural expiry, owner removal and two reloads. Keep unmatched/uncertain branches individually gated."
+  ],
+  "limits": [
+    "Source review/table goldens are not compiled proof or a modern executable capture.",
+    "Legacy unused distance, modern item/skill/proc behavior, native geometry/terrain/AI eligibility and state/death/expiry transitions remain open."
+  ]
+}

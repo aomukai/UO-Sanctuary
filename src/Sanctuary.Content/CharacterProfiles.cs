@@ -165,6 +165,7 @@ public sealed class CharacterProfiles : GenericPersistence
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
+        BattleCommand.Clear(player);
         Active(player.Serial).Stats = default;
         Active(player.Serial).Ranks.Clear();
         ClassStats.ApplyBase(player, profile, default);
@@ -331,6 +332,7 @@ public sealed class CharacterProfiles : GenericPersistence
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
+        BattleCommand.Clear(player);
         player.Title = $"Level {next.Profile.Level} {DiabloClasses.DisplayName(characterClass, player.Female)}";
         var bindings = SkillBindings.Instance.Get(player);
         session.Left = bindings.Left; session.Right = bindings.Right;

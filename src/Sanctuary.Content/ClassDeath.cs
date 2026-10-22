@@ -32,6 +32,7 @@ public static class ClassDeath
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
+        BattleCommand.Clear(player);
         SkillHealth.Clear(player);
         TownPortals.Close(player.Serial);
         PotionBelts.OnDeath(player, corpse);

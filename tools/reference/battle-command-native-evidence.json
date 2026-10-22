@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,428 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/battle-command-engine-evidence.json",
+  "shared": [
+    "tools/reference/shout-engine-evidence.json",
+    "tools/reference/battle-orders-native-evidence.json"
+  ],
+  "implementation": [
+    "Right-only self-target shared SC controller; pinned11mana at release after immediate self stats.64 travelling rays reuse stored-rank/live hard duration, initial caster LastCollide and saved skill-local four-frame NextHit infrastructure.",
+    "item_allskills1 joins the existing NamedSkills effective-rank path for learned/specific-item-granted own-class skills. Hard ranks remain unchanged and general bonuses do not unlock unlearned talents. Recasts replace state/rank/deadline and never stack skill bonuses.",
+    "Passive consumers update live; native defense/resistance/timers/network refresh explicitly. Shared Battle Orders before/after resource capture applies source proportional FP256 stamina changes for Increased Stamina without adding a second resource implementation.",
+    "Existing cast/BO/summon creation snapshots remain stored. Later casts and newly created summons adopt effective ranks; hard synergies remain hard.",
+    "Application/expiry re-evaluate supported active Necromancer pet types, shared golem type and source minimum1 cap; excess summons delete oldest tracked creation order. New creation order persists separately from serial identity; historical pre-ledger order has explicit serial fallback.",
+    "Absolute recipient expiry, creator/latest supplier and ray/collider/delay persist. Recipient state survives supplier deletion. Native death/respec/successful history/wardrobe cleanup is explicit; paid cast actions remain transient."
+  ],
+  "checks": [
+    "Pinned rank1/20/21 bonus1/11mana/duration goldens; immutable source compiled72 rank,60 pet cap,16 application refresh and16 removal callback cases.",
+    "Actual timed begin/early/single release, right/quick bind and left rejection, low mana, paralyzed wind-up interruption and mana loss before release.",
+    "First self cast stores rank1 while effective BC becomes2; second cast stores2 without stacking. Real Tarnhelm adds separately, giving stored2/current3. Weaker duration/rank replacement preserves original creator and updates supplier; deleting supplier leaves state.",
+    "Actual live Barbarian defense/resistance, proportional fractional stamina/mana/payment, Sorceress Warmth/Fire Mastery/new Fire Bolt, Paladin hard-only resistance passive, and learned-rank routing for all eight classes. Pending classes gain no new handler claim.",
+    "Existing BO rank35percent remains unchanged by BC. Existing skeleton rank2/mastery1/life snapshot remains; newly summoned skeleton/mage use rank3/mastery2. Actual corpse consumption/creation hooks and independent skeleton/mage caps pass.",
+    "FIFO consumer distinguishes saved creation order from serial ordering via explicit ledger permutation; separate real creation calls verify monotonically recorded order. Natural expiry removes oldest excess summon; newest survives.",
+    "Natural64-ray wave reaches allies/entering player, skips departing/distant/hostile; stored rank1/current hard Shout2/BO1 gives45sec recipient duration.",
+    "Three boots/two actual save-reloads preserve recipient rank/creator/deadline, maximum/current fractional pools, three-skeleton effective cap/FIFO, and held mid-flight ray/collider/NextHit gate. Saved short state expires offline and proportionally drops stamina. Resumed ray applies stored rank2 with refreshed shorter deadline, no duplicate payment, then expires; cap/FIFO removal repeats after both reloads.",
+    "Final full combined native suite passes both reloads;70 Python tests and fresh573-definition named428/first-loop15 current hashes. Installed build matches checked assemblies and actual existing world loads/listens/shuts down0."
+  ],
+  "fixtureBoundary": [
+    "Cast event assertions explicitly call actual controller at chosen timestamps; no connected natural SC/FCR/UI certificate is claimed.",
+    "Natural waves/expiry and actual corpse creation are separate from saved-ray inspection, which explicitly advances6 steps and holds deadlines before natural resume.",
+    "Only named CommandFixture actors freeze recovery at Configure/final Initialize with constructor scope; gameplay recovery unchanged.",
+    "Initial fixture anchor6180 was outside available walkable terrain. The test now uses the existing supported6050 area. Repeated summons originally occupied the next corpse tile, correctly causing native CanSpawnMobile rejection; the test moves prior summons away. Neither correction changed game mechanics."
+  ],
+  "limits": [
+    "No modern executable or class completion certificate. Exact SC/FCR/first-frame/collision footprints/terrain/neutral eligibility and full owner/item/client transitions remain open.",
+    "Existing native learned/granted-skill ranks receive+1 without spending points. Item-owned charged skill nodes and NPC innate skill lists are not modeled; BC recipient state on a skill-less NPC does not invent those skills. Future class handlers/pet types remain pending.",
+    "Current modern NextHit scope uses(ability,recipient) across suppliers/casts, keeping BO/BC independent. Released2.7 wording establishes only same-skill isolation; exact caster/cast scope remains provisional.",
+    "New supported skeleton/mage/golem creations record saved FIFO order. Summons predating the ledger use identified serial order because historical creation order is unknown; unsupported Revive/Iron Golem/future class pet caps remain gated.",
+    "BC apply/expiry refresh current passive consumers and summon caps. Existing equipment changes/history/wardrobe resource rules remain authoritative; full gear-removal pet-cap event routing, rollback/owner/party transitions and exhaustive source dependency ordering still need acceptance.",
+    "Whole native maxima/65000 cap remain the approved resource projection. Effective-rank upper bounds/extreme stat graphs, exact modern frames and input/UI capture remain unverified.",
+    "Effects and talent/hotkey icons remain independent identified placeholders; no final imagegen or item acquisition gate changed."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/battle-command-focused.log",
+    "combined": ".local/class-skills/native-checks.log",
+    "source": ".local/class-skills/battle-command-source-probe-run.log",
+    "build": ".local/class-skills/command-install-build.log",
+    "installed": ".local/class-skills/installed-smoke.log",
+    "mapFailure": ".local/class-skills/command-map-fixture-failure.log",
+    "summonFailure": ".local/class-skills/command-summon-fixture-failure.log"
+  }
+}
