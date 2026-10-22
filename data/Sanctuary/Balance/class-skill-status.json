@@ -1409,7 +1409,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Source resource ordering/callback probes and native named-gear maximum-basis correction are implemented separately. Handler remains pending: saved proportional current-pool transitions, pet HP/mana hooks, skill-local NextHit/LastCollide rays and complete apply/recast/expiry/reload acceptance. Preserve native whole-resource projection and flag modern callback/collision/owner/client gaps."
     },
     {
       "talentId": "barbarian.grimward",

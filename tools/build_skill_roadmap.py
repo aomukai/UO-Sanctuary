@@ -132,6 +132,7 @@ NATIVE_PARTIAL = {
 }
 LEGACY = {'necromancer.raiseskeleton','necromancer.skeletonmastery','sorceress.teleport'}
 PENDING = {
+    'barbarian.battleorders':'Source resource ordering/callback probes and native named-gear maximum-basis correction are implemented separately. Handler remains pending: saved proportional current-pool transitions, pet HP/mana hooks, skill-local NextHit/LastCollide rays and complete apply/recast/expiry/reload acceptance. Preserve native whole-resource projection and flag modern callback/collision/owner/client gaps.',
     'sorceress.inferno':'Pinned synergy expression is balanced and verified. Still needs its distinct SQ channelling sequence, starting/interval mana and flame collision/damage.',
 }
 

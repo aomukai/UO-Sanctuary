@@ -69,7 +69,7 @@ public static class ClassStats
     }
     public static void Refresh(Mobile mobile) => mobile.Delta(MobileDelta.Stat | MobileDelta.Hits | MobileDelta.Mana | MobileDelta.Stam);
     public static int Vitality(PlayerMobile player) => ClassCreation.Profiles.TryGet(player.Serial, out var profile)
-        ? For(profile.Class).Vitality + ClassCreation.Profiles.Stats(player.Serial).Vitality + ClassGear.Bonus(player, "vit") : 0;
+        ? For(profile.Class).Vitality + ClassCreation.Profiles.Stats(player.Serial).Vitality + ClassResources.VitalityBonus(player) : 0;
     // Intelligence represents Energy; equipment bonuses come from validated affix rolls.
     public static int? Maximum(PlayerMobile player, int resource)
     {
@@ -83,21 +83,7 @@ public static class ClassStats
         {
             return null;
         }
-        var basis = For(profile.Class);
-        var vit = Vitality(player) - basis.Vitality;
-        var energy = player.Int - basis.Energy;
-        var levels = profile.Level - 1;
-        int total = resource switch
-        {
-            0 => basis.Life + (levels * basis.LifeLevel4 + vit * basis.LifeVitality4) / 4
-                + AosAttributes.GetValue(player, AosAttribute.BonusHits),
-            1 => basis.Stamina + (levels * basis.StaminaLevel4 + vit * basis.StaminaVitality4) / 4
-                + AosAttributes.GetValue(player, AosAttribute.BonusStam),
-            _ => basis.Mana + (levels * basis.ManaLevel4 + energy * basis.ManaEnergy4) / 4
-                + AosAttributes.GetValue(player, AosAttribute.BonusMana)
-        };
-        int percent = resource == 0 ? ClassGear.Bonus(player, "hp%") : resource == 2 ? ClassGear.Bonus(player, "mana%") : PaladinVigor.StaminaPercent(player)+BarbarianCombat.Passive(player,CombatAbility.IncreasedStamina);
-        return (int)Math.Clamp((long)total * Math.Max(0, 100 + percent) / 100, 1, 65000);
+        return ClassResources.Parts(player,resource).NativeMaximum;
     }
     public static int Level(Mobile mobile) => mobile is BaseCreature creature ? CreatureProfiles.Level(creature) : mobile is PlayerMobile && ClassCreation.Profiles.TryGet(mobile.Serial, out var profile)
         ? profile.Level : 1;

@@ -97,3 +97,12 @@ Startup rejects incomplete or nonmonotonic monster curves, unknown/cyclic item t
 ## Equipment economy comparison — 18 October 2026
 
 [Economy rules and verification](economy.md) reconcile the user's handoff with lower NPC gear resale, independent rarity-based essence and item-level physical-material salvage rolls, and essence/gold-funded white-base imbuing. Vendor gear is excluded; chain/ringmail yield metal, leather yields strips, cloth yields scraps and wood yields chips regardless of armour weight. Existing affix legality, item identity/material/durability, origin and item level remain intact. All settings are provisional. Four physical resources are ready for later profession recipes; no recipes/skill gains, final income budgets, unique-item support or monster drops are implied.
+
+
+### Resource percentage operation correction
+
+The Battle Orders preflight exposed a shared maximum-resource ordering error: gear vitality/energy and per-level life/mana had been included inside percentage multipliers. `ClassResources` now retains the source base/allocated/direct-flat subtotal separately, applies the applicable percentage pools to that subtotal, then adds equipment attribute and per-level resource operations. Named per-level resource parameters accumulate in FP256 before the final whole-resource projection. Native maxima retain the existing1..65000 bound and whole-value interface; current-pool rescaling is separate future Battle Orders work.
+
+[Compiled source cases](../tools/reference/battle-orders-engine-evidence.json) cover288 stat-operation and408 proportional-callback cases. [Native resource-basis evidence](../tools/reference/resource-basis-native-evidence.json) uses actual Lidless Wall, Frostburn and Harlequin Crest. A level99 Barbarian's108 base mana with Lidless Wall's10 Energy/10% mana becomes128 native mana, rather than multiplying the10 Energy again. Harlequin's1.5 resource/level and bonus attributes remain outside those percentages. Gear identity and exact FP256 parts are checked through two reloads.
+
+This fixes the resource base; it does not enable Battle Orders, refill pools, add pet resource hooks or certify the modern executable. Approved native whole maxima remain a documented projection. Negative/by-time/extreme dependency cases and modern item/owner/client acceptance remain open.

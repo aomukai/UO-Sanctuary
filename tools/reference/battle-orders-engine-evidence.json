@@ -1,0 +1,121 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Game/src/ITEMS/ItemMode.cpp": "c13ad43ccfd54531163c13cdf43f59e7b6f46efa8c8a3c75142879d0d7fe418d",
+    "source/D2Common/src/DataTbls/ItemsTbls.cpp": "d4f7fb34065ab2072529c378f9a7fa09e99ff23e830342501d3deff0b5aec343"
+  },
+  "resourceOps": [
+    {
+      "Stat": "energy",
+      "*ID": 1,
+      "op": 8,
+      "op stat1": "maxmana"
+    },
+    {
+      "Stat": "vitality",
+      "*ID": 3,
+      "op": 9,
+      "op stat1": "maxhp",
+      "op stat2": "maxstamina"
+    },
+    {
+      "Stat": "item_maxhp_percent",
+      "*ID": 76,
+      "op": 11,
+      "op stat1": "maxhp"
+    },
+    {
+      "Stat": "item_maxmana_percent",
+      "*ID": 77,
+      "op": 11,
+      "op stat1": "maxmana"
+    },
+    {
+      "Stat": "skill_staminapercent",
+      "*ID": 162,
+      "op": 1,
+      "op stat1": "maxstamina"
+    },
+    {
+      "Stat": "skill_passive_staminapercent",
+      "*ID": 163,
+      "op": 1,
+      "op stat1": "maxstamina"
+    },
+    {
+      "Stat": "item_hp_perlevel",
+      "*ID": 216,
+      "ValShift": 8,
+      "op": 2,
+      "op param": 3,
+      "op base": "level",
+      "op stat1": "maxhp"
+    },
+    {
+      "Stat": "item_mana_perlevel",
+      "*ID": 217,
+      "ValShift": 8,
+      "op": 2,
+      "op param": 3,
+      "op base": "level",
+      "op stat1": "maxmana"
+    },
+    {
+      "Stat": "item_stamina_perlevel",
+      "*ID": 242,
+      "op": 2,
+      "op param": 3,
+      "op base": "level",
+      "op stat1": "maxstamina"
+    },
+    {
+      "Stat": "item_hp_bytime",
+      "*ID": 270,
+      "op": 6,
+      "op stat1": "maxhp"
+    },
+    {
+      "Stat": "item_mana_bytime",
+      "*ID": 271,
+      "op": 6,
+      "op stat1": "maxmana"
+    },
+    {
+      "Stat": "item_stamina_bytime",
+      "*ID": 295,
+      "op": 6,
+      "op stat1": "maxstamina"
+    }
+  ],
+  "probe": {
+    "caseCounts": {
+      "statCases": 288,
+      "poolCases": 408
+    },
+    "blockHashes": {
+      "percent": "f9803075da80b9cf9c273f9e7906f394fc9f1ec569eb31611302ba4272cdf628",
+      "statQuery": "e757710b6226906a6e4778786ceea851caa5eba6a9e20c1c1cfb1ff9e6e3ad0b",
+      "resourceCallback": "9f5bdc6d2a6d2f57f59627bd198381b0a0f901b144e76926084e4a425b4205da",
+      "dependencyLoader": "c0d87e666d55727b3293107f2cca58f19cac42e0fadd2ab6820a6dae311986f4"
+    },
+    "dataPath": ".local/class-skills/battle-orders-source-probe.json"
+  },
+  "established": [
+    "Resource percentages use the pre-operation resource subtotal; equipment energy/vitality and per-level resource operations are added separately and are not multiplied by BO.",
+    "The resource callback preserves the current fraction on an actual maximum change, truncates its double result to FP256, clamps positive pools to[1,newMax] and leaves zero pools/zero previous maxima unchanged. Equal maxima do not refresh/refill.",
+    "Monster maximum-life changes also recompute HP regeneration from source regeneration and new whole maximum life.",
+    "Modern stat dependencies are assembled in source ID order by the supplementary loader; bonus energy/vitality, percentage resources and per-level additions are distinct."
+  ],
+  "stubs": [
+    "The probe links unchanged relevant switch cases and helper/callback blocks. It supplies base/additional stat arrays, class coefficients, raw percentage/per-level values and op ordering; no full statlist world/event engine is claimed.",
+    "Only player/monster resource cases are evaluated; item-owned op1 behavior is present but excluded from the assertions. Floating percent boundaries tested are bounded.",
+    "Modern ItemStatCost field projection is retained; the complete original table loader is hashed/reviewed rather than compiled."
+  ],
+  "limits": [
+    "Legacy source does not certify current D2R executable behavior.",
+    "By-time op6, negative/overflow extremes, zero-next-maximum callback bounds, complete item stat graphs, delayed callback ordering, native geometry and owner/client acceptance remain open.",
+    "Battle Orders handler remains pending until native maximum/current-resource and missile consumers are implemented and verified."
+  ]
+}

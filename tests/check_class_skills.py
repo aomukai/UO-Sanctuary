@@ -402,6 +402,9 @@ def check():
                     time.sleep(.15)
                     session.send('berserk-disconnect-check')
                     assert session.expect(r'berserk-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    basis_command='resource-basis-check' if boot==0 else 'resource-basis-reload-check'
+                    session.send(basis_command)
+                    assert session.expect(basis_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     shout_command='shout-check' if boot==0 else 'shout-reload-check'
                     session.send(shout_command)
                     assert session.expect(shout_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

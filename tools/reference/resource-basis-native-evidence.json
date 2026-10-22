@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,425 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/battle-orders-engine-evidence.json",
+  "scope": [
+    "Resource max calculation now separates percentage-eligible base/allocated attributes/direct flat resources from equipment attribute and per-level resource operations.",
+    "FP256 is retained through percentage/attribute/per-level operations, followed by the approved whole native maximum projection. Per-level named resource parameters accumulate before the final projection; source percentage operators retain their separate pools.",
+    "ClassStats.Vitality reconciles aggregate per-level vitality instead of summing separately truncated equipment contributions.",
+    "No new Battle Orders handler, current-pool rescale, pet maximum hook or regeneration consumer is claimed by this correction."
+  ],
+  "checks": [
+    "288 independent compiled source stat-operation goldens projected through native resource parts; source class coefficients, base/bonus distinction and percent/per-level ordering.",
+    "Actual level99 Barbarian baseline251 life/108 mana/190 stamina, with legal stat allocation and actual Lidless Wall/Frostburn/Harlequin Crest gear identities.",
+    "Lidless Wall+10 Energy/+10% mana now yields128 native mana/32972FP256, rather than multiplying bonus Energy again. Frostburn combines to50% and yields172/44032FP256.",
+    "Harlequin Crest bonus attributes and1.5 life/mana per level remain outside percentages; exact407.5 life and322.5 mana project to407/322 native maxima. Removing percentage gloves preserves excluded contributions.",
+    "Saved actual items/rolled properties and exact maximum parts survive two real reloads. Broader full/injured/low eight-class/legacy pool preservation remains in the combined resource-load suite."
+  ],
+  "limits": [
+    "Approved native maxima are whole values with existing65000 cap; exact modern FP256 maxima/current-pool behavior is not claimed by this native projection.",
+    "Negative/overflow/by-time stat operations, full modern dependency graph, native owner/item/client acceptance and future BO transition/resource hooks still require work.",
+    "The source stat callback probe establishes supplementary proportional transitions; they are not yet wired into a BO handler."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/orders-resource-focused.log",
+    "source": ".local/class-skills/battle-orders-source-probe-run.log",
+    "combined": ".local/class-skills/native-checks.log"
+  }
+}

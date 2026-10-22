@@ -134,7 +134,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 | Taunt | 137 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Cry | 146 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Find Item | 142 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Battle Orders | 149 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Battle Orders | 149 | pending | Source resource ordering/callback probes and native named-gear maximum-basis correction are implemented separately. Handler remains pending: saved proportional current-pool transitions, pet HP/mana hooks, skill-local NextHit/LastCollide rays and complete apply/recast/expiry/reload acceptance. Preserve native whole-resource projection and flag modern callback/collision/owner/client gaps. |
 | Grim Ward | 150 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | War Cry | 154 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Command | 155 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
