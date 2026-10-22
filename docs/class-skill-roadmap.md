@@ -21,6 +21,8 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 
 Implementation rule: inspect existing handlers and shared mechanics before adding a new controller. Reuse verified geometry, movement, timing and resource consumers where the source agrees, keeping skill-specific damage, collision and targeting rules separate. Pinned Teeth and Multiple Shot both use server do8; verify/extract that common fan from the existing provisional Teeth implementation when reaching Amazon. Battle Command already reuses the Shout/Battle Orders travelling-ray and proportional-resource paths.
 
+Find Potion has5004 bounded compiled source cases in [source evidence](../tools/reference/find-potion-engine-evidence.json), including all15 output-code rows and linked Udead/noselect repeat-attempt exclusion. Its native caster Act/game-difficulty context question remains open; no handler or arbitrary tier is enabled. Unaffected War Cry preparation is pinned in `tools/reference/barbarian-war-cry-preflight.json`; reuse the ring/stun/damage systems after tracing its distinct damage/block/snapshot rules.
+
 Howl source preparation now has1169 bounded compiled cases in [source evidence](../tools/reference/howl-engine-evidence.json). Its native handler uses a separate source AI payload in the shared curse lane: Terror includes initial escape, later threat selection/close combat and a default30-distance idle boundary. Earlier ordinary-Terror/item-fear variants still need their own acceptance before adopting this payload; the native Howl consumer is verified separately.
 
 ## Necromancer

@@ -1,0 +1,209 @@
+{
+  "corpseStates": [
+    {
+      "state": "corpse_nodraw",
+      "*ID": 104,
+      "monstaydeath": 1,
+      "bossstaydeath": 1,
+      "hide": 1,
+      "udead": 1,
+      "lineNumber": 104
+    },
+    {
+      "state": "corpse_noselect",
+      "*ID": 118,
+      "plrstaydeath": 1,
+      "monstaydeath": 1,
+      "bossstaydeath": 1,
+      "udead": 1,
+      "lineNumber": 118
+    }
+  ],
+  "pinnedStateTableSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Bounded source proof complete; native potion output context remains an unanswered nonblocking design question.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "probe": {
+    "caseCounts": {
+      "eligibilityCases": 384,
+      "chanceCases": 80,
+      "outputCases": 4500,
+      "contextCases": 32,
+      "doGuardCases": 8
+    },
+    "blockHashes": {
+      "UNITS_IsSoftMonster": "f2e755a8b1e1780fed74fbf46e96ea956a0ebbafe14fad2e22ec70f3bdf51f66",
+      "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+      "D2Common_11020": "0b3637d530aabef4ea2ef06adfd258ed8fbafe169b1490134221bde97e0a509b",
+      "D2COMMON_11018": "fe7fabbf55f8b2423e7e79fe3b4afa547a5ad707079c4242a7e71027dcd994aa",
+      "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+      "D2Common_11034": "7d2c2566300e7d81a3bf265b6025da535dd039f2b8b83860e5ff9e1274bdc905",
+      "SKILLS_SrvSt33_FindPotion_GrimWard": "bdb77c90931eaf273962b428b986ec57c1616158d6d5f5fb014eb7d4c403a6a7",
+      "SKILLS_SrvDo069_FindPotion": "ca7c057e6c4d87c7c7ef46dc52a1073aa66b4fc55c328a34c275bd98c812b279",
+      "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+      "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+    },
+    "dataPath": ".local/class-skills/find-potion-source-probe.json"
+  },
+  "potionRows": [
+    {
+      "difficulty": 0,
+      "act": 0,
+      "healing": "hp2",
+      "mana": "mp2",
+      "rejuvenation": "rvs"
+    },
+    {
+      "difficulty": 0,
+      "act": 1,
+      "healing": "hp3",
+      "mana": "mp3",
+      "rejuvenation": "rvs"
+    },
+    {
+      "difficulty": 0,
+      "act": 2,
+      "healing": "hp3",
+      "mana": "mp3",
+      "rejuvenation": "rvs"
+    },
+    {
+      "difficulty": 0,
+      "act": 3,
+      "healing": "hp4",
+      "mana": "mp4",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 0,
+      "act": 4,
+      "healing": "hp4",
+      "mana": "mp4",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 1,
+      "act": 0,
+      "healing": "hp4",
+      "mana": "mp4",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 1,
+      "act": 1,
+      "healing": "hp4",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 1,
+      "act": 2,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 1,
+      "act": 3,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 1,
+      "act": 4,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 2,
+      "act": 0,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 2,
+      "act": 1,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 2,
+      "act": 2,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 2,
+      "act": 3,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    },
+    {
+      "difficulty": 2,
+      "act": 4,
+      "healing": "hp5",
+      "mana": "mp5",
+      "rejuvenation": "rvl"
+    }
+  ],
+  "goldens": [
+    {
+      "rank": 1,
+      "chance": 15,
+      "mana256": 512
+    },
+    {
+      "rank": 20,
+      "chance": 84,
+      "mana256": 512
+    },
+    {
+      "rank": 21,
+      "chance": 85,
+      "mana256": 512
+    },
+    {
+      "rank": 60,
+      "chance": 100,
+      "mana256": 512
+    },
+    {
+      "rank": 255,
+      "chance": 100,
+      "mana256": 512
+    }
+  ],
+  "established": [
+    "Find Potion/Grim Ward start33 calls the shared dead selectable soft-monster helper and separately rejects corpse_noselect; full helper/wrapper/softness routines compile. The corpse must be monster/dead, source corpseSel flag set, Udead mask clear and soft flag set.",
+    "Pinned corpse_noselect is an Udead state but has no hide flag; corpse_nodraw has both Udead and hide. They share corpse exclusion while differing in presentation. The fixture toggle reflects the linked Udead mask for subsequent attempts.",
+    "Do69 marks corpse_noselect and refreshes corpse before its chance roll; failure returns1, consumes the attempt and uses only one RNG draw. A second call refuses with0 before further RNG. The corpse and existing contents are not deleted by these routines.",
+    "Source diminishing helpers yield chance15/84/85 at ranks1/20/21 and cap100 at60+. Under current Param0/100, the existing native SkillValues diminishing operation is arithmetically identical; this does not certify other parameter pairs.",
+    "Success uses a second source0..99 roll:30 mana,10 rejuvenation,60 healing outcomes per100. All15 Act/difficulty code rows, all100 type draws and ranks1/20/21 are compiled. Drops are requested from the corpse at source quality2.",
+    "Missing caster room, invalid Act or output index requests generic item-code0/quality2 after a successful chance, consuming only the first draw. World context comes from the caster room and game difficulty, not corpse level/difficulty.",
+    "The start/do dispatcher is hash-reviewed separately: Find Potion has source start33, so payment and interruption must follow the successful start path rather than copying no-start warcry post-do payment. No native timing claim follows from this probe."
+  ],
+  "stubs": [
+    "Unchanged corpse/softness/wrapper/diminishing/start33/do69 routines compiled with declared target/room/stat-table/state-mask/refresh/RNG/drop services. MonStats2 flag indexes7/12 are asserted against pinned header enum order.",
+    "The formula service binds the pinned dm12 field to the compiled shared diminishing helper; complete expression parser/start dispatcher and native item drop implementation are reviewed or outside this executable.",
+    "Room Act is an explicit supplied fixture value, and item drop records its requested source code/quality/corpse. No Britannia mapping, generic fallback contents, source item generation or modern executable engine is certified."
+  ],
+  "limits": [
+    "No native handler is enabled. Caster Act/game-difficulty mapping to Britannia remains an unanswered question; do not silently use corpse context or a default tier.",
+    "Native corpse flags/species/source state masks, legacy start/do mana and interruption, item provenance/placement, exact SC/geometry/owner/client and modern source changes remain acceptance work.",
+    "Final effects and talent/hotkey icons remain independent identified placeholders."
+  ]
+}

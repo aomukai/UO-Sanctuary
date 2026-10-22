@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next Find Potion source preflight only; no compiled or native handler certificate.",
+  "status": "5004 bounded compiled source cases pass; native tier context question remains open and handler stays unavailable.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
@@ -68,7 +68,8 @@
     "Do69 sets corpse_noselect before the random chance, so an unsuccessful roll still consumes the one attempt. Failure then returns1. Preserve loot contents and distinguish this from hiding/deleting the corpse.",
     "Chance uses pinned calc1 dm12. A successful roll uses a second0..99 draw:0..29 mana,30..39 rejuvenation,40..99 healing with current pinned Param3=30/Param4=10.",
     "Potion-code table indexes caster current room Act plus5*gameDifficulty. Valid rows span15 combinations; healing/mana are hp2..hp5/mp2..mp5, rejuvenation rvs/rvl. Missing room, invalid Act or index takes the source generic item-code0/quality2 fallback.",
-    "No source claim maps Britannia to D2R Acts/game difficulty. Native per-monster difficulty and corpse source Act are distinct contexts; do not silently substitute either."
+    "No source claim maps Britannia to D2R Acts/game difficulty. Native per-monster difficulty and corpse source Act are distinct contexts; do not silently substitute either.",
+    "Modern corpse_noselect carries Udead1 but no hide flag; corpse_nodraw carries both. The compiled fixture now retains this linked exclusion mask across repeat attempts. Do not automatically reuse a consumer that also hides the corpse."
   ],
   "reuse": [
     "Review existing SkeletonPets.Usable/NecromancerCombat.Consume and saved Corpse.SanctuaryConsumed/Animated/harvest cleanup before adding any corpse flags. Preserve separate source corpse eligibility and noselect semantics.",
@@ -88,13 +89,13 @@
     }
   ],
   "nextSteps": [
-    "Compile unchanged start33/do69/corpse/softness helpers with explicit RNG/drop/world services; verify all15 potion-table rows and chance/consumption boundaries.",
-    "Resolve the location/difficulty mapping question for native output tiers while progressing unaffected source work/remaining Barbarian skills.",
-    "Keep source no-room/code0 fallback, unsupported corpse species/states and exact SC/target/proc/client behavior explicit; do not substitute arbitrary potion output."
+    "Native corpse/state/item/start33 payment adapter and potion tier context remain to integrate; do not invent Britannia Act/difficulty.",
+    "Proceed to unaffected War Cry do68/ray/damage7/block/stun/snapshot proof; its source preflight is pinned."
   ],
   "limits": [
-    "Hash-checked review and pinned table only; no native handler or modern parity certificate.",
+    "5004 bounded compiled source cases pass; separate evidence declares stubs and limits. No native handler or modern parity certificate.",
     "Source Udead-state masks/softness/corpse_select need full native dead-species mapping. The existing generic corpse consumer is not automatically the same behavior.",
     "Final effect and talent/hotkey icon remain separately tracked placeholders."
-  ]
+  ],
+  "evidence": "tools/reference/find-potion-engine-evidence.json"
 }

@@ -36,7 +36,7 @@
   },
   "checks": {
     "pythonTests": 70,
-    "pythonResult": "passed after final Taunt combined3boots/2reloads;70tests and432 current named inputs",
+    "pythonResult": "passed after source-only Find Potion5004-case follow-up;70tests, unchanged432 named inputs",
     "nativeBoots": 3,
     "saveReloadCycles": 2,
     "namedRuntimeDefinitions": 573,
@@ -283,7 +283,7 @@
     "holyFreezeResult": "Focused and combined3boots/2reloads pass: pinned rank1/20 fixed-point goldens, delayed free pulse, cold-immune separate slowing, difficulty caps, source-mapped filters, native movement/attack and class/typed weapon delivery, soft-hit exclusion, exclusive20percent marker, natural51frame slow expiry independent of marker, retained-loot unusable corpse metadata, exact saved fields and resumed pulses.",
     "holyFreezeSourceProbe": "256 compiled unchanged callback eligibility/order cases and4 special-removal cases, verified immutable Git blobs. Caster-only special expiry versus target generic removal routing is source-inspected; modern marker/death/chill lifetime remains unverified.",
     "holyFreezeLimits": "Unmapped native targets excluded. Other-animation stats stored but native UO mode adapters unsupported. Separate elite aura adapter, modern lethal-pulse/death/cold-state interactions, geometry/rounding and full gear/owner/client acceptance remain open. No class/item gates cleared.",
-    "currentSourceAndAssemblies": "Focused/final combined native3boots/2reloads pass;70 Python tests,current432 named/15 first-loop input hashes, source/generator/catalogue checks and matching installed existing-world load/listen/clean shutdown pass.",
+    "currentSourceAndAssemblies": "No runtime code/data/build/save changed after verifiedd6ddb50. Installed106-handler build/prior combined3boots2reloads/existing-world smoke remain current; new5004 Find Potion source cases,70 Python and source/generator checks pass.",
     "sanctuaryResult": "Focused and combined3boots/2reloads pass: rank1/20 numerics, right-slot delayed free undead magic pulse, real magic immunity, cooperative/range/unknown-control gates, zero-mana pulse/knockback, supplier ED/flat AR, class/native positive physical-resistance clamp preserving negative values, native accepted motion/ordinary movement lock/impassable blocker/GH release, exact saved/resumed control and supplier state.",
     "sanctuarySourceProbe": "324 compiled unchanged path cases and32 monster-mode cases with verified immutable Git blobs; world/terrain/table stubs explicit. Source distance5 gives normalized half-distance3-subtile endpoint; GH/KB eligibility and standard velocity inspected.",
     "chargeSharedKnockback": "Actual mapped-monster Charge impact requests the same native source-mode controller. Unknown/special sand-leaper branches stay gated; complete modern geometry/modes not certified.",
@@ -317,10 +317,10 @@
     "nextClassImplementation": {
       "class": "Barbarian",
       "scope": "Continue30-talent pass;19 handlers present;11 pending",
-      "nextBatch": "Find Potion source corpse/chance/type/consumption proof; native Act/difficulty mapping question open; continue unaffected Barbarian skills",
-      "preflight": "tools/reference/barbarian-find-potion-preflight.json",
+      "nextBatch": "War Cry shared-ring damage/block/stun/snapshot proof and native integration while Find Potion world-context question remains open",
+      "preflight": "tools/reference/barbarian-war-cry-preflight.json",
       "firsthandGameplayUnavailable": true,
-      "status": "In progress; Taunt native/source checks passed within stated bounds"
+      "status": "In progress; Taunt verified runtime remains current; Find Potion source5004 cases complete"
     },
     "barbarianPassivesResult": {
       "evidence": "tools/reference/barbarian-passive-native-evidence.json",
@@ -511,7 +511,7 @@
       "result": "passed; native consumer separately verified",
       "native": "Focused/final combined3boots/2reloads pass; see howl-native-evidence.json",
       "finding": "Shared source Terror initially escapes/clears caster override, then can select threats/idle/attack; current fixed-origin/unconditional flee is not exact reuse. Tooltip distance unused; weighted source distance with target size compiled.",
-      "next": "Battle Cry integration is now verified; continue Taunt while retaining the recorded Howl/source/native acceptance gaps."
+      "next": "Howl/Taunt native integration now verified separately; continue War Cry and the explicit source/native acceptance gaps."
     },
     "howlNativeResult": {
       "evidence": "tools/reference/howl-native-evidence.json",
@@ -562,7 +562,27 @@
     "sourceControlledAttackChoice": "Existing GraveyardUndead weapon clock now forces A1/bypasses species random stall/attack choice during source control, shared by Taunt/Howl. Isolated deterministic0chance subclass checks the branch; full modern animation/cooldown and mode refusal remain unverified.",
     "findPotionPreparation": {
       "preflight": "tools/reference/barbarian-find-potion-preflight.json",
-      "status": "Hash-reviewed6source blocks; no handler. Caster Act/game difficulty mapping question asked asynchronously and remains open; proceed unaffected work."
+      "evidence": "tools/reference/find-potion-engine-evidence.json",
+      "compiledCases": {
+        "eligibilityCases": 384,
+        "chanceCases": 80,
+        "outputCases": 4500,
+        "contextCases": 32,
+        "doGuardCases": 8
+      },
+      "totalCases": 5004,
+      "native": "No handler; native corpse/state/item/start33 payment and caster Act/game difficulty mapping remain open. No user answer or default approval recorded.",
+      "next": "Proceed unaffected War Cry damage/block/stun/snapshot integration; keep this context question nonblocking."
+    },
+    "warCryPreparation": {
+      "preflight": "tools/reference/barbarian-war-cry-preflight.json",
+      "reviewedBlocks": 7,
+      "status": "Hash-reviewed source/table preparation only; no native handler or new compiled certificate."
+    },
+    "sourceOnlyFindPotionFollowup": {
+      "runtimeBaseline": "d6ddb50e77c10539b7c6ea776e991fe9c1bca01c",
+      "scope": "Only source probe, source evidence/preflights, roadmap generator prose and checkpoint docs; installed working build/saves unchanged.",
+      "nativeRerun": "Not repeated: no runtime sources/data/assemblies changed. Prior current-build evidence retained and rehashed."
     }
   },
   "logs": {
@@ -770,7 +790,10 @@
     "taunt-frozen-fixture-failure.log": ".local/class-skills/taunt-frozen-fixture-failure.log",
     "taunt-acquisition-fixture-failure.log": ".local/class-skills/taunt-acquisition-fixture-failure.log",
     "taunt-storm-fixture-expiry-failure.log": ".local/class-skills/taunt-storm-fixture-expiry-failure.log",
-    "taunt-probe-constructor-fixture-failure.log": ".local/class-skills/taunt-probe-constructor-fixture-failure.log"
+    "taunt-probe-constructor-fixture-failure.log": ".local/class-skills/taunt-probe-constructor-fixture-failure.log",
+    "find-potion-source-probe.cpp": ".local/class-skills/find-potion-source-probe.cpp",
+    "find-potion-source-probe.json": ".local/class-skills/find-potion-source-probe.json",
+    "find-potion-source-probe-run.log": ".local/class-skills/find-potion-source-probe-run.log"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -886,7 +909,7 @@
     "Source-controlled melee now forces A1 and bypasses ordinary random attack/stall choice, shared with Howl. Native animation/cooldown/AI polling and exact interruption timing retain their projection limits. The isolated deterministic chooser probe uses a future timestamp and is deleted before real-time acquisition tests.",
     "Effects and talent/hotkey icons remain independent240-entry registers with identified UO/text placeholders. No final imagegen, item acquisition gate, save reset or new native patch."
   ],
-  "verifiedAtUtc": "2026-10-22T23:25:05.005732+00:00",
+  "verifiedAtUtc": "2026-10-22T23:37:05.756958+00:00",
   "evidenceArtifacts": {
     "tools/reference/named-item-runtime-audit.json": "980fcbe013e398fdca6a9dbfa012c350185def969e9e95ef0c310441fd8d0b4b",
     "tools/reference/first-loop-affix-audit.json": "b93b5dd33392ea294c618d3ccd91d1b8192b78835a1dfab09968cee8095613d9",
@@ -963,9 +986,9 @@
     "upstream/ModernUO/Projects/UOContent/Items/ClassGearHooks.cs": "5d974ce9848e8123b4322db3ae0da6b746c1cd2b7d0d88db7b9f18e5005dcb71",
     "upstream/ModernUO/Projects/UOContent/Mobiles/PlayerMobile.cs": "b0e45c14d28d28bd0e677796ed818b43d66f721c621f3aa0c36dcbed7a6682f1",
     "tools/build_class_skills.py": "76150fdaa2c27611b5229623f1393e59cdfdf0651b1e52682e73dda5f3b8757b",
-    "tools/build_skill_roadmap.py": "fc1918d54a82ef13b1ebcd40dce1792e34b52662c84ca2d2f48a53b077acfefb",
-    "docs/class-skill-roadmap.md": "0d619d1bf38bab3878818602a6e9418d5e6b9a1d45479db545cea801b4ab0551",
-    "docs/skill-mechanical-reference.md": "e0e21b6882fb9b6559b6a7ff24cc6c32b40b07d27d028d59ceb85f60e4a5ab07",
+    "tools/build_skill_roadmap.py": "91717b62b6021350e47eaeb6aacf1b485f771b538abaef78b2db428314ea0b18",
+    "docs/class-skill-roadmap.md": "5d554953121e100fe0bd90b87f2ff7b12b45fa225dd587ede813c89dfb9d1b9b",
+    "docs/skill-mechanical-reference.md": "18a2855311a8cf0fee0d1011c204fdeb86fb9d1c00b2dcafb229a81b83c2ed3b",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "ee54e5d694a6c973cd330a66c2229cfcd9381be941af1eff9badaf09403c554f",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1145,7 +1168,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "f3a4fd88f78b9f437deabc7ab7e9b2d272efed8722bd4f17a0a5d33022fcab02",
+    "docs/class-skills-resume-checkpoint.md": "701f7eaf47d2cb4913fe0fe07144fb537a20c5463a5b042a6e3ff8162f89ef8b",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -1206,7 +1229,7 @@
     "tools/probe_conversion_reference.py": "252b208c1e19410c897fc162dfe762636aa4c3a86e5c28b3b261a11af8cb7274",
     "tools/reference/conversion-engine-evidence.json": "b57d54ded5e25868765eaebd79d74b5d5b9026f3fb1c9c6f255d7d591b2e518c",
     "tools/reference/paladin-conversion-preflight.json": "920f108df2360834a4ebbbac1af6770fd9941733f7054346c9351c218ff89cee",
-    "docs/class-skills-checkpoint-2026-10-23.md": "a1adc8e39f49d1a0a12b6afd466b233edd5ef753bd56a4ddb3efbb053cce0b50",
+    "docs/class-skills-checkpoint-2026-10-23.md": "073e2d9c1851e77af3dcce1f47a673267bfc190ebb3d279d4e2121e83d989c01",
     ".local/class-skills/charge-focused.log": "5c024c2a3916bb864adc01c11acba3ca401435c47c722b02e4f304944389586b",
     ".local/class-skills/charge-focused-run.log": "efd006478f58026ee01c357ef74514a109eb1c03e604f4d13cd7c633495adaf2",
     ".local/class-skills/charge-focused-corridor-failure.log": "3776ce1b8f35016fe7ae570db3fdb082355da47e5da217407bfe0150017d2d9b",
@@ -1447,7 +1470,7 @@
     "tools/probe_taunt_reference.py": "b701ce51c1e9ec7c9aeabd29a8047809dfe24c64733aa12243189bd5189077f9",
     "tools/reference/taunt-engine-evidence.json": "656db2995fdde1c551fd82931309eb49afb4cf4de7fa2f50730f70ee06110a02",
     "tools/reference/taunt-native-evidence.json": "071103f407864d5335130898c60ad8c5bdb6719ea9a4fe462dac37dc2c40592e",
-    "tools/reference/barbarian-find-potion-preflight.json": "d366c81ab3ce9ee05667a8f714a1490e313494b58d7b8ff54d75eacc80f37c32",
+    "tools/reference/barbarian-find-potion-preflight.json": "4bc1de394a7e126281902b5e31b4790cc641aa792f15c241e67ac52476dad8ab",
     ".local/class-skills/taunt-content-build.log": "4ecf35482ab907aebca50bab23336960bc41cb70494080784379e445c522dd6b",
     ".local/class-skills/taunt-integration-build.log": "e2405a223f13dfd543573f94a371992416d4d9f2c866af89698274868862cbbb",
     ".local/class-skills/taunt-install-build.log": "7adc0327ed4c6d30803315a62de7b082d20b54d565fcabedea80ef4ef6eaf050",
@@ -1461,12 +1484,18 @@
     ".local/class-skills/taunt-storm-fixture-expiry-failure.log": "4827ab1c75bce041998e1ca923be025f2a19da3a3c774944ca91e1425f760e7d",
     ".local/class-skills/taunt-probe-constructor-fixture-failure.log": "c30191aeb1088ad210a35553f523a670a795ec60f45027360ef122aeb527f63a",
     "src/Sanctuary.Content/NamedControl.cs": "7f84a3bc77539b449767274b40e469275f73f3a86f718474d5fd1d2c88c1d9fd",
-    "tools/reference/first-loop-evidence.json": "0166502aace6bc66c79702d193459ea3970d3fc922f6bd9938de010e16c14909"
+    "tools/reference/first-loop-evidence.json": "0166502aace6bc66c79702d193459ea3970d3fc922f6bd9938de010e16c14909",
+    "tools/probe_find_potion_reference.py": "289020efc3278b4c9ac3b84cd72ff90135fe40066cb581f4c0604aaa326f85f8",
+    "tools/reference/find-potion-engine-evidence.json": "9ccbaf0b86e1a04636d83dddbed7b52bef3b22c8f41f7bff0558652a2fe2b674",
+    "tools/reference/barbarian-war-cry-preflight.json": "89cb3206f50dc6341f31d6098644c4a51dce0620cd61ea8d45e32b30452e3a93",
+    ".local/class-skills/find-potion-source-probe.cpp": "0cd29d7db351d37ae62184decc717385dc5df01f61d93e3a80b44f6f24493e2b",
+    ".local/class-skills/find-potion-source-probe.json": "b2ad08975fdf3cf3a8fb28f32f28723523de03aaacb81fc8bd4a418100d316d2",
+    ".local/class-skills/find-potion-source-probe-run.log": "4dc6960959d7315b2e199b14bbf97fd43695da3f04da944efc0dcb9257f769c5"
   },
   "totalHandlersPresent": 106,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 574,
+  "verifiedArtifactCount": 580,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-22.json",
   "deploymentScope": "Local disposable test installation only; matching server/content/client/data installed via ./dev build all; actual installed boot/listen/clean shutdown passed.",
   "installedTestBuild": true,
