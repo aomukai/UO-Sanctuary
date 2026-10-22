@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/include/AI/AiStates.h": "23590f1e50c99929533dc122519b5f7fd6567a4c043bccd6a9b6d5721f06184d",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    "source/D2Game/src/MONSTER/MonsterAI.cpp": "e225823e8ccd85e6637461846a6823f158bc72045ae125e7db79501be6252cb2"
+  },
+  "probe": {
+    "caseCounts": {
+      "launchCases": 18,
+      "hitCases": 96,
+      "eligibilityCases": 128,
+      "curseGateCases": 40,
+      "helperCases": 32,
+      "hitGuardCases": 36,
+      "terrorAiCases": 384,
+      "distanceCases": 147
+    },
+    "blockHashes": {
+      "SKILLS_SrvDo022_NovaAttack": "be31bbe6cf4fe5489d81e5a4828b9f3ed161cad9e806cbceb324ba3b04778fc0",
+      "MISSMODE_SrvHit17_Howl": "38d97393e9a0f764047866da5934bb71f7334a981a6ebb6eeba00439f47b896b",
+      "AIUTIL_CanUnitSwitchAi": "c831bffb167fcfcd2264ee0ee568a2b427047f637fb4b680e32dbfcac03a3e2d",
+      "AIUTIL_ApplyTerrorCurseState": "b4bdd5f7a126faec7f30268151e7c21ed29d3c3e107234f78c37169db6158323",
+      "AITHINK_CanUnitSwitchAi": "6b66639925425e02fc21da6642bb1157e9e49dc9161792cabe25ce22a2e91a27",
+      "D2GAME_AI_SpecialState11_6FCE7E80": "a7754238912d07aa2cf5397741199963f73ebd1fee88ce9993cd1e51a82b491d",
+      "UNITS_CanSwitchAI": "81b296564be8339bcefd85dd4e730dc71bed9422a056aeab0edf1ea189c09f03",
+      "AIUTIL_GetDistanceToCoordinatesWithSize": "cca0a7743bf6e71455bafdc36eebbebd44fe461cb1e4d9598b4636c49a38d5d1",
+      "AIUTIL_GetDistanceToCoordinates_FullUnitSize": "2280f19f84e99134245e5a6d320418269ed5a767462e5a616ea7fc921b2bb4d0",
+      "AIUTIL_GetDistanceToCoordinates_NoUnitSize": "35482949496a744668dc3d3c2106ff0e2e83e818fe9c7b1f2dd6a3a692dd1066",
+      "terrorInitializeReview": "66843ea0152cc7f96b60d5e30be1f95bed7173c007e2b947e0a969ef8aec05a1",
+      "targetOverrideWriteReview": "e2c19a659bc68e253b6bdf059760b18da3cdc009c92fc2223042bce9b59b82fe",
+      "targetOverrideClearReview": "284c1634922ae0c03f30d2acd43a1eb3583d0844ccf3e11fcd562c3d568f6522",
+      "targetOverrideReadReview": "803ecd51107de7ebefd09c0276674bc01f63575587717c1ff431235b67ae9c6d",
+      "targetSelectionReview": "1cfba6207e5d01f45afb44d58136b276e55bb1dabcb5a4daa539ab4b183f8911",
+      "targetSelectionWrapperReview": "d37d35d682dd549ac32781562486c8eab44d6ac4deee4da401dd1734c7b76641",
+      "curseLeadingGates": "c0087f3e3094944d7837bade4ebdb13f6b19392c012478e5878e54d05cb1ba85",
+      "curseCompleteReview": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+      "aiInitializationReview": "9ad9d0d1f720ebba6055aa3fc2afc9cd0b701d47edd289effac538886bec67d3"
+    },
+    "dataPath": ".local/class-skills/howl-source-probe.json"
+  },
+  "established": [
+    "Howl uses common ring do22: calc1 plus missile table velocity, source64-vector factory. Effective rank1/20/21 launch velocities12/50/52 before factory scaling; pinned cost4mana.",
+    "Hit17 uses stored missile rank plus current owner level and Param2, strict > target level; already-Terror state is not refreshed. Owner/skill/state/type checks precede shared fear helper.",
+    "The AI helper explicitly rejects dead targets before its separate AI-switch eligibility routine, which itself can accept an attackable dead unit. Preserve caller/callee gates independently.",
+    "Helper stores Terror skill77 at rank1 with Howl-supplied duration, independently of owner class or learned Terror rank. Calculated distance is unused. No difficulty division occurs in this helper or the inspected complete generic curse function.",
+    "Generic curse leading gates check source NPC/attackability/state, curse resistance and Attract. Positive/negative curse resistance modifies duration before allocation;100+ rejects. Helper still sets dynamic target and switches/idles AI even when curse allocation fails.",
+    "Common Terror AI defaults its distance parameter to30, idles10frames only when target distance>30, derives capped0..120 run percentage, initially escapes and deletes pending AI event, can attack in later combat, and falls back to walking near when later escape fails.",
+    "Terror initialization records the caster target override; initial escape clears that override, allowing later common AI target selection. Do not make either fixed cast origin or permanent caster tracking the complete source behavior.",
+    "Target distances use source integer weighted-axis distance and the target full-size subtraction, not Euclidean center distance;147 compiled raw-coordinate cases cover this contract before native tile projection.",
+    "General AI initialization normally zeros all three parameters before special-state dispatch. Callback-bearing previous AI has an early transition branch; species-specific preservation needs separate handling."
+  ],
+  "stubs": [
+    "Unchanged do22/hit17/AI eligibility/helper/Terror tick functions compile with declared table/stat/event/target/path/movement/AI-selection stubs. Shared ring factory geometry was compiled separately in shout-engine-evidence.json; this probe records its launch arguments.",
+    "Target override/selection/initialization functions are hash-checked reviews; source coordinate-distance helpers are additionally compiled. Full target acquisition/LOS/vision/player/monster scan remains outside this probe.",
+    "Generic curse source leading gate block is compiled; the complete allocation/replacement/event/statlist function and AI initializer are hashed/reviewed, not linked into a full engine.",
+    "Attackable state/skill rows, owner lookup, table flags, target distances/combat and escape success are supplied by fixture. Escape/path routines are recorded calls; no world movement/LOS/path selection is certified.",
+    "No complete monster target acquisition, native projected distance/collision metric, animation/velocity integration, source callback dispatch or modern executable capture is claimed."
+  ],
+  "limits": [
+    "No Howl handler enabled by this evidence. Reuse current rays with per-skill motion and a shared fear consumer that can express source distance/idle/initial-escape/later-combat transitions.",
+    "Current native Necromancer Terror and NamedControl fear do not fully express this common AI: fixed origin or unconditional flee differs from the compiled dispatch. Avoid silently equating those existing behaviors with Howl.",
+    "Generic curse failure still switches AI transiently in supplementary source. Exact state/curse resistance/Attract and modern owner/death/item/client transitions remain acceptance work.",
+    "Native monster species mappings, champion/unique/uninterruptable/charged-item cases, missing caster/target selection, path fallbacks, exact SC/FCR/geometry/collision and modern duration/scheduling remain open."
+  ]
+}

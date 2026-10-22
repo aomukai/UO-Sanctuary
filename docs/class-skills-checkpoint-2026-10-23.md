@@ -183,3 +183,12 @@ Focused/final combined three boots/two reloads pass: real Tarnhelm, actual corps
 Exact modern SC/FCR/frame/geometry/NHD caster/cast scope, NPC innate/charged skills, future pet types, upper rank bounds and complete gear/owner/client transitions remain explicit. Initial test anchor lacked walkable terrain; repeated summons also occupied their next corpse tile, correctly blocking native spawn. Fixture positioning alone changed. Source/native evidence retains these boundaries.
 
 Next: Howl shared ray/Terror source contracts, then remaining Barbarian skills. Immutable source preflight records strict level check/no Terror refresh and unused distance parameter without inventing behavior. User asks to inspect existing mechanics first: Teeth/Multiple Shot both use pinned server do8, and existing provisional Teeth fan must be verified/extracted for the Amazon pass. Keep damage/collision/target/proc rules skill specific. Goal active; ordinary verified backup authorized.
+
+
+## Howl shared Terror source checkpoint
+
+No new handler enabled; total103/Barbarian16 remain. Added tools/probe_howl_reference.py and howl-engine-evidence.json with881 compiled cases across launch/hit/eligibility/curse/helper/guards/Terror AI/distance. Source blobs and extracted block hashes match immutable D2MOO; modern3.3.93847 remains the table pin.
+
+New source findings change the implementation plan: shared Terror initially escapes and clears the caster override, then can select another threat, idle beyond its default30-distance boundary, or attack in later close combat. Failed escape has a walk-near fallback; source velocity addition caps120. Howl's tooltip distance argument is unused by its helper. The curse stores Terror rank1/Howl duration with curse resistance/Attract gates, and the helper transiently switches AI even if curse allocation fails. Source target distance uses weighted integer axes/target full size. Existing unconditional-flee or fixed-origin behavior is not exact reuse.
+
+Next is native integration through existing warcry rays and fear/curse/AI movement, with saved AI phase/target/expiry and native two-reload coverage. Species/callback/neutral/target-selection/path/client and modern edge cases remain explicit; no blocker or user question stops unaffected work. No runtime source/build/save/art/item gate changed. Prior618c31c installed runtime and verified3boots/2reloads/70 Python checks remain authoritative; this batch validates source881 cases. Goal active, normal verified backup authorized.

@@ -317,10 +317,10 @@
     "nextClassImplementation": {
       "class": "Barbarian",
       "scope": "Continue30-talent pass;16 handlers present;14 pending",
-      "nextBatch": "Howl shared ring/Terror source eligibility, level/parameter/state/control and saved consumers, then remaining Barbarian skills",
+      "nextBatch": "Howl native shared warcry/Terror phase/target/idle/escape/combat/resource and persistence integration, then remaining Barbarian skills",
       "preflight": "tools/reference/barbarian-howl-preflight.json",
       "firsthandGameplayUnavailable": true,
-      "status": "In progress; Battle Command implemented and verified within stated limits"
+      "status": "In progress;881-case Howl source preparation verified; native consumer pending"
     },
     "barbarianPassivesResult": {
       "evidence": "tools/reference/barbarian-passive-native-evidence.json",
@@ -486,7 +486,27 @@
     "mechanicReuse": {
       "userRequested": true,
       "implementation": "BC reuses travelling warcry/effective ranks/BO pool transitions.",
-      "nextFan": "Pinned Teeth/Multiple Shot do8 shared; current fixed60-degree Teeth fan is provisional. Verify/extract before Amazon; keep skill-specific damage/collision/proc rules."
+      "nextFan": "Pinned Teeth/Multiple Shot do8 shared; current fixed60-degree Teeth fan is provisional. Verify/extract before Amazon; keep skill-specific damage/collision/proc rules.",
+      "howl": "881 source cases require reusing rays with per-skill motion and extending existing fear/AI consumer to source phase/retarget/idle/combat behavior; avoid a duplicate step scheduler."
+    },
+    "howlSourcePreparation": {
+      "evidence": "tools/reference/howl-engine-evidence.json",
+      "probe": "tools/probe_howl_reference.py",
+      "compiledCases": {
+        "launchCases": 18,
+        "hitCases": 96,
+        "eligibilityCases": 128,
+        "curseGateCases": 40,
+        "helperCases": 32,
+        "hitGuardCases": 36,
+        "terrorAiCases": 384,
+        "distanceCases": 147
+      },
+      "totalCases": 881,
+      "result": "passed; supplementary source contracts only",
+      "native": "Handler/shared Terror consumer pending. Installed103-handler build and prior combined3boots/2reloads remain unchanged.",
+      "finding": "Shared source Terror initially escapes/clears caster override, then can select threats/idle/attack; current fixed-origin/unconditional flee is not exact reuse. Tooltip distance unused; weighted source distance with target size compiled.",
+      "next": "Generalize existing ray motion/callback; extend shared curse/fear AI phase/target/movement/expiry and saved state, then dedicated native and reload checks."
     }
   },
   "logs": {
@@ -660,7 +680,10 @@
     "command-content-build.log": ".local/class-skills/command-content-build.log",
     "command-integration-build.log": ".local/class-skills/command-integration-build.log",
     "command-map-fixture-failure.log": ".local/class-skills/command-map-fixture-failure.log",
-    "command-summon-fixture-failure.log": ".local/class-skills/command-summon-fixture-failure.log"
+    "command-summon-fixture-failure.log": ".local/class-skills/command-summon-fixture-failure.log",
+    "howl-source-probe-run.log": ".local/class-skills/howl-source-probe-run.log",
+    "howl-source-probe.cpp": ".local/class-skills/howl-source-probe.cpp",
+    "howl-source-probe.json": ".local/class-skills/howl-source-probe.json"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -752,9 +775,10 @@
     "New supported skeleton/mage/golem creations record saved FIFO order. Summons predating the ledger use identified serial order because historical creation order is unknown; unsupported Revive/Iron Golem/future class pet caps remain gated.",
     "BC apply/expiry refresh current passive consumers and summon caps. Existing equipment changes/history/wardrobe resource rules remain authoritative; full gear-removal pet-cap event routing, rollback/owner/party transitions and exhaustive source dependency ordering still need acceptance.",
     "Whole native maxima/65000 cap remain the approved resource projection. Effective-rank upper bounds/extreme stat graphs, exact modern frames and input/UI capture remain unverified.",
-    "Current Teeth fixed60-degree fan is provisional. Pinned Teeth/Multiple Shot share server do8; verify/extract the common source fan before Amazon without assuming identical damage/collision/proc behavior."
+    "Current Teeth fixed60-degree fan is provisional. Pinned Teeth/Multiple Shot share server do8; verify/extract the common source fan before Amazon without assuming identical damage/collision/proc behavior.",
+    "Howl source proof881 cases is not a native handler or modern parity certificate. Source cast-origin override is cleared at initial escape; full target acquisition, special callback species, path/velocity/owner/client and curse-failure transient AI remain separately unverified."
   ],
-  "verifiedAtUtc": "2026-10-22T21:45:43.491067+00:00",
+  "verifiedAtUtc": "2026-10-22T21:54:19.248784+00:00",
   "evidenceArtifacts": {
     "tools/reference/named-item-runtime-audit.json": "b93decd0a19de6e3a16116b82b8db5a94e10ec5287de777f5095bbe26f207d68",
     "tools/reference/first-loop-affix-audit.json": "6584919a10ff979bc46733cf514ba8d225de202e98317447e360f0aad69e8f70",
@@ -831,9 +855,9 @@
     "upstream/ModernUO/Projects/UOContent/Items/ClassGearHooks.cs": "5d974ce9848e8123b4322db3ae0da6b746c1cd2b7d0d88db7b9f18e5005dcb71",
     "upstream/ModernUO/Projects/UOContent/Mobiles/PlayerMobile.cs": "b0e45c14d28d28bd0e677796ed818b43d66f721c621f3aa0c36dcbed7a6682f1",
     "tools/build_class_skills.py": "2bc0de3b99fa143354ccecbb7a02a410cc613d2902f5eaa35e512c72ac119c6a",
-    "tools/build_skill_roadmap.py": "372a4d8178dd433f341cf3f2f1bba63dbdcacd7c2278fe0e6e32b3d0afc08959",
-    "docs/class-skill-roadmap.md": "d6a2cdcbdc8eb950b0dc7bc347cef97d528b2ce2e61f906151beec6c19f4cc0c",
-    "docs/skill-mechanical-reference.md": "76db4b850dd7207cc5a810da64c6938327c4c8cfca487e8b810094de8a887a27",
+    "tools/build_skill_roadmap.py": "828b703a1028184d4c5bb7f8e9f5d6768e6a214a19a56557c473788c67da60b8",
+    "docs/class-skill-roadmap.md": "76685d1df82135f46253d03ad79106cb8a4053454bb71da9ce2b08580f34fffa",
+    "docs/skill-mechanical-reference.md": "ac50ba89489feabe7a6f06405306367f17537d27c97391e4a72da4d1eb40b0cd",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "f34bf5b4983f151d2ce2650b89bb47e64d1df015f79e047dc8c01f0b7dba9dde",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1013,7 +1037,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "36cb6438b77db5784eea24d9cbbf08deb45afa4d89e284f3fbe6acb3246b8f5f",
+    "docs/class-skills-resume-checkpoint.md": "8b20ec1533c58d79750d115341d9648d9bd6126d25845c913990f206feddbf50",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -1074,7 +1098,7 @@
     "tools/probe_conversion_reference.py": "252b208c1e19410c897fc162dfe762636aa4c3a86e5c28b3b261a11af8cb7274",
     "tools/reference/conversion-engine-evidence.json": "b57d54ded5e25868765eaebd79d74b5d5b9026f3fb1c9c6f255d7d591b2e518c",
     "tools/reference/paladin-conversion-preflight.json": "920f108df2360834a4ebbbac1af6770fd9941733f7054346c9351c218ff89cee",
-    "docs/class-skills-checkpoint-2026-10-23.md": "4920733e3040e1ffab459e0f39e83cbb79abb8c88b0ded925bed90ed52dfaa02",
+    "docs/class-skills-checkpoint-2026-10-23.md": "d31870a6677486d4f0de0c8f66ed4c51d1a9f9e21454e14c58e676d915aafe32",
     ".local/class-skills/charge-focused.log": "5c024c2a3916bb864adc01c11acba3ca401435c47c722b02e4f304944389586b",
     ".local/class-skills/charge-focused-run.log": "efd006478f58026ee01c357ef74514a109eb1c03e604f4d13cd7c633495adaf2",
     ".local/class-skills/charge-focused-corridor-failure.log": "3776ce1b8f35016fe7ae570db3fdb082355da47e5da217407bfe0150017d2d9b",
@@ -1263,7 +1287,7 @@
     "tools/probe_battle_command_reference.py": "abca4dbcc6f2471c53430811a81594a7198ade4b7120deab0dfa8a45f8f4bd27",
     "tools/reference/battle-command-native-evidence.json": "4fccdea1036810ab1e53ae5fecdb790ef1f846efc2bcc6c65eba4d32559846ba",
     "tools/reference/battle-command-engine-evidence.json": "acc0ace185aa7350b4bb21c06663fea2f96b8baeb9d2cdada9727ba3058522ce",
-    "tools/reference/barbarian-howl-preflight.json": "43349374a12e6bc4fcd698773cb5c62444f3b1e43cb50e3ecc1b2838809bbcbc",
+    "tools/reference/barbarian-howl-preflight.json": "a13053fe818275619f1c637b300fb77b524d2f23492bc49a26212d5d7ab34e95",
     ".local/class-skills/battle-command-focused.log": "a2a84c36ffddea7953c982eb2f0cd4a03d241c8f5aae255f3792ad147e187795",
     ".local/class-skills/battle-command-focused-run.log": "2b833a2d32f779b15b2be0eef373a64f1dafdf32c174fc200d42e66ff90f5a8e",
     ".local/class-skills/battle-command-source-probe-run.log": "955ed22efced265b53cc4c516ba7e26c85c957bb65c2af3a885111cca133760c",
@@ -1273,12 +1297,17 @@
     ".local/class-skills/command-content-build.log": "3334ec6ec4ce1934058637e5a52382505ed31d5ad7318a56636074974bee6a83",
     ".local/class-skills/command-integration-build.log": "545006a8608abf3f44982362d048d248dc8ed3815826777b235bab65f3dae3ef",
     ".local/class-skills/command-map-fixture-failure.log": "b9a20548457824c580132d66dde79387f254242abd1a99d444ce1113e0390ede",
-    ".local/class-skills/command-summon-fixture-failure.log": "5018d8e4e736637a7dcaf614d142f02d01cefe84682584b50b5ebdef323a8137"
+    ".local/class-skills/command-summon-fixture-failure.log": "5018d8e4e736637a7dcaf614d142f02d01cefe84682584b50b5ebdef323a8137",
+    "tools/probe_howl_reference.py": "b5e1ff5717d713c3f7e7c9aea16d475fb0584588c63f72559ba219b81ccc6004",
+    "tools/reference/howl-engine-evidence.json": "236310592ae64139e27ea3fb06ebe88c01e1b1f4a1d03f67cbab504aa8e574a0",
+    ".local/class-skills/howl-source-probe-run.log": "54360801d6ce19266d757b24ad0a9df1ea9f7ba9f15ac2e05a6f6a30d487040c",
+    ".local/class-skills/howl-source-probe.cpp": "8cc239c2bd537c148e8a6b97f8cb364231d49d8cdb589094328be0f5991b14cb",
+    ".local/class-skills/howl-source-probe.json": "c9f0f1596b7fb6315359c90007a79106a5e65fbdbe52036ddf08870dff638cdc"
   },
   "totalHandlersPresent": 103,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 518,
+  "verifiedArtifactCount": 523,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-22.json",
   "deploymentScope": "Local disposable test installation only; matching server/content/client/data installed via ./dev build all; actual installed boot/listen/clean shutdown passed.",
   "installedTestBuild": true,

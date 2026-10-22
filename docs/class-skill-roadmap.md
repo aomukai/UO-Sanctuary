@@ -21,6 +21,8 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 
 Implementation rule: inspect existing handlers and shared mechanics before adding a new controller. Reuse verified geometry, movement, timing and resource consumers where the source agrees, keeping skill-specific damage, collision and targeting rules separate. Pinned Teeth and Multiple Shot both use server do8; verify/extract that common fan from the existing provisional Teeth implementation when reaching Amazon. Battle Command already reuses the Shout/Battle Orders travelling-ray and proportional-resource paths.
 
+Howl source preparation now has881 bounded compiled cases in [source evidence](../tools/reference/howl-engine-evidence.json). Its native handler remains pending: shared Terror AI includes initial escape, later threat selection/close combat and a default30-distance idle boundary. Existing unconditional-flee/fixed-origin behavior must not be copied as an exact substitute.
+
 ## Necromancer
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |

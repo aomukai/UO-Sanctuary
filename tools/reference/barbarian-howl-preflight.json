@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next implementation source preflight; no Howl handler enabled.",
+  "status": "Compiled bounded supplementary source contract verified:881 cases. Native Howl/shared Terror integration is next; no handler enabled.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
@@ -107,7 +107,11 @@
     "Hit17 rejects missing skill/owner, invalid state, non-monsters, already-terrorized targets and targetLevel >= storedMissileRank + Param2 + currentOwnerLevel. Already-feared targets do not refresh.",
     "Hit17 computes linear distance Param3/4 and duration Param5/6. The supplementary AIUTIL_ApplyTerrorCurseState receives both, but nParam1 distance is unused. Do not invent distance termination from tooltip alone.",
     "AIUTIL stores SKILL_TERROR rank1 with supplied duration/state, sets target to caster, executes Terror AI and idles1frame. Eligibility checks dead/type/state/uninterruptable/CanSwitchAI/attackable/unique before AITHINK policy.",
-    "Native Terror stores fixed origin and applies its own difficulty divisor. Howl must not call the ordinary Necromancer player-class formula path blindly; target tracking, generic curse duration/difficulty and supported native species/control need verification."
+    "Native Terror stores fixed origin and applies its own difficulty divisor. Howl must not call the ordinary Necromancer player-class formula path blindly; target tracking, generic curse duration/difficulty and supported native species/control need verification.",
+    "Compiled common Terror AI defaults distance to30, idles10frames beyond it, initially escapes, and can attack in later combat. Later failed escape falls back to walking near; source run-percent addition caps at120.",
+    "AI initialization records the caster target override; initial escape clears it. Later common target acquisition can choose another threat. Current permanent-caster/fixed-origin fear behavior is not complete source equivalence.",
+    "Generic curse leading gates apply curse resistance/Attract protection. Even failed curse allocation is followed by transient target/AI switching in the helper. Source dead checks belong to the caller before separate AI eligibility.",
+    "Source target distance uses weighted integer axis distance and target full-size subtraction;147 compiled raw-coordinate cases establish that contract before native tile projection."
   ],
   "projectedTableGoldens": [
     {
@@ -133,12 +137,24 @@
     }
   ],
   "nextSteps": [
-    "Compile unchanged do22/hit17/AI helper eligibility/parameter flow; trace shared Terror special AI movement and generic curse duration rules.",
-    "Reuse current rays with explicit per-skill velocity/acceleration/collision callback; retain saved flags/rank/current caster-level lookup.",
-    "Test existing-Terror no-refresh, curse conflicts, level boundaries, moving caster, immune/unique filters, natural expiry, owner removal and two reloads. Keep unmatched/uncertain branches individually gated."
+    "Generalize existing warcry rays for Howl velocity/acceleration/range and skill-specific hit callback; preserve saved stored rank/LastCollide and existing Shout/BO/BC behavior.",
+    "Extend the shared fear/ordinary curse lane to retain initial escape/target override, subsequent threat selection, idle/movement/close-combat and expiry state. Reuse existing native AI movement rather than creating a second step scheduler; do not blindly call the current fixed-origin/unconditional-flee path.",
+    "Use existing source species/AI mappings plus required run/A1/size metadata. Keep unsupported callback/neutral/owner/collision branches explicit rather than guessing.",
+    "Verify native source level boundaries/no refresh, curse replacement/Attract, moving caster/other threats, first escape/later combat and idle, natural duration and saved mid-flight/AI phase through two reloads."
   ],
   "limits": [
     "Source review/table goldens are not compiled proof or a modern executable capture.",
     "Legacy unused distance, modern item/skill/proc behavior, native geometry/terrain/AI eligibility and state/death/expiry transitions remain open."
-  ]
+  ],
+  "compiledEvidence": "tools/reference/howl-engine-evidence.json",
+  "compiledCases": {
+    "launchCases": 18,
+    "hitCases": 96,
+    "eligibilityCases": 128,
+    "curseGateCases": 40,
+    "helperCases": 32,
+    "hitGuardCases": 36,
+    "terrorAiCases": 384,
+    "distanceCases": 147
+  }
 }
