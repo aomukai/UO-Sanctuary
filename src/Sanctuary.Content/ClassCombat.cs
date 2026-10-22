@@ -29,6 +29,7 @@ public static class ClassCombat
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
         internal BarbarianMelee.Prepared BarbarianAttack;
+        internal BarbarianConcentrate.Mode Concentrate;
         internal bool ZealPaid;
         internal int ZealHits;
         internal Point3D PendingPoint, ActionOrigin;
@@ -53,6 +54,7 @@ public static class ClassCombat
         internal long LastProgress = Core.TickCount;
     }
     private static readonly Dictionary<Serial, Session> _sessions = new();
+    internal static Session Existing(PlayerMobile owner)=>owner!=null && _sessions.TryGetValue(owner.Serial,out var state)?state:null;
     private static readonly List<Serial> _expired = new();
 
     public static bool Enabled(PlayerMobile from) => ClassCreation.Profiles?.TryGet(from.Serial, out _) == true;
@@ -76,7 +78,7 @@ public static class ClassCombat
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
-            || !HitRecovery.Active(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount);
+            || !HitRecovery.Active(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
             ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
         ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
@@ -198,7 +200,8 @@ public static class ClassCombat
     }
     public static void Stop(PlayerMobile from)
     {
-        if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
+        if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
+        BarbarianConcentrate.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -279,6 +282,9 @@ public static class ClassCombat
         }
         For(from).WasOverlapped = false;
         ResolveAction(from, now);
+        // Resolve a due weapon event before expiring its animation state, including
+        // a delayed server tick that crosses both the impact and recovery deadline.
+        BarbarianConcentrate.Tick(from,now);
         var session = For(from);
         if (session.HeldAbility != CombatAbility.None)
         {
@@ -440,6 +446,7 @@ public static class ClassCombat
             session.PendingAbility = CombatAbility.None;
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
+            if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
             return false;
         }

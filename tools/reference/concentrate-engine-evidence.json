@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "probe": {
+    "modeCases": 63,
+    "temporaryStateCases": 8,
+    "conversionCases": 120,
+    "dataPath": ".local/class-skills/concentrate-source-probe.json",
+    "blockHashes": {
+      "modeGuard": "f03ac114e6a1e8fe1cba6390a6092bde5c5d7000a585741d18f88d3e46447ef7",
+      "temporaryCleanup": "9fcd78e30dff76e5058fd49206dcb54d855d078ac5f723769119b827b60614d2",
+      "modeChange": "c64ba3f192f07026f9da42a4206fb50fb6c2242ff548e9b6bb04f6fdde09828a",
+      "conversion": "f6f0f555e34201e781b8d3fb94dc5f1831b3a55363e867baf3bca02ee9d5ccbd"
+    }
+  },
+  "established": [
+    "No-interrupt attack mode blocks walk/run/gethit/block requests; death is allowed. Other attack/cast queue timing remains the source mode guard, not a general freedom-to-cancel rule.",
+    "An actual mode change removes TEMPONLY states when NEWLENGTH is present; unchanged modes do not remove them. Persistent state survives.",
+    "Physical-to-magic split truncates the converted FP256 fraction after ordinary critical, preserves existing magic and conserves the physical-plus-converted total."
+  ],
+  "stubs": [
+    "Skill row/used skill/state membership and event frame are explicit stubs. Native movement/input queue timing is separately tested; modern mode equivalence is not certified.",
+    "Temporary statlist is a bounded three-node fixture; free/toggle callbacks and extended lists are stubs.",
+    "Percentage helper uses source integer semantics; ordinary critical is a supplied1x/2x precursor. Only magic conversion is exercised."
+  ],
+  "limits": [
+    "Legacy isolated blocks do not prove current D2R executable parity.",
+    "Complete proc/statlist removal, queued modes, modern start/do rank snapshots, low-mana AttackNoMana and owner/client acceptance remain open."
+  ]
+}

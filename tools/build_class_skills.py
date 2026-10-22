@@ -126,6 +126,7 @@ def products():
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
         'barbarian.bash':'Staged UO weapon animation/sound and shared native knockback/get-hit placeholders; final Bash impact/knockback effects pending',
+        'barbarian.concentrate':'Staged ordinary UO weapon animation/sound; source doubledamage1 overlay has no final asset; Concentrate swing/impact and action-long defense cue pending',
         'barbarian.stun':'Staged UO weapon animation/sound and0x375A stun marker; final Stun impact/overhead effect pending',
         'paladin.conversion':'Staged ordinary UO weapon animation/sound; final cast/impact and converted-state marker pending. Talent/hotkey icons remain in the independent icon register.',
         'paladin.charge':'Staged ordinary UO accepted walking steps, weapon animation and sound; final Charge travel trail, impact/overlay147 and directional sequence pending. Missing art is independent of remaining knockback geometry and special-mode acceptance.',

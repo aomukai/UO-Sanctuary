@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and full combined native3boots/2reloads passed;70 Python tests, pinned-reference/generator/catalogue checks pass;422 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
+  "handler": "Concentrate",
+  "sourceEvidence": "tools/reference/concentrate-engine-evidence.json",
+  "preflight": "tools/reference/barbarian-concentrate-preflight.json",
+  "runtimeSources": [
+    "src/Sanctuary.Content/BarbarianConcentrate.cs",
+    "src/Sanctuary.Content/BarbarianMelee.cs",
+    "src/Sanctuary.Content/BarbarianCombat.cs",
+    "src/Sanctuary.Content/GearEffects.cs",
+    "src/Sanctuary.Content/ClassCombat.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/ClassMovement.cs",
+    "src/Sanctuary.Content/HitRecovery.cs",
+    "src/Sanctuary.Content/ActionTiming.cs"
+  ],
+  "nativeFixture": "tests/Sanctuary.Integration/ConcentrateChecks.cs",
+  "driver": "tests/check_class_skills.py",
+  "focusedLog": ".local/class-skills/concentrate-focused.log",
+  "nativeCoverage": [
+    "Pinned rank1/20/soft21 ED/AR/defense/mana and hard Berserk conversion goldens; actual legal allocations, real Tarnhelm and hard Bash/Battle Orders/Berserk synergies.",
+    "L/R/quick assignment, held L/R/direct input; ordinary A1/IAS timing and no FCR gain; selected hostile target, native range/bow/empty-ground/unpayable rejection.",
+    "One512FP256 mana debit at start, including misses. Prepared hit/critical/mitigation, no early/event-time repeat payment or duplicate damage. Critical precedes integer physical-to-magic split; physical immunity leaves converted magic. Real Hellplague fire is not critically doubled or converted.",
+    "Explicit magic50 resistance resolver check only; actual tested Skeleton has magic0. Conservation across30 FP256 split inputs and ordinary named item conversion are tested.",
+    "Temporary effective-rank defense starts immediately, refreshes at the impact event even on a miss, remains through recovery, and ends with the action. A real helm removal between start/impact changes the second snapshot; recovery does not invent another refresh.",
+    "Voluntary native movement, guaranteed get-hit request, Stop and right-binding changes do not cancel the committed swing. Frozen/warp/weapon loss cancel without refund or deadline reset. Real death clears damage/defense. The normal history transaction rejects an active swing; explicitly fixture-forced class loss and allocated-point reset invalidate it.",
+    "Actual disposable TCP socket keeps the ordinary40ms class loop alive. Native natural impact and recovery expiry are observed on all3 boots. A deliberately delayed explicit UpdateCombat test crossing both deadlines delivers its already-due impact before temporary-state cleanup.",
+    "Gear/effective ranks/L/R bindings/paid mana/fractional target life persist across two actual reloads. Active defense, prepared packet and pending ability are transient and never replay. Actual socket shutdown removes the active temporary state on all3 boots."
+  ],
+  "fixtureScope": [
+    "Connected actor is attached through explicit game-protocol bootstrap; account selection and graphical-client input/prediction are not exercised. Socket output is drained and shutdown explicitly after saving.",
+    "Synchronous numeric/equipment/gate tests run before connection attachment to avoid filling a native unflushed send buffer with a whole batch in one callback. Natural combat uses the real connected40ms loop.",
+    "Named fixture actor alone gets an hour-long mana regeneration interval. Negligible self poison suppresses unrelated health recovery; tiny fixture UpdatedUtc holds are isolated.",
+    "Only saved pending-action inspection deadlines are held10minutes, after natural timing passes. Offline restored owner is placed at saved origin/map before actual attack checks, matching the existing fixture treatment of native offline internalization.",
+    "Hit/element/physical/critical RNG is deterministic within scoped callbacks and restored afterward. Native target AI is stopped; life and physical/fire resistances are explicit. Other shared proc/poison consumers remain normal."
+  ],
+  "corrections": [
+    {
+      "finding": "A named fire check compared raw25 to mitigated22.75 on a Skeleton with native fire resistance.",
+      "change": "Make the intended unresisted fire fixture explicit; physical/magic conversion expectations were already correct. Attach the actual socket only before natural timing, avoiding a synchronous4KB send-buffer burst.",
+      "failureLog": ".local/class-skills/concentrate-first-fixture-failure.log"
+    },
+    {
+      "finding": "The native restored player was offline; beginning a melee action before restoring its saved world position rejected.",
+      "change": "Restore the fixture owner to its saved origin/map before resumed actions; persisted resource/life/state checks remain.",
+      "failureLog": ".local/class-skills/concentrate-first-reload-failure.log"
+    },
+    {
+      "finding": "A class-history fixture tried to switch during an active action; the real transaction correctly rejected it.",
+      "change": "Assert that gate, then use explicitly forced fixture profile loss only to test invalidation.",
+      "failureLog": ".local/class-skills/concentrate-owner-transition-fixture-failure.log"
+    },
+    {
+      "finding": "Closing a Python socket while a reader thread was blocked did not immediately close the underlying connection.",
+      "change": "Explicit TCP shutdown before the disconnect assertion.",
+      "failureLog": ".local/class-skills/concentrate-socket-close-fixture-failure.log"
+    }
+  ],
+  "limits": [
+    "Legacy isolated routines do not establish modern D2R executable equivalence. The user cannot provide Barbarian gameplay checks.",
+    "Exact modern start/do rank snapshots, lost/moving-target transitions, uninterrupted queued attack/cast mode behavior, native running-to-attack projection, dual wield, converted throwing melee and current client comparison remain open.",
+    "Low-mana AttackNoMana fallback and empty-ground automatic acquisition are unverified and remain gated. The later targeting/controls pass is separate.",
+    "Complete modern item/proc/leech/curse/absorb/durability/owner ordering is not certified. Conversion uses the existing shared damage pipeline; custom material/extra-physical collation still needs acceptance.",
+    "No actual nonzero-magic-resistance native species fixture is claimed; the explicit resolver check is bounded. PvP is unsupported by current cooperative hostile-target policy.",
+    "Eighteen Barbarian talents remain pending. No class completion certificate or item-skill gate cleared."
+  ],
+  "assets": {
+    "effects": "Ordinary UO weapon animation/sound placeholders; final Concentrate impact, source doubledamage1 overlay and action-long defense presentation pending.",
+    "icons": "Separate talent tree and hotkey icons required; see the independent240-entry register."
+  },
+  "classComplete": false
+}

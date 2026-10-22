@@ -6,9 +6,20 @@ from pathlib import Path
 import shutil
 import socket
 import tempfile
+import time
+import threading
 from check_britain import ROOT, SERVER, Session
 
 STAGE = ROOT / '.local/class-skills'
+
+
+def drain_fixture_client(client):
+    """Read ordinary server output while the fixture's real connection stays attached."""
+    try:
+        while client.recv(65536):
+            pass
+    except OSError:
+        pass
 
 
 def check():
@@ -366,7 +377,19 @@ def check():
                     assert session.expect(attack_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     if boot==0:
                         assert session.expect(r'barbarian-attacks-result: (passed|failed)',timeout=15).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    # An actual disposable connection keeps the normal class combat loop active.
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as concentrate_client:
+                        threading.Thread(target=drain_fixture_client,args=(concentrate_client,),daemon=True).start()
+                        time.sleep(.15)
+                        concentrate_command='concentrate-check' if boot==0 else 'concentrate-reload-check'
+                        session.send(concentrate_command)
+                        assert session.expect(concentrate_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'concentrate-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                        session.send('save'); session.expect(r'Writing world save snapshot done')
+                        concentrate_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
+                    session.send('concentrate-disconnect-check')
+                    assert session.expect(r'concentrate-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

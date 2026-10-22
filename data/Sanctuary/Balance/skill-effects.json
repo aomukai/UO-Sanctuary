@@ -2049,7 +2049,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Staged ordinary UO weapon animation/sound; source doubledamage1 overlay has no final asset; Concentrate swing/impact and action-long defense cue pending"
   },
   {
     "talentId": "barbarian.frenzy",

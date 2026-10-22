@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Source preflight only; no Concentrate handler yet.",
+  "status": "Historical source preflight; implemented and independently checked in concentrate-native-evidence.json and concentrate-engine-evidence.json. Original nextImplementation list is retained as the preflight plan.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",

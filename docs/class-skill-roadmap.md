@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 11 / 30 | 0 | 19 | Open |
+| 4 | Barbarian | 12 / 30 | 0 | 18 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -154,7 +154,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 | Double Throw | 140 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Stun | 139 | handler-present | Prepared melee hit/AR/hard Bash damage, one2-mana start payment and stored tiered hard-War-Cry duration implemented. Shared source control supplies species/boss/unique/velocity/cap rules and native movement/attack gates. Input/cancellation/real gear/immune/miss/control natural expiry and two reloads have dedicated coverage. Unknown native control metadata and converted throwing melee are gated; low-mana AttackNoMana, empty-ground acquisition, PvP and modern snapshots/events/procs/owner/client remain open. |
 | Leap Attack | 143 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Concentrate | 144 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Concentrate | 144 | handler-present | Prepared ordinary melee hit/AR/hard Bash/Battle Orders damage and Berserk physical-to-magic split after critical/before resistance, with one2-mana start payment. Action-long defense starts at preparation, refreshes at impact and lasts through recovery; voluntary movement/get-hit/Stop/rebinding do not interrupt. Connected natural-loop, named gear, misses/immunity, death/history/respec and two reloads have dedicated coverage. Legacy mode/state/conversion blocks compiled separately. Low-mana fallback, empty-ground acquisition, exact modern snapshots/queues/item events/procs/owner/client and dual wield remain open; no modern equivalence certificate. |
 | Frenzy | 147 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Whirlwind | 151 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Berserk | 152 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

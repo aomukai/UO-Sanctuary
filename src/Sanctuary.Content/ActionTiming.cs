@@ -16,7 +16,7 @@ public readonly record struct ActionTiming(int Frames, int EffectFrame)
 }
 public static class CombatTiming
 {
-    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun;
+    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate;
     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
     private static readonly int[][] _attacks =
     [

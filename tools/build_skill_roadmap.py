@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'barbarian.concentrate':'Prepared ordinary melee hit/AR/hard Bash/Battle Orders damage and Berserk physical-to-magic split after critical/before resistance, with one2-mana start payment. Action-long defense starts at preparation, refreshes at impact and lasts through recovery; voluntary movement/get-hit/Stop/rebinding do not interrupt. Connected natural-loop, named gear, misses/immunity, death/history/respec and two reloads have dedicated coverage. Legacy mode/state/conversion blocks compiled separately. Low-mana fallback, empty-ground acquisition, exact modern snapshots/queues/item events/procs/owner/client and dual wield remain open; no modern equivalence certificate.',
     'barbarian.bash':'Prepared melee hit/AR/hard synergies, critical/mitigation snapshots, one2-mana start payment and source-mapped timed knockback implemented. Source calc2 adds to the physical-event field after allocation leaves the stored life total unchanged; the legacy health consumer commits that stored total. Current D2R stale-total behavior is unverified. Input/cancellation/real gear/immune/miss/native control and two reloads have dedicated coverage. Unknown/special control species and converted throwing melee are gated; low-mana AttackNoMana, empty-ground acquisition, PvP and exact modern events/procs/leech/owner/client remain open.',
     'barbarian.stun':'Prepared melee hit/AR/hard Bash damage, one2-mana start payment and stored tiered hard-War-Cry duration implemented. Shared source control supplies species/boss/unique/velocity/cap rules and native movement/attack gates. Input/cancellation/real gear/immune/miss/control natural expiry and two reloads have dedicated coverage. Unknown native control metadata and converted throwing melee are gated; low-mana AttackNoMana, empty-ground acquisition, PvP and modern snapshots/events/procs/owner/client remain open.',
     'barbarian.swordmastery':'Pinned item-type inheritance and effective-rank melee AR/damage/critical are implemented. Strongest eligible bonus is selected; percentages join existing pools; mastery critical precedes Deadly Strike and doubles physical once. Real converted one/two-hand weapons, named soft/local/offweapon/deadly/flat-element gear and two reloads are covered by the dedicated fixture. Legacy selector/critical blocks are compiled separately. Dual wield, melee use of converted throwing items, modern snapshots/modes/owner/proc/client and material conversion acceptance remain open; Throwing Mastery is separate.',
@@ -92,7 +93,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
-    'barbarian.bash','barbarian.stun',
+    'barbarian.bash','barbarian.stun','barbarian.concentrate',
     'barbarian.swordmastery',
     'barbarian.axemastery',
     'barbarian.macemastery',

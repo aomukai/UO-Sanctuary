@@ -83,7 +83,7 @@ public static class HitRecovery
 
     public static bool Apply(PlayerMobile player, int damage, long now)
     {
-        if(PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now)){return false;}
+        if(PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now)){return false;}
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
         {
             return false;

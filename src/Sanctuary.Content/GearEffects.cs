@@ -137,18 +137,24 @@ public static class GearEffects
         double enhanced=NamedElements.Enhance(player,total-aura,element)+aura;
         return enhanced;
     }
-    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null)
+    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0)
     {
         bool ranged=NamedCombat.Ranged(player);
         double rawPhysical=damage.Physical*NamedCombat.Deadly(player,effects)*Math.Max(0,NecromancerEffects.OutgoingPhysicalPercent(player))/100.0;
         // Skill elements already include their source percentage/mastery rounding.
         // Ordinary weapon hits must also reach Energy Shield before resistance.
+        double convertedMagic=0;
+        if(physicalToMagicPercent>0)
+        {
+            var split=BarbarianConcentrate.Split(NamedElements.To256(rawPhysical),physicalToMagicPercent);
+            rawPhysical=split.Physical256/256.0;convertedMagic=split.Magic256/256.0;
+        }
         var extra=skillElements.GetValueOrDefault();
         var parts=SkillCombat.MitigatePrepared(player,target,new(NamedElements.Enhance(player,rawPhysical,"physical"),
             WeaponElement(player,damage.Fire,"fire",roll,ranged)+extra.Fire,
             WeaponElement(player,damage.Cold,"cold",roll,ranged)+extra.Cold,
             WeaponElement(player,damage.Lightning,"ltng",roll,ranged)+extra.Lightning,0,
-            Magic:NamedElements.Enhance(player,damage.Magic,"mag")),out int absorbed256);
+            Magic:NamedElements.Enhance(player,damage.Magic,"mag")+convertedMagic),out int absorbed256);
         damage=damage with{Cold=damage.Cold+extra.Cold,ColdMs=damage.ColdMs+extra.ColdMs};
         return new(damage,parts,absorbed256);
     }
