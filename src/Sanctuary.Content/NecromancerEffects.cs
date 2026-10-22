@@ -217,7 +217,12 @@ public static class NecromancerEffects
         Profiles.Store(owner, (Profiles.Find(owner) ?? new()) with { BoneArmor = amount });
         owner.FixedEffect(0x375A, 10, 15, 0x481, 0); // Placeholder shield marker.
     }
-    public static int ManaBalance256(PlayerMobile owner) => owner.Mana * 256 + (Profiles.Find(owner)?.ManaFraction ?? 0);
+    public static int ManaBalance256(Mobile owner) => owner.Mana * 256 + (Profiles.Find(owner)?.ManaFraction ?? 0);
+    internal static void SetMana256(Mobile owner,int amount256)
+    {
+        amount256=Math.Clamp(amount256,0,owner.ManaMax*256);var state=Profiles.Find(owner)??new();
+        owner.Mana=amount256/256;Profiles.Store(owner,state with{ManaFraction=amount256%256});
+    }
     public static bool CanPay(PlayerMobile owner, int cost256) => ManaBalance256(owner) >= cost256;
     public static void AddMana(PlayerMobile owner, int amount256)
     {

@@ -207,6 +207,17 @@ The self state applies at the do-event and64 rays travel outward. The source ran
 
 Pinned modern mana is6. The handler retains native shared SC timing, source town restriction and a release-time payment/eligibility check. Exact modern SC event/FCR and first-ray timing, mana drained during wind-up, and generic legacy consume-after-do behavior remain unresolved acceptance items. The legacy rank1/minmana reconstruction discrepancy cannot establish the modern6-mana value. Do not interpret the native release-time rejection as a measured modern outcome.
 
-The existing two-subtile/tile scale, native swept footprints and UO LOS remain provisional for this ring. Source type3 missile barriers are not proven equivalent to UO LOS. Cooperative players and their pets follow approved shared alignment; neutral NPCs without supported eligibility remain excluded. Serial collision ties and offline/map/class handling are explicit native adaptations. Battle Orders and Battle Command have different missile flags and still require separate resource/skill-state work.
+The existing two-subtile/tile scale, native swept footprints and UO LOS remain provisional for this ring. Source type3 missile barriers are not proven equivalent to UO LOS. Cooperative players and their pets follow approved shared alignment; neutral NPCs without supported eligibility remain excluded. Serial collision ties and offline/map/class handling are explicit native adaptations. Battle Orders now consumes its distinct missile/resource flags separately; Battle Command still needs skill-state/passive/pet-cap work.
 
 The [effects register](skill-effects.md) identifies Shout's UO flash/sparse wave/sound placeholders; the [icons register](skill-icons.md) separately lists talent/hotkey icons. No final art was generated.
+
+
+## Battle Orders working implementation
+
+Battle Orders is the15th Barbarian handler. Its [source contract](../tools/reference/battle-orders-engine-evidence.json) compiles288 stat-operation,408 resource-callback and36 summon base-write cases; its [native evidence](../tools/reference/battle-orders-native-evidence.json) records focused and combined three-boot/two-reload coverage.
+
+Self resources apply before the pinned7mana payment. Positive current life/mana/stamina scale proportionally when maxima change; zero pools stay zero and equal-strength recasts do not heal. Weaker replacements update the bonus/deadline. The original creator remains distinct from the latest supplier. Pet HP/mana hooks preserve saved species seeds, protect above-base saved pools during loading, and retain fractional summon creation life before whole maximum projection. Vigor stamina is additive; supported summon regeneration follows the changed maximum.
+
+The64 travelling rays retain stored effective rank/live hard duration synergies. BO initializes LastCollide to caster and persists collider identity/four-frame skill-local NextHit gates. Old Shout saves decode without those fields. Native delay scope currently spans suppliers/casts for the same skill and recipient; the released2.7 primary note establishes same-skill isolation alone, so caster/cast scope remains unverified. A rare weaker replacement can reduce mana below7 before payment; supplementary source ignores that failed post-do payment, while modern behavior remains uncertain.
+
+The native whole maximum/65000 projection, exact SC/FCR/frame/geometry/neutral eligibility and full item/owner/client transitions remain explicit limits. Battle Command is pending. Effects and talent/hotkey icons remain separate identified placeholders.

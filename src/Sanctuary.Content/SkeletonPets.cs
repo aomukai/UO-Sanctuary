@@ -164,6 +164,8 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)); return (profile.MinDamage,profile.MaxDamage); }
     }
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery);
+    // Summon creation writes this FP256 result into its base life before BO.
+    public virtual long SourceLife256=>(21L+8*Math.Clamp(Mastery,0,255))*256*(2+Math.Max(0,Math.Clamp(Rank,1,255)-3))/2;
     [Constructible]
     public SkeletonGuardian() : base(AIType.AI_Melee, FightMode.Closest, 14)
     {
@@ -245,7 +247,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         }
         // D2MOO initializes HPRegen from base life: ((21 << 8) * 4) >> 12 = 5.
         // At 25 frames/sec this is 125/256 life/sec, independent of skill life bonuses.
-        _recoveryFraction += Math.Max(0, now - _lastRecovery) * 125;
+        _recoveryFraction += Math.Max(0, now - _lastRecovery) * (BattleOrders.Regeneration256(this)*25L);
         _lastRecovery = now;
         int heal = (int)Math.Min(HitsMax - Hits, _recoveryFraction / 256000);
         _recoveryFraction %= 256000;

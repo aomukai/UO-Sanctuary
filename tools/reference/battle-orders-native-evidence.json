@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,427 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "source": "tools/reference/battle-orders-engine-evidence.json",
+  "sharedRaySource": "tools/reference/shout-engine-evidence.json",
+  "implementation": [
+    "Right-only self-target SC do-event applies immediate self resources and launches64 stored-rank travelling rays. Pinned7mana is consumed after self stats; hard Shout/Battle Command duration synergies are live at each recipient collision.",
+    "Replace rank/percent/deadline even when weaker, preserve initial creator separately from latest supplier, and keep received state independent of supplier lifetime.",
+    "On actual maximum changes, proportionally scale positive FP256 life/mana/stamina with source truncation; zero pools remain zero and equal-maximum recasts do not heal. Apply, clear, expiry and expired-offline cleanup use atomic before/after pool captures.",
+    "New optional UOContent HP/mana maximum hook preserves saved NPC species seeds. Loading ceilings protect above-base saved pools until all collections are available. Vigor and BO stamina percentages combine additively.",
+    "Summon creation life remains full FP256 before BO percentage/whole projection; supported guardian regeneration follows source maximum-life callback instead of hardcoded base recovery. Subsequent native equipment changes update regeneration without repeating their resource policy.",
+    "BO LastCollide initializes to caster. Each ray tracks last collider and skill-local four-frame recipient delay; saved ability/collider/delay and chronological due-frame ordering resume after reload. Existing Shout rays decode with defaults and retain their no-NHD behavior.",
+    "Recipient death/respec/successful class-history/wardrobe transitions clear its own BO state; transient paid cast actions do not replay after restart."
+  ],
+  "checks": [
+    "Rank1/20/21 percent,7mana, hard-synergy duration and independent408 compiled resource callback cases;288 shared stat-operation cases and36 compiled summon creation/base-write cases.",
+    "Actual begin/early/single release, insufficient mana, paralyzed cancellation, mana loss during wind-up and rare weaker-replacement consume-failure edge.",
+    "Partial fractional pools, zero pools, equal/stronger/weaker replacements, creator/supplier distinction, supplier deletion, natural expiry and direct removal.",
+    "Real Lidless Wall/Frostburn/Harlequin Crest together add3 effective ranks: BO1 becomes4/44percent,517life/370mana/275stamina, full self mana363 after payment; duration retains hard synergies.",
+    "Actual Vigor1 leases combine additively on player285to351 stamina and NPC120to148. Fractional rank4 skeleton base31.5 yields BO42 whole maximum, then31 on removal, with saved seed31 unchanged.",
+    "Natural timer-driven rays reach cooperative moving player, ordinary controlled Ogre and managed Clay Golem; escaping/distant/hostile recipients remain unaffected. Launched rank stays stored while later hard duration synergy affects hit.",
+    "Supported pet maximum-life regeneration callback and real Guardian one-second RecoverLife consumer.",
+    "Three boots/two actual save-reloads preserve player/pet maxima/current FP pools above unbuffed life/mana seeds, creator/rank/seed/deadlines. Saved short state expires offline. Held frame6 ray/collider/NextHit gate resumes without premature buff or new caster payment, applies stored rank2 then expires.",
+    "Final combined suite passes both reloads with all earlier skills; fresh573-definition named export matches427 current inputs and first-loop15. Installed native/content DLL comparisons and actual existing-world load/listen/clean shutdown pass."
+  ],
+  "fixtureBoundary": [
+    "Controller event-time assertions explicitly call real controller release with timestamps; no connected natural SC/UI/FCR certificate is claimed.",
+    "Full waves and expiry use ordinary server timers. Dedicated saved ray/gate inspection explicitly holds deadlines before resuming naturally; this is distinct from complete natural waves.",
+    "Only named OrdersFixture actors have frozen recovery wrappers at Configure/final Initialize and constructor scope. Production recovery is unchanged.",
+    "First named-item fixture expectation missed Lidless Wall allskills1 and expected rank3 instead of4; only expected goldens were corrected. Failure log retained."
+  ],
+  "limits": [
+    "No modern executable equivalence or class completion certificate. Exact SC/FCR/first-frame scheduling, target flags, native tile/footprint/terrain and full owner/item/client acceptance remain open.",
+    "Primary released2.7 notes limit NextHit to the same skill but do not establish caster/cast scope. Native delay key is (ability,recipient) across suppliers/casts; that boundary is explicitly provisional.",
+    "Pinned7mana is consumed after self stats, matching supplementary no-start dispatcher. A weaker replacement can lower current mana below7 after the initial affordability check; supplementary ignored consume-failure behavior is preserved and tested, but modern behavior remains unverified.",
+    "Approved native whole maxima and65000 cap remain a projection. FP256 current pools and exact fractional summon creation bases are retained around that projection; this does not certify modern complete resource dependencies or negative/overflow/zero-next-max cases.",
+    "Existing native equipment/history/wardrobe policies own their maximum changes; BO tracks these without double rescaling. Full wardrobe rollback/owner/party transitions and all unmanaged species remain acceptance work.",
+    "Effects and icons remain independent identified placeholders; no final art/imagegen or item acquisition gate changed."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/battle-orders-focused.log",
+    "combined": ".local/class-skills/native-checks.log",
+    "source": ".local/class-skills/battle-orders-source-probe-run.log",
+    "build": ".local/class-skills/orders-install-build.log",
+    "installed": ".local/class-skills/installed-smoke.log",
+    "fixtureFailure": ".local/class-skills/orders-gear-fixture-failure.log"
+  }
+}

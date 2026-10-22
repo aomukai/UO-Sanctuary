@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Resource source contract compiled and native maximum-basis correction verified by focused/final combined3boots/2reloads and installed build smoke. Battle Orders/Battle Command handlers remain pending.",
+  "status": "Historical resource preflight resolved by Battle Orders native implementation and focused/final combined3boots/2reloads; Battle Command remains next.",
   "sourceHashes": {
     "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
     "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
@@ -18,20 +18,17 @@
     "Pinned ItemMode server stat callback scales positive current HP/mana/stamina on maximum changes, with FP256 truncation, and recalculates monster HP regeneration. Compiled288 stat-operation and408 callback cases pass."
   ],
   "nextSteps": [
-    "Implement saved proportional current-pool transitions on BO apply/recast/expiry, using approved native whole-resource maxima and existing fractional health/mana ledgers. Keep zero pools unchanged and prevent equal-strength recast healing.",
-    "Add native content hooks for pet HP/mana maxima without mutating saved species seeds; audit world-loading ceilings and expired-offline state before enabling BO. Existing BaseCreature stamina hook and Vigor pool must combine percentages additively.",
-    "Summon profiles already compose mastery/skill life contributions. Trace their source percentage/base participation before multiplying a finished pet maximum; preserve additive source pools and saved species identity.",
-    "SkeletonGuardian.RecoverLife currently hardcodes source base regeneration; BO maximum-life callbacks require explicit source-driven regeneration handling for supported pets.",
-    "Add BO LastCollide and skill-local NextHit4-frame recipient delay with persistence and travelling ray tests. Primary2.7 notes constrain delay to same skill, without establishing caster/cast scope.",
-    "Then implement BC effective-rank/passive/pet-limit transitions, preserving its own duration/rank snapshots."
+    "Implement Battle Command effective-rank/passive/pet-limit transitions with its own duration/rank snapshots; inspect passive refresh and pet-cap removal source rather than treating it as a cosmetic+1.",
+    "Retain individually unsupported modern NHD caster/cast boundary, post-replacement mana failure and native geometry/owner/client acceptance gaps."
   ],
   "limits": [
-    "These are source-review findings, not compiled operation proofs or a modern executable capture.",
+    "Bounded compiled source proofs and native runtime/reload checks are now available in the linked records; no modern executable capture exists.",
     "Full game stat operation ordering, event/callback edges, item per-level contributions, modern owner/party/client behavior and native resource adaptation still require work."
   ],
   "currentEvidence": [
     "tools/reference/battle-orders-engine-evidence.json",
-    "tools/reference/resource-basis-native-evidence.json"
+    "tools/reference/resource-basis-native-evidence.json",
+    "tools/reference/battle-orders-native-evidence.json"
   ],
   "userObservation": {
     "request": "Optional proportional life/recast observation through non-Barbarian Call to Arms use.",

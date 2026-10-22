@@ -410,6 +410,11 @@ def check():
                     assert session.expect(shout_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'shout-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     session.send('save'); session.expect(r'Writing world save snapshot done')
+                    orders_command='battle-orders-check' if boot==0 else 'battle-orders-reload-check'
+                    session.send(orders_command)
+                    assert session.expect(orders_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'battle-orders-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('save'); session.expect(r'Writing world save snapshot done')
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

@@ -48,6 +48,18 @@ public static class SkillHealth
     public static void Configure() { Profiles = new(); EventSink.WorldSave += Profiles.Prune; Server.Mobiles.ClassCombatHooks.ApplyDamage256=Damage; }
     public static int Remainder256(Mobile target) => Profiles.Remainders.GetValueOrDefault(target.Serial).Fraction;
     public static void Clear(Mobile target) => Profiles.Remainders.Remove(target.Serial);
+    internal static int Balance256(Mobile target)
+    {
+        var old=Profiles.Remainders.GetValueOrDefault(target.Serial);
+        int fraction=target.Hits>old.ObservedHits && target.Hits>=target.HitsMax?0:old.Fraction;
+        return target.Hits*256-fraction;
+    }
+    internal static void SetBalance256(Mobile target,int amount256)
+    {
+        amount256=Math.Clamp(amount256,0,target.HitsMax*256);int displayed=(amount256+255)/256;
+        target.Hits=displayed;int remainder=displayed*256-amount256;
+        if(remainder==0){Clear(target);}else{Profiles.Remainders[target.Serial]=(remainder,displayed);}
+    }
     public static int Heal(Mobile target, int healing256)
     {
         if (healing256<=0 || target is not { Alive:true,Deleted:false } || target.IsDeadBondedPet) { return 0; }

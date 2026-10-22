@@ -15,7 +15,8 @@ public static class PaladinVigor
         var previous=ClassGearHooks.StaminaMaximum;
         ClassGearHooks.StaminaMaximum=(actor,maximum)=>
         {
-            int? prior=previous?.Invoke(actor,maximum);int bonus=StaminaPercent(actor);
+            if(World.Loading){return 65000;}
+            int? prior=previous?.Invoke(actor,maximum);int bonus=StaminaPercent(actor)+BattleOrders.Percent(actor);
             return bonus==0 ? prior : (int)Math.Clamp((long)(prior ?? maximum)*(100+bonus)/100,0,65000);
         };
     }

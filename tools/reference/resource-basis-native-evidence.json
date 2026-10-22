@@ -1,12 +1,12 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,425 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,427 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
   "source": "tools/reference/battle-orders-engine-evidence.json",
   "scope": [
     "Resource max calculation now separates percentage-eligible base/allocated attributes/direct flat resources from equipment attribute and per-level resource operations.",
     "FP256 is retained through percentage/attribute/per-level operations, followed by the approved whole native maximum projection. Per-level named resource parameters accumulate before the final projection; source percentage operators retain their separate pools.",
     "ClassStats.Vitality reconciles aggregate per-level vitality instead of summing separately truncated equipment contributions.",
-    "No new Battle Orders handler, current-pool rescale, pet maximum hook or regeneration consumer is claimed by this correction."
+    "This historical prerequisite corrected maximum basis; BO transitions, pet hooks and regeneration are now verified separately in battle-orders-native-evidence.json."
   ],
   "checks": [
     "288 independent compiled source stat-operation goldens projected through native resource parts; source class coefficients, base/bonus distinction and percent/per-level ordering.",
@@ -17,8 +17,8 @@
   ],
   "limits": [
     "Approved native maxima are whole values with existing65000 cap; exact modern FP256 maxima/current-pool behavior is not claimed by this native projection.",
-    "Negative/overflow/by-time stat operations, full modern dependency graph, native owner/item/client acceptance and future BO transition/resource hooks still require work.",
-    "The source stat callback probe establishes supplementary proportional transitions; they are not yet wired into a BO handler."
+    "Negative/overflow/by-time stat operations, full modern dependency graph, native owner/item/client acceptance and full resource transition integration still require work.",
+    "The source stat callback probe establishes supplementary proportional transitions; the native consumers are verified separately in battle-orders-native-evidence.json."
   ],
   "logs": {
     "focused": ".local/class-skills/orders-resource-focused.log",

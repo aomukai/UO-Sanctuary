@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,425 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,427 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
   "handler": "Berserk",
   "sourceEvidence": "tools/reference/berserk-engine-evidence.json",
   "conversionSourceEvidence": "tools/reference/concentrate-engine-evidence.json",

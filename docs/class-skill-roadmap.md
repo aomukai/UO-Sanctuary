@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 14 / 30 | 0 | 16 | Open |
+| 4 | Barbarian | 15 / 30 | 0 | 15 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -134,7 +134,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 | Taunt | 137 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Cry | 146 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Find Item | 142 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Battle Orders | 149 | pending | Source resource ordering/callback probes and native named-gear maximum-basis correction are implemented separately. Handler remains pending: saved proportional current-pool transitions, pet HP/mana hooks, skill-local NextHit/LastCollide rays and complete apply/recast/expiry/reload acceptance. Preserve native whole-resource projection and flag modern callback/collision/owner/client gaps. |
+| Battle Orders | 149 | handler-present | Self state and64 travelling rays implement pinned7mana after self stats, stored effective rank/live hard duration, replacement and proportional FP256 current pools. NPC resource hooks preserve saved seeds/loading pools, Vigor joins additively, and summon creation fractions/HP regeneration have dedicated consumers. LastCollide initializes to caster; saved skill-local NextHit4-frame gates and rays resume across reloads. Focused player/pet/gear/zero-pool/expiry/lifecycle and two reloads pass. Exact modern NHD caster/cast scope, consume-failure edge, SC/frame/geometry/neutral/owner/client and approved whole-resource projection remain explicit limits; no class certificate. |
 | Grim Ward | 150 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | War Cry | 154 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Battle Command | 155 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

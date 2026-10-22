@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,425 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,427 current named/15 first-loop input hashes, source/reference/generator/catalogue checks and installed existing-world load/listen/clean shutdown pass.",
   "source": "tools/reference/shout-engine-evidence.json",
   "implementation": [
     "Right-only self-target skill with shared SC wind-up and source6-mana payment at its do-event; native interrupted/invalid/insufficient-mana release does not grant the buff.",
@@ -40,7 +40,7 @@
     "No current-executable equivalence or class completion certificate. Exact modern SC/FCR event, first-frame scheduling, post-start mana-loss ordering, owner transitions and client presentation still need acceptance.",
     "Source3.3.93847 and supplementary legacy contracts do not prove native UO tile scale, swept circles, terrain barriers or neutral-NPC/valid-target flag equivalence. Existing cooperative/friendly restrictions are retained; unsupported neutral recipients are excluded.",
     "UO LineOfSight approximates source missile-barrier terrain and may block differently. Serial collision ties and offline/map/class handling are native adaptations, not measured D2R rules.",
-    "Battle Orders/Battle Command remain pending; their LastCollide/NHD and resource/skill state semantics must not be copied blindly from Shout.",
+    "Battle Orders now has separate resource/LastCollide/NHD consumers and native evidence; Battle Command passive/rank/pet-cap semantics remain pending.",
     "Effects and icons are independent placeholders; no final art or imagegen generated."
   ],
   "logs": {

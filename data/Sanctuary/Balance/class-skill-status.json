@@ -1406,10 +1406,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 149,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source resource ordering/callback probes and native named-gear maximum-basis correction are implemented separately. Handler remains pending: saved proportional current-pool transitions, pet HP/mana hooks, skill-local NextHit/LastCollide rays and complete apply/recast/expiry/reload acceptance. Preserve native whole-resource projection and flag modern callback/collision/owner/client gaps."
+      "remaining": "Self state and64 travelling rays implement pinned7mana after self stats, stored effective rank/live hard duration, replacement and proportional FP256 current pools. NPC resource hooks preserve saved seeds/loading pools, Vigor joins additively, and summon creation fractions/HP regeneration have dedicated consumers. LastCollide initializes to caster; saved skill-local NextHit4-frame gates and rays resume across reloads. Focused player/pet/gear/zero-pool/expiry/lifecycle and two reloads pass. Exact modern NHD caster/cast scope, consume-failure edge, SC/frame/geometry/neutral/owner/client and approved whole-resource projection remain explicit limits; no class certificate."
     },
     {
       "talentId": "barbarian.grimward",

@@ -1,0 +1,46 @@
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1040,8 +1040,14 @@
+         public virtual bool AlwaysAttackable => false;
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+-        public override int HitsMax =>
+-            HitsMaxSeed <= 0 ? Str : Math.Clamp(HitsMaxSeed + GetStatOffset(StatType.Str), 1, 65000);
++        public override int HitsMax
++        {
++            get
++            {
++                var maximum = HitsMaxSeed <= 0 ? Str : Math.Clamp(HitsMaxSeed + GetStatOffset(StatType.Str), 1, 65000);
++                return ClassCombatHooks.CreatureResourceMaximum?.Invoke(this, 0, maximum) ?? maximum;
++            }
++        }
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+         public override int StamMax
+@@ -1054,8 +1060,14 @@
+         }
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+-        public override int ManaMax =>
+-            ManaMaxSeed <= 0 ? Int : Math.Clamp(ManaMaxSeed + GetStatOffset(StatType.Int), 1, 65000);
++        public override int ManaMax
++        {
++            get
++            {
++                var maximum = ManaMaxSeed <= 0 ? Int : Math.Clamp(ManaMaxSeed + GetStatOffset(StatType.Int), 1, 65000);
++                return ClassCombatHooks.CreatureResourceMaximum?.Invoke(this, 2, maximum) ?? maximum;
++            }
++        }
+ 
+         public virtual bool CanOpenDoors => !Body.IsAnimal && !Body.IsSea;
+ 
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -40,6 +40,7 @@
+     public static Action<PlayerMobile, SkillName, double> SkillChanged { get; set; }
+     public static Func<Mobile, Mobile, TimeSpan?> CreatureSwing { get; set; }
+     public static Func<PlayerMobile, int, int?> ResourceMaximum { get; set; }
++    public static Func<BaseCreature, int, int, int?> CreatureResourceMaximum { get; set; }
+     public static Func<PlayerMobile, int, int> FinalDamage { get; set; }
+     public static Func<PlayerMobile, int, int> RunningDelay { get; set; }
+     public static Action<PlayerMobile> EquipmentChanged { get; set; }

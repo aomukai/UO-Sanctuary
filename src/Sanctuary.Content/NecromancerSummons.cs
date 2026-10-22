@@ -90,6 +90,15 @@ public partial class NecromancerMinion : SkeletonGuardian
         }
     }
     public override MonsterProfile CombatProfile => _summonProfile ??= BuildProfile();
+    public override long SourceLife256
+    {
+        get
+        {
+            if(Kind==CombatAbility.None){return base.SourceLife256;}
+            long basis=(long)(NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"),"minHP")+(IsMage?Mastery*8:0))*256;
+            return basis+basis*(long)Values(Kind).Eval("calc1")/100;
+        }
+    }
     [Constructible] public NecromancerMinion() { }
     public bool Permitted(PlayerMobile owner)
     {
