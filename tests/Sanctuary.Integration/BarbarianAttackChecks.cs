@@ -16,11 +16,11 @@ public static class BarbarianAttackChecks
     private sealed record Saved(uint Owner,uint Enemy,uint Weapon,uint Helm,uint Control,Point3D Origin,int Map,int Mana,int Life,CombatStunState State);
     private sealed class Rolls(bool critical=false):Random
     {public int Calls;public override int Next(int maximum){Calls++;return critical && Calls==1?0:maximum-1;}}
+    private static bool _creating;
     private static string Manifest=>Path.Join(Core.BaseDirectory,"barbarian-attacks.json");
     public static void Configure()
     {
-        var mana=Mobile.ManaRegenRateHandler;
-        Mobile.ManaRegenRateHandler=actor=>actor.Name=="BarbarianAttackFixture"?TimeSpan.FromHours(1):mana?.Invoke(actor)??Mobile.DefaultManaRate;
+        FreezeManaRate();
 
         Register("barbarian-attacks-check",()=>Controlled(Check));Register("barbarian-attacks-reload-check",()=>Controlled(Reload));
         EventSink.WorldLoad+=()=>
@@ -28,6 +28,15 @@ public static class BarbarianAttackChecks
             if(!File.Exists(Manifest)){return;}var state=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
             foreach(uint id in new[]{state.Enemy,state.Control}){if(World.FindMobile((Serial)id) is BaseCreature target){Stop(target);}}
         };
+    }
+    [CallPriority(int.MaxValue)]
+    public static void Initialize()=>FreezeManaRate();
+    private static void FreezeManaRate()
+    {
+        // Configure covers load; Initialize follows the production class recovery handler.
+        // Constructor scope holds a native timer created before the fixture name is assigned.
+        var prior=Mobile.ManaRegenRateHandler;
+        Mobile.ManaRegenRateHandler=actor=>actor is PlayerMobile && (_creating || actor.Name=="BarbarianAttackFixture")?TimeSpan.FromHours(1):prior?.Invoke(actor)??Mobile.DefaultManaRate;
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Bash/Stun prepared attacks, resources, control and persistence",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -173,7 +182,7 @@ public static class BarbarianAttackChecks
     }
     private static void Check()
     {
-        Goldens();var owner=ClassSkillChecks.Player(DiabloClass.Barbarian);owner.Name="BarbarianAttackFixture";if(owner.Backpack==null){owner.AddItem(new Backpack());}
+        Goldens();PlayerMobile owner;_creating=true;try{owner=ClassSkillChecks.Player(DiabloClass.Barbarian);owner.Name="BarbarianAttackFixture";}finally{_creating=false;}Require(Mobile.ManaRegenRateHandler(owner)==TimeSpan.FromHours(1),"Attack fixture mana handler order");if(owner.Backpack==null){owner.AddItem(new Backpack());}
         owner.MoveToWorld(ClassSkillChecks.Corridor(owner,6050,1700),owner.Map);
         while(owner.RawStr<200){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Strength),"Attack Strength");}while(owner.RawDex<200){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Dexterity),"Attack Dexterity");}
         var weapon=Equip(owner,new Longsword());Freeze(owner);var enemy=new Skeleton{NoKillAwards=true};enemy.SetHits(30000);enemy.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);Stop(enemy);Freeze(enemy);

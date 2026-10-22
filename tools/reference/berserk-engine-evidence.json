@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "probe": {
+    "startCases": 40,
+    "doAuraCases": 4,
+    "defenseCases": 64,
+    "guards": 2,
+    "toHitCases": 8,
+    "dataPath": ".local/class-skills/berserk-source-probe.json",
+    "blockHashes": {
+      "start39": "01566d7e7f1f8bfbe05a54d35ef0c645fcefca75022cf0349bd1f09e29757dff",
+      "do2SelfAura": "7d6f5c4a95526cc706937e7dd79c4b9db5a6d2235fbca121c40199716de3f492",
+      "getDefense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc",
+      "getToHit": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7"
+    }
+  },
+  "established": [
+    "Start39 creates a timed flag2 state even on a miss, updates existing absolute expiry without a max-duration rule, and uses10frames only for nonpositive length.",
+    "Do2 refreshes an existing state without extending its expiry. If the timed state has expired before impact, its absent self-state is recreated with flag4/TEMPONLY and no removal event, lasting until the animation mode changes.",
+    "Missing ToHitCalc selects the linear ToHit/LevToHit source path; an explicit formula selects formula evaluation.",
+    "The armor override multiplies the ordinary combined defense after its percentage pool; -100 makes it zero."
+  ],
+  "stubs": [
+    "Hit result, skill formula values, allocation packet, state-list allocation, events and callbacks are explicit bounded stubs; the unchanged source call ordering/state flags are exercised.",
+    "Defense uses positive/zero basis, supplied percent/override and no Holy Shield. No native integer/stat compiler certificate is claimed.",
+    "Ordinary critical/conversion is separately exercised by concentrate-engine-evidence.json; source damage calculation is not compiled in this probe."
+  ],
+  "limits": [
+    "Legacy isolated source is supplementary, not a current D2R executable certificate.",
+    "Modern rank snapshots, exact slow/action mode changes, temporary-state edge cases and full item/proc/owner/client acceptance remain open."
+  ]
+}

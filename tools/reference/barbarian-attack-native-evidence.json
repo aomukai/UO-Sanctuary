@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and final full combined native3boots/2reloads passed;70 Python tests and reference/generator/named checks pass;421 named/15 first-loop inputs current; matching installed smoke passed.",
+  "status": "Focused and final full combined native3boots/2reloads passed;70 Python tests and source-reference/generator/catalogue checks pass;423 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
   "handlers": [
     "Bash",
     "Stun"
@@ -47,6 +47,11 @@
       "finding": "A fixed750ms knockback observation caught1ms of remaining recovery despite the correct forced step.",
       "change": "Derive the observation window from source-mapped hit-recovery frames plus travel/margin; finite monitoring records displacement and stops unrelated voluntary AI. No production knockback timer/geometry changed.",
       "failureLog": ".local/class-skills/barbarian-attacks-knockback-observation-failure.log"
+    },
+    {
+      "finding": "The test-only Configure mana wrapper was superseded by production ClassCombat.Initialize, so the longer combined suite allowed a normal2-second regeneration cadence to erase the saved Bash debit.",
+      "change": "Wrap rates during Configure and again at final Initialize priority, following the existing ResourceLoad/Charge pattern. Scope actor construction before its name exists and assert the final hour-long handler for the named fixture. Applied to Bash/Stun, Concentrate and Berserk fixtures only; gameplay regeneration is unchanged.",
+      "failureLog": ".local/class-skills/berserk-combined-mana-fixture-failure.log"
     }
   ],
   "limits": [

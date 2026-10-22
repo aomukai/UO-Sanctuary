@@ -128,6 +128,7 @@ public static class WardrobeTransaction
         SorceressEffects.Profiles.Clear(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
+        BarbarianBerserk.Clear(player);
         PersistentMinions.ParkClass(player, previous.Class);
         PersistentMinions.Resume(player);
         return true;

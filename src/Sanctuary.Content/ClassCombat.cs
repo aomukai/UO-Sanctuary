@@ -30,6 +30,7 @@ public static class ClassCombat
         internal PaladinConversion.Prepared Conversion;
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianConcentrate.Mode Concentrate;
+        internal BarbarianBerserk.Temporary BerserkMode;
         internal bool ZealPaid;
         internal int ZealHits;
         internal Point3D PendingPoint, ActionOrigin;
@@ -202,6 +203,7 @@ public static class ClassCombat
     {
         if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
         BarbarianConcentrate.Cancel(from);
+        BarbarianBerserk.CancelMode(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -285,6 +287,7 @@ public static class ClassCombat
         // Resolve a due weapon event before expiring its animation state, including
         // a delayed server tick that crosses both the impact and recovery deadline.
         BarbarianConcentrate.Tick(from,now);
+        BarbarianBerserk.Tick(from,now);
         var session = For(from);
         if (session.HeldAbility != CombatAbility.None)
         {
@@ -447,6 +450,7 @@ public static class ClassCombat
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
+            if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
             return false;
         }

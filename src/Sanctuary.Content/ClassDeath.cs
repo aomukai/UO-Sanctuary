@@ -29,6 +29,7 @@ public static class ClassDeath
         SorceressEffects.Profiles.Clear(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
+        BarbarianBerserk.Clear(player);
         SkillHealth.Clear(player);
         TownPortals.Close(player.Serial);
         PotionBelts.OnDeath(player, corpse);

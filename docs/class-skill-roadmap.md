@@ -7,7 +7,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 1 | Necromancer | 28 / 30 | 2 | 0 | Open |
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
-| 4 | Barbarian | 12 / 30 | 0 | 18 | Open |
+| 4 | Barbarian | 13 / 30 | 0 | 17 | Open |
 | 5 | Amazon | 0 / 30 | 0 | 30 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
@@ -157,7 +157,7 @@ Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractio
 | Concentrate | 144 | handler-present | Prepared ordinary melee hit/AR/hard Bash/Battle Orders damage and Berserk physical-to-magic split after critical/before resistance, with one2-mana start payment. Action-long defense starts at preparation, refreshes at impact and lasts through recovery; voluntary movement/get-hit/Stop/rebinding do not interrupt. Connected natural-loop, named gear, misses/immunity, death/history/respec and two reloads have dedicated coverage. Legacy mode/state/conversion blocks compiled separately. Low-mana fallback, empty-ground acquisition, exact modern snapshots/queues/item events/procs/owner/client and dual wield remain open; no modern equivalence certificate. |
 | Frenzy | 147 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Whirlwind | 151 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Berserk | 152 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Berserk | 152 | handler-present | Prepared interruptible A1/IAS attack, linear AR, hard Howl/Battle Orders ED, one4-mana start payment and full physical-to-magic conversion after critical/before resistance. Timed final zero-defense override starts on hits/misses, persists through cancelled swings, replaces expiry on recast and saves independently. Do2 recreates an expired state only through the remaining animation. Connected natural timed/temporary expiry, real gear/physical-consumer controls, death/respec/history and two reloads have dedicated coverage. Modern snapshots/slow/modes/item/proc/owner/client, native magic-resistant species, low-mana fallback, automatic ground targeting and dual wield remain open. |
 
 ## Amazon
 

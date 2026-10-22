@@ -17,6 +17,7 @@ public static class ClassMovement
         var session = ClassCombat.For(player);
         // Any accepted external step changes the attack mode; voluntary Concentrate steps are gated.
         BarbarianConcentrate.Cancel(player);
+        BarbarianBerserk.CancelMode(player);
         // Bash/Stun are interruptible. Cancel on the accepted step itself,
         // so returning to the origin before the event cannot revive a paid packet.
         if(BarbarianMelee.Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;session.BarbarianAttack=null;}

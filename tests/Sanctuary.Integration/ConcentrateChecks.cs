@@ -16,6 +16,7 @@ public static class ConcentrateChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(ConcentrateChecks));
     private sealed record Saved(uint Owner,uint Enemy,uint Weapon,uint Helm,int Mana,int Life,int Defense,Point3D Origin,int Map);
+    private static bool _creating;
     private static string Manifest=>Path.Join(Core.BaseDirectory,"concentrate.json");
     private sealed class Rolls(bool critical=false):Random
     {private int _calls;public override int Next(int max)=>critical && ++_calls==1?0:max-1;}
@@ -23,10 +24,18 @@ public static class ConcentrateChecks
     private static int Life(Mobile actor)=>actor.Hits*256-SkillHealth.Remainder256(actor);
     public static void Configure()
     {
-        var mana=Mobile.ManaRegenRateHandler;
-        Mobile.ManaRegenRateHandler=actor=>actor.Name=="ConcentrateFixture"?TimeSpan.FromHours(1):mana?.Invoke(actor)??Mobile.DefaultManaRate;
+        FreezeManaRate();
         Register("concentrate-check",()=>Controlled(Check));Register("concentrate-reload-check",()=>Controlled(Reload));Register("concentrate-disconnect-check",Disconnected);
         EventSink.WorldLoad+=()=>{if(File.Exists(Manifest) && World.FindMobile((Serial)JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest)).Enemy) is BaseCreature enemy){Stop(enemy);}};
+    }
+    [CallPriority(int.MaxValue)]
+    public static void Initialize()=>FreezeManaRate();
+    private static void FreezeManaRate()
+    {
+        // Configure covers load; Initialize follows the production class recovery handler.
+        // Constructor scope holds a native timer created before the fixture name is assigned.
+        var prior=Mobile.ManaRegenRateHandler;
+        Mobile.ManaRegenRateHandler=actor=>actor is PlayerMobile && (_creating || actor.Name=="ConcentrateFixture")?TimeSpan.FromHours(1):prior?.Invoke(actor)??Mobile.DefaultManaRate;
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Concentrate resource, damage, animation-state and restart checks",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -79,6 +88,21 @@ public static class ConcentrateChecks
         foreach(int physical in new[]{0,1,255,256,257,99999})
         foreach(int percent in new[]{0,1,20,99,100})
         {var split=BarbarianConcentrate.Split(physical,percent);Require(split.Magic256==(long)physical*percent/100 && split.Physical256+split.Magic256==physical,"FP256 conversion conservation/order");}
+    }
+    internal static void Rating(PlayerMobile owner,CombatAbility ability)
+    {
+        var enemy=new Ogre{NoKillAwards=true,RawDex=40000};enemy.SetHits(30000);enemy.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);Stop(enemy);
+        var previous=BarbarianMelee.HitRoll;
+        try
+        {
+            Ready(owner);Mana(owner);int bonus=(int)SkillMechanics.Values(owner,ability).Formula("toht");int defense=NamedCombat.DefenseFor(owner,enemy,ClassStats.Defense(enemy));
+            double plain=ClassStats.HitChance(ClassStats.AttackRatingAgainst(owner,enemy,0),defense,ClassStats.Level(owner),ClassStats.Level(enemy));
+            double enhanced=ClassStats.HitChance(ClassStats.AttackRatingAgainst(owner,enemy,bonus),defense,ClassStats.Level(owner),ClassStats.Level(enemy));
+            Require(enhanced>plain+.01,"AR boundary fixture did not distinguish skill bonus");double boundary=(plain+enhanced)/2;
+            Require(ClassStats.CheckHit(owner,enemy,0,()=>boundary)==false && ClassStats.CheckHit(owner,enemy,bonus,()=>boundary)==true,"Shared actual skill AR boundary");
+            BarbarianMelee.HitRoll=()=>boundary;Require(ClassCombat.Perform(owner,ability,enemy,enemy.Location,Core.TickCount) && ClassCombat.For(owner).BarbarianAttack.Hit,"Prepared attack skipped linear source AR");Ready(owner);
+        }
+        finally{BarbarianMelee.HitRoll=previous;Ready(owner);enemy.Delete();}
     }
     private static void Damage(PlayerMobile owner,Skeleton enemy)
     {
@@ -189,12 +213,12 @@ public static class ConcentrateChecks
     }
     private static void Check()
     {
-        Goldens();var owner=new PlayerMobile{Body=0x190,Name="ConcentrateFixture",Player=true};owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);
+        Goldens();PlayerMobile owner;_creating=true;try{owner=new PlayerMobile{Body=0x190,Name="ConcentrateFixture",Player=true};}finally{_creating=false;}owner.AddItem(new Backpack());ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);Require(Mobile.ManaRegenRateHandler(owner)==TimeSpan.FromHours(1),"Concentrate fixture mana handler order");
         FixtureSpace.Place(owner,new(6060,1720,0),Map.Felucca);owner.MoveToWorld(ClassSkillChecks.Corridor(owner,6060,1720),Map.Felucca); // Fresh actor: allocate only prerequisites and tested skills within98 points.
         foreach(var ability in new[]{CombatAbility.Bash,CombatAbility.BattleOrders,CombatAbility.Berserk,CombatAbility.Concentrate}){Train(owner,ability,20);}Train(owner,CombatAbility.SwordMastery,1);Train(owner,CombatAbility.IronSkin,1);
         while(owner.RawStr<200){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Strength),"Concentrate Strength");}while(owner.RawDex<200){Require(ClassCreation.Profiles.TrySpendStat(owner,CharacterStat.Dexterity),"Concentrate Dexterity");}
         owner.Hits=owner.HitsMax;var weapon=Equip(owner,new Longsword());var enemy=new Skeleton{NoKillAwards=true};enemy.SetHits(30000);enemy.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);Stop(enemy);enemy.SetResistance(ResistanceType.Fire,0);Freeze(owner);Freeze(enemy);
-        Gates(owner,enemy,weapon);Damage(owner,enemy);var helm=Named(owner,"Tarnhelm");
+        Gates(owner,enemy,weapon);Rating(owner,CombatAbility.Concentrate);Damage(owner,enemy);var helm=Named(owner,"Tarnhelm");
         var values=SkillMechanics.Values(owner,CombatAbility.Concentrate);Require(values.Rank==21 && values.Eval("calc1")==470 && values.Eval("calc4")==20 && values.Eval("aurastatcalc1")==300,"Real soft rank/hard synergies");
         var sword=Named(owner,"Hellplague");Ready(owner);Mana(owner);BarbarianMelee.Effects=new Rolls(true);var raw=GearEffects.Damage(owner,0,enemy,470,_=>0);
         Require(ClassCombat.Perform(owner,CombatAbility.Concentrate,enemy,enemy.Location,Core.TickCount),"Named Concentrate");var packet=ClassCombat.For(owner).BarbarianAttack;var split=BarbarianConcentrate.Split(NamedElements.To256(2*raw.Physical),20);
@@ -205,6 +229,6 @@ public static class ConcentrateChecks
     {
         Goldens();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var enemy=(Skeleton)World.FindMobile((Serial)saved.Enemy);owner.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);Stop(enemy);Freeze(owner);Freeze(enemy);
         Require(ClassCombat.Existing(owner)?.Concentrate==null && ClassCombat.For(owner).BarbarianAttack==null && ClassCombat.For(owner).PendingAbility==CombatAbility.None && ClassStats.Defense(owner)==saved.Defense && Life(enemy)==saved.Life && NecromancerEffects.ManaBalance256(owner)==saved.Mana,"Paid action/defense replayed or changed after restart");
-        Require(SkillMechanics.Rank(owner,CombatAbility.Concentrate)==21 && SkillBindings.Instance.Get(owner).Left==CombatAbility.Concentrate && SkillBindings.Instance.Get(owner).Right==CombatAbility.Concentrate && CombatTiming.Equipped(owner)?.Serial==(Serial)saved.Weapon,"Concentrate gear/ranks/bindings restart");Damage(owner,enemy);Attach(owner);Natural(owner,enemy,World.FindItem((Serial)saved.Weapon),World.FindItem((Serial)saved.Helm));
+        Require(SkillMechanics.Rank(owner,CombatAbility.Concentrate)==21 && SkillBindings.Instance.Get(owner).Left==CombatAbility.Concentrate && SkillBindings.Instance.Get(owner).Right==CombatAbility.Concentrate && CombatTiming.Equipped(owner)?.Serial==(Serial)saved.Weapon,"Concentrate gear/ranks/bindings restart");Rating(owner,CombatAbility.Concentrate);Damage(owner,enemy);Attach(owner);Natural(owner,enemy,World.FindItem((Serial)saved.Weapon),World.FindItem((Serial)saved.Helm));
     }
 }

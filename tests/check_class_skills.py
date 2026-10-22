@@ -390,6 +390,18 @@ def check():
                     time.sleep(.15)
                     session.send('concentrate-disconnect-check')
                     assert session.expect(r'concentrate-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as berserk_client:
+                        threading.Thread(target=drain_fixture_client,args=(berserk_client,),daemon=True).start()
+                        time.sleep(.15)
+                        berserk_command='berserk-check' if boot==0 else 'berserk-reload-check'
+                        session.send(berserk_command)
+                        assert session.expect(berserk_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'berserk-result: (passed|failed)',timeout=10).group(1)=='passed',logpath.read_text()[-6000:]
+                        session.send('save'); session.expect(r'Writing world save snapshot done')
+                        berserk_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
+                    session.send('berserk-disconnect-check')
+                    assert session.expect(r'berserk-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

@@ -124,7 +124,11 @@ public static class ClassStats
             :NamedCombat.Demon(defender)?ClassGear.Bonus(player,"att-demon"):0:0;
         return EliteAuras.AttackRating(attacker,BaseAttackRating(attacker,skillPercent,flat));
     }
-    public static int Defense(Mobile mobile) => EliteAuras.Defense(mobile, Math.Max(0, BaseDefense(mobile) - TimedEffects.DefenseLoss(mobile)));
+    public static int Defense(Mobile mobile)
+    {
+        int defense=EliteAuras.Defense(mobile,Math.Max(0,BaseDefense(mobile)-TimedEffects.DefenseLoss(mobile)));
+        return mobile is PlayerMobile player?BarbarianBerserk.ApplyOverride(defense,BarbarianBerserk.DefenseOverride(player)):defense;
+    }
     internal static int ScaleDefense(int basis,int percent)=>
         (int)Math.Clamp((long)basis+(long)basis*percent/100,0,int.MaxValue);
     private static int BaseDefense(Mobile mobile)

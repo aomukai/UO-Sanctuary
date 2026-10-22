@@ -1,0 +1,77 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final full combined native3boots/2reloads passed;70 Python tests and source-reference/generator/catalogue checks pass;423 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
+  "handler": "Berserk",
+  "sourceEvidence": "tools/reference/berserk-engine-evidence.json",
+  "conversionSourceEvidence": "tools/reference/concentrate-engine-evidence.json",
+  "nativeFixture": "tests/Sanctuary.Integration/BerserkChecks.cs",
+  "driver": "tests/check_class_skills.py",
+  "focusedLog": ".local/class-skills/berserk-focused.log",
+  "runtimeSources": [
+    "src/Sanctuary.Content/BarbarianBerserk.cs",
+    "src/Sanctuary.Content/BarbarianMelee.cs",
+    "src/Sanctuary.Content/BarbarianCombat.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/ClassCombat.cs",
+    "src/Sanctuary.Content/HitRecovery.cs",
+    "src/Sanctuary.Content/ClassMovement.cs",
+    "src/Sanctuary.Content/ActionTiming.cs",
+    "src/Sanctuary.Content/ClassDeath.cs",
+    "src/Sanctuary.Content/CharacterProfiles.cs",
+    "src/Sanctuary.Content/WardrobeTransaction.cs"
+  ],
+  "nativeCoverage": [
+    "Pinned rank1/20/soft21 ED, linear AR, integer duration,4mana,100percent magic conversion and-100final defense override goldens; actual hard Howl/Battle Orders synergies, legal allocations, real Tarnhelm.",
+    "Real high-defense Ogre hit-chance boundary distinguishes linear skill AR from plain attack AR. Shared source lookup now tests field presence rather than the nonempty default string0; actual Concentrate boundary is checked separately.",
+    "L/R/quick assignment and held L/R/direct input; ordinary A1/IAS timing with no FCR gain, unpaid/out-of-reach/bow/automatic ground rejection.",
+    "Prepared hit/critical/full conversion before resistance; physical immunity leaves magic, no postallocation calc2 duration is added as physical damage. Misses still pay1024FP256 and apply zero-defense state. No early/repeated event or mana debit.",
+    "Actual Hellplague flat fire/poison/local ED/life/mana steal; converted physical critically doubles while flat fire remains separate. Against drain100 Ogre, magic delivery gives no item leech or Life Tap. A large same-ED physical shared packet is an explicit positive control above leech integer rounding. Separate proportional Thorns-only lease returns no converted magic.",
+    "Timed defense override follows the entire percentage pool, including real Iron Skin and concurrent Concentrate. It grants no physical resistance. Higher-rank recast replaces and shortens the prior penalty; Do2 refresh does not extend its absolute expiry.",
+    "Stop, native hit recovery, accepted out-and-back movement, weapon loss and paralysis cancel prepared damage without refunding mana/deadline or removing the timed penalty. Actual death, point reset and successful class-history exit/return clear the effect; invalidated pending damage does not execute. Production wardrobe clears only after its successful transaction.",
+    "If start39 timed state is expired at impact, Do2 creates an unsaved temporary zero-defense state. Hits and misses reach that branch; Stop/movement/FHR clear it. Connected natural loop verifies timed expiry independently from attack end, then an explicit early-expiry fixture verifies temporary impact/recovery/end.",
+    "Actual connected40ms loop on all3 boots delivers once, keeps timed penalty through ordinary animation end, clears at its UTC deadline and clears temporary mode at animation end. Saved paid resources, gear/ranks/bindings/fractional target life and held timed state survive2 actual reloads; pending action/temporary mode never replay. A separately short-lived saved state correctly expires offline. Actual disconnect retains the timed state and clears transient input/mode."
+  ],
+  "fixtureScope": [
+    "Only named Berserk fixture actors get an hour-long mana regeneration interval. Negligible self poison suppresses unrelated natural health recovery; fixture updated times are isolated.",
+    "A real disposable TCP socket keeps the ordinary class loop active; account/character selection and graphical-client input/prediction are explicitly bootstrapped and not claimed. Synchronous gate/gear tests run before attachment.",
+    "Main saved timed/pending inspection deadlines are held10minutes only after real source durations and natural expiry are verified. A separate500ms saved effect must expire during reload. Restored offline owner is placed at saved origin/map before resumed attacks.",
+    "The slow-swing transition is exercised with a fixture40ms timed-state expiry before the actual unmodified impact timer; runtime duration and IAS are not changed. Explicit synchronous expiry tests also cover hit/miss mode interruption. Exact current D2R extreme-slow behavior remains acceptance work.",
+    "Scoped deterministic hit/element/physical/critical rolls reset after each callback. Source allocation/events/defense probe stubs are declared separately.",
+    "Current live native creature templates have no nonzero magic resistance. The explicit magic100 resolver check is not a native magic-immune species proof. Thorns/Life Tap leases are explicitly inserted for isolated existing-consumer checks; complete item/event parity is not certified."
+  ],
+  "corrections": [
+    {
+      "finding": "Concentrate selected Eval(ToHitCalc) because missing Text fields return the nonempty string0, skipping linear ToHit/LevToHit.",
+      "change": "Test field presence; compiled unchanged getter and high-defense native boundary distinguish linear AR from plain AR for both Concentrate and Berserk.",
+      "alsoVerified": "tests/Sanctuary.Integration/ConcentrateChecks.cs Rating on initial run and both reloads."
+    },
+    {
+      "finding": "The physical positive leech control was too small to exceed integer mana-leech rounding; magic correctly gave no leech.",
+      "change": "Use an explicit same-ED nonconverted physical shared packet as the positive control, with real Hellplague and drain100 target.",
+      "failureLog": ".local/class-skills/berserk-physical-control-fixture-failure.log"
+    },
+    {
+      "finding": "The test-only Configure mana wrapper was superseded by production ClassCombat.Initialize, so the longer combined suite allowed a normal2-second regeneration cadence to erase the saved Bash debit.",
+      "change": "Wrap rates during Configure and again at final Initialize priority, following the existing ResourceLoad/Charge pattern. Scope actor construction before its name exists and assert the final hour-long handler for the named fixture. Applied to Bash/Stun, Concentrate and Berserk fixtures only; gameplay regeneration is unchanged.",
+      "failureLog": ".local/class-skills/berserk-combined-mana-fixture-failure.log"
+    },
+    {
+      "finding": "The second reload inspected the saved Blaze patches183seconds after their test-only180-second deadline; first reload passed and the production natural-lifetime checks passed.",
+      "change": "Hold only saved patch inspection deadlines10minutes instead of3. Real source duration/geometry/damage/natural-expiry assertions remain unchanged.",
+      "failureLog": ".local/class-skills/berserk-fire-ground-inspection-expiry-failure.log"
+    }
+  ],
+  "limits": [
+    "Legacy isolated routines are supplementary, not proof of D2R3.3.93847 executable parity. The user cannot perform Barbarian reference checks.",
+    "Modern rank/cursor/target snapshots, attack/cast/block queue details, extreme-slow/temporary-state behavior, owner/town/transition cleanup and full item/proc/curse/leech/absorb/durability/client comparison remain open.",
+    "Automatic empty-ground acquisition and low-mana AttackNoMana behavior remain unverified and gated. Dual wield and converted throwing melee are unsupported.",
+    "Berserk physical0 excludes proportional physical reflection; modern Thorns flat attacked-in-melee retaliation is a separate existing consumer, not removed by magic conversion.",
+    "No actual magic-resistant native creature or complete current-executable resistance/absorb comparison is claimed. PvP remains outside the cooperative hostile-target policy.",
+    "17 Barbarian talents remain pending. No class completion certificate or item acquisition gate cleared."
+  ],
+  "assets": {
+    "effects": "Ordinary native weapon animation/sound placeholders; source berserkfront/berserkback overlays, final magic impact and zero-defense cue pending.",
+    "icons": "Separate talent and hotkey icons required in the independent240-entry register."
+  },
+  "classComplete": false
+}

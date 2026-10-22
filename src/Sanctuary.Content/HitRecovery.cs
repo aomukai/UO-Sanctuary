@@ -101,6 +101,7 @@ public static class HitRecovery
         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
         session.PendingAbility = CombatAbility.None;
         session.Conversion=null;session.BarbarianAttack=null;
+        BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
         session.Animation = 20;
         session.Timing = new ActionTiming(duration / ActionTiming.FrameMs, 1);

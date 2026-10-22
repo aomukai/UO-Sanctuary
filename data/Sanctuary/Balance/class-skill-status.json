@@ -1659,10 +1659,10 @@
       "characterClass": "Barbarian",
       "tree": "Combat Skills",
       "sourceId": 152,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared interruptible A1/IAS attack, linear AR, hard Howl/Battle Orders ED, one4-mana start payment and full physical-to-magic conversion after critical/before resistance. Timed final zero-defense override starts on hits/misses, persists through cancelled swings, replaces expiry on recast and saves independently. Do2 recreates an expired state only through the remaining animation. Connected natural timed/temporary expiry, real gear/physical-consumer controls, death/respec/history and two reloads have dedicated coverage. Modern snapshots/slow/modes/item/proc/owner/client, native magic-resistant species, low-mana fallback, automatic ground targeting and dual wield remain open."
     },
     {
       "talentId": "druid.firestorm",

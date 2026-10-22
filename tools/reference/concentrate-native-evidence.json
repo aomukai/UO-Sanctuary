@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Focused and full combined native3boots/2reloads passed;70 Python tests, pinned-reference/generator/catalogue checks pass;422 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
+  "status": "Focused and final full combined native3boots/2reloads passed;70 Python tests and source-reference/generator/catalogue checks pass;423 named/15 first-loop input hashes current; matching installed build and real existing-world load/listen/clean shutdown passed.",
   "handler": "Concentrate",
   "sourceEvidence": "tools/reference/concentrate-engine-evidence.json",
   "preflight": "tools/reference/barbarian-concentrate-preflight.json",
@@ -26,7 +26,8 @@
     "Temporary effective-rank defense starts immediately, refreshes at the impact event even on a miss, remains through recovery, and ends with the action. A real helm removal between start/impact changes the second snapshot; recovery does not invent another refresh.",
     "Voluntary native movement, guaranteed get-hit request, Stop and right-binding changes do not cancel the committed swing. Frozen/warp/weapon loss cancel without refund or deadline reset. Real death clears damage/defense. The normal history transaction rejects an active swing; explicitly fixture-forced class loss and allocated-point reset invalidate it.",
     "Actual disposable TCP socket keeps the ordinary40ms class loop alive. Native natural impact and recovery expiry are observed on all3 boots. A deliberately delayed explicit UpdateCombat test crossing both deadlines delivers its already-due impact before temporary-state cleanup.",
-    "Gear/effective ranks/L/R bindings/paid mana/fractional target life persist across two actual reloads. Active defense, prepared packet and pending ability are transient and never replay. Actual socket shutdown removes the active temporary state on all3 boots."
+    "Gear/effective ranks/L/R bindings/paid mana/fractional target life persist across two actual reloads. Active defense, prepared packet and pending ability are transient and never replay. Actual socket shutdown removes the active temporary state on all3 boots.",
+    "Actual high-defense Ogre hit-chance boundary verifies that prepared Concentrate receives its linear source AR, including missing-ToHitCalc metadata routing."
   ],
   "fixtureScope": [
     "Connected actor is attached through explicit game-protocol bootstrap; account selection and graphical-client input/prediction are not exercised. Socket output is drained and shutdown explicitly after saving.",
@@ -55,6 +56,16 @@
       "finding": "Closing a Python socket while a reader thread was blocked did not immediately close the underlying connection.",
       "change": "Explicit TCP shutdown before the disconnect assertion.",
       "failureLog": ".local/class-skills/concentrate-socket-close-fixture-failure.log"
+    },
+    {
+      "finding": "Missing ToHitCalc was read as nonempty string0, so native prepared attacks skipped the source linear AR bonus despite correct formula goldens.",
+      "change": "Check source-field presence; a new actual high-defense Ogre boundary distinguishes skill AR from a plain attack before and after both reloads. See berserk-engine-evidence.json for the compiled unchanged source getter.",
+      "status": "Focused and final combined3boots/2reloads passed with correction."
+    },
+    {
+      "finding": "The test-only Configure mana wrapper was superseded by production ClassCombat.Initialize, so the longer combined suite allowed a normal2-second regeneration cadence to erase the saved Bash debit.",
+      "change": "Wrap rates during Configure and again at final Initialize priority, following the existing ResourceLoad/Charge pattern. Scope actor construction before its name exists and assert the final hour-long handler for the named fixture. Applied to Bash/Stun, Concentrate and Berserk fixtures only; gameplay regeneration is unchanged.",
+      "failureLog": ".local/class-skills/berserk-combined-mana-fixture-failure.log"
     }
   ],
   "limits": [

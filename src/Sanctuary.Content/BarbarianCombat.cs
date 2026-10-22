@@ -8,7 +8,7 @@ public static class BarbarianCombat
 {
     public static bool Implemented(CombatAbility ability) => ability is CombatAbility.IncreasedStamina or CombatAbility.IronSkin
         or CombatAbility.IncreasedSpeed or CombatAbility.NaturalResistance or CombatAbility.SwordMastery or CombatAbility.AxeMastery
-        or CombatAbility.MaceMastery or CombatAbility.PolearmMastery or CombatAbility.SpearMastery or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate;
+        or CombatAbility.MaceMastery or CombatAbility.PolearmMastery or CombatAbility.SpearMastery or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk;
     public static bool Handles(CombatAbility ability)=>Implemented(ability) && ClassAbilities.Find(ability) is{Passive:false};
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>Handles(ability)
         && ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)==true && profile.Class==DiabloClass.Barbarian

@@ -2088,7 +2088,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Staged ordinary UO weapon animation/sound; source berserkfront/berserkback overlays and final magic strike/zero-defense cue pending"
   },
   {
     "talentId": "druid.firestorm",
