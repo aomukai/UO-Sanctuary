@@ -78,7 +78,7 @@ public sealed class WardrobeGump : DynamicGump
         b.AddLabel(22, 18, 0x481, "Wardrobe — choose class and craft");
         b.AddLabel(22, 48, 0x47E, "Select one class and one craft, then Swap. Cost: free.");
         b.AddGroup(1);
-        for (int id = 101; id <= 107; id++)
+        for (int id = 101; id <= (int)DiabloClass.Warlock; id++)
         {
             int y = 85 + (id - 101) * 25;
             var characterClass = (DiabloClass)id;

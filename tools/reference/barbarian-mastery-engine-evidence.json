@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFiles": {
+    "D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "probe": {
+    "path": ".local/class-skills/barbarian-mastery-source-probe.json",
+    "selectorCases": 16,
+    "criticalCases": 648,
+    "guards": 2,
+    "selectorSha256": "1dd1955383b3418ff2b45ec6cc132471b2a4964adde07a709183570c25ccd5ba",
+    "criticalBlockSha256": "7cd3ff19c62a11a03e4841c6245222da513923adb740544f877ace7235123a57",
+    "stubs": [
+      "Statlist layers and item-type membership supplied explicitly; modern type inheritance is separately checked against pinned itemtypes.json.",
+      "Throw routing returns no throw bonus; throwing mastery is excluded from this probe/implementation.",
+      "ApplyDamageBonuses supplies100 physical; damage pooling is a separate native check.",
+      "RNG sequence, generic critical/deadly stats and equipped item are explicit stubs."
+    ]
+  },
+  "established": [
+    "Strongest eligible item-type-layer mastery, not sum; null unit/item and invalid stat return0.",
+    "Melee mastery critical is tried first, then generic critical, then deadly. A successful roll short-circuits; only physical doubles once.",
+    "The source ranged flag skips melee mastery critical. The hit flag skips this whole ordinary physical fill block."
+  ],
+  "limits": [
+    "Legacy compiled isolation does not certify the current D2R engine.",
+    "Generic Critical Strike is not yet a supported Sanctuary skill; the source branch is tested only in isolation.",
+    "Dual wield and melee use of converted throwing items require separate adapters; Throwing Mastery modern pierce/quantity/replenish remain unimplemented."
+  ]
+}

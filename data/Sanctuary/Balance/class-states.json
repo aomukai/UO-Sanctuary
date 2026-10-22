@@ -1,0 +1,1162 @@
+[
+  {
+    "state": "advancedstash",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "alignment",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "amplifydamage",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "antidote",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "apocalypse",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "armageddon",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "attached",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "attract",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "avoid",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "axemastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "barbs",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "barbscontrol",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "battlecommand",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "battlecry",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "battleorders",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "bear",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "berserk",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "bind_demon",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "bind_demon_underling",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "blademastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "bladeshield",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "blaze",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "blessedaim",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "blood_mana",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "bloodlust",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "bloodoath",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "blue",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "bonearmor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "burning",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "changeclass",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "chillingarmor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "chroniclebacklight",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "chroniclefootprints",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "chronicleportal",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "clawmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "cleansing",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "cloak_of_shadows",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "cloaked",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "cold",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "coldenchant",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "coldmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "concentrate",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "concentration",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "confuse",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "consume",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "conversion",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "conversion_save",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "convicted",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "conviction",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "cooldown",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "corpse_nodraw",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "corpse_noselect",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "corpseexp",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "criticalstrike",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "cyclonearmor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "death_delay",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "death_mark",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "debugcontrol",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "decrepify",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "defense_curse",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "defiance",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "delerium",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "demonic_mastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "desecrated",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "dimvision",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "dodge",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "dopplezon",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "dragonflight",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "eldritchblastperiodic",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "enchant",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "energyshield",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "engorge",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "evade",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fade",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fanaticism",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fenris_rage",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "feralrage",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fetishaura",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fingermagecurse",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "firemastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "freeze",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "frenzy",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "frozenarmor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "fullsetgeneric",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "golem_mastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "healthlink",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "healthlinkcaster",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "healthpot",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "herald",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "hexbane",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "hexbanedebuff",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "hexpurge",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "hexpurgedebuff",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "hexsiphon",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "hexsiphondebuff",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "hidedead",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "holyfire",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "holyshield",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "holyshock",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "holywind",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "holywindcold",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "hurricane",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "impale",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "increasedspeed",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "increasedstamina",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "inferno",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "innersight",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "invis",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "ironmaiden",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "ironskin",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset1",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset2",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset3",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset4",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset5",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "itemset6",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "just_portaled",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "justhit",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "korliccoldpierce",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "levitate_mastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "lifetap",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "lightningbolt",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "lightningenchant",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "lightningmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "lowerresist",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "macemastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "madawclightpierce",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "manapot",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "markbear",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "markwolf",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "maul",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "meditation",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "might",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "mindbarrier",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "missilelimit",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "monfrenzy",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "monsterset",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "naturalresistance",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "nomanaregen",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "none",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "oaksage",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "oaksagecontrol",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "openwounds",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "passive_resistcold",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "passive_resistfire",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "passive_resistltng",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "penetrate",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "pierce",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "playerbody",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "poison",
+    "curse": false,
+    "curable": true
+  },
+  {
+    "state": "polearmmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "prayer",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "pregnant",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "preventheal",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "primeevil_threat",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_cold",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_damage",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_fire",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_lightning",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_other",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "progressive_steal",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "psychicward",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "quickness",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "rabies",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "recycled",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "red",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "redeemed",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "redemption",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "resistall",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "resistcold",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "resistfire",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "resistlight",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "resistmagic",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "restinpeace",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "revive",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "runeword",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sanctuary",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shadow_mastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shadowwarrior",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sharedstash",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shatter",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shiverarmor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shout",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "shrine_armor",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_combat",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_experience",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_mana_regen",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_resist_cold",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_resist_fire",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_resist_lightning",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_resist_poison",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_skill",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "shrine_stamina",
+    "curse": true,
+    "curable": false
+  },
+  {
+    "state": "sigil",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sigildeath",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sigillethargy",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sigilrancor",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "skel_mastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "skill_channeling",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "skill_move",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "skilldelay",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "slowed",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "slowmissiles",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sourceunit",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "spearmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "spiderlay",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "stamina",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "staminapot",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "stunned",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "summonresist",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "sync_warped",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "talicfirepierce",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "taunt",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "terror",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "thawing",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "thorns",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "throwingmastery",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "thunderstorm",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "uberminion",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "uninterruptable",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "valkyrie",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "venomclaws",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "vine_beast",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "warlockdemonground",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "warlockdemontorso",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "warmth",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "weaken",
+    "curse": true,
+    "curable": true
+  },
+  {
+    "state": "weaponblock",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "whirlwind",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "wolf",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "wolverine",
+    "curse": false,
+    "curable": false
+  },
+  {
+    "state": "wolverinecontrol",
+    "curse": false,
+    "curable": false
+  }
+]

@@ -26,6 +26,10 @@ public static class NamedCombat
         (CreatureProfiles.For(creature).Traits.Boss == true || creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique });
     public static double Deadly(PlayerMobile player, Random random)
     {
+        // Source weapon mastery critical short-circuits ordinary deadly strike;
+        // a physical packet can double once, never stack the two into4x damage.
+        int mastery=BarbarianMasteries.Bonus(player,CombatTiming.Equipped(player),3);
+        if(mastery>0 && random.Next(100)<mastery){return 2;}
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
         return chance > 0 && random.Next(100) < chance ? 2 : 1;
     }
@@ -54,13 +58,13 @@ public static class NamedCombat
         else if (Elite(target)) { rate /= 2; }
         return rate * 200.0 / 256;
     }
-    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random)
+    public static void AfterStrike(PlayerMobile player, Mobile target, bool ranged, Random random,bool smite=false,bool skipKnockback=false)
     {
         if (!target.Alive || target.Deleted) { return; }
         TimedEffects.Slow(target, ClassGear.Bonus(player, "slow"), TimedEffects.Now);
         if (target is BaseCreature defender)
         { TimedEffects.ReduceDefense(defender, Math.Max(0, -ClassGear.Bonus(player, "dmg-ac")), TimedEffects.Now); }
-        NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random);
+        if(!smite){NamedControl.Freeze(player, target, ClassGear.Bonus(player, "freeze"), ranged, random);}
         NamedControl.ApplyBlind(player, target, ClassGear.Bonus(player, "stupidity"), ranged, random);
         NamedControl.ApplyFear(player, target, ClassGear.Bonus(player, "howl"), random);
         int wounds = Math.Clamp(ClassGear.Bonus(player, "openwounds"), 0, 100);
@@ -68,7 +72,7 @@ public static class NamedCombat
         { TimedEffects.Bleed(player, target, OpenWoundsDamage(ClassStats.Level(player), target, ranged), TimedEffects.Now); }
         if (target is BaseCreature && ClassGear.Bonus(player, "noheal") > 0)
         { TimedEffects.PreventHealing(target, TimedEffects.Now); }
-        if (ClassGear.Bonus(player, "knock") > 0 && !Elite(target) && target.Map == player.Map)
+        if (!smite && !skipKnockback && ClassGear.Bonus(player, "knock") > 0 && !Elite(target) && target.Map == player.Map)
         {
             int size = target is BaseCreature creature ? CreatureProfiles.For(creature).Traits.Size ?? 2 : 2;
             int chance = size <= 1 ? 100 : size >= 3 ? 25 : 50;
@@ -88,7 +92,7 @@ public static class NamedCombat
         if (type == ResistanceType.Physical) { return 50; }
         string code = type switch
         { ResistanceType.Fire => "res-fire-max", ResistanceType.Cold => "res-cold-max", ResistanceType.Poison => "res-pois-max", _ => "res-ltng-max" };
-        return Math.Clamp(75 + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max"), 0, 95);
+        return Math.Clamp(75 + ClassGear.Bonus(player, code) + ClassGear.Bonus(player, "res-all-max") + PaladinResistance.Maximum(player,type), 0, 95);
     }
     public static void Killed(PlayerMobile player, BaseCreature target)
     {

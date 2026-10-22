@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "status": "root-hook maximum deferral and eight-bit achievement compatibility verified; focused and full native suites pass two reloads",
+  "observation": "Disposable Paladin99 with actual Raven Frost/Steelshade and fixture RawStr1000 saved241HP-minus17/256. Reload showed125HP-minus17/256. NPC HP and both fractional remainders were retained. Diagnostic failure log preserved.",
+  "sourceEvidence": [
+    "Mobile.Deserialize reads raw m_Hits, then calls CheckStatTimers while World.Loading. CheckStatTimers clamps Hits to HitsMax when current is above the reported maximum.",
+    "PlayerMobile.HitsMax calls ClassCombatHooks.ResourceMaximum; absent class data falls back to native UO maximum. ClassStats.Maximum currently returnsnull if the class profile is not loaded.",
+    "World.Load loads persistence and invokes WorldLoad while Loading, then sets Running before PostDeserializeAll. CharacterProfiles.PostDeserialize reapplies the class base/stats and clamps resources after class histories exist."
+  ],
+  "candidateFix": "Explore deferring resource maximum enforcement through the existing root ResourceMaximum hook while World.Loading, using the existing65000 hard ceiling, then normalize after load with all class/gear/buff data ready. No Server engine edits or save schema change should be needed. Verify actual order and all three resources with legitimate class allocations and classless players before adopting.",
+  "limits": [
+    "The original RawStr1000 observation is historical; the normal-allocation matrix independently reproduces and tests the correction.",
+    "The numeric fixture still uses100HP to isolate fractional damage; full-pool preservation is covered separately by the19-actor matrix.",
+    "No installed runtime or saves were deployed over; the current full native regression passed.",
+    "Warlock cosmetic earned-title prefix remains unspecified and absent."
+  ],
+  "sourceHashes": {
+    "upstream/ModernUO/Projects/Server/Mobiles/Mobile.cs": "7aa017eac0c9256f5848fc1aee57ad676bfb7e2d868ea986a850def419ffb165",
+    "upstream/ModernUO/Projects/Server/World/World.cs": "401117d7756de9ebdc82726934d2e370e49f4ae569458a46b36021d87ac4376e",
+    "upstream/ModernUO/Projects/UOContent/Mobiles/PlayerMobile.cs": "b0e45c14d28d28bd0e677796ed818b43d66f721c621f3aa0c36dcbed7a6682f1",
+    "src/Sanctuary.Content/ClassStats.cs": "c3bfc1484dd4140ddabfa688d4263a893280ff16e668da04abf2f2b2412db399",
+    "src/Sanctuary.Content/CharacterProfiles.cs": "2230bd3dbbf82a77e15a09012156ecead1dfaf75c4f842ba08177e67f1e1ee6e"
+  },
+  "observationLog": ".local/class-skills/damage-rounding-player-load-clamp-observation.log",
+  "legitimateObservation": "Nineteen actors use eight classes at99 with normal60Strength/150Vitality/150Energy allocations, eligible Frostburn/Raven Frost and full/injured/low pools, plus classless full/injured players. Before the maximum fix, Necromancer full492/785/327 raw pools loaded87/150/25; baseline failure retained.",
+  "implementation": "ClassStats.Maximum returns the existing65000 ceiling only while World.Loading. World switches to Running before PostDeserialize; existing CharacterProfiles then applies class allocations/gear and enforces actual maxima. No engine edits, save schema changes or ObservedHits restoration.",
+  "warlockSaveCorrection": "The probe first exposed EarnedTitleProfiles rejecting classes>127. Its existing byte supports all eight bits, so that obsolete seven-bit check was removed. Existing version0 schema remains; no new Warlock achievement prefix was invented. Focused title tests round-trip the complete eight-bit mask255 and preserve existing selected/mapped titles.",
+  "focusedVerification": "Resource matrix and earned-title suites each passed three boots/two actual reloads. Matrix checks raw loading-phase pools, exact actual maxima, health/mana fractions, class/stats/equipment identities and earned-bit/unset-prefix persistence. Fixture-only one-hour recovery handlers isolate elapsed boot time and forward unchanged handlers for other actors.",
+  "currentSourceHashes": {
+    "src/Sanctuary.Content/ClassStats.cs": "0482ce5df579f16ed9a9e390f1d5163f691744b3d59f787d7900b1f2a4d10c38",
+    "src/Sanctuary.Content/EarnedTitles.cs": "4ca72966088fd3c9b63e6e88d17b9203e66df033405b5c2d2872c4fd15043dfc",
+    "tests/Sanctuary.Integration/ResourceLoadChecks.cs": "4cbc188b23c70bcec228650dc8a7e4b00d0e90aa90c302429313c0f0d04fbdaa",
+    "tests/Sanctuary.Integration/EarnedTitleChecks.cs": "c09a42bf67e20f8609af52a1f9f31bad17cf90133a083313183b25abcb2e4f65"
+  },
+  "evidenceLogs": [
+    ".local/class-skills/resource-load-pre-title-mask-fix.log",
+    ".local/class-skills/resource-load-pre-maximum-fix.log",
+    ".local/class-skills/resource-load-focused.log",
+    ".local/class-skills/resource-load-focused-run.log",
+    ".local/class-skills/earned-title-focused.log",
+    ".local/class-skills/earned-title-focused-run.log",
+    ".local/class-skills/resource-load-pre-recovery-fixture-fix.log",
+    ".local/class-skills/resource-load-pre-recovery-fixture-fix-run.log",
+    ".local/class-skills/full-suite-run.log"
+  ],
+  "fullVerification": "Full class/projectile/named/first-loop suite passed three boots/two reloads with nineteen-actor resource checks initially and on both reloads. Separate current-assembly earned-title focused suite also passed both reloads.",
+  "fixtureCorrection": "The first full run exposed recovery changes during the longer inspection window. The test now wraps recovery rates at final Configure and Initialize and marks constructor scope before native timers are created. Only named fixture PlayerMobiles/constructor scope use one-hour rates; unrelated actors retain their existing handlers. Focused proof adds25 seconds before every save; production recovery is unchanged."
+}

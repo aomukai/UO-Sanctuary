@@ -24,12 +24,14 @@ public static class EliteCombat
         double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
-        double total = GemCombat.Component(target, physical, target.PhysicalResistance, false)
+        double preparedPhysical=GemCombat.Component(target,physical,target.PhysicalResistance,false);
+        double total = preparedPhysical
             + NamedElements.Damage(source, target, fire, "fire")
             + NamedElements.Damage(source, target, cold, "cold")
             + NamedElements.Damage(source, target, lightning, "ltng")
             + NamedElements.Damage(source, target, magic, "mag");
         int amount = (int)Math.Floor(total), before = target.Hits;
+        if(weapon){PaladinThorns.Prepared(source,target,(int)Math.Clamp(Math.Floor(preparedPhysical*256),0,int.MaxValue),ranged);}
         if (amount > 0)
         {
             source.DoHarmful(target); target.Damage(amount, source); CombatDamage.Finish(target, source);

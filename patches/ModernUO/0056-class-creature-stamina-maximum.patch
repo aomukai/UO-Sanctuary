@@ -1,0 +1,29 @@
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -25,6 +25,7 @@
+     public static Func<PlayerMobile, int> LightBonus { get; set; }
+     public static Func<Mobile, bool> CanRegenerateHits { get; set; }
+     public static Func<Mobile, bool> CanRegenerateMana { get; set; }
++    public static Func<BaseCreature,int,int?> StaminaMaximum { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+     public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1044,8 +1044,14 @@
+             HitsMaxSeed <= 0 ? Str : Math.Clamp(HitsMaxSeed + GetStatOffset(StatType.Str), 1, 65000);
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+-        public override int StamMax =>
+-            StamMaxSeed <= 0 ? Dex : Math.Clamp(StamMaxSeed + GetStatOffset(StatType.Dex), 1, 65000);
++        public override int StamMax
++        {
++            get
++            {
++                var maximum = StamMaxSeed <= 0 ? Dex : Math.Clamp(StamMaxSeed + GetStatOffset(StatType.Dex), 1, 65000);
++                return ClassGearHooks.StaminaMaximum?.Invoke(this, maximum) ?? maximum;
++            }
++        }
+ 
+         [CommandProperty(AccessLevel.GameMaster)]
+         public override int ManaMax =>

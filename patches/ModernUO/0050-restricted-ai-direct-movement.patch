@@ -1,0 +1,28 @@
+--- a/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
++++ b/Projects/UOContent/Mobiles/AI/BaseAI/AIMovement.cs
+@@ -126,7 +126,12 @@
+         res is MoveResult.Success or MoveResult.SuccessAutoTurn
+         || badStateOk && res == MoveResult.BadState;
+ 
+-    public virtual MoveResult DoMoveImpl(Direction d, bool badStateOk)
++    public virtual MoveResult DoMoveImpl(Direction d, bool badStateOk) => MoveInDirection(d, true);
++
++    // Restricted AI can preserve a movement decision without choosing a path around an obstruction.
++    public MoveResult DoMoveDirect(Direction d) => MoveInDirection(d, false);
++
++    private MoveResult MoveInDirection(Direction d, bool findAlternative)
+     {
+         if (IsInBadState() || !CanMoveNow(out _))
+         {
+@@ -161,6 +166,11 @@
+             ConsumeMoveBudget();
+ 
+             return MoveResult.Success;
++        }
++
++        if (!findAlternative)
++        {
++            return Mobile.Pushing ? MoveResult.BadState : MoveResult.Blocked;
+         }
+ 
+         if ((mobDirection & Direction.Mask) != (d & Direction.Mask))

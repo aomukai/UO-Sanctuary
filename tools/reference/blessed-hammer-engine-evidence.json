@@ -1,0 +1,539 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned tables, unchanged compiled legacy path/velocity routines with reconstructed Fog trig stubs, inspected skill/damage/movement routines, native tests; not modern binary certification.",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/Missiles.cpp.reference": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/CommonMissile.cpp.reference": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/research/d2moo-PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    ".local/class-skills/HammerStep.cpp.reference": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    ".local/class-skills/Fog.h.reference": "562d6f44758b8114242901cd986a5e64f15a2b269bdaaeaf4c52d698944ba1fc",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "probe": "tools/probe_blessed_hammer_reference.py",
+  "originalFunctions": [
+    "PATH_ComputePathBlessedHammer_6FDAB3C0",
+    "sub_6FD5CEB0"
+  ],
+  "stubBoundary": "FOG_10083_Cos_LUT/FOG_10084_Sin_LUT import single-precision lookup results. Actual Fog binary lookup is unavailable. Probe and runtime explicitly reconstruct float cos/sin. Native direction/continuous path/collision projection is not a D2R trace.",
+  "sourceLinks": {
+    "path": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Path/PathMisc.cpp",
+    "step": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Path/Step.cpp",
+    "skill": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "damage": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+    "official": "https://classic.battle.net/diablo2exp/skills/paladin-combat.shtml"
+  },
+  "sourceFields": {
+    "mana256Ranks1_2_20": [
+      1280,
+      1344,
+      2496
+    ],
+    "rank1BaseDamage256": [
+      3072,
+      4096
+    ],
+    "rank20HardAim20Vigor20Damage256": [
+      331161,
+      337920
+    ],
+    "concentrationPercentRanks1_20": [
+      30,
+      172
+    ],
+    "rank1HardAim1Vigor1Concentration1Damage256": [
+      5111,
+      6814
+    ],
+    "rank20HardAim20Vigor20Concentration20Damage256": [
+      900757,
+      919142
+    ],
+    "missile": {
+      "Vel": 18,
+      "MaxVel": 30,
+      "Accel": 250,
+      "Range": 120,
+      "InitSteps": 6,
+      "Size": 1,
+      "LastCollide": 1,
+      "Pierce": 1,
+      "Holy": 0,
+      "NextHit": 0,
+      "dParam1": 50,
+      "dParam2": 50
+    }
+  },
+  "path": {
+    "count": 77,
+    "angleIncrementOf512": 16,
+    "radiusIncrementFp16": 9600,
+    "startFractionFp16": 32768,
+    "sameConsecutiveCellSkipped": true,
+    "discardRemainingMovementAtWaypoint": true,
+    "oneWaypointPerUpdate": true,
+    "initialVelocityQ8": 3456,
+    "maximumVelocityQ8": 7680,
+    "accelerationEveryUpdates": 5,
+    "maximumFirstUpdate": 85,
+    "collidableFrames": 119,
+    "probe": {
+      "points": [
+        [
+          0,
+          1
+        ],
+        [
+          -1,
+          1
+        ],
+        [
+          -2,
+          1
+        ],
+        [
+          -2,
+          0
+        ],
+        [
+          -2,
+          -1
+        ],
+        [
+          -2,
+          -2
+        ],
+        [
+          -2,
+          -3
+        ],
+        [
+          -1,
+          -3
+        ],
+        [
+          0,
+          -4
+        ],
+        [
+          1,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          3,
+          -3
+        ],
+        [
+          4,
+          -2
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          -1,
+          6
+        ],
+        [
+          -2,
+          6
+        ],
+        [
+          -3,
+          5
+        ],
+        [
+          -5,
+          5
+        ],
+        [
+          -5,
+          4
+        ],
+        [
+          -6,
+          3
+        ],
+        [
+          -7,
+          1
+        ],
+        [
+          -7,
+          0
+        ],
+        [
+          -7,
+          -1
+        ],
+        [
+          -7,
+          -3
+        ],
+        [
+          -6,
+          -4
+        ],
+        [
+          -5,
+          -5
+        ],
+        [
+          -4,
+          -6
+        ],
+        [
+          -3,
+          -7
+        ],
+        [
+          -2,
+          -8
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          2,
+          -8
+        ],
+        [
+          3,
+          -8
+        ],
+        [
+          5,
+          -7
+        ],
+        [
+          6,
+          -6
+        ],
+        [
+          7,
+          -5
+        ],
+        [
+          8,
+          -3
+        ],
+        [
+          9,
+          -2
+        ],
+        [
+          9,
+          0
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          -2,
+          10
+        ],
+        [
+          -4,
+          10
+        ],
+        [
+          -6,
+          9
+        ],
+        [
+          -8,
+          8
+        ],
+        [
+          -9,
+          6
+        ],
+        [
+          -11,
+          4
+        ],
+        [
+          -11,
+          2
+        ],
+        [
+          -12,
+          0
+        ],
+        [
+          -12,
+          -2
+        ],
+        [
+          -11,
+          -5
+        ],
+        [
+          -10,
+          -7
+        ],
+        [
+          -9,
+          -9
+        ],
+        [
+          -7,
+          -10
+        ],
+        [
+          -5,
+          -12
+        ],
+        [
+          -2,
+          -12
+        ],
+        [
+          0,
+          -13
+        ],
+        [
+          3,
+          -13
+        ],
+        [
+          5,
+          -12
+        ],
+        [
+          7,
+          -11
+        ],
+        [
+          10,
+          -10
+        ],
+        [
+          11,
+          -8
+        ],
+        [
+          13,
+          -5
+        ]
+      ],
+      "velocities": [
+        3456,
+        3456,
+        3456,
+        3456,
+        3706,
+        3706,
+        3706,
+        3706,
+        3706,
+        3956,
+        3956,
+        3956,
+        3956,
+        3956,
+        4206,
+        4206,
+        4206,
+        4206,
+        4206,
+        4456,
+        4456,
+        4456,
+        4456,
+        4456,
+        4706,
+        4706,
+        4706,
+        4706,
+        4706,
+        4956,
+        4956,
+        4956,
+        4956,
+        4956,
+        5206,
+        5206,
+        5206,
+        5206,
+        5206,
+        5456,
+        5456,
+        5456,
+        5456,
+        5456,
+        5706,
+        5706,
+        5706,
+        5706,
+        5706,
+        5956,
+        5956,
+        5956,
+        5956,
+        5956,
+        6206,
+        6206,
+        6206,
+        6206,
+        6206,
+        6456,
+        6456,
+        6456,
+        6456,
+        6456,
+        6706,
+        6706,
+        6706,
+        6706,
+        6706,
+        6956,
+        6956,
+        6956,
+        6956,
+        6956,
+        7206,
+        7206,
+        7206,
+        7206,
+        7206,
+        7456,
+        7456,
+        7456,
+        7456,
+        7456,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680,
+        7680
+      ]
+    },
+    "nativeAllPointDigest": "00976c68d4ae06770a2a83cfe817c7b3952265c6bf47404d5177d722a241b89d"
+  },
+  "damageSemantics": "Hard Vigor and Blessed Aim synergy at launch; enhancement/potion and active Concentration (damagepercent*4/8 integer) snapshot once. Legacy FillDamageParams rolls magic, SrvDmg05 rerolls exclusive-upper magic and adds independent50% base bonuses for undead and demons. Ordinary magic resistance/MDR/absorb remain; no immunity bypass, attack rating, weapon leech or ordinary strike procs. Most recent collision only; intervening enemy permits rehit, no global once-hit set/NHD. Native global RNG differs from original per-missile seed.",
+  "persistence": "Generic priority125 v0 retains origin, local FP16 position, path cursor, velocity/accel counter, rank/endpoints, most recent collider and deadlines. Focused native three boots/two actual reloads passed. Five-minute fixture inspection deadlines do not alter runtime120-frame lifetime.",
+  "fixtureConditioning": "Tiny poison suppresses native recovery for life assertions. Real native DemonKnight retaliates and may queue bone hazards; species damage checks use a separate disposable caster and preserve the production behavior.",
+  "open": [
+    "Actual Fog lookup and modern3.3.93847 quantized trace",
+    "Exact source collision masks/unit sizes/cell traversal/unit order and initial activation compared with client",
+    "Per-missile RNG stream and full hit-recovery/Slow Missiles/CanDestroy/ReturnFire behavior",
+    "Exact modern SC event, native tile projection/terrain and initial visual InitSteps6",
+    "Complete enhancement/pierce, gear-swap, town/offline/death/owner/class-removal matrix",
+    "Actual matching client left/right/held/self targeting, visuals and skill/hotkey icons"
+  ],
+  "fullNativeVerification": {
+    "boots": 3,
+    "saveReloadCycles": 2,
+    "result": "passed",
+    "log": ".local/class-skills/native-checks.log",
+    "sourceGeometryCertified": false
+  }
+}

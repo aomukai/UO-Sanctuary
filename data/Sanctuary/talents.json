@@ -1196,7 +1196,7 @@
         "skills": [
           {
             "id": "barbarian.swordmastery",
-            "name": "Sword Mastery",
+            "name": "Blade Mastery",
             "requiredLevel": 1,
             "prerequisites": []
           },
@@ -1912,6 +1912,260 @@
               "assassin.bladesentinel",
               "assassin.wakeoffire",
               "assassin.bladefury"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Warlock",
+    "trees": [
+      {
+        "name": "Demon",
+        "source": "https://news.blizzard.com/en-us/article/24243863/rain-annihilation-in-reign-of-the-warlock",
+        "skills": [
+          {
+            "id": "warlock.demonicmastery",
+            "name": "Demonic Mastery",
+            "requiredLevel": 1,
+            "prerequisites": [
+              "warlock.summongoatman"
+            ]
+          },
+          {
+            "id": "warlock.summongoatman",
+            "name": "Summon Goatman",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.bloodoath",
+            "name": "Blood Oath",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "warlock.demonicmastery"
+            ]
+          },
+          {
+            "id": "warlock.deathmark",
+            "name": "Death Mark",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "warlock.summongoatman"
+            ]
+          },
+          {
+            "id": "warlock.summontainted",
+            "name": "Summon Tainted",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "warlock.summongoatman"
+            ]
+          },
+          {
+            "id": "warlock.bloodboil",
+            "name": "Blood Boil",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "warlock.deathmark"
+            ]
+          },
+          {
+            "id": "warlock.summondefiler",
+            "name": "Summon Defiler",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "warlock.summontainted"
+            ]
+          },
+          {
+            "id": "warlock.engorge",
+            "name": "Engorge",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "warlock.bloodboil"
+            ]
+          },
+          {
+            "id": "warlock.consume",
+            "name": "Consume",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "warlock.bloodoath"
+            ]
+          },
+          {
+            "id": "warlock.binddemon",
+            "name": "Bind Demon",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "warlock.engorge",
+              "warlock.summondefiler"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Eldritch",
+        "source": "https://news.blizzard.com/en-us/article/24243863/rain-annihilation-in-reign-of-the-warlock",
+        "skills": [
+          {
+            "id": "warlock.levitationmastery",
+            "name": "Levitation Mastery",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.hexbane",
+            "name": "Hex: Bane",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.cleave",
+            "name": "Cleave",
+            "requiredLevel": 6,
+            "prerequisites": [
+              "warlock.levitationmastery"
+            ]
+          },
+          {
+            "id": "warlock.echoingstrike",
+            "name": "Echoing Strike",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "warlock.levitationmastery"
+            ]
+          },
+          {
+            "id": "warlock.hexpurge",
+            "name": "Hex: Purge",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "warlock.hexbane"
+            ]
+          },
+          {
+            "id": "warlock.bladewarp",
+            "name": "Blade Warp",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "warlock.echoingstrike"
+            ]
+          },
+          {
+            "id": "warlock.psychicward",
+            "name": "Psychic Ward",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "warlock.cleave"
+            ]
+          },
+          {
+            "id": "warlock.eldritchblast",
+            "name": "Eldritch Blast",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "warlock.psychicward"
+            ]
+          },
+          {
+            "id": "warlock.hexsiphon",
+            "name": "Hex: Siphon",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "warlock.hexpurge"
+            ]
+          },
+          {
+            "id": "warlock.mirroredblades",
+            "name": "Mirrored Blades",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "warlock.bladewarp",
+              "warlock.eldritchblast"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Chaos",
+        "source": "https://news.blizzard.com/en-us/article/24243863/rain-annihilation-in-reign-of-the-warlock",
+        "skills": [
+          {
+            "id": "warlock.miasmabolt",
+            "name": "Miasma Bolt",
+            "requiredLevel": 1,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.ringoffire",
+            "name": "Ring of Fire",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.sigillethargy",
+            "name": "Sigil: Lethargy",
+            "requiredLevel": 6,
+            "prerequisites": []
+          },
+          {
+            "id": "warlock.sigilrancor",
+            "name": "Sigil: Rancor",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "warlock.sigillethargy"
+            ]
+          },
+          {
+            "id": "warlock.miasmachain",
+            "name": "Miasma Chain",
+            "requiredLevel": 12,
+            "prerequisites": [
+              "warlock.miasmabolt"
+            ]
+          },
+          {
+            "id": "warlock.flamewave",
+            "name": "Flame Wave",
+            "requiredLevel": 18,
+            "prerequisites": [
+              "warlock.ringoffire"
+            ]
+          },
+          {
+            "id": "warlock.sigildeath",
+            "name": "Sigil: Death",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "warlock.sigilrancor"
+            ]
+          },
+          {
+            "id": "warlock.enhancedentropy",
+            "name": "Enhanced Entropy",
+            "requiredLevel": 24,
+            "prerequisites": [
+              "warlock.miasmachain"
+            ]
+          },
+          {
+            "id": "warlock.apocalypse",
+            "name": "Apocalypse",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "warlock.flamewave",
+              "warlock.sigildeath"
+            ]
+          },
+          {
+            "id": "warlock.abyss",
+            "name": "Abyss",
+            "requiredLevel": 30,
+            "prerequisites": [
+              "warlock.enhancedentropy"
             ]
           }
         ]

@@ -13,7 +13,11 @@ public static class ClassMovement
             return;
         }
         PersistentMinions.Resume(player);
+        FireGround.Moved(player);
         var session = ClassCombat.For(player);
+        // Bash/Stun are interruptible. Cancel on the accepted step itself,
+        // so returning to the origin before the event cannot revive a paid packet.
+        if(BarbarianMelee.Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;session.BarbarianAttack=null;}
         if (session.PendingTeleport != null) { session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; }
         session.RunningStep = (direction & Direction.Running) != 0;
         session.RunningUntil = Core.TickCount + player.ComputeMovementSpeed(direction, false);

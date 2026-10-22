@@ -761,11 +761,20 @@ public static class NamedGearChecks
         var p = Player(); p.RawStr = p.RawDex = 1000;
         long now = Core.TickCount; var session = ClassCombat.For(p);
         session.PendingAbility = CombatAbility.Teeth; session.NextAction = now + 1000;
+        long previousRecovery=session.RecoveryUntil;
+        HitRecovery.Block(p,now);
+        Require(session.PendingAbility==CombatAbility.Teeth && session.RecoveryUntil==previousRecovery && session.NextAction==now+1000,
+            "Released2.4 block interrupted an active spell or changed its deadlines");
+        session.PendingAbility=CombatAbility.None;
+        HitRecovery.Block(p,now);
+        Require(session.RecoveryUntil==previousRecovery && session.NextAction==now+1000,
+            "Released2.4 block interrupted a post-event attack/skill animation");
+        session.NextAction=now;
         HitRecovery.Block(p, now); long deadline = session.RecoveryUntil;
         HitRecovery.Block(p, now + 10);
         Require(deadline == now + 440 && session.RecoveryUntil == deadline
-            && session.PendingAbility == CombatAbility.None && session.NextAction == now + 1000,
-            "Blocking refreshed recovery, preserved a pending spell or refunded cooldown");
+            && session.PendingAbility == CombatAbility.None && session.NextAction == now,
+            "Idle blocking refreshed recovery or changed the action deadline");
         var definition = NamedGear.Catalog.Items.First(d => NamedGear.Available(d.Id)
             && d.Properties.Any(e => e.SourceEnabled && e.Code == "knock"));
         var weapon = NamedGear.Create(definition.Id, 99, new FirstRoll());
@@ -803,9 +812,10 @@ public static class NamedGearChecks
         var dwarf = NamedGear.Create("unique/274", 99, new FirstRoll()); p.Backpack.DropItem(dwarf);
         Require(p.EquipItem(dwarf), "Dwarf Star could not equip");
         int reduced = 100 - GemCombat.Reduction(p);
-        p.Hits = p.HitsMax - 100; before = p.Hits;
+        p.Hits = p.HitsMax - 100;SkillHealth.Clear(p);int before256=p.Hits*256;
         AOS.Damage(p, attacker, 100, 0, 100, 0, 0, 0);
-        Require(p.Hits == before + (int)Math.Floor(reduced * .15) - (int)Math.Floor(reduced * .85),
+        int absorbed256=reduced*256*15/100;
+        Require(before256-(p.Hits*256-SkillHealth.Remainder256(p))==reduced*256-2*absorbed256,
             "Fire absorb ran before flat magic reduction or twice through native mitigation");
         p.Backpack.DropItem(dwarf); dwarf.Delete();
         var helmDefinition = NamedGear.Catalog.Items.First(d => NamedGear.Available(d.Id)

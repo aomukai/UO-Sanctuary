@@ -31,7 +31,7 @@ public static class CreatureHitRecovery
         if (CombatDisplacement.Active(creature)) { return frozen; }
         CreatureProfiles.Initialize(creature);
         return !creature.Deleted && creature.Alive
-            ? Math.Max(frozen, (int)Math.Clamp(CreatureProfiles.Session(creature).RecoveryUntil - Core.TickCount, 0, 10000)) : 0;
+            ? Math.Max(SourceKnockbacks.Remaining(creature),Math.Max(CombatStuns.Remaining(creature),Math.Max(frozen, (int)Math.Clamp(CreatureProfiles.Session(creature).RecoveryUntil - Core.TickCount, 0, 10000)))) : 0;
     }
     public static int Frames(CreatureRecovery row)
     {

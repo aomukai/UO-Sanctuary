@@ -1,0 +1,48 @@
+diff --git a/Projects/UOContent/Misc/AOS.cs b/Projects/UOContent/Misc/AOS.cs
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -121,6 +121,7 @@
+             }
+ 
+             int totalDamage;
++            ClassSkillDamage? skillResistance = null;
+ 
+             if (!ignoreArmor)
+             {
+@@ -138,7 +139,9 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
+-                var projectResistance = (spellDamage ? ClassGearHooks.SpellResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy) : null)
++                skillResistance = ClassCombatHooks.SkillResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy, spellDamage);
++                var projectResistance = skillResistance?.Total
++                    ?? (spellDamage ? ClassGearHooks.SpellResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy) : null)
+                     ?? ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
+                     ?? (m is BaseCreature profileTarget
+                         ? ClassCombatHooks.CreatureResistedDamage?.Invoke(profileTarget, damage, phys, fire, cold, pois, nrgy)
+@@ -266,6 +269,10 @@
+             if (weaponDamage)
+             {
+                 ClassGearHooks.WeaponHit?.Invoke(from, m, Math.Max(0, beforeDamage - m.Hits), archer);
++                if (skillResistance is { } skillHit)
++                {
++                    ClassCombatHooks.SkillWeaponHit?.Invoke(from, m, Math.Min(Math.Max(0, beforeDamage - m.Hits), skillHit.Physical), archer);
++                }
+             }
+             return totalDamage;
+         }
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -3,8 +3,11 @@
+ using Server.Items;
+ namespace Server.Mobiles;
+ // A content assembly can own player attacks while NPC combat remains independent.
++public readonly record struct ClassSkillDamage(int Total, int Physical);
+ public static class ClassCombatHooks
+ {
++    public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
++    public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }
+     public static Func<Mobile, Mobile, bool> TargetAllowed { get; set; }
+     public static Func<Mobile, int, int> RunningStaminaCost { get; set; }

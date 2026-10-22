@@ -234,7 +234,7 @@ public static class ClassGear
             DiabloClass.Amazon or DiabloClass.Barbarian or DiabloClass.Assassin => 25,
             _ => 20
         };
-        return Math.Clamp(((Base(shield)?.Block ?? 0) + classBlock + Bonus(player, "block"))
+        return Math.Clamp(((Base(shield)?.Block ?? 0) + classBlock + Bonus(player, "block")+HolyShields.BlockBonus(player))
             * Math.Max(0, player.Dex - 15) / (2 * profile.Level), 0, 75);
     }
     public static int? Stat(Item item, ClassGearStat stat)
@@ -538,12 +538,14 @@ public static class ClassGear
         ClassGearHooks.Attribute = (attributes, mask) => attributes.Owner is Item item && Converted(item)
             ? attributes is AosAttributes ? Attribute(item, (AosAttribute)mask) : 0 : null;
         ClassGearHooks.MobileAttribute = MobileAttribute;
-        ClassGearHooks.Resistance = (player, type) => !ClassCombat.Enabled(player) ? null : EliteAuras.PlayerResistance(player, type, Math.Clamp(
-            Bonus(player, type switch
-            {
-                ResistanceType.Fire => "res-fire", ResistanceType.Cold => "res-cold",
-                ResistanceType.Poison => "res-pois", ResistanceType.Energy => "res-ltng", _ => "res-physical"
-            }) + (type == ResistanceType.Physical ? 0 : Bonus(player, "res-all")), -100, NamedCombat.ResistanceCap(player, type)));
+        ClassGearHooks.Resistance = (player, type) => !ClassCombat.Enabled(player) ? null
+            : Math.Clamp(RawResistance(player,type),-100,NamedCombat.ResistanceCap(player,type));
         EventSink.WorldSave += Profiles.Prune;
     }
+    public static int RawResistance(PlayerMobile player,ResistanceType type) => EliteAuras.PlayerResistanceRaw(player,type,
+        Bonus(player,type switch
+        {
+            ResistanceType.Fire=>"res-fire",ResistanceType.Cold=>"res-cold",ResistanceType.Poison=>"res-pois",
+            ResistanceType.Energy=>"res-ltng",_=>"res-physical"
+        })+(type==ResistanceType.Physical?0:Bonus(player,"res-all"))+PaladinResistance.Bonus(player,type)+BarbarianCombat.Resistance(player,type));
 }

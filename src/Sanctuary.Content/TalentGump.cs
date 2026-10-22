@@ -104,26 +104,14 @@ public sealed class TalentGump : DynamicGump
             builder.AddHtml(395, 313, 188, 46, $"<BASEFONT COLOR=#C4C4C4>{requirement}</BASEFONT>", background: false, scrollbar: false);
         }
 
-        if (selected.Id == "necromancer.teeth" && World.FindMobile(_owner) is PlayerMobile owner)
-        {
-            var source = owner.FindItemOnLayer(Layer.OneHanded) is Server.Items.Dagger
-                ? "Includes +1 from dagger." : "Equip a dagger for +1.";
-            builder.AddHtml(395, 366, 188, 27,
-                $"<BASEFONT COLOR=#C4C4C4>Teeth prototype: rank {ClassCombat.TeethRank(owner)}.<BR>{source}</BASEFONT>",
-                size: 2, background: false, scrollbar: false);
-        }
-        else if (selected.Id == "necromancer.raiseskeleton")
-        {
-            builder.AddHtml(395, 366, 188, 27, "<BASEFONT COLOR=#C4C4C4>Raise a guardian from a nearby corpse.</BASEFONT>", size: 2, background: false, scrollbar: false);
-        }
-        else if (selected.Id == "necromancer.skeletonmastery")
-        {
-            builder.AddHtml(395, 366, 188, 27, "<BASEFONT COLOR=#C4C4C4>New skeletons: +8 base life, +2 base damage, +15 attack/defense per rank.</BASEFONT>", size: 2, background: false, scrollbar: true);
-        }
-        else
-        {
-            builder.AddHtml(395, 366, 188, 27, "<BASEFONT COLOR=#C4C4C4>Effects inactive.</BASEFONT>", background: false, scrollbar: false);
-        }
+        var skill = System.Linq.Enumerable.FirstOrDefault(SkillMechanics.All, row => row.TalentId == selected.Id);
+        bool implemented = skill != null && (NecromancerCombat.Implemented(skill.Ability) || SorceressCombat.Implemented(skill.Ability) || PaladinCombat.Implemented(skill.Ability) || BarbarianCombat.Implemented(skill.Ability));
+        string detail = !implemented ? "Not yet available." : skill.Passive ? "Passive effect. No hotkey needed."
+            : PaladinCombat.IsAura(skill.Ability) ? skill.Ability==CombatAbility.Prayer ? "Right-slot aura. Mana is spent on healing pulses. Icon and effects use placeholders." : "Active in the right mouse slot. No mana cost. Icon and aura effects use placeholders."
+            : effective > 0 && World.FindMobile(_owner) is PlayerMobile caster
+                ? $"Mana {SkillMechanics.Values(caster, skill.Ability).Mana256 / 256.0:0.##}. Skill icon and effects use placeholders."
+                : "Learn to unlock. Skill icon and effects use placeholders.";
+        builder.AddHtml(395, 366, 188, 35, $"<BASEFONT COLOR=#C4C4C4>{detail}</BASEFONT>", size: 2, background: false, scrollbar: true);
         builder.AddButton(22, 408, 4005, 4007, 2000);
         builder.AddLabel(57, 410, 0x481, "Mouse skills");
         builder.AddButton(205, 408, 4005, 4007, 2001);

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "status": "Known cross-consumer integration gap; not a newly enabled mechanic",
+  "referenceVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/SkillNec.cpp.reference": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    ".local/class-skills/ThornsSkillItem.cpp.reference": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696"
+  },
+  "legacyOrder": [
+    "ExecuteEvents ordinary damage callbacks, including Life Tap on damagedinmelee/damagedbymissile when result bit0x20 is absent",
+    "Copy physical component capped to defender current FP256 life",
+    "Ordinary life/mana leech",
+    "Caller domeleeattack/attackedinmelee events, including flat item/aura ATD",
+    "Percentage Thorns using capped physical",
+    "Apply original incoming hit/life damage"
+  ],
+  "lifeTapEvidence": "D2GAME_EventFunc05_6FD0EDE0 heals the attacking unit from current pDamage.dwPhysDamage and caps healing to recipient maximum. It runs before the ExecuteEvents physical life clip, so using actual post-hit life loss is not equivalent.",
+  "currentGap": "NecromancerEffects.WeaponHit heals Life Tap after actual life loss; GemCombat.Leech and flat thorns also have later consumer placement. Lethal return damage can therefore prevent healing that legacy source would have applied before return. Related gear/proc and class acceptance remain open.",
+  "nextWork": [
+    "Design one source-aligned prepared weapon-event phase shared by Native AOS and root Gear/typed/elite paths",
+    "Move Life Tap and leech into their correct relative phase, retaining drain/difficulty/recipient caps and avoiding duplicate post-hit callbacks",
+    "Unify eligible item+aura flat ATD stat aggregation and one-packet mitigation, resolving any explicitly approved gem/material deviations first",
+    "Test lethal rescue, life clipping vs healing, zero/mixed/fractional/ranged hits, return flag event suppression, Blood Mana/drain, owner/summon/native paths and both reloads"
+  ]
+}

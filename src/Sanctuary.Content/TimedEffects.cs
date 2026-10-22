@@ -257,6 +257,14 @@ public static class TimedEffects
         if (a.PoisonMs > 0 && rate + 1e-12 < a.PoisonRate) { return false; }
         a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonSource = source.Serial; return true;
     }
+    public static bool CleansePoison(Mobile target, int remainingPercent, DateTime now)
+    {
+        Settle(target,now);
+        if (!_actors.TryGetValue(target.Serial,out var actor) || actor.PoisonMs<=0 || !target.Alive) { return false; }
+        actor.PoisonMs=actor.PoisonMs/40*Math.Clamp(remainingPercent,0,100)/100*40;
+        if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; }
+        return true;
+    }
     public static bool Bleed(Mobile source, Mobile target, double total, DateTime now)
     {
         if (target is not { Alive: true, Deleted: false } || !double.IsFinite(total) || total <= 0) { return false; }

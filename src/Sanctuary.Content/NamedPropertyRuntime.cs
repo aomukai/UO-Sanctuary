@@ -82,7 +82,9 @@ public static class NamedPropertyRuntime
         { return scaled == code ? (int)((long)roll.Value * Math.Clamp(level, 1, 99) / 8) : 0; }
         if (template.Code == "all-stats") { return code is "str" or "dex" or "enr" or "vit" ? roll.Value : 0; }
         if (template.Code == "dmg-norm") { return code == "dmg-min" ? roll.Value : code == "dmg-max" ? roll.Maximum : 0; }
-        if (template.Code == "dmg") { return code is "dmg-min" or "dmg-max" ? roll.Value : 0; }
+        // Keep item_normaldamage distinct for shield-based Smite. Existing weapon
+        // endpoints still consume its min/max projection exactly once.
+        if (template.Code == "dmg") { return code is "dmg-min" or "dmg-max" or "normal-damage" ? roll.Value : 0; }
         return (_aliases.GetValueOrDefault(template.Code) ?? template.Code) == code ? roll.Value : 0;
     }
 

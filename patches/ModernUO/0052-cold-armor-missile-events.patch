@@ -1,0 +1,24 @@
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -58,6 +58,11 @@
+             if (m?.Deleted != false || !m.Alive || damage <= 0 || ClassCombatHooks.Friendly?.Invoke(from, m) == true)
+             {
+                 return 0;
++            }
++
++            if (archer)
++            {
++                ClassCombatHooks.SkillMissileHit?.Invoke(from, m, "arrow");
+             }
+ 
+             var canRecover = pois <= 0 || phys > 0 || fire > 0 || cold > 0 || nrgy > 0 || chaos > 0 || direct > 0;
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -7,6 +7,7 @@
+ public static class ClassCombatHooks
+ {
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
++    public static Action<Mobile, Mobile, string> SkillMissileHit { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned data plus inspected immutable supplementary engine routines and native world checks; no new compiled engine probe or modern binary certificate",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    ".local/research/d2moo-CommonUnits.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/class-skills/MonsterMode.cpp.reference": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "concentration": {
+    "rank1Damage": 60,
+    "rank20Damage": 345,
+    "uninterruptChance": 20,
+    "hammerPrimitive": "Active concentration list damagepercent * Blessed Hammer Param1 / 8, truncating percentage. Rank1 bonus30. Hammer handler remains pending.",
+    "reference": "SrvDo065 BasicAura; D2GAME_PLRMODES_First checks concentration for interruptible active used skills, bypasses death. Inspected MonsterMode file has no equivalent concentration check.",
+    "native": "Physical enhanced damage is additive with other auras/stat/summon bonuses. Active class action hit recovery has a scoped20-percent guard, including post-impact interval; incoming native damage still reduces life. Controlled19/20 boundaries, neutral recovery, pending action/effect/deadline retention, death/respec and two reloads pass.",
+    "limits": "Full mode-transition/intrinsic-uninterruptibility mapping and non-class UO spell disturbance, exact modern/NPC behavior and Hammer delivery remain open. NPC recovery is unchanged."
+  },
+  "fanaticism": {
+    "rank1": {
+      "skillAttackRate": 14,
+      "attackPercent": 40,
+      "allyDamagePercent": 25,
+      "positiveManaSelfDamagePercent": 50
+    },
+    "rank20": {
+      "skillAttackRate": 35,
+      "attackPercent": 135,
+      "allyDamagePercent": 186,
+      "positiveManaSelfDamagePercent": 373
+    },
+    "reference": "Pinned damagepercent half in aurastat3, full in self passivecalc1. Legacy BasicAura self passive override requires raw mana strictly greater than cost. With cost0, raw mana0 retains half damage. Legacy same-aura equal rank refreshes and rewrites packet values; weaker cannot refresh stronger.",
+    "native": "Separate skill IAS added after item-IAS diminishing returns, combined rate15..175, no FCR effect, raw item IAS unchanged. Player attacks/Poison Dagger, ordinary native pet weapon delays, custom summon cycles and monster animation counters consume the bonus; committed action deadlines remain unchanged. Physical damage/AR, material/spell exclusions, stronger/weaker replacement, lifecycle and real resumed native mitigation through two reloads pass.",
+    "goldenTiming": "Sorceress unarmed profile: SIAS14 =>14 frames; itemIAS14 =>15 frames; itemIAS10000+SIAS35 =>9 frames at rate cap. Skeleton native720-ms profile becomes640ms with SIAS14. Existing project profiles remain a projection.",
+    "limits": "Strict legacy mana-zero self override and equal-rank packet interaction are provisional, not approved Sanctuary deviations or certified modern D2R behavior. Dual wield/sequence/shapeshift, complete native/pet animation/stat composition, item/gear/owner/client paths remain open."
+  },
+  "rngScope": "Native global Utility.Random(100); D2R unit seed/order is not reproduced. Scoped internal roll seam tests exact concentration19/20 boundaries and is restored. Fixture life resets before each nonlethal native hit; this is test conditioning only.",
+  "persistenceScope": "Source/rank/secondary stat/deadlines retained across two reloads; held deadlines five minutes in fixture only. Temporarily advanced saved emitters resume short-lived native buffs, native pet damage, SIAS and native damage protection. Ordinary offline pets use native auto-stable claiming.",
+  "sources": [
+    "https://classic.battle.net/diablo2exp/skills/paladin-offense.shtml",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/PLAYER/PlrModes.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Units/Units.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Skills/Skills.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MONSTER/MonsterMode.cpp"
+  ]
+}

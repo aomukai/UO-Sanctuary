@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned tables, released Blizzard changes, inspected immutable legacy routines and focused native world checks; no new compiled engine wrapper or modern binary certificate.",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/Missiles.cpp.reference": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/CommonMissile.cpp.reference": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "primary": {
+    "mana256": 6400,
+    "localDelayFrames": 10,
+    "delayMissileRange": 10,
+    "rank1Base256": [
+      38400,
+      51200
+    ],
+    "rank20HolyShockHard20Damage256": [
+      414720,
+      445440
+    ],
+    "semantics": "SrvDo080 stores target unit identity and ORIGINAL delay coordinates. SrvHit22 resolves stored target for lightning, then searches around delay coordinates after applying damage. Original rank and launch damage retained; source skill-independent local cooldown is ten frames. Native clock projection uses400ms delay/cooldown and existing Paladin SC action profile. A converted/friendly primary or dead unit still permits the burst; native death capture stores corpse identity without consuming it or its loot."
+  },
+  "secondary": {
+    "rangeSubtiles": 20,
+    "rank1Cap": 6,
+    "rank20Cap": 25,
+    "velocity": 12,
+    "rangeFrames": 50,
+    "activate": 2,
+    "holy": 3,
+    "nextHit": 0,
+    "nextDelay": 4,
+    "applyMastery": 0,
+    "rank1Base256": [
+      10240,
+      12800
+    ],
+    "rank20HolyBoltHard20Damage256": [
+      231424,
+      241664
+    ],
+    "semantics": "Capped callback for hostile recipients, including ordinary beasts. Factories recalculate missile-specific magic values at burst with ORIGINAL FoH rank and CURRENT Holy Bolt hard points. No lightning-synergy leakage and no item/mastery enhancement without ApplyMastery. Holy3 bypasses positive undead AND demon resistance/MDR/absorb, preserving negative resistance. No next-hit suppression merely because inactive NextDelay4 is present. Activate2 and LastCollide apply; unit collision never destroys the piercing bolt.",
+    "healing": "sHitPar1=1 alone does not enable healing. SUnit_CanAlly/PetBeTargetedBySkill also requires parent TargetAlly/TargetPet; pinned FoH has both0. Allies/pets are neither healed nor harmed."
+  },
+  "goldenNativeCase": "Cast rank1 with hard HolyShock1 => primary41088..54784. Move target from offset6 to5; train HolyShock, HolyBolt and FoH before impact. Held primary loses160life plus128/256 debt. Four eligible enemies generate four children with stored rank1/current hardHolyBolt2 =>13312..16640; three eastward rays each deal52 to real Hell LichLord magic100 and Hell DemonKnight magic25, total156 to each. Hostile Ogre bodies take zero secondary damage, allies/pets no healing; source cap6 is separately checked with more eligible targets.",
+  "verification": "Focused native initial boot plus two reloads: independent source tiers/hard synergies/count/cost; explicit selected enemy and cursor-nearest click-facing automatic primary, with no mana-failure weapon fallback; exact cast-event25mana debit, delayed original-origin burst and moving primary; independent ten-frame cooldown; held primary versus fresh secondary synergies; parent heal flag exclusion; positive undead/demon resistance bypass; concurrent rays without NHD; natural expiry/cap; exact saved strike/child ability/frame/vector/rank/damage/nonzero last collider/deadlines/local cooldown; actual resumed primary, fresh child and held child native effects. Missing Ability in previous HolyBolt JSON retains default HolyBolt. Ordinary native pet auto-stabling/claiming retained. Converted/friendly primary is protected while burst continues. Real native target death captures preserved corpse identity before actor deletion; corpse-linked burst retains loot, persists, and resumes after both reloads.",
+  "fixtureConditioning": "Negligible self poison suppresses unrelated regeneration during life-delta measurements; no production regeneration changes. Inspection deadlines only held5minutes; actual clock/lifetime tested separately. Scoped global RNG seam restored.",
+  "limits": [
+    "Automatic acquisition now uses firsthand cursor-nearest and click-facing half-circle observations. Existing Sanctuary16-tile/LOS/town/hostility gates are retained, not claimed as an exact modern search radius/metric. Equal-distance ties, own-tile cursor and perpendicular candidates remain gated. Moving-cursor snapshot order and actual client behavior need comparison.",
+    "Native preserved corpses now bridge ordinary D2 dead-unit identity through actor deletion. Completely removed targets without a surviving linked corpse cancel the burst; exact consumed/expired/no-corpse unit lifetime equivalence remains open.",
+    "Shared Euclidean tiles, circular swept body/Size1, native room query order and standard Paladin SC event timing remain provisional. In particular activation/primary-origin collisions and large-target overlap/shotgun behavior require pinned-game comparison; no synthetic primary exclusion is added.",
+    "Owner death/class change/town/offline guards and absolute cooldown persistence need modern comparison. Full block/dodge, item/pierce/absorb, slowdown/reflection, KeepCursorStateOnKill and actual-client targeting remain open.",
+    "Child mana-free factories retain the approved potion bonus but do not silently add missing ApplyMastery. Item/proc/charged/oskill gates are unchanged.",
+    "Final sky warning/lightning/burst/secondary bolt effects plus separate talent/hotkey icons remain missing; identified UO0x3709 and shared holy-bolt placeholders are used."
+  ],
+  "sources": [
+    "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "https://classic.battle.net/diablo2exp/skills/paladin-combat.shtml",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Units/Missile.cpp"
+  ],
+  "userObservationFollowUp": "tools/reference/heaven-fist-user-observations.json: pinned-game user confirms empty-ground acquisition, cursor-nearest target within click-defined180-degree facing and simultaneous turn/cast. No extra turn-completion clock is imposed.",
+  "automaticAcquisition": {
+    "status": "focused and full native verification passed across three boots/two reloads; installed smoke passed",
+    "sourceReport": "tools/reference/heaven-fist-user-observations.json",
+    "inputSemantics": "Resolve unique nearest-cursor eligible primary at start, retain acquired identity through held-ground refresh, use existing cast event/cost/delay and next-cycle fresh acquisition.",
+    "geometry": "Strict positive click-vector dot product; squared Euclidean native tile distance. Existing Sanctuary point/target range16, LOS, town and hostility gates retained. No invented cursor-specific radius or serial/query tie priority.",
+    "unsupported": [
+      "equal-distance nearest candidates",
+      "cursor exactly on caster tile",
+      "exact perpendicular half-circle boundary"
+    ],
+    "nativeCases": [
+      "nearest cursor versus caster",
+      "front candidate over a closer rear candidate",
+      "click behind turns immediately and acquires behind old facing",
+      "left/right held and direct/quick empty-ground dispatch",
+      "held refresh preserves acquired target",
+      "no extra turn delay, no early mana, single25-mana event and correct delayed primary identity",
+      "equal-distance/own-tile/out-of-range rejection without payment"
+    ]
+  }
+}

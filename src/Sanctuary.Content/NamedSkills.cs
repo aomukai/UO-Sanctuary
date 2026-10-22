@@ -28,7 +28,7 @@ public static class NamedSkills
     public static bool Supported(NamedProperty property) => !property.SourceEnabled || property.Code switch
     {
         "skill" => property.Parameter is { } param && _bySource.TryGetValue(param.ToString(), out var skill) && _working.Contains(skill.TalentId),
-        "skilltab" => NamedPropertyRuntime.Parameter(property) is >= 0 and < 21,
+        "skilltab" => NamedPropertyRuntime.Parameter(property) is >= 0 and < 24,
         _ => true
     };
     internal static (string Skill, string CharacterClass) Description(NamedProperty property)
@@ -37,9 +37,9 @@ public static class NamedSkills
             && _bySource.TryGetValue(parameter.ToString(), out var binding))
         { return (binding.SourceKey, binding.CharacterClass); }
         int tab = NamedPropertyRuntime.Parameter(property);
-        if (property.Code == "skilltab" && tab is >= 0 and < 21)
+        if (property.Code == "skilltab" && tab is >= 0 and < 24)
         {
-            var characterClass = Enum.Parse<DiabloClass>(new[] { "Amazon", "Sorceress", "Necromancer", "Paladin", "Barbarian", "Druid", "Assassin" }[tab / 3]);
+            var characterClass = Enum.Parse<DiabloClass>(new[] { "Amazon", "Sorceress", "Necromancer", "Paladin", "Barbarian", "Druid", "Assassin", "Warlock" }[tab / 3]);
             return (TalentCatalog.ForClass(characterClass).Trees[tab % 3].Name, characterClass.ToString());
         }
         return ("Skill", "Class");

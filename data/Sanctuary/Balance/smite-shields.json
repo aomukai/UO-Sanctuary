@@ -1,0 +1,623 @@
+[
+  {
+    "code": "bsh",
+    "name": "Bone Shield",
+    "type": "shie",
+    "minDamage": 3,
+    "maxDamage": 6,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "buc",
+    "name": "Buckler",
+    "type": "shie",
+    "minDamage": 1,
+    "maxDamage": 3,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "gts",
+    "name": "Gothic Shield",
+    "type": "shie",
+    "minDamage": 2,
+    "maxDamage": 6,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "kit",
+    "name": "Kite Shield",
+    "type": "shie",
+    "minDamage": 2,
+    "maxDamage": 5,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "lrg",
+    "name": "Large Shield",
+    "type": "shie",
+    "minDamage": 2,
+    "maxDamage": 4,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne1",
+    "name": "Preserved Head",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne2",
+    "name": "Zombie Head",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne3",
+    "name": "Unraveller Head",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne4",
+    "name": "Gargoyle Head",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne5",
+    "name": "Demon Head",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne6",
+    "name": "Mummified Trophy",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne7",
+    "name": "Fetish Trophy",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne8",
+    "name": "Sexton Trophy",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ne9",
+    "name": "Cantor Trophy",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "nea",
+    "name": "Heirophant Trophy",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "neb",
+    "name": "Minion Skull",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ned",
+    "name": "Overseer Skull",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "nee",
+    "name": "Succubus Skull",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "nef",
+    "name": "Bloodlord Skull",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "neg",
+    "name": "Hellspawn Skull",
+    "type": "head",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa1",
+    "name": "Targe",
+    "type": "ashd",
+    "minDamage": 2,
+    "maxDamage": 6,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa2",
+    "name": "Rondache",
+    "type": "ashd",
+    "minDamage": 2,
+    "maxDamage": 8,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa3",
+    "name": "Heraldic Shield",
+    "type": "ashd",
+    "minDamage": 3,
+    "maxDamage": 9,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa4",
+    "name": "Aerin Shield",
+    "type": "ashd",
+    "minDamage": 4,
+    "maxDamage": 10,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa5",
+    "name": "Crown Shield",
+    "type": "ashd",
+    "minDamage": 4,
+    "maxDamage": 12,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa6",
+    "name": "Akaran Targe",
+    "type": "ashd",
+    "minDamage": 12,
+    "maxDamage": 16,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa7",
+    "name": "Akaran Rondache",
+    "type": "ashd",
+    "minDamage": 15,
+    "maxDamage": 20,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa8",
+    "name": "Protector Shield",
+    "type": "ashd",
+    "minDamage": 18,
+    "maxDamage": 24,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pa9",
+    "name": "Gilded Shield",
+    "type": "ashd",
+    "minDamage": 20,
+    "maxDamage": 28,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "paa",
+    "name": "Royal Shield",
+    "type": "ashd",
+    "minDamage": 24,
+    "maxDamage": 32,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pab",
+    "name": "Sacred Targe",
+    "type": "ashd",
+    "minDamage": 22,
+    "maxDamage": 70,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pac",
+    "name": "Sacred Rondache",
+    "type": "ashd",
+    "minDamage": 35,
+    "maxDamage": 58,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pad",
+    "name": "Ancient Shield",
+    "type": "ashd",
+    "minDamage": 10,
+    "maxDamage": 82,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "pae",
+    "name": "Zakarum Shield",
+    "type": "ashd",
+    "minDamage": 46,
+    "maxDamage": 46,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "paf",
+    "name": "Vortex Shield",
+    "type": "ashd",
+    "minDamage": 5,
+    "maxDamage": 87,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "sml",
+    "name": "Small Shield",
+    "type": "shie",
+    "minDamage": 2,
+    "maxDamage": 3,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "spk",
+    "name": "Spiked Shield",
+    "type": "shie",
+    "minDamage": 5,
+    "maxDamage": 9,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "tow",
+    "name": "Tower Shield",
+    "type": "shie",
+    "minDamage": 1,
+    "maxDamage": 5,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "uit",
+    "name": "Monarch",
+    "type": "shie",
+    "minDamage": 12,
+    "maxDamage": 34,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "uml",
+    "name": "Luna",
+    "type": "shie",
+    "minDamage": 17,
+    "maxDamage": 29,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "uow",
+    "name": "Aegis",
+    "type": "shie",
+    "minDamage": 18,
+    "maxDamage": 28,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "upk",
+    "name": "Blade Barrier",
+    "type": "shie",
+    "minDamage": 26,
+    "maxDamage": 40,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "urg",
+    "name": "Hyperion",
+    "type": "shie",
+    "minDamage": 14,
+    "maxDamage": 32,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "ush",
+    "name": "Troll Nest",
+    "type": "shie",
+    "minDamage": 24,
+    "maxDamage": 38,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "uts",
+    "name": "Ward",
+    "type": "shie",
+    "minDamage": 11,
+    "maxDamage": 35,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "uuc",
+    "name": "Heater",
+    "type": "shie",
+    "minDamage": 16,
+    "maxDamage": 30,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa1",
+    "name": "Old Book",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa2",
+    "name": "Tome",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa3",
+    "name": "Codex",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa4",
+    "name": "Compendium",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa5",
+    "name": "Grimoire",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa6",
+    "name": "Burnt Text",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa7",
+    "name": "Dark Tome",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa8",
+    "name": "Dark Codex",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wa9",
+    "name": "Possessed Compendium",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "waa",
+    "name": "Possessed Grimoire",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wab",
+    "name": "Forgotten Volume",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wac",
+    "name": "Occult Tome",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wad",
+    "name": "Occult Codex",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "wae",
+    "name": "Blasphemous Compendium",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "waf",
+    "name": "Blasphemous Grimoire",
+    "type": "grim",
+    "minDamage": 0,
+    "maxDamage": 0,
+    "strengthBonus": 0,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xit",
+    "name": "Dragon Shield",
+    "type": "shie",
+    "minDamage": 15,
+    "maxDamage": 24,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xml",
+    "name": "Round Shield",
+    "type": "shie",
+    "minDamage": 7,
+    "maxDamage": 14,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xow",
+    "name": "Pavise",
+    "type": "shie",
+    "minDamage": 10,
+    "maxDamage": 17,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xpk",
+    "name": "Barbed Shield",
+    "type": "shie",
+    "minDamage": 18,
+    "maxDamage": 35,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xrg",
+    "name": "Scutum",
+    "type": "shie",
+    "minDamage": 11,
+    "maxDamage": 15,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xsh",
+    "name": "Grim Shield",
+    "type": "shie",
+    "minDamage": 14,
+    "maxDamage": 20,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xts",
+    "name": "Ancient Shield",
+    "type": "shie",
+    "minDamage": 12,
+    "maxDamage": 16,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  },
+  {
+    "code": "xuc",
+    "name": "Defender",
+    "type": "shie",
+    "minDamage": 8,
+    "maxDamage": 12,
+    "strengthBonus": 100,
+    "dexterityBonus": 0
+  }
+]

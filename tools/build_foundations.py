@@ -45,6 +45,8 @@ def build(source):
                           lifeVitality4=integer(r['LifePerVitality']), staminaVitality4=integer(r['StaminaPerVitality']),
                           manaEnergy4=integer(r['ManaPerMagic']), attackBonus=integer(r['ToHitFactor']),
                           statPerLevel=integer(r['StatPerLevel'])))
+    from build_class_skills import warlock_stats
+    chars.append(warlock_stats())
     save('classes', chars)
     exp = {integer(r['Level']): r for r in table('Experience') if r['Level'].isdigit()}
     save('experience', [dict(level=integer(r['Level']) + 1, threshold=integer(r['Amazon']),

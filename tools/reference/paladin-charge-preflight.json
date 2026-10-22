@@ -1,0 +1,161 @@
+{
+  "talentId": "paladin.charge",
+  "referenceVersion": "3.3.93847",
+  "status": "Staged partial handler; focused and combined native phase/resource/input/two-reload checks and connected-owner ground Charge pass. Mapped standard knockback now uses shared source controller; special species, geometry and modern acceptance remain open.",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": ".local/class-skills/SkillPal.cpp.reference",
+  "sourceSha256": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+  "sourceFields": {
+    "skill": "Charge",
+    "charclass": "pal",
+    "skilldesc": "charge",
+    "srvstfunc": 31,
+    "srvdofunc": 67,
+    "stsuccessonly": 1,
+    "stsound": "paladin_charge",
+    "cltstfunc": 25,
+    "cltdofunc": 37,
+    "enhanceable": 1,
+    "attackrank": 2,
+    "itypea1": "mele",
+    "anim": "SQ",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 4,
+    "seqinput": 8,
+    "durability": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Smite",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 9,
+    "lvlmana": 0,
+    "calc1": "ln34+(skill('Vigor'.blvl)+skill('Might'.blvl))*par8",
+    "calc2": "par1",
+    "calc4": 0,
+    "Param1": 150,
+    "Param3": 100,
+    "Param4": 25,
+    "Param8": 20,
+    "InGame": 1,
+    "ToHit": 50,
+    "LevToHit": 15,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 512,
+    "cost add": 8000
+  },
+  "observedLegacyBranches": [
+    "St31 requires skill record, used skill and dynamic path. An already melee-range target invokes a basic-attack transition helper instead of movement initialization.",
+    "Moving phase records a target identity or sentinel6, initializes Param4=7 for players, derives base velocity from charstats run speed, floors STAT_VELOCITYPERCENT at50, adds Param1=150, sets skill flags0x1001 and STATE_SKILL_MOVE.",
+    "Do67 has distinct moving, reached-target, path-finished/retarget and attack branches. It reschedules per-frame events and rewinds the sequence; these are not one instant hit.",
+    "Attack branch uses source AR with knockback result flag8, calc1 enhanced damage, source damage128, hit class0x70, durability helper and overlay147."
+  ],
+  "nextProof": [
+    "Compare shared source-mode knockback with pinned modern behavior, including special sand-leaper post-mode AI and continuous terrain/body geometry. Native standard mapped control is implemented and tested separately.",
+    "Compare modern continuous path/body/collision/FP quantization, 50-native-tile range projection, tracked-target paths, terrain/closed-door/stair/town behavior and earliest next-input eligibility.",
+    "Compare modern adjacent basic-attack fallback damage/AR/event behavior, gear/procs/curse/knockback/mode snapshots, owner/death/logout and graphical-client prediction."
+  ],
+  "nonblockingQuestions": [
+    "Exact modern collision/size/path quantization and sequence/gear/owner behavior need comparison.",
+    "The current converted-throwing melee adapter remains unsupported; do not borrow missile damage.",
+    "Source overlay147 needs a pinned overlay-name lookup before an art brief; placeholder assets must not replace collision/damage behavior.",
+    "Legacy D2Common_10142 explicitly says BROKEN. It is not a validated implementation of world path initialization/collision."
+  ],
+  "implementationPolicy": "Keep partial implementation and unsupported consumers explicit. No full skill/class acceptance or item gate is cleared. Continue remaining mechanics independently.",
+  "probeEvidence": "tools/reference/charge-engine-evidence.json",
+  "probeCaseCounts": {
+    "startCases": 42,
+    "phaseCases": 24,
+    "impactCases": 3,
+    "gateCases": 12,
+    "rewindCases": 12,
+    "velocityCases": 54,
+    "legacyManaCases": 6,
+    "flowCases": 15
+  },
+  "derivedContracts": {
+    "playerSequence": 4,
+    "movingFlag": 1,
+    "pathFinishedFlag": 2,
+    "serverDoFlag": 64,
+    "arrivalRewind": 8,
+    "impactRewind": 7,
+    "impactFramesAfterReachedRange": 1,
+    "impactCountPerSourceEventFlow": 1,
+    "impactEndFramesAfterHitAtSpeed256": 8,
+    "knockbackResultFlag": 8,
+    "impactOverlayId": 147,
+    "manaFromModernTable256": 2304
+  },
+  "resolvedSourceQuestions": [
+    "sub_6FCC63D0 clears STATE_SKILL_MOVE and queues stop packetA5; it is not itself the collision/path mover.",
+    "Player per-frame sub_6FC80EE0 drives motion while skill flag1 is set, marks path completion with flag2, and uses UNITFLAG_SKSRVDOFUNC to suppress duplicate damage callbacks.",
+    "Composed original callback/player-gate/rewind traces allocate exactly one impact one source frame after range arrival. Impact rewinds again to7; at sequence speed256, scheduled end is8 frames after impact. This does not certify earliest modern next-input eligibility.",
+    "The direct source velocity helper uses (base1024*velocity256)>>6 with Q12 direction vectors, without the missile-factory75% reduction.",
+    "Modern pinned Charge mana is2304 FP units. The immutable legacy helper returns256 at rank1 and2304 later, even through close-range basic-attack redirection. Blizzard documents9 mana; keep the reconstruction discrepancy explicit.",
+    "Player creation/load baseline velocitypercent is100. Mode changes remove temporary running stats before SQ; naked Run9 plus skill150 yields velocity256=5760.",
+    "Ordinary item FRW and approved second-wind running-only bonus are excluded from the SQ skill-velocity budget; armor/shield penalty, Vigor, Blaze and slow consumers remain separate.",
+    "Knockback uses monstats2 GH/KB mode eligibility and its own path via SourceKnockbacks. A real Charge impact is covered in sanctuary-native-evidence.json. Special sand-leaper/unknown species branches remain gated; modern geometry/mode acceptance remains open."
+  ],
+  "officialSupplementarySource": "https://classic.battle.net/diablo2exp/skills/paladin-combat.shtml",
+  "nativeMovementPrototype": {
+    "adapter": "src/Sanctuary.Content/ChargeMotion.cs",
+    "fixture": "tests/Sanctuary.Integration/ChargeMotionChecks.cs",
+    "driver": "tests/check_charge_motion.py",
+    "proof": ".local/class-skills/charge-motion-network-proof.json",
+    "uses": "Native CheckMovement/Mobile.Move with real movement events, hostile contact guard, approved allied pass-through and scoped no-stamina cost. ResetMovementState and SendMobileUpdate reconcile the owning socket.",
+    "verified": [
+      "Actual accepted native step instead of direction-only turn",
+      "Impassable native item and hostile body stop movement without push stamina",
+      "Approved allied pass-through retained",
+      "Destination veto, Frozen, Paralyzed, hit recovery, Zeal lock and Internal-map rejection",
+      "Four ordered owning-socket position corrections",
+      "Real ordinary0x02 movement decoded and acknowledged immediately after owned motion; no lingering movement queue",
+      "Actual ground Charge phase traversal, one9-mana start payment and recovery completion through the attached owning socket"
+    ],
+    "limits": [
+      "Fixture attaches an actor and sets only its disposable socket game-protocol state; no account-login or graphical-client prediction claim.",
+      "Real closed-door/stair/height/map-town/queued-input/owner transitions need additional coverage.",
+      "Standard walking animation is only a prototype; final Charge sequence/FX/icons remain separate placeholders."
+    ]
+  },
+  "nativeImplementation": {
+    "handler": "src/Sanctuary.Content/PaladinCharge.cs",
+    "fixture": "tests/Sanctuary.Integration/ChargeChecks.cs",
+    "checks": [
+      "No movement/damage before first source frame",
+      "Six projected naked frames to four native accepted steps and melee arrival",
+      "One impact one frame after arrival and eight-frame recovery",
+      "Hit/miss physical FP damage and one9-mana start payment, no travel stamina",
+      "L/R held bindings, stop/release retains committed action",
+      "Ground travel, obstruction and no hit through wall",
+      "No mana/bow rejection, adjacent BasicAttack fallback, weapon-swap cancellation",
+      "Frozen/paralysis/relocation/map transitions cancel",
+      "Tracked target movement, delayed frame without catchup burst, deleted-target no impact",
+      "Exact damaged FP life/mana/rank across two reloads; transient Charge never replays"
+    ],
+    "unsupported": [
+      "Unmapped/special sand-leaper knockback and complete modern geometry/mode behavior",
+      "Converted throwing melee adapter",
+      "Modern path geometry/scale/body quantization and complete event/gear/owner/client acceptance"
+    ],
+    "nativeGeometryPolicy": "Native CheckMovement/Mobile.Move, never teleport. Explicit two-subtile tile projection with FP16 octile travel budget is provisional, not an approved deviation or D2R geometry certificate.",
+    "evidence": "docs/class-skills-verification-2026-10-23.json"
+  },
+  "userReferenceObservation": {
+    "recordedAtUtc": "2026-10-22T15:22:10.814356+00:00",
+    "version": "Reign of the Warlock3.3.93847",
+    "source": "User reports playable installation at exact pin and confirms Charge spends9 mana both with and without target, including adjacent target.",
+    "status": "Firsthand reported observation, not an instrumented capture.",
+    "impact": "Supports staged9-mana policy; does not certify fallback damage/AR or event/input timing."
+  },
+  "sharedKnockbackEvidence": "tools/reference/sanctuary-native-evidence.json"
+}

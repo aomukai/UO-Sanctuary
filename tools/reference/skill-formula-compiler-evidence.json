@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceUrl": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/Fog/src/Calc.cpp",
+  "sourceSha256": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+  "probe": "Unmodified legacy Calc.cpp compiled with calling-convention/type shim headers; constant expressions exercise EOF flush. This is legacy compiler evidence, not a D2R binary certificate.",
+  "cases": [
+    {
+      "expression": "(7*4+3*1",
+      "result": 31
+    },
+    {
+      "expression": "(7*4+3*1)",
+      "result": 31
+    },
+    {
+      "expression": "1+(2*3",
+      "result": 6
+    },
+    {
+      "expression": "((7)*4+(3)*1",
+      "result": 31
+    },
+    {
+      "expression": "(20*4+20*1",
+      "result": 100
+    }
+  ],
+  "adapter": "Only the pinned Fire Wall EDmgSymPerCalc outer-group form is adapted. The general interpreter remains strict; it must not auto-close arbitrary malformed expressions.",
+  "inferno": "Pinned EDmgSymPerCalc is balanced; its previous malformed-formula roadmap note was incorrect.",
+  "log": ".local/class-skills/firewall-formula-probe.log"
+}

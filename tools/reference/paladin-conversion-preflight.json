@@ -1,0 +1,123 @@
+{
+  "talentId": "paladin.conversion",
+  "referenceVersion": "3.3.93847",
+  "status": "Available staged attack/conversion handler; unresolved higher-level and unsupported species/state cases are explicit target gates, not a whole-skill block.",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFields": {
+    "skill": "Conversion",
+    "*Id": 116,
+    "charclass": "pal",
+    "skilldesc": "conversion",
+    "srvstfunc": 32,
+    "srvdofunc": 79,
+    "auratargetstate": "conversion",
+    "auralencalc": "ln12",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "range": "h2h",
+    "itypea1": "mele",
+    "anim": "A1",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "reqlevel": 24,
+    "maxlvl": 20,
+    "reqskill1": "Vengeance",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 4,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "calc1": "dm34",
+    "*calc1 desc": "% chance to convert",
+    "calc2": 0,
+    "*calc2 desc": "Flat Damage",
+    "calc3": 0,
+    "*calc3 desc": "Attack Speed %",
+    "calc4": 0,
+    "*calc4 desc": "% Damage Dealt as Elemental (Used only if there is an Etype)",
+    "Param1": 400,
+    "*Param1 Description": "Duration baseline",
+    "Param2": 0,
+    "*Param2 Description": "Duration per level",
+    "Param3": 0,
+    "*Param3 Description": "% chance to convert Min",
+    "Param4": 90,
+    "*Param4 Description": "% chance to convert Max",
+    "Param5": 0,
+    "*Param5 Description": "\"Use sumskill1 on convert expire? (0 = Off | 1 = On) (If 1, then it needs to have ItemEffect=1)\"",
+    "InGame": 1,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 768,
+    "cost add": 32000,
+    "lineNumber": 116
+  },
+  "probeEvidence": "tools/reference/conversion-engine-evidence.json",
+  "probeCaseCounts": {
+    "AI eligibility": 64,
+    "expiry": 16
+  },
+  "officialSources": [
+    "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "https://classic.battle.net/diablo2exp/skills/paladin-combat.shtml"
+  ],
+  "observations": [
+    "Released2.4 raises maximum chance from50 to90; pinned row agrees: calc1=dm34, duration400 frames, mana4.",
+    "Start32 allocates a combat record even after a failed hit roll and uses calc1 as successful-hit enhanced damage; Do79 checks record presence rather than successful-hit flag. Modern hidden damage/miss ordering needs comparison.",
+    "Do79 requires evil monster, nonhireling and Terror-compatible AI, excluding unique/superunique/uninterruptible/nonwalking/boss/no-switchAI species through source helpers; mounted imp attached-state exception also applies.",
+    "On success refreshes absolute conversion expiry, changes alignment to good, updates summon target tree, clears attacker target and removes flag8 statlists.",
+    "Higher-level targets save original level/whole maximum life, then scale current/max life by player level over target level.",
+    "Expiry restores alignment/target tree, previous level and proportional life. Literal callback writes saved whole maximum life without shifting8, while current life is shifted8. This source-unit discrepancy is unresolved in modern reference."
+  ],
+  "blockers": [
+    "Target gate: higher-level convertible monsters require modern life-restoration behavior; no whole-life/FP256 correction invented.",
+    "Target gates: unmapped source species, imp-family attachment and native BardProvoked interactions remain unsupported."
+  ],
+  "nextWork": [
+    "Complete higher-level life-restoration and remaining target adapters independently of the available paths.",
+    "Compare modern snapshots, stat-list removal, species abilities, owner lifecycle and actual-client behavior.",
+    "Continue remaining Paladin acceptance and unaffected roadmap skills."
+  ],
+  "nonblocking": true,
+  "userReferenceObservations": [
+    {
+      "recordedAtUtc": "2026-10-22T15:24:32.861949+00:00",
+      "version": "Reign of the Warlock3.3.93847",
+      "source": "User gameplay report",
+      "observed": [
+        "Player cannot hurt a converted monster with ordinary attacks or offensive auras.",
+        "When Conversion ends the monster becomes hostile and attacks; observed brief detection delay may vary between monsters."
+      ],
+      "boundary": "Firsthand report, not an instrumented timer/stat/AI capture. Do not implement a fixed1-second allegiance grace period from this observation.",
+      "implementationContract": "Retain species AI cadence while converting allegiance; all attack/aura hostility consumers must respect converted friendly protection."
+    },
+    {
+      "recordedAtUtc": "2026-10-22T15:51:07.938267+00:00",
+      "version": "Reign of the Warlock3.3.93847",
+      "source": "User gameplay report",
+      "observed": [
+        "A successful conversion deals no weapon damage on the converting swing."
+      ],
+      "boundary": "Firsthand report, not an instrumented hit/miss/proc/event capture. Supports the separate success branch of legacy Do79."
+    }
+  ],
+  "implementedPrimitives": {
+    "handler": "src/Sanctuary.Content/PaladinConversion.cs",
+    "fixture": "tests/Sanctuary.Integration/ConversionChecks.cs",
+    "nativePatch": "patches/ModernUO/0059-conversion-allegiance-and-damage-credit.patch",
+    "sourceRules": "data/Sanctuary/Balance/conversion-source-rules.json",
+    "sourceRuleCount": 751,
+    "proof": "tools/reference/conversion-allegiance-evidence.json",
+    "talentAvailable": true,
+    "attack": "Melee windup prepares hit/base weapon damage and pays4 mana once; event-time conversion success commits allegiance without weapon damage; failure delivers prepared hit or miss."
+  },
+  "nonblockingQuestions": [
+    "Exact modern prepared-hit/weapon/mastery/critical/proc snapshots, shared stat-list removal, species/owner/logout and graphical-client acceptance remain open. The existing shared weapon pipeline delivers failed-conversion damage."
+  ]
+}

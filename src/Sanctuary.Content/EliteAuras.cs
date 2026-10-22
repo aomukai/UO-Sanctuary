@@ -39,6 +39,8 @@ public static class EliteAuras
     }
     internal static int SkillLevel(EncounterCreature source) => Math.Max(1, CreatureProfiles.Level(source) / (source.Aura switch
     { EliteAura.Might or EliteAura.HolyFire => 6, EliteAura.BlessedAim => 5, EliteAura.HolyFreeze => 7, _ => 8 }));
+    internal static int OwnConvictionRank(Mobile actor)=>actor is EncounterCreature{Alive:true,Deleted:false,Aura:EliteAura.Conviction} source
+        && _emitters.Contains(source)?SkillLevel(source):0;
     internal static int Radius(EliteAura aura, int level)
     {
         // LoD subtiles are mapped to three per UO tile, bounded by the project's sight range.
@@ -77,7 +79,9 @@ public static class EliteAuras
         return checked(rating * (100 + bonus) / 100);
     }
     internal static int Defense(Mobile target, int defense)
-    { int level = Level(target, EliteAura.Conviction, true); return level == 0 ? defense : defense * Math.Max(0, 100 - Diminish(level, 40, 100)) / 100; }
+    { if(PaladinConviction.Managed(target)){return defense;}int level = Level(target, EliteAura.Conviction, true); return level == 0 ? defense : defense * Math.Max(0, 100 - Diminish(level, 40, 100)) / 100; }
+    internal static int ConvictionOffset(Mobile target,string element)=>target!=null && _debuffs.TryGetValue(target.Serial,out var state)
+        ?element switch{"fire"=>state.Fire?.Offset ?? 0,"cold"=>state.Cold?.Offset ?? 0,"ltng"=>state.Lightning?.Offset ?? 0,_=>0}:0;
     internal static int SkillDamage(int basis, int[] increments, int level)
     {
         int result = basis;
@@ -92,12 +96,14 @@ public static class EliteAuras
         _ => 0
     };
     internal static int PlayerResistance(PlayerMobile target, ResistanceType type, int basis)
+        => Math.Clamp(PlayerResistanceRaw(target,type,basis),-100,NamedCombat.ResistanceCap(target,type));
+    internal static int PlayerResistanceRaw(PlayerMobile target, ResistanceType type, int basis)
     {
         if (!_debuffs.TryGetValue(target.Serial, out var state)) { return basis; }
         int offset = type switch { ResistanceType.Physical => state.Physical?.Offset ?? 0,
             ResistanceType.Fire => state.Fire?.Offset ?? 0, ResistanceType.Cold => state.Cold?.Offset ?? 0,
             ResistanceType.Energy => state.Lightning?.Offset ?? 0, _ => 0 };
-        return Math.Clamp(basis + offset, -100, 75);
+        return basis + offset;
     }
     internal static void Amplify(Mobile target, TimeSpan duration)
     {

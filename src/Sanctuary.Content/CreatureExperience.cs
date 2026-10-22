@@ -11,7 +11,7 @@ public static class CreatureExperience
     internal static bool Award(RewardLife life)
     {
         var player = life.Player;
-        if (!player.Alive || life.Corpse.Map != player.Map || !player.InRange(life.Corpse, LootProtocol.SightRange))
+        if (!player.Alive || PaladinConversion.WasConverted(life.Creature) || life.Corpse.Map != player.Map || !player.InRange(life.Corpse, LootProtocol.SightRange))
         {
             return false;
         }

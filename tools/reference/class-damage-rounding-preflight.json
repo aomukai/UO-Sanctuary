@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "supported arithmetic and native integration verified through two reloads; modern, negative-MDR and full-resource load limits remain explicit",
+  "referenceVersion": "3.3.93847",
+  "supplementaryEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "findings": [
+    {
+      "mechanic": "Per-channel fixed-point resistance rounding",
+      "legacyEvidence": "SUNITDMG_ApplyResistancesAndAbsorb modifies integer nValue per damage table entry using MONSTERUNIQUE_CalculatePercentage(nValue,100-nResValue,100). Each elemental result is truncated before total damage is summed.",
+      "currentBoundary": "NamedElements.Reduce256/Resolve256 now reduce each channel as integer FP256. MitigatePrepared sums already-truncated channels and heals aggregate absorb through SkillHealth. Native0058 carries optional Total256 through the UOContent damage bridge.",
+      "example": "Three209/256 channels at50 resistance now yield104+104+104=312 FP units in native Vengeance, ordinary typed and native AOS paths; prior combined-double floor was313.",
+      "nextAction": "Complete full native/save-reload regression and record supported1260 source reducer cases, keeping180 legacy negative-MDR cases explicitly outside modern parity."
+    },
+    {
+      "mechanic": "Damage leaving less than one life point",
+      "legacyEvidence": "SUNITDMG_ExecuteEvents subtracts integer dwDmgTotal and sets remaining life to0 when nNewHp<256.",
+      "currentBoundary": "Positive direct damage now clamps remaining life below256 FP to death, while exactly256 FP remains alive. Original life-block64 cases, corpses/remainder clearing/protected actors and focused two-reload checks pass.",
+      "nextAction": "Complete full regression; retain explicit modern comparison and separate full-resource load-clamp work."
+    }
+  ],
+  "scope": "Affects shared class damage acceptance. Does not block unrelated talents, and does not establish every intermediate rounding, absorb/heal/event or modern runtime path.",
+  "sourceProbe": "tools/probe_damage_rounding_reference.py",
+  "engineEvidence": "tools/reference/damage-rounding-engine-evidence.json",
+  "resourceLoadPreflight": "tools/reference/class-resource-load-preflight.json"
+}

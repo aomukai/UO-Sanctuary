@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "stage": "Enabled melee handler with verified allegiance; unsupported target branches explicitly gated",
+  "verifiedAtUtc": "2026-10-22T17:03:59.124940+00:00",
+  "nativePatchScope": "Optional nullable enemy/friend/damage-master content callbacks; defaults preserve native behavior. No Server-engine source change.",
+  "sourceFiles": {
+    "src/Sanctuary.Content/PaladinConversion.cs": "64de04d3bb4a05ce3f2b01251ffbdf072b8ee526f59a6cbf16fc974a99e28852",
+    "src/Sanctuary.Content/ClassCombat.cs": "3dde6a671498fec1e1443dbc309432d23e966986f19c7596a1a0eb5548080521",
+    "src/Sanctuary.Content/NamedControl.cs": "b7ca939e00bf94d63e0f1f8863194e97b3fff82fedecb4956da56ab86fa95d66",
+    "src/Sanctuary.Content/GraveyardUndead.cs": "ee5f5ffaf4990e800fe57ab8a26a9a364026541128b5affd2e9376d7e9e766c0",
+    "src/Sanctuary.Content/ClassLoot.cs": "48815a22ac5734f32eaadbc4401a0f35016727e33de102ef8d5aa84e8c4395af",
+    "src/Sanctuary.Content/CreatureExperience.cs": "885744f9b063a2ec76d75052d783ce57dbf8ee2b07d9bfee8bf7de8b4824a4e3",
+    "src/Sanctuary.Content/BalanceCatalog.cs": "fa0a5f33f0879b686988294d3fb65b6afa415add9b723dff9b21b6b8282324c0",
+    "tests/Sanctuary.Integration/ConversionChecks.cs": "5d396948d1b4bf324c4cdab995c7118c7cb6465ed640077b3f9f3abc8cd30383",
+    "tests/check_class_skills.py": "833409607f89630fd0566c5cf84b4c05d6732e8bfde7ca8dff110d79f828bb9f",
+    "tools/build_class_skills.py": "22b28bf533328a0ea2233fd5af7e4ce5102ae9eb8f7cd60ef767346668c480fa",
+    "tools/build_skill_roadmap.py": "1c9db603fe2de20058d27245a3681e3cc12fb694ad4cc4d771dee3af7455e37e",
+    "data/Sanctuary/Balance/conversion-source-rules.json": "4d3136eb492cfd8d273af777a425d4da4cc58b260175066e991b18149cff65d0",
+    "patches/ModernUO/0059-conversion-allegiance-and-damage-credit.patch": "c32648628df468217b60ba582739ccda8065da293838be992e03e44c8d235782",
+    "upstream/ModernUO/Projects/UOContent/Mobiles/ClassCombatHooks.cs": "c97bd8a341974ea08b7a7344464ffc2c02dc83d94927bfac493ae5fd152b6a15",
+    "upstream/ModernUO/Projects/UOContent/Mobiles/BaseCreature.cs": "0bc80a2fce39e843a008be20e293638c5534e28c9316af27316922196a210b6f",
+    "src/Sanctuary.Content/PaladinCombat.cs": "54e43044720f99334102d3acae76eb570352bee8148fbc1def63669b5dfa4322",
+    "src/Sanctuary.Content/ActionTiming.cs": "9dfff4f1bf0477de309422ae2c1e30af7d2dde91375484c93633925526668798",
+    "src/Sanctuary.Content/HitRecovery.cs": "4358ec39e0e60a322f0a5c801658d837eaf1f9c761913134de40df416ba2aba7",
+    "src/Sanctuary.Content/GearEffects.cs": "f7d7cabb3e2475e498bb870168b4fce86acaf8538018237b59a1f02e2b91b06b"
+  },
+  "verified": [
+    "751 pinned source-rule rows;461 pass static evil/walk/switchAI/nonboss filter before native eligibility",
+    "Same/lower-level mapped creature retains exact species/AI instance/team/ownership flags/current and maximum life",
+    "Native player/creature attack rejection, typed AOS damage rejection and shared fire/spell damage packet rejection against converted allies",
+    "Native opposing wild-creature enemy/friend classification and actual acquisition of wild target instead of nearer player",
+    "Neutral native creature remains neither friend nor enemy",
+    "Actual converted AOS damage includes native owner responsibility; a converted kill awards source XP to its owner",
+    "Converted own death awards no owner XP; exclusion is scoped to XP separately from existing loot handling",
+    "Native pets are protected and cannot themselves be converted",
+    "Conversion expiry restores hostility without a fixed grace period; old target clears and native acquisition can select player",
+    "Natural five-frame primitive expires using normal40-ms pruning timer",
+    "Exact allegiance identity/deadline and species/ownership/life survive two native save/reload cycles",
+    "Full combined native suite passes three boots/two reloads; optional callbacks coexist with earlier skills",
+    "Available melee handler prepares the hit/base weapon packet and pays4 mana once at start; event-time conversion succeeds without weapon damage.",
+    "Native attack fixture covers hit/success, hit/failure, miss/failure and miss/success, no early damage or duplicate delivery, left/right/quick binding, movement cancellation and insufficient mana."
+  ],
+  "fixtureLimits": [
+    "Source duration400 frames asserted; retained persistence fixture explicitly holds deadline ten minutes across the longer full suite",
+    "Acquisition tests set NextReacquireTime to current tick to force the test poll; live adapter preserves native species scan/cooldown",
+    "An administrative direct-damage call bypasses allied protection solely to test converted-death XP exclusion",
+    "Unmapped species, imp-family attachment, BardProvoked and higher-level scaling branches are refused; source flag8 stat-list removal and full owner/gear/ability/client paths remain unsupported or unverified",
+    "Full modern mastery/critical/proc/curse/durability snapshots and complete owner/gear/client acceptance remain open; prepared base weapon damage is not a complete source combat-record reproduction."
+  ],
+  "logs": [
+    ".local/class-skills/conversion-focused.log",
+    ".local/class-skills/conversion-focused-run.log",
+    ".local/class-skills/native-checks.log",
+    ".local/class-skills/full-suite-run.log",
+    ".local/class-skills/patch-replay.json"
+  ]
+}

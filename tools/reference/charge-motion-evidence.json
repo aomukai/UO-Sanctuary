@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "stage": "staged partial Charge phase/cadence/impact handler; native and attached-owner ground-motion coverage",
+  "owningSocket": {
+    "ownerUpdates": [
+      [
+        2249,
+        1081,
+        0
+      ],
+      [
+        2250,
+        1081,
+        0
+      ],
+      [
+        2251,
+        1081,
+        0
+      ],
+      [
+        2252,
+        1081,
+        0
+      ],
+      [
+        2252,
+        1081,
+        0
+      ]
+    ],
+    "ownerStepPositions": [
+      [
+        2249,
+        1081,
+        0
+      ],
+      [
+        2250,
+        1081,
+        0
+      ],
+      [
+        2251,
+        1081,
+        0
+      ],
+      [
+        2252,
+        1081,
+        0
+      ]
+    ],
+    "ordinaryMovementAcknowledged": true,
+    "checks": "native geometry/occupancy/guards; actual ground Charge phase/mana/finish through connected-owner movement/reset/position packets",
+    "bootstrap": "Fixture actor attachment/game protocol state; no real login or graphical-client proof"
+  },
+  "sourceFiles": {
+    "src/Sanctuary.Content/ChargeMotion.cs": "a63f0296e9257b5cd35a1f941fff725fe3730f272852cd7443b7be15013dbba6",
+    "src/Sanctuary.Content/NamedControl.cs": "9eba2dc75e0100bd3290cf6f149095652fbefe0241ea050b3111afb38131e5fe",
+    "tests/Sanctuary.Integration/ChargeMotionChecks.cs": "8883b44f1a82ccf5c71535cc8019a78762ca9bc34a16f554528bf8160cbe2a5e",
+    "tests/check_charge_motion.py": "c9e8e7114640bbe92b272c542b293e05e8414d35761f3e48beb0f85aa574bc36",
+    "src/Sanctuary.Content/PaladinCharge.cs": "c14031f6a70c1239940705c2b636db3bc9b2b2818f202c006ccbdda0b87496a4",
+    "tests/Sanctuary.Integration/ChargeChecks.cs": "5cf91e461946d645dd9202cf99acc159374bec157d24e6787a48557b0c2e2e0b",
+    "tests/check_class_skills.py": "6ef613a5c32d28ee083ab8f876dcf2a2c472e4fa1e52883940604f53c0bef2e6"
+  },
+  "limits": [
+    "Fixture attaches an actor and sets only its disposable socket game-protocol state; no account-login or graphical-client prediction claim.",
+    "Real closed-door/stair/height/map-town/queued-input/owner transitions need additional coverage.",
+    "Standard walking animation is only a prototype; final Charge sequence/FX/icons remain separate placeholders.",
+    "This connected-owner movement fixture does not cover target knockback. Mapped standard target control now has separate sanctuary-native-evidence.json coverage; complete Charge/modern client acceptance remains open."
+  ]
+}

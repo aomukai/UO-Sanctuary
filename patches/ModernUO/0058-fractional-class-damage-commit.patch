@@ -1,0 +1,55 @@
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -171,7 +171,7 @@
+                     }
+                 }
+ 
+-                if (totalDamage < 1)
++                if (totalDamage < 1 && skillResistance?.Total256 is not > 0)
+                 {
+                     if (projectResistance.HasValue)
+                     {
+@@ -267,7 +267,11 @@
+                 }
+             }
+ 
+-            if (totalDamage <= 0)
++            var fixedTotal256 = skillResistance?.Total256 is { } fixedBase
++                ? (int)Math.Clamp((long)fixedBase + ((long)totalDamage - skillResistance.Value.Total) * 256, 0, int.MaxValue)
++                : (int?)null;
++
++            if (totalDamage <= 0 && fixedTotal256 is not > 0)
+             {
+                 return 0;
+             }
+@@ -286,7 +290,14 @@
+             }
+ 
+             var beforeDamage = m.Hits;
+-            m.Damage(totalDamage, from);
++            if (fixedTotal256 is { } fixedTotal && ClassCombatHooks.ApplyDamage256 is { } applyFixed)
++            {
++                applyFixed(from, m, fixedTotal);
++            }
++            else
++            {
++                m.Damage(totalDamage, from);
++            }
+             if (m is BaseCreature creatureTarget && canRecover)
+             {
+                 ClassCombatHooks.CreatureDamaged?.Invoke(creatureTarget, from, Math.Max(0, beforeDamage - m.Hits), weaponDamage);
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -5,10 +5,12 @@
+ // A content assembly can own player attacks while NPC combat remains independent.
+ public readonly record struct ClassSkillDamage(int Total, int Physical)
+ {
++    public int? Total256 { get; init; }
+     public int Physical256 { get; init; }
+ }
+ public static class ClassCombatHooks
+ {
++    public static Func<Mobile, Mobile, int, int> ApplyDamage256 { get; set; }
+     public static Func<Mobile, Mobile, bool, IDisposable> MeleeAttempt { get; set; }
+     public static Action<Mobile, Mobile, int, bool> PreparedWeaponDamage { get; set; }
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }

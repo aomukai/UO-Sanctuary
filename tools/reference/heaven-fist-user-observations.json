@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "User firsthand gameplay report in this session; not an instrumented capture",
+  "observations": [
+    {
+      "question": "Does clicking empty ground automatically target an enemy?",
+      "answer": "yes, it targets an enemy, but you have to face it (180 degrees)",
+      "interpretation": "Automatic acquisition is observed and constrained to a forward half-circle; precise boundary/orientation is not instrumented."
+    },
+    {
+      "question": "With multiple eligible enemies, cursor distance or Paladin distance?",
+      "answer": "it targets the one closest to the cursor, not to the paladin",
+      "interpretation": "Choose the candidate nearest the cursor, rather than nearest the caster."
+    },
+    {
+      "question": "Does a click behind the caster rotate the acquisition half-circle and cast?",
+      "answer": "yes, the paladin turns around and casts. both seems to be happening at the same time, the turn animation isn't done by the time the cast is out (but that might be a result of the 75% FCR i got)",
+      "interpretation": "The click defines the new facing and acquisition half-circle. No separate completed-turn prerequisite was observed; the suggested FCR explanation is not established."
+    }
+  ],
+  "officialCorroboration": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4 notes establish improved automatic target acquisition, without specifying its radius/order/cone."
+  },
+  "openQuestions": [
+    "Exact modern range/distance metric, perpendicular boundary, equal-distance ties, cursor-on-caster and moving-cursor snapshots remain uninstrumented."
+  ],
+  "implementationStatus": "Cursor-nearest automatic acquisition is implemented inside the click-facing half-circle, retaining existing Sanctuary range/LOS/town/hostility gates and ordinary cast timing/payment/cooldown. Exact ties, own-tile cursor and perpendicular candidates remain explicitly gated; focused and full native verification passed across three boots/two reloads; installed smoke passed."
+}

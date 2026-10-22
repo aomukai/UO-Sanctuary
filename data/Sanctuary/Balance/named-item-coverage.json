@@ -22,7 +22,12 @@
     "json/base/sets.json": "782a70ed92da47fb90579d3bf3e3faf6506f7fff708f4fc57b359f2cf2b707a3",
     "LICENSE.txt": "db3b92f0571d2ed0e51bd00ff588999d41bd28a9582fb7262740167ee3b1ac20",
     "json/skilldesc.json": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57",
-    "json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    "json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
   },
   "mappingInputs": {
     "normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
@@ -466,6 +471,6 @@
     "Gelid-Affix5"
   ],
   "effectIntegration": "NamedGear gates each complete definition and complete set against reviewed appearances and implemented effects; unsupported outcomes retain their source weight.",
-  "skillBindingInput": "52a9bd2075c28dc00ffa61d5542a9380f4a3948b60114c0d2a426b97feef55e1",
+  "skillBindingInput": "d4374f3a39ca95a45edd2903246598cc25e09ee40f45a2dfcf66e73b3f54257f",
   "activeSkillInput": "ce5131fca180bacf6cba3a2db0d07f93b2ac48608f59140193406926a1be7274"
 }

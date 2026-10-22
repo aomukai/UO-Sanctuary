@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "verifiedAtUtc": "2026-10-22T17:03:59.124940+00:00",
+  "stage": "Enabled partial handler; focused and combined3boots/2reloads pass",
+  "sourceHashes": {
+    "src/Sanctuary.Content/PaladinSanctuary.cs": "77502e0155aa131b207ac179f7a67cdf8aee3e161a526e458ab584cf14ac3569",
+    "src/Sanctuary.Content/SourceKnockbacks.cs": "54de2fb6aad03f07fe6eb7b075546dc5a59475d8dfba2e4b649770da9bfe7afd",
+    "src/Sanctuary.Content/PaladinAuras.cs": "36d36087efe92c79f217f7edcbac4eb3da5606f514753e212d496d9636dc9606",
+    "src/Sanctuary.Content/PaladinCombat.cs": "54e43044720f99334102d3acae76eb570352bee8148fbc1def63669b5dfa4322",
+    "src/Sanctuary.Content/PaladinCharge.cs": "b4b2b77ee70c996153992bfd71d0890d04a3f85d6aac4a061a9ae50e264ea50d",
+    "src/Sanctuary.Content/CreatureHitRecovery.cs": "4285524d7e7c16217c87c2196071aac8b57cf7d0a1d84f15b8261e9f0eda3147",
+    "src/Sanctuary.Content/NamedElements.cs": "1ccf25a09c781572d04b2c1baadb686854937bfe7a34ce0ee9ce85f5338d6a4b",
+    "src/Sanctuary.Content/GearEffects.cs": "f7d7cabb3e2475e498bb870168b4fce86acaf8538018237b59a1f02e2b91b06b",
+    "src/Sanctuary.Content/ClassStats.cs": "d3a2b1669f0adda71704d8d19ff9413c76fb99dc6dc8fa672f2dc6f6bdefc1de",
+    "src/Sanctuary.Content/SkillCombat.cs": "38ae365de9496a5c7800c58146632eb0db8fffbe7f8c7f72f1017c342e80182e",
+    "src/Sanctuary.Content/BalanceCatalog.cs": "fa0a5f33f0879b686988294d3fb65b6afa415add9b723dff9b21b6b8282324c0",
+    "tests/Sanctuary.Integration/SanctuaryAuraChecks.cs": "b6834ca613e4ad3d576d69f3ab374c33a2dc03afd5ea9df56ba2fd8aca28dfcc",
+    "tests/check_class_skills.py": "833409607f89630fd0566c5cf84b4c05d6732e8bfde7ca8dff110d79f828bb9f",
+    "tools/build_class_skills.py": "22b28bf533328a0ea2233fd5af7e4ce5102ae9eb8f7cd60ef767346668c480fa",
+    "tools/build_skill_roadmap.py": "1c9db603fe2de20058d27245a3681e3cc12fb694ad4cc4d771dee3af7455e37e",
+    "data/Sanctuary/Balance/knockback-source-rules.json": "5b034ae8ebb1790ebc7b6c26f11e83a78d596c0ea61dfd41b9cefbc240e8ab8f"
+  },
+  "verified": [
+    "Independent rank1/rank20 fixed-point damage, hard Cleansing synergy, undead enhanced-damage and flat AR goldens.",
+    "Right-only delayed aura; undead/magic immunity/range/friendly/player/pet/supplier-only filtering; unknown native control metadata excluded.",
+    "Natural magic pulse and accepted native knockback with forced GH recovery; ordinary movement denied during control.",
+    "Zero-mana magic pulse and knockback; no mana payment; provisional legacy supplier bonus threshold kept separate.",
+    "Undead-only additive weapon enhancement and flat AR before skill/passive percentages; existing item undead/demon AR order corrected at same source step.",
+    "Class and native typed positive physical resistance/immunity clamp; negative physical resistance preserved and beasts unchanged.",
+    "Native impassable Blocker stops forced movement; normal GH releases naturally.",
+    "Actual Charge impact invokes shared mapped knockback controller.",
+    "Exact motion target/map/position/end/length/progress/budget/phase/deadline and supplier lease survive two reloads; forced movement and recovery resume and release."
+  ],
+  "limits": [
+    "Broader BYPASSUNDEAD flag is not implemented; ordinary nonphysical resistance/reduction/absorb paths remain in effect. This is an explicit missing consumer, not full Sanctuary parity.",
+    "Native class weapon damage/flat AR consumers and physical-state clamp are connected; full native weapon/Smite/missile/item snapshot/leech composition remains acceptance work.",
+    "Source low-mana supplier stats, exact proximity/path geometry/rounding and native mode/owner/client behavior require pinned modern comparison.",
+    "Source distance argument5 gives normalized endpoint half-distance3subtiles; distance10 sand leapers need their separate post-mode AI15/45frames. Standard native projection is explicit; special native branch gated.",
+    "Missing final effects and talent/hotkey icons are separate placeholders."
+  ],
+  "fixtureLimits": [
+    "Native AI stopped for motion fixtures; poison suppresses unrelated life regeneration. CantWalk must remain false for accepted native movement.",
+    "Saved inspection motion/aura deadlines held ten minutes; natural activation, movement and recovery verified separately.",
+    "LichLord Hell magic100 supplies a real immune target with unmapped knockback metadata; no guessed control rule added.",
+    "Charge fixture advances its ordinary existing phase processor to the impact and asserts the real callback requests shared control; modern continuous path/client parity is separate.",
+    "Combined reload fixture must preserve current unrelated aura emitters; an old global seed restore was removed after it erased the later Holy Freeze fixture. No live aura change was needed for that correction.",
+    "Persistence fixture seeds the moving phase, then observes resumed motion/GH release. A separately saved already-recovering phase and exhaustive death/map/relocation cases still need dedicated checks."
+  ],
+  "logs": [
+    ".local/class-skills/sanctuary-aura-focused.log",
+    ".local/class-skills/sanctuary-aura-focused-run.log",
+    ".local/class-skills/sanctuary-corridor-fixture-failure.log",
+    ".local/class-skills/sanctuary-cantwalk-fixture-failure.log",
+    ".local/class-skills/sanctuary-ar-fixture-failure.log",
+    ".local/class-skills/sanctuary-wall-fixture-failure.log",
+    ".local/class-skills/sanctuary-cross-fixture-reload-failure.log",
+    ".local/class-skills/native-checks.log",
+    ".local/class-skills/full-suite-run.log"
+  ]
+}

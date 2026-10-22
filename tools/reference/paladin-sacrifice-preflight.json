@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "status": "preflight advanced to supported staged handler; focused/full two-reload evidence in sacrifice-engine-evidence.json",
+  "referenceVersion": "3.3.93847",
+  "supplementaryEngineCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceId": 96,
+  "ability": 112,
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "data/Sanctuary/Balance/class-skills.json": "68f617d4ae68e983c5deaabca7cb1be7c420c755153590dbc6161e7cf47477a4"
+  },
+  "pinnedFields": {
+    "srvstfunc": 29,
+    "srvdofunc": 64,
+    "range": "h2h",
+    "itypea1": "mele",
+    "anim": "A1",
+    "seqnum": 2,
+    "UseAttackRate": 1,
+    "AttackNoMana": 1,
+    "mana": 0,
+    "calc1": "ln12+skill('Redemption'.blvl)*par8+skill('Fanaticism'.blvl)*par7",
+    "calc2": "\"max(par6, par5-lvl/par3)\"",
+    "ToHit": 20,
+    "LevToHit": 7,
+    "SrcDam": 128,
+    "cltdofunc": 34,
+    "cltmissilea": "blood1",
+    "cltcalc1": 3
+  },
+  "findings": [
+    "Pinned calc2 is max(par6,par5-lvl/par3), parameters8/1/3: rank1=8%,rank20=2%,rank21+=1%; a flat8% cost would contradict the pin.",
+    "Legacy St29 validates skill/used-skill/target/melee range, allocates a combat record even on a miss, and applies enhanced physical damage plus elemental roll only on successful hit.",
+    "Legacy AllocCombat fills remaining damage and calls CalculateTotalDamage before storing the record. Do64 therefore reads the prepared physical channel, not an unmitigated weapon roll.",
+    "Do64 caps prepared physical by target current FP life, takes the integer percentage, then invokes self ExecuteEvents with hit flag0x1000, self ExecuteMissileDamage, and finally DrainItemDurability in that order.",
+    "DrainItemDurability re-fetches the combat record, checks melee range and attacker mode, then invokes target ExecuteEvents. Self death, combat record removal and motion must be traced rather than committing target damage unconditionally.",
+    "ExecuteEvents applies absorb-life healing later, immediately before direct life subtraction; the current MitigatePrepared helper heals absorb immediately. Sacrifice needs an explicit prepare/commit boundary to preserve the target-life cap and self-before-target ordering.",
+    "Current shared direct-life threshold and per-channel FP arithmetic are verified separately. They do not certify Sacrifice leech/LifeTap/ATD/Thorns/absorb or modern start/do snapshots."
+  ],
+  "nextActions": [
+    "See sacrifice-engine-evidence.json for compiled proofs, implementation, verified native cases and remaining acceptance work.",
+    "Continue Smite and remaining Paladin handlers without marking the class complete."
+  ],
+  "assets": {
+    "effect": "Source client blood1/cltdofunc34 emission needs later dedicated art/timing; any temporary effect must be identified.",
+    "icon": "Talent-tree and hotkey icon remain separately registered placeholders."
+  },
+  "limits": [
+    "Legacy engine callbacks supplement the modern data pin; they do not certify pinned modern executable behavior.",
+    "Converted throwing/melee weapon eligibility, AttackNoMana and modern start/do/gear/owner/client behavior still need explicit acceptance.",
+    "No new item skill/proc/oskill/charged gates, native patch, save schema, deployment or final art."
+  ]
+}

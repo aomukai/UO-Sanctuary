@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sources": {
+    "summon": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillSor.cpp",
+    "ai": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/AI/AiThink.cpp",
+    "initialThink": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/Skills.cpp",
+    "animation": "https://github.com/OpenDiablo2/OpenDiablo2/blob/master/d2common/d2fileformats/d2animdata/testdata/AnimData.d2",
+    "modernCap": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live"
+  },
+  "animationSha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+  "animation": {
+    "spawnFrames": 12,
+    "attackFrames": 12,
+    "actionFrame": 8
+  },
+  "animationRows": [
+    "HXS2HTH",
+    "HYS2HTH",
+    "HZS2HTH",
+    "HXA1HTH",
+    "HYA1HTH",
+    "HZA1HTH"
+  ],
+  "sourceSpeed": 256,
+  "initialThinkFrames": 25,
+  "failedDecisionIdleFrames": 10,
+  "shotChancePercent": 60,
+  "strictRangeSubtiles": 25,
+  "headOffsets": [
+    [
+      -1,
+      -1
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      -1
+    ]
+  ],
+  "limits": [
+    "Legacy animation/AI transfer requires modern D2R capture",
+    "UO landing fallback, exact unit-search order/LOS and source random stream remain open",
+    "Special fire-immunity piercing and in-flight owner-removal ordering require source acceptance",
+    "Slow Missiles and CanDestroy interception await the relevant class/shared mechanics"
+  ],
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "aiProbe": "Unmodified Hydra AI function compiled with world/action/random stubs; covers strict expiry, strict range25 and roll<60. This does not simulate modern target acquisition or animation scheduling.",
+  "aiCases": [
+    {
+      "expiry": 9,
+      "frame": 10,
+      "distance": 24,
+      "roll": 59,
+      "action": "die"
+    },
+    {
+      "expiry": 9,
+      "frame": 10,
+      "distance": 24,
+      "roll": 60,
+      "action": "die"
+    },
+    {
+      "expiry": 9,
+      "frame": 10,
+      "distance": 25,
+      "roll": 59,
+      "action": "die"
+    },
+    {
+      "expiry": 9,
+      "frame": 10,
+      "distance": 25,
+      "roll": 60,
+      "action": "die"
+    },
+    {
+      "expiry": 10,
+      "frame": 10,
+      "distance": 24,
+      "roll": 59,
+      "action": "shoot"
+    },
+    {
+      "expiry": 10,
+      "frame": 10,
+      "distance": 24,
+      "roll": 60,
+      "action": "idle10"
+    },
+    {
+      "expiry": 10,
+      "frame": 10,
+      "distance": 25,
+      "roll": 59,
+      "action": "idle10"
+    },
+    {
+      "expiry": 10,
+      "frame": 10,
+      "distance": 25,
+      "roll": 60,
+      "action": "idle10"
+    },
+    {
+      "expiry": 11,
+      "frame": 10,
+      "distance": 24,
+      "roll": 59,
+      "action": "shoot"
+    },
+    {
+      "expiry": 11,
+      "frame": 10,
+      "distance": 24,
+      "roll": 60,
+      "action": "idle10"
+    },
+    {
+      "expiry": 11,
+      "frame": 10,
+      "distance": 25,
+      "roll": 59,
+      "action": "idle10"
+    },
+    {
+      "expiry": 11,
+      "frame": 10,
+      "distance": 25,
+      "roll": 60,
+      "action": "idle10"
+    }
+  ]
+}

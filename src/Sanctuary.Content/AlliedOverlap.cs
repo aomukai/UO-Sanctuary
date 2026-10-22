@@ -36,7 +36,8 @@ public static class AlliedOverlap
         ClassCombatHooks.MovementGoal = Remember;
         ClassCombatHooks.FreeDestination = FreeDestination;
     }
-    public static bool PassThrough(Mobile a, Mobile b) => a != b && a is { Deleted: false, Alive: true }
+    public static bool PassThrough(Mobile a, Mobile b) => a != b && a is not BoneBarrierSegment && b is not BoneBarrierSegment
+        && a is { Deleted: false, Alive: true }
         && b is { Deleted: false, Alive: true } && !a.IsDeadBondedPet && !b.IsDeadBondedPet && ClassCombat.Friendly(a, b);
     public static bool Blocked(Mobile actor)
     {

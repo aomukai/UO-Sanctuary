@@ -23,7 +23,7 @@ public static class ClassLoot
         ClassLootHooks.SuppressDrops = creature => creature is not BaseVendor && !creature.Controlled && !creature.Summoned;
         ClassLootHooks.PreserveCorpse = (creature, container) => !creature.Controlled && !creature.Summoned
             && CreatureGold.Policy(creature.GetType()) is { Eligible: true } && container is Corpse corpse && HasContents(corpse);
-        ClassLootHooks.CreatureDied = (creature, corpse) => RewardLife.Process(creature, corpse);
+        ClassLootHooks.CreatureDied = (creature, corpse) => { CorpseSkillRules.Capture(creature,corpse); RewardLife.Process(creature, corpse); };
         ClassLootHooks.Carved = (from, corpse) =>
         {
             if (from is PlayerMobile player && ClassCombat.Enabled(player) && corpse.OwnerWasBaseCreature)
@@ -98,6 +98,7 @@ public static class ClassLoot
         }
     }
     public static PlayerMobile Killer(BaseCreature creature) => creature.LastKiller as PlayerMobile
+        ?? (creature.LastKiller is BaseCreature converted?PaladinConversion.DamageMaster(converted,creature) as PlayerMobile:null)
         ?? (creature.LastKiller as BaseCreature)?.GetMaster() as PlayerMobile;
     private static void Receive(NetState state, SpanReader reader)
     {

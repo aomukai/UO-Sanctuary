@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "referenceEdition": "Reign of the Warlock",
+  "status": "focused and full combined native suites passed; three boots/two reloads; matching installed smoke passed",
+  "sourceProperty": {
+    "code": "dmg",
+    "function": 1,
+    "stat": "item_normaldamage",
+    "distinctFrom": "dmg-norm -> mindamage/maxdamage"
+  },
+  "sourceItems": [
+    {
+      "sourceKey": "Stone Crusher",
+      "base": "7wh",
+      "min": 10,
+      "max": 30
+    },
+    {
+      "sourceKey": "Ironward",
+      "base": "7ws",
+      "min": 40,
+      "max": 85
+    },
+    {
+      "sourceKey": "The Reedeemer",
+      "base": "7sc",
+      "min": 60,
+      "max": 120
+    }
+  ],
+  "sourceRule": "SUNITDMG_ApplyDamageBonuses adds STAT_ITEM_NORMALDAMAGE<<8 to both supplied shield endpoints before percentage bonuses. Do150 passes shield bases plus stored-rank Holy Shield damage with bGetStats=0 and srcDam128.",
+  "sourceEvidence": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "routine": "source/D2Game/src/UNIT/SUnitDmg.cpp:SUNITDMG_ApplyDamageBonuses",
+    "unchangedProbe": "tools/probe_smite_reference.py",
+    "probeCases": {
+      "damage": 64,
+      "stun": 256,
+      "timing": 72,
+      "guards": 5
+    },
+    "propertyFile": "tools/reference/d2r-named-equipment/json/properties.json"
+  },
+  "implementation": "NamedPropertyRuntime exposes normal-damage separately while retaining ordinary weapon min/max projection. PaladinSmite consumes active gear normal-damage in Endpoints256 before percentages. No new persisted field or source item gate is introduced.",
+  "verificationScope": [
+    "Three real Stone Crusher source rolls at different seeds; explicit supported one-handed HammerPick appearance.",
+    "Live Smite range and actual physical damage, excluding ordinary local weapon ED/min/max and suppressing random Crushing Blow only in the fixture.",
+    "Ordinary weapon endpoints remain unchanged; broken/backpack equipment loses the stat and re-equipping restores it.",
+    "Saved source weapon identity/roll and actual resumed Smite delivery through two reloads."
+  ],
+  "limits": [
+    "Modern executable item/mode/event/owner/client comparison is not certified by the supplementary legacy probe.",
+    "Astreon (source Ironward) and Redeemer (source The Reedeemer) retain unrelated existing item-skill gates; their acquisition is not enabled.",
+    "Grief runeword source/acquisition is not present in the current named equipment catalogue; this is a shared stat consumer, not a claim that Grief is implemented.",
+    "Full CB/OW/LifeTap/proc/durability and other Smite acceptance work remain open."
+  ],
+  "fixtureFailure": ".local/class-skills/smite-normal-gated-item-fixture-failure.log",
+  "nativeLog": ".local/class-skills/smite-focused.log",
+  "classComplete": false,
+  "observedNativeRolls": [
+    {
+      "seed": 173,
+      "normalDamage": 25,
+      "min256": 133012,
+      "max256": 141025
+    },
+    {
+      "seed": 0,
+      "normalDamage": 21,
+      "min256": 127006,
+      "max256": 135045
+    },
+    {
+      "seed": 37,
+      "normalDamage": 28,
+      "min256": 138040,
+      "max256": 146065
+    }
+  ]
+}

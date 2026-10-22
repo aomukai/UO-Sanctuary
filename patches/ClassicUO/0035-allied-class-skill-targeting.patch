@@ -1,0 +1,31 @@
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -625,7 +625,8 @@
+             return true;
+         }
+         var obj = SelectedObject.Object;
+-        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport) && !ClassAbilities.SelfTarget(Right))
++        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport)
++            && !ClassAbilities.SelfTarget(Right) && !(ClassAbilities.AllyTarget(Right) && (Ally(mobile) || mobile == world.Player)))
+         {
+             Stop(world);
+             return true;
+@@ -687,7 +688,7 @@
+         if (_heldUnit != 0)
+         {
+             var unit = world.Mobiles.Get(_heldUnit);
+-            if (!Hostile(unit))
++            if (!Hostile(unit) && !(ClassAbilities.AllyTarget(_heldAbility) && (Ally(unit) || unit == world.Player)))
+             {
+                 EndRightHold();
+                 return;
+@@ -695,7 +696,7 @@
+             Send(CombatRequest.HoldCast, unit.Serial, _heldAbility, unit.X, unit.Y, unit.Z);
+             return;
+         }
+-        if (SelectedObject.Object is Mobile friendly && !Hostile(friendly))
++        if (SelectedObject.Object is Mobile friendly && !Hostile(friendly) && !ClassAbilities.AllyTarget(_heldAbility))
+         {
+             EndRightHold();
+             return;

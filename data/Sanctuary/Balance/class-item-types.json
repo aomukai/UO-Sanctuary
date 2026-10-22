@@ -1,0 +1,637 @@
+[
+  {
+    "code": "abow",
+    "parents": [
+      "bow",
+      "amaz"
+    ]
+  },
+  {
+    "code": "ajav",
+    "parents": [
+      "jave",
+      "amaz"
+    ]
+  },
+  {
+    "code": "amaz",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "amul",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "apot",
+    "parents": [
+      "poti"
+    ]
+  },
+  {
+    "code": "armo",
+    "parents": []
+  },
+  {
+    "code": "ashd",
+    "parents": [
+      "shld",
+      "pala"
+    ]
+  },
+  {
+    "code": "aspe",
+    "parents": [
+      "spea",
+      "amaz"
+    ]
+  },
+  {
+    "code": "assn",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "axe",
+    "parents": [
+      "mele"
+    ]
+  },
+  {
+    "code": "barb",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "belt",
+    "parents": [
+      "armo"
+    ]
+  },
+  {
+    "code": "blde",
+    "parents": [
+      "mele"
+    ]
+  },
+  {
+    "code": "blun",
+    "parents": [
+      "mele"
+    ]
+  },
+  {
+    "code": "body",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "book",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "boot",
+    "parents": [
+      "armo"
+    ]
+  },
+  {
+    "code": "bow",
+    "parents": [
+      "miss"
+    ]
+  },
+  {
+    "code": "bowq",
+    "parents": [
+      "misl",
+      "seco"
+    ]
+  },
+  {
+    "code": "char",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "circ",
+    "parents": [
+      "helm"
+    ]
+  },
+  {
+    "code": "cjwl",
+    "parents": [
+      "jewl"
+    ]
+  },
+  {
+    "code": "clas",
+    "parents": []
+  },
+  {
+    "code": "cloa",
+    "parents": [
+      "tors",
+      "assn"
+    ]
+  },
+  {
+    "code": "club",
+    "parents": [
+      "blun"
+    ]
+  },
+  {
+    "code": "comb",
+    "parents": [
+      "mele",
+      "thro"
+    ]
+  },
+  {
+    "code": "csch",
+    "parents": [
+      "char"
+    ]
+  },
+  {
+    "code": "drui",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "elix",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "gem",
+    "parents": [
+      "sock"
+    ]
+  },
+  {
+    "code": "gem0",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gem1",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gem2",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gem3",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gem4",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gema",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gemd",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "geme",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gemr",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gems",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gemt",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "gemz",
+    "parents": [
+      "gem"
+    ]
+  },
+  {
+    "code": "glov",
+    "parents": [
+      "armo"
+    ]
+  },
+  {
+    "code": "gold",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "grim",
+    "parents": [
+      "shld",
+      "warl"
+    ]
+  },
+  {
+    "code": "h2h",
+    "parents": [
+      "mele",
+      "assn"
+    ]
+  },
+  {
+    "code": "h2h2",
+    "parents": [
+      "h2h"
+    ]
+  },
+  {
+    "code": "hamm",
+    "parents": [
+      "blun"
+    ]
+  },
+  {
+    "code": "head",
+    "parents": [
+      "shld",
+      "necr"
+    ]
+  },
+  {
+    "code": "helm",
+    "parents": [
+      "armo"
+    ]
+  },
+  {
+    "code": "herb",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "hpot",
+    "parents": [
+      "poti"
+    ]
+  },
+  {
+    "code": "jave",
+    "parents": [
+      "comb",
+      "spea"
+    ]
+  },
+  {
+    "code": "jewl",
+    "parents": [
+      "sock"
+    ]
+  },
+  {
+    "code": "key",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "knif",
+    "parents": [
+      "blde"
+    ]
+  },
+  {
+    "code": "lcha",
+    "parents": [
+      "char"
+    ]
+  },
+  {
+    "code": "mace",
+    "parents": [
+      "blun"
+    ]
+  },
+  {
+    "code": "mboq",
+    "parents": [
+      "bowq"
+    ]
+  },
+  {
+    "code": "mcha",
+    "parents": [
+      "char"
+    ]
+  },
+  {
+    "code": "mele",
+    "parents": [
+      "weap"
+    ]
+  },
+  {
+    "code": "misc",
+    "parents": []
+  },
+  {
+    "code": "misl",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "miss",
+    "parents": [
+      "weap"
+    ]
+  },
+  {
+    "code": "mpot",
+    "parents": [
+      "poti"
+    ]
+  },
+  {
+    "code": "mxbq",
+    "parents": [
+      "xboq"
+    ]
+  },
+  {
+    "code": "necr",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "none",
+    "parents": []
+  },
+  {
+    "code": "orb",
+    "parents": [
+      "weap",
+      "sorc"
+    ]
+  },
+  {
+    "code": "pala",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "pelt",
+    "parents": [
+      "helm",
+      "drui"
+    ]
+  },
+  {
+    "code": "phlm",
+    "parents": [
+      "helm",
+      "barb"
+    ]
+  },
+  {
+    "code": "play",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "pole",
+    "parents": [
+      "sppl"
+    ]
+  },
+  {
+    "code": "poti",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "ques",
+    "parents": []
+  },
+  {
+    "code": "ring",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "rod",
+    "parents": [
+      "blun"
+    ]
+  },
+  {
+    "code": "rpot",
+    "parents": [
+      "hpot",
+      "mpot"
+    ]
+  },
+  {
+    "code": "rune",
+    "parents": [
+      "sock"
+    ]
+  },
+  {
+    "code": "scep",
+    "parents": [
+      "rod"
+    ]
+  },
+  {
+    "code": "scha",
+    "parents": [
+      "char"
+    ]
+  },
+  {
+    "code": "scro",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "seco",
+    "parents": []
+  },
+  {
+    "code": "shie",
+    "parents": [
+      "shld"
+    ]
+  },
+  {
+    "code": "shld",
+    "parents": [
+      "armo",
+      "seco"
+    ]
+  },
+  {
+    "code": "sock",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "sorc",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "spea",
+    "parents": [
+      "sppl"
+    ]
+  },
+  {
+    "code": "spot",
+    "parents": [
+      "poti"
+    ]
+  },
+  {
+    "code": "sppl",
+    "parents": [
+      "mele"
+    ]
+  },
+  {
+    "code": "staf",
+    "parents": [
+      "rod"
+    ]
+  },
+  {
+    "code": "swor",
+    "parents": [
+      "blde"
+    ]
+  },
+  {
+    "code": "taxe",
+    "parents": [
+      "comb",
+      "axe"
+    ]
+  },
+  {
+    "code": "thro",
+    "parents": [
+      "weap"
+    ]
+  },
+  {
+    "code": "tkni",
+    "parents": [
+      "comb",
+      "knif"
+    ]
+  },
+  {
+    "code": "torc",
+    "parents": [
+      "misc"
+    ]
+  },
+  {
+    "code": "tors",
+    "parents": [
+      "armo"
+    ]
+  },
+  {
+    "code": "tpot",
+    "parents": [
+      "thro"
+    ]
+  },
+  {
+    "code": "wand",
+    "parents": [
+      "rod"
+    ]
+  },
+  {
+    "code": "warl",
+    "parents": [
+      "clas"
+    ]
+  },
+  {
+    "code": "weap",
+    "parents": []
+  },
+  {
+    "code": "wpot",
+    "parents": [
+      "poti"
+    ]
+  },
+  {
+    "code": "xboq",
+    "parents": [
+      "misl",
+      "seco"
+    ]
+  },
+  {
+    "code": "xbow",
+    "parents": [
+      "miss"
+    ]
+  }
+]

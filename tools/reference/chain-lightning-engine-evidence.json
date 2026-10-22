@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/class-skills/SkillSor.cpp.reference": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-blizzard-MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/research/d2moo-blizzard-Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/research/d2moo-Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "probe": "Unmodified legacy SrvDo026, SrvHit12 and serial-selection routines compiled with world/radius/hostility/factory stubs. Proves count, cyclic identity selection, retained rank and child packet; does not model modern NHD implementation or exact terrain/Size2/path.",
+  "probeOutput": [
+    "select 0 10",
+    "select 10 20",
+    "select 20 30",
+    "select 30 10",
+    "select 40 10",
+    "count 1 5",
+    "count 5 6",
+    "count 20 9",
+    "child 3 1 4 33 100 200 7 30 20 567171",
+    "final 1"
+  ],
+  "nextHitDelay": {
+    "frames": 4,
+    "scope": "individual cast and descendants",
+    "basis": "Official 2.7 notes plus original firsthand Patch 2.7 testing; supplementary evidence, not modern pinned-binary certification",
+    "sources": [
+      "https://news.blizzard.com/en-gb/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+      "https://www.reddit.com/r/diablo2resurrected/comments/136937i/8_hours_of_testing_compiled_into_1_video/",
+      "https://us.forums.blizzard.com/en/d2r/t/how-next-hit-delay-actually-works-another-essay/159394"
+    ]
+  },
+  "sources": [
+    "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillSor.cpp",
+    "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/Skills.cpp",
+    "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+    "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/Missiles.cpp",
+    "https://raw.githubusercontent.com/ThePhrozenKeep/D2MOO/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Path/Path.cpp"
+  ],
+  "remaining": [
+    "Modern pinned-build NHD confirmation, exact Size2 collision, target search flags and FP16/cell path",
+    "Special mastery/pierce gear switching, terrain, owner lifecycle and actual-client targeting/effects"
+  ]
+}

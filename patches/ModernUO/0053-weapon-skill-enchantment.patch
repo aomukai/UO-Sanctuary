@@ -1,0 +1,40 @@
+diff --git a/Projects/UOContent/Misc/AOS.cs b/Projects/UOContent/Misc/AOS.cs
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -149,7 +149,7 @@
+                 totalDamage += damage * nrgy * (100 - resNrgy);
+ 
+                 totalDamage /= 10000;
+-                skillResistance = ClassCombatHooks.SkillResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy, spellDamage);
++                skillResistance = ClassCombatHooks.SkillResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy, spellDamage, weaponDamage);
+                 var projectResistance = skillResistance?.Total
+                     ?? (spellDamage ? ClassGearHooks.SpellResistedDamage?.Invoke(m, from, damage, phys, fire, cold, pois, nrgy) : null)
+                     ?? ClassGearHooks.ResistedDamage?.Invoke(m, damage, phys, fire, cold, pois, nrgy)
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -8,7 +8,8 @@
+ {
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+     public static Action<Mobile, Mobile, string> SkillMissileHit { get; set; }
+-    public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
++    public static Action<Mobile> CreatureEffectsEnded { get; set; }
++    public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }
+     public static Func<Mobile, Mobile, bool> TargetAllowed { get; set; }
+diff --git a/Projects/UOContent/Mobiles/ClassSkillLifecycle.cs b/Projects/UOContent/Mobiles/ClassSkillLifecycle.cs
+new file mode 100644
+--- /dev/null
++++ b/Projects/UOContent/Mobiles/ClassSkillLifecycle.cs
+@@ -0,0 +1,10 @@
++using ModernUO.CodeGeneratedEvents;
++
++namespace Server.Mobiles;
++
++public static class ClassSkillLifecycle
++{
++    [OnEvent(nameof(CreatureEvents.CreatureDeathEvent))]
++    [OnEvent(nameof(CreatureEvents.CreatureDeletedEvent))]
++    public static void EndEffects(BaseCreature creature) => ClassCombatHooks.CreatureEffectsEnded?.Invoke(creature);
++}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned modern tables/released Blizzard2.4 notes, inspected immutable legacy source and native disposable-world tests; no compiled original hit-callback probe or modern binary certificate.",
+  "sourceHashes": {
+    ".local/class-skills/MissMode.cpp.reference": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    ".local/class-skills/Missiles.cpp.reference": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    ".local/class-skills/CommonMissile.cpp.reference": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/research/d2moo-SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "modernData": {
+    "missile": "holybolt",
+    "sHitPar1": 1,
+    "sHitPar2": 3,
+    "sHitPar3": 0,
+    "pSrvDmgFunc": 15,
+    "dParam1": 0,
+    "Holy": 1,
+    "Vel": 20,
+    "Range": 50,
+    "Size": 1,
+    "CollideFriend": 1,
+    "LastCollide": 1,
+    "GetHit": 1,
+    "ReturnFire": 1,
+    "meaning": "Heal eligible allies; full damage to undead/demons, zero to other monster types; never destroy on unit collision. Released2.4 confirms demon inclusion and friendly/hostile piercing. Do not retain legacy return1 destruction. Modern DmgFunc15 implementation itself is not available here."
+  },
+  "legacyEvidence": [
+    "MissMode SrvHit07: ally/pet eligibility before enemy species; heal uses ORIGINAL missile skill rank with CURRENT caster hard Prayer synergy; exclusive fixed-point random range, capped maximum life.",
+    "CommonMissile nHoly bit1 adds bypass-undead; SUnitDmg clamps positive resistance to0 while preserving negative resistance, skips flat reduction and absorb for bypassed species. Pinned Holy1 supports undead bypass, not a silently invented demon bypass.",
+    "Common missile factory snapshots enhanced elemental damage at launch. Damage collision rolls per hit; no Prayer contribution to damage.",
+    "SrvDo1 HandleMissileCollision decrements current frame before collision; Range50 has49 collidable frames."
+  ],
+  "golden": {
+    "rank1NoSynergyDamage256": [
+      2048,
+      4096
+    ],
+    "rank1Mana256": 512,
+    "rank20Hard20Damage256": [
+      551936,
+      619520
+    ],
+    "rank20Hard20HealingWhole": [
+      195,
+      410
+    ],
+    "rank20Mana256": 816,
+    "rank1WithHardFoH1Damage256": [
+      3072,
+      6144
+    ],
+    "rank1WithCurrentHardPrayer5Healing256": [
+      512,
+      3072
+    ]
+  },
+  "native": "Non-aura action, left/right allied targeting, line aim, standard Paladin FCR profile, event-time payment and moving-caster interruption without payment. Source velocity on shared Q12/tile projection; first collision per frame with LastCollide, terrain/height/bounds, live targets and supplier exclusion; persistent frame/vector/last collider/rank/damage/deadlines; exclusive per-hit RNG, fixed-point life, holy bypass and ordinary demon mitigation/recovery. Original rank damage is snapshotted; healing recalculates current hard Prayer with stored rank.",
+  "verification": "Focused initial boot and two reloads pass: independent source endpoints/cost/hard synergies; left/right binding and held ally cast; zero-mana denial, no payment before event, moving interruption, exact event debit; natural piercing through poisoned player and undead pet, real Hell LichLord magic100, Daemon, hostile Ogre and another undead; only allowed foes damaged, allies healed, caster not self-healed; later Prayer/HolyBolt/FoH training distinguishes current heal synergy/original rank versus held cast damage; source decrement-before-collision frames49/50 and bounded overdue work; saved nonzero last collider prevents repeated ally heal after reload while pet healing and immune damage resume.",
+  "fixtureConditioning": "Negligible self poison prevents unrelated natural/source monster life regeneration during exact measurements and also verifies healing poisoned allies. No production regeneration changes. Saved inspection deadlines held5minutes only; actual source duration/phase checked separately. Global RNG seam restored. Native offline pets retain auto-stable and explicit claiming.",
+  "client": "ClassicUO0036 routes targeted left clicks, explicit hotkey casts and Shift-left hold onto allies without pursuit; shared generated AllyTarget adds HolyBolt and SelfTarget now includes HolyFire/HolyShock. Staged client builds; actual UI play remains untested. Original ability/save/wire IDs remain unchanged.",
+  "limits": [
+    "Exact modern SC action event, source unit sizes/path/terrain and collision order, missile slowdown/reflection/interception, full resist/pierce/absorb/gear cases and owner/death/offline transitions need comparison. Existing Paladin cast profile/action-event projection and alive-owner/map/town guards are not a modern D2R certificate.",
+    "Normal animals remain valid aim/collision bodies but take zero damage and cannot stop the piercing flight. Sanctuary co-op/native visibility/room contracts apply; full source party/PvP/native types are not recreated.",
+    "Item/proc/charged/oskill readiness is not unlocked; Holy Bolt direct-cast handler presence alone does not satisfy those modes.",
+    "Final holy projectile/trail, impact and healing effects plus separate talent/hotkey icons remain pending. Identified UO0x36E4 and0x376A placeholders keep mechanical testing independent.",
+    "KeepCursorStateOnKill=1 has no dedicated mapped cursor-state behavior; held-target death/reacquisition needs actual-client comparison. CanSlow=1 is recorded, but the shared missile-slowing consumer belongs to the pending Amazon work."
+  ],
+  "sources": [
+    "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Units/Missile.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SUNIT/SUnitDmg.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SUNIT/SUnit.cpp"
+  ]
+}

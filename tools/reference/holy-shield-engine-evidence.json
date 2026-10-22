@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned modern tables, released Blizzard2.4 blocking rule, immutable legacy source inspection and compiled original gate/block-speed/defense getters with explicit inventory/stat/formula stubs; focused and full native three-boot/two-reload checks. Not modern binary certification.",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/SkillSor.cpp.reference": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/research/d2moo-CommonUnits.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "skillFields": {
+    "skill": "Holy Shield",
+    "*Id": 117,
+    "charclass": "pal",
+    "skilldesc": "holy shield",
+    "srvstfunc": 36,
+    "srvdofunc": 18,
+    "aurastate": "holyshield",
+    "auralencalc": "ln12",
+    "aurastat1": "toblock",
+    "aurastatcalc1": "dm56",
+    "aurastatcalc2": "ln34+skill('Defiance'.blvl)*par8",
+    "stsound": "paladin_holyshield",
+    "enhanceable": 1,
+    "attackrank": 3,
+    "itypea1": "shld",
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "AttackNoMana": 1,
+    "reqlevel": 24,
+    "maxlvl": 20,
+    "reqskill1": "Charge",
+    "reqskill2": "Blessed Hammer",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 35,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "InTown": 1,
+    "calc1": "ln34+skill('Defiance'.blvl)*par8",
+    "*calc1 desc": "Armor %",
+    "Param1": 750,
+    "*Param1 Description": "Duration baseline",
+    "Param2": 625,
+    "*Param2 Description": "Duration per level",
+    "Param3": 25,
+    "*Param3 Description": "Armor % baseline",
+    "Param4": 15,
+    "*Param4 Description": "Armor % per level",
+    "Param5": 10,
+    "*Param5 Description": "Block % chance Min",
+    "Param6": 40,
+    "*Param6 Description": "Black % chance Max",
+    "Param8": 15,
+    "*Param8 Description": "Armor synergy",
+    "InGame": 1,
+    "HitShift": 8,
+    "MinDam": 3,
+    "MinLevDam1": 2,
+    "MinLevDam2": 3,
+    "MinLevDam3": 4,
+    "MinLevDam4": 4,
+    "MinLevDam5": 4,
+    "MaxDam": 6,
+    "MaxLevDam1": 2,
+    "MaxLevDam2": 3,
+    "MaxLevDam3": 4,
+    "MaxLevDam4": 4,
+    "MaxLevDam5": 4,
+    "cost mult": 768,
+    "cost add": 32000,
+    "lineNumber": 117
+  },
+  "sourceLinks": {
+    "releasedBlocking": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "cast": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "buff": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillSor.cpp",
+    "consumers": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Units/Units.cpp"
+  },
+  "mechanics": [
+    "SrvSt36 requires an equipped shield; SrvDo18 stores timed defensive state and source skill/rank.",
+    "Block bonus uses cast-time aurastatcalc1; defense re-evaluates calc1 at stored cast rank with current hard Defiance points, only while a shield is equipped.",
+    "Block chance adds Holy Shield before dexterity/level scaling and75-percent cap.",
+    "Block animation base rate is100 with Holy Shield state,50 without, plus effective faster block rate. Released2.4 successful blocks negate damage without interrupting active attacks or skills.",
+    "Smite adds Holy Shield physical MinDam/MaxDam with HitShift and physical rank tiers; this helper does not activate Smite."
+  ],
+  "golden": {
+    "rank1Mana256": 8960,
+    "rank1DurationFrames": 750,
+    "rank20DurationFrames": 12625,
+    "rank1Block": 14,
+    "rank20Block": 35,
+    "rank1DefenseWithoutSynergy": 25,
+    "rank20DefenseWithoutSynergy": 310,
+    "defensePerHardDefiance": 15,
+    "rank1Smite256": [
+      768,
+      1536
+    ],
+    "rank20Smite256": [
+      14592,
+      15360
+    ]
+  },
+  "probe": {
+    "script": "tools/probe_holy_shield_reference.py",
+    "castGates": 2,
+    "blockSpeedCases": 16,
+    "defenseCases": 12,
+    "result": {
+      "block": [
+        [
+          0,
+          0,
+          128
+        ],
+        [
+          0,
+          12,
+          153
+        ],
+        [
+          0,
+          13,
+          156
+        ],
+        [
+          0,
+          32,
+          192
+        ],
+        [
+          0,
+          40,
+          204
+        ],
+        [
+          0,
+          85,
+          253
+        ],
+        [
+          0,
+          86,
+          256
+        ],
+        [
+          0,
+          100,
+          266
+        ],
+        [
+          1,
+          0,
+          256
+        ],
+        [
+          1,
+          12,
+          281
+        ],
+        [
+          1,
+          13,
+          284
+        ],
+        [
+          1,
+          32,
+          320
+        ],
+        [
+          1,
+          40,
+          332
+        ],
+        [
+          1,
+          85,
+          381
+        ],
+        [
+          1,
+          86,
+          384
+        ],
+        [
+          1,
+          100,
+          394
+        ]
+      ],
+      "defense": [
+        [
+          0,
+          1,
+          1,
+          100
+        ],
+        [
+          0,
+          1,
+          2,
+          100
+        ],
+        [
+          0,
+          1,
+          20,
+          100
+        ],
+        [
+          0,
+          20,
+          1,
+          100
+        ],
+        [
+          0,
+          20,
+          2,
+          100
+        ],
+        [
+          0,
+          20,
+          20,
+          100
+        ],
+        [
+          1,
+          1,
+          1,
+          140
+        ],
+        [
+          1,
+          1,
+          2,
+          155
+        ],
+        [
+          1,
+          1,
+          20,
+          425
+        ],
+        [
+          1,
+          20,
+          1,
+          425
+        ],
+        [
+          1,
+          20,
+          2,
+          440
+        ],
+        [
+          1,
+          20,
+          20,
+          710
+        ]
+      ],
+      "castGate": [
+        0,
+        1
+      ]
+    },
+    "limits": "Formula, inventory and stat accessors are declared stubs; not a full D2 formula-engine or modern runtime comparison."
+  },
+  "acceptanceOpen": [
+    "Pinned modern SC event/mode/weapon-swap/shield break/requirements/owner/gear behavior and actual-client controls.",
+    "AttackNoMana fallback behavior; no free Holy Shield cast is invented.",
+    "Current shield validity follows existing Sanctuary active gear contract. Smite now has its separately staged source/native consumer; see smite-engine-evidence.json.",
+    "Final cast/glow/enchanted-shield effect and separate talent/hotkey icons are placeholders; item/oskill/aura/proc gates are unchanged."
+  ]
+}

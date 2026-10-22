@@ -124,5 +124,23 @@
     "manaEnergy4": 7,
     "attackBonus": 15,
     "statPerLevel": 5
+  },
+  {
+    "name": "Warlock",
+    "strength": 15,
+    "dexterity": 20,
+    "vitality": 25,
+    "energy": 20,
+    "life": 55,
+    "stamina": 86,
+    "mana": 20,
+    "lifeLevel4": 8,
+    "staminaLevel4": 4,
+    "manaLevel4": 6,
+    "lifeVitality4": 12,
+    "staminaVitality4": 4,
+    "manaEnergy4": 8,
+    "attackBonus": 5,
+    "statPerLevel": 5
   }
 ]

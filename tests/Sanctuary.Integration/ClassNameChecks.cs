@@ -21,8 +21,8 @@ namespace Sanctuary.Integration;
 public static class ClassNameChecks
 {
     private static readonly ILogger _logger = LogFactory.GetLogger(typeof(ClassNameChecks));
-    private static readonly string[] _male = ["Gargarean", "Sorcerer", "Necromancer", "Paladin", "Barbarian", "Druid", "Assassin"];
-    private static readonly string[] _female = ["Amazon", "Sorceress", "Necromancer", "Paladin", "Barbarian", "Druidess", "Assassin"];
+    private static readonly string[] _male = ["Gargarean", "Sorcerer", "Necromancer", "Paladin", "Barbarian", "Druid", "Assassin", "Warlock"];
+    private static readonly string[] _female = ["Amazon", "Sorceress", "Necromancer", "Paladin", "Barbarian", "Druidess", "Assassin", "Witch"];
     private static string Manifest => Path.Join(Core.BaseDirectory, "class-name-checks.json");
     private sealed record Saved(uint Serial, byte Class, bool Female, CharacterProfile Profile, StatAllocation Allocation,
         string Talent, int[] Stats, ActionTiming Timing, uint Weapon);
@@ -49,7 +49,7 @@ public static class ClassNameChecks
     private static void Create()
     {
         var saved = new List<Saved>();
-        for (byte id = 101; id <= 107; id++)
+        for (byte id = 101; id <= 108; id++)
         {
             Saved male = null;
             foreach (bool female in new[] { false, true })

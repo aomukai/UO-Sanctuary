@@ -194,7 +194,7 @@ def build(source=SOURCE, balance=BALANCE):
     normalize = lambda value: re.sub('[^a-z0-9]', '', value.lower())
     source_skills = {}
     for row in table('skills').values():
-        if row.get('charclass') not in ('ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass'):
+        if row.get('charclass') not in ('ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass', 'war'):
             continue
         description = descriptions.get(row.get('skilldesc'), {})
         for name in [row['skill'], localize(description.get('str name', row['skill']))]:
@@ -206,7 +206,7 @@ def build(source=SOURCE, balance=BALANCE):
                 key = normalize(talent['name'])
                 # D2R renamed source skill127; Sanctuary retains its LoD label.
                 row, description = source_skills['blademastery' if key == 'swordmastery' else key]
-                tab = ('ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass').index(row['charclass']) * 3 + description['SkillPage'] - 1
+                tab = ('ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass', 'war').index(row['charclass']) * 3 + description['SkillPage'] - 1
                 skill_bindings.append(dict(sourceId=row['*Id'], sourceKey=row['skill'], talentId=talent['id'],
                                            characterClass=character['class'], classCode=row['charclass'], sourceTab=tab, element=row.get('EType')))
     coverage['skillBindingInput'] = digest(ROOT / 'data/Sanctuary/talents.json')

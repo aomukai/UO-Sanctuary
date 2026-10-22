@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-22",
+  "scope": "Holy Shield focused and full native checkpoint; supersedes its initial focused-only checkpoint.",
+  "deployed": false,
+  "completedClasses": [],
+  "goalComplete": false,
+  "referenceVersion": "3.3.93847",
+  "implemented": "Holy Shield cast/equipment/mana gating, stored rank and block, live hard Defiance synergy, whole-pool defense, shield-dependent effects, physical Smite bonus primitive, block animation rate, expiry and lifecycle clearing. Right-only binding now enforced.",
+  "verified": {
+    "focusedNativeBoots": 3,
+    "focusedSaveReloadCycles": 2,
+    "result": "passed",
+    "coverage": "Initial cast and both reload checks; rank1/rank20 values, exact payment/deadline, real shield identity, unequip/reequip, live synergy, rank snapshot, expiry, death/respec, actual block consumers and active-action no-interrupt rule.",
+    "fixtureCorrections": "Restore saved map/location before testing reloaded players; reapply fixture-only raw strength/dexterity after profile restoration. Production lifetimes and save behavior unchanged.",
+    "preservationReport": ".local/class-skills/protection-check.json",
+    "fullNativeBoots": 3,
+    "fullSaveReloadCycles": 2,
+    "pythonTests": 70,
+    "namedDefinitions": 573,
+    "clientBuild": "passed;59 existing warnings,0 errors; actual client interaction remains untested",
+    "releasedBlockCorrection": "Old named-gear assertion expected active spell cancellation. Replaced with explicit active pending/post-event preservation and separate idle no-refresh assertions, following released2.4 notes. Initial failure retained."
+  },
+  "stillNeeds": [
+    "Pinned modern SC/mode/weapon-swap/requirements/owner/gear and actual-client acceptance.",
+    "AttackNoMana fallback remains unverified; no free cast was invented.",
+    "Final effects and separate talent/hotkey icons remain placeholders.",
+    "Smite handler remains unavailable; Holy Shield supplies only its physical damage helper."
+  ],
+  "sanctuaryBlocker": "Released 2.4 notes confirm undead enhanced-damage fix. Legacy periodic routine does not establish reported modern mana debit (including town); broader periodic mode chain remains to trace. Undead bypass scope and source knockback path remain unresolved. Skip only this skill while investigating unaffected work.",
+  "goalInterruption": {
+    "observedStatus": "active",
+    "previousTurnError": "Selected model is at capacity. Please try a different model.",
+    "note": "User clicked Continue; active status confirmed through get_goal. Capacity failure retained as interruption history."
+  },
+  "sha256": {
+    "src/Sanctuary.Content/HolyShields.cs": "74360bd5fff07d72c78df308449630978efb27cee9a9ed77bb71bf9e337d14ed",
+    "src/Sanctuary.Content/SkillBindings.cs": "368848af8786759f70bc0724474c03f98b22c8c21ced8bd39359ac2d6331c797",
+    "src/Sanctuary.Content/HitRecovery.cs": "4318e3898b5c0cf26981bc3d5befe2c32cdad2f4bd77b9427e06308db4a7dc26",
+    "tests/Sanctuary.Integration/HolyShieldChecks.cs": "4e7067ac507984faa19ffd643307f990321644fed1c323107a78f43f548cc25a",
+    ".local/class-skills/holy-shield-focused.log": "3b6097526c5526f98ddbc7d792785cda7c2363c051acbbe9b7133b89d69e1532",
+    ".local/class-skills/holy-shield-focused-run.log": "f8ca6bef45a229273dba7632763c6916dae5cdcca8361078e41feb85ff0f7f4c",
+    ".local/class-skills/content/Sanctuary.Content.dll": "be7daa26aebf30fd907bc3de7fe25450214ac3f7a30e249e53a5be8e42a1eea8",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "22cfb2330ac9f4a07010dbb23275de3d31116367a6b011568b3351e6ccf3fb49",
+    ".local/class-skills/protection-check.json": "cef913fd280cfe640b08db43cbab7b31c8cbf9d8e326bc2b95a72b14adf2efe4"
+  },
+  "nextSkill": "paladin.vengeance; source preflight and72-case legacy probe exist, no handler enabled yet"
+}

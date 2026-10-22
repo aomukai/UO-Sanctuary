@@ -1,0 +1,24 @@
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -50,6 +50,11 @@
+             bool weaponDamage = false, bool spellDamage = false
+         )
+         {
++            if (archer)
++            {
++                m = ClassCombatHooks.ProjectileTarget?.Invoke(from, m) ?? m;
++            }
++
+             if (m?.Deleted != false || !m.Alive || damage <= 0 || ClassCombatHooks.Friendly?.Invoke(from, m) == true)
+             {
+                 return 0;
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -6,6 +6,7 @@
+ public readonly record struct ClassSkillDamage(int Total, int Physical);
+ public static class ClassCombatHooks
+ {
++    public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }

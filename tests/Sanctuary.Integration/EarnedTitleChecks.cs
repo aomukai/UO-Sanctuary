@@ -74,11 +74,19 @@ public static class EarnedTitleChecks
         foreach (var c in Enum.GetValues<DiabloClass>())
         {
             Swap(p, c, SkillName.Tinkering); ClassCreation.Profiles.AdvanceLevel(p, 99);
+            if (c == DiabloClass.Warlock)
+            {
+                Require(EarnedTitles.Prefix(c) == "", "Unapproved Warlock achievement prefix was invented");
+                continue;
+            }
             Require(Select(p, c, (byte)SkillName.Mining, 3) && EarnedTitles.Display(p)?.Prefix == EarnedTitles.Prefix(c), "Earned class prefix could not be selected");
             string title = EarnedTitles.Display(p)?.Name(p.Name); p.Female = !p.Female;
             Require(EarnedTitles.Display(p)?.Name(p.Name) == title, "Achievement titles changed their sex-neutral mapping");
         }
-        Require(EarnedTitles.Profiles.Find(p.Serial).Classes == 127, "Not all class titles were retained");
+        Require(EarnedTitles.Profiles.Find(p.Serial).Classes == 255, "Not all eight class achievements were retained");
+        var allClasses = Encode(EarnedTitles.Profiles);
+        EarnedTitles.Profiles.Deserialize(new BufferReader(allClasses));
+        Require(Encode(EarnedTitles.Profiles).SequenceEqual(allClasses), "Eight-class achievement mask did not round trip");
         Require(Select(p, DiabloClass.Sorceress, (byte)SkillName.Blacksmith, 3), "Final selection failed");
         string selected = State(p); Swap(p, DiabloClass.Necromancer, SkillName.Alchemy);
         Require(State(p) == selected && EarnedTitles.Display(p)?.Name(p.Name) == "Archmage Ada, Legendary Blacksmith", "Wardrobe tied selected titles to active class/craft");
@@ -94,8 +102,8 @@ public static class EarnedTitleChecks
         byte[] original = Encode(EarnedTitles.Profiles);
         for (int bad = 0; bad < 4; bad++)
         {
-            var w = new BufferWriter(new byte[1024], true); w.Write(bad == 0 ? 1 : 0); w.Write(1); w.Write(p.Serial.Value);
-            w.Write((byte)(bad == 1 ? 255 : 0)); for (int i = 0; i < 13; i++) { w.Write((byte)(bad == 2 ? 4 : 0)); }
+            var w = new BufferWriter(new byte[1024], true); w.Write(bad == 0 ? 1 : 0); w.Write(1); w.Write(bad == 1 ? 0u : p.Serial.Value);
+            w.Write((byte)0); for (int i = 0; i < 13; i++) { w.Write((byte)(bad == 2 ? 4 : 0)); }
             w.Write((byte)(bad == 3 ? 103 : 0)); w.Write((byte)255); w.Write((byte)0);
             bool rejected = false; try { EarnedTitles.Profiles.Deserialize(new BufferReader(w.Buffer[..(int)w.Position])); } catch (InvalidDataException) { rejected = true; }
             Require(rejected && Encode(EarnedTitles.Profiles).SequenceEqual(original), "Corrupt title data replaced loaded authority");

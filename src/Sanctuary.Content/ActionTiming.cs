@@ -16,6 +16,7 @@ public readonly record struct ActionTiming(int Frames, int EffectFrame)
 }
 public static class CombatTiming
 {
+    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun;
     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
     private static readonly int[][] _attacks =
     [
@@ -25,9 +26,10 @@ public static class CombatTiming
         [14, 14, 14, 18, 17, 17, 21, 16], // Paladin
         [13, 13, 14, 17, 17, 17, 20, 13], // Barbarian
         [15, 15, 17, 16, 19, 18, 22, 17], // Druid
-        [13, 12, 14, 18, 16, 17, 21, 13]  // Assassin
+        [13, 12, 14, 18, 16, 17, 21, 13], // Assassin
+        [16, 14, 17, 20, 20, 18, 22, 17]  // Warlock: provisional UO weapon animation profile
     ];
-    private static readonly int[] _casts = [19, 13, 15, 15, 13, 18, 16];
+    private static readonly int[] _casts = [19, 13, 15, 15, 13, 18, 16, 16];
     private static readonly Dictionary<string, int> _modifiers = new(StringComparer.Ordinal)
     {
         ["Dagger"] = -20, ["SkinningKnife"] = -10, ["ButcherKnife"] = -10, ["Cleaver"] = 0,
@@ -87,18 +89,37 @@ public static class CombatTiming
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
     {
+        if(ability==CombatAbility.Zeal){return PaladinZeal.Timing(from);}
         ClassCreation.Profiles.TryGet(from.Serial, out var profile);
         return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
-            ability == CombatAbility.BasicAttack ? GearEffects.AttackSlow(from) : 0);
+            WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, PaladinOffense.AttackRate(from));
     }
-    public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0)
+    public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
-        int row = Math.Clamp((int)characterClass - 101, 0, 6);
-        bool cast = ability is CombatAbility.Teeth or CombatAbility.RaiseSkeleton or CombatAbility.Teleport;
+        int row = Math.Clamp((int)characterClass - 101, 0, 7);
+        bool cast = !WeaponAttack(ability);
         int bonus = Math.Clamp(cast ? fcr : ias, 0, 10000);
         int effective = 120 * bonus / (120 + bonus);
-        int rate = Math.Clamp(100 + effective - (cast ? 0 : weapon.Modifier) - Math.Clamp(chill, 0, 85), 15, 175);
+        int rate = Math.Clamp(100 + effective + (cast ? 0 : skillAttackRate) - (cast ? 0 : weapon.Modifier) - Math.Clamp(chill, 0, 85), 15, 175);
         int advance = 256 * rate / 100;
+        if(ability==CombatAbility.Charge){return new ActionTiming(15,1);}
+        if(ability==CombatAbility.Zeal){return PaladinZeal.Timing(PaladinZeal.FamilyCode(weapon.Family),advance);}
+        if(ability==CombatAbility.Smite)
+        {
+            // Legacy PAS1 HTH/1HS/1HT: twelve frames, speed256, event7, no starting-frame bonus.
+            int duration=Math.Max(1,(12*256+advance-1)/advance-1);
+            return new ActionTiming(duration,Math.Clamp((7*256+advance-1)/advance,1,duration));
+        }
+        if (ability == CombatAbility.Inferno)
+        {
+            // Source SQ6 has 15 points and its event at point10; channel/re-entry is a separate consumer.
+            return new ActionTiming((15 * 256 + advance - 1) / advance, (10 * 256 + advance - 1) / advance);
+        }
+        if (ability is CombatAbility.Lightning or CombatAbility.ChainLightning)
+        {
+            // Sequence 12 ends at point 19, emits at point 7, and has no ordinary cast minus-one.
+            return new ActionTiming((19 * 256 + advance - 1) / advance, (7 * 256 + advance - 1) / advance);
+        }
         int baseFrames = cast ? _casts[row] : _attacks[row][(int)weapon.Family];
         int frames = Math.Max(4, ((baseFrames + 1) * 256 + advance - 1) / advance - 1);
         int effect = Math.Clamp((frames * (cast ? 45 : 50) + 99) / 100, 1, frames - 1);
@@ -108,7 +129,7 @@ public static class CombatTiming
     {
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
-    public static int Range(PlayerMobile from, CombatAbility ability) => ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
+    public static int Range(PlayerMobile from, CombatAbility ability) => ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {

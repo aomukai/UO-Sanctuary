@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and full combined native suites passed three boots/two actual save-reload cycles;70 Python tests and fresh420-input named export pass; matching installed smoke passed.",
+  "handlers": [
+    "Blade Mastery (stable SwordMastery identity132)",
+    "Axe Mastery",
+    "Mace Mastery",
+    "Pole Arm Mastery",
+    "Spear Mastery"
+  ],
+  "runtimeSources": [
+    "src/Sanctuary.Content/BarbarianMasteries.cs",
+    "src/Sanctuary.Content/ClassItemTypes.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/NamedCombat.cs"
+  ],
+  "nativeFixture": "tests/Sanctuary.Integration/BarbarianMasteryChecks.cs",
+  "nativeDriver": "tests/check_class_skills.py",
+  "focusedLog": ".local/class-skills/barbarian-masteries-focused.log",
+  "sourceEvidence": "tools/reference/barbarian-mastery-engine-evidence.json",
+  "sourceHashes": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "data/Sanctuary/Balance/class-item-types.json": "f84be66d58aa84849bf23bf182447b09ebdbdcf38b0414972cdf49035a6f5086"
+  },
+  "proofType": "Pinned modern skill/item-type tables, compiled unchanged bounded legacy selector/critical blocks, and real native gear/stat/damage/persistence checks; not a modern executable certificate.",
+  "nativeCoverage": [
+    "Unlearned and rank1/20 hard allocation,20 cap, source goldens21/22 and real Tarnhelm/Highlord soft levels. All five learned on each actor with a different selected rank20 mastery.",
+    "Longsword and Dagger both use modern blde. Actual Axe/Mace/QuarterStaff/Scepter/Halberd/Spear match their mastery; source graph also verifies wand inheritance.",
+    "Bare hand, bow, backpack/broken weapons and converted throwing knives receive no melee mastery. All passive mouse/quick bindings reject.",
+    "AR enters additive item/enchant/aura/attack-skill percentage pool; shared hit check confirms hit and miss outcomes. ED joins stat/offweapon/aura/skill pool without counting weapon-local ED twice.",
+    "Actual Hellplague, Steelrend and Highlord exercise local ED, offweapon ED, flat elements, mastery critical and Deadly Strike. Deterministic RNG checks exact short circuit and fallback; actual shared Strike damage is2x physical once plus unchanged flat elements.",
+    "Real Blessed Aim/Might recipient composition; legal class-history exit/return and respec remove/restore bonuses.",
+    "Five real gear/rank/stat payloads survive two world save/reloads. Each reload unequips/re-equips soft helm and weapon, checks break/repair, and repeats actual critical/deadly/flat-element damage."
+  ],
+  "fixtureScope": [
+    "Stat allocation uses real ledger spending, not RawStr/RawDex overrides, so equipment requirements and damage survive native PostDeserialize.",
+    "Named items come through existing available factories; no gated unique is enabled. The throwing exclusion uses ordinary converted NamedThrowingKnife, not unavailable Warshrike.",
+    "Class history fixture obeys the existing unequipped requirement.",
+    "Shared hit-check/Strike are called directly with deterministic RNG to isolate AR and damage. Full ordinary input/animation/snapshots and native RNG distribution are not certified.",
+    "Damage target is a frozen no-reward Ogre with explicit zero resistances; procs/crushing prevented by remaining RNG99 and weapon wear disabled in this scoped differential."
+  ],
+  "limits": [
+    "Dual-wield source weapon/statlist selection needs a native adapter; no second-hand support claimed.",
+    "Converted throwing items remain excluded until distinct melee/throw delivery and quantity/pierce/replenish consumers are implemented.",
+    "Generic Amazon Critical Strike is compiled in the legacy probe only; its Sanctuary skill is still pending.",
+    "Modern current-engine RNG/snapshots/modes/procs/leech/durability/owner/client acceptance and existing Sanctuary material elemental conversion remain open.",
+    "The user cannot provide Barbarian gameplay checks; unsupported/uncertain branches are recorded independently."
+  ],
+  "assets": {
+    "activeEffects": "No active cast effect for these five passives; no imagegen performed. Critical/impact presentation can be added separately.",
+    "icons": "Five talent icons remain pending; hotkey icons are not applicable. Text labels are identified placeholders."
+  },
+  "classComplete": false,
+  "itemGatesCleared": false,
+  "catalogueFingerprintCorrection": "Blade Mastery display rename changes the talent catalogue fingerprint. Regenerated named-item-coverage and performed a fresh native573-definition export; all420 inputs then match and70 Python tests pass. No item acquisition gate changed."
+}

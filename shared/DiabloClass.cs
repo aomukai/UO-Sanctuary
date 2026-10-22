@@ -11,7 +11,8 @@ public enum DiabloClass : byte
     Paladin = 104,
     Barbarian = 105,
     Druid = 106,
-    Assassin = 107
+    Assassin = 107,
+    Warlock = 108
 }
 
 public static class DiabloClasses
@@ -25,6 +26,7 @@ public static class DiabloClasses
         DiabloClass.Barbarian => "Barbarian",
         DiabloClass.Druid => female ? "Druidess" : "Druid",
         DiabloClass.Assassin => "Assassin",
+        DiabloClass.Warlock => female ? "Witch" : "Warlock",
         _ => throw new ArgumentOutOfRangeException(nameof(characterClass))
     };
 
@@ -34,12 +36,13 @@ public static class DiabloClasses
         DiabloClass.Amazon => "Gargarean / Amazon",
         DiabloClass.Sorceress => "Sorcerer / Sorceress",
         DiabloClass.Druid => "Druid / Druidess",
+        DiabloClass.Warlock => "Warlock / Witch",
         _ => DisplayName(characterClass, false)
     };
 
     public static bool TryFromDisplayName(ReadOnlySpan<char> name, out DiabloClass characterClass)
     {
-        for (int id = (int)DiabloClass.Amazon; id <= (int)DiabloClass.Assassin; id++)
+        for (int id = (int)DiabloClass.Amazon; id <= (int)DiabloClass.Warlock; id++)
         {
             var candidate = (DiabloClass)id;
             if (name.SequenceEqual(DisplayName(candidate, false)) || name.SequenceEqual(DisplayName(candidate, true)))
@@ -55,6 +58,6 @@ public static class DiabloClasses
     public static bool TryFromWire(int value, out DiabloClass characterClass)
     {
         characterClass = (DiabloClass)value;
-        return value >= (int)DiabloClass.Amazon && value <= (int)DiabloClass.Assassin;
+        return value >= (int)DiabloClass.Amazon && value <= (int)DiabloClass.Warlock;
     }
 }

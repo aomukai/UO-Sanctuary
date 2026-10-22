@@ -28,7 +28,7 @@ public static class SkillBindingNetwork
             || reader.Remaining is not (SkillBindingProtocol.RequestLength - 5 or SkillBindingProtocol.UseLength - 5) || reader.ReadByte() != SkillBindingProtocol.Version) { return; }
         var action = (SkillBindingRequest)reader.ReadByte(); uint sequence = reader.ReadUInt32();
         var characterClass = (DiabloClass)reader.ReadByte(); int slot = reader.ReadByte(); var ability = (CombatAbility)reader.ReadByte();
-        if (action > SkillBindingRequest.Use || reader.Remaining != (action == SkillBindingRequest.Use ? 9 : 0) || slot >= SkillBindingProtocol.Slots || ability > CombatAbility.Teleport) { return; }
+        if (action > SkillBindingRequest.Use || reader.Remaining != (action == SkillBindingRequest.Use ? 9 : 0) || slot >= SkillBindingProtocol.Slots || !ClassAbilities.Valid(ability)) { return; }
         if (!_sessions.TryGetValue(player.Serial, out var session)) { _sessions.Add(player.Serial, session = new()); }
         if (unchecked((int)(sequence - session.Sequence)) <= 0) { return; }
         session.Sequence = sequence; long now = Core.TickCount;
@@ -71,6 +71,7 @@ public static class SkillBindingNetwork
         // Quick cast targets the hovered corpse exactly; ordinary summon macros may still find the nearest one.
         if (ability == CombatAbility.RaiseSkeleton && (World.FindItem(target) is not Server.Items.Corpse corpse || !SkeletonPets.CanRaise(player, corpse))) { return false; }
         ClassCombat.Stop(player);
+        if (NecromancerCombat.CorpseTarget(ability)) { return NecromancerCombat.Begin(player, ability, target, point, Core.TickCount); }
         return ability switch
         {
             CombatAbility.RaiseSkeleton => ClassCombat.CastSummon(player, target, Core.TickCount),
@@ -82,14 +83,15 @@ public static class SkillBindingNetwork
     public static void Send(PlayerMobile player)
     {
         if (player.NetState?.Running != true || !ClassCreation.Profiles.TryGet(player.Serial, out var profile)) { return; }
-        uint mask = 0;
-        for (var ability = CombatAbility.BasicAttack; ability <= CombatAbility.Teleport; ability++)
-        { if (ClassCombat.Available(player, ability)) { mask |= 1U << (int)ability; } }
+        Span<byte> mask = stackalloc byte[ClassAbilities.MaskBytes];
+        mask.Clear();
+        for (int id = 1; id < ClassAbilities.Count; id++)
+        { if (ClassCombat.Available(player, (CombatAbility)id)) { mask[id / 8] |= (byte)(1 << (id % 8)); } }
         var pair = SkillBindings.Instance.Get(player);
         var writer = new SpanWriter(stackalloc byte[SkillBindingProtocol.StateLength]);
         writer.Write((byte)0xBF); writer.Write((ushort)SkillBindingProtocol.StateLength); writer.Write(SkillBindingProtocol.SubCommand);
         writer.Write(SkillBindingProtocol.Version); writer.Write(_sessions.GetValueOrDefault(player.Serial)?.Sequence ?? 0);
-        writer.Write((byte)profile.Class); writer.Write((byte)pair.Left); writer.Write((byte)pair.Right); writer.Write(mask);
+        writer.Write((byte)profile.Class); writer.Write((byte)pair.Left); writer.Write((byte)pair.Right); foreach (byte value in mask) { writer.Write(value); }
         for (int slot = 0; slot < SkillBindingProtocol.Slots; slot++) { writer.Write((byte)SkillBindings.Instance.GetQuick(player.Serial, profile.Class, slot)); }
         player.NetState.Send(writer.Span);
     }

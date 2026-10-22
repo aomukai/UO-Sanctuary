@@ -13,15 +13,17 @@ public static class CombatHitboxes
     // A swept circle against a body footprint, measured in world tiles. Screen
     // pixels, animation gaps, and the mouse selection rectangle never enter this test.
     public static bool Intersect(Point3D start, Point3D end, Point3D body, out double entry)
+        => Intersect(start.X, start.Y, end.X, end.Y, start.Z, body, out entry);
+    public static bool Intersect(double startX, double startY, double endX, double endY, int z, Point3D body, out double entry)
     {
         entry = 0;
-        if (Math.Abs(body.Z - start.Z) >= BodyHeight)
+        if (Math.Abs(body.Z - z) >= BodyHeight)
         {
             return false;
         }
-        double dx = end.X - start.X, dy = end.Y - start.Y;
+        double dx = endX - startX, dy = endY - startY;
         var length = Math.Sqrt(dx * dx + dy * dy);
-        double x = body.X - start.X, y = body.Y - start.Y;
+        double x = body.X - startX, y = body.Y - startY;
         var radius = BodyRadius + TeethRadius;
         if (length == 0)
         {

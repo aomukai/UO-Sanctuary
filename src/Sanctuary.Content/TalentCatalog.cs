@@ -41,9 +41,9 @@ public static class TalentCatalog
             ?? throw new InvalidDataException("The talent catalog is empty.");
         _classes.Clear();
         _talents.Clear();
-        if (classes.Length != 7)
+        if (classes.Length != Enum.GetValues<DiabloClass>().Length)
         {
-            throw new InvalidDataException("The catalog must contain all seven classes.");
+            throw new InvalidDataException("The catalog must contain all playable classes.");
         }
 
         foreach (var entry in classes)

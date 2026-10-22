@@ -124,7 +124,8 @@ public sealed class EarnedTitleProfiles : GenericPersistence
             var owner = (Serial)reader.ReadUInt(); byte classes = reader.ReadByte(); var ranks = new byte[13];
             for (int j = 0; j < ranks.Length; j++) { ranks[j] = reader.ReadByte(); }
             var state = new EarnedTitleState(classes, Array.AsReadOnly(ranks), (DiabloClass)reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
-            if (!owner.IsMobile || classes > 127 || ranks.Any(r => r > 3) || !ValidChoice(state, state.Prefix, state.Skill, state.Tier)
+            // The existing byte now holds all eight class achievement bits, including Warlock at bit7.
+            if (!owner.IsMobile || ranks.Any(r => r > 3) || !ValidChoice(state, state.Prefix, state.Skill, state.Tier)
                 || !players.TryAdd(owner, state)) { throw new InvalidDataException("Invalid earned title identity or selection."); }
         }
         _players = players;

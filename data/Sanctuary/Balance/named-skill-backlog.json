@@ -6059,7 +6059,7 @@
               "sourceId": 401,
               "name": "Apocalypse",
               "sourceKey": "Apocalypse",
-              "talentId": null,
+              "talentId": "warlock.apocalypse",
               "implemented": false
             }
           ],
@@ -6119,7 +6119,7 @@
               "sourceId": 374,
               "name": "Demonic Mastery",
               "sourceKey": "Demonic Mastery",
-              "talentId": null,
+              "talentId": "warlock.demonicmastery",
               "implemented": false
             }
           ],
@@ -6138,7 +6138,7 @@
               "sourceId": 380,
               "name": "Blood Boil",
               "sourceKey": "Blood Boil",
-              "talentId": null,
+              "talentId": "warlock.bloodboil",
               "implemented": false
             }
           ],
@@ -6157,7 +6157,7 @@
               "sourceId": 379,
               "name": "Engorge",
               "sourceKey": "Engorge",
-              "talentId": null,
+              "talentId": "warlock.engorge",
               "implemented": false
             }
           ],
@@ -6176,7 +6176,7 @@
               "sourceId": 381,
               "name": "Consume",
               "sourceKey": "Consume",
-              "talentId": null,
+              "talentId": "warlock.consume",
               "implemented": false
             }
           ],
@@ -6257,7 +6257,7 @@
               "sourceId": 394,
               "name": "Ring of Fire",
               "sourceKey": "Ring of Fire",
-              "talentId": null,
+              "talentId": "warlock.ringoffire",
               "implemented": false
             }
           ],
@@ -6277,7 +6277,7 @@
               "sourceId": 376,
               "name": "Summon Tainted",
               "sourceKey": "Summon Tainted",
-              "talentId": null,
+              "talentId": "warlock.summontainted",
               "implemented": false
             }
           ],
@@ -6296,7 +6296,7 @@
               "sourceId": 394,
               "name": "Ring of Fire",
               "sourceKey": "Ring of Fire",
-              "talentId": null,
+              "talentId": "warlock.ringoffire",
               "implemented": false
             }
           ],
@@ -6315,7 +6315,7 @@
               "sourceId": 398,
               "name": "Flame Wave",
               "sourceKey": "Flame Wave",
-              "talentId": null,
+              "talentId": "warlock.flamewave",
               "implemented": false
             }
           ],
@@ -6365,7 +6365,7 @@
               "sourceId": 392,
               "name": "Mirrored Blades",
               "sourceKey": "Mirrored Blades",
-              "talentId": null,
+              "talentId": "warlock.mirroredblades",
               "implemented": false
             }
           ],
@@ -6430,7 +6430,7 @@
               "sourceId": 378,
               "name": "Blood Oath",
               "sourceKey": "Blood Oath",
-              "talentId": null,
+              "talentId": "warlock.bloodoath",
               "implemented": false
             }
           ],
@@ -6449,7 +6449,7 @@
               "sourceId": 380,
               "name": "Blood Boil",
               "sourceKey": "Blood Boil",
-              "talentId": null,
+              "talentId": "warlock.bloodboil",
               "implemented": false
             }
           ],
@@ -6468,7 +6468,7 @@
               "sourceId": 382,
               "name": "Bind Demon",
               "sourceKey": "Bind Demon",
-              "talentId": null,
+              "talentId": "warlock.binddemon",
               "implemented": false
             }
           ],
@@ -6529,7 +6529,7 @@
               "sourceId": 398,
               "name": "Flame Wave",
               "sourceKey": "Flame Wave",
-              "talentId": null,
+              "talentId": "warlock.flamewave",
               "implemented": false
             }
           ],
@@ -6560,7 +6560,7 @@
               "sourceId": 399,
               "name": "Miasma Chain",
               "sourceKey": "Miasma Chains",
-              "talentId": null,
+              "talentId": "warlock.miasmachain",
               "implemented": false
             }
           ],
@@ -6746,7 +6746,7 @@
               "sourceId": 387,
               "name": "Psychic Ward",
               "sourceKey": "Psychic Ward",
-              "talentId": null,
+              "talentId": "warlock.psychicward",
               "implemented": false
             }
           ],

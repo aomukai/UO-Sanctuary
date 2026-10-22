@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "probe": "Unmodified SrvDo065, SKILL_ComputePeriodicRate and SKILLS_GetManaCosts compiled with unit/stat/formula/world stubs. Confirms raw zero cost despite Might minmana1, 50-frame refresh and 51-frame callback lifetime, self+allied application packet. Does not simulate modern state replacement, recipient filtering or actual combat.",
+  "probeOutput": [
+    "raw-mana 0",
+    "next 150",
+    "self 51 40",
+    "allies 16 73731 51"
+  ],
+  "sourceInterpretation": [
+    "AssignSkill right-slot change removes previous self aura, invokes immediate handler and schedules periodic refresh",
+    "Curse state list same skill/state: equal rank refreshes; weaker rank cannot refresh stronger; higher replaces",
+    "Aura callback Blessed Aim removes penetrate passive state on recipients; passive refreshes on removal",
+    "0x12003 aligned player/monster filter skips town rooms, excludes NPC/noaura species and has no ray-trace bit"
+  ],
+  "sources": [
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/Skills.cpp",
+    "https://classic.battle.net/diablo2exp/skills/paladin-offense.shtml"
+  ],
+  "remaining": [
+    "Pinned modern state/recipient filter and linger comparison",
+    "Town-room/LOS/vertical geometry mapped through UO; complete species exclusions and item-granted auras remain unverified",
+    "Logout, resurrection/reselection and owner transition acceptance",
+    "All native weapon/defense/pet paths, material physical-only modifiers and actual-client checks"
+  ]
+}

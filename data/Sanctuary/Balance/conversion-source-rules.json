@@ -1,0 +1,6010 @@
+[
+  {
+    "source": "act2child",
+    "base": "act2child",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "act2female",
+    "base": "act2female",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2guard1",
+    "base": "act2guard1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2guard2",
+    "base": "act2guard2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2guard3",
+    "base": "act2guard3",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2guard4",
+    "base": "act2guard4",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2guard5",
+    "base": "act2guard5",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2hire",
+    "base": "act2hire",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2male",
+    "base": "act2male",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act2vendor1",
+    "base": "act2vendor1",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "act2vendor2",
+    "base": "act2vendor2",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "act3female",
+    "base": "act3female",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act3hire",
+    "base": "act3hire",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act3male",
+    "base": "act3male",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5barb1",
+    "base": "act5barb1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5barb2",
+    "base": "act5barb2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5barb3",
+    "base": "act5barb3",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5barb4",
+    "base": "act5barb3",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5hire1",
+    "base": "act5hire1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5hire2",
+    "base": "act5hire1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "act5pow",
+    "base": "act5pow",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "akara",
+    "base": "akara",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "alkor",
+    "base": "alkor",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "ancientbarb1",
+    "base": "ancientbarb1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "ancientbarb2",
+    "base": "ancientbarb1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "ancientbarb3",
+    "base": "ancientbarb1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "ancientstatue1",
+    "base": "ancientstatue1",
+    "evil": false,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "ancientstatue2",
+    "base": "ancientstatue1",
+    "evil": false,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "ancientstatue3",
+    "base": "ancientstatue1",
+    "evil": false,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "andariel",
+    "base": "andariel",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "arach1",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach2",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach3",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach4",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach5",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach6",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "arach7",
+    "base": "arach1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "asheara",
+    "base": "asheara",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "atma",
+    "base": "atma",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baalclone",
+    "base": "baalclone",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "baalcrab",
+    "base": "baalcrab",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "baalcrabstairs",
+    "base": "baalcrabstairs",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "baalhighpriest",
+    "base": "baalhighpriest",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baalminion1",
+    "base": "baalminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baalminion2",
+    "base": "baalminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baalminion3",
+    "base": "baalminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baaltaunt",
+    "base": "baaltaunt",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baaltentacle1",
+    "base": "baaltentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baaltentacle2",
+    "base": "baaltentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baaltentacle3",
+    "base": "baaltentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baaltentacle4",
+    "base": "baaltentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baaltentacle5",
+    "base": "baaltentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baalthrone",
+    "base": "baalthrone",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "baboon1",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon2",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon3",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon4",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon5",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon6",
+    "base": "baboon6",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon7",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "baboon8",
+    "base": "baboon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "barricadedoor1",
+    "base": "barricadedoor1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "barricadedoor2",
+    "base": "barricadedoor1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "barricadetower",
+    "base": "barricadetower",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "barricadewall1",
+    "base": "barricadewall1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "barricadewall2",
+    "base": "barricadewall1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bat",
+    "base": "bat",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon1",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon2",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon3",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon4",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon5",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon6",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "batdemon7",
+    "base": "batdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bear",
+    "base": "bear",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead1",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead10",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead2",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead3",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead4",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead5",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead6",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead7",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead8",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bighead9",
+    "base": "bighead1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bird1",
+    "base": "bird1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bird2",
+    "base": "bird2",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bladecreeper",
+    "base": "bladecreeper",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodgolem",
+    "base": "bloodgolem",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord1",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord2",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord3",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord4",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord5",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord6",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodlord7",
+    "base": "bloodlord1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bloodmage1",
+    "base": "bloodmage1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bloodmage2",
+    "base": "bloodmage1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bloodmage3",
+    "base": "bloodmage1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bloodmage4",
+    "base": "bloodmage1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bloodmage5",
+    "base": "bloodmage1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bloodraven",
+    "base": "bloodraven",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "blunderbore1",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "blunderbore2",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "blunderbore3",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "blunderbore4",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "blunderbore5",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "blunderbore6",
+    "base": "blunderbore1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish1",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish2",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish3",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish4",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish5",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish6",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bonefetish7",
+    "base": "bonefetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "boneprison1",
+    "base": "boneprison1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "boneprison2",
+    "base": "boneprison2",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "boneprison3",
+    "base": "boneprison3",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "boneprison4",
+    "base": "boneprison4",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "bonewall",
+    "base": "bonewall",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "brute1",
+    "base": "brute2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "brute2",
+    "base": "brute2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "brute3",
+    "base": "brute2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "brute4",
+    "base": "brute2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "brute5",
+    "base": "brute2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bug",
+    "base": "bug",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "bunny",
+    "base": "bunny",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain1",
+    "base": "cain1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain2",
+    "base": "cain2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain3",
+    "base": "cain3",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain4",
+    "base": "cain4",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain5",
+    "base": "cain5",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cain6",
+    "base": "cain6",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "camel",
+    "base": "camel",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor1",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor2",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor3",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor4",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor5",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cantor6",
+    "base": "cantor1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "catapult1",
+    "base": "catapult1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapult2",
+    "base": "catapult1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapult3",
+    "base": "catapult1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapult4",
+    "base": "catapult1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapultspotter1",
+    "base": "catapultspotter1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapultspotter2",
+    "base": "catapultspotter1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapultspotter3",
+    "base": "catapultspotter1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "catapultspotter4",
+    "base": "catapultspotter1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "chaoshorde1",
+    "base": "chaoshorde1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "chaoshorde2",
+    "base": "chaoshorde1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "chaoshorde3",
+    "base": "chaoshorde1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "chaoshorde4",
+    "base": "chaoshorde1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "chargeboltsentry",
+    "base": "chargeboltsentry",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "charsi",
+    "base": "charsi",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "chicken",
+    "base": "chicken",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper1",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper10",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper2",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper3",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper4",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper5",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper6",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper7",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper8",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "clawviper9",
+    "base": "clawviper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "claygolem",
+    "base": "claygolem",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "colbarbfrenzy",
+    "base": "act5barb2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "colbarbthrow",
+    "base": "act5barb1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "colbarbwhirl",
+    "base": "act5barb1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "colossal1",
+    "base": "colossal1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "colossal2",
+    "base": "colossal1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "colossal3",
+    "base": "colossal1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "compellingorb",
+    "base": "compellingorb",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue1",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue2",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue3",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue4",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue5",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "corruptrogue6",
+    "base": "corruptrogue1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "councilmember1",
+    "base": "councilmember1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "councilmember2",
+    "base": "councilmember1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "councilmember3",
+    "base": "councilmember1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cow",
+    "base": "cow",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cowking",
+    "base": "hellbovine",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer1",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer2",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer3",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer4",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer5",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer6",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer7",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_archer8",
+    "base": "cr_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer1",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer2",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer3",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer4",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer5",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer6",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer7",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer8",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "cr_lancer9",
+    "base": "cr_lancer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "crownest1",
+    "base": "crownest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "crownest2",
+    "base": "crownest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "crownest3",
+    "base": "crownest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "crownest4",
+    "base": "crownest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "cycleoflife",
+    "base": "cycleoflife",
+    "evil": false,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "darkelder",
+    "base": "darkelder",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "darkguard1",
+    "base": "darkguard1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "darkguard2",
+    "base": "darkguard1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "darkguard3",
+    "base": "darkguard1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "darkguard4",
+    "base": "darkguard1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "darkguard5",
+    "base": "darkguard1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "darkwanderer",
+    "base": "darkwanderer",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler1",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler2",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler3",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler4",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler5",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathmauler6",
+    "base": "deathmauler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "deathsentry",
+    "base": "deathsentry",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "demonhole",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "demonspawner",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "diablo",
+    "base": "diablo",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "diabloclone",
+    "base": "diablo",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "dkfig1",
+    "base": "doomknight1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "dkfig2",
+    "base": "doomknight1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "dkmag1",
+    "base": "doomknight3",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "dkmag2",
+    "base": "doomknight3",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "dkmag3",
+    "base": "doomknight3",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "doomknight1",
+    "base": "doomknight1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "doomknight2",
+    "base": "doomknight2",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "doomknight3",
+    "base": "doomknight3",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "dopplezon",
+    "base": "dopplezon",
+    "evil": false,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "drehya",
+    "base": "drehya",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "drehyaiced",
+    "base": "drehyaiced",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "drognan",
+    "base": "drognan",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "druidbear",
+    "base": "druidbear",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "druidhawk",
+    "base": "druidhawk",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "duriel",
+    "base": "duriel",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "eagle",
+    "base": "eagle",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "elzix",
+    "base": "elzix",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "evilhole1",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "evilhole2",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "evilhole3",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "evilhole4",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "evilhole5",
+    "base": "evilhole1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "evilhut",
+    "base": "evilhut",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "fallen1",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen2",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen3",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen4",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen5",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen6",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen7",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallen8",
+    "base": "fallen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman1",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman2",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman3",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman4",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman5",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman6",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman7",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fallenshaman8",
+    "base": "fallenshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "familiar",
+    "base": "familiar",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "fara",
+    "base": "fara",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fenris",
+    "base": "spiritwolf",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish1",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish11",
+    "base": "fetish11",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish2",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish3",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish4",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish5",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish6",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish7",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetish8",
+    "base": "fetish1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow1",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow2",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow3",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow4",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow5",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow6",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow7",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishblow8",
+    "base": "fetishblow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman1",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman2",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman3",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman4",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman5",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman6",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman7",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fetishshaman8",
+    "base": "fetishshaman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fingermage1",
+    "base": "fingermage1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fingermage2",
+    "base": "fingermage1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fingermage3",
+    "base": "fingermage1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fingermage4",
+    "base": "fingermage1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "fingermage5",
+    "base": "fingermage1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "firebeast",
+    "base": "firebeast",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "firegolem",
+    "base": "firegolem",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "firetower",
+    "base": "firetower",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "fish",
+    "base": "fish",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "flyingscimitar",
+    "base": "flyingscimitar",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow1",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow2",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow3",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow4",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow5",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow6",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow7",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "foulcrow8",
+    "base": "foulcrow1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frogdemon1",
+    "base": "frogdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frogdemon2",
+    "base": "frogdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frogdemon3",
+    "base": "frogdemon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frozenhorror1",
+    "base": "frozenhorror1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frozenhorror2",
+    "base": "frozenhorror1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frozenhorror3",
+    "base": "frozenhorror1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frozenhorror4",
+    "base": "frozenhorror1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "frozenhorror5",
+    "base": "frozenhorror1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "gargoyletrap",
+    "base": "gargoyletrap",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "geglash",
+    "base": "geglash",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "gheed",
+    "base": "gheed",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman1",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman10",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman2",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman3",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman4",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman5",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman6",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman7",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman8",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "goatman9",
+    "base": "goatman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "gorgon1",
+    "base": "gorgon1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "gorgon2",
+    "base": "gorgon1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "gorgon3",
+    "base": "gorgon1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "gorgon4",
+    "base": "gorgon1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "greiz",
+    "base": "greiz",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "griswold",
+    "base": "griswold",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "halbu",
+    "base": "halbu",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "heartofwolverine",
+    "base": "spiritofbarbs",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "hellbovine",
+    "base": "hellbovine",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "hellmeteor",
+    "base": "hellmeteor",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "hephasto",
+    "base": "hephasto",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "horse",
+    "base": "horse",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "hratli",
+    "base": "hratli",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "hydra1",
+    "base": "hydra1",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "hydra2",
+    "base": "hydra2",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "hydra3",
+    "base": "hydra3",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "iceglobe",
+    "base": "iceglobe",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp1",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp2",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp3",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp4",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp5",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp6",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp7",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "imp8",
+    "base": "imp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "infernosentry",
+    "base": "infernosentry",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "injuredbarb1",
+    "base": "injuredbarb1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "injuredbarb2",
+    "base": "injuredbarb2",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "injuredbarb3",
+    "base": "injuredbarb3",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "invisopet",
+    "base": "invisopet",
+    "evil": false,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "invisospawner",
+    "base": "invisospawner",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "irongolem",
+    "base": "irongolem",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "izual",
+    "base": "izual",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "izualghost",
+    "base": "izualghost",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "jamella",
+    "base": "jamella",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "jerhyn",
+    "base": "jerhyn",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "kashya",
+    "base": "kashya",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "larva",
+    "base": "larva",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "larzuk",
+    "base": "larzuk",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "lightningbeast",
+    "base": "lightningbeast",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "lightningsentry",
+    "base": "lightningsentry",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "lightningspire",
+    "base": "lightningspire",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "lysander",
+    "base": "lysander",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggot",
+    "base": "maggot",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby1",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby2",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby3",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby4",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby5",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotbaby6",
+    "base": "maggotbaby1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "maggotegg1",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotegg2",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotegg3",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotegg4",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotegg5",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotegg6",
+    "base": "maggotegg1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotqueen1",
+    "base": "maggotqueen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotqueen2",
+    "base": "maggotqueen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotqueen3",
+    "base": "maggotqueen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotqueen4",
+    "base": "maggotqueen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "maggotqueen5",
+    "base": "maggotqueen1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "malachai",
+    "base": "malachai",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "malah",
+    "base": "malah",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon1",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon2",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon3",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon4",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon5",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "megademon6",
+    "base": "megademon1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mephisto",
+    "base": "mephisto",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "mephistospirit",
+    "base": "mephistospirit",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "meshif1",
+    "base": "meshif1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "meshif2",
+    "base": "meshif2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion1",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion10",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion11",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion2",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion3",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion4",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion5",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion6",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion7",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion8",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minion9",
+    "base": "minion1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "minionspawner1",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner2",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner3",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner4",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner5",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner6",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner7",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minionspawner8",
+    "base": "minionspawner1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "minispider",
+    "base": "minispider",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mosquito1",
+    "base": "mosquito1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mosquito2",
+    "base": "mosquito1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mosquito3",
+    "base": "mosquito1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mosquito4",
+    "base": "mosquito1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy1",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy2",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy3",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy4",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy5",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "mummy6",
+    "base": "mummy1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "natalya",
+    "base": "natalya",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "navi",
+    "base": "navi",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "necromage",
+    "base": "necromage",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "necroskeleton",
+    "base": "necroskeleton",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "nihlathak",
+    "base": "nihlathak",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "nihlathakboss",
+    "base": "nihlathakboss",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "oaksage",
+    "base": "spiritofbarbs",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "ormus",
+    "base": "ormus",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer1",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer2",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer3",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer4",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer5",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "overseer6",
+    "base": "overseer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "painworm1",
+    "base": "painworm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "painworm2",
+    "base": "painworm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "painworm3",
+    "base": "painworm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "painworm4",
+    "base": "painworm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "painworm5",
+    "base": "painworm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman1",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman2",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman3",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman4",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman5",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pantherwoman6",
+    "base": "pantherwoman1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "parrot",
+    "base": "parrot",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "pig",
+    "base": "pig",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "plaguepoppy",
+    "base": "plaguepoppy",
+    "evil": false,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "poisonorb",
+    "base": "poisonorb",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "prisondoor",
+    "base": "prisondoor",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "putriddefiler1",
+    "base": "putriddefiler1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "putriddefiler2",
+    "base": "putriddefiler1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "putriddefiler3",
+    "base": "putriddefiler1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "putriddefiler4",
+    "base": "putriddefiler1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "putriddefiler5",
+    "base": "putriddefiler1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "qual-kehk",
+    "base": "qual-kehk",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillbear1",
+    "base": "quillbear1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillbear2",
+    "base": "quillbear1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillbear3",
+    "base": "quillbear1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillbear4",
+    "base": "quillbear1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillbear5",
+    "base": "quillbear1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat1",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat2",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat3",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat4",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat5",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat6",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat7",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "quillrat8",
+    "base": "quillrat1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "radament",
+    "base": "radament",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "rat",
+    "base": "rat",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde1",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde2",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde3",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde4",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde5",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "reanimatedhorde6",
+    "base": "reanimatedhorde1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "regurgitator1",
+    "base": "regurgitator1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "regurgitator2",
+    "base": "regurgitator1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "regurgitator3",
+    "base": "regurgitator1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "regurgitator4",
+    "base": "regurgitator1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "rogue1",
+    "base": "rogue1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "rogue2",
+    "base": "rogue2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "rogue3",
+    "base": "rogue3",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "roguehire",
+    "base": "roguehire",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper1",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper2",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper3",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper4",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper5",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper6",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandleaper7",
+    "base": "sandleaper1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot1",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot2",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot3",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot4",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot5",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot6",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandmaggot7",
+    "base": "sandmaggot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider1",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider10",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider2",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider3",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider4",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider5",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider6",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider7",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider8",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sandraider9",
+    "base": "sandraider1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sarcophagus",
+    "base": "sarcophagus",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "scarab1",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab2",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab3",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab4",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab5",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab6",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab7",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scarab8",
+    "base": "scarab1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "scorpion",
+    "base": "scorpion",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "seagull",
+    "base": "seagull",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "seventombs",
+    "base": "seventombs",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "shadowmaster",
+    "base": "shadowmaster",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "shadowwarrior",
+    "base": "shadowwarrior",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "siegebeast1",
+    "base": "siegebeast1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "siegebeast2",
+    "base": "siegebeast1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "siegebeast3",
+    "base": "siegebeast1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "siegebeast4",
+    "base": "siegebeast1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "siegebeast5",
+    "base": "siegebeast1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer1",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer10",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer11",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer2",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer3",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer4",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer5",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer6",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer7",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer8",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "sk_archer9",
+    "base": "sk_archer1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton1",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton2",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton3",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton4",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton5",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton6",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton7",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skeleton8",
+    "base": "skeleton1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold1",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold2",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold3",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold4",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold5",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_cold6",
+    "base": "skmage_cold1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire1",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire2",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire3",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire4",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire5",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire6",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_fire7",
+    "base": "skmage_fire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng1",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng2",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng3",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng4",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng5",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng6",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_ltng7",
+    "base": "skmage_ltng1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois1",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois2",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois3",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois4",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois5",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois6",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "skmage_pois7",
+    "base": "skmage_pois1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger1",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger2",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger3",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger4",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger5",
+    "base": "slinger5",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger6",
+    "base": "slinger5",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger7",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger8",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "slinger9",
+    "base": "slinger1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "smith",
+    "base": "smith",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "snake",
+    "base": "snake",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "snowyeti1",
+    "base": "snowyeti1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "snowyeti2",
+    "base": "snowyeti1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "snowyeti3",
+    "base": "snowyeti1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "snowyeti4",
+    "base": "snowyeti1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "spiritmummy",
+    "base": "spiritmummy",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "spiritofbarbs",
+    "base": "spiritofbarbs",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "spiritwolf",
+    "base": "spiritwolf",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus1",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus2",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus3",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus4",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus5",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus6",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus7",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubus8",
+    "base": "succubus1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch1",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch2",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch3",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch4",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch5",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch6",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch7",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch8",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "succubuswitch9",
+    "base": "succubuswitch1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suckernest1",
+    "base": "suckernest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "suckernest2",
+    "base": "suckernest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "suckernest3",
+    "base": "suckernest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "suckernest4",
+    "base": "suckernest1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "suicideminion1",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion10",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion11",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion2",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion3",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion4",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion5",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion6",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion7",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion8",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "suicideminion9",
+    "base": "suicideminion1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "summoner",
+    "base": "summoner",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "swarm1",
+    "base": "swarm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "swarm2",
+    "base": "swarm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "swarm3",
+    "base": "swarm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "swarm4",
+    "base": "swarm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "swarm5",
+    "base": "swarm1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "tentacle1",
+    "base": "tentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tentacle2",
+    "base": "tentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tentacle3",
+    "base": "tentacle1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tentaclehead1",
+    "base": "tentaclehead1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tentaclehead2",
+    "base": "tentaclehead1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tentaclehead3",
+    "base": "tentaclehead1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "thornhulk1",
+    "base": "thornhulk1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "thornhulk2",
+    "base": "thornhulk1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "thornhulk3",
+    "base": "thornhulk1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "thornhulk4",
+    "base": "thornhulk1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "thornhulk5",
+    "base": "thornhulk1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "trap-firebolt",
+    "base": "trap-firebolt",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-horzmissile",
+    "base": "trap-horzmissile",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-lightning",
+    "base": "trap-lightning",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-melee",
+    "base": "trap-melee",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-nova",
+    "base": "trap-nova",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-poisoncloud",
+    "base": "trap-poisoncloud",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trap-vertmissile",
+    "base": "trap-vertmissile",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trappedsoul1",
+    "base": "trappedsoul1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "trappedsoul2",
+    "base": "trappedsoul2",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "turret1",
+    "base": "turret1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "turret2",
+    "base": "turret1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "turret3",
+    "base": "turret1",
+    "evil": true,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tyrael1",
+    "base": "tyrael1",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tyrael2",
+    "base": "tyrael2",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "tyrael3",
+    "base": "tyrael3",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "uberandariel",
+    "base": "andariel",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "uberbaal",
+    "base": "baalcrab",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "uberdiablo",
+    "base": "diablo",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "uberduriel",
+    "base": "duriel",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "uberizual",
+    "base": "izual",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "ubermephisto",
+    "base": "mephisto",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": true
+  },
+  {
+    "source": "unraveler1",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler2",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler3",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler4",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler5",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler6",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler7",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler8",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "unraveler9",
+    "base": "unraveler1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "valkyrie",
+    "base": "valkyrie",
+    "evil": false,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire1",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire2",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire3",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire4",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire5",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire6",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire7",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire8",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vampire9",
+    "base": "vampire1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "venomlord",
+    "base": "venomlord",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilechild1",
+    "base": "vilechild1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilechild2",
+    "base": "vilechild1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilechild3",
+    "base": "vilechild1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilechild4",
+    "base": "vilechild1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilechild5",
+    "base": "vilechild1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilemother1",
+    "base": "vilemother1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilemother2",
+    "base": "vilemother1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilemother3",
+    "base": "vilemother1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilemother4",
+    "base": "vilemother1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vilemother5",
+    "base": "vilemother1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vinecreature",
+    "base": "vinecreature",
+    "evil": false,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vulture1",
+    "base": "vulture1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vulture2",
+    "base": "vulture1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vulture3",
+    "base": "vulture1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vulture4",
+    "base": "vulture1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "vulture5",
+    "base": "vulture1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wakeofdestruction",
+    "base": "wakeofdestruction",
+    "evil": false,
+    "switchAi": true,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "warbighead",
+    "base": "warbighead",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wargoatman",
+    "base": "wargoatman",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "warputriddefiler",
+    "base": "warputriddefiler",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "warriv1",
+    "base": "warriv1",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "warriv2",
+    "base": "warriv2",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp1",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp2",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp3",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp4",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp5",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp6",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp7",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "willowisp8",
+    "base": "willowisp1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "window1",
+    "base": "window1",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "window2",
+    "base": "window2",
+    "evil": true,
+    "switchAi": false,
+    "walk": false,
+    "boss": false
+  },
+  {
+    "source": "wolf",
+    "base": "wolf",
+    "evil": false,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wolfrider1",
+    "base": "wolfrider1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wolfrider2",
+    "base": "wolfrider1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wolfrider3",
+    "base": "wolfrider1",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "worldstoneeffect",
+    "base": "worldstoneeffect",
+    "evil": true,
+    "switchAi": false,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith1",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith2",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith3",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith4",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith5",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith6",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith7",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith8",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "wraith9",
+    "base": "wraith1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zealot1",
+    "base": "zealot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zealot2",
+    "base": "zealot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zealot3",
+    "base": "zealot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zealot4",
+    "base": "zealot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zealot5",
+    "base": "zealot1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zombie1",
+    "base": "zombie1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zombie2",
+    "base": "zombie1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zombie3",
+    "base": "zombie1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zombie4",
+    "base": "zombie1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  },
+  {
+    "source": "zombie5",
+    "base": "zombie1",
+    "evil": true,
+    "switchAi": true,
+    "walk": true,
+    "boss": false
+  }
+]

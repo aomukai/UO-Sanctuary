@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "User firsthand gameplay report in this session; not an instrumented capture",
+  "recordedAtUtc": "2026-10-22T16:30:26.732103+00:00",
+  "observations": [
+    "Sanctuary tooltip has no mana cost and no idle mana drain was observed, including with no undead nearby.",
+    "User checked offensive and defensive auras; Prayer was initially checked at full health.",
+    "Follow-up while hurt confirms Prayer spends mana when healing, with a small visible cost.",
+    "Follow-up with Sanctuary at zero mana: user confirms nearby undead are still pushed away."
+  ],
+  "limits": [
+    "The broad idle-aura report does not establish zero cost for useful Prayer healing.",
+    "Exact fractional debit, pulse cadence, Sanctuary supplier-stat thresholds and full bypass/knockback geometry/interactions remain separate acceptance work."
+  ]
+}

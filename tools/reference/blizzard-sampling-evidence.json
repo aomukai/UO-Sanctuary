@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sources": [
+    {
+      "url": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/include/D2Seed.h",
+      "sha256": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f"
+    },
+    {
+      "url": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/D2Seed.cpp",
+      "sha256": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91"
+    },
+    {
+      "url": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+      "sha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+    },
+    {
+      "url": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Units/Missile.cpp",
+      "sha256": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+    }
+  ],
+  "probe": "Pinned seed header plus unchanged InitLowSeed function compiled with type/calling-convention shims and i64-to-ULL literal spelling. The misleading GetRemainingFrames helper is verified as total-current (elapsed), so seed X+frame uses 0,4,...96. This is supplementary legacy arithmetic evidence, not a D2R binary certificate.",
+  "sourceSamplingRange": 7,
+  "offsetBounds": [
+    -6,
+    5
+  ],
+  "cases": [
+    {
+      "sourceX": 1000,
+      "elapsedFrame": 0,
+      "offsetX": 0,
+      "offsetY": 5
+    },
+    {
+      "sourceX": 1000,
+      "elapsedFrame": 4,
+      "offsetX": -4,
+      "offsetY": -6
+    },
+    {
+      "sourceX": 1000,
+      "elapsedFrame": 8,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "sourceX": 1000,
+      "elapsedFrame": 96,
+      "offsetX": -4,
+      "offsetY": -3
+    },
+    {
+      "sourceX": 11772,
+      "elapsedFrame": 0,
+      "offsetX": 4,
+      "offsetY": 2
+    },
+    {
+      "sourceX": 11772,
+      "elapsedFrame": 4,
+      "offsetX": 0,
+      "offsetY": 3
+    },
+    {
+      "sourceX": 11772,
+      "elapsedFrame": 8,
+      "offsetX": 4,
+      "offsetY": 5
+    },
+    {
+      "sourceX": 11772,
+      "elapsedFrame": 96,
+      "offsetX": 0,
+      "offsetY": -6
+    }
+  ],
+  "open": [
+    "Exact initial server/client activation",
+    "D2R terrain mask and Size2 overlap/unit-search order",
+    "UO tile conversion and lag/owner lifecycle"
+  ]
+}

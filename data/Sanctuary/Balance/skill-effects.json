@@ -1,0 +1,3385 @@
+[
+  {
+    "talentId": "amazon.jab",
+    "name": "Jab",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.powerstrike",
+    "name": "Power Strike",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.poisonjavelin",
+    "name": "Poison Javelin",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "poisonjav",
+      "cltmissile": "poisonjav"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.impale",
+    "name": "Impale",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.lightningbolt",
+    "name": "Lightning Bolt",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "lightningjavelin",
+      "cltmissile": "lightningjavelin"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.chargedstrike",
+    "name": "Charged Strike",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "chargedstrikebolt",
+      "srvmissileb": "chargedstrikebolt",
+      "srvmissilec": "chargedstrikebolt",
+      "cltmissilea": "chargedstrikebolt",
+      "cltmissileb": "chargedstrikebolt",
+      "cltmissilec": "chargedstrikebolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.plaguejavelin",
+    "name": "Plague Javelin",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "plaguejavelin",
+      "cltmissile": "plaguejavelin"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.fend",
+    "name": "Fend",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.lightningstrike",
+    "name": "Lightning Strike",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "lightningstrike",
+      "srvmissileb": "lightningstrike",
+      "srvmissilec": "lightningstrike",
+      "cltmissilea": "lightningstrike",
+      "cltmissileb": "lightningstrike",
+      "cltmissilec": "lightningstrike"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.lightningfury",
+    "name": "Lightning Fury",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "lightningfury",
+      "cltmissile": "lightningfury"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.innersight",
+    "name": "Inner Sight",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "cast_innersight",
+      "ItemCastOverlay": "cast_innersight"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.criticalstrike",
+    "name": "Critical Strike",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "criticalstrike"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.dodge",
+    "name": "Dodge",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "dodge"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.slowmissiles",
+    "name": "Slow Missiles",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "cast_slowmissiles",
+      "ItemCastOverlay": "cast_slowmissiles"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.avoid",
+    "name": "Avoid",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "avoid"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.penetrate",
+    "name": "Penetrate",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "penetrate"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.decoy",
+    "name": "Decoy",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "dopplezon",
+      "summon": "dopplezon",
+      "sumoverlay": "dopllezon_appear"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.evade",
+    "name": "Evade",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "evade"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.valkyrie",
+    "name": "Valkyrie",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "valkyrie"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.pierce",
+    "name": "Pierce",
+    "characterClass": "Amazon",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "pierce"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "amazon.magicarrow",
+    "name": "Magic Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "magicarrow",
+      "cltmissile": "magicarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.firearrow",
+    "name": "Fire Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "firearrow",
+      "cltmissile": "firearrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.coldarrow",
+    "name": "Cold Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "coldarrow",
+      "cltmissile": "coldarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.multipleshot",
+    "name": "Multiple Shot",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "multipleshotarrow",
+      "srvmissileb": "multipleshotbolt",
+      "cltmissilea": "multipleshotarrow",
+      "cltmissileb": "multipleshotbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.explodingarrow",
+    "name": "Exploding Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "explodingarrow",
+      "cltmissile": "explodingarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.icearrow",
+    "name": "Ice Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "icearrow",
+      "cltmissile": "icearrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.guidedarrow",
+    "name": "Guided Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "guidedarrow",
+      "srvmissileb": "guidedarrow",
+      "srvmissilec": "guidedarrow",
+      "cltmissilea": "guidedarrow",
+      "cltmissileb": "guidedarrow",
+      "cltmissilec": "guidedarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.immolationarrow",
+    "name": "Immolation Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "immolationarrow",
+      "cltmissile": "immolationarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.strafe",
+    "name": "Strafe",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "strafearrow",
+      "srvmissileb": "strafebolt",
+      "cltmissilea": "multipleshotarrow",
+      "cltmissileb": "multipleshotbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "amazon.freezingarrow",
+    "name": "Freezing Arrow",
+    "characterClass": "Amazon",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "freezingarrow",
+      "cltmissile": "freezingarrow"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.icebolt",
+    "name": "Ice Bolt",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "icebolt",
+      "castoverlay": "ice_cast_1",
+      "cltmissile": "icebolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.frozenarmor",
+    "name": "Frozen Armor",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "frozenarmor",
+      "castoverlay": "ice_cast_1",
+      "cltoverlaya": "frozenarmor_hit",
+      "ItemCastOverlay": "ice_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.frostnova",
+    "name": "Frost Nova",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "frostnova",
+      "srvmissileb": "frostnova",
+      "srvmissilec": "frostnova",
+      "castoverlay": "ice_cast_2",
+      "cltmissilea": "frostnova"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.iceblast",
+    "name": "Ice Blast",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "iceblast",
+      "castoverlay": "ice_cast_1",
+      "cltmissile": "iceblast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.shiverarmor",
+    "name": "Shiver Armor",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "shiverarmor",
+      "castoverlay": "ice_cast_2",
+      "cltoverlaya": "shiverarmor_hit",
+      "cltmissilea": "sparkle",
+      "ItemCastOverlay": "ice_cast_3"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.glacialspike",
+    "name": "Glacial Spike",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "glacialspike",
+      "castoverlay": "ice_cast_2",
+      "cltmissile": "glacialspike"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.blizzard",
+    "name": "Blizzard",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "blizzardcenter",
+      "srvmissileb": "blizzardcenter",
+      "srvmissilec": "blizzardcenter",
+      "castoverlay": "ice_cast_3",
+      "cltmissilea": "blizzardcenter",
+      "ItemCastOverlay": "ice_cast_3"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.chillingarmor",
+    "name": "Chilling Armor",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "chillingarmorbolt",
+      "aurastate": "chillingarmor",
+      "castoverlay": "ice_cast_3",
+      "cltoverlaya": "chillarmor_hit",
+      "cltmissilea": "chillingarmorbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.frozenorb",
+    "name": "Frozen Orb",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "frozenorb",
+      "castoverlay": "ice_cast_3",
+      "cltmissilea": "frozenorb"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.coldmastery",
+    "name": "Cold Mastery",
+    "characterClass": "Sorceress",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "coldmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "sorceress.chargedbolt",
+    "name": "Charged Bolt",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "chargedbolt",
+      "srvmissileb": "chargedbolt",
+      "srvmissilec": "chargedbolt",
+      "castoverlay": "light_cast_1",
+      "cltmissilea": "chargedbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.telekinesis",
+    "name": "Telekinesis",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "light_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.staticfield",
+    "name": "Static Field",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "light_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.lightning",
+    "name": "Lightning",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "lightningbolt",
+      "castoverlay": "light_cast_1",
+      "cltmissile": "lightningbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.nova",
+    "name": "Nova",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "nova",
+      "srvmissileb": "nova",
+      "srvmissilec": "nova",
+      "castoverlay": "light_cast_1",
+      "cltmissilea": "nova"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.chainlightning",
+    "name": "Chain Lightning",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "chainlightning",
+      "srvmissileb": "chainlightning",
+      "srvmissilec": "chainlightning",
+      "castoverlay": "light_cast_1",
+      "cltmissilea": "chainlightning",
+      "cltmissileb": "chainlightning",
+      "cltmissilec": "chainlightning"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.teleport",
+    "name": "Teleport",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "teleport",
+      "ItemCastOverlay": "teleport"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.thunderstorm",
+    "name": "Thunder Storm",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "thunderstorm1",
+      "aurastate": "thunderstorm",
+      "prgoverlay": "lightning",
+      "castoverlay": "light_cast_2",
+      "cltmissilea": "thunderstorm1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.energyshield",
+    "name": "Energy Shield",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "energyshield",
+      "prgoverlay": "energyshieldhit0",
+      "castoverlay": "light_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.lightningmastery",
+    "name": "Lightning Mastery",
+    "characterClass": "Sorceress",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "lightningmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "sorceress.firebolt",
+    "name": "Fire Bolt",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "firebolt",
+      "castoverlay": "fire_cast_1",
+      "cltmissile": "firebolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.warmth",
+    "name": "Warmth",
+    "characterClass": "Sorceress",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "warmth"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "sorceress.inferno",
+    "name": "Inferno",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "infernoflame1",
+      "srvmissileb": "infernoflame1",
+      "srvmissilec": "infernoflame1",
+      "cltmissilea": "infernoflame1",
+      "cltmissileb": "infernoflame2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.blaze",
+    "name": "Blaze",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "blaze",
+      "srvmissileb": "blaze",
+      "srvmissilec": "blaze",
+      "aurastate": "blaze",
+      "castoverlay": "fire_cast_2",
+      "cltmissile": "blaze",
+      "cltmissilea": "firewall",
+      "cltmissileb": "firesmall",
+      "cltmissilec": "firemedium"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.fireball",
+    "name": "Fireball",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "fireball",
+      "castoverlay": "fire_cast_2",
+      "cltmissile": "fireball"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.firewall",
+    "name": "Fire Wall",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "firewallmaker",
+      "srvmissileb": "firewall",
+      "castoverlay": "fire_cast_2",
+      "cltmissilea": "firewallmaker"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.enchant",
+    "name": "Enchant",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "enchant"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.meteor",
+    "name": "Meteor",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "meteorcenter",
+      "srvmissileb": "meteorcenter",
+      "srvmissilec": "meteorcenter",
+      "castoverlay": "fire_cast_2",
+      "cltmissilea": "meteorcenter",
+      "ItemCastOverlay": "fire_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "sorceress.firemastery",
+    "name": "Fire Mastery",
+    "characterClass": "Sorceress",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "firemastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "sorceress.hydra",
+    "name": "Hydra",
+    "characterClass": "Sorceress",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "hydra1",
+      "castoverlay": "fire_cast_2",
+      "ItemCastOverlay": "fire_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.raiseskeleton",
+    "name": "Raise Skeleton",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "necroskeleton",
+      "cltmissilea": "corpseexplosion"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.skeletonmastery",
+    "name": "Skeleton Mastery",
+    "characterClass": "Necromancer",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "skel_mastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "necromancer.claygolem",
+    "name": "Clay Golem",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "ClayGolem"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.golemmastery",
+    "name": "Golem Mastery",
+    "characterClass": "Necromancer",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "golem_mastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "necromancer.skeletalmage",
+    "name": "Raise Skeletal Mage",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "necromage",
+      "cltmissilea": "corpseexplosion"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.bloodgolem",
+    "name": "Blood Golem",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "BloodGolem"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.summonresist",
+    "name": "Summon Resist",
+    "characterClass": "Necromancer",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "summonresist"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "necromancer.irongolem",
+    "name": "Iron Golem",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "thorns",
+      "summon": "IronGolem"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.firegolem",
+    "name": "Fire Golem",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "monstercorpseexplode",
+      "summon": "FireGolem"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.revive",
+    "name": "Revive",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "revivemedium",
+      "cltmissileb": "revivesmall",
+      "cltmissilec": "revivelarge"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.teeth",
+    "name": "Teeth",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "teeth",
+      "cltmissilea": "teeth",
+      "cltmissileb": "teeth",
+      "cltmissilec": "bonecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.bonearmor",
+    "name": "Bone Armor",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "bonearmor"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.poisondagger",
+    "name": "Poison Dagger",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.corpseexplosion",
+    "name": "Corpse Explosion",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "corpseexplosion",
+      "cltmissileb": "explodingarrowexp",
+      "cltmissilec": "redlightmissile"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.bonewall",
+    "name": "Bone Wall",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "bonewallmaker",
+      "summon": "bonewall"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.poisonexplosion",
+    "name": "Poison Explosion",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "poisonexplosioncloud",
+      "cltmissilea": "poisoncorpseexplosion",
+      "cltmissileb": "poisonexplosioncloud",
+      "cltmissilec": "greenlightmissile"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.bonespear",
+    "name": "Bone Spear",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "bonespear",
+      "cltmissile": "bonespear",
+      "cltmissilec": "bonecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.boneprison",
+    "name": "Bone Prison",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "bonewall"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.poisonnova",
+    "name": "Poison Nova",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "poisonnova",
+      "cltmissilea": "poisonnova"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.bonespirit",
+    "name": "Bone Spirit",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "bonespirit",
+      "srvmissileb": "bonespirit",
+      "cltmissilea": "bonespirit"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.amplifydamage",
+    "name": "Amplify Damage",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseamplifydamage",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.dimvision",
+    "name": "Dim Vision",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "cursedimvision",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.weaken",
+    "name": "Weaken",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseweaken",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.ironmaiden",
+    "name": "Iron Maiden",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseironmaiden",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.terror",
+    "name": "Terror",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseterror",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.confuse",
+    "name": "Confuse",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseconfuse",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.lifetap",
+    "name": "Life Tap",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "prgoverlay": "steallife",
+      "cltmissilea": "cursereversevampire",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.attract",
+    "name": "Attract",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curseattract",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.decrepify",
+    "name": "Decrepify",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "cursedecrepify",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "necromancer.lowerresist",
+    "name": "Lower Resist",
+    "characterClass": "Necromancer",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "curselowerresist",
+      "cltmissilec": "cursecast"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.prayer",
+    "name": "Prayer",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "prayer"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.resistfire",
+    "name": "Resist Fire",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "resistfire",
+      "passivestate": "passive_resistfire"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.resistcold",
+    "name": "Resist Cold",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "resistcold",
+      "passivestate": "passive_resistcold"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.resistlightning",
+    "name": "Resist Lightning",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "resistlight",
+      "passivestate": "passive_resistltng"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.defiance",
+    "name": "Defiance",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "defiance"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.cleansing",
+    "name": "Cleansing",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "cleansing"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.vigor",
+    "name": "Vigor",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "stamina"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.meditation",
+    "name": "Meditation",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "meditation"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.redemption",
+    "name": "Redemption",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "redemption",
+      "cltmissilea": "redemption"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.salvation",
+    "name": "Salvation",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "resistall"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.might",
+    "name": "Might",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "might"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.holyfire",
+    "name": "Holy Fire",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "holyfire"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x375A self pulse, hue0x489; final radial pulse and weapon accents pending"
+  },
+  {
+    "talentId": "paladin.thorns",
+    "name": "Thorns",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "thorns"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO aura/retaliation flashes; final thorns aura ring and physical-return impact pending"
+  },
+  {
+    "talentId": "paladin.blessedaim",
+    "name": "Blessed Aim",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "blessedaim",
+      "passivestate": "penetrate"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.concentration",
+    "name": "Concentration",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "concentration"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.holyfreeze",
+    "name": "Holy Freeze",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "holywind"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x375A cold pulse; final radial frost, weapon accents, slowed-state and corpse-shatter effects pending"
+  },
+  {
+    "talentId": "paladin.holyshock",
+    "name": "Holy Shock",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "holyshock"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x375A self pulse, hue0x481; final radial pulse and weapon accents pending"
+  },
+  {
+    "talentId": "paladin.sanctuary",
+    "name": "Sanctuary",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "sanctuary",
+      "castoverlay": "cast_undead",
+      "cltmissilea": "sanctuarybolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x375A self pulse and ordinary get-hit/movement animation; final Sanctuary ring/bolts, undead impact and knockback presentation pending"
+  },
+  {
+    "talentId": "paladin.fanaticism",
+    "name": "Fanaticism",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "fanaticism"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.conviction",
+    "name": "Conviction",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "conviction"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO supplier ring/hostile aura overlays; final Conviction enemy debuff ring and supplier aura pending"
+  },
+  {
+    "talentId": "paladin.sacrifice",
+    "name": "Sacrifice",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "cltmissilea": "blood1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.smite",
+    "name": "Smite",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.holybolt",
+    "name": "Holy Bolt",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "holybolt",
+      "castoverlay": "cast_undead",
+      "cltmissile": "holybolt",
+      "ItemCastOverlay": "cast_undead"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x36E4 missile and0x376A healing overlay; final holy bolt/trail/impact/heal effects pending"
+  },
+  {
+    "talentId": "paladin.zeal",
+    "name": "Zeal",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "paladin.charge",
+    "name": "Charge",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged ordinary UO accepted walking steps, weapon animation and sound; final Charge travel trail, impact/overlay147 and directional sequence pending. Missing art is independent of remaining knockback geometry and special-mode acceptance."
+  },
+  {
+    "talentId": "paladin.vengeance",
+    "name": "Vengeance",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO melee elemental flash/sound; final fire, cold and lightning strike effects pending"
+  },
+  {
+    "talentId": "paladin.blessedhammer",
+    "name": "Blessed Hammer",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "blessedhammer",
+      "cltmissilea": "blessedhammer"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x36E4 hammer trail; final rotating hammer/spiral trail/impact effects pending"
+  },
+  {
+    "talentId": "paladin.conversion",
+    "name": "Conversion",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged ordinary UO weapon animation/sound; final cast/impact and converted-state marker pending. Talent/hotkey icons remain in the independent icon register."
+  },
+  {
+    "talentId": "paladin.holyshield",
+    "name": "Holy Shield",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "holyshield"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO shield overlay; final holy shield enchantment/glow/cast effect pending"
+  },
+  {
+    "talentId": "paladin.fistoftheheavens",
+    "name": "Fist of the Heavens",
+    "characterClass": "Paladin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "fistoftheheavensdelay",
+      "srvoverlay": "handofgod",
+      "cltmissilea": "fistoftheheavensdelay"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO0x3709 strike overlay and holy bolt placeholders; final warning/sky lightning/burst/secondary effects pending"
+  },
+  {
+    "talentId": "barbarian.howl",
+    "name": "Howl",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "howl",
+      "cltmissilea": "howl"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.findpotion",
+    "name": "Find Potion",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.shout",
+    "name": "Shout",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "shout",
+      "aurastate": "shout",
+      "cltmissilea": "shout"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.taunt",
+    "name": "Taunt",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.battlecry",
+    "name": "Battle Cry",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "battlecry",
+      "cltmissilea": "battlecry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.finditem",
+    "name": "Find Item",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.battleorders",
+    "name": "Battle Orders",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "battleorders",
+      "aurastate": "battleorders",
+      "cltmissilea": "battleorders"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.grimward",
+    "name": "Grim Ward",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "grimwardmediumstart",
+      "srvmissileb": "grimwardsmallstart",
+      "srvmissilec": "grimwardlargestart",
+      "cltmissilea": "grimwardmediumstart",
+      "cltmissileb": "grimwardsmallstart",
+      "cltmissilec": "grimwardlargestart"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.warcry",
+    "name": "War Cry",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "warcry",
+      "castoverlay": "warcry",
+      "cltmissilea": "warcry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.battlecommand",
+    "name": "Battle Command",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "battlecommand",
+      "aurastate": "battlecommand",
+      "cltmissilea": "battlecommand"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.swordmastery",
+    "name": "Blade Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "blademastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.axemastery",
+    "name": "Axe Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "axemastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.macemastery",
+    "name": "Mace Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "macemastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.polearmmastery",
+    "name": "Polearm Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "polearmmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.throwingmastery",
+    "name": "Throwing Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "throwingmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.spearmastery",
+    "name": "Spear Mastery",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "spearmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.increasedstamina",
+    "name": "Increased Stamina",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "increasedstamina"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.ironskin",
+    "name": "Iron Skin",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "ironskin"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.increasedspeed",
+    "name": "Increased Speed",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "increasedspeed"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.naturalresistance",
+    "name": "Natural Resistance",
+    "characterClass": "Barbarian",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "naturalresistance"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "barbarian.bash",
+    "name": "Bash",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO weapon animation/sound and shared native knockback/get-hit placeholders; final Bash impact/knockback effects pending"
+  },
+  {
+    "talentId": "barbarian.doubleswing",
+    "name": "Double Swing",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.leap",
+    "name": "Leap",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "leapknockback"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.doublethrow",
+    "name": "Double Throw",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.stun",
+    "name": "Stun",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Staged UO weapon animation/sound and0x375A stun marker; final Stun impact/overhead effect pending"
+  },
+  {
+    "talentId": "barbarian.leapattack",
+    "name": "Leap Attack",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "leapattack",
+      "srvoverlay": "bash",
+      "cltmissilea": "leapattack"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.concentrate",
+    "name": "Concentrate",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvoverlay": "doubledamage1",
+      "aurastate": "concentrate"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.frenzy",
+    "name": "Frenzy",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "frenzy"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.whirlwind",
+    "name": "Whirlwind",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "whirlwind"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "barbarian.berserk",
+    "name": "Berserk",
+    "characterClass": "Barbarian",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "berserk"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.firestorm",
+    "name": "Firestorm",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "firestormmaker",
+      "castoverlay": "druid_fire_cast_1",
+      "cltmissilea": "firestormmaker",
+      "ItemCastOverlay": "druid_fire_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.moltenboulder",
+    "name": "Molten Boulder",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "moltenboulderemerge",
+      "castoverlay": "druid_fire_cast_1",
+      "cltmissile": "moltenboulderemerge",
+      "ItemCastOverlay": "druid_fire_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.arcticblast",
+    "name": "Arctic Blast",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "arcticblast1",
+      "prgoverlay": "arctic_blast_cast",
+      "cltmissilea": "arcticblast1",
+      "cltmissileb": "arcticblast2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.fissure",
+    "name": "Fissure",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "erruption center",
+      "castoverlay": "druid_fire_cast_2",
+      "cltmissilea": "erruption center",
+      "ItemCastOverlay": "druid_fire_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.cyclonearmor",
+    "name": "Cyclone Armor",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "cyclonearmor"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.twister",
+    "name": "Twister",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "twister",
+      "cltmissilea": "twister"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.volcano",
+    "name": "Volcano",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "volcano",
+      "castoverlay": "druid_fire_cast_2",
+      "cltmissilea": "volcano",
+      "cltmissileb": "volcano overlay fire",
+      "ItemCastOverlay": "druid_fire_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.tornado",
+    "name": "Tornado",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "tornado",
+      "cltmissilea": "tornado"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.hurricane",
+    "name": "Hurricane",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "hurricane",
+      "cltmissilea": "hurricaneswoosh",
+      "cltmissileb": "hurricanerock",
+      "cltmissilec": "hurricanetree"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.armageddon",
+    "name": "Armageddon",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "armageddoncontrol",
+      "srvmissileb": "armageddoncontrol",
+      "srvmissilec": "armageddoncontrol",
+      "aurastate": "armageddon",
+      "castoverlay": "druid_fire_cast_2",
+      "cltmissilea": "armageddontail",
+      "cltmissileb": "armageddonrock"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.werewolf",
+    "name": "Werewolf",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "wolf",
+      "cltoverlaya": "wolf_into",
+      "cltoverlayb": "wolf_undo"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.lycanthropy",
+    "name": "Lycanthropy",
+    "characterClass": "Druid",
+    "effects": "not-applicable",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "druid.werebear",
+    "name": "Werebear",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "bear",
+      "cltoverlaya": "bear_into",
+      "cltoverlayb": "bear_undo"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.maul",
+    "name": "Maul",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "maul"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.feralrage",
+    "name": "Feral Rage",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "feralrage"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.fireclaws",
+    "name": "Fire Claws",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvoverlay": "fire_hit"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.rabies",
+    "name": "Rabies",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "rabiesplague"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.shockwave",
+    "name": "Shock Wave",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "shockwave",
+      "srvmissileb": "shockwave",
+      "cltmissilea": "shockwave",
+      "cltmissileb": "shockwave"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.hunger",
+    "name": "Hunger",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.fury",
+    "name": "Fury",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.raven",
+    "name": "Raven",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "druidhawk"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.poisoncreeper",
+    "name": "Poison Creeper",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "vine_beast",
+      "summon": "plaguepoppy"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.oaksage",
+    "name": "Oak Sage",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "oaksage"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.summonspiritwolf",
+    "name": "Summon Spirit Wolf",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "spiritwolf"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.carrionvine",
+    "name": "Carrion Vine",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "vine_beast",
+      "summon": "cycleoflife"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.heartofwolverine",
+    "name": "Heart of Wolverine",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "heartofwolverine"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.summondirewolf",
+    "name": "Summon Dire Wolf",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "fenris"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.solarcreeper",
+    "name": "Solar Creeper",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "vine_beast",
+      "summon": "vinecreature"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.spiritofbarbs",
+    "name": "Spirit of Barbs",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "spiritofbarbs"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "druid.summongrizzly",
+    "name": "Summon Grizzly",
+    "characterClass": "Druid",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "druidbear"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.tigerstrike",
+    "name": "Tiger Strike",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "progressive_damage",
+      "tgtoverlay": "assassinfootimpact",
+      "prgoverlay": "tigerstrike1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.dragontalon",
+    "name": "Dragon Talon",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.dragonclaw",
+    "name": "Dragon Claw",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.fistsoffire",
+    "name": "Fists of Fire",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilec": "fistsoffirefirewall",
+      "aurastate": "progressive_fire",
+      "cltmissileb": "fistsoffireexplode",
+      "cltmissilec": "fistsoffirefirewall"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.cobrastrike",
+    "name": "Cobra Strike",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "progressive_steal",
+      "prgoverlay": "cobrastrike1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.dragontail",
+    "name": "Dragon Tail",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "dragontail missile",
+      "cltmissilea": "dragontail missile"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.clawsofthunder",
+    "name": "Claws of Thunder",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissileb": "clawsofthundernova",
+      "srvmissilec": "clawsofthunderbolt",
+      "aurastate": "progressive_lightning",
+      "cltmissileb": "clawsofthundernova",
+      "cltmissilec": "clawsofthunderbolt"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.bladesofice",
+    "name": "Blades of Ice",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilec": "bladesoficecubes",
+      "aurastate": "progressive_cold",
+      "cltmissileb": "bladesoficeexplode",
+      "cltmissilec": "bladesoficecubes"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.dragonflight",
+    "name": "Dragon Flight",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "tgtoverlay": "dragonflight"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.phoenixstrike",
+    "name": "Phoenix Strike",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "royalstrikemeteorcenter",
+      "srvmissileb": "royalstrikechainlightning",
+      "srvmissilec": "royalstrikechaosice",
+      "aurastate": "progressive_other",
+      "cltmissilea": "royalstrikemeteorcenter",
+      "cltmissileb": "royalstrikechainlightning",
+      "cltmissilec": "royalstrikechaosice"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.clawmastery",
+    "name": "Claw Mastery",
+    "characterClass": "Assassin",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "clawmastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "assassin.psychichammer",
+    "name": "Psychic Hammer",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "tgtoverlay": "psychic_hammer_hit",
+      "castoverlay": "psychic_hammer_curse"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.burstofspeed",
+    "name": "Burst of Speed",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "quickness"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.cloakofshadows",
+    "name": "Cloak of Shadows",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "cloak_of_shadows"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.weaponblock",
+    "name": "Weapon Block",
+    "characterClass": "Assassin",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "weaponblock"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "assassin.fade",
+    "name": "Fade",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "fade"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.shadowwarrior",
+    "name": "Shadow Warrior",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "shadowwarrior",
+      "summon": "shadowwarrior"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.mindblast",
+    "name": "Mind Blast",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "tgtoverlay": "fist_will_cast",
+      "cltmissilea": "mindblast center",
+      "cltmissileb": "mindblast hit"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.venom",
+    "name": "Venom",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "venomclaws"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.shadowmaster",
+    "name": "Shadow Master",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "shadowwarrior",
+      "summon": "shadowmaster"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.fireblast",
+    "name": "Fire Blast",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "bomb in air",
+      "cltmissile": "bomb in air"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.shockweb",
+    "name": "Shock Web",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "shock field in air",
+      "cltmissilea": "shock field in air"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.bladesentinel",
+    "name": "Blade Sentinel",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "blade creeper",
+      "summon": "bladecreeper"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.chargedboltsentry",
+    "name": "Charged Bolt Sentry",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "chargeboltsentry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.wakeoffire",
+    "name": "Wake Of Fire",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "wakeofdestruction"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.bladefury",
+    "name": "Blade Fury",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "bladefragment1",
+      "cltmissilea": "bladefragment2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.lightningsentry",
+    "name": "Lightning Sentry",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "lightningsentry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.wakeofinferno",
+    "name": "Wake Of Inferno",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "infernosentry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.deathsentry",
+    "name": "Death Sentry",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "summon": "deathsentry"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "assassin.bladeshield",
+    "name": "Blade Shield",
+    "characterClass": "Assassin",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "blade shield attachment",
+      "aurastate": "bladeshield"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.demonicmastery",
+    "name": "Demonic Mastery",
+    "characterClass": "Warlock",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "demonic_mastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "warlock.summongoatman",
+    "name": "Summon Goatman",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "warlockdemonground",
+      "summon": "wargoatman",
+      "castoverlay": "warlock_shadow_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.bloodoath",
+    "name": "Blood Oath",
+    "characterClass": "Warlock",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "bloodoath"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "warlock.deathmark",
+    "name": "Death Mark",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "sumoverlay": "warlock_death_mark_pet",
+      "castoverlay": "warlock_fire_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.summontainted",
+    "name": "Summon Tainted",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "warlockdemonground",
+      "summon": "warbighead",
+      "castoverlay": "warlock_shadow_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.bloodboil",
+    "name": "Blood Boil",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "warlock_fire_cast_1",
+      "cltmissilea": "bloodboilexplode"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.summondefiler",
+    "name": "Summon Defiler",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "warlockdemonground",
+      "summon": "warputriddefiler",
+      "castoverlay": "warlock_shadow_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.engorge",
+    "name": "Engorge",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvoverlay": "engorgecast",
+      "aurastate": "engorge",
+      "castoverlay": "warlock_shadow_cast_2",
+      "cltmissilea": "engorge",
+      "cltmissileb": "engorgecorpseeffect"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.consume",
+    "name": "Consume",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "consume",
+      "castoverlay": "warlock_shadow_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.binddemon",
+    "name": "Bind Demon",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "binddemonchannelmaker",
+      "aurastate": "bind_demon",
+      "prgoverlay": "warlock_shadow_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.levitationmastery",
+    "name": "Levitation Mastery",
+    "characterClass": "Warlock",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "levitate_mastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "warlock.hexbane",
+    "name": "Hex: Bane",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "hexbane",
+      "castoverlay": "warlock_psychic_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.cleave",
+    "name": "Cleave",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "castoverlay": "warlock_psychic_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.echoingstrike",
+    "name": "Echoing Strike",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "echoingstrike",
+      "castoverlay": "warlock_psychic_cast_1",
+      "cltmissilea": "echoingstrike"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.hexpurge",
+    "name": "Hex: Purge",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvoverlay": "hex_purge_explosion",
+      "aurastate": "hexpurge",
+      "castoverlay": "warlock_psychic_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.bladewarp",
+    "name": "Blade Warp",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "bladewarp",
+      "castoverlay": "warlock_psychic_cast_1",
+      "cltmissilea": "bladewarp"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.psychicward",
+    "name": "Psychic Ward",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "psychicward",
+      "prgoverlay": "psychicward_hit0",
+      "castoverlay": "warlock_psychic_cast_1_no_hex"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.eldritchblast",
+    "name": "Eldritch Blast",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "eldritchblastnova",
+      "srvoverlay": "surge_hex_explode",
+      "aurastate": "eldritchblastperiodic",
+      "castoverlay": "warlock_psychic_cast_1_no_hex",
+      "cltmissilea": "eldritchblastnova"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.hexsiphon",
+    "name": "Hex: Siphon",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "aurastate": "hexsiphon",
+      "castoverlay": "warlock_psychic_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.mirroredblades",
+    "name": "Mirrored Blades",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {},
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.miasmabolt",
+    "name": "Miasma Bolt",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissile": "miasmabolt",
+      "castoverlay": "warlock_shadow_cast_1",
+      "cltmissile": "miasmabolt",
+      "ItemCastOverlay": "cast_undead"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.ringoffire",
+    "name": "Ring of Fire",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "ringoffire",
+      "srvmissileb": "ringoffire",
+      "srvmissilec": "ringoffire",
+      "castoverlay": "warlock_fire_cast_1",
+      "cltmissilea": "ringoffire"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.sigillethargy",
+    "name": "Sigil: Lethargy",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "sigillethargysmall",
+      "srvmissileb": "sigillethargymedium",
+      "srvmissilec": "sigillethargylarge",
+      "aurastate": "sigil",
+      "castoverlay": "warlock_shadow_cast_1",
+      "cltmissilea": "sigillethargysmall",
+      "cltmissileb": "sigillethargymedium",
+      "cltmissilec": "sigillethargylarge"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.sigilrancor",
+    "name": "Sigil: Rancor",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "sigilrancorsmall",
+      "srvmissileb": "sigilrancormedium",
+      "srvmissilec": "sigilrancorlarge",
+      "aurastate": "sigil",
+      "castoverlay": "warlock_fire_cast_1",
+      "cltmissilea": "sigilrancorsmall",
+      "cltmissileb": "sigilrancormedium",
+      "cltmissilec": "sigilrancorlarge"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.miasmachain",
+    "name": "Miasma Chain",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "miasmachainsmaker",
+      "castoverlay": "warlock_shadow_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.flamewave",
+    "name": "Flame Wave",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "flamewaveunveiling",
+      "castoverlay": "warlock_fire_cast_1",
+      "cltmissilea": "flamewaveunveiling",
+      "ItemCastOverlay": "warlock_fire_cast_1"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.sigildeath",
+    "name": "Sigil: Death",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "sigildeathsmall",
+      "srvmissileb": "sigildeathmedium",
+      "srvmissilec": "sigildeathlarge",
+      "aurastate": "sigil",
+      "castoverlay": "warlock_shadow_cast_1",
+      "cltmissilea": "sigildeathsmall",
+      "cltmissileb": "sigildeathmedium",
+      "cltmissilec": "sigildeathlarge"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.enhancedentropy",
+    "name": "Enhanced Entropy",
+    "characterClass": "Warlock",
+    "effects": "not-applicable",
+    "sourceEffects": {
+      "passivestate": "shadow_mastery"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "None required"
+  },
+  {
+    "talentId": "warlock.apocalypse",
+    "name": "Apocalypse",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "apocalypse",
+      "srvoverlay": "apocalypse",
+      "castoverlay": "warlock_fire_cast_1",
+      "cltmissilea": "apocalypse"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  },
+  {
+    "talentId": "warlock.abyss",
+    "name": "Abyss",
+    "characterClass": "Warlock",
+    "effects": "needed",
+    "sourceEffects": {
+      "srvmissilea": "abysscenter",
+      "castoverlay": "warlock_shadow_cast_1",
+      "cltmissilea": "abysscenter",
+      "ItemCastOverlay": "fire_cast_2"
+    },
+    "generation": "pending",
+    "clientMapping": "pending",
+    "inGameVerification": "pending",
+    "placeholder": "Existing UO art; final effect pending"
+  }
+]

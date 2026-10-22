@@ -1,0 +1,40 @@
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -349,6 +349,10 @@
+             world.TargetManager.LastAttack = target.Serial;
+             Send(CombatRequest.Attack, target.Serial);
+         }
++        else if (ClassAbilities.AllyTarget(Left) && target != world.Player && Ally(target))
++        {
++            Send(CombatRequest.Cast, target.Serial, Left, target.X, target.Y, target.Z);
++        }
+     }
+     private static void StopMovement(World world)
+     {
+@@ -408,7 +412,7 @@
+         }
+         else if (SelectedObject.Object is Mobile target)
+         {
+-            if (Hostile(target))
++            if (Hostile(target) || ClassAbilities.AllyTarget(ability) && target != world.Player && Ally(target))
+             {
+                 Send(CombatRequest.Cast, target.Serial, ability, target.X, target.Y, target.Z);
+             }
+@@ -449,7 +453,7 @@
+         }
+         if (obj is Mobile mobile)
+         {
+-            if (Hostile(mobile))
++            if (Hostile(mobile) || ClassAbilities.AllyTarget(Left) && mobile != world.Player && Ally(mobile))
+             {
+                 Select(world, mobile);
+                 return true;
+@@ -522,7 +526,7 @@
+             {
+                 SendSummonAim(world, CombatRequest.HoldAttack);
+             }
+-            else if (SelectedObject.Object is Mobile enemy && Hostile(enemy))
++            else if (SelectedObject.Object is Mobile enemy && (Hostile(enemy) || ClassAbilities.AllyTarget(_attackAbility) && enemy != world.Player && Ally(enemy)))
+             {
+                 Send(CombatRequest.HoldAttack, enemy.Serial, _attackAbility, enemy.X, enemy.Y, enemy.Z);
+             }

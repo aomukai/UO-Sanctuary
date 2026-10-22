@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "gitBlobVerification": true,
+  "sourceHashes": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0"
+  },
+  "pathCases": 324,
+  "modeCases": 32,
+  "findings": [
+    "Unchanged PATH_Knockback_Server: half=(nDist>>1)+1, signed integer Chebyshev-normalized endpoint, ray-trace clipping and no-path when unchanged.",
+    "Unchanged monster mode requires both GH/KB modes, distance5 normally/distance10 sand leapers and live-mode transition13.",
+    "Inspected Units knockback velocity4096/base1024 yields65536 FP16 subtiles per frame before direction scaling; animation/velocity bypasses ordinary chill.",
+    "Inspected undead flat AR is added before percentage bonuses; undead damage adds to physical enhanced-damage percentage.",
+    "Sanctuary state separately clamps positive physical resistance tozero. Source BYPASSUNDEAD flag affects all damage-table entries; modern broader flag delivery remains unsupported, not silently certified."
+  ],
+  "limits": [
+    "Ray tracing is an explicit all-clear/fully-blocked stub; no D2 terrain/body/path initializer or modern executable certificate.",
+    "World/mode/stat tables and acquisition are explicit stubs. The callback data/modern user observations are separate evidence.",
+    "Native controller uses an explicitly provisional two-subtile/tile endpoint projection, accepted UO steps and existing mapped GH/FHR clock.",
+    "Sand-leaper post-knockback AI15/45frames is not implemented; its native controller branch is explicitly gated.",
+    "Modern supplier-stat thresholds, broader bypass flag scope/delivery, complete native mode/recovery/owner/gear/client behavior remain open."
+  ]
+}

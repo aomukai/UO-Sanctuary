@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "probe": {
+    "cases": 72,
+    "guards": 3,
+    "start32Sha256": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "allocCombatSha256": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "healthBlockSha256": "aa3a9faec0287703c5ed39c165092c4fdade4823197a5ad4644469cdd0721125",
+    "dataPath": ".local/class-skills/barbarian-attack-source-probe.json"
+  },
+  "established": [
+    "Start32 prepares hit/stat/formulas/elements, calls allocation then adds calc2*256 to physical.",
+    "Unchanged allocation fills ordinary physical and calls CalculateTotalDamage only for successful/unblocked hits.",
+    "Flat addition occurs after ordinary critical and mitigation; it changes dwPhysDamage but not dwDmgTotal. The unchanged ExecuteEvents health block commits dwDmgTotal, so the added field alone does not increase legacy health loss.",
+    "Inspected shared skill-start handler consumes mana once after successful start when usemanaondo is absent; pinned Bash/Stun have no such flag."
+  ],
+  "stubs": [
+    "Base physical100, source physical percentage, critical multiplier, resistance and stored total calculation are explicit bounded stubs; actual source implementations are not compiled here.",
+    "Element roll is counted only; aura-state mutation is stubbed and excluded by nAuraState=-1. Concentrate is not certified.",
+    "Combat allocation uses one explicit static record; no native memory/event/mode mechanics are certified."
+  ],
+  "limits": [
+    "Legacy source isolation is not a modern D2R executable certificate, including Bash stale-total/physical-event behavior.",
+    "Control species/modes and stun duration are separately checked with shared control consumers.",
+    "Source event/item/curse/shield/PvP/owner/client timing remains bounded acceptance work."
+  ],
+  "modernReferenceGap": {
+    "flatBash": "Pinned tables retain calc2, but legacy physical-field/stored-total mismatch is not proof of the D2R3.3.93847 executable. Implementation follows the explicit legacy model provisionally.",
+    "lowMana": "Pinned AttackNoMana1 is insufficient to establish fallback; the user observed a conflicting flag path for Zeal. Bash/Stun reject unpaid starts and their low-mana behavior remains unverified.",
+    "externalSearch": "Official Blizzard news searches did not establish either branch. No search-result absence is treated as evidence of unchanged behavior."
+  }
+}

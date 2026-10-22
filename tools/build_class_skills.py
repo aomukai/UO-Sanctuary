@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+"""Compile all eight skill trees and retain source mechanics and asset requirements."""
+import argparse
+import hashlib
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / 'tools/reference/d2r-named-equipment'
+CODES = ('ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass', 'war')
+CLASSES = ('Amazon', 'Sorceress', 'Necromancer', 'Paladin', 'Barbarian', 'Druid', 'Assassin', 'Warlock')
+normalize = lambda value: re.sub('[^a-z0-9]', '', value.lower())
+
+def warlock_stats():
+    raw = SOURCE / 'json/charstats.json'
+    pin = json.loads((SOURCE/'sources.json').read_text())['files']['json/charstats.json']['sha256']
+    if hashlib.sha256(raw.read_bytes()).hexdigest() != pin: raise ValueError('Changed Warlock CharStats source')
+    r = next(r for r in json.loads(raw.read_text()).values() if r.get('class') == 'Warlock')
+    return dict(name='Warlock',strength=r['str'],dexterity=r['dex'],vitality=r['vit'],energy=r['int'],life=r['vit']+r['hpadd'],
+                stamina=r['stamina'],mana=r['int'],lifeLevel4=r['LifePerLevel'],staminaLevel4=r['StaminaPerLevel'],manaLevel4=r['ManaPerLevel'],
+                lifeVitality4=r['LifePerVitality'],staminaVitality4=r['StaminaPerVitality'],manaEnergy4=r['ManaPerMagic'],
+                attackBonus=r['ToHitFactor'],statPerLevel=r['StatPerLevel'])
+
+def compile_skills():
+    manifest = json.loads((SOURCE / 'sources.json').read_text())
+    for relative, pin in manifest['files'].items():
+        if hashlib.sha256((SOURCE / relative).read_bytes()).hexdigest() != pin['sha256']:
+            raise ValueError('Pinned D2R source hash mismatch: ' + relative)
+    source = json.loads((SOURCE / 'json/skills.json').read_text())
+    desc = {r['skilldesc']: r for r in json.loads((SOURCE / 'json/skilldesc.json').read_text()).values() if r.get('skilldesc')}
+    strings = json.loads((SOURCE / 'json/allstrings-eng.json').read_text())
+    talents = json.loads((ROOT / 'data/Sanctuary/talents.json').read_text())
+    war = [r for r in source.values() if r.get('charclass') == 'war']
+    ids = {r['skill']: 'warlock.' + normalize(strings.get(desc[r['skilldesc']].get('str name'), r['skill'])) for r in war}
+    trees = []
+    for page, name in enumerate(('Demon', 'Eldritch', 'Chaos'), 1):
+        rows = sorted([r for r in war if desc[r['skilldesc']]['SkillPage'] == page], key=lambda r: (r['reqlevel'], desc[r['skilldesc']].get('SkillRow', 0), desc[r['skilldesc']].get('SkillColumn', 0), r['*Id']))
+        trees.append(dict(name=name, source='https://news.blizzard.com/en-us/article/24243863/rain-annihilation-in-reign-of-the-warlock',
+                          skills=[dict(id=ids[r['skill']],name=strings.get(desc[r['skilldesc']].get('str name'),r['skill']),requiredLevel=r['reqlevel'],
+                                       prerequisites=[ids[r[f'reqskill{i}']] for i in range(1,4) if r.get(f'reqskill{i}')]) for r in rows]))
+    talents = [c for c in talents if c['class'] != 'Warlock'] + [{'class':'Warlock','trees':trees}]
+    lookup = {}
+    for row in source.values():
+        if row.get('charclass') in CODES:
+            d = desc[row['skilldesc']]
+            for name in (row['skill'], strings.get(d.get('str name'), row['skill'])):
+                lookup[normalize(name)] = row
+    mechanics = []
+    stable_ids = json.loads((ROOT/'data/Sanctuary/ability-ids.json').read_text())
+    if [stable_ids[t] for t in ['necromancer.teeth','necromancer.raiseskeleton','sorceress.teleport']] != [2,3,4]:
+        raise ValueError('Legacy ability IDs changed')
+    for cls in talents:
+        for tree in cls['trees']:
+            for talent in tree['skills']:
+                key = normalize(talent['name'])
+                row = lookup['blademastery' if key == 'swordmastery' else key]
+                ability = stable_ids[talent['id']]
+                d = desc[row['skilldesc']]
+                if talent['id'] == 'barbarian.swordmastery':
+                    talent['name'] = strings.get(d.get('str name'), row['skill'])
+                mechanics.append(dict(talentId=talent['id'], name=talent['name'], characterClass=cls['class'],
+                    tree=tree['name'], sourceId=row['*Id'], sourceKey=row['skill'], ability=ability,
+                    sourceTab=CODES.index(row['charclass'])*3+d['SkillPage']-1, passive=bool(row.get('passive')),
+                    left=bool(row.get('leftskill')), right=bool(row.get('rightskill')),
+                    sourceFields={k:v for k,v in row.items() if not k.startswith('*') and k != 'lineNumber'},
+                    sourceParameters={str(i):row.get('Param'+str(i),0) for i in range(1,13)}))
+    assert len(mechanics) == 240 and len({m['ability'] for m in mechanics}) == 240
+    assert all(len(t['skills'])==10 for c in talents for t in c['trees'])
+    # Every talent needs a unique readable icon; passives do not occupy hotkeys.
+    assets = [dict(talentId=m['talentId'],name=m['name'],characterClass=m['characterClass'],
+                   talentIcon='needed',hotkeyIcon='not-applicable' if m['passive'] else 'needed',
+                   effects='not-applicable' if m['passive'] else 'needed',
+                   sourceEffects={k:v for k,v in m['sourceFields'].items() if any(s in k.lower() for s in ('missile','overlay','summon','aurastate','passivestate'))},
+                   generation='pending',clientMapping='pending',inGameVerification='pending') for m in mechanics]
+    return talents, mechanics, assets
+
+def generated_protocol(rows):
+    enum = ['    None = 0,', '    BasicAttack = 1,']
+    metadata = []
+    for r in sorted(rows,key=lambda r:r['ability']):
+        name = ''.join(w[0].upper()+w[1:] for w in re.findall(r'[A-Za-z0-9]+',r['name']))
+        if r['talentId'] == 'necromancer.raiseskeleton': name = 'RaiseSkeleton'
+        if r['talentId'] == 'barbarian.swordmastery': name = 'SwordMastery'  # Saved/wire identity stays stable.
+        enum.append(f"    {name} = {r['ability']},")
+        metadata.append(f'        new(CombatAbility.{name}, "{r["talentId"]}", "{r["name"]}", DiabloClass.{r["characterClass"]}, {str(r["passive"]).lower()}, {str(r["left"]).lower()}, {str(r["right"]).lower()}),')
+    return '''// Generated by tools/build_class_skills.py. Stable legacy ability IDs 0–4.
+using System;
+
+namespace Sanctuary;
+
+public enum CombatAbility : byte
+{
+'''+ '\n'.join(enum)+'''
+}
+public readonly record struct ClassAbility(CombatAbility Ability, string TalentId, string Name,
+    DiabloClass Class, bool Passive, bool Left, bool Right);
+public static class ClassAbilities
+{
+    public static bool AllyTarget(CombatAbility value) => value is CombatAbility.Enchant or CombatAbility.HolyBolt;
+    public static bool CorpseTarget(CombatAbility value) => value is CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.Revive;
+    public static bool SelfTarget(CombatAbility value) => value is CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.StaticField
+        or CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor or CombatAbility.EnergyShield or CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.Might or CombatAbility.Defiance or CombatAbility.BlessedAim or CombatAbility.Prayer or CombatAbility.Cleansing or CombatAbility.Meditation or CombatAbility.ResistFire or CombatAbility.ResistCold or CombatAbility.ResistLightning or CombatAbility.Salvation or CombatAbility.Vigor or CombatAbility.Redemption or CombatAbility.Concentration or CombatAbility.Fanaticism or CombatAbility.HolyFire or CombatAbility.HolyShock or CombatAbility.HolyFreeze or CombatAbility.Sanctuary or CombatAbility.BlessedHammer or CombatAbility.Thorns or CombatAbility.Conviction or CombatAbility.HolyShield;
+    public const int Count = 242;
+    public const int MaskBytes = (Count + 7) / 8;
+    public static bool Valid(CombatAbility value) => (int)value < Count;
+    public static readonly ClassAbility[] Skills =
+    [
+'''+ '\n'.join(metadata)+'''
+    ];
+    public static ClassAbility? Find(CombatAbility value) => value is >= (CombatAbility)2 and < (CombatAbility)Count ? Skills[(int)value - 2] : null;
+    public static string Label(CombatAbility value) => value == CombatAbility.BasicAttack ? "Attack" : Find(value)?.Name ?? "None";
+}
+'''
+
+def products():
+    talents, rows, assets = compile_skills()
+    monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
+    missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
+    levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
+    summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
+               if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3']]
+    summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
+                if r.get('Missile') in ['necromage1','necromage2','necromage3','necromage4','poisonexplosioncloud','bonewallmaker','chillingarmorbolt','firebolt','arrow','thunderstorm1','lightningbolt','chargedbolt','blaze','firewall','firewallmaker','meteorcenter','meteorfire','blizzardcenter','blizzard1','frozenorb','frozenorbbolt','frozenorbnova','hydra','infernoflame1','chainlightning','holybolt','fistoftheheavensdelay','fistoftheheavensbolt','blessedhammer']]
+    summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
+    icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
+    staged_effects = {
+        'barbarian.bash':'Staged UO weapon animation/sound and shared native knockback/get-hit placeholders; final Bash impact/knockback effects pending',
+        'barbarian.stun':'Staged UO weapon animation/sound and0x375A stun marker; final Stun impact/overhead effect pending',
+        'paladin.conversion':'Staged ordinary UO weapon animation/sound; final cast/impact and converted-state marker pending. Talent/hotkey icons remain in the independent icon register.',
+        'paladin.charge':'Staged ordinary UO accepted walking steps, weapon animation and sound; final Charge travel trail, impact/overlay147 and directional sequence pending. Missing art is independent of remaining knockback geometry and special-mode acceptance.',
+        'paladin.vengeance':'Staged UO melee elemental flash/sound; final fire, cold and lightning strike effects pending',
+        'paladin.holyshield':'Staged UO shield overlay; final holy shield enchantment/glow/cast effect pending',
+        'paladin.conviction':'Staged UO supplier ring/hostile aura overlays; final Conviction enemy debuff ring and supplier aura pending',
+        'paladin.thorns':'Staged UO aura/retaliation flashes; final thorns aura ring and physical-return impact pending',
+        'paladin.blessedhammer':'Staged UO0x36E4 hammer trail; final rotating hammer/spiral trail/impact effects pending',
+        'paladin.fistoftheheavens':'Staged UO0x3709 strike overlay and holy bolt placeholders; final warning/sky lightning/burst/secondary effects pending',
+        'paladin.holybolt':'Staged UO0x36E4 missile and0x376A healing overlay; final holy bolt/trail/impact/heal effects pending',
+        'paladin.holyfire':'Staged UO0x375A self pulse, hue0x489; final radial pulse and weapon accents pending',
+        'paladin.sanctuary':'Staged UO0x375A self pulse and ordinary get-hit/movement animation; final Sanctuary ring/bolts, undead impact and knockback presentation pending',
+        'paladin.holyfreeze':'Staged UO0x375A cold pulse; final radial frost, weapon accents, slowed-state and corpse-shatter effects pending',
+        'paladin.holyshock':'Staged UO0x375A self pulse, hue0x481; final radial pulse and weapon accents pending',
+    }
+    effects = [{k:v for k,v in asset.items() if k not in ['talentIcon','hotkeyIcon']} | {'placeholder':staged_effects.get(asset['talentId'],
+        'Existing UO art; final effect pending' if asset['effects']!='not-applicable' else 'None required')} for asset in assets]
+    class_stats = [r for r in json.loads((ROOT/'data/Sanctuary/Balance/classes.json').read_text()) if r['name'] != 'Warlock'] + [warlock_stats()]
+    hydra_animation = json.loads((ROOT/'tools/reference/hydra-engine-evidence.json').read_text())['animation']
+    monstats2=json.loads((SOURCE/'json/monstats2.json').read_text())
+    corpse_rules=[dict(source=r['Id'],selectable=bool(monstats2.get(r.get('MonStatsEx'),{}).get('corpseSel')),noAura=bool(r.get('noAura'))) for r in monsters.values() if r.get('Id')]
+    conversion_rules=[dict(source=r['Id'],base=r.get('BaseId',r['Id']),evil=not bool(r.get('Align',0)),
+        switchAi=bool(r.get('switchai')),walk=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mWL')),boss=bool(r.get('boss')))
+        for r in monsters.values() if r.get('Id')]
+    freeze_rules=[dict(source=r['Id'],primeEvil=bool(r.get('primeevil')),normal=r.get('coldeffect',0),nightmare=r.get('coldeffect(N)',0),hell=r.get('coldeffect(H)',0)) for r in monsters.values() if r.get('Id')]
+    knockback_rules=[dict(source=r['Id'],knockback=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mKB')),getHit=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mGH')),distance=10 if r.get('BaseId',r['Id'])=='sandleaper1' else 5) for r in monsters.values() if r.get('Id')]
+    item_types=[dict(code=r['Code'],parents=[r[k] for k in ('Equiv1','Equiv2') if r.get(k)]) for r in json.loads((SOURCE/'json/itemtypes.json').read_text()).values() if r.get('Code')]
+    out = {ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/knockback-source-rules.json':json.dumps(knockback_rules,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/holy-freeze-source-rules.json':json.dumps(freeze_rules,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/corpse-source-rules.json':json.dumps(corpse_rules,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/conversion-source-rules.json':json.dumps(conversion_rules,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/hydra-animation.json':json.dumps([hydra_animation],indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/classes.json':json.dumps(class_stats,indent=2)+'\n',
+           ROOT/'data/Sanctuary/talents.json':json.dumps(talents,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/class-skills.json':json.dumps(rows,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/class-states.json':json.dumps([dict(state=r['state'],curse=bool(r.get('curse')),curable=bool(r.get('curable'))) for r in json.loads((SOURCE/'json/states.json').read_text()).values() if r.get('state')],indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/skill-icons.json':json.dumps(icons,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/skill-effects.json':json.dumps(effects,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/necromancer-summons.json':json.dumps(summons,indent=2)+'\n',
+           ROOT/'shared/ClassAbilities.cs':generated_protocol(rows)}
+    return out
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');args=parser.parse_args()
+    for path,text in products().items():
+        if args.check:
+            if not path.is_file() or path.read_text()!=text: raise SystemExit(f'Stale class skill output: {path}')
+        else: path.write_text(text)
+    print('Eight classes, 240 source skills, stable ability IDs and asset requirements verified.')
+
+if __name__=='__main__':main()

@@ -2,6 +2,8 @@
 
 Diablo II combat and itemisation in a persistent Ultima Online world. The design baseline is [the kickoff brief](Britannia-Diablo-Project-Kickoff.md). Agreed direction and candidate mechanics remain distinct.
 
+The [current class-skill checkpoint](docs/class-skills-checkpoint-2026-10-23.md) tracks Necromancer, Sorceress and Paladin work against D2R **3.3.93847**, adds the Warlock/Witch roster, and records every talent in the [class roadmap](docs/class-skill-roadmap.md). No class is complete. Effects and icons have separate backlogs. The user-authorized local test installation now includes the class work; normal `./dev server` and `./dev client` use matching builds. Earlier T45-only and preservation-only notes below describe historical checkpoints; use the [resume checkpoint](docs/class-skills-resume-checkpoint.md) for current status.
+
 [T46 mercenary care preparation](docs/t46-mercenary-preparation.md) and [T47 profession coverage](docs/t47-profession-coverage.md) are complete in isolated staging. All 13 professions have a route to 120. Classes/skills come next; full mercenaries follow skills, then final T49 integration and T48 gameplay balance. Production remains T45.
 
 The [22 October build checkpoint](docs/checkpoint-2026-10-22.md) records today’s implementation, settled choices, verification and the return list for classes, mercenaries and final integration.

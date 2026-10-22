@@ -31,3 +31,8 @@ The skill backlog also uses pinned `Skills`, `SkillDesc` and `States` tables. Ru
 ## Boundary of this change
 
 This pass creates the complete named definitions and validated lookup/set-bonus preview API. `NamedEquipmentCatalog` is deliberately not registered in live catalogue loading yet. GearRarity, saved GearState, item constructors, effects, loot, gambling, insurance and other lifecycle paths remain the next integration work in [T49](../../../docs/set-unique-audit.md). The coverage file lists123 source bases missing from the current project catalogue and282 named rows without a current loot appearance. These are integration work, not omitted definitions. Future classes and inventory charm/jewel systems are not enabled by importing their items.
+
+
+## Class mechanics reference
+
+The class pass pins these matching tables to **D2R 3.3.93847 — Reign of the Warlock**, independently corroborated against D2R-Excel `1f16064e09b97e3e65abd6943662207cff00b07f`. [The reference manifest](../../../data/Sanctuary/skill-reference.json) records all comparison hashes, extraction annotations and the Warlock source IDs. MonStats, MonLvl, Missiles, MonStats2 and PetType were added from the same immutable d2data commit for the skill pass. Run `python3 tools/verify_skill_reference.py` offline or `--cross-check` to repeat the immutable remote comparison. Approved Sanctuary rules take precedence; the [mechanical reference notes](../../../docs/skill-mechanical-reference.md) identify unverified engine behavior.

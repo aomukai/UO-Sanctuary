@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    ".local/class-skills/SkillSor.cpp.reference": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    ".local/research/d2moo-SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "sequence": {
+    "index": 6,
+    "points": 15,
+    "actionPoint": 10
+  },
+  "startThreshold256": 1536,
+  "rank1InvocationMana256": 96,
+  "rank1FormulaMissileFrames": 17,
+  "rank1RawDamage256": [
+    334,
+    668
+  ],
+  "probe": "Unmodified legacy start wrapper and DoInferno compiled with unit/world/rewind stubs. Confirms start threshold/state bypass, first-do suppression and subsequent missile range/flags. Does not simulate channel re-entry, animation event scheduling or resource debit.",
+  "probeOutput": [
+    "start 0 1280 0",
+    "start 0 1536 1",
+    "start 1 1280 1",
+    "start 1 1536 1",
+    "first 0 1",
+    "missile 17 32800",
+    "second 1 2"
+  ],
+  "blocked": [
+    "Reconcile D2R held re-entry/payment cadence with legacy start/do/rewind and first-rank mana-consume branch; do not debit startmana6 as an invented substitute",
+    "Confirm release/state-renewal lifecycle with D2R 2.4+ free-form input",
+    "Inferno remains unavailable; confirmed timing and flame primitives are test-only callers until that gate is resolved"
+  ],
+  "sources": [
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillSor.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/DataTbls/SequenceTbls.cpp",
+    "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live"
+  ]
+}

@@ -1,0 +1,23 @@
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -24,6 +24,7 @@
+     public static Func<Item, bool> WearAllowed { get; set; }
+     public static Func<PlayerMobile, int> LightBonus { get; set; }
+     public static Func<Mobile, bool> CanRegenerateHits { get; set; }
++    public static Func<Mobile, bool> CanRegenerateMana { get; set; }
+     public static Action<Item> DurabilityChanged { get; set; }
+     public static Func<Mobile, double, double> MovementDelay { get; set; }
+     public static Func<Mobile, TimeSpan, TimeSpan> AttackDelay { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1169,6 +1169,8 @@
+             }
+         }
+ 
++        public override bool CanRegenMana => base.CanRegenMana && ClassGearHooks.CanRegenerateMana?.Invoke(this) != false;
++
+         public override bool CanRegenHits => base.CanRegenHits && ClassGearHooks.CanRegenerateHits?.Invoke(this) != false;
+ 
+         public override void ComputeLightLevels(out int global, out int personal)

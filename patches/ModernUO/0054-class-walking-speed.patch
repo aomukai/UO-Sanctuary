@@ -1,0 +1,22 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -9,6 +9,7 @@
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+     public static Action<Mobile, Mobile, string> SkillMissileHit { get; set; }
+     public static Action<Mobile> CreatureEffectsEnded { get; set; }
++    public static Func<PlayerMobile, int, int> WalkingDelay { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, bool, bool, ClassSkillDamage?> SkillResistedDamage { get; set; }
+     public static Action<Mobile, Mobile, int, bool> SkillWeaponHit { get; set; }
+     public static Func<BaseCreature, bool> ControlThink { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -3995,6 +3995,7 @@
+             {
+                 delay = ClassCombatHooks.RunningDelay?.Invoke(this, delay) ?? delay;
+             }
++            if (!running) { delay = ClassCombatHooks.WalkingDelay?.Invoke(this, delay) ?? delay; }
+             return (int)Math.Ceiling(ClassGearHooks.MovementDelay?.Invoke(this, delay) ?? delay);
+         }
+ 

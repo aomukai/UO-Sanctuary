@@ -1,0 +1,24 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "focused and combined native suites passed; installed smoke passed",
+  "implementation": "src/Sanctuary.Content/PaladinSmite.cs",
+  "controller": "src/Sanctuary.Content/SourceKnockbacks.cs",
+  "tests": "tests/Sanctuary.Integration/SmiteChecks.cs",
+  "focusedLog": ".local/class-skills/smite-focused.log",
+  "boots": 3,
+  "saveReloadCycles": 2,
+  "verified": [
+    "Successful Smite requests independent source-mode knockback while retaining mapped stun.",
+    "Cold/physical-immune mapped skeleton enters moving state without immediate displacement.",
+    "Native voluntary movement and swing are denied during control.",
+    "Accepted motion occurs and knockback recovery/stun expire naturally.",
+    "Existing exact stun, Holy Shield, gear and resource payloads survive two reloads."
+  ],
+  "limits": [
+    "Smite persistence fixture deliberately clears moving impulse before saving stun.",
+    "Separate Sanctuary fixture covers moving-phase persistence; saved already-recovering state remains untested.",
+    "Source mode/body/path geometry, special sand-leaper AI, owner/item/client behavior and exhaustive map/death/relocation remain open.",
+    "Native animation20 and existing weapon sound are placeholders; final effects and icons remain separate pending assets."
+  ],
+  "classComplete": false
+}

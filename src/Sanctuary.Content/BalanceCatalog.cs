@@ -14,6 +14,14 @@ public static class BalanceCatalog
     [CallPriority(-100)]
     public static void Configure()
     {
+        SkillMechanics.Load();
+        ClassItemTypes.Load();
+        NecromancerSummons.Load();
+        PaladinCleansing.Load();
+        CorpseSkillRules.Load();
+        PaladinConversion.Load();
+        PaladinHolyFreeze.Load();
+        SourceKnockbacks.Load();
         EquipmentBalance.Load();
         PotionBeltCatalog.Load();
         AlchemyRestoratives.Load();

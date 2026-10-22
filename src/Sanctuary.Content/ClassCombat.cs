@@ -25,6 +25,12 @@ public static class ClassCombat
         public byte Animation { get; internal set; }
         internal Serial PendingTarget, PendingWeapon;
         internal TeleportCast PendingTeleport;
+        internal PaladinZeal.Series Zeal;
+        internal PaladinCharge.Flight Charge;
+        internal PaladinConversion.Prepared Conversion;
+        internal BarbarianMelee.Prepared BarbarianAttack;
+        internal bool ZealPaid;
+        internal int ZealHits;
         internal Point3D PendingPoint, ActionOrigin;
         internal Map ActionMap;
         internal bool PendingLeft;
@@ -69,9 +75,11 @@ public static class ClassCombat
         ClassCombatHooks.Friendly = Friendly;
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
-        ClassCombatHooks.MovementAllowed = from => !HitRecovery.Active(from, Core.TickCount);
+        ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
+            || !HitRecovery.Active(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
+        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))
@@ -100,13 +108,15 @@ public static class ClassCombat
 
     public static bool Friendly(Mobile source, Mobile target)
     {
+        if(SkillHealth.IsSelfCost(source,target)){return false;}
+        if(PaladinConversion.Friendly(source,target)){return true;}
         static bool Allied(Mobile mobile) => mobile is PlayerMobile player ? Enabled(player)
             : mobile is SkeletonGuardian || mobile is BaseCreature pet && pet.GetMaster() is PlayerMobile owner && Enabled(owner);
         return source != null && target != null && Allied(source) && Allied(target);
     }
     public static bool IsHostile(PlayerMobile from, Mobile target) =>
         target is BaseCreature creature && target != from && target.Alive && !target.Deleted
-        && target.Map == from.Map && !target.Blessed && !target.IsDeadBondedPet
+        && target.Map == from.Map && !target.Blessed && !target.IsDeadBondedPet && !PaladinConversion.Active(target)
         && creature is not BaseVendor
         && !creature.Controlled && !creature.Summoned && creature.GetMaster() == null
         && !creature.InitialInnocent && creature.FightMode is not (FightMode.None or FightMode.Aggressor or FightMode.Evil)
@@ -128,7 +138,7 @@ public static class ClassCombat
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
-        _ => false
+        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability)
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
@@ -188,24 +198,36 @@ public static class ClassCombat
     }
     public static void Stop(PlayerMobile from)
     {
+        if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
+        PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
+        For(from).Conversion = null;
+        For(from).BarbarianAttack = null;
         For(from).PendingTeleport = null;
+        For(from).Zeal = null;
+        For(from).ZealPaid = false;
+        For(from).ZealHits = 0;
         ReleaseCast(from);
     }
-    public static int ActionInterval(PlayerMobile from, CombatAbility ability) => CombatTiming.For(from, ability).DurationMs;
+    public static int ActionInterval(PlayerMobile from, CombatAbility ability) => PaladinCombat.IsAura(ability) ? 0 : CombatTiming.For(from, ability).DurationMs;
     public static bool ContinueCast(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => ContinueHold(from, ability, target, point, now, false);
 
     public static bool ContinueAttack(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => ContinueHold(from, ability, target, point, now, true);
 
+    private static bool CastTargetAllowed(PlayerMobile from, CombatAbility ability, Mobile target) => IsHostile(from, target)
+        || ClassAbilities.AllyTarget(ability) && target is { Alive: true, Deleted: false } && target.Map == from.Map
+            && (target == from || Friendly(from, target));
+
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
+        if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
         var session = For(from);
         session.Target = Serial.Zero;
         if (!Enabled(from) || !from.Alive || ability != (attack ? session.Left : session.Right) || !Available(from, ability)
-            || target != null && !IsHostile(from, target))
+            || target != null && !CastTargetAllowed(from, ability, target))
         {
             ReleaseCast(from);
             return false;
@@ -217,7 +239,9 @@ public static class ClassCombat
         session.HoldUntil = now + CombatProtocol.HoldLeaseMs;
         if (ability != CombatAbility.Teleport && session.PendingAbility == ability && session.PendingLeft == attack)
         {
-            session.PendingTarget = session.CastTarget;
+            // Ground FoH has already acquired a primary. Held empty-ground input
+            // must not erase that identity before the cast event.
+            if(!BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -233,7 +257,7 @@ public static class ClassCombat
             return;
         }
         var target = World.FindMobile(session.CastTarget);
-        if (session.CastTarget != Serial.Zero && (target == null || !IsHostile(from, target)))
+        if (session.CastTarget != Serial.Zero && (target == null || !CastTargetAllowed(from, session.HeldAbility, target)))
         {
             ReleaseCast(from);
             return;
@@ -248,6 +272,7 @@ public static class ClassCombat
     {
         if (!AlliedOverlap.Allowed(from))
         {
+            if(For(from).Charge!=null){ResolveAction(from,now);return;}
             var overlap = For(from);
             if (!overlap.WasOverlapped) { from.SendMessage("You are sharing a tile with an ally. Walk clear before taking another action."); }
             overlap.WasOverlapped = true; Stop(from); return;
@@ -296,6 +321,15 @@ public static class ClassCombat
 
     private static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attackInPlace)
     {
+        var previous=For(from);
+        if(previous.Zeal is{Remaining:<=0} && now-previous.NextAction>=0){previous.Zeal=null;}
+        if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
+        if (PaladinCombat.Handles(ability)) { return PaladinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
+        if (SorceressCombat.Handles(ability)) { return SorceressCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now); }
+        if (NecromancerCombat.Handles(ability))
+        {
+            return NecromancerCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now);
+        }
         if (ability == CombatAbility.Teleport)
         {
             return Teleportation.Begin(from, point, now);
@@ -363,7 +397,7 @@ public static class ClassCombat
             state.Send(data);
         }
     }
-    private static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
+    internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
         if (ability == CombatAbility.Teeth)
         {
@@ -391,6 +425,8 @@ public static class ClassCombat
     public static bool ResolveAction(PlayerMobile from, long now)
     {
         var session = For(from);
+        if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
+        if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
         var ability = session.PendingAbility;
         if (ability == CombatAbility.None)
         {
@@ -402,6 +438,9 @@ public static class ClassCombat
             || (CombatTiming.Equipped(from)?.Serial ?? Serial.Zero) != session.PendingWeapon)
         {
             session.PendingAbility = CombatAbility.None;
+            if(ability==CombatAbility.Conversion){session.Conversion=null;}
+            if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
+            if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
             return false;
         }
         if (now - session.EffectAt < 0)
@@ -412,6 +451,22 @@ public static class ClassCombat
         if (ability == CombatAbility.RaiseSkeleton)
         {
             return SkeletonPets.Raise(from, World.FindItem(session.PendingTarget) as Corpse);
+        }
+        if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
+        if (SorceressCombat.Handles(ability))
+        {
+            var aimed = World.FindEntity(session.PendingTarget);
+            return SorceressCombat.Release(from, ability, session.PendingTarget, aimed?.Location ?? session.PendingPoint);
+        }
+        if (PaladinCombat.Handles(ability))
+        {
+            var aimed=World.FindEntity(session.PendingTarget);
+            return PaladinCombat.Release(from,ability,session.PendingTarget,aimed?.Location ?? session.PendingPoint,now);
+        }
+        if (NecromancerCombat.Handles(ability))
+        {
+            var aimed = World.FindEntity(session.PendingTarget);
+            return NecromancerCombat.Release(from, ability, session.PendingTarget, aimed?.Location ?? session.PendingPoint);
         }
         var target = World.FindMobile(session.PendingTarget);
         if (session.PendingTarget != Serial.Zero && (!IsHostile(from, target) || !from.InRange(target, CombatProtocol.SightRange)))
@@ -450,6 +505,8 @@ public static class ClassCombat
         bool weaponHit = false;
         if (target != null)
         {
+            using var attemptedMelee=ability==CombatAbility.BasicAttack?PaladinThorns.Attempt(from,target,
+                CombatTiming.Weapon(CombatTiming.Equipped(from)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw):null;
             from.DoHarmful(target, true);
             if (ability == CombatAbility.Teeth)
             {
@@ -579,6 +636,12 @@ public static class ClassCombat
                 var ability = (CombatAbility)reader.ReadByte();
                 var target = (Serial)reader.ReadUInt32();
                 var point = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
+                if (NecromancerCombat.CorpseTarget(ability))
+                {
+                    if (action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right))
+                    { NecromancerCombat.Begin(from, ability, target, point, Core.TickCount); }
+                    break;
+                }
                 if (ability == CombatAbility.Teleport)
                 {
                     if (action == CombatRequest.Cast) { Teleportation.Begin(from, point, Core.TickCount); }
@@ -664,7 +727,7 @@ public static class ClassCombat
             }
         }
         var weapon = CombatTiming.Equipped(from);
-        var signature = HashCode.Combine(weapon?.Serial, CombatTiming.Ias(from), CombatTiming.Fcr(from));
+        var signature = HashCode.Combine(weapon?.Serial, CombatTiming.Ias(from), CombatTiming.Fcr(from),PaladinOffense.AttackRate(from));
         if (!session.TooltipKnown || signature != session.TooltipSignature)
         {
             session.TooltipKnown = true;

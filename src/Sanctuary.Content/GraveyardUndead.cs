@@ -90,8 +90,8 @@ public abstract partial class GraveyardUndead : BaseCreature
     public override bool BleedImmune => true;
     public override Poison PoisonImmune => Poison.Lethal;
     public override OppositionGroup OppositionGroup => OppositionGroup.FeyAndUndead;
-    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (mobile is PlayerMobile
-        || mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true }) && base.IsEnemy(mobile);
+    public override bool IsEnemy(Mobile mobile) => !ReturningHome && (PaladinConversion.Enemy(this,mobile) ?? ((mobile is PlayerMobile
+        || mobile is BaseCreature { Controlled: true } or BaseCreature { Summoned: true }) && base.IsEnemy(mobile)));
     public override void GetSpeeds(out double activeSpeed, out double passiveSpeed)
     {
         activeSpeed = 0.1;
@@ -145,7 +145,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             return TimeSpan.FromMilliseconds(normal.StallMs);
         }
         _melee = Utility.RandomDouble() * 100 < normal.Attack1Chance ? normal.Attack1 : normal.Attack2;
-        _melee = _melee with { Speed = Math.Max(1, _melee.Speed * (100 - GearEffects.AttackSlow(this)) / 100) };
+        _melee = _melee with { Speed = Math.Max(1, _melee.Speed * Math.Clamp(100+PaladinOffense.AttackRate(this)-GearEffects.AttackSlow(this),15,175) / 100) };
         StartAction(target);
         _nextAction = now + _melee.DurationMs + normal.AiDelayMs;
         AIObject?.ResetApproachState();
@@ -171,6 +171,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         _actionTarget = null;
         if (SameOrigin && ValidEnemy(target, 1))
         {
+            using var attemptedMelee=PaladinThorns.Attempt(this,target,false);
             if (ClassStats.CheckHit(this, target) == true)
             {
                 int damage = Utility.RandomMinMax(_melee.MinDamage, _melee.MaxDamage);
@@ -271,10 +272,11 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     private void HitFirebolt()
     {
-        var target = _actionTarget;
+        var target = BoneBarriers.Intercept(this, _actionTarget) ?? _actionTarget;
         _actionTarget = null;
         if (ValidEnemy(target, 16))
         {
+            SorceressEffects.MissileHit(this, target, "firebolt");
             target.FixedParticles(0x3709, 10, 10, 5052, EffectLayer.LeftFoot);
             target.PlaySound(0x208);
             var row = CreatureProfiles.For(this);

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned data, supplementary immutable engine inspection, dedicated and combined native checks through two reloads; no modern binary certificate",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "vigor": {
+    "rank1": {
+      "staminaPercent": 50,
+      "recoveryPercent": 50,
+      "velocityPercent": 13
+    },
+    "rank20": {
+      "staminaPercent": 525,
+      "recoveryPercent": 525,
+      "velocityPercent": 43
+    },
+    "reference": "Basic aura 65, immediate1, fifty-frame period/fifty-one-frame lease; itemstatcost skill_staminapercent op1 targets maxstamina",
+    "native": "Player and BaseCreature stamina maxima, no free capacity refill, native recovery-rate consumer and actual recovery, native player walk/run/pet movement and additive Golem Mastery group, expiration clamp, death/respec and stored secondary/velocity values",
+    "limits": "Existing UO tile-clock/base-recovery projection retained. D2R max-stamina/movement-mode recovery, walk/run velocity scaling, full native subclass/stat composition and owner/client behavior remain open."
+  },
+  "redemption": {
+    "rank1": {
+      "chance": 23,
+      "life": 25,
+      "mana": 25
+    },
+    "rank20": {
+      "chance": 85,
+      "life": 120,
+      "mana": 120
+    },
+    "reference": "SrvDo082 without immediate: self state plus per-corpse callback; CanUnitCorpseBeSelected requires dead monster, no udead state, MonStats2 corpseSel. 0x100 target-town flag and source-town early return exclude town recovery. Success consumes even at full life/mana. Basic aura enumeration checks MonStats noAura.",
+    "native": "Stored death-time mapped source/selection/ownership snapshot before NPC deletion; approved corpse access, LOS/loot/harvest/Rest in Peace gates; owner-only fixed-point gains and capped resources; reserve one-use corpse without deleting retained loot; first delayed pulse and actual resumed healing/consumption across both reloads",
+    "rngScope": "Production uses native Utility.Random(100), not a certified D2R unit seed/search stream. Deterministic chance boundaries22/23 and a scoped internal zero-roll seam verify scheduled resource/consumption wiring; tests restore it afterward.",
+    "coverage": {
+      "pinnedSpecies": 751,
+      "selectableSpecies": 521,
+      "directMappedDefinitions": 10,
+      "directUnmappedDefinitions": 720,
+      "mappedTypes": [
+        "Sanctuary.GraveyardSkeleton",
+        "Sanctuary.GraveyardZombie",
+        "Sanctuary.SkeletonGuardian",
+        "Server.Mobiles.AncientWyrm",
+        "Server.Mobiles.Dragon",
+        "Server.Mobiles.Drake",
+        "Server.Mobiles.GreaterDragon",
+        "Server.Mobiles.SerpentineDragon",
+        "Server.Mobiles.Skeleton",
+        "Server.Mobiles.Zombie"
+      ]
+    },
+    "limits": "Unmapped legacy/native corpses are excluded; subclasses inherit known CreatureProfiles definitions. Complete source species/uddead state coverage, converted/owned exclusions and native RNG/search/room/owner/client acceptance remain open. This is partial implementation coverage, not all-creature parity."
+  },
+  "noAuraCorrection": "The old Bone Wall eligibility assumption confused attackability in MonStats2 with noAura in MonStats. Both Bone Wall and all Bone Prison variants have noAura1. Source flags now exclude their ally-aura leases; native Defiance and Vigor regressions assert exclusion. Existing unknown native species retain prior co-op behavior pending authoritative mapping.",
+  "nativePatch": "0056 adds an optional BaseCreature stamina-maximum consumer through ClassGearHooks; UOContent only, no Server-engine changes.56 ModernUO/35 ClassicUO patches reverse/replay byte-equal.",
+  "sources": [
+    "https://classic.battle.net/diablo2exp/skills/paladin-defense.shtml",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Skills/Skills.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/PLAYER/PlrModes.cpp"
+  ]
+}

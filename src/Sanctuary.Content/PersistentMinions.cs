@@ -32,6 +32,7 @@ public static class PersistentMinions
     internal static bool Permitted(PlayerMobile owner, BaseCreature pet, DiabloClass characterClass)
     {
         if (pet is not IPersistentMinion minion || minion.SummonClass != characterClass) { return false; }
+        if (pet is NecromancerMinion summon) { return summon.Permitted(owner); }
         if (pet is not SkeletonGuardian) { return true; }
         foreach (var history in ClassCreation.Profiles.Histories(owner.Serial))
         {
@@ -72,7 +73,7 @@ public static class PersistentMinions
             if (Active(owner, pet) && !state.Parked) { released += pet.ControlSlots; }
             if (minion.SummonClass != target) { continue; }
             if (!Permitted(owner, pet, target)) { return false; }
-            if (pet is SkeletonGuardian) { skeletons++; }
+            if (pet.GetType() == typeof(SkeletonGuardian)) { skeletons++; }
             returning += state.Slots;
         }
         return skeletons <= limit && owner.Followers - released + returning <= owner.FollowersMax;

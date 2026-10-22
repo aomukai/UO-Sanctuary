@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "referenceEdition": "Diablo II: Resurrected \u2014 Reign of the Warlock",
+  "source": "User firsthand gameplay report and explicit design approval in this session; not an instrumented capture",
+  "observedReferenceBehavior": "With less than two mana, Zeal stops and does nothing.",
+  "approvedDeviation": "An unaffordable Zeal attempt uses one ordinary attack. Held Zeal continues ordinary attacks until enough mana returns, then resumes Zeal.",
+  "userApproval": "it stops and does nothing. but we'll just turn it into an auto attack. not even doing that would just feel bad.",
+  "implementationScope": [
+    "Learned/available Zeal and supported melee target/weapon gates remain required.",
+    "Use the shared ordinary attack timing, hit, damage and cancellation path without Zeal damage/AR, sequence, uninterruptibility or mana debit.",
+    "Retain left/right/quick bindings and held Zeal identity.",
+    "No fallback is granted to other skills or unrelated equipment/target failures."
+  ],
+  "limits": [
+    "The legacy AttackNoMana table flag does not override the observed modern behavior or authorize general fallback for every skill.",
+    "Native tests cover server input and combat state; actual client presentation remains unverified."
+  ],
+  "nativeVerification": {
+    "status": "focused and combined native suites passed; installed smoke passed",
+    "tests": "tests/Sanctuary.Integration/ZealChecks.cs",
+    "boots": 3,
+    "saveReloadCycles": 2,
+    "cases": [
+      "0/256/511 fractional mana balances across left held, right held and direct/quick dispatch",
+      "ordinary timing/event, one attack, no Zeal series/uninterruptibility/payment",
+      "held ordinary repetition and automatic Zeal return at exactly512/256 mana",
+      "preserved left/right/quick bindings, melee target gate and weapon-change cancellation"
+    ],
+    "log": ".local/class-skills/zeal-focused.log"
+  }
+}

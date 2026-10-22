@@ -1,0 +1,161 @@
+diff --git a/src/ClassicUO.Client/ClassicUO.Client.csproj b/src/ClassicUO.Client/ClassicUO.Client.csproj
+--- a/src/ClassicUO.Client/ClassicUO.Client.csproj
++++ b/src/ClassicUO.Client/ClassicUO.Client.csproj
+@@ -31,6 +31,7 @@
+     <Compile Include="../../../../shared/DiabloClass.cs" Link="Sanctuary/DiabloClass.cs" />
+     <Compile Include="../../../../shared/TradeSkills.cs" Link="Sanctuary/TradeSkills.cs" />
+     <Compile Include="../../../../shared/CombatProtocol.cs" Link="Game/Data/CombatProtocol.cs" />
++    <Compile Include="../../../../shared/ClassAbilities.cs" Link="Game/Data/ClassAbilities.cs" />
+     <Compile Include="../../../../shared/TitleProtocol.cs" Link="TitleProtocol.cs" />
+     <Compile Include="../../../../shared/SkillBindingProtocol.cs" Link="SkillBindingProtocol.cs" />
+     <Compile Include="../../../../shared/NamedVisualProtocol.cs" Link="NamedVisualProtocol.cs" />
+diff --git a/src/ClassicUO.Client/Game/ClassCombatClient.cs b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+--- a/src/ClassicUO.Client/Game/ClassCombatClient.cs
++++ b/src/ClassicUO.Client/Game/ClassCombatClient.cs
+@@ -372,7 +372,7 @@
+         if (!Enabled || world.Player.IsDead || MovementOnly || Recovering || !UIManager.IsMouseOverWorld
+             || UIManager.IsDragging || world.TargetManager.IsTargeting || world.CustomHouseManager != null
+             || Client.Game.UO.GameCursor.ItemHold.Enabled
+-            || ability == CombatAbility.RaiseSkeleton && SelectedObject.Object is not Item { IsCorpse: true }) { return false; }
++            || ClassAbilities.CorpseTarget(ability) && SelectedObject.Object is not Item { IsCorpse: true }) { return false; }
+         if (!ClassBeltClient.TryAim(world, out var x, out var y, out var z)) { return false; }
+         uint target = SelectedObject.Object is Entity entity ? entity.Serial : 0;
+         Stop(world);
+@@ -625,7 +625,7 @@
+             return true;
+         }
+         var obj = SelectedObject.Object;
+-        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport))
++        if (obj is Mobile mobile && !Hostile(mobile) && Right is not (CombatAbility.RaiseSkeleton or CombatAbility.Teleport) && !ClassAbilities.SelfTarget(Right))
+         {
+             Stop(world);
+             return true;
+@@ -670,10 +670,17 @@
+     }
+     private static void SendHeldAim(World world)
+     {
++        if (ClassAbilities.SelfTarget(_heldAbility))
++        { Send(CombatRequest.HoldCast, 0, _heldAbility, world.Player.X, world.Player.Y, world.Player.Z); return; }
+         if (_heldAbility == CombatAbility.Teleport)
+         { SendPointAim(world, CombatRequest.HoldCast, _heldAbility); return; }
+-        if (_heldAbility == CombatAbility.RaiseSkeleton)
+-        {
++        if (ClassAbilities.CorpseTarget(_heldAbility))
++        {
++            if (_heldAbility != CombatAbility.RaiseSkeleton)
++            {
++                if (SelectedObject.Object is Item { IsCorpse: true } corpse) { Send(CombatRequest.HoldCast, corpse.Serial, _heldAbility, corpse.X, corpse.Y, corpse.Z); }
++                return;
++            }
+             SendSummonAim(world, CombatRequest.HoldCast);
+             return;
+         }
+diff --git a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+--- a/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
++++ b/src/ClassicUO.Client/Game/ClassSkillBindingsClient.cs
+@@ -11,16 +11,17 @@
+ internal static class ClassSkillBindingsClient
+ {
+     private static readonly CombatAbility[] _quick = new CombatAbility[SkillBindingProtocol.Slots];
+-    private static uint _sequence, _nextPoll, _available;
++    private static uint _sequence, _nextPoll;
++    private static readonly byte[] _available = new byte[ClassAbilities.MaskBytes];
+     public static DiabloClass Class { get; private set; }
+     public static CombatAbility Left { get; private set; }
+     public static CombatAbility Right { get; private set; }
+     public static bool Ready { get; private set; }
+-    public static bool Available(CombatAbility ability) => ability == CombatAbility.None || ability <= CombatAbility.Teleport && (_available & 1U << (int)ability) != 0;
++    public static bool Available(CombatAbility ability) => ability == CombatAbility.None || ClassAbilities.Valid(ability) && (_available[(int)ability / 8] & 1 << ((int)ability % 8)) != 0;
+     public static CombatAbility Quick(int slot) => _quick[slot];
+     public static void Reset()
+     {
+-        Array.Clear(_quick); _sequence = _available = 0; _nextPoll = Time.Ticks; Ready = false; Class = default;
++        Array.Clear(_quick); _sequence = 0; Array.Clear(_available); _nextPoll = Time.Ticks; Ready = false; Class = default;
+         UIManager.GetGump<ClassSkillBarGump>()?.Dispose(); UIManager.GetGump<ClassSkillsPanelGump>()?.Dispose();
+     }
+     public static void Update(World world)
+@@ -67,13 +68,15 @@
+         if (!world.InGame || reader.Remaining != SkillBindingProtocol.StateLength - 5 || reader.ReadUInt8() != SkillBindingProtocol.Version) { return; }
+         uint ack = reader.ReadUInt32BE();
+         if (unchecked((int)(ack - _sequence)) < 0) { return; }
+-        var id = (DiabloClass)reader.ReadUInt8(); var left = (CombatAbility)reader.ReadUInt8(); var right = (CombatAbility)reader.ReadUInt8(); uint available = reader.ReadUInt32BE();
+-        if (!DiabloClasses.TryFromWire((int)id, out _) || left > CombatAbility.Teleport || right > CombatAbility.Teleport) { return; }
++        var id = (DiabloClass)reader.ReadUInt8(); var left = (CombatAbility)reader.ReadUInt8(); var right = (CombatAbility)reader.ReadUInt8();
++        Span<byte> available = stackalloc byte[ClassAbilities.MaskBytes];
++        for (int i = 0; i < available.Length; i++) { available[i] = reader.ReadUInt8(); }
++        if (!DiabloClasses.TryFromWire((int)id, out _) || !ClassAbilities.Valid(left) || !ClassAbilities.Valid(right)) { return; }
+         Span<CombatAbility> quick = stackalloc CombatAbility[SkillBindingProtocol.Slots];
+-        for (int i = 0; i < quick.Length; i++) { quick[i] = (CombatAbility)reader.ReadUInt8(); if (quick[i] > CombatAbility.Teleport) { return; } }
+-        bool changed = !Ready || Class != id || Left != left || Right != right || _available != available;
++        for (int i = 0; i < quick.Length; i++) { quick[i] = (CombatAbility)reader.ReadUInt8(); if (!ClassAbilities.Valid(quick[i])) { return; } }
++        bool changed = !Ready || Class != id || Left != left || Right != right || !available.SequenceEqual(_available);
+         for (int i = 0; i < quick.Length; i++) { changed |= _quick[i] != quick[i]; _quick[i] = quick[i]; }
+-        Class = id; Left = left; Right = right; _available = available; Ready = true;
++        Class = id; Left = left; Right = right; available.CopyTo(_available); Ready = true;
+         if (changed)
+         {
+             UIManager.GetGump<ClassSkillBarGump>()?.RequestUpdateContents();
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/CharCreation/CreateCharProfessionGump.cs
+@@ -71,6 +71,7 @@
+                 DiabloClass.Barbarian => "Melee and warcries",
+                 DiabloClass.Druid => "Nature and shapeshifting",
+                 DiabloClass.Assassin => "Martial arts and traps",
++                DiabloClass.Warlock => "Demons, eldritch and chaos",
+                 _ => ""
+             };
+             Add(new Label(role, true, 0x0386, font: 1)
+diff --git a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+--- a/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
++++ b/src/ClassicUO.Client/Game/UI/Gumps/ClassSkillBarGump.cs
+@@ -35,10 +35,10 @@
+             var cell = new SlotControl { X = 4 + slot * _step, Y = 3, Width = _step - 2, Height = 49, AcceptMouseInput = true, WantUpdateSize = false };
+             cell.Add(new Line(0, 0, _step - 2, 49, available ? 0xFF504638 : 0xFF292929) { AcceptMouseInput = false });
+             cell.Add(new Label($"F{slot + 1}", true, 0x35) { X = 5, Y = 1, AcceptMouseInput = false });
+-            string label = ability switch { CombatAbility.None => "—", CombatAbility.RaiseSkeleton => "Skel", CombatAbility.BasicAttack => "Atk", CombatAbility.Teeth when _step < 40 => "Tth", CombatAbility.Teleport => "Tele", _ => ability.ToString() };
++            string label = ability switch { CombatAbility.None => "—", CombatAbility.RaiseSkeleton => "Skel", CombatAbility.BasicAttack => "Atk", CombatAbility.Teeth when _step < 40 => "Tth", CombatAbility.Teleport => "Tele", _ => CombatProtocol.Label(ability).Length > 4 ? CombatProtocol.Label(ability)[..4] : CombatProtocol.Label(ability) };
+             cell.Add(new Label(label, true, available ? (ushort)0x481 : (ushort)0x3B2) { X = 3, Y = 22, AcceptMouseInput = false });
+             cell.SetTooltip(ability == CombatAbility.None ? $"F{slot + 1}: unassigned. Press S, hover a skill and press this key." :
+-                $"F{slot + 1}: {CombatProtocol.Label(ability)}{(available ? "" : " (unavailable)")}. Aim over the world and press to quick cast. Press S to assign.");
++                $"F{slot + 1}: {CombatProtocol.Label(ability)}{(available ? "" : " (unavailable)")}. Aim over the world and press to quick cast. Text placeholder; icon pending. Press S to assign.");
+             Add(cell);
+         }
+         Width = _step * SkillBindingProtocol.Slots + 4; Height = 56;
+@@ -47,6 +47,8 @@
+ 
+ internal sealed class ClassSkillsPanelGump : Gump
+ {
++    private int _page;
++    private const int PageSize = 10;
+     public ClassSkillsPanelGump(World world) : base(world, 0, 0)
+     { X = 80; Y = 130; CanMove = true; CanCloseWithRightClick = false; RequestUpdateContents(); }
+     public CombatAbility? Hovered
+@@ -62,15 +64,24 @@
+     {
+         foreach (var child in Children.ToArray()) { child.Dispose(); }
+         var skills = Enum.GetValues<CombatAbility>().Where(a => a != CombatAbility.None && ClassSkillBindingsClient.Available(a)).Append(CombatAbility.None).ToArray();
+-        int height = 118 + skills.Length * 38;
++        _page = Math.Clamp(_page, 0, (skills.Length - 1) / PageSize);
++        var visible = skills.Skip(_page * PageSize).Take(PageSize).ToArray();
++        int height = 150 + visible.Length * 38;
+         Add(new AlphaBlendControl(0.95f) { Width = 400, Height = height, AcceptMouseInput = false });
+-        Add(new Label("Available skills — S to close", true, 0x35) { X = 14, Y = 10, AcceptMouseInput = false });
++        Add(new Label("Skills — text icon placeholders; S to close", true, 0x35) { X = 14, Y = 10, AcceptMouseInput = false });
+         Add(new Label("Hover + F1–F12: quick cast", true, 0x481) { X = 14, Y = 36, AcceptMouseInput = false });
+         Add(new Label("Left / right click: bind mouse button", true, 0x481) { X = 14, Y = 57, AcceptMouseInput = false });
+-        for (int i = 0; i < skills.Length; i++) { Add(new SkillRow(skills[i], 86 + i * 38)); }
++        for (int i = 0; i < visible.Length; i++) { Add(new SkillRow(visible[i], 86 + i * 38)); }
++        if (_page > 0) { Add(new Button(3001, 0x15E3, 0x15E7) { X = 14, Y = height - 57, ButtonAction = ButtonAction.Activate }); }
++        if ((_page + 1) * PageSize < skills.Length) { Add(new Button(3002, 0x15E1, 0x15E5) { X = 340, Y = height - 57, ButtonAction = ButtonAction.Activate }); }
++        Add(new Label($"Page {_page + 1}", true, 0x481) { X = 150, Y = height - 53, AcceptMouseInput = false });
+         Add(new Label($"L: {CombatProtocol.Label(ClassSkillBindingsClient.Left)}    R: {CombatProtocol.Label(ClassSkillBindingsClient.Right)}", true, 0x35)
+         { X = 14, Y = height - 25, AcceptMouseInput = false });
+         Width = 400; Height = height;
++    }
++    public override void OnButtonClick(int buttonID)
++    {
++        if (buttonID is 3001 or 3002) { _page += buttonID == 3001 ? -1 : 1; RequestUpdateContents(); }
+     }
+     private sealed class SkillRow : Control
+     {

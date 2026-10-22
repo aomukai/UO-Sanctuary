@@ -225,7 +225,7 @@ def configure(args):
     print("Run ./dev server, create your owner account at its console, then ./dev client in another terminal.")
 
 
-def launch(name):
+def launch(name, installed=False):
     require_sdk()
     require_stopped(name)
     config = SERVER / "Configuration/modernuo.json" if name == "server" else CLIENT / "settings.json"
@@ -237,7 +237,7 @@ def launch(name):
     folder, assembly = (SERVER, "ModernUO.dll") if name == "server" else (CLIENT, "cuo.dll")
     if not (folder / assembly).exists():
         raise ValueError(f"Build {name} first: ./dev build {name}")
-    if name == "server":
+    if name == "server" and not installed:
         stage_content()
     arguments = [] if name == "server" else ["-settings", str(config)]
     extra_env = {}
@@ -294,7 +294,8 @@ def main():
     config.add_argument("data", help="Classic Client data directory")
     config.add_argument("--client-version", required=True, help="Version matching the installed data")
     config.add_argument("--expansion", required=True, choices=["AOS", "SA"], help="Provisional test era")
-    commands.add_parser("server", help="Run the local server interactively")
+    server_command = commands.add_parser("server", help="Run the local server interactively")
+    server_command.add_argument("--installed", action="store_true", help="Run the installed build without staging source data or content")
     commands.add_parser("client", help="Run the desktop client")
     commands.add_parser("doctor", help="Report source, SDK, native libraries, build, and config readiness")
     args = parser.parse_args()
@@ -308,7 +309,7 @@ def main():
         elif args.command == "configure":
             configure(args)
         elif args.command in ("server", "client"):
-            launch(args.command)
+            launch(args.command, installed=getattr(args, "installed", False))
         else:
             return doctor()
         return 0

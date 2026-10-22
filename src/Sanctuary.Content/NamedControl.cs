@@ -13,8 +13,9 @@ public static class NamedControl
 {
     public static void Configure()
     {
-        ClassCombatHooks.ControlThink = Think;
-        ClassCombatHooks.TargetAllowed = TargetAllowed;
+        ClassCombatHooks.ControlThink = creature => Think(creature) || NecromancerEffects.Think(creature);
+        ClassCombatHooks.TargetAllowed = (actor, target) => !PaladinConversion.Friendly(actor,target)
+            && TargetAllowed(actor, target) && NecromancerEffects.TargetAllowed(actor, target);
         ClassCombatHooks.RunningStaminaCost = RunningCost;
     }
     internal static NamedControlState State(Mobile owner) => owner is { Alive: true, Deleted: false }
@@ -22,9 +23,11 @@ public static class NamedControl
     private static NamedControlState Empty => new(default, default, default, 0, 0, 0);
     public static int FrozenRemaining(Mobile owner) => State(owner) is { } state
         ? (int)Math.Clamp((state.FreezeUntil - TimedEffects.Now).TotalMilliseconds, 0, 20000) : 0;
-    public static bool Blind(Mobile owner) => State(owner)?.BlindUntil > TimedEffects.Now;
+    public static bool Blind(Mobile owner) => State(owner)?.BlindUntil > TimedEffects.Now
+        || NecromancerEffects.Curse(owner)?.Ability == CombatAbility.DimVision;
     public static bool Fear(Mobile owner) => State(owner)?.FearUntil > TimedEffects.Now;
-    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !Blind(owner) && !Fear(owner);
+    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !Blind(owner) && !Fear(owner)
+        && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror);
     public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !Fear(owner)
         && (!Blind(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
     private static int DifficultyDivisor(BaseCreature creature) => MonsterVariants.Difficulty(creature) switch
@@ -65,6 +68,18 @@ public static class NamedControl
         actor.Control = state with { FreezeUntil = new(Math.Max(state.FreezeUntil.Ticks, now.AddMilliseconds(duration).Ticks), DateTimeKind.Utc) };
         Interrupt(creature); target.FixedEffect(0x374A, 10, 15, 0x480, 0); return true;
     }
+    public static bool FreezeSkill(PlayerMobile source, Mobile target, int durationMs)
+    {
+        if (target is not BaseCreature creature || target.Deleted || !target.Alive || NamedElements.Resistance(source, target, "cold", target.ColdResistance) >= 100) { return false; }
+        if (NamedCombat.Elite(target) || creature.Controlled) { return GearEffects.ApplyChill(target, Core.TickCount, durationMs, source); }
+        if (CreatureProfiles.For(creature).Traits.ChillEffectiveness == 0) { return false; }
+        int resistance = NamedElements.Resistance(source, target, "cold", target.ColdResistance);
+        int duration = durationMs * Math.Clamp(100 - resistance, 0, 200) / (100 * DifficultyDivisor(creature));
+        if (duration <= 0) { return false; }
+        var now = TimedEffects.Now; var actor = TimedEffects.Actor(target, now); var state = actor.Control ?? Empty;
+        actor.Control = state with { FreezeUntil = now.AddMilliseconds(duration) };
+        Interrupt(creature); return true;
+    }
     public static int BlindLevel(int attackerLevel, int targetLevel, int bonus, bool ranged, int roll)
     {
         int chance = 5 * (attackerLevel + 4 * bonus - targetLevel + 6);
@@ -74,7 +89,7 @@ public static class NamedControl
     }
     public static bool ApplyBlind(PlayerMobile source, Mobile target, int bonus, bool ranged, Random random)
     {
-        if (bonus <= 0 || !AiTarget(target)) { return false; }
+        if (bonus <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Attract or CombatAbility.Confuse) { return false; }
         int level = BlindLevel(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, random.Next(100));
         if (level == 0) { return false; }
         var creature = (BaseCreature)target; var now = TimedEffects.Now; TimedEffects.Settle(target, now);
@@ -82,16 +97,18 @@ public static class NamedControl
         var actor = TimedEffects.Actor(target, now);
         // Vision and fear occupy one AI curse lane; neither replaces independent item slow or cold freeze.
         actor.Control = (actor.Control ?? Empty) with { BlindUntil = now.AddMilliseconds((175 + 50 * (level - 1)) * 40 / DifficultyDivisor(creature)), FearUntil = default };
+        NecromancerEffects.ClearOrdinaryCurse(target);
         Interrupt(creature); target.FixedEffect(0x375A, 10, 15, 0x455, 0); return true;
     }
     public static bool ApplyFear(PlayerMobile source, Mobile target, int chance, Random random)
     {
-        if (chance <= 0 || !AiTarget(target) || random.Next(128) >= chance) { return false; }
+        if (chance <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability == CombatAbility.Attract || random.Next(128) >= chance) { return false; }
         var now = TimedEffects.Now; TimedEffects.Settle(target, now);
         if (!target.Alive || target.Deleted) { return false; }
         var actor = TimedEffects.Actor(target, now);
         actor.Control = (actor.Control ?? Empty) with { FearUntil = now.AddMilliseconds(20 * 40), BlindUntil = default,
             FearSource = source.Serial.Value, FearX = source.X, FearY = source.Y };
+        NecromancerEffects.ClearOrdinaryCurse(target);
         Interrupt((BaseCreature)target); target.FixedEffect(0x375A, 10, 15, 0x21, 0); return true;
     }
     public static bool Think(BaseCreature creature)
@@ -120,6 +137,7 @@ public static class NamedControl
     }
     public static int RunningCost(Mobile owner, int cost)
     {
+        if(ChargeMotion.Active(owner)){return 0;}
         if (owner is not PlayerMobile player || !ClassCombat.Enabled(player) || cost <= 0) { return cost; }
         int reduction = ClassGear.Bonus(player, "stamdrain");
         if (reduction <= 0) { return cost; }

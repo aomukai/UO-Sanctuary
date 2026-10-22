@@ -1,0 +1,178 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "data/Sanctuary/Balance/class-skills.json, sourced from immutable pinned D2R skills tables",
+  "status": "Four handlers implemented and verified in focused/full native3boots/2reloads;70 Python tests and installed smoke passed",
+  "nextClass": "Barbarian",
+  "classOrderPolicy": "Vengeance correction closes the concrete Paladin follow-up; individually deferred Paladin reference/client branches remain listed while advancing the next class implementation pass. No class completion certificate is claimed.",
+  "firstBatch": [
+    {
+      "talentId": "barbarian.increasedstamina",
+      "sourceId": 141,
+      "name": "Increased Stamina",
+      "state": "increasedstamina",
+      "stats": {
+        "skill_passive_staminapercent": "ln12"
+      },
+      "parameters": [
+        30,
+        15
+      ],
+      "projectedTableGoldens": [
+        {
+          "effectiveRank": 1,
+          "percent": 30
+        },
+        {
+          "effectiveRank": 20,
+          "percent": 315
+        },
+        {
+          "effectiveRank": 50,
+          "percent": 765
+        },
+        {
+          "effectiveRank": 99,
+          "percent": 1500
+        }
+      ]
+    },
+    {
+      "talentId": "barbarian.ironskin",
+      "sourceId": 145,
+      "name": "Iron Skin",
+      "state": "ironskin",
+      "stats": {
+        "skill_armor_percent": "ln12"
+      },
+      "parameters": [
+        30,
+        10
+      ],
+      "projectedTableGoldens": [
+        {
+          "effectiveRank": 1,
+          "percent": 30
+        },
+        {
+          "effectiveRank": 20,
+          "percent": 220
+        },
+        {
+          "effectiveRank": 50,
+          "percent": 520
+        },
+        {
+          "effectiveRank": 99,
+          "percent": 1010
+        }
+      ]
+    },
+    {
+      "talentId": "barbarian.increasedspeed",
+      "sourceId": 148,
+      "name": "Increased Speed",
+      "state": "increasedspeed",
+      "stats": {
+        "velocitypercent": "dm12"
+      },
+      "parameters": [
+        7,
+        50
+      ],
+      "projectedTableGoldens": [
+        {
+          "effectiveRank": 1,
+          "percent": 13
+        },
+        {
+          "effectiveRank": 20,
+          "percent": 43
+        },
+        {
+          "effectiveRank": 50,
+          "percent": 49
+        },
+        {
+          "effectiveRank": 99,
+          "percent": 50
+        }
+      ]
+    },
+    {
+      "talentId": "barbarian.naturalresistance",
+      "sourceId": 153,
+      "name": "Natural Resistance",
+      "state": "naturalresistance",
+      "stats": {
+        "fireresist": "dm12",
+        "lightresist": "dm12",
+        "coldresist": "dm12",
+        "poisonresist": "dm12"
+      },
+      "parameters": [
+        0,
+        80
+      ],
+      "projectedTableGoldens": [
+        {
+          "effectiveRank": 1,
+          "percent": 12
+        },
+        {
+          "effectiveRank": 20,
+          "percent": 67
+        },
+        {
+          "effectiveRank": 50,
+          "percent": 78
+        },
+        {
+          "effectiveRank": 99,
+          "percent": 80
+        }
+      ]
+    }
+  ],
+  "consumerPlan": {
+    "increasedStamina": "Add passive skill_staminapercent to the same percentage pool as Vigor in ClassStats resource1; verify native maximum/current clamp and class/gear transitions.",
+    "ironSkin": "Add skill_armor_percent to the shared player defense percentage pool before ScaleDefense.",
+    "increasedSpeed": "Add skill velocitypercent alongside Blaze/Vigor in ClassCombatHooks.RunningDelay/WalkingDelay (ClassCombat.Configure); keep ClassGear.RunBonus item FRW diminishing separate and preserve approved tile movement rules.",
+    "naturalResistance": "Add four-element flat resistance before cap/pierce in ClassGear.RawResistance; exclude physical/magic and maximum-resistance increases.",
+    "registration": "Add BarbarianCombat.Implemented/Passive, extend roadmap class discovery and TalentGump implementation visibility; passives are not castable/bindable actions."
+  },
+  "verificationPlan": [
+    "Effective ranks1/20/50 and allocated versus soft rank; no cross-class/history leakage.",
+    "Real equipment modifiers and respec/class-change/death/reload effects; no item skill gate enabled.",
+    "Native stamina, defense, accepted walking/running speed and typed incoming damage/resistance.",
+    "Vigor/Blaze/gear resistance/percent composition and caps; ordinary movement running avoidance rules retained.",
+    "Three boots/two reloads and full regressions after the batch."
+  ],
+  "uncertainties": [
+    "Exact modern stat collation and movement mode clocks still require comparison; table goldens alone are not certification.",
+    "Other Barbarian talents, including masteries/Bash/dual-wield/throw/leap/warcry AI and corpse skills, remain the full30-skill class scope."
+  ],
+  "assets": {
+    "effects": "These four source passives have no active spell effect; retain source state/cues if future visual presentation is desired.",
+    "icons": "All four need talent icons; passive hotkey icons remain not-applicable in the independent240-entry register."
+  },
+  "classComplete": false,
+  "userReferenceAvailability": {
+    "Barbarian": "User has no Barbarian and has never played the class; do not depend on firsthand Barbarian gameplay checks.",
+    "availableClasses": [
+      "Necromancer",
+      "Sorceress",
+      "Amazon",
+      "Assassin",
+      "Paladin",
+      "Warlock",
+      "Druid"
+    ],
+    "policy": "Use pinned tables/engine evidence for Barbarian. Flag unsupported mechanics and proceed through unaffected skills; questions should target classes the user can check."
+  },
+  "engineInspection": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "defense": "UNITS_GetDefense adds Dexterity/4 and armor before skill/item armor percentages. The native player shared pool adds Iron Skin before its percentage reduction.",
+    "stamina": "Pinned itemstatcost skill_staminapercent and skill_passive_staminapercent both use op1 on maxstamina. Inspected D2StatList op1 adds percentage contributions against the original accumulated base. Native projection keeps the shared whole-stamina pool.",
+    "velocity": "UNITS_UpdateRunWalkAnimRateAndVelocity adds STAT_VELOCITYPERCENT to the item/animation base percentage. Native walk/run hooks add Increased Speed alongside Vigor; existing Sanctuary item FRW and movement clocks remain authoritative."
+  }
+}

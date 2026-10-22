@@ -1888,5 +1888,275 @@
     "classCode": "ass",
     "sourceTab": 20,
     "element": null
+  },
+  {
+    "sourceId": 373,
+    "sourceKey": "Summon Goatman",
+    "talentId": "warlock.summongoatman",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 374,
+    "sourceKey": "Demonic Mastery",
+    "talentId": "warlock.demonicmastery",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 375,
+    "sourceKey": "Death Mark",
+    "talentId": "warlock.deathmark",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 376,
+    "sourceKey": "Summon Tainted",
+    "talentId": "warlock.summontainted",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": "fire"
+  },
+  {
+    "sourceId": 377,
+    "sourceKey": "Summon Defiler",
+    "talentId": "warlock.summondefiler",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 378,
+    "sourceKey": "Blood Oath",
+    "talentId": "warlock.bloodoath",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 379,
+    "sourceKey": "Engorge",
+    "talentId": "warlock.engorge",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 380,
+    "sourceKey": "Blood Boil",
+    "talentId": "warlock.bloodboil",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": "fire"
+  },
+  {
+    "sourceId": 381,
+    "sourceKey": "Consume",
+    "talentId": "warlock.consume",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 382,
+    "sourceKey": "Bind Demon",
+    "talentId": "warlock.binddemon",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 21,
+    "element": null
+  },
+  {
+    "sourceId": 383,
+    "sourceKey": "Levitate",
+    "talentId": "warlock.levitationmastery",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 384,
+    "sourceKey": "Eldritch Blast",
+    "talentId": "warlock.eldritchblast",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": "mag"
+  },
+  {
+    "sourceId": 385,
+    "sourceKey": "Hex Bane",
+    "talentId": "warlock.hexbane",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": "mag"
+  },
+  {
+    "sourceId": 386,
+    "sourceKey": "Hex Siphon",
+    "talentId": "warlock.hexsiphon",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 387,
+    "sourceKey": "Psychic Ward",
+    "talentId": "warlock.psychicward",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 388,
+    "sourceKey": "Echoing Strike",
+    "talentId": "warlock.echoingstrike",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 389,
+    "sourceKey": "Hex Purge",
+    "talentId": "warlock.hexpurge",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": "mag"
+  },
+  {
+    "sourceId": 390,
+    "sourceKey": "Blade Warp",
+    "talentId": "warlock.bladewarp",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": "mag"
+  },
+  {
+    "sourceId": 391,
+    "sourceKey": "Cleave",
+    "talentId": "warlock.cleave",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 392,
+    "sourceKey": "Mirrored Blades",
+    "talentId": "warlock.mirroredblades",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 22,
+    "element": null
+  },
+  {
+    "sourceId": 393,
+    "sourceKey": "Sigil Lethargy",
+    "talentId": "warlock.sigillethargy",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": null
+  },
+  {
+    "sourceId": 394,
+    "sourceKey": "Ring of Fire",
+    "talentId": "warlock.ringoffire",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "fire"
+  },
+  {
+    "sourceId": 395,
+    "sourceKey": "Miasma Bolt",
+    "talentId": "warlock.miasmabolt",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "mag"
+  },
+  {
+    "sourceId": 396,
+    "sourceKey": "Sigil Rancor",
+    "talentId": "warlock.sigilrancor",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": null
+  },
+  {
+    "sourceId": 397,
+    "sourceKey": "Enhanced Entropy",
+    "talentId": "warlock.enhancedentropy",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": null
+  },
+  {
+    "sourceId": 398,
+    "sourceKey": "Flame Wave",
+    "talentId": "warlock.flamewave",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "fire"
+  },
+  {
+    "sourceId": 399,
+    "sourceKey": "Miasma Chains",
+    "talentId": "warlock.miasmachain",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "mag"
+  },
+  {
+    "sourceId": 400,
+    "sourceKey": "Sigil Death",
+    "talentId": "warlock.sigildeath",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "fire"
+  },
+  {
+    "sourceId": 401,
+    "sourceKey": "Apocalypse",
+    "talentId": "warlock.apocalypse",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "fire"
+  },
+  {
+    "sourceId": 402,
+    "sourceKey": "Abyss",
+    "talentId": "warlock.abyss",
+    "characterClass": "Warlock",
+    "classCode": "war",
+    "sourceTab": 23,
+    "element": "mag"
   }
 ]

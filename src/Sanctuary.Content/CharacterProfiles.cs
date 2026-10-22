@@ -142,6 +142,8 @@ public sealed class CharacterProfiles : GenericPersistence
 
         var ranks = Active(serial).Ranks;
         ranks[talentId] = (byte)(ranks.GetValueOrDefault(talentId) + 1);
+        if(World.FindMobile(serial) is PlayerMobile player && Active(serial).Profile.Class==DiabloClass.Barbarian)
+        {BarbarianCombat.Refresh(player);}
         return true;
     }
 
@@ -156,6 +158,10 @@ public sealed class CharacterProfiles : GenericPersistence
         }
         // Keep real gear in the pack even if the reset lowers capacity or equipment requirements fail.
         foreach (var item in equipment) { player.Backpack.DropItem(item); }
+        NecromancerEffects.Profiles.Clear(player);
+        SorceressEffects.Profiles.Clear(player);
+        PaladinAuras.Clear(player);
+        HolyShields.Clear(player);
         Active(player.Serial).Stats = default;
         Active(player.Serial).Ranks.Clear();
         ClassStats.ApplyBase(player, profile, default);
@@ -391,7 +397,7 @@ public sealed class CharacterProfiles : GenericPersistence
             {
                 if (!DiabloClasses.TryFromWire(reader.ReadByte(), out var active)) { throw new InvalidDataException("Invalid active class."); }
                 character = new(active); int classes = reader.ReadInt();
-                if (classes is < 1 or > 7) { throw new InvalidDataException("Invalid class history count."); }
+                if (classes < 1 || classes > Enum.GetValues<DiabloClass>().Length) { throw new InvalidDataException("Invalid class history count."); }
                 for (int j = 0; j < classes; j++)
                 {
                     var history = ReadHistory(reader, version);

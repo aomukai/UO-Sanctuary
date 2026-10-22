@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceUrl": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/MissMode.cpp",
+  "sourceSha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+  "probe": "Unmodified server do15/do16/hit29 functions compiled with stub world/missile accessors. This verifies arithmetic/emission and hit-function gates only; terrain/collision/path runtime is not emulated.",
+  "trailVectors": [
+    [
+      30,
+      0
+    ],
+    [
+      -8,
+      28
+    ],
+    [
+      -24,
+      -16
+    ],
+    [
+      23,
+      -19
+    ],
+    [
+      11,
+      27
+    ],
+    [
+      -29,
+      2
+    ],
+    [
+      5,
+      -29
+    ],
+    [
+      26,
+      14
+    ],
+    [
+      -21,
+      21
+    ],
+    [
+      -14,
+      -26
+    ],
+    [
+      29,
+      -5
+    ],
+    [
+      -2,
+      29
+    ],
+    [
+      -27,
+      -11
+    ],
+    [
+      19,
+      -23
+    ],
+    [
+      16,
+      24
+    ],
+    [
+      -28,
+      8
+    ],
+    [
+      0,
+      -30
+    ],
+    [
+      28,
+      8
+    ],
+    [
+      -16,
+      24
+    ],
+    [
+      -19,
+      -23
+    ],
+    [
+      27,
+      -11
+    ],
+    [
+      2,
+      29
+    ],
+    [
+      -29,
+      -5
+    ],
+    [
+      14,
+      -26
+    ],
+    [
+      21,
+      21
+    ],
+    [
+      -26,
+      14
+    ],
+    [
+      -5,
+      -29
+    ],
+    [
+      29,
+      2
+    ],
+    [
+      -11,
+      27
+    ],
+    [
+      -23,
+      -19
+    ]
+  ],
+  "terminalVectors": [
+    [
+      30,
+      0
+    ],
+    [
+      27,
+      11
+    ],
+    [
+      21,
+      21
+    ],
+    [
+      11,
+      27
+    ],
+    [
+      0,
+      30
+    ],
+    [
+      -11,
+      27
+    ],
+    [
+      -21,
+      21
+    ],
+    [
+      -27,
+      11
+    ],
+    [
+      -30,
+      0
+    ],
+    [
+      -27,
+      -11
+    ],
+    [
+      -21,
+      -21
+    ],
+    [
+      -11,
+      -27
+    ],
+    [
+      0,
+      -30
+    ],
+    [
+      11,
+      -27
+    ],
+    [
+      21,
+      -21
+    ],
+    [
+      27,
+      -11
+    ]
+  ],
+  "stoppedHitResult": 2,
+  "stoppedTerminalCount": 0,
+  "naturalHitResult": 3,
+  "naturalTerminalCount": 16,
+  "novaTurns": [
+    [
+      15,
+      15
+    ],
+    [
+      0,
+      15
+    ],
+    [
+      -7,
+      7
+    ]
+  ],
+  "limits": [
+    "Legacy evidence is supplementary to the pinned D2R tables",
+    "Initial step, FP16/cell path quantization, terrain, footprint, owner lifecycle and client comparison remain open"
+  ],
+  "nativeDueFrameCorrection": {
+    "trigger": "An intermittent full-suite assertion showed absolute expiry overtaking unprocessed travel frames. Original failure log retained.",
+    "behavior": "Process all due scheduled source steps before absolute expiry; work bounded by remaining Range. Child birth timestamps use scheduled parent steps. Map.Internal expiration still removes without burst.",
+    "verification": "Original thirty-travel/sixteen-terminal assertion retained, diagnostic counts added. Controlled frame28 parent with NextUtc eighty milliseconds overdue and UntilUtc ten milliseconds ahead must emit two remaining travel shards plus sixteen terminal shards. Dedicated native fixture passes.",
+    "limits": "Modern D2R lag and owner/offline/client comparison remains open; legacy/frame evidence does not certify those transitions."
+  }
+}

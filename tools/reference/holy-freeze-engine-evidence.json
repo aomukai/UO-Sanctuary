@@ -1,0 +1,104 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "gitBlobVerification": true,
+  "sourceHashes": {
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "callbackCases": 256,
+  "removalCases": [
+    [
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      -1,
+      1
+    ],
+    [
+      1,
+      1,
+      -1,
+      0
+    ]
+  ],
+  "verified": [
+    "Unchanged callback ColdEffect/nonmonster/missing-row gates, optional state/damage event order and exclusive20percent shatter threshold.",
+    "Unchanged special state removal retains shatter on dead actors and clears it on living actors; this callback is installed on the caster, not the hostile target.",
+    "Prime-Evil source filter and per-stat ColdEffect cap/other-animation assignment inspected, not compiled in this bounded probe.",
+    "SrvDo081 installs special removal on caster args1; hostile callback constructs fresh BasicAura args without it. Default sub_6FD10E50 removes the target slow state without clearing independent SHATTER. This routing is source-inspected, not a modern timing certificate."
+  ],
+  "limits": [
+    "World, damage, BasicAura recipient application, state bitmaps, unit seed stream and animation updates are explicit stubs.",
+    "No source death/shatter-corpse consumer or modern lethal-pulse/death ordering is certified; native retained-loot unusable-corpse mapping is separately tested.",
+    "Modern source eligibility, mode composition, item/native interactions, proximity geometry and client acceptance remain open."
+  ],
+  "verifiedAtUtc": "2026-10-22T17:03:59.124940+00:00",
+  "runtimeStage": "Enabled partial native handler; unsupported target/mode/state branches explicitly recorded",
+  "runtimeSourceHashes": {
+    "src/Sanctuary.Content/PaladinHolyFreeze.cs": "513df9ab8a3cfee138797a92842d573b7531af679a45f266ce8b4ee1c6bb8576",
+    "src/Sanctuary.Content/PaladinElements.cs": "6349c355c48295c7808d619d595f55d9e63701daf9ee872ede0bb277a9e3c848",
+    "src/Sanctuary.Content/PaladinCombat.cs": "54e43044720f99334102d3acae76eb570352bee8148fbc1def63669b5dfa4322",
+    "src/Sanctuary.Content/GearEffects.cs": "f7d7cabb3e2475e498bb870168b4fce86acaf8538018237b59a1f02e2b91b06b",
+    "src/Sanctuary.Content/SkillCombat.cs": "38ae365de9496a5c7800c58146632eb0db8fffbe7f8c7f72f1017c342e80182e",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "a70f31118f0b32f790f8565fc00d01832503841f23e134ac48086bee136e1afc",
+    "src/Sanctuary.Content/SkeletonPets.cs": "86d68e1b4227dfda5293b88cf58c09bc8c0025947dde1f08dc9996ead5509e2b",
+    "src/Sanctuary.Content/BalanceCatalog.cs": "fa0a5f33f0879b686988294d3fb65b6afa415add9b723dff9b21b6b8282324c0",
+    "tests/Sanctuary.Integration/HolyFreezeChecks.cs": "75f12596f79a243d6e577e150069008610b192712c1567376e3efe61602ff004",
+    "tests/check_class_skills.py": "833409607f89630fd0566c5cf84b4c05d6732e8bfde7ca8dff110d79f828bb9f",
+    "data/Sanctuary/Balance/holy-freeze-source-rules.json": "f216ec438e0853dea0302d1004d50b8db1a543bd247c6974c5bf52f0690519db",
+    "tools/build_class_skills.py": "22b28bf533328a0ea2233fd5af7e4ce5102ae9eb8f7cd60ef767346668c480fa",
+    "tools/build_skill_roadmap.py": "1c9db603fe2de20058d27245a3681e3cc12fb694ad4cc4d771dee3af7455e37e",
+    "tools/probe_holy_freeze_reference.py": "cba4c99040c8f8bb19d3a53ad74922bcd4ce452bf9e49f7e7b85a098e72071b9"
+  },
+  "sourceRuleCoverage": {
+    "rows": 751,
+    "staticEligible": {
+      "normal": 580,
+      "nightmare": 568,
+      "hell": 541
+    },
+    "nativeMapping": "Existing explicit CreatureProfiles.Definition.Reference; unmapped native types excluded, not guessed."
+  },
+  "nativeVerification": [
+    "Focused and combined native suites passed3boots/2actualreloads each.",
+    "Pinned rank1/rank20 hard-synergy pulse/slow/whole weapon-stat goldens; intermediate fixed-point truncation retained.",
+    "Natural delayed activation; range/friendly/unknown-source exclusions; free zero-mana pulse; cold immunity retains separate slow; ordinary chill absent.",
+    "Native movement/attack consumers; Normal/Nightmare/Hell skeleton ColdEffect caps50/40/25; exclusive20percent shatter boundary.",
+    "Class and native typed cold weapon delivery; supplier replacement removes weapon stats while target slow lingers for51frames.",
+    "Target slow expires without silently deleting independent shatter marker; marker/source/rank/three slow fields/deadline persist exactly.",
+    "Existing-marker death captures unusable corpse metadata; seeded retained loot and unconsumed/unanimated flags survive two reloads; skeleton/corpse-spell and Redemption guards reject it.",
+    "Real saved cold pulse/slow resumes on both reloads."
+  ],
+  "fixtureLimits": [
+    "Actors frozen/AI-stopped and poisoned only to suppress unrelated native life regeneration.",
+    "Saved inspection slow/aura deadlines held ten minutes across the longer suite; ordinary51-frame slow expiry separately tested.",
+    "RewardLife intentionally removes ordinary native backpack drops before class rewards. Fixture seeds gold after that cleanup, then verifies corpse exclusion does not consume it and reload retains it.",
+    "Corpse projection captures a marker already present at synchronous death. Legacy callback rolls shatter after damage; modern lethal-pulse/death scheduling and ordinary cold/freeze/shatter interaction remain unverified.",
+    "Special clear-on-living-expiry callback is installed on caster args1. Hostile target uses generic removal without independent SHATTER clear. This inspected legacy routing is retained provisionally, not certified modern behavior.",
+    "Other-animation slow is stored independently; general native UO cast/special-mode consumers remain unsupported. Separate legacy elite Holy Freeze filter/geometry/state adapter is not unified here."
+  ],
+  "logs": [
+    ".local/class-skills/holy-freeze-focused.log",
+    ".local/class-skills/holy-freeze-focused-run.log",
+    ".local/class-skills/native-checks.log",
+    ".local/class-skills/full-suite-run.log",
+    ".local/class-skills/holy-freeze-corridor-fixture-failure.log",
+    ".local/class-skills/holy-freeze-golden-fixture-failure.log",
+    ".local/class-skills/holy-freeze-natural-mana-fixture-failure.log",
+    ".local/class-skills/holy-freeze-reward-cleanup-fixture-failure.log",
+    ".local/class-skills/holy-freeze-full-corridor-fixture-failure.log"
+  ]
+}

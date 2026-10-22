@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned formulas and inspected immutable supplementary engine source; no new compiled engine probe or modern binary certificate",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "pinnedFields": {
+    "skills": [
+      "Resist Fire",
+      "Resist Cold",
+      "Resist Lightning",
+      "Salvation"
+    ],
+    "resistance": "single-element dm34, 52 at rank1 and 131 at rank20; Salvation dm34, 60 at rank1 and 108 at rank20",
+    "activeMaximum": "single-element skill(...blvl), allocated points; Salvation grants no maximum",
+    "passiveMaximum": "single-element skill(...blvl)/2, truncated; passive applies only without the corresponding active aura state",
+    "period": "immediate1/perdelay50, same basic aura callback/filter0x12003"
+  },
+  "engineInspection": [
+    "SrvDo065 calculates each aura stat independently, including the hard-point secondary maximum",
+    "SKILLS_AuraCallback_BasicAura removes the corresponding passive statlist on every recipient",
+    "SKILLS_RefreshPassiveSkill removes passive state while the matching active aura state is present",
+    "SUNITDMG_ApplyResistancesAndAbsorb caps positive player elemental resistance after pierce/difficulty; player cap is 75 plus maximum, limited to95; monsters do not take this player cap"
+  ],
+  "nativeScope": [
+    "Effective rank and allocated-point secondary/passive split",
+    "Aura additions and player cap after pierce, native player and controlled creature damage",
+    "Immediate right-slot selection, rank priority, linger/expiry, death/respec",
+    "Stored selected emitters/secondary values and actual resumed native mitigation through both reloads"
+  ],
+  "limits": [
+    "Immutable legacy source is supplementary to the pinned D2R data; modern filter/timing comparison remains open",
+    "Shared-world player difficulty penalties, item auras/maximum modifiers, complete species, owner transitions and actual client require acceptance",
+    "Native offline ordinary pets are automatically stabled on load; the fixture asserts stored custody and uses ClaimAutoStabledPets before resumed aura checks. Controlled creature base resistances are reset to zero after normal native template reapplication; saved aura metadata and resumed effect are checked separately",
+    "Overcap arithmetic uses real legal Kira's Guardian, The Ward, Nokozan Relic and Hotspur sources without bypassing saved-gear validation",
+    "Distinct explicit/native resistance overrides remain authoritative; the ordinary class display is expanded to its raw pool for cap-after-pierce processing"
+  ],
+  "sources": [
+    "https://classic.battle.net/diablo2exp/skills/paladin-defense.shtml",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Skills/Skills.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/UNIT/SUnitDmg.cpp"
+  ],
+  "precedence": "The old official guide corroborates the hidden hard-point bonus and excludes soft points. Its older radius tables do not override pinned D2R formulas."
+}

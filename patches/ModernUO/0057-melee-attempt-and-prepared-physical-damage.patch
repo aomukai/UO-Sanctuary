@@ -1,0 +1,67 @@
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -3,9 +3,14 @@
+ using Server.Items;
+ namespace Server.Mobiles;
+ // A content assembly can own player attacks while NPC combat remains independent.
+-public readonly record struct ClassSkillDamage(int Total, int Physical);
++public readonly record struct ClassSkillDamage(int Total, int Physical)
++{
++    public int Physical256 { get; init; }
++}
+ public static class ClassCombatHooks
+ {
++    public static Func<Mobile, Mobile, bool, IDisposable> MeleeAttempt { get; set; }
++    public static Action<Mobile, Mobile, int, bool> PreparedWeaponDamage { get; set; }
+     public static Func<Mobile, Mobile, Mobile> ProjectileTarget { get; set; }
+     public static Action<Mobile, Mobile, string> SkillMissileHit { get; set; }
+     public static Action<Mobile> CreatureEffectsEnded { get; set; }
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -1834,6 +1834,7 @@
+         }
+ 
+         PlaySwingAnimation(attacker);
++        using var attemptedMelee = ClassCombatHooks.MeleeAttempt?.Invoke(attacker, defender, this is BaseRanged);
+         PlayHurtAnimation(defender);
+ 
+         attacker.PlaySound(GetHitAttackSound(attacker, defender));
+@@ -2458,6 +2459,7 @@
+ 
+     public virtual void OnMiss(Mobile attacker, Mobile defender)
+     {
++        using var attemptedMelee = ClassCombatHooks.MeleeAttempt?.Invoke(attacker, defender, this is BaseRanged);
+         PlaySwingAnimation(attacker);
+         attacker.PlaySound(GetMissAttackSound(attacker, defender));
+         defender.PlaySound(GetMissDefendSound(attacker, defender));
+--- a/Projects/UOContent/Misc/AOS.cs
++++ b/Projects/UOContent/Misc/AOS.cs
+@@ -175,6 +175,13 @@
+                 {
+                     if (projectResistance.HasValue)
+                     {
++                        if (weaponDamage)
++                        {
++                            var preparedPhysical = skillResistance is { } prepared
++                                ? prepared.Physical256 > 0 ? prepared.Physical256 : (int)Math.Clamp((long)prepared.Physical * 256, 0, int.MaxValue)
++                                : 0;
++                            ClassCombatHooks.PreparedWeaponDamage?.Invoke(from, m, preparedPhysical, archer);
++                        }
+                         return 0;
+                     }
+                     totalDamage = 1;
+@@ -263,6 +270,14 @@
+             if (totalDamage <= 0)
+             {
+                 return 0;
++            }
++
++            if (weaponDamage)
++            {
++                var preparedPhysical = skillResistance is { } prepared
++                    ? prepared.Physical256 > 0 ? prepared.Physical256 : (int)Math.Clamp((long)prepared.Physical * 256, 0, int.MaxValue)
++                    : (int)Math.Clamp((long)totalDamage * phys * 256 / 100, 0, int.MaxValue);
++                ClassCombatHooks.PreparedWeaponDamage?.Invoke(from, m, preparedPhysical, archer);
+             }
+ 
+             if (from != null) // sanity check

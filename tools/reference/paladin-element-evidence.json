@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned data, inspected immutable legacy routines, released Blizzard patch notes and native disposable-world checks. No compiled source wrapper or modern binary/distance certificate.",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    ".local/research/d2moo-CommonSkills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/research/d2moo-SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "sourceRoutines": [
+    "SrvDo066 HolyFire_HolyShock_Sanctuary_Conviction: supplier passive stats before town return; elemental roll once before target enumeration; per-target copied soft-hit damage.",
+    "D2GAME_RollElementalDamage_6FD14DD0: enhanced fixed-point min + random(max-min); upper endpoint exclusive.",
+    "CommonSkills callbacks52/53: enms/exms are unshifted elemental min/max including mastery; passive formulas truncate to whole stat units."
+  ],
+  "holyFire": {
+    "rank1UnsynergizedPulse256": [
+      256,
+      768
+    ],
+    "rank1UnsynergizedWeapon": [
+      6,
+      18
+    ],
+    "rank20Hard20SynergiesPercent": 620,
+    "rank20Hard20Pulse256": [
+      59904,
+      81100
+    ],
+    "rank20Hard20Weapon": [
+      1404,
+      1900
+    ]
+  },
+  "holyShock": {
+    "rank1UnsynergizedPulse256": [
+      256,
+      2560
+    ],
+    "rank1UnsynergizedWeapon": [
+      1,
+      60
+    ],
+    "rank20Hard20SynergiesPercent": 320,
+    "rank20Hard20Pulse256": [
+      1075,
+      167731
+    ],
+    "rank20Hard20Weapon": [
+      1,
+      3931
+    ],
+    "minimumWeapon": "Literal1 passive stat, independent of scaled elemental minimum."
+  },
+  "releasedProximityRule": {
+    "source": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "claim": "Released2.4 Holy Fire, Holy Freeze, Holy Shock and Sanctuary pulse damage doubles at melee range and scales linearly to normal at maximum range.",
+    "projection": "Explicit provisional Sanctuary Euclidean tile rule: multiplier=1+clamp((radius-distance)/(radius-1),0,1), melee boundary1tile. Radius uses existing2D2-subtiles/UO-tile projection. Apply multiplier to shared rolled enhanced256 damage and floor before mitigation.",
+    "uncertainty": "Modern engine distance metric, unit-size/weapon melee boundary, interpolation and integer operation order are not established. This projection is not an approved deviation or a D2R-exact certificate."
+  },
+  "runtime": "First selected pulse at50frames/2seconds; supplier-only weapon lease51frames; no mana charge, no allied weapon buff; town suppresses hostile pulse while retaining supplier stats. Existing Sanctuary PvE, height, cooperative and native town contracts retained. Pulse uses fractional SkillHealth, mitigation/current pierce, no ordinary attack/block/weapon proc or get-hit request. Aura weapon damage receives caster enhancement before passive truncation; melee wielding adds current enhancement, ranged does not. Elemental weapon additions enter class strikes and native typed weapon mitigation.",
+  "verification": "Native initial boot plus two reloads: independent rank1/rank20/hard-versus-soft endpoints; natural pulse delay; shared roll, range/height, immunity/friendly and supplier-only filters; fractional life, large soft-hit recovery exclusion; direct class/native weapon delivery; real named lightning-enhancement/pierce helmet and bow confirm melee second enhancement versus ranged single enhancement; replacement/death/respec; free pulse at zero mana; saved source/rank/weapon stats/deadlines and fresh resumed pulse. Native global RNG seam restored.",
+  "holyFreezeBlocker": "Inspected SrvDo081 and callback: Prime-Evil filter excludes targets; MonStats ColdEffect>=0 rejects monster entirely, not ordinary cold immunity/CBF; BasicAura caps negative velocity/attack/other_animrate stat at target ColdEffect; twenty-percent SHATTER state rerolled on pulse, with expiry/death/corpse availability implications. Needs saved separate slow/shatter state and loot-preserving unusable-corpse handling. Do not substitute ordinary chill or silently omit this lifecycle.",
+  "limits": [
+    "Full source unit-seed order not reproduced; global Utility.Random exclusive range with a restored deterministic fixture seam.",
+    "Modern proximity metric/rounding, complete target/filter/LOS/species behavior, source timing under lag/offline, complete native ranged/throw/ignore-armor/mitigation and owner/gear/client transitions require acceptance.",
+    "Named helm/bow fixtures cover representative enhancement/pierce paths, not all mastery/gear interactions. No item-aura/proc/oskill readiness was unlocked.",
+    "Holy Freeze remains individually gated; the existing ordinary-chill other-animation-rate mapping also needs separate source comparison.",
+    "Final pulse and weapon FX plus separate talent/hotkey icons remain pending; current0x375A self pulses are identified placeholders."
+  ],
+  "sources": [
+    "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/Skills.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SUNIT/SUnitDmg.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Skills/Skills.cpp"
+  ]
+}

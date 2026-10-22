@@ -50,7 +50,6 @@ A definition may have several blockers. These include shared item mechanics as w
 | Effect: roguesbow-affix1 | 1 | Resolve the exact pinned property group and all argument ranges/delivery systems; never invent missing Gelid-Affix5. |
 | Effect: skill | 43 | Use the per-item skill list; implement both the skill and its exact trigger, aura, charges or granted-rank delivery. |
 | Effect: skill-rand | 1 | Persist the selected source skill and rank, then implement every possible skill effect. |
-| Effect: skilltab | 4 | Bind the exact source class/tree and ensure every affected learned rank reaches its actual consumer. |
 | Effect: skilltab-war | 1 | Implement the Warlock source tree, bindings and skill consumers. |
 | Effect: war | 3 | Implement the source Warlock class and class skill bonuses. |
 | No reviewed equipment appearance | 14 | Review representation, slot/activation rules and client art; jewels need their socket consumers too. |
@@ -110,10 +109,10 @@ A definition may have several blockers. These include shared item mechanics as w
 | piece/121 | Naj's Light Plate | Set has unavailable pieces |
 | piece/122 | Naj's Circlet | Effect: gethit-skill; Set has unavailable pieces |
 | piece/135 | Horazon's Countenance | Effect: war; Set effect: oskill; Set effect: war; Set has unavailable pieces |
-| piece/136 | Horazon's Dominion | Effect: skilltab; Set effect: oskill; Set effect: war; Set has unavailable pieces |
+| piece/136 | Horazon's Dominion | Set effect: oskill; Set effect: war; Set has unavailable pieces |
 | piece/137 | Horazon's Hold | Set effect: oskill; Set effect: war; Set has unavailable pieces |
 | piece/138 | Horazon's Legacy | Set effect: oskill; Set effect: war; Set has unavailable pieces |
-| piece/139 | Horazon's Secrets | Effect: skilltab; No reviewed equipment appearance; Set effect: oskill; Set effect: war; Warlock class is not implemented; Set has unavailable pieces |
+| piece/139 | Horazon's Secrets | No reviewed equipment appearance; Set effect: oskill; Set effect: war; Warlock class is not implemented; Set has unavailable pieces |
 | unique/11 | Maelstrom | Effect: skill |
 | unique/13 | Ume's Lament | Effect: skill |
 | unique/16 | Rusthandle | Effect: skill |
@@ -253,8 +252,8 @@ A definition may have several blockers. These include shared item mechanics as w
 | unique/397 | Rainbow Facet | Effect: levelup-skill; No reviewed equipment appearance |
 | unique/398 | Rainbow Facet | Effect: levelup-skill; No reviewed equipment appearance |
 | unique/399 | Rainbow Facet | Effect: levelup-skill; No reviewed equipment appearance |
-| unique/408 | Ars Al'Diabolos | Effect: gethit-skill; Effect: skill; Effect: skilltab; No reviewed equipment appearance; Warlock class is not implemented |
-| unique/409 | Ars Tor'Baalos | Effect: gethit-skill; Effect: skill; Effect: skilltab; No reviewed equipment appearance; Warlock class is not implemented |
+| unique/408 | Ars Al'Diabolos | Effect: gethit-skill; Effect: skill; No reviewed equipment appearance; Warlock class is not implemented |
+| unique/409 | Ars Tor'Baalos | Effect: gethit-skill; Effect: skill; No reviewed equipment appearance; Warlock class is not implemented |
 | unique/410 | Ars Dul'Mephistos | Effect: gethit-skill; Effect: war; No reviewed equipment appearance; Warlock class is not implemented |
 | unique/411 | Measured Wrath | Effect: gethit-skill; Effect: skill; Effect: war; No reviewed equipment appearance; Warlock class is not implemented |
 | unique/412 | Dreadfang | Effect: hit-skill; Effect: skill |

@@ -18,17 +18,17 @@ public static class SkeletonStats
 {
     // Legacy expansion Normal: MonStats necroskeleton, MonLvl L-AC/L-TH,
     // and Skills Raise Skeleton/Skeleton Mastery. See docs/death-and-pets.md.
-    public static MonsterProfile For(int level, int rank, int mastery)
+    public static MonsterProfile For(int level, int rank, int mastery, int auraDamagePercent = 0)
     {
         level = Math.Clamp(level, 1, 99);
-        rank = Math.Clamp(rank, 1, 20);
-        mastery = Math.Clamp(mastery, 0, 20);
+        rank = Math.Clamp(rank, 1, 255);
+        mastery = Math.Clamp(mastery, 0, 255);
         int extraRanks = Math.Max(0, rank - 3);
         int life = (21 + 8 * mastery) * (2 + extraRanks) / 2;
         int ratingBonus = 15 * (rank + mastery);
         int levelAttack = level switch { 1 => 8, 2 => 12, 3 => 18, 4 => 26, 5 => 35, _ => 11 * level - 21 };
-        int flatDamage = Math.Max(0, Math.Min(rank, 16) - 8) + 2 * Math.Max(0, rank - 16) + 2 * mastery;
-        int damagePercent = 100 + 7 * extraRanks;
+        int flatDamage = SkillValues.Tier(0, rank, i => new[] { 0, 1, 2, 3, 4 }[i - 1]) + 2 * mastery;
+        int damagePercent = 100 + 7 * extraRanks + auraDamagePercent;
         return new MonsterProfile(level, life, 5 + levelAttack + ratingBonus, 5 + 6 * level + ratingBonus,
             (1 + flatDamage) * damagePercent / 100, (2 + flatDamage) * damagePercent / 100,
             720, 240, 0, 0, 0, 0, 0);
@@ -45,7 +45,7 @@ public static class SkeletonPets
     public static bool Usable(PlayerMobile owner, Corpse corpse) => owner.Alive
         && corpse is { Deleted: false, Parent: null, OwnerWasBaseCreature: true, OwnerWasSummoned: false,
             Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false }
-        && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
+        && !CorpseSkillRules.Shattered(corpse) && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
         && corpse.Map == owner.Map && owner.InRange(corpse, Range) && Math.Abs(owner.Z - corpse.Z) < 16
         && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner, null) && !corpse.IsCriminalAction(owner);
     public static Corpse FindCorpse(PlayerMobile owner, Serial preferred)
@@ -72,7 +72,7 @@ public static class SkeletonPets
         int count = 0;
         foreach (var pet in owner.AllFollowers ?? [])
         {
-            if (pet is SkeletonGuardian { Deleted: false, Alive: true } guardian && guardian.ControlMaster == owner)
+            if (pet is SkeletonGuardian { Deleted: false, Alive: true } guardian && guardian.ControlMaster == owner && guardian.GetType() == typeof(SkeletonGuardian))
             {
                 count++;
             }
@@ -92,7 +92,7 @@ public static class SkeletonPets
         int count = 0;
         foreach (var follower in owner.AllFollowers ?? [])
         {
-            if (follower is SkeletonGuardian { Deleted: false, Alive: true } existing && existing.ControlMaster == owner)
+            if (follower is SkeletonGuardian { Deleted: false, Alive: true } existing && existing.ControlMaster == owner && existing.GetType() == typeof(SkeletonGuardian))
             {
                 count++;
                 if (oldest == null || existing.Serial.Value < oldest.Serial.Value)
@@ -158,7 +158,11 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     private long _lastRecovery, _recoveryFraction;
     private MonsterProfile _profile;
     // Normal difficulty skeleton values; action/movement periods are project balance values.
-    public MonsterProfile CombatProfile => _profile ??= CreateProfile();
+    public virtual MonsterProfile CombatProfile => _profile ??= CreateProfile();
+    public virtual (int Min,int Max) SkillWeaponDamage
+    {
+        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)); return (profile.MinDamage,profile.MaxDamage); }
+    }
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery);
     [Constructible]
     public SkeletonGuardian() : base(AIType.AI_Melee, FightMode.Closest, 14)
@@ -186,6 +190,9 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _profile = null;
         SetHits(CombatProfile.Life);
         SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
+        int resist = NecromancerSummons.Resistance(owner);
+        SetResistance(ResistanceType.Fire, resist); SetResistance(ResistanceType.Cold, resist);
+        SetResistance(ResistanceType.Energy, resist); SetResistance(ResistanceType.Poison, resist);
     }
     public override bool Commandable => false;
     public override bool IsBondable => false;
@@ -251,11 +258,12 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
             }
         }
     }
-    private bool CanHit(Mobile target) => Alive && !Deleted && AlliedOverlap.Allowed(this) && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
-        && IsEnemy(target) && target.Map == Map && InRange(target, 1) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
+    protected virtual bool CanHit(Mobile target) => Alive && !Deleted && AlliedOverlap.Allowed(this) && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
+        && IsEnemy(target) && target.Map == Map && InRange(target, RangeFight) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
     public TimeSpan BeginMelee(Mobile target)
     {
-        var cycle = TimeSpan.FromMilliseconds(CombatProfile.AttackMs);
+        int milliseconds=PaladinOffense.CreatureCycle(this,CombatProfile.AttackMs);
+        var cycle = TimeSpan.FromMilliseconds(milliseconds);
         if (!CanHit(target) || _attackTimer.Running || Core.TickCount - _nextAttack < 0)
         {
             return cycle;
@@ -263,24 +271,29 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _target = target;
         _origin = Location;
         _originMap = Map;
-        _nextAttack = Core.TickCount + CombatProfile.AttackMs;
+        _nextAttack = Core.TickCount + milliseconds;
         Direction = GetDirectionTo(target);
         Animate(4, 5, 1, true, false, 0);
         DoHarmful(target);
-        Timer.StartTimer(TimeSpan.FromMilliseconds(CombatProfile.AttackMs / 2), ResolveMelee, out _attackTimer);
+        Timer.StartTimer(TimeSpan.FromMilliseconds(milliseconds / 2), ResolveMelee, out _attackTimer);
         return cycle;
     }
     private void ResolveMelee()
     {
         var target = _target;
         _target = null;
-        if (Map == _originMap && Location == _origin && CanHit(target) && ClassStats.CheckHit(this, target) == true)
+        if (Map == _originMap && Location == _origin && CanHit(target))
         {
-            AOS.Damage(target, this, Utility.RandomMinMax(CombatProfile.MinDamage, CombatProfile.MaxDamage), false,
-                100, 0, 0, 0, 0, weaponDamage: true);
-            CombatDamage.Finish(target, this);
+            using var attemptedMelee=PaladinThorns.Attempt(this,target,this is NecromancerMinion{IsMage:true});
+            if(CheckAttackHit(target)){Strike(target);}
         }
         _originMap = null;
+    }
+    protected virtual bool CheckAttackHit(Mobile target) => ClassStats.CheckHit(this, target) == true;
+    protected virtual void Strike(Mobile target)
+    {
+        SkillCombat.HitParts(this, target,
+            new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
     }
     internal void InterruptForRecovery()
     {
@@ -325,10 +338,13 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     {
         _profile = null;
         // Recalculate corrected derived stats, preserving saved current life.
-        int life = Hits;
-        SetHits(CombatProfile.Life);
-        Hits = Math.Min(life, HitsMax);
-        SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
+        if (GetType() == typeof(SkeletonGuardian))
+        {
+            int life = Hits;
+            SetHits(CombatProfile.Life);
+            Hits = Math.Min(life, HitsMax);
+            SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
+        }
         _nextAttack = Core.TickCount + CombatProfile.AttackMs;
         Timer.StartTimer(TimeSpan.Zero, () => PersistentMinions.Restore(this), out _restoreTimer);
     }

@@ -1,0 +1,677 @@
+{
+  "schemaVersion": 1,
+  "d2rVersion": "3.3.93847",
+  "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "proofType": "Pinned tables, released2.4 notes, unchanged compiled legacy return routines with explicit event/damage dispatch stubs, native fixtures; not modern binary certification.",
+  "sourceHashes": {
+    ".local/class-skills/SkillPal.cpp.reference": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0",
+    ".local/class-skills/ThornsSkillItem.cpp.reference": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    ".local/research/d2moo-SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/research/d2moo-SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    ".local/class-skills/SkillNec.cpp.reference": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "primarySource": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+  "legacySources": [
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillPal.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/SKILLS/SkillItem.cpp",
+    "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/UNIT/SUnitDmg.cpp"
+  ],
+  "values": {
+    "flatRanks1_20": [
+      4,
+      144
+    ],
+    "returnedPercentRanks1_20": [
+      250,
+      1010
+    ],
+    "playerHirelingReturnedPercentRanks1_20": [
+      31,
+      126
+    ],
+    "sourceRadiusRanks1_20": [
+      16,
+      54
+    ],
+    "perdelay": 50,
+    "mana256": 0,
+    "aurafilter": 73731,
+    "stats": [
+      "item_attackertakesdamage",
+      "thorns_percent"
+    ]
+  },
+  "probe": {
+    "script": "tools/probe_thorns_reference.py",
+    "originalFunctions": [
+      "SKILLS_ApplyThornsDamage",
+      "SKILLITEM_EventFunc06_AttackerTakesDamage"
+    ],
+    "cases": [
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          320
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          320
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          6400
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          6400
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          6400
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 0,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          64000
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          39
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          39
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 1,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          7936
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          39
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          39
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          793
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 250,
+        "attackerKind": 2,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          7936
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          1292
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          1292
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          25856
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          25856
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          25856
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 0,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          258560
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          161
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          161
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 1,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          32256
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 0,
+        "life256": 2560,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 0,
+        "life256": 256000,
+        "eligible256": 0,
+        "packets256": [
+          1024,
+          0
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 128,
+        "life256": 2560,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          161
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 128,
+        "life256": 256000,
+        "eligible256": 128,
+        "packets256": [
+          1024,
+          161
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 2560,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 2560,
+        "life256": 256000,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 25600,
+        "life256": 2560,
+        "eligible256": 2560,
+        "packets256": [
+          1024,
+          3225
+        ],
+        "flags": 16417
+      },
+      {
+        "percent": 1010,
+        "attackerKind": 2,
+        "prepared256": 25600,
+        "life256": 256000,
+        "eligible256": 25600,
+        "packets256": [
+          1024,
+          32256
+        ],
+        "flags": 16417
+      }
+    ],
+    "boundary": "Minimal unit/stat structs and direct percentage helper. ExecuteEvents is a stub; ExecuteMissileDamage only captures packets. Does not certify source mitigation, event ordering, PvP final reduction or modern internals. Result flags0x4021 include SOFTHIT0x4000. Probe wrapper now includes the unmodified two-line ExecuteEvents physical/life clip before flat and percentage calls; it does not reproduce the full routine.",
+    "originalEventTailFragment": "const int32_t nHp = STATLIST_UnitGetStatValue(pDefender, STAT_HITPOINTS, 0); pDamage->dwPhysDamage = std::min(pDamage->dwPhysDamage, nHp);"
+  },
+  "mechanics": "Free selected-right aura, first/periodic50-frame pulses, existing51-frame recipient leases. Flat stat stored as lease.Percent, percentage as lease.DamagePercent; values use effective rank. Flat physical damage on eligible melee attempt, including miss/zero/blocked consumer paths. Distinct percentage packet uses prepared physical FP256 after mitigation and capped to remaining defender FP256 life before the incoming hit is applied. Nonweapon/ranged packets do not retaliate. Returned damage is not another melee/weapon hit: no recursive Thorns, leech, ordinary strike procs or outgoing Might enhancement. Returned packet receives attacker Energy Shield/Bone Armor/physical resistance/flat reduction. Fractional return debt retained. Legacy player/hireling percent is (percent+4)/8; native BaseHire classification is a provisional shared-world projection.",
+  "nativePatch": {
+    "path": "patches/ModernUO/0057-melee-attempt-and-prepared-physical-damage.patch",
+    "scope": "Optional content hooks only; no Server-engine edit. ClassSkillDamage retains original2-argument constructor and adds optional init-only Physical256. BaseWeapon hit/miss scopes; AOS prepared callback before damage including early zero-total case. Root bridges player basic/Poison Dagger, class summons/monsters, typed/Gear/elite weapon paths.",
+    "counts": {
+      "ModernUO": 57,
+      "ClassicUO": 36
+    },
+    "replay": "All touched sources reverse/replay byte-equal in disposable copies."
+  },
+  "focusedNative": {
+    "boots": 3,
+    "saveReloadCycles": 2,
+    "result": "passed",
+    "coverage": [
+      "Delayed free self/ally/controlled pet aura; enemy exclusion and right-only/self targeting",
+      "Actual native OnSwing forced hit/miss with restored hit-check seam",
+      "Prepared physical, mixed elemental, subinteger and zero/blocked consumer paths",
+      "Ranged and spell exclusions",
+      "Each separate packet physical resistance/fractional mitigation and physical immunity",
+      "Both actors Thorns without recursion; recipient Might does not enhance return",
+      "Rank20 consumer and legacy player/monster percent helper",
+      "Incoming100 against life10 returns flat4+percentage25, leaving attacker100 at71; separate attacker20 case dies to capped29 and original attack still lands, killing both",
+      "Aura owner/rank/flat/percent/deadlines survive two actual reloads, pet claim and resumed pulses"
+    ]
+  },
+  "fixtureConditioning": "Tiny poison suppresses recovery; native pet resistance fixtures reset after reload, ordinary auto-stable/claim preserved. Only saved inspection deadlines held five minutes, natural50/51-frame runtime cadence unchanged. Isolated consumer cases copy valid leases to additional NPCs without changing production recipient filters. Deterministic native hit seam restored immediately.",
+  "open": [
+    "Known item integration gap: existing GemCombat item thorns/light-thorns callback remains after positive life loss. Source flat item+aura stat aggregation and one-packet mitigation/attack-attempt ordering are not yet unified; do not clear related item gates or class acceptance.",
+    "Native incoming whole-life projection still truncates subinteger damage; prepared reflection preserves its FP256 component. Shared incoming fractional-health behavior remains acceptance work.",
+    "Confirm modern PvP/hireling rules, native BaseHire identity mapping and all special attack modes",
+    "Complete item/proc/Crushing Blow/cold armor/return event ordering and all gear/owner transitions",
+    "Full class/summon/elite actual misses, real shield block, redirection, death/room/linger and special attack-delivery matrix",
+    "Actual matching client aura binding/held input/status and final effects/icons",
+    "Confirmed legacy event-order integration gap: Life Tap damaged-in-melee/missile events run before physical life clipping/return, and ordinary leech runs before attacked-in-melee flat/Thorns. Current LifeTap/Gem leech callbacks remain post-hit and can change survival against return damage. Move those phases coherently before class/gear sign-off; return packets0x4021 suppress ordinary damage events via result bit0x20."
+  ],
+  "fullNativeVerification": {
+    "boots": 3,
+    "saveReloadCycles": 2,
+    "result": "passed",
+    "log": ".local/class-skills/native-checks.log",
+    "binaryExact": false
+  },
+  "lifeCapCorrection": "Caller inspection proves ExecuteEvents clips the copied physical component to defender life BEFORE attacked-in-melee flat events and percentage Thorns. Original preflight assumption of uncapped physical was wrong and is superseded. Native implementation and lethal fixture corrected;48-case probe includes the extracted original cap fragment."
+}

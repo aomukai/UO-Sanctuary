@@ -1,24 +1,24 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "ccd96ada214f9a945e35cdf86b0522632e65549d5a99447a1a743b6f01f2ba8f",
-  "ContentAssemblyPath": ".local/t46-t47/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "ae78af924113ce5e21dfe1f124e776674fe0cf98a030b5ea67ed85761c879c01",
+  "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
-    "src/Sanctuary.Content/ActionTiming.cs": "920718402ef99f0797d03f918030f8dc68dbb2a69c436e182d0d939b20b7b0ab",
+    "src/Sanctuary.Content/ActionTiming.cs": "be209bd9a5cf87bacac327f448be02957a44ab8811680157d945a0ffaa301d86",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
-    "src/Sanctuary.Content/ClassGear.cs": "ba8b33d270f9d153090871af6e18a8bf3c1c087e87ba1f6f69201216dacd3aa4",
-    "src/Sanctuary.Content/ClassStats.cs": "d734ac4bd671920a4b8ad93c4dd0480a9935ff84889dbc9cc03f322b0e48dee1",
+    "src/Sanctuary.Content/ClassGear.cs": "1d6533e2c2ddba444c8bb653d30999c7a574923c3b6515fa265df27dc98db7af",
+    "src/Sanctuary.Content/ClassStats.cs": "c1bb559e9754bb2069757ece9849fad60dd03ccf984d673d0f10ab310dfd22d8",
     "src/Sanctuary.Content/CreatureGold.cs": "43f9c83c6f0cea43fbe7a12215206e15bfe4077719401c0ec3d4b64e93e56cf3",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/GearDrops.cs": "409836f00210ccc492b24895b80449cecee56919bb7549003b1bfcbe77a219fc",
-    "src/Sanctuary.Content/GearEffects.cs": "d9e0c52d85f2bdf23c4781d66b0c0dc9f6c257e2c4a36bd898cc8db3d91de684",
+    "src/Sanctuary.Content/GearEffects.cs": "cb888d1c5a6094c0e7fff726e1108c333c041aad692925fb4bd714c81dfc52a6",
     "src/Sanctuary.Content/GearProfiles.cs": "9d384cef47c3267c27cbae69f88eee816b9c1298f893e143f7d2eb7c1993596d",
-    "src/Sanctuary.Content/HitRecovery.cs": "b2c1db18c9c5d56e86d6ce087cb05043d9baee8cd92312043a03fc8e6af50926"
+    "src/Sanctuary.Content/HitRecovery.cs": "2736f3d8f2852f44e60523f08c14973b427d422ed0d926c4e99c93f6ea70dc70"
   },
   "ImplementedCodes": [
     "ac",

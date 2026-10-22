@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceStepSha256": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+  "sourceUrl": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Common/src/Path/Step.cpp",
+  "velocityFactoryUrl": "https://github.com/ThePhrozenKeep/D2MOO/blob/0c0bbd1e6bef9181a3da1c046523af622a925416/source/D2Game/src/MISSILES/Missiles.cpp",
+  "probe": "Unmodified Q12 direction table/function compiled with type/calling-convention shims. Missile factory raw velocity <<8 then75/100; path vector multiplies Q12 and shifts8; FP16 converts by65536. Axis speed is3/64 of source Vel subtiles/frame. UO mapping remains provisional.",
+  "cases": [
+    {
+      "dx": 30,
+      "dy": 0,
+      "sourceVelocity": 10,
+      "directionXQ12": 4096,
+      "directionYQ12": 0,
+      "velocityXFp16": 30720,
+      "velocityYFp16": 0
+    },
+    {
+      "dx": 30,
+      "dy": 0,
+      "sourceVelocity": 18,
+      "directionXQ12": 4096,
+      "directionYQ12": 0,
+      "velocityXFp16": 55296,
+      "velocityYFp16": 0
+    },
+    {
+      "dx": 30,
+      "dy": 0,
+      "sourceVelocity": 24,
+      "directionXQ12": 4096,
+      "directionYQ12": 0,
+      "velocityXFp16": 73728,
+      "velocityYFp16": 0
+    },
+    {
+      "dx": 15,
+      "dy": 15,
+      "sourceVelocity": 10,
+      "directionXQ12": 2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": 21720,
+      "velocityYFp16": 21720
+    },
+    {
+      "dx": 15,
+      "dy": 15,
+      "sourceVelocity": 18,
+      "directionXQ12": 2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": 39096,
+      "velocityYFp16": 39096
+    },
+    {
+      "dx": 15,
+      "dy": 15,
+      "sourceVelocity": 24,
+      "directionXQ12": 2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": 52128,
+      "velocityYFp16": 52128
+    },
+    {
+      "dx": -7,
+      "dy": 7,
+      "sourceVelocity": 10,
+      "directionXQ12": -2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": -21720,
+      "velocityYFp16": 21720
+    },
+    {
+      "dx": -7,
+      "dy": 7,
+      "sourceVelocity": 18,
+      "directionXQ12": -2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": -39096,
+      "velocityYFp16": 39096
+    },
+    {
+      "dx": -7,
+      "dy": 7,
+      "sourceVelocity": 24,
+      "directionXQ12": -2896,
+      "directionYQ12": 2896,
+      "velocityXFp16": -52128,
+      "velocityYFp16": 52128
+    },
+    {
+      "dx": 2,
+      "dy": -29,
+      "sourceVelocity": 10,
+      "directionXQ12": 257,
+      "directionYQ12": -4087,
+      "velocityXFp16": 1927,
+      "velocityYFp16": -30653
+    },
+    {
+      "dx": 2,
+      "dy": -29,
+      "sourceVelocity": 18,
+      "directionXQ12": 257,
+      "directionYQ12": -4087,
+      "velocityXFp16": 3469,
+      "velocityYFp16": -55175
+    },
+    {
+      "dx": 2,
+      "dy": -29,
+      "sourceVelocity": 24,
+      "directionXQ12": 257,
+      "directionYQ12": -4087,
+      "velocityXFp16": 4626,
+      "velocityYFp16": -73566
+    }
+  ]
+}

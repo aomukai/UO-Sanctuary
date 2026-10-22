@@ -1,0 +1,158 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and full combined native suites passed three boots/two actual save-reload cycles;70 Python tests and fresh420-input named export pass; matching installed smoke passed.",
+  "classScope": "Continue Barbarian full30-talents after the four foundational passives.",
+  "sourceSkills": [
+    {
+      "talentId": "barbarian.swordmastery",
+      "sourceId": 127,
+      "sourceKey": "Blade Mastery",
+      "weaponType": "blde",
+      "stats": {
+        "passive_mastery_melee_th": "ln12",
+        "passive_mastery_melee_dmg": "ln34",
+        "passive_mastery_melee_crit": "dm56"
+      },
+      "parameters": {
+        "Param1": 40,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35
+      }
+    },
+    {
+      "talentId": "barbarian.axemastery",
+      "sourceId": 128,
+      "sourceKey": "Axe Mastery",
+      "weaponType": "axe",
+      "stats": {
+        "passive_mastery_melee_th": "ln12",
+        "passive_mastery_melee_dmg": "ln34",
+        "passive_mastery_melee_crit": "dm56"
+      },
+      "parameters": {
+        "Param1": 40,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35
+      }
+    },
+    {
+      "talentId": "barbarian.macemastery",
+      "sourceId": 129,
+      "sourceKey": "Mace Mastery",
+      "weaponType": "blun",
+      "stats": {
+        "passive_mastery_melee_th": "ln12",
+        "passive_mastery_melee_dmg": "ln34",
+        "passive_mastery_melee_crit": "dm56"
+      },
+      "parameters": {
+        "Param1": 40,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35
+      }
+    },
+    {
+      "talentId": "barbarian.polearmmastery",
+      "sourceId": 134,
+      "sourceKey": "Pole Arm Mastery",
+      "weaponType": "pole",
+      "stats": {
+        "passive_mastery_melee_th": "ln12",
+        "passive_mastery_melee_dmg": "ln34",
+        "passive_mastery_melee_crit": "dm56"
+      },
+      "parameters": {
+        "Param1": 44,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35
+      }
+    },
+    {
+      "talentId": "barbarian.throwingmastery",
+      "sourceId": 135,
+      "sourceKey": "Throwing Mastery",
+      "weaponType": "thro",
+      "stats": {
+        "passive_mastery_throw_th": "ln12",
+        "passive_mastery_throw_dmg": "ln34",
+        "passive_mastery_throw_crit": "dm56",
+        "skill_pierce": "dm78",
+        "passive_mastery_noconsume": "dm91",
+        "passive_mastery_replenish_oncrit": "pa11"
+      },
+      "parameters": {
+        "Param1": 44,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35,
+        "Param7": 0,
+        "Param8": 55,
+        "Param9": 0,
+        "Param10": 66,
+        "Param11": 1
+      }
+    },
+    {
+      "talentId": "barbarian.spearmastery",
+      "sourceId": 136,
+      "sourceKey": "Spear Mastery",
+      "weaponType": "spea",
+      "stats": {
+        "passive_mastery_melee_th": "ln12",
+        "passive_mastery_melee_dmg": "ln34",
+        "passive_mastery_melee_crit": "dm56"
+      },
+      "parameters": {
+        "Param1": 44,
+        "Param2": 8,
+        "Param3": 28,
+        "Param4": 5,
+        "Param5": 0,
+        "Param6": 35
+      }
+    }
+  ],
+  "inspectedLegacy": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "selection": "SKILLS_GetWeaponMasteryBonus uses the maximum eligible item-type-layer mastery, not the sum; it returns0 without unit/item. Throw routing goes through D2Common_11024.",
+    "consumers": [
+      "SUNITDMG_ApplyDamageBonuses adds mastery damage to other physical percentage bonuses.",
+      "SUNITDMG_GetResultFlags adds mastery attack rating in the weapon path.",
+      "SUNITDMG_FillDamageValues handles mastery critical before other critical/deadly routes; inspect/compile exact short-circuit RNG before implementation."
+    ]
+  },
+  "nextImplementation": [
+    "Continue Barbarian complete30-skill scope with Concentrate and remaining attacks/cries/leap/dual wield/corpse skills. Bash/Stun are now implemented separately; see barbarian-attack-native-evidence.json.",
+    "Trace Throwing Mastery modern pierce/no-consume/replenish separately; do not silently substitute only old bonuses.",
+    "Continue remaining attacks, warcries, leap/dual-wield and corpse skills without class completion claims."
+  ],
+  "unsupportedQuestions": [
+    "Exact dual-wield weapon/statlist selection needs a native adapter before certifying both-hand paths.",
+    "Modern throwing quantity/pierce/replenishment and item delivery need direct source/table/native consumers; user cannot supply Barbarian observations.",
+    "Full mode/proc/owner/client acceptance remains per-skill work; do not hold other skills behind a single unsupported branch."
+  ],
+  "assets": {
+    "effects": "Passive masteries have no active cast effect; future critical/throw impact presentation is separate from mechanics.",
+    "icons": "Unique talent icons remain pending; passive hotkey icons remain not-applicable."
+  },
+  "classComplete": false,
+  "completedImplementation": [
+    "Five melee masteries use the pinned modern item-type graph, including swords and daggers under Blade Mastery. Stable saved/wire SwordMastery132 and barbarian.swordmastery remain unchanged.",
+    "Live effective-rank AR and damage join existing percentage pools; eligible values select maximum. Ordered mastery critical then Deadly Strike doubles physical only once.",
+    "Compiled unchanged legacy selector/critical block:16 selector cases, two guards and648 critical cases, with bounded stubs. See barbarian-mastery-engine-evidence.json."
+  ]
+}

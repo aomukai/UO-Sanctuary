@@ -1,0 +1,5259 @@
+[
+  {
+    "source": "act2child",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act2female",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act2guard1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2guard2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2guard3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2guard4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2guard5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2hire",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act2male",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act2vendor1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act2vendor2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act3female",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act3hire",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act3male",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "act5barb1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5barb2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5barb3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5barb4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5hire1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5hire2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "act5pow",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "akara",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "alkor",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "ancientbarb1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "ancientbarb2",
+    "primeEvil": false,
+    "normal": -25,
+    "nightmare": -25,
+    "hell": -15
+  },
+  {
+    "source": "ancientbarb3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "ancientstatue1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "ancientstatue2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "ancientstatue3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "andariel",
+    "primeEvil": true,
+    "normal": -25,
+    "nightmare": -15,
+    "hell": 0
+  },
+  {
+    "source": "arach1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "arach7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "asheara",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "atma",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "baalclone",
+    "primeEvil": true,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "baalcrab",
+    "primeEvil": true,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "baalcrabstairs",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baalhighpriest",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baalminion1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baalminion2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baalminion3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baaltaunt",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "baaltentacle1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baaltentacle2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baaltentacle3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baaltentacle4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baaltentacle5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baalthrone",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "baboon1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -25,
+    "hell": 0
+  },
+  {
+    "source": "baboon7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "baboon8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "barricadedoor1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "barricadedoor2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "barricadetower",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "barricadewall1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "barricadewall2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bat",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "batdemon1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "batdemon7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bear",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "bighead1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bighead9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bird1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bird2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bladecreeper",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodgolem",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "bloodlord1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -30
+  },
+  {
+    "source": "bloodlord2",
+    "primeEvil": false,
+    "normal": -40,
+    "nightmare": -30,
+    "hell": -20
+  },
+  {
+    "source": "bloodlord3",
+    "primeEvil": false,
+    "normal": -30,
+    "nightmare": -20,
+    "hell": -10
+  },
+  {
+    "source": "bloodlord4",
+    "primeEvil": false,
+    "normal": -20,
+    "nightmare": -10,
+    "hell": -5
+  },
+  {
+    "source": "bloodlord5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodlord6",
+    "primeEvil": false,
+    "normal": -30,
+    "nightmare": -20,
+    "hell": -10
+  },
+  {
+    "source": "bloodlord7",
+    "primeEvil": false,
+    "normal": -30,
+    "nightmare": -20,
+    "hell": -10
+  },
+  {
+    "source": "bloodmage1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodmage2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodmage3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodmage4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodmage5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bloodraven",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "blunderbore6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bonefetish1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "bonefetish7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "boneprison1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "boneprison2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "boneprison3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "boneprison4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bonewall",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "brute1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "brute2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "brute3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "brute4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "brute5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "bug",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "bunny",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cain6",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "camel",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cantor1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cantor2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cantor3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cantor4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cantor5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cantor6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "catapult1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapult2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapult3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapult4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapultspotter1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapultspotter2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapultspotter3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "catapultspotter4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chaoshorde1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chaoshorde2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chaoshorde3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chaoshorde4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chargeboltsentry",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "charsi",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "chicken",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "clawviper1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "clawviper9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "claygolem",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "colbarbfrenzy",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "colbarbthrow",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "colbarbwhirl",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "colossal1",
+    "primeEvil": true,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "colossal2",
+    "primeEvil": true,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "colossal3",
+    "primeEvil": true,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "compellingorb",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "corruptrogue1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "corruptrogue2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "corruptrogue3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "corruptrogue4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "corruptrogue5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "corruptrogue6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "councilmember1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "councilmember2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "councilmember3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "cow",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "cowking",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_archer8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cr_lancer9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "crownest1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "crownest2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "crownest3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "crownest4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "cycleoflife",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "darkelder",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "darkguard1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "darkguard2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "darkguard3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "darkguard4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "darkguard5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "darkwanderer",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "deathmauler1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathmauler2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathmauler3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathmauler4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathmauler5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathmauler6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "deathsentry",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "demonhole",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "demonspawner",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "diablo",
+    "primeEvil": true,
+    "normal": -25,
+    "nightmare": -15,
+    "hell": -10
+  },
+  {
+    "source": "diabloclone",
+    "primeEvil": true,
+    "normal": -10,
+    "nightmare": -10,
+    "hell": -10
+  },
+  {
+    "source": "dkfig1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "dkfig2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "dkmag1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "dkmag2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "dkmag3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "doomknight1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "doomknight2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "doomknight3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "dopplezon",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "drehya",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "drehyaiced",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "drognan",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "druidbear",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "druidhawk",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "duriel",
+    "primeEvil": true,
+    "normal": -20,
+    "nightmare": -20,
+    "hell": -20
+  },
+  {
+    "source": "eagle",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "elzix",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhole1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhole2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhole3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhole4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhole5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "evilhut",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "fallen1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallen8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fallenshaman8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "familiar",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "fara",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "fenris",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "fetish1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish11",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetish8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishblow8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fetishshaman8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "fingermage1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "fingermage2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "fingermage3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "fingermage4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "fingermage5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "firebeast",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "firegolem",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "firetower",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "fish",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "flyingscimitar",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -25,
+    "hell": 0
+  },
+  {
+    "source": "foulcrow1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "foulcrow8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "frogdemon1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "frogdemon2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "frogdemon3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "frozenhorror1",
+    "primeEvil": false,
+    "normal": -25,
+    "nightmare": 0,
+    "hell": 33
+  },
+  {
+    "source": "frozenhorror2",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": 0,
+    "hell": 33
+  },
+  {
+    "source": "frozenhorror3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 33
+  },
+  {
+    "source": "frozenhorror4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 33
+  },
+  {
+    "source": "frozenhorror5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 33
+  },
+  {
+    "source": "gargoyletrap",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "geglash",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "gheed",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "goatman1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "goatman9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "gorgon1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "gorgon2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "gorgon3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "gorgon4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "greiz",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "griswold",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "halbu",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "heartofwolverine",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "hellbovine",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "hellmeteor",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "hephasto",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "horse",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "hratli",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "hydra1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "hydra2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "hydra3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "iceglobe",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "imp1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "imp8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "infernosentry",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "injuredbarb1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "injuredbarb2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "injuredbarb3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "invisopet",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "invisospawner",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "irongolem",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "izual",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "izualghost",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "jamella",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "jerhyn",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "kashya",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "larva",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "larzuk",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "lightningbeast",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "lightningsentry",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "lightningspire",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "lysander",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "maggot",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "maggotbaby1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotbaby2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotbaby3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotbaby4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotbaby5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotbaby6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotegg1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotegg2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotegg3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotegg4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotegg5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotegg6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "maggotqueen1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotqueen2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotqueen3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotqueen4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "maggotqueen5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "malachai",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "malah",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "megademon1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "megademon2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "megademon3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "megademon4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "megademon5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "megademon6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "mephisto",
+    "primeEvil": true,
+    "normal": -25,
+    "nightmare": -15,
+    "hell": -10
+  },
+  {
+    "source": "mephistospirit",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "meshif1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "meshif2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "minion1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion11",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minion9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minionspawner8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "minispider",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "mosquito1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "mosquito2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "mosquito3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "mosquito4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "mummy1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "mummy2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "mummy3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "mummy4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "mummy5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "mummy6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "natalya",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "navi",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "necromage",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "necroskeleton",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "nihlathak",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "nihlathakboss",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "oaksage",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "ormus",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "overseer1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "overseer2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "overseer3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "overseer4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "overseer5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "overseer6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "painworm1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "painworm2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "painworm3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "painworm4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "painworm5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "pantherwoman6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "parrot",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "pig",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "plaguepoppy",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "poisonorb",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "prisondoor",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "putriddefiler1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "putriddefiler2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "putriddefiler3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "putriddefiler4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "putriddefiler5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "qual-kehk",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillbear1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillbear2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillbear3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillbear4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillbear5",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "quillrat1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "quillrat8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "radament",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "rat",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "reanimatedhorde1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "reanimatedhorde2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "reanimatedhorde3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "reanimatedhorde4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "reanimatedhorde5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "reanimatedhorde6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "regurgitator1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "regurgitator2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "regurgitator3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "regurgitator4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "rogue1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "rogue2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "rogue3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "roguehire",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "sandleaper1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandleaper7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandmaggot7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sandraider1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sandraider9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -45,
+    "hell": -40
+  },
+  {
+    "source": "sarcophagus",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "scarab1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scarab8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "scorpion",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "seagull",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "seventombs",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "shadowmaster",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "shadowwarrior",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "siegebeast1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "siegebeast2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "siegebeast3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "siegebeast4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "siegebeast5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "sk_archer1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer11",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "sk_archer9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skeleton8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_cold6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_fire7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_ltng7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "skmage_pois7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "slinger1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "slinger9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "smith",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "snake",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "snowyeti1",
+    "primeEvil": false,
+    "normal": -20,
+    "nightmare": -15,
+    "hell": -10
+  },
+  {
+    "source": "snowyeti2",
+    "primeEvil": false,
+    "normal": -20,
+    "nightmare": -15,
+    "hell": -10
+  },
+  {
+    "source": "snowyeti3",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": -10,
+    "hell": -5
+  },
+  {
+    "source": "snowyeti4",
+    "primeEvil": false,
+    "normal": -15,
+    "nightmare": -10,
+    "hell": -5
+  },
+  {
+    "source": "spiritmummy",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -25,
+    "hell": 0
+  },
+  {
+    "source": "spiritofbarbs",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "spiritwolf",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "succubus1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubus8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "succubuswitch9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suckernest1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "suckernest2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "suckernest3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "suckernest4",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "suicideminion1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion10",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion11",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "suicideminion9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "summoner",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "swarm1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "swarm2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "swarm3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "swarm4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "swarm5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentacle1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentacle2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentacle3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentaclehead1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentaclehead2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "tentaclehead3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "thornhulk1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "thornhulk2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "thornhulk3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "thornhulk4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "thornhulk5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "trap-firebolt",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-horzmissile",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-lightning",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-melee",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-nova",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-poisoncloud",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trap-vertmissile",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trappedsoul1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "trappedsoul2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "turret1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "turret2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "turret3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "tyrael1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "tyrael2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "tyrael3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "uberandariel",
+    "primeEvil": true,
+    "normal": -25,
+    "nightmare": -15,
+    "hell": 0
+  },
+  {
+    "source": "uberbaal",
+    "primeEvil": true,
+    "normal": -15,
+    "nightmare": -15,
+    "hell": -15
+  },
+  {
+    "source": "uberdiablo",
+    "primeEvil": true,
+    "normal": -10,
+    "nightmare": -10,
+    "hell": -10
+  },
+  {
+    "source": "uberduriel",
+    "primeEvil": true,
+    "normal": -20,
+    "nightmare": -20,
+    "hell": -20
+  },
+  {
+    "source": "uberizual",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "ubermephisto",
+    "primeEvil": true,
+    "normal": -25,
+    "nightmare": -15,
+    "hell": -10
+  },
+  {
+    "source": "unraveler1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "unraveler2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "unraveler3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "unraveler4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "unraveler5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": -25
+  },
+  {
+    "source": "unraveler6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "unraveler7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "unraveler8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "unraveler9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "valkyrie",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "vampire1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "vampire9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "venomlord",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilechild1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilechild2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilechild3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilechild4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilechild5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilemother1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilemother2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilemother3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilemother4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vilemother5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vinecreature",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "vulture1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vulture2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vulture3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vulture4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "vulture5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "wakeofdestruction",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "warbighead",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "wargoatman",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "warputriddefiler",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "warriv1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "warriv2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "willowisp1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "willowisp8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "window1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "window2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "wolf",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -50,
+    "hell": -50
+  },
+  {
+    "source": "wolfrider1",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "wolfrider2",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "wolfrider3",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "worldstoneeffect",
+    "primeEvil": false,
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0
+  },
+  {
+    "source": "wraith1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith6",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith7",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith8",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "wraith9",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -33,
+    "hell": 0
+  },
+  {
+    "source": "zealot1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "zealot2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "zealot3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "zealot4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "zealot5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -33
+  },
+  {
+    "source": "zombie1",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "zombie2",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "zombie3",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "zombie4",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  },
+  {
+    "source": "zombie5",
+    "primeEvil": false,
+    "normal": -50,
+    "nightmare": -40,
+    "hell": -25
+  }
+]

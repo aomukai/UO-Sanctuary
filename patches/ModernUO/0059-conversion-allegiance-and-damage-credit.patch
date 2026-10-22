@@ -1,0 +1,45 @@
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -10,6 +10,9 @@
+ }
+ public static class ClassCombatHooks
+ {
++    public static Func<BaseCreature, Mobile, bool?> CreatureEnemy { get; set; }
++    public static Func<BaseCreature, Mobile, bool?> CreatureFriend { get; set; }
++    public static Func<BaseCreature, Mobile, Mobile> CreatureDamageMaster { get; set; }
+     public static Func<Mobile, Mobile, int, int> ApplyDamage256 { get; set; }
+     public static Func<Mobile, Mobile, bool, IDisposable> MeleeAttempt { get; set; }
+     public static Action<Mobile, Mobile, int, bool> PreparedWeaponDamage { get; set; }
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1693,6 +1693,10 @@
+ 
+         public virtual bool IsEnemy(Mobile m)
+         {
++            if (ClassCombatHooks.CreatureEnemy?.Invoke(this, m) is { } enemy)
++            {
++                return enemy;
++            }
+             if (OppositionGroup?.IsEnemy(this, m) == true)
+             {
+                 return true;
+@@ -4031,6 +4035,10 @@
+ 
+         public override Mobile GetDamageMaster(Mobile damagee)
+         {
++            if (ClassCombatHooks.CreatureDamageMaster?.Invoke(this, damagee) is { } owner)
++            {
++                return owner;
++            }
+             if (BardProvoked && damagee == BardTarget)
+             {
+                 return BardMaster;
+@@ -4417,7 +4425,7 @@
+ 
+         public virtual void ClearPetFriends() => Friends = null; // generated setter marks dirty
+ 
+-        public virtual bool IsFriend(Mobile m) =>
++        public virtual bool IsFriend(Mobile m) => ClassCombatHooks.CreatureFriend?.Invoke(this, m) is { } friend ? friend :
+             OppositionGroup?.IsEnemy(this, m) != true && m is BaseCreature c && _team == c._team
+             && (_summoned || _controlled) == (c._summoned || c._controlled);
+ 
