@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledRoutines": [
+    "SKILLS_SrvSt10_LightningStrike",
+    "SKILLS_SrvDo014_LightningStrike",
+    "MISSMODE_SrvHit12_ChainLightning_LightningStrike"
+  ],
+  "blockHashes": {
+    "SKILLS_SrvSt10_LightningStrike": "f38f896fc6f9e7ea79eb2d43d6723ac9481535aef4d1a9c46d1ebf7409ed86a8",
+    "SKILLS_SrvDo014_LightningStrike": "161fedf51a2255d1875917423df0f237184020efec2d3924f7d2507ba9356280",
+    "MISSMODE_SrvHit12_ChainLightning_LightningStrike": "9d6aeaf71d3ac7b7d3746b9c3c1e3add0b9ff01988946fc4a0b853653153c249"
+  },
+  "probe": {
+    "startEmissionCases": 2304,
+    "childHitCases": 2560,
+    "fixture": ".local/class-skills/lightning-strike-source-probe.json"
+  },
+  "established": [
+    "Unchanged start10 requires row/used skill/target, uses explicit AR0, success-only skill-lightning min/max upper-exclusive draw and calc1ED20, then allocates melee128 when SrcDam0. Declared endpoint/formula/result/allocation services isolate control flow.",
+    "Do14 requires row/target, commits ordinary melee drain before secondary search, and attempts chain creation regardless of prepared hit success or declared primary death/movement. Initial flags32, pOrigin=primary, original effective rank and remaining=rank+1; failed creation has no remaining-field write.",
+    "The compiled older do14 packet sets both aim coordinates to secondary.Y=86, not X70/Y86. This source discrepancy is retained explicitly and is not a native design choice. Full initial aim/factory/LastCollide and current executable corroboration remain separate.",
+    "Shared unchanged hit12 guards projectile/row/owner/victim/remaining, uses missile override radius or skill aura fallback, excludes a returned same victim, then creates directed flags33 child with retained rank and remaining-1. Target search, range/hostility/JustHit/NHD and real creation/damage are declared services."
+  ],
+  "limits": [
+    "Source preparation only; no native handler or modern/class certificate.2304 flow/2560 child cases are not full engine/native gameplay comparisons.",
+    "Scalar endpoints and formula values are declared; mastery/synergy interpreter, physical/critical, allocation/health/drain, world scan/selection/filter and factory/path/collision/seed/event services are not compiled by this flow fixture.",
+    "Current initial aim/solo behavior requires independent primary/user evidence. Do not silently copy Y/Y or silently fix it as source-proven. Spell factory source precedence still needs a separate compiled fixture."
+  ]
+}

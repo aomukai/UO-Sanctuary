@@ -53,7 +53,19 @@ public static class FindItemChecks
     {
         var victim=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=noRewards};if(difficulty!=MonsterDifficulty.Normal){MonsterVariants.Assign(victim,difficulty);}victim.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();
         Corpse corpse=null;var prior=ClassLootHooks.CreatureDied;
-        ClassLootHooks.CreatureDied=(actor,container)=>{prior?.Invoke(actor,container);if(actor==victim){corpse=container as Corpse;var bag=new Bag{Name="FindItemOriginal"};bag.DropItem(new Gold(7));corpse?.DropItem(bag);}};
+        ClassLootHooks.CreatureDied=(actor,container)=>
+        {
+            if(actor!=victim){prior?.Invoke(actor,container);return;}
+            // This fixture tests a retained corpse and the later Find Item
+            // roll. Keep its unrelated ordinary-death treasure deterministic;
+            // the real capture/reward consumers still run. Random affix failure
+            // is tracked separately rather than caught or changed in gameplay.
+            int seed=0;
+            while(seed<10000 && CreatureGold.Select(typeof(GraveyardSkeleton),new Random(seed),difficulty)!="gld"){seed++;}
+            Require(seed<10000,"Ordinary gold treasure seed");
+            CorpseSkillRules.Capture(actor,container);RewardLife.Process(actor,container,new Random(seed));
+            corpse=container as Corpse;var bag=new Bag{Name="FindItemOriginal"};bag.DropItem(new Gold(7));corpse?.DropItem(bag);
+        };
         try{owner.DoHarmful(victim,true);victim.Damage(victim.Hits+1,owner);CombatDamage.Finish(victim,owner);}
         finally{ClassLootHooks.CreatureDied=prior;}
         Require(corpse is{Deleted:false} && ClassLoot.HasContents(corpse),"Real corpse with retained loot");

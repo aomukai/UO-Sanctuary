@@ -166,14 +166,17 @@
     "talentId": "amazon.dodge",
     "name": "Dodge",
     "characterClass": "Amazon",
-    "effects": "not-applicable",
+    "effects": "needed",
     "sourceEffects": {
-      "passivestate": "dodge"
+      "passivestate": "dodge",
+      "anim": "S1",
+      "stsound": "amazon_dodge_1",
+      "Param8": 2
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "None required"
+    "placeholder": "Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey"
   },
   {
     "talentId": "amazon.slowmissiles",
@@ -193,14 +196,17 @@
     "talentId": "amazon.avoid",
     "name": "Avoid",
     "characterClass": "Amazon",
-    "effects": "not-applicable",
+    "effects": "needed",
     "sourceEffects": {
-      "passivestate": "avoid"
+      "passivestate": "avoid",
+      "anim": "S1",
+      "stsound": "amazon_dodge_1",
+      "Param8": 2
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "None required"
+    "placeholder": "Existing UO art; final effect pending"
   },
   {
     "talentId": "amazon.penetrate",
@@ -234,14 +240,16 @@
     "talentId": "amazon.evade",
     "name": "Evade",
     "characterClass": "Amazon",
-    "effects": "not-applicable",
+    "effects": "needed",
     "sourceEffects": {
-      "passivestate": "evade"
+      "passivestate": "evade",
+      "anim": "S1",
+      "stsound": "block_arrow_1"
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "None required"
+    "placeholder": "Existing UO art; final effect pending"
   },
   {
     "talentId": "amazon.valkyrie",

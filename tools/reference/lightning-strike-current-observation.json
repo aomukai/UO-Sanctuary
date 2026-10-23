@@ -7,10 +7,14 @@
   "observed": {
     "loneMonster": true,
     "visibleChainLeaving": false,
-    "electricalContactCrackles": true
+    "electricalContactCrackles": true,
+    "multipleTargetsVisibleChainConnects": true,
+    "similarToSorceressChainLightning": true
   },
-  "scope": "Visual observation only. No effective rank, damage, hit success, mana, server missile creation, lifetime, seed, range or multiple-target internal path inferred.",
+  "scope": "Firsthand visual observations only. Lone target: electrical crackles, no visible outgoing chain. Multiple targets: chain connects to others and resembles Sorceress Chain Lightning. Effective rank, hop count, damage/hit success/mana, server creation/seed/selection/range are not inferred.",
   "relatedEvidence": [
     "tools/reference/lightning-strike-preflight.json"
-  ]
+  ],
+  "multipleTargetQuestion": "With two or more enemies nearby, does the visible chain connect from the struck monster to the others?",
+  "multipleTargetVerbatim": "yes, lightning strike looks like the sorc's chain lightning, but i'm not sure how many \"hops\" it does"
 }

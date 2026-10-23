@@ -75,7 +75,7 @@ public static class EliteBolts
             if (bolt.Hit.Add(victim.Serial))
             {
                 if (bolt.Lightning > 0) { EliteCombat.Damage(source, victim, lightning: bolt.Lightning); }
-                else if (bolt.Fire || ClassStats.CheckHit(source, victim) == true)
+                else if (bolt.Fire || ClassStats.CheckHit(source, victim,0,projectile:true) == true)
                 {
                     var attack = source.EncounterProfile.Attack1;
                     int damage = Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value);

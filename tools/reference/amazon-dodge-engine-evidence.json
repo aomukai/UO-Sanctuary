@@ -1,0 +1,160 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_ApplyDodge",
+    "SUNITDMG_ApplyBlockOrDodge",
+    "D2Common_11033"
+  ],
+  "blockHashes": {
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2"
+  },
+  "pinnedSkill": {
+    "talentId": "amazon.dodge",
+    "name": "Dodge",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 13,
+    "sourceKey": "Dodge",
+    "ability": 17,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Dodge",
+      "charclass": "ama",
+      "skilldesc": "dodge",
+      "passivestate": "dodge",
+      "passivestat1": "passive_dodge",
+      "passivecalc1": "dm12",
+      "stsound": "amazon_dodge_1",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "anim": "S1",
+      "seqtrans": "S1",
+      "monanim": "xx",
+      "reqlevel": 6,
+      "maxlvl": 20,
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 10,
+      "Param2": 65,
+      "Param8": 2,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 384,
+      "cost add": 3000
+    },
+    "sourceParameters": {
+      "1": 10,
+      "2": 65,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 2,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "probe": {
+    "cases": 1800,
+    "fixture": ".local/class-skills/amazon-dodge-source-probe.json",
+    "sha256": "0cddf81815683ca3664303985efca366cbb0a591b09d03024a2fd443e15877c7"
+  },
+  "currentBuildTooltips": {
+    "source": "tools/reference/amazon-avoidance-current-tooltips.json",
+    "comparisons": [
+      {
+        "skill": "Dodge",
+        "hardRank": 1,
+        "itemRanks": 2,
+        "effectiveRank": 3,
+        "reportedPercent": 29,
+        "currentModelPercent": 29,
+        "compiledLegacyPercent": 30,
+        "distinguishesRounding": true
+      },
+      {
+        "skill": "Avoid",
+        "hardRank": 1,
+        "itemRanks": 2,
+        "effectiveRank": 3,
+        "reportedPercent": 36,
+        "currentModelPercent": 36,
+        "compiledLegacyPercent": 37,
+        "distinguishesRounding": true
+      },
+      {
+        "skill": "Evade",
+        "hardRank": 1,
+        "itemRanks": 5,
+        "effectiveRank": 6,
+        "reportedPercent": 40,
+        "currentModelPercent": 40,
+        "compiledLegacyPercent": 40,
+        "distinguishesRounding": false
+      }
+    ],
+    "scope": "Dodge3 and Avoid3 distinguish current two-stage rounding from supplementary multiplication-first; Evade6 agrees with both. Other ranks/contexts remain unverified."
+  },
+  "officialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "rank1To20": [
+      18,
+      24,
+      29,
+      34,
+      37,
+      40,
+      42,
+      44,
+      46,
+      47,
+      49,
+      50,
+      51,
+      52,
+      52,
+      54,
+      54,
+      55,
+      55,
+      56
+    ]
+  },
+  "modernAnimation": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4 Dodge/Avoid animation is interruptible and no longer locks actions. Current Dodge Param8=2 identifies interruptible animation. Do not reproduce old attack cancellation/animation lock."
+  },
+  "established": [
+    "Unchanged full block/dodge dispatch attempts shield first, then stationary melee Dodge only after failed/no shield block. It draws only for positive chances; equality fails Dodge. Walking/running selects Evade instead; projectile selects Avoid instead. Both are zero in this bounded matrix.",
+    "Pinned Dodge is a learned effective-rank unrestricted passive, dm12 parameters10/65, no mana/active binding and current interruptible animation mode2. Official historical20-rank table corroborates the retained shared curve, not modern hidden RNG/stat/event parity."
+  ],
+  "services": [
+    "Declared integer RNG draw reused by each requested draw; trace counts establish calls/order, not seeded independence. Declared block rate, mode/stats and absent Assassin weapon block; full RNG/stat/animation/damage consumers are outside this probe."
+  ],
+  "limits": [
+    "No modern executable/class certificate. Only player dispatch, zero Avoid/Evade/weapon-block and bounded chance/block modes exercised. No native integration established by this source probe.",
+    "Sanctuary accepted running steps disable all avoidance as an approved existing deviation; source running block/evade is not copied. Native accepted walking lease is a mode adapter, not exact modern animation proof.",
+    "Exact current Dodge animation/seed/owner/PvP/special-skill paths, other curve ranks/contexts and item-only/oskill grants remain separate."
+  ]
+}

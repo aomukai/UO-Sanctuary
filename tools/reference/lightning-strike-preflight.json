@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Reviewed source preparation only; no Lightning Strike handler/compiled flow comparison enabled. Shared scalar/A1/chain foundations already exist.",
+  "status": "2304 compiled start/emission and2560 shared child-hit source cases pass. Native initial bolt individually deferred; no handler enabled. Continue unaffected Amazon skills.",
   "sourceId": 34,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
@@ -144,7 +144,9 @@
     "Missile hit12 requires owner/target and remaining>1 to spawn child; fallback range evaluates auraRange20. It searches with filter0x88583 excluding JustHit and the immediate collided victim, then creates a directed child with remaining-1. Exact modern NHD scope and source-first-target/child order remain separate.",
     "Reviewed actual missile factory interprets flags0x20 as absolute supplied aim, starts at pOrigin unless explicit-position flag1, and has no pTarget override in do14 because that field is unset. Coincident origin/aim bumps both coordinates by1. Thus factory review does not resolve the suspicious Y/Y assignment; preserve it as an explicit older-source gap.",
     "Reviewed actual MISSILE_CalculateDamageData uses the skill row when missile Skill resolves to Lightning Strike; skill lightning endpoints include mastery/synergy and take precedence over missile-local EMin8. Missing skill SrcDam stays0 in this distinct missile path, unlike the melee0-to128 fallback. Compiled damage/factory comparison and modern corroboration remain next work.",
-    "User pinned-build visual check: a lone struck monster shows electrified crackles and no visible chain bolt leaving. Preserve contact presentation and do not invent an outgoing visible chain for that case. This does not establish internal server missile creation or the multi-target aim path."
+    "User pinned-build visual check: a lone struck monster shows electrified crackles and no visible chain bolt leaving. Preserve contact presentation and do not invent an outgoing visible chain for that case. This does not establish internal server missile creation or the multi-target aim path.",
+    "Reviewed MISSILE_SetOwner/CheckUnitIfOwner: for LastCollide, stored identity is distinct from real unit owner and factory initializes it to the caster, not the primary monster. No source primary exclusion is established. HandleMissileCollision moves/retrieves saved path steps before size-based collision; existing native swept-overlap geometry is not a source first-step proof.",
+    "User multiple-target check confirms visible connections resembling Sorceress Chain Lightning. Effective rank and hop count remain unknown; the observation does not resolve primary re-hit or hidden lone-target damage."
   ],
   "uncertain": [
     "The supplementary do14 initializes both nTargetX and nTargetY from CLIENTS_GetUnitY(v13). Do not silently copy the diagonal coordinate or silently correct it as if source-proven. Compile unchanged flow/factory and seek independent current reference; flag the initial aim branch explicitly.",
@@ -153,13 +155,13 @@
     "Skill-versus-missile damage precedence is reviewed in the actual factory body, with missing skill SrcDam0 excluding weapon data. Compile that path separately and retain current executable/stat/event/RNG acceptance limits."
   ],
   "nextActions": [
-    "Compile distinct start10/do14 and shared hit12 with explicitly declared services, including first-origin/aim/allocation/bounce guards and factory damage precedence. Preserve the suspect Y/Y aim as a documented source result, not a native design choice.",
-    "Generalize existing ChainFlight metadata/payload only after source contracts are understood, with save compatibility and Sorceress regression. Integrate prepared melee, live emission, separate spell damage and exact once-only payment/cancellation.",
-    "If one initial-coordinate/factory branch remains unsupported, document it and advance unaffected Amazon skills instead of blocking the class roadmap."
+    "Individual deferred branch: resolve current initial aim and first collision/solo damage before enabling the whole skill. Do not invent primary exclusion or extra primary lightning.",
+    "Continue Dodge through existing hit-check and effective-rank consumers; no chain-source gap blocks it."
   ],
   "assets": {
     "effects": "Separate spear lightning/contact and moving chain/impact final effects pending; existing native weapon/chain presentation may be identified placeholders.",
     "icons": "Separate talent/hotkey icon pending."
   },
-  "currentObservation": "tools/reference/lightning-strike-current-observation.json"
+  "currentObservation": "tools/reference/lightning-strike-current-observation.json",
+  "compiledEvidence": "tools/reference/lightning-strike-engine-evidence.json"
 }

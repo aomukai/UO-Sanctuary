@@ -73,6 +73,11 @@ def compile_skills():
                    effects='not-applicable' if m['passive'] else 'needed',
                    sourceEffects={k:v for k,v in m['sourceFields'].items() if any(s in k.lower() for s in ('missile','overlay','summon','aurastate','passivestate'))},
                    generation='pending',clientMapping='pending',inGameVerification='pending') for m in mechanics]
+    # These passives have visible reactions even though they cannot bind hotkeys.
+    for asset,mechanic in zip(assets,mechanics,strict=True):
+        if mechanic['talentId'] in {'amazon.dodge','amazon.avoid','amazon.evade'}:
+            asset['effects']='needed'
+            asset['sourceEffects'].update({k:mechanic['sourceFields'][k] for k in ('anim','stsound','Param8') if k in mechanic['sourceFields']})
     return talents, mechanics, assets
 
 def generated_protocol(rows):
@@ -125,6 +130,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'barbarian.finditem':'Staged UO0x375A corpse search marker and0x1E5 cry sound; final find-object/find-heart cry, corpse search and success/failure cues pending',
         'barbarian.warcry':'Staged shared UO0x375A cast/wave/stun/block markers and0x1E5 cry; final WarcryShockwave, cast, stun and shield block presentation pending',
         'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',

@@ -1,0 +1,94 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Next unaffected Amazon talent: source-reviewed only; no Avoid handler or positive-Avoid compiled/native coverage yet.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentSkill": {
+    "talentId": "amazon.avoid",
+    "name": "Avoid",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 18,
+    "sourceKey": "Avoid",
+    "ability": 19,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Avoid",
+      "charclass": "ama",
+      "skilldesc": "avoid",
+      "passivestate": "avoid",
+      "passivestat1": "passive_avoid",
+      "passivecalc1": "dm12",
+      "stsound": "amazon_dodge_1",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "anim": "S1",
+      "seqtrans": "S1",
+      "monanim": "xx",
+      "reqlevel": 12,
+      "maxlvl": 20,
+      "reqskill1": "Dodge",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 15,
+      "Param2": 75,
+      "Param8": 2,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 512,
+      "cost add": 8000
+    },
+    "sourceParameters": {
+      "1": 15,
+      "2": 75,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 2,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "reviewedRoutineHashes": {
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+  },
+  "reuse": [
+    "AmazonAvoidance learned effective-rank and accepted movement classification; shield-first ClassStats hit dispatch and non-locking placeholder presentation.",
+    "Existing explicit ranged weapon/missile call sites, saved travelling spell/weapon impacts and incoming Sorceress armor callbacks. Preserve eligibility/damage/callback order per projectile, rather than adding global avoidance to arbitrary damage."
+  ],
+  "reviewed": [
+    "Full source dodge dispatch selects stationary Avoid for bAvoid1; walking/running instead selects Evade. Shield is attempted first only where enabled. Current Param8 and released2.4 behavior supersede old animation locks.",
+    "Reviewed MISSMODE_SetDamageFlags sets bAvoid1 for this missile damage path and enables shield block only for nonzero physical damage. It clears success on avoidance, with separate GetHit/knockback/soft-hit result flags; a melee-only hit-check hook is insufficient for all spell missiles.",
+    "User current Avoid hard1/item2/effective3 reports36percent, matching retained two-stage dm12 and distinguishing compiled supplementary37. Evade hard1/item5/effective6 reports40percent; this does not establish an Avoid/Evade runtime handler."
+  ],
+  "uncertain": [
+    "Positive Avoid source draw/ordering and native comparison still need compilation; Dodge1800 cases declare Avoid0 and do not establish those branches.",
+    "Not every native spell/area uses the same source damage flag path. Trace each projectile/impact callback before enabling it; do not blanket-roll Avoid for AoE, ground effects or all SkillHealth damage.",
+    "Modern exact seed, animation-mode priorities, special missile bypass, damage callback ordering, PvP/owner/client and shared curve rounding remain acceptance work."
+  ],
+  "nextActions": [
+    "Extend bounded unchanged dispatch/missile-flag probes for positive Avoid, physical0/nonzero, GetHit/knockback/soft-hit and walking/run cases.",
+    "Trace actual native projectile damage entry points and retain source applicability. Connect the existing shared avoidance helper only at eligible incoming missile impacts; verify no double draw with AR/weapon hooks.",
+    "Add rank/real gear/damage/paid-series/resource/cancellation/reload tests and separate effect/icon placeholders. Lightning Strike initial-bolt gap remains independent."
+  ],
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json"
+}

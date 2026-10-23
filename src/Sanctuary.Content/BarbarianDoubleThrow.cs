@@ -69,7 +69,7 @@ public static class BarbarianDoubleThrow
                 if(target!=null)
                 {
                     var collision=target.Location;owner.DoHarmful(target,true);
-                    if(ClassStats.CheckHit(owner,target,attack,HitRoll)==true)
+                    if(ClassStats.CheckHit(owner,target,attack,HitRoll,projectile:true)==true)
                     {GearEffects.Strike(owner,target,ElementRoll(),Effects,false,skillPhysicalPercent:damage,physicalRoll:PhysicalRoll,projectileCritical:thrown.Critical);}
                     CombatDamage.Finish(target,owner);
                     NamedProjectiles.Continue(owner,target,aim,thrown.Pierces,Effects,thrown.Critical,damage,attack,collision);

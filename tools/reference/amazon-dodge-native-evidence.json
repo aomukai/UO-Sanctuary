@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Dodge now implemented:1800 compiled dispatch cases,240 applicable native/source comparisons and20 rank goldens pass. Native incoming weapon, ranged exclusion, shield-first ordering, named gear, paid Fend continuity, history/respec and both reloads pass. Current user Dodge3=29/Avoid3=36 distinguish retained rounding from compiled supplementary30/37; Evade6=40 agrees with both. Focused and final combined3boots/2reloads,70 Python tests and464 named/15 first-loop current fingerprints pass. Matching122-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped; client/native patches unchanged; existing saves retained. No class certificate.",
+  "handlerCount": 122,
+  "classHandlerCount": 10,
+  "sourceEvidence": "tools/reference/amazon-dodge-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonAvoidance.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/ClassMovement.cs",
+    "src/Sanctuary.Content/BarbarianDoubleThrow.cs",
+    "src/Sanctuary.Content/NamedProjectiles.cs",
+    "src/Sanctuary.Content/EliteBolts.cs"
+  ],
+  "verified": [
+    "240 native/source dispatch comparisons: rank0/1/2/20, standing/walking/running and melee/projectile, ten strict-threshold draws each.20 historical official rank goldens agree with the retained native diminishing curve. Source1800 cases remain a distinct bounded proof.",
+    "Dodge is absent before learning, even with actual Tarnhelm. Hard20 caps training; actual Tarnhelm and Highlord supply effective22/chance57. Passive rejects both slots and quick keys and costs no mana. History disables/restores it; respec removes it.",
+    "Real ordinary Ogre weapon OnSwing calls hit hook and deals no damage under a guaranteed Dodge draw. Native bow hook and explicit projectile path do not roll melee Dodge. Shared saved weapon missile, Double Throw, pierced missiles and elite physical bolts are explicitly classified as ranged.",
+    "AR miss consumes no Dodge draw. Actual converted WoodenShield blocks first with no Dodge draw; failed block reaches one Dodge draw. Positive chance draws once with exclusive success threshold; zero chance draws none.",
+    "Successful Dodge retains the same paid Fend series, pending ability, release/recovery deadlines and fractional mana; its next event still releases. No legacy lock, payment, hit recovery or cancellation is introduced.",
+    "Accepted movement leases select the separate moving path. Walking suppresses standing Dodge; approved running suppression takes precedence. Standing Run selection does not suppress Dodge; exact deadline restores it. Movement leases are isolated inputs, not a complete current animation-mode trace.",
+    "Both real restarts retain hard rank20/effective22, named gear/weapon,57percent chance and resources. Pending attacks remain transient; Dodge still works after reload. No new persistence format.",
+    "User pinned-build readings Dodge3=29 and Avoid3=36 distinguish retained two-stage arithmetic from the compiled supplementary30/37; Evade6=40 agrees with both. Tooltip evidence is separate from native collision/RNG/animation behavior."
+  ],
+  "fixtureAndFailureNotes": [
+    "Named AmazonDodgeFixture mana rate is held1hour in constructor/configure/final Initialize, so passive no-cost/saved resource assertions cannot be masked by natural regen. Gameplay recovery unchanged.",
+    "First native OnSwing check used a frozen attacker, which ordinary weapon code correctly refused. Fixture now unfreezes only during explicit OnSwing calls with stopped AI; content unchanged. Failed log retained. Native swing attempts are bounded and stop after four actual Dodge rolls; RNG is controlled only for Dodge, not AR.",
+    "Source matrix declares integer stats/modes/block and supplies deterministic draws. Native matrix supplies accepted movement leases and AR hit draw0; full source/native seed/mode/stat aggregation is not certified.",
+    "Full regression hit an unrelated random ordinary-death affix error in Find Item corpse setup. Named fixture now uses an explicit ordinary gold TC seed through real capture/reward consumers; production generation unchanged. Exact base/seed/cause and production resolution remain tracked in tools/reference/loot-affix-generation-gap.json."
+  ],
+  "limits": [
+    "No modern executable or class completion certificate. Current firsthand Dodge3/Avoid3 distinguish the rounding candidates; other ranks/parameters/contexts remain acceptance work.",
+    "Exact source RNG stream/independence, S1 animation/sound/mode priority, all special skill/non-AR spell/PvP/nonplayer/owner/client cases remain acceptance work. Dodge uses supported ordinary melee hit consumers; Avoid/Evade remain separate pending talents.",
+    "The existing Sanctuary accepted running-step rule disables avoidance and takes precedence over D2R running Evade/block. Native walking duration projects from accepted UO movement; modern exact modes are not established.",
+    "Generic other-class oskill Dodge is unsupported. Item-only same-class direct grants, unmapped special bypass attacks and native final animation are not certified by these learned-rank fixtures."
+  ],
+  "assets": {
+    "effect": "Native0x375A hue0x481 identified success marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending in separate effects register.",
+    "icon": "Talent-tree icon pending in independent icon register; no active hotkey for this passive."
+  },
+  "logs": {
+    "contentBuild": ".local/class-skills/amazon-dodge-content-build.log",
+    "integrationBuild": ".local/class-skills/amazon-dodge-integration-build.log",
+    "focused": ".local/class-skills/amazon-dodge-focused.log",
+    "failure": ".local/class-skills/amazon-dodge-frozen-fixture-failure.log",
+    "unrelatedLootFailure": ".local/class-skills/amazon-dodge-find-item-affix-failure.log",
+    "combined": ".local/class-skills/amazon-dodge-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "namedExport": ".local/class-skills/amazon-dodge-named-export.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/amazon-dodge-installed-smoke.log",
+    "installedServer": ".local/class-skills/amazon-dodge-installed-server.log"
+  },
+  "next": "Avoid source eligibility and existing missile damage consumers. Lightning Strike initial bolt remains individually deferred, with user visual observations retained.",
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json"
+}

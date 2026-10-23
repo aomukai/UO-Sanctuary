@@ -108,10 +108,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 34,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Individually deferred initial bolt: compiled older do14 supplies secondary Y/Y aim, while modern observations establish visible multi-target chaining but not hidden primary re-hit/solo damage. LastCollide initializes to caster, not primary; native swept overlap does not establish source first collision. Spell-only factory precedence remains reviewed, not compiled. Reuse prepared A1/ChainLightning after resolving this branch; continue unaffected Amazon skills."
     },
     {
       "talentId": "amazon.lightningfury",
@@ -152,10 +152,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 13,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned effective-rank stationary melee avoidance runs after shield block through the shared hit check. Walking selects the separate Evade path; approved accepted running steps disable avoidance. Native incoming ranged/throwing consumers are explicitly classified and do not use Dodge. Positive chances draw once; a successful Dodge preserves pending paid attacks/resources/recovery and has no legacy animation lock. Dedicated source/native gear, boundary, input, lifecycle and reload checks are recorded separately. Current S1 presentation, exact source RNG/stat/mode/PvP/special-spell/owner/client behavior and other curve ranks/contexts remain acceptance work. Current user Dodge3=29 corroborates retained rounding; no class certificate."
     },
     {
       "talentId": "amazon.slowmissiles",

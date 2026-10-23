@@ -60,7 +60,7 @@ public static class NamedProjectiles
             var point = next.Location;
             Effects.SendMovingEffect(new Entity(Serial.Zero, previous, source.Map), next, 0xF42, 5, 0, false, false);
             source.DoHarmful(next, true);
-            if (ClassStats.CheckHit(source, next,skillAttackPercent) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false,skillPhysicalPercent:skillPhysicalPercent,projectileCritical:projectileCritical); }
+            if (ClassStats.CheckHit(source, next,skillAttackPercent,projectile:true) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false,skillPhysicalPercent:skillPhysicalPercent,projectileCritical:projectileCritical); }
             CombatDamage.Finish(next, source); previous = point;
             if (source.Deleted || !source.Alive) { break; }
         }

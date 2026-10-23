@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "source": "User firsthand tooltip readings in the pinned Reign of the Warlock installation; uninstrumented.",
+  "verbatim": "dodge rank 3 (base 1, 2 from items): 29% chance\navoid rank 3 (base 1, 2 from items): 36% chance\nevade rank 6 (base 1, 5 from items): 40% chance",
+  "values": [
+    {"skill": "Dodge", "hardRank": 1, "itemRanks": 2, "effectiveRank": 3, "reportedPercent": 29},
+    {"skill": "Avoid", "hardRank": 1, "itemRanks": 2, "effectiveRank": 3, "reportedPercent": 36},
+    {"skill": "Evade", "hardRank": 1, "itemRanks": 5, "effectiveRank": 6, "reportedPercent": 40}
+  ],
+  "scope": "Displayed rank/chance only. Does not establish RNG, collision eligibility, attack mode, resource, animation or hidden damage behavior. These readings do not mean Avoid/Evade are implemented."
+}

@@ -1,0 +1,11 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "status": "Nonblocking preexisting loot gap observed during class regression; no production affix/quality behavior changed.",
+  "observed": "Random ordinary death treasure in FindItemChecks.Body threw InvalidOperationException: No legal affix exists for this type, rarity and level. Stack: AffixBalance.Roll -> GearProfiles.FromMonster -> GearDrops.Generate -> RewardLife.Process. Find Item itself had not rolled yet.",
+  "failureLog": ".local/class-skills/amazon-dodge-find-item-affix-failure.log",
+  "scope": "Exact base, rarity, level and random seed were not captured. Cause not established. Existing AffixBalance throws when no affix was chosen; missing selected-kind candidates versus a fully empty supported pool must be distinguished before choosing a production policy.",
+  "fixtureCorrection": "Only the named Find Item corpse setup selects an ordinary gold outcome through the real TC selector and declared deterministic Random. Actual corpse capture, rewards and later skill loot still execute. Other death handlers retain the original hook. This does not certify arbitrary random ordinary affix generation.",
+  "followup": "Add precise rejected-roll diagnostics/reproduction, compare pinned source empty-kind/failure/quality fallback and native supported-affix filters, then fix the particular drop path with deterministic positive/negative tests. Do not invent affixes, silently upgrade quality or suppress arbitrary exceptions.",
+  "classRoadmap": "Continue unaffected class mechanics. Keep this existing loot-generation acceptance gap visible in the checkpoint."
+}

@@ -18,12 +18,12 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Amazon | Lightning Fury | needed | lightningfury, lightningfury |
 | Amazon | Inner Sight | needed | cast_innersight, cast_innersight |
 | Amazon | Critical Strike | not-applicable | criticalstrike |
-| Amazon | Dodge | not-applicable | dodge |
+| Amazon | Dodge | needed | dodge, S1, amazon_dodge_1, 2 |
 | Amazon | Slow Missiles | needed | cast_slowmissiles, cast_slowmissiles |
-| Amazon | Avoid | not-applicable | avoid |
+| Amazon | Avoid | needed | avoid, S1, amazon_dodge_1, 2 |
 | Amazon | Penetrate | not-applicable | penetrate |
 | Amazon | Decoy | needed | dopplezon, dopplezon, dopllezon_appear |
-| Amazon | Evade | not-applicable | evade |
+| Amazon | Evade | needed | evade, S1, block_arrow_1 |
 | Amazon | Valkyrie | needed | valkyrie |
 | Amazon | Pierce | not-applicable | pierce |
 | Amazon | Magic Arrow | needed | magicarrow, magicarrow |
@@ -254,6 +254,8 @@ Shared weapon leech: life/mana overlays151/152 still need final recovery effects
 Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
+
+Dodge uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
 
 Fend uses the existing native melee/thrust animation and sound0x238 as identified placeholders. Final sweeping thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.
 

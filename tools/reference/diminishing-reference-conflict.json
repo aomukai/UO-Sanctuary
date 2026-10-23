@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Unresolved source disagreement; current native two-stage rounding retained. Historical Blizzard tables contradict the proposed decompiled-helper correction.",
+  "status": "Current pinned-build Dodge3=29 and Avoid3=36 support retained two-stage rounding over supplementary30/37; Evade6=40 agrees with both. Other parameter/rank/context parity remains open.",
   "publishedCurves": [
     {
       "skill": "Summon Resist",
@@ -169,7 +169,7 @@
       "decompiled": 34
     }
   ],
-  "decision": "Do not replace the shared native curve with decompiled multiplication-first arithmetic without pinned modern confirmation. The previous86-field inventory describes model differences, not established game defects.",
+  "decision": "Retain the shared native two-stage curve. Current firsthand Amazon readings distinguish it from the supplementary helper at two parameter pairs; do not generalize three observations into full formula-engine equivalence or86 confirmed defects.",
   "question": "Optional pinned-build Summon Resist tooltip: effective rank3 gives39% under current model versus40% under decompiled helper; rank21 gives66% versus67%. No Barbarian observation requested.",
   "limits": [
     "Blizzard tables are historical and do not identify D2R3.3.93847; they disprove treating this decompiled helper as sole authoritative evidence, but do not certify the modern executable.",
@@ -201,5 +201,41 @@
       }
     ],
     "interpretation": "All three observations agree with both candidate formulas. They corroborate these ranks but do not distinguish rounding; retain the current runtime curve."
+  },
+  "pinnedAmazonObservations": {
+    "source": "tools/reference/amazon-avoidance-current-tooltips.json",
+    "comparisons": [
+      {
+        "skill": "Dodge",
+        "hardRank": 1,
+        "itemRanks": 2,
+        "effectiveRank": 3,
+        "reportedPercent": 29,
+        "currentModelPercent": 29,
+        "compiledLegacyPercent": 30,
+        "distinguishesRounding": true
+      },
+      {
+        "skill": "Avoid",
+        "hardRank": 1,
+        "itemRanks": 2,
+        "effectiveRank": 3,
+        "reportedPercent": 36,
+        "currentModelPercent": 36,
+        "compiledLegacyPercent": 37,
+        "distinguishesRounding": true
+      },
+      {
+        "skill": "Evade",
+        "hardRank": 1,
+        "itemRanks": 5,
+        "effectiveRank": 6,
+        "reportedPercent": 40,
+        "currentModelPercent": 40,
+        "compiledLegacyPercent": 40,
+        "distinguishesRounding": false
+      }
+    ],
+    "scope": "Dodge3 and Avoid3 distinguish current two-stage rounding from supplementary multiplication-first; Evade6 agrees with both. Other ranks/contexts remain unverified."
   }
 }

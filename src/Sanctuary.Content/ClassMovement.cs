@@ -36,6 +36,12 @@ public static class ClassMovement
 
     // The selected mode alone never removes defense while standing still. Use only
     // accepted steps, including their duration, so toggling cannot hide a running step.
+    public static bool IsMoving(PlayerMobile player,long now)
+    {
+        if(!ClassCombat.Enabled(player)){return false;}
+        var session=ClassCombat.For(player);
+        return now-session.RunningUntil<0 && player.Map==session.StepMap && player.Location==session.StepPosition;
+    }
     public static bool IsRunning(PlayerMobile player, long now)
     {
         if (!ClassCombat.Enabled(player))
