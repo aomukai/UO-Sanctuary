@@ -229,10 +229,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 33,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Effective learned skill chance adds to item pierce through the existing shared launch-budget and live missile-eligibility consumers. Source bounded preroll remains capped at4 continuations; no impact-time chance reroll. Bow removal does not erase the global passive. Source/native rank/real Razortail/flight/respec/history/reload checks are recorded separately. No active effect/hotkey; talent icon pending. Exact modern seed/order/flags, old immediate-ray launch migration and full owner/client parity remain open."
     },
     {
       "talentId": "amazon.magicarrow",

@@ -227,7 +227,8 @@
     "item_preventheal has no item-event callback. SUNITDMG_IsHitSuccessful invokes SUNITDMG_PreventMonsterHeal after the successful hit roll; the helper reads current owner stat, player-to-monster,120000frames and an Ubers exclusion. Do not gate it as a central-arrow callback or require positive physical HP loss.",
     "SUNITDMG_ExecuteEvents caps physical to victim life and processes stored life/mana drain independently of attacker DOMISSILEDAMAGE suppression. Leech percent is shifted6, divided by current difficulty steal divisors, multiplied into physical FP256, then drain effectiveness, then divided64. Preserve intermediate integer truncation and fractional resource results.",
     "Source factory critical is evaluated for each created missile. The learned Amazon passive consumer now exists; do not roll once for a complete fan.",
-    "Existing GearEffects.WeaponElement applies ranged wielder mastery to item and Enchant fire and avoids mastering an already-mastered offensive aura twice. Official2.6 ranged Enchant correction must augment the older missile creator reference."
+    "Existing GearEffects.WeaponElement applies ranged wielder mastery to item and Enchant fire and avoids mastering an already-mastered offensive aura twice. Official2.6 ranged Enchant correction must augment the older missile creator reference.",
+    "810 compiled raw physical creation cases now establish SrcDam-before-percentage, skill-flat endpoint addition, max(minED,maxED), and the launch clamp to-90 before later victim-species ED. Existing Guided Arrow damage initializer is compiled as a reuse candidate, without claiming the older do8 reads modern calc5."
   ],
   "modernEnchant": {
     "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
@@ -248,5 +249,6 @@
   "modernMultipleShot": {
     "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
     "scope": "Released2.6 modding notes explicitly move the Multiple Shot srvdofunc8 damage synergy field from calc4 to calc5. This identifies the current field but does not independently establish its arithmetic placement relative to SrcDam/other ED."
-  }
+  },
+  "physicalCreationEvidence": "tools/reference/weapon-launch-physical-evidence.json"
 }

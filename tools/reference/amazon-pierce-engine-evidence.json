@@ -1,0 +1,111 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "probe": {
+    "cases": 144,
+    "dataPath": ".local/class-skills/amazon-pierce-source-probe.json",
+    "dataSha256": "29af34971ff8636ba0a893d4fe3a270377dab22d6a1007497f60a29219013ddc",
+    "unchangedCreationBlock": "            const int32_t nPierceValue = STATLIST_UnitGetItemStatOrSkillStatValue(missileParams->pOwner, STAT_ITEM_PIERCE, 0) + STATLIST_UnitGetStatValue(missileParams->pOwner, STAT_SKILL_PIERCE, 0);\n            if (nPierceValue)\n            {\n                D2SeedStrc seed = {};\n                SEED_InitLowSeed(&seed, STATLIST_GetUnitBaseStat(missileParams->pOwner, STAT_PIERCE_IDX, 0));\n                \n                int32_t nPierceIndex = 0;\n                do\n                {\n                    if ((ITEMS_RollRandomNumber(&seed) % 100) >= nPierceValue)\n                    {\n                        break;\n                    }\n                    ++nPierceIndex;\n                }\n                while (nPierceIndex < 4);\n                STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierceIndex, 0);\n            }",
+    "blockSha256": "612b312f454cd82a99c6c1fa77cfab2a4b8864e3243516ef758130944fc910b6"
+  },
+  "pinnedSkill": {
+    "talentId": "amazon.pierce",
+    "name": "Pierce",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 33,
+    "sourceKey": "Pierce",
+    "ability": 24,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Pierce",
+      "charclass": "ama",
+      "skilldesc": "pierce",
+      "passivestate": "pierce",
+      "passivestat1": "skill_pierce",
+      "passivecalc1": "dm12",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "rng",
+      "itypea1": "miss",
+      "monanim": "xx",
+      "reqlevel": 30,
+      "maxlvl": 20,
+      "reqskill1": "Penetrate",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "InTown": 1,
+      "passive": 1,
+      "Param1": 10,
+      "Param2": 100,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 896,
+      "cost add": 64000
+    },
+    "sourceParameters": {
+      "1": 10,
+      "2": 100,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "officialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "rank1To20": [
+      23,
+      34,
+      42,
+      49,
+      55,
+      59,
+      63,
+      65,
+      69,
+      71,
+      73,
+      75,
+      77,
+      79,
+      80,
+      82,
+      82,
+      83,
+      84,
+      85
+    ]
+  },
+  "established": [
+    "Factory adds item and skill pierce, initializes a separate seed from the owner pierce-index base stat and prerolls until first failure or4 successes. Varied draws cover budgets0/1/2/3/4 and exact RNG call counts; chance0 consumes no draw.",
+    "Reviewed ordinary collision separately checks current positive owner item OR skill pierce before spending the saved budget. A missed AR roll returns2, and the outer dispatcher removes the missile on2; source return1 means retain. Do not invert this protocol.",
+    "Pierce is a global passive stat; removing the equipped bow does not remove learned Pierce. Missile flags determine eligibility. The current native weapon component is a direct-damage pierce-capable missile adapter, not every spell or skill."
+  ],
+  "services": [
+    "RNG supplies six declared four-draw sequences; stat/item services supply nonnegative skill and item values. Actual seed evolution and the owner pierce-index seed are not implemented by this probe.",
+    "Creation arithmetic compiles unchanged. Collision guards/dispatcher are source-reviewed, not compiled as a complete combat engine."
+  ],
+  "limits": [
+    "No modern executable certificate; current RNG/seed sharing across a fan, missile flags, owner/special modes, old immediate-ray launch migration and graphical client acceptance remain open.",
+    "Official rank table supports the unchanged native diminishing model for1..20. Higher-rank reference rounding conflict remains unresolved; no curve change is made."
+  ]
+}

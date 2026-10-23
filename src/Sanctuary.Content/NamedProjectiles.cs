@@ -7,6 +7,8 @@ namespace Sanctuary;
 
 public static class NamedProjectiles
 {
+    internal static int PierceChance(PlayerMobile source)=>ClassGear.Bonus(source,"pierce")+AmazonCombat.PiercePercent(source)
+        +BarbarianMasteries.Throwing(source,CombatTiming.Equipped(source),4);
     public static int PierceBudget(int chance, Random random)
     {
         int budget = 0;
@@ -14,7 +16,7 @@ public static class NamedProjectiles
         return budget;
     }
     public static int Budget(PlayerMobile source, Random random = null) => NamedCombat.Ranged(source)
-        ? PierceBudget(ClassGear.Bonus(source, "pierce"), random ?? Random.Shared) : 0;
+        ? PierceBudget(PierceChance(source), random ?? Random.Shared) : 0;
     internal static Point3D Endpoint(PlayerMobile source, Point3D aim, int range)
     {
         int dx = aim.X - source.X, dy = aim.Y - source.Y, distance = Math.Max(Math.Abs(dx), Math.Abs(dy));

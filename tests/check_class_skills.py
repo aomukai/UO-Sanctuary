@@ -64,6 +64,7 @@ def check():
         shutil.copy2(STAGE / 'bow-projectile-source-probe.json', folder / 'bow-projectile-source-probe.json')
         shutil.copy2(STAGE / 'weapon-missile-impact-probe.json', folder / 'weapon-missile-impact-probe.json')
         shutil.copy2(STAGE / 'amazon-penetrate-source-probe.json', folder / 'amazon-penetrate-source-probe.json')
+        shutil.copy2(STAGE / 'amazon-pierce-source-probe.json', folder / 'amazon-pierce-source-probe.json')
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
@@ -96,6 +97,9 @@ def check():
                     session.send(flight)
                     assert session.expect(flight+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
                     assert session.expect(r'weapon-flight-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-6000:]
+                    pierce='amazon-pierce-check' if boot==0 else 'amazon-pierce-reload-check'
+                    session.send(pierce)
+                    assert session.expect(pierce+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

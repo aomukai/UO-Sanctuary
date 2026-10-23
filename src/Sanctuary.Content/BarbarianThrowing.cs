@@ -17,7 +17,7 @@ public static class BarbarianThrowing
         if((!Supported(owner) && !allowUntrained) || NamedAmmunition.Maximum(weapon)<=0 || !NamedAmmunition.CanAttack(weapon)){return null;}
         random??=RandomSource();bool critical=NamedCombat.ProjectileCritical(owner,random);
         if(!NamedAmmunition.Throw(weapon,now,critical,BarbarianMasteries.Throwing(owner,weapon,5),random)){return null;}
-        int chance=ClassGear.Bonus(owner,"pierce")+BarbarianMasteries.Throwing(owner,weapon,4);
+        int chance=NamedProjectiles.PierceChance(owner);
         return new(critical,NamedProjectiles.PierceBudget(chance,random));
     }
 }

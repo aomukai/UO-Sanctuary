@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Pierce:144 compiled source/native budget/RNG cases and20 official chance goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed115-handler build loads existing world and shuts down0; server stopped. Amazon3/30; no class certified complete.",
+  "source": "tools/reference/amazon-pierce-engine-evidence.json",
+  "sourceCases": 144,
+  "officialChanceGoldens": 20,
+  "implementation": [
+    "src/Sanctuary.Content/AmazonCombat.cs",
+    "src/Sanctuary.Content/NamedProjectiles.cs",
+    "src/Sanctuary.Content/WeaponMissiles.cs",
+    "src/Sanctuary.Content/BarbarianThrowing.cs"
+  ],
+  "verified": [
+    "All144 unchanged compiled creation cases match native budget0/1/2/3/4 and exact RNG draw counts, including zero chance and additive item+skill chances above100. All20 official rank1..20 chance values match the unchanged diminishing model.",
+    "Unlearned Pierce stays0 with real Tarnhelm. Learned hard1/23%, real soft2/34%, hard20/85%, real soft21/86% and soft22/87% are checked. Hard cap20, passive L/R/quick binding rejection and zero mana pass.",
+    "Real Razortail adds33 to learned rank1 for56%: draws55 and56 distinguish success/failure. Ordinary Bow/Crossbow use the shared budget; Dagger uses no budget or RNG draw while the global passive remains present. Actual Tarnhelm/Highlord/Razortail reach120 total and the source cap4.",
+    "A real moving direct-damage component hits two mapped targets. Removing the bow after the first collision leaves the passive/current eligibility intact. Respec removes learned Pierce; after the next impact the remaining saved budget cannot continue the missile.",
+    "Both actual world reloads preserve learned20, effective22, real gear ownership, total120 and an actual deserialized moving payload with remaining budget3. No offline HP replay; the second victim alone takes the resumed impact. A new held shot provides independent inspection through the next restart.",
+    "Class history removes/restores learned Pierce. Existing Barbarian throw, item-only weapon flight and prior class/named-item/AI tests pass in the final combined suite."
+  ],
+  "fixtureControls": [
+    "Pierce targets have Frozen/CantWalk/stopped AI, zero physical resistance and an hour-long fixture-only HP recovery interval. Controlled hit/damage/block delegates isolate piercing; this is not source seed equivalence.",
+    "Saved flight/lease deadlines alone are held10minutes and normalized before simulation; offline owners return to the saved native origin. Payload20 physical is explicitly supplied, not claimed as a complete weapon/material/skill launch calculation.",
+    "The prior item-only WeaponFlight fixture now creates an untrained Amazon instead of training every talent, so real item removal still tests zero current pierce. Its reload rearm merges other casts instead of replacing the global flight collection. Gameplay ranks and persistence/controller policies are unchanged."
+  ],
+  "limits": [
+    "No current executable/RNG/seed-sharing, missile-specific flags/modes, old immediate-ray launch migration, owner/client or class completion certificate. The native direct component remains a bounded supported weapon missile adapter.",
+    "Higher-rank diminishing rounding conflict remains unresolved; native model is unchanged. Published rank1..20 table is supporting evidence, not a modern executable trace.",
+    "Multiple Shot and complete launch collection/item callbacks/captured drain remain pending. Learned chance integration does not enable an unavailable active skill or item acquisition gate."
+  ],
+  "assets": {
+    "effect": "Passive needs no separate active effect; shared projectile trail remains identified native0xF42 placeholder.",
+    "talentIcon": "Needed in separate icon register; current text label is a placeholder.",
+    "hotkeyIcon": "Not applicable."
+  },
+  "focusedLog": ".local/class-skills/amazon-pierce-focused.log",
+  "fullSuiteLog": ".local/class-skills/amazon-pierce-combined.log",
+  "installedSmokeLog": ".local/class-skills/amazon-pierce-installed-smoke.log",
+  "test": "tests/Sanctuary.Integration/AmazonPierceChecks.cs",
+  "contentHash": "3e8d439c2d6dcf240a2f9e312d0489d910b4a53d5a9a97cd07aa743cb45f8721",
+  "integrationHash": "61f8909fd91e37a57a531d04073872184db8a69f7dd6c5616ecd46f1a7a7e631"
+}

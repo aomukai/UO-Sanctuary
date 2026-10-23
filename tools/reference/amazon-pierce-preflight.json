@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Preparation only; Pierce handler not yet enabled.",
+  "status": "Preparation superseded by implemented learned Pierce consumers; see source/native evidence for current bounded verification and remaining parity limits.",
   "pinnedSkill": {
     "talentId": "amazon.pierce",
     "name": "Pierce",
@@ -63,19 +63,23 @@
     "path": "tools/reference/throwing-projectile-engine-evidence.json",
     "scope": "Existing unchanged creation loop compiles56 pierce-budget cases, with chance0..150, bounded RNG and cap4. It adds skill and item pierce; the ordinary collision gate separately requires current owner skill or item pierce."
   },
-  "existingConsumers": [
-    "NamedProjectiles.PierceBudget supplies the source bounded preroll loop. NamedProjectiles.Budget currently includes item pierce only and is used by earlier immediate native basic-projectile rays.",
-    "WeaponMissiles.CurrentPierce currently includes item and eligible Barbarian Throwing Mastery; its direct travelling collision gate already requires this live positive stat to use a saved remaining budget.",
-    "BarbarianThrowing.Release combines its eligible mastery and item stat. Amazon has no Throwing Mastery, so add the Amazon passive through the appropriate shared paths without changing its quantity contract."
-  ],
   "reuse": [
     "Add effective learned Pierce skill_pierce to shared missile eligibility/budget paths, not melee damage or AR. All existing damage, fan, collision, FP payload, stat history and persistence consumers should remain shared.",
     "Use real Razortail item33 plus skill values to test additive chance and100-percent behavior; do not multiply separate independent item/skill probabilities.",
     "Keep bounded pre-rolled remaining budget and current positive-owner-stat continuation distinct. Respec or gear loss must reach current eligibility without inventing a fresh pierce roll at impact."
   ],
   "remaining": [
-    "Compare pinned curve with official chance goldens and existing unchanged source budget cases; keep unresolved diminishing rounding unchanged.",
-    "Verify untrained/learned/soft ranks, ammo families/melee exclusions, real item combination, live travelling eligibility and two save/reload cycles.",
-    "Full projectile launch migration and missile-specific pierce flags/current NHD/owner/client parity remain separate acceptance work. Talent icon pending, no active effect or hotkey."
+    "Exact modern RNG/seed sharing across a fan, missile-specific flags/modes, high-rank curve rounding, owner/client and full projectile launch migration remain acceptance work.",
+    "Multiple Shot collector, item callbacks/captured drain and skill start/payment/quantity contracts remain pending; do not treat the passive as an active launch implementation.",
+    "Final talent icon pending in the separate register. Passive has no active effect/hotkey icon."
+  ],
+  "implementationEvidence": [
+    "tools/reference/amazon-pierce-engine-evidence.json",
+    "tools/reference/amazon-pierce-native-evidence.json"
+  ],
+  "existingConsumersAtPreparation": [
+    "NamedProjectiles.PierceBudget supplies the source bounded preroll loop. NamedProjectiles.Budget currently includes item pierce only and is used by earlier immediate native basic-projectile rays.",
+    "WeaponMissiles.CurrentPierce currently includes item and eligible Barbarian Throwing Mastery; its direct travelling collision gate already requires this live positive stat to use a saved remaining budget.",
+    "BarbarianThrowing.Release combines its eligible mastery and item stat. Amazon has no Throwing Mastery, so add the Amazon passive through the appropriate shared paths without changing its quantity contract."
   ]
 }

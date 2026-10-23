@@ -5,9 +5,10 @@ namespace Sanctuary;
 
 public static class AmazonCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.CriticalStrike or CombatAbility.Penetrate;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.CriticalStrike or CombatAbility.Penetrate or CombatAbility.Pierce;
     public static int CriticalChance(PlayerMobile owner) => Passive(owner,CombatAbility.CriticalStrike);
     public static int AttackPercent(PlayerMobile owner) => Passive(owner,CombatAbility.Penetrate);
+    public static int PiercePercent(PlayerMobile owner) => Passive(owner,CombatAbility.Pierce);
     private static int Passive(PlayerMobile owner,CombatAbility ability)
     {
         if(owner==null || ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Amazon

@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Bounded physical creation/initializer source proof only; launch collector and skill integration remain pending.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129"
+  },
+  "probe": {
+    "cases": 810,
+    "dataPath": ".local/class-skills/weapon-launch-physical-probe.json",
+    "dataSha256": "c43a2fc2041a915e0b686f2a9cfccc2374dac7d413fa7bbb34327e9980ddc530",
+    "rawBlock": "\t\tnMinDamage = nSkillSrcDamage * nBaseMinDamage / 128;\n\t\tnMaxDamage = nSkillSrcDamage * nBaseMaxDamage / 128;\n\n\t\tnDamagePercent += nBonus + STATLIST_UnitGetStatValue(pOwner, STAT_DAMAGEPERCENT, 0);\n\t\tnMinDamagePercent = STATLIST_UnitGetStatValue(pOwner, STAT_ITEM_MINDAMAGE_PERCENT, 0);\n\t\tnMaxDamagePercent = STATLIST_UnitGetStatValue(pOwner, STAT_ITEM_MAXDAMAGE_PERCENT, 0);",
+    "percentBlock": "\tif (nMinDamagePercent <= nMaxDamagePercent)\n\t{\n\t\tpMissileDamageData->nDamagePercent = nMaxDamagePercent + STATLIST_UnitGetStatValue(pMissile, STAT_DAMAGEPERCENT, 0) + nDamagePercent;\n\t}\n\telse\n\t{\n\t\tpMissileDamageData->nDamagePercent = nMinDamagePercent + STATLIST_UnitGetStatValue(pMissile, STAT_DAMAGEPERCENT, 0) + nDamagePercent;\n\t}\n\n\tif (pMissileDamageData->nDamagePercent <= -90)\n\t{\n\t\tpMissileDamageData->nDamagePercent = -90;\n\t}\n\n\tpMissileDamageData->nMinDamage = nMinPhysDamage + nMinDamage;\n\tpMissileDamageData->nMaxDamage = nMaxPhysDamage + nMaxDamage;",
+    "initializer": "void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc* pUnit, int32_t nBonus)\n{\n    if (nBonus)\n    {\n        STATLIST_SetUnitStat(pUnit, STAT_DAMAGEPERCENT, nBonus + STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0), 0);\n    }\n}"
+  },
+  "established": [
+    "SrcDam scales raw FP256 weapon endpoints before adding skill flat physical endpoints. Percentage damage remains a separate saved field.",
+    "Creation adds the larger of min/max damage percentages, existing missile initializer percent, owner percent and the supplied stat/mastery bonus; clamps the saved percentage to-90 before collision. Current victim species ED is added later at impact, so clamping only at impact is not equivalent for a deeply negative launch percentage.",
+    "The unchanged Guided Arrow initializer adds its supplied bonus to missile STAT_DAMAGEPERCENT before damage creation. It is a reusable existing source mechanism, not proof that modern Multiple Shot uses this exact callback."
+  ],
+  "services": [
+    "Owner/item/stat/mastery and skill-flat values are explicitly supplied. No weapon collector, source PRNG or full damage allocator is compiled. Inputs are bounded and avoid integer overflow."
+  ],
+  "limits": [
+    "Modern Multiple Shot calc5 placement remains a separately identified inference boundary. Released2.6 identifies it as Damage Synergy but the older do8 body does not read the new field; this probe does not invent a complete modern do8.",
+    "Full material/typed poison/Enchant/aura/stat-layer/hand/owner/client collection and item callbacks/drain still need native implementation."
+  ]
+}

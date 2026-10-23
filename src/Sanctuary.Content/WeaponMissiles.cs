@@ -68,7 +68,7 @@ public static class WeaponMissiles
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
-    internal static int CurrentPierce(PlayerMobile owner)=>ClassGear.Bonus(owner,"pierce")+BarbarianMasteries.Throwing(owner,CombatTiming.Equipped(owner),4);
+    internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
     internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)

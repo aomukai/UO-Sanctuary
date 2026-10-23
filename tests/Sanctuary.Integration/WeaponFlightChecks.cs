@@ -35,7 +35,10 @@ public static class WeaponFlightChecks
     }
     private static PlayerMobile Fresh()
     {
-        var owner=ClassSkillChecks.Player(DiabloClass.Amazon);owner.Name="WeaponFlightFixture";
+        // Item-only component fixture: learned Pierce is tested separately.
+        var owner=new PlayerMobile{Body=0x190,Name="WeaponFlightFixture",Player=true};
+        ClassCreation.Profiles.Assign(owner,DiabloClass.Amazon);ClassCreation.Profiles.AdvanceLevel(owner,99);
+        owner.MoveToWorld(new(2200,1000,0),Map.Trammel);owner.Hits=owner.HitsMax;owner.Mana=owner.ManaMax;
         bool found=false;
         for(int x=2200;x<=2500 && !found;x+=50)for(int y=1000;y<=1300 && !found;y+=50)
         {
@@ -164,7 +167,8 @@ public static class WeaponFlightChecks
             // Keep the already-proven moving payload inspectable for the second restart.
             all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};delta=held.NextUtc-saved.Flight.NextUtc;
             var leases=saved.Leases.Select(l=>l with{UntilUtc=l.UntilUtc+delta}).ToArray();
-            WeaponMissiles.Restore(all with{Flights=[held],Leases=leases});
+            WeaponMissiles.Restore(all with{Flights=all.Flights.Where(f=>f.Id!=held.Id).Append(held).ToArray(),
+                Leases=all.Leases.Where(l=>l.Cast!=held.Cast).Concat(leases).ToArray()});
             File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=WeaponMissiles.State(saved.Flight.Id),Leases=leases,SecondHealth=Health(second)}));
         });Natural();
     }

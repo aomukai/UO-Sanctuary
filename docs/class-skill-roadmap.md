@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 2 / 30 | 0 | 28 | Open |
+| 5 | Amazon | 3 / 30 | 0 | 27 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -192,7 +192,7 @@ Howl source preparation now has1169 bounded compiled cases in [source evidence](
 | Decoy | 28 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Evade | 29 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Valkyrie | 32 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Pierce | 33 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Pierce | 33 | handler-present | Effective learned skill chance adds to item pierce through the existing shared launch-budget and live missile-eligibility consumers. Source bounded preroll remains capped at4 continuations; no impact-time chance reroll. Bow removal does not erase the global passive. Source/native rank/real Razortail/flight/respec/history/reload checks are recorded separately. No active effect/hotkey; talent icon pending. Exact modern seed/order/flags, old immediate-ray launch migration and full owner/client parity remain open. |
 | Magic Arrow | 6 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fire Arrow | 7 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Cold Arrow | 11 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

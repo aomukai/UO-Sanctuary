@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'amazon.pierce':'Effective learned skill chance adds to item pierce through the existing shared launch-budget and live missile-eligibility consumers. Source bounded preroll remains capped at4 continuations; no impact-time chance reroll. Bow removal does not erase the global passive. Source/native rank/real Razortail/flight/respec/history/reload checks are recorded separately. No active effect/hotkey; talent icon pending. Exact modern seed/order/flags, old immediate-ray launch migration and full owner/client parity remain open.',
     'amazon.penetrate':'Effective-rank passive joins the existing additive player AR pool with item, skill, Enchant and aura percentages. Published2.6 fixes Blessed Aim replacing Penetrate; both bonuses are retained. Compiled-source AR/golden, native real-gear/aura/history/respec and persistence checks are recorded separately. No mana/active slot/weapon restriction; talent icon pending. Full modern seed/stat-layer/hit-chance precision, special-mode/owner/client and pending projectile launch migration remain acceptance work.',
     'amazon.criticalstrike':'Learned effective-rank passive now reaches the existing physical weapon and projectile launch critical consumers. Normal melee tries mastery/generic/Deadly Strike; projectile creation tries generic/Deadly/mastery and retains its unconditional zero-chance first draw. One physical doubling, no elemental doubling, no mana/hotkey/weapon restriction. Native source/golden/real-gear/history/reload acceptance recorded separately; full modern special-mode/oskill/launch/proc/client equivalence remains open. Other-class generic oskill grants are not enabled.',
     'amazon.multipleshot':'Shared do8 fan, native bow ammo and typed-source payload foundations are prepared. A saved travelling direct-damage weapon component now uses source impact rolls, current owner AR, current target resistance/block, live pierce eligibility and cast-local delay.5184 compiled impact cases and native movement/mitigation/owner-AR/reload checks are recorded separately. Multiple Shot remains gated: launch gear/material/Enchant/aura collection, physical SrcDam96, modern Guided Arrow synergy, item callbacks/drain and full skill payment/quantity/owner/client integration remain. Earlier blanket launch-time AR snapshot plans are withdrawn; source owner AR is read at impact. Do not substitute immediate weapon rays or aggregate poison scaling.',
@@ -113,6 +114,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'amazon.pierce',
     'amazon.penetrate',
     'amazon.criticalstrike',
     'barbarian.whirlwind',
