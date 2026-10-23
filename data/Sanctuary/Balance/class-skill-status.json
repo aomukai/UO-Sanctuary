@@ -199,7 +199,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Stationary entity component staged with saved owner/rank/life/level/defense/resistance/expiry snapshots, one-pet replacement, source maxHP-callback regeneration, fractional life cap and native incoming hit/allegiance consumers. Compiled960 summon/life/level,3 guard and12 expiry cases plus dedicated native component checks are recorded separately. Full cast/input/mana and source placement fallback remain unavailable. Normal one-player spawn/difficulty mapping, buff/resource/curse/control interactions, special uninterruptable expiry, full source/current geometry/AI/owner/client acceptance and final appearance/assets remain open; no full handler or class certificate."
     },
     {
       "talentId": "amazon.evade",

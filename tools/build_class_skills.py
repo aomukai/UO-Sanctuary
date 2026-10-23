@@ -131,12 +131,13 @@ def products():
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3']]
+               if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon']]
     summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
                 if r.get('Missile') in ['necromage1','necromage2','necromage3','necromage4','poisonexplosioncloud','bonewallmaker','chillingarmorbolt','firebolt','arrow','thunderstorm1','lightningbolt','chargedbolt','chargedstrikebolt','blaze','firewall','firewallmaker','meteorcenter','meteorfire','blizzardcenter','blizzard1','frozenorb','frozenorbbolt','frozenorbnova','hydra','infernoflame1','chainlightning','holybolt','fistoftheheavensdelay','fistoftheheavensbolt','blessedhammer','shout','battleorders','battlecommand','howl','battlecry','warcry']]
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'amazon.decoy':'Entity component: static UO sex silhouette with hue0x481 and0x376A appear marker, explicitly placeholders. Final Decoy model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio pending. Talent/right-hotkey icons remain separate; full casting not yet enabled',
         'amazon.slowmissiles':'Cast/target presentation pending. Slowed native encounter bolt positions use identified UO0xF42/0x36D4/0x3818 markers at logical travel positions; final cast_slowmissiles, innersight target overlay and amazon_handofathena audio pending. Talent/right-hotkey icons remain separate',
         'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',

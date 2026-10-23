@@ -112,7 +112,7 @@ public static class FrozenOrbChecks
                 FrozenOrbs.Cancel(owner);
             owner.Mana = owner.ManaMax; Require(SorceressCombat.Release(owner, CombatAbility.FrozenOrb, Serial.Zero, point), "Persistence Orb cast");
             var missiles = FrozenOrbs.Snapshot(); var parent = missiles.Single(x => x.Owner == owner.Serial.Value);
-            var next = TimedEffects.Now.AddMinutes(5);
+            var next = TimedEffects.Now.AddMinutes(10);
             // Hold test-only final-frame/curve payloads across two process reloads.
             parent = parent with { X = owner.X + 14, Frame = 29, DirectionIndex = 39, NextUtc = next, UntilUtc = next.AddMilliseconds(40) };
             var curve = parent with { Id = parent.Id + 1, Kind = FrozenKind.Nova, X = owner.X + 4, Frame = 4, VectorX = 0, VectorY = 15,

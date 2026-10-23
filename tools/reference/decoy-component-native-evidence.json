@@ -1,0 +1,84 @@
+{
+  "referenceVersion": "3.3.93847",
+  "componentOnly": true,
+  "handlerEnabled": false,
+  "handlerCount": 124,
+  "classHandlerCount": 12,
+  "status": "Decoy stationary entity component now has saved owner/rank/life/level/defense/resistance/expiry snapshots, source maxHP-callback regeneration, one-entity replacement and exact fractional health caps. Source960 summon/life/level,3 guard and12 expiry cases plus40 pinned rank rows pass. Focused and combined native checks each pass three boots/two reloads, including actual Tarnhelm, shared hit/typed-fire defense, friendly protection, natural ten-second expiry, saved injury and offline expiry. Content/integration build with zero warnings/errors;70 Python tests and current466/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0; server stopped, saves retained. No full Decoy handler, native patch, client or item-availability change.",
+  "sourceEvidence": "tools/reference/decoy-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonDecoys.cs",
+    "src/Sanctuary.Content/CreatureProfiles.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/SkillHealth.cs"
+  ],
+  "test": "tests/Sanctuary.Integration/DecoyComponentChecks.cs",
+  "verified": [
+    "960 native life/level comparisons use compiled older source outputs, including fractional and large-value early-division branches. Maximum-life writes now execute the unchanged maxHP resource callback excerpt and the pure C# regeneration helper is compared against those results for756 source life values of at least one point; actual entity limits are tested separately. Forty pinned mana/duration/resistance rows are numeric checks, not actual paid casts.",
+    "Internal factory creates an uncommandable stationary BaseCreature summon with owner identity, no attacks/loot/corpse/kill awards/follower slots. It uses the pinned Dopplezon species identity for shared source rules, while its explicit saved snapshot supplies native level/defense. The Necromancer moving/attacking pet class is not inherited.",
+    "Actual rank1 snapshot: level75 for caster99, defense591, elemental resistance4, maxHP-callback regeneration126FP256/frame, duration250frames. Creation uses caster maximum rather than current injured life. Actual Tarnhelm grants rank2/resistance8/duration375 at the next creation; removing it does not mutate that existing Decoy.",
+    "Fractional source maximum/current life is retained in shared SkillHealth, with a ceil-only native/UI maximum. Healing and initialization cap against the exact source maximum. Ordinary actors retain their prior whole maximum. Actual257FP256 injury and source126FP256/frame healing pass, and full heal cannot exceed fractional maximum.",
+    "Native wild enemy regards the Decoy as an enemy and can harm it. Actual shared AR/defense/level hit checks exercise forced hit/miss;10fire is reduced by4percent to2457FP256. Class ally skill damage is rejected. Idle think cannot move, acquire an attack or enter warmode. This verifies eligibility, not exact source AI target preference.",
+    "Creation at blocked terrain fails without replacing the earlier Decoy. Successful creation at a different free cell removes the old entity and retains exactly one. The factory itself does not implement source spawn search fallback.",
+    "Each boot waits for real normal ten-second expiry and checks that the idle entity remains at its location. Saved owner/stats/deadline/map/position and injured fractional life survive both actual reloads. Test Initialize observes exact saved life before the first resumed regeneration timer. A separate short-deadline Decoy expires offline; mana and unequipped Tarnhelm remain unchanged."
+  ],
+  "fixtureControls": [
+    "Only named caster construction/final initialization holds HP/mana regeneration1hour. A private isolated corridor avoids guarded regions and unrelated actors; source NPC AI is stopped only for explicit hit tests.",
+    "First fixture mistakenly checked CanSpawnMobile on the caster occupied cell after moving there, so every corridor was rejected. It now checks the eight cells ahead. A later test requested replacing the Decoy on its occupied cell; since fallback is not implemented yet, it now uses another verified free cell. Both failure logs retained; production placement guards were not weakened.",
+    "Saved inspection deadline alone is extended10minutes. After a large fractional injury the test explicitly pauses that entity timer before manifest/save, giving an exact offline baseline; production timers and ten-second skill duration remain unchanged. After loading the normal entity timer resumes. The separate short-deadline entity is never paused.",
+    "All creations are direct internal component calls with zero caster mana. No cast/input/payment, target fallback or full skill availability is simulated.",
+    "The first combined run reached its second Sorceress reload at06:19:23 after its saved five-minute armor/shield inspection deadline atabout06:19:10. The earlier reload at06:18:03 passed. Only that pre-existing fixture deadline is now10minutes; natural164-second cold armor/144-second Energy Shield checks and explicit expiry checks remain unchanged. No runtime Sorceress behavior changed.",
+    "Final source review found the registered maxHP callback recalculates regeneration; the first adjacent-function-only model incorrectly kept initial-template9FP256/frame. The corrected probe executes that unchanged callback excerpt, and the native rank1/caster99 control uses126FP256/frame. Earlier focused proof is superseded; its in-progress full rerun was deliberately interrupted before any installation. Installation was held at the prior verified checkpoint until these final corrected checks passed.",
+    "The final corrected-runtime combined run then reached its second Meteor inspection at06:33:43 after its held five-minute impact deadline. This was another expired fixture payload. Reviewed saved-only Meteor, Blizzard, Frozen Orb, Hydra, Chain Lightning and Inferno primitive phase/deadline holds are now10minutes together. Their separate ordinary cast/travel/lifetime/expiry checks are unchanged; no production timing changed."
+  ],
+  "limits": [
+    "Native hit/defense and direct typed SkillCombat fire are covered. Ordinary native AOS damage opt-in is not yet connected: its conditional recognizes NecromancerMinion, not AmazonDecoy. This required incoming packet adapter and actual AOS/NPC checks belong to full Decoy integration; do not claim all incoming damage paths are verified.",
+    "Decoy full handler remains unavailable. Ground/right/quick input, SC/FCR event, once-only no-start mana dispatch, target coordinates/LOS/town and source spawn fallback must be integrated and verified before enabling it.",
+    "Factory uses the existing one-player Normal expansion summon context: pinned baseAC141, initial10life and monlvl L-AC. Current native caster Act/game difficulty and other player-count/game-mode source scaling remain explicit acceptance; no arbitrary difficulty selection.",
+    "Source life outside the native1..65000 range is rejected rather than silently clamped. Fractional maxima within that range are exact in shared health; existing native near-zero lethal semantics and UI/network projection remain separate acceptance.",
+    "Battle Orders/resource rescaling/regeneration, aura/curse/control/poison/healing interactions, owner death/logout/history/respec/map transitions and full nonplayer passive behavior still require dedicated coverage. The entity intentionally retains native timed-summon lifecycle rather than claiming persistent follower/wardrobe behavior.",
+    "Source UMod21 uninterruptable3-frame retry is compiled but has no mapped Decoy native mode yet. Normal expiry is verified. Exact modern3.3.93847 life/stat/seed/mode/size/AI threat preference, source placement/collision/range/expiry/owner/PvP/client and appearance remain unproven. No forced taunt is invented."
+  ],
+  "assets": {
+    "effect": "UO sex silhouette, hue0x481 and0x376A appearance marker are identified placeholders. Final model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio remain pending in effects register.",
+    "icon": "Talent-tree and right-hotkey icons remain pending in separate240-entry icon register."
+  },
+  "logs": {
+    "contentBuild": ".local/class-skills/decoy-component-content-build.log",
+    "integrationBuild": ".local/class-skills/decoy-component-integration-build.log",
+    "focused": ".local/class-skills/decoy-component-focused.log",
+    "focusedRun": ".local/class-skills/decoy-component-focused-run.log",
+    "occupiedScanFailure": ".local/class-skills/decoy-component-placement-failure.log",
+    "occupiedReplacementFailure": ".local/class-skills/decoy-component-occupied-replacement-failure.log",
+    "combined": ".local/class-skills/decoy-component-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/decoy-component-installed-smoke.log",
+    "installedServer": ".local/class-skills/decoy-component-installed-server.log",
+    "sorceressInspectionFailure": ".local/class-skills/decoy-component-sorceress-inspection-failure.log",
+    "sorceressInspectionFailureRun": ".local/class-skills/decoy-component-sorceress-inspection-failure-run.log",
+    "beforeMaxHpCallbackSource": ".local/class-skills/decoy-before-maxhp-callback-source-evidence.json",
+    "beforeMaxHpCallbackFocused": ".local/class-skills/decoy-before-maxhp-callback-focused.log",
+    "beforeMaxHpCallbackAbortedFull": ".local/class-skills/decoy-before-maxhp-callback-aborted-full.log",
+    "projectileInspectionFailure": ".local/class-skills/decoy-component-projectile-inspection-failure.log",
+    "projectileInspectionFailureRun": ".local/class-skills/decoy-component-projectile-inspection-failure-run.log"
+  },
+  "next": "Complete Decoy cast/input/placement/mana integration and required buff/lifecycle consumers; keep individual unsupported cases explicit and continue unaffected skills.",
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "sourceCases": {
+      "summons": 960,
+      "guards": 3,
+      "expiry": 12
+    },
+    "pinnedRankRows": 40,
+    "maxHpCallbackNativeRows": 756,
+    "pythonTests": 70,
+    "namedInputs": 466,
+    "firstLoopInputs": 15,
+    "installedSmoke": "Existing-world2593/12000 listen and clean shutdown exit0; no save reset."
+  }
+}

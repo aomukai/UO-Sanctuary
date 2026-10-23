@@ -102,7 +102,7 @@ public static class BlizzardChecks
         var snapshot = Blizzards.Snapshot(); var storm = snapshot.Storms.Single(x => x.Owner == owner.Serial.Value);
         var last = Enemy(owner, new(owner.X + 12, owner.Y, owner.Z));
         // Hold the test-only payload until both process reloads; ordinary lifetime is checked above.
-        var next = TimedEffects.Now.AddMinutes(5); storm = storm with { NextUtc = next, UntilUtc = next.AddSeconds(4) };
+        var next = TimedEffects.Now.AddMinutes(10); storm = storm with { NextUtc = next, UntilUtc = next.AddSeconds(4) };
         long id = snapshot.Storms.Select(x => x.Id).Concat(snapshot.Shards.Select(x => x.Id)).DefaultIfEmpty().Max() + 1;
         var shard = new BlizzardShard(id, owner.Serial.Value, owner.Map.MapID, last.X, last.Y, last.Z,
             10 * 256, 10 * 256, 100, 9, last.Serial.Value, next.AddMilliseconds(360), next);

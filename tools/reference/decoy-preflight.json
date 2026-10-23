@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "talentId": "amazon.decoy",
+  "sourceKey": "Dopplezon",
+  "sourceId": 28,
+  "status": "Decoy stationary entity component now has saved owner/rank/life/level/defense/resistance/expiry snapshots, source maxHP-callback regeneration, one-entity replacement and exact fractional health caps. Source960 summon/life/level,3 guard and12 expiry cases plus40 pinned rank rows pass. Focused and combined native checks each pass three boots/two reloads, including actual Tarnhelm, shared hit/typed-fire defense, friendly protection, natural ten-second expiry, saved injury and offline expiry. Content/integration build with zero warnings/errors;70 Python tests and current466/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0; server stopped, saves retained. No full Decoy handler, native patch, client or item-availability change.",
+  "sourceEvidence": "tools/reference/decoy-engine-evidence.json",
+  "nativeComponent": "tools/reference/decoy-component-native-evidence.json",
+  "reuse": [
+    "SkillCombat.Begin/ClassCombat SC scheduling and target coordinates, existing fractional mana payment and right/quick metadata. The source row has no start function; dispatcher order must be inspected before choosing debit timing.",
+    "Reuse existing source summon/stat fields, SkillHealth fractional health and real BaseCreature enemy/level/defense/resistance services. Retain stationary no-attack/no-command identity rather than copy a moving Necromancer follower.",
+    "Source D2GAME_SummonPet_6FD14430 chooses target coordinates or first path point, tries spawn argument-1 with flags66, then argument4 unless flags4 forbids fallback. Trace this creation/search before mapping it to native free-cell selection."
+  ],
+  "nextActions": [
+    "Trace and connect ordinary native AOS damage opt-in for AmazonDecoy: SkillCombat.ResistedDamage currently explicitly recognizes NecromancerMinion but not this new entity. Existing component tests prove shared ClassStats hit/defense and direct typed SkillCombat fire mitigation only. Add real AOS/NPC packet and fractional-health checks before enabling full Decoy.",
+    "Integrate and verify paid SC cast, right/quick/ground input, cancellation, low mana, terrain/target fallback and one-summon cap with existing skill scheduling.",
+    "Verify Battle Orders/resources/regen and other buffs/control effects using real native consumers; correct shared adapters where necessary.",
+    "Verify owner death/logout/history/respec/map/save behavior and source/current target/expiry limits before enabling handler."
+  ],
+  "nonblockingQuestions": [
+    {
+      "question": "Optional pinned-build observation for later: does an existing Decoy tooltip show life bonus, duration and mana at a known effective rank?",
+      "scope": "Record only; user is asleep/away, no respec or answer needed to continue source/native work."
+    }
+  ],
+  "assets": {
+    "effect": "Decoy appearance/overlay/audio pending with explicit native placeholders.",
+    "icon": "Talent/right-hotkey icons separately pending."
+  },
+  "reviewedDispatcherAndPlacement": {
+    "sourceSha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "blocks": {
+      "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+      "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+      "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+      "D2GAME_GetSummonIdFromSkill_6FD15580": "588dcf2926e7529cffe6600420525de05c706be22bd6ec610b2afacc6f5457ae"
+    },
+    "scope": "Reviewed unchanged source; these blocks are not yet compiled by Decoy probe.",
+    "findings": [
+      "Handler calls do15 first and returns before consumption if it fails. No-start successful do dispatch consumes afterward, ignoring consume return. Decoy lacks UseManaOnDo and InTown flags in the pinned row. Full start-time and current mana-loss-during-windup behavior remains to verify.",
+      "Older Consume initializes cost0 and only applies base/level formula when skillLevel>1, so its rank1 path falls to MinMana1. This conflicts with pinned row76<<6=19mana and must not replace the modern numeric baseline. Native SkillValues rank1=19 is already covered separately; actual casting still unavailable.",
+      "Summon helper chooses current target location or first-path point, then attempts argument-1/flags66 and argument4 fallback. Only after spawn success does it register the pet cap, owner and AI. Native fallback geometry still needs source tracing."
+    ]
+  },
+  "spawnFallbackGap": {
+    "path": "source/D2Game/src/MONSTER/MonsterSpawn.cpp",
+    "sha256": "5990740b6f81323452484083bba5ec5aeefd8c5c589a0c12f8386b371bcd743f",
+    "routine": "D2GAME_SpawnNormalMonster_6FC68E30",
+    "finding": "Pinned supplementary routine immediately returns nullptr; the remainder is commented decompilation. Wrapper maps argument-1/4 into unnamed field_20. Its commented arithmetic uses3*field_20, so do not claim this is a verified4-subtile radius or native4-tile search. Exact source/current spawn search is unsupported by this executable source snapshot.",
+    "policy": "Do not invent fallback order/geometry. Continue paid SC integration for explicitly supported free placement; gate or document unsupported placement branches and proceed with unaffected skills."
+  }
+}

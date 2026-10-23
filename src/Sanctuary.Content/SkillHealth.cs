@@ -48,6 +48,7 @@ public static class SkillHealth
     public static void Configure() { Profiles = new(); EventSink.WorldSave += Profiles.Prune; Server.Mobiles.ClassCombatHooks.ApplyDamage256=Damage; }
     public static int Remainder256(Mobile target) => Profiles.Remainders.GetValueOrDefault(target.Serial).Fraction;
     public static void Clear(Mobile target) => Profiles.Remainders.Remove(target.Serial);
+    internal static int Maximum256(Mobile target)=>target is AmazonDecoy decoy?decoy.Maximum256:target.HitsMax*256;
     internal static int Balance256(Mobile target)
     {
         var old=Profiles.Remainders.GetValueOrDefault(target.Serial);
@@ -56,7 +57,7 @@ public static class SkillHealth
     }
     internal static void SetBalance256(Mobile target,int amount256)
     {
-        amount256=Math.Clamp(amount256,0,target.HitsMax*256);int displayed=(amount256+255)/256;
+        amount256=Math.Clamp(amount256,0,Maximum256(target));int displayed=(amount256+255)/256;
         target.Hits=displayed;int remainder=displayed*256-amount256;
         if(remainder==0){Clear(target);}else{Profiles.Remainders[target.Serial]=(remainder,displayed);}
     }
@@ -66,7 +67,7 @@ public static class SkillHealth
         var old=Profiles.Remainders.GetValueOrDefault(target.Serial);
         int fraction=target.Hits>old.ObservedHits && target.Hits>=target.HitsMax ? 0 : old.Fraction;
         long before=(long)target.Hits*256-fraction;
-        long after=Math.Min((long)target.HitsMax*256,before+healing256);
+        long after=Math.Min(Maximum256(target),before+healing256);
         int displayed=(int)((after+255)/256);target.Hits=displayed;
         int remaining=(int)(displayed*256L-after);
         if (remaining==0) { Clear(target); } else { Profiles.Remainders[target.Serial]=(remaining,displayed); }

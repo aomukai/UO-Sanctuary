@@ -94,7 +94,7 @@ public static class HydraChecks
     {
         owner.Mana = owner.ManaMax; Require(SorceressCombat.Release(owner, CombatAbility.Hydra, Serial.Zero, center), "Persistence Hydra cast");
         var target = Enemy(owner, 9); var pierce = Enemy(owner, 12); pierce.SetResistance(ResistanceType.Fire, 50);
-        var snapshot = Hydras.Snapshot(); var next = TimedEffects.Now.AddMinutes(5);
+        var snapshot = Hydras.Snapshot(); var next = TimedEffects.Now.AddMinutes(10);
         // Hold cast/AI/windup/bolt payloads across process reloads; normal timings are checked separately.
         var heads = Heads(owner).Select(x => x with { UntilUtc = next.AddSeconds(10), DecisionUtc = next.AddMilliseconds(1080),
             ShotUtc = next.AddMilliseconds(320), Target = target.Serial.Value }).ToArray();

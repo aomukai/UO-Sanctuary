@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
         for (var type = creature.GetType(); type != null; type = type.BaseType)
         {
             if (_definitions.TryGetValue(type.FullName, out var row))
@@ -208,11 +209,11 @@ public static class CreatureProfiles
                 res.Poison ?? creature.PoisonResistance), row);
     }
     internal static int NativeLevel(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Level
-        : mob is SkeletonGuardian pet ? pet.CombatProfile.Level : mob is BoneBarrierSegment barrier ? barrier.SourceLevel : 1;
+        : mob is SkeletonGuardian pet ? pet.CombatProfile.Level : mob is BoneBarrierSegment barrier ? barrier.SourceLevel : mob is AmazonDecoy decoy ? decoy.Snapshot?.Level??1 : 1;
     internal static int NativeAttack(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.AttackRating
         : mob is SkeletonGuardian pet ? pet.CombatProfile.AttackRating : Math.Max(5, mob.Dex * 2);
     internal static int NativeDefense(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Defense
-        : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
+        : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : mob is AmazonDecoy decoy ? decoy.Snapshot?.Defense??0 : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
     public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
         var row = Variant(mob, difficulty);

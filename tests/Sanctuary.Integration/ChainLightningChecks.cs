@@ -124,7 +124,7 @@ public static class ChainLightningChecks
     }
     private static void Seed(PlayerMobile owner, GraveyardSkeleton first)
     {
-        var next=Enemy(owner,4); Cast(owner); var at=TimedEffects.Now.AddMinutes(5);
+        var next=Enemy(owner,4); Cast(owner); var at=TimedEffects.Now.AddMinutes(10);
         // Test-only held phase/damage; normal cost, rank, fresh child snapshots and travel are checked separately.
         var held=Flight(owner) with { Rank=1,Remaining=1,Frame=3,AimTarget=next.Serial.Value,X=owner.X+1.5,Y=owner.Y,
             Vx=.703125,Vy=0,Min256=2560,Max256=2560,NextUtc=at,UntilUtc=at.AddSeconds(1),Delays=[new(first.Serial.Value,at.AddMilliseconds(160))] };
