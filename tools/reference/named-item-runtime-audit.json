@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b62a559103a92f2c72317d4cbf6ca143ed4952bae2dec67802748638978d93be",
+  "ContentAssemblySha256": "b90861f24e5b5abd4bfb55ee6f53756989138d7de20f12a589caf505347daf0c",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -348,7 +348,7 @@
     "src/Sanctuary.Content/MonsterVariants.cs": "6f3487a1d75fafdd7f6174d2272fbc4e53075c875a0c771019daac00f1a9a2d4",
     "src/Sanctuary.Content/MouldRewards.cs": "8c574a78799948fac1fcce2e27a4336d7fb84624c344ec4620ff14c5b4558f38",
     "src/Sanctuary.Content/NamedAmmunition.cs": "890ac77fff40602d1e8a058fbce17e06db01d3f9db15e71c092d106517309294",
-    "src/Sanctuary.Content/NamedCombat.cs": "6cbd38b2a03015d81baf9591083f12b43500f6c10567fb333b85c07d3b266fd7",
+    "src/Sanctuary.Content/NamedCombat.cs": "e6acd32610f357f7c9a17f1295cf1bbb696dac65777d836222bb8545b1c6f107",
     "src/Sanctuary.Content/NamedControl.cs": "7f84a3bc77539b449767274b40e469275f73f3a86f718474d5fd1d2c88c1d9fd",
     "src/Sanctuary.Content/NamedElements.cs": "1ccf25a09c781572d04b2c1baadb686854937bfe7a34ce0ee9ce85f5338d6a4b",
     "src/Sanctuary.Content/NamedEquipmentCatalog.cs": "d1846cbc0973279e8db4e978b714be18b33793d39b99848d7994e58af130a5dc",
@@ -454,7 +454,7 @@
     "src/Sanctuary.Content/WardrobeTransaction.cs": "2558d97dda30a8253bf754cb45cf7043596fb2225e6d439722047b8bf5f10f01",
     "src/Sanctuary.Content/WeaponHands.cs": "a0446a4a14094a2611da73e31a1d3f076b288d17a13ded72d58f5ca39fbfdb59",
     "src/Sanctuary.Content/WeaponLeech.cs": "52975df1e402f69edd5a3f62fc739f9c766b163a49793994bc182237fc664450",
-    "src/Sanctuary.Content/WeaponMissiles.cs": "67b0ea6ed2f114312ffadc97cfe7a3d0efcca8c14b876009926a2e478327d5ae",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "2b564954e2612ac1aa47bd67b62af28ea68e1a00632a70b35682291dc05c3916",
     "tests/Sanctuary.Integration/NamedGearChecks.cs": "b0285c05a807f010ad80a1371715a22bd12f8dcb7ab20a9a758a6dfa71de5c66",
     "tests/Sanctuary.Integration/NamedLifecycleChecks.cs": "6035f0d49c8d8842f604a23d21264df8445d9393b36a362a400b00bcb10b9d69",
     "tests/Sanctuary.Integration/NamedVisualUiChecks.cs": "eed97c27e0d200c66845e7f329560d2374e14ea05ed54b22cec1d1d6451220e9"

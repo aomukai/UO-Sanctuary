@@ -49,8 +49,8 @@ for(int hp:{257,1025,1280000})for(int flags:{0,2,4,8})for(int isBoss:{0,1})for(i
 path=STAGE/'weapon-crushing-source-probe.cpp';path.write_text(cpp);binary=STAGE/'weapon-crushing-source-probe'
 subprocess.run(['g++','-std=c++20','-O2',str(path),'-o',str(binary)],check=True)
 data=json.loads(subprocess.check_output([str(binary)]));assert len(data)==1152
-for hp,flags,is_boss,ranged,resist,bonus,roll,remaining,calls,result in data:
- div=8 if is_boss or flags&2 else 4;div+=div*bonus//100;div*=2 if ranged else 1
+for hp,type_flags,is_boss,ranged,resist,bonus,roll,remaining,calls,result in data:
+ div=8 if is_boss or type_flags&2 else 4;div+=div*bonus//100;div*=2 if ranged else 1
  loss=hp//div;loss-=loss*min(max(resist,0),100)//100
  assert (remaining,calls,result)==(hp-loss if roll<50 else hp,1,int(roll<50))
 fixture=STAGE/'weapon-crushing-source-probe.json';fixture.write_text(json.dumps(data,separators=(',',':'))+'\n')

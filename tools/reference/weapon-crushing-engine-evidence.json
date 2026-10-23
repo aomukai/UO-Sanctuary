@@ -14,7 +14,16 @@
     "dataSha256": "f851907b2187c6f489a18baf725115506fdd128d58bbae35bf6fb3977bfb2965",
     "bodySha256": "aabb27f63021a4503575dc2b52c77e87cd0449b8ddb45e107ee616b11b338bd3"
   },
-  "actualTypeFlags": 8,
+  "actualTypeFlags": {
+    "MONTYPEFLAG_OTHER": 1,
+    "MONTYPEFLAG_SUPERUNIQUE": 2,
+    "MONTYPEFLAG_CHAMPION": 4,
+    "MONTYPEFLAG_UNIQUE": 8,
+    "MONTYPEFLAG_MINION": 16,
+    "MONTYPEFLAG_POSSESSED": 32,
+    "MONTYPEFLAG_GHOSTLY": 64,
+    "MONTYPEFLAG_MULTISHOT": 128
+  },
   "established": [
     "The unchanged event rolls current owner chance once, reads current victim FP256 life, divides by target/ranged/player-HP factors, then subtracts a separately truncated positive-resistance share. Negative physical resistance does not amplify CB.",
     "CB writes target life directly before ordinary weapon damage. Existing Native CrushingLoss reads displayed whole HP and combines some divisions; it cannot represent the same fractional contract.",

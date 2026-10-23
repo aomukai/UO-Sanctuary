@@ -63,6 +63,7 @@ public static class WeaponMissiles
     private static long _nextId,_nextCast;
     internal static Func<int,int> DamageRoll=Utility.Random;
     internal static Func<double> HitRoll=Utility.RandomDouble;
+    internal static Random ItemEffects=Random.Shared;
     public static WeaponMissileProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
@@ -136,6 +137,7 @@ public static class WeaponMissiles
         {
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
+            if((flight.Flags&0x10000)==0){NamedCombat.Crushing(owner,selected,true,ItemEffects);}
             WeaponLeech.Apply(owner,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)

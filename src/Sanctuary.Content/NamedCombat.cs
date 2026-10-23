@@ -50,18 +50,38 @@ public static class NamedCombat
         if(deadly>0 && random.Next(100)<deadly){return true;}
         return mastery>0 && random.Next(100)<mastery;
     }
-    public static int CrushingLoss(Mobile target, bool ranged)
+    internal static int CrushingLoss256(int life256,int divisor,int resistance,int hpBonus=0,bool ranged=false)
     {
-        int divisor = target is PlayerMobile || target is BaseCreature { Controlled: true } ? 10 : Elite(target) ? 8 : 4;
-        if (ranged) { divisor *= 2; }
-        return (int)((long)target.Hits * Math.Clamp(100 - target.PhysicalResistance, 0, 100) / (100 * divisor));
+        if(life256<=0 || divisor<=0){return 0;}
+        long adjusted=divisor+(long)divisor*Math.Max(0,hpBonus)/100;
+        if(ranged){adjusted*=2;}
+        long loss=life256/adjusted;
+        // Preserve the two truncations: divide current FP256 life first, then
+        // subtract the positive resistance share. Negative resistance adds nothing.
+        return (int)(loss-loss*Math.Clamp(resistance,0,100)/100);
     }
+    internal static int CrushingLoss256(Mobile target,bool ranged)
+    {
+        // Preserve the existing published-guide grouping. The older event only
+        // halves for Boss/SuperUnique; modern Champion/Unique parity is unresolved.
+        int divisor=target is PlayerMobile || target is BaseCreature{Controlled:true}?10:Elite(target)?8:4;
+        // Existing Sanctuary encounters have no separate D2 player-count HP bonus.
+        return CrushingLoss256(SkillHealth.Balance256(target),divisor,target.PhysicalResistance,ranged:ranged);
+    }
+    public static int CrushingLoss(Mobile target, bool ranged)=>CrushingLoss256(target,ranged)/256;
     public static void Crushing(PlayerMobile player, Mobile target, bool ranged, Random random)
     {
+        if(target is not{Alive:true,Deleted:false} || !target.CanBeDamaged()){return;}
         int chance = Math.Clamp(ClassGear.Bonus(player, "crush"), 0, 100);
         if (chance <= 0 || random.Next(100) >= chance) { return; }
-        int damage = CrushingLoss(target, ranged);
-        if (damage > 0) { target.Damage(damage, player); CombatDamage.Finish(target, player); }
+        int damage=CrushingLoss256(target,ranged);
+        if(damage>0)
+        {
+            // The source callback writes life directly before the ordinary packet;
+            // it does not dispatch an additional weapon-damage or recovery event.
+            SkillHealth.SetBalance256(target,SkillHealth.Balance256(target)-damage);
+            target.FixedEffect(0x376A,10,5,0x21,0); // Crushing overlay147 placeholder.
+        }
     }
     public static double OpenWoundsDamage(int level, Mobile target, bool ranged)
     {

@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined3boots/2reloads,70 Python tests,455 named/15 first-loop fingerprints and matching installed-build existing-world load/listen/shutdown0 passed. No new handler or save reset; server stopped. Not a full modern executable certificate.",
+  "handlerCount": 115,
+  "newSkillHandler": false,
+  "sourceEvidence": "tools/reference/weapon-crushing-engine-evidence.json",
+  "sourceDifferentialRows": 1152,
+  "verified": [
+    "Shared FP256 current-life division followed by separately truncated positive resistance subtraction; negative resistance does not amplify; explicit supplied player-HP bonus factors.",
+    "Actual equipped Goblin Toe25, chance24 success/25 failure, one current chance roll and no absent-gear draw.",
+    "Shared melee/Smite helper writes health directly rather than dispatching an extra weapon-damage event.",
+    "Actual central travelling missile callback before captured-leech life clipping; outer0x10000/miss/block suppression, physical immunity, current gear removed/added during travel.",
+    "Native ordinary/Champion/Unique/SuperUnique grouping retained and checked separately from narrower legacy divisor selection.",
+    "Source callback can leave below-one fractional life until ordinary damage. Existing fractional-health persistence retains853FP256 through two actual reloads; real equipped gear and post-reload CB remain active."
+  ],
+  "fixtureScope": [
+    "Disposable unconnected actors with deterministic chance/hit/damage/block draws; NPC recovery frozen at constructor and after reload; no gameplay regeneration changes.",
+    "Persisted inspection fixture alone restores its853FP256 balance after each verification for another restart.",
+    "Projectile flags/travel persistence is covered separately by the shared weapon-flight/leech fixtures; this fixture stores a damaged target and real CB gear."
+  ],
+  "assets": {
+    "effect": "Final Crushing Blow overlay147 pending; native0x376A hue0x21 identified placeholder.",
+    "talentAndHotkeyIcon": "No additional icon for shared item effect."
+  },
+  "limitations": [
+    "Published broader Champion/Unique/Boss grouping conflicts with older Boss/SuperUnique-only callback; retained current native grouping is not a modern executable certificate.",
+    "Existing controlled-target divisor10 is preserved; older source distinguishes hirelings. Full PvP/pet/owner/special mode acceptance remains open.",
+    "Runtime encounter player-count HP bonus absent; nonzero supplied bonuses covered only by source/arithmetic fixture.",
+    "Exact modern live selected-hand/stat/event/absorb/retaliation/client order and remaining central callbacks, defense loss/prevent-heal, Life Tap and complete launch consumer remain open.",
+    "No Multiple Shot handler or full class certificate enabled."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/weapon-crushing-focused.log",
+    "combined": ".local/class-skills/weapon-crushing-combined.log"
+  },
+  "artifacts": {
+    "src/Sanctuary.Content/NamedCombat.cs": "e6acd32610f357f7c9a17f1295cf1bbb696dac65777d836222bb8545b1c6f107",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "2b564954e2612ac1aa47bd67b62af28ea68e1a00632a70b35682291dc05c3916",
+    "tests/Sanctuary.Integration/WeaponCrushingChecks.cs": "a5b3f0fb67f105f5211d536e6d1401202d2f780c3e70be263497765761f917ff"
+  },
+  "contentAssemblySha256": "b90861f24e5b5abd4bfb55ee6f53756989138d7de20f12a589caf505347daf0c",
+  "integrationAssemblySha256": "81fd6ba87317a91c3dca0fa2970081cd1a0bd643c71b6a11948f4f68c8480235",
+  "installedSmoke": ".local/class-skills/weapon-crushing-installed-smoke.log"
+}
