@@ -1,0 +1,112 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "modernTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "probe": {
+    "caseCounts": {
+      "phaseCases": 1728,
+      "selectorCases": 56
+    },
+    "totalCases": 1784,
+    "dataPath": ".local/class-skills/whirlwind-source-probe.json",
+    "compiledRoutines": [
+      "sub_6FD10880",
+      "sub_6FD107F0",
+      "SKILLS_RemoveWhirlwindStats",
+      "SKILLS_SrvDo076_Whirlwind"
+    ],
+    "blockHashes": {
+      "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+      "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+      "SKILLS_RemoveWhirlwindStats": "96f4da0eb530dc7459256d5168125b1476a401748cff7c8b9f71eb49be0d6f10",
+      "SKILLS_SrvDo076_Whirlwind": "756eff1e3f80b4bcb3fa54b8e8910565008721ca6969978f30904675e41745f2",
+      "SKILLS_SrvSt38_Whirlwind": "be157779802edccc25cbe42d7f735d255566494f23015eede0ff6170a35fb28e",
+      "sub_6FD15500": "6aa049564a485e767f84fdfe86a817bc8f29c69357a933f33fbbb7211c04bfa4"
+    }
+  },
+  "skill": {
+    "skill": "Whirlwind",
+    "*Id": 151,
+    "charclass": "bar",
+    "skilldesc": "whirlwind",
+    "srvstfunc": 38,
+    "srvdofunc": 76,
+    "srvstopfunc": 1,
+    "aurastate": "whirlwind",
+    "stsuccessonly": 1,
+    "stsound": "barbarian_whirlwind",
+    "cltstfunc": 31,
+    "cltdofunc": 45,
+    "cltstopfunc": 1,
+    "enhanceable": 1,
+    "attackrank": 3,
+    "weapsel": 2,
+    "itypea1": "mele",
+    "anim": "SQ",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 10,
+    "durability": 1,
+    "TargetableOnly": 1,
+    "AttackNoMana": 1,
+    "reqlevel": 30,
+    "maxlvl": 20,
+    "reqskill1": "Leap Attack",
+    "reqskill2": "Concentrate",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 7,
+    "mana": 25,
+    "lvlmana": 1,
+    "calc1": "ln12",
+    "*calc1 desc": "Damage %",
+    "Param1": 30,
+    "*Param1 Description": "Damage % baseline",
+    "Param2": 5,
+    "*Param2 Description": "Damage % per level",
+    "InGame": 1,
+    "ToHit": 50,
+    "LevToHit": 5,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 896,
+    "cost add": 64000,
+    "lineNumber": 151
+  },
+  "characterMotion": {
+    "WalkVelocity": 6,
+    "RunVelocity": 9
+  },
+  "characterTableHash": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564",
+  "releasedPrimary": [
+    {
+      "url": "https://news.blizzard.com/en-gb/article/23814050/diablo-ii-resurrected-patch-2-4-3-now-live",
+      "rules": [
+        "All equipment IAS; interval is basic-attack effect frame; dual hands average upward.",
+        "First attack uses both hands/targets; short-distance attacks cannot end without an attack; broken weapons must not contribute.",
+        "Immediate Whirlwind/Leap/Leap Attack chaining after finish; current30+5/rank ED and50+5/rank AR."
+      ]
+    },
+    {
+      "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+      "rules": [
+        "Targeted destination snapshots the initial target position without chasing. Adjacent targets still cause a spin."
+      ]
+    }
+  ],
+  "established": [
+    "Old do76 phase guards, cleanup, zero/future/due attack deadlines, per-pulse dual target count, source result flags/weapon damage/durability and hand-bit toggles are compiled. Its old weapon-speed duration table and initial single-hand pulse are explicitly superseded by released2.4.3.",
+    "The shared target helper uses source serial-cycle order: lowest eligible ID above previous, wrapping to the lowest ID. The provided area scanner is a declared service; actual source radius5/filterA783 and spatial/callback services are reviewed separately.",
+    "Reviewed start fixes a straight path, reserves its last point, sets uninterruptible/skill_move and stat state. Cleanup releases reservation/masks/state. Reviewed player speed helper returns current character WalkVelocity<<8, without run/missile75% substitution."
+  ],
+  "limits": [
+    "Four unchanged legacy routines compile with declared room/target eligibility, damage/RNG/weapon/stat/animation services. The full start, native collision/path, current executable and modern changed scheduling are not compiled here.",
+    "Modern cadence must use the released rule through the shared basic-attack consumer, not the old compiled weapon-speed thresholds or initial one-hand shortcut. Exact current first frame/geometry/IAS/WSM/FRW/slow/owner/client and full proc handling remain acceptance work."
+  ]
+}

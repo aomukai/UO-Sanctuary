@@ -394,6 +394,15 @@ def check():
                     session.send(throwing_command)
                     assert session.expect(throwing_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     hands_command='weapon-hands-check' if boot==0 else 'weapon-hands-reload-check'
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as whirlwind_client:
+                        threading.Thread(target=drain_fixture_client,args=(whirlwind_client,),daemon=True).start()
+                        time.sleep(.15)
+                        whirlwind_command='whirlwind-check' if boot==0 else 'whirlwind-reload-check'
+                        session.send(whirlwind_command)
+                        assert session.expect(whirlwind_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'whirlwind-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        whirlwind_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
                     with socket.create_connection(('127.0.0.1',port),timeout=5) as double_throw_client:
                         threading.Thread(target=drain_fixture_client,args=(double_throw_client,),daemon=True).start()
                         time.sleep(.15)

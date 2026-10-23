@@ -118,6 +118,7 @@ public static class CombatTiming
         if(ability==CombatAbility.DoubleThrow){return new((12*256+advance-1)/advance,(5*256+advance-1)/advance);}
         if(ability==CombatAbility.Charge){return new ActionTiming(15,1);}
         if(ability==CombatAbility.Leap){return new ActionTiming(14,5);}
+        if(ability==CombatAbility.Whirlwind){return new ActionTiming(8,3);}
         if(ability==CombatAbility.Zeal){return PaladinZeal.Timing(PaladinZeal.FamilyCode(weapon.Family),advance);}
         if(ability==CombatAbility.Smite)
         {
@@ -144,7 +145,7 @@ public static class CombatTiming
     {
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
-    public static int Range(PlayerMobile from, CombatAbility ability) => ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
+    public static int Range(PlayerMobile from, CombatAbility ability) => ability==CombatAbility.Whirlwind?CombatProtocol.SightRange:ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {

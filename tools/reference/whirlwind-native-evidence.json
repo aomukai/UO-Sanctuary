@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;1784 bounded compiled source cases,70 Python tests,449 named/15 first-loop current fingerprints, reference/generator/catalogue checks and63/36 native patch replay pass. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+  "sources": [
+    "tools/reference/whirlwind-engine-evidence.json",
+    "tools/reference/barbarian-frenzy-preflight.json",
+    "tools/reference/leap-native-evidence.json",
+    "tools/reference/dual-equip-native-evidence.json"
+  ],
+  "implementation": [
+    "Whirlwind is the25th Barbarian/112th roster handler. Validated melee start snapshots the target point into a fixed native walking path, reserves its end and pays current fractional mana once. Adjacent targets spin instead of redirecting to ordinary attacks.",
+    "Common native basic-attack effect frames supply each hand interval with all equipment IAS; paired intervals average upward. Both arms participate from the first pulse, sharing source serial-cycle targets and saved hand-bit order. A short or newly blocked path gets an attempt before finish; finish releases its action clock for immediate Whirlwind/Leap/Leap Attack chaining.",
+    "Reuses ChargeMotion accepted walking steps/network debt resets, LandingReservations/native occupancy, scoped WeaponHands, GearEffects typed/critical/leech/status/durability, source shared target-cycle selection, mana and optional UOContent delayed-death hook. Walking ignores hostile contact while the ordinary player footprint remains; Leap flying remains separate.",
+    "Saved version0 profile146 captures immutable flights before serialization. Offline/load stops at the saved legal position without movement/combat/payment replay, clears its reservation and resolves deferred lethal death. Explicit disconnected-owner cleanup is installed. Foreign maps, lost/moved markers, hard native incapacitation, skill loss and changed/broken weapon identity safely end the spin."
+  ],
+  "checks": [
+    "Focused3boots/2reloads: actual Hellplague/Deathspade independent typed FP health loss on two source-drain0 skeletons in the first pulse; source AR/ED and upward mean of per-hand basic effect frames; one12.5mana cost and fractional balance; no walking stamina debt.",
+    "Movement/input/block/get-hit locks, input release preserving spin, moving through hostile contact, fixed captured target point without chasing, adjacent/short spin hits, final location/reservation release and immediate Leap after finish.",
+    "The same walking-only obstacle stops Whirlwind before its cell and permits Leap across it, exercising distinct source walking/flying contracts through existing shared consumers.",
+    "Lethal damage defers at zero life until end, foreign-map relocation releases state, broken weapon prevents further spin, and a real connected normal40ms server loop moves to its destination without another debit.",
+    "Both reloads prove the profile actually deserialized two saved inspection flights through an independent loaded-record count. Start/moving snapshots retain saved position/mana/fraction/left binding and remove their live state/markers without replay.",
+    "Source1784 bounded phase/deadline/target-selector cases compile four unchanged legacy routines. Old weapon-only speed thresholds and first one-hand pulse are recorded as superseded, not copied into the native cadence."
+  ],
+  "fixtureControls": [
+    "Only WhirlwindFixture actors receive hour-long mana recovery, installed at constructor scope and final Initialize. Production regeneration is unchanged. Test RNG isolates hit/element/physical/critical effects; mapped skeleton Drain0 prevents real Hellplague leech from masking mana cost.",
+    "Saved inspection NextUtc alone is held10minutes after separate natural timer and phase checks. The profile loaded-record count distinguishes actual serialized flights from orphan-marker pruning. World-load cleanup is not claimed as D2R action serialization behavior.",
+    "Disposable loopback protocol bootstrap exercises native movement updates; no authenticated login, decoded owner-packet/graphical-client or broad multiplayer comparison is claimed."
+  ],
+  "limits": [
+    "Handler presence is bounded implementation coverage, not full D2R parity or class completion. Five Barbarian talents remain individually deferred; four later classes still require all30 handlers.",
+    "Native fixed-line tile projection, source WalkVelocity6 baseline, walking masks/doors/multis/terrain/regions and exact modern FRW/slow/first-frame/paired IAS/WSM/catch-up/hitbox/owner/client behavior remain provisional. First pulse uses reviewed SQ10 point3; released notes specify modern hand count/interval but do not independently certify that exact current first frame.",
+    "Unarmed and throwing-weapon melee modes are unavailable rather than using missile endpoints as melee. A broken/changed pair currently ends safely; complete modern one-broken-arm continuation is unsupported. Zero-length ground paths are refused; exact modern zero-distance and low-mana AttackNoMana fallback remain reference gaps.",
+    "Existing GearEffects consumers cover current supported native gear; full Whirlwind-specific spell-trigger exclusions, all event/proc/dodge/PvP/target-kind paths and gear/owner transitions need acceptance. Item skill-acquisition gates remain unchanged.",
+    "Active early disconnect, death during a synchronous location/region callback, dynamic blocked terrain/marker timing, broad diagonal/elevation/door/private-house and actual-client comparisons still need dedicated acceptance beyond the checked ordinary paths. Offline/emergency settlement is a port lifecycle adapter, not an approved mechanical deviation."
+  ],
+  "assets": {
+    "effect": "Independent240-entry effects register retains final spinning body animation/trail/weapon impacts and sound. Native animation11/sound0x238 are identified placeholders.",
+    "icon": "Independent240-entry icon register retains Whirlwind talent-tree/hotkey icon; no final imagegen art created."
+  },
+  "next": "Review remaining five individual Barbarian gaps (Find Potion context, Double Swing start68, Frenzy start67, Leap Attack nova emission, Grim Ward modern owner/targets), then continue unaffected Amazon work by verifying/extracting shared Teeth/Multiple Shot do8 fan. No class is certified complete.",
+  "logs": [
+    ".local/class-skills/whirlwind-focused.log",
+    ".local/class-skills/whirlwind-focused-run.log",
+    ".local/class-skills/whirlwind-source-check.log",
+    ".local/class-skills/native-checks.log"
+  ]
+}

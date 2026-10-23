@@ -81,7 +81,7 @@ public static class ClassCombat
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
-            || !HitRecovery.Active(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from);
+            || !HitRecovery.Active(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
             ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
         ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
@@ -205,7 +205,7 @@ public static class ClassCombat
     }
     public static void Stop(PlayerMobile from)
     {
-        if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
+        if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
         BarbarianConcentrate.Cancel(from);
         BarbarianDoubleThrow.Cancel(from);
         BarbarianBerserk.CancelMode(from);
@@ -281,7 +281,7 @@ public static class ClassCombat
     }
     public static void UpdateCombat(PlayerMobile from, long now)
     {
-        if(BarbarianLeap.Locked(from)){return;}
+        if(BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){return;}
         if (!AlliedOverlap.Allowed(from))
         {
             if(For(from).Charge!=null){ResolveAction(from,now);return;}
@@ -444,7 +444,7 @@ public static class ClassCombat
     // Stop/movement/incapacitation can cancel its effect without refunding its cycle.
     public static bool ResolveAction(PlayerMobile from, long now)
     {
-        if(BarbarianLeap.State(from)!=null){return false;}
+        if(BarbarianLeap.State(from)!=null || BarbarianWhirlwind.State(from)!=null){return false;}
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}

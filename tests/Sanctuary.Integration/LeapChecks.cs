@@ -71,7 +71,7 @@ public static class LeapChecks
         Ready(owner);owner.Mana=1;Require(!Begin(owner,End(owner)) && owner.Mana==1 && BarbarianLeap.State(owner)==null,"Insufficient mana invented an attack or a paid flight");
         owner.Mana=10;Require(Begin(owner,owner.Location),"In-place Leap unavailable");Step(owner,5+7);Require(BarbarianLeap.State(owner) is{Phase:LeapPhase.Airborne},"Minimum airborne duration not retained");Finish(owner);owner.Delete();
     }
-    private static Item WalkingObstacle(PlayerMobile owner)
+    internal static Item WalkingObstacle(PlayerMobile owner)
     {
         var origin=owner.Location;var end=End(owner,5);
         for(int art=1;art<TileData.ItemTable.Length;art++)

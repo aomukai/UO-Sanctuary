@@ -45,6 +45,7 @@ public static class HitRecovery
     }
     public static void Block(PlayerMobile player, long now)
     {
+        if(BarbarianWhirlwind.Locked(player)){return;}
         if (!ClassCreation.Profiles.TryGet(player.Serial, out var profile)) { return; }
         if (Active(player, now)) { return; }
         var session = ClassCombat.For(player);
@@ -84,7 +85,7 @@ public static class HitRecovery
 
     public static bool Apply(PlayerMobile player, int damage, long now)
     {
-        if(PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player)){return false;}
+        if(PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
         {
             return false;

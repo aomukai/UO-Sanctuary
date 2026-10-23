@@ -19,6 +19,7 @@ public static class ClassMovement
         BarbarianConcentrate.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         BarbarianDoubleThrow.Cancel(player);
+        BarbarianWhirlwind.ExternalMove(player);
         // Bash/Stun are interruptible. Cancel on the accepted step itself,
         // so returning to the origin before the event cannot revive a paid packet.
         if(BarbarianMelee.Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;session.BarbarianAttack=null;}

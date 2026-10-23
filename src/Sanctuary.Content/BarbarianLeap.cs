@@ -166,7 +166,7 @@ public static class BarbarianLeap
             }
             ClassCombat.SendState(owner,action);
         }
-        LandingReservations.Prune(marker=>_flights.TryGetValue(marker.Owner,out var state) && state.Reservation==marker.Serial.Value);
+        LandingReservations.Prune(marker=>_flights.TryGetValue(marker.Owner,out var state) && state.Reservation==marker.Serial.Value || BarbarianWhirlwind.Owns(marker));
     }
     public static LeapFlight[] Snapshot()=>_flights.Values.OrderBy(s=>s.Owner).ToArray();
     public static void Restore(LeapFlight[] states)

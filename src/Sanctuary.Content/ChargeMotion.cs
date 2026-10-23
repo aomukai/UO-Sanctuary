@@ -12,7 +12,7 @@ internal static class ChargeMotion
     private static PlayerMobile _stepping;
     internal static bool Active(Mobile actor)=>actor!=null && ReferenceEquals(actor,_stepping);
 
-    internal static bool TryStep(PlayerMobile owner,Direction direction,Func<Point3D,bool> destinationAllowed=null)
+    internal static bool TryStep(PlayerMobile owner,Direction direction,Func<Point3D,bool> destinationAllowed=null,bool ignoreHostiles=false)
     {
         if(owner is not{Alive:true,Deleted:false} || !ClassCombat.Enabled(owner) || owner.Map==null || owner.Map==Map.Internal
             || owner.Frozen || owner.Paralyzed || HitRecovery.Active(owner,Core.TickCount)
@@ -34,7 +34,7 @@ internal static class ChargeMotion
             // Native walking can push a hostile at full stamina. A charge must stop at
             // contact; retain Sanctuary's approved pass-through for cooperative allies.
             if(actor!=owner && actor is{Alive:true,Deleted:false} && actor.Z<z+16 && actor.Z+16>z
-                && !ClassCombat.Friendly(owner,actor)){return false;}
+                && !ClassCombat.Friendly(owner,actor) && !ignoreHostiles){return false;}
         }
 
         var previous=_stepping;var network=owner.NetState;
