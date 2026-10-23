@@ -1,0 +1,181 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "modernTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "compiledRoutines": [
+    "SKILLS_SrvSt05_Jab",
+    "SKILLS_SrvDo007_Jab",
+    "DATATBLS_GetSequenceEvent",
+    "sub_6FCBCE70"
+  ],
+  "reviewedOnlyPaymentWrappers": {
+    "sub_6FD12950": "c31b7c8ea08e7f9f1e4077e628cc1ee06e75ad81d34ba0613185a01b0b2a039d",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "2cda6b0b4ebea715677b74af051deae8e8062131f73dfc91772418f98ee2144f"
+  },
+  "probe": {
+    "strikeCases": 288,
+    "scheduleCases": 12,
+    "dataPath": ".local/class-skills/jab-source-probe.json"
+  },
+  "sequences": {
+    "1HT": {
+      "symbol": "gPlayerSequenceJab_BOW",
+      "points": 18,
+      "strikePoints": [
+        3,
+        9,
+        15
+      ]
+    },
+    "2HT": {
+      "symbol": "gPlayerSequenceJab_1HS",
+      "points": 21,
+      "strikePoints": [
+        3,
+        10,
+        17
+      ]
+    }
+  },
+  "rankGoldens": [
+    {
+      "rank": 1,
+      "mana256": 512,
+      "attackPercent": 10,
+      "physicalPercent": -15
+    },
+    {
+      "rank": 2,
+      "mana256": 576,
+      "attackPercent": 19,
+      "physicalPercent": -12
+    },
+    {
+      "rank": 3,
+      "mana256": 640,
+      "attackPercent": 28,
+      "physicalPercent": -9
+    },
+    {
+      "rank": 4,
+      "mana256": 704,
+      "attackPercent": 37,
+      "physicalPercent": -6
+    },
+    {
+      "rank": 5,
+      "mana256": 768,
+      "attackPercent": 46,
+      "physicalPercent": -3
+    },
+    {
+      "rank": 6,
+      "mana256": 832,
+      "attackPercent": 55,
+      "physicalPercent": 0
+    },
+    {
+      "rank": 7,
+      "mana256": 896,
+      "attackPercent": 64,
+      "physicalPercent": 3
+    },
+    {
+      "rank": 8,
+      "mana256": 960,
+      "attackPercent": 73,
+      "physicalPercent": 6
+    },
+    {
+      "rank": 9,
+      "mana256": 1024,
+      "attackPercent": 82,
+      "physicalPercent": 9
+    },
+    {
+      "rank": 10,
+      "mana256": 1088,
+      "attackPercent": 91,
+      "physicalPercent": 12
+    },
+    {
+      "rank": 11,
+      "mana256": 1152,
+      "attackPercent": 100,
+      "physicalPercent": 15
+    },
+    {
+      "rank": 12,
+      "mana256": 1216,
+      "attackPercent": 109,
+      "physicalPercent": 18
+    },
+    {
+      "rank": 13,
+      "mana256": 1280,
+      "attackPercent": 118,
+      "physicalPercent": 21
+    },
+    {
+      "rank": 14,
+      "mana256": 1344,
+      "attackPercent": 127,
+      "physicalPercent": 24
+    },
+    {
+      "rank": 15,
+      "mana256": 1408,
+      "attackPercent": 136,
+      "physicalPercent": 27
+    },
+    {
+      "rank": 16,
+      "mana256": 1472,
+      "attackPercent": 145,
+      "physicalPercent": 30
+    },
+    {
+      "rank": 17,
+      "mana256": 1536,
+      "attackPercent": 154,
+      "physicalPercent": 33
+    },
+    {
+      "rank": 18,
+      "mana256": 1600,
+      "attackPercent": 163,
+      "physicalPercent": 36
+    },
+    {
+      "rank": 19,
+      "mana256": 1664,
+      "attackPercent": 172,
+      "physicalPercent": 39
+    },
+    {
+      "rank": 20,
+      "mana256": 1728,
+      "attackPercent": 181,
+      "physicalPercent": 42
+    }
+  ],
+  "officialGuide": "https://classic.battle.net/diablo2exp/skills/amazon-javelin.shtml",
+  "established": [
+    "Unchanged start5 only checks the skill table and selected target. Do7 reads current target and skill ToHit each event, adds calc1 only on successful hit, allocates with SrcDam128 fallback for zero, then invokes the ordinary durability drain. No target enumeration or retargeting occurs within either body.",
+    "Source weapon selector maps 1HT to the misleading Jab_BOW symbol and2HT to Jab_1HS. Both have three events: points3/9/15 over18, or3/10/17 over21. Compiled scheduler preserves event ordinal0/1/2 across six declared sequence speeds with zero frame bonus.",
+    "Reviewed start wrapper validates affordability, invokes start5 and consumes once after successful start. Reviewed do wrapper sees the nonnull start pointer and no usemanaondo flag, so these three do events do not consume again. Wrappers are hashed/reviewed only, not compiled in this fixture.",
+    "Pinned rank1..20 mana/AR/physical formulas agree with the official legacy table; the published decimal mana display truncates quarter points. Current data limits weapons to spea ancestry and sets AttackNoMana."
+  ],
+  "limits": [
+    "This is source preparation, not an implemented gameplay handler or native/full modern executable certificate. Installed116-handler build remains unchanged.",
+    "Declared hit/formula/target/allocation/durability services isolate source control flow; per-event modern target death/replacement, movement/range, weapon durability amount, IAS/Fanaticism/chill/animation and full owner/client lifecycle still need integration tests.",
+    "Current mana payment, attack-without-mana fallback and uninterrupted sequence should be wired through existing shared services with explicit native tests; legacy guide and old source are not full proof of current executable behavior.",
+    "No final effect or icon is created; existing separate240-entry asset registers retain Jab requirements."
+  ]
+}
