@@ -1045,7 +1045,13 @@
     "fendPreparation": {
       "nativeHandler": false,
       "reviewedBlocks": 9,
-      "evidence": "tools/reference/fend-preflight.json"
+      "evidence": "tools/reference/fend-preflight.json",
+      "compiledStartCountCases": 56,
+      "compiledDo13Cases": 288,
+      "isolatedLegacyTimingObservations": 60,
+      "isolatedLegacyIncompleteTimingObservations": 8,
+      "modernOriginalCalculatorRows": 12,
+      "compiledEvidence": "tools/reference/fend-engine-evidence.json"
     }
   },
   "logs": {
@@ -1505,7 +1511,8 @@
     "impale-combined-run": ".local/class-skills/full-suite-run.log",
     "impale-installed-server": ".local/class-skills/impale-installed-server.log",
     "impale-installed-smoke": ".local/class-skills/impale-installed-smoke.log",
-    "impale-python": ".local/class-skills/python-checks.log"
+    "impale-python": ".local/class-skills/python-checks.log",
+    "fend-source-probe": ".local/class-skills/fend-source-probe.log"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -1757,7 +1764,7 @@
     "tools/build_class_skills.py": "46042db0eef026d0d35e9b4c12a8a67217829b3fa01ac4b3667e80d405275766",
     "tools/build_skill_roadmap.py": "ab727a937dde98d5b03ed60b4af5e8d46460da58725dca52fc34cde0ff85961e",
     "docs/class-skill-roadmap.md": "bc9b4d4d77a8fe4c349e9e59d06263be9cf0a76cf4b8da39a423b9ec3bc659da",
-    "docs/skill-mechanical-reference.md": "53045508f862cb7d4db063c5542f6271f40662e73fdcbb0b8e261d23dcb7c643",
+    "docs/skill-mechanical-reference.md": "a430614a40ea30d816f09bdbc4d81ed32fc37c138e47459c8aee3c59e45a8842",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "0c73321fa765c4f9ec5e1c6949be0d821d58526322defa17e5eae40efbfca294",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1937,7 +1944,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "f92b33d898e1877206d4ced1752c7e3b46673c69309576062fd2375caddf2532",
+    "docs/class-skills-resume-checkpoint.md": "2bfd1de2f9f4ceacc89f980862ac4860f725dc1bbb1c9c9c71b736263bc2f38a",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -2715,7 +2722,7 @@
     "tools/reference/power-strike-modern-correction.json": "9e28b52088042e958aee3514c66eac8b40956a159385ab5677f7b0b7a88bb892",
     "tools/reference/charged-strike-preflight.json": "627fdc326872bbdd6d2bab7227f2d58965165ffbba7d26f93cf253b0c40b9c2e",
     "tools/reference/sorceress-current-lightning-tooltips.json": "e7871e2852bbcec9fc90eca6ad688d80a91a9bf7b7ebf55712207f0da634ec85",
-    "docs/class-skills-checkpoint-2026-10-24.md": "e6e0d62a02705004cacdd79efd5d666d4ee54a82c56f47954d5072157ff83f80",
+    "docs/class-skills-checkpoint-2026-10-24.md": "fdc40b5fc5541c92be670c4fc60da1b2910e1480f8a07df68eec0e9be13e605d",
     ".local/class-skills/power-strike-source-probe.log": "09b968a0731b7912a096aa6f28519bb3c9efd10c01ef7a8bf7402e4e94c6673e",
     ".local/class-skills/power-strike-content-build.log": "6ff9610be771f263182d89b1ed8eaec36f0f431648988f2a0221db8e0b98319a",
     ".local/class-skills/power-strike-integration-build.log": "df789323d25d46283e82e9aeffa89cc01f0c58651bd64d9421f34a9436172e09",
@@ -2779,19 +2786,22 @@
     "tests/Sanctuary.Integration/ImpaleChecks.cs": "aa0aa80bb84a71e4ca82bbbd31ec99e2f0ba328dff69afdc5a3d41d24fd2d351",
     "tools/reference/impale-current-tooltip.json": "c937eb9cccacdffd93d060ce78473812d08e531d97059194775f4b2c1258b7ea",
     "tools/reference/impale-native-evidence.json": "6c605671f80c813b913abd8d4f95a477035b1b665ae734c3152a10cc9ab7ffe8",
-    "tools/reference/fend-preflight.json": "31fa94827c23d5accb4d481f3be68f7bd1ceedb4670b43280e1803d2de5ce11b",
+    "tools/reference/fend-preflight.json": "1238f1464d98c082cceb4ec069b6eb180a52698dc6b3b00bbd15f22fcc6303c9",
     ".local/class-skills/impale-content-build.log": "39dfc859d1cdd99375ec53c970fd1f2e9d864229141758af79c004509350bdb1",
     ".local/class-skills/impale-integration-build.log": "f5e3ff383e2803f402bd146bc076c8da1098ab0a9a20c42a18629b3fb79a89a5",
     ".local/class-skills/impale-focused.log": "a55ef137c7fc70d096acf038b4fe6247575e0dc126b9b77f5c2d36f2fdf6c59e",
     ".local/class-skills/impale-focused-run.log": "4d67a652235b4918bd11a30f90a1a9e13c1989e07c2d6aa2a0c092279234f1c0",
     ".local/class-skills/impale-combined.log": "4e2b78722ef5cf731cad33eb430b180304357ad77080c61be2b97da772ce6312",
     ".local/class-skills/impale-installed-server.log": "eac258c82bab15130c330026ec103c0bb38384963843ee95cba58e6eb7dafdb9",
-    ".local/class-skills/impale-installed-smoke.log": "a9308156d2e00550a084177c1d8440e111ed0e49795837a6ef9f50bfe3f8d1f8"
+    ".local/class-skills/impale-installed-smoke.log": "a9308156d2e00550a084177c1d8440e111ed0e49795837a6ef9f50bfe3f8d1f8",
+    "tools/probe_fend_reference.py": "7d3833c6bdb8aaf06f179ee5d5d05b947d9a0b15ae4c1ecc6925e9f41612c97e",
+    "tools/reference/fend-engine-evidence.json": "efe722c6cb482e14a9b8cf43f08be65fa84c854d788af58ca1890f898ccbb4fc",
+    ".local/class-skills/fend-source-probe.log": "ee244649c9abcaa8c9b2cada5fc865203597246806adbb81741928f15ee4372f"
   },
   "totalHandlersPresent": 120,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 1107,
+  "verifiedArtifactCount": 1110,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Local test installation; matching120-handler content/data with Impale staged through existing dev installer. Existing-world boot/listen/shutdown0 passes; server stopped; no save reset or native/client edit.",
   "installedTestBuild": true,
@@ -2803,5 +2813,5 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-23T17:09:19.368949+00:00"
+  "referencePreparationUpdatedAtUtc": "2026-10-23T17:15:14.340396+00:00"
 }

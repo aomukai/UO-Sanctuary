@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": [
+    "sub_6FD107E0",
+    "sub_6FD10790",
+    "sub_6FD10880",
+    "sub_6FD107F0",
+    "SKILLS_SrvSt09_Fend",
+    "SKILLS_SrvDo013_Fend_Zeal_Fury",
+    "UNITS_GetFrameBonus",
+    "sub_6FCBCE70",
+    "sub_6FCBCFD0"
+  ],
+  "blockHashes": {
+    "sub_6FD107E0": "a80b7d769718241af77ca4fda7ce38c11171f7399d3ce47bc722a64f22c3a80f",
+    "sub_6FD10790": "29539876b0324726026313fb4afcc4dd3ff2ef266b121f07308b7b087ac6f658",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "SKILLS_SrvSt09_Fend": "fbaf1c166cec4f46a1b3993433b0bbb0abd2c960b34205ea6b5d89295ecbf050",
+    "SKILLS_SrvDo013_Fend_Zeal_Fury": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+  },
+  "probe": {
+    "startCases": 56,
+    "strikeCases": 288,
+    "timingCases": 60,
+    "incompleteTimingCases": 8,
+    "fixture": ".local/class-skills/fend-source-probe.json"
+  },
+  "animations": [
+    {
+      "code": "AMA11HT",
+      "frames": 15,
+      "event": 9
+    },
+    {
+      "code": "AMA12HT",
+      "frames": 18,
+      "event": 11
+    }
+  ],
+  "legacyAnimDataHash": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+  "modernOriginalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "fileHashes": {
+      "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+      "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+      "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+    },
+    "functionHashes": {
+      "rbf": "f1b665fc0e40708db5720878697fd9f2cf41e6eda4a6c0fc88bbd1e1d1319b4a",
+      "rhits": "fb6b6b4515da0a1aaff29f71347dd41c25e6e0082afff41ea45c35013a761388",
+      "getStartingFrame": "ee06905636d7f8d1ac252fa52c2f39d1ac12961461b2e2cd81b0bc9c821328c5"
+    },
+    "rollbackBlockHash": "88bcfedf1282fb869b0fdc1e275fc0bfe1480014b6293d900c6c76aaf1a3178c",
+    "rows": 12,
+    "scope": "Original implementation with declared UI/table/weapon metadata, not pinned executable capture."
+  },
+  "established": [
+    "Start9 clamps eligible nearby count to12 when a target is selected. No-target helper with last=-1 finds a target through fallback but does not fill its output count; start retains0. Generic do13 still attempts one strike before decrementing0. Outer current player/client target acquisition is separate.",
+    "Do13 revalidates original target/reselects a cyclic available identity at each strike, applies declared AR/ED on successful result, allocates SrcDam128 and drains ordinary wear, then decrements count and requests rollback30 only if remaining positive and a next target exists. The selector can wrap to the same sole surviving target.",
+    "Ordinary Amazon A1 frame bonus2 and unchanged rollback scheduler produce60 declared-rate/count observations. The isolated initial-scheduler/rollback call chain loses later attack events at some declared rates; full outer animation-anchor/event delivery is not supplied. Do not port those isolated clocks as current timing. Current anim=A1 is used deliberately; seqnum9 alone does not select SQ. Param2=30 is a rollback factor, not a global doubled attack rate."
+  ],
+  "limits": [
+    "Supplementary older engine bodies and cached AnimData with incomplete acquisition provenance; not current3.3.93847 executable equivalence or native handler proof.",
+    "Shared Zeal fixture world eligibility/query/filter/geometry, hit/result, formulas/ED, combat allocation/drain, hand selection and event delivery are explicitly declared. Count wrapper/callback/selector bodies compile unchanged; full aura scan predicate remains outside this probe.",
+    "Original current-family calculator rate-scales animation position before rollback; twelve unmodified block/function observations separately validate five-hit/four-hit oscillation and final recovery. It differs from the isolated older scheduler/rollback fixture; outer animation-anchor updates and exact current timing remain unresolved. Do not silently conflate the sources.",
+    "Only ordinary human Amazon spear/javelin A1, frame bonus2, declared rate and one event per cycle are exercised. Modern moving-target/dodge/avoidance/first-frame, stat/RNG/owner/client acceptance and native lifecycle remain separate."
+  ]
+}
