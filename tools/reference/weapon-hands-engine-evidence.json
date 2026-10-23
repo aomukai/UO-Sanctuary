@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/Fog/include/D2BitManip.h": "bbb5e735e165f41e8c299a3a03930d2b3b9f20702c52012643bd4fe387e9834a"
+  },
+  "probe": {
+    "caseCounts": {
+      "handCases": 7680,
+      "switchFlagCases": 16,
+      "mergeCases": 128
+    },
+    "totalCases": 7824,
+    "dataPath": ".local/class-skills/weapon-hands-source-probe.json",
+    "blockHashes": {
+      "BITMANIP_SetBitsValueForMask": "1cd6d84279ee2a1e25ddfb1b5db86743648eb6b20eece6b2bd052223e411be56",
+      "D2Common_10434": "d7c543e6abf92a1314784ae1a8f0ba53a760aa3e43a98d18ae2a337d2fcc3ac7",
+      "D2Common_11274_11275_Impl": "fe7195e99fa47c214f9a130f1e7d1bf2639a8952b2761421e33fd2dd430e5688",
+      "UNITS_MergeDualWieldWeaponStatLists": "73baadce5283dd9fde1d28b52317cdfdff6c953479507a0322ebac0a1fb7a3a6",
+      "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845"
+    }
+  },
+  "established": [
+    "Selected-hand resolver respects used-skill weapsel, available/equippable weapon fallbacks and server/client sequence phase differences. Server weapsel3 uses precise sequence-frame parity; the other selector flag can choose the secondary for all nonzero frames.",
+    "Damage-stat merge toggles only the damagerelated flagged stats, preserving nondamage stats. Apply/subtract is idempotent; missing/binding/extended-list guards are separate.",
+    "The surrounding merge routine resolves active hand and toggles primary/secondary stat contributions; full engine/stat propagation, native inventory/primary identity and modern sequence behavior are not certified by declared-service probes."
+  ],
+  "limits": [
+    "Unchanged selector and damage merge toggle compiled; inventory/type/equip/stat arrays/seed-free services are declared fixtures.",
+    "Nullmodern start68/Double Swing SQ events, native dual equip, persistent primary weapon identity, modern damage-related processing and complete client/gear lifecycle remain separate work.",
+    "No Double Swing handler or native dual equip is enabled by this proof."
+  ]
+}

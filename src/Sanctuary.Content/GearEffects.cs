@@ -115,7 +115,7 @@ public static class GearEffects
             return new(value, NamedGear.Elemental(player, "fire", roll) + SorceressEffects.EnchantFire(player, roll) + PaladinElements.Weapon(player,"fire",roll), NamedGear.Elemental(player, "cold", roll) + PaladinElements.Weapon(player,"cold",roll),
                 NamedGear.Elemental(player, "lightning", roll) + PaladinElements.Weapon(player,"ltng",roll), unarmed.Rate * duration, duration, NamedGear.ColdDuration(player), NamedGear.Elemental(player, "magic", roll));
         }
-        bool two = weapon.Layer == Layer.TwoHanded || basis.TwoHanded && !basis.OneOrTwoHanded;
+        bool two = WeaponHands.TwoHanded(weapon);
         int min = two && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
         int max = two && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
         if (ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)

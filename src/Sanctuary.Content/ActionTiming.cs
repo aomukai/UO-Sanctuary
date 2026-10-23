@@ -50,7 +50,7 @@ public static class CombatTiming
     };
     public static BaseWeapon Equipped(PlayerMobile from)
     {
-        var weapon = from.FindItemOnLayer(Layer.OneHanded) as BaseWeapon
+        var weapon = WeaponHands.Selected(from) ?? from.FindItemOnLayer(Layer.OneHanded) as BaseWeapon
             ?? from.FindItemOnLayer(Layer.TwoHanded) as BaseWeapon;
         return ClassGear.Broken(weapon) ? null : weapon;
     }

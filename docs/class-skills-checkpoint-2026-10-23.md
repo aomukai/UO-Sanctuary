@@ -306,3 +306,26 @@ Focused action checks restore the saved world position of offline fixture actors
 No class completion or new item-skill gate is claimed. Passive has no separate cast effect or hotkey icon; its talent-tree icon remains missing in the separate icon register. Weapon-projectile presentation uses existing identified UO placeholders.
 
 An ordinary converted weapon without a saved quantity entry uses the existing ledger default of source maximum. Exact drop-time initial quantities, ordinary quantity tooltip/client display and exhaustive factory/repair/copy interactions still need acceptance coverage; this does not certify every base-item lifecycle.
+
+
+## Latest checkpoint: selected weapon hand component
+
+Latest component: **selected weapon hand and stat isolation for Double Swing**, reusing the existing gear, AR/damage, mastery, IAS, elemental/poison, named property and prepared impact consumers. Source7824 bounded selector/merge/bit-helper cases and pinned damage-related property/alias metadata support it. Forced native hand fixtures cover Hellplague/Felloak/Deathspade, Tarnhelm/Steelrend, per-hand typed delivery, global resistance, nested selection, removal/broken cases and solo/paired hybrid sword endpoints through two reloads. See [native evidence](../tools/reference/weapon-hands-native-evidence.json), [source](../tools/reference/weapon-hands-engine-evidence.json) and [property metadata](../tools/reference/weapon-property-hand-evidence.json).
+
+Next: **native dual-equip transaction and source primary identity, then Double Swing**. [Preflight](../tools/reference/barbarian-double-swing-preflight.json) records why changing layers in CanEquip alone cannot roll back a later failure. Native player dual-equip still rejects a second weapon; fixtures force layers only to test the consumer. Modern start68/SQ11/payment, source primary persistence, client/requirements/lifecycle and crafted/rune/material pairs remain pending.109 handlers/Barbarian22 are unchanged;8 Barbarian talents remain pending. Goal active.
+
+Focused/final combined native3boots/2reloads pass;70 Python,440 named/15 first-loop current fingerprints, reference/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass. Client50 warnings/0 errors; content/integration0 warnings/errors. Existing61/36 native patch stacks and save formats are unchanged. No player dual-equip, Double Swing handler, class certificate, final asset or item-skill gate is enabled. Server stopped.
+
+This is a component of the Double Swing/dual-wield work, not a working Double Swing talent or public native dual-equip feature.109 handlers/Barbarian22 remain unchanged.
+
+Native OneHanded/TwoHanded identities supply primary/secondary only in these forced fixtures. Source first-equipped/primary-weapon persistence, player/client equip transaction and rollback, requirement transitions, swaps/trade/death/history remain pending.
+
+Crafted/rune/material pairs remain explicitly unsupported until their approved Sanctuary rules are reconciled with source hand projection. A source-compatible ordinary or named pair is required for this component.
+
+Source7824 cases compile unchanged legacy selector/merge toggle/bit helper with declared inventory/type/stat-array services. The current property flags are pinned modern data; this is not complete3.3.93847 executable/stat-VM/sequence certification.
+
+Full modern SQ11 events/start68/payment, skill-specific dual-hand timing/IAS, target/weapon/rank/stat snapshots, all per-item events/procs/gems/set/owner/client interactions remain acceptance work. No item-skill gate or class completion is claimed.
+
+No save format changed and no native engine patch added by this component. Final skill effects and talent/hotkey icons remain separate; no extra art is needed for the stat consumer.
+
+Pinned extra-skill-dmg%-rand has a non-stat dmg% reference interpreted by a special function. That property is already unsupported in live item effects; it is recorded unresolved, and generation refuses to enable it in NamedPropertyRuntime without resolving the hand projection. Its false default does not establish global behavior.

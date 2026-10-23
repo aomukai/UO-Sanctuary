@@ -389,6 +389,9 @@ def check():
                     throwing_command='throwing-mastery-check' if boot==0 else 'throwing-mastery-reload-check'
                     session.send(throwing_command)
                     assert session.expect(throwing_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    hands_command='weapon-hands-check' if boot==0 else 'weapon-hands-reload-check'
+                    session.send(hands_command)
+                    assert session.expect(hands_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     attack_command='barbarian-attacks-check' if boot==0 else 'barbarian-attacks-reload-check'
                     session.send(attack_command)
                     assert session.expect(attack_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

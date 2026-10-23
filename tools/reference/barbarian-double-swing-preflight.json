@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next shared dual-wield/Double Swing preparation; no handler or compiled Double Swing certificate.",
+  "status": "Selected-hand/stat component verified by focused/full3boots/2reloads and7824 bounded source cases; native equip/primary ledger and Double Swing handler remain pending.",
   "skill": {
     "skill": "Double Swing",
     "*Id": 133,
@@ -86,7 +86,25 @@
     "Source-reviewed only. No new runtime/dual-wield mode/handler is enabled. Exact current start68/sequence/hand switching and owner/event/client behavior remain open; continue independently provable foundation work."
   ],
   "nextSteps": [
-    "Trace current start68 differences and shared source hand/sequence/target helpers before wiring Double Swing.",
-    "Implement and verify explicit hand eligibility/context through existing gear/combat consumers, then source-counted SQ events/payment/retargeting and two reloads."
+    "Implement and verify native dual-equip transaction, source primary identity and requirements/lifecycle/client bridge.",
+    "Resolve modern start68 and source SQ11/hand/target/payment contracts before enabling Double Swing.",
+    "Retain all240 effect/icon entries and all individually deferred mechanics; no class certificate is claimed."
+  ],
+  "foundationEvidence": [
+    "tools/reference/weapon-hands-engine-evidence.json",
+    "tools/reference/weapon-property-hand-evidence.json",
+    "tools/reference/weapon-hands-native-evidence.json"
+  ],
+  "completedFoundation": [
+    "Pinned damage-related property classification, including implicit local min/max/ED functions and current runtime aliases. Mixed damage/nondamage property projections are rejected by generation.",
+    "Scoped selected-hand access through the existing equipped-weapon, active gear, numeric/element/poison, AR/damage, mastery, IAS and prepared hit consumers. Both weapons retain nondamage globals in the supported forced pair.",
+    "Correct one-handed endpoints when a Barbarian hybrid sword is paired, and existing two-handed endpoints when it is alone. No new stat pool or independent damage pipeline."
+  ],
+  "nativeEquipPlan": [
+    "Keep current native equip denial until a complete transaction is present. BaseWeapon.CanEquip precedes Mobile.CheckEquip, while OnEquip/OnItemAdded happen later; mutating another equipped item from CanEquip would leave changes behind after a later failure.",
+    "Add an optional guarded native equip transaction/layer-conflict bridge where necessary, with rollback of candidate/companion layers on every failure and no behavior change when absent. Verify the actual player/client equip request rather than using forced AddItem as acceptance.",
+    "Persist the source primary-weapon identity and reconcile equip/remove/trade/load atomically. Native OneHanded is only the current forced-fixture mapping; it does not establish all first-equipped/side-swapped cases.",
+    "Reconcile the approved crafted/rune/material behavior with source hand-specific stats before enabling those pairs. Current consumers explicitly exclude these modifier combinations.",
+    "Then integrate SQ11 hand/event/target scheduling and current start68/payment behavior with existing prepared attacks, duration/mana and cancellation contracts."
   ]
 }

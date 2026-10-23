@@ -1,0 +1,1178 @@
+[
+  {
+    "code": "abs-cold",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-cold%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-cold/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-cold/time",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-crush",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-crush%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-fire",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-fire%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-fire/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-fire/time",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-ltng",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-ltng%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-ltng/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-ltng/time",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-mag",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-mag%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-pois/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-pois/time",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-slash",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-slash%",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-thrust",
+    "damageRelated": false
+  },
+  {
+    "code": "abs-thrust%",
+    "damageRelated": false
+  },
+  {
+    "code": "ac",
+    "damageRelated": false
+  },
+  {
+    "code": "ac%",
+    "damageRelated": false
+  },
+  {
+    "code": "ac%-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "ac%/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "ac%/time",
+    "damageRelated": false
+  },
+  {
+    "code": "ac-hth",
+    "damageRelated": false
+  },
+  {
+    "code": "ac-miss",
+    "damageRelated": false
+  },
+  {
+    "code": "ac-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "ac/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "ac/time",
+    "damageRelated": false
+  },
+  {
+    "code": "addxp",
+    "damageRelated": false
+  },
+  {
+    "code": "affix-rand",
+    "damageRelated": false
+  },
+  {
+    "code": "all-stats",
+    "damageRelated": false
+  },
+  {
+    "code": "allskills",
+    "damageRelated": false
+  },
+  {
+    "code": "ama",
+    "damageRelated": false
+  },
+  {
+    "code": "ass",
+    "damageRelated": false
+  },
+  {
+    "code": "att",
+    "damageRelated": true
+  },
+  {
+    "code": "att%",
+    "damageRelated": true
+  },
+  {
+    "code": "att%-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "att%/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "att%/time",
+    "damageRelated": true
+  },
+  {
+    "code": "att-dem/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "att-dem/time",
+    "damageRelated": true
+  },
+  {
+    "code": "att-demon",
+    "damageRelated": true
+  },
+  {
+    "code": "att-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "att-mon%",
+    "damageRelated": true
+  },
+  {
+    "code": "att-skill",
+    "damageRelated": true
+  },
+  {
+    "code": "att-und/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "att-und/time",
+    "damageRelated": true
+  },
+  {
+    "code": "att-undead",
+    "damageRelated": true
+  },
+  {
+    "code": "att/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "att/time",
+    "damageRelated": true
+  },
+  {
+    "code": "aura",
+    "damageRelated": false
+  },
+  {
+    "code": "balance1",
+    "damageRelated": false
+  },
+  {
+    "code": "balance2",
+    "damageRelated": false
+  },
+  {
+    "code": "balance3",
+    "damageRelated": false
+  },
+  {
+    "code": "bar",
+    "damageRelated": false
+  },
+  {
+    "code": "block",
+    "damageRelated": false
+  },
+  {
+    "code": "block1",
+    "damageRelated": false
+  },
+  {
+    "code": "block2",
+    "damageRelated": false
+  },
+  {
+    "code": "block3",
+    "damageRelated": false
+  },
+  {
+    "code": "bloody",
+    "damageRelated": true
+  },
+  {
+    "code": "cast1",
+    "damageRelated": false
+  },
+  {
+    "code": "cast2",
+    "damageRelated": false
+  },
+  {
+    "code": "cast3",
+    "damageRelated": false
+  },
+  {
+    "code": "charge-noconsume",
+    "damageRelated": false
+  },
+  {
+    "code": "charged",
+    "damageRelated": false
+  },
+  {
+    "code": "cheap",
+    "damageRelated": false
+  },
+  {
+    "code": "cold-len",
+    "damageRelated": true
+  },
+  {
+    "code": "cold-max",
+    "damageRelated": true
+  },
+  {
+    "code": "cold-min",
+    "damageRelated": true
+  },
+  {
+    "code": "color",
+    "damageRelated": false
+  },
+  {
+    "code": "crush",
+    "damageRelated": true
+  },
+  {
+    "code": "crush/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "crush/time",
+    "damageRelated": true
+  },
+  {
+    "code": "deadly",
+    "damageRelated": true
+  },
+  {
+    "code": "deadly/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "deadly/time",
+    "damageRelated": true
+  },
+  {
+    "code": "death-skill",
+    "damageRelated": false
+  },
+  {
+    "code": "demon-heal",
+    "damageRelated": false
+  },
+  {
+    "code": "dex",
+    "damageRelated": false
+  },
+  {
+    "code": "dex/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "dex/time",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg%",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg%-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg%/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg%/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-ac",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-cold",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-cold/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-cold/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-crush",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-crush%",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-dem/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-dem/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-demon",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-demon%",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-elem",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-elem-max",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-elem-min",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-fire",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-fire/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-fire/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-ltng",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-ltng/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-ltng/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-mag",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-mag/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-max",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-min",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-mon",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-mon%",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-norm",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-pois",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-pois/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-pois/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-slash",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-slash%",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-throw",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-thrust",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-thrust%",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-to-mana",
+    "damageRelated": false
+  },
+  {
+    "code": "dmg-und/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-und/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-undead",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg-undead%",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "dmg/time",
+    "damageRelated": true
+  },
+  {
+    "code": "dru",
+    "damageRelated": false
+  },
+  {
+    "code": "dur",
+    "damageRelated": false
+  },
+  {
+    "code": "dur%",
+    "damageRelated": false
+  },
+  {
+    "code": "ease",
+    "damageRelated": false
+  },
+  {
+    "code": "enr",
+    "damageRelated": false
+  },
+  {
+    "code": "enr/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "enr/time",
+    "damageRelated": false
+  },
+  {
+    "code": "ethereal",
+    "damageRelated": false
+  },
+  {
+    "code": "explosivearrow",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-cold",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-fire",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-ltng",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-mag",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-pois",
+    "damageRelated": false
+  },
+  {
+    "code": "extra-skill-dmg%-rand",
+    "damageRelated": false
+  },
+  {
+    "code": "fade",
+    "damageRelated": false
+  },
+  {
+    "code": "fire-fx",
+    "damageRelated": false
+  },
+  {
+    "code": "fire-max",
+    "damageRelated": true
+  },
+  {
+    "code": "fire-min",
+    "damageRelated": true
+  },
+  {
+    "code": "fireskill",
+    "damageRelated": false
+  },
+  {
+    "code": "freeze",
+    "damageRelated": true
+  },
+  {
+    "code": "gembonus",
+    "damageRelated": false
+  },
+  {
+    "code": "gems%/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "gems%/time",
+    "damageRelated": false
+  },
+  {
+    "code": "gethit-skill",
+    "damageRelated": false
+  },
+  {
+    "code": "gold%",
+    "damageRelated": false
+  },
+  {
+    "code": "gold%/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "gold%/time",
+    "damageRelated": false
+  },
+  {
+    "code": "half-freeze",
+    "damageRelated": false
+  },
+  {
+    "code": "heal-kill",
+    "damageRelated": false
+  },
+  {
+    "code": "herb",
+    "damageRelated": false
+  },
+  {
+    "code": "hit-skill",
+    "damageRelated": true
+  },
+  {
+    "code": "howl",
+    "damageRelated": true
+  },
+  {
+    "code": "hp",
+    "damageRelated": false
+  },
+  {
+    "code": "hp%",
+    "damageRelated": false
+  },
+  {
+    "code": "hp/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "hp/time",
+    "damageRelated": false
+  },
+  {
+    "code": "ignore-ac",
+    "damageRelated": true
+  },
+  {
+    "code": "indestruct",
+    "damageRelated": false
+  },
+  {
+    "code": "item%",
+    "damageRelated": false
+  },
+  {
+    "code": "kick",
+    "damageRelated": false
+  },
+  {
+    "code": "kick/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "kick/time",
+    "damageRelated": true
+  },
+  {
+    "code": "kill-skill",
+    "damageRelated": true
+  },
+  {
+    "code": "knock",
+    "damageRelated": true
+  },
+  {
+    "code": "levelreq",
+    "damageRelated": false
+  },
+  {
+    "code": "levelup-skill",
+    "damageRelated": false
+  },
+  {
+    "code": "life-steal%",
+    "damageRelated": true
+  },
+  {
+    "code": "lifesteal",
+    "damageRelated": true
+  },
+  {
+    "code": "light",
+    "damageRelated": false
+  },
+  {
+    "code": "light-thorns",
+    "damageRelated": false
+  },
+  {
+    "code": "ltng-fx",
+    "damageRelated": false
+  },
+  {
+    "code": "ltng-max",
+    "damageRelated": true
+  },
+  {
+    "code": "ltng-min",
+    "damageRelated": true
+  },
+  {
+    "code": "mag%",
+    "damageRelated": false
+  },
+  {
+    "code": "mag%/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "mag%/time",
+    "damageRelated": false
+  },
+  {
+    "code": "magic-reduction",
+    "damageRelated": false
+  },
+  {
+    "code": "magicarrow",
+    "damageRelated": false
+  },
+  {
+    "code": "mana",
+    "damageRelated": false
+  },
+  {
+    "code": "mana%",
+    "damageRelated": false
+  },
+  {
+    "code": "mana-kill",
+    "damageRelated": false
+  },
+  {
+    "code": "mana-regen%",
+    "damageRelated": false
+  },
+  {
+    "code": "mana-steal%",
+    "damageRelated": true
+  },
+  {
+    "code": "mana/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "mana/time",
+    "damageRelated": false
+  },
+  {
+    "code": "manasteal",
+    "damageRelated": true
+  },
+  {
+    "code": "move1",
+    "damageRelated": false
+  },
+  {
+    "code": "move2",
+    "damageRelated": false
+  },
+  {
+    "code": "move3",
+    "damageRelated": false
+  },
+  {
+    "code": "nec",
+    "damageRelated": false
+  },
+  {
+    "code": "noconsume",
+    "damageRelated": true
+  },
+  {
+    "code": "nofreeze",
+    "damageRelated": false
+  },
+  {
+    "code": "noheal",
+    "damageRelated": true
+  },
+  {
+    "code": "normal-damage",
+    "damageRelated": true
+  },
+  {
+    "code": "openwounds",
+    "damageRelated": true
+  },
+  {
+    "code": "oskill",
+    "damageRelated": false
+  },
+  {
+    "code": "pal",
+    "damageRelated": false
+  },
+  {
+    "code": "physical-reduction",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce",
+    "damageRelated": true
+  },
+  {
+    "code": "pierce-cold",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-dmg",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-fire",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-cold",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-damage",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-fire",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-light",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-magic",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-immunity-poison",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-ltng",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-mag",
+    "damageRelated": false
+  },
+  {
+    "code": "pierce-pois",
+    "damageRelated": false
+  },
+  {
+    "code": "pois-len",
+    "damageRelated": true
+  },
+  {
+    "code": "pois-max",
+    "damageRelated": true
+  },
+  {
+    "code": "pois-min",
+    "damageRelated": true
+  },
+  {
+    "code": "randclassskill",
+    "damageRelated": false
+  },
+  {
+    "code": "reanimate",
+    "damageRelated": true
+  },
+  {
+    "code": "red-dmg",
+    "damageRelated": false
+  },
+  {
+    "code": "red-dmg%",
+    "damageRelated": false
+  },
+  {
+    "code": "red-mag",
+    "damageRelated": false
+  },
+  {
+    "code": "reduce-ac",
+    "damageRelated": true
+  },
+  {
+    "code": "regen",
+    "damageRelated": false
+  },
+  {
+    "code": "regen-dur",
+    "damageRelated": false
+  },
+  {
+    "code": "regen-mana",
+    "damageRelated": false
+  },
+  {
+    "code": "regen-stam",
+    "damageRelated": false
+  },
+  {
+    "code": "regen-stam/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "regen-stam/time",
+    "damageRelated": false
+  },
+  {
+    "code": "rep-dur",
+    "damageRelated": false
+  },
+  {
+    "code": "rep-quant",
+    "damageRelated": false
+  },
+  {
+    "code": "replenish-life",
+    "damageRelated": false
+  },
+  {
+    "code": "res-all",
+    "damageRelated": false
+  },
+  {
+    "code": "res-all-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-cold",
+    "damageRelated": false
+  },
+  {
+    "code": "res-cold-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-cold/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "res-cold/time",
+    "damageRelated": false
+  },
+  {
+    "code": "res-fire",
+    "damageRelated": false
+  },
+  {
+    "code": "res-fire-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-fire/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "res-fire/time",
+    "damageRelated": false
+  },
+  {
+    "code": "res-ltng",
+    "damageRelated": false
+  },
+  {
+    "code": "res-ltng-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-ltng/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "res-ltng/time",
+    "damageRelated": false
+  },
+  {
+    "code": "res-mag",
+    "damageRelated": false
+  },
+  {
+    "code": "res-mag-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-physical",
+    "damageRelated": false
+  },
+  {
+    "code": "res-pois",
+    "damageRelated": false
+  },
+  {
+    "code": "res-pois-len",
+    "damageRelated": false
+  },
+  {
+    "code": "res-pois-max",
+    "damageRelated": false
+  },
+  {
+    "code": "res-pois/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "res-pois/time",
+    "damageRelated": false
+  },
+  {
+    "code": "rip",
+    "damageRelated": true
+  },
+  {
+    "code": "skill",
+    "damageRelated": false
+  },
+  {
+    "code": "skill-rand",
+    "damageRelated": false
+  },
+  {
+    "code": "skilltab",
+    "damageRelated": false
+  },
+  {
+    "code": "slow",
+    "damageRelated": true
+  },
+  {
+    "code": "sock",
+    "damageRelated": false
+  },
+  {
+    "code": "sor",
+    "damageRelated": false
+  },
+  {
+    "code": "stack",
+    "damageRelated": false
+  },
+  {
+    "code": "stam",
+    "damageRelated": false
+  },
+  {
+    "code": "stam/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "stam/time",
+    "damageRelated": false
+  },
+  {
+    "code": "stamdrain",
+    "damageRelated": true
+  },
+  {
+    "code": "state",
+    "damageRelated": false
+  },
+  {
+    "code": "str",
+    "damageRelated": false
+  },
+  {
+    "code": "str/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "str/time",
+    "damageRelated": false
+  },
+  {
+    "code": "stupidity",
+    "damageRelated": true
+  },
+  {
+    "code": "swing1",
+    "damageRelated": true
+  },
+  {
+    "code": "swing2",
+    "damageRelated": true
+  },
+  {
+    "code": "swing3",
+    "damageRelated": true
+  },
+  {
+    "code": "thorns",
+    "damageRelated": false
+  },
+  {
+    "code": "thorns/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "throw",
+    "damageRelated": false
+  },
+  {
+    "code": "time",
+    "damageRelated": false
+  },
+  {
+    "code": "vit",
+    "damageRelated": false
+  },
+  {
+    "code": "vit/lvl",
+    "damageRelated": false
+  },
+  {
+    "code": "vit/time",
+    "damageRelated": false
+  },
+  {
+    "code": "war",
+    "damageRelated": false
+  },
+  {
+    "code": "war-tab-rand",
+    "damageRelated": false
+  },
+  {
+    "code": "wounds/lvl",
+    "damageRelated": true
+  },
+  {
+    "code": "wounds/time",
+    "damageRelated": true
+  }
+]

@@ -178,7 +178,7 @@ public static class ClassStats
         int statBonus = basis == null ? strength : WeaponStatPercent(strength,dexterity,basis.StrengthBonus,basis.DexterityBonus);
         foreach (var item in player.Items)
         {
-            if (item != weapon && ClassGear.Active(player, item))
+            if (item != weapon && ClassGear.Slot(item)!=GearSlot.Weapon && ClassGear.Active(player, item))
             {
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
@@ -199,7 +199,7 @@ public static class ClassStats
         int flatMin = NamedGear.SetBonus(player, "dmg-min"), flatMax = NamedGear.SetBonus(player, "dmg-max");
         foreach (var item in player.Items)
         {
-            if (item != weapon && ClassGear.Active(player, item))
+            if (item != weapon && ClassGear.Slot(item)!=GearSlot.Weapon && ClassGear.Active(player, item))
             {
                 flatMin += ClassGear.Bonus(item, "dmg-min");
                 flatMax += ClassGear.Bonus(item, "dmg-max");

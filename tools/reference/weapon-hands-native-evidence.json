@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined native3boots/2reloads pass;70 Python,440 named/15 first-loop current fingerprints, reference/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass. Component only; native dual-equip/Double Swing remain pending.",
+  "sources": [
+    "tools/reference/weapon-hands-engine-evidence.json",
+    "tools/reference/weapon-property-hand-evidence.json"
+  ],
+  "implementation": [
+    "WeaponHands reuses native weapon identities and existing gear data, with a scoped thread-local selected hand; nested calls restore their prior hand and no active scope is serialized.",
+    "Pinned itemstatcost damage-related metadata is projected through source property stat columns and implicit min/max/ED functions5/6/7. Runtime numeric aliases share those flags, avoiding leech/demon damage leakage. Mixed-output properties fail generation rather than being filtered incorrectly.",
+    "Existing CombatTiming.Equipped/ClassGear/ClassStats/NamedGear/GearEffects consumers resolve the selected strike hand. Supported paired weapons both retain nondamage globals, while local AR/ED/flat damage/elements/poison/leech/IAS/proc properties come from the selected weapon.",
+    "Other weapon local ED/min/max no longer enter the off-weapon pool. Existing armor/set bonuses, class masteries, typed mitigation and item effects are reused. Hybrid swords use one-handed source endpoints while paired and existing two-handed endpoints alone."
+  ],
+  "checks": [
+    "Pinned classifications and projected aliases; source server sequence parity exposed independently from animation clocks.",
+    "Real Hellplague/Felloak: selected fire/poison/leech/knockback and global fire/lightning resistances. Deathspade distinguishes local AR; Tarnhelm and Steelrend exercise soft ranks and actual off-weapon ED.",
+    "Nested selected-hand queries restore prior/default hand; prepared typed hits keep selected weapon damage through existing mitigation without unintended wear.",
+    "Two actual server reloads preserve native item layer identities and per-hand stat/damage payload, then repeat the same consumers. Remove/re-add and broken eligibility preserve original payload.",
+    "Actual ordinary CrescentBlade claymore base uses one-handed endpoints paired and two-handed alone. A valid crafted Valorite material state is deliberately excluded. True two-handed Halberd is excluded.",
+    "Native EquipItem still rejects a second weapon. Fixtures explicitly force native OneHanded/TwoHanded layers to isolate the shared stat consumers; they are not a client/equip acceptance certificate.",
+    "Focused/final combined native3boots/2reloads pass;70 Python,440 named/15 first-loop current fingerprints, reference/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass."
+  ],
+  "limits": [
+    "This is a component of the Double Swing/dual-wield work, not a working Double Swing talent or public native dual-equip feature.109 handlers/Barbarian22 remain unchanged.",
+    "Native OneHanded/TwoHanded identities supply primary/secondary only in these forced fixtures. Source first-equipped/primary-weapon persistence, player/client equip transaction and rollback, requirement transitions, swaps/trade/death/history remain pending.",
+    "Crafted/rune/material pairs remain explicitly unsupported until their approved Sanctuary rules are reconciled with source hand projection. A source-compatible ordinary or named pair is required for this component.",
+    "Source7824 cases compile unchanged legacy selector/merge toggle/bit helper with declared inventory/type/stat-array services. The current property flags are pinned modern data; this is not complete3.3.93847 executable/stat-VM/sequence certification.",
+    "Full modern SQ11 events/start68/payment, skill-specific dual-hand timing/IAS, target/weapon/rank/stat snapshots, all per-item events/procs/gems/set/owner/client interactions remain acceptance work. No item-skill gate or class completion is claimed.",
+    "No save format changed and no native engine patch added by this component. Final skill effects and talent/hotkey icons remain separate; no extra art is needed for the stat consumer.",
+    "Pinned extra-skill-dmg%-rand has a non-stat dmg% reference interpreted by a special function. That property is already unsupported in live item effects; it is recorded unresolved, and generation refuses to enable it in NamedPropertyRuntime without resolving the hand projection. Its false default does not establish global behavior."
+  ],
+  "next": "Native dual-equip transaction and primary identity, then Double Swing sequence/start/payment; tools/reference/barbarian-double-swing-preflight.json"
+}

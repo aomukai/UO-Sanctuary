@@ -72,6 +72,7 @@ public static class ClassGear
         {
             return false;
         }
+        if(WeaponHands.Member(player,item)){return true;}
         if (slot == GearSlot.Shield)
         {
             foreach (var other in player.Items)
@@ -151,7 +152,7 @@ public static class ClassGear
         int value = NamedGear.SetBonus(player, code);
         foreach (var item in player.Items)
         {
-            if (Active(player, item))
+            if (Active(player, item) && WeaponHands.Contributes(player,item,code))
             {
                 value += Bonus(item, code);
             }
@@ -196,7 +197,7 @@ public static class ClassGear
         {
             return (0, 0);
         }
-        bool twoHanded = item.Layer == Layer.TwoHanded || basis.TwoHanded && !basis.OneOrTwoHanded;
+        bool twoHanded = WeaponHands.TwoHanded(item);
         int min = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
         int max = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
         if (Definition(item).Category == "Throwing" && basis.MissileMax > 0)
@@ -258,7 +259,7 @@ public static class ClassGear
             _ => 0
         };
     }
-    private static int EffectiveBonus(Item item, string code) => item.Parent is PlayerMobile player && !Active(player, item)
+    private static int EffectiveBonus(Item item, string code) => item.Parent is PlayerMobile player && (!Active(player, item) || !WeaponHands.Contributes(player,item,code))
         ? 0 : Bonus(item, code);
     private static string AttributeCode(AosAttribute attribute) => attribute switch
     {

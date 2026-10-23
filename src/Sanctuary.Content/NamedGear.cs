@@ -240,6 +240,7 @@ public static class NamedGear
             var definition = Catalog.Item(state.NamedItemId);
             foreach (var template in _templates[definition.Id])
             {
+                if(!WeaponHands.Contributes(player,worn.Item,template.Property.Code)){continue;}
                 if (template.Key.StartsWith("a/", StringComparison.Ordinal) && !PieceBonusEnabled(player, definition.Id, template.Property.Slot)) { continue; }
                 yield return (template.Property, FindRoll(state, template.Key));
             }

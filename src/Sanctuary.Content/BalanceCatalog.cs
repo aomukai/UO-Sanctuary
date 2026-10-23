@@ -16,6 +16,7 @@ public static class BalanceCatalog
     {
         SkillMechanics.Load();
         ClassItemTypes.Load();
+        WeaponHands.Load();
         NecromancerSummons.Load();
         PaladinCleansing.Load();
         CorpseSkillRules.Load();

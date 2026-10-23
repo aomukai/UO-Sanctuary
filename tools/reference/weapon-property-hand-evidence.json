@@ -1,0 +1,2829 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceHashes": {
+    "json/properties.json": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "json/itemstatcost.json": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "runtimeProjection": {
+    "path": "src/Sanctuary.Content/NamedPropertyRuntime.cs",
+    "sha256": "a11767e4c1f6badf27271f0959417f714aff7c9af9f6ce1f080b92302a1425bb",
+    "aliases": {
+      "lifesteal": "life-steal%",
+      "manasteal": "mana-steal%",
+      "regen": "replenish-life",
+      "regen-mana": "mana-regen%",
+      "red-mag": "magic-reduction",
+      "dmg-undead": "dmg-undead%",
+      "red-dmg%": "res-physical",
+      "red-dmg": "physical-reduction",
+      "dmg-demon": "dmg-demon%",
+      "dmg": "normal-damage"
+    }
+  },
+  "status": "Pinned supported property/stat classification, not full native dual-wield certification. Unresolved unsupported rows are listed separately.",
+  "rules": [
+    {
+      "code": "abs-cold",
+      "stats": [
+        "item_absorbcold"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-cold%",
+      "stats": [
+        "item_absorbcold_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-cold/lvl",
+      "stats": [
+        "item_absorb_cold_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-cold/time",
+      "stats": [
+        "item_absorb_cold_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-crush",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-crush%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-fire",
+      "stats": [
+        "item_absorbfire"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-fire%",
+      "stats": [
+        "item_absorbfire_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-fire/lvl",
+      "stats": [
+        "item_absorb_fire_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-fire/time",
+      "stats": [
+        "item_absorb_fire_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-ltng",
+      "stats": [
+        "item_absorblight"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-ltng%",
+      "stats": [
+        "item_absorblight_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-ltng/lvl",
+      "stats": [
+        "item_absorb_ltng_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-ltng/time",
+      "stats": [
+        "item_absorb_ltng_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-mag",
+      "stats": [
+        "item_absorbmagic"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-mag%",
+      "stats": [
+        "item_absorbmagic_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-pois/lvl",
+      "stats": [
+        "item_absorb_pois_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-pois/time",
+      "stats": [
+        "item_absorb_pois_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-slash",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-slash%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-thrust",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "abs-thrust%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac",
+      "stats": [
+        "armorclass"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac%",
+      "stats": [
+        "item_armor_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac%-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac%/lvl",
+      "stats": [
+        "item_armorpercent_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac%/time",
+      "stats": [
+        "item_armorpercent_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac-hth",
+      "stats": [
+        "armorclass_vs_hth"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac-miss",
+      "stats": [
+        "armorclass_vs_missile"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac/lvl",
+      "stats": [
+        "item_armor_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ac/time",
+      "stats": [
+        "item_armor_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "addxp",
+      "stats": [
+        "item_addexperience"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "affix-rand",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "all-stats",
+      "stats": [
+        "strength",
+        "energy",
+        "dexterity",
+        "vitality"
+      ],
+      "damageRelatedFlags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "allskills",
+      "stats": [
+        "item_allskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ama",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ass",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att",
+      "stats": [
+        "tohit"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att%",
+      "stats": [
+        "item_tohit_percent"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att%-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att%/lvl",
+      "stats": [
+        "item_tohitpercent_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att%/time",
+      "stats": [
+        "item_tohitpercent_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-dem/lvl",
+      "stats": [
+        "item_tohit_demon_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-dem/time",
+      "stats": [
+        "item_tohit_demon_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-demon",
+      "stats": [
+        "item_demon_tohit"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-mon%",
+      "stats": [
+        "attack_vs_montype"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-skill",
+      "stats": [
+        "item_skillonattack"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-und/lvl",
+      "stats": [
+        "item_tohit_undead_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-und/time",
+      "stats": [
+        "item_tohit_undead_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att-undead",
+      "stats": [
+        "item_undead_tohit"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att/lvl",
+      "stats": [
+        "item_tohit_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "att/time",
+      "stats": [
+        "item_tohit_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "aura",
+      "stats": [
+        "item_aura"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "balance1",
+      "stats": [
+        "item_fastergethitrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "balance2",
+      "stats": [
+        "item_fastergethitrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "balance3",
+      "stats": [
+        "item_fastergethitrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "bar",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "block",
+      "stats": [
+        "toblock"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "block1",
+      "stats": [
+        "item_fasterblockrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "block2",
+      "stats": [
+        "item_fasterblockrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "block3",
+      "stats": [
+        "item_fasterblockrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "bloody",
+      "stats": [
+        "item_extrablood"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cast1",
+      "stats": [
+        "item_fastercastrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cast2",
+      "stats": [
+        "item_fastercastrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cast3",
+      "stats": [
+        "item_fastercastrate"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "charge-noconsume",
+      "stats": [
+        "item_charge_noconsume"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "charged",
+      "stats": [
+        "item_charged_skill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cheap",
+      "stats": [
+        "item_reducedprices"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cold-len",
+      "stats": [
+        "coldlength"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cold-max",
+      "stats": [
+        "coldmaxdam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "cold-min",
+      "stats": [
+        "coldmindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "color",
+      "stats": [
+        "item_lightcolor"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "crush",
+      "stats": [
+        "item_crushingblow"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "crush/lvl",
+      "stats": [
+        "item_crushingblow_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "crush/time",
+      "stats": [
+        "item_crushingblow_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "deadly",
+      "stats": [
+        "item_deadlystrike"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "deadly/lvl",
+      "stats": [
+        "item_deadlystrike_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "deadly/time",
+      "stats": [
+        "item_deadlystrike_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "death-skill",
+      "stats": [
+        "item_skillondeath"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "demon-heal",
+      "stats": [
+        "item_healafterdemonkill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dex",
+      "stats": [
+        "dexterity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dex/lvl",
+      "stats": [
+        "item_dexterity_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dex/time",
+      "stats": [
+        "item_dexterity_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg",
+      "stats": [
+        "item_normaldamage"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": 7
+    },
+    {
+      "code": "dmg%-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg%/lvl",
+      "stats": [
+        "item_maxdamage_percent_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg%/time",
+      "stats": [
+        "item_maxdamage_percent_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-ac",
+      "stats": [
+        "item_damagetargetac"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-cold",
+      "stats": [
+        "coldmindam",
+        "coldmaxdam",
+        "coldlength"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-cold/lvl",
+      "stats": [
+        "item_cold_damagemax_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-cold/time",
+      "stats": [
+        "item_cold_damagemax_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-crush",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-crush%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-dem/lvl",
+      "stats": [
+        "item_damage_demon_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-dem/time",
+      "stats": [
+        "item_damage_demon_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-demon",
+      "stats": [
+        "item_demondamage_percent"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-elem",
+      "stats": [
+        "firemindam",
+        "firemaxdam",
+        "lightmindam",
+        "lightmaxdam",
+        "coldmindam",
+        "coldmaxdam",
+        "coldlength"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-elem-max",
+      "stats": [
+        "firemaxdam",
+        "lightmaxdam",
+        "coldmaxdam",
+        "coldlength"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-elem-min",
+      "stats": [
+        "firemindam",
+        "lightmindam",
+        "coldmindam"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-fire",
+      "stats": [
+        "firemindam",
+        "firemaxdam"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-fire/lvl",
+      "stats": [
+        "item_fire_damagemax_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-fire/time",
+      "stats": [
+        "item_fire_damagemax_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-ltng",
+      "stats": [
+        "lightmindam",
+        "lightmaxdam"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-ltng/lvl",
+      "stats": [
+        "item_ltng_damagemax_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-ltng/time",
+      "stats": [
+        "item_ltng_damagemax_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-mag",
+      "stats": [
+        "magicmindam",
+        "magicmaxdam"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-mag/lvl",
+      "stats": [
+        "item_magic_damagemax_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-max",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": 6
+    },
+    {
+      "code": "dmg-min",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": 5
+    },
+    {
+      "code": "dmg-mon",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-mon%",
+      "stats": [
+        "damage_vs_montype"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-norm",
+      "stats": [
+        "mindamage",
+        "maxdamage"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-pois",
+      "stats": [
+        "poisonmindam",
+        "poisonmaxdam",
+        "poisonlength"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-pois/lvl",
+      "stats": [
+        "item_pois_damagemax_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-pois/time",
+      "stats": [
+        "item_pois_damagemax_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-slash",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-slash%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-throw",
+      "stats": [
+        "item_throw_mindamage",
+        "item_throw_maxdamage"
+      ],
+      "damageRelatedFlags": [
+        true,
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-thrust",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-thrust%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-to-mana",
+      "stats": [
+        "item_damagetomana"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-und/lvl",
+      "stats": [
+        "item_damage_undead_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-und/time",
+      "stats": [
+        "item_damage_undead_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg-undead",
+      "stats": [
+        "item_undeaddamage_percent"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg/lvl",
+      "stats": [
+        "item_maxdamage_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dmg/time",
+      "stats": [
+        "item_maxdamage_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dru",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dur",
+      "stats": [
+        "maxdurability"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "dur%",
+      "stats": [
+        "item_maxdurability_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ease",
+      "stats": [
+        "item_req_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "enr",
+      "stats": [
+        "energy"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "enr/lvl",
+      "stats": [
+        "item_energy_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "enr/time",
+      "stats": [
+        "item_energy_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ethereal",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "explosivearrow",
+      "stats": [
+        "item_explosivearrow"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-cold",
+      "stats": [
+        "passive_cold_mastery"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-fire",
+      "stats": [
+        "passive_fire_mastery"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-ltng",
+      "stats": [
+        "passive_ltng_mastery"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-mag",
+      "stats": [
+        "passive_mag_mastery"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-pois",
+      "stats": [
+        "passive_pois_mastery"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "extra-skill-dmg%-rand",
+      "stats": [
+        "passive_fire_mastery",
+        "passive_ltng_mastery",
+        "passive_cold_mastery",
+        "passive_pois_mastery",
+        "passive_mag_mastery",
+        "dmg%"
+      ],
+      "damageRelatedFlags": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        null
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "fade",
+      "stats": [
+        "fade"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "fire-fx",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "fire-max",
+      "stats": [
+        "firemaxdam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "fire-min",
+      "stats": [
+        "firemindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "fireskill",
+      "stats": [
+        "item_elemskill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "freeze",
+      "stats": [
+        "item_freeze"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gembonus",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gems%/lvl",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gems%/time",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gethit-skill",
+      "stats": [
+        "item_skillongethit"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gold%",
+      "stats": [
+        "item_goldbonus"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gold%/lvl",
+      "stats": [
+        "item_find_gold_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "gold%/time",
+      "stats": [
+        "item_find_gold_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "half-freeze",
+      "stats": [
+        "item_halffreezeduration"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "heal-kill",
+      "stats": [
+        "item_healafterkill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "herb",
+      "stats": [
+        "item_doubleherbduration"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "hit-skill",
+      "stats": [
+        "item_skillonhit"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "howl",
+      "stats": [
+        "item_howl"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "hp",
+      "stats": [
+        "maxhp"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "hp%",
+      "stats": [
+        "item_maxhp_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "hp/lvl",
+      "stats": [
+        "item_hp_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "hp/time",
+      "stats": [
+        "item_hp_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ignore-ac",
+      "stats": [
+        "item_ignoretargetac"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "indestruct",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "item%",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "kick",
+      "stats": [
+        "item_kickdamage"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "kick/lvl",
+      "stats": [
+        "item_kick_damage_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "kick/time",
+      "stats": [
+        "item_kick_damage_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "kill-skill",
+      "stats": [
+        "item_skillonkill"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "knock",
+      "stats": [
+        "item_knockback"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "levelreq",
+      "stats": [
+        "item_levelreq"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "levelup-skill",
+      "stats": [
+        "item_skillonlevelup"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "lifesteal",
+      "stats": [
+        "lifedrainmindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "light",
+      "stats": [
+        "item_lightradius"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "light-thorns",
+      "stats": [
+        "item_attackertakeslightdamage"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ltng-fx",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ltng-max",
+      "stats": [
+        "lightmaxdam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "ltng-min",
+      "stats": [
+        "lightmindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mag%",
+      "stats": [
+        "item_magicbonus"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mag%/lvl",
+      "stats": [
+        "item_find_magic_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mag%/time",
+      "stats": [
+        "item_find_magic_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "magicarrow",
+      "stats": [
+        "item_magicarrow"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mana",
+      "stats": [
+        "maxmana"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mana%",
+      "stats": [
+        "item_maxmana_percent"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mana-kill",
+      "stats": [
+        "item_manaafterkill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mana/lvl",
+      "stats": [
+        "item_mana_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "mana/time",
+      "stats": [
+        "item_mana_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "manasteal",
+      "stats": [
+        "manadrainmindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "move1",
+      "stats": [
+        "item_fastermovevelocity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "move2",
+      "stats": [
+        "item_fastermovevelocity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "move3",
+      "stats": [
+        "item_fastermovevelocity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "nec",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "noconsume",
+      "stats": [
+        "item_noconsume"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "nofreeze",
+      "stats": [
+        "item_cannotbefrozen"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "noheal",
+      "stats": [
+        "item_preventheal"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "openwounds",
+      "stats": [
+        "item_openwounds"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "oskill",
+      "stats": [
+        "item_nonclassskill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pal",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce",
+      "stats": [
+        "item_pierce"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-cold",
+      "stats": [
+        "passive_cold_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-dmg",
+      "stats": [
+        "passive_dmg_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-fire",
+      "stats": [
+        "passive_fire_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-cold",
+      "stats": [
+        "item_pierce_cold_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-damage",
+      "stats": [
+        "item_pierce_damage_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-fire",
+      "stats": [
+        "item_pierce_fire_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-light",
+      "stats": [
+        "item_pierce_light_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-magic",
+      "stats": [
+        "item_pierce_magic_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-immunity-poison",
+      "stats": [
+        "item_pierce_poison_immunity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-ltng",
+      "stats": [
+        "passive_ltng_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-mag",
+      "stats": [
+        "passive_mag_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pierce-pois",
+      "stats": [
+        "passive_pois_pierce"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pois-len",
+      "stats": [
+        "poisonlength"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pois-max",
+      "stats": [
+        "poisonmaxdam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "pois-min",
+      "stats": [
+        "poisonmindam"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "randclassskill",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "reanimate",
+      "stats": [
+        "item_reanimate"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "red-dmg",
+      "stats": [
+        "normal_damage_reduction"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "red-dmg%",
+      "stats": [
+        "damageresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "red-mag",
+      "stats": [
+        "magic_damage_reduction"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "reduce-ac",
+      "stats": [
+        "item_fractionaltargetac"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen",
+      "stats": [
+        "hpregen"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen-dur",
+      "stats": [],
+      "damageRelatedFlags": [],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen-mana",
+      "stats": [
+        "manarecoverybonus"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen-stam",
+      "stats": [
+        "staminarecoverybonus"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen-stam/lvl",
+      "stats": [
+        "item_regenstamina_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "regen-stam/time",
+      "stats": [
+        "item_regenstamina_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "rep-dur",
+      "stats": [
+        "item_replenish_durability"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "rep-quant",
+      "stats": [
+        "item_replenish_quantity"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-all",
+      "stats": [
+        "fireresist",
+        "lightresist",
+        "coldresist",
+        "poisonresist"
+      ],
+      "damageRelatedFlags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-all-max",
+      "stats": [
+        "maxfireresist",
+        "maxlightresist",
+        "maxcoldresist",
+        "maxpoisonresist"
+      ],
+      "damageRelatedFlags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-cold",
+      "stats": [
+        "coldresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-cold-max",
+      "stats": [
+        "maxcoldresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-cold/lvl",
+      "stats": [
+        "item_resist_cold_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-cold/time",
+      "stats": [
+        "item_resist_cold_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-fire",
+      "stats": [
+        "fireresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-fire-max",
+      "stats": [
+        "maxfireresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-fire/lvl",
+      "stats": [
+        "item_resist_fire_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-fire/time",
+      "stats": [
+        "item_resist_fire_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-ltng",
+      "stats": [
+        "lightresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-ltng-max",
+      "stats": [
+        "maxlightresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-ltng/lvl",
+      "stats": [
+        "item_resist_ltng_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-ltng/time",
+      "stats": [
+        "item_resist_ltng_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-mag",
+      "stats": [
+        "magicresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-mag-max",
+      "stats": [
+        "maxmagicresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-pois",
+      "stats": [
+        "poisonresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-pois-len",
+      "stats": [
+        "item_poisonlengthresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-pois-max",
+      "stats": [
+        "maxpoisonresist"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-pois/lvl",
+      "stats": [
+        "item_resist_pois_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "res-pois/time",
+      "stats": [
+        "item_resist_pois_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "rip",
+      "stats": [
+        "item_restinpeace"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "skill",
+      "stats": [
+        "item_singleskill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "skill-rand",
+      "stats": [
+        "item_singleskill"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "skilltab",
+      "stats": [
+        "item_addskill_tab"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "slow",
+      "stats": [
+        "item_slow"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "sock",
+      "stats": [
+        "item_numsockets"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "sor",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stack",
+      "stats": [
+        "item_extra_stack"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stam",
+      "stats": [
+        "maxstamina"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stam/lvl",
+      "stats": [
+        "item_stamina_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stam/time",
+      "stats": [
+        "item_stamina_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stamdrain",
+      "stats": [
+        "item_staminadrainpct"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "state",
+      "stats": [
+        "state"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "str",
+      "stats": [
+        "strength"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "str/lvl",
+      "stats": [
+        "item_strength_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "str/time",
+      "stats": [
+        "item_strength_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "stupidity",
+      "stats": [
+        "item_stupidity"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "swing1",
+      "stats": [
+        "item_fasterattackrate"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "swing2",
+      "stats": [
+        "item_fasterattackrate"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "swing3",
+      "stats": [
+        "item_fasterattackrate"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "thorns",
+      "stats": [
+        "item_attackertakesdamage"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "thorns/lvl",
+      "stats": [
+        "item_thorns_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "throw",
+      "stats": [
+        "item_throwable"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "time",
+      "stats": [
+        "item_timeduration"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "vit",
+      "stats": [
+        "vitality"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "vit/lvl",
+      "stats": [
+        "item_vitality_perlevel"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "vit/time",
+      "stats": [
+        "item_vitality_bytime"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "war",
+      "stats": [
+        "item_addclassskills"
+      ],
+      "damageRelatedFlags": [
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "war-tab-rand",
+      "stats": [
+        "item_addskill_tab",
+        "item_addskill_tab",
+        "item_addskill_tab"
+      ],
+      "damageRelatedFlags": [
+        false,
+        false,
+        false
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "wounds/lvl",
+      "stats": [
+        "item_openwounds_perlevel"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    },
+    {
+      "code": "wounds/time",
+      "stats": [
+        "item_openwounds_bytime"
+      ],
+      "damageRelatedFlags": [
+        true
+      ],
+      "specialDamageFunction": null
+    }
+  ],
+  "unresolvedStatReferences": [
+    {
+      "code": "extra-skill-dmg%-rand",
+      "statReferences": [
+        "dmg%"
+      ],
+      "status": "Unsupported runtime property; special function context unresolved. False runtime default does not establish a global bonus."
+    }
+  ],
+  "limits": [
+    "Properties with mixed damage/non-damage outputs must not be filtered wholesale; generator rejects them.",
+    "Special local physical min/max/ED property functions5/6/7 have implicit weapon stats rather than stat columns.",
+    "A source property with a non-stat reference cannot be enabled in NamedPropertyRuntime until its special function/hand projection is resolved. Its false default is not proof of global behavior.",
+    "Crafted/rune/material dual-hand policy and native equip/primary identity/sequence behavior remain separate work."
+  ]
+}
