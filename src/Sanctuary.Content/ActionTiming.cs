@@ -102,22 +102,30 @@ public static class CombatTiming
         return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
             WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, PaladinOffense.AttackRate(from));
     }
-    private static int FrameAdvance(WeaponTiming weapon,int speed,int slow,int skillRate)
+    internal static int SequenceRateAdjustment(CombatAbility ability)=>ability switch
+    {
+        CombatAbility.Jab or CombatAbility.DoubleThrow=>-30,
+        // Released2.4/current Param9 and the pinned original calculator place
+        // Impale's addition in this same layer, cancelling its sequence penalty.
+        CombatAbility.Impale=>-30+SkillMechanics.For(ability).Number("Param9"),
+        _=>0
+    };
+    internal static int FrameAdvance(WeaponTiming weapon,int speed,int slow,int skillRate,int rateAdjustment=0,int baseSpeed=256)
     {
         int bonus=Math.Clamp(speed,0,10000),effective=120*bonus/(120+bonus);
-        return 256*Math.Clamp(100+effective+skillRate-weapon.Modifier-Math.Clamp(slow,0,85),15,175)/100;
+        return baseSpeed*Math.Clamp(100+effective+skillRate-weapon.Modifier-Math.Clamp(slow,0,85)+rateAdjustment,15,175)/100;
     }
-    internal static int WeaponSequencePoint(PlayerMobile owner,int point)
+    internal static int WeaponSequencePoint(PlayerMobile owner,int point,CombatAbility ability)
     {
-        int advance=WeaponSequenceAdvance(owner);
+        int advance=WeaponSequenceAdvance(owner,ability);
         return (point*256+advance-1)/advance;
     }
-    internal static int WeaponSequenceAdvance(PlayerMobile owner)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner));
+    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
         int row = Math.Clamp((int)characterClass - 101, 0, 7);
         bool cast = !WeaponAttack(ability);
-        int advance=FrameAdvance(cast?new(weapon.Family,0):weapon,cast?fcr:ias,chill,cast?0:skillAttackRate);
+        int advance=FrameAdvance(cast?new(weapon.Family,0):weapon,cast?fcr:ias,chill,cast?0:skillAttackRate,cast?0:SequenceRateAdjustment(ability));
         if(ability==CombatAbility.Jab)
         {
             var schedule=AmazonJab.Schedule(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);

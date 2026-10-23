@@ -31,7 +31,7 @@ public static class BarbarianDoubleThrow
             || !SkillCombat.Begin(owner,CombatAbility.DoubleThrow,selected,point,now,(_,_,id,p)=>Aim(owner,id,p))){return false;}
         var session=ClassCombat.For(owner);
         session.DoubleThrow=new(pair.Primary.Serial,pair.Secondary.Serial,owner.Map,owner.Location,
-            now+CombatTiming.WeaponSequencePoint(owner,9)*40,0);
+            now+CombatTiming.WeaponSequencePoint(owner,9,CombatAbility.DoubleThrow)*40,0);
         return true;
     }
     internal static void Cancel(PlayerMobile owner)

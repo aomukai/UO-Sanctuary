@@ -83,8 +83,8 @@ public static class DoubleThrowChecks
     private static void Goldens()
     {
         var baseTiming=CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.DoubleThrow,new(AttackFamily.Throw,0));
-        Require(baseTiming==new ActionTiming(12,5) && CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.DoubleThrow,new(AttackFamily.Throw,0),0,1000)==baseTiming,
-            "SQ15 base12/5 or UseAttackRate incorrectly used FCR");
+        Require(baseTiming==new ActionTiming(18,8) && CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.DoubleThrow,new(AttackFamily.Throw,0),0,1000)==baseTiming,
+            "SQ15 points12/5 at compiled player sequence rate179 or UseAttackRate incorrectly used FCR");
         var owner=Fresh();var values=SkillMechanics.Values(owner,CombatAbility.DoubleThrow);
         Require(values.Rank==1 && values.Eval("calc1")==24 && values.Formula("toht")==20 && values.Mana256==256,"Rank1/hard prerequisite source values");
         Train(owner,"barbarian.doublethrow",20);Train(owner,"barbarian.doubleswing",20);

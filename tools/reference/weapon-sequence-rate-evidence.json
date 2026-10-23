@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutine": "UNITS_UpdateAttackAnimRateAndVelocity",
+  "blockHash": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+  "modernOriginalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "date": "2026-09-28T23:44:32Z",
+    "fileHashes": {
+      "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+      "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+      "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+    },
+    "functionHashes": {
+      "calculateSIAS": "b3737269b7ff67ef8dcb79a2a07bec5b1eb1a636527397706f531d4775fce30c",
+      "getSequence": "22e080bfedc1052d437c1534abd60d0108e675079cc20032830e939b2c0bf757"
+    },
+    "scope": "Original calculator implementation and author firsthand Jab validation notes; README credits D2R3.3 sequence dump. Supplementary current-family evidence, not a3.3.93847 executable oracle."
+  },
+  "probe": {
+    "engineRows": 288,
+    "modernSkillRateRows": 96,
+    "modernSequenceMetadataRows": 7,
+    "fixture": ".local/class-skills/weapon-sequence-rate-probe.json"
+  },
+  "established": [
+    "Unchanged engine routine applies item IAS diminishing return, adds attackrate, subtracts30 for player sequence mode, clamps15..175, then multiplies base animation speed. Monster sequence mode does not receive the player penalty.",
+    "Original author calculateSIAS adds player sequence-30 and Impale+30 in the same additive skill-rate layer before final EIAS clamp. Released2.4 and current Impale Param9=30 corroborate the modern addition. It does not mean multiply the final rounded duration by0.7 or the final speed by1.3.",
+    "Original current-family getSequence agrees with legacy Jab1HT18/2HT21, Impale1HT21/2HT24, DoubleThrow12. Unarmed13 is recorded metadata, not enabled eligibility."
+  ],
+  "limits": [
+    "Engine dual-weapon merge/selection and melee-only base-speed override services are declared inactive; their stat graph, current paired IAS/WSM bugs and native hand mapping are not certified.",
+    "Modern functions use declared hidden UI skills and named slow flags; no full DOM calculator or live gameplay trace. Skill curve formulas and other skill layers are not adopted by this probe.",
+    "No Impale handler or class certificate enabled by this proof; source start7 special wear/precomputed damage and three-field target slow still require native integration."
+  ]
+}

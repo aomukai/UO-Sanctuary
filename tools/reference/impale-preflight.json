@@ -1,13 +1,15 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Next unaffected Amazon melee skill after Charged Strike verification. Source review only; no Impale handler.",
+  "status": "Source preparation passes16 unchanged start guards,2592 special-wear and12 SQ8 schedules. Speed layer established by288 engine/96 original modern rows and verified shared sequence fix, now installed in119-handler build. Native Impale handler still pending.",
   "sourceId": 19,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
-    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
   },
   "reviewedOnlyRoutineHashes": {
     "SKILLS_SrvSt07_Impale": "aceeca6de7dbfa8caf4859cf2120c7f32182523d0215f600c2c493d3d1dff7d3",
@@ -86,17 +88,19 @@
   "reviewed": [
     "Current damage calc1=300+25*(rank-1),3mana flat, spea ancestry, SrcDam128 and alwayshit1; no interrupt flag. Target slow uses-dm78 with0/75 bounds for velocitypercent/attackrate/other_animrate over300frames.",
     "Legacy start7 requires table/target and sub_6FCBD900 before preparing hit. It applies physical bonus with calc1 then sets damage hitflag1, rolls source elements if any, performs special wear at start, allocates combat128.",
-    "Special wear uses calc2=50-dm34 and calc3=1; stackable weapon path calls quantity consumption via sub_6FD118C0 on a successful wear roll, while durable nonstackable weapon loses specified durability or breaks. Do not replace with ordinary Jab release wear."
+    "Special wear uses calc2=50-dm34 and calc3=1; stackable weapon path calls quantity consumption via sub_6FD118C0 on a successful wear roll, while durable nonstackable weapon loses specified durability or breaks. Do not replace with ordinary Jab release wear.",
+    "Impale start7 sets DAMAGEHITFLAG_1 after precomputing physical damage. Reviewed FillDamageValues wraps normal physical recomputation and mastery/Critical/Deadly Strike inside !(hitFlags &1), so inheriting ordinary critical or later victim-species ED would not follow the unchanged supplementary body. Modern executable corroboration of those old branches remains explicit.",
+    "Reviewed SUNITDMG_DrainItemDurability still calls ordinary ITEMS_UpdateDurability on a successful melee commit after start7 special wear. Impale therefore has two distinct wear opportunities; do not replace either with the other. ITEMS_HasDurability explicitly rejects indestructible items."
   ],
   "uncertain": [
     "Compile whole unchanged start7 and event consumers to establish special wear/allocation/event order and failure paths.",
-    "Modern always-hit/uninterruptibility/slow target state and30percent speed need dedicated native consumers and reference comparison; ordinary block/avoidance, native modes and existing gear/events stay separate.",
-    "Trace exact SQ8 row/family mapping, frame bonus and current Param9 speed layer; do not multiply a guessed total duration."
+    "Modern always-hit/uninterruptibility/target slow require dedicated native consumers; current additive30 speed layer is now corroborated separately. Full block/avoidance, source-mode and current executable paths remain open.",
+    "Sequence family/length and additive speed layer are corroborated by original current-family calculator source. Compile exact SQ8 attack/end event schedule and integrate source frame-bonus/native gear/IAS/WSM controls."
   ],
   "nextActions": [
-    "Compile unchanged start7 under declared services and validate physical allocation/wear cases.",
-    "Extract and compile SQ8 schedule for legal1HT/2HT families; combine published modern change/current table without inventing its arithmetic layer.",
-    "Implement modern target slow using existing three-field saved consumers, then verify native mana/gear/interruptions/wear/slow/persistence."
+    "Implement current always-hit/uninterruptible paid Impale using compiled21/event13 or24/event15 SQ8 schedules and established sequence-30+Param9 speed layer. Keep ordinary low-mana fallback interruptible and unenhanced.",
+    "Retain start7 precomputed physical/no ordinary critical/species-ED convention explicitly; integrate special start wear plus ordinary successful-hit wear and cover break/last-stack allocation transitions without silently discarding a paid prepared hit.",
+    "Apply independent300-frame last-writer target slow before melee commit, using separate velocity/attack/other fields. Reuse saved slow consumers; flag unadapted other-animation/PvP/special modes. Verify native resources/gear/interruptions/snapshots/wear/state and two reloads."
   ],
   "assets": {
     "effects": "Keep native thrust/sound and target slow presentation clearly identified when enabled; final effects remain separately pending.",
@@ -121,5 +125,8 @@
       "sha256": "0227b5c1b007ed2299f842c8b40482946a6461d1cd26c6ce5eac787a70f8e468",
       "scope": "Reviewed static sequence only; unchanged scheduler compilation and current speed layer remain next work."
     }
-  }
+  },
+  "speedEvidence": "tools/reference/weapon-sequence-rate-evidence.json",
+  "speedRule": "Player attack sequence mode subtracts30 from the additive attack-rate layer before15..175 clamp. Current Impale Param9 adds30 in that same layer, cancelling the penalty. Do not multiply final rounded duration or final clamped speed. Original author current-family getSequence confirms1HT21/2HT24.",
+  "compiledEvidence": "tools/reference/impale-engine-evidence.json"
 }

@@ -27,7 +27,7 @@ public static class AmazonJab
     }
     internal static ActionTiming Timing(PlayerMobile owner)
     {
-        var schedule=Schedule(Code(owner),CombatTiming.WeaponSequenceAdvance(owner));
+        var schedule=Schedule(Code(owner),CombatTiming.WeaponSequenceAdvance(owner,CombatAbility.Jab));
         return schedule.Events.Length==0?new(1,1):new(schedule.End,schedule.Events[0]);
     }
     internal static bool ValidTarget(PlayerMobile owner,Serial selected)
@@ -68,7 +68,7 @@ public static class AmazonJab
             if(!SkillCombat.Begin(owner,CombatAbility.Jab,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
             if(!NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
         }
-        var events=basic?new[]{session.Timing.EffectMs}:Array.ConvertAll(Schedule(Code(owner),CombatTiming.WeaponSequenceAdvance(owner)).Events,p=>p*40);
+        var events=basic?new[]{session.Timing.EffectMs}:Array.ConvertAll(Schedule(Code(owner),CombatTiming.WeaponSequenceAdvance(owner,CombatAbility.Jab)).Events,p=>p*40);
         session.Jab=new(weapon.Serial,selected,owner.Map,owner.Location,now,session.NextAction,0,basic,events);
         ClassCombat.SendState(owner,session);return true;
     }

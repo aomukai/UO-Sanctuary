@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Player weapon sequence-rate correction:288 native engine cases and96 original modern skill-layer cases pass; focused rate/Jab/DoubleThrow3boots/2reloads and final combined3boots/2reloads pass. Jab and both DoubleThrow deadlines now include player SQ-30 before clamp; ordinary Power/Charged Strike A1 stays unchanged. Current Impale+30 belongs in the same additive layer; native Impale remains pending.70 Python tests and460 named/15 first-loop current fingerprints pass after a fresh named export. Matching119-handler content/data installed; existing-world boot/listen/shutdown0 passes. Server stopped, client unchanged, saves retained. No new handler or class certificate.",
+  "handlerCount": 119,
+  "sourceEvidence": "tools/reference/weapon-sequence-rate-evidence.json",
+  "modernOriginalAuthor": "https://github.com/Warren1001/IAS_Calculator/blob/b7d791031b73b0c6e56a3659e9198578aed21261/calculator.js",
+  "verified": [
+    "288 native comparisons match unchanged engine attack-rate output for six item IAS values,eight input attackrate values, normal-player/player-sequence/monster-sequence contexts and128/256 base speeds. Player-only-30 occurs before15..175 clamp and final integer speed multiplication.",
+    "96 native comparisons isolate current-family original calculator player/mercenary skill adjustment from declared slow/decrepify/chill flags. Jab and DoubleThrow get-30; Impale adds current Param9=30 at the same layer and nets0. No Impale handler is enabled.",
+    "Actual Jab controller requests sequence-adjusted speed for timing and all three event deadlines. DoubleThrow first event/end and second-hand point9 request the same adjusted speed. Ordinary A1 Power/Charged Strike retain their unadjusted speed.",
+    "Native zero-WSM/zero-IAS/zero-buff goldens now use rate179: Jab1HT26frames/event5,2HT31/event5; DoubleThrow18/event8 with second event13. FCR remains excluded. Previous18/3,21/3 and12/5 assertions had passed rate256 directly and were stale for actual player SQ derivation.",
+    "Focused three boots/two reloads pass corrected native Jab and DoubleThrow gear, input, resources, target/cancel/event and saved-state checks, including actual delayed DoubleThrow completion. Existing source schedules at declared speeds remain unchanged."
+  ],
+  "fixtureNotes": [
+    "Initial focused run logged all delayed DoubleThrow results passing, but the new wrapper initially did not explicitly await them. Final focused wrapper now waits each result before save/shutdown; earlier log retained and not substituted for the corrected runner.",
+    "Engine dual-wield stat merge and melee-only animation-speed override are declared inactive in the source probe; native raw rate comparison does not certify those consumers. Original calculator functions run unchanged under declared hidden UI skills; only named flags and player/skill identity vary.",
+    "Roadmap caveat metadata was updated after the combined export; a separate current-data native named export refreshed its changed class-skill-status fingerprint. Current460/15 inputs and checked assembly agree; no stale hashes manually substituted."
+  ],
+  "limits": [
+    "No full current executable/class certificate or new item-skill gate. Original author implementation/firsthand Jab validation and D2R3.3 metadata are supplementary current-family evidence, not a complete3.3.93847 trace.",
+    "Exact current dual-weapon IAS/WSM bugs, selected-hand stat graph, animation/first-frame/delayed-callback/client/owner behavior remain open; existing native slow caps and gear/aura projections are not waived by raw rate cases.",
+    "Current Impale precomputed physical/critical/species-ED, special wear/last-stack/break, uninterruptibility, slow/other-animation and full owner/client integration remain next work.16 start guards/2592 wear/12 SQ8 source cases enable no handler."
+  ],
+  "assets": "No new effects/icons required by rate correction. Existing Jab/DoubleThrow effects and talent/hotkey icons remain pending with their identified placeholders; Impale separate effect/icon rows remain pending.",
+  "logs": {
+    "source": ".local/class-skills/weapon-sequence-rate-source-probe.log",
+    "content-build": ".local/class-skills/weapon-sequence-rate-content-build.log",
+    "integration-build": ".local/class-skills/weapon-sequence-rate-integration-build.log",
+    "focused": ".local/class-skills/weapon-sequence-rate-focused.log",
+    "focused-run": ".local/class-skills/weapon-sequence-rate-focused-run.log",
+    "before-explicit-result-wait": ".local/class-skills/weapon-sequence-rate-before-result-wait.log",
+    "impale-source": ".local/class-skills/impale-source-probe.log",
+    "combined": ".local/class-skills/weapon-sequence-rate-combined.log",
+    "combined-run": ".local/class-skills/full-suite-run.log",
+    "named-export": ".local/class-skills/weapon-sequence-rate-named-export.log",
+    "named-export-run": ".local/class-skills/weapon-sequence-rate-named-export-run.log",
+    "installed-server": ".local/class-skills/weapon-sequence-rate-installed-server.log",
+    "installed-smoke": ".local/class-skills/weapon-sequence-rate-installed-smoke.log",
+    "python": ".local/class-skills/python-checks.log"
+  },
+  "next": "Continue Impale native integration from compiled start/wear/SQ8 and established speed layer; preserve both special start and ordinary successful-hit wear.",
+  "nextPreflight": "tools/reference/impale-preflight.json"
+}

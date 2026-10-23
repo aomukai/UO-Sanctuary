@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledRoutines": [
+    "ITEMS_HasDurability",
+    "SKILLS_SrvSt07_Impale",
+    "DATATBLS_GetSequenceEvent",
+    "sub_6FCBCE70"
+  ],
+  "blockHashes": {
+    "ITEMS_HasDurability": "6197c299173256bb253638055ba8c35c31e89fd2d71ef2c543dfb770bb255fbe",
+    "SKILLS_SrvSt07_Impale": "aceeca6de7dbfa8caf4859cf2120c7f32182523d0215f600c2c493d3d1dff7d3",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "probe": {
+    "guardCases": 16,
+    "specialWearCases": 2592,
+    "scheduleCases": 12,
+    "fixture": ".local/class-skills/impale-source-probe.json"
+  },
+  "sequences": {
+    "1HT": {
+      "symbol": "gPlayerSequenceImpale_BOW",
+      "points": 21,
+      "event": 13
+    },
+    "2HT": {
+      "symbol": "gPlayerSequenceImpale_1HS",
+      "points": 24,
+      "event": 15
+    }
+  },
+  "speedEvidence": "tools/reference/weapon-sequence-rate-evidence.json",
+  "established": [
+    "Unchanged start7 has table/target/reach guards. Successful declared hit precomputes physical with calc1, calls elemental service, sets hitflag1, performs special wear, then allocates combat128. A miss allocates an empty packet and does not perform special wear.",
+    "Compiled ITEMS_HasDurability rejects wrong unit kind, absent item row, NoDurability, zero base/max durability and indestructible items. Start7 special wear consumes one positive stack quantity or subtracts nonstack durability1/breaks at zero on its independent chance roll.",
+    "SQ8 selector maps1HT to21points/event13,2HT to24points/event15;12 unchanged scheduler cases retain event ordinal0 and ceiling deadlines at declared speeds/frame bonus0.",
+    "Reviewed FillDamageValues hitflag1 bypasses ordinary physical recomputation and mastery/Critical/Deadly Strike. Reviewed shared do2 applies target state before ordinary drain, and successful drain still calls ordinary weapon wear after the separate start-time opportunity."
+  ],
+  "limits": [
+    "Hit, reach, damage/formula, stack-consumption and break services are declared to isolate control flow. Physical return1000+ED is a sentinel, not a damage formula; chance percentages are declared boundary inputs, not a compiled diminishing curve. Source-only proof enables no Impale native handler.",
+    "Current always-hit/uninterruptibility/slow and additive30 rate correction supersede old numeric/flag assumptions. Modern precomputed-physical/no-critical/species-ED, break/last-stack effect on allocation, full wear/packet/event/owner/client acceptance remain explicit.",
+    "Scheduled rates are declared; modern rate-layer corroboration is in separate evidence. Cached sequence geometry and native IAS/WSM/mode timing require native integration and current executable comparison."
+  ]
+}

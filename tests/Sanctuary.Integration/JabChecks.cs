@@ -78,7 +78,7 @@ public static class JabChecks
         spear.MaxHitPoints=spear.HitPoints=30;javelin.MaxHitPoints=javelin.HitPoints=6;NamedAmmunition.Quantities[javelin.Serial]=new(NamedAmmunition.Maximum(javelin),DateTime.MaxValue);
         for(int rank=1;rank<=20;rank++)
         {var v=new SkillValues(SkillMechanics.For(CombatAbility.Jab),_=>rank,_=>rank,99);Require(v.Mana256==(8+rank-1)*64 && v.Formula("toht")==10+9*(rank-1) && v.Eval("calc1")==-15+3*(rank-1),"Pinned Jab rank golden");}
-        Require(CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.Thrust,0),fcr:1000)==new ActionTiming(18,3) && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.TwoHandedThrust,0))==new ActionTiming(21,3) && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.Thrust,0),ias:100).Frames<18,"Jab attack-rate/FCR separation");
+        Require(CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.Thrust,0),fcr:1000)==new ActionTiming(26,5) && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.TwoHandedThrust,0))==new ActionTiming(31,5) && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Jab,new(AttackFamily.Thrust,0),ias:100).Frames<26,"Jab compiled sequence rate179, attack-rate/FCR separation");
         Require(schedules==12 && wearCases==72,"Incomplete Jab native differential");Log.Information("Jab:12 compiled three-event schedules,72 applicable wear cases and20 rank goldens pass");
     }
     private static void Cases(PlayerMobile owner,BaseWeapon spear,BaseWeapon javelin,Item helm)

@@ -70,7 +70,7 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
-        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json'):
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
@@ -120,6 +120,8 @@ def check():
                     assert session.expect(inner_sight+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     if boot==0:
                         assert session.expect(r'inner-sight-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('weapon-sequence-rate-check')
+                    assert session.expect(r'weapon-sequence-rate-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     jab='jab-check' if boot==0 else 'jab-reload-check'
                     session.send(jab)
                     assert session.expect(jab+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
