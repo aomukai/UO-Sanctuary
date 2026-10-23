@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Selected-hand/stat component verified by focused/full3boots/2reloads and7824 bounded source cases; native equip/primary ledger and Double Swing handler remain pending.",
+  "status": "Selected-hand and native equip/primary foundation implemented; focused native3boots/2reloads,7824 selection/stat and5792 primary-identity source cases pass. Double Swing handler remains pending.",
   "skill": {
     "skill": "Double Swing",
     "*Id": 133,
@@ -83,27 +83,34 @@
     "Client secondary equip/art/target packets, trade/bank/logout/load/death/respec/history, broken/requirements and inventory-save identity."
   ],
   "limits": [
-    "Source-reviewed only. No new runtime/dual-wield mode/handler is enabled. Exact current start68/sequence/hand switching and owner/event/client behavior remain open; continue independently provable foundation work."
+    "The equipment/stat foundation is enabled for the explicitly supported pairs; no Double Swing handler is enabled. Exact current start68/sequence/hand switching and full owner/event/client behavior remain open."
   ],
   "nextSteps": [
-    "Implement and verify native dual-equip transaction, source primary identity and requirements/lifecycle/client bridge.",
+    "Complete remaining native requirements/lifecycle/client acceptance independently of the verified ordinary/named pair equip/identity component.",
     "Resolve modern start68 and source SQ11/hand/target/payment contracts before enabling Double Swing.",
     "Retain all240 effect/icon entries and all individually deferred mechanics; no class certificate is claimed."
   ],
   "foundationEvidence": [
     "tools/reference/weapon-hands-engine-evidence.json",
     "tools/reference/weapon-property-hand-evidence.json",
-    "tools/reference/weapon-hands-native-evidence.json"
+    "tools/reference/weapon-hands-native-evidence.json",
+    "tools/reference/weapon-identity-engine-evidence.json",
+    "tools/reference/dual-equip-native-evidence.json"
   ],
   "completedFoundation": [
     "Pinned damage-related property classification, including implicit local min/max/ED functions and current runtime aliases. Mixed damage/nondamage property projections are rejected by generation.",
     "Scoped selected-hand access through the existing equipped-weapon, active gear, numeric/element/poison, AR/damage, mastery, IAS and prepared hit consumers. Both weapons retain nondamage globals in the supported forced pair.",
-    "Correct one-handed endpoints when a Barbarian hybrid sword is paired, and existing two-handed endpoints when it is alone. No new stat pool or independent damage pipeline."
+    "Correct one-handed endpoints when a Barbarian hybrid sword is paired, and existing two-handed endpoints when it is alone. No new stat pool or independent damage pipeline.",
+    "Optional PlayerMobile equip transaction and weapon conflict hooks in UOContent retain the engine equip path. Converted ordinary/named Barbarian pairs use free native hand layers; true two-handed weapons, extra hands and unsupported modifiers remain rejected.",
+    "Equip transaction captures candidate/companion layer, parent/location, quest flag, primary identity and combat deadline. It defers shared equipment refresh until success; CheckEquip and late spell veto/exception restore the captured state and item stat mods.",
+    "New SanctuaryWeaponIdentity version0 persistence stores an explicit owner-to-primary weapon serial. Primary is first equipped, retained when adding the second weapon, promoted when removed, independent of item creation order and native presentation layer.",
+    "Barbarian hybrid swords retain two-handed endpoints alone; paired or shielded hybrids use shared one-handed endpoints and attack animation/timing. Removing the companion restores the canonical free layer.",
+    "Existing WeaponHands/CombatTiming/ClassGear/ClassStats/NamedGear/GearEffects consumers supply selected-hand stats. No separate damage, animation or resource pipeline is added."
   ],
   "nativeEquipPlan": [
-    "Keep current native equip denial until a complete transaction is present. BaseWeapon.CanEquip precedes Mobile.CheckEquip, while OnEquip/OnItemAdded happen later; mutating another equipped item from CanEquip would leave changes behind after a later failure.",
+    "Transaction bridge is implemented and focused-tested; retain the complete optional path and rollback rather than mutating companion layers from CanEquip alone.",
     "Add an optional guarded native equip transaction/layer-conflict bridge where necessary, with rollback of candidate/companion layers on every failure and no behavior change when absent. Verify the actual player/client equip request rather than using forced AddItem as acceptance.",
-    "Persist the source primary-weapon identity and reconcile equip/remove/trade/load atomically. Native OneHanded is only the current forced-fixture mapping; it does not establish all first-equipped/side-swapped cases.",
+    "Primary identity is now persisted and checked through ordinary/named equip, removal, transfer and reload; broaden independent swap/trade/death/history and requirement transition acceptance.",
     "Reconcile the approved crafted/rune/material behavior with source hand-specific stats before enabling those pairs. Current consumers explicitly exclude these modifier combinations.",
     "Then integrate SQ11 hand/event/target scheduling and current start68/payment behavior with existing prepared attacks, duration/mana and cancellation contracts."
   ]

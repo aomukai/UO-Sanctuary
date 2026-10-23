@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;5792 primary-identity and7824 selected-hand source cases;70 Python tests,442 named/15 first-loop current hashes, source/generator/catalogue checks,62/36 native patch replay and matching installed existing-world listen/shutdown0 pass.",
+  "sources": [
+    "tools/reference/weapon-identity-engine-evidence.json",
+    "tools/reference/weapon-hands-engine-evidence.json",
+    "tools/reference/weapon-property-hand-evidence.json"
+  ],
+  "implementation": [
+    "Optional PlayerMobile equip transaction and weapon conflict hooks in UOContent retain the engine equip path. Converted ordinary/named Barbarian pairs use free native hand layers; true two-handed weapons, extra hands and unsupported modifiers remain rejected.",
+    "Equip transaction captures candidate/companion layer, parent/location, quest flag, primary identity and combat deadline. It defers shared equipment refresh until success; CheckEquip and late spell veto/exception restore the captured state and item stat mods.",
+    "New SanctuaryWeaponIdentity version0 persistence stores an explicit owner-to-primary weapon serial. Primary is first equipped, retained when adding the second weapon, promoted when removed, independent of item creation order and native presentation layer.",
+    "Barbarian hybrid swords retain two-handed endpoints alone; paired or shielded hybrids use shared one-handed endpoints and attack animation/timing. Removing the companion restores the canonical free layer.",
+    "Existing WeaponHands/CombatTiming/ClassGear/ClassStats/NamedGear/GearEffects consumers supply selected-hand stats. No separate damage, animation or resource pipeline is added."
+  ],
+  "checks": [
+    "Actual EquipItem for ordinary/named pairs in both native layer orders; third-hand, non-Barbarian, true two-handed, broken candidate and crafted/material rejection.",
+    "CheckEquip rejection and late spell veto/exception roll back candidate/companion layers, backpack position, quest flag, Strength, combat deadline and primary record. Companion shield rejection/success/removal verifies hybrid layer normalization.",
+    "Older-created former primary is re-equipped as secondary; removing primary promotes the remaining weapon. An offhand transferred to a Paladin re-equips canonically and cannot acquire a second weapon.",
+    "A real loopback TCP client sends the native10-byte0x13 equip request after native Lift. Standard network parser/main loop assigns the item and clears HeldBy/Holding; focused runner receives its outgoing15-byte0x2E serial/layer/owner update.",
+    "Three actual boots and two save/reload cycles retain reverse-layer primary identity and one-handed hybrid timing, and repeat rollback/rejection/removal tests and the real equip request. Test-only network bootstrap supplies an authenticated fixture connection."
+  ],
+  "limits": [
+    "Component foundation only:109 handlers/Barbarian22 remain unchanged. Double Swing is not enabled; modern start68/SQ11 hand/event/target/payment behavior remains unresolved.",
+    "Crafted/rune/material pairs remain excluded until their approved Sanctuary modifiers have a verified hand projection. This does not change their acquisition or skill gates.",
+    "Current equip candidates are converted source items. Arbitrary legacy native accuracy/MageWeapon and custom OnEquip side effects are not a certified rollback surface; full requirement loss/restore, swap/trade/bank/death/history/respec transitions remain acceptance work.",
+    "Existing legacy two-weapon fixtures without a stored primary fall back to their native OneHanded identity; no historical first-equipped order is invented. Actual transactions establish and persist primary identity.",
+    "Focused packet evidence is a normal network parser/serializer test with test-only protocol authentication, not a complete graphical login/paperdoll/input/art comparison. Source review finds the existing client removes prior container ownership and uses the received layer for0x2E; rendered hand artwork remains to test.",
+    "Five unchanged older-engine inventory/equip routines have5792 bounded cases with declared grid/type/body services. This supports the adapter contract without certifying every current3.3.93847 executable path.",
+    "New optional version0 primary-identity profile preserves existing world/item/class formats; missing older profile defaults empty. No save reset, class certificate, final imagegen asset or item-skill gate is introduced."
+  ],
+  "assets": {
+    "effects": "No independent cast effect for the equipment adapter; skill effects remain separately tracked placeholders.",
+    "icons": "No independent adapter icon; all240 talent/hotkey icon entries remain separately tracked."
+  },
+  "next": "Resolve Double Swing modern start68 and SQ11 hand/event/target/payment using existing prepared attacks, timing and resource consumers; keep individually uncertain branches documented and continue unaffected skills."
+}

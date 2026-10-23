@@ -10,9 +10,8 @@ namespace Sanctuary;
 public sealed record WeaponPropertyRule(string Code,bool DamageRelated);
 public readonly record struct WeaponPair(BaseWeapon Primary,BaseWeapon Secondary);
 
-// Selected-hand foundation. Native dual equip and its source primary-weapon
-// ledger are not enabled by this consumer; current two-weapon fixtures use
-// explicit native OneHanded/TwoHanded identities until that adapter is ready.
+// Selected hand is scoped to an attack; equipped primary identity is persisted
+// separately so native presentation layers cannot change strike ownership.
 public static class WeaponHands
 {
     private static readonly Dictionary<string,bool> _damage=new(StringComparer.Ordinal);
@@ -37,7 +36,7 @@ public static class WeaponHands
             || !Eligible(first) || !Eligible(second)){return null;}
         int count=0,hands=0;foreach(var item in owner.Items)
         {if(item is BaseWeapon && ClassGear.Slot(item)==GearSlot.Weapon){count++;}if(item.Layer is Layer.OneHanded or Layer.TwoHanded){hands++;}}
-        return count==2 && hands==2?new(first,second):null;
+        return count==2 && hands==2?DualEquip.Primary(owner)==second.Serial?new(second,first):new(first,second):null;
     }
     internal static bool Member(PlayerMobile owner,Item item)=>Pair(owner) is{} pair && (item==pair.Primary || item==pair.Secondary);
     internal static BaseWeapon Selected(PlayerMobile owner)

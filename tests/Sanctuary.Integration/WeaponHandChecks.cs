@@ -94,10 +94,7 @@ public static class WeaponHandChecks
     {
         Metadata();var owner=Fresh();Train(owner,CombatAbility.SwordMastery,20);Train(owner,CombatAbility.MaceMastery,1);
         var first=(BaseWeapon)Named("Hellplague");Require(owner.EquipItem(first),"Primary native equip");var second=(BaseWeapon)Named("Felloak");
-        Require(!owner.EquipItem(second),"Native dual equip unexpectedly enabled before adapter");
-        // Explicit forced native layers isolate the stat consumer. This is not
-        // a substitute for the pending player/client dual-equip workflow.
-        second.Layer=Layer.TwoHanded;owner.AddItem(second);ClassGear.Refresh(owner);Exercise(owner,first,second);
+        Require(owner.EquipItem(second),"Native second weapon equip");ClassGear.Refresh(owner);Exercise(owner,first,second);
         var helm=Named("Tarnhelm");var gloves=Named("Steelrend");Require(owner.EquipItem(helm) && owner.EquipItem(gloves),"Real soft/off-weapon gear");ClassGear.Refresh(owner);Exercise(owner,first,second);
         var mace=(BaseWeapon)Named("Deathspade");owner.AddToBackpack(second);mace.Layer=Layer.TwoHanded;owner.AddItem(mace);ClassGear.Refresh(owner);
         int primaryAr=ClassGear.Bonus(owner,"att%");using(var hand=WeaponHands.Use(owner,mace)){Require(ClassGear.Bonus(owner,"att%")>primaryAr,"Secondary local AR omitted or shared to both hands");}Pools(owner,mace);

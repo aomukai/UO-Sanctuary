@@ -329,3 +329,26 @@ Full modern SQ11 events/start68/payment, skill-specific dual-hand timing/IAS, ta
 No save format changed and no native engine patch added by this component. Final skill effects and talent/hotkey icons remain separate; no extra art is needed for the stat consumer.
 
 Pinned extra-skill-dmg%-rand has a non-stat dmg% reference interpreted by a special function. That property is already unsupported in live item effects; it is recorded unresolved, and generation refuses to enable it in NamedPropertyRuntime without resolving the hand projection. Its false default does not establish global behavior.
+
+
+## Native pair equip and primary identity
+
+Latest component: **native Barbarian pair equip and persisted primary identity**, reusing the existing selected-hand, gear, timing and prepared attack consumers. Optional UOContent transaction/conflict hooks surround native EquipItem; rejection or late spell veto/exception restores candidate/companion layers, inventory/quest/stat/clock state and primary record. Eligible ordinary/named weapons equip through actual lift/0x13 requests, including reverse native hand layers; primary follows equip order and promotion rather than item serial/layer. Paired/shielded hybrid swords use one-handed endpoints/animation and normalize when the companion is removed. See [native evidence](../tools/reference/dual-equip-native-evidence.json) and [5792-case source identity probe](../tools/reference/weapon-identity-engine-evidence.json).
+
+Focused and final combined native3boots/2reloads pass;5792 primary-identity and7824 selected-hand source cases;70 Python tests,442 named/15 first-loop current hashes, source/generator/catalogue checks,62/36 native patch replay and matching installed existing-world listen/shutdown0 pass. Client50 warnings/0 errors; native/content/integration0 warnings/errors. Patch0062 touches three UOContent paths; Server-engine source is unchanged.62 ModernUO/36 ClassicUO patches reconstruct100/41 native paths byte-equal, including every dirty native file. A new optional version0 primary-identity profile defaults empty on old saves; existing item/class/world formats remain unchanged. Server is stopped; existing saves were not reset.
+
+Component foundation only:109 handlers/Barbarian22 remain unchanged. Double Swing is not enabled; modern start68/SQ11 hand/event/target/payment behavior remains unresolved.
+
+Crafted/rune/material pairs remain excluded until their approved Sanctuary modifiers have a verified hand projection. This does not change their acquisition or skill gates.
+
+Current equip candidates are converted source items. Arbitrary legacy native accuracy/MageWeapon and custom OnEquip side effects are not a certified rollback surface; full requirement loss/restore, swap/trade/bank/death/history/respec transitions remain acceptance work.
+
+Existing legacy two-weapon fixtures without a stored primary fall back to their native OneHanded identity; no historical first-equipped order is invented. Actual transactions establish and persist primary identity.
+
+Focused packet evidence is a normal network parser/serializer test with test-only protocol authentication, not a complete graphical login/paperdoll/input/art comparison. Source review finds the existing client removes prior container ownership and uses the received layer for0x2E; rendered hand artwork remains to test.
+
+Five unchanged older-engine inventory/equip routines have5792 bounded cases with declared grid/type/body services. This supports the adapter contract without certifying every current3.3.93847 executable path.
+
+New optional version0 primary-identity profile preserves existing world/item/class formats; missing older profile defaults empty. No save reset, class certificate, final imagegen asset or item-skill gate is introduced.
+
+Next: **Double Swing start68/SQ11 hand/event/target/payment**, reusing the verified equipment/stat foundation and existing prepared attacks/resource/timing systems. The older start table has a null68 entry; do70 alone cannot certify current behavior. Keep that uncertainty explicit and move to unaffected skills if it cannot be resolved. Remaining requirements/lifecycle/full graphical client and crafted/rune/material acceptance is recorded separately.109 handlers/Barbarian22 and8 pending talents are unchanged; goal active.

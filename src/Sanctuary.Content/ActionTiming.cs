@@ -60,7 +60,7 @@ public static class CombatTiming
         {
             return new WeaponTiming(AttackFamily.Unarmed, 0);
         }
-        var family = weapon.Animation switch
+        var family = Animation(weapon) switch
         {
             WeaponAnimation.Pierce1H => AttackFamily.Thrust,
             WeaponAnimation.Pierce2H => AttackFamily.TwoHandedThrust,
@@ -84,6 +84,12 @@ public static class CombatTiming
         // Unlisted expansion/artifact bases receive a bounded rating from their base speed.
         var fallback = weapon.MlSpeed switch { > 0 and <= 2 => -20, <= 2.5f and > 0 => -10, <= 3.5f => 0, <= 4.25f => 10, _ => 20 };
         return new WeaponTiming(family, fallback);
+    }
+    internal static WeaponAnimation Animation(BaseWeapon weapon)
+    {
+        var animation=weapon?.Animation??WeaponAnimation.Wrestle;
+        return weapon!=null && ClassGear.Base(weapon) is{OneOrTwoHanded:true} && !WeaponHands.TwoHanded(weapon)?animation switch
+        {WeaponAnimation.Slash2H=>WeaponAnimation.Slash1H,WeaponAnimation.Bash2H=>WeaponAnimation.Bash1H,WeaponAnimation.Pierce2H=>WeaponAnimation.Pierce1H,_=>animation}:animation;
     }
     public static int Ias(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.WeaponSpeed), 0, 10000);
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);

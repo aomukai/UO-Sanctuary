@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import struct
 import tempfile
 import time
 import threading
@@ -392,6 +393,19 @@ def check():
                     hands_command='weapon-hands-check' if boot==0 else 'weapon-hands-reload-check'
                     session.send(hands_command)
                     assert session.expect(hands_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as equip_client:
+                        threading.Thread(target=drain_fixture_client,args=(equip_client,),daemon=True).start()
+                        time.sleep(.15)
+                        equip_command='dual-equip-check' if boot==0 else 'dual-equip-reload-check'
+                        session.send(equip_command)
+                        ready=session.expect(r'dual-equip-network-ready: (\d+) (\d+)')
+                        assert session.expect(equip_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        owner,item=map(int,ready.groups())
+                        equip_client.sendall(struct.pack('>BIBI',0x13,item,1,owner))
+                        assert session.expect(r'dual-equip-network-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        save_snapshot(session)
+                        equip_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
                     attack_command='barbarian-attacks-check' if boot==0 else 'barbarian-attacks-reload-check'
                     session.send(attack_command)
                     assert session.expect(attack_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

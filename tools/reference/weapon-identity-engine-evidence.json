@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Inventory.cpp": "04c9bd2fb8cd841e77cd803129b81806f0b6bebe06f96d806f248d726e2434e1",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57"
+  },
+  "probe": {
+    "caseCounts": {
+      "identityCases": 5760,
+      "equipCases": 32
+    },
+    "totalCases": 5792,
+    "dataPath": ".local/class-skills/weapon-identity-source-probe.json",
+    "blockHashes": {
+      "ITEMS_CanBeEquipped": "f2a6f029f33a4b1c9401baa9de99214552c2075c8b8cdcba2e80ef662a62b21a",
+      "INVENTORY_GetLeftHandWeapon": "b80302c7c4e72edf8b7b1ba42370a846ff658722bfb0fdb571a13ef00ee5c74b",
+      "INVENTORY_GetSecondaryWeapon": "4f4e2a0a1884bdcfeef83d45027ea4e512b4f3d775ff033e4523ae8eb9694137",
+      "INVENTORY_UpdateWeaponGUIDOnInsert": "e6bcc6635e0a62c6a8f1f3645c017980c165731b881cd7523b0294fac71ad0a1",
+      "INVENTORY_UpdateWeaponGUIDOnRemoval": "4b4cc9a66cf6400252291ec31285007469e656d75ff7d52791709b0f98165045"
+    }
+  },
+  "established": [
+    "The inventory primary is an explicit item GUID found in either arm; secondary is the other weapon. Neither creation serial order nor presentation arm establishes primary.",
+    "Successful insertion retains an existing ordinary primary; missing/nonweapon/missile-potion primary permits replacement. Removal clears the removed primary and may promote an equippable opposite-arm item.",
+    "The source CanBeEquipped helper tests broken/noequip, not identification or class/stat requirements; the surrounding equip path has independent guards. The native supported pair deliberately adds converted/identified/noncrafted boundaries."
+  ],
+  "limits": [
+    "Five unchanged legacy routines compiled with declared inventory validity/grid/type/body services. Guards and bounded invalid/stale identities are exercised; this is not a full engine or modern executable certificate.",
+    "Native transaction tests establish supported ordinary/named first-equip, opposite layer and removal identity. Broader broken/requirements, swap, trade, death, class/history and full graphical client behavior remain acceptance work.",
+    "Double Swing modern start68, SQ11 hand/events/target/payment and crafted/rune/material pairs remain separate; this probe enables no talent."
+  ]
+}

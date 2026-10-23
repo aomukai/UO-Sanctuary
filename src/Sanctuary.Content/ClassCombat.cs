@@ -88,6 +88,8 @@ public static class ClassCombat
         {
             if (ClassCombat.Enabled(from))
             {
+                if(DualEquip.Deferred(from)){return;}
+                DualEquip.Changed(from);
                 StatNetwork.Send(from);
                 ClassGear.Changed(from);
             }
@@ -417,7 +419,7 @@ public static class ClassCombat
         {
             return 16;
         }
-        var animation = weapon?.Animation ?? WeaponAnimation.Wrestle;
+        var animation = CombatTiming.Animation(weapon);
         if (!from.Mounted)
         {
             return (byte)animation;

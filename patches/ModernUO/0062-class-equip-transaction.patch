@@ -1,0 +1,58 @@
+diff --git a/Projects/UOContent/Items/ClassGearHooks.cs b/Projects/UOContent/Items/ClassGearHooks.cs
+--- a/Projects/UOContent/Items/ClassGearHooks.cs
++++ b/Projects/UOContent/Items/ClassGearHooks.cs
+@@ -11,8 +11,16 @@
+     Defense, StrengthBonus, DexterityBonus, IntelligenceBonus
+ }
+ 
++public interface IClassEquipTransaction : IDisposable
++{
++    bool Allowed { get; }
++    void Complete(bool equipped);
++}
++
+ public static class ClassGearHooks
+ {
++    public static Func<PlayerMobile, Item, IClassEquipTransaction> EquipTransaction { get; set; }
++    public static Func<Mobile, Item, Item, bool?> ConflictingLayer { get; set; }
+     public static Func<Item, bool> IgnoreAppearanceRestrictions { get; set; }
+     public static Func<Mobile, Item, bool> FortifyUsed { get; set; }
+     public static Func<Mobile, Mobile, int, int, int, int, int, int, int?> SpellResistedDamage { get; set; }
+diff --git a/Projects/UOContent/Items/Weapons/BaseWeapon.cs b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+--- a/Projects/UOContent/Items/Weapons/BaseWeapon.cs
++++ b/Projects/UOContent/Items/Weapons/BaseWeapon.cs
+@@ -990,6 +990,11 @@
+ 
+     public override bool CheckConflictingLayer(Mobile m, Item item, Layer layer)
+     {
++        if (ClassGearHooks.ConflictingLayer?.Invoke(m, this, item) is { } conflict)
++        {
++            return conflict;
++        }
++
+         if (base.CheckConflictingLayer(m, item, layer))
+         {
+             return true;
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -1728,6 +1728,19 @@
+         public override int GetResistance(ResistanceType type) =>
+             ClassGearHooks.Resistance?.Invoke(this, type) ?? base.GetResistance(type);
+ 
++        public override bool EquipItem(Item item)
++        {
++            using var transaction = ClassGearHooks.EquipTransaction?.Invoke(this, item);
++            if (transaction?.Allowed == false)
++            {
++                return false;
++            }
++
++            var equipped = base.EquipItem(item);
++            transaction?.Complete(equipped);
++            return equipped;
++        }
++
+         public override void OnItemAdded(Item item)
+         {
+             InsuranceContentHooks.Received?.Invoke(this, item);
