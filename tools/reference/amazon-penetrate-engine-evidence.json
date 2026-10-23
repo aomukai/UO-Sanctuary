@@ -1,0 +1,117 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "source": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "probe": {
+    "cases": 120,
+    "dataPath": ".local/class-skills/amazon-penetrate-source-probe.json",
+    "dataSha256": "1bd5526edc34d429022efc0893385853819072486111de02bdd4ccdc26c9072e",
+    "unchangedStatements": [
+      "nToHitPercent += nStatValue + STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_TOHIT_PERCENT, 0);",
+      "int32_t nToHit = nAttackRate + MONSTERUNIQUE_CalculatePercentage(nAttackRate, nToHitPercent, 100);"
+    ],
+    "statementSha256": "5f429e0ff19f5dc6a2f154f9dd87bf7cbb3a25b34f442190bde2c3227eb8cbad"
+  },
+  "pinnedSkill": {
+    "talentId": "amazon.penetrate",
+    "name": "Penetrate",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 23,
+    "sourceKey": "Penetrate",
+    "ability": 20,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Penetrate",
+      "charclass": "ama",
+      "skilldesc": "penetrate",
+      "passivestate": "penetrate",
+      "passivestat1": "item_tohit_percent",
+      "passivecalc1": "ln12",
+      "enhanceable": 1,
+      "attackrank": 1,
+      "range": "rng",
+      "itypea1": "spea",
+      "itypea2": "miss",
+      "monanim": "xx",
+      "reqlevel": 18,
+      "maxlvl": 20,
+      "reqskill1": "Critical Strike",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 35,
+      "Param2": 10,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 640,
+      "cost add": 16000
+    },
+    "sourceParameters": {
+      "1": 35,
+      "2": 10,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "officialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "rank1To20": [
+      35,
+      45,
+      55,
+      65,
+      75,
+      85,
+      95,
+      105,
+      115,
+      125,
+      135,
+      145,
+      155,
+      165,
+      175,
+      185,
+      195,
+      205,
+      215,
+      225
+    ]
+  },
+  "modernFix": {
+    "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
+    "scope": "Released2.6 states external auras no longer remove passives and explicitly fixes Blessed Aim overwriting Amazon Penetrate. Do not reproduce the legacy stat-list replacement bug."
+  },
+  "established": [
+    "Current passive grants unrestricted item_tohit_percent=ln12 with35 initial/10 each subsequent effective rank. No mana or active binding.",
+    "Compiled ordinary player AR statements add skill/stat percentages and one percentage of base AR. Modern2.6 explicitly preserves Penetrate alongside Blessed Aim; the older stat-list overwrite bug must not be reproduced."
+  ],
+  "services": [
+    "Item-or-skill stat lookup returns the supplied passive value; remaining percentages are an explicit summed input. This probe does not implement source stat-list aggregation or the modern aura fix.",
+    "Percentage helper uses64-bit intermediate and integer division. Inputs are nonnegative, bounded and nonoverflowing; negative-percent rounding and large native integer overflow are outside this proof."
+  ],
+  "limits": [
+    "No modern executable certificate. Exact source stat layers, seed, current hit-chance quantization, target defense/type/owner/client cases remain separate. Existing native floating hit chance is unchanged; this probe certifies bounded attack rating only.",
+    "Weapon missile collision already reads live owner AR; the full Amazon launch collector still needs integration."
+  ]
+}

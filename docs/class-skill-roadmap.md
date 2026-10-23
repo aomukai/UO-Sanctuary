@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 1 / 30 | 0 | 29 | Open |
+| 5 | Amazon | 2 / 30 | 0 | 28 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -188,7 +188,7 @@ Howl source preparation now has1169 bounded compiled cases in [source evidence](
 | Dodge | 13 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Slow Missiles | 17 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Avoid | 18 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Penetrate | 23 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Penetrate | 23 | handler-present | Effective-rank passive joins the existing additive player AR pool with item, skill, Enchant and aura percentages. Published2.6 fixes Blessed Aim replacing Penetrate; both bonuses are retained. Compiled-source AR/golden, native real-gear/aura/history/respec and persistence checks are recorded separately. No mana/active slot/weapon restriction; talent icon pending. Full modern seed/stat-layer/hit-chance precision, special-mode/owner/client and pending projectile launch migration remain acceptance work. |
 | Decoy | 28 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Evade | 29 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Valkyrie | 32 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

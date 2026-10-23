@@ -101,10 +101,12 @@ public static class ClassStats
             return Math.Max(5, mobile.Dex * 2);
         }
         int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att")+targetFlat);
-        return Math.Max(1, baseRating * (100 + skillPercent + AosAttributes.GetValue(player, AosAttribute.AttackChance)
+        return PlayerAttackPercent(baseRating, skillPercent + AosAttributes.GetValue(player, AosAttribute.AttackChance)
             + BarbarianMasteries.Bonus(player,CombatTiming.Equipped(player),1)
-            + (SorceressEffects.Enchantment(player)?.AttackPercent ?? 0) + PaladinAuras.AttackPercent(player)) / 100);
+            + AmazonCombat.AttackPercent(player)
+            + (SorceressEffects.Enchantment(player)?.AttackPercent ?? 0) + PaladinAuras.AttackPercent(player));
     }
+    internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {
         int flat=attacker is PlayerMobile player?GemCombat.Undead(defender)?ClassGear.Bonus(player,"att-undead")+PaladinSanctuary.AttackFlat(player,defender)

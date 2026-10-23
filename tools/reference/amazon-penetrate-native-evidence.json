@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Penetrate:120 compiled source/native AR cases and20 official rank goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed114-handler build loads existing world and shuts down0; server stopped. Amazon2/30; no class certified complete.",
+  "source": "tools/reference/amazon-penetrate-engine-evidence.json",
+  "sourceCases": 120,
+  "officialRankGoldens": 20,
+  "implementation": [
+    "src/Sanctuary.Content/AmazonCombat.cs",
+    "src/Sanctuary.Content/ClassStats.cs"
+  ],
+  "verified": [
+    "C# player percentage helper matches120 bounded unchanged compiled source AR cases. All20 official rank1..20 goldens match the pinned ln12 formula35+10per rank. The existing positive bounded AR formula is factored without changing other classes.",
+    "Unlearned passive remains0 even with actual Tarnhelm allskills. Learned rank1 gives35, real helm soft2 gives45; hard20 gives225, actual helm/Highlord soft21/22 give235/245. Backpack helm removal changes effective rank immediately; hard cap20 holds.",
+    "Unarmed, ordinary converted Bow and Dagger use the same passive AR. Real Mahim-Oak Curio supplies a nonzero item AR percentage. Existing source skill80, Enchant and native Blessed Aim/Fanaticism leases join the same additive pool alongside Penetrate. Blessed Aim cannot replace the passive, following published2.6 behavior.",
+    "A high-defense native Ogre and midpoint draw distinguish an unlearned miss from a learned hit through both ordinary and projectile ClassStats.CheckHit consumers. Passive binding L/R/quick rejection, zero-mana checks, class history removal/restoration and respec removal pass.",
+    "Both actual world reloads preserve hard20, real gear ownership/effective22 and exact attack rating. After restoring the offline fixture position, real aura/Enchant coexistence and native hit boundaries repeat after each reload."
+  ],
+  "fixtureControls": [
+    "Checks run synchronously on the game loop with declared source stat lookup and bounded integer arithmetic. Native hit-boundary Random is a scoped delegate; source seed equivalence is not asserted.",
+    "Ogre RawDex40000 creates a native high-defense boundary; it is a fixture stat, not a modified monster catalogue. Enchant uses the real shared CastEnchant helper; the full cast/payment lifecycle remains covered by its existing class tests.",
+    "Offline PlayerMobile fixtures restore the saved world origin before receiving real aura leases; Map.Internal prevented the first reload aura test. No gameplay map or persistence policy was changed."
+  ],
+  "limits": [
+    "No full modern executable, negative-percent/native-overflow/stat-layer, source RNG, final hit-chance integer precision, special-mode, owner/client certificate. Existing floating HitChance is unchanged; this batch verifies bounded AR addition and current native hit routing.",
+    "Shared weapon missile impact already reads current owner AR, but full Amazon launch collection/missile-specific targeting and client paths remain pending. No new skill launch or item acquisition gate is enabled.",
+    "Amazon2/30 handlers, no class completion certificate."
+  ],
+  "assets": {
+    "effect": "Passive: no active effect required.",
+    "talentIcon": "Needed, existing text placeholder identified in separate icon register.",
+    "hotkeyIcon": "Not applicable."
+  },
+  "focusedLog": ".local/class-skills/amazon-penetrate-focused.log",
+  "fixtureCorrectionLog": ".local/class-skills/amazon-penetrate-before-origin-fix.log",
+  "test": "tests/Sanctuary.Integration/AmazonPenetrateChecks.cs",
+  "fullSuiteLog": ".local/class-skills/amazon-penetrate-combined.log",
+  "installedSmokeLog": ".local/class-skills/amazon-penetrate-installed-smoke.log",
+  "contentHash": "f18345b23adfd98b4ebd54f39668b20478216a692e0bf64dcdfed921977c57a6",
+  "integrationHash": "1c2d0f1460b4df5b62f2991c1c8b9e73f76fe767228ef10a0d45766803c0f6b7"
+}

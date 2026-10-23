@@ -185,10 +185,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 23,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Effective-rank passive joins the existing additive player AR pool with item, skill, Enchant and aura percentages. Published2.6 fixes Blessed Aim replacing Penetrate; both bonuses are retained. Compiled-source AR/golden, native real-gear/aura/history/respec and persistence checks are recorded separately. No mana/active slot/weapon restriction; talent icon pending. Full modern seed/stat-layer/hit-chance precision, special-mode/owner/client and pending projectile launch migration remain acceptance work."
     },
     {
       "talentId": "amazon.decoy",

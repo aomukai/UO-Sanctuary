@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Preparation only; no Penetrate handler enabled.",
+  "status": "Preparation superseded by the implemented bounded Penetrate AR consumer; see source/native evidence for verification and remaining parity limits.",
   "currentSkill": {
     "talentId": "amazon.penetrate",
     "name": "Penetrate",
@@ -101,8 +101,12 @@
     "Use existing learned/soft rank, training, passive binding rejection, stat packet/UI and class history/respec/save systems. No new active action, mana, icon mapping or final effect is necessary."
   ],
   "remaining": [
-    "Compile bounded unchanged source AR calculation with explicit stat/RNG services and compare native AR/hit boundaries.",
-    "Verify learned/hard20/soft ranks with real Tarnhelm and Highlord, ordinary melee/ranged/unarmed, skill/item/Enchant/aura addition, zero mana, respec/history and two actual reloads.",
-    "Retain exact modern seed/stat-layer/special weapon/owner/client limitations. Talent icon is pending; no active hotkey/effect."
+    "Exact modern seed/stat layers, shared hit-chance integer quantization, negative-percent/native overflow, special-mode/owner/client acceptance.",
+    "Full Amazon weapon launch collection and missile-specific integration. Learned AR is already read through the shared live impact consumer.",
+    "Final talent icon remains pending separately; passive requires no active effect or hotkey icon."
+  ],
+  "implementationEvidence": [
+    "tools/reference/amazon-penetrate-engine-evidence.json",
+    "tools/reference/amazon-penetrate-native-evidence.json"
   ]
 }

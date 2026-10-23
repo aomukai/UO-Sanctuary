@@ -1,10 +1,16 @@
 # Class skill checkpoint — 23 October 2026
 
-The goal is active. **113 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian25, Amazon1. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
+The goal is active. **114 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian25, Amazon2. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
 
 This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-2026-10-22.md). The [roadmap](class-skill-roadmap.md) reflects the actual implementation expressions. The [verification record](class-skills-verification-2026-10-23.json) records current artifacts and bounded checks.
 
 ## Latest verified batch
+
+Amazon Penetrate:120 compiled source/native AR cases and20 official rank goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed114-handler build loads existing world and shuts down0; server stopped. Amazon2/30; no class certified complete.
+
+[Penetrate native evidence](../tools/reference/amazon-penetrate-native-evidence.json) records real AR gear/Enchant/Blessed Aim coexistence, native melee/projectile hit boundaries and both reloads. Offline fixtures restore their saved origin before aura checks; gameplay map/persistence policy is unchanged. Exact modern shared hit-chance precision, seed/stat layers and special-mode/owner/client acceptance remain open. No active effect or hotkey icon; unique talent icon pending. No new native patch or save reset. Next: Pierce through existing budget/live-eligibility consumers, then complete Multiple Shot launch/events. Current installed build is114 handlers and existing saves load successfully; earlier sections below are historical.
+
+## Previous verified batch
 
 Amazon Critical Strike:486 compiled source/native critical cases and20 official chance goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed113-handler build loads existing world and shuts down0; server stopped. Amazon1/30; no class certified complete.
 
