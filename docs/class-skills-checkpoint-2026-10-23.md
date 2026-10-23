@@ -6,6 +6,12 @@ This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-20
 
 ## Latest verified batch
 
+Captured weapon leech:7680 compiled source/native fractional cases; delayed focused/final combined3boots/2reloads,70 Python tests and455 named/15 first-loop fingerprints pass. Matching installed115-handler build loads existing world and shuts down0; server stopped. No additional class skill enabled.
+
+[Captured leech native evidence](../tools/reference/weapon-leech-native-evidence.json) distinguishes verified fractional recovery/persistence from the literal older victim-mana side effect, global-difficulty projection and pending full event/owner/client parity. A constructor-scoped test recovery interval fixes one pre-save HP tick; production recovery is unchanged. Source-only CB1152 cases now prepare a fractional correction while retaining the explicit guide/older-code classification conflict. No new handler:115 total/Amazon3. Existing saves load; no native patch/save reset. Shared life/mana effects remain pending separately, with identified placeholders. Next: FP256 CB/central callbacks/Life Tap and full launch collection.
+
+## Previous verified batch
+
 Amazon Pierce:144 compiled source/native budget/RNG cases and20 official chance goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed115-handler build loads existing world and shuts down0; server stopped. Amazon3/30; no class certified complete.
 
 [Pierce native evidence](../tools/reference/amazon-pierce-native-evidence.json) records real item+skill addition, bounded source budget/RNG comparisons, live weapon-switch/respec eligibility and a saved moving payload through both reloads. Item-only fixture training and cross-cast rearm isolation are documented separately.115-handler installed build loads existing saves; no native patch or save reset. Talent icon pending; no active effect/hotkey. Next: captured drain and complete launch collection/events.810 new physical-creation cases are source-only preparation, with modern Multiple Shot calc5 placement still uncertain; no new active skill is enabled by that proof. Earlier checkpoints below are historical.

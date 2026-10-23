@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "observedDate": "2026-10-23",
+  "status": "Read-only local installation identified from the running game process; no behavioral parity inference.",
+  "userReport": "Game currently running, launched through Steam; previously reported Reign of the Warlock 3.3.93847.",
+  "installationPath": "/home/aomukai/Games/battlenet/pfx/drive_c/Program Files (x86)/Diablo II Resurrected",
+  "executable": {
+    "filename": "D2R.exe",
+    "sizeBytes": 32109264,
+    "sha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+    "versionStrings": {
+      "FileVersion": "3.3.93847",
+      "ProductVersion": "3.3.93847"
+    },
+    "fixedFileVersionWords": [
+      "0x00030003",
+      "0x6e970000"
+    ],
+    "note": "Fixed version storage truncates the build to 16 bits (28311); the full resource strings and .build.info independently identify 93847."
+  },
+  "buildInfo": {
+    "sha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+    "version": "3.3.93847",
+    "buildKey": "623f7a1f73eabb08ccb2b2046e3f9164",
+    "cdnKey": "a10f39cd385730caa4ab1909c888a845"
+  },
+  "limitations": [
+    "Process identity, resource strings and installation manifest confirm the build, not individual mechanics.",
+    "No game process memory was read or modified; no debugging, injection, restart or input was performed.",
+    "Licensed executable and installation data remain outside the repository; only provenance metadata is recorded.",
+    "Current hidden mechanic differences from the legacy source remain uncertain until individually verified."
+  ]
+}

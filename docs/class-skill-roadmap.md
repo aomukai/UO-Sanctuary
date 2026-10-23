@@ -29,6 +29,8 @@ Find Potion has5004 bounded compiled source cases in [source evidence](../tools/
 
 Howl source preparation now has1169 bounded compiled cases in [source evidence](../tools/reference/howl-engine-evidence.json). Its native handler uses a separate source AI payload in the shared curse lane: Terror includes initial escape, later threat selection/close combat and a default30-distance idle boundary. Earlier ordinary-Terror/item-fear variants still need their own acceptance before adopting this payload; the native Howl consumer is verified separately.
 
+Captured weapon leech now uses saved fractional fields through shared health/mana consumers; see [source](../tools/reference/weapon-leech-engine-evidence.json) and [native evidence](../tools/reference/weapon-leech-native-evidence.json). Literal older victim-mana behavior and current executable/global-difficulty/event parity remain explicit limits. Full launch collection, central callbacks and Life Tap still need integration. [Crushing Blow preparation](../tools/reference/weapon-crushing-engine-evidence.json) identifies a fractional-HP gap and a published-guide/older-code classification conflict; no CB runtime change is claimed by that source-only proof.
+
 ## Necromancer
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |

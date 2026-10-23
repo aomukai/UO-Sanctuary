@@ -73,7 +73,7 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || damage?.Elements==null || damage.Elements.LifeDrain!=0 || damage.Elements.ManaDrain!=0
+            || damage?.Elements==null || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
@@ -136,6 +136,7 @@ public static class WeaponMissiles
         {
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
+            WeaponLeech.Apply(owner,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {

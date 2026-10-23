@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "source": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "probe": {
+    "cases": 7680,
+    "dataPath": ".local/class-skills/weapon-leech-source-probe.json",
+    "dataSha256": "ae22af08d0e7a8695d17fa76dc207a53b7ac24b9ca39903418dc9d49385523bd",
+    "compiledBlocks": {
+      "int32_t __fastcall SUNITDMG_AddLeechedLife(": "233ecbb76bf5242cc6312b16e1e065023cc6711d8deb031d14776d599b16b539",
+      "int32_t __fastcall SUNITDMG_AddLeechedMana(": "fd037fa1826cc16156d78a2ce74f282f8806e09f9f62d1cd04190887e0d7d309",
+      "if (pDifficultyLevelsTxtRecord->dwLifeStealDiv)": "8518ec1787ddb4a6e22970e7f7c16f7dbdfec19fbd85fbc86e43ab37785dc585",
+      "if (pDifficultyLevelsTxtRecord->dwManaStealDiv)": "e38fa7b09ae289613655fdd57fc0ae795dbcf997923d20b5fca2f46ef78de15b",
+      "if (!nUnitType)": "191417d72fb1151e45c6e9861411b27c083d76518ff12ea7227a34075ec422ab",
+      "if (pDamage->dwManaLeech > 0)": "5583f8a41df12970725ec86a3c082ecacaf4b554191d7db48db57d22a9918a6c"
+    },
+    "capBlock": "\tconst int32_t nHp = STATLIST_UnitGetStatValue(pDefender, STAT_HITPOINTS, 0);\n\tpDamage->dwPhysDamage = std::min(pDamage->dwPhysDamage, nHp);",
+    "shiftBlock": "pDamage->dwLifeLeech <<= 6;\n\t\t\tpDamage->dwManaLeech <<= 6;"
+  },
+  "difficultySource": {
+    "path": "tools/reference/weapon-leech-difficulty-source.json",
+    "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/difficultylevels.json",
+    "gitBlob": "1bf58cf8273d40a0e79db35a105141e4bf0ddf10",
+    "license": "MIT; see tools/reference/d2r-named-equipment/LICENSE.txt",
+    "sha256": "28ff37334e2ea3bfd6fa62116e11f7cdf25d1be34c8f16a94cc7ee75b8a84764",
+    "divisors": {
+      "Normal": {
+        "LifeStealDivisor": 1,
+        "ManaStealDivisor": 1
+      },
+      "Nightmare": {
+        "LifeStealDivisor": 2,
+        "ManaStealDivisor": 2
+      },
+      "Hell": {
+        "LifeStealDivisor": 3,
+        "ManaStealDivisor": 3
+      }
+    }
+  },
+  "established": [
+    "Positive physical is capped to current victim FP256 life. Life/mana percent is shifted6, then divided by its respective nonzero difficulty divisor; physical percentage, drain effectiveness and divide64 each retain integer truncation.",
+    "Compiled original owner-heal functions cap fractional life/mana independently. The harness supplies live player actors with ample missing resources; native resource-cap/death checks are separate.",
+    "Literal older event tail also subtracts the mutated mana-leech field from victim mana, with a below256 cutoff. It runs even when physical is0; drain0 retains the unshifted field. This unusual behavior is implemented as explicitly legacy-derived, not silently replaced by an invented proportional mana burn.",
+    "Reviewed parent event places leech outside central-only attacker DOMISSILEDAMAGE suppression. Current player damage aggregation does not add life-leech percent to total HP damage."
+  ],
+  "services": [
+    "Owner/victim stat values, player branch, drain and difficulty are explicit services. Physical is already mitigated. Combat/absorb/item callbacks, full source PRNG/overlay draw and complete allocation/health dispatch are not compiled as an engine.",
+    "Six-bit shift and percentage operations are tested only with bounded nonnegative inputs. Native wide intermediates prevent unrelated overflow outside this proof."
+  ],
+  "limits": [
+    "No modern executable certificate; particularly the literal victim-mana side effect, full event/death/corpse/overlay/RNG order and all owner/type branches require current comparison.",
+    "Sanctuary projects difficulty from the existing victim spawn identity; D2 uses global game difficulty. Mixed-world/global context equivalence is not established.",
+    "Nonplayer/hireling leech, Life Tap callbacks, central item events and older live-gear/integer-loss GemCombat.Leech remain separate integration work."
+  ],
+  "pinnedDrainExamples": {
+    "path": "tools/reference/d2r-named-equipment/json/monstats.json",
+    "sha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "fields": [
+      "Drain",
+      "Drain(N)",
+      "Drain(H)"
+    ],
+    "rows": {
+      "zombie1": [
+        100,
+        75,
+        50
+      ],
+      "skeleton1": [
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}

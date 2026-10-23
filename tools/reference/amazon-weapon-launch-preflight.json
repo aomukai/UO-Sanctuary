@@ -242,7 +242,7 @@
   ],
   "remaining": [
     "Implement and verify complete launch collector, including approved materials and separately mastered aura/Enchant channels without erasing unsupported inputs.",
-    "Implement source-scaled captured life/mana drain and event dispatch; verify central/outer effects individually with real eligible gear and current-versus-captured fields.",
+    "Captured life/mana drain component is now implemented; finish real launch collection and event dispatch; verify central/outer effects individually with real eligible gear and current-versus-captured fields.",
     "Establish placement of modern calc5 hard Guided Arrow synergy; the older do8 routine does not provide it. Do not invent its damage/payment contract.",
     "Connect Multiple Shot start/payment, one ammunition debit after a complete fan, timing/quantity/owner/client paths and exact current next-hit scope. Keep individual unsupported branches explicit and proceed unaffected Amazon skills."
   ],
@@ -250,5 +250,14 @@
     "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
     "scope": "Released2.6 modding notes explicitly move the Multiple Shot srvdofunc8 damage synergy field from calc4 to calc5. This identifies the current field but does not independently establish its arithmetic placement relative to SrcDam/other ED."
   },
-  "physicalCreationEvidence": "tools/reference/weapon-launch-physical-evidence.json"
+  "physicalCreationEvidence": "tools/reference/weapon-launch-physical-evidence.json",
+  "capturedLeechEvidence": [
+    "tools/reference/weapon-leech-engine-evidence.json",
+    "tools/reference/weapon-leech-native-evidence.json"
+  ],
+  "centralCallbackPreparation": "tools/reference/weapon-crushing-engine-evidence.json",
+  "localCurrentBuildReference": {
+    "evidence": "tools/reference/d2r-local-installation-evidence.json",
+    "status": "User answered local installation question; running process located, full version strings and active manifest confirm3.3.93847. Individual mechanics remain unverified."
+  }
 }

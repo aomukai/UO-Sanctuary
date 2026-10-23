@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Captured weapon leech:7680 compiled source/native fractional cases; delayed focused/final combined3boots/2reloads,70 Python tests and455 named/15 first-loop fingerprints pass. Matching installed115-handler build loads existing world and shuts down0; server stopped. No additional class skill enabled.",
+  "source": "tools/reference/weapon-leech-engine-evidence.json",
+  "sourceCases": 7680,
+  "implementation": [
+    "src/Sanctuary.Content/WeaponLeech.cs",
+    "src/Sanctuary.Content/WeaponMissiles.cs"
+  ],
+  "verified": [
+    "All7680 compiled original cases match native fractional recovery and the literal victim-mana result, including independent divisors/zero-divisor guards, physical0, drain0/50/75/100 and current victim life clipping.",
+    "Native Normal/Nightmare/Hell zombies use current drain100/75/50 and source divisors1/2/3. A50.25 physical plus11.25 fire payload yields life/mana FP256 recovery900/643,337/241 and149/106 respectively. Fire is excluded; physical resistance and critical affect recovery.",
+    "Fractional overkill caps recovery to current victim life. Owner resources cap exactly at maximum, including clearing fractional remainder. Recovery does not depend on victim mana being available. Literal zero-physical, zero-drain and below-one victim-mana cases match the older source and are explicitly not certified against the current executable.",
+    "Missed/blocked shots change neither resources nor life. Central and outer raw fan flags both permit leech. Negative stored drain and still unsupported burn payloads are rejected.",
+    "Maximum rolled actual Riphook/Manald supply10% life/7% mana. SrcDam96 stores7%/5%. Removing both items after the first hit leaves current gear leech0; both actual reloads retain the original payload and fractional owner/victim resources, then only the remaining victim heals the owner by the stored amounts.",
+    "Actual deserialized moving payload, remaining pierce and cast leases survive both reloads with no offline first-hit/resource replay. Existing version0 JSON payload already contained drain fields; no persistence format changed."
+  ],
+  "fixtureControls": [
+    "Named WeaponLeechOwner/Target resource rates are held1hour; constructor scope prevents a pre-name HP timer. A15-second pre-save window reproduces the initial one-HP timer defect and verifies its fixture-only correction. No production regeneration changed.",
+    "Stopped/frozen source zombies/skeletons use controlled resistance, high life and explicit100 mana where needed. Victim mana values are fixture inputs, not a claim these species naturally have100 mana. Scoped hit/damage/block and maximum item-roll services isolate the component; source RNG equivalence is not asserted.",
+    "Saved flight/lease deadlines alone are held10minutes and normalized after restoring the offline owner origin. A held inspection payload is rearmed for the second restart, preserving independent casts; this is a fixture action, not gameplay replay.",
+    "The supplied damage/endpoints and drain capture are component tests, not a complete weapon/material/Enchant/aura collector or active Multiple Shot release."
+  ],
+  "limits": [
+    "Literal older victim-mana subtraction is explicitly legacy-derived and unverified in D2R3.3.93847. Full event/death/corpse/overlay/RNG ordering and other unit/owner modes remain acceptance work.",
+    "Per-victim difficulty reuses the existing Sanctuary spawn-identity adapter. D2 uses global game difficulty; mixed-world/global context equivalence is not established.",
+    "Central item callbacks, Life Tap and older live-gear/integer-loss GemCombat.Leech are separate pending integrations. No gameplay launch consumer or new class handler is enabled by this component.",
+    "Burn, nonplayer/hireling leech and complete weapon/missile flags/client paths remain unsupported or unverified. Existing weapon-owner death/map/town policies retain their prior limits."
+  ],
+  "assets": {
+    "effect": "Shared recovery overlays151/152 remain needed; native0x376A, life hue0x26/mana0x489 is an identified placeholder in the separate effects register.",
+    "icon": "No additional talent/hotkey icon for the shared item effect; individual skill icon entries remain pending."
+  },
+  "focusedLog": ".local/class-skills/weapon-leech-focused.log",
+  "failureLogs": [
+    ".local/class-skills/weapon-leech-full-resource-failure.log",
+    ".local/class-skills/weapon-leech-before-constructor-freeze.log"
+  ],
+  "test": "tests/Sanctuary.Integration/WeaponLeechChecks.cs",
+  "fullSuiteLog": ".local/class-skills/weapon-leech-combined.log",
+  "installedSmokeLog": ".local/class-skills/weapon-leech-installed-smoke.log",
+  "contentHash": "b62a559103a92f2c72317d4cbf6ca143ed4952bae2dec67802748638978d93be",
+  "integrationHash": "4d2b0f1100a8156f58ad215b7067f495f1758b55cb4178c3d7c6e1fdabdd92a3"
+}

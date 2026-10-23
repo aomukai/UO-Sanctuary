@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "3e8d439c2d6dcf240a2f9e312d0489d910b4a53d5a9a97cd07aa743cb45f8721",
+  "ContentAssemblySha256": "b62a559103a92f2c72317d4cbf6ca143ed4952bae2dec67802748638978d93be",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -453,7 +453,8 @@
     "src/Sanctuary.Content/WardrobeStorage.cs": "37d134c715d98229dea50c8f4bc1e5d65ef864c3e70680190b5382a9011ceaa3",
     "src/Sanctuary.Content/WardrobeTransaction.cs": "2558d97dda30a8253bf754cb45cf7043596fb2225e6d439722047b8bf5f10f01",
     "src/Sanctuary.Content/WeaponHands.cs": "a0446a4a14094a2611da73e31a1d3f076b288d17a13ded72d58f5ca39fbfdb59",
-    "src/Sanctuary.Content/WeaponMissiles.cs": "3951f76f4a806edf0b2bdefc0e935c5c75317f64040605baf8bf687916953d66",
+    "src/Sanctuary.Content/WeaponLeech.cs": "52975df1e402f69edd5a3f62fc739f9c766b163a49793994bc182237fc664450",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "67b0ea6ed2f114312ffadc97cfe7a3d0efcca8c14b876009926a2e478327d5ae",
     "tests/Sanctuary.Integration/NamedGearChecks.cs": "b0285c05a807f010ad80a1371715a22bd12f8dcb7ab20a9a758a6dfa71de5c66",
     "tests/Sanctuary.Integration/NamedLifecycleChecks.cs": "6035f0d49c8d8842f604a23d21264df8445d9393b36a362a400b00bcb10b9d69",
     "tests/Sanctuary.Integration/NamedVisualUiChecks.cs": "eed97c27e0d200c66845e7f329560d2374e14ea05ed54b22cec1d1d6451220e9"

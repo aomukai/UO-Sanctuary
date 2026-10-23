@@ -46,5 +46,9 @@
   "fullSuiteLog": ".local/class-skills/native-checks.log",
   "installedSmokeLog": ".local/class-skills/weapon-flight-installed-smoke.log",
   "contentHash": "c43fa13142813342c903e881843169aa55ef871e96572420df92428bc284e89a",
-  "integrationHash": "f8279e09a3df701ada0732464b70853e3282090605fe28fcb5c47fce84247e1a"
+  "integrationHash": "f8279e09a3df701ada0732464b70853e3282090605fe28fcb5c47fce84247e1a",
+  "supersededDrainLimit": {
+    "evidence": "tools/reference/weapon-leech-native-evidence.json",
+    "scope": "Later captured-leech component supersedes the historical nonzero-drain refusal. Positive stored life/mana drain now follows the bounded player path, including explicitly legacy-derived victim mana; burn and full collector/callback/owner/client work remain pending. Original component status/hashes above are historical."
+  }
 }

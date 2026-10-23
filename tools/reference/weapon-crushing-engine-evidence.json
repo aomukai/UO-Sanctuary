@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Source-only callback preparation; no Crushing Blow behavior changed by this probe.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8"
+  },
+  "probe": {
+    "cases": 1152,
+    "dataPath": ".local/class-skills/weapon-crushing-source-probe.json",
+    "dataSha256": "f851907b2187c6f489a18baf725115506fdd128d58bbae35bf6fb3977bfb2965",
+    "bodySha256": "aabb27f63021a4503575dc2b52c77e87cd0449b8ddb45e107ee616b11b338bd3"
+  },
+  "actualTypeFlags": 8,
+  "established": [
+    "The unchanged event rolls current owner chance once, reads current victim FP256 life, divides by target/ranged/player-HP factors, then subtracts a separately truncated positive-resistance share. Negative physical resistance does not amplify CB.",
+    "CB writes target life directly before ordinary weapon damage. Existing Native CrushingLoss reads displayed whole HP and combines some divisions; it cannot represent the same fractional contract.",
+    "The actual enum and helper establish numeric2 as SuperUnique only; MONSTERS_IsBoss reads the MonStats boss flag. The older callback therefore differs from the official guide for ordinary Champions/Uniques. Do not reinterpret numeric2 using synthetic harness constants from unrelated probes."
+  ],
+  "classificationConflict": {
+    "officialGuide": "https://classic.battle.net/diablo2exp/items/magic.shtml",
+    "publishedRule": "Champions, Uniques and Bosses have the halved fraction, with missile weapons halving again.",
+    "legacyRule": "Boss or SuperUnique flag2 only in the compiled older body.",
+    "native": "Current NamedCombat.Elite includes Champion/Unique/SuperUnique and mapped Boss, matching the published broader grouping.",
+    "policy": "Retain existing native grouping pending current executable evidence; source-only arithmetic proof must not silently replace it with the narrower older classification."
+  },
+  "services": [
+    "Current chance50 and fixed draw0/99, live FP256 stat fields, non-hireling monster targets and declared HP-bonus0/50/350 are supplied. Actual player-count-to-HP-bonus generation is not compiled.",
+    "Boss/type helper bodies compile unchanged with explicit table/bit-mask services. Overlay and full item-event dispatch remain services."
+  ],
+  "next": [
+    "Implement a shared FP256 CB helper through existing health setters and current classification, with the conflict explicit. Source reduction stages/order must be preserved independently of unsupported classifications.",
+    "Integrate central callbacks before captured-leech victim-life clipping, then ordinary packet commitment; keep outer flags, defense loss and prevent-heal paths separate.",
+    "Verify real eligible crushing gear, fractional victim life, resistance, blocked/missed/outer shots, CB+leech ordering, and save/lifecycle/asset placeholders."
+  ]
+}
