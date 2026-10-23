@@ -254,3 +254,5 @@ Shared weapon leech: life/mana overlays151/152 still need final recovery effects
 Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
+
+Inner Sight: native0x375A hue0x481 is the identified cast_innersight/innersight cast and repeating target-mark placeholder. Final target illumination/overlay and cast visuals remain pending; the talent/hotkey icon is recorded separately. Actual graphical/light comparison is still required.

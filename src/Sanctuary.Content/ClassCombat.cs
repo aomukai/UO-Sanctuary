@@ -145,7 +145,7 @@ public static class ClassCombat
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
-        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability)
+        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability)
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
@@ -343,6 +343,7 @@ public static class ClassCombat
     {
         var previous=For(from);
         if(previous.Zeal is{Remaining:<=0} && now-previous.NextAction>=0){previous.Zeal=null;}
+        if (AmazonCombat.Handles(ability)) { return AmazonCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (PaladinCombat.Handles(ability)) { return PaladinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (SorceressCombat.Handles(ability)) { return SorceressCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now); }
@@ -477,6 +478,7 @@ public static class ClassCombat
         {
             return SkeletonPets.Raise(from, World.FindItem(session.PendingTarget) as Corpse);
         }
+        if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
         if (SorceressCombat.Handles(ability))
         {

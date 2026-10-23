@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Inner Sight:324 compiled state/120 defense/961 radius rows,36 applicable native state comparisons,20 rank goldens and751 pinned species flags pass. Focused/final combined3boots/2reloads, natural8second expiry,70 Python tests and457 named/15 first-loop fingerprints pass. Matching116-handler content/client installed; existing world load/listen/shutdown0 passes. Server stopped; no save reset or full class certificate.",
+  "handlerCount": 116,
+  "classHandlerCount": 4,
+  "sourceEvidence": "tools/reference/inner-sight-engine-evidence.json",
+  "sourceProbe": {
+    "stateRows": 324,
+    "nativeApplicablePositiveDurationStateRows": 36,
+    "nativeDefenseRows": 120,
+    "nativeRadiusRows": 961,
+    "rankGoldens": 20,
+    "pinnedSpeciesRules": 751
+  },
+  "verified": [
+    "Right slot/hotkey/self-centered metadata and accepted cast/hold-release paths; exactly5mana once at action event, no early/repeated action, empty cast payment and insufficient-mana rejection.",
+    "Cancellation and movement suppress the pending unpaid cast; town cast rejected.",
+    "Pinned tiered defense reduction, independent curse/Attract coexistence and flat-before-percentage shared defense/hit-chance consumer. Actual existing rank1 Shout100% lease is injected solely to isolate percentage ordering.",
+    "27-source-subtile circle under shared two-subtile mapping, behind/axis/diagonal/outside/height cases; actual native wall obstructs LOS but does not suppress the aura.",
+    "Actual Tarnhelm raises recast to rank2/reduction65; removing gear retains captured values; lower-rank cast pays but cannot overwrite the stronger state.",
+    "Natural rank1 eight-second duration/expiry; separately held inspection state and independent Life Tap curse survive two real reloads; shortened inspection branch correctly expires; fresh recast can affect it again.",
+    "Game-loop snapshot precedes worker serialization. Existing worlds without the new optional persistence file remain supported by GenericPersistence.",
+    "User pinned-build rank3 tooltip confirms18yard radius,5mana,-90defense and16seconds; no extrapolated modern multi-caster certificate."
+  ],
+  "fixtureCorrections": [
+    "First native check exposed missing server left-binding restriction; added Inner Sight to existing right-only assignment guard. Failure log retained.",
+    "Second-reload inspection initially expected the expired target to remain expired after a real fresh cast. Added assertion for its correct rank1 reapplication, then clear only that inspection copy before the next restart. Gameplay reapplication rules unchanged."
+  ],
+  "fixtureScope": [
+    "Independent bounded outdoor actor area; NPC AI frozen/stopped and resource regeneration held at constructor/load with scoped hourly handlers.",
+    "Natural8seconds is checked before saved inspection deadlines are held10minutes. A separate500ms inspection deadline tests expiry during restart.",
+    "Existing Shout lease is supplied directly; no actual Barbarian input cast claimed. Aura hostile/height/visibility selection uses existing Sanctuary policy and an explicit native encounter adapter."
+  ],
+  "assets": {
+    "effects": "Final cast_innersight/innersight cast and persistent illumination overlays pending. Native0x375A hue0x481 cast/repeating target mark clearly identified placeholder.",
+    "icons": "Talent/hotkey icon remains pending in separate icon register."
+  },
+  "limits": [
+    "Pinned27-subtile radius overrides the legacy guide13.3yard value; provisional UO two-subtile mapping/height/room/visibility/filter/client/lighting acceptance remains.",
+    "Legacy guide says last caster wins while compiled older shared state helper preserves stronger rank and refreshes equal rank. Modern current-executable multi-caster confirmation remains open.",
+    "Full modern stat graph, signed negative-basis behavior, native creature basis and item defense-loss/Conviction interaction remain acceptance work.",
+    "PvP, item/charged/foreign-class casts, full caster death/respec/map/offline/target resurrection and actual graphical/input acceptance are not certified.",
+    "Unmapped source species are skipped rather than assigned invented flags; native dungeon archetypes use explicit existing attackable-hostile profile projection.",
+    "No class completion certificate or item-skill gate is cleared. Multiple Shot modern calc5 and full launch/callback work remain pending."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/inner-sight-focused.log",
+    "combined": ".local/class-skills/inner-sight-combined.log",
+    "bindingFailure": ".local/class-skills/inner-sight-left-binding-failure.log",
+    "inspectionFailure": ".local/class-skills/inner-sight-recast-expired-fixture-failure.log",
+    "clientBuild": ".local/class-skills/inner-sight-client-build.log",
+    "content-build": ".local/class-skills/inner-sight-content-build.log",
+    "integration-build": ".local/class-skills/inner-sight-integration-build.log",
+    "installed-smoke": ".local/class-skills/inner-sight-installed-smoke.log",
+    "installed-server": ".local/class-skills/inner-sight-installed-server.log",
+    "source-probe": ".local/class-skills/inner-sight-source-probe.log"
+  },
+  "clientBuild": {
+    "warnings": 59,
+    "errors": 0,
+    "scope": "Shared self-target metadata rebuilt; no graphical client launched."
+  },
+  "nonblockingQuestions": [
+    "Current-build tooltip question answered: effective3, radius18yards, cost5mana, defense-90, duration16seconds; all agree with pin. Modern multi-caster priority question remains separate."
+  ],
+  "currentTooltipEvidence": "tools/reference/inner-sight-current-tooltip.json",
+  "verification": {
+    "focusedBoots": 3,
+    "combinedBoots": 3,
+    "actualReloadsPerRun": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 457,
+    "firstLoopInputHashes": 15,
+    "installedExistingWorldSmoke": "passed; both listeners2593/12000 and shutdown0; server stopped; saves retained",
+    "contentWarnings": 0,
+    "contentErrors": 0,
+    "integrationWarnings": 0,
+    "integrationErrors": 0
+  }
+}

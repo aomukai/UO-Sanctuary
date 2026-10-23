@@ -130,10 +130,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 8,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Right-slot/hotkey/self-centered SC cast, once-only five-mana release payment, pinned flat defense curve before percentages, independent timed state and source rank-priority refresh are implemented. Compiled state/defense/radius evidence and dedicated native input, real Tarnhelm, curse/Attract coexistence, actual obstructed LOS, natural expiry and retained/expired reload checks are recorded separately. Pinned27-subtile radius takes precedence over the older guide; modern last-caster-versus-rank-priority conflict, full stat/filter/owner/PvP/client/lighting parity and unmapped native species remain explicit acceptance work. Native encounter eligibility is a documented adapter; no class certificate."
     },
     {
       "talentId": "amazon.criticalstrike",

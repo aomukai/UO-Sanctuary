@@ -279,5 +279,9 @@
     "behavior": "Distinct fractional defender event after central CB and before ordinary leech clipping, including outer missiles; native AOS/prepared melee/pet/Smite consumers reuse it and suppress duplicate late healing.",
     "status": "Focused/final combined verification and installed-world smoke passed within recorded limits."
   },
-  "unaffectedNextSkill": "Review Amazon Inner Sight while preserving full launch/callback work and the explicitly unresolved modern Multiple Shot calc5 field."
+  "unaffectedNextSkill": "Inner Sight implemented, native verification recorded separately. Next review Amazon Jab; preserve complete launch/callback work and modern Multiple Shot calc5 uncertainty.",
+  "innerSightEvidence": [
+    "tools/reference/inner-sight-engine-evidence.json",
+    "tools/reference/inner-sight-native-evidence.json"
+  ]
 }

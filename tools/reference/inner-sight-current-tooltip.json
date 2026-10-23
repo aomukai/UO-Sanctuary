@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-23",
+  "skill": "Inner Sight",
+  "source": "User firsthand tooltip reading from pinned Reign of the Warlock installation.",
+  "observation": {
+    "effectiveRank": 3,
+    "radiusYards": 18,
+    "manaCost": 5,
+    "enemyDefenseChange": -90,
+    "durationSeconds": 16
+  },
+  "agreement": "Rank3 matches pinned skill8 defense90,400frames/16seconds,1280FP256/5mana and27-subtile/18yard radius.",
+  "scope": "Corroborates displayed rank3 numbers and current radius; does not resolve multi-caster rank priority, exact stat graph, target filtering, geometry projection or client rendering parity."
+}

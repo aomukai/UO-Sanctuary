@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "pinnedTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "compiledBlocks": {
+    "state": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "defense": "cb7c7d7ad0c4d4714181ddba115139b5103e7ecceb5c3eed7aa1f6bee2eb22dc",
+    "distance": "51e0c345c2b96906a4eedefe0ac6de352294697e09f05043ceca99a94feae90a"
+  },
+  "reviewedBlocks": {
+    "do6": "574cd757b4c13f8ec8f4081cfcaa5432fba3b6fc03af8e5b526fd198b7cf66b5",
+    "auraCallback": "614b6462e824d5bf3e698bc2aa7ac33b9e6fa98be91ac62fc969cdb9178862e3"
+  },
+  "probe": {
+    "stateRows": 324,
+    "defenseRows": 120,
+    "radiusRows": 961,
+    "dataPath": ".local/class-skills/inner-sight-source-probe.json",
+    "dataSha256": "11c5b8350f91e5ec5d5eb5fd9f0600f72acf9cd49c740d957de30df398c32cb8"
+  },
+  "runtimeTargetRules": {
+    "path": "data/Sanctuary/Balance/source-aura-targets.json",
+    "rows": 751,
+    "sha256": "f7fe4b077bd4354abd814ef6b6896e4d3ba1b19d142ce23d0a0bfe6d1581f49b"
+  },
+  "established": [
+    "Inner Sight state17 is not a curse-mask state; it coexists with curse resistance/Attract and ordinary curses. NPC or missing/unattackable MonStats2 branches reject; noAura is filtered by the reviewed parent enumeration.",
+    "Same skill/state and equal rank refreshes expiry only, retaining original creator and value. Lower rank is rejected without expiry changes; higher rank replaces. Source zero-duration semantics are in the probe but the real Inner Sight table always supplies positive duration.",
+    "Armorclass reduction participates before defense percentages. Unchanged GetDefense retains its signed nonpositive-basis branch; final Sanctuary hit defense clamps nonnegative. Full modern stat graph and native creature basis projection remain acceptance.",
+    "Reviewed parent uses squared distance and filter34179 (0x8583), which has no optional LOS0x200 flag. Self is excluded and non-aura species are filtered.27 source subtiles become13.5 UO tiles under the shared provisional mapping."
+  ],
+  "services": [
+    "State table flags, statlist/owner storage, explicit NPC/attackability guards, clock/event scheduling and allocation are declared services. Actual scheduled state removal, full filter/alignment/room traversal and formula evaluation are not compiled.",
+    "Defense receives aggregate supplied raw basis, flat reduction and combined percentage, no Holy Shield state or armor override; signed branch is retained rather than invented rounding."
+  ],
+  "conflicts": {
+    "officialGuide": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "published": "Legacy guide says last caster wins and radius13.3yards.",
+    "policy": "Use pinned27-subtile radius. Retain reviewed legacy rank priority pending current executable confirmation; published last-caster statement is a nonblocking modern acceptance gap."
+  },
+  "limits": [
+    "This is supplementary older-engine proof, not a3.3.93847 executable certificate. Exact modern multi-caster/stat/owner/client behavior remains acceptance.",
+    "Native geometry/height/visibility/hostility and explicit native encounter adapters are provisional; unsupported unmapped source species are skipped explicitly."
+  ],
+  "currentTooltipEvidence": "tools/reference/inner-sight-current-tooltip.json"
+}

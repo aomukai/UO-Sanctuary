@@ -44,7 +44,7 @@ public sealed class SkillBindings : GenericPersistence
     public bool Assign(PlayerMobile player, bool left, CombatAbility ability)
     {
         if (player == null || !player.Alive || !ClassCombat.Enabled(player)
-            || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem)
+            || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem or CombatAbility.InnerSight)
             || ability != CombatAbility.None && !ClassCombat.Available(player, ability))
         {
             return false;

@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 3 / 30 | 0 | 27 | Open |
+| 5 | Amazon | 4 / 30 | 0 | 26 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -185,7 +185,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 | Fend | 30 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Strike | 34 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Fury | 35 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Inner Sight | 8 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Inner Sight | 8 | handler-present | Right-slot/hotkey/self-centered SC cast, once-only five-mana release payment, pinned flat defense curve before percentages, independent timed state and source rank-priority refresh are implemented. Compiled state/defense/radius evidence and dedicated native input, real Tarnhelm, curse/Attract coexistence, actual obstructed LOS, natural expiry and retained/expired reload checks are recorded separately. Pinned27-subtile radius takes precedence over the older guide; modern last-caster-versus-rank-priority conflict, full stat/filter/owner/PvP/client/lighting parity and unmapped native species remain explicit acceptance work. Native encounter eligibility is a documented adapter; no class certificate. |
 | Critical Strike | 9 | handler-present | Learned effective-rank passive now reaches the existing physical weapon and projectile launch critical consumers. Normal melee tries mastery/generic/Deadly Strike; projectile creation tries generic/Deadly/mastery and retains its unconditional zero-chance first draw. One physical doubling, no elemental doubling, no mana/hotkey/weapon restriction. Native source/golden/real-gear/history/reload acceptance recorded separately; full modern special-mode/oskill/launch/proc/client equivalence remains open. Other-class generic oskill grants are not enabled. |
 | Dodge | 13 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Slow Missiles | 17 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

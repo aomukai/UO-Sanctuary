@@ -1,0 +1,4508 @@
+[
+  {
+    "source": "act2child",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2female",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2guard1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2guard2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2guard3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2guard4",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2guard5",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2hire",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act2male",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2vendor1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act2vendor2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act3female",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act3hire",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act3male",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act5barb1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act5barb2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act5barb3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act5barb4",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "act5hire1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act5hire2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "act5pow",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "akara",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "alkor",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "ancientbarb1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "ancientbarb2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "ancientbarb3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "ancientstatue1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "ancientstatue2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "ancientstatue3",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "andariel",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "arach7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "asheara",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "atma",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "baalclone",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalcrab",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalcrabstairs",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "baalhighpriest",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalminion1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalminion2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalminion3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baaltaunt",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "baaltentacle1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baaltentacle2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baaltentacle3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baaltentacle4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baaltentacle5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baalthrone",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "baboon1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "baboon8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "barricadedoor1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "barricadedoor2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "barricadetower",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "barricadewall1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "barricadewall2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bat",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "batdemon1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "batdemon7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bear",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bighead9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bird1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "bird2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "bladecreeper",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "bloodgolem",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodlord7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodmage1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodmage2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodmage3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodmage4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodmage5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bloodraven",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "blunderbore6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bonefetish7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "boneprison1",
+    "npc": false,
+    "noAura": true,
+    "attackable": true
+  },
+  {
+    "source": "boneprison2",
+    "npc": false,
+    "noAura": true,
+    "attackable": true
+  },
+  {
+    "source": "boneprison3",
+    "npc": false,
+    "noAura": true,
+    "attackable": true
+  },
+  {
+    "source": "boneprison4",
+    "npc": false,
+    "noAura": true,
+    "attackable": true
+  },
+  {
+    "source": "bonewall",
+    "npc": false,
+    "noAura": true,
+    "attackable": true
+  },
+  {
+    "source": "brute1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "brute2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "brute3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "brute4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "brute5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "bug",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "bunny",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain3",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain4",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain5",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cain6",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "camel",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cantor1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cantor2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cantor3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cantor4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cantor5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cantor6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "catapult1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "catapult2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "catapult3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "catapult4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "catapultspotter1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "catapultspotter2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "catapultspotter3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "catapultspotter4",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chaoshorde1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chaoshorde2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chaoshorde3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chaoshorde4",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chargeboltsentry",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "charsi",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "chicken",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "clawviper1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "clawviper9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "claygolem",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colbarbfrenzy",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colbarbthrow",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colbarbwhirl",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colossal1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colossal2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "colossal3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "compellingorb",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "corruptrogue1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "corruptrogue2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "corruptrogue3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "corruptrogue4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "corruptrogue5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "corruptrogue6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "councilmember1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "councilmember2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "councilmember3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cow",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "cowking",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_archer8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cr_lancer9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "crownest1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "crownest2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "crownest3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "crownest4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "cycleoflife",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "darkelder",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkguard1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkguard2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkguard3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkguard4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkguard5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "darkwanderer",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "deathmauler1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathmauler2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathmauler3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathmauler4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathmauler5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathmauler6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "deathsentry",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "demonhole",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "demonspawner",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "diablo",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "diabloclone",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dkfig1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dkfig2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dkmag1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dkmag2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dkmag3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "doomknight1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "doomknight2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "doomknight3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "dopplezon",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "drehya",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "drehyaiced",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "drognan",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "druidbear",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "druidhawk",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "duriel",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "eagle",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "elzix",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhole1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhole2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhole3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhole4",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhole5",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "evilhut",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallen8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fallenshaman8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "familiar",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "fara",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "fenris",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish11",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetish8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishblow8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fetishshaman8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fingermage1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fingermage2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fingermage3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fingermage4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fingermage5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "firebeast",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "firegolem",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "firetower",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "fish",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "flyingscimitar",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "foulcrow8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frogdemon1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frogdemon2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frogdemon3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frozenhorror1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frozenhorror2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frozenhorror3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frozenhorror4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "frozenhorror5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "gargoyletrap",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "geglash",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "gheed",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "goatman1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "goatman9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "gorgon1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "gorgon2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "gorgon3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "gorgon4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "greiz",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "griswold",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "halbu",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "heartofwolverine",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "hellbovine",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "hellmeteor",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "hephasto",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "horse",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "hratli",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "hydra1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "hydra2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "hydra3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "iceglobe",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "imp8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "infernosentry",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "injuredbarb1",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "injuredbarb2",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "injuredbarb3",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "invisopet",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "invisospawner",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "irongolem",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "izual",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "izualghost",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "jamella",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "jerhyn",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "kashya",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "larva",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "larzuk",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "lightningbeast",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "lightningsentry",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "lightningspire",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "lysander",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "maggot",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "maggotbaby1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotbaby2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotbaby3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotbaby4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotbaby5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotbaby6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotegg6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotqueen1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotqueen2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotqueen3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotqueen4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "maggotqueen5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "malachai",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "malah",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "megademon1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "megademon2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "megademon3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "megademon4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "megademon5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "megademon6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mephisto",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mephistospirit",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "meshif1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "meshif2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "minion1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion11",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minion9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minionspawner8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "minispider",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "mosquito1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mosquito2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mosquito3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mosquito4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "mummy6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "natalya",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "navi",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "necromage",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "necroskeleton",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "nihlathak",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "nihlathakboss",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "oaksage",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "ormus",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "overseer1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "overseer2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "overseer3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "overseer4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "overseer5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "overseer6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "painworm1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "painworm2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "painworm3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "painworm4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "painworm5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "pantherwoman6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "parrot",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "pig",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "plaguepoppy",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "poisonorb",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "prisondoor",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "putriddefiler1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "putriddefiler2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "putriddefiler3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "putriddefiler4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "putriddefiler5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "qual-kehk",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "quillbear1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillbear2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillbear3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillbear4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillbear5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "quillrat8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "radament",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "rat",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "reanimatedhorde1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "reanimatedhorde2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "reanimatedhorde3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "reanimatedhorde4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "reanimatedhorde5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "reanimatedhorde6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "regurgitator1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "regurgitator2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "regurgitator3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "regurgitator4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "rogue1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "rogue2",
+    "npc": true,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "rogue3",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "roguehire",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandleaper7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandmaggot7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sandraider9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sarcophagus",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scarab8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "scorpion",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "seagull",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "seventombs",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "shadowmaster",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "shadowwarrior",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "siegebeast1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "siegebeast2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "siegebeast3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "siegebeast4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "siegebeast5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer11",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "sk_archer9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skeleton8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_cold6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_fire7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_ltng7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "skmage_pois7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "slinger9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "smith",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "snake",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "snowyeti1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "snowyeti2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "snowyeti3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "snowyeti4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "spiritmummy",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "spiritofbarbs",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "spiritwolf",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubus8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "succubuswitch9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suckernest1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suckernest2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suckernest3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suckernest4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion10",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion11",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "suicideminion9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "summoner",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "swarm1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "swarm2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "swarm3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "swarm4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "swarm5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentacle1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentacle2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentacle3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentaclehead1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentaclehead2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tentaclehead3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "thornhulk1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "thornhulk2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "thornhulk3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "thornhulk4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "thornhulk5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "trap-firebolt",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trap-horzmissile",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trap-lightning",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trap-melee",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "trap-nova",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trap-poisoncloud",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trap-vertmissile",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "trappedsoul1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "trappedsoul2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "turret1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "turret2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "turret3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "tyrael1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "tyrael2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "tyrael3",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "uberandariel",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "uberbaal",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "uberdiablo",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "uberduriel",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "uberizual",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "ubermephisto",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "unraveler9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "valkyrie",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vampire9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "venomlord",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilechild1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilechild2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilechild3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilechild4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilechild5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilemother1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilemother2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilemother3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilemother4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vilemother5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vinecreature",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "vulture1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vulture2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vulture3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vulture4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "vulture5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wakeofdestruction",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "warbighead",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wargoatman",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "warputriddefiler",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "warriv1",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "warriv2",
+    "npc": true,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "willowisp1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "willowisp8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "window1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "window2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wolf",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wolfrider1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wolfrider2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wolfrider3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "worldstoneeffect",
+    "npc": false,
+    "noAura": false,
+    "attackable": false
+  },
+  {
+    "source": "wraith1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith6",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith7",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith8",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "wraith9",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zealot1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zealot2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zealot3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zealot4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zealot5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zombie1",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zombie2",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zombie3",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zombie4",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  },
+  {
+    "source": "zombie5",
+    "npc": false,
+    "noAura": false,
+    "attackable": true
+  }
+]

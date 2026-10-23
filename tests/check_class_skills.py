@@ -68,6 +68,7 @@ def check():
         shutil.copy2(STAGE / 'weapon-leech-source-probe.json', folder / 'weapon-leech-source-probe.json')
         shutil.copy2(STAGE / 'weapon-crushing-source-probe.json', folder / 'weapon-crushing-source-probe.json')
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
+        shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
@@ -111,6 +112,11 @@ def check():
                     assert session.expect(life_tap+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
                     if boot==0:
                         assert session.expect(r'life-tap-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
+                    inner_sight='inner-sight-check' if boot==0 else 'inner-sight-reload-check'
+                    session.send(inner_sight)
+                    assert session.expect(inner_sight+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    if boot==0:
+                        assert session.expect(r'inner-sight-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
                     pierce='amazon-pierce-check' if boot==0 else 'amazon-pierce-reload-check'
                     session.send(pierce)
                     assert session.expect(pierce+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
