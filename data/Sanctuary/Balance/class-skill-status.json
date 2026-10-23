@@ -31,10 +31,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 14,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared interruptible A1 spear/javelin attack adds hard-only14% three-skill lightning synergy and separately mastered FP256 lightning to the ordinary melee weapon packet, with start payment/AttackNoMana fallback. Released2.6 explicitly fixes AR; pinned20+12 per rank is used instead of legacy start6 zero. Shared fixed-minimum synergy/rank0 correction matches8712 compiled source endpoint cases. Dedicated native gear, AR, typed damage, cancellation and restart checks are recorded separately. Cached legacy A1 data provenance/current animation, full stat/owner/PvP/item/client/geometry/seed parity remain acceptance work; no class certificate."
     },
     {
       "talentId": "amazon.poisonjavelin",

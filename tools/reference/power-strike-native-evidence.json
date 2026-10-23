@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Power Strike:8712 compiled/native elemental scalar rows across88 current shapes,8 compiled start/commit cases,12 A1 schedules and20 native rank goldens pass. Focused and final corrected combined3boots/2reloads pass, including actual Spear/Titan/Griffon/Goblin Toe, modern AR,840% hard synergies, prepared damage, physical-only critical/leech, resources, cancellation and transient restart exclusion.70 Python tests and459 named/15 first-loop current fingerprints pass. Matching118-handler content/data installed; existing-world boot/listen/shutdown0 passes. Server stopped; client unchanged, saves retained. No full class certificate.",
+  "handlerCount": 118,
+  "classHandlerCount": 6,
+  "sourceEvidence": "tools/reference/power-strike-engine-evidence.json",
+  "modernCorrection": "tools/reference/power-strike-modern-correction.json",
+  "sourceProbe": {
+    "compiledScalarShapes": 88,
+    "compiledScalarRows": 8712,
+    "nativeScalarRows": 8712,
+    "compiledStartCommitRows": 8,
+    "compiledAndNativeA1Schedules": 12,
+    "rankGoldens": 20
+  },
+  "verified": [
+    "Native left/right/quick binding metadata and ContinueAttack/ContinueCast/Perform APIs. Successful start pays one fractional mana cost; early/duplicate event rejection, no release repayment/refund. Real Titan/Griffon soft ranks and hard20 skill are exercised.",
+    "Released2.6 AR fix deliberately supersedes old source zero bonus. Actual native midpoint roll misses ordinary AR but hits Power Strike at current20+12/rank; insufficient mana takes one ordinary AR/physical attempt, misses at that same boundary, and spends no mana.",
+    "Shared SkillValues fixed-minimum and rank0 correction matches8712 compiled cases across88 pinned current elemental shapes,11 rank boundaries, three declared synergy and three mastery values. Fixed1-or-less minima with no first tier increment skip synergy; maximum remains synergized. Source elemental readers return zero for rank0.",
+    "Power Strike max lightning uses hard-only14% from Lightning Bolt/Charged Strike/Lightning Strike; all three hard20 plus actual soft-rank gear yield840%, fixed1-point minimum and once-only actual Griffon mastery. Independent FP256 upper-exclusive skill roll precedes weapon allocation.",
+    "Prepared full melee weapon plus separate skill lightning packet rolls hit/critical/typed mitigation at start, reusing GearEffects; later resistance and gear/soft-rank changes cannot reroll that packet. Critical doubles physical only; skill lightning is mastered once. Lightning immunity preserves ordinary physical weapon damage.",
+    "Actual converted Spear and actual Titan javelin use existing source item ancestry and scoped melee endpoints/effects. Ordinary thrown classification returns outside scope; no throw ammunition debit. Source wear reuses the separately verified Jab expansion helper.",
+    "Interruptible normal A1, not Jab SQ1/uninterruptibility. Source frame bonus2 and cached legacy animation yield1HT13/event7 or2HT16/event9 at speed256;12 scheduler comparisons. Movement, hit recovery, Stop, range/target loss, weapon change, respec and death cancel remaining prepared effects.",
+    "Town rejects without paying. Actual Goblin Toe, dominant skill lightning, independent Life Tap curse and Titan ordinary leech prove melee quarter-life CB then prepared total, and exactly-once healing from physical only; no late critical reroll.",
+    "Two real reloads retain native gear, skills, bindings, target health, mana, durability and quantity. Pending transient prepared attack is absent after restart, with no replay/refund, and a fresh post-load cast works."
+  ],
+  "fixtureAndRegressionNotes": [
+    "First full suite correctly exposed an old Chain Lightning assertion expecting286FP for a synergy-scaled fixed minimum. Compiled shared source and8712 native comparisons establish256FP. Updated that exact golden; maximum/cost/count/delay assertions retained. Failure log archived.",
+    "Review found the same stale Holy Shock minimum assertion1075FP; corrected to256FP while preserving max/weapon/proximity assertions. The intermediate rerun was intentionally stopped with SIGINT for runner cleanup before rebuilding tests and starting the corrected complete run. No aborted run is counted as passing.",
+    "A further full run exposed derived Chain Lightning packet minima429/479FP from the same old guard. Corrected to384/414FP after50/62percent mastery; maxima17202/19242 remain. Targeted check/result and final complete3boots/2reloads pass. Failed/interrupted logs are retained and not counted as passing.",
+    "Regeneration held hourly from actor construction/load; NPC AI frozen/stopped. Manual native input/action deadlines isolate mechanical behavior; no actual graphical client frame trace claimed.",
+    "Prepared target is retained through held input using the existing prepared-melee convention. Source-backed item/weapon/retaliation consumers keep their previously recorded independent acceptance limits."
+  ],
+  "limits": [
+    "No full current executable, class completion, item/proc/charged/foreign-class/PvP/avoidance/block/owner certificate. Primary released2.6 patch resolves the AR change; other legacy contracts remain supplementary evidence.",
+    "Legacy cached AnimData hash is recorded but acquisition provenance is incomplete. Exact current3.3 animation/IAS/WSM/Fanaticism/chill/frame bonus/input/SC and final graphical timing remain acceptance work.",
+    "Native reach/LOS/height/body size/room/terrain projection remains provisional. Source SearchEnemyXY/KeepCursorStateOnKill acquisition and actual held network/client interaction require further acceptance.",
+    "Full modern stat/material/poison/absorb/retaliation/event/RNG order and existing ordinary leech precision are inherited open branches. This change does not claim all shared consumers are now exact.",
+    "88 source field shapes use declared fixed synergy/mastery services for scalar differential proof; actual Power Strike hard synergy/gear consumers are tested separately. Higher-rank overflow/special formula domains beyond the bounded fixture remain uncertified.",
+    "No item-skill gate or save format change. New native source/helper and optional mana-check argument do not enable deferred empty-air melee behavior or broader targeting deviations."
+  ],
+  "assets": {
+    "effects": "Native weapon pose/sound0x238 and lightning-contact0x374A hue0x481 are identified placeholders; final weapon lightning/contact presentation remains pending in the effect register.",
+    "icons": "Separate Power Strike talent/hotkey icon remains pending in the240-entry icon register."
+  },
+  "nonblockingQuestions": [
+    "Current-build tooltip reply/corrections recorded in sorceress-current-lightning-tooltips.json: Charged Bolt hard1/effective3 is3-5; original13-37 was duplicate Nova. Lightning/Chain Lightning1-69 and mana9/11 agree; Nova13-37 conditionally agrees assuming hardStaticField1. All synergy percentages agree. Displayed minimum1 at these low synergies cannot distinguish fractional guard variants."
+  ],
+  "logs": {
+    "source-probe": ".local/class-skills/power-strike-source-probe.log",
+    "content-build": ".local/class-skills/power-strike-content-build.log",
+    "integration-build": ".local/class-skills/power-strike-integration-build.log",
+    "focused": ".local/class-skills/power-strike-focused.log",
+    "focused-run": ".local/class-skills/power-strike-focused-run.log",
+    "chain-minimum-regression": ".local/class-skills/power-strike-chain-minimum-regression.log",
+    "holy-shock-review-interrupted": ".local/class-skills/power-strike-holy-shock-review-interrupted.log",
+    "combined": ".local/class-skills/power-strike-combined.log",
+    "combined-run": ".local/class-skills/full-suite-run.log",
+    "chain-snapshot-regression": ".local/class-skills/power-strike-chain-snapshot-regression.log",
+    "chain-focused": ".local/class-skills/power-strike-chain-focused.log",
+    "chain-focused-run": ".local/class-skills/power-strike-chain-focused-run.log",
+    "installed-server": ".local/class-skills/power-strike-installed-server.log",
+    "installed-smoke": ".local/class-skills/power-strike-installed-smoke.log",
+    "python": ".local/class-skills/python-checks.log"
+  },
+  "next": "Charged Strike source and native missile-emission review, reusing start6/scoped melee/elemental and projectile services; keep modern Multiple Shot full launch arithmetic independent.",
+  "tooltipEvidence": "tools/reference/sorceress-current-lightning-tooltips.json",
+  "nextPreflight": "tools/reference/charged-strike-preflight.json"
+}

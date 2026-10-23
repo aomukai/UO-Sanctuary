@@ -70,6 +70,8 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json'):
+            shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
@@ -121,6 +123,9 @@ def check():
                     jab='jab-check' if boot==0 else 'jab-reload-check'
                     session.send(jab)
                     assert session.expect(jab+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    power_strike='power-strike-check' if boot==0 else 'power-strike-reload-check'
+                    session.send(power_strike)
+                    assert session.expect(power_strike+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     pierce='amazon-pierce-check' if boot==0 else 'amazon-pierce-reload-check'
                     session.send(pierce)
                     assert session.expect(pierce+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

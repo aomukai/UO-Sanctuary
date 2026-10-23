@@ -1,0 +1,19 @@
+{
+  "referenceVersion": "3.3.93847",
+  "publishedPatch": "2.6",
+  "publisher": "Blizzard Entertainment",
+  "url": "https://news.blizzard.com/en-gb/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
+  "retrievedOn": "2026-10-24",
+  "cachedHtmlSha256": "5646a7de55db54800d92e1dff7d994b9a043ce3a4a5043f565848c95601bf9a0",
+  "powerStrikeCorrection": "Released patch2.6 explicitly fixes the missing Power Strike percentage attack-rating bonus. Current pinned20%+12% per effective rank takes precedence over reconstructed legacy start6 passing zero.",
+  "synergyReference": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "publishedPatch": "2.4",
+    "summary": "Removed Lightning Fury synergy and raised Lightning Bolt/Charged Strike/Lightning Strike synergies to14% each; current pinned table agrees."
+  },
+  "otherSourceClarification": {
+    "skill": "Multiple Shot",
+    "summary": "Official2.6 modding notes explicitly relocate percent-damage synergy from calc4 to calc5. Field placement is now confirmed; full current evaluation order and native launch integration remain separate tasks."
+  },
+  "scope": "Primary released patch evidence plus pinned current table, not an instrumented3.3.93847 executable trace."
+}

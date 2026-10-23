@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Next skill preflight only; Power Strike handler not implemented by this record. Jab native verification separate.",
+  "status": "Amazon Power Strike:8712 compiled/native elemental scalar rows across88 current shapes,8 compiled start/commit cases,12 A1 schedules and20 native rank goldens pass. Focused and final corrected combined3boots/2reloads pass, including actual Spear/Titan/Griffon/Goblin Toe, modern AR,840% hard synergies, prepared damage, physical-only critical/leech, resources, cancellation and transient restart exclusion.70 Python tests and459 named/15 first-loop current fingerprints pass. Matching118-handler content/data installed; existing-world boot/listen/shutdown0 passes. Server stopped; client unchanged, saves retained. No full class certificate.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
@@ -82,13 +82,17 @@
     "Mana is8+1 per rank in64FP units, with one successful-start payment from the reviewed shared wrapper."
   ],
   "uncertain": [
-    "Legacy start6 passes0 as the explicit hit bonus, while the current table publishes ToHit20+12 per rank. Reviewed GetResultFlags passes that0 into IsHitSuccessful, which adds the supplied value into player AR percent. No automatic ToHit lookup was found in those bodies. Establish whether the modern executable fixes this legacy discrepancy; do not silently use the tooltip percentage as hit-path evidence.",
+    "Original legacy zero-AR/current tooltip discrepancy resolved by released Blizzard2.6 fix: use current20+12 per effective rank. An instrumented3.3 executable trace is still separate acceptance work.",
     "Full modern skill snapshots/retargeting, normal A1 animation/IAS/mode/input, SrcDam/elemental/stat/event/owner/client and durability/repair/RNG acceptance remain open."
   ],
   "nextActions": [
-    "Compile unchanged start6/do2 with declared result/allocation/elemental services and compare native preparation/commit ordering.",
-    "Check official current patch evidence and the complete legacy hit path for the AR discrepancy; record any unresolved modern field explicitly.",
-    "Implement and verify supported Power Strike mechanics through existing consumers, keeping any individual unsupported branches and wider launch gaps separately documented."
+    "Verified batch installed and checkpointed; ordinary Git backup before continuing.",
+    "Continue Charged Strike through shared start6/scoped melee and source missile emission; keep unresolved modern behavior explicit.",
+    "Modern Multiple Shot calc5 field name is confirmed by official2.6 notes; arithmetic/evaluation/complete launch contract remains separate."
   ],
-  "assets": "Separate existing240-entry effect and icon registers retain Power Strike lightning-contact and talent/hotkey requirements; no image generation in this batch."
+  "assets": "Separate existing240-entry effect and icon registers retain Power Strike lightning-contact and talent/hotkey requirements; no image generation in this batch.",
+  "modernCorrectionEvidence": "tools/reference/power-strike-modern-correction.json",
+  "compiledSourceEvidence": "tools/reference/power-strike-engine-evidence.json",
+  "nativeEvidence": "tools/reference/power-strike-native-evidence.json",
+  "nextPreflight": "tools/reference/charged-strike-preflight.json"
 }

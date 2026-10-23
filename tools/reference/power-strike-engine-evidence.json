@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": [
+    "SKILLS_CalculateDamageBonusByLevel",
+    "SKILLS_GetMinElemDamage",
+    "SKILLS_GetMaxElemDamage",
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws",
+    "UNITS_GetFrameBonus",
+    "sub_6FCBCE70"
+  ],
+  "blockHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike": "65fb37d65e169b2114988f6c8d96af048c6f0187a323a656e2f6f6f2907a681f",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "modernTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "probe": {
+    "scalarShapes": 88,
+    "scalarRows": 8712,
+    "flowRows": 8,
+    "timingRows": 12,
+    "scalarPath": ".local/class-skills/power-strike-scalar-probe.json",
+    "flowPath": ".local/class-skills/power-strike-flow-probe.json"
+  },
+  "animations": [
+    {
+      "code": "AMA11HT",
+      "frames": 15,
+      "event": 9
+    },
+    {
+      "code": "AMA12HT",
+      "frames": 18,
+      "event": 11
+    }
+  ],
+  "legacyAnimDataHash": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+  "modernCorrections": "tools/reference/power-strike-modern-correction.json",
+  "established": [
+    "Compiled shared elemental minimum helper skips synergy if raw minimum<=256 and first tier increment0; maximum always evaluates synergy. Rank0 returns0. Mastery adds a separately truncated percentage after synergy. Power Strike minimum remains1 before mastery even with hard synergy points.",
+    "Compiled legacy start6 allocates a prepared full weapon plus success-only lightning packet; do2 performs the later ordinary drain/event commit. Pinned Power Strike has no physical calc1 bonus, conversion, aura state or server overlay.",
+    "Legacy start6 explicit AR is0. Official released2.6 patch fixes the Power Strike AR bug; native uses the current20+12/rank bonus deliberately, not that obsolete0. This modern correction is separate from the unchanged legacy-flow fixture.",
+    "Compiled source Amazon A1 frame bonus2 and ordinary scheduler agree at six declared speeds. Cached legacy AnimData gives1HT15/event9 and2HT18/event11; after bonus, base timing13/event7 or16/event9. Full current-build animation comparison remains open."
+  ],
+  "limits": [
+    "Scalar services supply declared synergy/mastery percentages; native tests separately validate actual hard-only three-skill14% synergy, real gear and item/weapon event consumers. No complete modern executable/stat/seed certificate.",
+    "Cached legacy AnimData SHA is recorded, but acquisition provenance remains incomplete; timing is a source-supported provisional adapter until current3.3 data/client acceptance.",
+    "Source attack result/allocation/durability/elemental services are declared for control-flow isolation. Full RNG, avoided/blocked/PvP/special owner, proc/charged/foreign-class and target lifecycle need native/current-executable acceptance.",
+    "No class completion certificate, item-skill gate or asset generation is established by this probe."
+  ]
+}

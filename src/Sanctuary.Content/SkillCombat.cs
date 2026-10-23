@@ -77,14 +77,14 @@ public static class SkillCombat
         return SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(fire * 256), 0, int.MaxValue));
     }
     public static bool Begin(PlayerMobile owner, CombatAbility ability, Serial selected, Point3D point, long now,
-        Func<PlayerMobile, CombatAbility, Serial, Point3D, bool> validTarget)
+        Func<PlayerMobile, CombatAbility, Serial, Point3D, bool> validTarget,bool requireMana=true)
     {
         if (ClassAbilities.SelfTarget(ability)) { selected = Serial.Zero; point = owner.Location; }
         var session = ClassCombat.For(owner);
         if (!ClassCombat.Available(owner, ability) || !owner.Alive || !AlliedOverlap.Allowed(owner) || owner.Frozen || owner.Paralyzed
             || owner.Spell != null || HitRecovery.Active(owner, now) || session.PendingAbility != CombatAbility.None
             || now - session.NextAction < 0 || !FireGround.Ready(owner, ability) || !validTarget(owner, ability, selected, point)
-            || !NecromancerEffects.CanPay(owner, SkillMechanics.Values(owner, ability).Mana256)) { return false; }
+            || requireMana && !NecromancerEffects.CanPay(owner, SkillMechanics.Values(owner, ability).Mana256)) { return false; }
         session.Timing = CombatTiming.For(owner, ability);
         session.PendingAbility = ability; session.PendingTarget = selected; session.PendingPoint = point;
         session.ActionOrigin = owner.Location; session.ActionMap = owner.Map;

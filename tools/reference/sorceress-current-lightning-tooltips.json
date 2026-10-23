@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "source": "User firsthand tooltip readings from pinned Reign of the Warlock installation; no respec requested.",
+  "verbatim": "charged bolt base 1, effective skill 3 (through items) shows lightning damage 13-37\nlightning base 1, effective skill 3 (through items) shows lightning damage 1-69, mana cost 9. chain chain lightning base 1, effective skill 3 (through items) shows lightning damage 1-69, mana cost 11. nova base 1, effective skill 3 (through items) shows lightning damage 13-37.\n\nsynergy to charged bolt: lightning 6% per rank\nsynergy to lightning: charged bolt, nova and chain lightning each 8% per rank\nsynergy to chain lightning: charged bolt, nova, lightning 4% per rank\nsynergy for nova: static field 5% per rank",
+  "observations": [
+    {
+      "skill": "Charged Bolt",
+      "hardRank": 1,
+      "effectiveRank": 3,
+      "damage": [
+        3,
+        5
+      ],
+      "synergies": {
+        "Lightning": 6
+      },
+      "corrected": true
+    },
+    {
+      "skill": "Lightning",
+      "hardRank": 1,
+      "effectiveRank": 3,
+      "damage": [
+        1,
+        69
+      ],
+      "mana": 9,
+      "synergies": {
+        "Charged Bolt": 8,
+        "Nova": 8,
+        "Chain Lightning": 8
+      }
+    },
+    {
+      "skill": "Chain Lightning",
+      "hardRank": 1,
+      "effectiveRank": 3,
+      "damage": [
+        1,
+        69
+      ],
+      "mana": 11,
+      "synergies": {
+        "Charged Bolt": 4,
+        "Nova": 4,
+        "Lightning": 4
+      }
+    },
+    {
+      "skill": "Nova",
+      "hardRank": 1,
+      "effectiveRank": 3,
+      "damage": [
+        13,
+        37
+      ],
+      "synergies": {
+        "Static Field": 5
+      }
+    }
+  ],
+  "comparison": {
+    "assumptions": "Compare pinned source fields using reported hard/effective ranks; no unreported Lightning Mastery or item elemental bonus. Nova calculation additionally assumes one hard Static Field point, not explicitly reported.",
+    "Lightning": {
+      "minimum256": 256,
+      "maximum256": 17776,
+      "display": [
+        1,
+        69
+      ],
+      "mana256": 2304,
+      "agreement": true
+    },
+    "Chain Lightning": {
+      "minimum256": 256,
+      "maximum256": 17776,
+      "display": [
+        1,
+        69
+      ],
+      "mana256": 2816,
+      "agreement": true
+    },
+    "Nova": {
+      "minimum256": 3494,
+      "maximum256": 9676,
+      "display": [
+        13,
+        37
+      ],
+      "agreement": "Conditional on one hard Static Field point and stated assumptions."
+    },
+    "Charged Bolt": {
+      "minimum256": 814,
+      "maximum256": 1356,
+      "display": [
+        3,
+        5
+      ],
+      "agreement": true,
+      "status": "Corrected firsthand3-5 display agrees with pinned fields under stated assumptions."
+    },
+    "synergies": "All reported percentages match pinned fields.",
+    "fixedMinimumEvidence": "Lightning/Chain Lightning displayed minimum1 is consistent with the compiled source guard but does not distinguish it: the previous synergy-scaled317FP/286FP minima also round to1 at these low hard synergy totals."
+  },
+  "scope": "Corrected tooltip corroboration only. All reported four damage ranges and two mana costs agree under stated assumptions; Nova Static Field hard rank remains inferred. No independent fractional arithmetic, mastery/gear context, impact/animation or class certificate.",
+  "relatedEvidence": [
+    "tools/reference/power-strike-engine-evidence.json",
+    "tools/reference/power-strike-native-evidence.json"
+  ],
+  "corrections": [
+    {
+      "verbatim": "It was Nova copied twice",
+      "meaning": "Original Charged Bolt13-37 observation withdrawn as duplicate Nova reading."
+    },
+    {
+      "verbatim": "charged bolt 1 (3) is 3-5",
+      "meaning": "User rechecked Charged Bolt: hard1/effective3, displayed3-5."
+    }
+  ]
+}

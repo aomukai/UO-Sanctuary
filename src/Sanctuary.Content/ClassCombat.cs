@@ -31,6 +31,7 @@ public static class ClassCombat
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianDoubleThrow.Series DoubleThrow;
         internal AmazonJab.Series Jab;
+        internal AmazonMelee.Prepared AmazonAttack;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
@@ -210,6 +211,7 @@ public static class ClassCombat
         BarbarianConcentrate.Cancel(from);
         BarbarianDoubleThrow.Cancel(from);
         AmazonJab.Cancel(from);
+        AmazonMelee.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
@@ -254,7 +256,7 @@ public static class ClassCombat
         {
             // Ground FoH has already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(!BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(!AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -467,6 +469,7 @@ public static class ClassCombat
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
+            if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
@@ -481,7 +484,7 @@ public static class ClassCombat
         {
             return SkeletonPets.Raise(from, World.FindItem(session.PendingTarget) as Corpse);
         }
-        if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability); }
+        if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
         if (SorceressCombat.Handles(ability))
         {

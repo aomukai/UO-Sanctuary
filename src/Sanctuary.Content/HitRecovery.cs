@@ -56,6 +56,7 @@ public static class HitRecovery
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
+        AmazonMelee.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
         ClassCombat.SendState(player, session);
         ClassCombat.SendAnimation(player, 20, frames * ActionTiming.FrameMs);
@@ -106,6 +107,7 @@ public static class HitRecovery
         session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
+        AmazonMelee.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
         session.Animation = 20;

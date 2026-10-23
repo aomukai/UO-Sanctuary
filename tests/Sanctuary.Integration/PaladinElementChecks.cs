@@ -40,9 +40,10 @@ public static class PaladinElementChecks
         Require(fire.Damage256(false)==256 && fire.Damage256(true)==768 && PaladinElements.WeaponRange(owner,CombatAbility.HolyFire,fire)==(6,18)
             && shock.Damage256(false)==256 && shock.Damage256(true)==2560 && PaladinElements.WeaponRange(owner,CombatAbility.HolyShock,shock)==(1,60),"Rank1 pinned elemental endpoints");
         fire=Golden(CombatAbility.HolyFire,20,20);shock=Golden(CombatAbility.HolyShock,20,20);
+        // Shared source minimum helper leaves Holy Shock fixed1-point minimum unsynergized.
         Require(fire.Eval("EDmgSymPerCalc")==620 && fire.Damage256(false)==59904 && fire.Damage256(true)==81100
             && PaladinElements.WeaponRange(owner,CombatAbility.HolyFire,fire)==(1404,1900)
-            && shock.Eval("EDmgSymPerCalc")==320 && shock.Damage256(false)==1075 && shock.Damage256(true)==167731
+            && shock.Eval("EDmgSymPerCalc")==320 && shock.Damage256(false)==256 && shock.Damage256(true)==167731
             && PaladinElements.WeaponRange(owner,CombatAbility.HolyShock,shock)==(1,3931),"Rank20 hard synergies or whole weapon-stat truncation");
         Require(PaladinElements.Proximity(1,5)==2 && PaladinElements.Proximity(3,5)==1.5 && PaladinElements.Proximity(5,5)==1,"Declared tile projection endpoints");
         var actor=ClassSkillChecks.Player(DiabloClass.Paladin);actor.AddItem(new Backpack());actor.MoveToWorld(new(owner.X,owner.Y+12,owner.Z),owner.Map);

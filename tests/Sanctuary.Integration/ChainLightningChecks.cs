@@ -48,7 +48,8 @@ public static class ChainLightningChecks
         var owner = ClassSkillChecks.Player(DiabloClass.Sorceress); owner.MoveToWorld(Space(owner), owner.Map);
         var row = SkillMechanics.For(CombatAbility.ChainLightning); var values = SkillMechanics.Values(owner, CombatAbility.ChainLightning);
         var high = new SkillValues(row,k => k==row.SourceKey?20:0,_=>0,99);
-        Require(values.Mana256 == 9*256 && values.Eval("calc1")==5 && values.Damage256(false)==286 && values.Damage256(true)==11468
+        // Compiled SKILLS_GetMinElemDamage skips synergy on the fixed1-point minimum.
+        Require(values.Mana256 == 9*256 && values.Eval("calc1")==5 && values.Damage256(false)==256 && values.Damage256(true)==11468
             && high.Mana256==28*256 && high.Eval("calc1")==9 && high.Damage256(true)==71936
             && ChainLightning.Frames==25 && ChainLightning.DelayFrames==4, "Pinned chain tiers, synergies, cost, count or delay");
         int mana=owner.Mana;
@@ -58,7 +59,7 @@ public static class ChainLightningChecks
             && !ChainLightning.Snapshot().Any(x=>x.Owner==owner.Serial.Value),"Insufficient mana launched a chain"); owner.Mana=owner.ManaMax;
         var first=Enemy(owner,2); var next=Enemy(owner,4); var nearer=Enemy(owner,2,1); int life=first.Hits;
         Cast(owner); var original=Flight(owner);
-        Require(owner.Mana==mana-9 && original.Rank==1 && original.Remaining==5 && original.Min256==429 && original.Max256==17202
+        Require(owner.Mana==mana-9 && original.Rank==1 && original.Remaining==5 && original.Min256==384 && original.Max256==17202
             && original.Vx==.703125 && original.Vy==0 && first.Hits==life, "Release snapshot, source velocity or delayed travel");
         Require(ClassCreation.Profiles.TryTrain(owner.Serial,"sorceress.chainlightning",out _)
             && ClassCreation.Profiles.TryTrain(owner.Serial,"sorceress.lightning",out _)
@@ -67,7 +68,7 @@ public static class ChainLightningChecks
         {
             var child=Flight(owner);
             Require(first.Hits<life && next.Hits==life && child.Remaining==4 && child.AimTarget==next.Serial.Value && child.Rank==1
-                && child.Min256==479 && child.Max256==19242 && child.Delays.Any(x=>x.Target==first.Serial.Value),
+                && child.Min256==414 && child.Max256==19242 && child.Delays.Any(x=>x.Target==first.Serial.Value),
                 $"Identity selection or original rank/fresh child synergy/mastery: {child}");
         });
         Later(1000,"chain-lightning-result",()=>

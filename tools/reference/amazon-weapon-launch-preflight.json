@@ -279,12 +279,14 @@
     "behavior": "Distinct fractional defender event after central CB and before ordinary leech clipping, including outer missiles; native AOS/prepared melee/pet/Smite consumers reuse it and suppress duplicate late healing.",
     "status": "Focused/final combined verification and installed-world smoke passed within recorded limits."
   },
-  "unaffectedNextSkill": "Jab implemented and verified separately,117 total handlers/Amazon5. Continue Power Strike through existing prepared melee, scoped javelin and elemental consumers; its AR discrepancy is explicitly in power-strike-preflight.json. Modern Multiple Shot calc5/full launch gaps remain independent.",
+  "unaffectedNextSkill": "Power Strike implemented/verified/installed,118 total handlers/Amazon6. Primary released2.6 resolves its AR discrepancy; continue Charged Strike shared-start/missile-emission review. Multiple Shot calc5 arithmetic/full launch gaps remain independent.",
   "innerSightEvidence": [
     "tools/reference/inner-sight-engine-evidence.json",
     "tools/reference/inner-sight-native-evidence.json"
   ],
   "jabPreparation": "tools/reference/jab-engine-evidence.json",
   "jabNativeEvidence": "tools/reference/jab-native-evidence.json",
-  "powerStrikePreflight": "tools/reference/power-strike-preflight.json"
+  "powerStrikePreflight": "tools/reference/power-strike-preflight.json",
+  "powerStrikeNativeEvidence": "tools/reference/power-strike-native-evidence.json",
+  "chargedStrikePreflight": "tools/reference/charged-strike-preflight.json"
 }

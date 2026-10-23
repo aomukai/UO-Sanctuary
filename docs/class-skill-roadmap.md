@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 5 / 30 | 0 | 25 | Open |
+| 5 | Amazon | 6 / 30 | 0 | 24 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -176,7 +176,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
 | Jab | 10 | handler-present | Three source-scheduled strikes share current per-event hit/critical/typed damage and item callbacks; one fractional start payment, low-mana ordinary melee fallback, spea/jave ancestry and source wear/stack depletion are implemented. Scoped javelin melee damage/effects retain ordinary throwing behavior outside the attack. Dedicated source/native timing, gear, payment, target loss, interruptions and restart checks are recorded separately. Modern exact IAS/animation/target/mode/owner/PvP/client, native reach/terrain and source RNG/format/repair integration remain acceptance work; no class certificate. |
-| Power Strike | 14 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Power Strike | 14 | handler-present | Prepared interruptible A1 spear/javelin attack adds hard-only14% three-skill lightning synergy and separately mastered FP256 lightning to the ordinary melee weapon packet, with start payment/AttackNoMana fallback. Released2.6 explicitly fixes AR; pinned20+12 per rank is used instead of legacy start6 zero. Shared fixed-minimum synergy/rank0 correction matches8712 compiled source endpoint cases. Dedicated native gear, AR, typed damage, cancellation and restart checks are recorded separately. Cached legacy A1 data provenance/current animation, full stat/owner/PvP/item/client/geometry/seed parity remain acceptance work; no class certificate. |
 | Poison Javelin | 15 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Impale | 19 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Bolt | 20 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

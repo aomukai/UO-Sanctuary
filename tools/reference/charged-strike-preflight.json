@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "status": "Source review preparation only; no Charged Strike handler.118 installed handlers/Amazon6. Continue emission, shared start and path proof next.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "reviewedOnlyRoutineHashes": {
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike": "65fb37d65e169b2114988f6c8d96af048c6f0187a323a656e2f6f6f2907a681f",
+    "SKILLS_SrvDo011_ChargedStrike": "8d0719607b7bd37b306d79fca083941f4c1c359c6bf5f45a1b912b89a34d47b6",
+    "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020"
+  },
+  "modernFields": {
+    "skill": "Charged Strike",
+    "charclass": "ama",
+    "skilldesc": "charged strike",
+    "srvstfunc": 6,
+    "srvdofunc": 11,
+    "srvmissilea": "chargedstrikebolt",
+    "srvmissileb": "chargedstrikebolt",
+    "srvmissilec": "chargedstrikebolt",
+    "cltdofunc": 19,
+    "cltmissilea": "chargedstrikebolt",
+    "cltmissileb": "chargedstrikebolt",
+    "cltmissilec": "chargedstrikebolt",
+    "enhanceable": 1,
+    "attackrank": 5,
+    "range": "h2h",
+    "itypea1": "spea",
+    "anim": "A1",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 18,
+    "maxlvl": 20,
+    "reqskill1": "Power Strike",
+    "reqskill2": "Lightning Bolt",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 6,
+    "mana": 16,
+    "lvlmana": 1,
+    "interrupt": 1,
+    "calc1": "par1+lvl/par2",
+    "calc4": 0,
+    "Param1": 3,
+    "Param2": 5,
+    "Param8": 14,
+    "InGame": 1,
+    "HitShift": 8,
+    "EType": "ltng",
+    "EMin": 1,
+    "EMinLev1": 0,
+    "EMinLev2": 0,
+    "EMinLev3": 0,
+    "EMinLev4": 0,
+    "EMinLev5": 0,
+    "EMax": 30,
+    "EMaxLev1": 12,
+    "EMaxLev2": 16,
+    "EMaxLev3": 20,
+    "EMaxLev4": 24,
+    "EMaxLev5": 28,
+    "EDmgSymPerCalc": "(skill('Lightning Strike'.blvl)+skill('Lightning Bolt'.blvl)+skill('Power Strike'.blvl)) * par8",
+    "cost mult": 640,
+    "cost add": 16000
+  },
+  "reuse": [
+    "AmazonMelee prepared interruptible A1, scoped melee javelin, ordinary hit/critical/FP mana/wear/item consumers.",
+    "ChargedBolts.Path and Heading already implement the same charged-bolt seed/path initializer; generalize source/origin/class/impact rather than duplicate the Sorceress trajectory.",
+    "SkillValues fixed-minimum elemental correction and separate mastery truncation; hard-only14% Lightning Strike/Lightning Bolt/Power Strike synergies."
+  ],
+  "reviewed": [
+    "Shared start6 prepares ordinary weapon plus direct lightning only on successful hit. Missing SrcDam is0 in current table, but FillDamageValues explicitly replaces0 with128; zero does not mean no weapon damage.",
+    "Do11 marks server-do before guards; requires current table and target, commits damage/durability first, then evaluates count and reads target coordinates. Bolt emission has no successful weapon hit guard.",
+    "Emission flags33; spawn at target coordinates, aim2*target-owner, current skill/level, initializerChargedBolt with ordinal i. Count3+floor(rank/5).",
+    "Initializer caps total/current frames at77 for total>=78, seeds low word ordinal+path firstPointX, sets charged-bolt path/new distance and recalculates path."
+  ],
+  "uncertain": [
+    "Current calc1 is bolt count, while unchanged start6 also reads calc1 as physical enhanced damage. Compile exact source/start/alloc branches and seek modern evidence; do not silently choose zero or claim current parity.",
+    "Trace direct skill lightning versus bolt lightning allocation/mastery and missed-hit emission; same-release lethal target versus already-invalid target and deferred callback semantics.",
+    "Existing ChargedBolts uses Sorceress-only transient SkillField/owner origin/chargedbolt metadata. Generalization must retain current Sorceress behavior while establishing chargedstrikebolt range/velocity/hitbox/activation/seed/shotgun/owner/persistence semantics.",
+    "Full current animation/input/geometry/stat/event/owner/client parity remains separate acceptance."
+  ],
+  "nextActions": [
+    "Compile unchanged do11/initializer branches with declared damage/creation services, compare exact creation packet/order and count.",
+    "Compile shared start6 with actual current Charged Strike fields, including missing SrcDam and calc1 count/ED overlap; record current uncertainty explicitly.",
+    "Review chargedstrikebolt missile factory and collision contracts before native emission implementation."
+  ],
+  "assets": {
+    "effects": "Separate effect register retains Charged Strike weapon lightning, target-origin ground bolts and impact needs; identify native placeholders when enabled.",
+    "icons": "Separate talent/hotkey icon pending; no imagegen in mechanics batch."
+  }
+}
