@@ -110,6 +110,10 @@
       "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/monstats2.json",
       "sha256": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
       "retrievedOn": "2026-10-22"
+    },
+    "json/monequip.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/monequip.json",
+      "sha256": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772"
     }
   },
   "mechanicsReferenceVersion": "3.3.93847",

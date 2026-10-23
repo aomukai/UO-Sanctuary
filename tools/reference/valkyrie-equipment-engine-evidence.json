@@ -1,0 +1,198 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/MONSTER/MonsterAI.cpp": "e225823e8ccd85e6637461846a6823f158bc72045ae125e7db79501be6252cb2",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "pinnedTableHashes": {
+    "monequip": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "pettype": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
+    "weapons": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "armor": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "misc": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072"
+  },
+  "compiledRoutines": [
+    "sub_6FCF9580",
+    "sub_6FC61190",
+    "SKILLS_SrvDo016_Valkyrie"
+  ],
+  "blockHashes": {
+    "sub_6FCF9580": "cda07c611231de65ac8a6e6a7d0ccf5d5f2586365f14c885cbaf57814a1036c9",
+    "sub_6FC61190": "39bbda21281cc9e0b8e46ebe6a334f5e6b9d9bc8dd7623ce2f9a4949feea4580",
+    "SKILLS_SrvDo016_Valkyrie": "4f43423c5f54336257bc74cc20776877e27223b1e9a10a9880068a742b4f9af0",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a"
+  },
+  "probe": {
+    "caseCounts": {
+      "equipment": 80,
+      "guards": 8,
+      "dispatch": 15
+    },
+    "fixture": ".local/class-skills/valkyrie-equipment-source-probe.json",
+    "sha256": "1aa77defc3f9e533aac8c97cb12ebdd6afedaf84d025572ef84ff58c06d5791b"
+  },
+  "equipmentRows": [
+    {
+      "monster": "valkyrie",
+      "level": 27,
+      "item1": "ci2",
+      "loc1": "head",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 25,
+      "item1": "amu",
+      "loc1": "neck",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 23,
+      "item1": "uhc",
+      "loc1": "belt",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 21,
+      "item1": "uhb",
+      "loc1": "feet",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 19,
+      "item1": "utg",
+      "loc1": "glov",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 17,
+      "item1": "7p7",
+      "loc1": "rarm",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 16,
+      "item1": "uar",
+      "loc1": "tors",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 14,
+      "item1": "ci0",
+      "loc1": "head",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 13,
+      "item1": "amu",
+      "loc1": "neck",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 12,
+      "item1": "zhb",
+      "loc1": "belt",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 11,
+      "item1": "xhb",
+      "loc1": "feet",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 10,
+      "item1": "xhg",
+      "loc1": "glov",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 8,
+      "item1": "9p9",
+      "loc1": "rarm",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 7,
+      "item1": "xul",
+      "loc1": "tors",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 5,
+      "item1": "hbl",
+      "loc1": "belt",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 4,
+      "item1": "hbt",
+      "loc1": "feet",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 2,
+      "item1": "hgl",
+      "loc1": "glov",
+      "mod1": 4
+    },
+    {
+      "monster": "valkyrie",
+      "level": 0,
+      "item1": "spr",
+      "loc1": "rarm",
+      "mod1": 6
+    },
+    {
+      "monster": "valkyrie",
+      "level": 0,
+      "item1": "ful",
+      "loc1": "tors",
+      "mod1": 6
+    }
+  ],
+  "established": [
+    "All19 pinned Valkyrie equipment rows retain descending threshold and original slot/code/quality. Rank1 creates rare spr/ful; rank8 replaces weapon with rare9p9; rank17 uses rare7p7. Later rows fill only empty slots, so lower thresholds never overwrite higher-rank equipment.",
+    "Selection consumes one bounded pet-seed draw per visited row, including singleton choices and already-filled slots. The supplied bounded draw returns0; this proves requested bounds/order, not the modern RNG algorithm or real affix rolls.",
+    "The unchanged item wrapper passes requested quality and item level into CreateItemUnit, marks NOSell, equips at the requested body location and restores max durability on successful equip. Failed equip removes the created item. These are recording services, not actual native gear creation.",
+    "do16 dispatch passes effective rank to base/passive helpers and pinned calc2=25+3*(rank-1) as equipment item level, schedules first AI think20frames later, enables Valkyrie state, stores owner and updates owner AI node. Full helper bodies are reviewed/hash-pinned, not compiled in this dispatch harness."
+  ],
+  "services": [
+    "Declared table/code/inventory lookup, item allocation/quality/affix generation, equip/stat/durability services and bounded RNG. Neither D2 item generation nor Sanctuary native items/combat execute here.",
+    "do16 uses recording summon allocation, skill/formula, base/passive stats, event/state/owner/AI services. It does not execute life initialization, random HP, summon passives, spell input/payment, movement or combat."
+  ],
+  "remaining": [
+    "Implement the source-quality, item-level and type-specific magic/rare affix generator/consumer for NPC summon equipment. Existing player GearDrops chooses its own quality/source path and ClassGear activates player items; neither is a drop-in Valkyrie equipment implementation. Do not substitute plain or arbitrary fixed gear.",
+    "Pinned current row has seven passive stat slots while the older helper iterates five. Preserve current immunity-piercing fields and resolve modern dispatch rather than silently dropping the last fields.",
+    "Life roll/regeneration/base level and AC/AR, Strength/Dexterity/defense/HP/Decoy synergies and inherited hard-point Dodge/Avoid/Evade/Critical Strike need native summon consumers. Existing player-only avoidance/mastery routes cannot be claimed to cover the pet.",
+    "Placement fallback shares the recorded stub gap; current town allowance,15-frame local delay,mana25+rank-1,owner/replacement/follower/save/client behavior remain full-handler work.",
+    "Continue unaffected Amazon bow work while these implementation dependencies remain. No new talent handler, class certificate or live item availability is enabled by this probe."
+  ],
+  "assets": {
+    "effect": "Final Valkyrie body/summon/attack/contact/audio pending in skill-effects.json; no native summon placeholder instantiated yet.",
+    "icon": "Talent and right-hotkey icon remain separately pending in skill-icons.json."
+  }
+}

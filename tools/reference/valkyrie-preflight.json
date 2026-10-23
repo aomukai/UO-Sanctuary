@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.valkyrie",
+  "sourceId": 32,
+  "handlerEnabled": false,
+  "status": "Source equipment thresholds and dispatch prepared; native gear/stat/combat consumers remain implementation dependencies. Continue unaffected bow skills.",
+  "evidence": "tools/reference/valkyrie-equipment-engine-evidence.json",
+  "referenceComparison": "data/Sanctuary/skill-reference.json#monequip",
+  "reuse": [
+    "Existing source summon level/percentage/maxHP callback rules from Decoy; persistent minion ownership and wardrobe lifecycle where compatible. Valkyrie is mobile, has equipment and attacks, and is not a Decoy subclass.",
+    "Existing WeaponHands, damage/stat, typed mitigation, item generation, avoidance and critical systems should supply reusable primitives. Player-only ClassGear and Amazon passive entry points do not automatically cover NPC items/passives.",
+    "Existing travelling WeaponMissiles and FanGeometry remain the reuse points for unaffected bow skills; capture endpoints/rates/durations/counts before source scaling and keep current impact AR."
+  ],
+  "requiredBeforeHandler": [
+    "Summon NPC item generator preserving MonEquip base, quality, item level and source affix eligibility/selection; normal player drop quality policy must not replace requested magic/rare generation.",
+    "Creation HP roll and base level/stat context, rank/Decoy synergies, inherited hard-point passives and current immunity-piercing fields. Old passive loop covers five of the seven current stat slots.",
+    "Town-allowed casting, local delay15 frames, mana25+(rank-1), source placement/replacement and moving summon AI/attack/equipment/saves/lifecycle."
+  ],
+  "nonblockingQuestions": [
+    {
+      "question": "Optional later observation from an already-skilled Amazon: effective Valkyrie rank and displayed life/defense/attack values could corroborate the current creation snapshot.",
+      "handling": "Recorded only. User is asleep; no respec or answer required. Ordinary bow skills can proceed independently."
+    }
+  ],
+  "next": "Magic Arrow source conversion/no-ammo and bow launch-stat capture, then other bow skills using the existing projectile/fan systems.",
+  "assets": {
+    "effects": "Existing Valkyrie effects register retains pending summon/model/weapon/contact/audio needs. No visual is invented as mechanical proof.",
+    "icons": "Existing independent talent/right-hotkey icon register remains pending."
+  },
+  "verification": {
+    "sourceEquipmentCases": 80,
+    "sourceGuardCases": 8,
+    "sourceDispatchCases": 15,
+    "currentExtractionFields": 269,
+    "extractionDifferences": 0,
+    "pythonTests": 70,
+    "namedMetadataAuditBoots": 3,
+    "namedMetadataAuditReloads": 2,
+    "namedDefinitionsUnchanged": 573,
+    "runtimeChanged": false,
+    "handlerEnabled": false,
+    "scope": "Source equipment selection/dispatch only; native checks cover existing named gear and metadata fingerprints, not a Valkyrie entity or combat."
+  },
+  "logs": {
+    "source": ".local/class-skills/valkyrie-equipment-source.log",
+    "fixture": ".local/class-skills/valkyrie-equipment-source-probe.json",
+    "nativeAudit": ".local/class-skills/valkyrie-reference-native-audit.log",
+    "nativeAuditRun": ".local/class-skills/valkyrie-reference-native-audit-run.log",
+    "python": ".local/class-skills/valkyrie-reference-python-checks.log",
+    "installed": ".local/class-skills/valkyrie-reference-installed-smoke.log",
+    "installedServer": ".local/class-skills/valkyrie-reference-installed-server.log",
+    "staleCatalogueFailure": ".local/class-skills/valkyrie-reference-stale-catalogue-failure.log",
+    "auditPromptFailure": ".local/class-skills/valkyrie-reference-native-audit-prompt-failure.log",
+    "auditPromptFailureRun": ".local/class-skills/valkyrie-reference-native-audit-run-prompt-failure.log"
+  },
+  "fixtureCorrections": [
+    "New source-manifest entry initially made named-item-coverage stale. Regeneration adds only its MonEquip provenance hash; remaining catalogue content is byte-semantically unchanged. Retained failed reproduction log; final70-test run passes.",
+    "Metadata audit reused a Decoy-only harness that expected an account-creation prompt on every boot. Named fixture creates saved accounts, so restart has no prompt. Interrupted that disposable run after its first audit/save passed; wait for the prompt on first boot only. Corrected run passes both reloads; no gameplay change."
+  ]
+}

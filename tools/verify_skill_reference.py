@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'tools/reference/d2r-named-equipment'
 PIN = ROOT / 'data/Sanctuary/skill-reference.json'
 EXCEL_COMMIT = '1f16064e09b97e3e65abd6943662207cff00b07f'
-TABLE_KEYS = {'skills':'skill','charstats':'class','monstats':'Id','monlvl':'Level','missiles':'Missile','monstats2':'Id','pettype':'pet type'}
+TABLE_KEYS = {'skills':'skill','charstats':'class','monstats':'Id','monlvl':'Level','missiles':'Missile','monstats2':'Id','pettype':'pet type','monequip':'monster'}
 
 
 def compare():
@@ -32,10 +32,12 @@ def compare():
         differences = []
         checked = 0
         annotations = {}
-        for row in source.values():
+        for index, row in source.items():
             if name == 'skills' and not row.get('charclass'): continue
             src = clean(row)
-            other = by_key.get(src.get(k))
+            # MonEquip repeats monster identities; source order determines which
+            # rank threshold fills a slot first. Never collapse those rows.
+            other = normalized[int(index)] if name == 'monequip' else by_key.get(src.get(k))
             if other is None: differences.append([src.get(k),'missing row']); continue
             for field,value in src.items():
                 if (field.startswith('*') and field not in ('*id','*hcidx')) or field == 'linenumber': continue

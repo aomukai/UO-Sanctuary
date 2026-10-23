@@ -65,6 +65,13 @@
       "checkedFields": 198,
       "extractionAnnotationsNotInTsv": {},
       "differences": []
+    },
+    "monequip": {
+      "url": "https://raw.githubusercontent.com/pinkufairy/D2R-Excel/1f16064e09b97e3e65abd6943662207cff00b07f/monequip.txt",
+      "sha256": "f731a867dc96c1f44d23e48b6e819b976280da907f7a95fca0dbfe97d9e83f0a",
+      "checkedFields": 269,
+      "extractionAnnotationsNotInTsv": {},
+      "differences": []
     }
   },
   "precedence": "Explicit Sanctuary decisions override this reference. Legacy D2MOO documents engine behavior only; it is not the D2R numeric baseline.",

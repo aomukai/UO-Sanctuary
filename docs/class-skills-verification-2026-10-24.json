@@ -33,7 +33,7 @@
     "installedBuildUpdated": true,
     "saveReset": false,
     "restartCommand": "./dev server",
-    "actualInstalledSmokeLog": ".local/class-skills/decoy-installed-smoke.log",
+    "actualInstalledSmokeLog": ".local/class-skills/valkyrie-reference-installed-smoke.log",
     "serverRunningAtCheckpoint": false
   },
   "checks": {
@@ -1182,7 +1182,21 @@
       "evidence": "tools/reference/decoy-native-evidence.json",
       "testAssemblyScope": "Final focused adds one AI-acquisition assertion against identical production runtime/data; full and focused assembly hashes retained.",
       "remaining": "Blocked-cell fallback and explicit current/native-projection/client acceptance."
-    }
+    },
+    "valkyrieEquipmentSourcePreparation": {
+      "handlerEnabled": false,
+      "evidence": "tools/reference/valkyrie-equipment-engine-evidence.json",
+      "preflight": "tools/reference/valkyrie-preflight.json",
+      "sourceCases": 103,
+      "extractionFields": 269,
+      "extractionDifferences": 0,
+      "metadataNativeBoots": 3,
+      "metadataNativeReloads": 2,
+      "pythonTests": 70,
+      "runtimeChanged": false,
+      "remaining": "Native NPC equipment/affix, pet stat/passive and full handler consumers; continue unaffected bow skills."
+    },
+    "referenceMetadataFollowup": "Only MonEquip source hash added to generated named-item coverage;573 definitions/availability and all runtime/native/client binaries unchanged. Existing full combat proof retained; fresh metadata/native named checks are not Valkyrie gameplay proof."
   },
   "logs": {
     "native-build.log": ".local/class-skills/native-build.log",
@@ -1761,7 +1775,17 @@
     "decoy-beforeAcquisitionFocusedRun": ".local/class-skills/decoy-focused-run.log",
     "decoy-focusedIntegrationBuild": ".local/class-skills/decoy-acquisition-integration-build.log",
     "decoy-combinedIntegration": ".local/class-skills/decoy-combined-integration.dll",
-    "decoy-focusedIntegration": ".local/class-skills/integration/Sanctuary.Integration.dll"
+    "decoy-focusedIntegration": ".local/class-skills/integration/Sanctuary.Integration.dll",
+    "valkyrieReference-source": ".local/class-skills/valkyrie-equipment-source.log",
+    "valkyrieReference-fixture": ".local/class-skills/valkyrie-equipment-source-probe.json",
+    "valkyrieReference-nativeAudit": ".local/class-skills/valkyrie-reference-native-audit.log",
+    "valkyrieReference-nativeAuditRun": ".local/class-skills/valkyrie-reference-native-audit-run.log",
+    "valkyrieReference-python": ".local/class-skills/valkyrie-reference-python-checks.log",
+    "valkyrieReference-installed": ".local/class-skills/valkyrie-reference-installed-smoke.log",
+    "valkyrieReference-installedServer": ".local/class-skills/valkyrie-reference-installed-server.log",
+    "valkyrieReference-staleCatalogueFailure": ".local/class-skills/valkyrie-reference-stale-catalogue-failure.log",
+    "valkyrieReference-auditPromptFailure": ".local/class-skills/valkyrie-reference-native-audit-prompt-failure.log",
+    "valkyrieReference-auditPromptFailureRun": ".local/class-skills/valkyrie-reference-native-audit-run-prompt-failure.log"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -1936,7 +1960,7 @@
   ],
   "verifiedAtUtc": "2026-10-23T22:23:09.016724+00:00",
   "evidenceArtifacts": {
-    "tools/reference/named-item-runtime-audit.json": "972c8a722e91061137334ca5927ffe1c451eab32415e07c508b87688def7fdf6",
+    "tools/reference/named-item-runtime-audit.json": "417cff55c590fa9c64186bccb73508eee3d6334ac7e51b0c48abd4d9e4321b60",
     "tools/reference/first-loop-affix-audit.json": "066aa17d0c287a51b3b9f9c77a96c337ab0955e60667de6ad7ac521128f833a7",
     "data/Sanctuary/Balance/class-skill-status.json": "32bdc6b0ac42a86e068b372ae8d112182caf257596ef5795ad062740b4f0d3f4",
     ".local/class-skills/protection-check.json": "2fd7e0fe66142c799c223efd568ac102f2e1bfb136016bfba486a65c3e819984",
@@ -2013,7 +2037,7 @@
     "tools/build_class_skills.py": "b8713f94a0880bbb6635c04e310ae9c7a7a777952207b66ca189fa6cc926de52",
     "tools/build_skill_roadmap.py": "37abd60a19803ce6d8365b228c5adfa1587dd76977d1fab969567d25fb451de3",
     "docs/class-skill-roadmap.md": "418ca2e6aaffea5c42c60df55966f949eb1c4ecb30ac340fb442c4aaceab0a03",
-    "docs/skill-mechanical-reference.md": "91488cbd62818ddfd0823f97ac6c81cc56aa7a514a36e2b2bd32122a221993bb",
+    "docs/skill-mechanical-reference.md": "f84b92dc7ec4c635c9df8a705fadc9afd77eab7211edd4a9e60e3598adc82f37",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "85dca6190f131e1efe7c3ccbc25cffa1cf691dd28f3d2021efe4972812834fef",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -2193,7 +2217,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "7927a08b5e198e7ba31233128ec901aa8de6ab613559c6eb40d1bab260f0708e",
+    "docs/class-skills-resume-checkpoint.md": "d3b3bf3636f43d63648f038906a02a580144852f0d78fcfcd9660f28c26d871a",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -2971,7 +2995,7 @@
     "tools/reference/power-strike-modern-correction.json": "9e28b52088042e958aee3514c66eac8b40956a159385ab5677f7b0b7a88bb892",
     "tools/reference/charged-strike-preflight.json": "627fdc326872bbdd6d2bab7227f2d58965165ffbba7d26f93cf253b0c40b9c2e",
     "tools/reference/sorceress-current-lightning-tooltips.json": "e7871e2852bbcec9fc90eca6ad688d80a91a9bf7b7ebf55712207f0da634ec85",
-    "docs/class-skills-checkpoint-2026-10-24.md": "265da81e5b7287703a4bb8a3eac47e339a5dd6bf0f39cf96dfa9220b62db78f5",
+    "docs/class-skills-checkpoint-2026-10-24.md": "48c30811bfaafbafe4613fb6a88bbbcc3e3a3e377e422f58cf22cfa5d464b47b",
     ".local/class-skills/power-strike-source-probe.log": "09b968a0731b7912a096aa6f28519bb3c9efd10c01ef7a8bf7402e4e94c6673e",
     ".local/class-skills/power-strike-content-build.log": "6ff9610be771f263182d89b1ed8eaec36f0f431648988f2a0221db8e0b98319a",
     ".local/class-skills/power-strike-integration-build.log": "df789323d25d46283e82e9aeffa89cc01f0c58651bd64d9421f34a9436172e09",
@@ -3162,7 +3186,7 @@
     "tools/probe_decoy_reference.py": "0f4a70600ef5a1f38f87f68473a4ba5bed2de524ee8d651c9f721697adaa67cc",
     "tools/reference/decoy-engine-evidence.json": "414502243520e5d520b04c4b6613a029c4e6351a3a29ea82e7d2eee4e5aabd5d",
     "tools/reference/decoy-component-native-evidence.json": "c8b3b74e63ecf27e267c92790992ae006a2de09f3f3aad57a02496f595d2d8cf",
-    "tools/reference/decoy-preflight.json": "6a362dd6b7cd0c277dce12dd24de9a5bd982cbe1b18f8cecb5d52d950852e077",
+    "tools/reference/decoy-preflight.json": "93f15ec311877a025e607e24e54c535e2d49223bea7fa34f5c0ceb01a526eb8c",
     ".local/class-skills/decoy-component-content-build.log": "a70056c0446339152838c2e30baaadf813982b6e9df4ed706b039ea88b25a87e",
     ".local/class-skills/decoy-component-integration-build.log": "31659537c13bcb6c79bb0f8db2bc45e9ea499a7161afdf88ba74cd1cd874b759",
     ".local/class-skills/decoy-component-focused.log": "1562eb56e4a2e064c2f57093cd9c00238d5f3055ea6a107f5a73440db07a0473",
@@ -3197,14 +3221,32 @@
     ".local/class-skills/decoy-focused-run.log": "f72bf26c491a0c04503930ea12968715dc950530efe238f23c08f494fa167ad6",
     ".local/class-skills/decoy-acquisition-integration-build.log": "66ea9897e6eba56966f3cdeddfecff8364b442ce961dc618663d32ba83eedbce",
     ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
-    ".local/class-skills/integration/Sanctuary.Integration.dll": "044b895d4b6dfe8eb515fd26df14ccf1637ffbcb37e97d216bbf9ad5fa5d1e9b"
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "044b895d4b6dfe8eb515fd26df14ccf1637ffbcb37e97d216bbf9ad5fa5d1e9b",
+    "data/Sanctuary/skill-reference.json": "e673ec6bd02ecf8bdd6d6dacc29790d6a5183d3628961df78906808504edc795",
+    "data/Sanctuary/Balance/named-item-coverage.json": "2c97232917c60cfd8728c243202d7df5931cf150df963f993c976b06b0c60044",
+    "tools/reference/d2r-named-equipment/sources.json": "03eb34143b1c9640daecf5987b0b647308a63de2dc5a16148e6b1e95e5c2052a",
+    "tools/reference/d2r-named-equipment/json/monequip.json": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772",
+    "tools/probe_valkyrie_equipment_reference.py": "c08010093671e1b0b56098997e456e2c11998a68de5518809c726f72bb8a061f",
+    "tools/verify_skill_reference.py": "bdcdcabf748599e9a4f35e5333145e6e61982247ae6be94ce44e3d3cfe552109",
+    "tools/reference/valkyrie-equipment-engine-evidence.json": "305c298cbf9b4434c07ae307bdd60fa14ec42d099941850293c9ba09304cc7fb",
+    "tools/reference/valkyrie-preflight.json": "bfbf722628052d2d6aead1cb669a44cd599d7194ff7e4db6b313fb56cf411347",
+    ".local/class-skills/valkyrie-equipment-source.log": "06b844f8641db00ade571a08e1a237ec0389d7821751ce7c019e0559db356d61",
+    ".local/class-skills/valkyrie-equipment-source-probe.json": "1aa77defc3f9e533aac8c97cb12ebdd6afedaf84d025572ef84ff58c06d5791b",
+    ".local/class-skills/valkyrie-reference-native-audit.log": "5cf8529acd86ba4c8fa14351ff98eb6461019f1727f363e3e36034b86449b6b2",
+    ".local/class-skills/valkyrie-reference-native-audit-run.log": "2a4a72332f51809fa4ea068d5d903a802f749edcf230c7b52058a347fb35f69c",
+    ".local/class-skills/valkyrie-reference-python-checks.log": "e8757a08cc92d973956407e26182a6b6370b6a4f3b31e98860e897782c7634af",
+    ".local/class-skills/valkyrie-reference-installed-smoke.log": "bef30602d94c96b13cd44df1825fed89e67ea9d64604279965a0d8517db77cd7",
+    ".local/class-skills/valkyrie-reference-installed-server.log": "236066c14bd562e7c637a11257bcae82779c1aadff24a1ae3783e2c0ed7008f5",
+    ".local/class-skills/valkyrie-reference-stale-catalogue-failure.log": "f08ae475aa6a6daf4316e7acf2f430f2b194fccc910c8a684d133e3c6000c0b1",
+    ".local/class-skills/valkyrie-reference-native-audit-prompt-failure.log": "f52cae4aa6f4db50805bc2e62e9c2b3d4310882d9e0377e9f852a7124a10233b",
+    ".local/class-skills/valkyrie-reference-native-audit-run-prompt-failure.log": "b810edb5ae247ec95f27b0f9e262b28da4e5fba972edf098d483210fee7bc9f4"
   },
   "totalHandlersPresent": 125,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 1262,
+  "verifiedArtifactCount": 1280,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
-  "deploymentScope": "Matching125-handler build installed through existing dev installer; free-ground Decoy available, blocked-cell fallback gated. Existing-world listen/clean shutdown0; server stopped; saves retained; native/client/item gates unchanged.",
+  "deploymentScope": "Matching125-handler build installed through existing dev installer; free-ground Decoy available, blocked-cell fallback gated. Existing-world listen/clean shutdown0; server stopped; saves retained; native/client/item gates unchanged. Subsequent MonEquip reference metadata staged with byte-identical runtime; existing-world smoke exit0 and native named metadata reload checks pass; server stopped.",
   "installedTestBuild": true,
   "gitBackupPolicy": {
     "authorized": true,
@@ -3214,5 +3256,5 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-23T22:23:09.016724+00:00"
+  "referencePreparationUpdatedAtUtc": "2026-10-23T22:32:49.200434+00:00"
 }
