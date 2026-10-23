@@ -97,10 +97,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 30,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Paid spear/javelin series captures eligible melee count up to12, pays5mana once and revalidates/cycles targets at each do13 event, including wrap to a sole survivor. Each strike reads current rank/AR/ED/critical/gear and uses scoped melee javelins plus ordinary hit wear. Source Param2=30 rate-scaled A1 rollback uses separately pinned original current-family calculator; isolated legacy clocks remain distinct. Paid series/recovery locks, ordinary low-mana fallback, external cancellation and transient save lifecycle reuse existing systems. Exact current animation/outer mode/Dodge-Avoid-Evade, target geometry/filter, input/owner/client, live speed transitions and empty-ground/air casts remain acceptance gaps; no class certificate."
     },
     {
       "talentId": "amazon.lightningstrike",

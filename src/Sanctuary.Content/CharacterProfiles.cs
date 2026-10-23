@@ -162,6 +162,7 @@ public sealed class CharacterProfiles : GenericPersistence
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
         AmazonImpale.Cancel(player);
+        AmazonFend.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

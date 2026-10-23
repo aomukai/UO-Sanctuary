@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Fend now implemented:7 applicable compiled count cases,24 native modern rollback comparisons and20 rank goldens pass. The real connected combat loop completes three targeted strikes and recovery with one debit. Source56 start/count,288 do13 and60 isolated legacy timing observations remain separately bounded. Focused and final combined3boots/2reloads,70 Python tests and463 named/15 first-loop current fingerprints pass. Matching121-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped, client unchanged, existing saves retained. No class certificate.",
+  "handlerCount": 121,
+  "classHandlerCount": 9,
+  "sourceEvidence": "tools/reference/fend-engine-evidence.json",
+  "sourceProbe": {
+    "compiledStartCountCases": 56,
+    "compiledDo13Cases": 288,
+    "isolatedLegacyTimingObservations": 60,
+    "isolatedLegacyIncompleteTimingObservations": 8,
+    "originalModernRollbackRows": 12,
+    "nativeApplicableCountComparisons": 7,
+    "nativeModernRollbackComparisons": 24,
+    "nativeRankGoldens": 20
+  },
+  "verified": [
+    "Left/right/quick native APIs and bindings, eligible selected spear/javelin/town/learned gates. One five-mana start debit for whole paid series, no early or duplicate event/repeated payment. Low-mana ordinary one-attempt fallback has ordinary AR/damage/timing, no skill ED/count/lock/debit.",
+    "Start captures eligible melee count capped12. Do13 keeps the current valid target, replaces a dead/deleted/out-of-range target through the shared cyclic selector, selects the next after each event and can wrap to a sole survivor without reducing captured count. No remaining target ends the series through recovery.",
+    "Each strike rolls live AR and prepares/commits current rank/gear/ED/critical/mitigation; no start-time Impale snapshot. Independent Hell target AR boundary hits with Fend while the ordinary control/basic fallback misses at the same middle roll.",
+    "Actual Spear and Titan melee use, Tarnhelm soft-rank removal between start/first event, Highlord ordinary critical/Deadly Strike, later independent miss and ordinary hit-only wear pass. No Impale special start wear, slow or thrown-ammunition spend. A weapon broken by successful-hit wear cancels later strikes and gates future skills.",
+    "Paid sequence/recovery movement/get-hit/Stop locks follow existing noninterruptible series policy; accepted external movement, weapon removal, death and allocated-point reset cancel with no refund. Original count and each next deadline remain transient.",
+    "Seven applicable native count cases compare compiled start9/count output. Twenty-four native four/five-hit schedules compare twelve unchanged original calculator rollback rows, including final full-cycle length rather than treating it as an extra post-hit tail. Twenty pinned mana/count/AR/ED/rollback rank goldens pass; Fend ordinary A1 receives no player SQ-30 penalty and FCR does not change it.",
+    "Actual connected loopback client drives a full three-target sequence through the native ClassCombat timer, with three hits, one debit and natural recovery completion. Two actual reloads retain resources/gear/rank/quantity/durability/binding/target life, discard in-progress series and permit fresh working casts."
+  ],
+  "fixtureAndFailureNotes": [
+    "Initial natural-loop fixture used inflated50000-HP GraveyardZombie actors. Hit diagnostics confirmed2150FP damage, followed by their separate source-monster RecoverLife replenishment; the hourly generic regen wrapper does not control that custom path. Natural fixture now uses real ordinary Ogres with named fixture hourly generic regeneration, frozen/stopped AI and an isolated corridor. Production Fend and regeneration were unchanged. Failure/diagnostic logs retained.",
+    "Natural fixture is positioned away from the saved manual actors so its connected client does not activate their sectors/AI and invalidate save inspection. Fresh in-flight sequence is deliberately not serialized; no fake persisted combat controller is added.",
+    "First combined invocation omitted its loopback socket even though the focused runner supplied one. Full runner now opens/drains/detaches a specific connection around the natural test, matching existing Double Throw/Whirlwind tests. No runtime relaxation; failed run not claimed as passing.",
+    "Only fixture constructors/named actors have hourly mana/generic life regeneration. Manual logical event boundaries are separate from the real connected timer test. No gameplay timing/resource values are lengthened for inspection.",
+    "Source/current-family probe services and metadata remain explicit. Seven count and24 timing comparisons do not certify all56/288 source guards/world/combat flows or the60 isolated older timing observations in current D2R.",
+    "A later combined run exposed the new socket reader thread retaining the connection after context close. Without SHUT_RDWR, the silent unauthenticated connection survived until the existing guard denied loopback before Whirlwind. Runner now explicitly shuts down the socket, as existing connected fixtures do; no networking/security setting or production behavior changed."
+  ],
+  "limits": [
+    "No exact current executable or class certificate, and no item-skill gate. Full Dodge/Avoid/Evade, mode/event/frame/IAS/WSM/owner/client parity remains acceptance work.",
+    "Ordinary A1 rate-scaled rollback30 follows the pinned original current-family calculator with declared weapon metadata. Cached AnimData provenance is incomplete. Eight isolated older scheduler/rollback observations lack later events without full outer animation-anchor delivery; these raw clocks are not used or conflated with modern timing.",
+    "Selected-target inputs are implemented. Empty-ground client auto-acquisition, air swings and the legacy no-target count0/one-do-event branch remain unsupported rather than silently assigned a new targeting/payment rule.",
+    "Native hostile/valid/town/LOS/Z/reach policy and cyclic serial ordering are reused; exact source subtile/target-size/filter equivalence and full species/PvP/neutral eligibility remain open. The reviewed source filter0x2A783 includes a separate melee check; full world/room/filter graph is not compiled in this probe.",
+    "Live rank/gear/damage/AR are read at each do13 strike. Rate changes across rollback cycles retain a previous-cycle animation position and read the next current rate; full modern dynamic slow/gear transition behavior still needs acceptance. Late native ticks deliver one real event and schedule a new rollback, without inventing a burst.",
+    "Existing weapon material/elemental/poison/block/CB/leech/proc/repair consumers retain documented independent gaps; no new generic substitute is introduced."
+  ],
+  "assets": {
+    "effects": "Native melee/thrust animation and sound0x238 are identified placeholders; final sweeping thrust/contact presentation pending separately.",
+    "icons": "Talent/hotkey icon remains pending in separate240-entry icon register."
+  },
+  "logs": {
+    "source-probe": ".local/class-skills/fend-source-probe.log",
+    "content-build": ".local/class-skills/fend-content-build.log",
+    "integration-build": ".local/class-skills/fend-integration-build.log",
+    "focused": ".local/class-skills/fend-focused.log",
+    "focused-run": ".local/class-skills/fend-focused-run.log",
+    "natural-initial-failure": ".local/class-skills/fend-natural-initial-failure.log",
+    "natural-health-failure": ".local/class-skills/fend-natural-health-failure.log",
+    "natural-regeneration-diagnostic": ".local/class-skills/fend-natural-regeneration-diagnostic.log",
+    "combined-missing-connection": ".local/class-skills/fend-combined-missing-connection.log",
+    "combined": ".local/class-skills/fend-combined.log",
+    "combined-run": ".local/class-skills/full-suite-run.log",
+    "installed-server": ".local/class-skills/fend-installed-server.log",
+    "installed-smoke": ".local/class-skills/fend-installed-smoke.log",
+    "python": ".local/class-skills/python-checks.log",
+    "combined-silent-connection": ".local/class-skills/fend-combined-silent-connection.log"
+  },
+  "next": "Lightning Strike shared prepared melee and Chain Lightning source review/integration; record specific unresolved initial-coordinate and child/factory branches independently.",
+  "nextPreflight": "tools/reference/lightning-strike-preflight.json"
+}

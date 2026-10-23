@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 8 / 30 | 0 | 22 | Open |
+| 5 | Amazon | 9 / 30 | 0 | 21 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -182,7 +182,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 | Lightning Bolt | 20 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Charged Strike | 24 | handler-present | Interruptible prepared spear/javelin melee commits before target-origin charged bolts, including weapon misses/lethal hits. One fractional start payment, low-mana ordinary fallback, hard-only14% three-skill synergy, captured projectile lightning/mastery and saved independent nonpiercing bolts reuse shared consumers. Source512 start/emission and45 initializer/getter cases, native formula/emission/gear/lifecycle/reload checks are recorded separately. Literal legacy calc1 physical-ED overlap is retained with modern corroboration open. Exact source subtile/Size/shotgun collision, activation/factory/current animation/seed/stat/owner/PvP/client parity remain acceptance work, not approved deviations or a class certificate. |
 | Plague Javelin | 25 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Fend | 30 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Fend | 30 | handler-present | Paid spear/javelin series captures eligible melee count up to12, pays5mana once and revalidates/cycles targets at each do13 event, including wrap to a sole survivor. Each strike reads current rank/AR/ED/critical/gear and uses scoped melee javelins plus ordinary hit wear. Source Param2=30 rate-scaled A1 rollback uses separately pinned original current-family calculator; isolated legacy clocks remain distinct. Paid series/recovery locks, ordinary low-mana fallback, external cancellation and transient save lifecycle reuse existing systems. Exact current animation/outer mode/Dodge-Avoid-Evade, target geometry/filter, input/owner/client, live speed transitions and empty-ground/air casts remain acceptance gaps; no class certificate. |
 | Lightning Strike | 34 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Fury | 35 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Inner Sight | 8 | handler-present | Right-slot/hotkey/self-centered SC cast, once-only five-mana release payment, pinned flat defense curve before percentages, independent timed state and source rank-priority refresh are implemented. Compiled state/defense/radius evidence and dedicated native input, real Tarnhelm, curse/Attract coexistence, actual obstructed LOS, natural expiry and retained/expired reload checks are recorded separately. Pinned27-subtile radius takes precedence over the older guide; modern last-caster-versus-rank-priority conflict, full stat/filter/owner/PvP/client/lighting parity and unmapped native species remain explicit acceptance work. Native encounter eligibility is a documented adapter; no class certificate. |

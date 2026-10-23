@@ -21,6 +21,7 @@ public static class ClassMovement
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
         AmazonImpale.Cancel(player);
+        AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
         BarbarianWhirlwind.ExternalMove(player);
         // Bash/Stun are interruptible. Cancel on the accepted step itself,

@@ -1,0 +1,16 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "source": "User firsthand visual check in the pinned Reign of the Warlock installation.",
+  "question": "When Lightning Strike hits a lone monster with no other enemies nearby, does a chain bolt leave it?",
+  "verbatim": "no, no chain bolt. i see the monster electrified with some crackles, but nothing leaving it.",
+  "observed": {
+    "loneMonster": true,
+    "visibleChainLeaving": false,
+    "electricalContactCrackles": true
+  },
+  "scope": "Visual observation only. No effective rank, damage, hit success, mana, server missile creation, lifetime, seed, range or multiple-target internal path inferred.",
+  "relatedEvidence": [
+    "tools/reference/lightning-strike-preflight.json"
+  ]
+}

@@ -1,24 +1,19 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Source preparation passes56 start/count,288 do13,60 isolated legacy timing observations and12 original current-family rate-scaled rollback observations. No native Fend handler; installed120-handler Impale baseline unchanged.",
+  "status": "Fend now implemented:7 applicable compiled count cases,24 native modern rollback comparisons and20 rank goldens pass. The real connected combat loop completes three targeted strikes and recovery with one debit. Source56 start/count,288 do13 and60 isolated legacy timing observations remain separately bounded. Focused and final combined3boots/2reloads,70 Python tests and463 named/15 first-loop current fingerprints pass. Matching121-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped, client unchanged, existing saves retained. No class certificate.",
   "sourceId": 30,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
-    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
   },
   "reviewedOnlyRoutineHashes": {
-    "SKILLS_SrvSt09_Fend": "fbaf1c166cec4f46a1b3993433b0bbb0abd2c960b34205ea6b5d89295ecbf050",
-    "SKILLS_SrvDo013_Fend_Zeal_Fury": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4",
-    "sub_6FD10790": "29539876b0324726026313fb4afcc4dd3ff2ef266b121f07308b7b087ac6f658",
-    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
-    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
     "sub_6FD15080": "e0ca12e42f1522440648499323acb2e62688a7bbe5b81bffc7f3609fbbe45eab",
     "sub_6FD15460": "31c619f497f24208cbb772d0d808a93dd5b32c03fc7b93aaf1791903ca7efde2",
-    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
-    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b"
   },
   "modernFields": {
     "skill": "Fend",
@@ -76,7 +71,8 @@
     "Start9 counts eligible nearby units and clamps count to calc1=12, storing initial target kind/identity. Empty search writes count0 and returns1. Used-skill/table failures return0.",
     "Generic do13 revalidates stored target at each strike, searches if absent/outside melee range, prepares ordinary AR and calc2 ED70+10*(rank-1), allocates SrcDam128 then drains ordinary durability, decrements remaining, cyclically selects next target and requests Param2 rollback.",
     "Existing Zeal source probe already compiles identical do13, cyclic selector and rollback scheduler for Paladin A1; reuse bodies and extend distinct Fend count, Amazon AnimData and rollback30 rather than duplicating unverified timing.",
-    "Compiled start9/count/selector confirm selected-target cap12 and no-target fallback retaining count0; do13 still attempts one hit before decrement. Client/player automatic target acquisition is separate. Cyclic do13 may wrap to same sole surviving target; do not invent once-per-identity exclusion."
+    "Compiled start9/count/selector confirm selected-target cap12 and no-target fallback retaining count0; do13 still attempts one hit before decrement. Client/player automatic target acquisition is separate. Cyclic do13 may wrap to same sole surviving target; do not invent once-per-identity exclusion.",
+    "Reviewed full sub_6FD0FA00 confirms Fend query filter0x2A783 includes a separate UNITS_IsInMeleeRange gate at bit0x20000, alongside hostile/valid/attackable/town/LOS checks. Thus do not count every unit in the broader melee-range+4 scan radius. Exact native target-size/scale/filter graph remains open."
   ],
   "reuseEvidence": [
     "tools/reference/zeal-engine-evidence.json",
@@ -84,20 +80,21 @@
     "tools/reference/impale-native-evidence.json"
   ],
   "nextActions": [
-    "Use compiled56 start/count and288 do13 observations. Implement/test rate-scaled ordinary A1 rollback30 from the separately pinned original calculator12-row comparison, explicitly provisional for full current outer mode/frame/client acceptance. Amazon A1 frame bonus2 is compiled; cached AnimData provenance remains incomplete.",
-    "Integrate existing prepared packet/scoped javelin/ordinary critical/AR/wear/mana and native sequence lifecycle without copying Jab fixed three-hit scheduling or Impale special wear/always-hit lock.",
-    "Verify count/retargeting/moving-dead-target/mana fallback/actual gear/input/cancellation/save lifecycle in native disposable world. Flag count eligibility, geometry, D/A/E/current client/outer mode gaps."
+    "Proceed to Lightning Strike source/native integration from tools/reference/lightning-strike-preflight.json. Preserve explicit Fend empty-ground and modern acceptance gaps."
   ],
   "uncertain": [
-    "Exact current target eligibility/order/scan geometry and count including selected target require compiled count/query and native comparison.",
-    "First/subsequent event/rollback and final recovery precision, Amazon frame bonus, moving-target and dodge/avoidance fixes require modern corroboration.",
-    "Full stat/event/RNG/owner/client and source-to-native scale remain explicit acceptance work.",
-    "Isolated older initial-scheduler/rollback call chain loses later events in8/60 declared timing observations; full outer animation-anchor/event delivery is not supplied. Original current-family calculator rate-scales animation position before rollback. Do not treat the isolated legacy calls as current clocks or infer an actual engine defect."
+    "No exact current executable or class certificate, and no item-skill gate. Full Dodge/Avoid/Evade, mode/event/frame/IAS/WSM/owner/client parity remains acceptance work.",
+    "Ordinary A1 rate-scaled rollback30 follows the pinned original current-family calculator with declared weapon metadata. Cached AnimData provenance is incomplete. Eight isolated older scheduler/rollback observations lack later events without full outer animation-anchor delivery; these raw clocks are not used or conflated with modern timing.",
+    "Selected-target inputs are implemented. Empty-ground client auto-acquisition, air swings and the legacy no-target count0/one-do-event branch remain unsupported rather than silently assigned a new targeting/payment rule.",
+    "Native hostile/valid/town/LOS/Z/reach policy and cyclic serial ordering are reused; exact source subtile/target-size/filter equivalence and full species/PvP/neutral eligibility remain open. The reviewed source filter0x2A783 includes a separate melee check; full world/room/filter graph is not compiled in this probe.",
+    "Live rank/gear/damage/AR are read at each do13 strike. Rate changes across rollback cycles retain a previous-cycle animation position and read the next current rate; full modern dynamic slow/gear transition behavior still needs acceptance. Late native ticks deliver one real event and schedule a new rollback, without inventing a burst.",
+    "Existing weapon material/elemental/poison/block/CB/leech/proc/repair consumers retain documented independent gaps; no new generic substitute is introduced."
   ],
   "assets": {
     "effects": "Use clearly identified existing native melee placeholders when enabled; final effect recorded separately.",
     "icons": "Separate talent/hotkey icon pending."
   },
   "compiledEvidence": "tools/reference/fend-engine-evidence.json",
-  "modernCalculator": "tools/reference/weapon-sequence-rate-evidence.json"
+  "modernCalculator": "tools/reference/weapon-sequence-rate-evidence.json",
+  "nativeEvidence": "tools/reference/fend-native-evidence.json"
 }

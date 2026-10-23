@@ -1,14 +1,14 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "22e3bc6953fe0f06f34c1ef13eefc994648daf108788eb801748a9b85b0412bd",
+  "ContentAssemblySha256": "8b53560614fb41daf64bc3c829ff9710f3d8593a595293089cc475966bb6086d",
   "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
-    "src/Sanctuary.Content/ActionTiming.cs": "8cbb5bf1bd47e7d329e400d9c2ab091e75658a017c16debc26805503ca7e8c43",
+    "src/Sanctuary.Content/ActionTiming.cs": "94582591e27fc73a201745e9d584a55b6f6778c2f410abbda7f31658172726e9",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "b2059334feb03f30cab2d8ed5d73211232199360d73534224e1a0836dd702b95",
     "src/Sanctuary.Content/ClassStats.cs": "e9b1948c1c8ffdd537248a81f0340a51ff1696ee82cb4fbfef30f007f3e46e0e",
@@ -18,7 +18,7 @@
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
     "src/Sanctuary.Content/GearEffects.cs": "6495bfc16c0ad0c5a5c053c125fae02aa93828a5dfc5aa32f3f4d305d5e32751",
     "src/Sanctuary.Content/GearProfiles.cs": "9d384cef47c3267c27cbae69f88eee816b9c1298f893e143f7d2eb7c1993596d",
-    "src/Sanctuary.Content/HitRecovery.cs": "19f180e9370a11a4e1fd27b88bd23d6df42314ace01a3e75b22f541a7a3345ca"
+    "src/Sanctuary.Content/HitRecovery.cs": "8d75d76f25bacba9083a3ef369df2cb69496915072c5115a2bf271ae5cbf7547"
   },
   "ImplementedCodes": [
     "ac",

@@ -70,7 +70,7 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
-        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json'):
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
@@ -122,6 +122,18 @@ def check():
                         assert session.expect(r'inner-sight-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
                     session.send('weapon-sequence-rate-check')
                     assert session.expect(r'weapon-sequence-rate-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    fend='fend-check' if boot==0 else 'fend-reload-check'
+                    session.send(fend)
+                    assert session.expect(fend+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    if boot==0:
+                        with socket.create_connection(('127.0.0.1',port),timeout=5) as fend_client:
+                            threading.Thread(target=drain_fixture_client,args=(fend_client,),daemon=True).start()
+                            time.sleep(.15)
+                            session.send('fend-loop-check')
+                            assert session.expect(r'fend-loop-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                            assert session.expect(r'fend-loop-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                            fend_client.shutdown(socket.SHUT_RDWR)
+                        time.sleep(.15)
                     impale='impale-check' if boot==0 else 'impale-reload-check'
                     session.send(impale)
                     assert session.expect(impale+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
