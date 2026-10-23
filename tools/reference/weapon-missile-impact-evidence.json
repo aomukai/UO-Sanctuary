@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "probe": {
+    "totalCases": 5184,
+    "compiledRoutines": [
+      "MISSMODE_RollDamageValue",
+      "MISSMODE_FillDamageParams"
+    ],
+    "blockHashes": {
+      "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951",
+      "MISSMODE_FillDamageParams": "3b41025fb32951b5bce45ff9679aa548f7f784cfe5ec22432ca94e57c33defe6",
+      "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+      "SUNITDMG_IsHitSuccessful": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758",
+      "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+      "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    },
+    "dataPath": ".local/class-skills/weapon-missile-impact-probe.json"
+  },
+  "collisionBlockHash": "72558894c6cd12b09ff7e7be70881530c1c4483e1ff4809d7f551bb80eb8e731",
+  "established": [
+    "The unchanged impact reader rolls saved missile endpoints, adds the saved damage percent plus saved demon/undead percent based on the current victim, clamps the percentage at-90, then doubles physical once for the saved critical flag. It does not calculate fresh weapon damage from the equipped item.",
+    "Each typed endpoint rolls separately; source elemental mastery belongs to the missile stat read, not an automatic fresh wielder enhancement. Poison duration divides by saved count only when count>1. A nonpositive maximum or minimum yields0 before endpoint swapping.",
+    "The reviewed collision function calls IsHitSuccessful with the owner and saved missile ToHit bonus. That helper reads current owner attack/level/ignore-defense and current target defense. Prior checkpoint launch-time AR snapshot plans are withdrawn.",
+    "The reviewed collision branch consumes a saved pierce index only while the current owner has item or skill pierce. A launch budget alone is insufficient after the owner loses pierce.",
+    "Reviewed factory damage creation calls the critical helper for each created weapon missile. Do8 creates each fan missile independently; a launch builder must not share one critical roll across the whole fan. Each missile retains its own resulting flag."
+  ],
+  "limits": [
+    "RollLimitedRandomNumber, unit stat access, monster classification and hierarchy lookup are declared services. The compiled impact reader has no monster-type bonus rows; full nested hierarchy copying remains unsupported.",
+    "Legacy body arithmetic is not a modern executable certificate. Exact current RNG/activation/order, all hit/dodge/block/proc paths and live client remain separate.",
+    "Collision-time AR/owner pierce gates are reviewed rather than compiled here. Source pierce seed and NHD global state are superseded/limited by modern references; do not silently copy legacy global JUSTHIT across skills.",
+    "Launch-time source-stat collection, material/Enchant/aura mastery composition, immunity bypasses, item event callbacks, life/mana drain and full offline/owner transitions remain distinct integration dependencies."
+  ]
+}

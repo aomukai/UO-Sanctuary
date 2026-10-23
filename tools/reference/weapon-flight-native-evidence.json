@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Travelling direct-damage weapon component:5184 compiled source/native impact cases, focused and final combined native3boots/2reloads,70 Python tests and453 named/15 first-loop fingerprints pass. Matching installed112-handler build loads existing world and shuts down0; server stopped. No additional class skill enabled.",
+  "source": "tools/reference/weapon-missile-impact-evidence.json",
+  "sourceCases": 5184,
+  "implementation": [
+    "src/Sanctuary.Content/WeaponMissiles.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/NamedCombat.cs",
+    "src/Sanctuary.Content/GearEffects.cs"
+  ],
+  "verified": [
+    "C# impact arithmetic matches5184 compiled unchanged source cases: endpoint guards/order, independent typed rolls, saved percent plus current demon/undead classification, one physical critical doubling, elemental mastery and poison rate/count/duration.",
+    "Actual native direct-damage shots move on Q12 velocities and swept body intersections. A target moved into the path is hit; a target moved away is missed. Damage is not applied immediately at launch.",
+    "Current owner attack rating is read at impact, demonstrated by opposite before/after Dexterity changes around a midpoint hit roll. Physical endpoints and the critical flag stay in the immutable payload. Current victim fire resistance is applied after flight, without reapplying saved fire mastery.",
+    "Same-cast four-frame leases suppress sibling overlap; independent casts do not share those leases. Real Razortail supplies live pierce eligibility; losing it stops after the next direct impact despite a remaining saved budget.",
+    "Overdue active source frames process before normal lifetime completion; a delayed callback still delivers the owed impact. Natural40ms timer delivery is checked separately from synthetic frame stepping.",
+    "Actual GenericPersistence deserialization reports a saved flight. Its immutable payload, moving phase, last collision and cast-target delay leases survive both reloads, with no offline resource or health replay; only the remaining second impact occurs after fixture resume."
+  ],
+  "nextHitReference": {
+    "url": "https://news.blizzard.com/en-gb/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+    "scope": "Released2.7 changes NHD scope and separates Martial Arts trigger casts. The existing Sanctuary per-cast convention is reused; exact pinned current scope/unit ordering remains acceptance work, not a legacy global JUSTHIT certificate."
+  },
+  "saveFormat": "Optional version0 GenericPersistence SanctuaryWeaponMissiles, priority147. Immutable snapshots are captured on-loop before worker serialization. Old worlds without this profile default empty.",
+  "fixtureControls": [
+    "Disposable mapped skeletons have stopped AI/Frozen/CantWalk, native resistance overrides and hour-long health recovery for named WeaponFlightTarget actors only. Hit/damage/block random delegates are scoped controls; source RNG sequence equivalence is not claimed.",
+    "Active save fixtures shift NextUtc and leases10minutes to inspect the same moving payload through startup time; on reload they return to the saved native origin and explicitly normalize fixture dates before simulation. This is not a gameplay10minute missile or evidence of ordinary offline damage.",
+    "Live pierce uses a real eligible Razortail. The component launches explicitly supplied already-collected payloads; no learned skill, arrow debit, mana payment or item callback is faked into availability."
+  ],
+  "limits": [
+    "There is no gameplay launch consumer yet. Multiple Shot remains pending. Full launch-time weapon/material/Enchant/aura/source mastery collection, physical SrcDam96-before-percent, current Guided Arrow synergy and generic Amazon Critical Strike still need integration.",
+    "Raw central/outer factory flags are retained; item hit callbacks, crushing/open-wounds/knockback, life/mana drain, burn, immunity-bypass and monster-type bonus layers are not implemented by this component. Nonzero drain/burn payloads are explicitly refused. This direct-damage component cannot certify a full weapon skill.",
+    "Native movement/body/Size1/LOS/Z, initial path/activation/frame order and serial tie choice are provisional mappings. Exact modern AR/block/dodge/defender events, source seed/Pierce/NHD order, graphical client and current-rank/owner/item behavior remain open.",
+    "Current policy cancels on owner death/deletion, another map or town; internal-map offline owners retain unexpired state without impacts and expire without replay. Exact modern disconnected/dead/teleported-owner behavior is not established.",
+    "Expired saved flights are dropped on restore; active loop lag is processed in bounded remaining frames. Broader expired/blocked terrain/early-disconnect/dynamic town/owner lifecycle cases still need dedicated acceptance.",
+    "This first component currently uses zero skill-specific ToHit bonus and mapped hostile monsters. Further source missile modes, nonzero saved ToHit percentages, PvP, Slow Missiles and source weapon-specific collision behavior remain integration work."
+  ],
+  "placeholders": {
+    "effect": "Identified native0xF42 location trail placeholder; final bow/bolt flight and impact remain in the separate effects register.",
+    "icon": "Separate pending talent/hotkey icons; no generated or mapped image claimed."
+  },
+  "focusedLog": ".local/class-skills/weapon-flight-focused.log",
+  "sourceLog": ".local/class-skills/weapon-missile-impact-probe.log",
+  "resolvedDefect": "Save data loaded correctly, but offline PlayerMobile actors start on Map.Internal. The first owner resolver deleted such flights. Unexpired internal-map flights now pause without impacts until return or expiry; the fixture restores its saved origin explicitly.",
+  "next": "Connect complete launch-time weapon data (including per-missile critical flags, not one whole-fan roll) and separate item-event delivery, then Multiple Shot start/mana/one-ammunition-after-fan. Preserve live owner AR/pierce eligibility. Keep exact modern or unsupported individual branches explicit and continue other Amazon skills when one is blocked.",
+  "fullSuiteLog": ".local/class-skills/native-checks.log",
+  "installedSmokeLog": ".local/class-skills/weapon-flight-installed-smoke.log",
+  "contentHash": "c43fa13142813342c903e881843169aa55ef871e96572420df92428bc284e89a",
+  "integrationHash": "f8279e09a3df701ada0732464b70853e3282090605fe28fcb5c47fce84247e1a"
+}

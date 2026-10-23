@@ -77,9 +77,9 @@ public static class GearEffects
         target.FixedEffect(0x374A, 10, 15, 0x480, 0);
         return true;
     }
-    public static bool ApplyPoison(Mobile source, Mobile target, double total, long now, int durationMs = 3000)
+    public static bool ApplyPoison(Mobile source, Mobile target, double total, long now, int durationMs = 3000,bool enhance=true)
     {
-        total = NamedElements.Damage(source, target, total, "pois");
+        total = NamedElements.Damage(source, target, total, "pois",enhance:enhance);
         if (target is PlayerMobile player)
         {
             int reduction = Math.Clamp(ClassGear.Bonus(player, "res-pois-len"), 0, 75);

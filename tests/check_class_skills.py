@@ -62,6 +62,7 @@ def check():
         shutil.copy2(STAGE / 'leap-collision-source-probe.json', folder / 'leap-collision-source-probe.json')
         shutil.copy2(STAGE / 'fan-source-probe.json', folder / 'fan-source-probe.json')
         shutil.copy2(STAGE / 'bow-projectile-source-probe.json', folder / 'bow-projectile-source-probe.json')
+        shutil.copy2(STAGE / 'weapon-missile-impact-probe.json', folder / 'weapon-missile-impact-probe.json')
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll'):
             if name not in assemblies:
@@ -88,6 +89,10 @@ def check():
                     command = 'class-skills-check' if boot == 0 else 'class-skills-reload-check'
                     session.send(command)
                     assert session.expect(command+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
+                    flight='weapon-flight-check' if boot==0 else 'weapon-flight-reload-check'
+                    session.send(flight)
+                    assert session.expect(flight+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
+                    assert session.expect(r'weapon-flight-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-6000:]
                     bow='bow-projectile-check' if boot==0 else 'bow-projectile-reload-check'
                     session.send(bow)
                     assert session.expect(bow+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

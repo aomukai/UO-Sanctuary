@@ -146,9 +146,9 @@ public static class ClassStats
         Math.Clamp(2.0 * Math.Max(1, attack) / (Math.Max(1, attack) + Math.Max(0, defense))
             * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, 0.95);
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0);
-    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null)
+    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false)
     {
-        SorceressEffects.MeleeAttempt(attacker, defender);
+        if(!projectile){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !PaladinAuras.CombatStats(attacker) && !PaladinAuras.CombatStats(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian)
@@ -163,7 +163,7 @@ public static class ClassStats
         }
         int attack = AttackRatingAgainst(attacker,defender,skillPercent);
         roll ??= Utility.RandomDouble;
-        bool hit = roll() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender)), Level(attacker), Level(defender));
+        bool hit = roll() < HitChance(attack, NamedCombat.DefenseFor(attacker, defender, Defense(defender),projectile?true:null), Level(attacker), Level(defender));
         if (hit && classDefense && ClassGear.BlockChance((PlayerMobile)defender) is > 0 and var chance)
         {
             hit = roll() * 100 >= chance;
