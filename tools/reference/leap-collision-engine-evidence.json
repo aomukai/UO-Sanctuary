@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "probe": {
+    "caseCounts": {
+      "freeCases": 405,
+      "presenceCases": 60
+    },
+    "totalCases": 465,
+    "dataPath": ".local/class-skills/leap-collision-source-probe.json",
+    "blockHashes": {
+      "COLLISION_GetFreeCoordinatesImpl": "421d78b05502ef569dc8aa93099d9e63a9e301a8403cf85eac207aba43ab47b6",
+      "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
+      "COLLISION_ResetMaskWithPattern": "e9801cc87a31e5b70dc376f0bdb12468ea71cf280c7da587bcee3cae2cb4cfa6"
+    }
+  },
+  "established": [
+    "Leap free-cell search with size2/mask1C09, neighbor rooms allowed, field absent, max50/increment1 checks the original then square rings1..49. On each ring it chooses minimum Manhattan distance, retaining source vertical-edge-before-horizontal-edge tie order.",
+    "If no cell is clear, neighbor-room mode can still return the original blocked coordinates/room. The Leap finder must perform its independent final clearance/flying/range checks.",
+    "Player size1/2 uses small unit-presence pattern. Setting its nonzero destination mask80 also sets NO_PATH1000 at the center; player/monster movement masks include NO_PATH. Reset removes both. This establishes movement blocking beyond the raw80 bit, supporting the native collision reservation adapter."
+  ],
+  "limits": [
+    "Three unchanged legacy routines compiled with declared same-room collision/field/grid services. Field-bearing/neighbor-room geometry and arbitrary size/increment configurations are outside this Leap contract.",
+    "Native body/footprint projection, real terrain, door and spawn behavior require their own native checks; the source bit-grid fixture is not complete modern room-engine proof."
+  ]
+}

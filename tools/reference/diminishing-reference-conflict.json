@@ -175,5 +175,31 @@
     "Blizzard tables are historical and do not identify D2R3.3.93847; they disprove treating this decompiled helper as sole authoritative evidence, but do not certify the modern executable.",
     "60 published ranks cover three unchanged current parameter pairs. Native fixture compares actual evaluator/consumer paths separately.",
     "Compiled legacy body is unchanged but is decompiled supplementary code, not a verified modern formula engine."
-  ]
+  ],
+  "pinnedBuildObservations": {
+    "referenceVersion": "3.3.93847",
+    "source": "User firsthand tooltip readings in this session; uninstrumented",
+    "skill": "Summon Resist",
+    "values": [
+      {
+        "effectiveRank": 7,
+        "reportedPercent": 52,
+        "currentNativePercent": 52,
+        "decompiledHelperPercent": 52
+      },
+      {
+        "effectiveRank": 13,
+        "reportedPercent": 61,
+        "currentNativePercent": 61,
+        "decompiledHelperPercent": 61
+      },
+      {
+        "effectiveRank": 19,
+        "reportedPercent": 65,
+        "currentNativePercent": 65,
+        "decompiledHelperPercent": 65
+      }
+    ],
+    "interpretation": "All three observations agree with both candidate formulas. They corroborate these ranks but do not distinguish rounding; retain the current runtime curve."
+  }
 }

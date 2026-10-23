@@ -29,9 +29,11 @@ public static class AlliedOverlap
     private static readonly ConditionalWeakTable<BaseCreature, State> _states = new();
     public static void Configure()
     {
-        ClassCombatHooks.ActionAllowed = Allowed;
+        ClassCombatHooks.ActionAllowed = actor=>Allowed(actor) && !BarbarianLeap.Locked(actor);
         ClassCombatHooks.OccupancyChanged = Arrived;
-        ClassCombatHooks.PassThrough = PassThrough;
+        ClassCombatHooks.PassThrough = (first,second)=>LandingReservations.PassThrough(first,second)
+            || first is not SkillLandingReservation && second is not SkillLandingReservation
+                && (BarbarianLeap.Airborne(first) || BarbarianLeap.Airborne(second) || PassThrough(first,second));
         ClassCombatHooks.OverlapMovement = pet => pet is IPersistentMinion && !PersistentMinions.CanThink(pet) || UpdatePet(pet, Core.TickCount);
         ClassCombatHooks.MovementGoal = Remember;
         ClassCombatHooks.FreeDestination = FreeDestination;

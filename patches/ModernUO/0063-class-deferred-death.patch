@@ -1,0 +1,26 @@
+diff --git a/Projects/UOContent/Mobiles/ClassCombatHooks.cs b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+--- a/Projects/UOContent/Mobiles/ClassCombatHooks.cs
++++ b/Projects/UOContent/Mobiles/ClassCombatHooks.cs
+@@ -10,6 +10,7 @@
+ }
+ public static class ClassCombatHooks
+ {
++    public static Func<PlayerMobile, bool> DeathAllowed { get; set; }
+     public static Func<BaseCreature, Mobile, bool?> CreatureEnemy { get; set; }
+     public static Func<BaseCreature, Mobile, bool?> CreatureFriend { get; set; }
+     public static Func<BaseCreature, Mobile, Mobile> CreatureDamageMaster { get; set; }
+diff --git a/Projects/UOContent/Mobiles/PlayerMobile.cs b/Projects/UOContent/Mobiles/PlayerMobile.cs
+--- a/Projects/UOContent/Mobiles/PlayerMobile.cs
++++ b/Projects/UOContent/Mobiles/PlayerMobile.cs
+@@ -2504,6 +2504,11 @@
+ 
+         public override bool OnBeforeDeath()
+         {
++            if (ClassCombatHooks.DeathAllowed?.Invoke(this) == false)
++            {
++                return false;
++            }
++
+             var state = NetState;
+ 
+             state?.CancelAllTrades();

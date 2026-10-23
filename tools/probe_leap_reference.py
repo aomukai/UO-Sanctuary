@@ -224,15 +224,17 @@ out = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], sourceHashes=
                'Four unchanged legacy routines compiled with declared collision/room/formula/skill/arrival services. Source start/landing/payment/block routines are reviewed and hashed, not compiled by this probe. No full engine or modern executable certificate.',
                'Pinned current calc2=175 and Param5=8 minimum airborne frames are not consumed by the compiled older launch. Released2.4 notes establish75% speed increase and minimum height/duration; exact modern phase scheduling, server/client arc and hit/death-delay behavior remain acceptance work.',
                'Native UO walking/LOS, free-cell search and destination reservation are not equivalent to source flying-door/missile-barrier masks by assumption. An airborne controller needs safe saved/offline/load lifecycle across unwalkable ground.',
-               'No Leap/Leap Attack handler enabled by this proof. Continue mechanical implementation using shared geometry, resource and knockback consumers; keep unsupported branches explicit.'
+               'This source proof alone does not certify a handler. Native Leap lifecycle/terrain/payment/knockback integration is recorded separately in leap-native-evidence.json; Leap Attack remains pending.'
            ])
 (ROOT / 'tools/reference/leap-engine-evidence.json').write_text(json.dumps(out, indent=2) + '\n')
-preflight = dict(referenceVersion='3.3.93847', status='Source preflight and native geometry foundation; Leap/Leap Attack flight handlers remain pending.',
+preflight = dict(referenceVersion='3.3.93847', status='Leap native controller implemented with bounded source/differential/lifecycle checks; modern timing/mask/client parity remains open. Leap Attack pending.',
                  skill={k: v for k, v in leap.items() if v not in ('', None)},
                  relatedSkill={k: v for k, v in leap_attack.items() if v not in ('', None)},
                  knockbackMissile={k: v for k, v in missile.items() if v not in ('', None)},
                  evidence='tools/reference/leap-engine-evidence.json',
                  nativeGeometryEvidence='tools/reference/leap-geometry-native-evidence.json',
+                 nativeEvidence='tools/reference/leap-native-evidence.json',
+                 collisionEvidence='tools/reference/leap-collision-engine-evidence.json',
                  characterMotion={k: barbarian[k] for k in ('WalkVelocity', 'RunVelocity', 'RunDrain')},
                  releasedPrimary=dict(url='https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
                                       scope='Released2.4 confirms75% faster Leap/Leap Attack, minimum jump height/duration, and distinct Leap Attack area damage/mana10/adjacent-leap changes. Historical corroboration, not current executable capture.'),
@@ -242,7 +244,7 @@ preflight = dict(referenceVersion='3.3.93847', status='Source preflight and nati
                         'Leap has no melee weapon requirement or AttackNoMana flag. Do not inherit Charge weapon eligibility or an ordinary-attack fallback; Leap Attack has separate melee requirements.',
                         'ChargeMotion is a walking adapter and cannot supply flying collision. Share verified coordinate/network pieces only; do not reuse its obstacle/contact stop behavior.'],
                  next=['Retain differential native destination geometry against compiled cases while integrating the terrain/flying adapter.',
-                       'Implement saved airborne/reservation lifecycle before allowing flight over unwalkable cells; cover cancellation, offline/load/death/owner changes.',
+                       'Saved airborne/reservation, cancellation/offline/load/death handling is implemented separately. Continue full terrain and owner/client acceptance, without treating the native LOS adapter as source mask identity.',
                        'Integrate source phase, current175-percent speed/minimum8 airborne frames and landing knockback with explicit modern timing/mask acceptance limits.',
                        'Keep Leap Attack weapon strike and physical area damage separate for its later handler.'],
                  assets=dict(effect='Existing skill-effects entry retains leapknockback; final jump/landing effect and arc presentation still needed. Use identified placeholders without delaying mechanics.',

@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused3boots/2reloads and final combined3boots/2reloads pass;3240 destination/405 free-cell/32805 unchanged Terror native comparisons per boot,7297 bounded source cases,70 Python tests,447 named/15 first-loop current hashes, reference/generator/catalogue checks and matching installed existing-world listen/shutdown0 pass.",
+  "sources": [
+    "tools/reference/leap-engine-evidence.json",
+    "tools/reference/leap-collision-engine-evidence.json",
+    "tools/reference/leap-geometry-native-evidence.json",
+    "tools/reference/barbarian-leap-preflight.json"
+  ],
+  "implementation": [
+    "Barbarian Leap is the23rd Barbarian/110th roster handler. Successful validated start reserves the landing and pays2mana once; unarmed use is allowed and insufficient mana does not invent an attack.",
+    "Saved version0 windup/airborne/recovery state reuses40ms scheduling, current calc2=175/Param5=8, source RunVelocity9, shared integer destination/free-cell search and native direct position/network movement-debt resets. Walking-only obstacles do not stop flight.",
+    "Hidden, invulnerable saved Mobile reservation reuses native occupancy/CanFit/CanSpawnMobile/player/NPC movement, with only the owning traveller allowed through. Airborne owners release their ordinary movement footprint. Cleanup checks both reservation type and owner identity.",
+    "Existing action/movement/get-hit locks keep an uninterruptible flight active after input release. Optional UOContent DeathAllowed hook defers lethal death at zero life until landing; it does not suppress incoming damage. SourceKnockbacks supplies mapped zero-damage/no-shield-block landing control, independently of War Cry damage/block.",
+    "Offline/load settles a saved flight at legal world ground without replaying combat or resource payment. Lost markers safely settle and clean up; a foreign-map relocation does not pull the owner back. Original world save formats are retained; missing new profile defaults empty."
+  ],
+  "checks": [
+    "Focused native3boots/2reloads: actual40ms delivery, mana once, windup/airborne/recovery, unarmed/low-mana/in-place use, reservation owner/nonowner/CanSpawn, player/NPC collision, airborne footprint, input/recovery locks, walking-only obstacle crossing, zero-damage mapped knockback with shield-roll fail guard, deferred lethal landing and foreign-map cleanup.",
+    "Final combined runner includes saved windup, airborne-over-obstacle and recovery phases, offline no-repayment/legal landing and lost-reservation cleanup. It compares3240 destination cases,405 free-search result/count/FNV call traces and32805 unchanged Terror distances on each boot.",
+    "Compiled source cases:6832 prior destination/phase/velocity plus465 free-search/presence cases. The60 source presence cases establish NO_PATH center blocking in addition to mask80."
+  ],
+  "fixtureControls": [
+    "Only LeapFixture actors use an hour-long mana regeneration interval, installed at Configure/final Initialize and construction scope. Gameplay regeneration is unchanged.",
+    "Inspection-only saved NextUtc is held10minutes after separate real timer/phase checks. Natural40ms progression and minimum duration are checked separately. TCP transport is real but unassigned; no authenticated owner or graphical-client flight comparison is claimed.",
+    "Initial fixture placement lacked an independent corridor and was corrected to known supported ground. Lethal self-damage was correctly filtered as friendly; the fixture now uses unattributed native damage. Preserved failure logs distinguish test defects from gameplay changes."
+  ],
+  "limits": [
+    "Handler presence is bounded implementation coverage, not exact D2R parity or class completion. Leap Attack remains a distinct pending weapon/physical-area skill;7 Barbarian talents still have no handler.",
+    "Native NoShoot/closed-door/Z LOS is a provisional flying-barrier adapter, not proof of source door|missile-barrier mask equivalence. Two source subtiles per native tile, Z interpolation, free-cell room/field transitions, emergency fallback and offline settlement are port adapters awaiting full acceptance.",
+    "Current175-percent speed/minimum8 airborne frames are pinned table values and historically corroborated. Exact modern phase/SC/catch-up/arc/frame-rounding, IAS/FCR/owner/gear/input/client behavior still require comparison; old compiled launch consumes neither modern field.",
+    "Source result9 checks dodge with shield blocking disabled. Current supported ordinary PvE mapped monsters use their Knk/GetHit rules; PvP, passive dodge, special callbacks/unmapped species, full town/target filters and event/proc/owner lifecycle are not certified.",
+    "Older landing code appears to emit its area after clearing deferred death without an explicit living check. The native controller currently only emits for a living owner; delayed-dead landing area behavior remains unresolved, not an approved deviation.",
+    "An authenticated owner socket/actual graphical client, barrier/door/multi/elevation matrix, dynamic blocked landing, all rank/gear transitions and modern executable capture remain acceptance work."
+  ],
+  "assets": {
+    "effect": "Separate240-entry effects register retains pending Leap jump/arc/landing and leapknockback presentation. Existing native cast pose16/sound0x238 and get-hit/knockback motion are identified placeholders.",
+    "icon": "Separate240-entry icon register retains pending Leap talent-tree and hotkey icon; no final imagegen asset created."
+  },
+  "next": "Leap Attack source/native contracts, keeping distinct weapon strike and modern physical area damage. Carry Double Swing start68/SQ11, Find Potion world tier and Grim Ward modern owner/target questions independently.",
+  "logs": [
+    ".local/class-skills/leap-focused.log",
+    ".local/class-skills/native-checks.log",
+    ".local/class-skills/leap-content-build.log",
+    ".local/class-skills/leap-integration-build.log",
+    ".local/class-skills/leap-native-build.log",
+    ".local/class-skills/leap-installed-server.log",
+    ".local/class-skills/leap-fixture-location-failure.log",
+    ".local/class-skills/leap-fixture-friendly-damage-failure.log"
+  ]
+}

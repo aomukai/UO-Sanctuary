@@ -8,6 +8,26 @@ internal readonly record struct LeapCell(int X,int Y);
 // Source subtile coordinates remain integers until the native terrain adapter.
 internal static class LeapGeometry
 {
+    internal static LeapCell Free(LeapCell requested,Func<LeapCell,bool> clear)
+    {
+        if(clear(requested)){return requested;}
+        for(int radius=1;radius<50;radius++)
+        {
+            LeapCell? best=null;int score=int.MaxValue;
+            void Consider(int dx,int dy)
+            {
+                var cell=new LeapCell(requested.X+dx,requested.Y+dy);
+                int distance=Math.Abs(dx)+Math.Abs(dy);
+                if(clear(cell) && distance<score){score=distance;best=cell;}
+            }
+            for(int y=-radius;y<=radius;y++){Consider(-radius,y);Consider(radius,y);}
+            for(int x=1-radius;x<radius;x++){Consider(x,-radius);Consider(x,radius);}
+            if(best is{} found){return found;}
+        }
+        // The source neighbor-room fallback can return the original blocked cell;
+        // Find performs the mandatory final collision/range checks separately.
+        return requested;
+    }
     internal static bool Find(LeapCell origin,LeapCell requested,int range,Func<LeapCell,LeapCell?> free,
         Func<LeapCell,bool> clear,Func<LeapCell,bool> flying,out LeapCell destination)
     {

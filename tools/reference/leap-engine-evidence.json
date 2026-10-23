@@ -57,6 +57,6 @@
     "Four unchanged legacy routines compiled with declared collision/room/formula/skill/arrival services. Source start/landing/payment/block routines are reviewed and hashed, not compiled by this probe. No full engine or modern executable certificate.",
     "Pinned current calc2=175 and Param5=8 minimum airborne frames are not consumed by the compiled older launch. Released2.4 notes establish75% speed increase and minimum height/duration; exact modern phase scheduling, server/client arc and hit/death-delay behavior remain acceptance work.",
     "Native UO walking/LOS, free-cell search and destination reservation are not equivalent to source flying-door/missile-barrier masks by assumption. An airborne controller needs safe saved/offline/load lifecycle across unwalkable ground.",
-    "No Leap/Leap Attack handler enabled by this proof. Continue mechanical implementation using shared geometry, resource and knockback consumers; keep unsupported branches explicit."
+    "This source proof alone does not certify a handler. Native Leap lifecycle/terrain/payment/knockback integration is recorded separately in leap-native-evidence.json; Leap Attack remains pending."
   ]
 }

@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Source preflight and native geometry foundation; Leap/Leap Attack flight handlers remain pending.",
+  "status": "Leap native controller implemented with bounded source/differential/lifecycle checks; modern timing/mask/client parity remains open. Leap Attack pending.",
   "skill": {
     "skill": "Leap",
     "*Id": 132,
@@ -153,6 +153,8 @@
   },
   "evidence": "tools/reference/leap-engine-evidence.json",
   "nativeGeometryEvidence": "tools/reference/leap-geometry-native-evidence.json",
+  "nativeEvidence": "tools/reference/leap-native-evidence.json",
+  "collisionEvidence": "tools/reference/leap-collision-engine-evidence.json",
   "characterMotion": {
     "WalkVelocity": 6,
     "RunVelocity": 9,
@@ -171,7 +173,7 @@
   ],
   "next": [
     "Retain differential native destination geometry against compiled cases while integrating the terrain/flying adapter.",
-    "Implement saved airborne/reservation lifecycle before allowing flight over unwalkable cells; cover cancellation, offline/load/death/owner changes.",
+    "Saved airborne/reservation, cancellation/offline/load/death handling is implemented separately. Continue full terrain and owner/client acceptance, without treating the native LOS adapter as source mask identity.",
     "Integrate source phase, current175-percent speed/minimum8 airborne frames and landing knockback with explicit modern timing/mask acceptance limits.",
     "Keep Leap Attack weapon strike and physical area damage separate for its later handler."
   ],

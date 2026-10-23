@@ -17,7 +17,6 @@ public static class LeapGeometryChecks
     private static void Require(bool value,string reason){if(!value){throw new InvalidOperationException(reason);}}
     private static void Check()
     {
-        Require(!BarbarianCombat.Implemented(CombatAbility.Leap),"Geometry foundation enabled an incomplete flight handler");
         using var source=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"leap-source-probe.json")));
         int count=0;
         foreach(var row in source.RootElement.GetProperty("targetCases").EnumerateArray())
@@ -40,11 +39,27 @@ public static class LeapGeometryChecks
             {Require(trace[i]==new LeapCell(row[9+i*2].GetInt32(),row[10+i*2].GetInt32()),$"Leap perpendicular/free-cell order at case{count}");}
         }
         Require(count==3240,"Incomplete compiled Leap geometry fixture");
+        using var collision=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"leap-collision-source-probe.json")));
+        int freeCount=0;
+        foreach(var row in collision.RootElement.GetProperty("freeCases").EnumerateArray())
+        {
+            int rule=row[0].GetInt32(),dx=row[1].GetInt32(),dy=row[2].GetInt32(),calls=0;ulong trace=14695981039346656037;
+            bool Clear(LeapCell cell)
+            {
+                calls++;trace=unchecked((trace^(uint)cell.X)*1099511628211);trace=unchecked((trace^(uint)cell.Y)*1099511628211);
+                int x=cell.X-100,y=cell.Y-100;
+                return rule==0 || rule==2 && x==dx && y==dy || rule==3 && ((x+y)&1)!=0 || rule==4 && (Math.Abs(x)==dx || Math.Abs(y)==dy);
+            }
+            var cell=LeapGeometry.Free(new(100,100),Clear);
+            Require(cell==new LeapCell(row[4].GetInt32(),row[5].GetInt32()) && calls==row[6].GetInt32()
+                && trace==ulong.Parse(row[7].GetString()),"Source free-cell result/tie/call-order differential");freeCount++;
+        }
+        Require(freeCount==405,"Incomplete compiled free-cell fixture");
         for(int dx=-40;dx<=40;dx++)for(int dy=-40;dy<=40;dy++)for(int size=0;size<=4;size++)
         {
             int x=Math.Abs(Math.Abs(dx)-size),y=Math.Abs(Math.Abs(dy)-size);
             Require(SourceTerror.Distance(dx,dy,size)==Math.Max(x,y)+Math.Min(x,y)/2,"Shared distance changed Terror size adjustment");
         }
-        Log.Information("Leap native differential target cases: {Count}; existing Terror distance cases: {Terror}",count,81*81*5);
+        Log.Information("Leap native differential target cases: {Count}; free-cell cases: {Free}; existing Terror distance cases: {Terror}",count,freeCount,81*81*5);
     }
 }
