@@ -16,14 +16,14 @@
     "Warlock": 0
   },
   "artifacts": {
-    ".local/class-skills/content/Sanctuary.Content.dll": "bd08e0a3b455b2661b74033d902d19658b66e9e92d80f4a05e4497a6a9c29c04",
-    ".local/class-skills/integration/Sanctuary.Integration.dll": "f26bf31ff21be513d8ea4277b82dbfb44928ee92c635854c99e618165e95718f",
+    ".local/class-skills/content/Sanctuary.Content.dll": "67432bed17bd0383112d135ea4ac95f2ee982523e45260a950217f73f2900358",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "e19b373d37da44480967ed1738007852da2ddd6a13d2aafdcf50cac279f626df",
     "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
     "upstream/ModernUO/Distribution/Server.dll": "ff7ae9a6a92d0f848c470a623a95428594a8f995ae1b65cf1240f2ebaea48486",
     "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "7692b5fb0a1667f3455399743eab03623a95eb772f2c07c66a2d32e7710b8f1f",
-    ".local/server/Assemblies/Sanctuary.Content.dll": "bd08e0a3b455b2661b74033d902d19658b66e9e92d80f4a05e4497a6a9c29c04",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "67432bed17bd0383112d135ea4ac95f2ee982523e45260a950217f73f2900358",
     ".local/server/Assemblies/UOContent.dll": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
-    ".local/content/Sanctuary.Content.dll": "bd08e0a3b455b2661b74033d902d19658b66e9e92d80f4a05e4497a6a9c29c04"
+    ".local/content/Sanctuary.Content.dll": "67432bed17bd0383112d135ea4ac95f2ee982523e45260a950217f73f2900358"
   },
   "protectedInstallation": {
     "policy": "User explicitly permits disposable two-character test environment; repetitive preservation audits and compatibility workarounds no longer block mechanics.",
@@ -31,16 +31,16 @@
     "installedBuildUpdated": true,
     "saveReset": false,
     "restartCommand": "./dev server",
-    "actualInstalledSmokeLog": ".local/class-skills/whirlwind-installed-smoke.log",
+    "actualInstalledSmokeLog": ".local/class-skills/fan-installed-smoke.log",
     "serverRunningAtCheckpoint": false
   },
   "checks": {
     "pythonTests": 70,
-    "pythonResult": "70 tests pass against current449/15 fingerprints",
+    "pythonResult": "70 tests pass against current450/15 fingerprints",
     "nativeBoots": 3,
     "saveReloadCycles": 2,
     "namedRuntimeDefinitions": 573,
-    "nativeResult": "Focused and final combined native3boots/2reloads pass;1784 bounded compiled source cases,70 Python tests,449 named/15 first-loop current fingerprints, reference/generator/catalogue checks and63/36 native patch replay pass. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+    "nativeResult": "Shared do8 source3540 cases, native3468-case/27166-aim differential and actual Teeth near/far-cursor damage pass. Final combined native3boots/2reloads and70 Python tests pass;450 named/15 first-loop fingerprints are current. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
     "sourceComparisonFields": 139389,
     "patchReplay": "63 ModernUO/36 ClassicUO reverse-to-pinned-base/replay byte-equal across100/41 paths; all native dirty files covered.",
     "client": "Latest client build50 warnings/0 errors; packet serializer/parser covered, full actual graphical/input comparison remains open.",
@@ -130,7 +130,7 @@
     "chargedBoltResult": "passed for source arithmetic and native independent collision cases; exact D2R path/geometry comparison remains open",
     "fireGroundResult": "passed for movement, growth, resource, local delay, fractional damage and both resumed-damage reloads",
     "fractionalHealthResult": "Passed supported direct/ground/weapon/native typed fractional accounting, absorb healing, source sub-one-life lethal boundary/corpses/protected actors, exact17/256 remainder persistence and resumed damage through both reloads. Same-value external maximum heals, special native modifiers/modes and whole-resource load clamp remain open.",
-    "newNativePatchScope": "No new native patch for Whirlwind. Optional version0 flight profile146 added; old saves default empty. Existing63/36 native patches replay100/41 paths.",
+    "newNativePatchScope": "No new native patch or persistence format for shared do8 fan; prior63/36 byte-equal replay hashes remain current.",
     "meteorResult": "passed in initial world and both reloads; fixture deadline extended solely for persistence inspection, ordinary 60-frame delay independently verified",
     "blizzardResult": "passed in initial world and both reloads; held test-only deadlines isolate persistence, ordinary source storm/shard lifetimes independently verified",
     "boneBarrierReloadRetained": 1,
@@ -231,7 +231,7 @@
     "damageRoundingResult": "Focused and full native suites each passed three boots/two reloads. Native Vengeance/general209/256 channels at50 resistance yield312FP; ordinary/native half-point damage, aggregate absorb healing with eligible Raven Frost/Steelshade, native cold absorb154FP net loss, exact life boundaries/corpses/remainder clearing/protected actors and saved17FP remainder with resumed packets pass.",
     "damageRoundingAssertionCorrection": "Enchant ranged-mastery, Dwarf Star native absorb and Thorns incoming sub-integer tests now compare exact FP before/after balances; reflected Thorns amounts unchanged. Intermediate disposable rerun cancelled to remove a prior-remainder assumption. Failure logs retained.",
     "runtimeAuditCurrentInputs": {
-      "named": 449,
+      "named": 450,
       "firstLoop": 15,
       "contentAssembly": "matching current staged and installed DLLs"
     },
@@ -276,14 +276,14 @@
     "sourceCache": "554 C++/header/inl files verified against immutable Git blobs at0c0bbd1e6bef9181a3da1c046523af622a925416; no downloaded code executed except explicitly compiled bounded probes",
     "conversionResult": "Enabled attack/allegiance passed combined native3 boots/2 reloads.4mana once at start; prepared hit/success,hit/failure,miss/failure,miss/success; no weapon damage on success; L/R/quick/cancel/insufficient mana; species/AI/allegiance/native protection/acquisition/damage responsibility/XP/natural expiry/persistence. Specific target gates and complete snapshot/gear/owner/client acceptance remain open.",
     "conversionSourceProbe": "64 AI eligibility and16 expiry cases compiled from pinned unchanged legacy source with explicit world/stat/AI stubs; does not certify modern full attack or disputed life units.",
-    "installedSmoke": "Focused and final combined native3boots/2reloads pass;1784 bounded compiled source cases,70 Python tests,449 named/15 first-loop current fingerprints, reference/generator/catalogue checks and63/36 native patch replay pass. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+    "installedSmoke": "Matching112-handler shared-fan build loads existing world, listens2593/12000 and shuts down0; checked/staged/installed content DLLs match. Native/client binaries unchanged.",
     "auraUserCorroboration": "Pinned playable version: Sanctuary no tooltip cost/idle drain and undead knockback works at zero mana; Prayer costs mana while healing an injured recipient. Firsthand observations, not an instrumented fractional/timing capture.",
-    "namedEvidenceInputHashes": 449,
+    "namedEvidenceInputHashes": 450,
     "firstLoopEvidenceInputHashes": 15,
     "holyFreezeResult": "Focused and combined3boots/2reloads pass: pinned rank1/20 fixed-point goldens, delayed free pulse, cold-immune separate slowing, difficulty caps, source-mapped filters, native movement/attack and class/typed weapon delivery, soft-hit exclusion, exclusive20percent marker, natural51frame slow expiry independent of marker, retained-loot unusable corpse metadata, exact saved fields and resumed pulses.",
     "holyFreezeSourceProbe": "256 compiled unchanged callback eligibility/order cases and4 special-removal cases, verified immutable Git blobs. Caster-only special expiry versus target generic removal routing is source-inspected; modern marker/death/chill lifetime remains unverified.",
     "holyFreezeLimits": "Unmapped native targets excluded. Other-animation stats stored but native UO mode adapters unsupported. Separate elite aura adapter, modern lethal-pulse/death/cold-state interactions, geometry/rounding and full gear/owner/client acceptance remain open. No class/item gates cleared.",
-    "currentSourceAndAssemblies": "Focused and final combined native3boots/2reloads pass;1784 bounded compiled source cases,70 Python tests,449 named/15 first-loop current fingerprints, reference/generator/catalogue checks and63/36 native patch replay pass. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+    "currentSourceAndAssemblies": "Shared do8 source3540 cases, native3468-case/27166-aim differential and actual Teeth near/far-cursor damage pass. Final combined native3boots/2reloads and70 Python tests pass;450 named/15 first-loop fingerprints are current. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
     "sanctuaryResult": "Focused and combined3boots/2reloads pass: rank1/20 numerics, right-slot delayed free undead magic pulse, real magic immunity, cooperative/range/unknown-control gates, zero-mana pulse/knockback, supplier ED/flat AR, class/native positive physical-resistance clamp preserving negative values, native accepted motion/ordinary movement lock/impassable blocker/GH release, exact saved/resumed control and supplier state.",
     "sanctuarySourceProbe": "324 compiled unchanged path cases and32 monster-mode cases with verified immutable Git blobs; world/terrain/table stubs explicit. Source distance5 gives normalized half-distance3-subtile endpoint; GH/KB eligibility and standard velocity inspected.",
     "chargeSharedKnockback": "Actual mapped-monster Charge impact requests the same native source-mode controller. Unknown/special sand-leaper branches stay gated; complete modern geometry/modes not certified.",
@@ -315,12 +315,13 @@
       "scope": "Actual Vengeance elemental-only casts; direct shared physical packet with scoped no-proc RNG; full modern events/items/client remain open."
     },
     "nextClassImplementation": {
-      "class": "Barbarian",
-      "scope": "Barbarian25 handlers;5 individually deferred; then unaffected Amazon pass",
-      "nextBatch": "Review remaining five individual Barbarian gaps (Find Potion context, Double Swing start68, Frenzy start67, Leap Attack nova emission, Grim Ward modern owner/targets), then continue unaffected Amazon work by verifying/extracting shared Teeth/Multiple Shot do8 fan. No class is certified complete.",
-      "preflight": "tools/reference/whirlwind-engine-evidence.json",
-      "firsthandGameplayUnavailable": true,
-      "status": "User-requested reboot pause after verified Whirlwind"
+      "class": "Amazon",
+      "scope": "Continue30-talent pass;0 handlers present; shared projectile fan verified through Teeth",
+      "status": "Goal resumed; five Barbarian source/context gaps individually deferred",
+      "nextBatch": "Continue Amazon: establish source start4/ammunition and travelling weapon projectile snapshots/damage/central proc flags before enabling Multiple Shot. Reuse existing Q12 velocity, scoped weapon impact and typed collision consumers; retain five individual Barbarian gaps.",
+      "preflight": "tools/reference/fan-engine-evidence.json",
+      "barbarianFirsthandGameplayUnavailable": true,
+      "amazonFirsthandGameplayAvailable": true
     },
     "barbarianPassivesResult": {
       "evidence": "tools/reference/barbarian-passive-native-evidence.json",
@@ -498,7 +499,8 @@
       "dualEquip": "Native EquipItem/packet/gear/stats/timing consumers reused with optional transaction/conflict hooks and saved primary identity. No separate damage/resource pipeline. Existing Teeth/Multiple Shot shared fan review remains required.",
       "leap": "Shared integer distance/free search, existing fractional mana/native collision and network movement reset, input/recovery/health hooks and SourceKnockbacks are reused. Charge walking collision and War Cry damage/shield block remain separate.",
       "doubleThrow": "Existing native pair/primary identity and selected-hand consumers, ClassCombat/attack-rate clocks, fractional mana, per-hand release critical/conservation/pierce/quantity and NamedProjectiles/typed impact reused. True missile timing/snapshots remain required rather than certified by cosmetic flight.",
-      "whirlwind": "Shared ChargeMotion walking/network reconciliation, LandingReservations, death hook, WeaponHands/GearEffects/basic attack timing and serial-cycle target selection; Leap flying kept separate and verified against the same obstacle."
+      "whirlwind": "Shared ChargeMotion walking/network reconciliation, LandingReservations, death hook, WeaponHands/GearEffects/basic attack timing and serial-cycle target selection; Leap flying kept separate and verified against the same obstacle.",
+      "fan": "Teeth/Multiple Shot/Shock Wave do8 shared integer fan is extracted and checked; Teeth reuses it and existing Q12 MissileVectors. Weapon damage/ammo/procs/travel remain distinct pending Multiple Shot consumers."
     },
     "howlSourcePreparation": {
       "evidence": "tools/reference/howl-engine-evidence.json",
@@ -794,6 +796,16 @@
     "frenzyPreparation": {
       "preflight": "tools/reference/barbarian-frenzy-preflight.json",
       "status": "Current start67 absent from the older dispatcher; first-hit/charge/payment contract individually deferred."
+    },
+    "fanResult": {
+      "source": "tools/reference/fan-engine-evidence.json",
+      "native": "tools/reference/fan-native-evidence.json",
+      "status": "Shared do8 source3540 cases, native3468-case/27166-aim differential and actual Teeth near/far-cursor damage pass. Final combined native3boots/2reloads and70 Python tests pass;450 named/15 first-loop fingerprints are current. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+      "limits": [
+        "Exact modern do8/missile factory/path/initial-step/activation/Size1/terrain and two-subtile native mapping remain acceptance work.",
+        "Existing Teeth four-frame cast-local next-hit bookkeeping, native radius/continuous collision and range/SightRange cutoff are not certified by this fan correction. Moving targets, zero-coordinate target lookup, owner transitions, active-missile persistence and live graphical client need separate acceptance.",
+        "Multiple Shot/ Shock Wave retain separate skill gates. Start/ammunition, weapon/stat snapshots, current Guided Arrow hard synergy, SrcDam96, proc filtering, Pierce and delayed moving weapon projectiles are separate consumers, not provided by this shared fan."
+      ]
     }
   },
   "logs": {
@@ -1358,11 +1370,11 @@
     "Existing GearEffects consumers cover current supported native gear; full Whirlwind-specific spell-trigger exclusions, all event/proc/dodge/PvP/target-kind paths and gear/owner transitions need acceptance. Item skill-acquisition gates remain unchanged.",
     "Active early disconnect, death during a synchronous location/region callback, dynamic blocked terrain/marker timing, broad diagonal/elevation/door/private-house and actual-client comparisons still need dedicated acceptance beyond the checked ordinary paths. Offline/emergency settlement is a port lifecycle adapter, not an approved mechanical deviation."
   ],
-  "verifiedAtUtc": "2026-10-23T06:02:31.234460+00:00",
+  "verifiedAtUtc": "2026-10-23T07:28:59.526332+00:00",
   "evidenceArtifacts": {
-    "tools/reference/named-item-runtime-audit.json": "27ed8ec38e43b73967e883c997a2c4076baf225a683cdb6a5e645ade16b2d813",
-    "tools/reference/first-loop-affix-audit.json": "de2e08258f581df272a122d4dccca88b1e60f8b9b4de2375240adb6c0aa6d20d",
-    "data/Sanctuary/Balance/class-skill-status.json": "a9bfc2a1e655a827a58f0fdc02a592646e421631ca29e6582b1d6c2447414aad",
+    "tools/reference/named-item-runtime-audit.json": "5c5bfd4333e0cac03509ef822284925d2d8f6a9d9d926331e88545801d3c51d3",
+    "tools/reference/first-loop-affix-audit.json": "f4c659172426b77484e44db072849bcbeb381f44a2199aae4c6ebfe954290ae0",
+    "data/Sanctuary/Balance/class-skill-status.json": "7ec19e50adcfdcd634f799d94bff69d8f3644bfe7d48ff9ef98593407d4dfe5c",
     ".local/class-skills/protection-check.json": "2fd7e0fe66142c799c223efd568ac102f2e1bfb136016bfba486a65c3e819984",
     ".local/class-skills/protected-item-records.json": "5a72143a9dd44a6fe87bda833f3a2e4080b9a132a0e14bc02697f22a62628915",
     ".local/class-skills/check-preservation.py": "82af30fd6dbe4c26289c1afbedfb673e589ea5b5188a621808e8285b312ace0c",
@@ -1396,7 +1408,7 @@
     "src/Sanctuary.Content/SorceressEffects.cs": "58dcddad78318e72c42ca2baa04be85974193ecba1de66115a3906788cae3562",
     "tests/Sanctuary.Integration/InfernoPrimitiveChecks.cs": "332c60f04f998237e3af2d76ee453945866735cd52b95bcf7ea7ecc611104aac",
     "tests/Sanctuary.Integration/SorceressSkillChecks.cs": "6be4114c3728903f6a3fe60ec670929db2a31383543f4383df07713dc35ab8e2",
-    "tests/check_class_skills.py": "b2fe60fa3fc885c36865ddaa7b9faf8fea6883a59a14c96b054bef0e2a606268",
+    "tests/check_class_skills.py": "35a92739de1cc5e19dfcb6672cd6191efa4419b7071cfb55771e0e2b9df500bd",
     "tools/reference/inferno-source-evidence.json": "3974cee3e86a1039f463a0a9e17e8154246478db215980efe411892c7b0cb07b",
     ".local/class-skills/inferno-source-probe.log": "a74430ea8ff0fbdbd09c6784f4390a63af4a500623c2311aa2d40a2bf537546e",
     "src/Sanctuary.Content/ChainLightning.cs": "9f00a6de30c4eeaa6344b9b3df97f85bf07a49762ea6a9a0b8ecf071b1922070",
@@ -1435,9 +1447,9 @@
     "upstream/ModernUO/Projects/UOContent/Items/ClassGearHooks.cs": "4e859c37d507bb6ce0d8b31d58af4311002992c2ea406d3f191581932661616e",
     "upstream/ModernUO/Projects/UOContent/Mobiles/PlayerMobile.cs": "43a62cd42ce161e348bbe3b93633c3033686da0be4bd47a07be5ae3bb205fdb8",
     "tools/build_class_skills.py": "1bd90eaaea865dc7cd440bc806564dd9dc825f4fac7c25bda5d676949b5dd416",
-    "tools/build_skill_roadmap.py": "2e864aaa43c08f5f0dca144171204f7a0a30378b8630a23c62ef62ae2ab986ef",
-    "docs/class-skill-roadmap.md": "3f4911d38143619819054d8fe00386dbeaefb4534ee3e89cbd9b6a4d87c1a797",
-    "docs/skill-mechanical-reference.md": "867cbf98b39a39b79037bab2d385c1f24e1493c395902087240ae8737d0f5f2e",
+    "tools/build_skill_roadmap.py": "3e09f3ba5fe92886e15c0c0225b4d6794afe24d0a19f8ed3efcdfdbcccecfa35",
+    "docs/class-skill-roadmap.md": "140984eeda21dbee5a4676cdd67ec6a08888a3aacdf776acf341646b391396e4",
+    "docs/skill-mechanical-reference.md": "9ccf625b753dc4350034ebbd059519a275c478f8a3d3e9021a9f5343b3fd170b",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "0c73321fa765c4f9ec5e1c6949be0d821d58526322defa17e5eae40efbfca294",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1617,7 +1629,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "6b05ddaf6e2f37badfc027fe940e55d57967773ad0cdfbc2ff0e7377e1142886",
+    "docs/class-skills-resume-checkpoint.md": "039ea46510a3a54cd406e922d0f504457941336647e8a2710988ae022483c3ed",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -1630,7 +1642,7 @@
     ".local/class-skills/content-build.log": "fea248bf544e1c3f1412cd5bfb369c761cd880f88725cb4aab49bf9bd6a22db7",
     ".local/class-skills/integration-build.log": "8690ddf6451547884c5bb36d9fe903d32f2818a66b04aed641d90fa83d53e4d3",
     ".local/class-skills/client-build.log": "82c43ea559400e701cd231a913f2ff4f515b2710789427a4fc915e732a1c23b7",
-    ".local/class-skills/native-checks.log": "92ab48c84e6f40a21d9e8380fa9e5b1831d0f5b77615eb4912533f3aa170b61b",
+    ".local/class-skills/native-checks.log": "ac5abbdd80b5ac45063695e4e295df200e429e81e4a94e0bfe69b6b002362ced",
     ".local/class-skills/python-tests.log": "4befc71c94799781d697538bc8af639ec2d8d482e086c73c19a98ae1a6a178a3",
     ".local/class-skills/named-catalogue-checks.log": "fb1cf2595ffc1cbdfcaaee0b6eea5c368239f9f3c53a16dc60d40cc9d432df2a",
     ".local/class-skills/zeal-focused-run.log": "20cc85e6d1e96aab2b0a3a38387284b71679e80df7d532c340d5a5d55d9234c1",
@@ -1678,7 +1690,7 @@
     "tools/probe_conversion_reference.py": "252b208c1e19410c897fc162dfe762636aa4c3a86e5c28b3b261a11af8cb7274",
     "tools/reference/conversion-engine-evidence.json": "b57d54ded5e25868765eaebd79d74b5d5b9026f3fb1c9c6f255d7d591b2e518c",
     "tools/reference/paladin-conversion-preflight.json": "920f108df2360834a4ebbbac1af6770fd9941733f7054346c9351c218ff89cee",
-    "docs/class-skills-checkpoint-2026-10-23.md": "2a6125674f873635007f912fa7a6ff319a3c2729aed9ae1d57482c66a104aff2",
+    "docs/class-skills-checkpoint-2026-10-23.md": "641a284c502d80eb08ad36351e99b1034e6f56e04c9c79e4688869acf97d383d",
     ".local/class-skills/charge-focused.log": "5c024c2a3916bb864adc01c11acba3ca401435c47c722b02e4f304944389586b",
     ".local/class-skills/charge-focused-run.log": "efd006478f58026ee01c357ef74514a109eb1c03e604f4d13cd7c633495adaf2",
     ".local/class-skills/charge-focused-corridor-failure.log": "3776ce1b8f35016fe7ae570db3fdb082355da47e5da217407bfe0150017d2d9b",
@@ -1933,7 +1945,7 @@
     ".local/class-skills/taunt-storm-fixture-expiry-failure.log": "4827ab1c75bce041998e1ca923be025f2a19da3a3c774944ca91e1425f760e7d",
     ".local/class-skills/taunt-probe-constructor-fixture-failure.log": "c30191aeb1088ad210a35553f523a670a795ec60f45027360ef122aeb527f63a",
     "src/Sanctuary.Content/NamedControl.cs": "7f84a3bc77539b449767274b40e469275f73f3a86f718474d5fd1d2c88c1d9fd",
-    "tools/reference/first-loop-evidence.json": "6004bfb7d3eba853ce08b7be97769784ad8af21c874450039a1eea648d8d6198",
+    "tools/reference/first-loop-evidence.json": "79714a6fa57bd18f0d3dd8d503525ec6bce17c266d4c573d5b6ed65137f58f90",
     "tools/probe_find_potion_reference.py": "289020efc3278b4c9ac3b84cd72ff90135fe40066cb581f4c0604aaa326f85f8",
     "tools/reference/find-potion-engine-evidence.json": "9ccbaf0b86e1a04636d83dddbed7b52bef3b22c8f41f7bff0558652a2fe2b674",
     "tools/reference/barbarian-war-cry-preflight.json": "81c096526cf9835b45ab8ff3fbe2623c3f9a2acf7ed2899c18372939e637d116",
@@ -1958,7 +1970,7 @@
     ".local/class-skills/warcry-backlog-check.log": "c645a5c5ca239eff76aabc33fc0fb77c69445f41214c16783c2655571a5097b8",
     ".local/class-skills/warcry-readiness-check.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
     ".local/class-skills/warcry-first-loop-check.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
-    ".local/class-skills/python-checks.log": "8ffbb366261f411d87d5164bb63cc20b79ec3ac2a9608d316ad6fd7e382c0416",
+    ".local/class-skills/python-checks.log": "465d9123f8cdbe08d07ed060ed3e9450577e385ade4c7ee7a495134c7bce7338",
     ".local/class-skills/find-item-source-probe.cpp": "2b0ec59f53beacf3afb84cac362e7998406f8047d160536d2ba30f43f39a08db",
     ".local/class-skills/find-item-source-probe.json": "b4574a89098bfca049e394a58c9e203e6b4616baefcd52813bed06f316310ab4",
     ".local/class-skills/find-item-source-probe-run.log": "01a9bfdb5f67bd403685e23b41ee84b556dc8f408c5937c5257304a0fe32c228",
@@ -2205,12 +2217,27 @@
     "tools/probe_whirlwind_reference.py": "81083a8a41af74634fad5860d1c27668387872642c99b49485058e452de00289",
     "tools/reference/barbarian-frenzy-preflight.json": "e18eec111889e6305336e0f678aa8872331f568cd7500925705a5919f5422976",
     "tools/reference/whirlwind-engine-evidence.json": "db0f732ca4caa4fc70e78f2a9cc25776e41313830c80312f88239249621ceef8",
-    "tools/reference/whirlwind-native-evidence.json": "2baaa50163d7bd535157578f0c92d61b949889634d5b9e7ff33522cb6f72c137"
+    "tools/reference/whirlwind-native-evidence.json": "2baaa50163d7bd535157578f0c92d61b949889634d5b9e7ff33522cb6f72c137",
+    "tools/probe_fan_reference.py": "4b12a128da1463fd21f53e544efc8db4868ecaeaa2861d157764f81d9b1dd7e3",
+    "tools/reference/fan-engine-evidence.json": "d225a34085063eef5434d14347d1fc6b1201d0e3e22cf9d17f812c29bd11edf8",
+    "tools/reference/fan-native-evidence.json": "7a01f26e257a2ba8c6df73b41e7aa7ee743b04eed3657ca7b8bf50ebf28f4050",
+    "src/Sanctuary.Content/FanGeometry.cs": "c36dde2882906e8cff3ce1168558bf38f76ebf60007bdf55a400585b9668fde4",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "6b86eac829cebc064f019ca3dd92382df0de6fbf8aadbe556f4ad515b62e7290",
+    "tests/Sanctuary.Integration/FanChecks.cs": "c2ee071c89163848e18af5a91af7fce461d7a6d900023a3a3bf9ab224bcdb221",
+    ".local/class-skills/fan-source-probe.cpp": "d9901cc1ff17303befd6397b9d5147b499977316e2fd649303f78cde2c422166",
+    ".local/class-skills/fan-source-probe.json": "79d6801ad32803b7d3084e3d6325e42a11134365a223d588dc49c52e6f1cd28b",
+    ".local/class-skills/fan-source-probe.log": "b36fd79dbc6d13dde523b53e512ccc210f88dacec780e05bb580466677b045fd",
+    ".local/class-skills/fan-focused.log": "3dc4e620b8134e5b9f0ce78b918894e7896e925f50d7db147e62066d63e5951f",
+    ".local/class-skills/fan-focused-run.log": "5b00b6d8a9b740e42eee76b0fed44c4a77f9d4e301e4af24f69cc66b07ae9a47",
+    ".local/class-skills/fan-content-build.log": "5cb081a51e0b45a7fdeefaf1d006053044297dca26f562b157f4614e23b5d4f9",
+    ".local/class-skills/fan-integration-build.log": "2c1a777bcba199767cce68f79f3d37742376f01d9f14faf1ce6c5a95a6f4ad78",
+    ".local/class-skills/fan-installed-server.log": "a03a194f363f79b84bd00b8f71972a1d95248b76009e2c019bbd6db6af0e6430",
+    ".local/class-skills/fan-installed-smoke.log": "bf890281b2356371d2ce3671084c805c33203f6498aa3da42b5d52af58d9b48c"
   },
   "totalHandlersPresent": 112,
-  "goalStateAtCheckpoint": "paused at user request for reboot",
+  "goalStateAtCheckpoint": "active; user returned after reboot and resumed",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 854,
+  "verifiedArtifactCount": 869,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-22.json",
   "deploymentScope": "Local disposable test installation only; matching server/content/client/data installed via ./dev build all; actual installed boot/listen/clean shutdown passed.",
   "installedTestBuild": true,
@@ -2222,5 +2249,5 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-23T01:46:43.694022+00:00"
+  "referencePreparationUpdatedAtUtc": "2026-10-23T07:28:59.526332+00:00"
 }

@@ -276,7 +276,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared source do8 fan foundation is implemented and verified through Teeth:3540 compiled cases,3468 native geometry cases/27166 aims and current rank1..40 count/cap/activation/central-flag fields. Two central missile flags remain distinct from outer missiles. Multiple Shot itself awaits start4/ammunition/payment, current hard Guided Arrow synergy, SrcDam96/128 damage scaling, proc filtering, source-timed travelling weapon missiles, Pierce/next-hit delay and dedicated lifecycle/client checks. Do not substitute existing immediate weapon rays."
     },
     {
       "talentId": "amazon.explodingarrow",
@@ -793,7 +793,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Existing fan/missiles function, but fixed60-degree spread remains provisional. Pinned Teeth and Amazon Multiple Shot both use server do8; extract/verify the shared source fan before reusing it for Multiple Shot. Keep skill-specific missile, damage, hit-delay, piercing and proc rules separate. Native/client/modern fan equivalence remains open."
+      "remaining": "Shared source do8 integer fan replaces the provisional fixed60-degree spread. Signed perpendicular reduction, cursor-distance spread, odd-count bias and self-target factory fallback use existing Q12 missile vectors. Compiled3540 source cases and native3468-case/27166-aim differential plus actual near/far-cursor collision checks pass. Exact modern range/activation/initial-step/footprint, next-hit delay, moving-target/owner/save/client behavior remain open. Final effects/icons remain identified placeholders."
     },
     {
       "talentId": "necromancer.bonearmor",
@@ -1618,7 +1618,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Individually deferred: modern do78 landing-nova count/directions/creation/weapon-versus-area order is absent from the older source. Pinned current tables and released2.4 confirm separate weapon-independent physical area,10mana,minimum12 airborne frames,175-percent speed and adjacent-target leaps. Legacy target geometry differs from Leap; a64-ray Shout ring is only a candidate reuse point, not established emission. See barbarian-leap-attack-preflight.json; no substitute knockback or invented area enabled. Continue Double Throw."
+      "remaining": "Individually deferred: modern do78 landing-nova count/directions/creation/weapon-versus-area order is absent from the older source. Pinned current tables and released2.4 confirm separate weapon-independent physical area,10mana,minimum12 airborne frames,175-percent speed and adjacent-target leaps. Legacy target geometry differs from Leap; a64-ray Shout ring is only a candidate reuse point, not established emission. See barbarian-leap-attack-preflight.json; no substitute knockback or invented area enabled. Continue unaffected Amazon work."
     },
     {
       "talentId": "barbarian.concentrate",

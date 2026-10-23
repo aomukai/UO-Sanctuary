@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Shared do8 source3540 cases, native3468-case/27166-aim differential and actual Teeth near/far-cursor damage pass. Final combined native3boots/2reloads and70 Python tests pass;450 named/15 first-loop fingerprints are current. Matching installed112-handler build loads existing saves, listens2593/12000 and shuts down0; server stopped.",
+  "sourceEvidence": "tools/reference/fan-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/FanGeometry.cs",
+    "src/Sanctuary.Content/NecromancerCombat.cs"
+  ],
+  "verified": [
+    "C# exactly matches3468 compiled do8 cases and27166 emitted relative aims, raw central/outer flags and activation values. Signed axes/diagonals, near-target expansion, odd/even counts and self aim are covered.",
+    "Current Teeth/Multiple Shot effective ranks1..40 retain count=min(rank+1,24), all-central Teeth/calc3=0, two-central Multiple Shot/calc3=2, activation0/1. Multiple Shot itself is not enabled.",
+    "Actual rank20 Teeth fields use shared geometry and Q12 velocities. A far empty-ground cursor10tiles east does not damage an enemy1east/4south; a close cursor1tile east damages that same enemy. Each cast pays its pinned mana exactly once.",
+    "Three focused native boots through two real world saves/reloads repeat fresh casts. These are fresh post-load casts; they do not prove saved active missiles."
+  ],
+  "controls": [
+    "Only disposable integration actors are trained/frozen; the source monster AI timer is stopped. Mana is refilled before each fixture cast, then measured synchronously. No production terrain, resource, damage or timing rule is changed by these controls.",
+    "The fixture searches actual native spawnable/visible empty terrain rather than bypassing LOS. Far fan finishes naturally before the close fan is tested. No test-only missile callback or damage bypass is used."
+  ],
+  "placeholders": {
+    "effect": "Existing native0x36E4 trail and0x1E5 cast sound remain identified Teeth placeholders; see separate skill-effects register.",
+    "icons": "Separate pending talent/hotkey icons; no generated asset or client mapping claimed."
+  },
+  "limits": [
+    "Exact modern do8/missile factory/path/initial-step/activation/Size1/terrain and two-subtile native mapping remain acceptance work.",
+    "Existing Teeth four-frame cast-local next-hit bookkeeping, native radius/continuous collision and range/SightRange cutoff are not certified by this fan correction. Moving targets, zero-coordinate target lookup, owner transitions, active-missile persistence and live graphical client need separate acceptance.",
+    "Multiple Shot/ Shock Wave retain separate skill gates. Start/ammunition, weapon/stat snapshots, current Guided Arrow hard synergy, SrcDam96, proc filtering, Pierce and delayed moving weapon projectiles are separate consumers, not provided by this shared fan."
+  ],
+  "buildLogs": [
+    ".local/class-skills/fan-content-build.log",
+    ".local/class-skills/fan-integration-build.log"
+  ],
+  "focusedLog": ".local/class-skills/fan-focused.log",
+  "sourceLog": ".local/class-skills/fan-source-probe.log",
+  "sourceCases": 3540,
+  "nativeDifferentialCases": 3468,
+  "nativeEmittedAims": 27166,
+  "next": "Continue Amazon: establish source start4/ammunition and travelling weapon projectile snapshots/damage/central proc flags before enabling Multiple Shot. Reuse existing Q12 velocity, scoped weapon impact and typed collision consumers; retain five individual Barbarian gaps.",
+  "fullSuiteLog": ".local/class-skills/native-checks.log",
+  "installedSmokeLog": ".local/class-skills/fan-installed-smoke.log",
+  "contentHash": "67432bed17bd0383112d135ea4ac95f2ee982523e45260a950217f73f2900358",
+  "integrationHash": "e19b373d37da44480967ed1738007852da2ddd6a13d2aafdcf50cac279f626df"
+}

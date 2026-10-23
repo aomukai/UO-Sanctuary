@@ -123,15 +123,18 @@ public static class NecromancerCombat
         if (ability == CombatAbility.PoisonNova) { new Nova(owner, values).Start(); return true; }
         if (ability is CombatAbility.Teeth or CombatAbility.BoneSpear or CombatAbility.BoneSpirit)
         {
-            int count = ability == CombatAbility.Teeth ? (int)values.Eval("calc1") : 1;
+            var lastHits = new Dictionary<Serial, long>();
+            if(ability==CombatAbility.Teeth)
+            {
+                // The same do8 lattice feeds Multiple Shot; damage/collision stay skill-specific.
+                int sourceDx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),sourceDy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
+                foreach(var ray in FanGeometry.Create(sourceDx,sourceDy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2")))
+                {new BoneMissile(owner,ability,values,0,null,lastHits,ray).Start();}
+                return true;
+            }
             double dx = point.X - owner.X, dy = point.Y - owner.Y;
             double angle = Math.Atan2(dy, dx);
-            var lastHits = new Dictionary<Serial, long>();
-            for (int i = 0; i < count; i++)
-            {
-                double offset = count == 1 ? 0 : (i / (double)(count - 1) - 0.5) * Math.PI / 3;
-                new BoneMissile(owner, ability, values, angle + offset, World.FindMobile(selected), lastHits).Start();
-            }
+            new BoneMissile(owner, ability, values, angle, World.FindMobile(selected), lastHits).Start();
             return true;
         }
         throw new InvalidOperationException("Necromancer skill advertised without a release handler.");
@@ -165,7 +168,7 @@ public static class NecromancerCombat
             { if (_hit.Add(target.Serial)) { Poison(Owner, target, values); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
         }
     }
-    private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits)
+    private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits,FanRay? fan=null)
         : SkillField(owner, ability == CombatAbility.BoneSpirit ? 128 : ability == CombatAbility.BoneSpear ? 40 : 50, DiabloClass.Necromancer)
     {
         private double _x = owner.X, _y = owner.Y, _angle = angle, _travel;
@@ -187,8 +190,10 @@ public static class NecromancerCombat
             }
             _frame++;
             double speed = SkillGeometry.Velocity(ability == CombatAbility.BoneSpear ? 24 : ability == CombatAbility.Teeth ? 16 : 12);
+            var velocity=fan is{} ray?FanGeometry.Velocity(ray,16):(Math.Cos(_angle)*speed,Math.Sin(_angle)*speed);
             var start = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            _x += Math.Cos(_angle) * speed; _y += Math.Sin(_angle) * speed; _travel += speed;
+            _x += velocity.Item1; _y += velocity.Item2;
+            _travel += fan.HasValue?Math.Sqrt(velocity.Item1*velocity.Item1+velocity.Item2*velocity.Item2):speed;
             var end = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
             if (_travel > CombatProtocol.TeethRange || !Map.LineOfSight(new Point3D(start.X, start.Y, start.Z + 12), new Point3D(end.X, end.Y, end.Z + 12))) { Stop(); return; }
             var collisions = new List<(Mobile Target, double Entry)>();
