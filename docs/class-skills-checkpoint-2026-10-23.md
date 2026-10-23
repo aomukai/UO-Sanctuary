@@ -1,8 +1,14 @@
 # Class skill checkpoint — 23 October 2026
 
-The goal is active. **109 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian22. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
+The goal is active. **113 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian25, Amazon1. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
 
 This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-2026-10-22.md). The [roadmap](class-skill-roadmap.md) reflects the actual implementation expressions. The [verification record](class-skills-verification-2026-10-23.json) records current artifacts and bounded checks.
+
+## Latest verified batch
+
+Amazon Critical Strike:486 compiled source/native critical cases and20 official chance goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed113-handler build loads existing world and shuts down0; server stopped. Amazon1/30; no class certified complete.
+
+[Critical Strike native evidence](../tools/reference/amazon-critical-native-evidence.json) separates the verified learned passive, real equipment, physical/elemental damage and persistence from outstanding full projectile launch, special-mode, oskill/item and client equivalence. Final talent icon remains pending in the separate register; this passive needs no active effect or hotkey icon. No native patch or save reset was required.63 ModernUO/36 ClassicUO patch hashes retain their prior replay proof. Next: Penetrate using the existing AR pool and the official2.6 Blessed Aim fix, then complete Multiple Shot launch/event consumers. The remaining earlier sections are historical batches; current status is above and in the resume checkpoint.
 
 ## Implemented and verified in this pass
 

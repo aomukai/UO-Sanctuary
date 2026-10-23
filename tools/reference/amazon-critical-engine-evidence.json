@@ -1,0 +1,123 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Pinned current skill table and bounded older unchanged critical consumers; no modern executable certificate.",
+  "currentSkill": {
+    "talentId": "amazon.criticalstrike",
+    "name": "Critical Strike",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 9,
+    "sourceKey": "Critical Strike",
+    "ability": 16,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Critical Strike",
+      "charclass": "ama",
+      "skilldesc": "critical strike",
+      "passivestate": "criticalstrike",
+      "passivestat1": "passive_critical_strike",
+      "passivecalc1": "dm12",
+      "enhanceable": 1,
+      "attackrank": 4,
+      "range": "rng",
+      "itypea1": "spea",
+      "itypea2": "miss",
+      "monanim": "xx",
+      "UseAttackRate": 1,
+      "reqlevel": 1,
+      "maxlvl": 20,
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 5,
+      "Param2": 80,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 256,
+      "cost add": 1000
+    },
+    "sourceParameters": {
+      "1": 5,
+      "2": 80,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "officialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "scope": "Official legacy guide states any weapon, double physical only, and ranks1..20 chance table. This corroborates the pinned current table; it is not a current executable trace.",
+    "rank1To20": [
+      16,
+      25,
+      32,
+      38,
+      42,
+      46,
+      49,
+      51,
+      54,
+      56,
+      58,
+      59,
+      61,
+      62,
+      63,
+      65,
+      65,
+      66,
+      67,
+      68
+    ]
+  },
+  "reusedProbes": [
+    {
+      "script": "tools/probe_barbarian_mastery_reference.py",
+      "fixture": ".local/class-skills/barbarian-mastery-source-probe.json",
+      "selectedCases": 162,
+      "selection": "criticalCases where ranged==0 and skip==0; exact RNG call count and physical result",
+      "evidence": "tools/reference/barbarian-mastery-engine-evidence.json"
+    },
+    {
+      "script": "tools/probe_throwing_projectile_reference.py",
+      "fixture": ".local/class-skills/throwing-projectile-source-probe.json",
+      "selectedCases": 324,
+      "selection": "All criticalCases; exact success and RNG call count, optional eligible mastery",
+      "evidence": "tools/reference/throwing-projectile-engine-evidence.json"
+    }
+  ],
+  "established": [
+    "The pinned passive uses passive_critical_strike=dm12, Param1=5,Param2=80, no passiveitype restriction and no active slot or mana cost. Active itypea fields do not restrict its passive weapon type.",
+    "Ordinary melee tries nonzero mastery, nonzero generic critical, then nonzero Deadly Strike. Projectile creation always draws generic critical first, even zero chance, then nonzero Deadly Strike, then eligible mastery. First success short-circuits and physical doubles once.",
+    "Existing learned/effective rank and active gear/history/respec/save systems are reused. Amazon-only learned passive does not enable other-class oskills or item acquisition gates."
+  ],
+  "limits": [
+    "Older isolated consumers use declared stat/item/type/RNG services. Modern special attack modes, deterministic seed stream and all owner/item/client contexts are not certified.",
+    "The existing shared diminishing formula is retained; official chance goldens do not resolve every high-rank rounding conflict.",
+    "WeaponMissiles currently has no gameplay launch collector. A supplied per-missile critical flag is verified independently, without claiming Multiple Shot is available."
+  ],
+  "artifactHashes": {
+    "tools/probe_barbarian_mastery_reference.py": "dbc798746badc761286e5f9e979ac579190c55f26d86c9d477e9ff4a3682200e",
+    "tools/probe_throwing_projectile_reference.py": "d780c04b0b62eabed5a56539a3ffa8ab82b64feca338054df88fd8fe17e9f767",
+    "tools/reference/barbarian-mastery-engine-evidence.json": "c818eea73d50c66754871d8d91fed003e2e8a6c69b998935e0bf46438af750a2",
+    "tools/reference/throwing-projectile-engine-evidence.json": "321d1cf37bb8b0d59001558bc39035b65b3ca3321ab9219a721d0919560fb061",
+    ".local/class-skills/barbarian-mastery-source-probe.json": "da6839a377323b2d848d303dc967da82c342e68650bbe565bc5edd359998f88d",
+    ".local/class-skills/throwing-projectile-source-probe.json": "57b67aeaa96aadd256ddef2eb653ea85a9a32b816ad8fccbd78f8a54f572bae9"
+  }
+}

@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'amazon.criticalstrike':'Learned effective-rank passive now reaches the existing physical weapon and projectile launch critical consumers. Normal melee tries mastery/generic/Deadly Strike; projectile creation tries generic/Deadly/mastery and retains its unconditional zero-chance first draw. One physical doubling, no elemental doubling, no mana/hotkey/weapon restriction. Native source/golden/real-gear/history/reload acceptance recorded separately; full modern special-mode/oskill/launch/proc/client equivalence remains open. Other-class generic oskill grants are not enabled.',
     'amazon.multipleshot':'Shared do8 fan, native bow ammo and typed-source payload foundations are prepared. A saved travelling direct-damage weapon component now uses source impact rolls, current owner AR, current target resistance/block, live pierce eligibility and cast-local delay.5184 compiled impact cases and native movement/mitigation/owner-AR/reload checks are recorded separately. Multiple Shot remains gated: launch gear/material/Enchant/aura collection, physical SrcDam96, modern Guided Arrow synergy, item callbacks/drain and full skill payment/quantity/owner/client integration remain. Earlier blanket launch-time AR snapshot plans are withdrawn; source owner AR is read at impact. Do not substitute immediate weapon rays or aggregate poison scaling.',
     'barbarian.whirlwind':'Saved straight walking spin, fixed initial target point, once-only fractional mana, source hand-bit/serial target cycling, source walking base velocity and native collision/reservation/death lifecycle are implemented. Released2.4/2.4.3 replace the older adjacent basic attack, weapon-only speed table and initial one-hand pulse: both hands strike from the first pulse, interval averages basic attack effect frames upward using all gear IAS, short paths get an attempt and finish permits immediate travel chaining. Source1784 cases and native focused/full checks are recorded separately. Existing basic timing/native walking projection remain provisional; exact modern first frame/IAS/WSM/FRW/slow/masks/procs/targets/owner/client and unarmed/throwing-melee behavior remain open. Broken/changed pairs safely end the spin; complete modern one-broken-hand continuation remains unsupported. Final spin/trail/impact and icons use identified placeholders.',
     'barbarian.frenzy':'Individually deferred current start67, which is null in the pinned older dispatcher. Old do9 applies speed stats based on the preceding Param1 hit flag before rolling the next strike; the modern start must establish first-hit/charge and prepared damage/payment timing. Pinned current fields, reviewed body hashes and reuse plan are in barbarian-frenzy-preflight.json. Do not infer a complete start from do9 alone or invent charge/payment cadence. Continue unaffected class roadmap work.',
@@ -111,6 +112,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'amazon.criticalstrike',
     'barbarian.whirlwind',
     'barbarian.doublethrow',
     'barbarian.leap',
@@ -161,7 +163,7 @@ def build():
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
     symbols=dict(re.findall(r'new\(CombatAbility\.(\w+), "([^"]+)"',protocol))
     implemented=set()
-    for character in ['Necromancer','Sorceress','Paladin','Barbarian']:
+    for character in ['Necromancer','Sorceress','Paladin','Barbarian','Amazon']:
         text=(ROOT/f'src/Sanctuary.Content/{character}Combat.cs').read_text()
         expression=re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);',text,re.S).group(1)
         if 'NecromancerEffects.IsCurse' in expression:

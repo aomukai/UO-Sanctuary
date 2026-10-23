@@ -26,22 +26,28 @@ public static class NamedCombat
         (CreatureProfiles.For(creature).Traits.Boss == true || creature is EncounterCreature { Grade: EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique });
     public static double Deadly(PlayerMobile player, Random random)
     {
-        // Source weapon mastery critical short-circuits ordinary deadly strike;
-        // a physical packet can double once, never stack the two into4x damage.
+        // Normal melee tries mastery, generic critical, then Deadly Strike; double once.
         int mastery=BarbarianMasteries.Bonus(player,CombatTiming.Equipped(player),3);
-        if(mastery>0 && random.Next(100)<mastery){return 2;}
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
-        return chance > 0 && random.Next(100) < chance ? 2 : 1;
+        return MeleeCritical(mastery,AmazonCombat.CriticalChance(player),chance,random)?2:1;
     }
-    // Missile creation uses a different critical order from ordinary melee.
-    // Generic Critical Strike is not yet a supported native passive; its zero
-    // chance still consumes the source's unconditional first draw.
+    internal static bool MeleeCritical(int mastery,int generic,int deadly,Random random)
+    {
+        if(mastery>0 && random.Next(100)<mastery){return true;}
+        if(generic>0 && random.Next(100)<generic){return true;}
+        return deadly>0 && random.Next(100)<deadly;
+    }
+    // Missile creation always draws generic critical first, even at zero chance.
     internal static bool ProjectileCritical(PlayerMobile player,Random random)
     {
-        _=random.Next(100);
         int deadly=Math.Clamp(ClassGear.Bonus(player,"deadly"),0,100);
-        if(deadly>0 && random.Next(100)<deadly){return true;}
         int mastery=BarbarianMasteries.Throwing(player,CombatTiming.Equipped(player),3);
+        return ProjectileCritical(AmazonCombat.CriticalChance(player),deadly,mastery,random);
+    }
+    internal static bool ProjectileCritical(int generic,int deadly,int mastery,Random random)
+    {
+        if(random.Next(100)<generic){return true;}
+        if(deadly>0 && random.Next(100)<deadly){return true;}
         return mastery>0 && random.Next(100)<mastery;
     }
     public static int CrushingLoss(Mobile target, bool ranged)

@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Critical Strike:486 compiled source/native critical cases and20 official chance goldens; focused/final combined native3boots/2reloads,70 Python tests and454 named/15 first-loop current fingerprints pass. Matching installed113-handler build loads existing world and shuts down0; server stopped. Amazon1/30; no class certified complete.",
+  "source": "tools/reference/amazon-critical-engine-evidence.json",
+  "sourceCases": {
+    "melee": 162,
+    "missile": 324
+  },
+  "officialChanceGoldens": 20,
+  "implementation": [
+    "src/Sanctuary.Content/AmazonCombat.cs",
+    "src/Sanctuary.Content/NamedCombat.cs",
+    "src/Sanctuary.Content/TalentGump.cs"
+  ],
+  "verified": [
+    "All486 selected compiled source critical cases match C# success/physical multiplier and exact RNG call count, including short-circuit and zero-chance projectile draw. All20 official rank1..20 chance values agree with the unchanged pinned formula.",
+    "Fresh untrained Amazon has0 chance; hard1 has16% unarmed, with an ordinary converted Bow and Dagger. Actual Tarnhelm adds rank2/25%; actual Highlord adds rank3/32% and nonzero Deadly Strike. Backpack gear stops supplying soft ranks. Hard cap20, soft21/68% and soft22/69% are checked.",
+    "Real Highlord lightning stays unchanged while a generic critical or failed-generic/successful-Deadly Strike doubles physical once. Two failures do not double. Prepared native damage reaches actual mapped skeleton life in FP256, and the independent saved missile payload preserves one physical double without altering lightning.",
+    "Passive has no mana payment and rejects left/right/quick bindings. Switching to Paladin removes its chance, restoring Amazon restores it, and respec removes it.",
+    "Two actual world reloads preserve learned20, real active gear/item ownership and chance69%; learned melee/projectile critical and typed native HP delivery repeat after each reload."
+  ],
+  "fixtureControls": [
+    "Disposable mapped skeletons have Frozen/CantWalk, stopped AI and zero native resistances. All checks are synchronous on the game loop, with scoped deterministic Random services; this is not source PRNG equivalence.",
+    "Independent source-mode isolation, normal skill formula goldens, real gear and native HP effects are compared separately. The travelling projectile payload test explicitly supplies raw endpoints; no Multiple Shot launch, ammunition or payment is faked."
+  ],
+  "limits": [
+    "No class completion certificate. Amazon has1/30 handlers at this checkpoint. Multiple Shot and the launch collector remain pending.",
+    "Older ordinary critical helpers do not certify every modern special mode, all source RNG/stat layers, non-Amazon oskills, proc/charged items, owner state or graphical client behavior. Item acquisition gates remain unchanged.",
+    "No source curve rounding change; high-rank conflict remains recorded separately.",
+    "Existing ordinary bow/basic-throw controllers still use their earlier immediate ray delivery. Full per-missile critical capture across continued victims belongs to the pending shared launch migration; this passive integration does not certify those old projectile paths. The already supported Barbarian throw capture remains distinct."
+  ],
+  "placeholders": {
+    "effect": "Passive requires no active cast/travel effect; effects register remains separate.",
+    "talentIcon": "Unique Critical Strike talent icon still needed; current text label is an identified placeholder.",
+    "hotkeyIcon": "Not applicable to this passive."
+  },
+  "focusedLog": ".local/class-skills/amazon-critical-focused.log",
+  "test": "tests/Sanctuary.Integration/AmazonCriticalChecks.cs",
+  "fullSuiteLog": ".local/class-skills/native-checks.log",
+  "installedSmokeLog": ".local/class-skills/amazon-critical-installed-smoke.log",
+  "contentHash": "7d412b8f742eb99e12001202f49b10b9d8386c902dcaad193594b7faee00b3e6",
+  "integrationHash": "db6c79c9c47c7048358cfc22d05dde96bac55409d1796dafdcddb8d205101eec"
+}

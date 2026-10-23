@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 0 / 30 | 0 | 30 | Open |
+| 5 | Amazon | 1 / 30 | 0 | 29 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -184,7 +184,7 @@ Howl source preparation now has1169 bounded compiled cases in [source evidence](
 | Lightning Strike | 34 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Fury | 35 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Inner Sight | 8 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Critical Strike | 9 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Critical Strike | 9 | handler-present | Learned effective-rank passive now reaches the existing physical weapon and projectile launch critical consumers. Normal melee tries mastery/generic/Deadly Strike; projectile creation tries generic/Deadly/mastery and retains its unconditional zero-chance first draw. One physical doubling, no elemental doubling, no mana/hotkey/weapon restriction. Native source/golden/real-gear/history/reload acceptance recorded separately; full modern special-mode/oskill/launch/proc/client equivalence remains open. Other-class generic oskill grants are not enabled. |
 | Dodge | 13 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Slow Missiles | 17 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Avoid | 18 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

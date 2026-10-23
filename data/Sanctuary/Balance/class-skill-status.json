@@ -141,10 +141,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 9,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned effective-rank passive now reaches the existing physical weapon and projectile launch critical consumers. Normal melee tries mastery/generic/Deadly Strike; projectile creation tries generic/Deadly/mastery and retains its unconditional zero-chance first draw. One physical doubling, no elemental doubling, no mana/hotkey/weapon restriction. Native source/golden/real-gear/history/reload acceptance recorded separately; full modern special-mode/oskill/launch/proc/client equivalence remains open. Other-class generic oskill grants are not enabled."
     },
     {
       "talentId": "amazon.dodge",

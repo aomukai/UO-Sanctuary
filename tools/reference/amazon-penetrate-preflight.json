@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Preparation only; no Penetrate handler enabled.",
+  "currentSkill": {
+    "talentId": "amazon.penetrate",
+    "name": "Penetrate",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 23,
+    "sourceKey": "Penetrate",
+    "ability": 20,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Penetrate",
+      "charclass": "ama",
+      "skilldesc": "penetrate",
+      "passivestate": "penetrate",
+      "passivestat1": "item_tohit_percent",
+      "passivecalc1": "ln12",
+      "enhanceable": 1,
+      "attackrank": 1,
+      "range": "rng",
+      "itypea1": "spea",
+      "itypea2": "miss",
+      "monanim": "xx",
+      "reqlevel": 18,
+      "maxlvl": 20,
+      "reqskill1": "Critical Strike",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 35,
+      "Param2": 10,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 640,
+      "cost add": 16000
+    },
+    "sourceParameters": {
+      "1": 35,
+      "2": 10,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "legacySource": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "function": "SUNITDMG_IsHitSuccessful",
+    "scope": "Player percent combines skill argument, item-or-skill STAT_ITEM_TOHIT_PERCENT and eligible mastery; adds percent of base AR before level/defense chance. Full source stat-list aggregation is a declared service boundary."
+  },
+  "officialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/amazon-passive.shtml",
+    "rank1To20": [
+      35,
+      45,
+      55,
+      65,
+      75,
+      85,
+      95,
+      105,
+      115,
+      125,
+      135,
+      145,
+      155,
+      165,
+      175,
+      185,
+      195,
+      205,
+      215,
+      225
+    ]
+  },
+  "modernFix": {
+    "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
+    "scope": "Released2.6 states external auras no longer remove passives and explicitly fixes Blessed Aim overwriting Amazon Penetrate. Do not reproduce the legacy stat-list replacement bug."
+  },
+  "reuse": [
+    "Add pinned effective-rank item_tohit_percent to the existing shared ClassStats player percentage pool; preserve item, Enchant, skill and Blessed Aim/Fanaticism percentages in the same additive pool.",
+    "ClassStats.AttackRatingAgainst is read at weapon missile impact; future Penetrate rank/gear changes in flight must use the same live consumer rather than saving AR at launch.",
+    "Use existing learned/soft rank, training, passive binding rejection, stat packet/UI and class history/respec/save systems. No new active action, mana, icon mapping or final effect is necessary."
+  ],
+  "remaining": [
+    "Compile bounded unchanged source AR calculation with explicit stat/RNG services and compare native AR/hit boundaries.",
+    "Verify learned/hard20/soft ranks with real Tarnhelm and Highlord, ordinary melee/ranged/unarmed, skill/item/Enchant/aura addition, zero mana, respec/history and two actual reloads.",
+    "Retain exact modern seed/stat-layer/special weapon/owner/client limitations. Talent icon is pending; no active hotkey/effect."
+  ]
+}
