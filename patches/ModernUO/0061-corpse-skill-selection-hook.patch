@@ -1,0 +1,31 @@
+diff --git a/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs b/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs
+--- a/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs
++++ b/Projects/UOContent/Items/Misc/Corpses/CorpseRecoveryHooks.cs
+@@ -10,5 +10,6 @@
+     public static Action<Corpse> Loaded;
+     public static Action<Corpse> Deleted;
+     public static Func<Corpse, bool> Available;
++    public static Func<Corpse, bool> CanAnimate;
+     public static Action<Mobile, Banker> Open;
+ }
+diff --git a/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs b/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs
+--- a/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs
++++ b/Projects/UOContent/Spells/Necromancy/AnimateDeadSpell.cs
+@@ -136,7 +136,7 @@
+         {
+             var type = c.Owner?.GetType();
+ 
+-            if (c.ItemID != 0x2006 || c.SanctuaryRestInPeace || c.Animated || type == typeof(PlayerMobile) || type == null ||
++            if (c.ItemID != 0x2006 || c.SanctuaryRestInPeace || c.Animated || CorpseRecoveryHooks.CanAnimate?.Invoke(c) == false || type == typeof(PlayerMobile) || type == null ||
+                 c.Owner?.Fame < 100 ||
+                 c.Owner is BaseCreature creature && (creature.Summoned || creature.IsBonded))
+             {
+@@ -298,7 +298,7 @@
+ 
+     private static void SummonDelay_Callback(Mobile caster, Corpse corpse, Point3D loc, Map map, CreatureGroup group)
+     {
+-        if (corpse.SanctuaryRestInPeace || corpse.Animated || corpse.Deleted || caster.Deleted)
++        if (corpse.SanctuaryRestInPeace || corpse.Animated || CorpseRecoveryHooks.CanAnimate?.Invoke(corpse) == false || corpse.Deleted || caster.Deleted)
+         {
+             return;
+         }

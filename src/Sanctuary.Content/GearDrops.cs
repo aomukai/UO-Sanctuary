@@ -180,6 +180,15 @@ public static class GearDrops
     {
         // Gold and gear share one terminal treasure outcome, not independent rolls.
         string leaf = CreatureGold.Select(source ?? life.Creature.GetType(), random, life.Difficulty);
+        AwardSelection(life,leaf,random);
+    }
+    internal static void FindItem(PlayerMobile owner,Corpse corpse,CorpseTreasure context,Random random)
+    {
+        var life=new RewardLife(null,corpse,owner,context.Level,CreatureGold.GoldFind(owner),MagicFind(owner),context.Difficulty);
+        AwardSelection(life,CreatureGold.SelectTreasureClass(context.TreasureClass,random,true),random);
+    }
+    private static void AwardSelection(RewardLife life,string leaf,Random random)
+    {
         if (leaf == "gld") { CreatureGold.Award(life, random); return; }
         var item = AlchemyRestoratives.Drop(leaf) ?? Generate(SelectBase(leaf, random), life.Level, life.MagicFind, random);
         if (item != null) { life.Corpse.DropItem(item); }

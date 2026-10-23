@@ -71,7 +71,7 @@ public static class SkillBindingNetwork
         // Quick cast targets the hovered corpse exactly; ordinary summon macros may still find the nearest one.
         if (ability == CombatAbility.RaiseSkeleton && (World.FindItem(target) is not Server.Items.Corpse corpse || !SkeletonPets.CanRaise(player, corpse))) { return false; }
         ClassCombat.Stop(player);
-        if (NecromancerCombat.CorpseTarget(ability)) { return NecromancerCombat.Begin(player, ability, target, point, Core.TickCount); }
+        if (ClassCombat.CorpseCast(ability)) { return ClassCombat.BeginCorpse(player, ability, target, point, Core.TickCount); }
         return ability switch
         {
             CombatAbility.RaiseSkeleton => ClassCombat.CastSummon(player, target, Core.TickCount),

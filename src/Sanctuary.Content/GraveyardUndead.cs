@@ -289,7 +289,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public virtual bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
         Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false, OwnerWasSummoned: false }
-        && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
+        && !CorpseSkillRules.NoSelect(corpse) && corpse.SanctuaryUndeadKind is 1 or 2 && corpse.Map == Map && InRange(corpse, 8)
         && Math.Abs(corpse.Z - Z) < 16 && InLOS(corpse) && CanSee(corpse);
     private Corpse FindRaiseTarget()
     {

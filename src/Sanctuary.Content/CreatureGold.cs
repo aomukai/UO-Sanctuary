@@ -114,6 +114,7 @@ public static class CreatureGold
         path.Remove(name);
     }
     public static GoldPolicy Policy(Type type, MonsterDifficulty difficulty = MonsterDifficulty.Normal) => _policies.GetValueOrDefault((type.FullName, difficulty));
+    internal static bool HasTreasureClass(string name)=>name!=null && _classes.ContainsKey(name);
     public static int GoldFind(PlayerMobile player) => Math.Max(0,
         checked(ClassGear.Bonus(player, "gold%") + ClassGear.Material(player, "gold-find")));
     public static int Roll(Type type, int level, int goldFind, Random random, MonsterDifficulty difficulty = MonsterDifficulty.Normal) =>

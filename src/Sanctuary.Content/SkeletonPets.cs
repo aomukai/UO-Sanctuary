@@ -45,7 +45,7 @@ public static class SkeletonPets
     public static bool Usable(PlayerMobile owner, Corpse corpse) => owner.Alive
         && corpse is { Deleted: false, Parent: null, OwnerWasBaseCreature: true, OwnerWasSummoned: false,
             Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false }
-        && !CorpseSkillRules.Shattered(corpse) && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
+        && !CorpseSkillRules.Shattered(corpse) && !CorpseSkillRules.NoSelect(corpse) && corpse.Owner is not BaseVendor && corpse.Owner is not BaseCreature { Controlled: true }
         && corpse.Map == owner.Map && owner.InRange(corpse, Range) && Math.Abs(owner.Z - corpse.Z) < 16
         && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner, null) && !corpse.IsCriminalAction(owner);
     public static Corpse FindCorpse(PlayerMobile owner, Serial preferred)

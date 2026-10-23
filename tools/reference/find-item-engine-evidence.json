@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Bounded start/do/curve proof; native Find Item payment and loot event remain pending.",
+  "status": "Bounded start/do/curve proof; current native formula retains historical primary corroboration. Native skill evidence separate.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
@@ -28,6 +28,34 @@
       "SKILLS_SrvDo072_FindItem": "3483b2b7d06a80e1f35150a08bdc2ef4634aeda60004f74bbd9d44383667ee37"
     },
     "dataPath": ".local/class-skills/find-item-source-probe.json"
+  },
+  "historicalPublishedBaseChance": {
+    "source": "https://classic.battle.net/diablo2exp/skills/barbarian-warcries.shtml",
+    "sha256": "3fbaf0483b68b0d9dff4eb7bdf55f0b3549da8b9f75993b5877daf31ee807d56",
+    "cachePath": ".local/class-skills/find-item-primary.html",
+    "values": [
+      13,
+      19,
+      24,
+      29,
+      32,
+      35,
+      37,
+      39,
+      41,
+      42,
+      44,
+      45,
+      46,
+      47,
+      47,
+      49,
+      49,
+      50,
+      50,
+      51
+    ],
+    "limits": "Historical base chances only; pinned modern hard Find Potion synergy is supplied separately. This is not modern executable proof."
   },
   "curveRoundingDifferences": [
     {

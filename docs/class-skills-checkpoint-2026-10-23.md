@@ -1,6 +1,6 @@
 # Class skill checkpoint — 23 October 2026
 
-The goal is active. **107 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian20. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
+The goal is active. **108 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian21. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
 
 This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-2026-10-22.md). The [roadmap](class-skill-roadmap.md) reflects the actual implementation expressions. The [verification record](class-skills-verification-2026-10-23.json) records current artifacts and bounded checks.
 
@@ -254,3 +254,20 @@ Latest follow-up: **Find Item shared primitives and reference correction.** Exis
 Next: implement Find Item using saved corpse source/drop context, a separate noselect attempt flag, one7mana successful-start payment, original-loot retention and the existing item/gold generators with nested NoDrop bypass. Reuse generated corpse-target metadata and generalize the current Necromancer-only packet route. Verify failure/repeat/interruption/resources/loot and two reloads; gate unsupported quest/elite/TC-group contexts. The source dispatcher/payment and native plan are in [Find Item preflight](../tools/reference/barbarian-find-item-preflight.json). Find Potion's caster Act/game-difficulty question and the modern curve observation remain nonblocking and unanswered. Barbarian20/30 handlers,10 pending; full roster goal active.
 
 Focused and final combined native3boots/2reloads pass;70 Python tests,435 named/15 first-loop current input hashes, reference/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass. Client50 warnings/0 errors; content/integration0 warnings/errors. Server stopped. No new native patch or save reset.
+
+
+## Latest checkpoint: Find Item
+
+Latest implementation: **Find Item**, reusing shared corpse access/timing, saved source metadata and existing loot factories. Successful start pays7mana once; success/failure reserve a noselect flag, preserving original corpse appearance/contents. Captured ordinary source/difficulty/resolved TC/level works after NPC deletion; successful output suppresses nested NoDrop and uses current caster gold/MF. Player/NPC corpse skills and legacy Animate Dead reject searched bodies. Transient paid-target state cannot replay after reload. See [source](../tools/reference/find-item-engine-evidence.json), [loot source](../tools/reference/find-item-loot-engine-evidence.json) and [native evidence](../tools/reference/find-item-native-evidence.json).
+
+Next: [Grim Ward source/native work](../tools/reference/barbarian-grim-ward-preflight.json). Its reviewed path creates size-dependent start/body missiles, then dispatches the generic curse handler from remaining-frame multiples; it is not a summoned monster or an ideal instantaneous area. Trace missile-anchor/owner stats, corpse nodraw/retained-loot precedence and modern slow/physical-resistance fields before extending the existing controllers. Find Potion world-context and the modern curve observation remain nonblocking unanswered questions. Barbarian21/30 handlers,9 pending; full roster goal active.
+
+Focused/final combined native3boots/2reloads and connected normal-loop casts pass;70 Python,437 named/15 first-loop current fingerprints, reference/generator/catalogue checks and installed matching-build existing-world load/listen/shutdown0 pass. Client59 warnings/0 errors; content/integration/native0 warnings/errors.61 ModernUO/36 ClassicUO patches reconstruct100/41 paths byte-equal; patch0061 adds the optional native corpse-animation check. Existing saves load; server stopped. No class certificate, save reset, final art or item-skill gate.
+
+Supported ordinary world source/difficulty/resolved TC/level contexts only. Old/missing source treasure metadata, unsupported source/quest/boss/elite contexts and nondefault difficulty-level group contexts remain unavailable; no arbitrary drops are invented.
+
+Current shared8-tile corpse footprint remains a native adapter. Exact modern h2h/shift range, normal-click auto-approach/acquisition, cast stat/rank snapshots, RNG algorithms/seed ownership, full MF/quality/item and client acceptance remain open.
+
+Shared curve is unchanged.20 historical Find Item base chances corroborate current evaluation; these and the other60 historical published ranks do not certify the modern executable. Optional pinned-build observation remains pending.
+
+Existing world equipment/ordinary TC reference and named acquisition gates remain authoritative. No class completion, new item-skill gate or final art is claimed. Effects and talent/hotkey icons stay in separate240-entry registers.

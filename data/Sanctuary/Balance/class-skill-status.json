@@ -1395,10 +1395,10 @@
       "characterClass": "Barbarian",
       "tree": "Warcries",
       "sourceId": 142,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Source624 start/do/selection/curve cases and4464 NoDrop cases prepare existing corpse/loot reuse. Successful start pays7mana even if later chance fails; success bypasses nested NoDrop. Native bypass primitive is prepared, but no Find Item handler or drop context is enabled. Current curve stays pending reference conflict; quest/elite/TC-group/corpse/MF/acquisition context remains to implement and verify."
+      "remaining": "Right/quick explicit corpse SC search pays7mana at start, without impact debit/refund on failure/cancellation. Saved one-attempt noselect flag preserves corpse/loot and excludes shared player/NPC/legacy animation consumers. Captured ordinary source/difficulty/resolved world TC/level survives owner deletion; current caster gold/MF uses existing generators with nested NoDrop bypass. Source624/4464 and20 historical base chances, focused native3boots/2reloads pass. Existing curve retained pending modern conflict; unsupported old/missing contexts, special boss/quest/elite or changed-level TC contexts gated. Current shared8-tile corpse footprint/input auto-approach, exact modern snapshots/RNG/quality/client remain open."
     },
     {
       "talentId": "barbarian.battleorders",

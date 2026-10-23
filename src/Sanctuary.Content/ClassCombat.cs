@@ -29,6 +29,7 @@ public static class ClassCombat
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
         internal BarbarianMelee.Prepared BarbarianAttack;
+        internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
         internal bool ZealPaid;
@@ -209,6 +210,7 @@ public static class ClassCombat
         For(from).PendingAbility = CombatAbility.None;
         For(from).Conversion = null;
         For(from).BarbarianAttack = null;
+        For(from).FindItemTarget = Serial.Zero;
         For(from).PendingTeleport = null;
         For(from).Zeal = null;
         For(from).ZealPaid = false;
@@ -325,6 +327,9 @@ public static class ClassCombat
             Stop(from);
         }
     }
+    internal static bool CorpseCast(CombatAbility ability)=>ClassAbilities.CorpseTarget(ability) && ability!=CombatAbility.RaiseSkeleton;
+    internal static bool BeginCorpse(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)=>ability==CombatAbility.FindItem
+        ?BarbarianFindItem.Begin(owner,selected,point,now):NecromancerCombat.CorpseTarget(ability) && NecromancerCombat.Begin(owner,ability,selected,point,now);
     public static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now)
         => Perform(from, ability, target, point, now, false);
 
@@ -447,6 +452,7 @@ public static class ClassCombat
             || (CombatTiming.Equipped(from)?.Serial ?? Serial.Zero) != session.PendingWeapon)
         {
             session.PendingAbility = CombatAbility.None;
+            if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
@@ -647,10 +653,10 @@ public static class ClassCombat
                 var ability = (CombatAbility)reader.ReadByte();
                 var target = (Serial)reader.ReadUInt32();
                 var point = new Point3D(reader.ReadUInt16(), reader.ReadUInt16(), reader.ReadSByte());
-                if (NecromancerCombat.CorpseTarget(ability))
+                if (CorpseCast(ability))
                 {
                     if (action == CombatRequest.Cast || ability == (action == CombatRequest.HoldAttack ? session.Left : session.Right))
-                    { NecromancerCombat.Begin(from, ability, target, point, Core.TickCount); }
+                    { BeginCorpse(from, ability, target, point, Core.TickCount); }
                     break;
                 }
                 if (ability == CombatAbility.Teleport)

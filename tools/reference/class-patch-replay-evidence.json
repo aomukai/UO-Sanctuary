@@ -1,7 +1,7 @@
 [
   {
     "repository": "ModernUO",
-    "patchCount": 60,
+    "patchCount": 61,
     "pathsCompared": 100,
     "result": "reverse-to-pinned-base/replay byte-equal; all native dirty files covered",
     "upstreamHead": "eff9de028136b11e544fd81375d1e0e710e22dd6",
@@ -65,7 +65,8 @@
       "0057-melee-attempt-and-prepared-physical-damage.patch": "daac2561d0929ad0718c4401ae2683e8d8fedbce2695f8e3f3de3f01f21df147",
       "0058-fractional-class-damage-commit.patch": "b934a7c32b48af88c5dd2bb59057feed3c45f21958970ea906e01086f1e7f66d",
       "0059-conversion-allegiance-and-damage-credit.patch": "c32648628df468217b60ba582739ccda8065da293838be992e03e44c8d235782",
-      "0060-creature-resource-maximum-hooks.patch": "6569488f0fa7714169d295b478c0926a5af7a7619f81d93412e018739de8f3bd"
+      "0060-creature-resource-maximum-hooks.patch": "6569488f0fa7714169d295b478c0926a5af7a7619f81d93412e018739de8f3bd",
+      "0061-corpse-skill-selection-hook.patch": "fe38c9b3585173c92434214737a3618ff8ec8dd1406c864d24640184e2be6839"
     }
   },
   {

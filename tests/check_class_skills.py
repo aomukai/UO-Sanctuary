@@ -456,6 +456,14 @@ def check():
                     assert session.expect(warcry_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'warcry-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
                     save_snapshot(session)
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as find_item_client:
+                        threading.Thread(target=drain_fixture_client,args=(find_item_client,),daemon=True).start()
+                        time.sleep(.15)
+                        find_item_command='find-item-check' if boot==0 else 'find-item-reload-check'
+                        session.send(find_item_command)
+                        assert session.expect(find_item_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'find-item-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        save_snapshot(session)
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

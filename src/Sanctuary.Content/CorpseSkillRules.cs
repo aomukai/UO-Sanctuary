@@ -10,7 +10,8 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record CorpseSourceRule(string Source,bool Selectable,bool NoAura);
-public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false);
+public sealed record CorpseTreasure(string Source,string TreasureClass,int Level,MonsterDifficulty Difficulty);
+public sealed record CorpseSkillRecord(uint Corpse,string Source,bool Selectable,bool Owned,bool Shattered=false,bool NoSelect=false,CorpseTreasure Treasure=null);
 public sealed class CorpseSkillProfiles : GenericPersistence
 {
     private readonly Dictionary<uint,CorpseSkillRecord> _rows=new();
@@ -28,7 +29,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
     {
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown corpse skill metadata version");}
         _rows.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
-        {if(!_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Duplicate corpse skill metadata");}}
+        {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty)) || !_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Invalid corpse skill metadata");}}
     }
 }
 public static class CorpseSkillRules
@@ -39,6 +40,8 @@ public static class CorpseSkillRules
     public static void Configure()=>Profiles=new();
     public static void Initialize()
     {
+        var animation=CorpseRecoveryHooks.CanAnimate;
+        CorpseRecoveryHooks.CanAnimate=corpse=>!NoSelect(corpse) && animation?.Invoke(corpse)!=false;
         var previous=CorpseRecoveryHooks.Deleted;
         CorpseRecoveryHooks.Deleted=corpse=>{Profiles.Remove(corpse);previous?.Invoke(corpse);};
     }
@@ -62,7 +65,30 @@ public static class CorpseSkillRules
         HeavenFists.CaptureDeath(creature,corpse);
         string key=CreatureProfiles.Definition(creature).Reference;
         bool known=key!=null && _selectable.TryGetValue(key,out bool selectable);
-        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature)));
+        var old=Profiles.Find(corpse);
+        // Capture once, including when there is deliberately no supported drop
+        // context. Repeated death/access callbacks must not revive an attempt.
+        if(old!=null){return;}
+        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature),false,Treasure(creature)));
+    }
+    private static CorpseTreasure Treasure(BaseCreature creature)
+    {
+        var profile=CreatureProfiles.For(creature);var difficulty=MonsterVariants.Difficulty(creature);
+        var policy=CreatureGold.Policy(creature.GetType(),difficulty);int level=CreatureProfiles.Level(creature);
+        string source=profile.Rewards.Reference??CreatureProfiles.Definition(creature).Reference;
+        if(creature is EncounterCreature or BaseVendor || creature.Controlled || creature.Summoned || creature.IsAnimatedDead || creature.NoKillAwards
+            || creature is GraveyardUndead{Raised:true} || profile.Traits.Boss==true || PaladinConversion.SourceRule(creature)?.Boss==true || level is <1 or >99
+            || policy is not{Eligible:true,TreasureClass:not null} || source==null || policy.Reference!=source
+            || difficulty!=MonsterDifficulty.Normal && profile.Rewards.Level!=level){return null;}
+        // The approved ordinary world catalogue already resolved difficulty/TC
+        // group upgrades for this configured level. No quest/elite TC is inferred.
+        return new(source,policy.TreasureClass,level,difficulty);
+    }
+    public static bool NoSelect(Corpse corpse)=>Profiles.Find(corpse)?.NoSelect??false;
+    internal static bool Reserve(Corpse corpse)
+    {
+        if(corpse is not{Deleted:false} || Profiles.Find(corpse) is not{NoSelect:false} row){return false;}
+        Profiles.Store(row with{NoSelect=true});return true;
     }
     public static bool Shattered(Corpse corpse)=>Profiles.Find(corpse)?.Shattered ?? false;
     public static bool Usable(PlayerMobile owner,Corpse corpse,double radius)
@@ -73,7 +99,7 @@ public static class CorpseSkillRules
         var row=Profiles.Find(corpse);
         if(row==null && corpse.Owner is BaseCreature {Alive:false} creature){Capture(creature,corpse);row=Profiles.Find(corpse);}
         double dx=owner.X-corpse.X,dy=owner.Y-corpse.Y;
-        return row is{Selectable:true,Owned:false,Shattered:false} && dx*dx+dy*dy<=radius*radius
+        return row is{Selectable:true,Owned:false,Shattered:false,NoSelect:false} && dx*dx+dy*dy<=radius*radius
             && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner,null) && !corpse.IsCriminalAction(owner);
     }
 }

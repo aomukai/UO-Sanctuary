@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "624 corrected start/do/selection/curve cases;4464 NoDrop cases and native shared selector preparation. Native Find Item handler remains pending.",
+  "status": "Native Find Item implemented for supported ordinary corpse contexts; focused/final native evidence records actual limits.",
   "skill": {
     "skill": "Find Item",
     "*Id": 142,
@@ -77,20 +77,20 @@
     "Reviewed start dispatcher pays after successful start34; later chance failure returns0 without refunding that debit. Reviewed Find Item drop wrapper passes a7=1 through TC selection; compiled NoDrop branch verifies nested bypass primitive without replacing existing item weights."
   ],
   "nextSteps": [
-    "Retain existing shared curve pending optional pinned-build tooltip confirmation; this reference conflict does not block unaffected start/payment/corpse/NoDrop work.",
-    "Compile bounded chance/eligibility/one-attempt/do-return branches, using pinned modern formula inputs and declared services.",
-    "Trace common payment plus mode-change/death-event/treasure evaluation, corpse treasure identity and NoDrop/quest/special/elite context before enabling native drops.",
-    "Continue unaffected Barbarian mechanics when a particular loot branch lacks source/native support; preserve original corpse contents."
+    "Continue Grim Ward source/native work using the saved corpse reservation, source start payment and shared curse/ground-state consumers.",
+    "Retain current shared curve while optional pinned-build observation is pending; no answer is assumed."
   ],
   "limits": [
     "Compiled start/do/selection/curve proof only; mode/death/treasure pipeline and surrounding payment remain unverified. No native Find Item handler or arbitrary drop policy.",
     "Find Potion caster Act/game difficulty question stays separate and unanswered. No mapping or fallback selected.",
-    "No full native skill is enabled by the internal NoDrop primitive. Corpse identity/persistence, original loot retention, item/MF/context and quest/elite/TC-group handling still need implementation or explicit gates."
+    "Native handler now captures ordinary resolved world treasure context and preserves noselect/loot through reload. Unsupported old/missing/special or changed-level contexts remain gated.",
+    "Current shared8-tile corpse-access footprint, exact modern h2h/shift/auto-approach, snapshots/RNG/full MF/quality and client acceptance remain open."
   ],
   "evidence": [
     "tools/reference/find-item-engine-evidence.json",
     "tools/reference/find-item-loot-engine-evidence.json",
-    "tools/reference/diminishing-reference-conflict.json"
+    "tools/reference/diminishing-reference-conflict.json",
+    "tools/reference/find-item-native-evidence.json"
   ],
   "nativePlan": {
     "reuse": [

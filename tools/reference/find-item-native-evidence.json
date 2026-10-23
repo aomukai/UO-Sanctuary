@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined native3boots/2reloads and connected normal-loop casts pass;70 Python,437 named/15 first-loop current fingerprints, reference/generator/catalogue checks and installed matching-build existing-world load/listen/shutdown0 pass.",
+  "source": [
+    "tools/reference/find-item-engine-evidence.json",
+    "tools/reference/find-item-loot-engine-evidence.json",
+    "tools/reference/diminishing-reference-conflict.json"
+  ],
+  "implementation": [
+    "Right/quick explicit corpse SC route reuses shared timing/session guards and generated corpse metadata. Successful start pays exactly7mana in FP256; failure/cancellation does not refund it and impact does not debit again. Transient paid-target identity prevents free/repeated releases and is never replayed across restart.",
+    "Optional noselect and treasure fields extend existing corpse JSON without changing its binary envelope. Capture preserves source identity, configured level/difficulty and resolved ordinary world TC independently of deleted NPC owner. Repeated capture preserves reservation; absent old context is unsupported rather than defaulted.",
+    "Reserve before chance. Success/failure both exclude later corpse skills without native Animated/Consumed/hue/appearance or existing loot changes. Shared player/monster checks and optional native legacy Animate Dead hook honor reservation at target and delayed completion.",
+    "Current effective rank and hard Find Potion synergy use the existing shared curve. Success consumes the source secondary draw and reuses CreatureGold/GearDrops/AlchemyRestoratives/NamedGear with nested NoDrop bypass, original corpse item level and current caster gold/MF. No new loot generator, XP or kill-event award path is introduced."
+  ],
+  "checks": [
+    "20 independently published historical base chances across ranks1..20 plus hard Find Potion0/1/20 and fixed7mana. Old five-field corpse JSON defaults to unreserved/missing context.",
+    "Right/quick metadata/dispatch, fractionally insufficient mana, paid start before reservation, no free release, early/repeated event, one-draw failure/two-draw success and no impact payment.",
+    "Actual ordinary corpses with deleted owners, original item identity/containment, no corpse hide/Animated/Consumed changes and repeat/cross-skill/NPC/legacy animation exclusion. Repeated capture cannot erase the one-attempt flag.",
+    "Stop/paralysis/movement, competing consumption, missing/unknown context and deleted corpse cancel output without refund.",
+    "Normal/Nightmare/Hell resolved TC/level, extra gold amount, zero mana at impact, actual Tarnhelm equipped after start gives current caster75% gold find while hard synergy stays20 and Find Item soft rank21. Existing potion/equipment factories output real items with corpse source item level.",
+    "Actual disposable TCP connection keeps normal40ms loop active. Quick cast naturally resolves after SC event with zero remaining mana and produces loot once; all three boots repeat this connected delivery.",
+    "Two real reloads preserve successful/failure-independent noselect/context semantics, original loot, paid/fractional mana and fresh context while discarding active paid target/action. Unsearched saved corpse is then searched through the connected normal loop.",
+    "Final full combined suite,70 Python/current437/15 hashes, matching installed DLLs and existing-world load/listen/shutdown0."
+  ],
+  "nativePatch": {
+    "path": "patches/ModernUO/0061-corpse-skill-selection-hook.patch",
+    "scope": "Optional CorpseRecoveryHooks.CanAnimate and two AnimateDeadSpell guards; UOContent only, no Server-engine edit.",
+    "replay": "61 ModernUO/36 ClassicUO patches reverse to pinned bases and replay byte-equal across100/41 paths; all native dirty files covered."
+  },
+  "fixtureScope": [
+    "Saved pending-cast inspection alone is held10minutes after natural SC timing/delivery checks, so reload cannot accidentally resolve it before save. Gameplay timing is unchanged.",
+    "Mana regeneration is frozen only for named fixture actors/constructor scope, at Configure and final Initialize priority.",
+    "No fixed expected replacement formula was copied from the decompiled curve: historical published values support current model and conflicting legacy arithmetic remains separately identified."
+  ],
+  "limits": [
+    "Supported ordinary world source/difficulty/resolved TC/level contexts only. Old/missing source treasure metadata, unsupported source/quest/boss/elite contexts and nondefault difficulty-level group contexts remain unavailable; no arbitrary drops are invented.",
+    "Current shared8-tile corpse footprint remains a native adapter. Exact modern h2h/shift range, normal-click auto-approach/acquisition, cast stat/rank snapshots, RNG algorithms/seed ownership, full MF/quality/item and client acceptance remain open.",
+    "Shared curve is unchanged.20 historical Find Item base chances corroborate current evaluation; these and the other60 historical published ranks do not certify the modern executable. Optional pinned-build observation remains pending.",
+    "Existing world equipment/ordinary TC reference and named acquisition gates remain authoritative. No class completion, new item-skill gate or final art is claimed. Effects and talent/hotkey icons stay in separate240-entry registers."
+  ]
+}
