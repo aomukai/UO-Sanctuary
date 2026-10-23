@@ -1,0 +1,131 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Bounded selector proof and modern primary/table preflight; native handler pending.",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "skillTableSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "skill": {
+    "skill": "Throwing Mastery",
+    "*Id": 135,
+    "charclass": "bar",
+    "skilldesc": "throwing mastery",
+    "passivestate": "throwingmastery",
+    "passiveitype": "thro",
+    "passivestat1": "passive_mastery_throw_th",
+    "passivecalc1": "ln12",
+    "passivestat2": "passive_mastery_throw_dmg",
+    "passivecalc2": "ln34",
+    "passivestat3": "passive_mastery_throw_crit",
+    "passivecalc3": "dm56",
+    "passivestat4": "skill_pierce",
+    "passivecalc4": "dm78",
+    "passivestat5": "passive_mastery_noconsume",
+    "passivecalc5": "dm91",
+    "passivestat6": "passive_mastery_replenish_oncrit",
+    "passivecalc6": "pa11",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "reqlevel": 6,
+    "maxlvl": 20,
+    "leftskill": 0,
+    "rightskill": 0,
+    "minmana": 0,
+    "manashift": 8,
+    "mana": 0,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "passive": 1,
+    "Param1": 44,
+    "*Param1 Description": "Attack Rating % baseline",
+    "Param2": 8,
+    "*Param2 Description": "Attack Rating % per level",
+    "Param3": 28,
+    "*Param3 Description": "Damage % baseline",
+    "Param4": 5,
+    "*Param4 Description": "Damage % per level",
+    "Param5": 0,
+    "*Param5 Description": "% chance for Critical Hit Min",
+    "Param6": 35,
+    "*Param6 Description": "% chance for Critical Hit Max",
+    "Param7": 0,
+    "*Param7 Description": "% chance to Pierce Min",
+    "Param8": 55,
+    "*Param8 Description": "% chance to Pierce Max",
+    "Param9": 0,
+    "*Param9 Description": "% chance for No Consume Min",
+    "Param10": 66,
+    "*Param10 Description2": "% chance for No Consume Max",
+    "Param11": 1,
+    "*Param11 Description": "\"Replenish Quantity on crit? (0=disabled, 1=enabled)\"",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 384,
+    "cost add": 3000,
+    "lineNumber": 135
+  },
+  "primary": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "cachePath": ".local/class-skills/barbarian-2.4-primary.html",
+    "sha256": "55f16d79daaa10a461ba11aa6345ee75bb3b525fdb8a140f7d07e15847ec09dc",
+    "scope": "Released2.4 corroborates throwing AR44, pierce, conservation and critical quantity recovery; it does not define all modern event/RNG/snapshot semantics or supersede the pinned3.3.93847 values."
+  },
+  "probe": {
+    "caseCounts": {
+      "routingCases": 1024,
+      "zeroThrowDoesNotFallBack": 3,
+      "nullGuards": 2
+    },
+    "totalCases": 1029,
+    "dataPath": ".local/class-skills/throwing-mastery-source-probe.json",
+    "blockHashes": {
+      "D2Common_11024": "e7c0452c295ed5fdb0492215118283167037411c84afd79c1ef42f048bc50eaa",
+      "SKILLS_GetWeaponMasteryBonus": "e7a919e9608305b09bd0dd7e640cb76c9a4888d9bc95a31503e3e222f5fa462f"
+    }
+  },
+  "established": [
+    "Shared mastery routing first tests an actual throwable weapon, positive throwing item-type requirement on the used skill and skill range2. Only then does it select throw AR/damage/critical layers; ordinary melee use of a throwing base does not automatically receive Throwing Mastery.",
+    "Each throw layer takes its strongest matching item-type value, never a sum. A valid throw route yielding zero suppresses melee fallback. The outer shared selector otherwise falls back to melee stat layers.",
+    "Pinned modern skill has six passive consumers, not only AR/damage/critical: additive pierce, no-consume and critical-linked quantity recovery are also required. Current DM reference disagreement remains separate."
+  ],
+  "reusePlan": [
+    {
+      "system": "BarbarianMasteries/ClassItemTypes/ClassGear",
+      "use": "Extend the existing eligibility/strongest bonus selector with an explicit throwing action context, preserving active/broken/backpack/native-base gates. Avoid assuming item category alone determines attack mode."
+    },
+    {
+      "system": "ClassStats/GearEffects/NamedCombat",
+      "use": "Reuse additive AR/damage pools and ordinary critical/Deadly Strike exclusivity. Trace released projectile critical snapshot and RNG before quantity integration; do not silently reroll the linked critical for each pierced victim."
+    },
+    {
+      "system": "NamedProjectiles",
+      "use": "Reuse traversal/collision helpers after checking source pierce timing/caps. Existing budget prerolls at most4 continuations; modern equivalence is unverified, so blindly adding the passive percentage is insufficient."
+    },
+    {
+      "system": "NamedAmmunition",
+      "use": "Extend the current one-item saved quantity ledger and replenish schedule. Separate release conservation/critical recovery from on-hit damage. Never duplicate or split a named item to represent ammo."
+    },
+    {
+      "system": "ClassCombat/CombatTiming",
+      "use": "Basic throw currently uses an equipped Throw family through shared attack; retain existing weapon timing and prepared packets where source contracts agree. Double Throw and dual wield need separate later consumers."
+    }
+  ],
+  "nonblockingQuestions": [
+    "Modern conservation/recovery order, quantity restored per critical, recovery at cap/zero/ethereal and which critical sources qualify require authoritative event evidence; no Barbarian observation is requested from the user.",
+    "Modern launch versus hit critical and piercing continuation reuse, hit/miss/no-target behavior, item swap/death/offline and saved projectile identity remain reference/test work.",
+    "Native quantity currently tracks named throwing bases only; ordinary converted stack capacity and eligible native throwing materials need an explicit supported adapter, not unlimited implicit ammunition."
+  ],
+  "assets": {
+    "effect": "Passive has no separate cast effect; reuse weapon projectile presentation. Final throwing projectile assets belong to attack skills.",
+    "icon": "Separate talent-tree icon needed; no active hotkey icon for this passive."
+  },
+  "limits": [
+    "Declared used-skill/item-type/stat-layer services; this compiles the unchanged selector only. It does not execute modern critical, projectile, conservation, quantity recovery, or native item/state consumers.",
+    "No handler enabled, native runtime/save format modified, shared DM formula changed, or class completion claimed."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Bounded lifecycle proof; periodic modern missile/owner curse context unresolved. Native handler pending.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "pinnedTables": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "tools/reference/d2r-named-equipment/json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "probe": {
+    "caseCounts": {
+      "placementCases": 1024,
+      "childCases": 800,
+      "periodCases": 1320,
+      "timeline": 167
+    },
+    "totalCases": 3144,
+    "pulseValues": 167,
+    "compiledBlocks": [
+      "MISSILE_GetRemainingFrames",
+      "MISSILE_GetCurrentFrame",
+      "MISSILE_SetCurrentFrame",
+      "SKILLS_SrvDo075_GrimWard",
+      "MISSMODE_SrvHit26_GrimWardStart",
+      "MISSMODE_SrvDo14_GrimWard"
+    ],
+    "blockHashes": {
+      "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+      "MISSILE_GetCurrentFrame": "dd0993c6c1eb35da18600d9706b5e32a3c0aa0e2a459fccd407beef4db85e296",
+      "MISSILE_SetCurrentFrame": "b7ed6b7d8a4d9291dd270abc388de19f76327c87fbf36f69d01329723cf6f0eb",
+      "SKILLS_SrvDo075_GrimWard": "9381a4a6c7e22b12d6eda516c06732a0f585a03be82f2f7cfc5c77ece9a0fe27",
+      "MISSMODE_SrvHit26_GrimWardStart": "fcca1d71edef4a7c71d2b433f21c0cfd4419adef0601bdabc1df069368988e1a",
+      "MISSMODE_SrvDo14_GrimWard": "78b90bb518d1f7d36cb5e89c97deee23a6d2290686da1da12092d151054f0d5d",
+      "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+      "sub_6FD14400": "0d14db263543d85641c11a7df9df12584a820c29e46d758f8f2d4eaa3d5d55d5",
+      "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5",
+      "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b",
+      "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9",
+      "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+      "SKILLS_EvaluateSkillFormula": "d68a93b5a4bd5bf3b9e4bf1b564cbba6dee683048f6d1c90059e8e6a7a1f8a20",
+      "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328",
+      "SKILLS_GetHighestLevelSkillFromSkillId": "dae9e36e00dc449cbebde8b730579879b707bc23a9a1f170edb4040fa3e877b1"
+    },
+    "dataPath": ".local/class-skills/grim-ward-source-probe.json"
+  },
+  "established": [
+    "Do75 checks skill, eligible corpse, room/free coordinates (radius2/mask0x1000), monster/modes and missile bounds. Large takes precedence over small. It requests a start missile then toggles nodraw/noselect and refreshes even if the declared factory returns null.",
+    "Hit26 requires start/row/child/owner/skill; positive hit parameter overrides lifetime, otherwise owner-evaluated skill calc1 has minimum5. Child flags32769, original owner, rank and relocated coordinates are preserved. Current table calc1=1000.",
+    "Do14 checks MISSILE_GetRemainingFrames before entering the collision handler. Despite its name this helper returns total minus current, hence elapsed frames. Every elapsed-frame multiple of max(Param1,1) dispatches Param2 using the body missile itself, then invokes collision. No period match bypasses skill validation. A matching period with nonpositive skill/rank returns2 without collision.",
+    "Creation sets total and current frames to the same range. Common collision decreases current by1 after the do14 modulo test. A1000-frame body is therefore eligible at elapsed0,6,...,996:167 pulse values, including its first do call. Exact child insertion/event order remains separately unverified.",
+    "The traced dispatch table routes30 to generic curse with pUnit unchanged. That routine evaluates range/duration/stats on pUnit and stores it as curse creator; the legacy formula service keeps that unit. A hard-skill lookup searches that unit skill list, with no owner lookup in the reviewed special-parameter/skill-list helpers."
+  ],
+  "unresolved": [
+    "D2R3.3.93847 may resolve missile owner/hard Find Potion synergy differently from the supplemental older engine. Do not silently evaluate modern physical-resistance synergy against owner, or assume zero, before resolving this context.",
+    "Generic curse starts special Terror AI without the explicit dynamic-target assignment used by the separate older scare helper. Establish modern ground-anchor/creator versus threat selection before reusing Howl origin behavior.",
+    "Exact source free-coordinate/path/target-center and first scheduled child-frame order need a native terrain/clock adapter. Existing UO corpse access8tiles is provisional h2h input behavior.",
+    "Modern DM curve remains the separate published-versus-decompiled disagreement. No shared runtime curve changed.",
+    "Retained original corpse loot takes precedence over blindly hiding/deleting the native container; source nodraw and visible ward art need a documented presentation adapter."
+  ],
+  "limits": [
+    "Declared services cover corpse eligibility, room/free-coordinate result, allocation, skill formula, ownership and collision. The probes do not execute a modern game, full missile engine, expression VM, special AI or damage consumer.",
+    "Generic curse/collision/formula surrounding blocks are hash-traced only, not compiled by this probe. Shared start33 eligibility is already covered by Find Potion5004-case evidence.",
+    "No native handler enabled, class completion claimed, build or save format changed. Three-size start/body/stop effects, affected-state cues and talent/hotkey icons remain separate future assets."
+  ]
+}

@@ -271,3 +271,13 @@ Current shared8-tile corpse footprint remains a native adapter. Exact modern h2h
 Shared curve is unchanged.20 historical Find Item base chances corroborate current evaluation; these and the other60 historical published ranks do not certify the modern executable. Optional pinned-build observation remains pending.
 
 Existing world equipment/ordinary TC reference and named acquisition gates remain authoritative. No class completion, new item-skill gate or final art is claimed. Effects and talent/hotkey icons stay in separate240-entry registers.
+
+
+## Latest checkpoint: shared-mechanic review and source preparation
+
+Latest reference preparation: [Grim Ward lifecycle proof](../tools/reference/grim-ward-engine-evidence.json) compiles six unchanged source routines with declared services. The source helper named GetRemainingFrames actually returns elapsed frames; do14 tests0,6,...,996 before collision, including the first body call. This corrects the earlier remaining-lifetime interpretation. Placement/factory/corpse-state order, size choice and child lifetime are covered. Generic curse/owner/formula/AI blocks are traced only, not modern executable proof. [Throwing Mastery preparation](../tools/reference/barbarian-throwing-mastery-preflight.json) adds1029 shared-selector cases and identifies six passive consumers, preserving normal melee use of throwing items as a separate context. No runtime, save or installed binary changed in this preparation.
+
+
+Next: **Throwing Mastery**, using [the existing-system reuse plan](../tools/reference/barbarian-throwing-mastery-preflight.json). Grim Ward now has3144 compiled lifecycle cases plus167 elapsed-frame pulse values. Its modern periodic curse owner/hard-synergy and generic fear target context remain explicitly unresolved; continue unaffected Barbarian mechanics while resolving those branches. Find Potion world-context and the general modern DM curve observation remain separate unanswered questions. Barbarian21/30 handlers,9 pending; full roster goal active.
+
+Installed build remains the108-handler Find Item checkpoint with the previously passing full native3boots/2reloads and437/15 source fingerprints. This preparation changes source probes/reference documents only. No save reset, installed binary or enabled talent changed; final effects/icons remain separately recorded.

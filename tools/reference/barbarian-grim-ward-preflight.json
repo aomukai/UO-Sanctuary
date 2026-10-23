@@ -1,13 +1,16 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next skill source-reviewed; no compiled Grim Ward certificate or native handler.",
+  "status": "3144 bounded lifecycle cases and167 elapsed-frame pulse values pass. Native periodic curse owner/AI context remains unresolved; continue unaffected Barbarian work.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
-    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b"
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
   },
   "blockHashes": {
     "SKILLS_SrvSt33_FindPotion_GrimWard": "bdb77c90931eaf273962b428b986ec57c1616158d6d5f5fb014eb7d4c403a6a7",
@@ -19,7 +22,17 @@
     "sub_6FD14400": "0d14db263543d85641c11a7df9df12584a820c29e46d758f8f2d4eaa3d5d55d5",
     "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5",
     "AIUTIL_ApplyTerrorCurseState": "b4bdd5f7a126faec7f30268151e7c21ed29d3c3e107234f78c37169db6158323",
-    "AIUTIL_CanUnitSwitchAi": "c831bffb167fcfcd2264ee0ee568a2b427047f637fb4b680e32dbfcac03a3e2d"
+    "AIUTIL_CanUnitSwitchAi": "c831bffb167fcfcd2264ee0ee568a2b427047f637fb4b680e32dbfcac03a3e2d",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "MISSILE_GetCurrentFrame": "dd0993c6c1eb35da18600d9706b5e32a3c0aa0e2a459fccd407beef4db85e296",
+    "MISSILE_SetCurrentFrame": "b7ed6b7d8a4d9291dd270abc388de19f76327c87fbf36f69d01329723cf6f0eb",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b",
+    "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9",
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "SKILLS_EvaluateSkillFormula": "d68a93b5a4bd5bf3b9e4bf1b564cbba6dee683048f6d1c90059e8e6a7a1f8a20",
+    "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328",
+    "SKILLS_GetHighestLevelSkillFromSkillId": "dae9e36e00dc449cbebde8b730579879b707bc23a9a1f170edb4040fa3e877b1"
   },
   "skill": {
     "skill": "Grim Ward",
@@ -426,19 +439,70 @@
     "Pinned start33/do75 costs4mana at successful start, uses an eligible soft corpse and requests free coordinates with collision mask0x1000/radius2. Source small/large flags choose one of three start missiles; small Range5 versus medium/large8 matters before the active ward starts.",
     "Do75 requests missile creation, then toggles both corpse_nodraw and corpse_noselect and refreshes the source corpse. Source factory failure return is not checked here; geometry/record guards occur earlier. Do not reuse Find Item reservation alone as the full ward lifecycle.",
     "Hit26 creates the active child with range override max(calc1,5); current calc1=1000 frames. Body missile nominal Range200 is not the skill-created lifetime. Start/body/stop/scare paths remain distinct.",
-    "Body do14 uses max(missile Param1,1)=6 and tests remainingFrames modulo that period before dispatching Param2=30. Source dispatch table30 is SKILLS_SrvDo030_Curse; it is not a30-projectile emission count. First pulse depends on the remaining-frame phase.",
+    "Body do14 uses max(missile Param1,1)=6 before collision. Despite its name MISSILE_GetRemainingFrames returns total-current, i.e. elapsed frames. Creation sets both to range and common collision decrements current. Eligible body pulse values are0,6,...,996:167 values including the first do call. Param2=30 dispatches generic curse with the body missile as pUnit; it is not a30-projectile emission count. Earlier remaining-lifetime/late-first-pulse reading is corrected.",
     "Pinned curse has terror state, ln12 radius6+(rank-1),60-frame base lease, negative dm78 movement/attack/other-animation rates and physical resistance -20-5*hard Find Potion. Generic curse source divides AI-curse duration by difficulty and reads aura stat fields. Missile/owner hard-synergy context and modern behavior need proof.",
-    "Scare missile/hit28 exist separately: it resolves a parent missile by targetX, uses strict parent-centered squared range and applies a rank1 Terror helper. Its active use by the current do30 route is not established; do not substitute this older path silently."
+    "Scare missile/hit28 exist separately: it resolves a parent missile by targetX, uses strict parent-centered squared range and applies a rank1 Terror helper. Its active use by the current do30 route is not established; do not substitute this older path silently.",
+    "Released official2.4 corroborates Grim Ward slow/increased damage and Find Potion5% per-level synergy. It does not resolve whether the pinned modern generic curse maps missile formulas/creator/AI to its owner; legacy formula helpers search the passed unit skill list without owner lookup. Do not silently choose owner or zero synergy."
   ],
   "nextSteps": [
-    "Compile bounded start/do75 guards, size selection, factory/toggle order, hit26 child lifetime and do14 modulo/dispatch contracts with pinned modern data.",
-    "Trace/compile generic curse callback allocation, target/AI immunities, Attract and duration/refresh semantics plus ground-missile anchor/owner/gear/hard-synergy context.",
-    "Implement persistent start/body/stop phases and source centered aura through existing scheduling/stat/fear consumers; preserve original corpse contents and record any unsupported branch.",
-    "Verify4mana start cost, size-dependent activation, first-pulse phase/refresh/range/expiry and overlapping wards, slow/resistance pools, owner transitions and two reloads."
+    "Continue Throwing Mastery using tools/reference/barbarian-throwing-mastery-preflight.json while these Grim Ward reference branches remain nonblocking.",
+    "Resolve modern periodic curse formula owner/hard-synergy and generic special-Terror dynamic target/creator context; reuse shared curse/AI/stat consumers only where that contract agrees.",
+    "Then implement source start/body phases and terrain/center/child scheduling with167 body pulse values and tested4mana start payment. Preserve retained loot while representing source corpse nodraw.",
+    "Verify size-dependent5/8-frame activation, first body pulse/refresh/range/expiry/overlap, slow/physical-resistance pools, owner transitions and two reloads. Exact child insertion order remains a separate clock boundary."
   ],
   "limits": [
-    "Reviewed immutable source hashes and current pinned tables only. No new handler, runtime change or class completion is claimed by this preflight.",
+    "Six unchanged lifecycle/frame-accessor routines compile in declared-service fixtures; generic curse/formula/collision blocks are hash-traced only. No native handler/runtime or class completion is claimed.",
     "Published primary historical guidance is supplementary; current skill has additional slow/physical-resistance fields. General DM reference conflict stays open; keep current native curve meanwhile.",
     "Final three-size GrimWard start/body/stop art, cry, affected-state cues and talent/hotkey icons remain separate future assets."
+  ],
+  "engineEvidence": "tools/reference/grim-ward-engine-evidence.json",
+  "primary": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "cachePath": ".local/class-skills/barbarian-2.4-primary.html",
+    "sha256": "55f16d79daaa10a461ba11aa6345ee75bb3b525fdb8a140f7d07e15847ec09dc",
+    "scope": "Released2.4 corroborates throwing AR44, pierce, conservation and critical quantity recovery; it does not define all modern event/RNG/snapshot semantics or supersede the pinned3.3.93847 values."
+  },
+  "compiledProof": {
+    "caseCounts": {
+      "placementCases": 1024,
+      "childCases": 800,
+      "periodCases": 1320,
+      "timeline": 167
+    },
+    "totalCases": 3144,
+    "pulseValues": 167,
+    "compiledBlocks": [
+      "MISSILE_GetRemainingFrames",
+      "MISSILE_GetCurrentFrame",
+      "MISSILE_SetCurrentFrame",
+      "SKILLS_SrvDo075_GrimWard",
+      "MISSMODE_SrvHit26_GrimWardStart",
+      "MISSMODE_SrvDo14_GrimWard"
+    ],
+    "blockHashes": {
+      "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+      "MISSILE_GetCurrentFrame": "dd0993c6c1eb35da18600d9706b5e32a3c0aa0e2a459fccd407beef4db85e296",
+      "MISSILE_SetCurrentFrame": "b7ed6b7d8a4d9291dd270abc388de19f76327c87fbf36f69d01329723cf6f0eb",
+      "SKILLS_SrvDo075_GrimWard": "9381a4a6c7e22b12d6eda516c06732a0f585a03be82f2f7cfc5c77ece9a0fe27",
+      "MISSMODE_SrvHit26_GrimWardStart": "fcca1d71edef4a7c71d2b433f21c0cfd4419adef0601bdabc1df069368988e1a",
+      "MISSMODE_SrvDo14_GrimWard": "78b90bb518d1f7d36cb5e89c97deee23a6d2290686da1da12092d151054f0d5d",
+      "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+      "sub_6FD14400": "0d14db263543d85641c11a7df9df12584a820c29e46d758f8f2d4eaa3d5d55d5",
+      "SKILLS_SrvDo030_Curse": "0b315aa0bf6695f57d1629c0a811c01011ab6e28106fd9766aa65a1b61d85fd5",
+      "sub_6FD0B450": "4ffb9aa2706f4337bfefcbee6ad519c4592bf1b78b70c5477ecffaf50fe5ac7b",
+      "sub_6FD10360": "c146b0f236ae7a9a9288557d24e45f1350f8e324cb16b847fb3111bccf9541f9",
+      "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+      "SKILLS_EvaluateSkillFormula": "d68a93b5a4bd5bf3b9e4bf1b564cbba6dee683048f6d1c90059e8e6a7a1f8a20",
+      "SKILLS_GetSpecialParamValue": "725f034cfdece6722e4a13ac7194ea6a0d0216b1ab9dc0bca31d22ab3fbc0328",
+      "SKILLS_GetHighestLevelSkillFromSkillId": "dae9e36e00dc449cbebde8b730579879b707bc23a9a1f170edb4040fa3e877b1"
+    },
+    "dataPath": ".local/class-skills/grim-ward-source-probe.json"
+  },
+  "unresolved": [
+    "D2R3.3.93847 may resolve missile owner/hard Find Potion synergy differently from the supplemental older engine. Do not silently evaluate modern physical-resistance synergy against owner, or assume zero, before resolving this context.",
+    "Generic curse starts special Terror AI without the explicit dynamic-target assignment used by the separate older scare helper. Establish modern ground-anchor/creator versus threat selection before reusing Howl origin behavior.",
+    "Exact source free-coordinate/path/target-center and first scheduled child-frame order need a native terrain/clock adapter. Existing UO corpse access8tiles is provisional h2h input behavior.",
+    "Modern DM curve remains the separate published-versus-decompiled disagreement. No shared runtime curve changed.",
+    "Retained original corpse loot takes precedence over blindly hiding/deleting the native container; source nodraw and visible ward art need a documented presentation adapter."
   ]
 }

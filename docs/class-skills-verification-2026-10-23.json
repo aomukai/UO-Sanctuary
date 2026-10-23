@@ -317,10 +317,10 @@
     "nextClassImplementation": {
       "class": "Barbarian",
       "scope": "Continue30-talent pass;21 handlers present;9 pending",
-      "nextBatch": "Grim Ward size/start/body/periodic curse/missile-anchor/stat/fear proof and native implementation",
-      "preflight": "tools/reference/barbarian-grim-ward-preflight.json",
+      "nextBatch": "Throwing Mastery existing selector/critical/projectile/ammunition integration and native tests",
+      "preflight": "tools/reference/barbarian-throwing-mastery-preflight.json",
       "firsthandGameplayUnavailable": true,
-      "status": "Find Item native/source checks pass within recorded bounds"
+      "status": "Grim Ward bounded lifecycle proof complete; modern curse context remains nonblocking and no new handler is enabled"
     },
     "barbarianPassivesResult": {
       "evidence": "tools/reference/barbarian-passive-native-evidence.json",
@@ -491,7 +491,9 @@
       "battleCry": "Reuses warcry rays/LastCollide/skill-local delays, ordinary curse persistence and existing additive armor/weapon ED. Review corrected shared Weaken/Decrepify consumers; Taunt preflight reuses these paths next.",
       "taunt": "Reuses ordinary curse JSON, historical saved source AI payload with explicit Taunt discriminator, native scan/path/movement/leash and additive AR/weapon ED; avoids a parallel AI/potion/corpse system.",
       "warCry": "Shared64-ray controller, optional saved endpoint payload, FP256 resource/damage/health, source-aware block adapter and common stun persistence; no duplicate wave/stun/weapon pipeline.",
-      "findItem": "Shared SC/session guards and start mana, saved corpse access/context/noselect, generic packet/quick corpse dispatch, existing CreatureGold/GearDrops/potion/gear pipeline. Optional native animation hook prevents reusing searched corpses without touching their loot/appearance."
+      "findItem": "Shared SC/session guards and start mana, saved corpse access/context/noselect, generic packet/quick corpse dispatch, existing CreatureGold/GearDrops/potion/gear pipeline. Optional native animation hook prevents reusing searched corpses without touching their loot/appearance.",
+      "grimWard": "Reuse corpse eligibility/state, saved ground scheduling and generic curse/stat/AI only where source contracts match. Elapsed-frame helper corrected in3144-case lifecycle probe,167 eligible body pulse values. Modern owner/fear context remains explicit.",
+      "throwingMastery": "1029 shared-selector cases and documented existing mastery/AR/damage/critical/projectile/ammunition paths. Native per-hit critical,4-continuation budget and named-only quantity coverage require verified adapters."
     },
     "howlSourcePreparation": {
       "evidence": "tools/reference/howl-engine-evidence.json",
@@ -626,7 +628,57 @@
     },
     "grimWardPreparation": {
       "preflight": "tools/reference/barbarian-grim-ward-preflight.json",
-      "status": "10 immutable source blocks reviewed; size-dependent start/body missiles and function30 generic curse dispatch identified. No handler or compiled Grim Ward certificate."
+      "evidence": "tools/reference/grim-ward-engine-evidence.json",
+      "status": "Bounded lifecycle proof; periodic modern missile/owner curse context unresolved. Native handler pending.",
+      "compiledCases": 3144,
+      "pulseValues": 167,
+      "unresolved": [
+        "D2R3.3.93847 may resolve missile owner/hard Find Potion synergy differently from the supplemental older engine. Do not silently evaluate modern physical-resistance synergy against owner, or assume zero, before resolving this context.",
+        "Generic curse starts special Terror AI without the explicit dynamic-target assignment used by the separate older scare helper. Establish modern ground-anchor/creator versus threat selection before reusing Howl origin behavior.",
+        "Exact source free-coordinate/path/target-center and first scheduled child-frame order need a native terrain/clock adapter. Existing UO corpse access8tiles is provisional h2h input behavior.",
+        "Modern DM curve remains the separate published-versus-decompiled disagreement. No shared runtime curve changed.",
+        "Retained original corpse loot takes precedence over blindly hiding/deleting the native container; source nodraw and visible ward art need a documented presentation adapter."
+      ]
+    },
+    "throwingMasteryPreparation": {
+      "preflight": "tools/reference/barbarian-throwing-mastery-preflight.json",
+      "status": "Bounded selector proof and modern primary/table preflight; native handler pending.",
+      "compiledCases": 1029,
+      "reusePlan": [
+        {
+          "system": "BarbarianMasteries/ClassItemTypes/ClassGear",
+          "use": "Extend the existing eligibility/strongest bonus selector with an explicit throwing action context, preserving active/broken/backpack/native-base gates. Avoid assuming item category alone determines attack mode."
+        },
+        {
+          "system": "ClassStats/GearEffects/NamedCombat",
+          "use": "Reuse additive AR/damage pools and ordinary critical/Deadly Strike exclusivity. Trace released projectile critical snapshot and RNG before quantity integration; do not silently reroll the linked critical for each pierced victim."
+        },
+        {
+          "system": "NamedProjectiles",
+          "use": "Reuse traversal/collision helpers after checking source pierce timing/caps. Existing budget prerolls at most4 continuations; modern equivalence is unverified, so blindly adding the passive percentage is insufficient."
+        },
+        {
+          "system": "NamedAmmunition",
+          "use": "Extend the current one-item saved quantity ledger and replenish schedule. Separate release conservation/critical recovery from on-hit damage. Never duplicate or split a named item to represent ammo."
+        },
+        {
+          "system": "ClassCombat/CombatTiming",
+          "use": "Basic throw currently uses an equipped Throw family through shared attack; retain existing weapon timing and prepared packets where source contracts agree. Double Throw and dual wield need separate later consumers."
+        }
+      ],
+      "questions": [
+        "Modern conservation/recovery order, quantity restored per critical, recovery at cap/zero/ethereal and which critical sources qualify require authoritative event evidence; no Barbarian observation is requested from the user.",
+        "Modern launch versus hit critical and piercing continuation reuse, hit/miss/no-target behavior, item swap/death/offline and saved projectile identity remain reference/test work.",
+        "Native quantity currently tracks named throwing bases only; ordinary converted stack capacity and eligible native throwing materials need an explicit supported adapter, not unlimited implicit ammunition."
+      ]
+    },
+    "referencePreparationValidation": {
+      "grimWard": "3144 compiled lifecycle cases plus167 pulse values pass; six unchanged compiled routines, declared services and separately traced uncompiled engine blocks",
+      "throwingMastery": "1029 unchanged shared-selector cases pass; modern six-stat/table and released primary corroboration recorded separately",
+      "python": "70 tests pass; no native runtime or Balance input changed",
+      "generators": "Roadmap/class skills/reference pin/named catalogue/backlog checks pass",
+      "runtimeInputs": "All437 named/15 first-loop fingerprints remain equal; prior full native3boots/2reloads evidence still applies to unchanged installed binaries",
+      "nativeRerun": "Not repeated for source-probe/documentation-only changes; no new native mechanic is claimed"
     }
   },
   "logs": {
@@ -890,7 +942,15 @@
     "find-item-backlog-check.log": ".local/class-skills/find-item-backlog-check.log",
     "find-item-readiness-check.log": ".local/class-skills/find-item-readiness-check.log",
     "find-item-first-loop-check.log": ".local/class-skills/find-item-first-loop-check.log",
-    "find-item-primary.html": ".local/class-skills/find-item-primary.html"
+    "find-item-primary.html": ".local/class-skills/find-item-primary.html",
+    "reuse-python-checks.log": ".local/class-skills/reuse-python-checks.log",
+    "reuse-grim-ward-source-check.log": ".local/class-skills/reuse-grim-ward-source-check.log",
+    "reuse-throwing-source-check.log": ".local/class-skills/reuse-throwing-source-check.log",
+    "grim-ward-source-probe.cpp": ".local/class-skills/grim-ward-source-probe.cpp",
+    "grim-ward-source-probe.json": ".local/class-skills/grim-ward-source-probe.json",
+    "throwing-mastery-source-probe.cpp": ".local/class-skills/throwing-mastery-source-probe.cpp",
+    "throwing-mastery-source-probe.json": ".local/class-skills/throwing-mastery-source-probe.json",
+    "barbarian-2.4-primary.html": ".local/class-skills/barbarian-2.4-primary.html"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -1096,9 +1156,9 @@
     "upstream/ModernUO/Projects/UOContent/Items/ClassGearHooks.cs": "5d974ce9848e8123b4322db3ae0da6b746c1cd2b7d0d88db7b9f18e5005dcb71",
     "upstream/ModernUO/Projects/UOContent/Mobiles/PlayerMobile.cs": "b0e45c14d28d28bd0e677796ed818b43d66f721c621f3aa0c36dcbed7a6682f1",
     "tools/build_class_skills.py": "1bd90eaaea865dc7cd440bc806564dd9dc825f4fac7c25bda5d676949b5dd416",
-    "tools/build_skill_roadmap.py": "18854d3bb4d38f8d3afb8f387b4fd07c7d06331ec38d5cc7959ea6ff80bf9431",
-    "docs/class-skill-roadmap.md": "0604a338c9259c910486cac5abec2d04ea35ff193c7d0c1b875bbabbc288ebb3",
-    "docs/skill-mechanical-reference.md": "fb6c80bcefda2a4dab63683f8317ed0a9772eebad47312a4b35f3db4fb5afcbf",
+    "tools/build_skill_roadmap.py": "1b2445ebacb5fecb450a507ea2c9c313705545d522bc85680fac47a4ffadc143",
+    "docs/class-skill-roadmap.md": "170443593c0fa6fe6d7352ba09f09561b1a30f8ee70425f46d9e6cf9588b72f2",
+    "docs/skill-mechanical-reference.md": "2ed76504a05c1a82bde88c5a639ad980837e8e76b9f517d886d10209d2bd4bd4",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "0c73321fa765c4f9ec5e1c6949be0d821d58526322defa17e5eae40efbfca294",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1278,7 +1338,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "9ca74de71689b33b95f82473a90f0ea0f9d2d0d28b0c709be5a8009357bdb2e1",
+    "docs/class-skills-resume-checkpoint.md": "d6b51e854d91560f57d31c22da25290a7a0da6522c325075ef05a019764e1f2f",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -1339,7 +1399,7 @@
     "tools/probe_conversion_reference.py": "252b208c1e19410c897fc162dfe762636aa4c3a86e5c28b3b261a11af8cb7274",
     "tools/reference/conversion-engine-evidence.json": "b57d54ded5e25868765eaebd79d74b5d5b9026f3fb1c9c6f255d7d591b2e518c",
     "tools/reference/paladin-conversion-preflight.json": "920f108df2360834a4ebbbac1af6770fd9941733f7054346c9351c218ff89cee",
-    "docs/class-skills-checkpoint-2026-10-23.md": "337d559a34e0a1d32f33eeb15cc69bc55d710d1824823ed438d01d010abceec0",
+    "docs/class-skills-checkpoint-2026-10-23.md": "f5063c1db3edadebe2a985122e36856f154b66c281c1dc4d4ee2183741341688",
     ".local/class-skills/charge-focused.log": "5c024c2a3916bb864adc01c11acba3ca401435c47c722b02e4f304944389586b",
     ".local/class-skills/charge-focused-run.log": "efd006478f58026ee01c357ef74514a109eb1c03e604f4d13cd7c633495adaf2",
     ".local/class-skills/charge-focused-corridor-failure.log": "3776ce1b8f35016fe7ae570db3fdb082355da47e5da217407bfe0150017d2d9b",
@@ -1678,13 +1738,25 @@
     "patches/ModernUO/0061-corpse-skill-selection-hook.patch": "fe38c9b3585173c92434214737a3618ff8ec8dd1406c864d24640184e2be6839",
     "src/Sanctuary.Content/BarbarianFindItem.cs": "d14ff3c5376bd14effe09db3b6bb0fd3e965e3239b5693e072d70038f3f3f1f6",
     "tests/Sanctuary.Integration/FindItemChecks.cs": "5003ea03c6a63d07aa2908395bf7c1509e63b95a333133d132d8bb162e8959fa",
-    "tools/reference/barbarian-grim-ward-preflight.json": "05156ecb4874956c412de45c09fb81804245ea4acc33cce8a38ff317fddb87c3",
-    "tools/reference/find-item-native-evidence.json": "09c00cae18555e47f19cf683e4180199b68a3d4aec0057a9590ea2df32b13023"
+    "tools/reference/barbarian-grim-ward-preflight.json": "1e332f8ee479f6b01f76c360d9a7877dac1748bab16f932d20602f7424df01ac",
+    "tools/reference/find-item-native-evidence.json": "09c00cae18555e47f19cf683e4180199b68a3d4aec0057a9590ea2df32b13023",
+    ".local/class-skills/reuse-python-checks.log": "fa4a7ea5b4494c61f00674d5d4b8e6a4593529ab4eee6c202125480ab835ef6e",
+    ".local/class-skills/reuse-grim-ward-source-check.log": "d131af493ac3b63c2b73976e19d4cda63b6b850803cf8a0fd42ef4756e168b5b",
+    ".local/class-skills/reuse-throwing-source-check.log": "0f77d45eb1d4c560502573d581f800e28b3b10dc93224e05ede26587edb40fd6",
+    ".local/class-skills/grim-ward-source-probe.cpp": "1700ddc22d8f7effd00056aba5e734eb9214e736f273f361e2d1cf48a3fccb97",
+    ".local/class-skills/grim-ward-source-probe.json": "493c78122767f5508eaf6f6dc7b3c655965f8ce650e44c5771e3503bcbecfab7",
+    ".local/class-skills/throwing-mastery-source-probe.cpp": "cfcb5f5c517ac8212fcaff9a433193d6b9175995f47aa469acd821e893ba4edb",
+    ".local/class-skills/throwing-mastery-source-probe.json": "0d7e20d3a2f44417635ec7aea55ee94e81c9117c79427e7fdad11fa903816dcd",
+    ".local/class-skills/barbarian-2.4-primary.html": "55f16d79daaa10a461ba11aa6345ee75bb3b525fdb8a140f7d07e15847ec09dc",
+    "tools/probe_grim_ward_reference.py": "75995211542df2115abdb2d2bcd23286fb5853a9f9f02e93f00b6ed2b00d47fb",
+    "tools/probe_throwing_mastery_reference.py": "43b06ad10e586ef9eacc809c59545c15d6d19c616470218e6e72c1f6684431f9",
+    "tools/reference/barbarian-throwing-mastery-preflight.json": "da7b24412c6b9adf98616083a5bb18ad7779700fc39e9b6a3b5f6d9bafed87a9",
+    "tools/reference/grim-ward-engine-evidence.json": "ef367e56535999937d872e56fdd61eaf7400ed92dca3cc338d7fe142356e1894"
   },
   "totalHandlersPresent": 108,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 667,
+  "verifiedArtifactCount": 679,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-22.json",
   "deploymentScope": "Local disposable test installation only; matching server/content/client/data installed via ./dev build all; actual installed boot/listen/clean shutdown passed.",
   "installedTestBuild": true,
@@ -1695,5 +1767,6 @@
     "cadence": "Commit/push verified class batches and useful recovery checkpoints; keep full roadmap active.",
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
-  }
+  },
+  "referencePreparationUpdatedAtUtc": "2026-10-23T01:46:43.694022+00:00"
 }
