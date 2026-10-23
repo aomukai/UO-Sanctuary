@@ -1,0 +1,124 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "modernAmmo": {
+    "tableHash": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072",
+    "rows": [
+      {
+        "name": "Arrows",
+        "code": "aqv",
+        "type": "bowq",
+        "stackable": 1,
+        "minstack": 150,
+        "maxstack": 500,
+        "spawnstack": 250
+      },
+      {
+        "name": "Bolts",
+        "code": "cqv",
+        "type": "xboq",
+        "stackable": 1,
+        "minstack": 150,
+        "maxstack": 500,
+        "spawnstack": 250
+      }
+    ]
+  },
+  "probe": {
+    "totalCases": 1302,
+    "caseCounts": {
+      "ammoCases": 1152,
+      "scaleCases": 150
+    },
+    "compiledRoutines": [
+      "sub_6FD11340",
+      "sub_6FD118C0",
+      "sub_6FD119C0",
+      "SKILLS_SrvSt04_Arrow_Bolt",
+      "MISSILE_AddStatsToDamage",
+      "MISSILE_CalculateFinalDamage"
+    ],
+    "blockHashes": {
+      "sub_6FD11340": "9cfe48a3dfd845a735f504b62c9588f68f288542bfd6a7ff7dabcd2135c88dc9",
+      "sub_6FD118C0": "93d308c1c66284a19fba0427e3623494a46390e94f0796efb43d03a0626dd033",
+      "sub_6FD119C0": "def5e47b8803f92cfb2c8f4df44a7f796f4c9e5a0d36589ec191a9735c61409e",
+      "SKILLS_SrvSt04_Arrow_Bolt": "906ec9a9c2e9cfac65f330aedc77b73ca1b7dafa408b43db5adfbe8a882f36fb",
+      "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+      "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+    },
+    "fields": [
+      "nBurnLength",
+      "nBurningMax",
+      "nBurningMin",
+      "nColdLength",
+      "nColdMaxDamage",
+      "nColdMinDamage",
+      "nFireMaxDamage",
+      "nFireMinDamage",
+      "nLifeDrainMinDamage",
+      "nLightMaxDamage",
+      "nLightMinDamage",
+      "nMagicMaxDamage",
+      "nMagicMinDamage",
+      "nManaDrainMinDamage",
+      "nPoisonCount",
+      "nPoisonLength",
+      "nPoisonMaxDamage",
+      "nPoisonMinDamage"
+    ],
+    "scaledFields": [
+      "nBurnLength",
+      "nBurningMax",
+      "nBurningMin",
+      "nColdLength",
+      "nColdMaxDamage",
+      "nColdMinDamage",
+      "nFireMaxDamage",
+      "nFireMinDamage",
+      "nLifeDrainMinDamage",
+      "nLightMaxDamage",
+      "nLightMinDamage",
+      "nMagicMaxDamage",
+      "nMagicMinDamage",
+      "nManaDrainMinDamage",
+      "nPoisonCount",
+      "nPoisonMaxDamage",
+      "nPoisonMinDamage"
+    ],
+    "dataPath": ".local/class-skills/bow-projectile-source-probe.json"
+  },
+  "reviewedBlockHashes": {
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "MISSMODE_FillDamageParams": "3b41025fb32951b5bce45ff9679aa548f7f784cfe5ec22432ca94e57c33defe6"
+  },
+  "established": [
+    "Compiled start4 succeeds only when its ammo eligibility service succeeds; rejection calls quantity/equipment and durability cleanup. Compiled player eligibility checks used skill, weapon and inventory with right-arm priority. The retained basic Magic Arrow exception is outside this Multiple Shot fixture (skillId12).",
+    "Compiled decrement selects one stack in right-arm then left-arm order for bow/crossbow. It subtracts one, clamps at zero, sends quantity, restores ammunition durability to its max if needed, then calls cleanup. The decrement return is the former quantity; the generic do wrapper does not multiply decrements by fan count.",
+    "Reviewed start wrapper consumes mana after successful start4. Reviewed do wrapper calls do8 first and decrements once after a successful result; a failed target lookup inside do8 still returns success, while an invalid missile record fails. These whole wrappers are reviewed, not compiled by this fixture.",
+    "Compiled final scaling covers elemental endpoints, cold duration, poison rate AND poison count, life/mana drain minima, burn endpoints and burn duration. Poison duration is not scaled; the reviewed impact reader divides duration only when poison count exceeds1. Multiplying only total damage by0.75 would lose this metadata.",
+    "Reviewed physical creation scales base weapon endpoints by SrcDam/128 before publishing damage percent. Generic/mastery/deadly critical is already a launch flag, independently proved by throwing-projectile-engine-evidence.json. Modern Multiple Shot calc5 Guided Arrow hard-point synergy is not present in the older do8 body.",
+    "Reviewed outer flag0x10000 becomes missile flag2 and damage hitflag128. ExecuteEvents suppresses attacker DOMISSILEDMG when128 is set; defender DAMAGEDBYMISSILE remains. This does not prove every individual on-striking/item effect is excluded."
+  ],
+  "limits": [
+    "Declared inventory, use-state, skill identity, stats, packet and cleanup services. Native D2 equipped-quiver reload/destruction/client paths are not simulated; stale do-time ammo and start/do state changes remain acceptance work.",
+    "Only six helper routines are compiled. Full damage creator/stat writer, mana wrappers, seed algorithm, event/proc dispatch and modern current calc5 addition are reviewed dependencies, not complete executable proof.",
+    "No native runtime behavior or class handler is enabled by this source probe. Existing bow basic attacks currently bypass native OnFired and have no arrow/bolt debit; native NamedAmmunition covers throwing items. Reuse native Arrow/Bolt stacks for a documented port adapter, without inheriting unrelated UO lower-ammo-cost or recovery rules.",
+    "Pinned aqv/cqv quivers have maxstack500/minstack150/spawnstack250. Native Arrow/Bolt supply/capacity and equipped-quiver inventory/reload projection require separate acceptance; this probe does not change native stack limits or existing crafting/saves.",
+    "The final scaling helper is exercised directly at factor0; the reviewed full creator skips its source branch when source damage is0. Physical endpoints, launch/impact rolls and mitigation remain separate from this typed-stat helper.",
+    "Travelling weapon missile snapshots/AR/block/Pierce/next-hit/owner/active-save/client and all other Amazon skill consumers remain implementation and acceptance work."
+  ]
+}

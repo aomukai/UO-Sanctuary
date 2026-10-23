@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Prepared bow ammunition and typed source-stat foundation:1302 compiled legacy cases and150 native scaling differentials pass. Focused and final combined native3boots/2reloads,70 Python tests and452 named/15 first-loop fingerprints pass. Installed matching112-handler build loads existing saves and shuts down0; server stopped. No Amazon handler or travelling weapon missile enabled.",
+  "sourceEvidence": "tools/reference/bow-projectile-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/BowAmmunition.cs",
+    "src/Sanctuary.Content/MissileSourceStats.cs"
+  ],
+  "verified": [
+    "Native C# scaling compares150 independently emitted compiled helper cases for all18 typed source fields. Cold frames, poison rates/count/aggregate duration, drains and burn fields stay distinct. Reviewed poison impact division applies only for count>1.",
+    "Actual native Amazon-owned Bow/Crossbow select Arrow/Bolt stacks in the existing backpack, including a nested Bag. Querying availability consumes nothing; explicit Consume removes one stack unit and changes neither mana nor weapon durability.",
+    "Wrong ammo, no ammo, backpack weapon, broken weapon and ammo on the ground are rejected. Actual final Arrow deletion cannot fall back to Bolts. Native saved owner/bow/bag/Arrow/Bolt serials, ownership and quantities survive two actual reloads; each post-load explicit debit changes only Arrow count once."
+  ],
+  "controls": [
+    "Disposable Amazon fixture spends real native class stat points for weapon requirements. No skill, durability, mana, quantity or ownership guard is bypassed.",
+    "The fixture invokes the new primitives explicitly. Its24-ray shared fan plus one call tests the primitive boundary; it is not an end-to-end Multiple Shot release/payment/proc or projectile flight test."
+  ],
+  "portAdapter": "D2 equipped quiver selection is projected to standard native Arrow/Bolt stacks in the owner backpack. The adapter uses native item Consume/serialization and creates no new quantity authority. It does not invoke BaseRanged.OnFired, UO lower-ammo-cost, recovered ammo, UO hit processing or visual projectile effects. Native equipped BaseQuiver containers are currently unsupported.",
+  "limits": [
+    "This foundation has no gameplay call sites yet and does not alter existing basic bow attacks, throwing ammunition or talent availability. Multiple Shot remains pending.",
+    "Full start/payment/one-debit-after-fan transaction and its stale-ammo/death/map/equipment transitions still need the actual skill consumer. The primitive currently requires a living owner with an active supported weapon; modern transition equivalence is not established.",
+    "MissileSourceStats is raw source metadata, not a full launched-weapon damage snapshot. Physical SrcDam96 before percent, current calc5 hard Guided Arrow synergy, launch critical/AR/Pierce, target mitigation, central event/proc filtering, next-hit, moving collision and saved projectile lifecycle remain to implement.",
+    "Native scaling supports nonnegative source factors0..128 using bounded safe arithmetic; higher factors/overflow behavior are unsupported. The source helper is exercised directly at0, whereas the reviewed full creator skips the source scaling branch when no source damage exists.",
+    "Pinned aqv/cqv quivers cap at500; native Arrow/Bolt supply/capacity/crafting and equipped-quiver/reload projection are not established by this one-unit debit helper. Native stack limits and existing items are preserved."
+  ],
+  "assets": {
+    "effects": "Multiple Shot bow/crossbow flight, hit and fan remain pending in the separate effects register. These primitives create no placeholder or final effect.",
+    "icons": "Multiple Shot talent-tree and hotkey icons remain pending in the separate icon register."
+  },
+  "focusedLog": ".local/class-skills/bow-projectile-focused.log",
+  "sourceLog": ".local/class-skills/bow-projectile-source-probe.log",
+  "next": "Continue actual travelling weapon missile payload/physical endpoints and Multiple Shot integration. Compile/source-review the remaining event/proc and modern synergy contracts; proceed with unaffected Amazon skills if an individual field remains unsupported.",
+  "fullSuiteLog": ".local/class-skills/native-checks.log",
+  "installedSmokeLog": ".local/class-skills/bow-projectile-installed-smoke.log",
+  "contentHash": "b03afbab1d9a964c2eb8e705cdf180bb58424eba842f17a188d785ed6f68dbea",
+  "integrationHash": "255ea587b8a8ec7a0087c6517011bb1dcd12d44748426b9a754b677a0df0bdc1"
+}

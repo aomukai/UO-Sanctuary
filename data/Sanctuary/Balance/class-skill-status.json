@@ -276,7 +276,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Shared source do8 fan foundation is implemented and verified through Teeth:3540 compiled cases,3468 native geometry cases/27166 aims and current rank1..40 count/cap/activation/central-flag fields. Two central missile flags remain distinct from outer missiles. Multiple Shot itself awaits start4/ammunition/payment, current hard Guided Arrow synergy, SrcDam96/128 damage scaling, proc filtering, source-timed travelling weapon missiles, Pierce/next-hit delay and dedicated lifecycle/client checks. Do not substitute existing immediate weapon rays."
+      "remaining": "Shared do8 fan is verified through Teeth. BowAmmunition and MissileSourceStats foundations are prepared separately: native Arrow/Bolt stack selection/debit/ownership/reloads and150 source typed-scaling cases are checked, with1302 compiled ammo/scale cases. No Multiple Shot handler is enabled. Start4 mana then post-fan one-ammo ordering is source-reviewed; a native backpack-quiver adapter preserves stack quantities without UO lower-ammo-cost/recovery. Travelling weapon snapshots, physical SrcDam96-before-percent scaling, current hard Guided Arrow synergy, central-only item-event filtering, Pierce/next-hit delay and lifecycle/client integration remain next. Do not substitute immediate weapon rays or scale aggregate poison totals blindly."
     },
     {
       "talentId": "amazon.explodingarrow",
