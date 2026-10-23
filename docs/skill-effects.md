@@ -255,6 +255,8 @@ Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x37
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
 
+Shared incoming Graveyard firebolt uses the existing firebolt family: native0x36D4 logical flight,0x3709 impact and0x15E/0x208 sounds are identified placeholders. Final projectile/cast/impact assets remain pending with Sorceress Fire Bolt; this NPC consumer needs no extra talent/hotkey icon.
+
 Slow Missiles: logical slowed encounter-bolt positions use identified UO0xF42/0x36D4/0x3818 markers; final missile presentation remains pending. Cast_slowmissiles, the innersight target overlay and amazon_handofathena audio still need final assets and a cast/target consumer. Talent and right-hotkey icons are tracked separately. Full skill availability is pending the remaining mechanics.
 
 Evade uses native0x1A4 sound as an identified placeholder with no S1 animation/visual marker or movement lock. Final block_arrow_1/amazon_dodge_1 audio remains pending; a bitmap visual is not established by row animS1. Its passive talent icon is separate; no active hotkey icon.

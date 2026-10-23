@@ -57,5 +57,7 @@
   "supersededProducerLimit": {
     "evidence": "tools/reference/slow-missiles-bolts-native-evidence.json",
     "scope": "Later mapped native encounter arrow/fire/lightning consumers now capture slow speed/damage at launch. Original no-gameplay-producer status above is historical. Full cast/target/other hostile producers and source geometry/current-order acceptance remain incomplete."
-  }
+  },
+  "subsequentFireboltIntegration": "tools/reference/hostile-firebolt-native-evidence.json",
+  "historicalScope": "This record retains its original component verification scope. Graveyard homing-firebolt limitation is subsequently addressed by the linked incoming-firebolt component; remaining limits still apply."
 }

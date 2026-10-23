@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Server.Mobiles;
+using Server.Items;
 using Server.Spells;
 
 namespace Sanctuary;
@@ -35,7 +36,13 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
 }
 public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbility Ability,double X,double Y,int Z,
     double Vx,double Vy,int Frame,int Frames,int Activation,int NextDelay,int Pierces,uint LastCollision,uint Flags,
-    WeaponMissileDamage Damage,DateTime NextUtc);
+    WeaponMissileDamage Damage,DateTime NextUtc)
+{
+    // Optional version0 properties preserve existing player-flight saves.
+    public bool HostileSpell{get;init;}
+    public string Missile{get;init;}
+    public SlowMissilePayload? Slow{get;init;}
+}
 public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc);
 public sealed record WeaponFlightSave(WeaponFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast);
 
@@ -80,10 +87,33 @@ public static class WeaponMissiles
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
             ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now));return id;
     }
-    private static PlayerMobile Owner(WeaponFlight flight)=>World.FindMobile((Serial)flight.Owner) is PlayerMobile{Alive:true,Deleted:false} owner
-        && ClassCombat.Enabled(owner) && owner.Map!=null
-        && (owner.Map==Map.Internal || owner.Map.MapID==flight.Map && !SpellHelper.IsTown(owner.Location,owner))?owner:null;
-    internal static void Cancel(PlayerMobile owner)
+    internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
+    {
+        if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal
+            || SpellHelper.IsTown(owner.Location,owner) || minimum256<=0 || maximum256<minimum256){return 0;}
+        const string missile="firebolt";int frames=NecromancerSummons.Source(missile,"Range");
+        var slow=AmazonSlowMissiles.Capture(owner,NecromancerSummons.Source(missile,"CanSlow")!=0);
+        int velocity=SlowMissilePayload.VelocityFp8(NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"VelLev"),1,0,0,true,slow.VelocityPercent);
+        int dx=aim.X-owner.X,dy=aim.Y-owner.Y;if(dx==0 && dy==0){dx=dy=1;}
+        var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=++_nextId;
+        var elements=slow.Scale(new(FireMin:minimum256,FireMax:maximum256));
+        _flights.Add(id,new(id,NewCast(),owner.Serial.Value,owner.Map.MapID,CombatAbility.None,owner.X,owner.Y,owner.Z,
+            vector.X,vector.Y,0,frames,0,0,0,0,0,new(0,0,0,0,0,false,elements),TimedEffects.Now)
+            {HostileSpell=true,Missile=missile,Slow=slow});return id;
+    }
+    private static Mobile Owner(WeaponFlight flight)
+    {
+        var owner=World.FindMobile((Serial)flight.Owner);
+        if(owner is not{Alive:true,Deleted:false} || owner.Map==null){return null;}
+        if(flight.HostileSpell)
+        {return owner is BaseCreature && owner.Map!=Map.Internal && owner.Map.MapID==flight.Map && !SpellHelper.IsTown(owner.Location,owner)?owner:null;}
+        return owner is PlayerMobile player && ClassCombat.Enabled(player)
+            && (owner.Map==Map.Internal || owner.Map.MapID==flight.Map && !SpellHelper.IsTown(owner.Location,owner))?owner:null;
+    }
+    private static bool IncomingTarget(BaseCreature source,Mobile target)=>target is{Alive:true,Deleted:false,Blessed:false,IsDeadBondedPet:false}
+        && target!=source && target.Map==source.Map && !ClassCombat.Friendly(source,target)
+        && source.IsEnemy(target) && source.CanSee(target) && source.CanBeHarmful(target,false);
+    internal static void Cancel(Mobile owner)
     {
         var ids=new List<long>();foreach(var (id,flight) in _flights){if(flight.Owner==owner.Serial.Value){ids.Add(id);}}
         foreach(long id in ids){_flights.Remove(id);}Prune();
@@ -104,7 +134,7 @@ public static class WeaponMissiles
         }
         Prune();
     }
-    private static void Step(PlayerMobile owner,WeaponFlight flight)
+    private static void Step(Mobile owner,WeaponFlight flight)
     {
         var next=flight with{X=flight.X+flight.Vx,Y=flight.Y+flight.Vy,Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
         if(next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
@@ -118,16 +148,32 @@ public static class WeaponMissiles
         int query=(int)Math.Ceiling(Math.Max(Math.Abs(flight.Vx),Math.Abs(flight.Vy))+CombatHitboxes.BodyRadius+CombatHitboxes.TeethRadius+0.5);
         foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(end,query))
         {
-            if(candidate.Serial.Value==flight.LastCollision || !ClassCombat.IsHostile(owner,candidate)
+            if(candidate.Serial.Value==flight.LastCollision || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
                 || !CombatHitboxes.Intersect(flight.X,flight.Y,next.X,next.Y,flight.Z,candidate.Location,out double entry)){continue;}
             if(entry<nearest || entry==nearest && (selected==null || candidate.Serial.Value<selected.Serial.Value)){selected=candidate;nearest=entry;}
         }
-        if(next.Frame%2==0){Effects.SendLocationEffect(end,owner.Map,0xF42,2);}
+        if(flight.HostileSpell)
+        {
+            // Barrier connectors are item footprints, not additional mobiles.
+            foreach(var tile in owner.Map.GetItemsInRange<BoneBarrierTile>(end,query))
+            {
+                if(tile.Segment is not{Alive:true,Deleted:false} segment || !IncomingTarget((BaseCreature)owner,segment)
+                    || !CombatHitboxes.Intersect(flight.X,flight.Y,next.X,next.Y,flight.Z,tile.Location,out double entry)){continue;}
+                if(entry<nearest || entry==nearest && (selected==null || segment.Serial.Value<selected.Serial.Value))
+                {selected=segment;nearest=entry;}
+            }
+        }
+        if(next.Frame%2==0){Effects.SendLocationEffect(end,owner.Map,flight.HostileSpell?0x36D4:0xF42,2);}
         if(selected==null){return;}
+        if(flight.HostileSpell)
+        {
+            HostileImpact((BaseCreature)owner,selected,flight);_flights.Remove(flight.Id);return;
+        }
+        var player=(PlayerMobile)owner;
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L));}
-        bool pierce=CurrentPierce(owner)>0 && flight.Pierces>0;
+        bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
         if(ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)!=true){_flights.Remove(flight.Id);return;}
         var damage=flight.Damage.Roll(selected,DamageRoll);
@@ -137,9 +183,9 @@ public static class WeaponMissiles
         {
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
-            if((flight.Flags&0x10000)==0){NamedCombat.Crushing(owner,selected,true,ItemEffects);}
+            if((flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
             NecromancerEffects.LifeTap(owner,selected,NamedElements.To256(parts.Physical));
-            WeaponLeech.Apply(owner,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
+            WeaponLeech.Apply(player,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
@@ -149,6 +195,21 @@ public static class WeaponMissiles
             CombatDamage.Finish(selected,owner);
         }
         if(!pierce){_flights.Remove(flight.Id);}
+    }
+    private static void HostileImpact(BaseCreature source,Mobile target,WeaponFlight flight)
+    {
+        // Return-fire is an earlier missile event, independent of avoidance.
+        SorceressEffects.MissileHit(source,target,flight.Missile);
+        target.FixedParticles(0x3709,10,10,5052,EffectLayer.LeftFoot);target.PlaySound(0x208);
+        // Preserve the earlier native damage-draw-before-avoidance order.
+        var damage=flight.Damage.Roll(target,DamageRoll);
+        if(AmazonAvoidance.Missile(target)){return;}
+        source.DoHarmful(target,true);
+        var parts=SkillCombat.MitigatePrepared(source,target,damage);
+        int loss=SkillHealth.Damage(source,target,NamedElements.To256(parts.Total));
+        if(target is PlayerMobile player){HitRecovery.Apply(player,loss,Core.TickCount);}
+        else if(target is BaseCreature creature){CreatureHitRecovery.Apply(creature,source,loss);}
+        CombatDamage.Finish(target,source);
     }
     private static void Prune()
     {
@@ -164,7 +225,12 @@ public static class WeaponMissiles
         foreach(var flight in saved?.Flights??[])
         {
             if(flight.Id<=0 || flight.Cast<=0 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null
-                || flight.Pierces is <0 or >4){throw new InvalidDataException("Invalid saved weapon missile");}
+                || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
+                    || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
+                    || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
+                    || flight.Damage.Elements.LightningMin!=0 || flight.Damage.Elements.LightningMax!=0 || flight.Damage.Elements.MagicMin!=0 || flight.Damage.Elements.MagicMax!=0
+                    || flight.Damage.Elements.PoisonMin!=0 || flight.Damage.Elements.PoisonMax!=0 || flight.Damage.Elements.BurnMin!=0 || flight.Damage.Elements.BurnMax!=0))
+            {throw new InvalidDataException("Invalid saved weapon missile");}
             if(flight.NextUtc.AddMilliseconds((flight.Frames-flight.Frame)*40L)<=TimedEffects.Now){continue;}
             if(!_flights.TryAdd(flight.Id,flight)){throw new InvalidDataException("Duplicate saved weapon missile");}
             _nextId=Math.Max(_nextId,flight.Id);_nextCast=Math.Max(_nextCast,flight.Cast);

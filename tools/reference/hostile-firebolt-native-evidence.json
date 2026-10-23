@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "componentOnly": true,
+  "handlerCount": 124,
+  "classHandlerCount": 12,
+  "status": "Graveyard firebolts now use shared saved Q12 travel with pinned firebolt velocity20/lifetime50 and captured source slow percentages, replacing the homing impact timer. Released shots are independent of subsequent caster freeze/actions, and do not delay the next windup. Focused and full native checks each pass three boots/two reloads, including real overlapping casts, terrain/Bone Wall/moving targets, FP256 damage, damage-draw-before-Avoid order, old player-save defaults and resumed incoming flight. Content/integration build with zero warnings/errors; all70 Python tests and current465/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains unavailable and no class certificate is claimed.",
+  "sourceReferences": [
+    "tools/reference/slow-missiles-engine-evidence.json",
+    "tools/reference/slow-missiles-observation-evidence.json",
+    "tools/reference/slow-missiles-component-native-evidence.json",
+    "tools/reference/slow-missiles-bolts-native-evidence.json"
+  ],
+  "implementation": [
+    "src/Sanctuary.Content/WeaponMissiles.cs",
+    "src/Sanctuary.Content/MissileVectors.cs",
+    "src/Sanctuary.Content/GraveyardUndead.cs"
+  ],
+  "test": "tests/Sanctuary.Integration/HostileFireboltChecks.cs",
+  "mechanicalScope": [
+    "Only the existing GraveyardUndead firebolt producer is connected. It reuses WeaponMissiles saved travel/collision and MissileVectors Q12 directions; no duplicate homing controller. The pinned firebolt table supplies Vel20, VelLev0, Range50 and CanSlow1. Slow speed scales the integer factory FP8 value before its ordinary75-percent conversion.",
+    "Existing480ms native windup and profile attack cadence are retained. Release snapshots aim, source speed/damage percentages and the native6..10 normal or difficulty-profile endpoints. Its old homing damage timer and wait-for-arrival gate are removed. Released missiles survive source freeze/StopCombatActions; an outstanding slow shot does not prevent a new windup.",
+    "Typed fire endpoints are scaled in FP256 at launch. Shared RollValue draws from the FP256 interval with an exclusive maximum; this replaces the earlier native whole-integer inclusive damage draw, and is not a full pinned monster stat/RNG equivalence claim. Pure spell has no weapon AR/shield/Pierce/leech/critical. Existing return-fire/visual event precedes damage draw; damage draw precedes Avoid, preserving that native event order.",
+    "Incoming hostility uses current source IsEnemy/CanSee/CanBeHarmful plus shared friendly exclusions. Actual BoneBarrierTile connector footprints join the shared swept collision search; the mobile anchor can be off the ray. Existing outgoing player weapon behavior remains in its original branch.",
+    "Optional HostileSpell/Missile/Slow properties preserve version0 player-flight JSON defaults. Incoming flight saves its role, typed damage, vector, frame, map, source and next UTC; source slow state saves independently. Expired saved shots use the existing elapsed-lifetime discard policy."
+  ],
+  "verifiedCases": [
+    "Normal axis velocity0.46875tile/frame, lifetime50, no launch damage, no impact after4manual frames; eventual1536FP256 fire with controlled minimum draw.",
+    "Rank20 source slow captures33percent speed and67percent damage. FP8/Q12 vector and1029FP256 fire minimum are checked. Clearing after launch cannot mutate the existing shot; applying afterward cannot mutate an ordinary shot.",
+    "Normal distance10 control hits; slowed distance10 shot expires without extending its lifetime. Receiver moving off-axis avoids a released bolt. Solid terrain introduced after release stops it. An off-anchor Bone Wall connector takes damage and protects the receiver.",
+    "Real learned Amazon Avoid is forced to succeed with damage/avoid RNG counters. The pure spell never requests weapon hit/shield RNG; damage draw occurs exactly once before the avoidance draw and the successful avoid prevents health loss.",
+    "Each boot observes two real480ms windups with overlapping slow shots at the actual native next-attack deadline. Separately, a real slow release still deals1029FP256 after source freeze/StopCombatActions/slow removal. Receiver mana remains zero.",
+    "Both actual reloads compare exact saved flight/source state plus receiver resources; fixture then rebases the paused next UTC and resumes the stored frame3 shot for1029FP256. Old version0 player-flight JSON without new properties retains defaults. No completed Slow Missiles cast is simulated."
+  ],
+  "fixtureControls": [
+    "Source AI is stopped and walking disabled in an isolated equal-Z19-cell corridor. Source and receiver are placed outside guarded town regions. Only named receiver construction/final initialization holds HP/mana regeneration1hour. Production regeneration/town policy remains unchanged.",
+    "The first full-suite candidate failed because the first free corridor lay inside guarded Cove at(2248,1204,0), so launch correctly returned0. The fixture now checks all corridor cells against IsTown and selects(2268,1136,0) in that world. Focused fresh-world placement had been outside town. Failure log is retained; no production guard was removed.",
+    "Manual controller steps and separate real40ms observations run on the native loop. Observers are bounded6seconds and never relaunch on missed observation. All three boots wait for the asynchronous final result before saving.",
+    "Only saved inspection deadlines are held10minutes across long-suite startup; production lifetime/source state duration is unchanged. Reload explicitly returns the offline receiver to its saved map and rebases NextUtc before continuing. This proves saved payload/phase, not offline combat replay."
+  ],
+  "limits": [
+    "Full Slow Missiles cast/input/target filters remain unavailable; handler count stays124/Amazon12. Native instantaneous ranged hits, other hostile spell/child/non-slowable producers and species-boss mapping still need integration. Existing EliteBolts geometry remains a separate provisional adapter.",
+    "Pinned table speed/lifetime and shared Q12 factory arithmetic do not certify exact current3.3.93847 activation/first-frame/Size/height/collision/ties/terrain/expiry ordering, missile seed, source stat layers/critical or all source event/child semantics. Swept body circles and native tile mapping remain explicit port geometry.",
+    "Native GraveyardLich damage/profile and480ms cadence are existing Sanctuary projections, not a complete pinned D2 species/monster AI certificate. Current owner death/deletion/map change/town entry cancels incoming shots; current-source allegiance/sight/harmful predicates are impact-time native policy, awaiting full source/current parity.",
+    "No general incoming weapon bridge, PvP, all immunity/resistance/event cases, full owner/client presentation or class completion is claimed. Native firebolt art is an identified placeholder. Per-skill unsupported branches remain nonblocking for unaffected roadmap work."
+  ],
+  "assets": {
+    "effect": "Shared firebolt family: UO0x36D4 trail,0x3709 impact,0x15E cast/0x208 impact sound are identified placeholders. Final effect/audio tracked in the separate effects register; no imagegen now.",
+    "icon": "No extra NPC talent/hotkey icon. Amazon Slow Missiles tree/right-hotkey icons remain pending in separate icon register."
+  },
+  "logs": {
+    "contentBuild": ".local/class-skills/hostile-firebolt-content-build.log",
+    "integrationBuild": ".local/class-skills/hostile-firebolt-integration-build.log",
+    "focused": ".local/class-skills/hostile-firebolt-focused.log",
+    "focusedRun": ".local/class-skills/hostile-firebolt-focused-run.log",
+    "guardedFixtureFailure": ".local/class-skills/hostile-firebolt-full-placement-failure.log",
+    "beforeOrderFull": ".local/class-skills/hostile-firebolt-full-before-order.log",
+    "combined": ".local/class-skills/hostile-firebolt-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/hostile-firebolt-installed-smoke.log",
+    "installedServer": ".local/class-skills/hostile-firebolt-installed-server.log"
+  },
+  "next": "Continue full Slow Missiles casting/target filters and remaining real hostile producers; document individually unsupported branches and advance unaffected Amazon talents.",
+  "remainingNativeRangedBranch": {
+    "status": "Individually deferred; does not block unaffected Amazon skills.",
+    "reviewed": [
+      "upstream/ModernUO/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs",
+      "upstream/ModernUO/Projects/UOContent/Mobiles/ClassCombatHooks.cs"
+    ],
+    "finding": "BaseRanged.OnSwing calls OnFired then immediate CheckHit/OnHit or OnMiss. OnFired emits cosmetic moving particles. The current hook surface has no ranged-release snapshot/impact contract. Replacing this with the pure-fire role would discard weapon defense/callback/stat behavior.",
+    "required": "A reviewed native release hook and typed captured weapon packet, plus source arrow mapping and actual delayed impact/AR/shield/Avoid/item callback/persistence tests. Do not silently treat cosmetics as real travel or pure fire as incoming weapon damage.",
+    "unaffectedNext": "Decoy source/native summon work can proceed while the ranged bridge and full Slow Missiles remain explicitly unavailable.",
+    "reviewedHashes": {
+      "upstream/ModernUO/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs": "a719e5f857b6d5ba5bd97569a2a0decf7027209225d644a90e486eb7a8c062b5",
+      "upstream/ModernUO/Projects/UOContent/Mobiles/ClassCombatHooks.cs": "f869e920ad9b6941b86f5f5cf55748949cdde9a4a0344f26ed8fa37ffa5a4e53"
+    }
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "namedInputs": 465,
+    "firstLoopInputs": 15,
+    "installedSmoke": "Existing-world listen2593/12000 and clean shutdown exit0; no save reset."
+  }
+}

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Slow Missiles capture now reaches real native encounter arrow, fire and lightning travel/damage consumers. Existing native geometry remains an explicit provisional adapter; source base geometry and other producers remain unfinished. The encounter weapon pool now includes shared Weaken/Taunt/Battle Cry damage stats, before independent slow scaling. Focused and combined checks each pass three boots and two reloads, including ordinary/slow travel, shortened range, non-homing, late state changes, real timed damage and saved source state. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. Matching 124-handler content/data loads the existing world and shuts down with exit 0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains gated; class completion is unproven.",
+  "status": "Graveyard firebolts now use shared saved Q12 travel with pinned firebolt velocity20/lifetime50 and captured source slow percentages, replacing the homing impact timer. Released shots are independent of subsequent caster freeze/actions, and do not delay the next windup. Focused and full native checks each pass three boots/two reloads, including real overlapping casts, terrain/Bone Wall/moving targets, FP256 damage, damage-draw-before-Avoid order, old player-save defaults and resumed incoming flight. Content/integration build with zero warnings/errors; all70 Python tests and current465/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains unavailable and no class certificate is claimed.",
   "currentSkill": {
     "talentId": "amazon.slowmissiles",
     "name": "Slow Missiles",
@@ -105,12 +105,12 @@
     "Current Slow Missiles filter0xC583 differs from Inner Sight0x8583 by0x4000. Reviewed unchanged target helper rejects MONSTERS_IsBoss when this bit is set. Both lack optional LOS0x200. Boss recognition/native target adapters and full filter parity remain separate coverage; do not duplicate Inner Sight eligibility unchanged."
   ],
   "uncertain": [
-    "Original controlled D2R tests now corroborate six damage types, unchanged durations and independent canSlow0 damage. Exact current second-stat FP256/order, all missile eligibility and parent/child timing remain unverified. The candidate launch helper is isolated and has no gameplay producer yet.",
+    "Original controlled D2R tests corroborate six damage types, unchanged durations and independent canSlow0 damage. Native encounter bolts and Graveyard firebolts now consume the captured payload. Exact pinned second-stat operation order, full source layers, other missile eligibility and parent/child timing remain unverified.",
     "Exact filter50563 differences, multi-caster priority, already-flying and child behavior, missile lifespan/range vs speed, canSlow0, zero velocity, native producers, persistence and current client/owner presentation require dedicated coverage."
   ],
   "nextActions": [
-    "Encounter-bolt consumer passes focused/full three boots/two reloads and matching installed smoke, with current fingerprints. Continue remaining cast/target/projectile integration; handler count remains124.",
-    "Continue full cast/input/target selection and the remaining hostile producer integration: Graveyard firebolt, real travel bridge for ordinary native ranged hits and relevant spell/child/canSlow0 consumers.",
+    "Encounter bolts and shared incoming Graveyard firebolts pass final focused/full three boots/two reloads and matching installed smoke. Full cast/target and other producers remain open; handler count124/Amazon12.",
+    "Continue full cast/input/target selection and remaining hostile producer integration: real travel bridge for ordinary native ranged hits and relevant spell/child/canSlow0 consumers. Graveyard firebolts now use the shared saved Q12 controller; see linked bounded evidence.",
     "Replace or corroborate the explicit native one-tile/frame/18-step geometry adapter against pinned source base speed/lifetime/Size/activation. Keep source snapshots/RNG/current damage order separate; do not certify the class from this component."
   ],
   "assets": {
@@ -131,5 +131,6 @@
   "modernObservationEvidence": "tools/reference/slow-missiles-observation-evidence.json",
   "nativeComponentEvidence": "tools/reference/slow-missiles-component-native-evidence.json",
   "sourceBossScope": "32 full unchanged helper cases confirm species boss flag only; native Champion/Unique grade is not the source boss predicate.",
-  "nativeBoltEvidence": "tools/reference/slow-missiles-bolts-native-evidence.json"
+  "nativeBoltEvidence": "tools/reference/slow-missiles-bolts-native-evidence.json",
+  "nativeFireboltEvidence": "tools/reference/hostile-firebolt-native-evidence.json"
 }

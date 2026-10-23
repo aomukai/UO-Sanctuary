@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "c4cb7ff6d9a293022faf20590086ad7f46c565b448b3d28cda13bb95c1e6ff4b",
+  "ContentAssemblySha256": "d8570a122c6ff0da91016fb201e36aefd12937ea2f248c94aca67e6c6bc2503f",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -315,7 +315,7 @@
     "src/Sanctuary.Content/GlobalUsings.cs": "935c9f61673850542058ba06d42504fd5b329a00b53abed54d4c3913b3938435",
     "src/Sanctuary.Content/GraveyardHealer.cs": "aedd3e618359b4b7d6d89bd68fde2f1e750c9d62bc42d508ee0f8661d93f2f06",
     "src/Sanctuary.Content/GraveyardPopulation.cs": "e3ef472cc12c65080692af4c7234af24528009c0b98da23b5d1aab389b419973",
-    "src/Sanctuary.Content/GraveyardUndead.cs": "e57ee68a82f60f62d1b35360abdc91afc4745633c32db8fe90149165b92ad6b1",
+    "src/Sanctuary.Content/GraveyardUndead.cs": "e7bac3a104b3a8e1f2e163593b88da5c8d1daf0e03ca9add3fb5cdbd7caf6011",
     "src/Sanctuary.Content/HeavenFists.cs": "dd5736632ef5ecfa4f23a41a8fd34a7635800df7cfd347ec42bcd0e2a8fcc5ac",
     "src/Sanctuary.Content/HitRecovery.cs": "8d75d76f25bacba9083a3ef369df2cb69496915072c5115a2bf271ae5cbf7547",
     "src/Sanctuary.Content/HolyBolts.cs": "cdca0ca9c7a85aa32bd4d64eccfe057eb1b2122512b52d88f52d0bad84db7988",
@@ -352,7 +352,7 @@
     "src/Sanctuary.Content/MercenaryCareProfiles.cs": "18d5e649136365139f72a4f3afd5a54c7c4409e1c9c508e24e693ebb662ba7ac",
     "src/Sanctuary.Content/MinionWardrobeProfiles.cs": "54014f5b172c2dc1a6d2099f87b0fc789da8b7655ce455e5ee3ca6314e57e62d",
     "src/Sanctuary.Content/MissileSourceStats.cs": "652a8a36185c17f3bb53a27e9044c38457b5611715abfa4a8859883c2823aad7",
-    "src/Sanctuary.Content/MissileVectors.cs": "683aebecaf2112c1d11b8ee20cd7aa9553eb16c2009febe44f3a59d35a46e59b",
+    "src/Sanctuary.Content/MissileVectors.cs": "febe41a0b8ec9712120978418321239d5abc0862c9ed14336042f12213871c1b",
     "src/Sanctuary.Content/MonsterBalance.cs": "bc494f17394d9f2a482fa74ec739380d1f4e470eb6cb867e7c6b59541d5bb5e6",
     "src/Sanctuary.Content/MonsterExperience.cs": "62b256c45b18bbd98dd0605a3567e67baf84116226a142fa80940197ef15a292",
     "src/Sanctuary.Content/MonsterVariants.cs": "6f3487a1d75fafdd7f6174d2272fbc4e53075c875a0c771019daac00f1a9a2d4",
@@ -464,7 +464,7 @@
     "src/Sanctuary.Content/WardrobeTransaction.cs": "811f5882dcf0d23c7d73259a2905b2c27d3172173ea89623a51bd9fb5190bf1b",
     "src/Sanctuary.Content/WeaponHands.cs": "2bbd9c65e2fd493163fd2a6160bf91824d4725c00eb3d57c46cb0c1baed2ebc3",
     "src/Sanctuary.Content/WeaponLeech.cs": "52975df1e402f69edd5a3f62fc739f9c766b163a49793994bc182237fc664450",
-    "src/Sanctuary.Content/WeaponMissiles.cs": "f95e5c8a0b8c5778539722fbd1b237f5c6bec1fcd285c4b943ce90cf28fc06cf",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "250b1b64d107ec9ca06ff471498ecd2cb83c27711b0883e88f889633e25d6f32",
     "tests/Sanctuary.Integration/NamedGearChecks.cs": "b0285c05a807f010ad80a1371715a22bd12f8dcb7ab20a9a758a6dfa71de5c66",
     "tests/Sanctuary.Integration/NamedLifecycleChecks.cs": "6035f0d49c8d8842f604a23d21264df8445d9393b36a362a400b00bcb10b9d69",
     "tests/Sanctuary.Integration/NamedVisualUiChecks.cs": "eed97c27e0d200c66845e7f329560d2374e14ea05ed54b22cec1d1d6451220e9"

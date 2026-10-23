@@ -57,5 +57,7 @@
     "installed": ".local/class-skills/slow-missiles-bolts-installed-smoke.log",
     "installedServer": ".local/class-skills/slow-missiles-bolts-installed-server.log"
   },
-  "next": "Connect required remaining hostile projectile creation/travel/damage consumers and full cast/input/target selection. Preserve explicit source geometry/current-order gaps; no complete skill claim."
+  "next": "Connect required remaining hostile projectile creation/travel/damage consumers and full cast/input/target selection. Preserve explicit source geometry/current-order gaps; no complete skill claim.",
+  "subsequentFireboltIntegration": "tools/reference/hostile-firebolt-native-evidence.json",
+  "historicalScope": "This record retains its original component verification scope. Graveyard homing-firebolt limitation is subsequently addressed by the linked incoming-firebolt component; remaining limits still apply."
 }

@@ -32,7 +32,7 @@ public abstract partial class GraveyardUndead : BaseCreature
 {
     [SerializableField(0, setter: "private")]
     private bool _raised;
-    private TimerExecutionToken _actionTimer, _impactTimer;
+    private TimerExecutionToken _actionTimer;
     private Mobile _actionTarget;
     private Corpse _raiseTarget;
     private Point3D _actionOrigin;
@@ -164,7 +164,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         _nextAction = Core.TickCount + CombatProfile.AttackMs;
         DoHarmful(target);
     }
-    protected bool ActionReady => !_actionTimer.Running && !_impactTimer.Running && Core.TickCount - _nextAction >= 0;
+    protected bool ActionReady => !_actionTimer.Running && Core.TickCount - _nextAction >= 0;
     private bool SameOrigin => Map == _actionMap && Location == _actionOrigin;
     private void ResolveMelee()
     {
@@ -210,7 +210,7 @@ public abstract partial class GraveyardUndead : BaseCreature
         }
         base.OnThink();
         long now = Core.TickCount;
-        if (!Caster || !NamedControl.SpecialAllowed(this) || _actionTimer.Running || _impactTimer.Running || now - _nextAction < 0
+        if (!Caster || !NamedControl.SpecialAllowed(this) || _actionTimer.Running || now - _nextAction < 0
             || !ValidEnemy(Combatant, 12))
         {
             return;
@@ -247,7 +247,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     }
     public virtual bool BeginFirebolt(Mobile target)
     {
-        if (!Caster || !NamedControl.SpecialAllowed(this) || !ValidEnemy(target, 12) || _actionTimer.Running || _impactTimer.Running
+        if (!Caster || !NamedControl.SpecialAllowed(this) || !ValidEnemy(target, 12) || _actionTimer.Running
             || Core.TickCount - _nextAction < 0)
         {
             return false;
@@ -267,26 +267,13 @@ public abstract partial class GraveyardUndead : BaseCreature
             _actionMap = null;
             return;
         }
-        MovingEffect(_actionTarget, 0x36D4, 10, 0, false, false);
-        int flight = Math.Max(80, (int)this.GetDistanceToSqrt(_actionTarget) * 40);
-        Timer.StartTimer(TimeSpan.FromMilliseconds(flight), HitFirebolt, out _impactTimer);
-    }
-    private void HitFirebolt()
-    {
-        var target = BoneBarriers.Intercept(this, _actionTarget) ?? _actionTarget;
-        _actionTarget = null;
-        if (ValidEnemy(target, 16))
-        {
-            SorceressEffects.MissileHit(this, target, "firebolt");
-            target.FixedParticles(0x3709, 10, 10, 5052, EffectLayer.LeftFoot);
-            target.PlaySound(0x208);
-            var row = CreatureProfiles.For(this);
-            int minimum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 6 : row.Attack1.MinDamage ?? 6;
-            int maximum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 10 : row.Attack1.MaxDamage ?? 10;
-            int damage=Utility.RandomMinMax(minimum,maximum);
-            if(!AmazonAvoidance.Missile(target)){Deal(target,damage,true);}
-        }
-        _actionMap = null;
+        var target=_actionTarget;_actionTarget=null;_actionMap=null;
+        var row=CreatureProfiles.For(this);
+        int minimum=MonsterVariants.Difficulty(this)==MonsterDifficulty.Normal?6:row.Attack1.MinDamage??6;
+        int maximum=MonsterVariants.Difficulty(this)==MonsterDifficulty.Normal?10:row.Attack1.MaxDamage??10;
+        // Shared Q12 flight snapshots endpoints/slow at release. No homing
+        // impact timer or wait-for-arrival gate on the next attack cycle.
+        WeaponMissiles.LaunchHostileFirebolt(this,target.Location,minimum*256,maximum*256);
     }
     public virtual bool CanRaise(Corpse corpse) => Caster && corpse is { Deleted: false, OwnerWasBaseCreature: true, Parent: null,
         Carved: false, Animated: false, SanctuaryHarvested: false, SanctuaryConsumed: false, SanctuaryRestInPeace: false, IsBones: false, OwnerWasSummoned: false }
@@ -310,7 +297,7 @@ public abstract partial class GraveyardUndead : BaseCreature
     public bool BeginRaise(Corpse corpse)
     {
         if (!Alive || Deleted || Frozen || Paralyzed || !NamedControl.SpecialAllowed(this) || !CanRaise(corpse) || _actionTimer.Running
-            || _impactTimer.Running || Core.TickCount - _nextAction < 0 || Core.TickCount - _nextRaise < 0)
+            || Core.TickCount - _nextAction < 0 || Core.TickCount - _nextRaise < 0)
         {
             return false;
         }
@@ -375,7 +362,6 @@ public abstract partial class GraveyardUndead : BaseCreature
     internal virtual void StopCombatActions()
     {
         _actionTimer.Cancel();
-        _impactTimer.Cancel();
         _actionTarget = null;
         _raiseTarget = null;
         _actionMap = null;

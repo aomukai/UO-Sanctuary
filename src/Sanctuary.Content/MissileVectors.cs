@@ -33,7 +33,12 @@ public static class MissileVectors
     }
     public static (double X, double Y) Velocity(int dx, int dy, int sourceVelocity)
     {
-        var direction = Direction(dx, dy); int velocity = (sourceVelocity << 8) * 75 / 100;
+        return VelocityFp8(dx,dy,(sourceVelocity << 8)*75/100);
+    }
+    // The caller supplies the completed factory FP8 velocity, including slow.
+    internal static (double X,double Y) VelocityFp8(int dx,int dy,int velocity)
+    {
+        var direction=Direction(dx,dy);
         return (SkillGeometry.Tiles(((long)direction.X * velocity >> 8) / 65536.0),
             SkillGeometry.Tiles(((long)direction.Y * velocity >> 8) / 65536.0));
     }

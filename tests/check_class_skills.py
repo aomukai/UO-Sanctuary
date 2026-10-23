@@ -184,6 +184,10 @@ def check():
                     session.send(slow_bolts)
                     assert session.expect(slow_bolts+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'slow-missiles-bolts-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    hostile_firebolt='hostile-firebolt-check' if boot==0 else 'hostile-firebolt-reload-check'
+                    session.send(hostile_firebolt)
+                    assert session.expect(hostile_firebolt+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'hostile-firebolt-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
