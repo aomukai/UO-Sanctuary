@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Evade implemented:3600 dispatch/960 presentation/3 priority compiled source cases,300 applicable native comparisons,150 explicit approved-running divergences and20 rank goldens pass. Actual accepted walking reaches real enemy melee and timed firebolt/moving elite lightning impacts; running stays suppressed. Focused and final combined each pass3boots/2reloads.70 Python tests and464 named/15 first-loop current fingerprints pass. Matching124-handler content/data installed; existing-world boot/listen/clean shutdown exit0 passes. Server stopped; saves retained; client/native patches and named acquisition gates unchanged. No class completion certificate.",
+  "handlerCount": 124,
+  "classHandlerCount": 12,
+  "sourceEvidence": "tools/reference/amazon-evade-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonAvoidance.cs",
+    "src/Sanctuary.Content/AmazonCombat.cs"
+  ],
+  "verified": [
+    "Full unchanged supplementary source compiles3600 dispatch,960 presentation and3 mixed-flag priority cases; bounded declared services are documented separately. Native compares300 applicable standing/walking weapon/spell outcomes and draw counts, plus150 explicit approved-running divergences and20 rank goldens.",
+    "Walking uses learned effective-rank Evade instead of standing Dodge/Avoid, without fallback if unlearned or failed. Ordinary weapon checks retain shield-first order. Traced missile/area consumers reuse the existing once-only defense stage. Running remains suppressed under the approved Sanctuary rule.",
+    "Real Tarnhelm, Highlord\u2019s Wrath, Skin of the Vipermagi, Lidless Wall and The Stone of Jordan give hard1/item5/effective6=40, matching the user current-build tooltip. Unlearned general allskills gives no Evade. Hard20/item5/effective25=58 and training cap persist across both restarts.",
+    "Actual PlayerMobile.Move walking reaches shared melee defense through real Ogre Fists.OnSwing, avoids at least4 hits, leaves fractional health/mana and action/recovery deadlines unchanged, and permits the next real step. Actual running receives damage with no passive draw. Selected Run while standing, a direction-only turn and a rejected frozen step do not create moving mode. Selecting Walk does not erase an accepted running penalty.",
+    "Four natural observations on each of3focused boots and again on all3combined boots: actual delayed GraveyardLich firebolt during accepted walking is avoided; actual moving elite lightning bolt damages while walking at draw99, damages while running with no passive draw, and is avoided while walking at draw0. Impact reads actual walking state, resources are unchanged beyond expected damage, and natural walking lease expiry is observed.",
+    "Passive rejects active slots and quick binding. History disables/restores learned Evade; allocated-point reset removes it. Saved gear/rank/resources retain their identities and values, and transient movement state is absent after both reloads."
+  ],
+  "fixtureControls": [
+    "Only named AmazonEvadeFixture HP/mana regen is held1hour, with constructor/final Initialize wrappers. Source AI is stopped; actual hit, cast, timer and bolt consumers execute. Passive integer draws and AR hit test inputs are controlled; no real source RNG stream is claimed.",
+    "A first timed test used an offline owner; ClassCombat.Tick correctly removed its transient session. The fixture now attaches the real loopback test connection, as the existing Fend fixture does. This corrects test lifecycle without changing gameplay.",
+    "A single500ms timed step could expire before a delayed post-reload firebolt impact. The fixture now takes actual alternating walking steps until the actual impact, stops without relaunching, then observes natural lease expiry. Observation waits at most6seconds. Production timer scheduling and movement policy are unchanged.",
+    "Direct differential matrices supply accepted movement leases to isolate branch outcomes. Separate actual Move and incoming-damage observations establish native movement integration; they do not certify modern animation/packet timing.",
+    "The first combined run\u2019s later Whirlwind fixture was denied after the added Evade socket remained silent to the normal input parser. The attached Evade connection now sends a real logged-in ping and explicitly shuts down before closing. Disposable harness only; production connection-filter policy is unchanged."
+  ],
+  "limits": [
+    "No class/current executable certificate. Exact modern movement priority, stat layers, source seeded draw order, audio/client/owner/PvP/nonplayer behavior remain acceptance work. User Evade6=40 does not distinguish both curve candidates; current Dodge3/Avoid3 do.",
+    "Cooperative target filters exclude player PvP. Valkyrie/Decoy/nonplayer passives, arbitrary legacy UO spell producers and elite cold-death nova retain the existing unadapted Avoid scope. Earlier spell snapshot/per-victim RNG, activation/geometry/NextHit and native encounter geometry/element/event limitations remain explicit.",
+    "Supplementary source chooses running Evade and reduced block, while approved Sanctuary accepted running steps suppress all avoidance. This intentional divergence is tested explicitly.",
+    "Source full presentation branch requests sound and returns without S1 mode change or skill-flag writes. Historical lock prose and row animS1 alone do not justify a recovery/movement lock. Current complete client presentation remains unverified.",
+    "Lightning Strike initial aim/first collision/hidden solo damage and existing loot-affix generation gap remain independent; neither blocks unaffected skills."
+  ],
+  "assets": {
+    "effect": "Sound-only native0x1A4 identified placeholder; final block_arrow_1 / amazon_dodge_1 sound pending. Bitmap visual/animation is not established by the source server branch.",
+    "icon": "Passive talent-tree icon pending in independent icon register; no active hotkey icon."
+  },
+  "logs": {
+    "source": ".local/class-skills/amazon-evade-source-probe.log",
+    "contentBuild": ".local/class-skills/amazon-evade-content-build.log",
+    "integrationBuild": ".local/class-skills/amazon-evade-integration-build.log",
+    "focused": ".local/class-skills/amazon-evade-focused.log",
+    "focusedRun": ".local/class-skills/amazon-evade-focused-run.log",
+    "offlineFailure": ".local/class-skills/amazon-evade-offline-session-failure.log",
+    "timingFailure": ".local/class-skills/amazon-evade-single-step-timing-failure.log",
+    "combinedConnectionFailure": ".local/class-skills/amazon-evade-combined-connection-failure.log",
+    "combined": ".local/class-skills/amazon-evade-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/amazon-evade-installed-smoke.log",
+    "installedServer": ".local/class-skills/amazon-evade-installed-server.log"
+  },
+  "next": "Slow Missiles: reuse Inner Sight state/rank/target foundation and traced projectile consumers; verify current second-stat damage-scale consumer before inventing behavior."
+}

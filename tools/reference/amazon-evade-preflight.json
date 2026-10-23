@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next Amazon passive: reviewed only, no positive-Evade source or native handler yet.",
+  "status": "Evade implemented:3600 dispatch/960 presentation/3 priority compiled source cases,300 applicable native comparisons,150 explicit approved-running divergences and20 rank goldens pass. Actual accepted walking reaches real enemy melee and timed firebolt/moving elite lightning impacts; running stays suppressed. Focused and final combined each pass3boots/2reloads.70 Python tests and464 named/15 first-loop current fingerprints pass. Matching124-handler content/data installed; existing-world boot/listen/clean shutdown exit0 passes. Server stopped; saves retained; client/native patches and named acquisition gates unchanged. No class completion certificate.",
   "currentSkill": {
     "talentId": "amazon.evade",
     "name": "Evade",
@@ -79,12 +79,11 @@
     "Approved Sanctuary accepted running steps disable all avoidance; only accepted walking may use Evade. Selected Run mode while standing still is not moving and must continue using stationary passives."
   ],
   "uncertain": [
-    "Dodge/Avoid compiled matrices declare Evade0. Compile positive-Evade dispatcher and applicable presentation path separately before claiming coverage.",
     "Exact current executable/client sound/animation/mode priority and special spell/pet/owner/PvP/seed/geometry remain acceptance work. Historical guide Evade-lock prose conflicts with the reviewed sound-only server branch; do not port it as current authority."
   ],
   "nextActions": [
-    "Compile unchanged positive-Evade dispatcher for player/monster movement types and both damage classes. Validate source draw/short-circuit/thresholds, with approved native running divergence explicit.",
-    "Compile the actual sound-only presentation branch or the full function with bounded services; keep health/events and current executable scope separate.",
-    "Implement walking Evade through existing consumers, then verify current rank6=40, real gear, actual accepted movement/standing/run transitions, native incoming melee/bolts, lifecycle and two reloads. Track final effects/sound and passive talent icon separately."
-  ]
+    "Continue Slow Missiles source/consumer preparation from tools/reference/slow-missiles-preflight.json. Preserve individual unresolved gaps, existing build/saves and ordinary Git backups."
+  ],
+  "engineEvidence": "tools/reference/amazon-evade-engine-evidence.json",
+  "nativeEvidence": "tools/reference/amazon-evade-native-evidence.json"
 }

@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_ApplyDodge",
+    "SUNITDMG_ApplyBlockOrDodge",
+    "SUNITDMG_ExecuteMissileDamage"
+  ],
+  "blockHashes": {
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+  },
+  "pinnedSkill": {
+    "talentId": "amazon.evade",
+    "name": "Evade",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 29,
+    "sourceKey": "Evade",
+    "ability": 22,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Evade",
+      "charclass": "ama",
+      "skilldesc": "evade",
+      "passivestate": "evade",
+      "passivestat1": "passive_evade",
+      "passivecalc1": "dm12",
+      "stsound": "block_arrow_1",
+      "stsoundclass": "amazon_dodge_1",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "anim": "S1",
+      "seqtrans": "S1",
+      "monanim": "xx",
+      "reqlevel": 24,
+      "maxlvl": 20,
+      "reqskill1": "Avoid",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 10,
+      "Param2": 65,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 768,
+      "cost add": 32000
+    },
+    "sourceParameters": {
+      "1": 10,
+      "2": 65,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json",
+  "probe": {
+    "caseCounts": {
+      "dispatch": 3600,
+      "presentation": 960,
+      "priority": 3
+    },
+    "fixture": ".local/class-skills/amazon-evade-source-probe.json",
+    "sha256": "7473ac31b68e1798c413398c9add994cba31c8ca8ba8f61c86865cf8394128ea"
+  },
+  "established": [
+    "Full unchanged block/dodge dispatcher chooses moving Evade for either melee or missile on players and monsters, with no stationary fallback when Evade0/fails. Shield is attempted first when requested; only source player running divides block by3. Zero chance draws none; equality fails.",
+    "Full unchanged missile presentation function: player Evade flags request sound12 only with a state, learned skill, row and positive sound. It returns without mode changes or skill-flag writes, even with get-hit/knockback/will-die companion flags. Earlier uninterruptable/death-delay and null-attacker/target guards are observed separately.",
+    "Mixed result flags prioritize Dodge, then Avoid before Evade; those standing branches set skill flags and request mode13. This does not establish that ordinary source flow generates mixed flags.",
+    "Current Evade dm12 parameters10/65 and user effective6=40 agree with the retained native curve. Missing Param8/row animS1 alone does not establish a server Evade animation lock."
+  ],
+  "services": [
+    "Declared stats, modes, shield rate and integer draws; no real source RNG stream, full stat lists, weapon-block, world/AR/damage calculation or modern executable is supplied.",
+    "Full presentation routine compiles unchanged with explicit no-town and player fixtures; native death/control/mode/sound functions are recorded services. Only Evade guards/priority and bounded standing controls are exercised. Monster presentation and town/health consumers are outside the matrix."
+  ],
+  "limits": [
+    "Source preparation, not native/class/current executable certification. All native integration, actual accepted movement, enemy hit/bolt, gear and reload checks remain separate.",
+    "Approved Sanctuary running-step suppression supersedes source running Evade and reduced block; native implementation must enable Evade only during accepted walking.",
+    "Legacy historical Evade-lock prose conflicts with the compiled sound-only server branch. Full current client/animation/audio/owner/PvP/nonplayer and mapped spell eligibility remain acceptance work; do not invent a stop/lock from that prose."
+  ]
+}

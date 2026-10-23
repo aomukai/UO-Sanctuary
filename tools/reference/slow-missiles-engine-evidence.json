@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledBlock": {
+    "parent": "MISSILES_CreateMissileFromParams",
+    "start": "int32_t nVelocity = 0;",
+    "endBefore": "D2UnitStrc* pTarget = missileParams->pTarget;",
+    "sha256": "e3953a6df262cb27586b006997f5f618385aff37ca27fddc237919dfcdfa5458",
+    "unchanged": true
+  },
+  "probe": {
+    "velocityCases": 1152,
+    "fixture": ".local/class-skills/slow-missiles-source-probe.json",
+    "sha256": "35357d7c3ed6d53f71a906207621639957fd39a29c1c6c37cdf518492340ad10"
+  },
+  "established": [
+    "Legacy factory chooses table base plus integer level increment, shiftedFP8, unless flags4 supplies velocity. Supplied velocity is shiftedFP8 unless flags16 already marksFP8.",
+    "Only canSlow requests the owner state. Only an active state requests its list, and only a present list reads skill_handofathena. Eligible velocity is scaled by that percent with integer division before the independent75-percent factory conversion. Zero and subinteger rounding are retained.",
+    "Factory creation reads owner state at creation. This bounded block establishes no behavior for a missile already in flight, later state expiry, children, path/lifetime/range or a modern damage-scale stat."
+  ],
+  "services": [
+    "Declared owner state/list/stat and canSlow bit services record call counts. Positive unsigned table/supplied input ranges are bounded to avoid signed-shift/overflow assertions. No real source stat graph, room, full factory or current executable is compiled.",
+    "This compiles an unchanged contiguous velocity block, not the complete factory function. Full source and block hashes are validated against pinned Git blobs. Python expectations use these bounded positive arithmetic cases only."
+  ],
+  "limits": [
+    "No native handler, modern damage reduction or class/current executable certificate. Current skill_missile_damage_scale and second-stat do6 handling are absent from this legacy source. Do not silently apply first-stat-only behavior as complete current Slow Missiles.",
+    "Current missile eligibility/owner/child snapshots, damage order, hostile mapped sources, actual travel/expiration/save/client behavior remain separate work. See tools/reference/slow-missiles-preflight.json."
+  ]
+}

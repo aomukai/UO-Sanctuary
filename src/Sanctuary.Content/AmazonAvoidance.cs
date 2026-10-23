@@ -10,6 +10,7 @@ public static class AmazonAvoidance
     internal static Func<int,int> Roll=Utility.Random;
     public static int DodgeChance(PlayerMobile player)=>Chance(player,CombatAbility.Dodge);
     public static int AvoidChance(PlayerMobile player)=>Chance(player,CombatAbility.Avoid);
+    public static int EvadeChance(PlayerMobile player)=>Chance(player,CombatAbility.Evade);
     private static int Chance(PlayerMobile player,CombatAbility ability)
     {
         if(player is not{Alive:true,Deleted:false} || ClassCreation.Profiles?.TryGet(player.Serial,out var profile)!=true
@@ -27,9 +28,16 @@ public static class AmazonAvoidance
     {
         // Moving source modes use Evade instead. Sanctuary's accepted running
         // step rule takes precedence over source running avoidance.
-        if(ClassMovement.IsMoving(player,now)){return false;}
+        if(ClassMovement.IsRunning(player,now)){return false;}
+        if(ClassMovement.IsMoving(player,now)){ability=CombatAbility.Evade;}
         int chance=Chance(player,ability);
         if(chance<=0 || Roll(100)>=chance){return false;}
+        if(ability==CombatAbility.Evade)
+        {
+            // Source Evade presentation requests sound and returns without an
+            // S1 mode change. Identified native block sound, final audio pending.
+            player.PlaySound(0x1A4);return true;
+        }
         // Identified native marker pending the source S1 dodge animation/sound.
         // Current Param8=2 and released2.4 permit other actions; no recovery lock
         // or cancellation of an already paid attack is introduced here.

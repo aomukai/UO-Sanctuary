@@ -244,12 +244,15 @@
     "sourceEffects": {
       "passivestate": "evade",
       "anim": "S1",
-      "stsound": "block_arrow_1"
+      "stsound": "block_arrow_1",
+      "stsoundclass": "amazon_dodge_1"
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "visualEffect": "not-established; source server presentation is sound-only",
+    "soundEffect": "needed",
+    "placeholder": "Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey"
   },
   {
     "talentId": "amazon.valkyrie",

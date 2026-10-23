@@ -70,7 +70,7 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
-        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json','amazon-avoid-source-probe.json'):
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json','amazon-avoid-source-probe.json','amazon-evade-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
@@ -163,6 +163,18 @@ def check():
                     session.send(avoid)
                     assert session.expect(avoid+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'amazon-avoid-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    evade='amazon-evade-check' if boot==0 else 'amazon-evade-reload-check'
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as evade_client:
+                        threading.Thread(target=drain_fixture_client,args=(evade_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send(evade)
+                        assert session.expect(evade+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        # The attached fixture uses the normal logged-in parser.
+                        # Send a real ping so this is not a silent unauthenticated socket.
+                        evade_client.sendall(b'\x73\x00')
+                        assert session.expect(r'amazon-evade-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        evade_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

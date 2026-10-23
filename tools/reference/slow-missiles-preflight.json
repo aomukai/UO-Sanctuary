@@ -1,0 +1,130 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Slow Missiles in preparation:1152 unchanged legacy factory velocity-block cases pass; no native handler or modern damage-consumer proof yet.",
+  "currentSkill": {
+    "talentId": "amazon.slowmissiles",
+    "name": "Slow Missiles",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 17,
+    "sourceKey": "Slow Missiles",
+    "ability": 18,
+    "sourceTab": 1,
+    "passive": false,
+    "left": false,
+    "right": true,
+    "sourceFields": {
+      "skill": "Slow Missiles",
+      "charclass": "ama",
+      "skilldesc": "slow missiles",
+      "srvdofunc": 6,
+      "aurafilter": 50563,
+      "auratargetstate": "slowmissiles",
+      "auralencalc": "ln34",
+      "aurarangecalc": "ln56",
+      "aurastat1": "skill_handofathena",
+      "aurastatcalc1": "100-dm12",
+      "aurastat2": "skill_missile_damage_scale",
+      "aurastatcalc2": "100-dm78",
+      "stsound": "amazon_handofathena",
+      "castoverlay": "cast_slowmissiles",
+      "enhanceable": 1,
+      "attackrank": 8,
+      "anim": "SC",
+      "seqtrans": "SC",
+      "monanim": "xx",
+      "LineOfSight": 4,
+      "ItemEffect": 1,
+      "ItemCastSound": "amazon_handofathena",
+      "ItemCastOverlay": "cast_slowmissiles",
+      "reqlevel": 12,
+      "maxlvl": 20,
+      "reqskill1": "Inner Sight",
+      "leftskill": 0,
+      "rightskill": 1,
+      "minmana": 1,
+      "manashift": 7,
+      "mana": 10,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "Param1": 25,
+      "Param2": 75,
+      "Param3": 300,
+      "Param4": 150,
+      "Param5": 27,
+      "Param6": 0,
+      "Param7": 0,
+      "Param8": 40,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 512,
+      "cost add": 8000
+    },
+    "sourceParameters": {
+      "1": 25,
+      "2": 75,
+      "3": 300,
+      "4": 150,
+      "5": 27,
+      "6": 0,
+      "7": 0,
+      "8": 40,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "reviewedBlocks": {
+    "SKILLS_SrvDo006_InnerSight_SlowMissiles": "574cd757b4c13f8ec8f4081cfcaa5432fba3b6fc03af8e5b526fd198b7cf66b5",
+    "SKILLS_AuraCallback_InnerSight_SlowMissiles": "614b6462e824d5bf3e698bc2aa7ac33b9e6fa98be91ac62fc969cdb9178862e3",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b"
+  },
+  "officialRelease": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "reviewedOn": "2026-10-24",
+    "paraphrase": "Released2.4 notes describe rank-dependent slowing, a larger radius and new rank-dependent enemy missile damage reduction. They do not specify the exact modern damage consumer or operation order."
+  },
+  "reuse": [
+    "Reuse AmazonInnerSight and its reviewed do6 state application/rank priority, SourceAuraTargets, squared source radius, SC scheduling and once-only mana. Slow Missiles has distinct state/filter/stat values, so do not copy Inner Sight constants or silently claim all target-filter bits match.",
+    "Reuse shared source missile flags and existing projectile factories/controllers rather than build unrelated fan or damage systems. Speed affects only canSlow missiles; source factory reads the affected owner\u2019s state at creation, then applies ordinary75-percent factory conversion.",
+    "Existing Avoid/Evade consumers establish defense stages, not a general Slow Missiles damage hook. Scalar damage consumers and already-flying/child missiles need separate tracing."
+  ],
+  "establishedByReview": [
+    "Pinned current do6/filter50563, slowmissiles state, duration300+150*(rank-1) frames, radius27subtiles, mana5, speed stat100-dm12(25,75), damage stat100-dm78(0,40), SC/right-only/Inner Sight prerequisite.",
+    "The pinned supplementary do6 and callback explicitly pass only aurastat1 to the state helper; current aurastat2 damage scale is absent from this legacy implementation. Do not mistake a successful old do6 test for modern damage reduction proof.",
+    "Supplementary MISSILES_CreateMissileFromParams computes base or supplied FP8 velocity; if canSlow and owner has slowmissiles state/list, scales by skill_handofathena/100 before75-percent conversion. Existing source search found no modern skill_missile_damage_scale consumer in the supplementary source snapshot.",
+    "Current Slow Missiles filter0xC583 differs from Inner Sight0x8583 by0x4000. Reviewed unchanged target helper rejects MONSTERS_IsBoss when this bit is set. Both lack optional LOS0x200. Boss recognition/native target adapters and full filter parity remain separate coverage; do not duplicate Inner Sight eligibility unchanged."
+  ],
+  "uncertain": [
+    "Current second-stat application and damage scale eligibility, source operation order relative to weapon conversion/critical/resist/defense, and parent/child snapshot timing need current corroboration or a clearly bounded provisional implementation. Never ignore the second stat or apply a global health multiplier.",
+    "Exact filter50563 differences, multi-caster priority, already-flying and child behavior, missile lifespan/range vs speed, canSlow0, zero velocity, native producers, persistence and current client/owner presentation require dedicated coverage."
+  ],
+  "nextActions": [
+    "Positive speed/flag/state/list and integer-rounding block now compiles1152 cases. Extend actual current do6/target-filter/second-stat and complete factory/path coverage separately; reuse state proof only within its declared scope.",
+    "Trace or corroborate the current damage scale contract. If it remains unsupported, document the individual component and continue unaffected Amazon skills without declaring Slow Missiles complete.",
+    "Verify actual hostile projectile travel and damage with current gear/ranks, canSlow0 and expiration, plus both save/reload cycles. Keep effect/icon placeholders separate and preserve approved deviations."
+  ],
+  "assets": {
+    "effect": "Cast_slowmissiles, affected-state presentation and amazon_handofathena sound remain pending in existing separate effects register; no new art generated.",
+    "icon": "Talent-tree and right-hotkey icons remain needed in independent icon register."
+  },
+  "engineEvidence": "tools/reference/slow-missiles-engine-evidence.json",
+  "nonblockingQuestions": [
+    {
+      "question": "If an existing Amazon has Slow Missiles, what effective rank, missile speed percentage, damage reduction, radius and duration does its current tooltip show?",
+      "scope": "Optional displayed-value corroboration only; no respec or response required to continue source work."
+    },
+    {
+      "question": "In the pinned current build, does casting Slow Missiles after an enemy projectile has already launched change that projectile\u2019s speed or damage?",
+      "scope": "Optional observation; retain explicit factory/child/current-consumer uncertainty and continue unaffected mechanics."
+    }
+  ]
+}

@@ -207,10 +207,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 29,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Accepted walking selects effective-rank Evade for melee/ranged and traced spell/area defense; no fallback to standing Dodge/Avoid on failure. Shield-first weapon order and existing missile impact stages are reused. Approved running-step suppression remains authoritative, while selected Run mode/turns/failed steps do not create movement. Compiled presentation requests sound without S1 mode or action lock; native0x1A4 is an identified placeholder. Dedicated source/native movement, real gear/current rank6=40, incoming attacks/bolts and reload checks are recorded separately. Exact modern movement priority/seed/stat/audio/client/owner/PvP/nonplayer and inherited unmapped spell/encounter branches remain acceptance work; no class certificate."
     },
     {
       "talentId": "amazon.valkyrie",

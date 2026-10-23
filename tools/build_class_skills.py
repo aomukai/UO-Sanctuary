@@ -73,11 +73,13 @@ def compile_skills():
                    effects='not-applicable' if m['passive'] else 'needed',
                    sourceEffects={k:v for k,v in m['sourceFields'].items() if any(s in k.lower() for s in ('missile','overlay','summon','aurastate','passivestate'))},
                    generation='pending',clientMapping='pending',inGameVerification='pending') for m in mechanics]
-    # These passives have visible reactions even though they cannot bind hotkeys.
+    # These passives have reaction assets even though they cannot bind hotkeys.
     for asset,mechanic in zip(assets,mechanics,strict=True):
         if mechanic['talentId'] in {'amazon.dodge','amazon.avoid','amazon.evade'}:
             asset['effects']='needed'
-            asset['sourceEffects'].update({k:mechanic['sourceFields'][k] for k in ('anim','stsound','Param8') if k in mechanic['sourceFields']})
+            asset['sourceEffects'].update({k:mechanic['sourceFields'][k] for k in ('anim','stsound','stsoundclass','Param8') if k in mechanic['sourceFields']})
+    evade=next(asset for asset in assets if asset['talentId']=='amazon.evade')
+    evade.update(visualEffect='not-established; source server presentation is sound-only',soundEffect='needed')
     return talents, mechanics, assets
 
 def generated_protocol(rows):
@@ -128,8 +130,9 @@ def products():
     summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
                 if r.get('Missile') in ['necromage1','necromage2','necromage3','necromage4','poisonexplosioncloud','bonewallmaker','chillingarmorbolt','firebolt','arrow','thunderstorm1','lightningbolt','chargedbolt','chargedstrikebolt','blaze','firewall','firewallmaker','meteorcenter','meteorfire','blizzardcenter','blizzard1','frozenorb','frozenorbbolt','frozenorbnova','hydra','infernoflame1','chainlightning','holybolt','fistoftheheavensdelay','fistoftheheavensbolt','blessedhammer','shout','battleorders','battlecommand','howl','battlecry','warcry']]
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
-    icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
+    icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'barbarian.finditem':'Staged UO0x375A corpse search marker and0x1E5 cry sound; final find-object/find-heart cry, corpse search and success/failure cues pending',

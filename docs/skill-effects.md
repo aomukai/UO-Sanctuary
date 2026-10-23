@@ -23,7 +23,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Amazon | Avoid | needed | avoid, S1, amazon_dodge_1, 2 |
 | Amazon | Penetrate | not-applicable | penetrate |
 | Amazon | Decoy | needed | dopplezon, dopplezon, dopllezon_appear |
-| Amazon | Evade | needed | evade, S1, block_arrow_1 |
+| Amazon | Evade | needed | evade, S1, block_arrow_1, amazon_dodge_1 |
 | Amazon | Valkyrie | needed | valkyrie |
 | Amazon | Pierce | not-applicable | pierce |
 | Amazon | Magic Arrow | needed | magicarrow, magicarrow |
@@ -254,6 +254,8 @@ Shared weapon leech: life/mana overlays151/152 still need final recovery effects
 Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
+
+Evade uses native0x1A4 sound as an identified placeholder with no S1 animation/visual marker or movement lock. Final block_arrow_1/amazon_dodge_1 audio remains pending; a bitmap visual is not established by row animS1. Its passive talent icon is separate; no active hotkey icon.
 
 Avoid uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
 
