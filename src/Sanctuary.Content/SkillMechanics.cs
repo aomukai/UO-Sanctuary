@@ -124,6 +124,15 @@ public sealed class SkillValues
         return (int)Math.Clamp(value, 0, int.MaxValue);
     }
     public double Damage(bool maximum) => Damage256(maximum) / 256.0;
+    internal int PhysicalDamage256(bool maximum)
+    {
+        // Physical SKILLS_GetMin/MaxPhysDamage truncates synergy before the
+        // HitShift, unlike elemental endpoints. No weapon/kick component here.
+        string key=maximum?"Max":"Min";
+        long basis=Tier(_skill.Number(key+"Dam"),Rank,i=>_skill.Number(key+"LevDam"+i));
+        basis+=basis*Eval("DmgSymPerCalc")/100;
+        return (int)Math.Clamp(basis<<_skill.Number("HitShift",8),0,int.MaxValue);
+    }
     public static int Tier(int baseline, int rank, Func<int, int> increase)
     {
         int extra = Math.Max(0, rank - 1);

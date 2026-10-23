@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final full combined native3boots/2reloads pass;70 Python tests,current435 named/15 first-loop hashes, source/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass.",
+  "source": "tools/reference/warcry-engine-evidence.json",
+  "implementation": [
+    "Reuses existing64-ray factory, fixed source vectors/Q12 movement, scheduled-frame catch-up, LastCollide and saved per-skill NextHit dictionary. War Cry uses12/12/-600/16 motion and a distinct6-frame delay.",
+    "Physical skill endpoints truncate hard Howl/Taunt/Battle Cry synergy before HitShift8. Nullable damage payload fields extend shared ray JSON; War Cry snapshots effective rank and physical endpoints at launch, then rolls per collision.",
+    "Right/quick shared SC event pays once in FP256: rank1 ten mana, rank20 24.25, soft21 25. Interrupted/unpaid release creates no ray or debit; event delivery cannot repeat.",
+    "Source block-rate distinction respects actual source SH selection, innate/current-row overrides and cap75. Selected component persists per actor; no per-hit equipment reroll or averaged block chance. Explicit native dungeon block/movement traits retain their bounded profile.",
+    "Reuses prepared physical mitigation, fractional health, hit recovery and saved common stun state. No ordinary AR or weapon critical/ED/enchant/crushing/leech/on-strike path. A block prevents damage/stun; physical immunity alone does not suppress successful-hit stun. Scheduled hit time anchors stun expiry."
+  ],
+  "checks": [
+    "390 independent compiled endpoint/roll vectors and160 source monster block vectors compared in native fixture; pinned rank1/20/21 fractional costs/stun, degenerate/reversed damage ranges and shared ray payload serialization.",
+    "Native SC/rank/right/quick/payment/insufficient mana/interruption/repeated event, actual Tarnhelm soft21, post-launch removal/hard-synergy change and rank20 fractional debit.",
+    "Actual skeleton shield/no-shield block boundaries, no damage/no stun on block, no-AR hit, physical immune stun, owner Weaken exclusion, per-collision fractional roll and no per-hit SH reroll. Zombie bare ToBlock does not imply shield block; unmapped target excluded.",
+    "Explicit native champion movement/block profile and unique ten-percent stun boundary; ordinary wave damage/stun/range and natural ray/stun expiry.",
+    "Three boots/two actual reloads retain saved physical endpoints/rank/motion/acceleration/LastCollide, independent delay, SH choice, held stun inspection and fractional mana. Offline short stun expires; resumed ray hits/stuns once within lifetime without another mana payment.",
+    "Final full native suite,435 named/15 first-loop input hashes,70 Python/source/generator checks, matching installed DLLs and existing-world load/listen/shutdown0."
+  ],
+  "fixtureCorrections": [
+    "Initial focused binding assertion caught missing right-only SkillBindings guard; guard corrected and focused/full checks rerun.",
+    "First full run hit duplicate second-based AutoArchive directory from rapid fixture saves. Test harness now spaces explicit saves by at least1.1seconds; production backup code/save policy unchanged. Failure log retained.",
+    "The longer full run reached PaladinAuraChecks third-boot inspection at its artificial3-minute deadline. Only that fixture hold is now10minutes; original2.04-second aura and natural range/expiry checks remain unchanged. Failure log retained.",
+    "As with earlier skills, saved ray/stun inspection alone is held10minutes to survive suite duration; normal source lifetime and independent natural expiry checks remain unchanged.",
+    "Python readiness tests initially ran against an older in-progress native export after roadmap metadata changed; rerun against final current435-input export. No readiness validation was weakened."
+  ],
+  "limits": [
+    "Native source SH selection provisionally uses independent no-regional-pool component choice on first use and persists per actor. Regional appearance pools, exact source RNG/visual correspondence and modern equivalence remain unverified; this is not an approved Sanctuary deviation.",
+    "NPC block adapter is used by War Cry only; broader ordinary melee/other missile blocking is not certified. Modern ShieldBlockOverride current-row crosswalk is source/table inference, not a compiled modern engine.",
+    "PvP/unmapped targets, nonzero passive dodge/weapon-block and DAMAGE_VS_MONTYPE item layers remain unsupported. Full event/proc/owner/SC/FCR/geometry/client acceptance is open.",
+    "Existing shared diminishing curve truncates early for some parameter pairs; Find Item source proof records the gap and86 current-table formula fields with differing ranks1..21. War Cry does not use it; correct affected consumers next, before enabling Find Item.",
+    "Final WarcryShockwave/cast/stun/block effects and talent/hotkey icon remain identified placeholders in separate registers. No class certificate or item-skill gate is cleared."
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Next unaffected War Cry source preflight; no native handler or new compiled certificate.",
+  "status": "Source prerequisites and native handler implemented; see separate bounded engine/native evidence and current checkpoint.",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
@@ -143,13 +143,16 @@
     "Source common missile creation/damage flags/stun/event order and native block/stat/snapshot adapters need proof before a new handler. Physical immunity versus stun delivery, rare special NPC/player targets and interruption/owner transitions remain open."
   ],
   "nextSteps": [
-    "Compile damage callback7/current parameter branches, missile flag/block/stun ordering and creation damage snapshot contracts with explicit services. Reuse prior do68/ray/stun proof where it applies.",
-    "Implement supported native ring damage/stun/cost/persistence with per-skill delay and complete current-source checks; record individual unsupported branches.",
-    "Continue this unaffected skill while the Find Potion world-context question remains open; do not mark the whole class/goal blocked."
+    "Retain individual modern/block/component/gear/owner/SC/FCR/geometry/client acceptance gaps.",
+    "Continue Find Item source/payment/loot preflight while the separate Find Potion world-context question remains unanswered."
   ],
   "limits": [
-    "Pinned rows/hash-reviewed source only; no native War Cry handler or modern executable proof.",
+    "750 bounded compiled supplemental cases and native implementation; no modern executable or class completion certificate.",
     "Source modern damage/gear/snapshot/timing/block/stun/owner/client acceptance remains separate from existing shared helper checks.",
     "Final WarcryShockwave/cast/stun presentation and talent/hotkey icon remain independent identified placeholders."
+  ],
+  "evidence": [
+    "tools/reference/warcry-engine-evidence.json",
+    "tools/reference/warcry-native-evidence.json"
   ]
 }

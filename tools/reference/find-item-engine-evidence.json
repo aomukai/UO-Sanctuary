@@ -1,0 +1,3705 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Bounded start/do/curve proof; native Find Item payment and loot event remain pending.",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30"
+  },
+  "sharedHarness": {
+    "path": "tools/probe_find_potion_reference.py",
+    "sha256": "289020efc3278b4c9ac3b84cd72ff90135fe40066cb581f4c0604aaa326f85f8"
+  },
+  "probe": {
+    "caseCounts": {
+      "eligibilityCases": 192,
+      "chanceCases": 216,
+      "modeCases": 100,
+      "guardCases": 8,
+      "curveCases": 108
+    },
+    "blockHashes": {
+      "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+      "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+      "D2Common_11034": "7d2c2566300e7d81a3bf265b6025da535dd039f2b8b83860e5ff9e1274bdc905",
+      "D2COMMON_11019": "1e0f779f6bdb599e34c12684c449fc66dc176728783e0481a5a4d3fab36ac58e",
+      "SKILLS_SrvSt34_FindItem": "ecb0d8680895ec66acc15f74e2709d6218a42153bdcb602029687e1a2eb0fd39",
+      "SKILLS_SrvDo072_FindItem": "3483b2b7d06a80e1f35150a08bdc2ef4634aeda60004f74bbd9d44383667ee37"
+    },
+    "dataPath": ".local/class-skills/find-item-source-probe.json"
+  },
+  "curveRoundingDifferences": [
+    {
+      "first": 0,
+      "second": 60,
+      "rank": 3,
+      "source": 22,
+      "currentNative": 21
+    },
+    {
+      "first": 0,
+      "second": 80,
+      "rank": 2,
+      "source": 22,
+      "currentNative": 21
+    },
+    {
+      "first": 0,
+      "second": 80,
+      "rank": 3,
+      "source": 29,
+      "currentNative": 28
+    },
+    {
+      "first": 0,
+      "second": 80,
+      "rank": 8,
+      "source": 50,
+      "currentNative": 49
+    },
+    {
+      "first": 0,
+      "second": 150,
+      "rank": 1,
+      "source": 23,
+      "currentNative": 22
+    },
+    {
+      "first": 0,
+      "second": 150,
+      "rank": 2,
+      "source": 41,
+      "currentNative": 40
+    },
+    {
+      "first": 0,
+      "second": 150,
+      "rank": 3,
+      "source": 55,
+      "currentNative": 54
+    },
+    {
+      "first": 0,
+      "second": 150,
+      "rank": 8,
+      "source": 94,
+      "currentNative": 93
+    },
+    {
+      "first": 0,
+      "second": 150,
+      "rank": 21,
+      "source": 128,
+      "currentNative": 127
+    },
+    {
+      "first": 5,
+      "second": 60,
+      "rank": 2,
+      "source": 20,
+      "currentNative": 19
+    },
+    {
+      "first": 5,
+      "second": 60,
+      "rank": 3,
+      "source": 25,
+      "currentNative": 24
+    },
+    {
+      "first": 5,
+      "second": 60,
+      "rank": 21,
+      "source": 52,
+      "currentNative": 51
+    },
+    {
+      "first": 5,
+      "second": 80,
+      "rank": 8,
+      "source": 52,
+      "currentNative": 51
+    },
+    {
+      "first": 5,
+      "second": 80,
+      "rank": 21,
+      "source": 69,
+      "currentNative": 68
+    },
+    {
+      "first": 5,
+      "second": 100,
+      "rank": 2,
+      "source": 31,
+      "currentNative": 30
+    },
+    {
+      "first": 5,
+      "second": 100,
+      "rank": 8,
+      "source": 64,
+      "currentNative": 63
+    },
+    {
+      "first": 5,
+      "second": 100,
+      "rank": 20,
+      "source": 85,
+      "currentNative": 84
+    },
+    {
+      "first": 5,
+      "second": 100,
+      "rank": 21,
+      "source": 86,
+      "currentNative": 85
+    },
+    {
+      "first": 5,
+      "second": 150,
+      "rank": 1,
+      "source": 27,
+      "currentNative": 26
+    },
+    {
+      "first": 5,
+      "second": 150,
+      "rank": 3,
+      "source": 58,
+      "currentNative": 57
+    },
+    {
+      "first": 5,
+      "second": 150,
+      "rank": 8,
+      "source": 96,
+      "currentNative": 94
+    },
+    {
+      "first": 5,
+      "second": 150,
+      "rank": 20,
+      "source": 127,
+      "currentNative": 126
+    },
+    {
+      "first": 5,
+      "second": 150,
+      "rank": 21,
+      "source": 129,
+      "currentNative": 128
+    },
+    {
+      "first": 15,
+      "second": 60,
+      "rank": 1,
+      "source": 22,
+      "currentNative": 21
+    },
+    {
+      "first": 15,
+      "second": 60,
+      "rank": 8,
+      "source": 43,
+      "currentNative": 42
+    },
+    {
+      "first": 15,
+      "second": 60,
+      "rank": 20,
+      "source": 53,
+      "currentNative": 52
+    },
+    {
+      "first": 15,
+      "second": 80,
+      "rank": 1,
+      "source": 25,
+      "currentNative": 24
+    },
+    {
+      "first": 15,
+      "second": 80,
+      "rank": 20,
+      "source": 70,
+      "currentNative": 69
+    },
+    {
+      "first": 15,
+      "second": 100,
+      "rank": 1,
+      "source": 28,
+      "currentNative": 27
+    },
+    {
+      "first": 15,
+      "second": 100,
+      "rank": 2,
+      "source": 38,
+      "currentNative": 37
+    },
+    {
+      "first": 15,
+      "second": 100,
+      "rank": 3,
+      "source": 46,
+      "currentNative": 45
+    },
+    {
+      "first": 15,
+      "second": 100,
+      "rank": 8,
+      "source": 68,
+      "currentNative": 67
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 1,
+      "source": 36,
+      "currentNative": 35
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 2,
+      "source": 52,
+      "currentNative": 51
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 3,
+      "source": 64,
+      "currentNative": 63
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 8,
+      "source": 99,
+      "currentNative": 98
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 20,
+      "source": 129,
+      "currentNative": 128
+    },
+    {
+      "first": 15,
+      "second": 150,
+      "rank": 21,
+      "source": 130,
+      "currentNative": 129
+    }
+  ],
+  "currentTableConsumerScan": {
+    "skillTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "scope": "DM tokens in playable current table calc fields at effective ranks1..21; inventory only, not executed skill outcomes.",
+    "consumers": [
+      {
+        "skill": "Critical Strike",
+        "characterClass": "ama",
+        "field": "passivecalc1",
+        "first": 5,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 12,
+            "source": 60,
+            "currentNative": 59
+          },
+          {
+            "rank": 21,
+            "source": 69,
+            "currentNative": 68
+          }
+        ]
+      },
+      {
+        "skill": "Dodge",
+        "characterClass": "ama",
+        "field": "passivecalc1",
+        "first": 10,
+        "second": 65,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 25,
+            "currentNative": 24
+          },
+          {
+            "rank": 3,
+            "source": 30,
+            "currentNative": 29
+          },
+          {
+            "rank": 15,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 21,
+            "source": 57,
+            "currentNative": 56
+          }
+        ]
+      },
+      {
+        "skill": "Slow Missiles",
+        "characterClass": "ama",
+        "field": "aurastatcalc2",
+        "first": 0,
+        "second": 40,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 11,
+            "currentNative": 10
+          },
+          {
+            "rank": 8,
+            "source": 25,
+            "currentNative": 24
+          },
+          {
+            "rank": 18,
+            "source": 33,
+            "currentNative": 32
+          }
+        ]
+      },
+      {
+        "skill": "Avoid",
+        "characterClass": "ama",
+        "field": "passivecalc1",
+        "first": 15,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 37,
+            "currentNative": 36
+          },
+          {
+            "rank": 10,
+            "source": 56,
+            "currentNative": 55
+          },
+          {
+            "rank": 12,
+            "source": 59,
+            "currentNative": 58
+          },
+          {
+            "rank": 15,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 19,
+            "source": 65,
+            "currentNative": 64
+          }
+        ]
+      },
+      {
+        "skill": "Impale",
+        "characterClass": "ama",
+        "field": "aurastatcalc1",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Impale",
+        "characterClass": "ama",
+        "field": "aurastatcalc2",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Impale",
+        "characterClass": "ama",
+        "field": "aurastatcalc3",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Impale",
+        "characterClass": "ama",
+        "field": "calc2",
+        "first": 0,
+        "second": 30,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 11,
+            "currentNative": 10
+          },
+          {
+            "rank": 12,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 19,
+            "source": 25,
+            "currentNative": 24
+          }
+        ]
+      },
+      {
+        "skill": "Evade",
+        "characterClass": "ama",
+        "field": "passivecalc1",
+        "first": 10,
+        "second": 65,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 25,
+            "currentNative": 24
+          },
+          {
+            "rank": 3,
+            "source": 30,
+            "currentNative": 29
+          },
+          {
+            "rank": 15,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 21,
+            "source": 57,
+            "currentNative": 56
+          }
+        ]
+      },
+      {
+        "skill": "Pierce",
+        "characterClass": "ama",
+        "field": "passivecalc1",
+        "first": 10,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 24,
+            "currentNative": 23
+          },
+          {
+            "rank": 3,
+            "source": 43,
+            "currentNative": 42
+          },
+          {
+            "rank": 8,
+            "source": 66,
+            "currentNative": 65
+          },
+          {
+            "rank": 11,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 12,
+            "source": 76,
+            "currentNative": 75
+          },
+          {
+            "rank": 17,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 18,
+            "source": 84,
+            "currentNative": 83
+          },
+          {
+            "rank": 19,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 20,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 87,
+            "currentNative": 86
+          }
+        ]
+      },
+      {
+        "skill": "Blaze",
+        "characterClass": "sor",
+        "field": "auralencalc",
+        "first": 50,
+        "second": 500,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 120,
+            "currentNative": 117
+          },
+          {
+            "rank": 2,
+            "source": 173,
+            "currentNative": 171
+          },
+          {
+            "rank": 3,
+            "source": 215,
+            "currentNative": 212
+          },
+          {
+            "rank": 7,
+            "source": 316,
+            "currentNative": 315
+          },
+          {
+            "rank": 8,
+            "source": 332,
+            "currentNative": 329
+          },
+          {
+            "rank": 10,
+            "source": 359,
+            "currentNative": 356
+          },
+          {
+            "rank": 11,
+            "source": 370,
+            "currentNative": 369
+          },
+          {
+            "rank": 12,
+            "source": 380,
+            "currentNative": 378
+          },
+          {
+            "rank": 13,
+            "source": 388,
+            "currentNative": 387
+          },
+          {
+            "rank": 15,
+            "source": 403,
+            "currentNative": 401
+          },
+          {
+            "rank": 17,
+            "source": 415,
+            "currentNative": 414
+          },
+          {
+            "rank": 18,
+            "source": 421,
+            "currentNative": 419
+          },
+          {
+            "rank": 19,
+            "source": 426,
+            "currentNative": 423
+          },
+          {
+            "rank": 20,
+            "source": 430,
+            "currentNative": 428
+          },
+          {
+            "rank": 21,
+            "source": 435,
+            "currentNative": 432
+          }
+        ]
+      },
+      {
+        "skill": "Clay Golem",
+        "characterClass": "nec",
+        "field": "aurastatcalc1",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Clay Golem",
+        "characterClass": "nec",
+        "field": "passivecalc1",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "BloodGolem",
+        "characterClass": "nec",
+        "field": "calc2",
+        "first": 75,
+        "second": 150,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 122,
+            "currentNative": 121
+          },
+          {
+            "rank": 12,
+            "source": 130,
+            "currentNative": 129
+          },
+          {
+            "rank": 21,
+            "source": 139,
+            "currentNative": 138
+          }
+        ]
+      },
+      {
+        "skill": "Summon Resist",
+        "characterClass": "nec",
+        "field": "passivecalc1",
+        "first": 20,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 35,
+            "currentNative": 34
+          },
+          {
+            "rank": 3,
+            "source": 40,
+            "currentNative": 39
+          },
+          {
+            "rank": 15,
+            "source": 63,
+            "currentNative": 62
+          },
+          {
+            "rank": 21,
+            "source": 67,
+            "currentNative": 66
+          }
+        ]
+      },
+      {
+        "skill": "Lower Resist",
+        "characterClass": "nec",
+        "field": "aurastatcalc1",
+        "first": 25,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 8,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 11,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 12,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 18,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 20,
+            "source": 63,
+            "currentNative": 62
+          }
+        ]
+      },
+      {
+        "skill": "Lower Resist",
+        "characterClass": "nec",
+        "field": "aurastatcalc2",
+        "first": 25,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 8,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 11,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 12,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 18,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 20,
+            "source": 63,
+            "currentNative": 62
+          }
+        ]
+      },
+      {
+        "skill": "Lower Resist",
+        "characterClass": "nec",
+        "field": "aurastatcalc3",
+        "first": 25,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 8,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 11,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 12,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 18,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 20,
+            "source": 63,
+            "currentNative": 62
+          }
+        ]
+      },
+      {
+        "skill": "Lower Resist",
+        "characterClass": "nec",
+        "field": "aurastatcalc4",
+        "first": 25,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 8,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 11,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 12,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 18,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 20,
+            "source": 63,
+            "currentNative": 62
+          }
+        ]
+      },
+      {
+        "skill": "FireGolem",
+        "characterClass": "nec",
+        "field": "aurastatcalc1",
+        "first": 25,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 72,
+            "currentNative": 71
+          },
+          {
+            "rank": 12,
+            "source": 80,
+            "currentNative": 79
+          },
+          {
+            "rank": 21,
+            "source": 89,
+            "currentNative": 88
+          }
+        ]
+      },
+      {
+        "skill": "FireGolem",
+        "characterClass": "nec",
+        "field": "aurastatcalc2",
+        "first": 25,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 72,
+            "currentNative": 71
+          },
+          {
+            "rank": 12,
+            "source": 80,
+            "currentNative": 79
+          },
+          {
+            "rank": 21,
+            "source": 89,
+            "currentNative": 88
+          }
+        ]
+      },
+      {
+        "skill": "FireGolem",
+        "characterClass": "nec",
+        "field": "passivecalc1",
+        "first": 100,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 35,
+            "currentNative": 90
+          },
+          {
+            "rank": 2,
+            "source": 35,
+            "currentNative": 82
+          },
+          {
+            "rank": 3,
+            "source": 35,
+            "currentNative": 76
+          },
+          {
+            "rank": 4,
+            "source": 35,
+            "currentNative": 71
+          },
+          {
+            "rank": 5,
+            "source": 35,
+            "currentNative": 67
+          },
+          {
+            "rank": 6,
+            "source": 35,
+            "currentNative": 64
+          },
+          {
+            "rank": 7,
+            "source": 35,
+            "currentNative": 61
+          },
+          {
+            "rank": 8,
+            "source": 35,
+            "currentNative": 59
+          },
+          {
+            "rank": 9,
+            "source": 35,
+            "currentNative": 57
+          },
+          {
+            "rank": 10,
+            "source": 35,
+            "currentNative": 55
+          },
+          {
+            "rank": 11,
+            "source": 35,
+            "currentNative": 53
+          },
+          {
+            "rank": 12,
+            "source": 35,
+            "currentNative": 52
+          },
+          {
+            "rank": 13,
+            "source": 35,
+            "currentNative": 51
+          },
+          {
+            "rank": 14,
+            "source": 35,
+            "currentNative": 49
+          },
+          {
+            "rank": 15,
+            "source": 35,
+            "currentNative": 49
+          },
+          {
+            "rank": 16,
+            "source": 35,
+            "currentNative": 48
+          },
+          {
+            "rank": 17,
+            "source": 35,
+            "currentNative": 47
+          },
+          {
+            "rank": 18,
+            "source": 35,
+            "currentNative": 46
+          },
+          {
+            "rank": 19,
+            "source": 35,
+            "currentNative": 46
+          },
+          {
+            "rank": 20,
+            "source": 35,
+            "currentNative": 45
+          },
+          {
+            "rank": 21,
+            "source": 35,
+            "currentNative": 44
+          }
+        ]
+      },
+      {
+        "skill": "Resist Fire",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 35,
+        "second": 150,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 3,
+            "source": 77,
+            "currentNative": 76
+          },
+          {
+            "rank": 7,
+            "source": 103,
+            "currentNative": 102
+          },
+          {
+            "rank": 8,
+            "source": 107,
+            "currentNative": 106
+          },
+          {
+            "rank": 10,
+            "source": 114,
+            "currentNative": 113
+          },
+          {
+            "rank": 12,
+            "source": 119,
+            "currentNative": 118
+          },
+          {
+            "rank": 15,
+            "source": 125,
+            "currentNative": 124
+          },
+          {
+            "rank": 19,
+            "source": 131,
+            "currentNative": 130
+          },
+          {
+            "rank": 20,
+            "source": 132,
+            "currentNative": 131
+          },
+          {
+            "rank": 21,
+            "source": 133,
+            "currentNative": 132
+          }
+        ]
+      },
+      {
+        "skill": "Resist Cold",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 35,
+        "second": 150,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 3,
+            "source": 77,
+            "currentNative": 76
+          },
+          {
+            "rank": 7,
+            "source": 103,
+            "currentNative": 102
+          },
+          {
+            "rank": 8,
+            "source": 107,
+            "currentNative": 106
+          },
+          {
+            "rank": 10,
+            "source": 114,
+            "currentNative": 113
+          },
+          {
+            "rank": 12,
+            "source": 119,
+            "currentNative": 118
+          },
+          {
+            "rank": 15,
+            "source": 125,
+            "currentNative": 124
+          },
+          {
+            "rank": 19,
+            "source": 131,
+            "currentNative": 130
+          },
+          {
+            "rank": 20,
+            "source": 132,
+            "currentNative": 131
+          },
+          {
+            "rank": 21,
+            "source": 133,
+            "currentNative": 132
+          }
+        ]
+      },
+      {
+        "skill": "Cleansing",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 30,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 10,
+            "source": 71,
+            "currentNative": 70
+          },
+          {
+            "rank": 12,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 15,
+            "source": 77,
+            "currentNative": 76
+          },
+          {
+            "rank": 19,
+            "source": 80,
+            "currentNative": 79
+          }
+        ]
+      },
+      {
+        "skill": "Resist Lightning",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 35,
+        "second": 150,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 3,
+            "source": 77,
+            "currentNative": 76
+          },
+          {
+            "rank": 7,
+            "source": 103,
+            "currentNative": 102
+          },
+          {
+            "rank": 8,
+            "source": 107,
+            "currentNative": 106
+          },
+          {
+            "rank": 10,
+            "source": 114,
+            "currentNative": 113
+          },
+          {
+            "rank": 12,
+            "source": 119,
+            "currentNative": 118
+          },
+          {
+            "rank": 15,
+            "source": 125,
+            "currentNative": 124
+          },
+          {
+            "rank": 19,
+            "source": 131,
+            "currentNative": 130
+          },
+          {
+            "rank": 20,
+            "source": 132,
+            "currentNative": 131
+          },
+          {
+            "rank": 21,
+            "source": 133,
+            "currentNative": 132
+          }
+        ]
+      },
+      {
+        "skill": "Holy Freeze",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 25,
+        "second": 60,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 10,
+            "source": 49,
+            "currentNative": 48
+          }
+        ]
+      },
+      {
+        "skill": "Holy Freeze",
+        "characterClass": "pal",
+        "field": "aurastatcalc2",
+        "first": 25,
+        "second": 60,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 10,
+            "source": 49,
+            "currentNative": 48
+          }
+        ]
+      },
+      {
+        "skill": "Holy Freeze",
+        "characterClass": "pal",
+        "field": "aurastatcalc3",
+        "first": 25,
+        "second": 60,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 10,
+            "source": 49,
+            "currentNative": 48
+          }
+        ]
+      },
+      {
+        "skill": "Vigor",
+        "characterClass": "pal",
+        "field": "aurastatcalc3",
+        "first": 7,
+        "second": 50,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 34,
+            "currentNative": 33
+          }
+        ]
+      },
+      {
+        "skill": "Conversion",
+        "characterClass": "pal",
+        "field": "calc1",
+        "first": 0,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 14,
+            "currentNative": 13
+          },
+          {
+            "rank": 3,
+            "source": 33,
+            "currentNative": 32
+          },
+          {
+            "rank": 8,
+            "source": 56,
+            "currentNative": 55
+          },
+          {
+            "rank": 11,
+            "source": 64,
+            "currentNative": 63
+          },
+          {
+            "rank": 12,
+            "source": 66,
+            "currentNative": 65
+          },
+          {
+            "rank": 17,
+            "source": 73,
+            "currentNative": 72
+          },
+          {
+            "rank": 18,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 19,
+            "source": 75,
+            "currentNative": 74
+          },
+          {
+            "rank": 20,
+            "source": 76,
+            "currentNative": 75
+          },
+          {
+            "rank": 21,
+            "source": 77,
+            "currentNative": 76
+          }
+        ]
+      },
+      {
+        "skill": "Holy Shield",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 10,
+        "second": 40,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 21,
+            "currentNative": 20
+          },
+          {
+            "rank": 12,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 19,
+            "source": 35,
+            "currentNative": 34
+          }
+        ]
+      },
+      {
+        "skill": "Fanaticism",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 10,
+        "second": 40,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 21,
+            "currentNative": 20
+          },
+          {
+            "rank": 12,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 19,
+            "source": 35,
+            "currentNative": 34
+          }
+        ]
+      },
+      {
+        "skill": "Conviction",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 40,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 62,
+            "currentNative": 61
+          },
+          {
+            "rank": 10,
+            "source": 81,
+            "currentNative": 80
+          },
+          {
+            "rank": 12,
+            "source": 84,
+            "currentNative": 83
+          },
+          {
+            "rank": 15,
+            "source": 87,
+            "currentNative": 86
+          },
+          {
+            "rank": 19,
+            "source": 90,
+            "currentNative": 89
+          }
+        ]
+      },
+      {
+        "skill": "Redemption",
+        "characterClass": "pal",
+        "field": "calc1",
+        "first": 10,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 24,
+            "currentNative": 23
+          },
+          {
+            "rank": 3,
+            "source": 43,
+            "currentNative": 42
+          },
+          {
+            "rank": 8,
+            "source": 66,
+            "currentNative": 65
+          },
+          {
+            "rank": 11,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 12,
+            "source": 76,
+            "currentNative": 75
+          },
+          {
+            "rank": 17,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 18,
+            "source": 84,
+            "currentNative": 83
+          },
+          {
+            "rank": 19,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 20,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 87,
+            "currentNative": 86
+          }
+        ]
+      },
+      {
+        "skill": "Salvation",
+        "characterClass": "pal",
+        "field": "aurastatcalc1",
+        "first": 50,
+        "second": 120,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 2,
+            "source": 69,
+            "currentNative": 68
+          },
+          {
+            "rank": 8,
+            "source": 94,
+            "currentNative": 93
+          },
+          {
+            "rank": 10,
+            "source": 98,
+            "currentNative": 97
+          },
+          {
+            "rank": 15,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 20,
+            "source": 109,
+            "currentNative": 108
+          }
+        ]
+      },
+      {
+        "skill": "Salvation",
+        "characterClass": "pal",
+        "field": "aurastatcalc2",
+        "first": 50,
+        "second": 120,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 2,
+            "source": 69,
+            "currentNative": 68
+          },
+          {
+            "rank": 8,
+            "source": 94,
+            "currentNative": 93
+          },
+          {
+            "rank": 10,
+            "source": 98,
+            "currentNative": 97
+          },
+          {
+            "rank": 15,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 20,
+            "source": 109,
+            "currentNative": 108
+          }
+        ]
+      },
+      {
+        "skill": "Salvation",
+        "characterClass": "pal",
+        "field": "aurastatcalc3",
+        "first": 50,
+        "second": 120,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 2,
+            "source": 69,
+            "currentNative": 68
+          },
+          {
+            "rank": 8,
+            "source": 94,
+            "currentNative": 93
+          },
+          {
+            "rank": 10,
+            "source": 98,
+            "currentNative": 97
+          },
+          {
+            "rank": 15,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 20,
+            "source": 109,
+            "currentNative": 108
+          }
+        ]
+      },
+      {
+        "skill": "Blade Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Axe Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Mace Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Leap",
+        "characterClass": "bar",
+        "field": "aurarangecalc",
+        "first": 8,
+        "second": 30,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 14,
+            "currentNative": 13
+          },
+          {
+            "rank": 3,
+            "source": 16,
+            "currentNative": 15
+          },
+          {
+            "rank": 7,
+            "source": 21,
+            "currentNative": 20
+          },
+          {
+            "rank": 10,
+            "source": 23,
+            "currentNative": 22
+          }
+        ]
+      },
+      {
+        "skill": "Pole Arm Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Throwing Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Throwing Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc4",
+        "first": 0,
+        "second": 55,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 15,
+            "currentNative": 14
+          },
+          {
+            "rank": 3,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 15,
+            "source": 43,
+            "currentNative": 42
+          },
+          {
+            "rank": 21,
+            "source": 47,
+            "currentNative": 46
+          }
+        ]
+      },
+      {
+        "skill": "Throwing Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc5",
+        "first": 0,
+        "second": 66,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 10,
+            "currentNative": 9
+          },
+          {
+            "rank": 2,
+            "source": 18,
+            "currentNative": 17
+          },
+          {
+            "rank": 3,
+            "source": 24,
+            "currentNative": 23
+          },
+          {
+            "rank": 7,
+            "source": 39,
+            "currentNative": 38
+          },
+          {
+            "rank": 8,
+            "source": 41,
+            "currentNative": 40
+          },
+          {
+            "rank": 10,
+            "source": 45,
+            "currentNative": 44
+          },
+          {
+            "rank": 19,
+            "source": 55,
+            "currentNative": 54
+          }
+        ]
+      },
+      {
+        "skill": "Spear Mastery",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Find Item",
+        "characterClass": "bar",
+        "field": "calc1",
+        "first": 5,
+        "second": 60,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 3,
+            "source": 25,
+            "currentNative": 24
+          },
+          {
+            "rank": 15,
+            "source": 48,
+            "currentNative": 47
+          },
+          {
+            "rank": 21,
+            "source": 52,
+            "currentNative": 51
+          }
+        ]
+      },
+      {
+        "skill": "Frenzy",
+        "characterClass": "bar",
+        "field": "aurastatcalc1",
+        "first": 20,
+        "second": 200,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 48,
+            "currentNative": 47
+          },
+          {
+            "rank": 2,
+            "source": 69,
+            "currentNative": 68
+          },
+          {
+            "rank": 3,
+            "source": 86,
+            "currentNative": 84
+          },
+          {
+            "rank": 8,
+            "source": 133,
+            "currentNative": 131
+          },
+          {
+            "rank": 10,
+            "source": 143,
+            "currentNative": 142
+          },
+          {
+            "rank": 11,
+            "source": 148,
+            "currentNative": 147
+          },
+          {
+            "rank": 12,
+            "source": 152,
+            "currentNative": 151
+          },
+          {
+            "rank": 15,
+            "source": 161,
+            "currentNative": 160
+          },
+          {
+            "rank": 17,
+            "source": 166,
+            "currentNative": 165
+          },
+          {
+            "rank": 18,
+            "source": 168,
+            "currentNative": 167
+          },
+          {
+            "rank": 19,
+            "source": 170,
+            "currentNative": 169
+          },
+          {
+            "rank": 20,
+            "source": 172,
+            "currentNative": 171
+          },
+          {
+            "rank": 21,
+            "source": 174,
+            "currentNative": 173
+          }
+        ]
+      },
+      {
+        "skill": "Increased Speed",
+        "characterClass": "bar",
+        "field": "passivecalc1",
+        "first": 7,
+        "second": 50,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 34,
+            "currentNative": 33
+          }
+        ]
+      },
+      {
+        "skill": "Grim Ward",
+        "characterClass": "bar",
+        "field": "aurastatcalc1",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Grim Ward",
+        "characterClass": "bar",
+        "field": "aurastatcalc2",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Grim Ward",
+        "characterClass": "bar",
+        "field": "aurastatcalc3",
+        "first": 0,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 21,
+            "source": 64,
+            "currentNative": 63
+          }
+        ]
+      },
+      {
+        "skill": "Natural Resistance",
+        "characterClass": "bar",
+        "field": "passivecalc1",
+        "first": 0,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 3,
+            "source": 29,
+            "currentNative": 28
+          },
+          {
+            "rank": 8,
+            "source": 50,
+            "currentNative": 49
+          },
+          {
+            "rank": 10,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 17,
+            "source": 65,
+            "currentNative": 64
+          },
+          {
+            "rank": 18,
+            "source": 66,
+            "currentNative": 65
+          }
+        ]
+      },
+      {
+        "skill": "Natural Resistance",
+        "characterClass": "bar",
+        "field": "passivecalc2",
+        "first": 0,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 3,
+            "source": 29,
+            "currentNative": 28
+          },
+          {
+            "rank": 8,
+            "source": 50,
+            "currentNative": 49
+          },
+          {
+            "rank": 10,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 17,
+            "source": 65,
+            "currentNative": 64
+          },
+          {
+            "rank": 18,
+            "source": 66,
+            "currentNative": 65
+          }
+        ]
+      },
+      {
+        "skill": "Natural Resistance",
+        "characterClass": "bar",
+        "field": "passivecalc3",
+        "first": 0,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 3,
+            "source": 29,
+            "currentNative": 28
+          },
+          {
+            "rank": 8,
+            "source": 50,
+            "currentNative": 49
+          },
+          {
+            "rank": 10,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 17,
+            "source": 65,
+            "currentNative": 64
+          },
+          {
+            "rank": 18,
+            "source": 66,
+            "currentNative": 65
+          }
+        ]
+      },
+      {
+        "skill": "Natural Resistance",
+        "characterClass": "bar",
+        "field": "passivecalc4",
+        "first": 0,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 3,
+            "source": 29,
+            "currentNative": 28
+          },
+          {
+            "rank": 8,
+            "source": 50,
+            "currentNative": 49
+          },
+          {
+            "rank": 10,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 17,
+            "source": 65,
+            "currentNative": 64
+          },
+          {
+            "rank": 18,
+            "source": 66,
+            "currentNative": 65
+          }
+        ]
+      },
+      {
+        "skill": "Wearwolf",
+        "characterClass": "dru",
+        "field": "aurastatcalc2",
+        "first": 10,
+        "second": 80,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 21,
+            "currentNative": 20
+          },
+          {
+            "rank": 2,
+            "source": 29,
+            "currentNative": 28
+          },
+          {
+            "rank": 8,
+            "source": 54,
+            "currentNative": 53
+          },
+          {
+            "rank": 10,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 15,
+            "source": 65,
+            "currentNative": 64
+          },
+          {
+            "rank": 20,
+            "source": 69,
+            "currentNative": 68
+          }
+        ]
+      },
+      {
+        "skill": "Feral Rage",
+        "characterClass": "dru",
+        "field": "aurastatcalc1",
+        "first": 10,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 32,
+            "currentNative": 31
+          },
+          {
+            "rank": 10,
+            "source": 51,
+            "currentNative": 50
+          },
+          {
+            "rank": 12,
+            "source": 54,
+            "currentNative": 53
+          },
+          {
+            "rank": 15,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 19,
+            "source": 60,
+            "currentNative": 59
+          }
+        ]
+      },
+      {
+        "skill": "Maul",
+        "characterClass": "dru",
+        "field": "aurastatcalc2",
+        "first": 10,
+        "second": 100,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 24,
+            "currentNative": 23
+          },
+          {
+            "rank": 3,
+            "source": 43,
+            "currentNative": 42
+          },
+          {
+            "rank": 8,
+            "source": 66,
+            "currentNative": 65
+          },
+          {
+            "rank": 11,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 12,
+            "source": 76,
+            "currentNative": 75
+          },
+          {
+            "rank": 17,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 18,
+            "source": 84,
+            "currentNative": 83
+          },
+          {
+            "rank": 19,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 20,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 87,
+            "currentNative": 86
+          }
+        ]
+      },
+      {
+        "skill": "Hunger",
+        "characterClass": "dru",
+        "field": "calc2",
+        "first": 50,
+        "second": 200,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 73,
+            "currentNative": 72
+          },
+          {
+            "rank": 2,
+            "source": 91,
+            "currentNative": 90
+          },
+          {
+            "rank": 3,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 8,
+            "source": 144,
+            "currentNative": 143
+          },
+          {
+            "rank": 10,
+            "source": 153,
+            "currentNative": 152
+          },
+          {
+            "rank": 12,
+            "source": 160,
+            "currentNative": 159
+          },
+          {
+            "rank": 19,
+            "source": 175,
+            "currentNative": 174
+          },
+          {
+            "rank": 21,
+            "source": 178,
+            "currentNative": 177
+          }
+        ]
+      },
+      {
+        "skill": "Hunger",
+        "characterClass": "dru",
+        "field": "calc3",
+        "first": 50,
+        "second": 200,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 73,
+            "currentNative": 72
+          },
+          {
+            "rank": 2,
+            "source": 91,
+            "currentNative": 90
+          },
+          {
+            "rank": 3,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 8,
+            "source": 144,
+            "currentNative": 143
+          },
+          {
+            "rank": 10,
+            "source": 153,
+            "currentNative": 152
+          },
+          {
+            "rank": 12,
+            "source": 160,
+            "currentNative": 159
+          },
+          {
+            "rank": 19,
+            "source": 175,
+            "currentNative": 174
+          },
+          {
+            "rank": 21,
+            "source": 178,
+            "currentNative": 177
+          }
+        ]
+      },
+      {
+        "skill": "Psychic Hammer",
+        "characterClass": "ass",
+        "field": "calc3",
+        "first": 25,
+        "second": 99,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 45,
+            "currentNative": 44
+          },
+          {
+            "rank": 3,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 8,
+            "source": 71,
+            "currentNative": 70
+          },
+          {
+            "rank": 15,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 17,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 18,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 88,
+            "currentNative": 87
+          }
+        ]
+      },
+      {
+        "skill": "Psychic Hammer",
+        "characterClass": "ass",
+        "field": "calc4",
+        "first": 25,
+        "second": 99,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 45,
+            "currentNative": 44
+          },
+          {
+            "rank": 3,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 8,
+            "source": 71,
+            "currentNative": 70
+          },
+          {
+            "rank": 15,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 17,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 18,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 88,
+            "currentNative": 87
+          }
+        ]
+      },
+      {
+        "skill": "Dragon Talon",
+        "characterClass": "ass",
+        "field": "calc3",
+        "first": 25,
+        "second": 99,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 45,
+            "currentNative": 44
+          },
+          {
+            "rank": 3,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 8,
+            "source": 71,
+            "currentNative": 70
+          },
+          {
+            "rank": 15,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 17,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 18,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 88,
+            "currentNative": 87
+          }
+        ]
+      },
+      {
+        "skill": "Dragon Talon",
+        "characterClass": "ass",
+        "field": "calc4",
+        "first": 25,
+        "second": 99,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 45,
+            "currentNative": 44
+          },
+          {
+            "rank": 3,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 8,
+            "source": 71,
+            "currentNative": 70
+          },
+          {
+            "rank": 15,
+            "source": 83,
+            "currentNative": 82
+          },
+          {
+            "rank": 17,
+            "source": 85,
+            "currentNative": 84
+          },
+          {
+            "rank": 18,
+            "source": 86,
+            "currentNative": 85
+          },
+          {
+            "rank": 21,
+            "source": 88,
+            "currentNative": 87
+          }
+        ]
+      },
+      {
+        "skill": "Quickness",
+        "characterClass": "ass",
+        "field": "aurastatcalc1",
+        "first": 15,
+        "second": 70,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 30,
+            "currentNative": 29
+          },
+          {
+            "rank": 3,
+            "source": 35,
+            "currentNative": 34
+          },
+          {
+            "rank": 15,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 21,
+            "source": 62,
+            "currentNative": 61
+          }
+        ]
+      },
+      {
+        "skill": "Quickness",
+        "characterClass": "ass",
+        "field": "aurastatcalc2",
+        "first": 15,
+        "second": 60,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 8,
+            "source": 43,
+            "currentNative": 42
+          },
+          {
+            "rank": 11,
+            "source": 47,
+            "currentNative": 46
+          },
+          {
+            "rank": 12,
+            "source": 48,
+            "currentNative": 47
+          },
+          {
+            "rank": 18,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 20,
+            "source": 53,
+            "currentNative": 52
+          }
+        ]
+      },
+      {
+        "skill": "Weapon Block",
+        "characterClass": "ass",
+        "field": "passivecalc1",
+        "first": 20,
+        "second": 65,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 27,
+            "currentNative": 26
+          },
+          {
+            "rank": 8,
+            "source": 48,
+            "currentNative": 47
+          },
+          {
+            "rank": 11,
+            "source": 52,
+            "currentNative": 51
+          },
+          {
+            "rank": 12,
+            "source": 53,
+            "currentNative": 52
+          },
+          {
+            "rank": 18,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 20,
+            "source": 58,
+            "currentNative": 57
+          }
+        ]
+      },
+      {
+        "skill": "Fade",
+        "characterClass": "ass",
+        "field": "aurastatcalc1",
+        "first": 10,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 15,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 19,
+            "source": 64,
+            "currentNative": 63
+          },
+          {
+            "rank": 20,
+            "source": 65,
+            "currentNative": 64
+          }
+        ]
+      },
+      {
+        "skill": "Fade",
+        "characterClass": "ass",
+        "field": "aurastatcalc2",
+        "first": 10,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 15,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 19,
+            "source": 64,
+            "currentNative": 63
+          },
+          {
+            "rank": 20,
+            "source": 65,
+            "currentNative": 64
+          }
+        ]
+      },
+      {
+        "skill": "Fade",
+        "characterClass": "ass",
+        "field": "aurastatcalc3",
+        "first": 10,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 15,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 19,
+            "source": 64,
+            "currentNative": 63
+          },
+          {
+            "rank": 20,
+            "source": 65,
+            "currentNative": 64
+          }
+        ]
+      },
+      {
+        "skill": "Fade",
+        "characterClass": "ass",
+        "field": "aurastatcalc4",
+        "first": 10,
+        "second": 75,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 19
+          },
+          {
+            "rank": 15,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 19,
+            "source": 64,
+            "currentNative": 63
+          },
+          {
+            "rank": 20,
+            "source": 65,
+            "currentNative": 64
+          }
+        ]
+      },
+      {
+        "skill": "Shadow Master",
+        "characterClass": "ass",
+        "field": "passivecalc1",
+        "first": 5,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 18,
+            "currentNative": 17
+          },
+          {
+            "rank": 2,
+            "source": 28,
+            "currentNative": 27
+          },
+          {
+            "rank": 3,
+            "source": 36,
+            "currentNative": 35
+          },
+          {
+            "rank": 8,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 10,
+            "source": 63,
+            "currentNative": 62
+          },
+          {
+            "rank": 17,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 18,
+            "source": 75,
+            "currentNative": 74
+          },
+          {
+            "rank": 19,
+            "source": 76,
+            "currentNative": 75
+          }
+        ]
+      },
+      {
+        "skill": "Shadow Master",
+        "characterClass": "ass",
+        "field": "passivecalc2",
+        "first": 5,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 18,
+            "currentNative": 17
+          },
+          {
+            "rank": 2,
+            "source": 28,
+            "currentNative": 27
+          },
+          {
+            "rank": 3,
+            "source": 36,
+            "currentNative": 35
+          },
+          {
+            "rank": 8,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 10,
+            "source": 63,
+            "currentNative": 62
+          },
+          {
+            "rank": 17,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 18,
+            "source": 75,
+            "currentNative": 74
+          },
+          {
+            "rank": 19,
+            "source": 76,
+            "currentNative": 75
+          }
+        ]
+      },
+      {
+        "skill": "Shadow Master",
+        "characterClass": "ass",
+        "field": "passivecalc3",
+        "first": 5,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 18,
+            "currentNative": 17
+          },
+          {
+            "rank": 2,
+            "source": 28,
+            "currentNative": 27
+          },
+          {
+            "rank": 3,
+            "source": 36,
+            "currentNative": 35
+          },
+          {
+            "rank": 8,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 10,
+            "source": 63,
+            "currentNative": 62
+          },
+          {
+            "rank": 17,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 18,
+            "source": 75,
+            "currentNative": 74
+          },
+          {
+            "rank": 19,
+            "source": 76,
+            "currentNative": 75
+          }
+        ]
+      },
+      {
+        "skill": "Shadow Master",
+        "characterClass": "ass",
+        "field": "passivecalc4",
+        "first": 5,
+        "second": 90,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 18,
+            "currentNative": 17
+          },
+          {
+            "rank": 2,
+            "source": 28,
+            "currentNative": 27
+          },
+          {
+            "rank": 3,
+            "source": 36,
+            "currentNative": 35
+          },
+          {
+            "rank": 8,
+            "source": 58,
+            "currentNative": 57
+          },
+          {
+            "rank": 10,
+            "source": 63,
+            "currentNative": 62
+          },
+          {
+            "rank": 17,
+            "source": 74,
+            "currentNative": 73
+          },
+          {
+            "rank": 18,
+            "source": 75,
+            "currentNative": 74
+          },
+          {
+            "rank": 19,
+            "source": 76,
+            "currentNative": 75
+          }
+        ]
+      },
+      {
+        "skill": "Summon Goatman",
+        "characterClass": "war",
+        "field": "passivecalc1",
+        "first": 100,
+        "second": 20,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 88
+          },
+          {
+            "rank": 2,
+            "source": 20,
+            "currentNative": 78
+          },
+          {
+            "rank": 3,
+            "source": 20,
+            "currentNative": 71
+          },
+          {
+            "rank": 4,
+            "source": 20,
+            "currentNative": 64
+          },
+          {
+            "rank": 5,
+            "source": 20,
+            "currentNative": 60
+          },
+          {
+            "rank": 6,
+            "source": 20,
+            "currentNative": 56
+          },
+          {
+            "rank": 7,
+            "source": 20,
+            "currentNative": 52
+          },
+          {
+            "rank": 8,
+            "source": 20,
+            "currentNative": 50
+          },
+          {
+            "rank": 9,
+            "source": 20,
+            "currentNative": 47
+          },
+          {
+            "rank": 10,
+            "source": 20,
+            "currentNative": 45
+          },
+          {
+            "rank": 11,
+            "source": 20,
+            "currentNative": 43
+          },
+          {
+            "rank": 12,
+            "source": 20,
+            "currentNative": 41
+          },
+          {
+            "rank": 13,
+            "source": 20,
+            "currentNative": 40
+          },
+          {
+            "rank": 14,
+            "source": 20,
+            "currentNative": 38
+          },
+          {
+            "rank": 15,
+            "source": 20,
+            "currentNative": 37
+          },
+          {
+            "rank": 16,
+            "source": 20,
+            "currentNative": 36
+          },
+          {
+            "rank": 17,
+            "source": 20,
+            "currentNative": 35
+          },
+          {
+            "rank": 18,
+            "source": 20,
+            "currentNative": 34
+          },
+          {
+            "rank": 19,
+            "source": 20,
+            "currentNative": 33
+          },
+          {
+            "rank": 20,
+            "source": 20,
+            "currentNative": 32
+          },
+          {
+            "rank": 21,
+            "source": 20,
+            "currentNative": 32
+          }
+        ]
+      },
+      {
+        "skill": "Summon Goatman",
+        "characterClass": "war",
+        "field": "passivecalc8",
+        "first": 100,
+        "second": 20,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 20,
+            "currentNative": 88
+          },
+          {
+            "rank": 2,
+            "source": 20,
+            "currentNative": 78
+          },
+          {
+            "rank": 3,
+            "source": 20,
+            "currentNative": 71
+          },
+          {
+            "rank": 4,
+            "source": 20,
+            "currentNative": 64
+          },
+          {
+            "rank": 5,
+            "source": 20,
+            "currentNative": 60
+          },
+          {
+            "rank": 6,
+            "source": 20,
+            "currentNative": 56
+          },
+          {
+            "rank": 7,
+            "source": 20,
+            "currentNative": 52
+          },
+          {
+            "rank": 8,
+            "source": 20,
+            "currentNative": 50
+          },
+          {
+            "rank": 9,
+            "source": 20,
+            "currentNative": 47
+          },
+          {
+            "rank": 10,
+            "source": 20,
+            "currentNative": 45
+          },
+          {
+            "rank": 11,
+            "source": 20,
+            "currentNative": 43
+          },
+          {
+            "rank": 12,
+            "source": 20,
+            "currentNative": 41
+          },
+          {
+            "rank": 13,
+            "source": 20,
+            "currentNative": 40
+          },
+          {
+            "rank": 14,
+            "source": 20,
+            "currentNative": 38
+          },
+          {
+            "rank": 15,
+            "source": 20,
+            "currentNative": 37
+          },
+          {
+            "rank": 16,
+            "source": 20,
+            "currentNative": 36
+          },
+          {
+            "rank": 17,
+            "source": 20,
+            "currentNative": 35
+          },
+          {
+            "rank": 18,
+            "source": 20,
+            "currentNative": 34
+          },
+          {
+            "rank": 19,
+            "source": 20,
+            "currentNative": 33
+          },
+          {
+            "rank": 20,
+            "source": 20,
+            "currentNative": 32
+          },
+          {
+            "rank": 21,
+            "source": 20,
+            "currentNative": 32
+          }
+        ]
+      },
+      {
+        "skill": "Blood Oath",
+        "characterClass": "war",
+        "field": "passivecalc1",
+        "first": 3,
+        "second": 79,
+        "differences": [
+          {
+            "rank": 7,
+            "source": 48,
+            "currentNative": 47
+          },
+          {
+            "rank": 10,
+            "source": 55,
+            "currentNative": 54
+          },
+          {
+            "rank": 11,
+            "source": 57,
+            "currentNative": 56
+          },
+          {
+            "rank": 20,
+            "source": 67,
+            "currentNative": 66
+          },
+          {
+            "rank": 21,
+            "source": 68,
+            "currentNative": 67
+          }
+        ]
+      },
+      {
+        "skill": "Consume",
+        "characterClass": "war",
+        "field": "aurastatcalc2",
+        "first": 10,
+        "second": 46,
+        "differences": [
+          {
+            "rank": 3,
+            "source": 23,
+            "currentNative": 22
+          },
+          {
+            "rank": 19,
+            "source": 40,
+            "currentNative": 39
+          }
+        ]
+      },
+      {
+        "skill": "Bind Demon",
+        "characterClass": "war",
+        "field": "passivecalc1",
+        "first": 100,
+        "second": 5,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 5,
+            "currentNative": 85
+          },
+          {
+            "rank": 2,
+            "source": 5,
+            "currentNative": 74
+          },
+          {
+            "rank": 3,
+            "source": 5,
+            "currentNative": 65
+          },
+          {
+            "rank": 4,
+            "source": 5,
+            "currentNative": 58
+          },
+          {
+            "rank": 5,
+            "source": 5,
+            "currentNative": 52
+          },
+          {
+            "rank": 6,
+            "source": 5,
+            "currentNative": 47
+          },
+          {
+            "rank": 7,
+            "source": 5,
+            "currentNative": 43
+          },
+          {
+            "rank": 8,
+            "source": 5,
+            "currentNative": 41
+          },
+          {
+            "rank": 9,
+            "source": 5,
+            "currentNative": 37
+          },
+          {
+            "rank": 10,
+            "source": 5,
+            "currentNative": 35
+          },
+          {
+            "rank": 11,
+            "source": 5,
+            "currentNative": 32
+          },
+          {
+            "rank": 12,
+            "source": 5,
+            "currentNative": 30
+          },
+          {
+            "rank": 13,
+            "source": 5,
+            "currentNative": 28
+          },
+          {
+            "rank": 14,
+            "source": 5,
+            "currentNative": 26
+          },
+          {
+            "rank": 15,
+            "source": 5,
+            "currentNative": 25
+          },
+          {
+            "rank": 16,
+            "source": 5,
+            "currentNative": 24
+          },
+          {
+            "rank": 17,
+            "source": 5,
+            "currentNative": 23
+          },
+          {
+            "rank": 18,
+            "source": 5,
+            "currentNative": 22
+          },
+          {
+            "rank": 19,
+            "source": 5,
+            "currentNative": 21
+          },
+          {
+            "rank": 20,
+            "source": 5,
+            "currentNative": 20
+          },
+          {
+            "rank": 21,
+            "source": 5,
+            "currentNative": 19
+          }
+        ]
+      },
+      {
+        "skill": "Bind Demon",
+        "characterClass": "war",
+        "field": "passivecalc8",
+        "first": 100,
+        "second": 5,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 5,
+            "currentNative": 85
+          },
+          {
+            "rank": 2,
+            "source": 5,
+            "currentNative": 74
+          },
+          {
+            "rank": 3,
+            "source": 5,
+            "currentNative": 65
+          },
+          {
+            "rank": 4,
+            "source": 5,
+            "currentNative": 58
+          },
+          {
+            "rank": 5,
+            "source": 5,
+            "currentNative": 52
+          },
+          {
+            "rank": 6,
+            "source": 5,
+            "currentNative": 47
+          },
+          {
+            "rank": 7,
+            "source": 5,
+            "currentNative": 43
+          },
+          {
+            "rank": 8,
+            "source": 5,
+            "currentNative": 41
+          },
+          {
+            "rank": 9,
+            "source": 5,
+            "currentNative": 37
+          },
+          {
+            "rank": 10,
+            "source": 5,
+            "currentNative": 35
+          },
+          {
+            "rank": 11,
+            "source": 5,
+            "currentNative": 32
+          },
+          {
+            "rank": 12,
+            "source": 5,
+            "currentNative": 30
+          },
+          {
+            "rank": 13,
+            "source": 5,
+            "currentNative": 28
+          },
+          {
+            "rank": 14,
+            "source": 5,
+            "currentNative": 26
+          },
+          {
+            "rank": 15,
+            "source": 5,
+            "currentNative": 25
+          },
+          {
+            "rank": 16,
+            "source": 5,
+            "currentNative": 24
+          },
+          {
+            "rank": 17,
+            "source": 5,
+            "currentNative": 23
+          },
+          {
+            "rank": 18,
+            "source": 5,
+            "currentNative": 22
+          },
+          {
+            "rank": 19,
+            "source": 5,
+            "currentNative": 21
+          },
+          {
+            "rank": 20,
+            "source": 5,
+            "currentNative": 20
+          },
+          {
+            "rank": 21,
+            "source": 5,
+            "currentNative": 19
+          }
+        ]
+      },
+      {
+        "skill": "Levitate",
+        "characterClass": "war",
+        "field": "passivecalc1",
+        "first": 0,
+        "second": 35,
+        "differences": [
+          {
+            "rank": 8,
+            "source": 22,
+            "currentNative": 21
+          },
+          {
+            "rank": 10,
+            "source": 24,
+            "currentNative": 23
+          }
+        ]
+      },
+      {
+        "skill": "Psychic Ward",
+        "characterClass": "war",
+        "field": "calc1",
+        "first": 37,
+        "second": 85,
+        "differences": [
+          {
+            "rank": 2,
+            "source": 50,
+            "currentNative": 49
+          },
+          {
+            "rank": 8,
+            "source": 67,
+            "currentNative": 66
+          },
+          {
+            "rank": 10,
+            "source": 70,
+            "currentNative": 69
+          },
+          {
+            "rank": 17,
+            "source": 76,
+            "currentNative": 75
+          },
+          {
+            "rank": 19,
+            "source": 77,
+            "currentNative": 76
+          },
+          {
+            "rank": 21,
+            "source": 78,
+            "currentNative": 77
+          }
+        ]
+      },
+      {
+        "skill": "Mirrored Blades",
+        "characterClass": "war",
+        "field": "calc6",
+        "first": 50,
+        "second": 120,
+        "differences": [
+          {
+            "rank": 1,
+            "source": 61,
+            "currentNative": 60
+          },
+          {
+            "rank": 2,
+            "source": 69,
+            "currentNative": 68
+          },
+          {
+            "rank": 8,
+            "source": 94,
+            "currentNative": 93
+          },
+          {
+            "rank": 10,
+            "source": 98,
+            "currentNative": 97
+          },
+          {
+            "rank": 15,
+            "source": 105,
+            "currentNative": 104
+          },
+          {
+            "rank": 20,
+            "source": 109,
+            "currentNative": 108
+          }
+        ]
+      }
+    ]
+  },
+  "established": [
+    "Start34 uses corpseSel/dead/Udead selection without a separate SOFT test. Do72 marks corpse_noselect and refreshes before chance; failed chance returns0 and still consumes the attempt. Repeated calls consume no further RNG.",
+    "Pinned modern chance uses source dm12 plus hard Find Potion. Successful do makes a second draw and sends corpse/caster and nParam to a stubbed mode-event sink; this is not a loot outcome certificate.",
+    "Shared native SkillValues.Diminishing truncates the ratio early for general parameter pairs. Source11033 multiplies parameter delta before the divisions and caps the final value. Find Item rank2 with5/60 yields20 instead of native19. Find Potion0/100 remains equal. Record shared-curve correction separately before extending native use."
+  ],
+  "limits": [
+    "Mode/death/treasure generation and surrounding payment are not compiled here. No native handler, mana/refund behavior or drop policy is enabled.",
+    "The source helper is supplemental; modern general formula/overflow behavior and affected existing skill consumers need focused correction/verification.",
+    "Shared literal harness declares engine/stat/RNG/state/selection services. No game executable/art is imported."
+  ]
+}

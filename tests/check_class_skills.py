@@ -22,6 +22,20 @@ def drain_fixture_client(client):
         pass
 
 
+_last_snapshot = 0.0
+
+def save_snapshot(session):
+    # AutoArchive names backups to whole seconds. Keep rapid fixture saves
+    # distinct without changing production archive policy or existing saves.
+    global _last_snapshot
+    remaining = 1.1 - (time.monotonic() - _last_snapshot)
+    if remaining > 0:
+        time.sleep(remaining)
+    _last_snapshot = time.monotonic()
+    session.send('save')
+    session.expect(r'Writing world save snapshot done')
+
+
 def check():
     logpath = STAGE / 'native-checks.log'
     with tempfile.TemporaryDirectory(prefix='sanctuary-class-skills-', dir='/dev/shm') as temp:
@@ -385,7 +399,7 @@ def check():
                         session.send(concentrate_command)
                         assert session.expect(concentrate_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         assert session.expect(r'concentrate-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                        session.send('save'); session.expect(r'Writing world save snapshot done')
+                        save_snapshot(session)
                         concentrate_client.shutdown(socket.SHUT_RDWR)
                     time.sleep(.15)
                     session.send('concentrate-disconnect-check')
@@ -397,7 +411,7 @@ def check():
                         session.send(berserk_command)
                         assert session.expect(berserk_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         assert session.expect(r'berserk-result: (passed|failed)',timeout=10).group(1)=='passed',logpath.read_text()[-6000:]
-                        session.send('save'); session.expect(r'Writing world save snapshot done')
+                        save_snapshot(session)
                         berserk_client.shutdown(socket.SHUT_RDWR)
                     time.sleep(.15)
                     session.send('berserk-disconnect-check')
@@ -409,32 +423,37 @@ def check():
                     session.send(shout_command)
                     assert session.expect(shout_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'shout-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
                     orders_command='battle-orders-check' if boot==0 else 'battle-orders-reload-check'
                     session.send(orders_command)
                     assert session.expect(orders_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'battle-orders-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
                     command_command='battle-command-check' if boot==0 else 'battle-command-reload-check'
                     session.send(command_command)
                     assert session.expect(command_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'battle-command-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
                     howl_command='howl-check' if boot==0 else 'howl-reload-check'
                     session.send(howl_command)
                     assert session.expect(howl_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'howl-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
                     cry_command='battlecry-check' if boot==0 else 'battlecry-reload-check'
                     session.send(cry_command)
                     assert session.expect(cry_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'battlecry-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
                     taunt_command='taunt-check' if boot==0 else 'taunt-reload-check'
                     session.send(taunt_command)
                     assert session.expect(taunt_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'taunt-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
-                    session.send('save'); session.expect(r'Writing world save snapshot done')
+                    save_snapshot(session)
+                    warcry_command='warcry-check' if boot==0 else 'warcry-reload-check'
+                    session.send(warcry_command)
+                    assert session.expect(warcry_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'warcry-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                    save_snapshot(session)
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:
                     session.close()

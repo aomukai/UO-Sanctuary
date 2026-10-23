@@ -1,0 +1,72 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Bounded compiled War Cry source prerequisites; native integration pending.",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8"
+  },
+  "probe": {
+    "caseCounts": {
+      "physicalCases": 390,
+      "stunCases": 40,
+      "monsterBlockCases": 160,
+      "blockFlagCases": 72,
+      "dodgeCases": 48,
+      "componentCases": 40
+    },
+    "blockHashes": {
+      "MONSTER_SetComponents": "f8f56e2fe4747972b3dd6dc122e1b9f28f70f4faeef1439ea19f9bc003add8ce",
+      "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+      "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+      "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+      "MISSMODE_RollDamageValue": "b7a3f2d3ca90820d1ef8f41fe5cbbc8fbd52011a472a3396efd55de5517e8951",
+      "MISSMODE_SrvDmg07_Warcry_ShockWave": "0f6739089728e64d873c8ce4b362d41949070fa771b175beb9214cc37833e755",
+      "UNITS_GetBlockRate": "5e2427485cb591b59d8fd046a512d89f6d0dc163262926b5307fa794bfd15c16",
+      "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+      "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+      "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+      "D2Common_11069": "9046f56f66ebc2b2534dcc45c0b37c57c0ef9746da2851d89ac0421081b4363d",
+      "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+      "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+      "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+      "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+      "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+    },
+    "dataPath": ".local/class-skills/warcry-source-probe.json"
+  },
+  "established": [
+    "Physical skill endpoints add tier damage, truncate synergy percentage in whole points, then shift by HitShift. This differs from the existing elemental Damage256 order. Current War Cry source SrcDam0 excludes the weapon branch of these getters.",
+    "Missile creation reads physical endpoints into missile damage stats; collision rolls against those stored min/max with exclusive upper endpoint. Changing current owner synergy does not change the already supplied per-hit endpoint fixture. Creation/writer are reviewed separately, not compiled here.",
+    "Damage callback7 selects explicit positive missile dParam1 or positive-level source skill Param1/2, else0; valid callback writes hit class0x60. These parameters agree with pinned War Cry calc4 ln12.",
+    "Full block-rate getter distinguishes innate noshldblock, three special classes, Act3hire, actual component shield item type and cap75; a ToBlock number alone does not establish a block chance for every monster. Native source-component mappings must precede broad target support.",
+    "Full block/dodge and missile flag routines compile. Physical presence enables shield block, moving actors select evade, standing missile avoids select avoid, and any block/dodge result clears successful hit. Uninterruptable suppresses GetHit but is a separate later damage gate.",
+    "Flag dispatch executes hit events only on success but always requests the final missile presentation handler. Stun length remains in the packet on block; native implementation must follow the event/health guard order rather than applying stun solely because its length is nonzero.",
+    "Compiled component assignment retains selected regional appearance pools or chooses independent component indices when no pool exists. Native SH-only lazy selection/persistence uses the latter primitive; regional pools, source RNG sequence and visual correspondence remain provisional.",
+    "Source missile writer copies DAMAGE_VS_MONTYPE layers from owner even for a no-weapon spell; this is distinct from ordinary strength/mastery/weapon ED/deadly/leech paths. Keep this special item/stat branch explicit."
+  ],
+  "modernBlockCrosswalk": {
+    "tableHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "legacyDataHash": "973eedacd121f724f6dca1c7201750f6a4e60480c3d536ef5a9cb36853d38193",
+    "renamingSource": "https://news.blizzard.com/en-us/article/23827590/diablo-ii-resurrected-ladder-season-two-has-concluded",
+    "finding": "Blizzard patch2.5 documents NoShldBlock renamed ShieldBlockOverride. All18 current override1 rows match the supplemental NoShldBlock rows exactly; the only override2 row is act3hire, which the compiled getter separately excludes. This table/source crosswalk is an inference for the current rows, not a compiled modern engine or arbitrary modded override contract."
+  },
+  "stubs": [
+    "Unchanged tier/physical getters/per-hit roll/damage7/full block-rate/dodge/block dispatch/missile damage flags with declared tables/items/components/RNG/owner/event/commit/stat services.",
+    "Physical vectors exercise War Cry no-kick/no-weapon SrcDam0 and hard-synergy formula supplied by fixture. Other kick/weapon branches compile but are outside these vectors. Player block/walking, weapon-block inventory and nonzero passive weapon-block combinations are outside the matrix.",
+    "Monster shield component codes/item types and innate flags are supplied fixtures. Full source monster component generation/selection and actual native saved shield appearance are not certified.",
+    "Missile creation, endpoint writer and final hit-event/health/presentation consumers are hash-reviewed, not compiled in this program. Event/commit calls are recorded independently; full damage/stun commitment remains a separate trace."
+  ],
+  "limits": [
+    "No native War Cry handler or modern executable certificate. Complete source snapshot/typed damage/stun/event/physical immunity and native source-component block mapping remain integration work.",
+    "Native SC/FCR/geometry/terrain/NextHit caster/cast scope, snapshots/gear/generic monster-type stat layers/owner/client acceptance remain open.",
+    "Final effects and talent/hotkey icons remain identified placeholders; no asset work or new class completion claim."
+  ]
+}

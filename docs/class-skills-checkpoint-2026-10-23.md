@@ -1,6 +1,6 @@
 # Class skill checkpoint — 23 October 2026
 
-The goal is active. **98 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian11. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
+The goal is active. **107 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian20. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
 
 This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-2026-10-22.md). The [roadmap](class-skill-roadmap.md) reflects the actual implementation expressions. The [verification record](class-skills-verification-2026-10-23.json) records current artifacts and bounded checks.
 
@@ -234,3 +234,14 @@ Mapped source AIs only; automatic room-order ties, Attract/item-fear transient f
 Native tier context remains an unanswered nonblocking question: D2R uses caster room Act/game difficulty; no Britannia or corpse-context substitution is approved. No handler is enabled. Unaffected War Cry now has7 hash-reviewed source blocks/table preflight, with separate missile damage/block/stun/snapshot work next. Its cost includes quarter mana, and its ring differs from Howl/Battle Cry (-600 acceleration/16frames/6-frame NextHit).
 
 Only tools/source evidence/documentation changed after runtime backupd6ddb50.70 Python/reference/generator checks pass;432 named/15 first-loop current input hashes and all prior runtime/build evidence still match. Installed106-handler build/prior3boots2reloads/existing-world load-listen-shutdown remain unchanged. No new assets, native patch, item gate, save change or class certificate. Goal active; continue War Cry rather than waiting on the whole roadmap.
+
+
+## Latest checkpoint: War Cry and reuse review
+
+Latest implementation: **War Cry**, reusing the shared ring, fractional payment, prepared physical mitigation, recovery and saved stun state. Source750 bounded cases plus focused/final combined3boots/2reloads pass. Physical endpoint/rank snapshots, per-hit RNG,24.25-mana rank20 cost,6-frame delay, shield/no-shield block, immunity/stun, natural expiry and saved SH/ray/stun/mana are covered. Source component selection remains a provisional no-regional-pool adapter; modern component/block/dodge/gear/owner/SC/FCR/geometry/client gaps stay explicit. See [source](../tools/reference/warcry-engine-evidence.json) and [native evidence](../tools/reference/warcry-native-evidence.json).
+
+Next: correct/verify the shared diminishing-curve division order using [624 Find Item/shared-source cases](../tools/reference/find-item-engine-evidence.json), then continue [Find Item preflight](../tools/reference/barbarian-find-item-preflight.json), checking shared corpse access and existing loot generation before new mechanics. Start34 lacks Find Potion's separate SOFT check; failed chance returns0 instead of1; successful path routes through monster mode/death events. Trace payment/reward context before enabling output. Find Potion's existing caster Act/game-difficulty mapping question remains unanswered; do not invent tiers. Barbarian20/30 handlers,10 pending; full roster goal stays active.
+
+Focused and final full combined native3boots/2reloads pass;70 Python tests,current435 named/15 first-loop hashes, source/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass.
+
+The full suite exposed rapid fixture saves selecting the same second-based backup directory. The harness spaces explicit saves by1.1seconds; production archive behavior and existing saves are unchanged. Final full checks pass. No new native patch, save reset, class certificate, final imagegen or item gate change.

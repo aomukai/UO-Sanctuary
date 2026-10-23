@@ -1,0 +1,7890 @@
+[
+  {
+    "source": "act2child",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2female",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2guard1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2guard2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2guard3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2guard4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2guard5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2hire",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2male",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2vendor1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act2vendor2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act3female",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act3hire",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "act3male",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5barb1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5barb2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5barb3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5barb4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5hire1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5hire2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "act5pow",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "akara",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "alkor",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientbarb1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientbarb2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientbarb3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientstatue1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientstatue2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ancientstatue3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "andariel",
+    "normal": 0,
+    "nightmare": 20,
+    "hell": 40,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach1",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach3",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach5",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach6",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "arach7",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "asheara",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "atma",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalclone",
+    "normal": 40,
+    "nightmare": 45,
+    "hell": 55,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalcrab",
+    "normal": 40,
+    "nightmare": 45,
+    "hell": 55,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalcrabstairs",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalhighpriest",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalminion1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalminion2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalminion3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltaunt",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltentacle1",
+    "normal": 44,
+    "nightmare": 44,
+    "hell": 44,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltentacle2",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltentacle3",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltentacle4",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baaltentacle5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baalthrone",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon1",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon2",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon3",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon7",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "baboon8",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "barricadedoor1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "barricadedoor2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "barricadetower",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "barricadewall1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "barricadewall2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bat",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon1",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon2",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon4",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon5",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon6",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "batdemon7",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bear",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead1",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead10",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead2",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead3",
+    "normal": 5,
+    "nightmare": 5,
+    "hell": 5,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead4",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead5",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead7",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead8",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bighead9",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bird1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bird2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bladecreeper",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodgolem",
+    "normal": 31,
+    "nightmare": 31,
+    "hell": 31,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodlord7",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodmage1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodmage2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodmage3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodmage4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodmage5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bloodraven",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore3",
+    "normal": 33,
+    "nightmare": 33,
+    "hell": 33,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore4",
+    "normal": 42,
+    "nightmare": 42,
+    "hell": 42,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "blunderbore6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish1",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish2",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish4",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonefetish7",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "boneprison1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "boneprison2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "boneprison3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "boneprison4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bonewall",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "brute1",
+    "normal": 4,
+    "nightmare": 4,
+    "hell": 4,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "brute2",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "brute3",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "brute4",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "brute5",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bug",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "bunny",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cain6",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "camel",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor1",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor2",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor3",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor4",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cantor6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapult1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapult2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapult3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapult4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapultspotter1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapultspotter2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapultspotter3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "catapultspotter4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chaoshorde1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chaoshorde2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chaoshorde3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chaoshorde4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chargeboltsentry",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "charsi",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "chicken",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper1",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper10",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper3",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper6",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper7",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper8",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "clawviper9",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "claygolem",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colbarbfrenzy",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colbarbthrow",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colbarbwhirl",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colossal1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colossal2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "colossal3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "compellingorb",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "corruptrogue1",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "corruptrogue2",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "corruptrogue3",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "corruptrogue4",
+    "normal": 33,
+    "nightmare": 33,
+    "hell": 33,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "corruptrogue5",
+    "normal": 40,
+    "nightmare": 40,
+    "hell": 40,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "corruptrogue6",
+    "normal": 40,
+    "nightmare": 40,
+    "hell": 40,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "councilmember1",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "councilmember2",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "councilmember3",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cow",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cowking",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer1",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer2",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer3",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer4",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer5",
+    "normal": 45,
+    "nightmare": 45,
+    "hell": 45,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer7",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_archer8",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer1",
+    "normal": 4,
+    "nightmare": 4,
+    "hell": 4,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer2",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer3",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer4",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer6",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer7",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer8",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cr_lancer9",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "crownest1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "crownest2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "crownest3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "crownest4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "cycleoflife",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkelder",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkguard1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkguard2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkguard3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkguard4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkguard5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "darkwanderer",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathmauler6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "deathsentry",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "demonhole",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "demonspawner",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "diablo",
+    "normal": 25,
+    "nightmare": 40,
+    "hell": 50,
+    "innate": true,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "diabloclone",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": true,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dkfig1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dkfig2",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dkmag1",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dkmag2",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dkmag3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "doomknight1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": true,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "doomknight2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "doomknight3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "dopplezon",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "drehya",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "drehyaiced",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "drognan",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "druidbear",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "druidhawk",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "duriel",
+    "normal": 0,
+    "nightmare": 25,
+    "hell": 50,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "eagle",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "elzix",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhole1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhole2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhole3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhole4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhole5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "evilhut",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallen1",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen3",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen4",
+    "normal": 36,
+    "nightmare": 36,
+    "hell": 36,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen5",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen6",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen7",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallen8",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "sml",
+      "buc",
+      "tch"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "source": "fallenshaman1",
+    "normal": 4,
+    "nightmare": 4,
+    "hell": 4,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman2",
+    "normal": 7,
+    "nightmare": 7,
+    "hell": 7,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman3",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman4",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman5",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman6",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman7",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fallenshaman8",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "familiar",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fara",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fenris",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish1",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish11",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish2",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish4",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish7",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetish8",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow1",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow2",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow4",
+    "normal": 31,
+    "nightmare": 31,
+    "hell": 31,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow5",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow6",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow7",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishblow8",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman1",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman2",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman3",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman4",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman7",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fetishshaman8",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fingermage1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fingermage2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fingermage3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fingermage4",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fingermage5",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "firebeast",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "firegolem",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "firetower",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "fish",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "flyingscimitar",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow1",
+    "normal": 5,
+    "nightmare": 5,
+    "hell": 5,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow2",
+    "normal": 7,
+    "nightmare": 7,
+    "hell": 7,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow5",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow6",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow7",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "foulcrow8",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frogdemon1",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frogdemon2",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frogdemon3",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frozenhorror1",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frozenhorror2",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frozenhorror3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frozenhorror4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "frozenhorror5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gargoyletrap",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "geglash",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gheed",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman1",
+    "normal": 5,
+    "nightmare": 5,
+    "hell": 5,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman10",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman2",
+    "normal": 7,
+    "nightmare": 7,
+    "hell": 7,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman3",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman4",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman5",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman6",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman7",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman8",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "goatman9",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gorgon1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gorgon2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gorgon3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "gorgon4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "greiz",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "griswold",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "halbu",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "heartofwolverine",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hellbovine",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hellmeteor",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hephasto",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "horse",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hratli",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hydra1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hydra2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "hydra3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "iceglobe",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp1",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp2",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp3",
+    "normal": 33,
+    "nightmare": 33,
+    "hell": 33,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp4",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp5",
+    "normal": 37,
+    "nightmare": 37,
+    "hell": 37,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp6",
+    "normal": 37,
+    "nightmare": 37,
+    "hell": 37,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp7",
+    "normal": 37,
+    "nightmare": 37,
+    "hell": 37,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "imp8",
+    "normal": 37,
+    "nightmare": 37,
+    "hell": 37,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "infernosentry",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "injuredbarb1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "injuredbarb2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "injuredbarb3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "invisopet",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "invisospawner",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "irongolem",
+    "normal": 41,
+    "nightmare": 41,
+    "hell": 41,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "izual",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "izualghost",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "jamella",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "jerhyn",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "kashya",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "larva",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "larzuk",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "lightningbeast",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "lightningsentry",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "lightningspire",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "lysander",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggot",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby1",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby2",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby3",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby4",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotbaby6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotegg6",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotqueen1",
+    "normal": 12,
+    "nightmare": 12,
+    "hell": 12,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotqueen2",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotqueen3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotqueen4",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "maggotqueen5",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "malachai",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "malah",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon1",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon2",
+    "normal": 36,
+    "nightmare": 36,
+    "hell": 36,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon3",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon4",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon5",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "megademon6",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mephisto",
+    "normal": 20,
+    "nightmare": 40,
+    "hell": 50,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mephistospirit",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "meshif1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "meshif2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minion1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion10",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion11",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion7",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion8",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minion9",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [
+      "med",
+      "hvy"
+    ],
+    "shieldItems": [
+      false,
+      false
+    ]
+  },
+  {
+    "source": "minionspawner1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner2",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner3",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner4",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner7",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minionspawner8",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "minispider",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mosquito1",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mosquito2",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mosquito3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mosquito4",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy1",
+    "normal": 14,
+    "nightmare": 14,
+    "hell": 14,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy3",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy4",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy5",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "mummy6",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "natalya",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "navi",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "necromage",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "necroskeleton",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "nihlathak",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "nihlathakboss",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "oaksage",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ormus",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer1",
+    "normal": 43,
+    "nightmare": 43,
+    "hell": 43,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer2",
+    "normal": 44,
+    "nightmare": 44,
+    "hell": 44,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer3",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer4",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "overseer6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "painworm1",
+    "normal": 44,
+    "nightmare": 44,
+    "hell": 44,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "painworm2",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "painworm3",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "painworm4",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "painworm5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "pantherwoman1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "pantherwoman2",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "pantherwoman3",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "pantherwoman4",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "pantherwoman5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "pantherwoman6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "parrot",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "pig",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "plaguepoppy",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "poisonorb",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "prisondoor",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "putriddefiler1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "putriddefiler2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "putriddefiler3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "putriddefiler4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "putriddefiler5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "qual-kehk",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillbear1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillbear2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillbear3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillbear4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillbear5",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat1",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat2",
+    "normal": 6,
+    "nightmare": 6,
+    "hell": 6,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat3",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat4",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat5",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat6",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat7",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "quillrat8",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "radament",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "rat",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde1",
+    "normal": 45,
+    "nightmare": 45,
+    "hell": 45,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde2",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "reanimatedhorde6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "regurgitator1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "regurgitator2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "regurgitator3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "regurgitator4",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "rogue1",
+    "normal": 75,
+    "nightmare": 75,
+    "hell": 75,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "rogue2",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "rogue3",
+    "normal": 75,
+    "nightmare": 75,
+    "hell": 75,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "roguehire",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper5",
+    "normal": 26,
+    "nightmare": 26,
+    "hell": 26,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper6",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandleaper7",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot1",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot2",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot3",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot4",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot5",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot6",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandmaggot7",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider1",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider10",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider2",
+    "normal": 32,
+    "nightmare": 32,
+    "hell": 32,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider3",
+    "normal": 34,
+    "nightmare": 34,
+    "hell": 34,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider4",
+    "normal": 44,
+    "nightmare": 44,
+    "hell": 44,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider5",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider6",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider7",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider8",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sandraider9",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sarcophagus",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab2",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab4",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab6",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab7",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scarab8",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "scorpion",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "seagull",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "seventombs",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "shadowmaster",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "shadowwarrior",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "siegebeast1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "siegebeast2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "siegebeast3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "siegebeast4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "siegebeast5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer10",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer11",
+    "normal": 48,
+    "nightmare": 48,
+    "hell": 48,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer2",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer3",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer4",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer5",
+    "normal": 45,
+    "nightmare": 45,
+    "hell": 45,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer7",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer8",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "sk_archer9",
+    "normal": 35,
+    "nightmare": 35,
+    "hell": 35,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skeleton1",
+    "normal": 10,
+    "nightmare": 10,
+    "hell": 10,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton2",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton3",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton4",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton5",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton6",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton7",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skeleton8",
+    "normal": 30,
+    "nightmare": 30,
+    "hell": 30,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "nil",
+      "buc",
+      "lrg",
+      "kit",
+      "sml"
+    ],
+    "shieldItems": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "source": "skmage_cold1",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_cold2",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_cold3",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_cold4",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_cold5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_cold6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire1",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire2",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire3",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire4",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_fire7",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng1",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng2",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng3",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng4",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng6",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_ltng7",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois1",
+    "normal": 9,
+    "nightmare": 9,
+    "hell": 9,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois2",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois3",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois4",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois5",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois6",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "skmage_pois7",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "slinger1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger3",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger4",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger5",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger6",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger7",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger8",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "slinger9",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [
+      "buc"
+    ],
+    "shieldItems": [
+      true
+    ]
+  },
+  {
+    "source": "smith",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "snake",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "snowyeti1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "snowyeti2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "snowyeti3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "snowyeti4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "spiritmummy",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "spiritofbarbs",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "spiritwolf",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus1",
+    "normal": 42,
+    "nightmare": 42,
+    "hell": 42,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus2",
+    "normal": 44,
+    "nightmare": 44,
+    "hell": 44,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus3",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus7",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubus8",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch1",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch2",
+    "normal": 49,
+    "nightmare": 49,
+    "hell": 49,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch7",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch8",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "succubuswitch9",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suckernest1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suckernest2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suckernest3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suckernest4",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion1",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion10",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion11",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion2",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion3",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion4",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion5",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion6",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion7",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion8",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "suicideminion9",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "summoner",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "swarm1",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "swarm2",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "swarm3",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "swarm4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "swarm5",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentacle1",
+    "normal": 18,
+    "nightmare": 18,
+    "hell": 18,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentacle2",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentacle3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentaclehead1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentaclehead2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tentaclehead3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "thornhulk1",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "thornhulk2",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "thornhulk3",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "thornhulk4",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "thornhulk5",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-firebolt",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-horzmissile",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-lightning",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-melee",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-nova",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-poisoncloud",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trap-vertmissile",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trappedsoul1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "trappedsoul2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "turret1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "turret2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "turret3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tyrael1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tyrael2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "tyrael3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "uberandariel",
+    "normal": 0,
+    "nightmare": 20,
+    "hell": 40,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "uberbaal",
+    "normal": 40,
+    "nightmare": 45,
+    "hell": 55,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "uberdiablo",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": true,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "uberduriel",
+    "normal": 0,
+    "nightmare": 25,
+    "hell": 50,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "uberizual",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "ubermephisto",
+    "normal": 20,
+    "nightmare": 40,
+    "hell": 50,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler1",
+    "normal": 0,
+    "nightmare": 15,
+    "hell": 33,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler2",
+    "normal": 0,
+    "nightmare": 15,
+    "hell": 33,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler3",
+    "normal": 0,
+    "nightmare": 15,
+    "hell": 33,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler4",
+    "normal": 0,
+    "nightmare": 15,
+    "hell": 33,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler5",
+    "normal": 0,
+    "nightmare": 15,
+    "hell": 33,
+    "innate": true,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler6",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler7",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler8",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "unraveler9",
+    "normal": 39,
+    "nightmare": 39,
+    "hell": 39,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "valkyrie",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire1",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire2",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire3",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire4",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire5",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire6",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire7",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire8",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vampire9",
+    "normal": 25,
+    "nightmare": 25,
+    "hell": 25,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "venomlord",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilechild1",
+    "normal": 38,
+    "nightmare": 38,
+    "hell": 38,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilechild2",
+    "normal": 43,
+    "nightmare": 43,
+    "hell": 43,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilechild3",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilechild4",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilechild5",
+    "normal": 47,
+    "nightmare": 47,
+    "hell": 47,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilemother1",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilemother2",
+    "normal": 27,
+    "nightmare": 27,
+    "hell": 27,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilemother3",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilemother4",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vilemother5",
+    "normal": 29,
+    "nightmare": 29,
+    "hell": 29,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vinecreature",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vulture1",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vulture2",
+    "normal": 16,
+    "nightmare": 16,
+    "hell": 16,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vulture3",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vulture4",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "vulture5",
+    "normal": 15,
+    "nightmare": 15,
+    "hell": 15,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wakeofdestruction",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "warbighead",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wargoatman",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "warputriddefiler",
+    "normal": 50,
+    "nightmare": 50,
+    "hell": 50,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "warriv1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "warriv2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp1",
+    "normal": 21,
+    "nightmare": 21,
+    "hell": 21,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp2",
+    "normal": 23,
+    "nightmare": 23,
+    "hell": 23,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp3",
+    "normal": 26,
+    "nightmare": 26,
+    "hell": 26,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp4",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp5",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp6",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp7",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "willowisp8",
+    "normal": 28,
+    "nightmare": 28,
+    "hell": 28,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "window1",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "window2",
+    "normal": 46,
+    "nightmare": 46,
+    "hell": 46,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wolf",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": true,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wolfrider1",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wolfrider2",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wolfrider3",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "worldstoneeffect",
+    "normal": 0,
+    "nightmare": 0,
+    "hell": 0,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith1",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith2",
+    "normal": 11,
+    "nightmare": 11,
+    "hell": 11,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith3",
+    "normal": 19,
+    "nightmare": 19,
+    "hell": 19,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith4",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith5",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith6",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith7",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith8",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "wraith9",
+    "normal": 8,
+    "nightmare": 8,
+    "hell": 8,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zealot1",
+    "normal": 20,
+    "nightmare": 20,
+    "hell": 20,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zealot2",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zealot3",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zealot4",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zealot5",
+    "normal": 24,
+    "nightmare": 24,
+    "hell": 24,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zombie1",
+    "normal": 3,
+    "nightmare": 3,
+    "hell": 3,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zombie2",
+    "normal": 4,
+    "nightmare": 4,
+    "hell": 4,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zombie3",
+    "normal": 13,
+    "nightmare": 13,
+    "hell": 13,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zombie4",
+    "normal": 22,
+    "nightmare": 22,
+    "hell": 22,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  },
+  {
+    "source": "zombie5",
+    "normal": 17,
+    "nightmare": 17,
+    "hell": 17,
+    "innate": false,
+    "blockMode": false,
+    "shieldCodes": [],
+    "shieldItems": []
+  }
+]

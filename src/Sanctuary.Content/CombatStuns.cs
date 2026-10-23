@@ -56,15 +56,20 @@ public static class CombatStuns
         velocity=0;
         boss=profile.Traits.Boss==true;
         if(profile.SourceStats.TryGetValue("boss",out var value) && value=="1"){boss=true;}
-        return profile.SourceStats.TryGetValue("Velocity",out var text) && int.TryParse(text,out velocity);
+        if(profile.SourceStats.TryGetValue("Velocity",out var text) && int.TryParse(text,out velocity)){return true;}
+        // Native encounter archetypes have an explicit movement profile instead
+        // of a D2 monstats row. Only the nonzero eligibility bit is needed here.
+        if(target is EncounterCreature && profile.Movement.WalkMs is >0){velocity=1;return true;}
+        return false;
     }
-    public static bool Apply(BaseCreature target,int frames)
+    public static bool Apply(BaseCreature target,int frames,DateTime? at=null)
     {
         if(target is not{Alive:true,Deleted:false} || !Rules(target,out bool boss,out int velocity)){return false;}
         bool unique=target is EncounterCreature{Grade:EncounterGrade.Champion or EncounterGrade.Unique or EncounterGrade.SuperUnique};
         int duration=Frames(frames,true,unique,boss,velocity,false,unique?Roll(100):0);
-        if(duration<=0){return false;}
-        _states[target.Serial.Value]=new(target.Serial.Value,TimedEffects.Now.AddMilliseconds(duration*40));
+        DateTime until=(at??TimedEffects.Now).AddMilliseconds(duration*40);
+        if(duration<=0 || until<=TimedEffects.Now){return false;}
+        _states[target.Serial.Value]=new(target.Serial.Value,until);
         if(target is GraveyardUndead undead){undead.InterruptForRecovery();}
         else if(target is SkeletonGuardian guardian){guardian.InterruptForRecovery();}
         if(target.Spell is Spell spell){spell.Disturb(DisturbType.Hurt);}

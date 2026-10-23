@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "624 bounded compiled start/do/selection/curve cases; native payment and loot event still pending.",
+  "skill": {
+    "skill": "Find Item",
+    "*Id": 142,
+    "charclass": "bar",
+    "skilldesc": "find item",
+    "srvstfunc": 34,
+    "srvdofunc": 72,
+    "stsuccessonly": 1,
+    "stsoundclass": "barbarian_findobject_1",
+    "dosound": "barbarian_findheart_1",
+    "cltstfunc": 28,
+    "cltdofunc": 40,
+    "enhanceable": 1,
+    "attackrank": 0,
+    "range": "h2h",
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "xx",
+    "UseAttackRate": 1,
+    "SearchEnemyNear": 1,
+    "SelectProc": 5,
+    "TargetCorpse": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Find Potion",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 7,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "calc1": "dm12+skill('Find Potion'.blvl)*par8",
+    "*calc1 desc": "% chance to find any item",
+    "Param1": 5,
+    "*Param1 Description": "% chance to find any item Min",
+    "Param2": 60,
+    "*Param2 Description": "% chance to find any item Max",
+    "Param3": 30,
+    "*Param3 Description": "% chance for high quality item",
+    "Param4": 5,
+    "*Param4 Description": "% chance for magic item",
+    "Param8": 1,
+    "*Param8 Description": "% chance synergy",
+    "InGame": 1,
+    "HitShift": 8,
+    "cost mult": 512,
+    "cost add": 8000,
+    "lineNumber": 142
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "blockHashes": {
+    "SKILLS_SrvSt34_FindItem": "ecb0d8680895ec66acc15f74e2709d6218a42153bdcb602029687e1a2eb0fd39",
+    "SKILLS_SrvDo072_FindItem": "3483b2b7d06a80e1f35150a08bdc2ef4634aeda60004f74bbd9d44383667ee37",
+    "D2COMMON_11019": "1e0f779f6bdb599e34c12684c449fc66dc176728783e0481a5a4d3fab36ac58e",
+    "sub_6FC659B0": "da7dcfa8c13135c30099301a8324eea71cd6f7f204bfe55108b8cabd000954a1"
+  },
+  "reuse": [
+    "Reuse CorpseSkillRules for existing native owner/loot/access/LOS/selected corpse metadata; compare source eligibility first. Find Potion source proof already covers shared Udead corpse_noselect exclusion, which must not become hide/deletion or consume existing loot.",
+    "Reuse source chance formula evaluation and current gear/treasure pipelines only where the full drop context agrees; do not create a second equipment generator."
+  ],
+  "findings": [
+    "Pinned cost7 mana; chance calc1=dm12 + hard Find Potion *1. Param1=5,Param2=60. These are current table values, not a compiled modern payment/drop path.",
+    "Legacy start34 calls corpse selection directly; unlike Find Potion start33 it has no separate SOFT requirement in this wrapper. Do72 repeats selection and corpse_noselect guards, marks corpse before RNG and refreshes its world unit.",
+    "Unlike Find Potion do69, failed Find Item chance returns0. Do not blindly reuse successful-no-output return/payment semantics. Trace the enclosing cast/resource path.",
+    "Successful chance takes another 0..99 draw to select nParam1..4 and calls sub_6FC659B0. That wrapper ignores a4 in the decompilation and forwards a mode-change descriptor to sub_6FC631B0; ordinary native GearDrops cannot be assumed equivalent to this event/reward path.",
+    "Compiled shared diminishing helper exposes an existing native early-truncation gap for general parameter pairs: Find Item rank2 with5/60 is20 in source versus19 in current SkillValues. Find Potion0/100 remains equal. Correct/verify affected shared consumers in a separate batch before enabling Find Item."
+  ],
+  "nextSteps": [
+    "Correct the existing shared diminishing-curve division order and verify affected consumers against compiled independent vectors; keep War Cry checked build separate because it does not use this curve.",
+    "Compile bounded chance/eligibility/one-attempt/do-return branches, using pinned modern formula inputs and declared services.",
+    "Trace common payment plus mode-change/death-event/treasure evaluation, corpse treasure identity and NoDrop/quest/special/elite context before enabling native drops.",
+    "Continue unaffected Barbarian mechanics when a particular loot branch lacks source/native support; preserve original corpse contents."
+  ],
+  "limits": [
+    "Compiled start/do/selection/curve proof only; mode/death/treasure pipeline and surrounding payment remain unverified. No native Find Item handler or arbitrary drop policy.",
+    "Find Potion caster Act/game difficulty question stays separate and unanswered. No mapping or fallback selected."
+  ],
+  "evidence": "tools/reference/find-item-engine-evidence.json"
+}

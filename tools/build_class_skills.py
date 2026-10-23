@@ -100,7 +100,7 @@ public static class ClassAbilities
     public static bool AllyTarget(CombatAbility value) => value is CombatAbility.Enchant or CombatAbility.HolyBolt;
     public static bool CorpseTarget(CombatAbility value) => value is CombatAbility.RaiseSkeleton or CombatAbility.RaiseSkeletalMage or CombatAbility.CorpseExplosion or CombatAbility.PoisonExplosion or CombatAbility.Revive;
     public static bool SelfTarget(CombatAbility value) => value is CombatAbility.BoneArmor or CombatAbility.PoisonNova or CombatAbility.Nova or CombatAbility.FrostNova or CombatAbility.StaticField
-        or CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor or CombatAbility.EnergyShield or CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.Might or CombatAbility.Defiance or CombatAbility.BlessedAim or CombatAbility.Prayer or CombatAbility.Cleansing or CombatAbility.Meditation or CombatAbility.ResistFire or CombatAbility.ResistCold or CombatAbility.ResistLightning or CombatAbility.Salvation or CombatAbility.Vigor or CombatAbility.Redemption or CombatAbility.Concentration or CombatAbility.Fanaticism or CombatAbility.HolyFire or CombatAbility.HolyShock or CombatAbility.HolyFreeze or CombatAbility.Sanctuary or CombatAbility.BlessedHammer or CombatAbility.Thorns or CombatAbility.Conviction or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry;
+        or CombatAbility.FrozenArmor or CombatAbility.ShiverArmor or CombatAbility.ChillingArmor or CombatAbility.EnergyShield or CombatAbility.ThunderStorm or CombatAbility.Blaze or CombatAbility.Might or CombatAbility.Defiance or CombatAbility.BlessedAim or CombatAbility.Prayer or CombatAbility.Cleansing or CombatAbility.Meditation or CombatAbility.ResistFire or CombatAbility.ResistCold or CombatAbility.ResistLightning or CombatAbility.Salvation or CombatAbility.Vigor or CombatAbility.Redemption or CombatAbility.Concentration or CombatAbility.Fanaticism or CombatAbility.HolyFire or CombatAbility.HolyShock or CombatAbility.HolyFreeze or CombatAbility.Sanctuary or CombatAbility.BlessedHammer or CombatAbility.Thorns or CombatAbility.Conviction or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.WarCry;
     public const int Count = 242;
     public const int MaskBytes = (Count + 7) / 8;
     public static bool Valid(CombatAbility value) => (int)value < Count;
@@ -121,10 +121,11 @@ def products():
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
                if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3']]
     summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
-                if r.get('Missile') in ['necromage1','necromage2','necromage3','necromage4','poisonexplosioncloud','bonewallmaker','chillingarmorbolt','firebolt','arrow','thunderstorm1','lightningbolt','chargedbolt','blaze','firewall','firewallmaker','meteorcenter','meteorfire','blizzardcenter','blizzard1','frozenorb','frozenorbbolt','frozenorbnova','hydra','infernoflame1','chainlightning','holybolt','fistoftheheavensdelay','fistoftheheavensbolt','blessedhammer','shout','battleorders','battlecommand','howl','battlecry']]
+                if r.get('Missile') in ['necromage1','necromage2','necromage3','necromage4','poisonexplosioncloud','bonewallmaker','chillingarmorbolt','firebolt','arrow','thunderstorm1','lightningbolt','chargedbolt','blaze','firewall','firewallmaker','meteorcenter','meteorfire','blizzardcenter','blizzard1','frozenorb','frozenorbbolt','frozenorbnova','hydra','infernoflame1','chainlightning','holybolt','fistoftheheavensdelay','fistoftheheavensbolt','blessedhammer','shout','battleorders','battlecommand','howl','battlecry','warcry']]
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'barbarian.warcry':'Staged shared UO0x375A cast/wave/stun/block markers and0x1E5 cry; final WarcryShockwave, cast, stun and shield block presentation pending',
         'barbarian.taunt':'Staged UO0x375A target marker and0x1E5 cry sound; final taunt overlay/cry and source feedback pending',
         'barbarian.battlecry':'Staged shared UO0x375A cast/curse markers, sparse warcry wave and sound; final Battle Cry shockwave and state overlay pending',
         'barbarian.howl':'Staged UO0x375A cast/fear markers, sparse shared wave and sound; final Howl cry, BAYellShockWave01 ring and Terror/escape cue pending',
@@ -158,10 +159,20 @@ def products():
     conversion_rules=[dict(source=r['Id'],base=r.get('BaseId',r['Id']),evil=not bool(r.get('Align',0)),
         switchAi=bool(r.get('switchai')),walk=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mWL')),boss=bool(r.get('boss')),run=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mRN')),attack1=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mA1')),attackable=bool(monstats2.get(r.get('MonStatsEx'),{}).get('isAtt')),npc=bool(r.get('npc')),interact=bool(r.get('interact')),velocity=r.get('Velocity',0),runVelocity=r.get('Run',0),size=monstats2.get(r.get('MonStatsEx'),{}).get('SizeX',0),ai=r.get('AI',''))
         for r in monsters.values() if r.get('Id')]
+    armor={r.get('code'):r for r in json.loads((SOURCE/'json/armor.json').read_text()).values() if r.get('code')}
+    blocking_rules=[]
+    for r in monsters.values():
+        if not r.get('Id'): continue
+        model=monstats2.get(r.get('MonStatsEx'),{})
+        choices=str(model.get('SHv','')).strip('"').split(',') if model.get('SHv') else []
+        blocking_rules.append(dict(source=r['Id'],normal=r.get('ToBlock',0),nightmare=r.get('ToBlock(N)',0),hell=r.get('ToBlock(H)',0),
+            innate=r.get('ShieldBlockOverride',0)==1,blockMode=bool(model.get('mBL')),
+            shieldCodes=choices,shieldItems=[armor.get(code,{}).get('type')=='shie' for code in choices]))
     freeze_rules=[dict(source=r['Id'],primeEvil=bool(r.get('primeevil')),normal=r.get('coldeffect',0),nightmare=r.get('coldeffect(N)',0),hell=r.get('coldeffect(H)',0)) for r in monsters.values() if r.get('Id')]
     knockback_rules=[dict(source=r['Id'],knockback=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mKB')),getHit=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mGH')),distance=10 if r.get('BaseId',r['Id'])=='sandleaper1' else 5) for r in monsters.values() if r.get('Id')]
     item_types=[dict(code=r['Code'],parents=[r[k] for k in ('Equiv1','Equiv2') if r.get(k)]) for r in json.loads((SOURCE/'json/itemtypes.json').read_text()).values() if r.get('Code')]
-    out = {ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
+    out = {ROOT/'data/Sanctuary/Balance/source-block-rules.json':json.dumps(blocking_rules,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/knockback-source-rules.json':json.dumps(knockback_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/holy-freeze-source-rules.json':json.dumps(freeze_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/corpse-source-rules.json':json.dumps(corpse_rules,indent=2)+'\n',

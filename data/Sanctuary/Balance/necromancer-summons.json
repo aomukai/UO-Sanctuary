@@ -1889,6 +1889,42 @@
     }
   },
   {
+    "key": "warcry",
+    "fields": {
+      "pCltDoFunc": 1,
+      "pCltHitFunc": 10,
+      "pSrvDoFunc": 1,
+      "pSrvDmgFunc": 7,
+      "dParam1": 0,
+      "Vel": 12,
+      "MaxVel": 12,
+      "Accel": -600,
+      "Range": 16,
+      "Red": 192,
+      "Green": 192,
+      "Blue": 192,
+      "InitSteps": 1,
+      "Activate": 0,
+      "LoopAnim": 0,
+      "CelFile": "WarcryShockwave",
+      "animrate": 1024,
+      "AnimLen": 16,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "LastCollide": 1,
+      "NextHit": 1,
+      "NextDelay": 6,
+      "Size": 1,
+      "GetHit": 1,
+      "Trans": 1,
+      "Skill": "War Cry",
+      "ResultFlags": 4,
+      "NumDirections": 32,
+      "TravelSound": "barbarian_warcry_circle",
+      "ProgOverlay": "doubledamage1"
+    }
+  },
+  {
     "key": "level-1",
     "fields": {
       "Level": 1,
