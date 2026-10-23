@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Source review preparation only; no Charged Strike handler.118 installed handlers/Amazon6. Continue emission, shared start and path proof next.",
+  "status": "Source preparation passes512 unchanged start/emission and45 initializer cases. No Charged Strike native handler; installed118 handlers/Amazon6 preserved.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
@@ -83,7 +83,9 @@
     "Shared start6 prepares ordinary weapon plus direct lightning only on successful hit. Missing SrcDam is0 in current table, but FillDamageValues explicitly replaces0 with128; zero does not mean no weapon damage.",
     "Do11 marks server-do before guards; requires current table and target, commits damage/durability first, then evaluates count and reads target coordinates. Bolt emission has no successful weapon hit guard.",
     "Emission flags33; spawn at target coordinates, aim2*target-owner, current skill/level, initializerChargedBolt with ordinal i. Count3+floor(rank/5).",
-    "Initializer caps total/current frames at77 for total>=78, seeds low word ordinal+path firstPointX, sets charged-bolt path/new distance and recalculates path."
+    "Initializer caps total/current frames at77 for total>=78, seeds low word ordinal+path firstPointX, sets charged-bolt path/new distance and recalculates path.",
+    "Distinct missile damage factory uses current Charged Strike elemental endpoints with mastery included. Skill SrcDam0 skips weapon stats here, unlike melee allocation zero-to128. Charged Strike bolts must not inherit weapon damage/procs/leech through the melee default.",
+    "Range98/Activate3 factory deadline95 is set before initializer caps current/total frames to77; older collision current>activation condition therefore does not imply three inactive frames. Dependency review only, full modern factory/collision acceptance remains open."
   ],
   "uncertain": [
     "Current calc1 is bolt count, while unchanged start6 also reads calc1 as physical enhanced damage. Compile exact source/start/alloc branches and seek modern evidence; do not silently choose zero or claim current parity.",
@@ -92,12 +94,13 @@
     "Full current animation/input/geometry/stat/event/owner/client parity remains separate acceptance."
   ],
   "nextActions": [
-    "Compile unchanged do11/initializer branches with declared damage/creation services, compare exact creation packet/order and count.",
+    "512 start/emission and45 initializer cases now compiled; next compare native packet/emission/seed consumers, preserving declared-service limits.",
     "Compile shared start6 with actual current Charged Strike fields, including missing SrcDam and calc1 count/ED overlap; record current uncertainty explicitly.",
     "Review chargedstrikebolt missile factory and collision contracts before native emission implementation."
   ],
   "assets": {
     "effects": "Separate effect register retains Charged Strike weapon lightning, target-origin ground bolts and impact needs; identify native placeholders when enabled.",
     "icons": "Separate talent/hotkey icon pending; no imagegen in mechanics batch."
-  }
+  },
+  "compiledEvidence": "tools/reference/charged-strike-engine-evidence.json"
 }

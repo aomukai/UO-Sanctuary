@@ -988,6 +988,12 @@
       "combinedBoots": 3,
       "combinedReloads": 2,
       "nativeEvidence": "tools/reference/power-strike-native-evidence.json"
+    },
+    "chargedStrikePreparation": {
+      "sourceOnlyStartEmissionCases": 512,
+      "sourceOnlyInitializerCases": 45,
+      "nativeHandler": false,
+      "evidence": "tools/reference/charged-strike-engine-evidence.json"
     }
   },
   "logs": {
@@ -1684,7 +1690,7 @@
     "tools/build_class_skills.py": "67576322caf16488136e376bf07d68bd7036c613998c50dadbf19547efdefee1",
     "tools/build_skill_roadmap.py": "4690b4481f24cfb5c77f7be83ef498ac50f4cf59d1aa1b8d697c2e339b85bb0a",
     "docs/class-skill-roadmap.md": "e344d89f860f8ef26d81c66af5c6cf1ee8fd5904dfc9e94dd88836c7cbaac7dc",
-    "docs/skill-mechanical-reference.md": "72e9141178c27e65d7cf7865e3994d65eedde861fe8372133870e8f93e4d98d7",
+    "docs/skill-mechanical-reference.md": "aa5e566312b0c5d4581faeb7239e08bc27a78108bcdce3594dc95b5b531b2269",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "0c73321fa765c4f9ec5e1c6949be0d821d58526322defa17e5eae40efbfca294",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -1864,7 +1870,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "175e567227a8fa74d406f2ce27630b8deb323a83b1848e86914eeb2c20964182",
+    "docs/class-skills-resume-checkpoint.md": "303ea1fac8d63dfe893fce3c9e934e814706253a690331a82ea8306c56b59624",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -2640,9 +2646,9 @@
     "tools/reference/power-strike-engine-evidence.json": "22048f24350aa5fe07947d43b89a1eafadd7d60e696c94ebbec0f3257323751a",
     "tools/reference/power-strike-native-evidence.json": "224ad7308e67049c3f530725709904b0ce7349bd92c9523a3c10af96beadd481",
     "tools/reference/power-strike-modern-correction.json": "9e28b52088042e958aee3514c66eac8b40956a159385ab5677f7b0b7a88bb892",
-    "tools/reference/charged-strike-preflight.json": "62182fa149ee22c8818fdd935dee778a036ec5ce2f1d19718c9d267649626894",
+    "tools/reference/charged-strike-preflight.json": "8ded691df0970c03852d9a3e2c253fa8edcf928f3685e49b3fedb74e7a38c232",
     "tools/reference/sorceress-current-lightning-tooltips.json": "e7871e2852bbcec9fc90eca6ad688d80a91a9bf7b7ebf55712207f0da634ec85",
-    "docs/class-skills-checkpoint-2026-10-24.md": "fcb6b34deecf2e24e14538b7c109572ed7bae156ae79041e5af4c7b6301343de",
+    "docs/class-skills-checkpoint-2026-10-24.md": "832e59f735d7554b8d3abd58931056d6568082ffd6160505746b49eae53a8c1b",
     ".local/class-skills/power-strike-source-probe.log": "09b968a0731b7912a096aa6f28519bb3c9efd10c01ef7a8bf7402e4e94c6673e",
     ".local/class-skills/power-strike-content-build.log": "6ff9610be771f263182d89b1ed8eaec36f0f431648988f2a0221db8e0b98319a",
     ".local/class-skills/power-strike-integration-build.log": "df789323d25d46283e82e9aeffa89cc01f0c58651bd64d9421f34a9436172e09",
@@ -2657,12 +2663,17 @@
     ".local/class-skills/power-strike-installed-server.log": "f886b82fd5b652204885d0dd64a01aa14fcb76325f80079fed9bc6dbf7bab683",
     ".local/class-skills/power-strike-installed-smoke.log": "d6c599501a06d54d7d50bcf10d09fa8425882856648e261f0e5c22712c8c5a2a",
     ".local/class-skills/power-strike-scalar-probe.json": "d0c08a2ec028c2acfd2cdead84d0bb7f6808b4788d8eadf989210ce446e18253",
-    ".local/class-skills/power-strike-flow-probe.json": "845d695a71e10ef3120856ef41c15cdb81c6745bbda44796fbbc1928f051c0ba"
+    ".local/class-skills/power-strike-flow-probe.json": "845d695a71e10ef3120856ef41c15cdb81c6745bbda44796fbbc1928f051c0ba",
+    "tools/probe_charged_strike_reference.py": "e735e6fae3893e0b7075c5f8921dccff5f40e1b5c5bcec74bb46b5506f4633eb",
+    "tools/reference/charged-strike-engine-evidence.json": "eaaf6376983f2d2477a8043c3dd1798df82022a6f0cb0e9f613273888581d22e",
+    ".local/class-skills/charged-strike-source-probe.cpp": "4dab670300a8c89cbfeac8da7502865c80dbdfd4990edeff400980d24ab6c601",
+    ".local/class-skills/charged-strike-source-probe.json": "039e042424566d2c7385205a063d0608a257c0ab476052ee6bb7eef971d35562",
+    ".local/class-skills/charged-strike-source-probe.log": "38048cb8339708c3ef339b5089cdbda18865716ca0def96fc3e96ada37ffa02e"
   },
   "totalHandlersPresent": 118,
   "goalStateAtCheckpoint": "active; user returned after reboot and resumed",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 1051,
+  "verifiedArtifactCount": 1056,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Local test installation; matching118-handler content/data staged with existing dev installer. Existing client unchanged and byte-equal to latest build. Existing-world boot/listen/clean shutdown passed; configuration/profiles/saves retained.",
   "installedTestBuild": true,
@@ -2674,5 +2685,5 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-23T15:37:14.709394+00:00"
+  "referencePreparationUpdatedAtUtc": "2026-10-23T15:41:30.589110+00:00"
 }

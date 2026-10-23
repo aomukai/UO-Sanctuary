@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "compiledRoutines": [
+    "SKILLS_MissileInit_ChargedBolt",
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike",
+    "SKILLS_SrvDo011_ChargedStrike"
+  ],
+  "blockHashes": {
+    "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
+    "SKILLS_SrvSt06_PowerStrike_ChargedStrike": "65fb37d65e169b2114988f6c8d96af048c6f0187a323a656e2f6f6f2907a681f",
+    "SKILLS_SrvDo011_ChargedStrike": "8d0719607b7bd37b306d79fca083941f4c1c359c6bf5f45a1b912b89a34d47b6"
+  },
+  "probe": {
+    "flowRows": 512,
+    "initializerRows": 45,
+    "fixture": ".local/class-skills/charged-strike-source-probe.json"
+  },
+  "modernMissile": {
+    "Missile": "chargedstrikebolt",
+    "*ID": 215,
+    "pCltDoFunc": 1,
+    "pCltHitFunc": 10,
+    "pSrvDoFunc": 1,
+    "Vel": 12,
+    "MaxVel": 12,
+    "Range": 98,
+    "Light": 3,
+    "Flicker": 4,
+    "Red": 255,
+    "Green": 255,
+    "Blue": 255,
+    "InitSteps": 1,
+    "Activate": 3,
+    "LoopAnim": 1,
+    "CelFile": "ChargedBolt",
+    "animrate": 1024,
+    "AnimLen": 10,
+    "AnimSpeed": 16,
+    "SubLoop": 1,
+    "SubStart": 2,
+    "SubStop": 8,
+    "CollideType": 3,
+    "CollideKill": 1,
+    "LastCollide": 1,
+    "ClientCol": 1,
+    "Size": 1,
+    "CanSlow": 1,
+    "ReturnFire": 1,
+    "GetHit": 1,
+    "Trans": 1,
+    "Skill": "Charged Strike",
+    "ResultFlags": 4,
+    "HitShift": 8,
+    "NumDirections": 16,
+    "TravelSound": "sorceress_chargedbolt_1",
+    "lineNumber": 215
+  },
+  "modernMissileTableHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "established": [
+    "512 unchanged start6/do11 cases isolate record/target/hit/missile/rank and target movement/death during declared drain. Damage allocation precedes drain; emission reads target coordinates after drain and has no hit/alive guard. Creation failure does not abort remaining ordinal attempts.",
+    "Packets carry flags33, target origin,2*target-owner aim, original skill/level and ordinal.45 unchanged initializer cases verify frame77 cap, first-point-X+ordinal seed, charged-bolt path and recalculation. Null initializer input is safe.",
+    "Shared legacy start6 reads calc1 as physical ED as well as do11 bolt count. At current declared calc1=3+floor(rank/5), successful start emits ED3/3/4/7 at ranks1/4/5/20. Missing SrcDam is passed as0; reviewed FillDamageValues substitutes128. Neither silently dropping physical nor choosing ED0 follows this body.",
+    "Reviewed missile damage factory takes Charged Strike skill endpoints with bIncludeMastery1. Missing skill SrcDam remains0 in this distinct missile consumer, so it skips weapon-stat collection; the melee FillDamageValues zero-to128 default must not be applied to bolts. Child rank is supplied at creation while hard synergies/mastery are read there.",
+    "Reviewed factory sets activation=range-Activate before calling initializer; chargedstrikebolt current Range98/Activate3 gives95, then initializer reduces total/current to77. Reviewed collision test rejects current>activation, so this composite older path does not imply three delayed frames. This is reviewed dependency reasoning, not a compiled full factory/collision proof."
+  ],
+  "limits": [
+    "No Charged Strike native handler, modern executable certificate or class completion. Scalar formula service is declared from current fields; formula interpreter and full combat allocation/RNG are not compiled here.",
+    "Declared drain changes coordinates/life only to expose read order; it does not certify modern removal/corpse lifetime. Creation service records attempts and returns null; real missile creation/owner/collision/path/shotgun/damage/persistence remain independent work.",
+    "Current shared calc1 ED overlap, direct-hit lightning versus bolts and activation/factory behavior need modern corroboration or explicit acceptance limits. Keep unsupported branches visible."
+  ]
+}
