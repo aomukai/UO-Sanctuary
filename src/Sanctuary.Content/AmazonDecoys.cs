@@ -12,19 +12,10 @@ namespace Sanctuary;
 public sealed record DecoyStats(int Rank,int Life256,int Level,int Defense,int Resistance,int Regeneration256,int DurationFrames);
 public static class AmazonDecoys
 {
-    // Literal older summon percentage operation; the large-value early divide
-    // changes both Decoy life stages. Current executable order remains acceptance.
+    // Keep the component entry point while sharing the literal source operation
+    // with weapon missile conversion. Current executable order remains acceptance.
     internal static int Percentage(int value,int percent,int divisor)
-    {
-        if(divisor==0){return 0;}
-        if(value<=1048576)
-        {
-            if(percent<=65536){return unchecked(percent*value)/divisor;}
-            if(divisor<=percent>>4){return unchecked(value*(percent/divisor));}
-        }
-        else if(divisor<=value>>4){return unchecked(percent*(value/divisor));}
-        return (int)((long)percent*value/divisor);
-    }
+        =>SourcePercentage.Calculate(value,percent,divisor);
     internal static int Life256(int maximum256,int percent,int bonus)
     {int initial=Percentage(maximum256,percent,100);return initial+Percentage(initial,bonus,100);}
     internal static int Level(int casterLevel,int rank)=>Math.Clamp(rank+3*casterLevel/4,1,casterLevel);

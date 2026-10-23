@@ -241,9 +241,9 @@
       "tree": "Bow and Crossbow Skills",
       "sourceId": 6,
       "implementation": "pending",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Saved travelling weapon payload now supports source physical-to-magic conversion after physical percentages/critical and before typed mitigation/leech. The shared literal percentage helper retains large-value early division and Decoy life consumers. Compiled216 conversion/1536 integrated impact/2 guard cases and native delivery/physical immunity/mastery/leech/old-payload/save checks are recorded separately. Full skill remains pending bow launch-stat/material/Enchant/aura collection, no-ammunition input/weapon timing/payment, item callbacks and owner/client acceptance. Pinned current conversion is5+2*(rank-1) percent, capped100, rather than historical1percent per rank. No handler or item gate enabled."
     },
     {
       "talentId": "amazon.firearrow",

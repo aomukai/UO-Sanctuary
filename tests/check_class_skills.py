@@ -63,6 +63,7 @@ def check():
         shutil.copy2(STAGE / 'fan-source-probe.json', folder / 'fan-source-probe.json')
         shutil.copy2(STAGE / 'bow-projectile-source-probe.json', folder / 'bow-projectile-source-probe.json')
         shutil.copy2(STAGE / 'weapon-missile-impact-probe.json', folder / 'weapon-missile-impact-probe.json')
+        shutil.copy2(STAGE / 'magic-arrow-source-probe.json', folder / 'magic-arrow-source-probe.json')
         shutil.copy2(STAGE / 'amazon-penetrate-source-probe.json', folder / 'amazon-penetrate-source-probe.json')
         shutil.copy2(STAGE / 'amazon-pierce-source-probe.json', folder / 'amazon-pierce-source-probe.json')
         shutil.copy2(STAGE / 'weapon-leech-source-probe.json', folder / 'weapon-leech-source-probe.json')

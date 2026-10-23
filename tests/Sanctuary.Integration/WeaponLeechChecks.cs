@@ -88,6 +88,13 @@ public static class WeaponLeechChecks
             }
             foreach(uint flags in new uint[]{2080,2080|0x10000})
             {var target=Enemy(owner);try{Resources(owner);int h=Life(owner),m=Mana(owner);Step(Launch(owner,flags:flags));Require(Life(owner)==h+900 && Mana(owner)==m+643,"Outer-arrow event suppression incorrectly suppressed leech");}finally{Delete(target);}}
+            var converted=Enemy(owner);try
+            {
+                Resources(owner);int h=Life(owner),m=Mana(owner),victim=Life(converted);
+                Step(Launch(owner,Payload() with{PhysicalToMagicPercent=50}));
+                Require(Life(owner)==h+450 && Mana(owner)==m+321 && Life(converted)==victim-15744,
+                    "Converted magic contributed to physical-only life/mana leech or changed total raw damage");
+            }finally{Delete(converted);}
             var emptyMana=Enemy(owner);try
             {NecromancerEffects.SetMana256(emptyMana,0);Resources(owner);int h=Life(owner),m=Mana(owner);Step(Launch(owner));Require(Life(owner)==h+900 && Mana(owner)==m+643 && Mana(emptyMana)==0,"Mana recovery incorrectly capped to victim mana");}finally{Delete(emptyMana);}
             var cutoff=Enemy(owner);try

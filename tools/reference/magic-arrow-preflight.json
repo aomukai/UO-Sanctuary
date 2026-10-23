@@ -1,0 +1,83 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.magicarrow",
+  "sourceId": 6,
+  "handlerEnabled": false,
+  "componentOnly": true,
+  "status": "Magic Arrow conversion component now follows the compiled supplementary impact ordering with separate physical/magic mitigation and physical-only leech.216 split/1536 integrated source-native cases and native immune-target/mastery/leech/old-payload/saved-conversion checks pass. Focused/full native checks each pass three boots/two reloads, retaining Decoy source life behavior and natural expiry through the shared percentage helper. Content/integration builds have zero warnings/errors;70 Python tests and fresh467/15 fingerprints pass. Matching125-handler component build loads existing world and shuts down with exit0; server stopped, saves retained, client/native patches/item availability unchanged. Full Magic Arrow remains pending launch/input/payment/item-event integration; no new handler or class certificate.",
+  "sourceEvidence": "tools/reference/magic-arrow-engine-evidence.json",
+  "reuse": [
+    "WeaponMissiles saved Q12 flight, current owner AR/pierce, source impact rolls, typed mitigation, FP256 health and physical-only leech. No immediate-ray replacement.",
+    "SourcePercentage.Calculate now shares the literal source operation with Decoy rather than introducing a second rounding implementation.",
+    "BowAmmunition source weapon ancestry/active item checks and existing Arrow/Bolt stacks. Magic Arrow must bypass quiver eligibility/debit because pinned noammo1 has no decquant.",
+    "Existing ClassStats raw weapon endpoints/off-weapon percent, NamedGear/GemCombat damage and poison sources, Enchant/aura services, source timing/input/session and item callbacks should supply the launch consumer. Preserve per-created-missile critical RNG; do not share one roll across a fan."
+  ],
+  "implemented": [
+    "Optional PhysicalToMagicPercent on immutable saved WeaponMissileDamage defaults0 for older payloads and ordinary hostile spell flights. Conversion runs after percentages/critical and independent typed rolls, before mitigation/leech.",
+    "Full literal percentage helper preserves both small multiply-first and large early-divide branches. Existing Decoy entry point delegates to it without changing its life or callbacks."
+  ],
+  "verifiedFocused": [
+    "216 split and1536 integrated impact source/native comparisons, including large FP256 values, capped/nonpositive conversion, percentage/current species/critical ordering and independent original magic mastery.",
+    "Actual travelling native packet distinguishes physical immunity from converted magic and independent fire resistance/mastery; does not pay mana.",
+    "Actual ordinary physical-only life/mana leech uses half the prior physical amount at50percent conversion while total raw victim damage stays unchanged.",
+    "7percent conversion survives both GenericPersistence reloads with the moving payload, last collider, pierce and leases. Older serialized payload without the added property defaults0.",
+    "The shared percentage extraction retains960 Decoy source/native life/level cases and natural expiry across both reloads."
+  ],
+  "remaining": [
+    "Build complete bow launch stat collection: raw endpoints plus skill physical bonus before percentages; source SrcDam scaling; item/Gem/poison rate, aggregate duration and count; preserved material modifiers and Enchant/aura/mastery composition. Existing generic GearEffects totals cannot stand in for a captured source payload.",
+    "Implement and test learned bow/crossbow availability, weapon A1/IAS timing, selected/free-ground input, right/left/quick bindings, no ammunition gate/debit, once-only fractional release mana, cancellation and held input. Pinned rank1 cost1.5mana, rank2 cost1.375 and rank13+ cost0.",
+    "Retain distinct attacker/defender item-event paths, source saved ToHit, actual current item eligibility and owner/client checks. Existing direct damage/leech/Crushing coverage is not every proc/knockback/open-wounds interaction.",
+    "Exact current3.3.93847 conversion versus extra-magic damage/mastery/stat inheritance needs current evidence. The compiled legacy harness supplies missile mastery stats explicitly; it does not prove how modern launch collects or inherits them. Do not infer current Warlock item-stat behavior from the injected fixture.",
+    "Literal legacy100percent conversion may leave less than100FP256 physical above the early-division threshold. Current executable behavior remains unproven; keep this boundary explicit."
+  ],
+  "nonblockingQuestions": [
+    {
+      "question": "Optional later: an already-skilled Amazon tooltip at a known effective Magic Arrow rank could corroborate current conversion/mana/damage display. No respec needed.",
+      "handling": "Recorded only; user asleep/away. Continue source/native launch integration without waiting."
+    }
+  ],
+  "assets": {
+    "effects": "Identified existing weapon-flight0xF42 logical trail placeholder only. SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending in existing effect row.",
+    "icons": "Existing independent talent and left/right hotkey icon requirements stay pending. No image generated or mapped."
+  },
+  "next": "Complete shared bow launch-stat collection and Magic Arrow handler; no additional class handler is claimed by the conversion component.",
+  "logs": {
+    "source": ".local/class-skills/magic-arrow-source.log",
+    "sourceFixture": ".local/class-skills/magic-arrow-source-probe.json",
+    "contentBuild": ".local/class-skills/magic-arrow-component-content-build.log",
+    "integrationBuild": ".local/class-skills/magic-arrow-component-integration-build.log",
+    "focused": ".local/class-skills/magic-arrow-component-focused.log",
+    "focusedRun": ".local/class-skills/magic-arrow-component-focused-run.log",
+    "combined": ".local/class-skills/magic-arrow-component-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/magic-arrow-component-python-checks.log",
+    "installed": ".local/class-skills/magic-arrow-component-installed-smoke.log",
+    "installedServer": ".local/class-skills/magic-arrow-component-installed-server.log",
+    "initialFocusPrompt": ".local/class-skills/magic-arrow-component-focused-prompt-failure.log"
+  },
+  "verification": {
+    "componentOnly": true,
+    "handlerEnabled": false,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "sourceConversionCases": 216,
+    "sourceIntegratedImpactCases": 1536,
+    "sourceGuards": 2,
+    "pythonTests": 70,
+    "namedInputs": 467,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573,
+    "installedSmoke": "Existing-world2593/12000 listen and clean shutdown exit0; no save reset."
+  },
+  "buildHashes": {
+    "content": "972dff0e28383a7e6974ea9c6b7b356b65c3ced278e855bc4ca58033d1e8f8c8",
+    "integration": "aac55e20cff9b1d2f0f60024b5865a4535d35dc05771556a65e04ea9eb79265b"
+  },
+  "fixtureCorrections": [
+    "Initial focused harness skipped the owner-account prompt on restart, but these component fixtures create no accounts. Server waited at the prompt; interrupted the disposable run after first-boot checks passed, then handled the prompt on each boot. Final focused run passes both reloads; no runtime change.",
+    "Saved moving flight alone retains the existing10minute inspection hold; normal40ms travel is independently verified. No production lifetime is extended.",
+    "Initial readiness regeneration was attempted before the fresh native audit export and correctly refused stale hashes. Final generation and70 Python tests pass after the current467/15 exports."
+  ]
+}

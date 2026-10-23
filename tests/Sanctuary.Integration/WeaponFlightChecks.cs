@@ -79,6 +79,50 @@ public static class WeaponFlightChecks
                 && NamedElements.To256(actual.Poison)==row[13].GetInt32()*row[14].GetInt32(),"Source impact roll/percentage/critical/typed poison differential");count++;
         }
         Require(count==5184,"Incomplete impact source fixture");Log.Information("Weapon missile native impact differential: {Count} compiled cases",count);
+        ConversionDifferential();
+    }
+    private static void ConversionDifferential()
+    {
+        using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"magic-arrow-source-probe.json")));
+        int splits=0,impacts=0;
+        foreach(var row in data.RootElement.GetProperty("conversionCases").EnumerateArray())
+        {
+            var result=WeaponMissileDamage.ConvertPhysical(row[0].GetInt32(),row[2].GetInt32());
+            Require(result.Physical256==row[3].GetInt32() && result.Magic256+row[1].GetInt32()==row[4].GetInt32(),"Source physical conversion/large-value division");splits++;
+        }
+        foreach(var row in data.RootElement.GetProperty("impactCases").EnumerateArray())
+        {
+            int raw=row[0].GetInt32(),mastery=row[4].GetInt32(),kind=row[5].GetInt32();
+            var payload=new WeaponMissileDamage(raw,raw,row[1].GetInt32(),31,47,row[2].GetInt32()!=0,
+                new(FireMin:1024,FireMax:1024,MagicMin:257,MagicMax:513),FireMastery:mastery,MagicMastery:mastery)
+                {PhysicalToMagicPercent=row[3].GetInt32()};
+            var actual=payload.Roll(kind!=0,kind==2,kind==3,_=>0);
+            Require(NamedElements.To256(actual.Physical)==row[6].GetInt32() && NamedElements.To256(actual.Magic)==row[7].GetInt32()
+                && NamedElements.To256(actual.Fire)==row[8].GetInt32(),"Source percentage/critical/mastery then conversion ordering");impacts++;
+        }
+        Require(splits==216 && impacts==1536,"Incomplete Magic Arrow source fixture");
+        var old=System.Text.Json.Nodes.JsonNode.Parse(JsonSerializer.Serialize(Physical()));old.AsObject().Remove("PhysicalToMagicPercent");
+        Require(old.Deserialize<WeaponMissileDamage>()==Physical(),"Older flight payload without conversion changed");
+        Log.Information("Magic Arrow component:216 conversion/1536 integrated source-native cases; legacy zero-conversion payload retained");
+    }
+    private static void ConvertedDelivery()
+    {
+        var owner=Fresh();var enemy=Enemy(owner);
+        try
+        {
+            Require(NamedElements.MagicResistance(enemy)==0,"Magic Arrow component fixture magic resistance");
+            enemy.SetResistance(ResistanceType.Physical,100);enemy.SetResistance(ResistanceType.Fire,50);
+            var damage=new WeaponMissileDamage(20*256,20*256,50,0,10,true,
+                new(FireMin:512,FireMax:512,MagicMin:256,MagicMax:256),FireMastery:25,MagicMastery:100)
+                {PhysicalToMagicPercent=50};
+            int before=Health(enemy),mana=NecromancerEffects.ManaBalance256(owner);
+            long id=Launch(owner,damage);Require(id>0 && Health(enemy)==before,"Converted projectile hit before travel");Finish(id);
+            Require(Health(enemy)==before-9024 && NecromancerEffects.ManaBalance256(owner)==mana,
+                "Physical immunity incorrectly blocked converted magic, doubled original magic, reapplied mastery or paid mana");
+            before=Health(enemy);id=Launch(owner,damage with{PhysicalToMagicPercent=100});Finish(id);
+            Require(Health(enemy)==before-17216,"Full conversion did not retain all physical as magic plus independent elements");
+        }
+        finally{WeaponMissiles.Cancel(owner);owner.Delete();enemy.Delete();}
     }
     private static void Movement()
     {
@@ -122,7 +166,7 @@ public static class WeaponFlightChecks
         int afterFirst=Health(first),beforeSecond=Health(second);owner.AddToBackpack(belt);Step(a,4);
         Require(Health(first)==afterFirst && Health(second)==beforeSecond-64*256 && WeaponMissiles.State(a)==null,"Live pierce loss failed to stop after the next direct impact");
         Require(owner.EquipItem(belt),"Restore Razortail");var arrows=new Arrow(5);owner.AddToBackpack(arrows);
-        a=Launch(owner,pierces:2);Step(a,4);var flight=WeaponMissiles.State(a);Require(flight is{Frame:4,Pierces:1},"Saved moving phase");
+        a=Launch(owner,damage:Physical() with{PhysicalToMagicPercent=7},pierces:2);Step(a,4);var flight=WeaponMissiles.State(a);Require(flight is{Frame:4,Pierces:1},"Saved moving phase");
         Hold(flight);var leases=WeaponMissiles.Snapshot().Leases.Where(l=>l.Cast==flight.Cast).ToArray();Require(leases.Length>0,"Missing saved hit-delay lease");
         var saved=new Saved(WeaponMissiles.State(a),leases,owner.Location,first.Serial.Value,second.Serial.Value,Health(first),Health(second),NecromancerEffects.ManaBalance256(owner),arrows.Serial.Value,arrows.Amount);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
@@ -147,7 +191,7 @@ public static class WeaponFlightChecks
             finally{WeaponMissiles.Cancel(owner);owner.Delete();enemy.Delete();WeaponMissiles.DamageRoll=damage;WeaponMissiles.HitRoll=hit;SourceBlocking.BlockRoll=block;}
         });
     }
-    private static void Check(){Differential();Controlled(()=>{Movement();LiveHitCheck();LeaseAndSave();});Natural();}
+    private static void Check(){Differential();Controlled(()=>{Movement();ConvertedDelivery();LiveHitCheck();LeaseAndSave();});Natural();}
     private static void Reload()
     {
         Differential();Controlled(()=>
@@ -157,6 +201,7 @@ public static class WeaponFlightChecks
             if(owner.Map==Map.Internal){owner.MoveToWorld(saved.Origin,Map.Maps[saved.Flight.Map]);}
             var flight=WeaponMissiles.State(saved.Flight.Id);Require(WeaponMissileProfiles.LoadedFlights>0 && flight==saved.Flight,
                 $"Actual saved moving missile/payload lost: loaded={WeaponMissileProfiles.LoadedFlights}, map={owner?.Map?.MapID}, alive={owner?.Alive}, actual={JsonSerializer.Serialize(flight)}, saved={JsonSerializer.Serialize(saved.Flight)}");
+            Require(flight.Damage.PhysicalToMagicPercent==7,"Saved conversion percentage lost");
             Require(WeaponMissiles.Snapshot().Leases.Where(l=>l.Cast==flight.Cast).OrderBy(l=>l.Target).SequenceEqual(saved.Leases.OrderBy(l=>l.Target)),"Saved cast hit-delay leases lost");
             Require(Health(first)==saved.FirstHealth && Health(second)==saved.SecondHealth && NecromancerEffects.ManaBalance256(owner)==saved.Mana256 && arrows.Amount==saved.Amount,"Offline motion/damage/resource replay");
             var all=WeaponMissiles.Snapshot();var delta=TimedEffects.Now-flight.NextUtc;
