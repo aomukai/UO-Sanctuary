@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Native Double Throw integration uses the recorded shared consumers; bounded source proof does not certify modern projectile/client parity.",
+  "skill": {
+    "skill": "Double Throw",
+    "*Id": 140,
+    "charclass": "bar",
+    "skilldesc": "double throw",
+    "srvdofunc": 74,
+    "cltstfunc": 11,
+    "cltdofunc": 42,
+    "enhanceable": 1,
+    "attackrank": 5,
+    "range": "rng",
+    "weapsel": 3,
+    "itypea1": "thro",
+    "itypeb1": "thro",
+    "anim": "SQ",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 15,
+    "durability": 1,
+    "UseAttackRate": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Double Swing",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 1,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "calc1": "ln12+skill('Double Swing'.blvl)*par8",
+    "*calc1 desc": "Damage %",
+    "Param1": 16,
+    "*Param1 Description": "Damage % baseline",
+    "Param2": 8,
+    "*Param2 Description": "Damage % per level",
+    "Param8": 8,
+    "*Param8 Description": "Damage synergy",
+    "InGame": 1,
+    "ToHit": 20,
+    "LevToHit": 10,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 512,
+    "cost add": 8000,
+    "lineNumber": 140
+  },
+  "evidence": "tools/reference/double-throw-engine-evidence.json",
+  "reuse": [
+    "Native supported dual-equip/primary identity, scoped selected-hand damage/AR/IAS/mastery/gear and independent saved ammunition ledger.",
+    "Existing projectile critical/conservation/pierce path accepts untrained mastery; each hand releases/recovers/spends once per source event.",
+    "Existing ClassCombat input/held action/session clocks, accepted-movement and hit-recovery cancellation, GearEffects mitigation/typed damage/procs and NamedProjectiles collision/continuation."
+  ],
+  "contracts": [
+    "SQ15 events at points5/9 are scheduled with ordinals0/1; server weapsel3 selects primary then secondary. Use attack rate with12-point cycle.",
+    "No srv-start: payment occurs after each successful do74, including failed quantity/allocation. Preserve the older ignored debit failure as an explicitly uncertain modern edge; do not infer one payment for the pair from the tooltip.",
+    "Current data: two throwing requirements, mana1 per do, AR20+10/rank, physical ED16+8/rank+8% per hard Double Swing point. Empty-ground releases are valid."
+  ],
+  "limits": [
+    "Shared native NamedProjectiles still resolves a ray immediately with cosmetic travel. True source-timed missiles, released stat snapshots, moving-target collision and exact full modern damage/proc/RNG/owner/client parity remain pending. This is not an approved deviation.",
+    "Native dual-weapon IAS/WSM/SC cadence, low-mana/payment and quantity-zero/ethereal behavior remain acceptance work. Throwable potion and crafted/rune/material pairs lack adapters."
+  ],
+  "assets": {
+    "effect": "Identified native0xF42 projectile/0x238 sound placeholders. Final per-weapon throwing flight/impact effects remain in effects register.",
+    "icon": "Separate pending Double Throw talent-tree/hotkey icon."
+  }
+}

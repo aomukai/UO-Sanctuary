@@ -15,7 +15,7 @@ public static class NamedProjectiles
     }
     public static int Budget(PlayerMobile source, Random random = null) => NamedCombat.Ranged(source)
         ? PierceBudget(ClassGear.Bonus(source, "pierce"), random ?? Random.Shared) : 0;
-    private static Point3D Endpoint(PlayerMobile source, Point3D aim, int range)
+    internal static Point3D Endpoint(PlayerMobile source, Point3D aim, int range)
     {
         int dx = aim.X - source.X, dy = aim.Y - source.Y, distance = Math.Max(Math.Abs(dx), Math.Abs(dy));
         if (distance == 0) { return source.Location; }
@@ -31,15 +31,15 @@ public static class NamedProjectiles
         return result;
     }
     // Continuation belongs to the released projectile: no new attack cycle, ammunition or weapon wear.
-    public static int Continue(PlayerMobile source, Mobile first, Point3D aim, int budget, Random random = null,bool? projectileCritical=null)
+    public static int Continue(PlayerMobile source, Mobile first, Point3D aim, int budget, Random random = null,bool? projectileCritical=null,int? skillPhysicalPercent=null,int skillAttackPercent=0,Point3D? collisionPoint=null)
     {
         if (budget <= 0 || first == null || source is not { Alive: true, Deleted: false } || !NamedCombat.Ranged(source)) { return 0; }
         random ??= Random.Shared;
         var start = source.Location; int range = CombatTiming.Range(source, CombatAbility.BasicAttack);
         var end = Endpoint(source, aim, range);
-        if (!CombatHitboxes.Intersect(start, end, aim, out double entry)) { return 0; }
+        if (!CombatHitboxes.Intersect(start, end, collisionPoint??aim, out double entry)) { return 0; }
         Span<Serial> visited = stackalloc Serial[5]; visited[0] = first.Serial;
-        int attempts = 0; var previous = aim;
+        int attempts = 0; var previous = collisionPoint??aim;
         while (attempts < Math.Min(4, budget))
         {
             Mobile next = null; double nearest = double.MaxValue;
@@ -58,7 +58,7 @@ public static class NamedProjectiles
             var point = next.Location;
             Effects.SendMovingEffect(new Entity(Serial.Zero, previous, source.Map), next, 0xF42, 5, 0, false, false);
             source.DoHarmful(next, true);
-            if (ClassStats.CheckHit(source, next) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false,projectileCritical:projectileCritical); }
+            if (ClassStats.CheckHit(source, next,skillAttackPercent) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false,skillPhysicalPercent:skillPhysicalPercent,projectileCritical:projectileCritical); }
             CombatDamage.Finish(next, source); previous = point;
             if (source.Deleted || !source.Alive) { break; }
         }

@@ -53,6 +53,7 @@ public static class HitRecovery
         int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
+        BarbarianDoubleThrow.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
         ClassCombat.SendState(player, session);
         ClassCombat.SendAnimation(player, 20, frames * ActionTiming.FrameMs);
@@ -101,6 +102,7 @@ public static class HitRecovery
         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
         session.PendingAbility = CombatAbility.None;
         session.Conversion=null;session.BarbarianAttack=null;
+        BarbarianDoubleThrow.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
         session.Animation = 20;

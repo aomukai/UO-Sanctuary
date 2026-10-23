@@ -394,6 +394,15 @@ def check():
                     session.send(throwing_command)
                     assert session.expect(throwing_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     hands_command='weapon-hands-check' if boot==0 else 'weapon-hands-reload-check'
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as double_throw_client:
+                        threading.Thread(target=drain_fixture_client,args=(double_throw_client,),daemon=True).start()
+                        time.sleep(.15)
+                        double_throw_command='double-throw-check' if boot==0 else 'double-throw-reload-check'
+                        session.send(double_throw_command)
+                        assert session.expect(double_throw_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'double-throw-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        double_throw_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.15)
                     session.send('leap-geometry-check')
                     assert session.expect(r'leap-geometry-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     leap_command='leap-check' if boot==0 else 'leap-reload-check'

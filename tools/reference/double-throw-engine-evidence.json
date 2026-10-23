@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/PLAYER/Player.cpp": "d22428034a002b53f4694512d9d87c91e857fbebf55ee553452a6e246e9ab147",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "modernTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "probe": {
+    "totalCases": 224,
+    "caseCounts": {
+      "doCases": 96,
+      "cycleCases": 128
+    },
+    "dataPath": ".local/class-skills/double-throw-source-probe.json",
+    "compiledRoutines": [
+      "UNITS_SetAnimationFrame",
+      "sub_6FC7C7B0",
+      "SKILLS_SrvDo074_DoubleThrow",
+      "D2GAME_SKILLS_Handler_6FD12BA0",
+      "sub_6FD13410",
+      "sub_6FC80EE0",
+      "DATATBLS_GetSequenceEvent",
+      "sub_6FCBCE70"
+    ],
+    "blockHashes": {
+      "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+      "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+      "SKILLS_SrvDo074_DoubleThrow": "fa2a6e97a101fb522930937098daa90638ff48f25f133ef1923bd6f18f000537",
+      "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+      "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+      "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2",
+      "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+      "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+    },
+    "sequenceEvents": [
+      {
+        "point": 5,
+        "mode": "PLRMODE_THROW",
+        "animationFrame": 8
+      },
+      {
+        "point": 9,
+        "mode": "PLRMODE_SPECIAL3",
+        "animationFrame": 7
+      }
+    ],
+    "sequenceHash": "ef058355a64b934fc4e3a64c272dad7d3eb39b4fd08af1cb7f288a9babf3c3b0"
+  },
+  "established": [
+    "Do74 selects the server weapon, validates its missile ID and calls quantity-checked flat or potion creation. A created missile receives additive skill ToHit and damage-percent stats. Failed allocation still returns1; invalid record/item/missile returns0.",
+    "SQ15 has12 points with events at5 and9. The compiled scheduler supplies event ordinals0 and1, not the table art frames8/7 or raw point numbers. Player dispatch writes those ordinals into dwSeqFrame while preserving its fractional byte; server weapsel3 consequently selects primary then secondary. End animation schedules at12 for base speed256/frame bonus0.",
+    "The unchanged no-start wrapper invokes mana consumption after each successful do74, including quantity/allocation failure returning1. The wrapper ignores consumption failure. The declared1-mana consume service records2 calls per cycle; modern low-mana/resource outcome remains acceptance work."
+  ],
+  "limits": [
+    "Unchanged eight routines are compiled with declared inventory/equip/formula/mana/quantity/missile/allocation/target/town/periodic services. The fixture proves dispatch and return order, not full ammo creation or modern payment arithmetic.",
+    "Current pinned data has1mana, weapsel3, two thro requirements, UseAttackRate and updated16+8-per-rank damage with hard Double Swing8% synergy. Exact modern sequence/IAS/start/low-mana/payment, missile snapshots/procs/travel/owner/client remain acceptance work.",
+    "Missile-potion path is source-covered but native throwable potions lack an approved item adapter. Existing native throwing quantity/conservation/critical/pierce services retain their recorded independent limits."
+  ]
+}

@@ -1497,7 +1497,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Six passive consumers connect to existing throwing-type/AR/damage/critical/pierce/quantity systems. Actual basic throws use additive effective-rank AR/damage, one launch critical (generic zero-chance draw, Deadly Strike then mastery), shared four-continuation budget and one saved ammunition transaction. Critical conserves and recovers one even on empty ground/miss, with no repeated quantity recovery on pierced victims; ordinary converted and named throwing capacities share the ledger. Source1029 selector/380 projectile cases, historical firsthand D2R quantity report and dedicated native checks recorded separately. Exact3.3.93847 conservation RNG ordering/algorithm, generic oskill Critical Strike, dual wield/Double Throw, zero/ethereal destruction, full released stat snapshots/procs/travel/geometry/client remain open; no class certificate or item-skill gate cleared."
+      "remaining": "Six passive consumers connect to existing throwing-type/AR/damage/critical/pierce/quantity systems. Actual basic throws use additive effective-rank AR/damage, one launch critical (generic zero-chance draw, Deadly Strike then mastery), shared four-continuation budget and one saved ammunition transaction. Critical conserves and recovers one even on empty ground/miss, with no repeated quantity recovery on pierced victims; ordinary converted and named throwing capacities share the ledger. Source1029 selector/380 projectile cases, historical firsthand D2R quantity report and dedicated native checks recorded separately. Exact3.3.93847 conservation RNG ordering/algorithm, generic oskill Critical Strike, full dual-throw snapshot/client behavior, zero/ethereal destruction, full released stat snapshots/procs/travel/geometry/client remain open; no class certificate or item-skill gate cleared."
     },
     {
       "talentId": "barbarian.spearmastery",
@@ -1593,10 +1593,10 @@
       "characterClass": "Barbarian",
       "tree": "Combat Skills",
       "sourceId": 140,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Two SQ15 release events at points5/9 dispatch ordinals0/1, selecting primary then secondary. Supported native dual equip, scoped per-hand damage/AR/mastery/IAS, independent saved ammunition, one launch critical/conservation/pierce per hand and current skill AR/ED/hard Double Swing synergy are connected. No-start post-do payment occurs per release, including failed quantity; the legacy ignored debit failure remains an explicit modern edge. Source224 compiled cases and native phase/damage/resource/cancellation/binding/reload checks recorded separately. Existing ray collision is immediate with cosmetic travel: true projectile timing/released snapshots/moving targets, exact modern IAS/WSM/payment/procs/owner/client and unsupported potion/crafted pairs remain open. Final effects/icons retain identified placeholders."
     },
     {
       "talentId": "barbarian.stun",
@@ -1618,7 +1618,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Individually deferred: modern do78 landing-nova count/directions/creation/weapon-versus-area order is absent from the older source. Pinned current tables and released2.4 confirm separate weapon-independent physical area,10mana,minimum12 airborne frames,175-percent speed and adjacent-target leaps. Legacy target geometry differs from Leap; a64-ray Shout ring is only a candidate reuse point, not established emission. See barbarian-leap-attack-preflight.json; no substitute knockback or invented area enabled. Continue Double Throw."
     },
     {
       "talentId": "barbarian.concentrate",

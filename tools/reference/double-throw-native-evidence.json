@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass, including connected normal40ms Double Throw delivery, per-hand damage/resources, first-target death and transient release cancellation.224 compiled source cases,70 Python tests,448 named/15 first-loop current hashes, reference/generator/catalogue checks,63/36 native patch replay and matching installed existing-world listen/shutdown0 pass.",
+  "sources": [
+    "tools/reference/double-throw-engine-evidence.json",
+    "tools/reference/barbarian-double-throw-preflight.json",
+    "tools/reference/weapon-hands-engine-evidence.json",
+    "tools/reference/dual-equip-native-evidence.json",
+    "tools/reference/throwing-projectile-engine-evidence.json"
+  ],
+  "implementation": [
+    "Double Throw is the24th Barbarian/111th roster handler. Supported native throwing pairs use saved primary identity and scoped primary/secondary stats at separate SQ15 points5/9. Source event ordinals0/1 select the two hands; animation art frames8/7 are independent.",
+    "Existing ClassCombat session/timing/held-input, selected-hand AR/damage/mastery, fractional mana, quantity/conservation/launch-critical/pierce and NamedProjectiles endpoint/collision/continuation consumers are reused. First ray collision can occur before the cursor; continued collisions retain that entry rather than restarting at the cursor. Collision position is captured before knockback/deletion.",
+    "Effective Double Throw adds current AR20+10 per additional rank and physical ED16+8 per additional rank plus8% per hard Double Swing point. Mastery is optional. Each hand independently releases/spends/conserves/recovers quantity and a launch critical; pierced victims do not repeat resource or critical recovery.",
+    "No-start legacy dispatch consumes1mana after each successful do74, including failed quantity/allocation. Begin requires the primary quantity and1mana; an empty secondary still reaches the later debit. The old wrapper ignores post-do debit failure; native retains that explicitly uncertain edge rather than inventing one payment for the pair.",
+    "Stop, accepted out-and-back movement, get-hit/block, foreign location/map, changed/broken/lost pair, class or skill loss cancel remaining releases without refunding earlier releases or shortening the action clock. A first-target kill retains the secondary empty-ray event. Transient release state is not saved or replayed; quantity/talent/binding/primary identity persist normally."
+  ],
+  "checks": [
+    "Focused3boots/2reloads cover two distinct real weapons (Gimmershred and converted ordinary throwing knife), no mastery, typed per-hand actual FP health loss, separate release/payment/quantity phases, empty ground, empty secondary, insufficient initial mana and legacy ignored second debit failure.",
+    "Current final native suite adds a target killed by the first throw through ClassCombat.UpdateCombat, retaining the secondary release, plus source rank1/hard-prerequisite values, hard20/20 synergy and actual Tarnhelm soft21 values without soft synergy leakage. Base12-point/first-event5 sequence and FCR exclusion are checked.",
+    "Actual connected normal40ms combat loop emits both hands and charges quantity/mana. Two reloads preserve trained rank20, left binding, saved weapon identity and quantities/mana/fraction while neither an unspent first nor unspent second transient event replays.",
+    "Eight unchanged legacy routines compile224 bounded emission/cycle cases. The actual source scheduler supplies ordinals0/1 at frames5/9 and schedules end12 for base speed256/frame bonus0. Formula/mana/quantity/allocation/inventory services remain declared boundaries."
+  ],
+  "fixtureControls": [
+    "Only named DoubleThrowFixture actors use an hour-long mana regeneration interval, including constructor scope and final Initialize wrapper. Gameplay regeneration is unchanged.",
+    "Deterministic launch critical/conservation, initial hit/element/physical RNG isolate per-hand/resource comparisons; callbacks restore afterward. Natural connected checks use the actual class combat timer. Reflection bootstraps only the disposable loopback protocol state; no authenticated production login or graphical-client acceptance is claimed.",
+    "An initial corridor outside the supported test area was replaced with the existing verified Leap corridor region; its failure log is retained. Scheduler tracing corrected an early art-frame assumption to actual event ordinals before accepting source evidence.",
+    "The combined fixture explicitly shuts down its Double Throw TCP socket before later equip fixtures; otherwise the reader thread can retain an unassigned connection until timeout. The preserved socket failure is a test transport defect, not a gameplay equip change."
+  ],
+  "limits": [
+    "Existing NamedProjectiles performs immediate ray collision with cosmetic travel. True source-timed projectiles, moving-target collisions, released stat/owner snapshots, exact hit/block/dodge/event/proc/RNG/geometry and full modern client comparison remain required. This is not an approved Sanctuary deviation or class completion.",
+    "Current native sequence timing reuses the existing attack-speed adapter. Exact modern paired IAS/WSM/SC/catch-up/first-frame behavior and low-mana/post-do payment outcome remain unverified against3.3.93847. Old ignored debit failure is an explicit provisional source convention.",
+    "Native throwable potions, crafted/rune/material pairs, quantity-zero/ethereal destruction, generic oskill Critical Strike, full gear/history/owner transitions and PvP remain unsupported or independently unverified. Source cases do not establish those branches.",
+    "Leap Attack remains individually deferred: the old do78 body predates the modern weapon-independent area. Current tables/Blizzard release notes do not establish nova count/directions/emission timing/strike-versus-area order. No substitute knockback or invented64-ray nova is enabled."
+  ],
+  "assets": {
+    "effect": "Independent240-entry effects register retains final per-weapon throwing flight/impact work. Native projectile0xF42/sound0x238 are identified placeholders.",
+    "icon": "Independent240-entry icon register retains Double Throw talent-tree and hotkey icon; no final imagegen art created."
+  },
+  "next": "Continue remaining Barbarian skills. Trace Frenzy start67 versus its older null slot/sequence and Whirlwind current attack scheduling; carry Double Swing start68, Find Potion world context, Grim Ward modern owner/target and Leap Attack emission gaps separately.",
+  "logs": [
+    ".local/class-skills/double-throw-focused.log",
+    ".local/class-skills/native-checks.log",
+    ".local/class-skills/double-throw-source-check.log",
+    ".local/class-skills/double-throw-fixture-location-failure.log",
+    ".local/class-skills/double-throw-fixture-socket-failure.log"
+  ]
+}

@@ -29,6 +29,7 @@ public static class ClassCombat
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
         internal BarbarianMelee.Prepared BarbarianAttack;
+        internal BarbarianDoubleThrow.Series DoubleThrow;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
@@ -206,6 +207,7 @@ public static class ClassCombat
     {
         if(PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
         BarbarianConcentrate.Cancel(from);
+        BarbarianDoubleThrow.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
@@ -294,6 +296,7 @@ public static class ClassCombat
         BarbarianConcentrate.Tick(from,now);
         BarbarianBerserk.Tick(from,now);
         var session = For(from);
+        if(session.DoubleThrow!=null){return;}
         if (session.HeldAbility != CombatAbility.None)
         {
             UpdateHeldCast(from, now);
@@ -442,6 +445,7 @@ public static class ClassCombat
     public static bool ResolveAction(PlayerMobile from, long now)
     {
         if(BarbarianLeap.State(from)!=null){return false;}
+        if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}
         if(session.Zeal!=null){return PaladinZeal.Resolve(from,now);}
@@ -591,11 +595,11 @@ public static class ClassCombat
         }
         return result;
     }
-    private static Mobile FindRayTarget(PlayerMobile from, Point3D point)
+    internal static Mobile FindRayTarget(PlayerMobile from, Point3D point,int range=CombatProtocol.TeethRange)
     {
         Mobile result = null;
         var best = double.MaxValue;
-        foreach (var candidate in from.Map.GetMobilesInRange<Mobile>(from.Location, CombatProtocol.TeethRange))
+        foreach (var candidate in from.Map.GetMobilesInRange<Mobile>(from.Location, range))
         {
             if (!IsHostile(from, candidate) || !from.InLOS(candidate)
                 || !CombatHitboxes.Intersect(from.Location, point, candidate.Location, out var entry))
