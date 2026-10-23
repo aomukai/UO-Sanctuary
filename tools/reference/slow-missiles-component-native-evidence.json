@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Slow Missiles state and launch component prepared; the full skill remains unavailable. Checks pass for 1,152 velocity comparisons, 36 shared state comparisons, 20 pinned dual-stat goldens, real 12-second expiry, captured named soft ranks, independent state and two real reloads. The 32 species-boss cases are separate source-only evidence. Original controlled D2R experiments support damage behavior; current rounding, order and child behavior remain uncertain. Focused and combined runs each pass three boots and two reloads. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. The matching 124-handler component build loads the existing world and shuts down with exit 0. Server stopped; saves retained; native patches, client and item availability unchanged. No new class handler or completion certificate.",
+  "handlerCount": 124,
+  "classHandlerCount": 12,
+  "componentOnly": true,
+  "sourceEvidence": "tools/reference/slow-missiles-engine-evidence.json",
+  "modernObservationEvidence": "tools/reference/slow-missiles-observation-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs"
+  ],
+  "verified": [
+    "Native velocity helper matches1152 unchanged supplementary factory-block cases.32 unchanged species-boss source cases are separate source-only evidence.36 applicable shared noncurse state-helper rank/creator/expiry cases are compared with explicit value mapping; no modern second-stat application routine is compiled.",
+    "20 pinned formula goldens check speed/damage percentages, radius, mana metadata and duration. Candidate arithmetic scales physical and typed elemental endpoints/poison rates, preserving cold duration, poison duration/count and drain fields. A fractional-rate guard distinguishes rate scaling from aggregate-total scaling; unsupported burn fields are explicitly rejected. Original controlled100-to67 observations corroborate shape, not exact current FP256 order.",
+    "Actual Tarnhelm raises learned hard1 to effective2. Target state captures62-percent speed/90-percent damage and18-second duration; removing the item leaves state unchanged. Weaker rank is rejected; equal rank refreshes expiration only and preserves creator/values; stronger rank replaces. Existing Inner Sight remains independent.",
+    "Capture on a slowable launch returns stored speed/damage; on a non-slowable launch it returns speed100 with the same damage scale. Clearing or expiring the state changes future captures without changing a previously captured value. No actual projectile consumer is connected by this component.",
+    "Creator deletion preserves its independent target debuff. Target deletion clears query/snapshot state. A real12-second rank1 state expires naturally; no global game clock is advanced. Component operations spend no mana; no skill cast/payment behavior is claimed.",
+    "Both real reloads retain target/creator identities, captured rank2 values and exact absolute expiration while the owner has learned rank1 with Tarnhelm in backpack. Mana remains unchanged; weaker reapplication is rejected. A separate expired state is absent on both reloads. Full skill availability stays false before and after reload."
+  ],
+  "fixtureControls": [
+    "Only named SlowMissilesComponentOwner mana regen is held1hour using constructor/final Initialize wrappers. The first composite expiry/resource assertion failed before this fixture isolation; its individual failed term was not logged, so the original cause is not independently attributed. Failed log retained. Production timer/resource policy unchanged.",
+    "Saved retained state expiry is explicitly set10minutes to inspect identical live state through full-suite startup; a second state expires after500ms. These are fixture deadlines, not a changed gameplay duration. A separate real12-second expiration validates actual table duration.",
+    "Tests apply the internal already-validated state component directly. They do not impersonate a real cast, mana debit, target-filter enumeration or missile launch. Source state comparisons reuse the existing compiled helper\u2019s noncurse policy; full Slow Missiles do6/second-stat/current target consumers remain separate.",
+    "The final focused/combined worlds copy the extended source fixture. Native comparison consumes1152 velocity rows; the32 boss-helper cases remain source-only. The separate checked velocity array is unchanged across both fixture versions.",
+    "Review after the first green combined run replaced aggregate GearDamage scaling with typed raw endpoints/poison rates. A second focused/full run verifies the revised payload shape; the earlier green log is historical only.",
+    "After the final mechanical combined pass, only Slow Missiles effect-register metadata was enriched with the pinned target overlay and sound. Runtime DLL is unchanged; no source consumer reads skill-effects. Separate native named/first-loop exports, Python/generator checks and matching installed smoke verify the final metadata revision."
+  ],
+  "limits": [
+    "No complete Slow Missiles handler or class/current executable certificate. Native controller availability remains gated. Required cast/input/target selection, mapped source species boss rules and real hostile projectile creation/travel/damage consumers are not connected.",
+    "Original2025 modded D2R tests are firsthand primary experiments but do not identify the pinned3.3.93847 build. They corroborate damage shape, not exact seeded order, all canSlow0 missiles, parent/child application, duration-rate rounding or every damage term.",
+    "Candidate Scale multiplies raw fixed-point elemental endpoints and poison rates; duration/count and drain metadata are preserved. Physical endpoints use the same explicit scalar. Exact modern position/rounding relative to critical/ED/species/Weaken/resistance/absorb and poison consumers remains acceptance work. No gameplay producer consumes this candidate yet.",
+    "Native ordinary ranged attacks still use instantaneous hit delivery. A cosmetic slow or global health multiplier cannot replace a real travel consumer. Mapped Graveyard/Encounter producers and all spell/child branches need explicit tracing before complete availability.",
+    "Direct read-only inspection of the pinned on-disk executable did not identify usable stat-consumer instructions; no modern mechanic was inferred or process memory read. See tools/reference/slow-missiles-static-inspection.json."
+  ],
+  "assets": {
+    "effect": "No cast/target presentation consumer added. Separate effects register records cast_slowmissiles, the pinned slowmissiles state\u2019s innersight target overlay and amazon_handofathena sound as pending.",
+    "icon": "Talent and right-hotkey icons remain pending in the independent icon register; no image generation."
+  },
+  "logs": {
+    "source": ".local/class-skills/slow-missiles-source-probe.log",
+    "contentBuild": ".local/class-skills/slow-missiles-component-content-build.log",
+    "integrationBuild": ".local/class-skills/slow-missiles-component-integration-build.log",
+    "focused": ".local/class-skills/slow-missiles-component-focused.log",
+    "focusedRun": ".local/class-skills/slow-missiles-component-focused-run.log",
+    "fixtureFailure": ".local/class-skills/slow-missiles-component-regen-fixture-failure.log",
+    "velocityRows": ".local/class-skills/slow-missiles-native-velocity-checked.json",
+    "beforeRateShape": ".local/class-skills/slow-missiles-component-before-rate-shape.log",
+    "assetExport": ".local/class-skills/slow-missiles-component-asset-export.log",
+    "assetExportRun": ".local/class-skills/slow-missiles-component-export-run.log",
+    "combined": ".local/class-skills/slow-missiles-component-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/slow-missiles-component-installed-smoke.log",
+    "installedServer": ".local/class-skills/slow-missiles-component-installed-server.log"
+  },
+  "next": "Connect the full cast/target/projectile consumers without broadening the candidate damage helper into a global health filter. Keep unsupported modern branches explicit and continue unaffected skills."
+}

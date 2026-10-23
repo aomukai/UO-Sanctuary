@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Supplementary original D2R experiments establish bounded damage behavior; exact pinned-build operation order is not certified.",
+  "source": {
+    "url": "https://www.theamazonbasin.com/forums/index.php?/forums/topic/127627-d2r-slow-missiles-missile-damage-reduction-technical-details/",
+    "authors": [
+      "DarkMaster",
+      "LastCorpseResurrected"
+    ],
+    "publishedDates": [
+      "2025-03-30",
+      "2025-04-02"
+    ],
+    "reviewedDate": "2026-10-24",
+    "type": "Primary firsthand controlled experiments; original posts reached through wiki footnotes.",
+    "version": "D2R, exact executable build unspecified; predates pinned3.3.93847."
+  },
+  "method": "Tester edited fixed damage, critical chance, monster groups/AI and missile ToHit, then compared repeated unmodified-versus-rank20 Slow Missiles hits. Separate physical, elemental and spell cases are described.",
+  "observations": [
+    {
+      "test": 1,
+      "kind": "Dark Ranger arrows",
+      "physicalBefore": 100,
+      "physicalAfter": 67
+    },
+    {
+      "test": 2,
+      "kind": "Added fire/cold/lightning/magic/poison on arrows",
+      "before": 100,
+      "after": 67,
+      "coldLengthChanged": false,
+      "poisonLengthChanged": false,
+      "poisonLimit": "Small cumulative fractional variation reported."
+    },
+    {
+      "test": 3,
+      "kind": "Fallen Shaman spell missile physical",
+      "before": 100,
+      "after": 67
+    },
+    {
+      "test": 4,
+      "kind": "Fallen Shaman spell missile fire/cold/lightning/magic/poison",
+      "before": 100,
+      "after": 67,
+      "coldFrames": 50,
+      "poisonFrames": 49,
+      "lengthsChanged": false
+    },
+    {
+      "test": 5,
+      "kind": "Sexton Blizzard shard; both parent/child CanSlow0",
+      "coldBefore": 100,
+      "coldAfter": 67,
+      "coldFrames": 200,
+      "lengthChanged": false
+    },
+    {
+      "author": "LastCorpseResurrected",
+      "kind": "Interaction with Weaken/Taunt",
+      "result": "Reported successive/multiplicative reduction rather than one additive pool.",
+      "limit": "No boundary/rounding matrix or exact source order supplied."
+    }
+  ],
+  "implication": "Treat speed and damage as separate launch fields. CanSlow restricts speed, not all damage. Preserve duration fields; a global target health multiplier would also affect unrelated melee/DoTs and is unsupported.",
+  "limits": [
+    "These are controlled edited-game experiments, not a current vanilla executable trace. Full canSlow0 eligibility, already-flying/child snapshot timing, FP256 rounding and ordering relative to critical/ED/absorb/resistance remain open.",
+    "Fire Ball child behavior was explicitly unresolved in the original discussion; no blanket inference that every parent/child receives exactly one multiplication.",
+    "This supports a candidate component, not complete Slow Missiles availability."
+  ]
+}

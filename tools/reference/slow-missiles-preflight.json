@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Slow Missiles in preparation:1152 unchanged legacy factory velocity-block cases pass; no native handler or modern damage-consumer proof yet.",
+  "status": "Slow Missiles state and launch component prepared; the full skill remains unavailable. Checks pass for 1,152 velocity comparisons, 36 shared state comparisons, 20 pinned dual-stat goldens, real 12-second expiry, captured named soft ranks, independent state and two real reloads. The 32 species-boss cases are separate source-only evidence. Original controlled D2R experiments support damage behavior; current rounding, order and child behavior remain uncertain. Focused and combined runs each pass three boots and two reloads. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. The matching 124-handler component build loads the existing world and shuts down with exit 0. Server stopped; saves retained; native patches, client and item availability unchanged. No new class handler or completion certificate.",
   "currentSkill": {
     "talentId": "amazon.slowmissiles",
     "name": "Slow Missiles",
@@ -104,13 +104,13 @@
     "Current Slow Missiles filter0xC583 differs from Inner Sight0x8583 by0x4000. Reviewed unchanged target helper rejects MONSTERS_IsBoss when this bit is set. Both lack optional LOS0x200. Boss recognition/native target adapters and full filter parity remain separate coverage; do not duplicate Inner Sight eligibility unchanged."
   ],
   "uncertain": [
-    "Current second-stat application and damage scale eligibility, source operation order relative to weapon conversion/critical/resist/defense, and parent/child snapshot timing need current corroboration or a clearly bounded provisional implementation. Never ignore the second stat or apply a global health multiplier.",
+    "Original controlled D2R tests now corroborate six damage types, unchanged durations and independent canSlow0 damage. Exact current second-stat FP256/order, all missile eligibility and parent/child timing remain unverified. The candidate launch helper is isolated and has no gameplay producer yet.",
     "Exact filter50563 differences, multi-caster priority, already-flying and child behavior, missile lifespan/range vs speed, canSlow0, zero velocity, native producers, persistence and current client/owner presentation require dedicated coverage."
   ],
   "nextActions": [
-    "Positive speed/flag/state/list and integer-rounding block now compiles1152 cases. Extend actual current do6/target-filter/second-stat and complete factory/path coverage separately; reuse state proof only within its declared scope.",
-    "Trace or corroborate the current damage scale contract. If it remains unsupported, document the individual component and continue unaffected Amazon skills without declaring Slow Missiles complete.",
-    "Verify actual hostile projectile travel and damage with current gear/ranks, canSlow0 and expiration, plus both save/reload cycles. Keep effect/icon placeholders separate and preserve approved deviations."
+    "State/launch component and current fingerprints pass focused/full3boots/2reloads and matching installed smoke. Continue the required cast/input/target/projectile integration; no handler-count increase yet.",
+    "Connect full cast/input/target filter, original species boss flag (not champion/unique grade), and hostile projectile creation/damage consumers. Native instantaneous ranged attacks require a real travel consumer, not a cosmetic slow effect.",
+    "Keep full skill gated until required consumers exist. Verify actual hostile travel/damage and canSlow0/child/expiry behavior; continue unaffected Amazon skills if an individual modern branch remains unsupported."
   ],
   "assets": {
     "effect": "Cast_slowmissiles, affected-state presentation and amazon_handofathena sound remain pending in existing separate effects register; no new art generated.",
@@ -126,5 +126,8 @@
       "question": "In the pinned current build, does casting Slow Missiles after an enemy projectile has already launched change that projectile\u2019s speed or damage?",
       "scope": "Optional observation; retain explicit factory/child/current-consumer uncertainty and continue unaffected mechanics."
     }
-  ]
+  ],
+  "modernObservationEvidence": "tools/reference/slow-missiles-observation-evidence.json",
+  "nativeComponentEvidence": "tools/reference/slow-missiles-component-native-evidence.json",
+  "sourceBossScope": "32 full unchanged helper cases confirm species boss flag only; native Champion/Unique grade is not the source boss predicate."
 }

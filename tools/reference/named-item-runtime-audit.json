@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "8f6937685392f2f7549770b3b1ad091fac17fefccbd30d19a0a175bb2e11ca8c",
+  "ContentAssemblySha256": "76aeb7984aca445bc1228f0bc91492685d5acbcc8242ef27d59f2f184b0d33c1",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -73,7 +73,7 @@
     "data/Sanctuary/Balance/rune-recipes.json": "02d28f2bab3188129dfeb09b1ff8ad798d97a1847477503927f4351888a510a6",
     "data/Sanctuary/Balance/runebark.json": "07a8470d21e5895b36a085b4e77a6ced89a9d2d20904e81561072d6e8fc698d7",
     "data/Sanctuary/Balance/set-items.json": "64f9778a8308c4e4fe953efe510dca01c5ec0f28039a76be4b5fccf63b8418eb",
-    "data/Sanctuary/Balance/skill-effects.json": "9de8458fe3223bb8915f291555f557e16d8974abe2178c3b4a639b1480416dd1",
+    "data/Sanctuary/Balance/skill-effects.json": "f2b46ae39c0ed800e5dae7c6895851d28db948b51a5690a6880b4cdb8a48f17b",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
     "data/Sanctuary/Balance/smite-shields.json": "5e35a9df0f6650115033c6e594d4c8365962dc2b58027d02fdcd3b5b5067948b",
     "data/Sanctuary/Balance/socket-gems.json": "95f811ec9b294d5ab01c032204765e6215fce627fb5485c6349c373958d76d45",
@@ -210,6 +210,7 @@
     "src/Sanctuary.Content/AmazonInnerSight.cs": "340c43f55a07b81d1e0bb5f9c16a7e3b3d9b0fc90e1002b12adcd4fe9a68abb2",
     "src/Sanctuary.Content/AmazonJab.cs": "9704ba823e209a42816d29670afc228ab0de0726465275835e881813f9ebd939",
     "src/Sanctuary.Content/AmazonMelee.cs": "da98bc3a247e4d18de771932daee41bdc85fb6ba2f949948925fc3fb17a4b06d",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs": "14a681bb5e7b31eb4189b13ea3fb148767306cb0c8195ae2cc8dfb5a09fdd729",
     "src/Sanctuary.Content/BalanceCatalog.cs": "4d03f3bddf177ec5fe26eee8d64a29f23671333248255d252280cf6089b21652",
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
     "src/Sanctuary.Content/BarbarianBerserk.cs": "7687c50a6c4ea7490a0caace654043abf1b5daf3cf92c194ffa4f48ff355eacf",

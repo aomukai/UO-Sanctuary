@@ -185,12 +185,15 @@
     "effects": "needed",
     "sourceEffects": {
       "castoverlay": "cast_slowmissiles",
-      "ItemCastOverlay": "cast_slowmissiles"
+      "ItemCastOverlay": "cast_slowmissiles",
+      "auratargetstate": "slowmissiles",
+      "stsound": "amazon_handofathena",
+      "targetoverlay": "innersight"
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "State/launch component only; no cast/target presentation consumer yet. Final cast_slowmissiles cast effect, innersight target overlay and amazon_handofathena sound pending; talent and right-hotkey icons tracked separately"
   },
   {
     "talentId": "amazon.avoid",

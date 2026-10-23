@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "readOnly": true,
+  "region": {
+    "name": ".text",
+    "fileOffset": 1024,
+    "size": 22855104,
+    "byteEntropy": 7.999669287640498
+  },
+  "literalSearch": {
+    "360LittleEndianCount": 0,
+    "161LittleEndianCount": 0
+  },
+  "result": "Direct static scan did not identify usable modern stat-consumer routines. Initial disassembly of this on-disk region did not establish meaningful function instructions; no mechanics inferred.",
+  "scope": "No process memory, debugging, injection, restart, input or protection bypass. No executable bytes included in repository; only provenance/results. Not a reason to block unaffected work."
+}

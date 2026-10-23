@@ -80,6 +80,11 @@ def compile_skills():
             asset['sourceEffects'].update({k:mechanic['sourceFields'][k] for k in ('anim','stsound','stsoundclass','Param8') if k in mechanic['sourceFields']})
     evade=next(asset for asset in assets if asset['talentId']=='amazon.evade')
     evade.update(visualEffect='not-established; source server presentation is sound-only',soundEffect='needed')
+    slow=next(asset for asset in assets if asset['talentId']=='amazon.slowmissiles')
+    slow_mechanic=next(m for m in mechanics if m['talentId']=='amazon.slowmissiles')
+    slow_state=slow_mechanic['sourceFields']['auratargetstate']
+    states=json.loads((SOURCE/'json/states.json').read_text())
+    slow['sourceEffects'].update(auratargetstate=slow_state,stsound=slow_mechanic['sourceFields']['stsound'],targetoverlay=states[slow_state]['overlay1'])
     return talents, mechanics, assets
 
 def generated_protocol(rows):
@@ -132,6 +137,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'amazon.slowmissiles':'State/launch component only; no cast/target presentation consumer yet. Final cast_slowmissiles cast effect, innersight target overlay and amazon_handofathena sound pending; talent and right-hotkey icons tracked separately',
         'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',

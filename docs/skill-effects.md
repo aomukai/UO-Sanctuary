@@ -19,7 +19,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Amazon | Inner Sight | needed | cast_innersight, cast_innersight |
 | Amazon | Critical Strike | not-applicable | criticalstrike |
 | Amazon | Dodge | needed | dodge, S1, amazon_dodge_1, 2 |
-| Amazon | Slow Missiles | needed | cast_slowmissiles, cast_slowmissiles |
+| Amazon | Slow Missiles | needed | cast_slowmissiles, cast_slowmissiles, slowmissiles, amazon_handofathena, innersight |
 | Amazon | Avoid | needed | avoid, S1, amazon_dodge_1, 2 |
 | Amazon | Penetrate | not-applicable | penetrate |
 | Amazon | Decoy | needed | dopplezon, dopplezon, dopllezon_appear |

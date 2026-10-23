@@ -2,7 +2,13 @@
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
-    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8"
+  },
+  "compiledBossHelper": {
+    "name": "MONSTERS_IsBoss",
+    "sha256": "09f018466e279a28d984503675d6e76552ab5625e36316519db13eed4088c61e",
+    "unchanged": true
   },
   "compiledBlock": {
     "parent": "MISSILES_CreateMissileFromParams",
@@ -13,12 +19,14 @@
   },
   "probe": {
     "velocityCases": 1152,
+    "bossCases": 32,
     "fixture": ".local/class-skills/slow-missiles-source-probe.json",
-    "sha256": "35357d7c3ed6d53f71a906207621639957fd39a29c1c6c37cdf518492340ad10"
+    "sha256": "7fce47e4bb9aaad3c8b29524e1db42d50ca7ede8d944c4cf2f013f4c04b1aa39"
   },
   "established": [
     "Legacy factory chooses table base plus integer level increment, shiftedFP8, unless flags4 supplies velocity. Supplied velocity is shiftedFP8 unless flags16 already marksFP8.",
     "Only canSlow requests the owner state. Only an active state requests its list, and only a present list reads skill_handofathena. Eligible velocity is scaled by that percent with integer division before the independent75-percent factory conversion. Zero and subinteger rounding are retained.",
+    "Full unchanged MONSTERS_IsBoss returns only the source species boss flag after monster/row guards. Champion, unique or superunique grade is not inspected; never use a generic elite predicate as this source filter.",
     "Factory creation reads owner state at creation. This bounded block establishes no behavior for a missile already in flight, later state expiry, children, path/lifetime/range or a modern damage-scale stat."
   ],
   "services": [
