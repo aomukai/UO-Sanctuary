@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next shared dual-wield/Double Swing preparation; no handler or compiled Double Swing certificate.",
+  "skill": {
+    "skill": "Double Swing",
+    "*Id": 133,
+    "charclass": "bar",
+    "skilldesc": "double swing",
+    "srvstfunc": 68,
+    "srvdofunc": 70,
+    "cltstfunc": 27,
+    "cltdofunc": 39,
+    "cltcalc1": "par5",
+    "*cltcalc1 desc": "Attack Speed %",
+    "enhanceable": 1,
+    "attackrank": 5,
+    "range": "h2h",
+    "weapsel": 3,
+    "itypea1": "mele",
+    "itypeb1": "mele",
+    "anim": "SQ",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 11,
+    "durability": 1,
+    "UseAttackRate": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 6,
+    "maxlvl": 20,
+    "reqskill1": "Bash",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 0,
+    "manashift": 5,
+    "mana": 8,
+    "lvlmana": -1,
+    "interrupt": 1,
+    "calc1": "skill('Bash'.blvl)*par8",
+    "*calc1 desc": "Damage %",
+    "calc2": 0,
+    "*calc2 desc": "Flat Damage",
+    "calc3": "par5",
+    "*calc3 desc": "Attack Speed %",
+    "Param1": 50,
+    "*Param1 Description": "Attack rate bonus",
+    "Param5": 50,
+    "*Param5 Description": "Attack Speed %",
+    "Param8": 10,
+    "*Param8 Description": "Damage synergy",
+    "InGame": 1,
+    "ToHit": 15,
+    "LevToHit": 5,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 384,
+    "cost add": 3000,
+    "lineNumber": 133
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb"
+  },
+  "blockHashes": {
+    "SKILLS_SrvDo070_DoubleSwing": "ab391f9859dd56ddea14144fba3693e49d2018de8d1f0787bde5af2b5c6454a9"
+  },
+  "findings": [
+    "Modern Double Swing uses start68/do70, SQ sequence11, two melee requirements/weapsel3, source AttackNoMana, hard Bash10% damage synergy and50% speed. Mana shift5/base8/-1/min0 gives1mana rank1, zero rank9+; do not clamp to a minimum1.",
+    "Legacy do70 alternates on precise sequence-frame parity: the odd phase searches another target with its source filter/excluded original GUID, then calls shared start32 combat preparation and durability. It is not one generic two-hit packet. Target/range/alternate weapon and payment timing need their complete source contracts.",
+    "Modern start68 points to a null entry in the pinned older start table. This is a material version boundary: old do70 alone cannot certify current start/payment/eligibility behavior. Do not silently substitute old start32 for modern start68."
+  ],
+  "reuse": [
+    "Existing BarbarianMelee/GearEffects prepared hit, source mastery types, fractional mana, recovery/durability and ClassCombat cancellation guards.",
+    "Existing source sequence/Zeal scheduler methods where contracts match, retaining independent hand, event, target and cast identities.",
+    "Throwing Mastery provides the shared launch critical/quantity ledger and typed routing for later Double Throw; do not treat melee use of thrown weapons as the same damage/mode."
+  ],
+  "requiredFoundation": [
+    "Native two-hand inventory adapter for two eligible one-hand weapons, including Barbarian wieldable swords, without granting shields or true two-hand axes/polearms a second weapon.",
+    "Explicit active strike-hand context across weapon base/local stats, class masteries, IAS/sequence timing, durability and existing item events. ClassGear currently suppresses later same-slot weapons and would otherwise count secondary local ED as off-weapon.",
+    "Client secondary equip/art/target packets, trade/bank/logout/load/death/respec/history, broken/requirements and inventory-save identity."
+  ],
+  "limits": [
+    "Source-reviewed only. No new runtime/dual-wield mode/handler is enabled. Exact current start68/sequence/hand switching and owner/event/client behavior remain open; continue independently provable foundation work."
+  ],
+  "nextSteps": [
+    "Trace current start68 differences and shared source hand/sequence/target helpers before wiring Double Swing.",
+    "Implement and verify explicit hand eligibility/context through existing gear/combat consumers, then source-counted SQ events/payment/retargeting and two reloads."
+  ]
+}

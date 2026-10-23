@@ -31,7 +31,7 @@ public static class NamedProjectiles
         return result;
     }
     // Continuation belongs to the released projectile: no new attack cycle, ammunition or weapon wear.
-    public static int Continue(PlayerMobile source, Mobile first, Point3D aim, int budget, Random random = null)
+    public static int Continue(PlayerMobile source, Mobile first, Point3D aim, int budget, Random random = null,bool? projectileCritical=null)
     {
         if (budget <= 0 || first == null || source is not { Alive: true, Deleted: false } || !NamedCombat.Ranged(source)) { return 0; }
         random ??= Random.Shared;
@@ -58,7 +58,7 @@ public static class NamedProjectiles
             var point = next.Location;
             Effects.SendMovingEffect(new Entity(Serial.Zero, previous, source.Map), next, 0xF42, 5, 0, false, false);
             source.DoHarmful(next, true);
-            if (ClassStats.CheckHit(source, next) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false); }
+            if (ClassStats.CheckHit(source, next) == true) { GearEffects.Strike(source, next, Utility.RandomDouble(), random, false,projectileCritical:projectileCritical); }
             CombatDamage.Finish(next, source); previous = point;
             if (source.Deleted || !source.Alive) { break; }
         }

@@ -94,7 +94,8 @@ primary = re.sub(r'\s+', ' ', primary)
 for text in ['Critical strikes with throwing weapons now replenish quantity', 'Added chance to pierce', 'Find Potion synergy added: +5% Damage Taken per level']:
     assert text in primary, text
 out = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'],
-           status='Bounded selector proof and modern primary/table preflight; native handler pending.',
+           status='Bounded selector proof and modern primary/table reference; native implementation and verification are tracked separately.',
+           nativeEvidence='tools/reference/throwing-mastery-native-evidence.json',
            sourceHashes={path: hashlib.sha256(raw).hexdigest()},
            skillTableSha256=hashlib.sha256(skill_path.read_bytes()).hexdigest(), skill=skill_row,
            primary=dict(url=primary_url, cachePath=str(primary_path.relative_to(ROOT)), sha256=hashlib.sha256(primary_path.read_bytes()).hexdigest(),
@@ -120,6 +121,6 @@ out = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'],
                'Native quantity currently tracks named throwing bases only; ordinary converted stack capacity and eligible native throwing materials need an explicit supported adapter, not unlimited implicit ammunition.'
            ],
            assets=dict(effect='Passive has no separate cast effect; reuse weapon projectile presentation. Final throwing projectile assets belong to attack skills.', icon='Separate talent-tree icon needed; no active hotkey icon for this passive.'),
-           limits=['Declared used-skill/item-type/stat-layer services; this compiles the unchanged selector only. It does not execute modern critical, projectile, conservation, quantity recovery, or native item/state consumers.', 'No handler enabled, native runtime/save format modified, shared DM formula changed, or class completion claimed.'])
+           limits=['Declared used-skill/item-type/stat-layer services; this compiles the unchanged selector only. It does not execute modern critical, projectile, conservation, quantity recovery, or native item/state consumers.', 'This source probe does not enable or verify native handlers. See the separate native evidence; it changes no runtime/save format/shared DM formula and claims no class completion.'])
 (ROOT / 'tools/reference/barbarian-throwing-mastery-preflight.json').write_text(json.dumps(out, indent=2) + '\n')
 print('Throwing Mastery shared-selector cases:', sum(len(v) for v in data.values()))

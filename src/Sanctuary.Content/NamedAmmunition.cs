@@ -19,11 +19,12 @@ public static class NamedAmmunition
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
     public static int Maximum(Item item)
     {
-        if (ClassGear.State(item) is not { NamedItemId: not null } state) { return 0; }
+        if (ClassGear.State(item) is not { BaseCode: not null } state
+            || ClassGear.Definition(item)?.Category!="Throwing") { return 0; }
         var basis = NamedGear.Catalog.Base(state.BaseCode);
         if (basis.SourceTable != "weapons" || !basis.SourceFields.TryGetProperty("maxstack", out var cap)
             || !cap.TryGetInt32(out int maximum) || maximum <= 0) { return 0; }
-        return maximum + Property(state, "stack");
+        return maximum + (state.NamedItemId==null?0:Property(state, "stack"));
     }
     private static int Property(GearState state, string code)
     {
@@ -52,6 +53,19 @@ public static class NamedAmmunition
         int rate = Rate(item);
         var due = quantity.DueUtc == _paused && rate > 0 ? now.AddMilliseconds(NamedMaintenance.PeriodMs(rate)) : quantity.DueUtc;
         Quantities[item.Serial] = new(quantity.Remaining - 1, due); item.InvalidateProperties(); return true;
+    }
+    internal static bool Throw(Item item,DateTime now,bool replenishCritical,int conserve,Random random)
+    {
+        if(item==null || Maximum(item)<=0){return false;}
+        Track(item);Settle(item,now);var quantity=Quantities[item.Serial];
+        if(quantity.Remaining<=0){return false;}
+        if(replenishCritical)
+        {
+            int remaining=Math.Min(Maximum(item),quantity.Remaining+1);
+            Quantities[item.Serial]=quantity with{Remaining=remaining,DueUtc=remaining==Maximum(item)?_paused:quantity.DueUtc};
+            item.InvalidateProperties();return true;
+        }
+        return conserve>0 && random.Next(100)<Math.Min(100,conserve) || Consume(item,now);
     }
     public static void Copy(Item source, Item destination)
     {

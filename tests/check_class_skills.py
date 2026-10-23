@@ -386,6 +386,9 @@ def check():
                     mastery_command='barbarian-masteries-check' if boot==0 else 'barbarian-masteries-reload-check'
                     session.send(mastery_command)
                     assert session.expect(mastery_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    throwing_command='throwing-mastery-check' if boot==0 else 'throwing-mastery-reload-check'
+                    session.send(throwing_command)
+                    assert session.expect(throwing_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     attack_command='barbarian-attacks-check' if boot==0 else 'barbarian-attacks-reload-check'
                     session.send(attack_command)
                     assert session.expect(attack_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

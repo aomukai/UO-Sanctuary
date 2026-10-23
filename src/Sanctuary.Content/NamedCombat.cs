@@ -33,6 +33,17 @@ public static class NamedCombat
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
         return chance > 0 && random.Next(100) < chance ? 2 : 1;
     }
+    // Missile creation uses a different critical order from ordinary melee.
+    // Generic Critical Strike is not yet a supported native passive; its zero
+    // chance still consumes the source's unconditional first draw.
+    internal static bool ProjectileCritical(PlayerMobile player,Random random)
+    {
+        _=random.Next(100);
+        int deadly=Math.Clamp(ClassGear.Bonus(player,"deadly"),0,100);
+        if(deadly>0 && random.Next(100)<deadly){return true;}
+        int mastery=BarbarianMasteries.Throwing(player,CombatTiming.Equipped(player),3);
+        return mastery>0 && random.Next(100)<mastery;
+    }
     public static int CrushingLoss(Mobile target, bool ranged)
     {
         int divisor = target is PlayerMobile || target is BaseCreature { Controlled: true } ? 10 : Elite(target) ? 8 : 4;

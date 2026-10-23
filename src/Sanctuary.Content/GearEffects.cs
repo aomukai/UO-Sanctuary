@@ -137,10 +137,10 @@ public static class GearEffects
         double enhanced=NamedElements.Enhance(player,total-aura,element)+aura;
         return enhanced;
     }
-    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0)
+    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null)
     {
         bool ranged=NamedCombat.Ranged(player);
-        double rawPhysical=damage.Physical*NamedCombat.Deadly(player,effects);
+        double rawPhysical=damage.Physical*(projectileCritical is{} critical?(critical?2:1):NamedCombat.Deadly(player,effects));
         // Skill elements already include their source percentage/mastery rounding.
         // Ordinary weapon hits must also reach Energy Shield before resistance.
         double convertedMagic=0;
@@ -159,12 +159,12 @@ public static class GearEffects
         return new(damage,parts,absorbed256);
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
-        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null)
+        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null)
     {
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
         bool ranged = CombatTiming.Weapon(weapon).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw;
-        var packet=preparedImpact??PrepareWeaponImpact(player,target,roll,effects,preparedDamage??Damage(player,roll,target,skillPhysicalPercent,physicalRoll),skillElements);
+        var packet=preparedImpact??PrepareWeaponImpact(player,target,roll,effects,preparedDamage??Damage(player,roll,target,skillPhysicalPercent,physicalRoll),skillElements,projectileCritical:projectileCritical);
         var damage=packet.Damage;var parts=packet.Parts;int absorbed256=packet.Absorbed256;
         double physical=parts.Physical,total=packet.LifeDamage256 is{} stored?stored/256.0:parts.Total;
         if(beforeCommit!=null && !beforeCommit(NamedElements.To256(physical))){return 0;}

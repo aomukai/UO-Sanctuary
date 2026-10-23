@@ -1,7 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Bounded selector proof and modern primary/table preflight; native handler pending.",
+  "status": "Bounded selector proof and modern primary/table reference; native implementation and verification are tracked separately.",
+  "nativeEvidence": "tools/reference/throwing-mastery-native-evidence.json",
   "sourceHashes": {
     "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
   },
@@ -126,6 +127,6 @@
   },
   "limits": [
     "Declared used-skill/item-type/stat-layer services; this compiles the unchanged selector only. It does not execute modern critical, projectile, conservation, quantity recovery, or native item/state consumers.",
-    "No handler enabled, native runtime/save format modified, shared DM formula changed, or class completion claimed."
+    "This source probe does not enable or verify native handlers. See the separate native evidence; it changes no runtime/save format/shared DM formula and claims no class completion."
   ]
 }

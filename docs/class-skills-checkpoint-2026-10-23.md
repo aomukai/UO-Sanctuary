@@ -1,6 +1,6 @@
 # Class skill checkpoint — 23 October 2026
 
-The goal is active. **108 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian21. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
+The goal is active. **109 handlers are available in the installed test build: Necromancer28, Sorceress29, Paladin30, Barbarian22. No class is certified as D2R-exact.** All240 talents/eight identities remain catalogued. The reference stays D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. The user confirms access to this exact playable version.
 
 This checkpoint supplements the [previous checkpoint](class-skills-checkpoint-2026-10-22.md). The [roadmap](class-skill-roadmap.md) reflects the actual implementation expressions. The [verification record](class-skills-verification-2026-10-23.json) records current artifacts and bounded checks.
 
@@ -281,3 +281,28 @@ Latest reference preparation: [Grim Ward lifecycle proof](../tools/reference/gri
 Next: **Throwing Mastery**, using [the existing-system reuse plan](../tools/reference/barbarian-throwing-mastery-preflight.json). Grim Ward now has3144 compiled lifecycle cases plus167 elapsed-frame pulse values. Its modern periodic curse owner/hard-synergy and generic fear target context remain explicitly unresolved; continue unaffected Barbarian mechanics while resolving those branches. Find Potion world-context and the general modern DM curve observation remain separate unanswered questions. Barbarian21/30 handlers,9 pending; full roster goal active.
 
 Installed build remains the108-handler Find Item checkpoint with the previously passing full native3boots/2reloads and437/15 source fingerprints. This preparation changes source probes/reference documents only. No save reset, installed binary or enabled talent changed; final effects/icons remain separately recorded.
+
+
+## Latest checkpoint: Throwing Mastery
+
+Latest implementation: **Throwing Mastery**, the22nd Barbarian/109th roster handler, connects all six passive fields through the existing mastery/type, AR/damage, projectile and saved ammunition systems. Basic throws roll one launch critical (generic zero draw, then Deadly Strike, then mastery), add item/skill pierce with up to4 continuations, and conserve/recover/spend quantity once at release. Critical restores one even on accepted empty-ground throws; continued victims do not repeat recovery. Ordinary converted and named throwing bases share source capacities and the saved ledger. Real Gimmershred/Highlord/Tarnhelm, prepared typed damage, quantity/caps, empty ground, cancellation, gear/history/respec and two reloads are covered. See [source selector](../tools/reference/barbarian-throwing-mastery-preflight.json), [projectile source](../tools/reference/throwing-projectile-engine-evidence.json) and [native evidence](../tools/reference/throwing-mastery-native-evidence.json).
+
+Next: **Double Swing and the shared dual-wield/strike-hand foundation**, using [the preflight](../tools/reference/barbarian-double-swing-preflight.json). Modern start68 is null in the supplemental older dispatch table; do70 alone cannot certify its start/payment/hand behavior. Existing native same-slot suppression and off-weapon damage pooling need explicit hand context before two-weapon events. Grim Ward owner/fear, Find Potion world-context and general DM reference questions remain nonblocking. Barbarian22/30 handlers,8 pending; full goal active.
+
+Focused/final combined native3boots/2reloads pass;70 Python,438 named/15 first-loop current fingerprints, reference/generator/catalogue checks and matching installed existing-world smoke pass. Client50 warnings/0 errors, content/integration0 warnings/errors.61 ModernUO/36 ClassicUO patch stacks reconstruct100/41 paths byte-equal. No new native patch, save reset, class certificate, final art or item-skill gate. Server stopped.
+
+Pinned3.3.93847 table values, compiled older selector/projectile contracts and released historical firsthand D2R reports are distinct evidence. Current executable parity is not certified. General DM rounding reference conflict remains open and runtime formula is unchanged.
+
+Exact modern conservation versus critical/pierce RNG order and algorithm are unverified. Current implementation rolls source critical, then conservation only on noncritical throws, then the source-shaped pierce budget; quantity recovery uses the documented one-quantity convention and caps at source stack size.
+
+Generic oskill Critical Strike is not a supported native passive yet; its legacy branch is compiled in isolation and the native launch helper explicitly uses zero. Charged/oskill item gates remain unchanged.
+
+Basic throws use the existing native immediate-hit/straight continuation/weapon timing and terrain projection. Full modern missile flight/stat snapshots/AR/target/proc/gear swap/owner/client differential remain acceptance work. Double Throw/dual wield and melee use of converted thrown weapons require separate hand/mode/base adapters.
+
+Empty quantities remain an existing recoverable native item; exact D2R ethereal depletion/destruction and all item_noconsume/quantity-zero branches remain separately unverified. No weapon item is deleted or duplicated by this passive.
+
+Focused action checks restore the saved world position of offline fixture actors before LOS tests, matching the existing Find Item fixture pattern. Production player logout/login/save behavior is unchanged.
+
+No class completion or new item-skill gate is claimed. Passive has no separate cast effect or hotkey icon; its talent-tree icon remains missing in the separate icon register. Weapon-projectile presentation uses existing identified UO placeholders.
+
+An ordinary converted weapon without a saved quantity entry uses the existing ledger default of source maximum. Exact drop-time initial quantities, ordinary quantity tooltip/client display and exhaustive factory/repair/copy interactions still need acceptance coverage; this does not certify every base-item lifecycle.

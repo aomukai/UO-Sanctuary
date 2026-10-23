@@ -492,6 +492,7 @@ public static class ClassCombat
             return false;
         }
         var point = target?.Location ?? session.PendingPoint;
+        ThrowRelease? throwing=null;
         if (ability == CombatAbility.Teeth)
         {
             if (from.Mana < 1)
@@ -508,17 +509,22 @@ public static class ClassCombat
         else
         {
             from.PlaySound(0x238);
-            if (!MeleeReach(from, target))
+            bool emptyThrow=target==null && ability==CombatAbility.BasicAttack && BarbarianThrowing.Supported(from)
+                && point.X>=0 && point.Y>=0 && point.X<from.Map.Width && point.Y<from.Map.Height
+                && from.InRange(point,CombatTiming.Range(from,ability)) && from.InLOS(new Point3D(point.X,point.Y,point.Z+14)) && Math.Abs(from.Z-point.Z)<16;
+            if (!MeleeReach(from, target) && !emptyThrow)
             {
                 return true;
             }
-            if (!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
+            if(ability==CombatAbility.BasicAttack && BarbarianThrowing.Supported(from))
+            {throwing=BarbarianThrowing.Release(from,TimedEffects.Now);if(throwing==null){return false;}}
+            else if (!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
             if (CombatTiming.Weapon(CombatTiming.Equipped(from)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
             {
-                from.MovingEffect(target, 0xF42, 5, 0, false, false);
+                from.MovingEffect(target ?? (IEntity)new Entity(Serial.Zero,point,from.Map), 0xF42, 5, 0, false, false);
             }
         }
-        int pierces = ability == CombatAbility.BasicAttack ? NamedProjectiles.Budget(from) : 0;
+        int pierces = throwing?.Pierces ?? (ability == CombatAbility.BasicAttack ? NamedProjectiles.Budget(from) : 0);
         bool weaponHit = false;
         if (target != null)
         {
@@ -538,7 +544,7 @@ public static class ClassCombat
             }
             else if (ClassStats.CheckHit(from, target) == true)
             {
-                GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0); weaponHit = true;
+                GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0,projectileCritical:throwing?.Critical); weaponHit = true;
             }
             else
             {
@@ -548,7 +554,7 @@ public static class ClassCombat
             if (pierces > 0)
             {
                 var releasedWeapon = CombatTiming.Equipped(from);
-                NamedProjectiles.Continue(from, target, point, pierces);
+                NamedProjectiles.Continue(from, target, point, pierces,projectileCritical:throwing?.Critical);
                 if (weaponHit && releasedWeapon != null && NamedAmmunition.Maximum(releasedWeapon) == 0)
                 { releasedWeapon.WearOnHit(from, target); }
             }

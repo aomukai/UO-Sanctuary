@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined native3boots/2reloads pass;70 Python,438 named/15 first-loop current fingerprints, reference/generator/catalogue checks and matching installed existing-world smoke pass.",
+  "sources": [
+    "tools/reference/barbarian-throwing-mastery-preflight.json",
+    "tools/reference/throwing-projectile-engine-evidence.json"
+  ],
+  "implementation": [
+    "Existing type ancestry/active gear/effective ranks select Throwing Mastery AR/damage/critical for actual Throw-family attacks. The shared AR/damage consumers add these percentages to their existing pools. No melee mastery is simultaneously added.",
+    "A released basic throw makes one critical decision: generic zero-chance source draw, nonzero Deadly Strike, then nonzero Throwing Mastery. That boolean reaches first and continued impacts without rerolling; only physical damage doubles. Existing melee critical ordering stays unchanged.",
+    "The shared item-plus-skill pierce budget prerolls up to4 continuations, as the reviewed source creation loop does. Traversal/typed mitigation/recovery/item effects are shared. The passive adds46% pierce at effective20 to existing item pierce.",
+    "The saved one-item ammunition ledger now supports ordinary converted as well as named throwing capacities from pinned base maxstack. Named increased-stack and timed replenish properties keep their current provenance; ordinary bases have no invented replenish rate.",
+    "A positive-quantity launch either recovers one on critical (also conserving the thrown quantity), conserves on the separate passive roll, or spends one. Recovery caps at source maximum; reaching full pauses automatic replenish and partial recovery preserves its prior clock. Empty stacks fail before RNG.",
+    "Quantity resolves at release even on accepted empty-ground throws. Impact delivery/continued victims cannot change it again. Start, early tick, repeated event, movement and weapon cancellation use the existing class session guards. Passive has no mana cost or active binding."
+  ],
+  "checks": [
+    "Pinned current formulas at effective1/20/21/60, three throwing type ancestors, rank20 training and real Tarnhelm effective21, existing additive AR/damage pools.",
+    "Real Gimmershred critical, conservation, consumption, empty-stack refusal, full-cap recovery, no native durability/mana loss and deterministic source budget4.",
+    "Real Highlord Deadly Strike short-circuits mastery, failed Deadly Strike reaches mastery, both critical sources recover quantity. Generic oskill branch is not enabled.",
+    "Actual Gimmershred elemental/physical prepared mitigation and repeated typed delivery preserve one physical double and unchanged elements without another critical roll or quantity recovery.",
+    "Actual class action empty-ground windup/one release/replay exclusion, source-aligned elevated LOS point projection, weapon and movement cancellation.",
+    "Ordinary converted NamedThrowingKnife has pinned stack capacity and uses the same quantity ledger; backpack/broken/history/respec eligibility and real gear soft-rank changes.",
+    "Two actual server reloads retain learned/effective rank, active gear, native stat payload, named and ordinary quantities and durability, then repeat native actions.",
+    "Final combined native3boots/2reloads includes the prior class/named-item/AI coverage;70 Python and current438/15 hashes, source/generator/catalogue checks, matching installed DLLs and existing-world load/listen/shutdown0 pass."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/throwing-mastery-focused.log",
+    "combined": ".local/class-skills/native-checks.log",
+    "selector": ".local/class-skills/throwing-selector-source-check.log",
+    "projectile": ".local/class-skills/throwing-projectile-source-check.log"
+  },
+  "nativePatch": "No new native patch; existing61 ModernUO/36 ClassicUO stacks unchanged.",
+  "limits": [
+    "Pinned3.3.93847 table values, compiled older selector/projectile contracts and released historical firsthand D2R reports are distinct evidence. Current executable parity is not certified. General DM rounding reference conflict remains open and runtime formula is unchanged.",
+    "Exact modern conservation versus critical/pierce RNG order and algorithm are unverified. Current implementation rolls source critical, then conservation only on noncritical throws, then the source-shaped pierce budget; quantity recovery uses the documented one-quantity convention and caps at source stack size.",
+    "Generic oskill Critical Strike is not a supported native passive yet; its legacy branch is compiled in isolation and the native launch helper explicitly uses zero. Charged/oskill item gates remain unchanged.",
+    "Basic throws use the existing native immediate-hit/straight continuation/weapon timing and terrain projection. Full modern missile flight/stat snapshots/AR/target/proc/gear swap/owner/client differential remain acceptance work. Double Throw/dual wield and melee use of converted thrown weapons require separate hand/mode/base adapters.",
+    "Empty quantities remain an existing recoverable native item; exact D2R ethereal depletion/destruction and all item_noconsume/quantity-zero branches remain separately unverified. No weapon item is deleted or duplicated by this passive.",
+    "Focused action checks restore the saved world position of offline fixture actors before LOS tests, matching the existing Find Item fixture pattern. Production player logout/login/save behavior is unchanged.",
+    "No class completion or new item-skill gate is claimed. Passive has no separate cast effect or hotkey icon; its talent-tree icon remains missing in the separate icon register. Weapon-projectile presentation uses existing identified UO placeholders.",
+    "An ordinary converted weapon without a saved quantity entry uses the existing ledger default of source maximum. Exact drop-time initial quantities, ordinary quantity tooltip/client display and exhaustive factory/repair/copy interactions still need acceptance coverage; this does not certify every base-item lifecycle."
+  ],
+  "next": "Double Swing and shared dual-wield/strike-hand foundation; tools/reference/barbarian-double-swing-preflight.json"
+}
