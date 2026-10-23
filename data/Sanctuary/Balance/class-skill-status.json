@@ -243,7 +243,7 @@
       "implementation": "pending",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Saved travelling weapon payload now supports source physical-to-magic conversion after physical percentages/critical and before typed mitigation/leech. The shared literal percentage helper retains large-value early division and Decoy life consumers. Compiled216 conversion/1536 integrated impact/2 guard cases and native delivery/physical immunity/mastery/leech/old-payload/save checks are recorded separately. Full skill remains pending bow launch-stat/material/Enchant/aura collection, no-ammunition input/weapon timing/payment, item callbacks and owner/client acceptance. Pinned current conversion is5+2*(rank-1) percent, capped100, rather than historical1percent per rank. No handler or item gate enabled."
+      "remaining": "Saved conversion and bow launch collection are prepared:288 complete source creator cases,216 conversion/1536 impact rows, real named bows/poison/gems/materials/Enchant/aura/critical/physical potion snapshot and native moving-save checks are recorded separately. Shared poison contributions retain raw FP256 rates, aggregate frames/count before source scaling; physical skill endpoints join weapon source damage before percentages. Native material/potion supplements and ranged Enchant/aura rules retain existing project arithmetic with explicit projection/rounding/RNG limits. Full skill remains pending A1/IAS/input/bindings/no-ammunition/payment and item events; older generic player-arrow ToHit0 versus pinned displayed skill AR is individually uncertain. Full modern stat/mastery/client parity remains acceptance; no handler/item gate enabled."
     },
     {
       "talentId": "amazon.firearrow",
@@ -274,9 +274,9 @@
       "tree": "Bow and Crossbow Skills",
       "sourceId": 12,
       "implementation": "pending",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared do8 fan, native bow ammo and typed-source payload foundations are prepared. A saved travelling direct-damage weapon component now uses source impact rolls, current owner AR, current target resistance/block, live pierce eligibility and cast-local delay.5184 compiled impact cases and native movement/mitigation/owner-AR/reload checks are recorded separately. Multiple Shot remains gated: launch gear/material/Enchant/aura collection, physical SrcDam96, modern Guided Arrow synergy, item callbacks/drain and full skill payment/quantity/owner/client integration remain. Earlier blanket launch-time AR snapshot plans are withdrawn; source owner AR is read at impact. Do not substitute immediate weapon rays or aggregate poison scaling."
+      "remaining": "Shared source do8 fan, native bow ammo, saved travelling direct damage and per-missile bow launch collection are prepared. Actual named/Gem/material/Enchant/aura/poison endpoints and SrcDam96 rate/count/physical scaling plus current hard Guided Arrow synergy have native component checks. Critical selection remains per created missile, supplied by the separate existing helper. Full handler remains pending start/mana/one-ammunition-after-fan, central/outer item callbacks and complete owner/client acceptance. Exact modern seed/geometry/activation/mastery/source-stat and preserved material projection remain explicit limits; no immediate-ray replacement or whole-fan critical sharing."
     },
     {
       "talentId": "amazon.explodingarrow",

@@ -14,7 +14,8 @@
   ],
   "implemented": [
     "Optional PhysicalToMagicPercent on immutable saved WeaponMissileDamage defaults0 for older payloads and ordinary hostile spell flights. Conversion runs after percentages/critical and independent typed rolls, before mitigation/leech.",
-    "Full literal percentage helper preserves both small multiply-first and large early-divide branches. Existing Decoy entry point delegates to it without changing its life or callbacks."
+    "Full literal percentage helper preserves both small multiply-first and large early-divide branches. Existing Decoy entry point delegates to it without changing its life or callbacks.",
+    "Shared BowLaunch collection is now verified separately with288 complete creator/source-native cases, actual gear/modifier captures and moving payload persistence through both reloads. Full Magic Arrow action remains pending."
   ],
   "verifiedFocused": [
     "216 split and1536 integrated impact source/native comparisons, including large FP256 values, capped/nonpositive conversion, percentage/current species/critical ordering and independent original magic mastery.",
@@ -24,7 +25,7 @@
     "The shared percentage extraction retains960 Decoy source/native life/level cases and natural expiry across both reloads."
   ],
   "remaining": [
-    "Build complete bow launch stat collection: raw endpoints plus skill physical bonus before percentages; source SrcDam scaling; item/Gem/poison rate, aggregate duration and count; preserved material modifiers and Enchant/aura/mastery composition. Existing generic GearEffects totals cannot stand in for a captured source payload.",
+    "Use the verified bow launch collector for the full Magic Arrow action. Raw endpoints, source scaling, typed/poison metadata and existing material/potion/Enchant/aura projection checks are complete within tools/reference/bow-launch-native-evidence.json; its explicit modern/stat/RNG limits remain.",
     "Implement and test learned bow/crossbow availability, weapon A1/IAS timing, selected/free-ground input, right/left/quick bindings, no ammunition gate/debit, once-only fractional release mana, cancellation and held input. Pinned rank1 cost1.5mana, rank2 cost1.375 and rank13+ cost0.",
     "Retain distinct attacker/defender item-event paths, source saved ToHit, actual current item eligibility and owner/client checks. Existing direct damage/leech/Crushing coverage is not every proc/knockback/open-wounds interaction.",
     "Exact current3.3.93847 conversion versus extra-magic damage/mastery/stat inheritance needs current evidence. The compiled legacy harness supplies missile mastery stats explicitly; it does not prove how modern launch collects or inherits them. Do not infer current Warlock item-stat behavior from the injected fixture.",
@@ -40,7 +41,7 @@
     "effects": "Identified existing weapon-flight0xF42 logical trail placeholder only. SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending in existing effect row.",
     "icons": "Existing independent talent and left/right hotkey icon requirements stay pending. No image generated or mapped."
   },
-  "next": "Complete shared bow launch-stat collection and Magic Arrow handler; no additional class handler is claimed by the conversion component.",
+  "next": "Implement and verify Magic Arrow A1/input/bindings/no-ammunition/payment/item-event consumers using the captured payload. Keep the current AR transfer question separate; no full handler claimed.",
   "logs": {
     "source": ".local/class-skills/magic-arrow-source.log",
     "sourceFixture": ".local/class-skills/magic-arrow-source-probe.json",
@@ -79,5 +80,7 @@
     "Initial focused harness skipped the owner-account prompt on restart, but these component fixtures create no accounts. Server waited at the prompt; interrupted the disposable run after first-boot checks passed, then handled the prompt on each boot. Final focused run passes both reloads; no runtime change.",
     "Saved moving flight alone retains the existing10minute inspection hold; normal40ms travel is independently verified. No production lifetime is extended.",
     "Initial readiness regeneration was attempted before the fresh native audit export and correctly refused stale hashes. Final generation and70 Python tests pass after the current467/15 exports."
-  ]
+  ],
+  "bowLaunchEvidence": "tools/reference/bow-launch-native-evidence.json",
+  "subsequentScope": "The collector evidence supersedes the earlier unimplemented launch-collection dependency for the supported ordinary single-bow/physical-skill cases. Full skill action, mana/no-ammunition, item events and recorded source/current/projection limits remain."
 }

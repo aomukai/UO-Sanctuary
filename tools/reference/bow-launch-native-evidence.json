@@ -1,0 +1,113 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "componentOnly": true,
+  "status": "Bow launch collection now captures source physical/typed/poison/drain data, current hard Guided synergy and existing native material/potion/Enchant/aura modifiers into immutable travelling payloads.288 complete creator/source-native cases, actual named/gem/material/buff/soft-rank and saved removed-bow/replaced-potion checks pass. Focused25-second-per-save and combined native suites each pass three boots/two reloads with explicit sector reactivation; separate ordinary gem combat/persistence also passes three boots/two reloads. Final content/integration builds have zero warnings/errors;70 Python tests and fresh468/15 fingerprints pass. Matching125-handler component build loads the existing world and shuts down with exit0; server stopped, saves retained, client/native patches and all573 named availability flags unchanged. Full Magic Arrow/Multiple Shot input/payment/item-event consumers remain pending; no new handler or class certificate.",
+  "sourceEvidence": "tools/reference/bow-launch-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/BowLaunch.cs",
+    "src/Sanctuary.Content/NamedGear.cs",
+    "src/Sanctuary.Content/GemCombat.cs",
+    "src/Sanctuary.Content/WeaponMissiles.cs"
+  ],
+  "test": "tests/Sanctuary.Integration/BowLaunchChecks.cs",
+  "verifiedFocused": [
+    "288 complete unchanged creator/native comparisons: weapon SrcDam0/64/96/128 before skill physical addition, separate clamped owner percent, species percent/critical and typed/rate/count/duration/drain fields.",
+    "Actual Ichorsting/Wormskull/Snakecord capture244FP256 poison rate,350 aggregate frames,count3; Multiple Shot source96 yields183 rate,count2 without scaling350frames. Actual Guided Arrow hard2 yields24percent synergy; Tarnhelm soft rank3 does not alter it.",
+    "Existing ordinary poison reader keeps the same source enumeration, interpolation/order and millisecond-averaged view. A shared raw contributor API supplies missiles without trying to recover count from averaged damage.",
+    "Actual socket insertion on a backpack bow then equip captures chipped emerald34FP256/frame with named poison sources. Crafted Oak/Frostwood/Ash/Yew/Bloodwood typed/poison/physical modifiers retain existing native endpoint arithmetic and source scaling.",
+    "Explicit prepared-skill contexts on real Sorceress/Paladin bow owners test existing ranged Enchant/wielder enhancement and aura single enhancement with actual Nightwing. These are collector component contexts; no foreign-class spell is granted or cast.",
+    "Optional physical material/potion supplement is applied after victim-dependent source percentages and before critical/conversion. Actual Deep Wounds adds2560FP endpoints; old payloads missing the optional field retain null. This native port supplement is not invented as a D2 item stat.",
+    "Actual Hellclap endpoints, critical/conversion and a captured Deep Wounds supplement survive both GenericPersistence reloads. The bow is in the backpack and Deep Wounds replaced by a different real potion before saving; resumed impact still uses the immutable snapshot without mana/arrow repayment."
+  ],
+  "limits": [
+    "No full Magic Arrow/Multiple Shot handler or item gate enabled. A1/IAS/input/bindings, no-ammunition exemption, once-only mana and fan quantity sequencing, item callbacks and owner/client integration remain.",
+    "Native material/gem/potion arithmetic is an explicit existing-system projection. Their per-frame FP256 quantization, independent supplement roll, correlation/order and all current mastery/Enchant/aura/source-scaling precision require broader acceptance; source288 matrix does not certify these custom stats.",
+    "The component only supports physical-skill single-bow player collection for Magic Arrow/Multiple Shot. Elemental-skill sources, throwing/half-two-hand/origin/NPC/hireling branches, target-defense/bypass/nested monster-type fields and complete attacker/defender item events remain separate.",
+    "Pinned current extra-magic handling and large100percent-conversion remainder retain prior uncertainty. This collector captures existing native prepared endpoints; the old creator has no generic missile mastery copy, and later ranged Enchant fixes cannot be inferred from that old creator alone."
+  ],
+  "reviewedAttackRating": [
+    {
+      "path": "source/D2Game/src/SKILLS/Skills.cpp",
+      "routine": "sub_6FD11420",
+      "sourceSha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+      "blockSha256": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+      "finding": "Generic factory flags33; only a monster owner copies STAT_TOHIT into nAttBonus and enables flag0x1000. Player branch leaves it0.",
+      "scope": "Reviewed unchanged body; not compiled in the bow launch matrix."
+    },
+    {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "routine": "UNITS_GetAttackRate",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "blockSha256": "1914535559909c2a16b14e9c564ad20a839f25d14c9acbad896e393b93cac836",
+      "finding": "Player base AR reads flat TOHIT plus5*(Dexterity-7) and class ToHitFactor; no used-skill multiplier.",
+      "scope": "Reviewed unchanged body; not compiled in the bow launch matrix."
+    },
+    {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "routine": "SUNITDMG_IsHitSuccessful",
+      "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+      "blockSha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758",
+      "finding": "Missile player hit calculation adds the supplied nStatValue and live item percent; current owner AR/level/defense reductions remain live.",
+      "scope": "Reviewed unchanged body; not compiled in the bow launch matrix."
+    }
+  ],
+  "attackRatingGap": {
+    "pinnedDisplay": "Magic Arrow10+9*(rank-1) percent",
+    "olderFactory": "Player missile nAttBonus0; existing travelling component uses0 additional bonus with live owner AR.",
+    "currentBuild": "Not established. Do not silently apply the displayed curve as a proven live missile bonus, or claim the old bug is verified in3.3.93847.",
+    "next": "Resolve current factory/hit behavior independently; continue unaffected input/payment and other mechanics."
+  },
+  "fixtureControls": [
+    "Named fixture owner/target regeneration held1hour through constructor scope, Configure and final Initialize only; ordinary actors forward prior handlers.",
+    "Saved moving payload alone has the existing10minute inspection hold. Separate weapon-flight natural40ms travel still runs; no production lifetime is extended.",
+    "Initial X3000..3500 search found no independent usable corridor. New fixture uses known valid free/level19-cell native terrain inX2500..2900 outside guarded towns and existing actors; no world/terrain guard weakened.",
+    "First gem fixture attempted socketing an equipped bow. Actual socket service correctly refused it; fixture now moves the bow to backpack for insertion, then re-equips. No eligibility rule changed.",
+    "The first combined run and its diagnostic rerun failed only the saved target-health assertion: flight, captured potion supplement, removed bow and mana were identical. Explicit sector reactivation reproduced the healing in isolation; the standard GraveyardSkeleton has separate OnThink recovery that ordinary regen suppression does not stop. All three failed logs are retained.",
+    "The final fixture is a manually serialized BowLaunchTarget subclass of GraveyardSkeleton with no OnThink and no sector AI restart. CreatureProfiles still resolves the mapped skeleton base/species. Every reload explicitly activates its sector and calls OnSectorActivate/OnThink; focused saves also wait25seconds. Production monster recovery is unchanged."
+  ],
+  "assets": {
+    "effects": "Existing0xF42 logical trail placeholder; final Magic Arrow travel/impact/audio and Multiple Shot fan/flight/contact assets remain in the independent effect register.",
+    "icons": "Existing talent and left/right hotkey icons remain separately pending; no asset generated/mapped."
+  },
+  "next": "Complete Magic Arrow casting/action/packet/payment and item-event integration using this captured payload; preserve source/current uncertainty and move past individual unsupported branches.",
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "ordinaryGemBoots": 3,
+    "ordinaryGemReloads": 2,
+    "sourceCreatorCases": 288,
+    "pythonTests": 70,
+    "namedInputs": 468,
+    "firstLoopInputs": 15,
+    "handlerEnabled": false,
+    "componentOnly": true
+  },
+  "logs": {
+    "source": ".local/class-skills/bow-launch-source.log",
+    "sourceFixture": ".local/class-skills/bow-launch-source-probe.json",
+    "contentBuild": ".local/class-skills/bow-launch-content-build.log",
+    "integrationBuild": ".local/class-skills/bow-launch-integration-build.log",
+    "focused": ".local/class-skills/bow-launch-fixed-delayed-focused.log",
+    "focusedRun": ".local/class-skills/bow-launch-fixed-delayed-focused-run.log",
+    "ordinaryGem": ".local/class-skills/bow-launch-gem-regression.log",
+    "ordinaryGemRun": ".local/class-skills/bow-launch-gem-regression-run.log",
+    "combined": ".local/class-skills/bow-launch-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/bow-launch-python-checks.log",
+    "installed": ".local/class-skills/bow-launch-installed-smoke.log",
+    "installedServer": ".local/class-skills/bow-launch-installed-server.log",
+    "corridorFailure": ".local/class-skills/bow-launch-corridor-failure.log",
+    "gemFixtureFailure": ".local/class-skills/bow-launch-gem-fixture-failure.log",
+    "initialCombinedFailure": ".local/class-skills/bow-launch-reload-failure.log",
+    "combinedDiagnosticFailure": ".local/class-skills/bow-launch-reload-diagnostic-failure.log",
+    "sectorReactivationReproduction": ".local/class-skills/bow-launch-reactivation.log",
+    "sectorReactivationRun": ".local/class-skills/bow-launch-reactivation-run.log"
+  },
+  "buildHashes": {
+    "content": "b93d86ff2b598e872e61f1f5d93144af9e76231b9635e58e258dbaf2a72bb76d",
+    "integration": "bfa38f3b3012cc9d45fa11d613266c9adf86d78b529a19e04b297d94c80eccf6"
+  }
+}

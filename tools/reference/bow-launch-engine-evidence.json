@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHash": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+  "compiledRoutines": [
+    "MISSILE_CalculateDamageData",
+    "MISSILE_AddStatsToDamage",
+    "MISSILE_CalculateFinalDamage"
+  ],
+  "blockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "sourceInputs": {
+    "STAT_FIREMINDAM": 10,
+    "STAT_FIREMAXDAM": 31,
+    "STAT_LIGHTMINDAM": 12,
+    "STAT_LIGHTMAXDAM": 49,
+    "STAT_MAGICMINDAM": 1,
+    "STAT_MAGICMAXDAM": 2,
+    "STAT_COLDMINDAM": 7,
+    "STAT_COLDMAXDAM": 13,
+    "STAT_COLDLENGTH": 15,
+    "STAT_POISONMINDAM": 257,
+    "STAT_POISONMAXDAM": 513,
+    "STAT_POISONLENGTH": 101,
+    "STAT_POISON_COUNT": 2,
+    "STAT_LIFEDRAINMINDAM": 7,
+    "STAT_MANADRAINMINDAM": 5,
+    "STAT_DEXTERITY": 42,
+    "STAT_ITEM_MINDAMAGE_PERCENT": 5,
+    "STAT_ITEM_MAXDAMAGE_PERCENT": 15,
+    "STAT_ITEM_DEMONDAMAGE_PERCENT": 11,
+    "STAT_ITEM_UNDEADDAMAGE_PERCENT": 13
+  },
+  "probe": {
+    "cases": 288,
+    "fixture": ".local/class-skills/bow-launch-source-probe.json",
+    "sha256": "d940fe8f43516ee44dfb47b17876f09bc6a1bdf751cd2e87af8f3579196517c1"
+  },
+  "established": [
+    "The complete unchanged creator scales weapon endpoints by SrcDam before adding skill physical endpoints; the damage percentage is saved separately and floored at-90. Saved species percentages are not scaled by SrcDam. Critical is a per-created-missile flag from its declared selection service.",
+    "SrcDam0 does not collect owner weapon stats, critical, species bonuses or typed/rate/count/duration/drain fields. It retains skill physical endpoints. SrcDam64/96/128 collect owner stats and the unchanged final scaling helper preserves poison aggregate length while scaling rate and count.",
+    "Declared owner is a player with one nonthrowing, nonblunt bow, Dexterity42 and100percent weapon Dexterity contribution. Item damage percentages5/15 select15; generic owner percent is varied separately. Elemental skill damage is0 in this matrix."
+  ],
+  "services": [
+    "Unit/table/stat/weapon lookup, skill endpoint calculation, weapon/mastery characteristics, critical selection and dual stat merge are declared services. The complete damage creator and typed addition/scaling bodies execute unchanged. Real gear, current seed, proc/stat inheritance and current executable are not simulated."
+  ],
+  "limits": [
+    "Only ordinary single-bow/player/physical-skill cases are exercised. Source monster/hireling/origin/throwing/half-two-hand, elemental skill and immunity-bypass/nested type branches are compiled but not certified by this matrix.",
+    "Sanctuary material/potion additions and current ranged Enchant/aura rules need separate native consumer checks; they are not supplied as invented D2 source stats."
+  ]
+}

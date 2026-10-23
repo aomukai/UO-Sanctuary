@@ -64,6 +64,7 @@ def check():
         shutil.copy2(STAGE / 'bow-projectile-source-probe.json', folder / 'bow-projectile-source-probe.json')
         shutil.copy2(STAGE / 'weapon-missile-impact-probe.json', folder / 'weapon-missile-impact-probe.json')
         shutil.copy2(STAGE / 'magic-arrow-source-probe.json', folder / 'magic-arrow-source-probe.json')
+        shutil.copy2(STAGE / 'bow-launch-source-probe.json', folder / 'bow-launch-source-probe.json')
         shutil.copy2(STAGE / 'amazon-penetrate-source-probe.json', folder / 'amazon-penetrate-source-probe.json')
         shutil.copy2(STAGE / 'amazon-pierce-source-probe.json', folder / 'amazon-pierce-source-probe.json')
         shutil.copy2(STAGE / 'weapon-leech-source-probe.json', folder / 'weapon-leech-source-probe.json')
@@ -106,6 +107,9 @@ def check():
                     session.send(flight)
                     assert session.expect(flight+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
                     assert session.expect(r'weapon-flight-result: (passed|failed)',timeout=8).group(1) == 'passed', logpath.read_text()[-6000:]
+                    bow_launch='bow-launch-check' if boot==0 else 'bow-launch-reload-check'
+                    session.send(bow_launch)
+                    assert session.expect(bow_launch+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     leech='weapon-leech-check' if boot==0 else 'weapon-leech-reload-check'
                     session.send(leech)
                     assert session.expect(leech+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

@@ -15,6 +15,9 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     // Optional saved field: old player/NPC flights retain zero conversion.
     // Magic Arrow's DmgCalc is captured by its eventual launch consumer.
     public int PhysicalToMagicPercent{get;init;}
+    // Existing Sanctuary material/potion physical additions are separate from
+    // the source weapon endpoints, so victim-specific ED cannot multiply them.
+    public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
     internal static (int Physical256,int Magic256) ConvertPhysical(int physical256,int percent)
     {
         if(percent<=0){return(physical256,0);}
@@ -34,7 +37,9 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     {
         int physical=RollValue(Min256,Max256,0,random);
         int percent=Math.Max(-90,Percent+(demon?DemonPercent:0)+(undead?UndeadPercent:0));
-        if(hasTarget){physical+=(int)((long)physical*percent/100);}if(Critical){physical*=2;}
+        if(hasTarget){physical+=(int)((long)physical*percent/100);}
+        if(PhysicalSupplement is{} supplement){physical+=supplement.Roll(random);}
+        if(Critical){physical*=2;}
         var e=Elements;
         int fire=RollValue(e.FireMin,e.FireMax,FireMastery,random),magic=RollValue(e.MagicMin,e.MagicMax,MagicMastery,random);
         int lightning=RollValue(e.LightningMin,e.LightningMax,LightningMastery,random),cold=RollValue(e.ColdMin,e.ColdMax,ColdMastery,random);
@@ -241,7 +246,7 @@ public static class WeaponMissiles
             if(flight.Id<=0 || flight.Cast<=0 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null
                 || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
                     || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
-                    || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
+                    || flight.Damage.PhysicalSupplement!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
                     || flight.Damage.Elements.LightningMin!=0 || flight.Damage.Elements.LightningMax!=0 || flight.Damage.Elements.MagicMin!=0 || flight.Damage.Elements.MagicMax!=0
                     || flight.Damage.Elements.PoisonMin!=0 || flight.Damage.Elements.PoisonMax!=0 || flight.Damage.Elements.BurnMin!=0 || flight.Damage.Elements.BurnMax!=0))
             {throw new InvalidDataException("Invalid saved weapon missile");}

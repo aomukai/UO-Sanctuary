@@ -53,21 +53,18 @@ public static class GemCombat
     }
     internal static (double Total, int Duration) Poison(Item host, double material)
         => PoisonCombined(host, material, default);
+    internal static System.Collections.Generic.IEnumerable<GemEffect> PoisonSources(Item host)
+    {
+        if(host==null || ClassGear.Broken(host) || ClassGear.State(host) is not{Identified:true} state){yield break;}
+        foreach(var gem in state.Gems)
+        {foreach(var effect in GemSockets.Effects(host,gem)){if(effect.Code=="poison-damage" && effect.DurationMs>0){yield return effect;}}}
+    }
     internal static (double Total, int Duration) PoisonCombined(Item host, double material, (double Rate, int Length, int Count) named)
     {
         double rate = material / 3000.0 + named.Rate;
         int length = (material > 0 ? 3000 : 0) + named.Length, count = (material > 0 ? 1 : 0) + named.Count;
-        if (host != null && !ClassGear.Broken(host) && ClassGear.State(host) is { Identified: true } state)
-        {
-            foreach (var gem in state.Gems)
-            {
-                foreach (var e in GemSockets.Effects(host, gem))
-                {
-                    if (e.Code == "poison-damage" && e.DurationMs > 0)
-                    { rate += e.Minimum / (double)e.DurationMs; length += e.DurationMs; count++; }
-                }
-            }
-        }
+        foreach(var e in PoisonSources(host))
+        {rate+=e.Minimum/(double)e.DurationMs;length+=e.DurationMs;count++;}
         int duration = count == 0 ? 3000 : length / count;
         return (rate * duration, duration);
     }

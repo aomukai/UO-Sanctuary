@@ -295,7 +295,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Saved projectile component uses identified UO0xF42 logical trail. Full cast consumer and final SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending; talent/hotkey icons remain separate"
   },
   {
     "talentId": "amazon.firearrow",

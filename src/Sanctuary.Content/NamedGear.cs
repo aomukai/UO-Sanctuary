@@ -300,22 +300,31 @@ public static class NamedGear
         { if (value.Property.Code is "dmg-cold" or "dmg-elem") { frames += NamedPropertyRuntime.Parameter(value.Property); } }
         return Math.Max(0, frames) * 40;
     }
-    public static (double Rate, int Length, int Count) Poison(PlayerMobile player, double roll)
+    internal readonly record struct PoisonContribution(int Minimum,int Maximum,int Frames,bool StatAggregate=false)
     {
-        int length = 0, count = 0; double rate = 0;
+        internal double Value(double roll)=>StatAggregate?Minimum*(1-roll)+Maximum*roll:Minimum+(Maximum-Minimum)*roll;
+    }
+    internal static IEnumerable<PoisonContribution> PoisonSources(PlayerMobile player)
+    {
         foreach (var value in ActiveProperties(player))
         {
             if (value.Property.Code != "dmg-pois") { continue; }
-            int duration = NamedPropertyRuntime.Parameter(value.Property) * 40;
-            if (duration > 0)
-            { rate += (value.Roll.Value + (value.Roll.Maximum - value.Roll.Value) * roll) / 10240.0; length += duration; count++; }
+            int sourceFrames=NamedPropertyRuntime.Parameter(value.Property);
+            if(sourceFrames>0){yield return new(value.Roll.Value,value.Roll.Maximum,sourceFrames);}
         }
         int frames = ClassGear.Bonus(player, "pois-len");
         if (frames > 0)
         {
-            rate += (ClassGear.Bonus(player, "pois-min") * (1 - roll) + ClassGear.Bonus(player, "pois-max") * roll) / 10240.0;
-            length += frames * 40; count++;
+            yield return new(ClassGear.Bonus(player,"pois-min"),ClassGear.Bonus(player,"pois-max"),frames,true);
         }
+    }
+    public static (double Rate, int Length, int Count) Poison(PlayerMobile player, double roll)
+    {
+        int length=0,count=0;double rate=0;
+        // Preserve the ordinary hit reader's units, operation order and weighted
+        // stat-aggregate interpolation while exposing raw rates to missiles.
+        foreach(var source in PoisonSources(player))
+        {rate+=source.Value(roll)/10240.0;length+=source.Frames*40;count++;}
         return (rate, length, count);
     }
     public static void Properties(Item item, GearState state, IPropertyList list)
