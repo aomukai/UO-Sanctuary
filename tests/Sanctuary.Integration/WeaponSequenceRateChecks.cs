@@ -35,7 +35,7 @@ public static class WeaponSequenceRateChecks
             && CombatTiming.Calculate(DiabloClass.Barbarian,CombatAbility.DoubleThrow,new(AttackFamily.Throw,0))==new ActionTiming(18,8),"Real sequence dispatch skipped adjustment");
         Require(CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.PowerStrike,new(AttackFamily.Thrust,0))==new ActionTiming(13,7)
             && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.ChargedStrike,new(AttackFamily.TwoHandedThrust,0))==new ActionTiming(16,9),"Ordinary A1 acquired sequence penalty");
-        Require(CombatTiming.SequenceRateAdjustment(CombatAbility.Impale)==0 && !AmazonCombat.Implemented(CombatAbility.Impale),"Impale speed preparation enabled unfinished handler");
-        Log.Information("Weapon sequence rate:288 native engine rows and96 original modern skill-layer rows passed; Impale metadata preparation only");
+        Require(CombatTiming.SequenceRateAdjustment(CombatAbility.Impale)==0 && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Impale,new(AttackFamily.Thrust,0))==new ActionTiming(21,13) && CombatTiming.Calculate(DiabloClass.Amazon,CombatAbility.Impale,new(AttackFamily.TwoHandedThrust,0))==new ActionTiming(24,15),"Impale additive speed layer or SQ8 dispatch");
+        Log.Information("Weapon sequence rate:288 native engine rows and96 original modern skill-layer rows passed; Impale SQ8 speed dispatch included");
     }
 }

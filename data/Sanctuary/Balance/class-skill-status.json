@@ -53,10 +53,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 19,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Paid uninterruptible SQ8 spear/javelin attack always passes AR, prepares source calc1 physical without ordinary critical or late victim-species ED, pays3mana once, and applies independent last-writer12-second slow before melee commit. Source start7 special wear and subsequent ordinary hit wear remain distinct; source quantity helper resets durability even at last quantity0 and committed own-depletion does not erase the prepared strike. Existing weapon/item/resource consumers and saved velocity/attack/other fields are reused. Native schedules/wear/gear/locks/depletion/slow/reload verification recorded separately. Other-animation adapters, modern no-critical/species-ED/owner/client/stat/RNG/geometry/break/max-mana edge parity remain explicit acceptance work; no class certificate."
     },
     {
       "talentId": "amazon.lightningbolt",

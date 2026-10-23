@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "source": "User firsthand Impale tooltip reading from pinned Reign of the Warlock installation.",
+  "verbatim": "rank 1 impale shows damage +300%, slows enemies 11%, chance of losing durability 46%",
+  "observation": {
+    "effectiveRank": 1,
+    "damagePercent": 300,
+    "slowPercent": 11,
+    "durabilityLossChancePercent": 46
+  },
+  "agreement": "All three displayed rank1 values agree with pinned calc1=ln12, -aurastatcalc1=dm78 and calc2=par6-dm34 through current SkillValues.",
+  "scope": "Tooltip corroboration only; hard rank, mana, actual hit/critical/special wear/slow timing, sequence and modern engine/owner/client acceptance are not inferred.",
+  "relatedEvidence": [
+    "tools/reference/impale-preflight.json",
+    "tools/reference/impale-engine-evidence.json"
+  ]
+}

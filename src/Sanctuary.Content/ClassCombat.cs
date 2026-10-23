@@ -31,6 +31,7 @@ public static class ClassCombat
         internal BarbarianMelee.Prepared BarbarianAttack;
         internal BarbarianDoubleThrow.Series DoubleThrow;
         internal AmazonJab.Series Jab;
+        internal AmazonImpale.Attack Impale;
         internal AmazonMelee.Prepared AmazonAttack;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
@@ -83,7 +84,7 @@ public static class ClassCombat
         ClassCombatHooks.AttackRequested = (from, target) => Begin(from, target);
         ClassCombatHooks.Moved = ClassMovement.Moved;
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
-            || !HitRecovery.Active(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
+            || !HitRecovery.Active(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
             ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
         ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
@@ -207,10 +208,11 @@ public static class ClassCombat
     }
     public static void Stop(PlayerMobile from)
     {
-        if(AmazonJab.Locked(from,Core.TickCount) || PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
+        if(AmazonImpale.Locked(from,Core.TickCount) || AmazonJab.Locked(from,Core.TickCount) || PaladinZeal.Locked(from,Core.TickCount) || PaladinCharge.Locked(from,Core.TickCount) || BarbarianConcentrate.Locked(from,Core.TickCount) || BarbarianLeap.Locked(from) || BarbarianWhirlwind.Locked(from)){For(from).Target=Serial.Zero;ReleaseCast(from);return;}
         BarbarianConcentrate.Cancel(from);
         BarbarianDoubleThrow.Cancel(from);
         AmazonJab.Cancel(from);
+        AmazonImpale.Cancel(from);
         AmazonMelee.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         PaladinCharge.Cancel(from);
@@ -256,7 +258,7 @@ public static class ClassCombat
         {
             // Ground FoH has already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(!AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Impale && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -451,6 +453,7 @@ public static class ClassCombat
     {
         if(BarbarianLeap.State(from)!=null || BarbarianWhirlwind.State(from)!=null){return false;}
         if(For(from).Jab!=null){return AmazonJab.Resolve(from,now);}
+        if(For(from).Impale!=null){return AmazonImpale.Resolve(from,now);}
         if(For(from).DoubleThrow!=null){return BarbarianDoubleThrow.Resolve(from,now);}
         var session = For(from);
         if(session.Charge!=null){return PaladinCharge.Resolve(from,now);}

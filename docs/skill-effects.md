@@ -255,6 +255,8 @@ Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x37
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
 
+Impale uses native thrust/weapon pose and sound0x238 plus contact/slow0x374A hue0x480 as identified placeholders. Final thrust, impact/slow presentation and its talent/hotkey icon remain separately pending.
+
 Charged Strike uses native weapon pose/sound0x238, lightning-contact0x374A hue0x481 and travelling bolt0x3818 hue0x482 as identified placeholders. Final spear lightning, ground bolts/contact and talent/hotkey icon remain separately pending.
 
 Power Strike uses native weapon pose/sound0x238 and lightning-contact0x374A hue0x481 as identified placeholders. Final weapon lightning/contact effects and its talent/hotkey icon remain separately pending.

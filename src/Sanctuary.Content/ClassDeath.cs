@@ -28,6 +28,8 @@ public static class ClassDeath
         NecromancerEffects.Profiles.Clear(player);
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
+        AmazonImpale.Cancel(player);
+        ImpaleSlow.Clear(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

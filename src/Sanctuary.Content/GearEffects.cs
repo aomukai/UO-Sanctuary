@@ -50,9 +50,9 @@ public static class GearEffects
     public static int ChillPercent(Mobile mobile, long now) => Math.Max(mobile is PlayerMobile player
         && ClassGear.Bonus(player, "nofreeze") > 0 ? 0 : TimedEffects.Chill(mobile, TimedEffects.TimeAt(now)), EliteAuras.Slow(mobile));
     public static int MovementSlow(Mobile mobile) => Math.Clamp(ChillPercent(mobile)
-        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.VelocitySlow(mobile), 0, 75);
+        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.VelocitySlow(mobile) + ImpaleSlow.Velocity(mobile), 0, 75);
     public static int AttackSlow(Mobile mobile) => Math.Clamp(ChillPercent(mobile)
-        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile), 0, 85);
+        + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile), 0, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {
         if (target.Deleted || !target.Alive || NamedElements.Resistance(attacker, target, "cold", target.ColdResistance) >= 100) { return false; }

@@ -1,0 +1,99 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "status": "Reviewed source preparation only. No native Fend handler or new Fend compiled-comparison claim.",
+  "sourceId": 30,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "reviewedOnlyRoutineHashes": {
+    "SKILLS_SrvSt09_Fend": "fbaf1c166cec4f46a1b3993433b0bbb0abd2c960b34205ea6b5d89295ecbf050",
+    "SKILLS_SrvDo013_Fend_Zeal_Fury": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4",
+    "sub_6FD10790": "29539876b0324726026313fb4afcc4dd3ff2ef266b121f07308b7b087ac6f658",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD15080": "e0ca12e42f1522440648499323acb2e62688a7bbe5b81bffc7f3609fbbe45eab",
+    "sub_6FD15460": "31c619f497f24208cbb772d0d808a93dd5b32c03fc7b93aaf1791903ca7efde2",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBCFD0": "6e34a5bec62fd09f82b009d25b08105f844e78f121c6fe9ed8114471a522e5e6"
+  },
+  "modernFields": {
+    "skill": "Fend",
+    "charclass": "ama",
+    "skilldesc": "fend",
+    "srvstfunc": 9,
+    "srvdofunc": 13,
+    "stsoundclass": "amazon_jab_1",
+    "stsounddelay": 1,
+    "cltstfunc": 14,
+    "cltdofunc": 21,
+    "enhanceable": 1,
+    "attackrank": 0,
+    "range": "h2h",
+    "itypea1": "spea",
+    "anim": "A1",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 9,
+    "durability": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 24,
+    "maxlvl": 20,
+    "reqskill1": "Impale",
+    "leftskill": 1,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 5,
+    "lvlmana": 0,
+    "calc1": 12,
+    "calc2": "ln34",
+    "calc4": 0,
+    "Param1": 1,
+    "Param2": 30,
+    "Param3": 70,
+    "Param4": 10,
+    "InGame": 1,
+    "ToHit": 40,
+    "LevToHit": 10,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 768,
+    "cost add": 32000
+  },
+  "modernPrimary": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4 increases Fend speed100percent by reducing rollback frames between attacks; current Param2=30 and original current-family calculator rbf returns30. Do not model this as a global doubled final attack rate."
+  },
+  "reviewed": [
+    "Current row anim=A1 and seqnum9; populated sequence number alone does not activate sequence mode. Unlike Jab/Impale, this is ordinary A1 rollback with no player SQ-30 rate penalty.",
+    "Start9 counts eligible nearby units and clamps count to calc1=12, storing initial target kind/identity. Empty search writes count0 and returns1. Used-skill/table failures return0.",
+    "Generic do13 revalidates stored target at each strike, searches if absent/outside melee range, prepares ordinary AR and calc2 ED70+10*(rank-1), allocates SrcDam128 then drains ordinary durability, decrements remaining, cyclically selects next target and requests Param2 rollback.",
+    "Existing Zeal source probe already compiles identical do13, cyclic selector and rollback scheduler for Paladin A1; reuse bodies and extend distinct Fend count, Amazon AnimData and rollback30 rather than duplicating unverified timing."
+  ],
+  "reuseEvidence": [
+    "tools/reference/zeal-engine-evidence.json",
+    "tools/reference/weapon-sequence-rate-evidence.json",
+    "tools/reference/impale-native-evidence.json"
+  ],
+  "nextActions": [
+    "Compile start9 including target count helper and do13 branches. Validate actual ordinary Amazon A1 1HT/2HT animation data and rollback30 with unchanged scheduler at declared rates/counts. Extend modern original-author calculator comparison as supplementary evidence.",
+    "Integrate existing prepared packet/scoped javelin/ordinary critical/AR/wear/mana and native sequence lifecycle without copying Jab fixed three-hit scheduling or Impale special wear/always-hit lock.",
+    "Verify count/retargeting/moving-dead-target/mana fallback/actual gear/input/cancellation/save lifecycle in native disposable world. Flag count eligibility, geometry, D/A/E/current client/outer mode gaps."
+  ],
+  "uncertain": [
+    "Exact current target eligibility/order/scan geometry and count including selected target require compiled count/query and native comparison.",
+    "First/subsequent event/rollback and final recovery precision, Amazon frame bonus, moving-target and dodge/avoidance fixes require modern corroboration.",
+    "Full stat/event/RNG/owner/client and source-to-native scale remain explicit acceptance work."
+  ],
+  "assets": {
+    "effects": "Use clearly identified existing native melee placeholders when enabled; final effect recorded separately.",
+    "icons": "Separate talent/hotkey icon pending."
+  }
+}

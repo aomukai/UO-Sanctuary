@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Source preparation passes16 unchanged start guards,2592 special-wear and12 SQ8 schedules. Speed layer established by288 engine/96 original modern rows and verified shared sequence fix, now installed in119-handler build. Native Impale handler still pending.",
+  "status": "Impale now implemented:12 native SQ8 schedules,864 applicable special-wear comparisons and20 rank goldens pass. Source16 start guards/2592 wear/32 target-state cases remain separately bounded. Focused and final combined3boots/2reloads,70 Python tests and462 named/15 first-loop current fingerprints pass. Matching120-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped, client unchanged, existing saves retained. No class certificate.",
   "sourceId": 19,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
@@ -93,14 +93,13 @@
     "Reviewed SUNITDMG_DrainItemDurability still calls ordinary ITEMS_UpdateDurability on a successful melee commit after start7 special wear. Impale therefore has two distinct wear opportunities; do not replace either with the other. ITEMS_HasDurability explicitly rejects indestructible items."
   ],
   "uncertain": [
-    "Compile whole unchanged start7 and event consumers to establish special wear/allocation/event order and failure paths.",
-    "Modern always-hit/uninterruptibility/target slow require dedicated native consumers; current additive30 speed layer is now corroborated separately. Full block/avoidance, source-mode and current executable paths remain open.",
-    "Sequence family/length and additive speed layer are corroborated by original current-family calculator source. Compile exact SQ8 attack/end event schedule and integrate source frame-bonus/native gear/IAS/WSM controls."
+    "Exact current executable physical/no-critical/late species-ED behavior, block/avoidance, current wear RNG and start-break stat/selection/client transitions remain uninstrumented.",
+    "Other-animation slow field is saved/exposed but native nonattack animation adapters remain unsupported. Full player/PvP/special modes and shared slow-cap parity remain open.",
+    "Literal supplementary do2 applies target state before drain range failure. Native implementation retains this order; current outer player dispatcher/cancel/range behavior still needs executable corroboration.",
+    "Full current attack animation/frame bonus, IAS/WSM, input/owner/client acceptance and rare break-induced maximum-mana clipping remain separate."
   ],
   "nextActions": [
-    "Implement current always-hit/uninterruptible paid Impale using compiled21/event13 or24/event15 SQ8 schedules and established sequence-30+Param9 speed layer. Keep ordinary low-mana fallback interruptible and unenhanced.",
-    "Retain start7 precomputed physical/no ordinary critical/species-ED convention explicitly; integrate special start wear plus ordinary successful-hit wear and cover break/last-stack allocation transitions without silently discarding a paid prepared hit.",
-    "Apply independent300-frame last-writer target slow before melee commit, using separate velocity/attack/other fields. Reuse saved slow consumers; flag unadapted other-animation/PvP/special modes. Verify native resources/gear/interruptions/snapshots/wear/state and two reloads."
+    "Continue Fend source/native mechanics from tools/reference/fend-preflight.json. Preserve independent modern Impale acceptance gaps."
   ],
   "assets": {
     "effects": "Keep native thrust/sound and target slow presentation clearly identified when enabled; final effects remain separately pending.",
@@ -114,7 +113,7 @@
         13
       ],
       "sha256": "848e0b6e1f5bf63acbf266bf19863863374e57487be9ff01410e2aff06414300",
-      "scope": "Reviewed static sequence only; unchanged scheduler compilation and current speed layer remain next work."
+      "scope": "Unchanged source selector/scheduler compiled; native timing compared against twelve declared-rate SQ8 cases. Full current frame/IAS/input/client parity remains open."
     },
     "2HT": {
       "symbol": "gPlayerSequenceImpale_1HS",
@@ -123,10 +122,12 @@
         15
       ],
       "sha256": "0227b5c1b007ed2299f842c8b40482946a6461d1cd26c6ce5eac787a70f8e468",
-      "scope": "Reviewed static sequence only; unchanged scheduler compilation and current speed layer remain next work."
+      "scope": "Unchanged source selector/scheduler compiled; native timing compared against twelve declared-rate SQ8 cases. Full current frame/IAS/input/client parity remains open."
     }
   },
   "speedEvidence": "tools/reference/weapon-sequence-rate-evidence.json",
   "speedRule": "Player attack sequence mode subtracts30 from the additive attack-rate layer before15..175 clamp. Current Impale Param9 adds30 in that same layer, cancelling the penalty. Do not multiply final rounded duration or final clamped speed. Original author current-family getSequence confirms1HT21/2HT24.",
-  "compiledEvidence": "tools/reference/impale-engine-evidence.json"
+  "compiledEvidence": "tools/reference/impale-engine-evidence.json",
+  "nativeEvidence": "tools/reference/impale-native-evidence.json",
+  "currentTooltip": "tools/reference/impale-current-tooltip.json"
 }

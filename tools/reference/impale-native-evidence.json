@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Impale now implemented:12 native SQ8 schedules,864 applicable special-wear comparisons and20 rank goldens pass. Source16 start guards/2592 wear/32 target-state cases remain separately bounded. Focused and final combined3boots/2reloads,70 Python tests and462 named/15 first-loop current fingerprints pass. Matching120-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped, client unchanged, existing saves retained. No class certificate.",
+  "handlerCount": 120,
+  "classHandlerCount": 8,
+  "sourceEvidence": "tools/reference/impale-engine-evidence.json",
+  "currentTooltip": "tools/reference/impale-current-tooltip.json",
+  "sourceProbe": {
+    "compiledStartGuards": 16,
+    "compiledSpecialWearCases": 2592,
+    "compiledTargetStateCases": 32,
+    "compiledSQ8Schedules": 12,
+    "nativeApplicableWearComparisons": 864,
+    "nativeSQ8Comparisons": 12,
+    "nativeRankGoldens": 20
+  },
+  "verified": [
+    "Left/right/quick native APIs and bindings, learned/identified spear/javelin/town gates; paid always-hit skips ordinary AR, once-only three-mana start debit, no early or duplicate release. Low-mana ordinary hit/miss fallback retains normal damage/timing and no slow or special wear.",
+    "Paid SQ8 remains locked through recovery: voluntary movement, Stop and hit-recovery cannot interrupt; accepted external steps, weapon removal, target loss, death and respec invalidate appropriately. Original target is not redirected to neighbours.",
+    "Unchanged SQ8 selector/scheduler matches twelve native schedules. Twenty rank goldens validate damage, duration and slow; 864 actual native Steelpillar indestructible/Spear/Titan wear cases compare against the applicable subset of 2592 source cases.",
+    "Physical packet is prepared before special start wear, with flag1 convention excluding ordinary Critical/Deadly and later species ED; weapon elements are collected after wear. Actual Titan/Tarnhelm/Highlord/Ghoulhide gear, hard20 Critical Strike and forced effect rolls exercise the prepared packet; later gear/resistance changes do not reroll it.",
+    "Separate special start wear and ordinary successful-hit wear both execute. Source helper resets stack durability even on last quantity0. Broken but still equipped original item or last javelin does not erase an already-paid hit; future attacks require an active usable weapon.",
+    "Independent target slow lasts300 frames, saves separate velocity/attack/other fields and feeds existing movement/attack pools. Cold immunity does not suppress this noncold state. Weaker/different-caster recast replaces; caster deletion does not erase; Decrepify coexists. Literal do2 slow precedes separate failed-range damage.",
+    "Natural scheduled slow expiry preserves independent curse. Two actual reloads retain gear, bindings, effective rank, fractional resources/target life, quantity/durability and exact held slow state; pending paid attack is transient and never replays. Fresh post-load Impale works."
+  ],
+  "fixtureAndFailureNotes": [
+    "Initial fixture used display name Steel Pillar instead of source key Steelpillar; corrected the lookup, not runtime behavior. Log .local/class-skills/impale-focused-failed-sourcekey.log.",
+    "Laying of Hands is correctly gated by unsupported hit-skill/set dependencies. Fixture now uses available actual Ghoulhide; no item acquisition gate was relaxed. Log .local/class-skills/impale-focused-failed-gatedset.log.",
+    "Fixture actors alone have hourly constructor/load regeneration and frozen/stopped AI. Saved slow inspection deadline alone holds ten minutes after separate300-frame formula and natural timed-expiry checks; production duration remains twelve seconds.",
+    "Source probes isolate services explicitly: sentinel physical1000+ED, declared hit/reach/formulas, world/inventory/stat-transfer/event/client graph. Native864 wear cases and12 schedules are not represented as complete2592/32 current executable comparisons."
+  ],
+  "limits": [
+    "Exact current executable physical/no-critical/late species-ED behavior, block/avoidance, current wear RNG and start-break stat/selection/client transitions remain uninstrumented.",
+    "Other-animation slow field is saved/exposed but native nonattack animation adapters remain unsupported. Full player/PvP/special modes and shared slow-cap parity remain open.",
+    "Literal supplementary do2 applies target state before drain range failure. Native implementation retains this order; current outer player dispatcher/cancel/range behavior still needs executable corroboration.",
+    "Full current attack animation/frame bonus, IAS/WSM, input/owner/client acceptance and rare break-induced maximum-mana clipping remain separate.",
+    "No D2R-exact class certificate or item-skill gate. Other-animation adapters remain unsupported; existing weapon elemental/poison/retaliation/leech/CB/cap consumers retain their documented independent gaps.",
+    "Target geometry uses existing native reach/LOS/Z and hostile/town policies. Full modern subtile/target/event/RNG/owner/client semantics and weapon-break elemental/max-resource side effects require acceptance."
+  ],
+  "assets": {
+    "effects": "Native thrust/sound0x238 and contact/slow0x374A hue0x480 are identified placeholders; final effects pending separately.",
+    "icons": "Talent/hotkey icon remains pending in separate240-entry icon register."
+  },
+  "logs": {
+    "source-probe": ".local/class-skills/impale-source-probe.log",
+    "content-build": ".local/class-skills/impale-content-build.log",
+    "integration-build": ".local/class-skills/impale-integration-build.log",
+    "focused": ".local/class-skills/impale-focused.log",
+    "focused-run": ".local/class-skills/impale-focused-run.log",
+    "combined": ".local/class-skills/impale-combined.log",
+    "combined-run": ".local/class-skills/full-suite-run.log",
+    "installed-server": ".local/class-skills/impale-installed-server.log",
+    "installed-smoke": ".local/class-skills/impale-installed-smoke.log",
+    "python": ".local/class-skills/python-checks.log"
+  },
+  "next": "Fend ordinary A1/start9/do13/rollback30 source compilation and native integration; earlier source/acceptance gaps remain independent.",
+  "nextPreflight": "tools/reference/fend-preflight.json"
+}
