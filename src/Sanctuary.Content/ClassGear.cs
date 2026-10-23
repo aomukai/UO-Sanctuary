@@ -200,7 +200,7 @@ public static class ClassGear
         bool twoHanded = WeaponHands.TwoHanded(item);
         int min = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
         int max = twoHanded && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
-        if (Definition(item).Category == "Throwing" && basis.MissileMax > 0)
+        if (!WeaponHands.Melee(item) && Definition(item).Category == "Throwing" && basis.MissileMax > 0)
         {
             min = basis.MissileMin;
             max = basis.MissileMax;

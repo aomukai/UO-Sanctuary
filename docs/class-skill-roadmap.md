@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 4 / 30 | 0 | 26 | Open |
+| 5 | Amazon | 5 / 30 | 0 | 25 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -175,7 +175,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
-| Jab | 10 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Jab | 10 | handler-present | Three source-scheduled strikes share current per-event hit/critical/typed damage and item callbacks; one fractional start payment, low-mana ordinary melee fallback, spea/jave ancestry and source wear/stack depletion are implemented. Scoped javelin melee damage/effects retain ordinary throwing behavior outside the attack. Dedicated source/native timing, gear, payment, target loss, interruptions and restart checks are recorded separately. Modern exact IAS/animation/target/mode/owner/PvP/client, native reach/terrain and source RNG/format/repair integration remain acceptance work; no class certificate. |
 | Power Strike | 14 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Poison Javelin | 15 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Impale | 19 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

@@ -118,7 +118,7 @@ public static class GearEffects
         bool two = WeaponHands.TwoHanded(weapon);
         int min = two && basis.TwoHandMax > 0 ? basis.TwoHandMin : basis.MinDamage;
         int max = two && basis.TwoHandMax > 0 ? basis.TwoHandMax : basis.MaxDamage;
-        if (ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)
+        if (!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)
         { min = basis.MissileMin; max = basis.MissileMax; }
         double physicalReference = (min + (max - min) * roll) * Math.Max(10, 100 + ClassStats.PhysicalDamageBonus(player, weapon)+(skillPhysicalPercent??0)) / 10000.0;
         double reference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon) - PaladinAuras.DamagePercent(player)) / 10000.0;

@@ -16,6 +16,23 @@ public static class WeaponHands
 {
     private static readonly Dictionary<string,bool> _damage=new(StringComparer.Ordinal);
     [ThreadStatic] private static Dictionary<Serial,Scope> _current;
+    [ThreadStatic] private static MeleeScope _melee;
+    internal static bool Melee(Item item)=>item!=null && _melee?.Weapon==item;
+    internal static IDisposable UseMelee(PlayerMobile owner,BaseWeapon weapon)
+    {
+        if(weapon==null || weapon.Parent!=owner){throw new InvalidOperationException("Melee weapon must be equipped by its owner.");}
+        return _melee=new MeleeScope(weapon,_melee);
+    }
+    private sealed class MeleeScope(BaseWeapon weapon,MeleeScope prior):IDisposable
+    {
+        internal BaseWeapon Weapon=>weapon;
+        private bool _disposed;
+        public void Dispose()
+        {
+            if(_disposed){return;}if(_melee!=this){throw new InvalidOperationException("Melee weapon scopes must close in order on their thread.");}
+            _disposed=true;_melee=prior;
+        }
+    }
     internal static void Load()
     {
         _damage.Clear();foreach(var row in BalanceCatalog.Read<WeaponPropertyRule>("class-weapon-properties")){_damage.Add(row.Code,row.DamageRelated);}

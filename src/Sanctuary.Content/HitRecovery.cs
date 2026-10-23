@@ -55,6 +55,7 @@ public static class HitRecovery
         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
+        AmazonJab.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
         ClassCombat.SendState(player, session);
         ClassCombat.SendAnimation(player, 20, frames * ActionTiming.FrameMs);
@@ -85,7 +86,7 @@ public static class HitRecovery
 
     public static bool Apply(PlayerMobile player, int damage, long now)
     {
-        if(PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
+        if(AmazonJab.Locked(player,now) || PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
         {
             return false;
@@ -104,6 +105,7 @@ public static class HitRecovery
         session.PendingAbility = CombatAbility.None;
         session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
+        AmazonJab.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
         session.Animation = 20;

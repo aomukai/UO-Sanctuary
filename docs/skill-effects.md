@@ -255,4 +255,6 @@ Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x37
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
 
+Jab uses the existing native weapon animation and sound0x238 as identified placeholders. Final rapid thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.
+
 Inner Sight: native0x375A hue0x481 is the identified cast_innersight/innersight cast and repeating target-mark placeholder. Final target illumination/overlay and cast visuals remain pending; the talent/hotkey icon is recorded separately. Actual graphical/light comparison is still required.

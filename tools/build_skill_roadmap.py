@@ -14,6 +14,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'amazon.jab':'Three source-scheduled strikes share current per-event hit/critical/typed damage and item callbacks; one fractional start payment, low-mana ordinary melee fallback, spea/jave ancestry and source wear/stack depletion are implemented. Scoped javelin melee damage/effects retain ordinary throwing behavior outside the attack. Dedicated source/native timing, gear, payment, target loss, interruptions and restart checks are recorded separately. Modern exact IAS/animation/target/mode/owner/PvP/client, native reach/terrain and source RNG/format/repair integration remain acceptance work; no class certificate.',
     'amazon.innersight':'Right-slot/hotkey/self-centered SC cast, once-only five-mana release payment, pinned flat defense curve before percentages, independent timed state and source rank-priority refresh are implemented. Compiled state/defense/radius evidence and dedicated native input, real Tarnhelm, curse/Attract coexistence, actual obstructed LOS, natural expiry and retained/expired reload checks are recorded separately. Pinned27-subtile radius takes precedence over the older guide; modern last-caster-versus-rank-priority conflict, full stat/filter/owner/PvP/client/lighting parity and unmapped native species remain explicit acceptance work. Native encounter eligibility is a documented adapter; no class certificate.',
     'necromancer.lifetap':'Shared fractional defender event uses mitigated physical before ordinary leech victim-life clipping, independently of monster drain/difficulty and outer attacker-event suppression. Existing curse/rank/deadline and fractional-health persistence are reused. Dedicated source/native melee, Smite, AOS, travelling missile, real soft-rank gear, natural expiry and reload checks are recorded separately. Modern full event/retaliation/absorb/caster context, PvP/special modes, owner lifecycle and actual-client parity remain acceptance work; no completion certificate.',
     'amazon.pierce':'Effective learned skill chance adds to item pierce through the existing shared launch-budget and live missile-eligibility consumers. Source bounded preroll remains capped at4 continuations; no impact-time chance reroll. Bow removal does not erase the global passive. Source/native rank/real Razortail/flight/respec/history/reload checks are recorded separately. No active effect/hotkey; talent icon pending. Exact modern seed/order/flags, old immediate-ray launch migration and full owner/client parity remain open.',
@@ -116,6 +117,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'amazon.jab',
     'amazon.innersight',
     'amazon.pierce',
     'amazon.penetrate',
@@ -249,6 +251,7 @@ def assets(kind):
         lines += ['', 'Shared weapon leech: life/mana overlays151/152 still need final recovery effects. Native0x376A with life hue0x26 or mana hue0x489 is an identified placeholder. No separate talent/hotkey icon is required for this shared item effect; each actual skill retains its own icon row.']
         lines += ['', 'Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.']
         lines += ['', 'Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.']
+        lines += ['', 'Jab uses the existing native weapon animation and sound0x238 as identified placeholders. Final rapid thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.']
         lines += ['', 'Inner Sight: native0x375A hue0x481 is the identified cast_innersight/innersight cast and repeating target-mark placeholder. Final target illumination/overlay and cast visuals remain pending; the talent/hotkey icon is recorded separately. Actual graphical/light comparison is still required.']
     return '\n'.join(lines)+'\n'
 

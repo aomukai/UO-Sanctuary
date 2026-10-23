@@ -20,10 +20,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 10,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Three source-scheduled strikes share current per-event hit/critical/typed damage and item callbacks; one fractional start payment, low-mana ordinary melee fallback, spea/jave ancestry and source wear/stack depletion are implemented. Scoped javelin melee damage/effects retain ordinary throwing behavior outside the attack. Dedicated source/native timing, gear, payment, target loss, interruptions and restart checks are recorded separately. Modern exact IAS/animation/target/mode/owner/PvP/client, native reach/terrain and source RNG/format/repair integration remain acceptance work; no class certificate."
     },
     {
       "talentId": "amazon.powerstrike",

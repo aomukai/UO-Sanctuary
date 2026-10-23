@@ -1,0 +1,84 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Jab:288 compiled start/strike,12 source schedule/216 wear rows and native12 schedule/72 applicable wear/20 rank goldens pass. Initial focused3boots/2reloads and final corrected combined3boots/2reloads pass, including actual Spear/Titan/Tarnhelm/Goblin Toe, melee critical/CB/Life Tap/leech, cancellation and saved transient-session exclusion.70 Python tests and458 named/15 first-loop fingerprints pass. Matching117-handler content/data installed; existing-world load/listen/shutdown0 passes. Server stopped; client unchanged, saves retained. No full class certificate.",
+  "handlerCount": 117,
+  "classHandlerCount": 5,
+  "sourceEvidence": "tools/reference/jab-engine-evidence.json",
+  "currentTargetingEvidence": "tools/reference/jab-current-targeting.json",
+  "sourceProbe": {
+    "startStrikeRows": 288,
+    "sourceSchedules": 12,
+    "sourceWearRows": 216,
+    "nativeSchedules": 12,
+    "nativeApplicableWearRows": 72,
+    "rankGoldens": 20
+  },
+  "verified": [
+    "Accepted native left/right/quick metadata and ContinueAttack/ContinueCast/Perform APIs. One fractional payment at successful start; no debit on three individual strike events. Real Tarnhelm/Titan soft ranks use current rank at later do-events.",
+    "Both source 1HT/2HT selectors and three distinct strike deadlines, early/duplicate rejection, independent per-strike hit roll, misses and all overdue events once. Attack-rate and FCR calculations remain separate.",
+    "Successful series suppress ordinary hit recovery and voluntary movement; releasing/Stop input does not erase the paid sequence. External accepted movement, incapacitation, death, weapon change and respec cancel remaining strikes without a refund.",
+    "Current target retained; dead target never redirects to another nearby monster. Out-of-range event misses; the same target can return for a later scheduled event. User reports wait for the next swing, with exact animation boundary explicitly unmeasured.",
+    "Actual converted Spear and actual Titan javelin: spea/jave ancestry, source weapon sequence and javelin melee endpoints/effects. Scoped mode restores ordinary thrown damage/ranged classification immediately afterward. Throw reach does not leak into Jab.",
+    "Source wear4% ordinary/10% throwable, no maximum-durability loss, quantity/reset and final-member depletion agree across72 applicable compiled differential rows. Indestructible/zero-durability guards are present; broader repair/event/format/RNG acceptance remains open.",
+    "Low-mana AttackNoMana path becomes one ordinary melee attempt without Jab AR/ED, mana payment or the uninterruptible three-strike series. Existing binding/held intent remains Jab.",
+    "Actual trained Critical Strike, real Goblin Toe, Titan leech and independent Life Tap curse reach the Jab hit: critical physical damage, melee quarter-life Crushing Blow then typed damage, Life Tap then ordinary leech exactly once.",
+    "Town rejects without charging. Existing history policy rejects active/equipped switches; valid idle/unequipped history exit removes Jab and returning restores it. Respec/death cancel pending events.",
+    "Actual native weapon/mana/health/durability/quantity and binding survive two reloads. In-progress transient attack sessions are intentionally absent on load, so unpaid or remaining strikes cannot replay. Fresh post-load casts work.",
+    "Jab has a dedicated sequence resolver; the single-cast Amazon release dispatcher explicitly permits only Inner Sight. A regression learns both skills and confirms a Jab release cannot spend Inner Sight mana."
+  ],
+  "fixtureCorrections": [
+    "Initial actor anchor was in unsuitable native terrain; switched only the disposable fixture to the established independent2300/1100 placement helper.",
+    "Binding check initially ran after all fixture weapons were backpacked; restored the actual spear before assigning the weapon-dependent skill.",
+    "History fixture initially expected an equipped pending attack to bypass existing history policy. It now asserts that rejection, then tests legitimate idle/unequipped transitions. Production history rules unchanged.",
+    "Review found and fixed an Amazon release fallthrough to Inner Sight. The first combined run was deliberately interrupted with SIGINT, allowing runner cleanup, before rebuilding and starting the corrected complete regression. Interrupted log retained; no failed/aborted run claimed as passing."
+  ],
+  "fixtureScope": [
+    "Disposable three-boot worlds; actual native items and existing class/profile/stat/combat consumers. Actor regeneration is held hourly from construction/load; target AI is frozen/stopped.",
+    "Manual native input/action deadlines isolate scheduler/damage/resource behavior. No actual graphical client/animation frame acceptance is claimed.",
+    "An interrupted transient sequence is saved after its first manually resolved hit. Native session state is not serialized; two real reloads assert unchanged saved resources/target health, no resumed sequence and working fresh casts."
+  ],
+  "limits": [
+    "No full modern executable or class completion certificate. Older compiled functions and official legacy guide support the bounded implementation; payment wrappers are reviewed/hashed, not compiled in the source fixture.",
+    "Exact current IAS/WSM/Fanaticism/chill/animation/frame bonus, fresh target acquisition and target-death boundary require current executable/client acceptance. User report is firsthand and uninstrumented.",
+    "Native melee reach, LOS/height/body size/room/terrain projection is provisional; converted throwing bases are limited to one native melee tile using the existing Smite-style adapter.",
+    "Full durability source seed/RNG, item-format/ethereal/repair/replenishment/network integration and cross-skill migration remain acceptance work. This handler uses bounded expansion source wear instead of the old native WearOnHit probability.",
+    "Existing shared physical/stat/material/poison/event/avoidance/block/ordinary-leech precision, special owner/PvP/item/proc/charged/foreign-class paths remain separately uncertified. Jab consumes those established services; this batch does not silently certify all of them.",
+    "Source input SearchEnemyXY/KeepCursorStateOnKill whole acquisition/repetition and actual held network/graphical interaction remain acceptance work; future approved targeting/controls pass is still separate.",
+    "No item-skill gate, unrelated source curve or save format is cleared/changed. Modern Multiple Shot calc5 and full launch/callback integration remain independently pending."
+  ],
+  "assets": {
+    "effects": "Existing native weapon pose/sound0x238 are identified placeholders; final rapid thrust/weapon contact presentation remains pending in the effect register.",
+    "icons": "Separate Jab talent/hotkey icon remains pending in the240-entry icon register."
+  },
+  "logs": {
+    "source-probe": ".local/class-skills/jab-source-probe.log",
+    "content-build": ".local/class-skills/jab-content-build.log",
+    "integration-build": ".local/class-skills/jab-integration-build.log",
+    "focused": ".local/class-skills/jab-focused.log",
+    "focused-run": ".local/class-skills/jab-focused-run.log",
+    "fixture-terrain-failure": ".local/class-skills/jab-fixture-terrain-failure.log",
+    "fixture-unarmed-binding-failure": ".local/class-skills/jab-fixture-unarmed-binding-failure.log",
+    "fixture-history-guard-failure": ".local/class-skills/jab-fixture-history-guard-failure.log",
+    "dispatch-review-interrupted": ".local/class-skills/jab-dispatch-review-interrupted.log",
+    "combined": ".local/class-skills/jab-combined.log",
+    "installed-smoke": ".local/class-skills/jab-installed-smoke.log",
+    "installed-server": ".local/class-skills/jab-installed-server.log"
+  },
+  "next": "Amazon Power Strike source and native integration review; reuse scoped javelin melee and existing elemental/weapon services. Keep modern Multiple Shot calc5 and full launch gaps independent.",
+  "verification": {
+    "focusedBoots": 3,
+    "focusedScope": "Initial handler/lifecycle run before final release-dispatch guard and pure timing regressions; final combined run includes both corrections.",
+    "finalCorrectedCombinedBoots": 3,
+    "actualReloadsPerRun": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 458,
+    "firstLoopInputHashes": 15,
+    "installedExistingWorldSmoke": "passed; listeners2593/12000, shutdown0, server stopped, saves retained",
+    "contentWarnings": 0,
+    "contentErrors": 0,
+    "integrationWarnings": 0,
+    "integrationErrors": 0,
+    "nativePatches": "unchanged63 ModernUO/36 ClassicUO; replay proof retains100/41 paths",
+    "client": "Unchanged this batch; built/installed cuo.dll byte-equal; existing latest metadata build59warnings/0errors, no graphical client run."
+  }
+}

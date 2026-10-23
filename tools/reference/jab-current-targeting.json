@@ -1,0 +1,9 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user reply in this session; user owns pinned Reign of the Warlock installation.",
+  "question": "When the target dies on the first thrust, do remaining thrusts hit another nearby monster within that same Jab sequence, or does retargeting wait for the next sequence?",
+  "verbatimAnswer": "wait for the next swing",
+  "interpretation": "In the context of the two alternatives asked, this supports retaining the original target for the current sequence and reacquiring on the next attack.",
+  "scope": "Firsthand observation, not an instrumented event/frame capture. The exact meaning/timing of the animation boundary remains an acceptance detail; no numeric delay inferred.",
+  "nativeBehavior": "A series retains its selected target. Dead/out-of-range targets cannot redirect a remaining event to a neighbour; later ordinary input can choose a new target."
+}
