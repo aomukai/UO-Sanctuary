@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "modernTableHashes": {
+    "json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "json/charstats.json": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564",
+    "json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "probe": {
+    "caseCounts": {
+      "targetCases": 6480,
+      "phaseCases": 224,
+      "velocityCases": 128
+    },
+    "totalCases": 6832,
+    "dataPath": ".local/class-skills/leap-source-probe.json",
+    "compiledRoutines": [
+      "UNITS_GetDistanceToCoordinates",
+      "SKILLS_FindLeapTargetPosition",
+      "SKILLS_SetVelocityForLeap",
+      "SKILLS_SrvDo077_Leap"
+    ],
+    "blockHashes": {
+      "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0",
+      "SKILLS_FindLeapTargetPosition": "39e5352d5431c1bed205136d7e18cca5321383301e5c53df4518ac833f647968",
+      "SKILLS_SetVelocityForLeap": "d1c7eaeb956fa3f61fd6b10f28246ac503b3f992f8d65b2998bbfe0e0281f2a8",
+      "SKILLS_SrvDo077_Leap": "cf9bc18b5790f92a3e4f71592921c35f895b32650aac98f0fec12a6cc5575743",
+      "SKILLS_SrvSt40_Leap": "1bf8f49adbf3583e2a82177d90a55e5baed29c9910e0377e6cd7731b8f739836",
+      "SKILLS_Leap": "f1e9f1e328e293db3433a9e182eaa4be35104422f191a3d77d3d6a47fd664d7a",
+      "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+      "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+      "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf"
+    },
+    "sequenceEvents": [
+      5,
+      11,
+      14
+    ],
+    "sequenceHash": "96eac86ac51e389a19fa098068e90a0569c7065eef7cace9cb33e02d88049426"
+  },
+  "established": [
+    "Destination range uses max(abs(dx),abs(dy))+min(abs(dx),abs(dy))/2 with integer truncation. Clamp requested point to aura range, then try original and two perpendicular offsets capped2 per axis. Free-position mutation is checked again for clearance, flying path and range.",
+    "do77 prioritizes moving0x100 over launch0x80. Launch configures path and flags; only successful player landing emits zero-damage result9 knockback area. Later nonmonster phase clears flags. Missing record/skill guards do not delete animation events.",
+    "Legacy launch disables movement/footprint collision, sets PATHTYPE_LEAP and uses base character RunSpeed<<8. Zero coordinate fails after flags/masks are changed; it is not a successful native start contract.",
+    "Reviewed surrounding start dispatcher pays after successful non-usemanaondo start. Reviewed landing restores normal masks/path, clears reserved destination/uninterruptible/skill_move and schedules end animation+1; airborne continuation rewinds sequence10.",
+    "Reviewed result9 area helper uses default aura filter0x8583 and dodge with shield block disabled. Do not reuse War Cry physical block behavior for a zero-damage landing."
+  ],
+  "limits": [
+    "Four unchanged legacy routines compiled with declared collision/room/formula/skill/arrival services. Source start/landing/payment/block routines are reviewed and hashed, not compiled by this probe. No full engine or modern executable certificate.",
+    "Pinned current calc2=175 and Param5=8 minimum airborne frames are not consumed by the compiled older launch. Released2.4 notes establish75% speed increase and minimum height/duration; exact modern phase scheduling, server/client arc and hit/death-delay behavior remain acceptance work.",
+    "Native UO walking/LOS, free-cell search and destination reservation are not equivalent to source flying-door/missile-barrier masks by assumption. An airborne controller needs safe saved/offline/load lifecycle across unwalkable ground.",
+    "No Leap/Leap Attack handler enabled by this proof. Continue mechanical implementation using shared geometry, resource and knockback consumers; keep unsupported branches explicit."
+  ]
+}

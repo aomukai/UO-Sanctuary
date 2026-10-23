@@ -48,8 +48,7 @@ public static class SourceTerror
     }
     internal static int Distance(int dx,int dy,int size)
     {
-        int x=Math.Abs(Math.Abs(dx)-size),y=Math.Abs(Math.Abs(dy)-size);
-        return Math.Max(x,y)+Math.Min(x,y)/2;
+        return SkillGeometry.SourceDistance(Math.Abs(dx)-size,Math.Abs(dy)-size);
     }
     internal static int Distance(BaseCreature actor,Mobile target)
     {

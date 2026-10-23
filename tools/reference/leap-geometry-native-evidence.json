@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused native boot and final combined3boots/2reloads pass;3240 differential destination/32805 unchanged Terror checks per boot,6832 bounded source cases,70 Python tests,443 named/15 first-loop current hashes, source/generator/catalogue checks and matching installed existing-world listen/shutdown0 pass.",
+  "sources": [
+    "tools/reference/leap-engine-evidence.json",
+    "tools/reference/barbarian-leap-preflight.json"
+  ],
+  "implementation": [
+    "Shared SkillGeometry.SourceDistance now supplies the weighted integer metric already used by SourceTerror. Terror retains its independent abs(delta)-size adjustment before the common metric.",
+    "LeapGeometry.Find operates in source integer subtiles: range-clamp with truncation toward zero, original/free position then two perpendicular offsets capped2, and separate clear/flying/range validation after free-position mutation.",
+    "No native walk, generic LOS, blocking, damage or flight behavior is added by the pure destination finder. Separate callbacks allow the flying/landing adapter to supply the correct collision contracts."
+  ],
+  "checks": [
+    "Actual C# destination/result/free-search call order matches3240 record-present cases from four compiled pinned legacy routines.6480 total source target cases additionally cover missing records;224 do77 phase and128 legacy velocity cases complete6832 source cases.",
+    "Shared Terror distance matches its previous formula across32805 dx/dy/size combinations; full existing fear/curse/native AI regressions pass with two actual save/reload cycles.",
+    "Focused native server boot exercises the compiled-source differential and unchanged Terror size behavior; the same checks are included on every combined-suite boot."
+  ],
+  "limits": [
+    "Geometry component only; no Leap/Leap Attack handler is enabled.109 total handlers/Barbarian22 and8 pending Barbarian talents remain unchanged.",
+    "Collision/free-room/formula/arrival are declared source probe services. The geometry proof does not establish actual UO terrain/free-cell search, destination reservation, flying barriers, character arc or current D2R native path identity.",
+    "Modern current table specifies175-percent Leap speed and8 minimum airborne frames; the old compiled launch consumes neither. Released2.4 notes corroborate the change, without proving exact current start/landing/event/rounding timing.",
+    "Integrate persisted flight/reservation/payment identity and safe offline/load/cancellation while crossing unwalkable ground. Walking Charge sessions cannot provide that guarantee.",
+    "Uninterruptible/skill_move flags, shared delayed-death behavior, dodge-only/no-shield-block zero-damage landing, current rank/gear/owner transitions and full client comparison remain native acceptance work.",
+    "Keep Leap Attack separate: its weapon impact and added physical area damage are not supplied by Leap knockback. Existing effect and icon registers retain distinct pending entries and clearly identified placeholders."
+  ],
+  "assets": {
+    "effect": "Leap jump/landing/arc and leapknockback presentation remain pending in the240-entry effects register; this geometry helper needs no extra asset.",
+    "icon": "Leap talent/hotkey icon remains pending in the independent240-entry icon register."
+  },
+  "next": "Implement Leap saved airborne/reservation lifecycle and flying collision adapter, then integrate current timing and mapped landing knockback. Carry Double Swing start68/SQ11 uncertainty independently; no class completion claim."
+}
