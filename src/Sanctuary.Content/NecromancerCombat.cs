@@ -141,9 +141,11 @@ public static class NecromancerCombat
     }
     internal static void Consume(Corpse corpse)
     { corpse.SanctuaryConsumed = true; corpse.Animated = true; ClassLoot.RemoveHarvestedIfEmpty(corpse); }
-    internal static void Poison(Mobile owner, Mobile target, SkillValues values)
+    internal static void Poison(Mobile owner, Mobile target, SkillValues values,bool missileDefense=false)
     {
+        if(target is not{Alive:true,Deleted:false} || ClassCombat.Friendly(owner,target)){return;}
         double rate = values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble();
+        if(missileDefense && AmazonAvoidance.Missile(target)){return;}
         GearEffects.ApplyPoison(owner, target, rate * values.DurationFrames, Core.TickCount, values.DurationFrames * 40);
     }
     private sealed class PoisonCloud(PlayerMobile owner, Point3D point, SkillValues values) : SkillField(owner, NecromancerSummons.Source("poisonexplosioncloud", "Range"), DiabloClass.Necromancer)
@@ -152,7 +154,7 @@ public static class NecromancerCombat
         protected override void Step()
         {
             if (_frame++ % Math.Max(1, NecromancerSummons.Source("poisonexplosioncloud", "Param1")) != 0) { return; }
-            foreach (var target in SkillCombat.Targets(Owner, point, 2)) { Poison(Owner, target, values); }
+            foreach (var target in SkillCombat.Targets(Owner, point, 2)) { Poison(Owner, target, values,missileDefense:true); }
             Effects.SendLocationEffect(point, Map, 0x374A, 10, 10, 0x3F, 0);
         }
     }
@@ -165,7 +167,7 @@ public static class NecromancerCombat
         {
             _radius += SkillGeometry.Velocity(12);
             foreach (var target in SkillCombat.Targets(Owner, _origin, _radius))
-            { if (_hit.Add(target.Serial)) { Poison(Owner, target, values); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
+            { if (_hit.Add(target.Serial)) { Poison(Owner, target, values,missileDefense:true); target.FixedEffect(0x374A, 10, 10, 0x3F, 0); } }
         }
     }
     private sealed class BoneMissile(PlayerMobile owner, CombatAbility ability, SkillValues values, double angle, Mobile target, Dictionary<Serial, long> lastHits,FanRay? fan=null)
@@ -207,7 +209,7 @@ public static class NecromancerCombat
                 if (ability == CombatAbility.Teeth && lastHits.TryGetValue(collision.Target.Serial, out long previous) && Core.TickCount - previous < 160)
                 { Stop(); return; }
                 lastHits[collision.Target.Serial] = Core.TickCount;
-                SkillCombat.Hit(Owner, collision.Target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "mag");
+                SkillCombat.Hit(Owner, collision.Target, values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble(), "mag",missileDefense:true);
                 if (ability != CombatAbility.BoneSpear) { Stop(); return; }
             }
         }

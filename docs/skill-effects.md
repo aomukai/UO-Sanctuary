@@ -255,6 +255,8 @@ Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x37
 
 Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effect. Final steallife, curse cast/target effects and the talent/hotkey icon remain in their existing Life Tap rows; this shared callback adds no second icon.
 
+Avoid uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
+
 Dodge uses native0x375A hue0x481 as an identified successful-avoidance marker. Final interruptible S1 lean-back animation and amazon_dodge_1 sound remain pending. Its talent icon is separate; this passive has no active hotkey icon.
 
 Fend uses the existing native melee/thrust animation and sound0x238 as identified placeholders. Final sweeping thrust/weapon contact presentation and its talent/hotkey icon remain separately pending.

@@ -171,7 +171,7 @@ public static class SorceressEffects
                 { first = candidate; nearest = entry; }
             }
             Effects.SendLocationEffect(after, Map, 0x36E4, 3); // Placeholder armor bolt.
-            if (first != null) { Retaliate(Owner, first, armor); Stop(); }
+            if (first != null) { if(!AmazonAvoidance.Missile(first)){Retaliate(Owner, first, armor);} Stop(); }
         }
     }
 }

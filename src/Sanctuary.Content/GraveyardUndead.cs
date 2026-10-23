@@ -283,7 +283,8 @@ public abstract partial class GraveyardUndead : BaseCreature
             var row = CreatureProfiles.For(this);
             int minimum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 6 : row.Attack1.MinDamage ?? 6;
             int maximum = MonsterVariants.Difficulty(this) == MonsterDifficulty.Normal ? 10 : row.Attack1.MaxDamage ?? 10;
-            Deal(target, Utility.RandomMinMax(minimum, maximum), true);
+            int damage=Utility.RandomMinMax(minimum,maximum);
+            if(!AmazonAvoidance.Missile(target)){Deal(target,damage,true);}
         }
         _actionMap = null;
     }

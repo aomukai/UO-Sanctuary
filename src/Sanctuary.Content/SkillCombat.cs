@@ -14,6 +14,7 @@ public static class SkillCombat
     public static int HolyImpact(PlayerMobile source,Mobile target,int enhanced256,bool bypassResistance)
     {
         if(target is not {Alive:true,Deleted:false} || ClassCombat.Friendly(source,target)){return 0;}
+        if(AmazonAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target,true);double value;
         if(bypassResistance)
         {
@@ -43,6 +44,7 @@ public static class SkillCombat
     public static int LightningImpact(PlayerMobile source, Mobile target, int enhanced256)
     {
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
+        if(AmazonAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
         double lightning = SorceressEffects.Absorb(target, new(0, 0, 0, enhanced256 / 256.0, 0)).Lightning;
         lightning = NamedElements.Damage(source, target, lightning, "ltng", enhance: false);
@@ -53,6 +55,7 @@ public static class SkillCombat
     public static int ColdImpact(PlayerMobile source, Mobile target, int enhanced256, int coldFrames)
     {
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
+        if(AmazonAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
         double cold = SorceressEffects.Absorb(target, new(0, 0, enhanced256 / 256.0, 0, 0)).Cold;
         cold = NamedElements.Damage(source, target, cold, "cold", enhance: false);
@@ -71,6 +74,7 @@ public static class SkillCombat
     public static int FireFrame(PlayerMobile source, Mobile target, int enhanced256, int damageRate = 0, int? pierceOverride = null)
     {
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
+        if(AmazonAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
         double fire = SorceressEffects.Absorb(target, new(0, enhanced256 / 256.0, 0, 0, 0)).Fire;
         fire = NamedElements.Damage(source, target, fire, "fire", enhance: false, damageRate: damageRate, pierceOverride: pierceOverride);
@@ -158,13 +162,18 @@ public static class SkillCombat
         absorbed256=(int)Math.Min(healing256,int.MaxValue);
         return parts;
     }
-    public static int Hit(Mobile owner, Mobile target, double damage, string element, bool recover = true) => HitParts(owner, target,
+    public static int Hit(Mobile owner, Mobile target, double damage, string element, bool recover = true,bool missileDefense=false)
+    {
+        if(owner==null || target is not{Alive:true,Deleted:false} || ClassCombat.Friendly(owner,target)){return 0;}
+        if(missileDefense && AmazonAvoidance.Missile(target)){return 0;}
+        return HitParts(owner, target,
         element switch
         {
             "physical" => new(damage, 0, 0, 0, 0), "fire" => new(0, damage, 0, 0, 0),
             "cold" => new(0, 0, damage, 0, 0), "ltng" => new(0, 0, 0, damage, 0),
             _ => new(0, 0, 0, 0, 0, Magic: damage)
         }, recover, spell: recover && element != "physical");
+    }
     public static int HitParts(Mobile source, Mobile target, GearDamage damage, bool recover, bool weapon = false, bool ranged = false, bool spell = false)
         => ResolveHitParts(source, target, damage, recover, weapon, ranged, spell).LifeLost;
     public static SkillHitResult ResolveHitParts(Mobile source, Mobile target, GearDamage damage, bool recover,

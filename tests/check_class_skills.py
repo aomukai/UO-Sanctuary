@@ -70,7 +70,7 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
-        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json'):
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json','amazon-avoid-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
@@ -159,6 +159,10 @@ def check():
                     dodge='amazon-dodge-check' if boot==0 else 'amazon-dodge-reload-check'
                     session.send(dodge)
                     assert session.expect(dodge+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    avoid='amazon-avoid-check' if boot==0 else 'amazon-avoid-reload-check'
+                    session.send(avoid)
+                    assert session.expect(avoid+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'amazon-avoid-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

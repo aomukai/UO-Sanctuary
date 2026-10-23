@@ -1,0 +1,126 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_ApplyDodge",
+    "SUNITDMG_ApplyBlockOrDodge",
+    "MISSMODE_SetDamageFlags",
+    "sub_6FD10140",
+    "sub_6FCF5DE0"
+  ],
+  "reviewedOnlyRoutines": [
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion",
+    "MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod",
+    "MISSMODE_SrvDmgHitHandler",
+    "sub_6FD10200",
+    "sub_6FD0D000"
+  ],
+  "blockHashes": {
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b",
+    "MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown": "d77d9bc86e2aa8b7181d12d0145513804315099c947b7ad5fc095955d9e82a8f",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "sub_6FD0D000": "7e6cbacb7c151956e7cba18de9be5eec5abd1888888329406221bbda6e1deab4"
+  },
+  "pinnedSkill": {
+    "talentId": "amazon.avoid",
+    "name": "Avoid",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 18,
+    "sourceKey": "Avoid",
+    "ability": 19,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Avoid",
+      "charclass": "ama",
+      "skilldesc": "avoid",
+      "passivestate": "avoid",
+      "passivestat1": "passive_avoid",
+      "passivecalc1": "dm12",
+      "stsound": "amazon_dodge_1",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "anim": "S1",
+      "seqtrans": "S1",
+      "monanim": "xx",
+      "reqlevel": 12,
+      "maxlvl": 20,
+      "reqskill1": "Dodge",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 15,
+      "Param2": 75,
+      "Param8": 2,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 512,
+      "cost add": 8000
+    },
+    "sourceParameters": {
+      "1": 15,
+      "2": 75,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 2,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "probe": {
+    "caseCounts": {
+      "dispatch": 1800,
+      "flags": 7680,
+      "area": 1440
+    },
+    "fixture": ".local/class-skills/amazon-avoid-source-probe.json",
+    "sha256": "3fc8e699ba0801905a2f192dade02aa985d388abbebabb837f5f63c1d74d3484"
+  },
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json",
+  "established": [
+    "Full block/dodge dispatcher: shield first when requested, stationary missile Avoid after no/failed shield; moving selects separate Evade. Melee selects Dodge instead. Only positive chances draw; equality fails.",
+    "Full missile flag wrapper always requests bAvoid1, physical nonzero controls shield request. Uninterruptable suppresses get-hit/knockback presentation but does not bypass the avoidance request. GetHit0/Knockback0 converts a defense result to soft-hit while still removing successful hit. Successful events are not dispatched; the final missile presentation call still occurs.",
+    "Full area copy/wrapper requests Avoid with shield disabled and independently copies the damage packet for each victim. Zero initial result flags skip defense/events/commit. No mutation leaks into the shared original packet.",
+    "Reviewed ordinary missile callback runs collision/NextHit/return-fire/hit-function (including chain child) before damage flags. Avoid must not erase already executed child creation or collision history.",
+    "Reviewed Fireball/Glacial Spike/Meteor areas reach sub_6FD10200 -> copied area wrapper. Blizzard/cloud/Thunder Storm use ordinary missile collision. Reviewed Corpse Explosion callback directly dispatches damage events without this avoidance request; do not attach Avoid globally to all AoE/health damage."
+  ],
+  "services": [
+    "Explicit table/stat/mode/owner services and deterministic integer draws, repeated per requested draw. Full seed independence, AR/world scan/path/factory/stat layers are not supplied.",
+    "Event and final presentation services only record calls/flags; full health/control/armor/critical consumers and exact current executable behavior are not compiled by this probe. Reviewed-only routines are not included in the10920-case count."
+  ],
+  "limits": [
+    "No native/modern/class completion certificate. Native integration/eligibility/double-roll controls and real projectile timing/reload acceptance remain separate.",
+    "Existing approved accepted-running-step suppression supersedes source running Evade/block. Current Param8=2 and released2.4 override old action-lock behavior; no modern S1 animation/RNG equivalence inferred.",
+    "Dodge3/Avoid3 current readings support retained two-stage rounding at those ranks; other parameters/ranks/contexts, owner/PvP and nonplayer passives remain separate."
+  ]
+}

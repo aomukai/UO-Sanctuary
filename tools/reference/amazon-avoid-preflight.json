@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Next unaffected Amazon talent: source-reviewed only; no Avoid handler or positive-Avoid compiled/native coverage yet.",
+  "status": "Avoid now implemented:1800 dispatch/7680 missile flag/1440 copied-area compiled source cases,750 applicable native comparisons and20 rank goldens pass. Real delayed firebolts read changed named gear at impact; actual moving elite lightning bolts test both avoidance and damage, exactly once per impact, on all3boots. Shield-first ordinary ranged defense and separate no-shield spell/area gates preserve paid Fend and bypass direct CE/health/poison ticks. Focused and final combined3boots/2reloads,70 Python tests and464 named/15 first-loop current fingerprints pass. Matching123-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped; saves retained; client/native patches and named acquisition gates unchanged. No class certificate.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "currentSkill": {
     "talentId": "amazon.avoid",
@@ -78,17 +78,18 @@
   "reviewed": [
     "Full source dodge dispatch selects stationary Avoid for bAvoid1; walking/running instead selects Evade. Shield is attempted first only where enabled. Current Param8 and released2.4 behavior supersede old animation locks.",
     "Reviewed MISSMODE_SetDamageFlags sets bAvoid1 for this missile damage path and enables shield block only for nonzero physical damage. It clears success on avoidance, with separate GetHit/knockback/soft-hit result flags; a melee-only hit-check hook is insufficient for all spell missiles.",
-    "User current Avoid hard1/item2/effective3 reports36percent, matching retained two-stage dm12 and distinguishing compiled supplementary37. Evade hard1/item5/effective6 reports40percent; this does not establish an Avoid/Evade runtime handler."
+    "User current Avoid hard1/item2/effective3 reports36percent, matching retained two-stage dm12 and distinguishing compiled supplementary37. Evade hard1/item5/effective6 reports40percent; this does not establish an Avoid/Evade runtime handler.",
+    "Positive Avoid now has1800 dispatch/7680 missile flag/1440 copied-area source cases and750 applicable native comparisons. Focused and full combined3boots/2reloads pass. Earlier preflight questions about positive Avoid and source area routing are resolved within these bounds."
   ],
   "uncertain": [
-    "Positive Avoid source draw/ordering and native comparison still need compilation; Dodge1800 cases declare Avoid0 and do not establish those branches.",
-    "Not every native spell/area uses the same source damage flag path. Trace each projectile/impact callback before enabling it; do not blanket-roll Avoid for AoE, ground effects or all SkillHealth damage.",
-    "Modern exact seed, animation-mode priorities, special missile bypass, damage callback ordering, PvP/owner/client and shared curve rounding remain acceptance work."
+    "Current executable seeded/stat/S1/mode/owner/client equivalence remains open; source10920 cases and750 native comparisons are bounded, not full parity.",
+    "Existing cooperative hostile filters exclude player PvP. Valkyrie/Decoy/nonplayer stats, legacy UO spell producers and elite cold-death nova still lack avoidance adapters.",
+    "Native encounter projectile geometry/element/critical and existing spell snapshot/activation/NextHit/per-victim damage RNG remain their prior acceptance work."
   ],
   "nextActions": [
-    "Extend bounded unchanged dispatch/missile-flag probes for positive Avoid, physical0/nonzero, GetHit/knockback/soft-hit and walking/run cases.",
-    "Trace actual native projectile damage entry points and retain source applicability. Connect the existing shared avoidance helper only at eligible incoming missile impacts; verify no double draw with AR/weapon hooks.",
-    "Add rank/real gear/damage/paid-series/resource/cancellation/reload tests and separate effect/icon placeholders. Lightning Strike initial-bolt gap remains independent."
+    "Proceed to Evade from tools/reference/amazon-evade-preflight.json. Preserve explicit current/native acceptance gaps and ordinary Git backups."
   ],
-  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json"
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json",
+  "nativeEvidence": "tools/reference/amazon-avoid-native-evidence.json",
+  "compiledEvidence": "tools/reference/amazon-avoid-engine-evidence.json"
 }

@@ -63,7 +63,7 @@ public static class ThunderStorm
         var values = SkillMechanics.Values(owner, CombatAbility.ThunderStorm, storm.Rank);
         double damage = values.Damage(false) + Utility.RandomDouble() * (values.Damage(true) - values.Damage(false));
         SorceressEffects.MissileHit(owner, selected, "thunderstorm1");
-        SkillCombat.Hit(owner, selected, damage, "ltng");
+        SkillCombat.Hit(owner, selected, damage, "ltng",missileDefense:true);
         selected.BoltEffect(0x482); // Placeholder lightning strike.
     }
 }

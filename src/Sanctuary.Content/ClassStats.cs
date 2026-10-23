@@ -172,7 +172,7 @@ public static class ClassStats
             hit = roll() * 100 >= chance;
             if (!hit) { HitRecovery.Block((PlayerMobile)defender, Core.TickCount); }
         }
-        if(hit && classDefense && AmazonAvoidance.Dodge((PlayerMobile)defender,projectile,Core.TickCount)){hit=false;}
+        if(hit && classDefense && AmazonAvoidance.Weapon((PlayerMobile)defender,projectile,Core.TickCount)){hit=false;}
         return hit;
     }
     public static int DamageBonus(PlayerMobile player, BaseWeapon weapon)

@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Next Amazon passive: reviewed only, no positive-Evade source or native handler yet.",
+  "currentSkill": {
+    "talentId": "amazon.evade",
+    "name": "Evade",
+    "characterClass": "Amazon",
+    "tree": "Passive and Magic Skills",
+    "sourceId": 29,
+    "sourceKey": "Evade",
+    "ability": 22,
+    "sourceTab": 1,
+    "passive": true,
+    "left": false,
+    "right": false,
+    "sourceFields": {
+      "skill": "Evade",
+      "charclass": "ama",
+      "skilldesc": "evade",
+      "passivestate": "evade",
+      "passivestat1": "passive_evade",
+      "passivecalc1": "dm12",
+      "stsound": "block_arrow_1",
+      "stsoundclass": "amazon_dodge_1",
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "anim": "S1",
+      "seqtrans": "S1",
+      "monanim": "xx",
+      "reqlevel": 24,
+      "maxlvl": 20,
+      "reqskill1": "Avoid",
+      "leftskill": 0,
+      "rightskill": 0,
+      "minmana": 0,
+      "manashift": 8,
+      "mana": 0,
+      "lvlmana": 0,
+      "interrupt": 1,
+      "passive": 1,
+      "Param1": 10,
+      "Param2": 65,
+      "InGame": 1,
+      "HitShift": 8,
+      "cost mult": 768,
+      "cost add": 32000
+    },
+    "sourceParameters": {
+      "1": 10,
+      "2": 65,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    }
+  },
+  "currentObservation": "tools/reference/amazon-avoidance-current-tooltips.json",
+  "source": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "reviewedBody": "SUNITDMG_ExecuteMissileDamage",
+    "bodyHash": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+  },
+  "reuse": [
+    "Shared AmazonAvoidance effective rank and once-only melee/ranged/spell damage stages; accepted walking/running lease classification; existing no-draw zero-rank and normal shield-first consumers.",
+    "Current Dodge/Avoid code gates moving modes; change that branch to the distinct Evade passive for walking only, preserving standing Dodge/Avoid and the approved running rule. No separate projectile/controller is necessary."
+  ],
+  "reviewed": [
+    "SUNITDMG_ApplyDodge selects Evade first for walking/running, for either melee or missile, then returns without trying stationary Dodge/Avoid. Current source parameters10/65 use dm12; user hard1/item5/effective6=40 corroborates this rank.",
+    "Actual reviewed SUNITDMG_ExecuteMissileDamage player Evade branch obtains the Evade state skill and requests sound12 if a learned skill/sound exists, then returns. Unlike Dodge/Avoid, it does not fall through to their state/S1 mode change. Missing Evade Param8 does not justify inventing a legacy animation lock from the row animS1 alone.",
+    "Approved Sanctuary accepted running steps disable all avoidance; only accepted walking may use Evade. Selected Run mode while standing still is not moving and must continue using stationary passives."
+  ],
+  "uncertain": [
+    "Dodge/Avoid compiled matrices declare Evade0. Compile positive-Evade dispatcher and applicable presentation path separately before claiming coverage.",
+    "Exact current executable/client sound/animation/mode priority and special spell/pet/owner/PvP/seed/geometry remain acceptance work. Historical guide Evade-lock prose conflicts with the reviewed sound-only server branch; do not port it as current authority."
+  ],
+  "nextActions": [
+    "Compile unchanged positive-Evade dispatcher for player/monster movement types and both damage classes. Validate source draw/short-circuit/thresholds, with approved native running divergence explicit.",
+    "Compile the actual sound-only presentation branch or the full function with bounded services; keep health/events and current executable scope separate.",
+    "Implement walking Evade through existing consumers, then verify current rank6=40, real gear, actual accepted movement/standing/run transitions, native incoming melee/bolts, lifecycle and two reloads. Track final effects/sound and passive talent icon separately."
+  ]
+}

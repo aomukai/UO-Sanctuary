@@ -172,6 +172,7 @@ public partial class NecromancerMinion : SkeletonGuardian
             int max = SkillValues.Tier(NecromancerSummons.Source(missile, "EMax"), level, i => NecromancerSummons.Source(missile, "MaxELev" + i));
             double damage = Utility.RandomMinMax(min, max);
             MovingEffect(target, 0x36E4, 5, 0, false, false);
+            if(AmazonAvoidance.Missile(target)){return;}
             if (_element == 0)
             { int frames = NecromancerSummons.Source(missile, "ELen"); GearEffects.ApplyPoison(this, target, damage * frames / 256, Core.TickCount, frames * 40); }
             else

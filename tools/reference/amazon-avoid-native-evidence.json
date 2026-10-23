@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Avoid now implemented:1800 dispatch/7680 missile flag/1440 copied-area compiled source cases,750 applicable native comparisons and20 rank goldens pass. Real delayed firebolts read changed named gear at impact; actual moving elite lightning bolts test both avoidance and damage, exactly once per impact, on all3boots. Shield-first ordinary ranged defense and separate no-shield spell/area gates preserve paid Fend and bypass direct CE/health/poison ticks. Focused and final combined3boots/2reloads,70 Python tests and464 named/15 first-loop current fingerprints pass. Matching123-handler content/data installed; existing-world boot/listen/clean shutdown0 passes. Server stopped; saves retained; client/native patches and named acquisition gates unchanged. No class certificate.",
+  "handlerCount": 123,
+  "classHandlerCount": 11,
+  "sourceEvidence": "tools/reference/amazon-avoid-engine-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonAvoidance.cs",
+    "src/Sanctuary.Content/ClassStats.cs",
+    "src/Sanctuary.Content/SkillCombat.cs",
+    "src/Sanctuary.Content/GraveyardUndead.cs",
+    "src/Sanctuary.Content/EliteBolts.cs",
+    "src/Sanctuary.Content/SorceressCombat.cs",
+    "src/Sanctuary.Content/SorceressEffects.cs",
+    "src/Sanctuary.Content/NecromancerCombat.cs",
+    "src/Sanctuary.Content/NecromancerSummons.cs",
+    "src/Sanctuary.Content/ThunderStorm.cs"
+  ],
+  "verified": [
+    "150 native/source ranged dispatch,480 applicable spell flag and120 copied-area defense comparisons match compiled source outcomes/call counts.20 official historical rank goldens and user current effective3=36 agree with the native curve. Source10920 cases remain a separate bounded proof.",
+    "Actual Tarnhelm raises learned rank1 to effective2/chance31; Highlord adds effective3/chance36. General allskills does not grant an unlearned skill. Hard20 caps training; named soft22/chance66 persists. Passive rejects slots/quick bindings and uses no mana.",
+    "Real WoodenShield negates an ordinary ranged hit before Avoid with no passive draw; failed block reaches one Avoid draw. AR miss consumes no Avoid draw. Pure spell damage uses a separate no-shield defense path and draws once; failed Avoid damages through that shield.",
+    "Direct CE-style composite/health commitment bypasses Avoid, so it is not a global AoE/DoT health filter. Poison missile application is explicitly separated from Poison Dagger/ordinary poison ticks. Scalar no-hit, aura and damage producer contexts remain separate.",
+    "Successful Avoid preserves the same paid Fend series, pending ability, release/recovery deadlines and fractional mana; its next event releases. Accepted walking/running leases suppress standing Avoid and expire correctly; no legacy action/recovery lock.",
+    "Four natural projectile observations on each of3boots: actual delayed GraveyardLich firebolt damages when both named rank items are removed after cast scheduling, and is avoided when they are equipped before impact. Actual moving elite lightning bolts are avoided at draw0 and damage at draw99. Each impact consumes exactly one passive draw, with no extra mana change.",
+    "After both real restarts, hard20/effective22/chance66, named item/weapon identities and resources persist; the real enemy projectile observations still pass. Pending paid actions remain transient. History disables/restores the passive; respec removes it. No new persistence format."
+  ],
+  "sourceAndCallsiteScope": [
+    "Ordinary ranged/throwing weapon consumers use existing ClassStats hit/block path exactly once. Traced spell paths gate after collision/return-fire/child history and before damage/absorb/control: fire/cold/lightning/holy dedicated impacts, Sorceress direct/nova/area, bone missiles, explicit poison cloud/nova, skeletal mage application, Thunder Storm, chilling return bolt and mapped hostile fire/lightning.",
+    "Reviewed supplementary missile/area wrappers request Avoid for these consumers. Corpse Explosion uses its separate direct callback, while aura pulses, direct health commitments and poison ticks are not globally changed.",
+    "Supported hostile incoming sources are currently mapped Graveyard/Encounter projectiles and ordinary native ranged weapons. Existing cooperative filters exclude player-to-player hostility; recording gates on player spell consumers does not enable or certify PvP."
+  ],
+  "fixtureControls": [
+    "Only named AmazonAvoidFixture HP/mana schedules are held1hour, with constructor scope and final Initialize wrapper. Damage/RNG/control/terrain policy is unchanged.",
+    "First corridor search incorrectly assumed flat Z0 in a mountain area; fixture now uses actual CombatPractice.FindFloor and equal-height visible endpoints. The failed log is retained; production terrain/LOS unchanged.",
+    "AI is stopped for fixture enemies. Natural shots execute actual BeginFirebolt timers or EliteBolts movement; the observer waits for a real avoidance attempt within6seconds and never relaunches on a delayed observation. Only the passive integer draw is controlled; source AR/damage/seed/stat equivalence is not claimed.",
+    "Native/source comparisons supply AR hit draw0 and accepted movement lease inputs. GetHit/soft-hit result-bit and copied-area source proofs are bounded; C# checks their defense outcome/call count rather than claiming full source event/health state."
+  ],
+  "limits": [
+    "No current executable or class completion certificate. Exact seeded order/stat layers, current S1/SC/client/owner/PvP and all special bypass/packet flags remain acceptance work.",
+    "Valkyrie/Decoy/nonplayer avoidance stats, arbitrary legacy UO spell producers and elite cold-death nova remain unadapted. Native encounter fire/lightning projectiles retain their existing mapped geometry/element/event adapters; this does not certify source missile factory/path/critical behavior.",
+    "Player spell/area pipelines retain their prior snapshot, per-victim RNG, activation/geometry/NextHit and allegiance limitations. Collision and child creation remain earlier than defense, but no full modern simulation proof is asserted.",
+    "Evade remains pending. Approved Sanctuary running-step suppression supersedes source running Evade/block; walking lease is a native movement-mode adapter. Current3 tooltip readings do not certify every diminishing-curve rank/context.",
+    "Previously recorded ordinary loot-affix error remains independent in tools/reference/loot-affix-generation-gap.json; no affix policy/item acquisition gate changed here."
+  ],
+  "assets": {
+    "effect": "Native0x375A hue0x481 identified success marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending in separate effects register.",
+    "icon": "Talent-tree icon pending in independent icon register; no active hotkey for this passive."
+  },
+  "logs": {
+    "source": ".local/class-skills/amazon-avoid-source-probe.log",
+    "contentBuild": ".local/class-skills/amazon-avoid-content-build.log",
+    "integrationBuild": ".local/class-skills/amazon-avoid-integration-build.log",
+    "focused": ".local/class-skills/amazon-avoid-focused.log",
+    "terrainFailure": ".local/class-skills/amazon-avoid-fixture-terrain-failure.log",
+    "combined": ".local/class-skills/amazon-avoid-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/amazon-avoid-installed-smoke.log",
+    "installedServer": ".local/class-skills/amazon-avoid-installed-server.log"
+  },
+  "next": "Evade: compile positive moving-mode dispatch and source sound-only presentation, preserving approved running suppression."
+}

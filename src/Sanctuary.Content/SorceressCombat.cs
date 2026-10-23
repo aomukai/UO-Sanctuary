@@ -103,8 +103,10 @@ public static class SorceressCombat
     }
     internal static void Impact(PlayerMobile owner, Mobile target, CombatAbility ability, SkillValues values)
     {
+        if(target is not{Alive:true,Deleted:false} || ClassCombat.Friendly(owner,target)){return;}
         var definition = SkillMechanics.For(ability); string element = definition.Text("EType");
         double damage = values.Damage(false) + Utility.RandomDouble() * (values.Damage(true) - values.Damage(false));
+        if(AmazonAvoidance.Missile(target)){return;} // Direct missile or copied area damage; no shield request.
         SkillCombat.Hit(owner, target, damage, element);
         if (element != "cold" || !target.Alive || target.Deleted) { return; }
         int frames = ability == CombatAbility.GlacialSpike

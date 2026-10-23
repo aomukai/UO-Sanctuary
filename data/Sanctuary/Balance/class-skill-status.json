@@ -174,10 +174,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 18,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Effective-rank stationary missile avoidance reuses shared hit checks after shield block for ordinary ranged weapons, with a separate once-only no-shield spell/area stage. Mapped enemy firebolts, native elite fire/lightning bolts and traced player spell/poison/area impacts are connected without global avoidance on health, aura pulses, Corpse Explosion or poison ticks. Collision history/child creation precedes damage defense. Current tooltip rank3=36 corroborates the retained curve. Dedicated source/native gear, live impact chance, paid-series and reload checks are recorded separately. Co-op hostile filters still exclude player PvP; Valkyrie/Decoy/nonplayer passives, legacy UO spells and exact current seed/stat/mode/owner/client/full eligibility remain acceptance work; no class certificate."
     },
     {
       "talentId": "amazon.penetrate",
