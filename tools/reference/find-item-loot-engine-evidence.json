@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "status": "Compiled players1 NoDrop branch; native existing weighted-selector preparation checks separate.",
+  "sourceHashes": {
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "probe": {
+    "cases": 4464,
+    "tables": 279,
+    "tableHashes": {
+      "data/Sanctuary/Balance/creature-gold.json": "bbc0dfcc8ac67eab3cdce4b28d7950c7fe2d79efe67fa855a4adf90f65da7f83",
+      "data/Sanctuary/Balance/creature-gold-nightmare.json": "d4df56deebc2802b1e2ac5d3c07dfe1a52daae7a753d9f59ac304ce1365c13ca",
+      "data/Sanctuary/Balance/creature-gold-hell.json": "2f9a3ec731ea7ad70170c36b5ce50804ad99eec7ec6ae77536f1ef3c56d9084f"
+    },
+    "compiledBlockHash": "7270f6b53e13c9245669b692b1dee5977914ccc554cc7210b0f036df8fba3812",
+    "reviewedRoutineHashes": {
+      "D2GAME_DropTC_6FC51360": "058a96e8bc6ad2512a3a21ef63bdf4416ce670dbbf8ccfe6095e23440527aa25",
+      "sub_6FC52110": "f30d73f468376bb6452635289e9c44fb0234cc76ae12ac446b9de567886b62ec",
+      "sub_6FC631B0": "32b03f90cae2288940b2f1a28abacfed91c57ab70507799ad2e0990c81329c45",
+      "sub_6FC659B0": "da7dcfa8c13135c30099301a8324eea71cd6f7f204bfe55108b8cabd000954a1",
+      "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+      "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+    },
+    "dataPath": ".local/class-skills/find-item-loot-source-probe.json"
+  },
+  "established": [
+    "Find Item wrapper forwards a7=1 to ordinary corpse/source TC selection; TC loop suppresses NoDrop at every nested row while preserving entry weights. The selected quality parameter in do72 is ignored by the reviewed wrapper; do not infer forced quality from that draw.",
+    "Current ordinary native TC graphs all have one pick. Unchanged NoDrop source statements run against every distinct row, both flag values and lower/upper/NoDrop boundaries, with declared RNG/party/stat services. Native tests compare adjusted selection roll and exact RNG bound. Negative adjusted native rolls all mean no drop.",
+    "Reviewed start dispatcher consumes mana after successful non-UseManaOnDo start. Find Item start34 exists; failed do72 chance does not refund this successful start. Full dispatcher/payment service are reviewed/hashed, not compiled here."
+  ],
+  "limits": [
+    "Players1/one-pick native foundation tables retained under existing world reference. Full quest/elite/negative-pick/multi-pick/TC-group/acquisition/MF/quality/corpse identity and modern executable acceptance remain pending.",
+    "Source block extraction compiles unchanged NoDrop statements inside a bounded driver, not the entire treasure function or its expansion prefix-layout/search. Existing native weighted selection remains its current foundation model; a synthetic prefix-layout attempt did not establish full source equivalence.",
+    "Native bypass is internal preparation only until Find Item is enabled; ordinary callers use defaultfalse and keep existing NoDrop behavior."
+  ]
+}

@@ -1398,7 +1398,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Next source preflight reviews start34/do72, corpse_noselect and current hard Find Potion chance synergy. Failed do returns0 unlike Find Potion; successful call delegates via monster mode/death events. Reuse existing corpse/loot paths after tracing payment and source drop context; no handler or invented drop policy."
+      "remaining": "Source624 start/do/selection/curve cases and4464 NoDrop cases prepare existing corpse/loot reuse. Successful start pays7mana even if later chance fails; success bypasses nested NoDrop. Native bypass primitive is prepared, but no Find Item handler or drop context is enabled. Current curve stays pending reference conflict; quest/elite/TC-group/corpse/MF/acquisition context remains to implement and verify."
     },
     {
       "talentId": "barbarian.battleorders",

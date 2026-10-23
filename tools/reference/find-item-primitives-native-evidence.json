@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused and final combined native3boots/2reloads pass;70 Python tests,435 named/15 first-loop current input hashes, reference/generator/catalogue checks and matching installed existing-world load/listen/shutdown0 pass.",
+  "source": [
+    "tools/reference/find-item-engine-evidence.json",
+    "tools/reference/find-item-loot-engine-evidence.json",
+    "tools/reference/diminishing-reference-conflict.json"
+  ],
+  "implementation": [
+    "CreatureGold.Roll and the existing nested selector accept optional ignoreNoDrop; every nested selection omits NoDrop while retaining weights. Defaultfalse keeps ordinary death-drop behavior. No second loot generator is added.",
+    "Shared SkillValues.Diminishing is unchanged.60 independently parsed published Blizzard ranks match the actual native evaluator; rank3 Natural Resistance28 and Summon Resist39 also pass live consumer checks."
+  ],
+  "checks": [
+    "4464 compiled unchanged NoDrop vectors across279 distinct current native TC rows compare exact RNG bound and normalized adjusted roll in native execution.",
+    "Every native TC root follows lower/upper weighted paths through nested nodes, checking leaf identity and RNG bounds without any NoDrop contribution. Seeded ordinary default/explicitfalse selections agree.",
+    "Focused3boots and final combined3boots/2reloads repeat the new stateless primitive/primary-value checks; existing full gameplay/reload suite passes.",
+    "Corrected Find Item fixture now uses pinned parameters5/60/30/5 and100 secondary draws select nParam1..4. No forced quality behavior is inferred from the reviewed wrapper.",
+    "107 handlers/Barbarian20 unchanged;70 Python tests,435/15 current fingerprints and four staged/installed DLL comparisons pass. Existing installed world loads/listens/shuts down0."
+  ],
+  "corrections": [
+    "The earlier assertion of a confirmed native diminishing bug is withdrawn. Historical primary Blizzard tables contradict10 of60 compiled decompiled-helper values and support current native rounding. Modern tooltip question is pending; no answer assumed.",
+    "The86-field model scan now explicitly uses signed truncation toward zero for descending parameter pairs; this inventory is not a defect count.",
+    "A synthetic full prefix-layout model was insufficient to establish full source search equivalence. The source certificate deliberately identifies its actual boundary: unchanged NoDrop statements, while existing native weighted selection remains the world foundation model."
+  ],
+  "limits": [
+    "No native Find Item handler, corpse attempt/persistence or new acquisition is enabled. Only the existing internal selector gained optional nested NoDrop bypass; ordinary callers retain defaultfalse.",
+    "Blizzard historical values corroborate current native curve but do not certify D2R3.3.93847. The decompiled-helper disagreement remains open, and86 formula fields are potential model exposure, not established defects.",
+    "NoDrop source block is compiled with players1/one-pick graphs and declared RNG/party/stat services. Full TC prefix-layout/search, negative/multiple picks, quest/elite/TC-group/MF/quality/item creation and corpse context are outside this proof.",
+    "No new native patch, save reset, class certificate or item-skill gate. All240 effect/icon entries remain separate with placeholders."
+  ]
+}

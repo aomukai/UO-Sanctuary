@@ -1,0 +1,179 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Unresolved source disagreement; current native two-stage rounding retained. Historical Blizzard tables contradict the proposed decompiled-helper correction.",
+  "publishedCurves": [
+    {
+      "skill": "Summon Resist",
+      "source": "https://classic.battle.net/diablo2exp/skills/necromancer-summoning.shtml",
+      "label": "Resist All %",
+      "parameter1": 20,
+      "parameter2": 75,
+      "values": [
+        28,
+        34,
+        39,
+        44,
+        47,
+        50,
+        52,
+        54,
+        56,
+        57,
+        59,
+        60,
+        61,
+        62,
+        62,
+        64,
+        64,
+        65,
+        65,
+        66
+      ]
+    },
+    {
+      "skill": "Natural Resistance",
+      "source": "https://classic.battle.net/diablo2exp/skills/barbarian-combatmasteries.shtml",
+      "label": "Increase All Resistances %",
+      "parameter1": 0,
+      "parameter2": 80,
+      "values": [
+        12,
+        21,
+        28,
+        35,
+        40,
+        44,
+        47,
+        49,
+        52,
+        54,
+        56,
+        58,
+        60,
+        61,
+        62,
+        64,
+        64,
+        65,
+        66,
+        67
+      ]
+    },
+    {
+      "skill": "Increased Speed",
+      "source": "https://classic.battle.net/diablo2exp/skills/barbarian-combatmasteries.shtml",
+      "label": "Walk/Run Speed Bonus %",
+      "parameter1": 7,
+      "parameter2": 50,
+      "values": [
+        13,
+        18,
+        22,
+        25,
+        28,
+        30,
+        32,
+        33,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        40,
+        41,
+        41,
+        42,
+        42,
+        43
+      ]
+    }
+  ],
+  "sourcePages": {
+    "necromancer-summoning": {
+      "url": "https://classic.battle.net/diablo2exp/skills/necromancer-summoning.shtml",
+      "sha256": "1261f37bfc6b582587912c82efb2cdd58140da06a2578a7a10847064204daaa5",
+      "cachePath": ".local/class-skills/diminishing-primary/necromancer-summoning.html"
+    },
+    "barbarian-combatmasteries": {
+      "url": "https://classic.battle.net/diablo2exp/skills/barbarian-combatmasteries.shtml",
+      "sha256": "b43b14284273478b912498a2cd5ca62c0eb322d38e999f1b0e4ffecb12411a01",
+      "cachePath": ".local/class-skills/diminishing-primary/barbarian-combatmasteries.html"
+    }
+  },
+  "pinnedSkillTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "legacySourceHash": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+  "legacyBlockHash": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+  "compiledCases": 60,
+  "disagreements": [
+    {
+      "skill": "Summon Resist",
+      "rank": 2,
+      "published": 34,
+      "decompiled": 35
+    },
+    {
+      "skill": "Summon Resist",
+      "rank": 3,
+      "published": 39,
+      "decompiled": 40
+    },
+    {
+      "skill": "Summon Resist",
+      "rank": 15,
+      "published": 62,
+      "decompiled": 63
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 2,
+      "published": 21,
+      "decompiled": 22
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 3,
+      "published": 28,
+      "decompiled": 29
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 8,
+      "published": 49,
+      "decompiled": 50
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 10,
+      "published": 54,
+      "decompiled": 55
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 17,
+      "published": 64,
+      "decompiled": 65
+    },
+    {
+      "skill": "Natural Resistance",
+      "rank": 18,
+      "published": 65,
+      "decompiled": 66
+    },
+    {
+      "skill": "Increased Speed",
+      "rank": 8,
+      "published": 33,
+      "decompiled": 34
+    }
+  ],
+  "decision": "Do not replace the shared native curve with decompiled multiplication-first arithmetic without pinned modern confirmation. The previous86-field inventory describes model differences, not established game defects.",
+  "question": "Optional pinned-build Summon Resist tooltip: effective rank3 gives39% under current model versus40% under decompiled helper; rank21 gives66% versus67%. No Barbarian observation requested.",
+  "limits": [
+    "Blizzard tables are historical and do not identify D2R3.3.93847; they disprove treating this decompiled helper as sole authoritative evidence, but do not certify the modern executable.",
+    "60 published ranks cover three unchanged current parameter pairs. Native fixture compares actual evaluator/consumer paths separately.",
+    "Compiled legacy body is unchanged but is decompiled supplementary code, not a verified modern formula engine."
+  ]
+}

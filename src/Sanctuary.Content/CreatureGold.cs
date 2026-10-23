@@ -123,18 +123,25 @@ public static class CreatureGold
         if (level is < 1 or > 99 || goldFind < 0) { throw new ArgumentOutOfRangeException(); }
         return SelectTreasureClass(name, random) == "gld" ? Amount(level, goldFind, random) : 0;
     }
-    internal static string Select(Type type, Random random, MonsterDifficulty difficulty = MonsterDifficulty.Normal) => Policy(type, difficulty) is { Eligible: true } policy
-        ? SelectTreasureClass(policy.TreasureClass, random) : null;
-    private static string SelectTreasureClass(string name, Random random)
+    internal static string Select(Type type, Random random, MonsterDifficulty difficulty = MonsterDifficulty.Normal, bool ignoreNoDrop = false) => Policy(type, difficulty) is { Eligible: true } policy
+        ? SelectTreasureClass(policy.TreasureClass, random, ignoreNoDrop) : null;
+    internal static int Roll(GoldTreasureClass row, Random random, bool ignoreNoDrop)
+    {
+        // Find Item's successful source drop passes a7=1 through every
+        // nested TC. This bypasses NoDrop without changing item weights.
+        int noDrop = ignoreNoDrop ? 0 : row.NoDrop;
+        int total = noDrop;
+        foreach (var entry in row.Entries) { total = checked(total + entry.Weight); }
+        return random.Next(total) - noDrop;
+    }
+    internal static string SelectTreasureClass(string name, Random random, bool ignoreNoDrop = false)
     {
         // All reachable ordinary rows have exactly one pick; nested rows keep their
         // original NoDrop and non-gold weights instead of redistributing them.
         while (!string.IsNullOrEmpty(name))
         {
             var row = _classes[name];
-            int total = row.NoDrop;
-            foreach (var entry in row.Entries) { total = checked(total + entry.Weight); }
-            int choice = random.Next(total) - row.NoDrop;
+            int choice = Roll(row, random, ignoreNoDrop);
             if (choice < 0) { return null; }
             GoldEntry selected = null;
             foreach (var entry in row.Entries)

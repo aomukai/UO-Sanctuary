@@ -299,7 +299,7 @@
   ],
   "currentTableConsumerScan": {
     "skillTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
-    "scope": "DM tokens in playable current table calc fields at effective ranks1..21; inventory only, not executed skill outcomes.",
+    "scope": "DM tokens in playable current table calc fields at effective ranks1..21; signed comparison divisions truncate toward zero. Inventory only, not executed skill outcomes.",
     "consumers": [
       {
         "skill": "Critical Strike",
@@ -995,77 +995,77 @@
           {
             "rank": 1,
             "source": 35,
-            "currentNative": 90
+            "currentNative": 91
           },
           {
             "rank": 2,
             "source": 35,
-            "currentNative": 82
+            "currentNative": 83
           },
           {
             "rank": 3,
             "source": 35,
-            "currentNative": 76
+            "currentNative": 77
           },
           {
             "rank": 4,
             "source": 35,
-            "currentNative": 71
+            "currentNative": 72
           },
           {
             "rank": 5,
             "source": 35,
-            "currentNative": 67
+            "currentNative": 68
           },
           {
             "rank": 6,
             "source": 35,
-            "currentNative": 64
+            "currentNative": 65
           },
           {
             "rank": 7,
             "source": 35,
-            "currentNative": 61
+            "currentNative": 62
           },
           {
             "rank": 8,
             "source": 35,
-            "currentNative": 59
+            "currentNative": 60
           },
           {
             "rank": 9,
             "source": 35,
-            "currentNative": 57
+            "currentNative": 58
           },
           {
             "rank": 10,
             "source": 35,
-            "currentNative": 55
+            "currentNative": 56
           },
           {
             "rank": 11,
             "source": 35,
-            "currentNative": 53
+            "currentNative": 54
           },
           {
             "rank": 12,
             "source": 35,
-            "currentNative": 52
+            "currentNative": 53
           },
           {
             "rank": 13,
             "source": 35,
-            "currentNative": 51
+            "currentNative": 52
           },
           {
             "rank": 14,
             "source": 35,
-            "currentNative": 49
+            "currentNative": 50
           },
           {
             "rank": 15,
             "source": 35,
-            "currentNative": 49
+            "currentNative": 50
           },
           {
             "rank": 16,
@@ -1075,27 +1075,27 @@
           {
             "rank": 17,
             "source": 35,
-            "currentNative": 47
+            "currentNative": 48
           },
           {
             "rank": 18,
             "source": 35,
-            "currentNative": 46
+            "currentNative": 47
           },
           {
             "rank": 19,
             "source": 35,
-            "currentNative": 46
+            "currentNative": 47
           },
           {
             "rank": 20,
             "source": 35,
-            "currentNative": 45
+            "currentNative": 46
           },
           {
             "rank": 21,
             "source": 35,
-            "currentNative": 44
+            "currentNative": 45
           }
         ]
       },
@@ -3099,17 +3099,17 @@
           {
             "rank": 2,
             "source": 20,
-            "currentNative": 78
+            "currentNative": 79
           },
           {
             "rank": 3,
             "source": 20,
-            "currentNative": 71
+            "currentNative": 72
           },
           {
             "rank": 4,
             "source": 20,
-            "currentNative": 64
+            "currentNative": 65
           },
           {
             "rank": 5,
@@ -3124,32 +3124,32 @@
           {
             "rank": 7,
             "source": 20,
-            "currentNative": 52
+            "currentNative": 53
           },
           {
             "rank": 8,
             "source": 20,
-            "currentNative": 50
+            "currentNative": 51
           },
           {
             "rank": 9,
             "source": 20,
-            "currentNative": 47
+            "currentNative": 48
           },
           {
             "rank": 10,
             "source": 20,
-            "currentNative": 45
+            "currentNative": 46
           },
           {
             "rank": 11,
             "source": 20,
-            "currentNative": 43
+            "currentNative": 44
           },
           {
             "rank": 12,
             "source": 20,
-            "currentNative": 41
+            "currentNative": 42
           },
           {
             "rank": 13,
@@ -3159,12 +3159,12 @@
           {
             "rank": 14,
             "source": 20,
-            "currentNative": 38
+            "currentNative": 39
           },
           {
             "rank": 15,
             "source": 20,
-            "currentNative": 37
+            "currentNative": 38
           },
           {
             "rank": 16,
@@ -3174,22 +3174,22 @@
           {
             "rank": 17,
             "source": 20,
-            "currentNative": 35
+            "currentNative": 36
           },
           {
             "rank": 18,
             "source": 20,
-            "currentNative": 34
+            "currentNative": 35
           },
           {
             "rank": 19,
             "source": 20,
-            "currentNative": 33
+            "currentNative": 34
           },
           {
             "rank": 20,
             "source": 20,
-            "currentNative": 32
+            "currentNative": 33
           },
           {
             "rank": 21,
@@ -3213,17 +3213,17 @@
           {
             "rank": 2,
             "source": 20,
-            "currentNative": 78
+            "currentNative": 79
           },
           {
             "rank": 3,
             "source": 20,
-            "currentNative": 71
+            "currentNative": 72
           },
           {
             "rank": 4,
             "source": 20,
-            "currentNative": 64
+            "currentNative": 65
           },
           {
             "rank": 5,
@@ -3238,32 +3238,32 @@
           {
             "rank": 7,
             "source": 20,
-            "currentNative": 52
+            "currentNative": 53
           },
           {
             "rank": 8,
             "source": 20,
-            "currentNative": 50
+            "currentNative": 51
           },
           {
             "rank": 9,
             "source": 20,
-            "currentNative": 47
+            "currentNative": 48
           },
           {
             "rank": 10,
             "source": 20,
-            "currentNative": 45
+            "currentNative": 46
           },
           {
             "rank": 11,
             "source": 20,
-            "currentNative": 43
+            "currentNative": 44
           },
           {
             "rank": 12,
             "source": 20,
-            "currentNative": 41
+            "currentNative": 42
           },
           {
             "rank": 13,
@@ -3273,12 +3273,12 @@
           {
             "rank": 14,
             "source": 20,
-            "currentNative": 38
+            "currentNative": 39
           },
           {
             "rank": 15,
             "source": 20,
-            "currentNative": 37
+            "currentNative": 38
           },
           {
             "rank": 16,
@@ -3288,22 +3288,22 @@
           {
             "rank": 17,
             "source": 20,
-            "currentNative": 35
+            "currentNative": 36
           },
           {
             "rank": 18,
             "source": 20,
-            "currentNative": 34
+            "currentNative": 35
           },
           {
             "rank": 19,
             "source": 20,
-            "currentNative": 33
+            "currentNative": 34
           },
           {
             "rank": 20,
             "source": 20,
-            "currentNative": 32
+            "currentNative": 33
           },
           {
             "rank": 21,
@@ -3375,77 +3375,77 @@
           {
             "rank": 1,
             "source": 5,
-            "currentNative": 85
+            "currentNative": 86
           },
           {
             "rank": 2,
             "source": 5,
-            "currentNative": 74
+            "currentNative": 75
           },
           {
             "rank": 3,
             "source": 5,
-            "currentNative": 65
+            "currentNative": 66
           },
           {
             "rank": 4,
             "source": 5,
-            "currentNative": 58
+            "currentNative": 59
           },
           {
             "rank": 5,
             "source": 5,
-            "currentNative": 52
+            "currentNative": 53
           },
           {
             "rank": 6,
             "source": 5,
-            "currentNative": 47
+            "currentNative": 48
           },
           {
             "rank": 7,
             "source": 5,
-            "currentNative": 43
+            "currentNative": 44
           },
           {
             "rank": 8,
             "source": 5,
-            "currentNative": 41
+            "currentNative": 42
           },
           {
             "rank": 9,
             "source": 5,
-            "currentNative": 37
+            "currentNative": 38
           },
           {
             "rank": 10,
             "source": 5,
-            "currentNative": 35
+            "currentNative": 36
           },
           {
             "rank": 11,
             "source": 5,
-            "currentNative": 32
+            "currentNative": 33
           },
           {
             "rank": 12,
             "source": 5,
-            "currentNative": 30
+            "currentNative": 31
           },
           {
             "rank": 13,
             "source": 5,
-            "currentNative": 28
+            "currentNative": 29
           },
           {
             "rank": 14,
             "source": 5,
-            "currentNative": 26
+            "currentNative": 27
           },
           {
             "rank": 15,
             "source": 5,
-            "currentNative": 25
+            "currentNative": 26
           },
           {
             "rank": 16,
@@ -3455,27 +3455,27 @@
           {
             "rank": 17,
             "source": 5,
-            "currentNative": 23
+            "currentNative": 24
           },
           {
             "rank": 18,
             "source": 5,
-            "currentNative": 22
+            "currentNative": 23
           },
           {
             "rank": 19,
             "source": 5,
-            "currentNative": 21
+            "currentNative": 22
           },
           {
             "rank": 20,
             "source": 5,
-            "currentNative": 20
+            "currentNative": 21
           },
           {
             "rank": 21,
             "source": 5,
-            "currentNative": 19
+            "currentNative": 20
           }
         ]
       },
@@ -3489,77 +3489,77 @@
           {
             "rank": 1,
             "source": 5,
-            "currentNative": 85
+            "currentNative": 86
           },
           {
             "rank": 2,
             "source": 5,
-            "currentNative": 74
+            "currentNative": 75
           },
           {
             "rank": 3,
             "source": 5,
-            "currentNative": 65
+            "currentNative": 66
           },
           {
             "rank": 4,
             "source": 5,
-            "currentNative": 58
+            "currentNative": 59
           },
           {
             "rank": 5,
             "source": 5,
-            "currentNative": 52
+            "currentNative": 53
           },
           {
             "rank": 6,
             "source": 5,
-            "currentNative": 47
+            "currentNative": 48
           },
           {
             "rank": 7,
             "source": 5,
-            "currentNative": 43
+            "currentNative": 44
           },
           {
             "rank": 8,
             "source": 5,
-            "currentNative": 41
+            "currentNative": 42
           },
           {
             "rank": 9,
             "source": 5,
-            "currentNative": 37
+            "currentNative": 38
           },
           {
             "rank": 10,
             "source": 5,
-            "currentNative": 35
+            "currentNative": 36
           },
           {
             "rank": 11,
             "source": 5,
-            "currentNative": 32
+            "currentNative": 33
           },
           {
             "rank": 12,
             "source": 5,
-            "currentNative": 30
+            "currentNative": 31
           },
           {
             "rank": 13,
             "source": 5,
-            "currentNative": 28
+            "currentNative": 29
           },
           {
             "rank": 14,
             "source": 5,
-            "currentNative": 26
+            "currentNative": 27
           },
           {
             "rank": 15,
             "source": 5,
-            "currentNative": 25
+            "currentNative": 26
           },
           {
             "rank": 16,
@@ -3569,27 +3569,27 @@
           {
             "rank": 17,
             "source": 5,
-            "currentNative": 23
+            "currentNative": 24
           },
           {
             "rank": 18,
             "source": 5,
-            "currentNative": 22
+            "currentNative": 23
           },
           {
             "rank": 19,
             "source": 5,
-            "currentNative": 21
+            "currentNative": 22
           },
           {
             "rank": 20,
             "source": 5,
-            "currentNative": 20
+            "currentNative": 21
           },
           {
             "rank": 21,
             "source": 5,
-            "currentNative": 19
+            "currentNative": 20
           }
         ]
       },
@@ -3695,11 +3695,11 @@
   "established": [
     "Start34 uses corpseSel/dead/Udead selection without a separate SOFT test. Do72 marks corpse_noselect and refreshes before chance; failed chance returns0 and still consumes the attempt. Repeated calls consume no further RNG.",
     "Pinned modern chance uses source dm12 plus hard Find Potion. Successful do makes a second draw and sends corpse/caster and nParam to a stubbed mode-event sink; this is not a loot outcome certificate.",
-    "Shared native SkillValues.Diminishing truncates the ratio early for general parameter pairs. Source11033 multiplies parameter delta before the divisions and caps the final value. Find Item rank2 with5/60 yields20 instead of native19. Find Potion0/100 remains equal. Record shared-curve correction separately before extending native use."
+    "The compiled decompiled helper and current native curve disagree for general pairs: Find Item rank2 gives20 versus19. This is a reference disagreement, not an established runtime bug. Blizzard historical skill tables agree with current native rounding in distinguishing Summon Resist/Natural Resistance cases; pinned modern executable/tooltip confirmation remains open. Find Potion0/100 agrees under both models."
   ],
   "limits": [
     "Mode/death/treasure generation and surrounding payment are not compiled here. No native handler, mana/refund behavior or drop policy is enabled.",
-    "The source helper is supplemental; modern general formula/overflow behavior and affected existing skill consumers need focused correction/verification.",
+    "The source helper is supplemental and conflicts with Blizzard historical tables. Preserve the existing runtime curve pending pinned modern confirmation; the86-field scan is potential exposure, not established defects. Surrounding payment and full loot remain pending.",
     "Shared literal harness declares engine/stat/RNG/state/selection services. No game executable/art is imported."
   ]
 }

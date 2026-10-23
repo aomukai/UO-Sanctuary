@@ -17,7 +17,7 @@ bar=source('source/D2Game/src/SKILLS/SkillBar.cpp');common=source('source/D2Comm
 # Reuse the literal declared-services harness, without executing that probe.
 harnessPath=ROOT/'tools/probe_find_potion_reference.py';module=ast.parse(harnessPath.read_text())
 cpp=next(ast.literal_eval(n.value) for n in module.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='cpp' for t in n.targets))
-cpp=cpp.replace('dwParam[4]={0,100,30,10}','dwParam[4]={5,60,0,0}')
+cpp=cpp.replace('dwParam[4]={0,100,30,10}','dwParam[4]={5,60,30,5}')
 cpp+='int hardPotion=0;int modeCalls=0,modeParam=0;D2UnitStrc* modeCorpse=nullptr;D2UnitStrc* modeCaster=nullptr;\n'
 for text,name in [(common,'SKILLS_CanUnitCorpseBeSelected'),(common,'D2Common_11033'),(common,'D2Common_11034'),(ordinals,'D2COMMON_11019')]:cpp+=routine(text,name)+'\n'
 cpp+='int SKILLS_EvaluateSkillFormula(D2UnitStrc*,int,int skill,int rank){return D2Common_11034(rank,skill)+hardPotion;}\n'
@@ -43,7 +43,7 @@ for typ,mode,flags,undead,valid,result in data['eligibilityCases']:assert result
 for rank,hard,draw,chance,result,used,refresh,calls,count,again,last in data['chanceCases']:
  expected=(min(60,5+55*110*rank//(rank+6)//100) if rank>0 else 0)+hard;ok=draw<expected
  assert (chance,result,used,refresh,calls,count,again,last)==(expected,int(ok),1,1,int(ok),2 if ok else 1,0,2 if ok else 1)
-for draw,result,calls,param,corpse,caster,count in data['modeCases']:assert (result,calls,param,corpse,caster,count)==(1,1,2 if 5<=draw<65 else 1,1,1,2)
+for draw,result,calls,param,corpse,caster,count in data['modeCases']:assert (result,calls,param,corpse,caster,count)==(1,1,1 if draw<5 else 2 if draw<65 else 3 if draw<95 else 4,1,1,2)
 for valid,present,used,result,noselect,count,calls in data['guardCases']:
  ok=valid and present and not used;assert (result,noselect,count,calls)==(int(ok),int(used or ok),2 if ok else 0,int(ok))
 for start,maximum,rank,result in data['curveCases']:assert result==min(maximum,start+(maximum-start)*110*rank//(rank+6)//100)
@@ -51,6 +51,7 @@ for start,maximum,rank,result in data['curveCases']:assert result==min(maximum,s
 differences=[dict(first=a,second=b,rank=n,source=v,currentNative=a+(b-a)*min(100,110*n//(n+6))//100) for a,b,n,v in data['curveCases'] if n>0 and v!=a+(b-a)*min(100,110*n//(n+6))//100]
 skillPath=ROOT/'tools/reference/d2r-named-equipment/json/skills.json'
 consumers=[]
+def truncdiv(a,b):return (abs(a)//abs(b))*(-1 if (a<0)!=(b<0) else 1)
 for row in json.loads(skillPath.read_text()).values():
  if row.get('charclass') not in ('ama','sor','nec','pal','bar','dru','ass','war'):continue
  for field,formula in row.items():
@@ -61,10 +62,10 @@ for row in json.loads(skillPath.read_text()).values():
    first,last=int(row.get('Param'+str(a),0)),int(row.get('Param'+str(b),0))
    mismatch=[]
    for rank in range(1,22):
-    exact=min(last,first+(last-first)*110*rank//(rank+6)//100)
-    current=first+(last-first)*min(100,110*rank//(rank+6))//100
+    exact=min(last,first+truncdiv(truncdiv((last-first)*110*rank,rank+6),100))
+    current=first+truncdiv((last-first)*min(100,110*rank//(rank+6)),100)
     if exact!=current:mismatch.append(dict(rank=rank,source=exact,currentNative=current))
    if mismatch:consumers.append(dict(skill=row['skill'],characterClass=row['charclass'],field=field,first=first,second=last,differences=mismatch))
-out=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],status='Bounded start/do/curve proof; native Find Item payment and loot event remain pending.',sourceHashes=hashes,sharedHarness=dict(path=str(harnessPath.relative_to(ROOT)),sha256=hashlib.sha256(harnessPath.read_bytes()).hexdigest()),probe=dict(caseCounts={k:len(v) for k,v in data.items()},blockHashes={k:hashlib.sha256(v.encode()).hexdigest() for k,v in blocks.items()},dataPath='.local/class-skills/find-item-source-probe.json'),curveRoundingDifferences=differences,currentTableConsumerScan=dict(skillTableHash=hashlib.sha256(skillPath.read_bytes()).hexdigest(),scope='DM tokens in playable current table calc fields at effective ranks1..21; inventory only, not executed skill outcomes.',consumers=consumers),established=['Start34 uses corpseSel/dead/Udead selection without a separate SOFT test. Do72 marks corpse_noselect and refreshes before chance; failed chance returns0 and still consumes the attempt. Repeated calls consume no further RNG.','Pinned modern chance uses source dm12 plus hard Find Potion. Successful do makes a second draw and sends corpse/caster and nParam to a stubbed mode-event sink; this is not a loot outcome certificate.','Shared native SkillValues.Diminishing truncates the ratio early for general parameter pairs. Source11033 multiplies parameter delta before the divisions and caps the final value. Find Item rank2 with5/60 yields20 instead of native19. Find Potion0/100 remains equal. Record shared-curve correction separately before extending native use.'],limits=['Mode/death/treasure generation and surrounding payment are not compiled here. No native handler, mana/refund behavior or drop policy is enabled.','The source helper is supplemental; modern general formula/overflow behavior and affected existing skill consumers need focused correction/verification.','Shared literal harness declares engine/stat/RNG/state/selection services. No game executable/art is imported.'])
+out=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],status='Bounded start/do/curve proof; native Find Item payment and loot event remain pending.',sourceHashes=hashes,sharedHarness=dict(path=str(harnessPath.relative_to(ROOT)),sha256=hashlib.sha256(harnessPath.read_bytes()).hexdigest()),probe=dict(caseCounts={k:len(v) for k,v in data.items()},blockHashes={k:hashlib.sha256(v.encode()).hexdigest() for k,v in blocks.items()},dataPath='.local/class-skills/find-item-source-probe.json'),curveRoundingDifferences=differences,currentTableConsumerScan=dict(skillTableHash=hashlib.sha256(skillPath.read_bytes()).hexdigest(),scope='DM tokens in playable current table calc fields at effective ranks1..21; signed comparison divisions truncate toward zero. Inventory only, not executed skill outcomes.',consumers=consumers),established=['Start34 uses corpseSel/dead/Udead selection without a separate SOFT test. Do72 marks corpse_noselect and refreshes before chance; failed chance returns0 and still consumes the attempt. Repeated calls consume no further RNG.','Pinned modern chance uses source dm12 plus hard Find Potion. Successful do makes a second draw and sends corpse/caster and nParam to a stubbed mode-event sink; this is not a loot outcome certificate.','The compiled decompiled helper and current native curve disagree for general pairs: Find Item rank2 gives20 versus19. This is a reference disagreement, not an established runtime bug. Blizzard historical skill tables agree with current native rounding in distinguishing Summon Resist/Natural Resistance cases; pinned modern executable/tooltip confirmation remains open. Find Potion0/100 agrees under both models.'],limits=['Mode/death/treasure generation and surrounding payment are not compiled here. No native handler, mana/refund behavior or drop policy is enabled.','The source helper is supplemental and conflicts with Blizzard historical tables. Preserve the existing runtime curve pending pinned modern confirmation; the86-field scan is potential exposure, not established defects. Surrounding payment and full loot remain pending.','Shared literal harness declares engine/stat/RNG/state/selection services. No game executable/art is imported.'])
 (ROOT/'tools/reference/find-item-engine-evidence.json').write_text(json.dumps(out,indent=2)+'\n')
 print('Find Item bounded source cases:',out['probe']['caseCounts'],'general curve differences:',len(differences))

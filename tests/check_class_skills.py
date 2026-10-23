@@ -449,6 +449,8 @@ def check():
                     assert session.expect(taunt_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'taunt-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     save_snapshot(session)
+                    session.send('find-item-primitives-check')
+                    assert session.expect(r'find-item-primitives-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     warcry_command='warcry-check' if boot==0 else 'warcry-reload-check'
                     session.send(warcry_command)
                     assert session.expect(warcry_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

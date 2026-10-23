@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "624 bounded compiled start/do/selection/curve cases; native payment and loot event still pending.",
+  "status": "624 corrected start/do/selection/curve cases;4464 NoDrop cases and native shared selector preparation. Native Find Item handler remains pending.",
   "skill": {
     "skill": "Find Item",
     "*Id": 142,
@@ -72,17 +72,49 @@
     "Legacy start34 calls corpse selection directly; unlike Find Potion start33 it has no separate SOFT requirement in this wrapper. Do72 repeats selection and corpse_noselect guards, marks corpse before RNG and refreshes its world unit.",
     "Unlike Find Potion do69, failed Find Item chance returns0. Do not blindly reuse successful-no-output return/payment semantics. Trace the enclosing cast/resource path.",
     "Successful chance takes another 0..99 draw to select nParam1..4 and calls sub_6FC659B0. That wrapper ignores a4 in the decompilation and forwards a mode-change descriptor to sub_6FC631B0; ordinary native GearDrops cannot be assumed equivalent to this event/reward path.",
-    "Compiled shared diminishing helper exposes an existing native early-truncation gap for general parameter pairs: Find Item rank2 with5/60 is20 in source versus19 in current SkillValues. Find Potion0/100 remains equal. Correct/verify affected shared consumers in a separate batch before enabling Find Item."
+    "The original bounded fixture omitted pinned Param3=30 and Param4=5; corrected source runs now cover all100 secondary draws across nParam1..4. The reviewed drop wrapper ignores that parameter; no forced-quality behavior is inferred.",
+    "Blizzard historical Summon Resist/Natural Resistance/Increased Speed tables match current native curve values at60 published ranks and conflict with10 compiled decompiled-helper results. Preserve existing formula pending pinned-build confirmation;86 fields are model exposure, not verified native bugs.",
+    "Reviewed start dispatcher pays after successful start34; later chance failure returns0 without refunding that debit. Reviewed Find Item drop wrapper passes a7=1 through TC selection; compiled NoDrop branch verifies nested bypass primitive without replacing existing item weights."
   ],
   "nextSteps": [
-    "Correct the existing shared diminishing-curve division order and verify affected consumers against compiled independent vectors; keep War Cry checked build separate because it does not use this curve.",
+    "Retain existing shared curve pending optional pinned-build tooltip confirmation; this reference conflict does not block unaffected start/payment/corpse/NoDrop work.",
     "Compile bounded chance/eligibility/one-attempt/do-return branches, using pinned modern formula inputs and declared services.",
     "Trace common payment plus mode-change/death-event/treasure evaluation, corpse treasure identity and NoDrop/quest/special/elite context before enabling native drops.",
     "Continue unaffected Barbarian mechanics when a particular loot branch lacks source/native support; preserve original corpse contents."
   ],
   "limits": [
     "Compiled start/do/selection/curve proof only; mode/death/treasure pipeline and surrounding payment remain unverified. No native Find Item handler or arbitrary drop policy.",
-    "Find Potion caster Act/game difficulty question stays separate and unanswered. No mapping or fallback selected."
+    "Find Potion caster Act/game difficulty question stays separate and unanswered. No mapping or fallback selected.",
+    "No full native skill is enabled by the internal NoDrop primitive. Corpse identity/persistence, original loot retention, item/MF/context and quest/elite/TC-group handling still need implementation or explicit gates."
   ],
-  "evidence": "tools/reference/find-item-engine-evidence.json"
+  "evidence": [
+    "tools/reference/find-item-engine-evidence.json",
+    "tools/reference/find-item-loot-engine-evidence.json",
+    "tools/reference/diminishing-reference-conflict.json"
+  ],
+  "nativePlan": {
+    "reuse": [
+      "SkillCombat SC timing and shared class-session cancellation; successful source start pays7mana before impact.",
+      "CorpseSkillRules saved source/access/LOS/loot restrictions; add a separate saved noselect attempt flag, preserving corpse appearance/contents.",
+      "Existing CreatureGold/GearDrops/NamedGear creation and MF/gold-find consumers; use nested NoDrop bypass only for successful Find Item.",
+      "Generated shared corpse-target metadata and existing packet/hotkey selection route; remove Necromancer-only dispatch assumption for this ability."
+    ],
+    "requiredContext": [
+      "Capture original source identity/type, difficulty and level at corpse creation.",
+      "Resolve standard supported world TC using the existing foundation pin; explicitly gate unsupported quest/elite/TC-group contexts rather than inventing outcomes.",
+      "Use the caster item-find context at drop time, separately from corpse source/level.",
+      "Read older saved corpse metadata without assuming absent drop fields; either reconstruct from established source data or leave that corpse unsupported."
+    ],
+    "checks": [
+      "Single7mana start payment and no refund on failed chance/interruption; no second impact debit.",
+      "Success/failure both consume the one-attempt flag; repeated or competing corpse skills refuse it without hiding/deleting old loot.",
+      "Native successful extra gold/potion/equipment via existing generators with nested NoDrop removed; unsupported contexts gated.",
+      "Actual direct/right/quick corpse targeting, rank/gear/hard Find Potion synergy, death/map/LOS/town cancellation and original-loot retention.",
+      "Save/reload noselect/source context/fractional mana/loot, without replaying an active cast."
+    ],
+    "open": [
+      "Pinned modern DM curve observation pending; current runtime remains supported by historical primary values.",
+      "Exact automatic corpse acquisition metric/modern event snapshots and full special TC/item quality contexts remain acceptance work."
+    ]
+  }
 }
