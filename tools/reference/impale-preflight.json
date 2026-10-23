@@ -1,0 +1,125 @@
+{
+  "referenceVersion": "3.3.93847",
+  "date": "2026-10-24",
+  "status": "Next unaffected Amazon melee skill after Charged Strike verification. Source review only; no Impale handler.",
+  "sourceId": 19,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "reviewedOnlyRoutineHashes": {
+    "SKILLS_SrvSt07_Impale": "aceeca6de7dbfa8caf4859cf2120c7f32182523d0215f600c2c493d3d1dff7d3",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2"
+  },
+  "modernFields": {
+    "skill": "Impale",
+    "charclass": "ama",
+    "skilldesc": "impale",
+    "srvstfunc": 7,
+    "srvdofunc": 2,
+    "auratargetstate": "impale",
+    "auralencalc": 300,
+    "aurastat1": "velocitypercent",
+    "aurastatcalc1": "-dm78",
+    "aurastat2": "attackrate",
+    "aurastatcalc2": "-dm78",
+    "aurastat3": "other_animrate",
+    "aurastatcalc3": "-dm78",
+    "stsound": "amazon_impale_1",
+    "stsounddelay": 1,
+    "weaponsnd": 1,
+    "cltstfunc": 55,
+    "enhanceable": 1,
+    "attackrank": 6,
+    "range": "h2h",
+    "itypea1": "spea",
+    "anim": "SQ",
+    "seqtrans": "A1",
+    "monanim": "xx",
+    "seqnum": 8,
+    "durability": 1,
+    "UseAttackRate": 1,
+    "TargetableOnly": 1,
+    "SearchEnemyXY": 1,
+    "AttackNoMana": 1,
+    "KeepCursorStateOnKill": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Jab",
+    "leftskill": 1,
+    "rightskill": 1,
+    "alwayshit": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 3,
+    "lvlmana": 0,
+    "calc1": "ln12",
+    "calc2": "par6-dm34",
+    "calc3": "par5",
+    "calc4": 0,
+    "Param1": 300,
+    "Param2": 25,
+    "Param3": 0,
+    "Param4": 30,
+    "Param5": 1,
+    "Param6": 50,
+    "Param7": 0,
+    "Param8": 75,
+    "Param9": 30,
+    "InGame": 1,
+    "HitShift": 8,
+    "SrcDam": 128,
+    "cost mult": 512,
+    "cost add": 8000
+  },
+  "modernPrimary": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4: uninterruptible attack, removed AR/always hit, percentage target slow, animation speed increased30percent. These current corrections supersede older interruptible/AR assumptions. Always-hit alone does not independently prove every block/avoidance branch."
+  },
+  "reuse": [
+    "Shared prepared Amazon melee packet and scoped javelin endpoints; preserve distinct Impale start7 allocation/wear instead of blindly inheriting start6.",
+    "Existing sequence compiler/scheduler from Jab and shared attack animation-rate services; trace SQ8 selector and Param9 current speed adjustment.",
+    "Existing saved slow fields/controllers from Holy Freeze, Decrepify and named slowing; Impale target state has300frames and three separate slow stats."
+  ],
+  "reviewed": [
+    "Current damage calc1=300+25*(rank-1),3mana flat, spea ancestry, SrcDam128 and alwayshit1; no interrupt flag. Target slow uses-dm78 with0/75 bounds for velocitypercent/attackrate/other_animrate over300frames.",
+    "Legacy start7 requires table/target and sub_6FCBD900 before preparing hit. It applies physical bonus with calc1 then sets damage hitflag1, rolls source elements if any, performs special wear at start, allocates combat128.",
+    "Special wear uses calc2=50-dm34 and calc3=1; stackable weapon path calls quantity consumption via sub_6FD118C0 on a successful wear roll, while durable nonstackable weapon loses specified durability or breaks. Do not replace with ordinary Jab release wear."
+  ],
+  "uncertain": [
+    "Compile whole unchanged start7 and event consumers to establish special wear/allocation/event order and failure paths.",
+    "Modern always-hit/uninterruptibility/slow target state and30percent speed need dedicated native consumers and reference comparison; ordinary block/avoidance, native modes and existing gear/events stay separate.",
+    "Trace exact SQ8 row/family mapping, frame bonus and current Param9 speed layer; do not multiply a guessed total duration."
+  ],
+  "nextActions": [
+    "Compile unchanged start7 under declared services and validate physical allocation/wear cases.",
+    "Extract and compile SQ8 schedule for legal1HT/2HT families; combine published modern change/current table without inventing its arithmetic layer.",
+    "Implement modern target slow using existing three-field saved consumers, then verify native mana/gear/interruptions/wear/slow/persistence."
+  ],
+  "assets": {
+    "effects": "Keep native thrust/sound and target slow presentation clearly identified when enabled; final effects remain separately pending.",
+    "icons": "Separate talent/hotkey icon pending."
+  },
+  "reviewedSequences": {
+    "1HT": {
+      "symbol": "gPlayerSequenceImpale_BOW",
+      "points": 21,
+      "strikePoints": [
+        13
+      ],
+      "sha256": "848e0b6e1f5bf63acbf266bf19863863374e57487be9ff01410e2aff06414300",
+      "scope": "Reviewed static sequence only; unchanged scheduler compilation and current speed layer remain next work."
+    },
+    "2HT": {
+      "symbol": "gPlayerSequenceImpale_1HS",
+      "points": 24,
+      "strikePoints": [
+        15
+      ],
+      "sha256": "0227b5c1b007ed2299f842c8b40482946a6461d1cd26c6ce5eac787a70f8e468",
+      "scope": "Reviewed static sequence only; unchanged scheduler compilation and current speed layer remain next work."
+    }
+  }
+}

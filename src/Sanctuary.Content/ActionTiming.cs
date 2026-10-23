@@ -16,7 +16,7 @@ public readonly record struct ActionTiming(int Frames, int EffectFrame)
 }
 public static class CombatTiming
 {
-    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
+    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
     private static readonly int[][] _attacks =
     [
@@ -97,7 +97,7 @@ public static class CombatTiming
     {
         if(ability==CombatAbility.Zeal){return PaladinZeal.Timing(from);}
         if(ability==CombatAbility.Jab){return AmazonJab.Timing(from);}
-        if(ability==CombatAbility.PowerStrike){return AmazonMelee.Timing(from);}
+        if(ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike){return AmazonMelee.Timing(from);}
         ClassCreation.Profiles.TryGet(from.Serial, out var profile);
         return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
             WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, PaladinOffense.AttackRate(from));
@@ -123,7 +123,7 @@ public static class CombatTiming
             var schedule=AmazonJab.Schedule(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);
             return new(schedule.End,schedule.Events[0]);
         }
-        if(ability==CombatAbility.PowerStrike){return AmazonMelee.Timing(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);}
+        if(ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike){return AmazonMelee.Timing(weapon.Family==AttackFamily.TwoHandedThrust?"2HT":"1HT",advance);}
         if(ability==CombatAbility.DoubleThrow){return new((12*256+advance-1)/advance,(5*256+advance-1)/advance);}
         if(ability==CombatAbility.Charge){return new ActionTiming(15,1);}
         if(ability==CombatAbility.Leap){return new ActionTiming(14,5);}
@@ -154,7 +154,7 @@ public static class CombatTiming
     {
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
-    public static int Range(PlayerMobile from, CombatAbility ability) => ability is CombatAbility.Jab or CombatAbility.PowerStrike?AmazonJab.Range(from):ability==CombatAbility.Whirlwind?CombatProtocol.SightRange:ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
+    public static int Range(PlayerMobile from, CombatAbility ability) => ability is CombatAbility.Jab or CombatAbility.PowerStrike or CombatAbility.ChargedStrike?AmazonJab.Range(from):ability==CombatAbility.Whirlwind?CombatProtocol.SightRange:ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {

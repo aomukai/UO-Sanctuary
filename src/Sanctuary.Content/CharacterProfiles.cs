@@ -160,6 +160,7 @@ public sealed class CharacterProfiles : GenericPersistence
         foreach (var item in equipment) { player.Backpack.DropItem(item); }
         NecromancerEffects.Profiles.Clear(player);
         SorceressEffects.Profiles.Clear(player);
+        ChargedStrikeBolts.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

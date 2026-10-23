@@ -126,6 +126,7 @@ public static class WardrobeTransaction
         if (NecromancerEffects.Profiles.Find(player) is { } skillState)
         { NecromancerEffects.Profiles.Store(player, skillState with { BoneArmor = 0 }); }
         SorceressEffects.Profiles.Clear(player);
+        ChargedStrikeBolts.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

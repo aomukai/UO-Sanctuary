@@ -27,6 +27,7 @@ public static class ClassDeath
         TimedEffects.Clear(player);
         NecromancerEffects.Profiles.Clear(player);
         SorceressEffects.Profiles.Clear(player);
+        ChargedStrikeBolts.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

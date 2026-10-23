@@ -75,10 +75,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 24,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Interruptible prepared spear/javelin melee commits before target-origin charged bolts, including weapon misses/lethal hits. One fractional start payment, low-mana ordinary fallback, hard-only14% three-skill synergy, captured projectile lightning/mastery and saved independent nonpiercing bolts reuse shared consumers. Source512 start/emission and45 initializer/getter cases, native formula/emission/gear/lifecycle/reload checks are recorded separately. Literal legacy calc1 physical-ED overlap is retained with modern corroboration open. Exact source subtile/Size/shotgun collision, activation/factory/current animation/seed/stat/owner/PvP/client parity remain acceptance work, not approved deviations or a class certificate."
     },
     {
       "talentId": "amazon.plaguejavelin",
@@ -463,7 +463,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source bolt count/cap, fixed seed/waypoint vectors, capped lifetime, one-time mana and independent non-piercing overlaps have dedicated fixtures. Two-subtile tile projection, continuous collision/velocity, Slow Missiles and actual-client/D2R path comparisons remain open."
+      "remaining": "Source bolt count/cap, aim-coordinate seed/waypoint vectors, capped lifetime, one-time mana and independent non-piercing overlaps have dedicated fixtures. Compiled getter confirms seed uses aim X; former caster-X seed is corrected through the shared helper. Two-subtile tile projection, continuous collision/velocity, Slow Missiles and actual-client/D2R path comparisons remain open."
     },
     {
       "talentId": "sorceress.telekinesis",

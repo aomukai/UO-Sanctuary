@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 6 / 30 | 0 | 24 | Open |
+| 5 | Amazon | 7 / 30 | 0 | 23 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -80,7 +80,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 | Chilling Armor | 60 | handler-present | Source ReturnFire filtering and a travelling counter-bolt from a native arrow covered. Other missile/collision exceptions, cast/impact modifier timing and live-client comparison remain. |
 | Frozen Orb | 64 | handler-present | Source rotating trail emissions, sixteen terminal curved shards, damage/chill, per-shard collision and local delay implemented. Overdue source frames are now processed before natural expiry; a controlled two-frame delayed callback preserves remaining travel emissions and terminal shards. Exact D2R initial-step/cell/path quantization, footprint, unit ordering, lag and owner transitions require comparison. |
 | Cold Mastery | 65 | handler-present | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Charged Bolt | 38 | handler-present | Source bolt count/cap, fixed seed/waypoint vectors, capped lifetime, one-time mana and independent non-piercing overlaps have dedicated fixtures. Two-subtile tile projection, continuous collision/velocity, Slow Missiles and actual-client/D2R path comparisons remain open. |
+| Charged Bolt | 38 | handler-present | Source bolt count/cap, aim-coordinate seed/waypoint vectors, capped lifetime, one-time mana and independent non-piercing overlaps have dedicated fixtures. Compiled getter confirms seed uses aim X; former caster-X seed is corrected through the shared helper. Two-subtile tile projection, continuous collision/velocity, Slow Missiles and actual-client/D2R path comparisons remain open. |
 | Telekinesis | 43 | handler-present | Hostile-monster damage and source 35% terrain-checked knockback present. Remote item/object/portal/waypoint interactions and forced hit-recovery semantics are not implemented; no generic interaction is substituted. |
 | Static Field | 42 | handler-present | Native current-life fraction and mastery exclusion covered; Nightmare/Hell floors and mixed mitigation need dedicated fixtures. |
 | Lightning | 49 | handler-present | Distinct source SQ sequence, travelling pierce and target exclusions have native coverage. Exact Size=2 footprint, LastCollide overlap cases, Slow Missiles and actual-client comparison remain open. |
@@ -180,7 +180,7 @@ Captured weapon leech now uses saved fractional fields through shared health/man
 | Poison Javelin | 15 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Impale | 19 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Bolt | 20 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Charged Strike | 24 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Charged Strike | 24 | handler-present | Interruptible prepared spear/javelin melee commits before target-origin charged bolts, including weapon misses/lethal hits. One fractional start payment, low-mana ordinary fallback, hard-only14% three-skill synergy, captured projectile lightning/mastery and saved independent nonpiercing bolts reuse shared consumers. Source512 start/emission and45 initializer/getter cases, native formula/emission/gear/lifecycle/reload checks are recorded separately. Literal legacy calc1 physical-ED overlap is retained with modern corroboration open. Exact source subtile/Size/shotgun collision, activation/factory/current animation/seed/stat/owner/PvP/client parity remain acceptance work, not approved deviations or a class certificate. |
 | Plague Javelin | 25 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fend | 30 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Lightning Strike | 34 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

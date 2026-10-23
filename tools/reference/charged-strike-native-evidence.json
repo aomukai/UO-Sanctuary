@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Amazon Charged Strike:512 compiled start/emission and45 initializer/aim-getter cases; native128 calc1,32 emission groups/136 packets,45 seed cases and20 rank goldens pass. Focused and final combined3boots/2reloads pass, including actual Spear/Titan/Griffon/Goblin Toe,840% hard synergies, melee snapshots, missed/lethal emission, spell-only independent bolts, cancellations and saved moving payloads with resumed damage. Shared Sorceress charged-bolt aim seed correction passes existing regression.70 Python tests and460 named/15 first-loop fingerprints pass. Matching119-handler content/data installed; existing-world boot/listen/shutdown0 passes. Server stopped; client unchanged and saves retained. Modern calc1/shotgun/geometry/current engine acceptance remains explicit; no full class certificate.",
+  "handlerCount": 119,
+  "classHandlerCount": 7,
+  "sourceEvidence": "tools/reference/charged-strike-engine-evidence.json",
+  "sourceProbe": {
+    "compiledStartEmissionCases": 512,
+    "compiledInitializerAndAimGetterCases": 45,
+    "nativeCalc1Cases": 128,
+    "nativeEmissionGroups": 32,
+    "nativeEmissionPackets": 136,
+    "nativeSeedCases": 45,
+    "nativeRankGoldens": 20
+  },
+  "verified": [
+    "Left/right/quick native APIs and bindings. One fractional successful-start debit; early/duplicate event exclusion, no release repayment. Learned/weapon/town gates and low-mana ordinary physical fallback with no bolts.",
+    "Prepared shared A1 spear/javelin melee adds separate lightning and literal source calc1 physical ED; missed weapon roll emits bolts without rolling direct lightning, and same-release lethal hit retains target coordinates for emission. Previously dead/deleted/out-of-range targets do not redirect to neighbours.",
+    "Compiled source do11 emission matches32 native current-missile groups/136 origin/rank/heading/ordinal seed payloads;128 valid start calc1 cases,45 aim-coordinate seed cases and20 current damage/mana/count goldens agree. Source fixture coordinates are even source subtiles so native half-scale comparison is exact.",
+    "Compiled D2COMMON_10175 getter returns target/aim coordinate. Shared Sorceress charged-bolt seed corrected from caster X to aim X; existing Path/Heading and extracted Advance are reused without changing their waypoint arithmetic.",
+    "Actual Spear, Titan javelin, Griffon mastery, Goblin Toe and hard20 three-skill synergies exercise840percent, full melee weapon packet versus spell-only bolt endpoints, once-only physical critical and live emission mastery at original prepared rank. Gear removal does not reroll melee. No thrown ammunition debit or leaked melee scope.",
+    "Native timed independent upper-exclusive bolts hit and terminate once each; later target untouched. Actual Goblin Toe, Titan life leech and independent Life Tap curse do not turn spell bolts into weapon CB/leech/healing; no extra mana. Natural lifetime/termination tested separately.",
+    "Movement, hit recovery, Stop, weapon/range/target loss, respec and death cancel prepared effects. Respec/death/wardrobe hooks clear launched bolts. Invalid restore is rejected atomically, retaining previous valid flight state.",
+    "Real timed movement before save; two actual reloads retain flight identities, origin, seed, direction, continuous position, next waypoint, frame, rank, enhanced endpoints and absolute deadlines. Native rearmed saved flights resume real damage and disappear once; pending melee packet does not replay. Gear, rank, bindings, fractional mana, target health, quantity and durability persist."
+  ],
+  "fixtureAndFailureNotes": [
+    "Initial focused run caught missing chargedstrikebolt in generated reduced source-support data; generator now includes current pinned row. Failure log retained.",
+    "Emission comparison initially assumed dictionary enumeration followed creation order; reused free dictionary slots return another ordinal first. Fixture now orders by immutable flight Id before comparing source ordinal; gameplay collection/ordering was not changed to satisfy the assertion.",
+    "Internal point-reset fixture initially demanded immediate pending packet removal. It now invokes the real ResolveAction invalidation as the existing Power Strike check does; public respec already stops actions. Launched bolts clear immediately through the real reset hook. No gameplay cancellation weakening.",
+    "A preliminary integration build used the default installed content assembly and could not resolve the new flight type; correct candidate SanctuaryContentAssembly property is used. Successful final builds are recorded separately.",
+    "Only named fixture actors have constructor/load hourly regeneration; actual AI stopped/frozen. Natural3.08-second deadline/termination is separate from10-minute saved inspection holds. Reload fixture relocates its frozen target onto one saved path and rearms one real payload at a time; it does not certify uncontrolled moving-target geometry.",
+    "Source probe includes declared hit/allocation/drain/creation services.512 source-only cases are not represented as512 full native/current-executable cases; native source-shaped comparison counts are bounded separately."
+  ],
+  "limits": [
+    "No full class/current executable or item-skill gate certificate. Modern shared calc1 bolt-count/physical-ED overlap remains uncorroborated; literal supplementary source is implemented explicitly, not silently replaced with invented zero ED.",
+    "Current native charged-bolt swept circles are reused. Exact source subtile grid/Size footprints, path initial steps, small/large-target shotgun distribution, collision unit ordering and source seed/stat/event/RNG/owner/PvP/block/avoidance/client parity remain acceptance work. The swept adapter can overcount initial overlap; this is explicitly not an approved deviation or D2R-exact certificate.",
+    "Source activation deadline is set before initializer77-frame cap; native permits first collision rather than inventing three inactive frames from Activate3 alone. Full modern factory/collision timing and Slow Missiles consumers remain open.",
+    "A1 timing inherits recorded supplementary cached animation provenance/current IAS/WSM/Fanaticism/chill/input limitations from Power Strike. Full material/gear/poison/retaliation/leech/repair consumers retain earlier independent gaps.",
+    "Bolts use the existing saved real-time projectile convention. Internal/offline maps suspend movement while absolute deadlines still expire; current modern owner-removal/game-session semantics and graphical client acceptance remain open."
+  ],
+  "assets": {
+    "effects": "Native weapon pose/sound0x238, contact0x374A hue0x481 and travelling bolt0x3818 hue0x482 identified placeholders; final weapon/ground-bolt/impact effects pending in separate register.",
+    "icons": "Separate talent/hotkey icon remains pending in240-entry icon register."
+  },
+  "logs": {
+    "source-probe": ".local/class-skills/charged-strike-source-probe.log",
+    "content-build": ".local/class-skills/charged-strike-content-build.log",
+    "integration-build": ".local/class-skills/charged-strike-integration-build.log",
+    "focused": ".local/class-skills/charged-strike-focused.log",
+    "focused-run": ".local/class-skills/charged-strike-focused-run.log",
+    "missing-missile-row": ".local/class-skills/charged-strike-missing-missile-row.log",
+    "emission-fixture-failure": ".local/class-skills/charged-strike-emission-differential-failure.log",
+    "respec-fixture-failure": ".local/class-skills/charged-strike-respec-fixture-failure.log",
+    "combined": ".local/class-skills/charged-strike-combined.log",
+    "combined-run": ".local/class-skills/full-suite-run.log",
+    "installed-server": ".local/class-skills/charged-strike-installed-server.log",
+    "installed-smoke": ".local/class-skills/charged-strike-installed-smoke.log",
+    "python": ".local/class-skills/python-checks.log"
+  },
+  "next": "Impale source/modern correction and native prepared melee/sequence/slow/wear integration; charged-bolt collision and Multiple Shot launch gaps remain independent.",
+  "nextPreflight": "tools/reference/impale-preflight.json"
+}

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "date": "2026-10-24",
-  "status": "Source preparation passes512 unchanged start/emission and45 initializer cases. No Charged Strike native handler; installed118 handlers/Amazon6 preserved.",
+  "status": "Amazon Charged Strike:512 compiled start/emission and45 initializer/aim-getter cases; native128 calc1,32 emission groups/136 packets,45 seed cases and20 rank goldens pass. Focused and final combined3boots/2reloads pass, including actual Spear/Titan/Griffon/Goblin Toe,840% hard synergies, melee snapshots, missed/lethal emission, spell-only independent bolts, cancellations and saved moving payloads with resumed damage. Shared Sorceress charged-bolt aim seed correction passes existing regression.70 Python tests and460 named/15 first-loop fingerprints pass. Matching119-handler content/data installed; existing-world boot/listen/shutdown0 passes. Server stopped; client unchanged and saves retained. Modern calc1/shotgun/geometry/current engine acceptance remains explicit; no full class certificate.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
@@ -88,19 +88,20 @@
     "Range98/Activate3 factory deadline95 is set before initializer caps current/total frames to77; older collision current>activation condition therefore does not imply three inactive frames. Dependency review only, full modern factory/collision acceptance remains open."
   ],
   "uncertain": [
-    "Current calc1 is bolt count, while unchanged start6 also reads calc1 as physical enhanced damage. Compile exact source/start/alloc branches and seek modern evidence; do not silently choose zero or claim current parity.",
-    "Trace direct skill lightning versus bolt lightning allocation/mastery and missed-hit emission; same-release lethal target versus already-invalid target and deferred callback semantics.",
-    "Existing ChargedBolts uses Sorceress-only transient SkillField/owner origin/chargedbolt metadata. Generalization must retain current Sorceress behavior while establishing chargedstrikebolt range/velocity/hitbox/activation/seed/shotgun/owner/persistence semantics.",
+    "Literal supplementary start6 calc1 physical ED is implemented/tested; modern executable corroboration remains open. No silent ED0 replacement.",
+    "Missed-hit/lethal same-release native emission is tested; full modern target/corpse lifetime/event ordering and snapshots remain acceptance.",
+    "Shared Path/Heading/Advance and corrected aim seed are reused; dedicated saved Charged Strike flights retain current missile metadata and spell-only endpoints. Exact source subtile/Size/shotgun collision and full factory/owner/current acceptance remain open.",
     "Full current animation/input/geometry/stat/event/owner/client parity remains separate acceptance."
   ],
   "nextActions": [
-    "512 start/emission and45 initializer cases now compiled; next compare native packet/emission/seed consumers, preserving declared-service limits.",
-    "Compile shared start6 with actual current Charged Strike fields, including missing SrcDam and calc1 count/ED overlap; record current uncertainty explicitly.",
-    "Review chargedstrikebolt missile factory and collision contracts before native emission implementation."
+    "Continue Impale prepared melee/sequence/slow/special-wear integration from impale-preflight.json.",
+    "Retain distinct Charged Strike modern calc1, subtile/Size/shotgun/factory/owner/client acceptance work and broader Multiple Shot launch gaps."
   ],
   "assets": {
     "effects": "Separate effect register retains Charged Strike weapon lightning, target-origin ground bolts and impact needs; identify native placeholders when enabled.",
     "icons": "Separate talent/hotkey icon pending; no imagegen in mechanics batch."
   },
-  "compiledEvidence": "tools/reference/charged-strike-engine-evidence.json"
+  "compiledEvidence": "tools/reference/charged-strike-engine-evidence.json",
+  "nativeEvidence": "tools/reference/charged-strike-native-evidence.json",
+  "nextPreflight": "tools/reference/impale-preflight.json"
 }

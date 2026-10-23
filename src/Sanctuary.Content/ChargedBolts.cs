@@ -8,6 +8,10 @@ public static class ChargedBolts
 {
     private static readonly Point2D[] _directions = [new(1, 0), new(1, 1), new(0, 1), new(-1, 1), new(-1, 0), new(-1, -1), new(0, -1), new(1, -1)];
     public static int Frames => Math.Min(77, NecromancerSummons.Source("chargedbolt", "Range"));
+    // D2COMMON_10175 is named FirstPointX in the reconstruction but returns
+    // tTargetCoord.X. The initializer seeds from the aim, not the origin.
+    internal static uint SeedSubtile(int aimX,int ordinal)=>unchecked((uint)(aimX+ordinal));
+    public static uint Seed(Point3D aim,int ordinal)=>SeedSubtile(aim.X*2,ordinal);
     public static int Heading(int dx, int dy)
     {
         if (dx == 0 && dy == 0) { return 6; }
@@ -34,7 +38,17 @@ public static class ChargedBolts
     {
         int direction = Heading(aim.X - owner.X, aim.Y - owner.Y);
         for (int i = 0; i < values.Eval("calc1"); i++)
-        { new Bolt(owner, values, Path((uint)(owner.X * 2 + i), direction, Frames)).Start(); }
+        { new Bolt(owner, values, Path(Seed(aim,i), direction, Frames)).Start(); }
+    }
+    internal static (double X,double Y,int Next) Advance(Point2D[] path,int originX,int originY,double x,double y,int next,double remaining)
+    {
+        while(remaining>0 && next<path.Length)
+        {
+            double dx=originX+path[next].X-x,dy=originY+path[next].Y-y,distance=Math.Sqrt(dx*dx+dy*dy);
+            if(distance<=remaining){x+=dx;y+=dy;remaining-=distance;next++;}
+            else{x+=dx*remaining/distance;y+=dy*remaining/distance;remaining=0;}
+        }
+        return(x,y,next);
     }
     private sealed class Bolt(PlayerMobile owner, SkillValues values, Point2D[] path)
         : SkillField(owner, Frames, DiabloClass.Sorceress)
@@ -45,15 +59,7 @@ public static class ChargedBolts
         protected override void Step()
         {
             var before = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
-            double remaining = SkillGeometry.Velocity(NecromancerSummons.Source("chargedbolt", "Vel"));
-            while (remaining > 0 && _next < path.Length)
-            {
-                double dx = _originX + path[_next].X - _x, dy = _originY + path[_next].Y - _y;
-                double distance = Math.Sqrt(dx * dx + dy * dy);
-                if (distance <= remaining)
-                { _x += dx; _y += dy; remaining -= distance; _next++; }
-                else { _x += dx * remaining / distance; _y += dy * remaining / distance; remaining = 0; }
-            }
+            (_x,_y,_next)=Advance(path,_originX,_originY,_x,_y,_next,SkillGeometry.Velocity(NecromancerSummons.Source("chargedbolt", "Vel")));
             var after = new Point3D((int)Math.Round(_x), (int)Math.Round(_y), _z);
             if (_next >= path.Length || after.X < 0 || after.Y < 0 || after.X >= Map.Width || after.Y >= Map.Height
                 || !Map.LineOfSight(new Point3D(before.X, before.Y, _z + 12), new Point3D(after.X, after.Y, _z + 12))) { Stop(); return; }

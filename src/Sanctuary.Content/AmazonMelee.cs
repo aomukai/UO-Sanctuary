@@ -7,14 +7,17 @@ namespace Sanctuary;
 
 public static class AmazonMelee
 {
-    internal sealed record Prepared(CombatAbility Ability,Serial Target,bool Hit,bool Basic,PreparedWeaponImpact Impact,double ElementRoll,int Lightning256,long EffectAt);
+    internal sealed record Prepared(CombatAbility Ability,Serial Target,bool Hit,bool Basic,PreparedWeaponImpact Impact,double ElementRoll,int Lightning256,long EffectAt,int Rank);
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
     internal static Func<int,int> LightningRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
     internal static Random WearRoll=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability==CombatAbility.PowerStrike;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike;
+    // Literal shared start6 reads calc1, which is also Charged Strike's bolt
+    // count. Current executable corroboration of this small ED overlap is open.
+    internal static int PhysicalBonus(CombatAbility ability,SkillValues values,bool basic)=>!basic && ability==CombatAbility.ChargedStrike?(int)values.Eval("calc1"):0;
     internal static ActionTiming Timing(string code,int advance)
     {
         if(code is not("1HT" or "2HT")){return new(1,1);}advance=Math.Max(1,advance);
@@ -45,13 +48,13 @@ public static class AmazonMelee
             if(hit)
             {
                 lightning=basic?0:Lightning(owner,values); // Skill lightning precedes weapon allocation/RNG.
-                roll=ElementRoll();var damage=GearEffects.Damage(owner,roll,target,0,PhysicalRoll);
+                roll=ElementRoll();var damage=GearEffects.Damage(owner,roll,target,PhysicalBonus(ability,values,basic),PhysicalRoll);
                 packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,damage,new(0,0,0,lightning/256.0,0,ColdMs:0));
                 packet=packet with{LifeDamage256=NamedElements.To256(packet.Parts.Total)};
             }
         }
         if(!basic && !NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.AmazonAttack=new(ability,selected,hit,basic,packet,roll,lightning,session.EffectAt);return true;
+        session.AmazonAttack=new(ability,selected,hit,basic,packet,roll,lightning,session.EffectAt,values.Rank);return true;
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability,long now)
     {
@@ -61,10 +64,17 @@ public static class AmazonMelee
             || !AmazonJab.ValidTarget(owner,prepared.Target) || World.FindMobile(prepared.Target) is not{} target){return false;}
         using var mode=WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner));owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified native weapon sound/pose placeholders.
         using var attempt=PaladinThorns.Attempt(owner,target,false);
-        if(!prepared.Hit){return true;}
-        var weapon=CombatTiming.Equipped(owner);GearEffects.Strike(owner,target,prepared.ElementRoll,Effects,wearWeapon:false,preparedImpact:prepared.Impact);
-        AmazonJab.Wear(weapon,WearRoll);
-        if(!prepared.Basic){target.FixedEffect(0x374A,10,5,0x481,0);} // Identified Power Strike lightning-contact placeholder.
+        if(prepared.Hit)
+        {
+            var weapon=CombatTiming.Equipped(owner);GearEffects.Strike(owner,target,prepared.ElementRoll,Effects,wearWeapon:false,preparedImpact:prepared.Impact);
+            AmazonJab.Wear(weapon,WearRoll);
+            if(!prepared.Basic){target.FixedEffect(0x374A,10,5,0x481,0);} // Identified weapon lightning-contact placeholder.
+        }
+        // Source do11 commits melee first, then emits at the resulting target
+        // coordinates even on a miss or a lethal strike. The retained target
+        // object supplies coordinates after death; no replacement is acquired.
+        if(ability==CombatAbility.ChargedStrike && !prepared.Basic)
+        {ChargedStrikeBolts.Cast(owner,target.Location,SkillMechanics.Values(owner,ability,prepared.Rank));}
         return true;
     }
     internal static void Cancel(PlayerMobile owner)

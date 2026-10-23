@@ -279,7 +279,7 @@
     "behavior": "Distinct fractional defender event after central CB and before ordinary leech clipping, including outer missiles; native AOS/prepared melee/pet/Smite consumers reuse it and suppress duplicate late healing.",
     "status": "Focused/final combined verification and installed-world smoke passed within recorded limits."
   },
-  "unaffectedNextSkill": "Power Strike implemented/verified/installed,118 total handlers/Amazon6. Primary released2.6 resolves its AR discrepancy; continue Charged Strike shared-start/missile-emission review. Multiple Shot calc5 arithmetic/full launch gaps remain independent.",
+  "unaffectedNextSkill": "Charged Strike implemented/verified/installed within recorded partial limits,119 total handlers/Amazon7. Shared charged-bolt seed now uses source aim X. Continue Impale prepared melee/sequence/slow/wear work; modern Charged Strike calc1/shotgun/collision and Multiple Shot full launch gaps remain independent.",
   "innerSightEvidence": [
     "tools/reference/inner-sight-engine-evidence.json",
     "tools/reference/inner-sight-native-evidence.json"
@@ -288,5 +288,7 @@
   "jabNativeEvidence": "tools/reference/jab-native-evidence.json",
   "powerStrikePreflight": "tools/reference/power-strike-preflight.json",
   "powerStrikeNativeEvidence": "tools/reference/power-strike-native-evidence.json",
-  "chargedStrikePreflight": "tools/reference/charged-strike-preflight.json"
+  "chargedStrikePreflight": "tools/reference/charged-strike-preflight.json",
+  "chargedStrikeNativeEvidence": "tools/reference/charged-strike-native-evidence.json",
+  "impalePreflight": "tools/reference/impale-preflight.json"
 }

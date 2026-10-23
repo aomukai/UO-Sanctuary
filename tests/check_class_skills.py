@@ -70,7 +70,7 @@ def check():
         shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         shutil.copy2(STAGE / 'inner-sight-source-probe.json', folder / 'inner-sight-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
-        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json'):
+        for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
@@ -126,6 +126,14 @@ def check():
                     power_strike='power-strike-check' if boot==0 else 'power-strike-reload-check'
                     session.send(power_strike)
                     assert session.expect(power_strike+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    charged_strike='charged-strike-check' if boot==0 else 'charged-strike-reload-check'
+                    session.send(charged_strike)
+                    assert session.expect(charged_strike+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    if boot==0:
+                        for result in ('charged-strike-native-bolts','charged-strike-expiry-start','charged-strike-expiry','charged-strike-result'):
+                            assert session.expect(result+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    else:
+                        assert session.expect('charged-strike-reload-result'+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     pierce='amazon-pierce-check' if boot==0 else 'amazon-pierce-reload-check'
                     session.send(pierce)
                     assert session.expect(pierce+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
