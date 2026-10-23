@@ -969,7 +969,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared fractional defender event uses mitigated physical before ordinary leech victim-life clipping, independently of monster drain/difficulty and outer attacker-event suppression. Existing curse/rank/deadline and fractional-health persistence are reused. Dedicated source/native melee, Smite, AOS, travelling missile, real soft-rank gear, natural expiry and reload checks are recorded separately. Modern full event/retaliation/absorb/caster context, PvP/special modes, owner lifecycle and actual-client parity remain acceptance work; no completion certificate."
     },
     {
       "talentId": "necromancer.attract",

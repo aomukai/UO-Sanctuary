@@ -178,10 +178,11 @@ public static class SkillCombat
         int before = target.Hits;
         source.DoHarmful(target, true);
         if(weapon){PaladinThorns.Prepared(source,target,(int)Math.Clamp(Math.Floor(physical*256),0,int.MaxValue),ranged);}
+        if(weapon){NecromancerEffects.LifeTap(source,target,NamedElements.To256(physical));}
         if (total > 0) { SkillHealth.Damage(source,target,NamedElements.To256(total)); }
         int loss = Math.Max(0, before - target.Hits);
         if (recover && target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss, weapon); }
-        if (weapon) { NecromancerEffects.WeaponHit(source, target, Math.Min(loss, (int)physical), ranged); }
+        if (weapon) { NecromancerEffects.WeaponHit(source, target, Math.Min(loss, (int)physical), ranged,lifeTap:false); }
         return new(loss, (int)Math.Clamp(physical, 0, int.MaxValue), before);
     }
 }

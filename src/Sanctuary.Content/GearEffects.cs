@@ -172,6 +172,7 @@ public static class GearEffects
         int before = target.Hits; var impact = target.Location; var impactMap = target.Map;
         PaladinThorns.Prepared(player,target,(int)Math.Clamp(Math.Floor(physical*256),0,int.MaxValue),ranged);
         NamedCombat.Crushing(player, target, ranged, effects);
+        NecromancerEffects.LifeTap(player,target,NamedElements.To256(physical));
         if(beforeCommit!=null && absorbed256>0){SkillHealth.Heal(target,absorbed256);}
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)
@@ -190,7 +191,7 @@ public static class GearEffects
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)
         { new Blood().MoveToWorld(impact, impactMap); }
         GemCombat.Leech(player, target, Math.Min(Math.Max(0, normalBefore - target.Hits), (int)Math.Floor(physical)));
-        NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged);
+        NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false);
         NamedCombat.AfterStrike(player, target, ranged, effects,skipKnockback:skillKnockback);
         GemCombat.WeaponHit(player, target, loss, ranged);
         if (wearWeapon && weapon != null && NamedAmmunition.Maximum(weapon) == 0) { weapon.WearOnHit(player, target); }

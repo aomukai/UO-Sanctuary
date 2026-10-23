@@ -11,7 +11,7 @@ public static class PaladinThorns
     public static void Configure()
     {
         ClassCombatHooks.MeleeAttempt=Attempt;
-        ClassCombatHooks.PreparedWeaponDamage=Prepared;
+        ClassCombatHooks.PreparedWeaponDamage=NecromancerEffects.PreparedNativeWeaponHit;
     }
     public static bool Active(Mobile actor)=>actor!=null && PaladinAuras.Effect(actor,CombatAbility.Thorns)!=null;
     public static int ReturnedPercent(Mobile attacker,int percent)=>attacker is PlayerMobile or BaseHire ? (percent+4)/8 : percent;

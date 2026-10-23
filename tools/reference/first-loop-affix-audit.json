@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "b90861f24e5b5abd4bfb55ee6f53756989138d7de20f12a589caf505347daf0c",
+  "ContentAssemblySha256": "fc728049b4654f3fd219bda96279b376025ed2d3c4bf04ce2b1ff4cc0beaa4a8",
   "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -16,7 +16,7 @@
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "f972efd7cf616017feeb51825d1ef684dde10de7d99288e646287790bc5e1bcd",
+    "src/Sanctuary.Content/GearEffects.cs": "3d0ab1158a214d65c25924aa1115e9125850fe4290d69124b6574d69447f3b2f",
     "src/Sanctuary.Content/GearProfiles.cs": "9d384cef47c3267c27cbae69f88eee816b9c1298f893e143f7d2eb7c1993596d",
     "src/Sanctuary.Content/HitRecovery.cs": "23820e2e71cf81b1fd6ba680953c64afd57a94d07c04cfa4cd5e10d0ae595b5d"
   },

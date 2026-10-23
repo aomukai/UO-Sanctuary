@@ -59,7 +59,9 @@ public static class NecromancerEffects
     {
         Profiles = new(); EventSink.WorldSave += Profiles.Prune;
         ClassCombatHooks.SkillResistedDamage = SkillCombat.ResistedDamage;
-        ClassCombatHooks.SkillWeaponHit = WeaponHit;
+        // Native AOS supplies the fractional physical event before committing life.
+        // Its later ordinary hit callback must not repeat Life Tap.
+        ClassCombatHooks.SkillWeaponHit = (attacker,target,loss,ranged)=>WeaponHit(attacker,target,loss,ranged,lifeTap:false);
     }
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
@@ -250,12 +252,28 @@ public static class NecromancerEffects
         long balance = (long)owner.Mana * 256 + state.ManaFraction - cost256;
         owner.Mana = (int)(balance / 256); Profiles.Store(owner, state with { ManaFraction = (int)(balance % 256) }); return true;
     }
-    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged)
+    internal static int LifeTapHealing256(int physical256,int percent)
+        =>(int)Math.Clamp((long)Math.Max(0,physical256)*Math.Max(0,percent)/100,0,int.MaxValue);
+    internal static int LifeTap(Mobile attacker,Mobile target,int physical256)
+    {
+        if(physical256<=0 || attacker is not(PlayerMobile or BaseCreature) || attacker is not{Alive:true,Deleted:false}
+            || target is not(PlayerMobile or BaseCreature) || Curse(target) is not{Ability:CombatAbility.LifeTap} tap
+            || SkillHealth.Balance256(attacker)<=0 || attacker.HitsMax<=0){return 0;}
+        // The defender event precedes ordinary leech's victim-life cap and has no
+        // monster drain/difficulty reduction. Pinned calc1=ln56 is50% at all ranks.
+        int healed=SkillHealth.Heal(attacker,LifeTapHealing256(physical256,Values(tap).Linear(5,6)));
+        attacker.FixedEffect(0x376A,10,10,0x26,0); // Life Tap steallife recovery placeholder.
+        return healed;
+    }
+    internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
+    {PaladinThorns.Prepared(attacker,target,physical256,ranged);LifeTap(attacker,target,physical256);}
+    public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true)
     {
         SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged);
         if (physicalLoss <= 0) { return; }
-        if (Curse(target) is { Ability: CombatAbility.LifeTap } tap && attacker is { Alive: true, Deleted: false })
-        { attacker.Hits += physicalLoss * Values(tap).Linear(5, 6) / 100; }
+        // Compatibility entry point for explicit whole-HP events. Native and
+        // prepared weapon paths already dispatched their fractional Life Tap event.
+        if(lifeTap){LifeTap(attacker,target,(int)Math.Min((long)physicalLoss*256,int.MaxValue));}
         if (!ranged && Curse(attacker) is { Ability: CombatAbility.IronMaiden } maiden && attacker.Alive && !attacker.Deleted)
         {
             int reflect = physicalLoss * Values(maiden).Linear(5, 6) / 100;

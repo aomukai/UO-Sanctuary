@@ -242,7 +242,7 @@
   ],
   "remaining": [
     "Implement and verify complete launch collector, including approved materials and separately mastered aura/Enchant channels without erasing unsupported inputs.",
-    "Captured life/mana drain and fractional central CB components are implemented; finish real launch collection and the remaining distinct event consumers, including Life Tap before ordinary leech clipping. Verify each central/outer effect with real eligible gear and current-versus-captured fields.",
+    "Captured drain, central fractional CB and distinct fractional Life Tap components are implemented; finish real launch collection and remaining central item effects, captured defense loss/live prevent-heal. Verify each effect and current-versus-captured stat context.",
     "Establish placement of modern calc5 hard Guided Arrow synergy; the older do8 routine does not provide it. Do not invent its damage/payment contract.",
     "Connect Multiple Shot start/payment, one ammunition debit after a complete fan, timing/quantity/owner/client paths and exact current next-hit scope. Keep individual unsupported branches explicit and proceed unaffected Amazon skills."
   ],
@@ -271,6 +271,13 @@
     "sha256": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
     "currentTable": "Life Tap82: damagedinmelee/damagedbymissile eventfunc5, calc1 ln56 (50percent).",
     "reviewed": "Defender event follows attacker central callback but precedes ordinary leech physical/current-victim-life clipping. It heals attacker from event dwPhysDamage; checks curse state/statlist and caster formula, living attacker/max life. No drain/difficulty reduction occurs in that body. Outer missile suppression does not suppress defender event.",
-    "scope": "Read-only supplementary source trace; not yet compiled or migrated into travelling consumer, not a modern executable certificate."
-  }
+    "scope": "Supplementary source trace now compiled in life-tap-engine-evidence.json and migrated through existing curse/health consumers; native verification recorded separately, not a modern executable certificate."
+  },
+  "lifeTapIntegration": {
+    "source": "tools/reference/life-tap-engine-evidence.json",
+    "native": "tools/reference/life-tap-native-evidence.json",
+    "behavior": "Distinct fractional defender event after central CB and before ordinary leech clipping, including outer missiles; native AOS/prepared melee/pet/Smite consumers reuse it and suppress duplicate late healing.",
+    "status": "Focused/final combined verification and installed-world smoke passed within recorded limits."
+  },
+  "unaffectedNextSkill": "Review Amazon Inner Sight while preserving full launch/callback work and the explicitly unresolved modern Multiple Shot calc5 field."
 }

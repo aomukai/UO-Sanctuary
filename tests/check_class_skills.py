@@ -67,6 +67,7 @@ def check():
         shutil.copy2(STAGE / 'amazon-pierce-source-probe.json', folder / 'amazon-pierce-source-probe.json')
         shutil.copy2(STAGE / 'weapon-leech-source-probe.json', folder / 'weapon-leech-source-probe.json')
         shutil.copy2(STAGE / 'weapon-crushing-source-probe.json', folder / 'weapon-crushing-source-probe.json')
+        shutil.copy2(STAGE / 'life-tap-source-probe.json', folder / 'life-tap-source-probe.json')
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
@@ -105,6 +106,11 @@ def check():
                     crushing='weapon-crushing-check' if boot==0 else 'weapon-crushing-reload-check'
                     session.send(crushing)
                     assert session.expect(crushing+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
+                    life_tap='life-tap-check' if boot==0 else 'life-tap-reload-check'
+                    session.send(life_tap)
+                    assert session.expect(life_tap+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
+                    if boot==0:
+                        assert session.expect(r'life-tap-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
                     pierce='amazon-pierce-check' if boot==0 else 'amazon-pierce-reload-check'
                     session.send(pierce)
                     assert session.expect(pierce+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

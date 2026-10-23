@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Focused/final combined3boots/2reloads,70 Python tests,455 named/15 first-loop fingerprints and matching installed-build existing-world load/listen/shutdown0 passed; server stopped. No full modern executable certificate.",
+  "newSkillHandler": false,
+  "handlerCount": 115,
+  "sourceEvidence": "tools/reference/life-tap-engine-evidence.json",
+  "sourceRows": 9360,
+  "sourceAcceptedArithmeticRows": 480,
+  "verified": [
+    "Pinned50% at ranks1/7/20/40; fractional physical-only healing, recipient maximum/remainder clearing, no victim-life cap for Life Tap.",
+    "Actual separate Necromancer caster/Amazon recipient; travelling central/outer shots, overkill, captured ordinary leech and actual Goblin Toe CB+Life Tap+leech ordering.",
+    "Hell zero-drain skeleton still allows Life Tap; physical immunity, elemental-only, miss, actual source shield block, absent/replaced/expired curse do not heal.",
+    "Actual native AOS fractional and ranged weapon hooks heal once; spell packet excluded; shared skill/pet weapon path, prepared player melee and Smite reuse the fractional event without duplicate late healing.",
+    "Actual Tarnhelm changes recast rank/duration to2/18.4seconds while existing captured rank remains unchanged on equip/removal. Natural rank1 duration16seconds and actual16.2second expiry callback pass.",
+    "Existing saved curse caster/rank/absolute deadline, fractional recipient/victim health and held outer travelling missile survive two actual reloads; resumed impact heals128FP256 once."
+  ],
+  "fixtureScope": [
+    "NPCs and wounded recipients use constructor-scoped/reloaded one-hour recovery intervals; AI frozen/stopped; deterministic scoped hit/damage/block/CB draws. Production regeneration unchanged.",
+    "Natural16second expiry is checked before a separate inspection curse and missile deadline are held10minutes for save/reload. The inspection copy is rearmed only after checking a real resumed impact.",
+    "First reload initially healed correctly but fixture rearm failed because offline caster remained on Map.Internal; restoring its saved origin before test recast fixes the fixture, without changing gameplay map/target rules. Failure log retained."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/life-tap-focused.log",
+    "combined": ".local/class-skills/life-tap-combined.log",
+    "initialFixtureFailure": ".local/class-skills/life-tap-offline-caster-fixture.log"
+  },
+  "assets": {
+    "effect": "Native0x376A hue0x26 identifies temporary steallife recovery; existing Life Tap cast/curse/recovery effects remain pending.",
+    "icons": "Existing Life Tap talent/hotkey icon remains pending; no second icon for shared callback."
+  },
+  "limits": [
+    "Older unchanged source callback and legacy official guide supplement the pinned3.3.93847 tables; exact modern engine event/overkill/retaliation/absorb/caster-context/PvP/special-mode/owner/client parity still requires acceptance.",
+    "Current ln56 is constant50%; full live caster formula/stat graph and missing/dead caster transitions are not certified by the native fixture.",
+    "Native prepared hook ordering retains existing Thorns projection; this does not establish complete D2 retaliation/event dispatch ordering.",
+    "The compatibility WeaponHit entry point still accepts explicit whole-HP events. Actual prepared native/player/pet/Smite/missile consumers dispatch Life Tap earlier and suppress duplicate late healing.",
+    "Complete missile launch collector, remaining central item events, captured defense loss/live prevent-heal and Multiple Shot remain pending. No full class completion certificate.",
+    "No actual AI-controlled summon attack is exercised by this fixture: the shared weapon method and direct monster-recipient healing are covered separately. Smite uses its direct strike event here; surrounding input/timing checks remain in the combined suite."
+  ],
+  "contentAssemblySha256": "fc728049b4654f3fd219bda96279b376025ed2d3c4bf04ce2b1ff4cc0beaa4a8",
+  "integrationAssemblySha256": "6aa78af4375b382bf8ca542034e35b9c2248de73c6991a95b0ac0a74f8a4fe72",
+  "installedSmoke": ".local/class-skills/life-tap-installed-smoke.log"
+}

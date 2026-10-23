@@ -138,6 +138,7 @@ public static class WeaponMissiles
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
             if((flight.Flags&0x10000)==0){NamedCombat.Crushing(owner,selected,true,ItemEffects);}
+            NecromancerEffects.LifeTap(owner,selected,NamedElements.To256(parts.Physical));
             WeaponLeech.Apply(owner,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
