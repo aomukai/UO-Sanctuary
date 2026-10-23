@@ -13,7 +13,8 @@ public static class EliteBolts
         internal EncounterCreature Source;
         internal Map Map;
         internal Point3D Origin, Previous;
-        internal double Dx, Dy;
+        internal double Dx, Dy, Distance, DistancePerFrame;
+        internal SlowMissilePayload Slow;
         internal int Steps, Step, Lightning;
         internal bool Fire;
         internal HashSet<Serial> Hit;
@@ -21,6 +22,13 @@ public static class EliteBolts
     private static readonly HashSet<Bolt> _active = new();
     private static readonly List<Bolt> _snapshot = new();
     internal static int ActiveCount => _active.Count;
+    internal readonly record struct View(int Frame,double Distance,double DistancePerFrame,SlowMissilePayload Slow);
+    internal static View[] Inspect(EncounterCreature source)
+    {
+        var result=new List<View>();foreach(var bolt in _active)
+        {if(bolt.Source==source){result.Add(new(bolt.Step,bolt.Distance,bolt.DistancePerFrame,bolt.Slow));}}
+        return result.ToArray();
+    }
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), Tick);
     internal static void Fan(EncounterCreature source, Mobile target, int count, bool fire)
     {
@@ -42,9 +50,19 @@ public static class EliteBolts
     {
         if (_active.Count >= 4096 || (lightning == 0 ? !EliteCombat.CanAct(source) : source.Deleted || !source.Alive) || source.Map == null || source.Map == Map.Internal) { return; }
         var endpoint = new Point3D(source.X + (int)Math.Round(Math.Cos(angle) * 18), source.Y + (int)Math.Round(Math.Sin(angle) * 18), source.Z);
-        source.MovingEffect(new Entity(Serial.Zero, endpoint, source.Map), fire ? 0x36D4 : lightning > 0 ? 0x3818 : 0xF42, 10, 0, false, false);
+        // Existing native encounter bolts use one tile per source frame. Keep
+        // that baseline adapter, but apply the compiled factory's integer slow
+        // operation before its 75% conversion. Source missile geometry is a
+        // separate acceptance gap; this is not a new D2 base-velocity claim.
+        bool canSlow=NecromancerSummons.Source(fire?"firebolt":lightning>0?"lightningbolt":"arrow","CanSlow")!=0;
+        var slow=AmazonSlowMissiles.Capture(source,canSlow);
+        if(slow.VelocityPercent==100)
+        {source.MovingEffect(new Entity(Serial.Zero, endpoint, source.Map), fire ? 0x36D4 : lightning > 0 ? 0x3818 : 0xF42, 10, 0, false, false);}
+        int normal=SlowMissilePayload.VelocityFp8(0,0,0,20,256,false,100);
+        int velocity=SlowMissilePayload.VelocityFp8(0,0,0,20,256,true,slow.VelocityPercent);
         _active.Add(new Bolt { Source = source, Map = source.Map, Origin = source.Location, Previous = source.Location,
-            Dx = Math.Cos(angle), Dy = Math.Sin(angle), Steps = 18, Fire = fire, Lightning = lightning, Hit = hit });
+            Dx = Math.Cos(angle), Dy = Math.Sin(angle), DistancePerFrame=velocity/(double)normal, Slow=slow,
+            Steps = 18, Fire = fire, Lightning = lightning, Hit = hit });
     }
     internal static void Cancel(EncounterCreature source)
     {
@@ -62,10 +80,15 @@ public static class EliteBolts
             var source = bolt.Source;
             if (source is not { Deleted: false, Alive: true } || source.Map != bolt.Map || ++bolt.Step > bolt.Steps)
             { Remove(bolt); continue; }
-            var point = new Point3D(bolt.Origin.X + (int)Math.Round(bolt.Dx * bolt.Step),
-                bolt.Origin.Y + (int)Math.Round(bolt.Dy * bolt.Step), bolt.Origin.Z);
+            bolt.Distance+=bolt.DistancePerFrame;
+            var point = new Point3D(bolt.Origin.X + (int)Math.Round(bolt.Dx * bolt.Distance),
+                bolt.Origin.Y + (int)Math.Round(bolt.Dy * bolt.Distance), bolt.Origin.Z);
             if (!EncounterProfiles.ClearSight(bolt.Map, bolt.Previous, point)) { Remove(bolt); continue; }
             bolt.Previous = point;
+            // Identified position marker for slowed native bolts, rather than
+            // the ordinary client effect's unchanged travel speed. Final art pending.
+            if(bolt.Slow.VelocityPercent!=100 && bolt.Step%2==0)
+            {Effects.SendLocationEffect(point,bolt.Map,bolt.Fire?0x36D4:bolt.Lightning>0?0x3818:0xF42,2);}
             Mobile victim = null;
             foreach (var mobile in bolt.Map.GetMobilesInRange<Mobile>(point, 0))
             {
@@ -74,14 +97,14 @@ public static class EliteBolts
             if (victim == null) { continue; }
             if (bolt.Hit.Add(victim.Serial))
             {
-                if (bolt.Lightning > 0) { if(!AmazonAvoidance.Missile(victim)){EliteCombat.Damage(source, victim, lightning: bolt.Lightning);} }
+                if (bolt.Lightning > 0) { if(!AmazonAvoidance.Missile(victim)){EliteCombat.Damage(source, victim, lightning: bolt.Slow.Damage256(bolt.Lightning*256)/256.0);} }
                 else if (bolt.Fire || ClassStats.CheckHit(source, victim,0,projectile:true) == true)
                 {
                     var attack = source.EncounterProfile.Attack1;
                     int damage = Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value);
                     if(bolt.Fire && AmazonAvoidance.Missile(victim)){Remove(bolt);continue;}
                     if (Utility.Random(100) < source.Basis.CriticalChance) { damage *= 2; }
-                    EliteCombat.Hit(source, victim, damage, bolt.Fire ? ResistanceType.Fire : ResistanceType.Physical, true);
+                    EliteCombat.Hit(source, victim, damage, bolt.Fire ? ResistanceType.Fire : ResistanceType.Physical, true, missile:bolt.Slow);
                 }
             }
             Remove(bolt);

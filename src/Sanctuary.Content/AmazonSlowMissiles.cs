@@ -24,7 +24,8 @@ public readonly record struct SlowMissilePayload(int VelocityPercent,int DamageP
         if(value!=0){value=value*75/100;}
         return checked((int)value);
     }
-    // Explicit candidate payload operation; no gameplay producer consumes it yet.
+    // Candidate payload operation used by mapped encounter bolts; full modern
+    // factory ordering and the remaining hostile producers are separate work.
     // Original controlled D2R tests establish channel/duration behavior, not the
     // precise modern FP256 rounding or order relative to all other factory terms.
     internal int Damage256(int value)

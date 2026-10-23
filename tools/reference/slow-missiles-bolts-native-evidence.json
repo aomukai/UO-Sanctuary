@@ -1,0 +1,61 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Slow Missiles capture now reaches real native encounter arrow, fire and lightning travel/damage consumers. Existing native geometry remains an explicit provisional adapter; source base geometry and other producers remain unfinished. The encounter weapon pool now includes shared Weaken/Taunt/Battle Cry damage stats, before independent slow scaling. Focused and combined checks each pass three boots and two reloads, including ordinary/slow travel, shortened range, non-homing, late state changes, real timed damage and saved source state. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. Matching 124-handler content/data loads the existing world and shuts down with exit 0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains gated; class completion is unproven.",
+  "handlerCount": 124,
+  "classHandlerCount": 12,
+  "componentOnly": true,
+  "sourceReferences": [
+    "tools/reference/slow-missiles-engine-evidence.json",
+    "tools/reference/slow-missiles-observation-evidence.json",
+    "tools/reference/slow-missiles-component-native-evidence.json"
+  ],
+  "implementation": [
+    "src/Sanctuary.Content/EliteBolts.cs",
+    "src/Sanctuary.Content/EliteCombat.cs",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs"
+  ],
+  "verified": [
+    "Real native encounter arrow/fire/lightning launch paths capture the affected source state. Current mapped arrow/firebolt/lightningbolt table records all have CanSlow1. Each bolt stores its own immutable speed/damage payload; later state application or removal does not mutate it.",
+    "Manual actual-controller steps compare unchanged ordinary one-tile/frame travel with the slowed integer ratio. An ordinary lightning bolt hits at frame4; rank1 slowed flight still travels at frame4 and hits by frame6 after its source state is cleared. A later rank20 cast leaves an already-launched ordinary shot unchanged.",
+    "At distance8, the normal lightning control hits while the rank20 slowed shot expires without reaching the receiver. The existing18-step lifetime is not extended to recover range. Moving off-axis avoids the already-launched slow shot; no homing was introduced.",
+    "Actual damage uses captured percent before the existing native mitigation stage. Lightning control is59 life; rank20 slow is39 life. Arrow/fire hits scale physical/fire/cold/lightning/magic plus native poison projected into a40-frame rate/count packet. Poison/chill lengths are retained; ordinary percent100 bypasses the adapter and preserves the prior packet exactly.",
+    "Existing encounter weapon damage incorrectly omitted the shared Weaken/Taunt/Battle Cry STAT_DAMAGEPERCENT. It now joins the native aura ED pool with the existing minus90 floor. Actual Weaken1 and direct100-physical tests give100 ordinary,67 with Weaken,44 with Weaken plus67-percent slow; fire remains67 under the same slow because Weaken is a physical weapon stat.",
+    "Three natural timed observations on each focused boot: ordinary lightning, slowed lightning with source state cleared immediately after launch, and slowed fire. Launch does no immediate damage; actual periodic travel eventually hits, preserving receiver mana. Same observations and exact retained source state pass after both real restarts.",
+    "Enemy bolt instances are explicitly transient across restart, preserving the existing lifecycle. The source debuff persists with captured rank/creator/value/expiry; newly launched post-reload bolts consume that saved state. No new class availability, input or mana-cast behavior is claimed."
+  ],
+  "nativeAdapter": [
+    "The pre-existing encounter geometry is one UO tile per40ms frame and18 steps, with angle/raster point collision and shared group hit history. Those baseline rules are retained. Slow uses the compiled FP8 supplied-velocity block with256 as the declared native reference velocity, divided by its normal192 result. This is a port normalization, not a claim that D2 source Vel is1 or that native lifetime/range match a missile table.",
+    "Source factory velocity/order, Size/collision/activation/NextHit, proper source table base speed/lifetime and full native encounter emission/critical/RNG/event semantics remain separate acceptance. This adapter is not an approved new deviation or a class certificate.",
+    "Damage/critical/aura/element rolls retain their existing impact-time native behavior. Only slow percentages are captured at launch. Complete source damage/stat snapshots are not claimed. Existing integer native damage commitment and mapped event/element limitations remain.",
+    "Existing champion/ExtraStrong modifiers are already baked into native encounter endpoints. This patch does not reconstruct the complete D2 source monster stat graph; special modifier/curse/snapshot order remains acceptance work."
+  ],
+  "fixtureControls": [
+    "Stopped source AI/CantWalk and an isolated equal-floor19-cell corridor prevent unrelated actors from entering the shot path. Only SlowBoltOwner constructor/final Initialize HP/mana regen is held1hour. Native damage, mitigation and periodic bolt travel run normally.",
+    "Manual Tick calls operate the real controller on the server loop; separate natural observations wait for the real40ms timer. The observer waits up to6seconds without relaunching on a delayed check. It proves asynchronous delivery, not exact current client timing.",
+    "Initial runner copied the synchronous component reload pattern and saved as soon as reload-check returned, before its timed result finished. The second restart correctly saw the state cleared halfway through that unfinished fixture sequence. Logged identities/mana were intact. Runner now waits for the final result on every boot; no gameplay persistence code changed.",
+    "Saved source expiry is deliberately extended10minutes so the same state can be inspected through long-suite startup. This is a fixture deadline, not a changed skill duration. All state applications are direct internal component calls, not a fake completed player cast."
+  ],
+  "limits": [
+    "Slow Missiles full handler/cast/input/target selection remains unavailable. Graveyard homing firebolt, native instantaneous ranged hits, other spell/child/non-slowable producers and current species/native boss mapping require their own integration. Continue unaffected skills when an individual source branch is unsupported.",
+    "Exact pinned3.3.93847 operation order/seed/stat layers, source projectile base geometry and timing, source/child/owner/death/PvP/client presentation remain acceptance work. Original2025 controlled edited-game tests establish bounded behavior, not an exact pinned executable trace.",
+    "Current mapped encounter poison is an amount over1600ms, projected to raw FP256 per-frame rate before scaling. Native projection and quantization are explicit. It does not certify source poison collectors/counts/initial-hit handling or burning fields.",
+    "Weaken pool correction reuses the existing shared damage stat contract. It does not certify all native source immunities, curse eligibility or full source critical/ED order. Direct death/explosion/spell damage is not globally put in this weapon pool."
+  ],
+  "assets": {
+    "effect": "Identified UO0xF42/0x36D4/0x3818 position markers follow slowed logical bolts; ordinary native MovingEffect is retained at normal speed. Final missile art, cast_slowmissiles, innersight target overlay and amazon_handofathena audio remain pending.",
+    "icon": "Talent/right-hotkey icons remain pending in the separate240-entry icon register; no image generation."
+  },
+  "logs": {
+    "contentBuild": ".local/class-skills/slow-missiles-bolts-content-build.log",
+    "integrationBuild": ".local/class-skills/slow-missiles-bolts-integration-build.log",
+    "focused": ".local/class-skills/slow-missiles-bolts-focused.log",
+    "focusedRun": ".local/class-skills/slow-missiles-bolts-focused-run.log",
+    "earlySaveFailure": ".local/class-skills/slow-missiles-bolts-early-save-failure.log",
+    "combined": ".local/class-skills/slow-missiles-bolts-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/slow-missiles-bolts-installed-smoke.log",
+    "installedServer": ".local/class-skills/slow-missiles-bolts-installed-server.log"
+  },
+  "next": "Connect required remaining hostile projectile creation/travel/damage consumers and full cast/input/target selection. Preserve explicit source geometry/current-order gaps; no complete skill claim."
+}

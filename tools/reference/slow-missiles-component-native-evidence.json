@@ -53,5 +53,9 @@
     "installed": ".local/class-skills/slow-missiles-component-installed-smoke.log",
     "installedServer": ".local/class-skills/slow-missiles-component-installed-server.log"
   },
-  "next": "Connect the full cast/target/projectile consumers without broadening the candidate damage helper into a global health filter. Keep unsupported modern branches explicit and continue unaffected skills."
+  "next": "Connect the full cast/target/projectile consumers without broadening the candidate damage helper into a global health filter. Keep unsupported modern branches explicit and continue unaffected skills.",
+  "supersededProducerLimit": {
+    "evidence": "tools/reference/slow-missiles-bolts-native-evidence.json",
+    "scope": "Later mapped native encounter arrow/fire/lightning consumers now capture slow speed/damage at launch. Original no-gameplay-producer status above is historical. Full cast/target/other hostile producers and source geometry/current-order acceptance remain incomplete."
+  }
 }

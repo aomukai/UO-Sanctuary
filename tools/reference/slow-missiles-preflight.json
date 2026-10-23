@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Slow Missiles state and launch component prepared; the full skill remains unavailable. Checks pass for 1,152 velocity comparisons, 36 shared state comparisons, 20 pinned dual-stat goldens, real 12-second expiry, captured named soft ranks, independent state and two real reloads. The 32 species-boss cases are separate source-only evidence. Original controlled D2R experiments support damage behavior; current rounding, order and child behavior remain uncertain. Focused and combined runs each pass three boots and two reloads. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. The matching 124-handler component build loads the existing world and shuts down with exit 0. Server stopped; saves retained; native patches, client and item availability unchanged. No new class handler or completion certificate.",
+  "status": "Slow Missiles capture now reaches real native encounter arrow, fire and lightning travel/damage consumers. Existing native geometry remains an explicit provisional adapter; source base geometry and other producers remain unfinished. The encounter weapon pool now includes shared Weaken/Taunt/Battle Cry damage stats, before independent slow scaling. Focused and combined checks each pass three boots and two reloads, including ordinary/slow travel, shortened range, non-homing, late state changes, real timed damage and saved source state. All 70 Python tests and 465 named-input/15 first-loop fingerprints pass. Matching 124-handler content/data loads the existing world and shuts down with exit 0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains gated; class completion is unproven.",
   "currentSkill": {
     "talentId": "amazon.slowmissiles",
     "name": "Slow Missiles",
@@ -95,7 +95,8 @@
   "reuse": [
     "Reuse AmazonInnerSight and its reviewed do6 state application/rank priority, SourceAuraTargets, squared source radius, SC scheduling and once-only mana. Slow Missiles has distinct state/filter/stat values, so do not copy Inner Sight constants or silently claim all target-filter bits match.",
     "Reuse shared source missile flags and existing projectile factories/controllers rather than build unrelated fan or damage systems. Speed affects only canSlow missiles; source factory reads the affected owner\u2019s state at creation, then applies ordinary75-percent factory conversion.",
-    "Existing Avoid/Evade consumers establish defense stages, not a general Slow Missiles damage hook. Scalar damage consumers and already-flying/child missiles need separate tracing."
+    "Existing Avoid/Evade consumers establish defense stages, not a general Slow Missiles damage hook. Scalar damage consumers and already-flying/child missiles need separate tracing.",
+    "Real encounter bolts now capture the common payload and use the same existing travel/hit controller; normal native packet behavior is preserved. Shared Weaken/Taunt/Battle Cry damage stats join the weapon ED pool before independent slow scaling."
   ],
   "establishedByReview": [
     "Pinned current do6/filter50563, slowmissiles state, duration300+150*(rank-1) frames, radius27subtiles, mana5, speed stat100-dm12(25,75), damage stat100-dm78(0,40), SC/right-only/Inner Sight prerequisite.",
@@ -108,9 +109,9 @@
     "Exact filter50563 differences, multi-caster priority, already-flying and child behavior, missile lifespan/range vs speed, canSlow0, zero velocity, native producers, persistence and current client/owner presentation require dedicated coverage."
   ],
   "nextActions": [
-    "State/launch component and current fingerprints pass focused/full3boots/2reloads and matching installed smoke. Continue the required cast/input/target/projectile integration; no handler-count increase yet.",
-    "Connect full cast/input/target filter, original species boss flag (not champion/unique grade), and hostile projectile creation/damage consumers. Native instantaneous ranged attacks require a real travel consumer, not a cosmetic slow effect.",
-    "Keep full skill gated until required consumers exist. Verify actual hostile travel/damage and canSlow0/child/expiry behavior; continue unaffected Amazon skills if an individual modern branch remains unsupported."
+    "Encounter-bolt consumer passes focused/full three boots/two reloads and matching installed smoke, with current fingerprints. Continue remaining cast/target/projectile integration; handler count remains124.",
+    "Continue full cast/input/target selection and the remaining hostile producer integration: Graveyard firebolt, real travel bridge for ordinary native ranged hits and relevant spell/child/canSlow0 consumers.",
+    "Replace or corroborate the explicit native one-tile/frame/18-step geometry adapter against pinned source base speed/lifetime/Size/activation. Keep source snapshots/RNG/current damage order separate; do not certify the class from this component."
   ],
   "assets": {
     "effect": "Cast_slowmissiles, affected-state presentation and amazon_handofathena sound remain pending in existing separate effects register; no new art generated.",
@@ -129,5 +130,6 @@
   ],
   "modernObservationEvidence": "tools/reference/slow-missiles-observation-evidence.json",
   "nativeComponentEvidence": "tools/reference/slow-missiles-component-native-evidence.json",
-  "sourceBossScope": "32 full unchanged helper cases confirm species boss flag only; native Champion/Unique grade is not the source boss predicate."
+  "sourceBossScope": "32 full unchanged helper cases confirm species boss flag only; native Champion/Unique grade is not the source boss predicate.",
+  "nativeBoltEvidence": "tools/reference/slow-missiles-bolts-native-evidence.json"
 }

@@ -47,7 +47,7 @@ public static class EliteCombat
         EliteAuras.Refresh(target);
         return Math.Max(0, before - target.Hits);
     }
-    internal static void Hit(EncounterCreature source, Mobile target, int baseDamage, ResistanceType type, bool ranged = false, Random random = null)
+    internal static void Hit(EncounterCreature source, Mobile target, int baseDamage, ResistanceType type, bool ranged = false, Random random = null,SlowMissilePayload? missile=null)
     {
         if (!Enemy(source, target, 18) || !ranged && !CanAct(source)) { return; }
         random ??= Random.Shared;
@@ -55,7 +55,9 @@ public static class EliteCombat
         bool inheritElements = !minion || source.Difficulty != MonsterDifficulty.Normal;
         double physical = type == ResistanceType.Physical ? baseDamage : 0;
         double fire = type == ResistanceType.Fire ? baseDamage : 0, cold = 0, lightning = 0, magic = 0, poison = 0;
-        physical *= (100 + EliteAuras.DamageBonus(source)) / 100.0;
+        // Shared STAT_DAMAGEPERCENT belongs to the native weapon ED pool;
+        // Slow Missiles remains a distinct later multiplication.
+        physical *= (100 + Math.Max(-90,EliteAuras.DamageBonus(source)+NecromancerEffects.DamageStatPercent(source))) / 100.0;
         if (inheritElements)
         {
             if (source.Inherits(EliteModifier.FireEnchanted)) { fire += ElementRoll(source, minion, random); }
@@ -87,6 +89,14 @@ public static class EliteCombat
             else if (aura == EliteAura.HolyFreeze) { cold += amount; }
             else { lightning += amount; }
         }
+        if(missile is{} payload && payload.DamagePercent!=100)
+        {
+            // Native encounter poison is an amount over40 frames. Project it
+            // into the existing rate/count packet before scaling; never scale
+            // poison duration or merge this into the physical bonus pool.
+            var scaled=ScaleMissile(new(physical,fire,cold,lightning,poison,1600,coldMs,magic),payload);
+            physical=scaled.Physical;fire=scaled.Fire;cold=scaled.Cold;lightning=scaled.Lightning;magic=scaled.Magic;poison=scaled.Poison;
+        }
         Damage(source, target, physical, fire, cold, lightning, magic, true, ranged);
         if (target.Deleted || !target.Alive) { return; }
         if (coldMs > 0) { GearEffects.ApplyChill(target, Core.TickCount, coldMs); }
@@ -106,6 +116,23 @@ public static class EliteCombat
                 if (Enemy(source, mobile, 18)) { EliteAuras.Amplify(mobile, TimeSpan.FromSeconds(8 + 3 * (level - 1))); }
             }
         }
+    }
+    internal static GearDamage ScaleMissile(GearDamage native,SlowMissilePayload slow)
+    {
+        if(slow.DamagePercent==100){return native;}
+        int poisonFrames=native.PoisonMs/40;
+        if(native.Poison>0 && (poisonFrames<=0 || native.PoisonMs%40!=0))
+        {throw new NotSupportedException("Unsupported native poison frame projection");}
+        var packet=new MissileSourceStats(FireMin:NamedElements.To256(native.Fire),FireMax:NamedElements.To256(native.Fire),
+            LightningMin:NamedElements.To256(native.Lightning),LightningMax:NamedElements.To256(native.Lightning),
+            MagicMin:NamedElements.To256(native.Magic),MagicMax:NamedElements.To256(native.Magic),
+            ColdMin:NamedElements.To256(native.Cold),ColdMax:NamedElements.To256(native.Cold),ColdFrames:native.ColdMs/40,
+            PoisonMin:poisonFrames>0?NamedElements.To256(native.Poison)/poisonFrames:0,
+            PoisonMax:poisonFrames>0?NamedElements.To256(native.Poison)/poisonFrames:0,PoisonFrames:poisonFrames,PoisonCount:1);
+        var scaled=slow.Scale(packet);
+        return native with{Physical=slow.Damage256(NamedElements.To256(native.Physical))/256.0,
+            Fire=scaled.FireMin/256.0,Lightning=scaled.LightningMin/256.0,Magic=scaled.MagicMin/256.0,Cold=scaled.ColdMin/256.0,
+            Poison=(long)scaled.PoisonMin*scaled.PoisonImpactFrames/256.0};
     }
     internal static void OnStruck(BaseCreature creature, Mobile attacker, int damage)
     {

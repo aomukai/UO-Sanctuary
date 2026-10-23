@@ -180,6 +180,10 @@ def check():
                     assert session.expect(slow_component+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     if boot==0:
                         assert session.expect(r'slow-missiles-component-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    slow_bolts='slow-missiles-bolts-check' if boot==0 else 'slow-missiles-bolts-reload-check'
+                    session.send(slow_bolts)
+                    assert session.expect(slow_bolts+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'slow-missiles-bolts-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

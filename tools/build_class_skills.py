@@ -137,7 +137,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
-        'amazon.slowmissiles':'State/launch component only; no cast/target presentation consumer yet. Final cast_slowmissiles cast effect, innersight target overlay and amazon_handofathena sound pending; talent and right-hotkey icons tracked separately',
+        'amazon.slowmissiles':'Cast/target presentation pending. Slowed native encounter bolt positions use identified UO0xF42/0x36D4/0x3818 markers at logical travel positions; final cast_slowmissiles, innersight target overlay and amazon_handofathena audio pending. Talent/right-hotkey icons remain separate',
         'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',
         'amazon.avoid':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
         'amazon.dodge':'Staged UO0x375A hue0x481 successful-avoidance marker; final interruptible S1 lean-back animation and amazon_dodge_1 sound pending; passive has no active hotkey',
