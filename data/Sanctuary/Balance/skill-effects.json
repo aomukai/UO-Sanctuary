@@ -237,7 +237,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Entity component: static UO sex silhouette with hue0x481 and0x376A appear marker, explicitly placeholders. Final Decoy model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio pending. Talent/right-hotkey icons remain separate; full casting not yet enabled"
+    "placeholder": "Static UO sex silhouette/hue0x481,0x376A appear marker and0x1E5 cast sound are identified placeholders. Final Decoy model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio pending. Talent/right-hotkey icons remain separate"
   },
   {
     "talentId": "amazon.evade",

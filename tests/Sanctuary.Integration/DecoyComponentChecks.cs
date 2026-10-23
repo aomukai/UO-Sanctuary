@@ -69,7 +69,7 @@ public static class DecoyComponentChecks
     private static AmazonDecoy Create(PlayerMobile owner)=>AmazonDecoys.Create(owner,Point(owner,AmazonDecoys.For(owner).Any(x=>x.Location==Point(owner))?4:2),SkillMechanics.Values(owner,CombatAbility.Decoy));
     private static void Cases(PlayerMobile owner)
     {
-        Require(!ClassCombat.Available(owner,CombatAbility.Decoy) && !AmazonCombat.Implemented(CombatAbility.Decoy),"Entity component enabled incomplete Decoy cast");
+        Require(ClassCombat.Available(owner,CombatAbility.Decoy) && AmazonCombat.Implemented(CombatAbility.Decoy),"Learned Decoy handler unavailable");
         var pet=Create(owner);Require(pet!=null,"Decoy entity creation");
         try
         {

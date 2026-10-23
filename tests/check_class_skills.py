@@ -193,6 +193,21 @@ def check():
                     session.send(decoy)
                     assert session.expect(decoy+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'decoy-component-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    decoy_cast='decoy-check' if boot==0 else 'decoy-reload-check'
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as decoy_client:
+                        threading.Thread(target=drain_fixture_client,args=(decoy_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send(decoy_cast)
+                        assert session.expect(decoy_cast+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'decoy-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        decoy_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'decoy-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        decoy_client.shutdown(socket.SHUT_RDWR)
+                    time.sleep(.2)
+                    session.send('decoy-disconnect-check')
+                    assert session.expect(r'decoy-disconnect-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+
                     penetrate='amazon-penetrate-check' if boot==0 else 'amazon-penetrate-reload-check'
                     session.send(penetrate)
                     assert session.expect(penetrate+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

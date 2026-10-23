@@ -129,6 +129,7 @@ public static class WardrobeTransaction
         ChargedStrikeBolts.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
+        AmazonDecoys.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

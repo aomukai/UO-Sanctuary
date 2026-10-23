@@ -1,0 +1,88 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Decoy now has right/quick/free-ground SC casting with one pinned fractional release payment, saved stationary summon snapshots, native NPC AOS/FP256 damage and exact-max Battle Orders life/regen transitions. Owner death uses immediate summon dismissal; reset/committed class change, different-map loss and logout/disconnect cancel the temporary entity. Focused and combined native checks each pass three boots/two reloads, including real Cast packets, actual Tarnhelm, cancellation, natural expiry and saved paid resources/bindings/entity without pending-action replay. Final focused checks also prove normal enemy AI selects the closer Decoy. Content/integration build with zero warnings/errors;70 Python tests and current466/15 fingerprints pass. Matching125-handler content loads the existing world and shuts down with exit0; server stopped, saves retained. Blocked-cell source fallback remains individually unsupported. No class certificate, native patch/client or item-availability change.",
+  "handlerEnabled": true,
+  "handlerCount": 125,
+  "classHandlerCount": 13,
+  "sourceEvidence": "tools/reference/decoy-engine-evidence.json",
+  "priorComponent": "tools/reference/decoy-component-native-evidence.json",
+  "preflight": "tools/reference/decoy-preflight.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonDecoys.cs",
+    "src/Sanctuary.Content/AmazonCombat.cs",
+    "src/Sanctuary.Content/SkillCombat.cs",
+    "src/Sanctuary.Content/BattleOrders.cs",
+    "src/Sanctuary.Content/SkillBindings.cs",
+    "src/Sanctuary.Content/CharacterProfiles.cs",
+    "src/Sanctuary.Content/WardrobeTransaction.cs",
+    "src/Sanctuary.Content/PersistentMinions.cs"
+  ],
+  "test": "tests/Sanctuary.Integration/DecoyChecks.cs",
+  "verified": [
+    "Right-only/quick/ground metadata routes through AmazonCombat and the existing SkillCombat.Begin/ClassCombat SC event. The cast starts with no debit, rechecks availability/ground/mana at release, creates/replaces once, then pays pinned fractional cost. Rank1 costs4864FP256=19mana, actual Tarnhelm rank2 costs4672FP256=18.25mana. Earlier do15 engine rank1 minimum-mana defect is not used instead of the current row.",
+    "Manual actual-controller checks reject early/double do events, insufficient starting mana, mana lost during windup, moved/stopped casts, source-range/town cases and a new blocking obstacle at release without charging or replacing the old summon. A successful new free cell replaces the prior Decoy. A later item change does not rewrite its creation snapshot.",
+    "The central server binding list initially omitted right-only Decoy. Dedicated left-rejection/right/quick tests caught it; the real binding gate now rejects left assignment. No test bypass of this gate remains.",
+    "Ordinary native AOS damage explicitly opts AmazonDecoy into the shared class resistance/FP256 path. Two real NPC1-fire packets each commit245FP256 at rank1 resistance4; a real mixed50/50 physical/fire weapon packet commits250FP256. Class ally native AOS damage remains rejected.",
+    "Actual normal melee AI AcquireFocusMob(12,Closest,false,false,true) selects the closer Decoy over its farther caster. This exercises the existing target enumerator without forcing Combatant or inventing a taunt. Final focused three boots/two reloads include the added assertion.",
+    "Battle Orders Capture retains the exact Decoy maximum separately from its ceil-only native display. Recipient Apply/Clear rescale injured current life using exact previous/next maxima; equal recasts do not heal. A boundary distinguishes the old rounded-max route. Ordinary actors retain the previous whole-max path and persistence schema. An actual one-frame regeneration control after BO uses the new maximum rather than the creation snapshot. Recipient/caster Battle Command do not mutate an existing creation snapshot.",
+    "Owner death uses the existing immediate summon Dismiss path and remains deleted across immediate resurrection. Active-class loss and different-map movement remove the timed Decoy; ordinary same-map movement leaves it at its cast location. Point reset and successful wardrobe class commit cancel it through existing cleanup paths after fallible gear work. Disconnected/Logout handlers remove the temporary summon idempotently; it is not a persistent moving follower.",
+    "On each of three boots the runner sends an actual version7 length21 extended Cast request over a real loopback TCP connection through the logged-in parser. The normal40ms class loop creates exactly one ground Decoy and pays19mana. It remains stationary and expires at the natural ten-second lifetime; a new live Decoy is then removed by actual socket disconnect, with no remaining action/held cast.",
+    "A separate actual paid cast with real Tarnhelm persists its owner/rank/life/level/defense/resistance/deadline/map/location and injured fractional life. Both reloads observe exact saved health before resumed regeneration, retained paid mana, right/quick bindings and unequipped item identity. An unpaid pending SC windup is deliberately saved and never replays after restart."
+  ],
+  "fixtureControls": [
+    "Only named DecoyCast owners/construction get1hour HP/mana regeneration wrappers at Configure and final Initialize. Source NPC AI is stopped for explicit damage controls. An isolated equal-floor19-cell unguarded corridor excludes unrelated actors.",
+    "Recipient regeneration is explicitly paused only during fractional damage/BO inspection; the ordinary entity timer is restarted afterward. Normal connected casting and expiry run on the real40ms loop, not forced do-event calls.",
+    "Account/character selection is fixture-bootstrapped onto a genuine disposable TCP socket; actual Cast bytes and disconnect use the normal parser/socket lifecycle. This is not desktop client/input/animation acceptance.",
+    "Only saved inspection expiry is extended10minutes, with that injured inspection entity paused before save so final Initialize can compare exact saved life before the first resumed timer. Production cast lifetime/regeneration remain unchanged. The persisted owner is separate from the connected/disconnected owner; neither fixture bypasses logout deletion.",
+    "The first full run exhausted FoH's narrow2200..2300/1000..1100 corridor after the new Decoy fixtures consumed nearby cells. The Decoy cast test now selects independent corridors atX>=2400; no FoH gameplay/selection or terrain guards changed. Failure logs retained."
+  ],
+  "limits": [
+    "Supported placement requires a free cell. The pinned supplementary spawn routine is a return-null stub with commented decompilation; wrapper arguments-1/4 and flags66 do not establish a fallback radius/order. Occupied/blocked target cells, including casting directly onto a monster/old Decoy, remain individually unsupported. No substitute search or forced taunt is invented.",
+    "Current native ground range16, LOS and vertical/town projection, shared SC/FCR event/cancellation rules and a mana recheck at release are explicit existing port adapters. Exact modern coordinates/item-target/midcast stat snapshots and mana-loss-during-windup ignored-consume behavior remain unproven.",
+    "Normal one-player expansion monster/stat context is retained. Other difficulty/game/player-count projection, source size/threat/AI priority/neutral/PvP/current seed/owner/client and full aura/curse/control/poison/heal/item interactions remain acceptance. Direct recipient BO/BC APIs are tested, not every travelling aura/wave targeting branch.",
+    "Source special uninterruptable3-frame expiry retry has compiled source coverage but no mapped native Decoy mode. Creation maxima outside native1..65000 are rejected. Existing native near-zero lethal behavior and whole UI/network projection remain explicit limits.",
+    "Temporary summon cancellation on death, class/map loss, reset/committed wardrobe and logout is the stated Sanctuary/native lifecycle projection. Saved active entities survive restart until their real deadline; no full modern owner-transition or desktop presentation certificate is claimed. No class completion or item acquisition gate is cleared merely from this handler."
+  ],
+  "assets": {
+    "effect": "Static UO sex silhouette/hue0x481,0x376A appearance marker and0x1E5 cast sound are identified placeholders. Final Decoy model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio pending separately.",
+    "icon": "Talent and right-hotkey icons remain pending in separate240-entry register."
+  },
+  "logs": {
+    "contentBuild": ".local/class-skills/decoy-content-build.log",
+    "integrationBuild": ".local/class-skills/decoy-integration-build.log",
+    "focused": ".local/class-skills/decoy-acquisition-focused.log",
+    "focusedRun": ".local/class-skills/decoy-acquisition-focused-run.log",
+    "bindingFailure": ".local/class-skills/decoy-binding-failure.log",
+    "combined": ".local/class-skills/decoy-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/python-checks.log",
+    "installed": ".local/class-skills/decoy-installed-smoke.log",
+    "installedServer": ".local/class-skills/decoy-installed-server.log",
+    "fohPlacementFailure": ".local/class-skills/decoy-foh-placement-failure.log",
+    "fohPlacementFailureRun": ".local/class-skills/decoy-foh-placement-failure-run.log",
+    "beforeAcquisitionFocused": ".local/class-skills/decoy-focused.log",
+    "beforeAcquisitionFocusedRun": ".local/class-skills/decoy-focused-run.log",
+    "focusedIntegrationBuild": ".local/class-skills/decoy-acquisition-integration-build.log",
+    "combinedIntegration": ".local/class-skills/decoy-combined-integration.dll",
+    "focusedIntegration": ".local/class-skills/integration/Sanctuary.Integration.dll"
+  },
+  "next": "Continue Amazon with Valkyrie source/summon/equipment preparation; if its equipment or another individual branch lacks source data, document it and proceed with unaffected bow skills. Keep Decoy fallback and broader acceptance explicit.",
+  "testAssemblyScopes": {
+    "runtimeSha256": "a7dc2fb9094929e4e0411393f2a101602501ecdbdea3b67c7b4780c2fd35d8c7",
+    "combinedIntegrationSha256": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "focusedIntegrationSha256": "044b895d4b6dfe8eb515fd26df14ccf1637ffbcb37e97d216bbf9ad5fa5d1e9b",
+    "difference": "Final focused assembly adds one Decoy AI-acquisition assertion to the same production runtime and otherwise unchanged tests. Combined run started before that test-only addition. No production code or data changed between these two runs."
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "castPacketsPerRun": 3,
+    "actualDisconnectsPerRun": 3,
+    "pythonTests": 70,
+    "namedInputs": 466,
+    "firstLoopInputs": 15,
+    "installedSmoke": "Existing-world2593/12000 listen and clean shutdown exit0; no save reset."
+  }
+}

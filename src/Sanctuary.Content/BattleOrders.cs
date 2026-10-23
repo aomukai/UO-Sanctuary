@@ -24,7 +24,8 @@ public sealed class OrdersProfiles:GenericPersistence
 }
 public static class BattleOrders
 {
-    internal readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256);
+    internal readonly record struct Pools(int LifeMax,int ManaMax,int StaminaMax,int Life256,int Mana256,int Stamina256)
+    {internal int ExactLifeMaximum256{get;init;}}
     private static readonly Dictionary<uint,BattleOrdersState> _states=new();
     private static readonly Dictionary<uint,OrdersResources> _resources=new();
     private static readonly List<uint> _keys=new();
@@ -54,7 +55,7 @@ public static class BattleOrders
         amount256=Math.Clamp(amount256,0,actor.StamMax*256);actor.Stam=amount256/256;
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
-    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor));
+    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=actor is AmazonDecoy?SkillHealth.Maximum256(actor):0};
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
@@ -74,9 +75,11 @@ public static class BattleOrders
     {
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;
-        if(life!=before.LifeMax)
+        int priorLifeMaximum256=before.ExactLifeMaximum256>0?before.ExactLifeMaximum256:before.LifeMax*256;
+        int nextLifeMaximum256=actor is AmazonDecoy?SkillHealth.Maximum256(actor):life*256;
+        if(nextLifeMaximum256!=priorLifeMaximum256)
         {
-            SkillHealth.SetBalance256(actor,Rescale256(before.Life256,before.LifeMax*256,life*256));
+            SkillHealth.SetBalance256(actor,Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
             regen=Regen(actor,life,regen);
         }
         if(mana!=before.ManaMax){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,before.ManaMax*256,mana*256));}

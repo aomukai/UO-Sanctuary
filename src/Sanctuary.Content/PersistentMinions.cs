@@ -212,6 +212,8 @@ public static class PersistentMinions
 
     public static void Dismiss(PlayerMobile owner, bool activeOnly = false)
     {
+        if(!activeOnly || ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Amazon)
+        {AmazonDecoys.Cancel(owner);}
         using var pets = PooledRefList<BaseCreature>.Create();
         foreach (var follower in owner.AllFollowers ?? [])
         {

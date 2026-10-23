@@ -163,6 +163,7 @@ public sealed class CharacterProfiles : GenericPersistence
         ChargedStrikeBolts.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
+        AmazonDecoys.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         BarbarianBerserk.Clear(player);

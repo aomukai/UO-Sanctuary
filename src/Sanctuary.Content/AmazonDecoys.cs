@@ -5,6 +5,7 @@ using System.Text.Json;
 using ModernUO.Serialization;
 using Server;
 using Server.Mobiles;
+using Server.Spells;
 
 namespace Sanctuary;
 
@@ -38,6 +39,44 @@ public static class AmazonDecoys
             Regeneration256(life),
             (int)values.Eval("calc2"));
     }
+    // The old spawn-search implementation is a stub. Supported casts require
+    // a free cell; no unverified fallback radius or ordering is invented.
+    internal static bool Destination(PlayerMobile owner,Serial selected,Point3D point,out Point3D aim)
+    {
+        aim=point;
+        if(selected!=Serial.Zero)
+        {
+            var target=World.FindEntity(selected);
+            if(target==null || target.Deleted || target.Map!=owner.Map){return false;}
+            aim=target.Location;
+        }
+        return owner.Map!=null && owner.Map!=Map.Internal && aim.X>=0 && aim.Y>=0 && aim.X<owner.Map.Width && aim.Y<owner.Map.Height
+            && owner.InRange(aim,CombatProtocol.TeethRange) && Math.Abs(aim.Z-owner.Z)<16 && owner.InLOS(aim)
+            && SpellHelper.CheckTown(owner.Location,owner) && SpellHelper.CheckTown(aim,owner) && owner.Map.CanSpawnMobile(aim);
+    }
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+        =>SkillCombat.Begin(owner,CombatAbility.Decoy,selected,point,now,(p,ability,id,where)=>Destination(p,id,where,out _));
+    public static bool Release(PlayerMobile owner)
+    {
+        var action=ClassCombat.For(owner);
+        if(!AmazonCombat.Available(owner,CombatAbility.Decoy) || !Destination(owner,action.PendingTarget,action.PendingPoint,out var point)){return false;}
+        var values=SkillMechanics.Values(owner,CombatAbility.Decoy);
+        // Supported SC casts retain the shared native recheck when mana is lost
+        // during windup. The older ignored-consume edge is not a modern oracle.
+        if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        var pet=Create(owner,point,values);if(pet==null){return false;}
+        bool paid=NecromancerEffects.Pay(owner,values.Mana256);
+        if(!paid){pet.Delete();return false;}
+        owner.PlaySound(0x1E5); // Identified placeholder for amazon_valkyrie_cast.
+        return true;
+    }
+    public static void Configure()
+    {
+        EventSink.Disconnected+=Cancel;
+        EventSink.Logout+=Cancel;
+    }
+    public static void Cancel(Mobile owner)
+    {if(owner!=null){foreach(var pet in For(owner)){pet.Delete();}}}
     private static readonly HashSet<AmazonDecoy> _active=new();
     internal static void Track(AmazonDecoy pet)=>_active.Add(pet);
     internal static void Forget(AmazonDecoy pet)=>_active.Remove(pet);
@@ -46,8 +85,8 @@ public static class AmazonDecoys
         var result=new List<AmazonDecoy>();foreach(var pet in _active)
         {if(!pet.Deleted && pet.SummonMaster==owner){result.Add(pet);}}return result.ToArray();
     }
-    // Entity component only. Ground casting/fallback and one-time mana dispatch
-    // are deliberately not enabled by this internal factory.
+    // Allocation itself never debits mana; the successful no-start do-event
+    // pays afterward through Release.
     internal static AmazonDecoy Create(PlayerMobile owner,Point3D point,SkillValues values)
     {
         if(owner is not{Alive:true,Deleted:false} || !ClassCombat.Enabled(owner) || owner.Map==null || owner.Map==Map.Internal
@@ -103,7 +142,9 @@ public partial class AmazonDecoy:BaseCreature
     internal void Advance(DateTime at,long now)
     {
         if(Deleted){_timer.Cancel();return;}
-        if(!Alive || _snapshot==null || at>=_expiresUtc || SummonMaster is not PlayerMobile{Alive:true,Deleted:false} owner)
+        if(!Alive || _snapshot==null || at>=_expiresUtc || SummonMaster is not PlayerMobile{Alive:true,Deleted:false} owner
+            || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Amazon
+            || SkillMechanics.Rank(owner,CombatAbility.Decoy)<=0 || owner.Map!=Map.Internal && owner.Map!=Map)
         {Delete();return;}
         // A temporary decoy retains its fixed location and native timed-summon
         // lifecycle. It is not a follower/commandable persistent pet.

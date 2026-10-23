@@ -80,5 +80,7 @@
     "namedInputs": 466,
     "firstLoopInputs": 15,
     "installedSmoke": "Existing-world2593/12000 listen and clean shutdown exit0; no save reset."
-  }
+  },
+  "subsequentHandlerEvidence": "tools/reference/decoy-native-evidence.json",
+  "historicalScope": "Earlier entity-only proof before player casting. The linked handler record supersedes its unavailable-cast/native-AOS/BO integration limits; current combined regression retains the original component cases."
 }

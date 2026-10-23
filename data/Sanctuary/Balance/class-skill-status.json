@@ -196,10 +196,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 28,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Stationary entity component staged with saved owner/rank/life/level/defense/resistance/expiry snapshots, one-pet replacement, source maxHP-callback regeneration, fractional life cap and native incoming hit/allegiance consumers. Compiled960 summon/life/level,3 guard and12 expiry cases plus dedicated native component checks are recorded separately. Full cast/input/mana and source placement fallback remain unavailable. Normal one-player spawn/difficulty mapping, buff/resource/curse/control interactions, special uninterruptable expiry, full source/current geometry/AI/owner/client acceptance and final appearance/assets remain open; no full handler or class certificate."
+      "remaining": "Right/quick/ground SC cast pays pinned fractional mana once after successful free-cell creation, replacing the previous stationary summon. Source life/level/resistance/expiry snapshots, exact fractional health caps, maxHP callback regeneration, native NPC AOS damage, BO exact-max proportional transitions and owner death/class/map/respec/logout cancellation reuse existing systems. Dedicated native input, real Cast packet, actual Tarnhelm, cancellation, blocked/low/lost-mana, natural expiry and two-reload checks are recorded separately. Source blocked-cell spawn search is a stub and remains individually gated; no fallback radius/order is invented. Shared16-tile/LOS/SC projection, Normal one-player context, lost-mana modern behavior, full aura/curse/control/seed/AI/owner/client and special uninterruptable expiry remain acceptance; no class certificate."
     },
     {
       "talentId": "amazon.evade",
