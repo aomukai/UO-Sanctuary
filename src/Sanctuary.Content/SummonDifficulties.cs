@@ -116,5 +116,10 @@ public static class SummonDifficulties
             BattleOrders.Change(pet, resources, preserveSummonLifeRatio: true);
         }
         BladeSentinelSummons.RescaleFor(owner);
+        foreach(var entry in AssassinTrapRoster.For(owner))
+        {
+            if(World.FindMobile((Serial)entry.Actor) is AssassinSentryBody{Deleted:false,Alive:true} sentry)
+            {sentry.RescaleDifficulty(difficulty);}
+        }
     }
 }

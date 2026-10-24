@@ -51,7 +51,8 @@ internal static class AssassinTrapRoster
     // Socket loss suppresses combat immediately, before native logout moves
     // the owner to Internal. The actor clock continues while disconnected.
     internal static bool Fighting(BladeSentinelBody body)=>body.Prepared.Spawn==null
-        || World.FindMobile((Serial)body.Prepared.Owner) is PlayerMobile{Alive:true,Deleted:false,NetState:{Running:true}} owner
+        || Fighting(body.Prepared.Owner);
+    internal static bool Fighting(uint ownerSerial)=>World.FindMobile((Serial)ownerSerial) is PlayerMobile{Alive:true,Deleted:false,NetState:{Running:true}} owner
             && owner.Map!=null && owner.Map!=Map.Internal;
     internal static void SweepOwners()
     {

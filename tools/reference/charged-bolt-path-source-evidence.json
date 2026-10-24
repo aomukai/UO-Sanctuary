@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "sub_6FDAB610": "203272bd5eadaac8aec11e9576d3e617a17c937fae9cd9ee6892a06965faade4",
+    "sub_6FDAB6A0": "97b099bf3dcc5a821c8e10b0a98887f4a1239c7f492a4ddbf5d68330b2c699e0",
+    "PATH_GetDirections_6FDAB790": "4ef38e44993927f39c0b2a4331fb0d1d86cae6ba9d5145f59f37983724e1c5f8",
+    "getChargedBoltDirOffset": "b4b0bef4443f831feccd1262e81cdd299da9e5549d4774f6789f7a8b18d18dd9",
+    "PATH_ComputePathChargedBolt_6FDAB4A0": "468b40cb15cdf9a04a4c02226ada957fd4d04f640414b2e5f5f5dead526b5b3a"
+  },
+  "cases": 2160,
+  "fixture": {
+    "path": ".local/class-skills/charged-bolt-path-source-probe.json",
+    "sha256": "234b5c138fca82f65ac20bf7c9a93b6afa2e68f62fece0e33ff5006f8dff7477"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "portableSubstitution": "MSVC hexadecimal i64 suffix changed to ULL without changing the uint64 multiply; ABI structures declared explicitly.",
+  "established": [
+    "Complete source direction-index/table lookup, charged-bolt random-offset lookup, RNG advance and path generation execute together.",
+    "Distances0/1/2/3/76/77 retain floor(distance/2)+1 points; every step uses the fixed initial main direction plus an independent seeded offset and two source cells. Final seed and uint16 coordinate wrap are recorded.",
+    "The32-entry offset table deliberately omits its final zero; do not normalize it to an unbiased three-entry roll."
+  ],
+  "limits": [
+    "Source-only preparation; the current native ChargedBolts helpers have not been compared against this new complete fixture. No handler, live path/motion/collision/damage or whole current executable acceptance follows from it.",
+    "Room/collision, missile lifetime/activation/velocity, native coordinate projection, path rebuilding and source ownership/property consumers remain outside this kernel."
+  ]
+}

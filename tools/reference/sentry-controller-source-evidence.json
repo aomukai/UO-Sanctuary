@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d"
+  },
+  "routineHashes": {
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC64E60": "0f72bf756ff353698863145c2c6c4f2f73c1fec900586037640d90b614c660af",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe",
+    "sub_6FCBD3A0": "79bef5eacaab5bc856c785235b81b51cdd15b2f83faddda387b7f4be48af6dd4",
+    "AITHINK_AssasinSentryHasLostTarget": "f6ec14e6af27109e798048662a8f9898c491de8b181c78a4a1a456d6fb4a7d0e",
+    "AITHINK_Fn101_AssassinSentry": "4c06050df008f196e12c5cfee7d7f56840f73d307b94126b1e5693813c8e6f4d"
+  },
+  "sequenceEvidence": "tools/reference/sentry-sequence-source-evidence.json",
+  "verification": {
+    "contexts": 192,
+    "frames": 42240
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-controller-source-probe.json",
+    "sha256": "39873c4c1966675d9af1f86a02403fdf6a48a436a1a7de0792fcbae0f807b51e"
+  },
+  "established": [
+    "Mode info14 selects infinite per-frame MODECHANGE, not sparse sub_6FCBCE70. Infinite monster phase precedes scheduled AI phase.",
+    "Complete AI101/mode14/neutral/sequence routines compose across target absence, distance25, delayed targets, explicit chance/start failures and owner/room/town exits.",
+    "At retained sequence speed256, successful attempts dispatch on the third subsequent phase, reach neutral on phase16 and schedule the next think15 frames later. Final shot dispatch precedes exhausted-shot exit."
+  ],
+  "limits": [
+    "This constrained harness declares mode-entry/start/do/target/room/skill/chance and event-list services; the full mode change, scheduler and modern executable are not executed.",
+    "Initial neutral/AI+25 is an explicit prepared-entry condition. Player do45 S1 emergence, live target selector, sequence-speed provenance and native projectile combat remain separate.",
+    "No independent idle expiry is inferred. Native offline/facet rules are approved Sanctuary adapters, not asserted D2R behavior."
+  ],
+  "handlerEnabled": false
+}

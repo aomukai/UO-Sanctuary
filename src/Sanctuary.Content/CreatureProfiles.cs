@@ -209,10 +209,13 @@ public static class CreatureProfiles
                 res.Poison ?? creature.PoisonResistance), row);
     }
     internal static int NativeLevel(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Level
+        : mob is AssassinSentryBody sentry ? sentry.Prepared?.Creation?.Level??1
         : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Level??1 : mob is SkeletonGuardian pet ? pet.CombatProfile.Level : mob is BoneBarrierSegment barrier ? barrier.SourceLevel : mob is AmazonDecoy decoy ? decoy.Snapshot?.Level??1 : 1;
     internal static int NativeAttack(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.AttackRating
+        : mob is AssassinSentryBody sentry ? sentry.Prepared?.Creation?.Attack??0
         : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Attack??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.AttackRating : Math.Max(5, mob.Dex * 2);
     internal static int NativeDefense(BaseCreature mob) => mob is GraveyardUndead undead ? undead.CombatProfile.Defense
+        : mob is AssassinSentryBody sentry ? sentry.Prepared?.Creation?.Defense??0
         : mob is BladeSentinelBody blade ? blade.Prepared?.Creation?.Defense??0 : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : mob is AmazonDecoy decoy ? decoy.Snapshot?.Defense??0 : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
     public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
