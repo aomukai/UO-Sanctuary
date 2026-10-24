@@ -353,10 +353,12 @@ public sealed class TimedEffectProfiles : GenericPersistence
     }
     internal static void Validate(TimedEffectState r)
     {
+        // Match the positive int duration accepted by Poison; skill15 already
+        // exceeds60seconds at effective rank28. Persistence adds no time cap.
         static bool Lane(RestorationState l) => l != null && l.Duration is >= 0 and <= 600000 && l.Units is >= 0 and <= 10000000000000L
             && l.Remainder is >= 0 and < 1000000 && (l.Duration > 0 || l.Units == 0);
         if (r == null || r.Owner == 0 || r.UpdatedUtc.Kind != DateTimeKind.Utc || r.ChillUntilUtc.Kind != DateTimeKind.Utc
-            || r.ChillPercent is < -100 or > 50 || r.Cold!=null && r.ChillPercent==0 || r.PoisonMs is < 0 or > 60000 || !double.IsFinite(r.PoisonRate)
+            || r.ChillPercent is < -100 or > 50 || r.Cold!=null && r.ChillPercent==0 || r.PoisonMs < 0 || !double.IsFinite(r.PoisonRate)
             || r.PoisonRate is < 0 or > 1000000 || !double.IsFinite(r.PoisonFraction) || r.PoisonFraction is < -1e-8 or >= 1.00000001
             || r.BleedMs is < 0 or > 8000 || !double.IsFinite(r.BleedRate) || r.BleedRate is < 0 or > 1000000
             || !double.IsFinite(r.BleedFraction) || r.BleedFraction is < -1e-8 or >= 1.00000001

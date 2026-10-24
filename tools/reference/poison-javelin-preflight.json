@@ -3,7 +3,7 @@
   "talentId": "amazon.poisonjavelin",
   "sourceId": 15,
   "handlerEnabled": false,
-  "status": "Source trail/path/do3 component compiled768 parent,108 creator and4 cloud cases after Strafe; no Poison Javelin handler enabled.",
+  "status": "Source trail768/creator108/cloud4, complete packet3456, poison application384/regen2240, hit routes192/sequential contacts16 and factory480 cases compiled. No Poison Javelin handler enabled.",
   "pinnedSkill": {
     "skill": "Poison Javelin",
     "*Id": 15,
@@ -170,14 +170,27 @@
   "reviewedNotCompiled": [
     "Skill15 uses TH/IAS, mana(16+rank-1)<<6,15-frame localdelay, SrcDam128, poison HitShift0 endpoints and200+50-per-extra-rank length. Hard Plague Javelin adds12percent damage per point. No prerequisite.",
     "Parent38 has velocity24/range25, ToHit/Pierce/GetHit/LastCollide and explicit Skill15. Do2 invokes a path-gated trail creator before generic collision; no invented every-cell or fixed visual puff cadence.",
-    "Trail creator supplies pOrigin/owner/skill/rank and flags5, optionally range/loop flags. It overwrites nLoops with2*(rank-1), but current formula0 does not set loop flag8. Complete factory/path semantics must establish the actual effect.",
-    "Child39 has size2/range60, LastCollide, explicit Skill15 and SrcDamage-1, with no ToHit/CollideKill. Reviewed creator explicit-Skill branch clears skill/missile source damage; compile the full separately evaluated poison packet, length/count/mastery and repeat application. Do not copy a full weapon packet into the cloud."
+    "Trail creator supplies pOrigin/owner/skill/rank and flags5, optionally range/loop flags. It overwrites nLoops with2*(rank-1), but current formula0 does not set loop flag8. Complete factory/path semantics must establish the actual effect."
   ],
   "nextChecks": [
-    "Compile complete damage creator/skill poison getters/stat writer and path flag-setting/collision caller. Establish source0 weapon/item exclusion, live versus retained rank/synergy/mastery, rate/length/count, emission positions and repeat contact.",
+    "Migrate the shared poison consumer deliberately with FP256 life/ownership/player-floor/monster-death and save semantics; preserve or explicitly migrate existing fractional poison balances. Verify real outcomes, not only scalar equality.",
+    "Trace path flag-setting and complete do-handler decrement/removal/collision selection. Combine separately proved source0 packet,60frame stationary cloud and LastCollide identity without inventing trail spacing or permanent hit sets. Native mitigation/defense/proc ordering and modern phase remain separate.",
     "Integrate once-only fractional start mana, release quantity/localdelay, ordinary direct javelin and separate cloud settlement after source contract; verify ranks, gear, miss/Pierce/terrain/expiry, source poison caps and actual input/two reloads.",
     "Track Javelin/PoisonSparks/poisonpuff/trail/contact and poison audio separately from tree/hotkey icons; use clearly labelled placeholders."
   ],
   "trailEvidence": "tools/reference/poison-javelin-trail-engine-evidence.json",
-  "creatorReviewFollowup": "Reviewed complete CalculateDamageData explicit-Skill branch sets missile-source0 and, for unsigned SrcDamage255/-1, skill-source0. The cloud should be proved as separately evaluated skill poison, with weapon/item poison excluded, rather than called inherited weapon damage. Complete current cloud creator/getter/stat writer differential remains pending."
+  "creatorReviewFollowup": "Complete creator/skill getters/stat writer now compiled in poison-javelin-damage-engine-evidence.json. Child39 has source0: independently evaluated retained-rank/live declared synergy/mastery skill poison, excluding weapon/item/origin damage. Impact/count division and cloud collision remain separate.",
+  "damageEvidence": "tools/reference/poison-javelin-damage-engine-evidence.json",
+  "poisonStateEvidence": "tools/reference/poison-state-engine-evidence.json",
+  "sharedConsumerGaps": [
+    "Existing native poison settles whole-HP ordinary Damage, permits player death, and replaces the damage source on refresh. Compiled supplemental source instead applies FP256 HP regeneration, player one-life floor, monster zero-life death, and retains original poison stat-list owner. Deliberate shared-consumer migration remains before skill certification.",
+    "Current native catch-up settles at most600000ms and advances its clock to now. Skill255 poison alone is516000ms, but combined item durations/longer offline intervals need explicit review. Accepting saved positive int duration does not certify this behavior.",
+    "Modern global event phase, poison interruptions and same-frame stat/event order are not established by compiled component fixtures."
+  ],
+  "routingEvidence": "tools/reference/poison-javelin-routing-engine-evidence.json",
+  "factoryEvidence": "tools/reference/poison-javelin-factory-engine-evidence.json",
+  "sharedImpactEvidence": "tools/reference/weapon-missile-impact-evidence.json",
+  "factoryReviewFollowup": "Full factory480 cases establish child flags5 zero velocity and60frame lifetime independent of unflagged2*(rank-1) loops. Positive flag8 controls add9frames/loop; explicit range overrides row. Exact outer do-handler expiry/contact count is separate.",
+  "collisionReviewFollowup": "Full router192 cases plus16 sequential contacts establish both rows use the generic full damage reader, parent-only AR/Pierce and LastCollide as most-recent type/ID rather than permanent victim set. Existing complete shared impact reader already establishes count>1 poison-length division; reuse that evidence.",
+  "durationPersistenceEvidence": "tools/reference/poison-duration-native-evidence.json"
 }

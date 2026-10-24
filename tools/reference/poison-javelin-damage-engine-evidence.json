@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.poisonjavelin",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "pinnedInputHashes": {
+    "json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "compiledRoutines": [
+    "SKILLS_CalculateDamageBonusByLevel",
+    "SKILLS_CalculateMasteryBonus",
+    "SKILLS_GetMinElemDamage",
+    "SKILLS_GetMaxElemDamage",
+    "SKILLS_GetElementalLength",
+    "MISSILE_SetDamageStats",
+    "MISSILE_CalculateDamageData",
+    "MISSILE_AddStatsToDamage",
+    "MISSILE_CalculateFinalDamage"
+  ],
+  "blockHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "probe": {
+    "cases": 3456,
+    "path": ".local/class-skills/poison-javelin-damage-source-probe.json",
+    "sha256": "06d3a3464ad94f246fbfa13e3a93c9e5fe05e879c3b5d0acba0a651a203763ab"
+  },
+  "established": [
+    "Complete explicit-Skill15 creator distinguishes parent38 source128 from child39 unsigned SrcDamage255/-1. Child clears both skill/missile weapon sources and does not read the supplied origin damage, owner weapon/item poison, item poison length/count, physical/fire/leech, species or critical. It separately evaluates retained rank and live declared hard synergy/mastery through full skill getters.",
+    "Full skill minimum/maximum getters apply hard Plague12percent synergy after HitShift0, then poison mastery. Full length getter gives200+50*(rank-1), independent from skill poison damage synergy. Rank1 unenhanced rate32..48FP256 and200frames; rank28 length1550frames/62seconds; rank255 length12900frames/516seconds.",
+    "Full parent creator selects actual throwable stat endpoints5..10 instead of distinct ordinary9..14 endpoints. It adds prepared owner item poison rate and aggregate raw length/count to skill poison without averaging here; the complete setter publishes the resulting packet without copying owner poison mastery into the missile."
+  ],
+  "limits": [
+    "Formula hard-point lookup, owner/weapon/item metadata and prepared stat projection, ratio helper and empty monster-type stat copy are declared services. Full unchanged skill getters, tier helper, damage creator/add/scale and setter execute; current item stat preparation/mastery RNG and modern executable equivalence remain separate.",
+    "Impact getter/poison count division, mitigation/length resistance, reapplication/owner/FP256 stat regeneration and cloud collision/path cadence still require independent source/native acceptance. No handler is enabled."
+  ]
+}

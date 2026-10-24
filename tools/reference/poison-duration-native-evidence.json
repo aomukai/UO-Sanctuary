@@ -1,0 +1,86 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "scope": "Shared poison persistence acceptance; Poison Javelin source preparation",
+  "status": "The shared poison save validator now accepts every positive int duration already accepted by the runtime, removing a60second persistence rejection. Current Poison Javelin rank28 lasts62seconds and rank255 lasts516seconds; two real saved native actors retain duration, source, health and fractional settlement across two world reloads. Other invalid duration/rate/fraction guards remain checked, and the save format/read versions are unchanged. This changes persistence acceptance only: poison damage ticks, player floor, source ownership, event phase and catch-up behavior are unchanged. Poison Javelin remains unavailable while those shared-consumer differences and its remaining path/contact integration are addressed. Handler count remains135/Amazon23. Focused timed-effect/long-poison checks pass three boots/two reloads; the full suite also passes three boots/two reloads, retaining all10 bow inputs on every boot and previous class regressions. All70 Python tests, current475/15 fingerprints and zero-warning/error builds pass. Matching content boots the existing world and shuts down cleanly with unchanged save bytes; prior build/data/saves are backed up. No class certificate, item gate, client/native patch or named availability decision changes.",
+  "sourceEvidence": [
+    "tools/reference/poison-javelin-damage-engine-evidence.json",
+    "tools/reference/poison-state-engine-evidence.json",
+    "tools/reference/poison-javelin-routing-engine-evidence.json",
+    "tools/reference/poison-javelin-factory-engine-evidence.json"
+  ],
+  "verification": {
+    "sourceCreatorSkillCases": 3456,
+    "sourcePoisonApplicationCases": 384,
+    "sourceRegenerationCases": 2240,
+    "sourceRouterCases": 192,
+    "sourceSequentialContactCases": 16,
+    "sourceFactoryCases": 480,
+    "nativeScalarComparisons": 3456,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "combinedBowInputBootsEach": 3,
+    "pythonTests": 70,
+    "namedInputs": 475,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "logs": {
+    "poison-duration-focused.log": ".local/class-skills/poison-duration-focused.log",
+    "poison-duration-focused-run.log": ".local/class-skills/poison-duration-focused-run.log",
+    "poison-duration-combined.log": ".local/class-skills/poison-duration-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "poison-duration-content-build.log": ".local/class-skills/poison-duration-content-build.log",
+    "poison-duration-integration-build.log": ".local/class-skills/poison-duration-integration-build.log",
+    "poison-duration-python-checks.log": ".local/class-skills/poison-duration-python-checks.log",
+    "poison-duration-audit-export.log": ".local/class-skills/poison-duration-audit-export.log",
+    "poison-duration-audit-export-run.log": ".local/class-skills/poison-duration-audit-export-run.log",
+    "poison-duration-readiness.log": ".local/class-skills/poison-duration-readiness.log",
+    "poison-duration-first-loop.log": ".local/class-skills/poison-duration-first-loop.log",
+    "poison-duration-installed-server.log": ".local/class-skills/poison-duration-installed-server.log",
+    "poison-duration-installed-smoke.log": ".local/class-skills/poison-duration-installed-smoke.log",
+    "poison-duration-focused-no-professions-failed.log": ".local/class-skills/poison-duration-focused-no-professions-failed.log",
+    "poison-duration-focused-no-professions-run.log": ".local/class-skills/poison-duration-focused-no-professions-run.log",
+    "poison-duration-focused-no-account-failed.log": ".local/class-skills/poison-duration-focused-no-account-failed.log",
+    "poison-duration-focused-no-account-run.log": ".local/class-skills/poison-duration-focused-no-account-run.log",
+    "poison-duration-focused-record-equality-failed.log": ".local/class-skills/poison-duration-focused-record-equality-failed.log",
+    "poison-duration-focused-record-equality-run.log": ".local/class-skills/poison-duration-focused-record-equality-run.log",
+    "poison-javelin-damage-source.log": ".local/class-skills/poison-javelin-damage-source.log",
+    "poison-javelin-damage-source-check.log": ".local/class-skills/poison-javelin-damage-source-check.log",
+    "poison-javelin-damage-source-probe.json": ".local/class-skills/poison-javelin-damage-source-probe.json",
+    "poison-state-source.log": ".local/class-skills/poison-state-source.log",
+    "poison-state-source-check.log": ".local/class-skills/poison-state-source-check.log",
+    "poison-state-source-probe.json": ".local/class-skills/poison-state-source-probe.json",
+    "poison-javelin-routing-source.log": ".local/class-skills/poison-javelin-routing-source.log",
+    "poison-javelin-routing-source-check.log": ".local/class-skills/poison-javelin-routing-source-check.log",
+    "poison-javelin-routing-source-probe.json": ".local/class-skills/poison-javelin-routing-source-probe.json",
+    "poison-javelin-factory-source.log": ".local/class-skills/poison-javelin-factory-source.log",
+    "poison-javelin-factory-source-check.log": ".local/class-skills/poison-javelin-factory-source-check.log",
+    "poison-javelin-factory-source-probe.json": ".local/class-skills/poison-javelin-factory-source-probe.json"
+  },
+  "buildHashes": {
+    "content": "01bc0b01bcb9a4eee0fc3607f3705384c4b13db683972e6da8cd8dc98a978ef0",
+    "integration": "8b00de9bd88d653081afb297ddfcd5198e8b438003c50c21de7a3253f40d8e6c"
+  },
+  "limits": [
+    "Existing native poison settles whole-HP ordinary Damage, permits player death, and replaces the damage source on refresh. Compiled supplemental source instead applies FP256 HP regeneration, player one-life floor, monster zero-life death, and retains original poison stat-list owner. Deliberate shared-consumer migration remains before skill certification.",
+    "Current native catch-up settles at most600000ms and advances its clock to now. Skill255 poison alone is516000ms, but combined item durations/longer offline intervals need explicit review. Accepting saved positive int duration does not certify this behavior.",
+    "Modern global event phase, poison interruptions and same-frame stat/event order are not established by compiled component fixtures."
+  ],
+  "fixtureScope": [
+    "The long-duration fixture supplies declared1HP/sec at the current skill rank28/255 durations. It tests persistence and resumed elapsed settlement, not a Poison Javelin launch/impact or a source poison regeneration migration.",
+    "Native scalar3456 comparisons use the real SkillValues endpoints/length and declared mastery/prepared-item addition; they do not certify a complete native creator/collector, RNG or mitigation path.",
+    "The focused harness initially lacked the enabled civic services needed by the older timed-effect career regression, then failed to answer the account prompt on later accountless boots. Those harness assumptions are corrected without gameplay changes; failure logs retained.",
+    "C# record equality compares array members by reference. The reload fixture now compares complete serialized state values so independent decoded empty Buffs arrays do not falsely fail identical saved records; failure log retained.",
+    "Long actors use a10minute future inspection clock while other regressions run. Explicit400ms and600ms resume steps verify the saved remaining duration/fraction/health; real wall-clock poison scheduling remains unchanged."
+  ],
+  "installationRollback": {
+    "path": ".local/class-skills/pre-poison-duration-install",
+    "previousContentSha256": "cbaca9a4c46dcb28e3badc22c1a4205d7be79a704b5fb0a407c0f438842ea8eb",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  },
+  "next": "Migrate the shared poison state consumer with explicit old-fraction/save handling, then finish source path/do-handler/contact and TH timing/quantity/localdelay integration. Continue unaffected Amazon skills around individually unsupported modern details."
+}

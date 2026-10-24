@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.poisonjavelin",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledRoutines": [
+    "MISSILES_CreateMissileFromParams"
+  ],
+  "blockHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "probe": {
+    "cases": 480,
+    "path": ".local/class-skills/poison-javelin-factory-source-probe.json",
+    "sha256": "9064c4cd15fc809ba428bc482e592eb0e2bb3521edbe09fef7f24bb83c88d9ce"
+  },
+  "established": [
+    "Complete factory gives current cloud39 a60frame/2400ms total/current lifetime at flags5, independent of rank and unflagged nLoops. Trail creator computes2*(rank-1) loops but current formula0 leaves flag8 absent, so it does not extend lifetime.",
+    "Flag8 controls SubLoop extension: positive test controls add9frames per loop. Explicit range flag0x8000 overrides the row lifetime. All retain original caller position, skill15/rank and owner; child flags5 supplies zero velocity and remains stationary.",
+    "The declared parent flags1 factory control has25frames and velocity4608 after the full factory75percent factor. Declared50percent Slow Missiles reduces it to2304. Flags4 forces supplied zero velocity; parent launch must not accidentally copy the child flags5."
+  ],
+  "limits": [
+    "Complete factory executes with declared world/room allocation, paths, stat projections, damage creator/writer, seed, owner and event adapters. Separate full damage creator/getters/stat-writer evidence establishes the source0 cloud packet. These fixtures are not a combined current executable certificate.",
+    "Outer do-handler decrement/removal timing, source path integration/flag-setting and collision selection/order remain separate. Factory lifetime60frames does not establish exact total damaging contacts or rendered puff lifetime.",
+    "Guided Arrow fixture provides generic services; irrelevant guided callbacks are compiled but not called. No native Poison Javelin handler or substitute visual/icon is enabled."
+  ]
+}

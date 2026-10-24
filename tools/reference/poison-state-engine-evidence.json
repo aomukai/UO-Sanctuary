@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_ApplyPoisonDamage",
+    "EVENTS_HpRegen",
+    "D2GAME_MONSTER_ApplyStatRegen_6FC63440"
+  ],
+  "blockHashes": {
+    "SUNITDMG_ApplyPoisonDamage": "abb95a2b24a93b4b9d700ee7485608ff85fce0f860e7ed0080ca2430a53195d7",
+    "EVENTS_HpRegen": "df09f0d72e6aaa8647ab90253d6031824c967a3c9599bd8cee28af65aac8079b",
+    "D2GAME_MONSTER_ApplyStatRegen_6FC63440": "050a575c68cad55f9a1dc5ed1d09d05d95f0dac64c3887b1f1391f459c2de0df"
+  },
+  "probe": {
+    "applicationCases": 384,
+    "regenCases": 2240,
+    "path": ".local/class-skills/poison-state-source-probe.json",
+    "sha256": "19830015c495cc8c12f6dae9a190966e54df67ad6ef884ff3bf68bbae8882399"
+  },
+  "established": [
+    "Complete poison application accepts positive rate and frame length, replaces equal/stronger rate and ignores weaker rate without refreshing expiry. Existing stat-list owner remains the original source on refresh; first creation captures attacker type/ID. Monster stat-regeneration event is rescheduled to next frame on every valid application, even weaker applications.",
+    "Complete player HP regeneration clamps to256FP256/one life. Monster regeneration writes exact FP256 life, can retain positive life below256 and kills only at zero; ordinary source kill/kill-credit events occur then. It does not dispatch ordinary damage for each nonlethal poison frame.",
+    "Monster life-mask state removes its base regeneration contribution. Prevent-heal does not block negative regeneration. A negative update below one life returns without health mutation in town; source large updates crossing zero from at least one life and delayed-death branches are separately covered."
+  ],
+  "limits": [
+    "Stats/stat-list allocation/attachment/expiration, room/town/life-mask/state, game/event scheduling, max life, death/event and packet services are declared. Complete application/player/monster bodies execute, not the global modern event queue or final NPC death pipeline.",
+    "The combined regen stat is a declared input; source natural regeneration, potion/replenish interactions and current modern poison interruptions/damage-event ordering remain separate. Do not infer global40ms phase or complete modern same-frame source ownership from this fixture.",
+    "Native existing TimedEffects poison currently uses whole-HP ordinary Damage, changes source on accepted refresh, permits player death. The saved60second rejection is corrected separately by poison-duration-native-evidence.json; no other consumer difference is changed there. These remaining differences are recorded for a deliberate shared-consumer migration before certifying Poison Javelin."
+  ]
+}
