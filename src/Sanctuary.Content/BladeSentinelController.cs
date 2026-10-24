@@ -93,16 +93,17 @@ public static class BladeSentinelActors
     internal static void Tick(DateTime at)
     {
         AssassinTrapRoster.SweepOwners();
+        BladeSentinelMissiles.PruneFaults();
         while(true)
         {
-            var actors=Active.Values.Where(x=>!x.Deleted && x.Prepared.Control!=null && x.Prepared.ControllerFault==null).ToArray();
+            var actors=Active.Values.Where(x=>!x.Deleted && x.Prepared.Control!=null).ToArray();
             DateTime next=actors.Select(x=>x.Prepared.NextFrameUtc).Append(BladeSentinelMissiles.NextFrame).Min();
             if(next>at){return;}
             // Source infinite missiles run before the monster event phase.
             BladeSentinelMissiles.TickFrame(next);
             foreach(var body in actors.Where(x=>x.Prepared.NextFrameUtc==next).OrderByDescending(x=>x.Serial.Value))
             {
-                try{body.AdvanceController(next);}
+                try{body.AdvanceController(next,AssassinTrapRoster.Fighting(body));}
                 catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared blade controller suspended: {Serial}",body.Serial);}
             }
         }

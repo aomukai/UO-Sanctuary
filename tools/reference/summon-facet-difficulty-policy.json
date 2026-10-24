@@ -36,7 +36,12 @@
     "Fire Golem"
   ],
   "partialAdapters": {
-    "Blade Sentinel": "Retained base-stat/FP256 life adapter and owner-facet notification verified before/after weapon inheritance. Spatial travel and offline lifecycle pending separate decisions."
+    "Blade Sentinel": "Retained base-stat/FP256 life adapter plus approved old-facet stay/offline combat suppression and continuing expiry installed; learned input and remaining acceptance still disabled."
   },
-  "partialAdapterEvidence": "tools/reference/blade-lifecycle-native-evidence.json"
+  "partialAdapterEvidence": "tools/reference/blade-lifecycle-native-evidence.json",
+  "shortLivedTrapPolicy": {
+    "facetTravel": "stay in original facet until expiry",
+    "offline": "stop fighting; lifetime keeps running",
+    "evidence": "tools/reference/blade-travel-native-evidence.json"
+  }
 }

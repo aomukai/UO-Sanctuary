@@ -207,9 +207,14 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    if boot:
+                        session.send('blade-offline-reload-check')
+                        assert session.expect(r'blade-offline-reload-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'blade-offline-reload-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
                     lifecycle='blade-lifecycle-check' if boot==0 else 'blade-lifecycle-reload-check'
                     session.send(lifecycle)
                     assert session.expect(lifecycle+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'blade-offline-result: (passed|failed)',timeout=20).group(1)=='passed',logpath.read_text()[-6000:]
                     spawn='blade-spawn-check' if boot==0 else 'blade-spawn-reload-check'
                     session.send(spawn)
                     assert session.expect(spawn+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
@@ -1097,6 +1102,10 @@ def check():
                         session.send(find_item_command)
                         assert session.expect(find_item_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         assert session.expect(r'find-item-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        save_snapshot(session)
+                    if boot<2:
+                        session.send('blade-offline-stage')
+                        assert session.expect(r'blade-offline-stage: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         save_snapshot(session)
                     session.send('shutdown'); session.process.wait(timeout=20)
                 finally:

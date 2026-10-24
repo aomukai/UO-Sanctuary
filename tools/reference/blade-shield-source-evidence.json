@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routineHashes": {
+    "SKILLS_SrvSt28_BladeShield": "16beee3a90817035de3aec505c59610cd13d4fe26d13125d8e1439f437471e56",
+    "SKILLS_AuraCallback_SrvDo142": "cf3fb18b57040f01426e13e13720aa171ef53c0e1cf08fb0849e81d33c76403f",
+    "SKILLS_SrvDo142_Unused": "63b76e0cc7868c66dc3f3545823c760fbbf9cbd10824cd83818714feef7d914b",
+    "SKILLS_SrvDo054_BladeShield": "97245bf247adcf6e5eca196aea77288b84eaad06e5146e97de8d6da2ebf65d86",
+    "SKILL_ComputePeriodicRate": "23b6aa71aabe794cea8d84d183eeef8232258343f19bd9218a83001d24591e0e",
+    "sub_6FD13260": "ac5cb3b349bce1c4dc48c60eae618e6ea35fc2e1c73f8f5e87c00b89db0b0fb9",
+    "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+    "D2GAME_MONSTERS_AiFunction09_6FD13470": "712c37ec9a3f8798b2908c82a0ac4fccf73a9a7b90be6e74626f332ec58af2a3"
+  },
+  "verification": {
+    "startCases": 864,
+    "areaCases": 1728,
+    "periodicCases": 576,
+    "initialDispatchCases": 12,
+    "recurringDispatchCases": 27648
+  },
+  "scope": "Unchanged complete start28, do54, area do142, per-victim callback, periodic scheduler and initial/recurring dispatchers executed with explicit service fixtures; ASan/UBSan clean.",
+  "findings": [
+    "Start validates learned skill, missile, duration and state before replacing the self-state; failed allocation can follow removal.",
+    "One skill physical/elemental roll per area pulse is copied separately to every victim; hit and live weapon fill/durability are per victim.",
+    "Pinned result32 does not force successful-hit. Successful callbacks use SrcDam96 in weapon fill, then combat allocation128; the cosmetic attachment Half2HSrc is not consulted.",
+    "Town do54 returns success without rolling or selecting victims. The minimum periodic delay is5; pinned25 schedules at current frame+25 for the tested non-overflow range.",
+    "Initial used-skill dispatch uses current effective rank. Recurring positive-key dispatch retains the modifier-list cast rank and requires its matching skill/state/list; it reschedules even when the supplied do-handler returns failure. The right-aura branch instead refreshes current rank."
+  ],
+  "limits": [
+    "Not the modern D2R binary; current table fields are pinned separately.",
+    "Hit resolution, full weapon fill, formula evaluation, target selection, state allocation and event services remain fixtures, not newly verified implementations.",
+    "Does not verify player cast-start payment, animation/initial pulse ordering, actual state expiry or native input.",
+    "Signed arithmetic overflow at late game frames is outside the tested scheduling domain."
+  ],
+  "handlerEnabled": false
+}

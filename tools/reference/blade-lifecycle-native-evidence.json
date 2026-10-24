@@ -59,5 +59,7 @@
     "client-check": ".local/class-skills/blade-lifecycle-client-check.log",
     "audit-native": ".local/class-skills/blade-lifecycle-audit-native.log",
     "before-release-focused": ".local/class-skills/blade-lifecycle-before-release-focused.log"
-  }
+  },
+  "successorEvidence": "tools/reference/blade-travel-native-evidence.json",
+  "historicalScope": "This prior checkpoint predates the subsequently answered and implemented facet/offline policy; see successor evidence for current status."
 }

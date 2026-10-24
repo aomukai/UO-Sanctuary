@@ -4,7 +4,7 @@
   "sourceId": 257,
   "handlerEnabled": false,
   "installed": false,
-  "status": "Blade Sentinel has an automatic owner-facet stat adapter using retained birth/base-stat level. Difficulty changes adjust only the source base attack/defense/life portion, before or after first-missile AR inheritance, while preserving FP256 injury, captured weapon packet, passives, rank, path, seed and clock. Repeated notifications are idempotent; rescaled actor/missile state survives two world reloads. Registered traps are removed when their owner dies. An unregistered release adapter checks7mana, pays once after successful factory creation and applies an independent25-frame local delay; insufficient or duplicate releases do not debit/create. Focused/full suites pass three boots/two reloads,70 Python tests and clean builds pass. Matching installed smoke preserves saves/config/client bytes and leaves the server stopped. Learned Blade input remains disabled at149 total handlers. Facet travel/logout choices are recorded as nonblocking questions; full windup/input/cancellation, spatial/offline lifecycle and remaining combat acceptance are still pending.",
+  "status": "Approved short-lived trap lifecycle is installed for the unfinished Blade Sentinel backend: traps stay in their cast facet, retain path/weapon/rank/expiry, and use their own position for visibility and harmful-region checks while owner-facet stat rescaling remains intact. Disconnected owners suppress movement, arming and damage without freezing lifetime or replaying missed actions on return. Faulted controllers also continue expiring. Socket-null/Internal-map suppression, natural conductor expiry, original-clock deletion and armed offline save/reload with no damage pass in focused and full three-boot/two-reload suites. Blade Shield preparation passes 30,828 compiled source cases with clean ASan/UBSan; hit, weapon, state and selection services are explicit fixtures. Builds, 70 Python tests and original-world installed smoke pass. Total playable handlers remain 149; Blade Sentinel and Blade Shield input stay disabled pending their remaining acceptance.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
@@ -263,12 +263,13 @@
   "attackEvidence": "tools/reference/assassin-trap-attack-engine-evidence.json",
   "movementReview": "tools/reference/blade-sentinel-movement-review.json",
   "nativeRemaining": [
-    "The owner-facet hook changes retained stats only. It does not select whether traps travel, re-anchor or stay behind; existing spatial/controller map mismatch remains explicitly unsupported. Short-lived trap facet/logout questions are recorded in blade-lifecycle-questions.json without assuming answers.",
-    "The release adapter is not registered in AssassinCombat. Its shared Begin remains unavailable, and no talent/left/right/quick input is exposed. Full S2/IAS windup, cancellation, hand/equipment and network/graphical acceptance remain pending.",
-    "Release validates mana before creation and pays afterward, matching the successful no-start dispatch path. The older ignored-consume/reentrant failure edge remains uncertain; a failed native payment deletes the new body, but would not recreate an oldest trap already evicted by the factory.",
-    "Rescaling preserves born rank/base-stat level and adds only old/new source base deltas. It does not recollect owner gear/masteries/weapon or repeat Arm. Current literal blade life is100 across all difficulties; unchanged-maximum fractional injury is verified, while generic differing-HP scaling reuses the approved tested helper.",
-    "Rescaled Hell state, fractional injury and immutable missile are verified through two actual reloads at held clocks; owner return to a Normal facet reapplies its current stats. Held clocks do not prove elapsed offline policy or whole factory natural expiry.",
-    "Existing source reconstruction, native geometry/repair/event/NextHit supplier, full elemental/poison/drain/LifeTap/recovery/armor and current NPC drain uncertainties remain recorded. Final effects/audio and240 skill icons/effects inventories remain separate. No class completion certificate."
+    "Blade Sentinel learned windup/cancellation/client input remains disabled; this is a verified lifecycle component, not a finished playable skill or class certificate.",
+    "The online facet controller/first-arm and old-facet target eligibility services are exercised explicitly; a real connected-player cross-facet attack/disconnect/reconnect graphical scenario remains acceptance work.",
+    "Offline is determined by native running socket plus playable owner map for actual factory-created traps. Synthetic component fixtures without spawn context retain their explicit action service; they have no GM/player acquisition path.",
+    "Offline pose/random/attack clocks are quiet while source frame age continues. The adapter expires on the first frame strictly past the retained lifetime, rather than waiting for a later AI decision; it does not grant a new lifetime on login/server restart.",
+    "The full regression suite used the lifecycle build before the final orphan-prune entry hook. The final hook and identical lifecycle mechanics are covered by the subsequent focused three-boot/two-reload suite and fresh runtime audit exports. The tested controller fault suppresses further mechanics but still expires. Unsupported world geometry/path repair, current NextHit scope, full elemental/poison/drain/LifeTap/recovery/armor/event acceptance and legacy NPC drain uncertainties remain open.",
+    "Blade Shield has compiled source orchestration evidence only. Native self-state, source-start mana payment, animation/initial periodic phase, full live weapon arithmetic/hit resolution, input and save lifecycle remain unimplemented.",
+    "Effects and talent/hotkey icons remain separately inventoried placeholders; no assets generated, no class completed, no specific Nightmare/Hell facet assignments invented."
   ],
   "requiredAtPreparation": [
     "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
@@ -278,9 +279,9 @@
     "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
   ],
   "required": [
-    "Record user answers to short-lived trap facet travel and logout questions; keep them nonblocking and implement the selected spatial/expiry rules when known.",
-    "Finish full Blade S2/IAS learned windup/cancellation/input and remaining combat/terrain/event/expiry acceptance before enabling its handler.",
-    "Continue unaffected Assassin skills, beginning with Blade Shield source start28/do54 and its shared do142 periodic weapon-area consumer; keep trap questions from stalling the class roadmap."
+    "Continue Blade Shield: resolve cast-start payment/animation/first-pulse source path; reuse state, periodic and full weapon combat consumers with explicit per-target hit checks.",
+    "Finish Blade Sentinel learned windup/cancellation/input and remaining live combat/terrain acceptance before enabling its handler.",
+    "Continue Assassin skills then remaining class roadmap; update after completed classes and keep unsupported mechanics/assets separate."
   ],
   "nativeMovementEvidence": "tools/reference/wall-follow-native-evidence.json",
   "wallFollowEvidence": "tools/reference/wall-follow-engine-evidence.json",
@@ -309,5 +310,7 @@
   "actualSpawnEvidence": "tools/reference/blade-spawn-native-evidence.json",
   "retainedFacetStatAdapterInstalled": true,
   "unregisteredReleaseAdapterInstalled": true,
-  "lifecycleStatEvidence": "tools/reference/blade-lifecycle-native-evidence.json"
+  "lifecycleStatEvidence": "tools/reference/blade-lifecycle-native-evidence.json",
+  "approvedSpatialOfflineAdapterInstalled": true,
+  "lifecycleTravelEvidence": "tools/reference/blade-travel-native-evidence.json"
 }

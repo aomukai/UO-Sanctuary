@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "nonblocking clarification requested; no answer received yet",
+  "status": "answered; approved Sanctuary short-lived trap lifecycle",
   "askedAtUtc": "2026-10-24T21:00:56.246413+00:00",
   "questions": [
     {
@@ -9,7 +9,7 @@
         "Stay in the old facet until expiry",
         "Travel with me and restart their path nearby"
       ],
-      "answer": null
+      "answer": "Stay in the old facet until expiry"
     },
     {
       "question": "When you log out, should short-lived traps stop fighting and continue expiring while offline, or disappear immediately? Long-lived summons keep their existing persistence behavior.",
@@ -17,7 +17,7 @@
         "Stop fighting; lifetime keeps running",
         "Disappear immediately"
       ],
-      "answer": null
+      "answer": "Stop fighting; lifetime keeps running"
     }
   ],
   "unaffectedWork": [
@@ -27,9 +27,14 @@
     "Unregistered cast release adapter with exact7mana and25-frame local delay."
   ],
   "remainingDependentWork": [
-    "Spatial/facet and offline expiry adapter",
     "Full learned windup/cancellation and actual client input",
     "Remaining live combat/event/terrain acceptance"
   ],
-  "learnedHandlerEnabled": false
+  "learnedHandlerEnabled": false,
+  "answeredAtUtc": "2026-10-24T21:21:27.487663+00:00",
+  "policy": {
+    "facetTravel": "Remain in original facet; retain path and expiry. Existing stats rescale to owner facet difficulty.",
+    "offline": "Suppress attacks and movement while disconnected; original lifetime continues. No missed attacks replay on return.",
+    "longLivedSummons": "Existing persistence behavior unchanged."
+  }
 }

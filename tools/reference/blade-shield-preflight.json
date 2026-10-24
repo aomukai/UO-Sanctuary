@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.bladeshield",
   "handlerEnabled": false,
-  "status": "Unrelated self-buff preparation can proceed while short-lived trap spatial policy is undecided. Source review only; no native Blade Shield implementation or compiled execution claimed.",
+  "status": "Compiled pinned start28/do54/area142/callback/periodic and initial/recurring dispatch preparation; no native Blade Shield implementation or input enabled. Trap lifecycle questions answered separately.",
   "sourceSkill": {
     "skill": "Blade Shield",
     "*Id": 277,
@@ -108,22 +108,41 @@
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
   },
-  "compiled": false,
+  "compiled": true,
   "reviewedFacts": [
     "Start28 validates skill/missile/duration/state, removes/replaces its own state, allocates a self curse/stat list, writes modifier skill/level and toggles graphics. The current row has no aura stat slots, so the shared six-slot writer has no inferred damage snapshot.",
     "Do54 rejects missing skill/state/learned context, skips periodic damage in town and calls full Do142 outside town. Do142 obtains progressive range or falls back to current aurarangecalc, rolls physical/elemental skill damage once into copied area data, then enumerates aura-filtered targets.",
     "Each full callback copies that skill packet, performs a separate hit/result check and, only on success, fills current weapon damage with source fraction, allocates combat and dispatches durability/event delivery. Do not replace this with automatic spell damage or assume the missile attachment owns gameplay damage.",
     "Current data gives27+2*(effective rank-1)mana,3000+300*(rank-1)duration frames, perdelay25, radius parameter6 source units, SrcDam96/128 and hard Sentinel/Fury synergy10% each. The visual attachment has Half2HSrc1, but that flag alone does not prove halving the separate Do142 melee weapon callback.",
-    "The literal reconstructed periodic expression is delay*(frame+delay-1)/delay+1, with minimum delay5. In bounded nonoverflow arithmetic this is frame+delay; do not invent a globally aligned pulse grid from its name."
+    "The literal reconstructed periodic expression is delay*(frame+delay-1)/delay+1, with minimum delay5. In bounded nonoverflow arithmetic this is frame+delay; do not invent a globally aligned pulse grid from its name.",
+    "Compiled initial/recurring dispatch confirms current effective rank for the initial used-skill dispatch and modifier-list cast rank for recurring positive-key pulses; state/list/skill identity gates end scheduling when absent. Full do-handler and actual state-expiry services remain separate."
   ],
   "required": [
-    "Compile complete start28/do54/do142/callback and periodic dispatch with declared state/area/formula/weapon/event services; trace mana start/do ordering and first pulse rather than assuming existing no-start Fire Blast payment applies.",
+    "Trace and verify full generic start/do mana ordering and player animation/first-pulse path; compiled source state/area/callback/periodic orchestration is available with explicitly declared service fixtures.",
     "Reuse source weapon physical/typed/poison/mastery/critical/AR/block/event pipelines where contracts match; verify copied once-per-area skill roll versus fresh per-target weapon processing, allowed proc/property gates and hit recovery/durability.",
-    "Implement saved independent self state, current effective rank/hard synergies/range/pulse/town behavior, SC timing and recasts plus death/logout/load and actual right/quick input. Do not wait on fixed-position trap travel choices.",
+    "Implement saved independent self state with captured cast rank, live hard synergies/current weapon data, range/pulse/town behavior, SC timing and recasts plus death/logout/load and actual right/quick input.",
     "Keep raw server gameplay callback and cosmetic attachment separate; final shield/cast/hit/audio and talent/hotkey icons remain in separate inventories."
   ],
   "limits": [
     "Older reconstructed source is supplementary; current executable parity and modern item/event/durability behavior are unverified.",
     "Current ordinary item-effect/property gates remain authoritative; no blanket new special-item/proc implementation is inferred."
+  ],
+  "compiledSourceEvidence": "tools/reference/blade-shield-source-evidence.json",
+  "compiledRoutineCases": {
+    "start": 864,
+    "area": 1728,
+    "periodic": 576,
+    "initialDispatch": 12,
+    "recurringDispatch": 27648
+  },
+  "compiledRoutines": [
+    "SKILLS_SrvSt28_BladeShield",
+    "SKILLS_AuraCallback_SrvDo142",
+    "SKILLS_SrvDo142_Unused",
+    "SKILLS_SrvDo054_BladeShield",
+    "SKILL_ComputePeriodicRate",
+    "sub_6FD13260",
+    "sub_6FD13410",
+    "D2GAME_MONSTERS_AiFunction09_6FD13470"
   ]
 }

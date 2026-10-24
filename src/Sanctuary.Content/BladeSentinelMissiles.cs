@@ -50,20 +50,26 @@ public static class BladeSentinelMissiles
         return capture.Creation;
     }
     internal static bool Ready(long missile,uint target,DateTime at)=>!Leases.TryGetValue((missile,target),out var lease) || lease.UntilUtc<=at;
-    private static BaseCreature Recipient(BladeSentinelBody body,BladeMissileState state,int x,int y)
+    internal static BaseCreature Recipient(BladeSentinelBody body,BladeMissileState state,int x,int y)
     {
         if(World.FindMobile((Serial)state.OriginalOwner) is not PlayerMobile owner){throw new NotSupportedException("Missing blade allegiance supplier");}
         foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(new Point3D((x+1)/2,(y+1)/2,state.Z),3))
         {
             int size=CreatureProfiles.For(target).Traits.Size??2;
             if(Math.Abs(target.Z-state.Z)<16 && CombatHitboxes.SourceTouches(3,size,x-target.X*2,y-target.Y*2)
-                && ClassCombat.IsHostile(owner,target) && Ready(state.Id,target.Serial.Value,state.NextUtc)
+                && body.TrapTarget(owner,target) && Ready(state.Id,target.Serial.Value,state.NextUtc)
                 && !SpellHelper.IsTown(target.Location,target)){return target;}
         }
         return null;
     }
+    internal static void PruneFaults()
+    {
+        foreach(var id in Missiles.Values.Where(x=>x.Fault!=null && World.FindMobile((Serial)x.Owner) is not BladeSentinelBody{Deleted:false,Alive:true}).Select(x=>x.Id).ToArray())
+        {Missiles.Remove(id);}
+    }
     internal static void TickFrame(DateTime at)
     {
+        PruneFaults();
         foreach(var state in Missiles.Values.Where(x=>x.Fault==null && x.NextUtc==at).OrderByDescending(x=>x.Id).ToArray())
         {
             try{Advance(state);}
@@ -79,8 +85,10 @@ public static class BladeSentinelMissiles
             || !body.Prepared.Creation.MissileArmed || body.Prepared.Creation.Rank!=state.Rank))
         {throw new NotSupportedException("Blade missile owner map/controller lifecycle is not connected");}
         if(live && (World.FindMobile((Serial)state.OriginalOwner) is not PlayerMobile{Alive:true,Deleted:false} original
-            || original.Map!=body.Map || !ClassCreation.Profiles.TryGet(original.Serial,out var profile) || profile.Class!=DiabloClass.Assassin))
+            || !ClassCreation.Profiles.TryGet(original.Serial,out var profile) || profile.Class!=DiabloClass.Assassin))
         {throw new NotSupportedException("Blade missile original owner death/map/class lifecycle is not connected");}
+        if(live && !AssassinTrapRoster.Fighting(body))
+        {Missiles[state.Id]=state with{NextUtc=state.NextUtc.AddMilliseconds(40)};return;}
         var next=state;BaseCreature target=null;int mask=0;
         var position=BladeSentinelContact.Advance(state.Position,live?new((int)(body.Prepared.Motion.X>>16),(int)(body.Prepared.Motion.Y>>16)):null,!live,live,true,
             10+5*state.Rank,point=>

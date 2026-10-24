@@ -47,6 +47,12 @@ internal static class AssassinTrapRoster
         Entries.Add(actor.Serial.Value,new(owner.Serial.Value,actor.Serial.Value,_nextOrder++));
     }
     internal static void Forget(BaseCreature actor)=>Entries.Remove(actor.Serial.Value);
+    // Short-lived traps remain at their cast location across facet travel.
+    // Socket loss suppresses combat immediately, before native logout moves
+    // the owner to Internal. The actor clock continues while disconnected.
+    internal static bool Fighting(BladeSentinelBody body)=>body.Prepared.Spawn==null
+        || World.FindMobile((Serial)body.Prepared.Owner) is PlayerMobile{Alive:true,Deleted:false,NetState:{Running:true}} owner
+            && owner.Map!=null && owner.Map!=Map.Internal;
     internal static void SweepOwners()
     {
         foreach(var entry in Entries.Values.ToArray())

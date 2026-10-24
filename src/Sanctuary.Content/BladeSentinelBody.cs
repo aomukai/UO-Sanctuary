@@ -33,6 +33,12 @@ public partial class BladeSentinelBody:BaseCreature
     public override bool OnMoveOver(Mobile mobile)=>true;
     public override bool IsEnemy(Mobile mobile)=>false;
     public override bool CanBeHarmful(Mobile mobile,bool message,bool ignoreOurBlessedness)=>false;
+    internal bool TrapTarget(PlayerMobile owner,Mobile target)=>target is BaseCreature creature && target!=owner
+        && target.Alive && !target.Deleted && target.Map==Map && !target.Blessed && !target.IsDeadBondedPet
+        && !PaladinConversion.Active(target) && creature is not Server.Mobiles.BaseVendor
+        && !creature.Controlled && !creature.Summoned && creature.GetMaster()==null && !creature.InitialInnocent
+        && creature.FightMode is not(FightMode.None or FightMode.Aggressor or FightMode.Evil)
+        && creature.IsEnemy(owner) && CanSee(target) && base.CanBeHarmful(target,false,true);
     // Deliberately absent Constructible: the unfinished component has no GM Add
     // or player acquisition path. The serializer still needs its serial ctor.
     public BladeSentinelBody():base(AIType.AI_Melee,FightMode.None,0)
@@ -77,7 +83,7 @@ public partial class BladeSentinelBody:BaseCreature
     {
         var before=Prepared;Validate(before);
         if(Deleted || Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
-            || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+            || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
         {throw new NotSupportedException("Prepared blade owner/map lifecycle needs full AI integration");}
         var next=SourceActorMotion.Advance(before.Motion,(x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this));
         if(next.RepathRequired){throw new NotSupportedException("Prepared blade successful path repair is not connected");}
@@ -88,7 +94,7 @@ public partial class BladeSentinelBody:BaseCreature
     {
         var before=Prepared;Validate(before);
         if(Deleted || Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
-            || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+            || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
         {throw new NotSupportedException("Prepared blade owner/map lifecycle needs full AI integration");}
         if(Map.Width*2>65536 || Map.Height*2>65536){throw new NotSupportedException("Native map exceeds source path coordinates");}
         if(pathType is not(2 or 13 or 15)){throw new NotSupportedException("Prepared blade path type is not connected");}
@@ -126,17 +132,27 @@ public partial class BladeSentinelBody:BaseCreature
         var before=Prepared;var control=before.Control??throw new InvalidOperationException("Missing blade seed context");
         ulong seed=control.Seed;uint value=SourceRandom.Roll(ref seed);Store(before with{Control=control with{Seed=seed}});return value;
     }
-    internal void AdvanceController(DateTime at)
+    internal void AdvanceController(DateTime at,bool allowActions=true)
     {
-        while(!Deleted && Prepared is{Control:not null,ControllerFault:null} before && before.NextFrameUtc<=at)
+        while(!Deleted && Prepared is{Control:not null} before && before.NextFrameUtc<=at)
         {
             Validate(before);
+            if(!allowActions || before.ControllerFault!=null)
+            {
+                // Approved offline policy: freeze actions/pose/random draws,
+                // never the lifetime. No missed attacks are replayed on login.
+                var control=before.Control;int offlineFrame=checked(control.Frame+1);
+                int expiry=control.Ai.Expiry<0?checked(control.Duration+1):control.Ai.Expiry;
+                Store(before with{Control=control with{Frame=offlineFrame,NextThink=checked(offlineFrame+1),Ai=control.Ai with{Expiry=expiry}},
+                    NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
+                if(offlineFrame>expiry){Delete();}continue;
+            }
             if(Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
-                || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+                || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
             {throw new NotSupportedException("Blade controller owner/map/death/class lifecycle is not connected");}
             var creation=before.Creation;
             var frame=BladeSentinelController.Advance(before.Control,before.Motion,new(0,0,Map.Width*2,Map.Height*2),
-                (x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this),new Point2D(owner.X*2,owner.Y*2),()=>
+                (x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this),owner.Map==Map?new Point2D(owner.X*2,owner.Y*2):null,()=>
                 {
                     var create=BladeSentinelActors.CreateFollowingMissile??throw new NotSupportedException("Blade following missile/stat service is not connected");
                     creation=create(this)??throw new InvalidDataException("Missing blade missile creation snapshot");
@@ -147,7 +163,7 @@ public partial class BladeSentinelBody:BaseCreature
         }
     }
     internal void SuspendController(string reason)
-    {if(Prepared is{} before){Store(before with{ControllerFault=reason});}BladeSentinelActors.Forget(this);}
+    {if(Prepared is{} before){Store(before with{ControllerFault=reason});}}
     public override void OnAfterDelete(){BladeSentinelActors.Forget(this);AssassinTrapRoster.Forget(this);base.OnAfterDelete();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void GenerateLoot(bool spawning){}
@@ -157,7 +173,7 @@ public partial class BladeSentinelBody:BaseCreature
         AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved);Validate(_prepared);
         if(SummonMaster?.Serial.Value!=_prepared.Owner || Map?.MapID!=_prepared.Map || Location!=Position(_prepared))
         {throw new InvalidDataException("Prepared blade owner/position mismatch");}
-        if(_prepared.Control is{Mode:not 0} && _prepared.ControllerFault==null){BladeSentinelActors.Track(this);}
+        if(_prepared.Control is{Mode:not 0}){BladeSentinelActors.Track(this);}
     }
 }
 
