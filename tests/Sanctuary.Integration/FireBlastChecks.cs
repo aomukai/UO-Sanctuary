@@ -26,7 +26,7 @@ public static class FireBlastChecks
         EventSink.WorldLoad+=()=>{if(File.Exists(Manifest)){var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));if(World.FindMobile((Serial)s.Target) is BaseCreature c){Stop(c);}}};
     }
     [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();
-    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Fire Blast damage, conversion, life restoration and persistence",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Fire Blast S2 lob, damage snapshots and persistent phases",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static void Later(int ms,string name,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(ms),()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}});
     private static PlayerMobile Fresh(int level=99,DiabloClass characterClass=DiabloClass.Assassin)

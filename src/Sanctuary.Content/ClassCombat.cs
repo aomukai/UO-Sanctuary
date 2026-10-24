@@ -435,7 +435,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
-        if (ability == CombatAbility.FireBlast){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
+        if (ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
             return 16;

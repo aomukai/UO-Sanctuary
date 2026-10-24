@@ -1,0 +1,68 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.shockweb",
+  "sourceId": 256,
+  "handlerEnabled": true,
+  "installed": true,
+  "totalHandlersPresent": 149,
+  "assassinHandlers": 10,
+  "status": "Shock Web is installed as handler 149 (Assassin 10). Shared S2/IAS lob throws spend 6 mana once at release and use the pinned hard-point count and source-seeded square scatter, including skipped nearby placements. Fresh landed children read current hard lightning synergies/mastery, retain fixed minimum damage and provide persistent soft-hit lightning fields with source footprints, contact ordering, expiry and cast-scoped 25-frame leases. Native field overlap follows the declared modern cast-origin adapter; exact current-build overlap cadence remains unverified. Focused/full suites each pass three boots, two save/reloads and real ground cast input, including exact saved air/field/lease/cooldown/resource state. Fire Blast saved phases and input pass after shared-lob extraction. All 70 Python tests, 503/21 current fingerprints and 573 unchanged named decisions pass; both builds have zero warnings/errors. Existing-world load/listen/shutdown exits 0 with save/config/client bytes unchanged, backup retained and server stopped. Current timing/terrain/seed/owner/PvP/NPC acceptance and final assets remain explicit gaps; no class completion certificate.",
+  "sourceEvidenceByStage": {
+    "scatter": "tools/reference/shock-web-engine-evidence.json",
+    "field": "tools/reference/shock-web-field-engine-evidence.json",
+    "damage": "tools/reference/shock-web-damage-engine-evidence.json"
+  },
+  "currentRules": "tools/reference/shock-web-current-rule-review.json",
+  "currentObservations": "tools/reference/shock-web-current-observations.json",
+  "sharedSaveCompatibility": "tools/reference/lob-shared-save-compatibility.json",
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "reloadsPerSuite": 2,
+    "actualGroundInputPerSuite": 3,
+    "nativeScatterComparisons": 840,
+    "nativeDamageComparisons": 48,
+    "sourceCases": {
+      "scatter": 6720,
+      "field": 960,
+      "damage": 576
+    },
+    "pythonTests": 70,
+    "namedFingerprints": 503,
+    "firstLoopFingerprints": 21,
+    "unchangedNamedDecisions": 573
+  },
+  "fixtureCorrections": [
+    "The initial rank-255 hand-written maximum golden was wrong (1291776); independent tier arithmetic and the compiled source agree on 1278976. Only the expected fixture was corrected. T29 checks compare actual FP256 endpoints rather than unstable decimal equality.",
+    "The initial field source fixture inherited a 50-frame activation value; its explicit field activation was corrected to 90 without changing the extracted source routines.",
+    "The first saved-field victim walked out of its footprint after hit AI resumed. Diagnostics established position drift; the inspection victim is now frozen/stopped and its saved position asserted. Separate moving-escape tests remain and production AI/movement are unchanged.",
+    "Sparse earlier failure logs and the later diagnostic failure are retained. Only matching successful final content/integration builds and focused/full runs are accepted."
+  ],
+  "limits": [
+    "D2R 3.3.93847/Reign of the Warlock remains the mechanical pin, with Sanctuary deviations taking precedence. Older source proofs cover 6720 scatter, 960 field/router and 576 damage cases (8256 total); declared formula, world and damage services are enumerated. They do not establish whole modern executable equivalence. Shared Fire Blast proofs remain separate.",
+    "Released D2R 2.7 NextHit changes support origin/cast scoping. Native bomblets from one throw share a cast/target 25-frame lease; distinct throws use independent leases. This is an explicitly identified adapter, not instrumented 3.3.93847 proof. User rank 3/base 1 repeated throws visibly contributing damage is qualitative only and does not settle exact cadence or same/other caster overlap.",
+    "Native uses pinned/common 6 mana. Older no-start consumption validates 6 but has a rank-1 minimum-debit quirk; current rank-1 debit is unresolved. Native loss of required mana during windup fizzles before spawning. Older ignored-payment/allocation-failure paths are not claimed as current behavior.",
+    "Shared S2/IAS timing, chronological 40ms frames, half-tile source subtiles, Q12 lob velocity, collision height, native WALL/NoShoot barriers and sector candidate order are bounded native projections. Exact current seed/stat/event ordering, terrain masks, facing, target-death cursor retention and graphical delivery require acceptance. Scatter uses source seed reset and draw order, not a guarantee of the nominal projectile count.",
+    "Field creation retains launch rank and reads current hard Charged Bolt Sentry/Lightning Sentry synergies and lightning mastery. Source min 256 remains unsynergized. Each contact rolls FP256 independently; immunity still consumes its lease. SoftHit suppresses hit recovery and fields do not return fire. Approved T29 elemental additions are retained separately; weapon/item elemental/poison/leech/critical are excluded from the original lightning packet. PvP and future NPC/Shadow passive/stat suppliers remain separate.",
+    "Committed lob/field records survive Stop/respec, but foreign map/class transitions remove them; internal/offline owners cannot deliver damage and ordinary fields expire naturally. Tests deliberately return held saved fixture owners to their recorded map. Full owner death/logout/reconnect, equipment/stat lifecycle and all species still need acceptance.",
+    "FireBomb record/defaults and complete FireBlastProfiles V0 serialization source are byte-identical to base 45840c7. Native focused/full Fire Blast phases, two reloads, real input and existing-world load pass after shared extraction. This is bounded compatibility evidence, not an assertion that all arbitrary older saves or every owner transition have been exercised.",
+    "Caltrops flight, ShockField ground electricity and assassin_staticfield audio remain pending; existing animation/effects/sounds are identified placeholders. Talent and left/right/quick icons remain separately tracked. No imagegen work or final asset acceptance is claimed.",
+    "Next unaffected Assassin skill is Blade Sentinel. Shadow Warrior/Master remain individually deferred behind generated NPC equipment/stat and skill/AI consumers. Blade Sentinel and sentries need dedicated summon/skill/stat/AI contracts; their lack of a generated wardrobe does not itself block them behind Shadow equipment. No item-skill delivery gate or class certificate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/shock-web-focused.log",
+    "combined": ".local/class-skills/shock-web-combined.log",
+    "content-build": ".local/class-skills/shock-web-content-build.log",
+    "integration-build": ".local/class-skills/shock-web-integration-build.log",
+    "python-checks": ".local/class-skills/shock-web-python-checks.log",
+    "named-readiness": ".local/class-skills/shock-web-named-readiness.log",
+    "first-loop": ".local/class-skills/shock-web-first-loop.log",
+    "properties": ".local/class-skills/shock-web-properties.log",
+    "client-check": ".local/class-skills/shock-web-client-check.log",
+    "installed-smoke": ".local/class-skills/shock-web-installed-smoke.log",
+    "installed-server": ".local/class-skills/shock-web-installed-server.log",
+    "source": ".local/class-skills/shock-web-source.log",
+    "field-source": ".local/class-skills/shock-web-field-source.log",
+    "damage-source": ".local/class-skills/shock-web-damage-source.log"
+  }
+}

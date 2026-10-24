@@ -1,0 +1,16 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.shockweb",
+  "recordedAtUtc": "2026-10-24T14:48:06.673067+00:00",
+  "source": "User firsthand running-game observation",
+  "question": "Does repeatedly throwing webs onto the same stationary monster seem to damage it faster than a single web, to help check whether separate throws share the one-second hit delay?",
+  "answer": "yes, repeated net throwing seems to do damage. i only have it at rank 3 (hard points: 1), so the number is tiny, but there is some damage happening",
+  "effectiveRank": 3,
+  "hardRank": 1,
+  "repeatedThrowsDealDamageObserved": true,
+  "interpretation": "Qualitatively consistent with repeated throws contributing damage; low-rank small damage was visible. It is not an instrumented comparison of one versus multiple throws.",
+  "limits": [
+    "Does not resolve exact damage ticks, shared versus separate next-hit windows, each bomblet footprint, intervening mana regeneration or target resistance/HP.",
+    "Per-origin/cast window remains the declared native adapter based on released2.7 behavior and existing projectile leases; exact current overlapping-cast/supplier boundaries remain unverified."
+  ]
+}

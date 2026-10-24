@@ -112,6 +112,8 @@ def check():
         shutil.copy2(STAGE / 'weapon-block-source-probe.json',folder / 'weapon-block-source-probe.json')
         shutil.copy2(STAGE / 'mind-blast-source-probe.json',folder / 'mind-blast-source-probe.json')
         shutil.copy2(STAGE / 'fire-blast-timing-source-probe.json',folder / 'fire-blast-timing-source-probe.json')
+        shutil.copy2(STAGE / 'shock-web-source-probe.json',folder / 'shock-web-source-probe.json')
+        shutil.copy2(STAGE / 'shock-web-damage-source-probe.json',folder / 'shock-web-damage-source-probe.json')
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll'):
             if name not in assemblies:
@@ -278,6 +280,20 @@ def check():
                     assert session.expect(mind_blast+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     marker='mind-blast-result' if boot==0 else 'mind-blast-reload-result'
                     assert session.expect(marker+r': (passed|failed)',timeout=9).group(1)=='passed',logpath.read_text()[-6000:]
+                    shock_web='shock-web-check' if boot==0 else 'shock-web-reload-check'
+                    session.send(shock_web)
+                    assert session.expect(shock_web+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    marker='shock-web-result' if boot==0 else 'shock-web-reload-result'
+                    assert session.expect(marker+r': (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as fire_client:
+                        threading.Thread(target=drain_fixture_client,args=(fire_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('shock-web-input-check')
+                        assert session.expect(r'shock-web-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'shock-web-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'shock-web-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     fire_blast='fire-blast-check' if boot==0 else 'fire-blast-reload-check'
                     session.send(fire_blast)
                     assert session.expect(fire_blast+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

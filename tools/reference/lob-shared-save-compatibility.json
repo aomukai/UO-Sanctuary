@@ -1,0 +1,15 @@
+{
+  "baseCommit": "45840c7d0d720d0ebdb66382a5b24f28808b8501",
+  "referenceVersion": "3.3.93847",
+  "unchangedSourceBlocks": {
+    "public sealed record FireBomb": "d7a16e784e7e7eb09cb4571d8c0991027fad0c987b7d3eae82abe355d2552b98",
+    "public sealed class FireBlastProfiles": "a54cd6b655ab2a3ed1ae246305c881aae3c1033b9851031d1dd5aacb1401ac40"
+  },
+  "sourceCompatibility": "FireBomb constructor/property names/defaults and the complete FireBlastProfiles V0 serializer/deserializer body are byte-identical across the shared-lob extraction. No Fire Blast save schema migration or version change.",
+  "remaining": "This proves source serialization shape, not the whole runtime ABI/behavior. Existing Fire Blast focused/full phase/reload/input checks must also pass against the new shared helpers.",
+  "sharedFiles": [
+    "src/Sanctuary.Content/LobProjectiles.cs",
+    "src/Sanctuary.Content/SourceRandom.cs"
+  ],
+  "nativeVerification": "Focused/full suites each pass three boots/two reloads, saved Fire Blast airborne/landed phases and actual Fire Blast ground input after shared extraction. Matching installed content loads the original world and exits 0; saves/config/client bytes unchanged. See shock-web-native-evidence.json."
+}

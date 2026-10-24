@@ -32,38 +32,16 @@ public static class FireBlasts
     public static FireBlastProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
-    internal static ActionTiming Timing(int advance)
-    {
-        int frames=Math.Max(1,(8*256+advance-1)/advance-1);
-        return new(frames,Math.Clamp((4*256+advance-1)/advance,1,frames));
-    }
-    internal static ActionTiming Timing(PlayerMobile owner)
-    {
-        var weapon=CombatTiming.Weapon(CombatTiming.Equipped(owner));
-        if(WeaponHands.Pair(owner) is{} pair){weapon=weapon with{Modifier=(CombatTiming.Weapon(pair.Primary).Modifier+CombatTiming.Weapon(pair.Secondary).Modifier)/2};}
-        return Timing(CombatTiming.FrameAdvance(weapon,CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),
-            PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),baseSpeed:128));
-    }
-    internal static bool Valid(PlayerMobile owner,Point3D point)=>owner is{Alive:true,Deleted:false}
-        && owner.Map!=null && owner.Map!=Map.Internal && point.X>0 && point.Y>0 && point.X<owner.Map.Width && point.Y<owner.Map.Height
-        && owner.InRange(point,CombatProtocol.TeethRange) && Math.Abs(owner.Z-point.Z)<16
-        && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
-    private static bool Aim(PlayerMobile owner,Serial selected,ref Point3D point)
-    {
-        if(selected!=Serial.Zero)
-        {if(World.FindMobile(selected) is not BaseCreature target || !ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;}
-        return Valid(owner,point);
-    }
+    internal static ActionTiming Timing(int advance)=>LobProjectiles.Timing(advance);
+    internal static ActionTiming Timing(PlayerMobile owner)=>LobProjectiles.Timing(owner);
+    internal static bool Valid(PlayerMobile owner,Point3D point)=>LobProjectiles.Valid(owner,point);
+    private static bool Aim(PlayerMobile owner,Serial selected,ref Point3D point)=>LobProjectiles.Aim(owner,selected,ref point);
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
         if(!Aim(owner,selected,ref point)){return false;}
         return SkillCombat.Begin(owner,CombatAbility.FireBlast,selected,point,now,(p,_,_,at)=>Valid(p,at),timing:Timing(owner));
     }
-    internal static int Lifetime(int dx,int dy)
-    {
-        int x=Math.Abs(dx),y=Math.Abs(dy),distance=Math.Max(1,Math.Max(x,y)+Math.Min(x,y)/2);
-        return distance*65536/(16*2304);
-    }
+    internal static int Lifetime(int dx,int dy)=>LobProjectiles.Lifetime(dx,dy);
     // The legacy getters overflow signed32 in extreme synergy combinations.
     // Modern arithmetic is unknown there; retain an explicit unsupported boundary.
     internal static bool Supported(SkillValues values)
@@ -79,25 +57,12 @@ public static class FireBlasts
         if(!Supported(values)){owner.SendMessage(0x22,"Fire Blast's extreme rank/synergy combination is not supported yet.");return false;}
         if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
         int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;if(dx==0 && dy==0){dx=dy=1;}
-        var v=MissileVectors.VelocityFp8(dx,dy,2304);long id=++_next;
+        var v=MissileVectors.VelocityFp8(dx,dy,LobProjectiles.Velocity);long id=++_next;
         _bombs.Add(id,new(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.X,owner.Y,owner.Z,v.X,v.Y,Lifetime(dx,dy),false,TimedEffects.Now.AddMilliseconds(40)));
         owner.PlaySound(0x23B); // Identified throw-audio placeholder; no final FireTrauma art.
         return true;
     }
     private static Point3D Point(FireBomb b)=>new((int)Math.Round(b.X),(int)Math.Round(b.Y),b.Z);
-    private static bool Barrier(Map map,Point3D point)
-    {
-        // UO tile metadata projects the source WALL/MISSILE_BARRIER mask.
-        // Adjacent LOS alone permits a segment ending inside a wall tile.
-        bool Blocks(int id,int z)
-        {
-            var data=TileData.ItemTable[id&TileData.MaxItemValue];
-            return (data.Flags&(TileFlag.Wall|TileFlag.NoShoot))!=0 && z<point.Z+16 && z+Math.Max(1,(int)data.Height)>point.Z+8;
-        }
-        foreach(var tile in map.Tiles.GetStaticAndMultiTiles(point.X,point.Y)){if(Blocks(tile.ID,tile.Z)){return true;}}
-        foreach(var item in map.GetItemsInRange<Item>(point,0)){if(item.Visible && Blocks(item.ItemID,item.Z)){return true;}}
-        return false;
-    }
     internal static bool Recipient(PlayerMobile owner,BaseCreature target,FireBomb b)
     {
         bool attackable=target is EncounterCreature?target.CanBeDamaged():SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable==true;
@@ -128,8 +93,7 @@ public static class FireBlasts
     }
     private static FireBomb Land(PlayerMobile owner,FireBomb b,DateTime at)
     {
-        int dx=Math.Abs(owner.X*2-(int)Math.Floor(b.X*2+.5)),dy=Math.Abs(owner.Y*2-(int)Math.Floor(b.Y*2+.5));
-        if(Math.Max(dx,dy)+Math.Min(dx,dy)/2>100){return null;}
+        if(!LobProjectiles.CanLand(owner,b.X,b.Y)){return null;}
         var values=SkillMechanics.Values(owner,CombatAbility.FireBlast,b.Rank);if(!Supported(values)){return null;}
         int Enhance(int damage)=>(int)Math.Clamp((long)damage+(long)damage*NamedElements.MasteryPercent(owner,"fire")/100,0,int.MaxValue);
         return b with{X=Math.Floor(b.X*2+.5)/2,Y=Math.Floor(b.Y*2+.5)/2,Vx=0,Vy=0,Remaining=5,Ground=true,NextUtc=at.AddMilliseconds(40),
@@ -158,20 +122,9 @@ public static class FireBlasts
             }
             else
             {
-                double x=b.X+b.Vx,y=b.Y+b.Vy;bool barrier=false;var previous=Point(b);
-                var trace=SourceMissileSteps.Advance(b.X,b.Y,b.Vx,b.Vy,null);
-                foreach(var cell in trace?.Cells??[])
-                {
-                    var point=new Point3D((int)Math.Round(cell.X/2.0),(int)Math.Round(cell.Y/2.0),b.Z);
-                    if(point.X<0 || point.Y<0 || point.X>=owner.Map.Width || point.Y>=owner.Map.Height
-                        || Barrier(owner.Map,point) || !owner.Map.LineOfSight(new Point3D(previous.X,previous.Y,b.Z+12),new Point3D(point.X,point.Y,b.Z+12)))
-                    {barrier=true;break;}
-                    previous=point;
-                }
-                var moved=b with{X=x,Y=y};
-                if(barrier){moved=b with{X=previous.X,Y=previous.Y};}
-                if(barrier || b.Remaining<=1){next=Land(owner,moved,b.NextUtc);}
-                else{next=moved with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};}
+                var advance=LobProjectiles.Advance(owner.Map,b.X,b.Y,b.Z,b.Vx,b.Vy,b.Remaining);
+                var moved=b with{X=advance.X,Y=advance.Y};
+                next=advance.Landed?Land(owner,moved,b.NextUtc):moved with{Remaining=b.Remaining-1,NextUtc=b.NextUtc.AddMilliseconds(40)};
                 if(next!=null){Effects.SendLocationEffect(Point(next),owner.Map,0x36E4,2,10,0x489,0);} // Identified bomb/landing placeholder.
             }
             if(next==null){_bombs.Remove(b.Id);continue;}_bombs[b.Id]=next;

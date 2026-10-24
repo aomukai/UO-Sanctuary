@@ -16,7 +16,7 @@ public readonly record struct ActionTiming(int Frames, int EffectFrame)
 }
 public static class CombatTiming
 {
-    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
+    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.ShockWeb or CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
     private static readonly int[][] _attacks =
     [
@@ -95,7 +95,7 @@ public static class CombatTiming
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
     {
-        if(ability==CombatAbility.FireBlast){return FireBlasts.Timing(from);}
+        if(ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return FireBlasts.Timing(from);}
         if(AmazonJavelins.Handles(ability)){return AmazonJavelins.Timing(WeaponSequenceAdvance(from));}
         if(AmazonBow.Handles(ability) || ability==CombatAbility.Strafe){return AmazonBow.Timing(from);}
         if(ability==CombatAbility.Zeal){return PaladinZeal.Timing(from);}
@@ -128,7 +128,7 @@ public static class CombatTiming
     internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
-        if(ability==CombatAbility.FireBlast){return FireBlasts.Timing(FrameAdvance(weapon,ias,chill,skillAttackRate,baseSpeed:128));}
+        if(ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return FireBlasts.Timing(FrameAdvance(weapon,ias,chill,skillAttackRate,baseSpeed:128));}
         int row = Math.Clamp((int)characterClass - 101, 0, 7);
         bool cast = !WeaponAttack(ability);
         int advance=FrameAdvance(cast?new(weapon.Family,0):weapon,cast?fcr:ias,chill,cast?0:skillAttackRate,cast?0:SequenceRateAdjustment(ability));
@@ -172,7 +172,7 @@ public static class CombatTiming
     {
         <= 12 => "Very Fast", <= 15 => "Fast", <= 18 => "Normal", <= 22 => "Slow", _ => "Very Slow"
     };
-    public static int Range(PlayerMobile from, CombatAbility ability) => ability==CombatAbility.FireBlast?CombatProtocol.TeethRange:AmazonBow.Handles(ability) || ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.Strafe?CombatProtocol.SightRange:ability is CombatAbility.Fend or CombatAbility.Impale or CombatAbility.Jab or CombatAbility.PowerStrike or CombatAbility.ChargedStrike?AmazonJab.Range(from):ability==CombatAbility.Whirlwind?CombatProtocol.SightRange:ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
+    public static int Range(PlayerMobile from, CombatAbility ability) => ability is CombatAbility.FireBlast or CombatAbility.ShockWeb?CombatProtocol.TeethRange:AmazonBow.Handles(ability) || ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.Strafe?CombatProtocol.SightRange:ability is CombatAbility.Fend or CombatAbility.Impale or CombatAbility.Jab or CombatAbility.PowerStrike or CombatAbility.ChargedStrike?AmazonJab.Range(from):ability==CombatAbility.Whirlwind?CombatProtocol.SightRange:ability==CombatAbility.Leap?Math.Max(1,(int)Math.Ceiling(SkillGeometry.Tiles((int)SkillMechanics.Values(from,ability).Eval("aurarangecalc")))):ability==CombatAbility.Charge?(int)SkillGeometry.Tiles(100):ability==CombatAbility.Smite?PaladinSmite.Range(from):WeaponAttack(ability)?WeaponRange(Equipped(from)):(NecromancerCombat.Handles(ability) || SorceressCombat.Handles(ability) || PaladinCombat.Handles(ability) && !PaladinCombat.IsAura(ability)) ? CombatProtocol.TeethRange : ability == CombatAbility.Teleport ? Teleportation.Range : ability == CombatAbility.RaiseSkeleton ? SkeletonPets.Range : ability == CombatAbility.Teeth ? CombatProtocol.TeethRange
         : WeaponRange(Equipped(from));
     private static int WeaponRange(BaseWeapon weapon)
     {

@@ -80,12 +80,7 @@ public static class ValkyrieAffixes
         }).OrderBy(x=>x.Row).ToArray();
     }
     internal static int Weight(SummonAffix row,string code)=>checked(row.Definition.Frequency*(Basis(code).MagicLevel>0?row.Definition.Level:1));
-    internal static uint Next(ref ulong seed,int bound)
-    {
-        if(bound<=0){return 0;}
-        seed=0x6AC690C5UL*(uint)seed+(seed>>32);
-        return (uint)seed%(uint)bound;
-    }
+    internal static uint Next(ref ulong seed,int bound)=>SourceRandom.Limited(ref seed,bound);
     internal static SummonAffix Select(string code,int itemLevel,GearRarity rarity,AffixKind kind,ref ulong seed,bool force=true,IReadOnlyList<string> existing=null)
     {
         // Even a forced attempt consumes the original two-way seed draw.
