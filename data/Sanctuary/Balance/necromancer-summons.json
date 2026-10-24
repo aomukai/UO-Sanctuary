@@ -1,5 +1,41 @@
 [
   {
+    "key": "bladecreeper",
+    "fields": {
+      "*hcIdx": 413,
+      "TransLvl": 0,
+      "enabled": 1,
+      "MinGrp": 1,
+      "MaxGrp": 1,
+      "Velocity": 12,
+      "Run": 12,
+      "Rarity": 0,
+      "aidel": 15,
+      "aidel(N)": 15,
+      "aidel(H)": 15,
+      "Align": 1,
+      "isSpawn": 1,
+      "killable": 1,
+      "switchai": 1,
+      "neverCount": 1,
+      "CannotHerald": 1,
+      "Sk1lvl": 1,
+      "DamageRegen": 2,
+      "noRatio": 1,
+      "minHP": 100,
+      "maxHP": 100,
+      "AC": 100,
+      "MinHP(N)": 100,
+      "MaxHP(N)": 100,
+      "AC(N)": 100,
+      "MinHP(H)": 100,
+      "MaxHP(H)": 100,
+      "AC(H)": 100,
+      "expansion": 1,
+      "lineNumber": 414
+    }
+  },
+  {
     "key": "bloodgolem",
     "fields": {
       "*hcIdx": 290,

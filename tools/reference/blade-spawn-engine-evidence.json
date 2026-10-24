@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "talentId": "assassin.bladesentinel",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945"
+  },
+  "compiledUnchangedRoutines": {
+    "MONSTER_GetHpBonus": "95308634fd857397be002f2ebf9d840eabd7dbc2df7f38251e96a4343e8f62ea",
+    "MONSTER_GetExperienceBonus": "91d41548a900380d654362eef5e0488fe880bdc678fd64f00eeab50070e01112",
+    "MONSTER_GetPlayerCountBonus": "0d266c3fd5c7e64cd2aa1efcc8f29efbf44a06081139a11246da4da9f0c88350",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21"
+  },
+  "reviewedOnlyRoutines": {
+    "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519"
+  },
+  "pinnedMonstatsSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "fixture": {
+    "path": ".local/class-skills/blade-spawn-source-probe.json",
+    "sha256": "d99f9f5eab5c08369d3df76ef167ecf1b6a223f205a2d35b8aacfdcc79dfdd66",
+    "playerCountCases": 108,
+    "noRatioSpawnCases": 72
+  },
+  "sanitizers": "ASan/UBSan, zero runtime stderr",
+  "established": [
+    "Complete player-count helper and both bonus getters execute with evil/non-evil alignments, six player counts, all difficulties and missing-data controls. Non-evil actors receive playerCount1 with zero HP/XP bonuses and do not query connected-player count.",
+    "Complete spawn table helper executes flags7 and the current noRatio blade row for both game-table choices, all three difficulties, valid/negative/over-limit levels and missing-record controls. HP100/100 andAC100 are literal; no ratio service is called; weapon attack output is untouched0 because flags7 exclude that lane.",
+    "Current row413 has Align1/noRatio1/base velocity12 and equalHP100 bounds in all difficulties. The reviewed full initializer uses flags7, rolls within those equal bounds, applies the zero friendly HP bonus and does not explicitly write TOHIT. Shared summon base/passive and do44 later level overwrite have separate existing compiled evidence."
+  ],
+  "services": [
+    "Player-count and difficulty-table lookup are explicit services; skill bonuses0/3/7 are synthetic controls for field transfer, not asserted current difficulty data.",
+    "NoRatio flags7 only: unrelated ratio/weapon/elemental paths are present unchanged but not executed. Record/layout shims are declared, not a full engine ABI.",
+    "Full monster initialization, spawn flags/components, seed allocation/HP-roll draw order, world placement and equipment generation are reviewed/separate, not compiled here. Actual native seed allocation remains a declared supplier; no exact current executable certificate."
+  ],
+  "reuseEvidence": [
+    "tools/reference/valkyrie-creation-engine-evidence.json",
+    "tools/reference/assassin-trap-summon-engine-evidence.json",
+    "tools/reference/actor-motion-engine-evidence.json"
+  ]
+}

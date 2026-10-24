@@ -10,7 +10,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record BladeBodyState(uint Owner,AssassinTrapCreationStats Creation,ActorMotionState Motion,int Map,int Z,long Frames,
-    BladeControlState Control=null,DateTime NextFrameUtc=default,string ControllerFault=null);
+    BladeControlState Control=null,DateTime NextFrameUtc=default,string ControllerFault=null,BladeSpawnContext Spawn=null);
 
 // Prepared world entity. Its source controller can be activated with explicit
 // movement stats and a missile-creation service; no learned cast is enabled.
@@ -52,6 +52,9 @@ public partial class BladeSentinelBody:BaseCreature
             || !((Serial)s.Owner).IsMobile || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
             || s.Motion?.Points==null || s.Motion.SavedSteps==null || s.Frames<0 || s.Z is <-128 or >127)
         {throw new InvalidDataException("Unsupported prepared blade body state");}
+        if(s.Spawn is{} spawn && (spawn.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
+            || spawn.Speed<=0 || c.BaseStatsLevel is <1 or >99 || s.Control is{} clock && clock.Speed!=spawn.Speed))
+        {throw new InvalidDataException("Invalid saved blade spawn context");}
         var point=Position(s);var map=Map.Maps[s.Map];
         if(point.X<=0 || point.Y<=0 || point.X>=map.Width || point.Y>=map.Height){throw new InvalidDataException("Prepared blade outside world");}
         // Reuse the motion validator without advancing or consulting the world.
@@ -61,12 +64,12 @@ public partial class BladeSentinelBody:BaseCreature
         {throw new InvalidDataException("Invalid saved blade controller");}
     }
     private void Store(BladeBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
-    internal static BladeSentinelBody CreatePrepared(PlayerMobile owner,AssassinTrapCreationStats stats,ActorMotionState motion,int z)
+    internal static BladeSentinelBody CreatePrepared(PlayerMobile owner,AssassinTrapCreationStats stats,ActorMotionState motion,int z,BladeSpawnContext spawn=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal
             || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
         {throw new InvalidOperationException("Prepared blade needs a live Assassin world owner");}
-        var s=new BladeBodyState(owner.Serial.Value,stats,motion,owner.Map.MapID,z,0);Validate(s);
+        var s=new BladeBodyState(owner.Serial.Value,stats,motion,owner.Map.MapID,z,0,Spawn:spawn);Validate(s);
         var body=new BladeSentinelBody();body.Store(s);body.SummonMaster=owner;body.SetHits(stats.Life256/256);
         body.MoveToWorld(Position(s),owner.Map);body.AIObject?.AITimer.Stop();return body;
     }
@@ -134,7 +137,7 @@ public partial class BladeSentinelBody:BaseCreature
     }
     internal void SuspendController(string reason)
     {if(Prepared is{} before){Store(before with{ControllerFault=reason});}BladeSentinelActors.Forget(this);}
-    public override void OnAfterDelete(){BladeSentinelActors.Forget(this);base.OnAfterDelete();}
+    public override void OnAfterDelete(){BladeSentinelActors.Forget(this);AssassinTrapRoster.Forget(this);base.OnAfterDelete();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void GenerateLoot(bool spawning){}
     public override bool OnBeforeDeath(){Delete();return false;}
