@@ -72,6 +72,7 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
 {
     // Optional version0 properties preserve existing player-flight saves.
     public int SkillRank{get;init;}
+    public GuidedFlight Guided{get;init;}
     public bool HostileSpell{get;init;}
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
@@ -113,16 +114,18 @@ public static class WeaponMissiles
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
     internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
-    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0)
+    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0,GuidedFlight guided=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
             || ability==CombatAbility.ExplodingArrow && skillRank<1
+            || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
+            || ability!=CombatAbility.GuidedArrow && guided!=null
             || damage?.Elements==null || !damage.ValidConversion || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank});return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided});return id;
     }
     internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
     {
@@ -173,11 +176,21 @@ public static class WeaponMissiles
     }
     private static void Step(Mobile owner,WeaponFlight flight)
     {
+        if(flight.Guided!=null){flight=GuidedArrows.Steer((PlayerMobile)owner,flight);}
         var next=flight with{X=flight.X+flight.Vx,Y=flight.Y+flight.Vy,Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
-        if(next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
+        if(flight.Guided==null && next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
         {if(!flight.HostileSpell){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;}
+        if(flight.Guided is{} guidance)
+        {
+            next=next with{Guided=guidance with{Remaining=guidance.Remaining-1}};
+            if(next.Guided.Remaining<=0)
+            {
+                var extended=GuidedArrows.Extend((PlayerMobile)owner,next);
+                if(extended==null){_flights.Remove(flight.Id);}else{_flights[flight.Id]=extended;}return;
+            }
+        }
         _flights[flight.Id]=next;
         if(next.Frame<flight.Activation){return;}
         Mobile selected=null;double nearest=double.MaxValue;
@@ -210,9 +223,10 @@ public static class WeaponMissiles
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L));}
+        if(next.Guided!=null && !GuidedArrows.Accepts(next,selected)){return;}
         bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
-        bool hit=ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)==true;
+        bool hit=next.Guided!=null || ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)==true;
         BowExplosions.Create(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
         var damage=flight.Damage.Roll(selected,DamageRoll);
@@ -279,6 +293,10 @@ public static class WeaponMissiles
         foreach(var flight in saved?.Flights??[])
         {
             if(flight.Id<=0 || flight.Cast<=0 || flight.Ability==CombatAbility.ExplodingArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
+                || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
+                    || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0
+                    || flight.Frames!=flight.Frame+Math.Max(1,flight.Guided.Remaining) || flight.Flags!=(flight.Guided.Mode==1?0x20u:0x420u))
+                || flight.Ability!=CombatAbility.GuidedArrow && flight.Guided!=null
                 || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
                     || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
                     || flight.Damage.PhysicalSupplement!=null || flight.Damage.FreezeColdLength || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0

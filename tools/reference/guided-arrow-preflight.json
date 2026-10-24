@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.guidedarrow",
-  "handlerEnabled": false,
-  "status": "Read-only next-skill preparation. Reuse bow action, quantity, collector and saved flights; establish the separate homing/path-state contract before enabling Guided Arrow.",
+  "handlerEnabled": true,
+  "status": "Guided Arrow installed with bounded source/native/real-input/flight-mode/save regression. Modern path/selection and shared bow acceptance gaps remain explicit; no class certificate.",
   "pinnedSkill": {
     "skill": "Guided Arrow",
     "*Id": 22,
@@ -102,7 +102,13 @@
     "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
     "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
-    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0"
   },
   "reviewedBlockHashes": {
     "SKILLS_SrvDo010_GuidedArrow_BoneSpirit": "a31be13a9900f4d6bf2ffd97ac8e1671c1d72ec4f44760fb37fea6f47c48db81",
@@ -113,11 +119,10 @@
     "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
   },
   "reviewedNotCompiled": [
-    "Start4 and do10 use the existing bow payment/quantity phases. Current calc1 is7percent per extra effective rank plus12percent per hard Multiple Shot point; source do10 supplies that evaluated value to the additive missile damage-percent initializer. Explicit SkillGuided Arrow selects skill source128 in the creator.",
-    "Targeted launch flags0x20 set mode1 and retain target; ground launch flags0x420 set mode2 and store the signed original aim delta in TargetY. Factory/path interpretation of these flags must be traced and compiled; do not replace this with immediate nearest-target seeking.",
-    "Guided missile has velocity24, range128, no ToHit, no Pierce and AlwaysExplode. Native generic bow AR/pierce must respect those row differences. Shield/avoid and attacker/item event paths remain separate.",
-    "Do7 validates path target identity and recalculates a live target path only at the configured5-frame cadence when source distance is strictly greater than3 and less than25. It then uses the shared collision caller. Target validity/filter/distance/path semantics need complete-chain proof.",
-    "Hit10 ignores other collisions for a locked target. Ground/path mode has additional remaining-frame, path-flag and bit4 branches; when the initial path finishes, it searches radius15, resets range, selects mode5 or mode6 and recalculates a path. Full flags/path/end-point/scheduler behavior needs compilation rather than a simplified homing clone."
+    "Generic HandleMissileCollision moves then decrements remaining frames; lifetime callback precedes unit collision and hard-wall collision removes regardless of ignored-unit callback result. Locked mode1 ignores non-target units and ends at lifetime; ground mode2 searches once on initial expiry, resetting current/total range128 into mode5 or6. No second search in mode6. Complete callbacks/factory/selector are compiled separately.",
+    "Classic PATH_ComputePathClassicMissile and PATH_MissileToTarget supply missile velocity. Step.cpp sub_6FDACEC0 explicitly bypasses endpoint snapping for PATHTYPE_MISSILE, so a locked target that disappears leaves a ballistic flight rather than immediate deletion or new acquisition. Full movement/path and native swept geometry are reviewed adapters, not complete modern movement proof.",
+    "Area selector filter0xA783 uses owner-to-target LOS; the search radius is centered on integer missile subtiles and source squared-distance enumeration. Complete ID selector is compiled with recipient enumeration declared. Native search uses integer source center and lowest eligible serial, with runtime world/filter/geometry scope stated separately.",
+    "Source ToHit and Pierce flags are absent in current missile86; source generic hit-handler check and factory behavior preserve no AR/no pierce separately from shield block/gethit/return-fire/weapon-item delivery. Existing stat/critical/collector/impact services remain bounded shared adapters."
   ],
   "reuseCandidates": [
     "AmazonBow/BowAmmunition paid start, once-only release quantity, A1 timing, hard/soft rank values and saved WeaponMissiles damage/flight services.",
@@ -125,8 +130,9 @@
     "Existing compiled Guided Arrow damage-percent initializer in amazon-weapon-launch-preflight.json and shared source collector/impact/critical/mitigation tests."
   ],
   "nextChecks": [
-    "Compile complete do10/initializer, do7/hit10 and relevant factory/path/target-selection branches with explicit services. Distinguish selected target, ground aim, target death, other-monster interception, path expiry, retarget, distance and turn cadence.",
-    "Implement a saved homing state only after its source contract is established. Test no AR/no pierce, true quantity/input, current hard Multiple Shot synergy, real gear, moving targets, walls and reloads.",
-    "Record modern source/path/seed/geometry/owner/client gaps individually and continue unaffected talents. Final SafeArrow/travel/contact/audio and talent/hotkey icons stay in separate asset registers."
-  ]
+    "Resolve documented modern selected-target loss during windup, path/collision/selection/stat/seed/quiver/item/owner/client acceptance gaps in the final combat pass.",
+    "Create final travel/contact/audio effects and talent/hotkey icons from their separate registers."
+  ],
+  "sourceExecution": "tools/reference/guided-arrow-engine-evidence.json",
+  "nativeEvidence": "tools/reference/guided-arrow-native-evidence.json"
 }

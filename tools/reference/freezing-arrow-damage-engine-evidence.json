@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.freezingarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "getterBlockSha256": "4fd344aff656a049a4a6a2ad63e803ca370618ad0525b7256f181fd14d2d1624",
+  "probe": {
+    "creatorCases": 360,
+    "getterCases": 216,
+    "path": ".local/class-skills/freezing-arrow-damage-source-probe.json",
+    "sha256": "7ae43a1fd1a0598acfcd00a78bf0058fe05ff39d147ae7f35aa268562a224aeb"
+  },
+  "established": [
+    "Complete unchanged child creator uses explicit Skill31/MissileSkill and skill source128. It captures physical as well as skill/item cold endpoints and additive cold length from current declared owner stats.",
+    "The complete unchanged ETypefrze getter delivers only cold damage plus raw freeze length. Captured physical, other elements, critical and species percentages do not enter its output; ordinary chill length stays zero. It returns the same cold amount as its damage output.",
+    "These bounded source cases establish the existing cold creator/freeze and typed explosion services as reuse candidates without enabling a new handler."
+  ],
+  "limits": [
+    "Skill endpoints/length, owner stats/weapon selection, mastery and RNG services retain the earlier explicit harness boundaries. Modern full factory/critical/mastery/stat/seed/item equivalence remains separate.",
+    "This harness does not execute parent hit04, child area hit01, scheduler/collision or current skill synergies; shared earlier callback evidence is a reuse candidate. Native parent/child/state/input/reload verification is still pending."
+  ]
+}

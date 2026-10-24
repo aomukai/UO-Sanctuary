@@ -70,6 +70,7 @@ def check():
         shutil.copy2(STAGE / 'exploding-arrow-damage-source-probe.json', folder / 'exploding-arrow-damage-source-probe.json')
         shutil.copy2(STAGE / 'freeze-state-source-probe.json', folder / 'freeze-state-source-probe.json')
         shutil.copy2(STAGE / 'ice-arrow-creator-source-probe.json', folder / 'ice-arrow-creator-source-probe.json')
+        shutil.copy2(STAGE / 'guided-arrow-source-probe.json', folder / 'guided-arrow-source-probe.json')
         shutil.copy2(STAGE / 'magic-arrow-action-source-probe.json', folder / 'magic-arrow-action-source-probe.json')
         shutil.copy2(STAGE / 'bow-launch-source-probe.json', folder / 'bow-launch-source-probe.json')
         shutil.copy2(STAGE / 'amazon-penetrate-source-probe.json', folder / 'amazon-penetrate-source-probe.json')
@@ -201,6 +202,18 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         cold_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'ice-arrow-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    guided='guided-arrow-check' if boot==0 else 'guided-arrow-reload-check'
+                    session.send(guided)
+                    assert session.expect(guided+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as cold_client:
+                        threading.Thread(target=drain_fixture_client,args=(cold_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('guided-arrow-input-check')
+                        assert session.expect(r'guided-arrow-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'guided-arrow-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        cold_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'guided-arrow-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     time.sleep(.15)
                     leech='weapon-leech-check' if boot==0 else 'weapon-leech-reload-check'
                     session.send(leech)

@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.guidedarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": [
+    "SKILLS_AddDamagePercentBonus",
+    "SKILLS_SrvDo010_GuidedArrow_BoneSpirit",
+    "MISSILES_CreateMissileFromParams",
+    "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit",
+    "MISSMODE_SrvHit10_GuidedArrow_BoneSpirit",
+    "sub_6FD10880",
+    "sub_6FD107F0",
+    "UNITS_GetDistanceToCoordinates",
+    "UNITS_GetDistanceToOtherUnit"
+  ],
+  "blockHashes": {
+    "SKILLS_AddDamagePercentBonus": "186a78a307cafdd8672b518c0cd51697045f68a349ddb7a696bd3227f2945118",
+    "SKILLS_SrvDo010_GuidedArrow_BoneSpirit": "a31be13a9900f4d6bf2ffd97ac8e1671c1d72ec4f44760fb37fea6f47c48db81",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit": "b2b81ccd67a83eaade3bead5faf81c8f2b191c819464c57573eed548d8d48888",
+    "MISSMODE_SrvHit10_GuidedArrow_BoneSpirit": "20aa8d5d9f038853191d305c1c55b85765aa6204d4027cd5c68a4291255b3694",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0",
+    "UNITS_GetDistanceToOtherUnit": "d7f535efb5a5beede9e5ecafc993ac08ed935fbae366b4cd756b107b45cec590"
+  },
+  "probe": {
+    "cases": {
+      "launch": 360,
+      "steer": 2016,
+      "hit": 288,
+      "select": 40
+    },
+    "path": ".local/class-skills/guided-arrow-source-probe.json",
+    "sha256": "b8a15119e6cbe30e07bb2cb86c1223cf91cc737c3dddb700cc43670cd67cd5e7"
+  },
+  "established": [
+    "Complete unchanged do10 and factory preserve selected-target mode1 versus ground mode2, packed original signed aim, source128 damage-percent initializer ordering, source velocity4608 and ground remaining-frame floor calculation. Current no-Pierce row does not draw a pierce budget even with owner pierce.",
+    "Complete unchanged do7 validates target and repaths only at remaining-frame cadence with size-adjusted source distance strictly between3 and25. Selected target death/hostility failure stops repathing; it does not acquire another target.",
+    "Complete unchanged hit10 distinguishes locked-target collision, ignored ground-initial collisions, ground expiry/acquisition mode5 and unacquired extension mode6. Remaining timers reset to current range128. Complete selector chooses next ID after previous with wrap; with previous=-1 it chooses lowest ID independently of enumeration order.",
+    "Complete source distance routines are executed by the factory and callbacks. Retarget filter0xA783 includes owner-to-target LOS via the separately reviewed area filter."
+  ],
+  "limits": [
+    "World allocation/rooms/path movement/hostility/recipient enumeration/stat/damage/critical services are declared adapters. This probe compiles complete launch/factory/callback/selection bodies but stubs the generic collision caller; it does not certify full modern path/collision/steering/seed/world equivalence.",
+    "Path classic missile generation, movement and hit-handler result routing are reviewed separately before native integration. Native Q12 vectors, two-subtile geometry and owner/hostile/visibility adapters retain their existing bounded scope. Modern current selection/ground transition behavior and actual-client presentation remain acceptance work."
+  ]
+}

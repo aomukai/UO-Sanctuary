@@ -10,7 +10,7 @@ namespace Sanctuary;
 public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow;
     internal static ActionTiming Timing(AttackFamily family,int advance)
     {
         advance=Math.Max(1,advance);
@@ -59,7 +59,7 @@ public static class AmazonBow
         var values=SkillMechanics.Values(owner,ability);bool multiple=ability==CombatAbility.MultipleShot;
         if(ability==CombatAbility.MagicArrow && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         int dx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),dy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
-        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
+        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.GuidedArrow?"guidedarrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
         var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
             :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
         long cast=WeaponMissiles.NewCast();int created=0;
@@ -70,9 +70,13 @@ public static class AmazonBow
             // across the fan remains explicitly unverified.
             bool critical=NamedCombat.ProjectileCritical(owner,LaunchRandom);
             var damage=BowLaunch.Capture(owner,ability,critical,preparedValues:values);
-            int pierces=NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),LaunchRandom);
-            if(WeaponMissiles.Launch(owner,ability,ray,damage,cast,pierces,NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),
-                NecromancerSummons.Source(missile,"NextHit")!=0?NecromancerSummons.Source(missile,"NextDelay"):0,missile,values.Rank)>0){created++;}
+            bool guided=ability==CombatAbility.GuidedArrow;
+            int pierces=guided?0:NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),LaunchRandom);
+            var guidance=guided?GuidedArrows.Capture(owner,ClassCombat.IsHostile(owner,target)?target:null,point,dx,dy):null;
+            var launchRay=guided?ray with{Flags=guidance.Mode==1?0x20u:0x420u}:ray;
+            int frames=guided?Math.Max(1,guidance.Remaining):NecromancerSummons.Source(missile,"Range");
+            if(WeaponMissiles.Launch(owner,ability,launchRay,damage,cast,pierces,NecromancerSummons.Source(missile,"Vel"),frames,
+                NecromancerSummons.Source(missile,"NextHit")!=0?NecromancerSummons.Source(missile,"NextDelay"):0,missile,values.Rank,guidance)>0){created++;}
         }
         if(created==0){return false;}
         if(ability!=CombatAbility.MagicArrow)
