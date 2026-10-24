@@ -9,12 +9,17 @@ using Server.Spells;
 
 namespace Sanctuary;
 
+public sealed record WeaponElementConversion(string Element,int Percent);
+
 public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int DemonPercent,int UndeadPercent,
     bool Critical,MissileSourceStats Elements,int FireMastery=0,int LightningMastery=0,int MagicMastery=0,int ColdMastery=0,int PoisonMastery=0)
 {
     // Optional saved field: old player/NPC flights retain zero conversion.
-    // Magic Arrow's DmgCalc is captured by its eventual launch consumer.
+    // Magic Arrow captures its DmgCalc at launch; retain this saved field.
     public int PhysicalToMagicPercent{get;init;}
+    // Null retains the original saved Magic Arrow field and old packet meaning.
+    public WeaponElementConversion Conversion{get;init;}
+    internal bool ValidConversion=>Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag";
     // Existing Sanctuary material/potion physical additions are separate from
     // the source weapon endpoints, so victim-specific ED cannot multiply them.
     public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
@@ -45,10 +50,17 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
         int lightning=RollValue(e.LightningMin,e.LightningMax,LightningMastery,random),cold=RollValue(e.ColdMin,e.ColdMax,ColdMastery,random);
         int poison=RollValue(e.PoisonMin,e.PoisonMax,PoisonMastery,random);
         // srvdmg1 runs after FillDamageParams: conversion sees the percentage-
-        // enhanced, critical physical roll; existing magic mastery is not
+        // enhanced, critical physical roll; existing elemental mastery is not
         // reapplied to this converted amount.
-        var converted=ConvertPhysical(physical,PhysicalToMagicPercent);
-        physical=converted.Physical256;magic+=converted.Magic256;
+        var converted=ConvertPhysical(physical,Conversion?.Percent??PhysicalToMagicPercent);
+        physical=converted.Physical256;
+        switch(Conversion?.Element??"mag")
+        {
+            case "fire":fire+=converted.Magic256;break;
+            case "cold":cold+=converted.Magic256;break;
+            case "mag":magic+=converted.Magic256;break;
+            default:throw new NotSupportedException("Unsupported saved weapon conversion element");
+        }
         return new(physical/256.0,fire/256.0,cold/256.0,lightning/256.0,
             (long)poison*e.PoisonImpactFrames/256.0,e.PoisonImpactFrames*40,e.ColdFrames*40,magic/256.0);
     }
@@ -100,7 +112,7 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || damage?.Elements==null || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
+            || damage?.Elements==null || !damage.ValidConversion || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
@@ -254,10 +266,10 @@ public static class WeaponMissiles
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
                 || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
                     || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
-                    || flight.Damage.PhysicalSupplement!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
+                    || flight.Damage.PhysicalSupplement!=null || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
                     || flight.Damage.Elements.LightningMin!=0 || flight.Damage.Elements.LightningMax!=0 || flight.Damage.Elements.MagicMin!=0 || flight.Damage.Elements.MagicMax!=0
                     || flight.Damage.Elements.PoisonMin!=0 || flight.Damage.Elements.PoisonMax!=0 || flight.Damage.Elements.BurnMin!=0 || flight.Damage.Elements.BurnMax!=0))
             {throw new InvalidDataException("Invalid saved weapon missile");}

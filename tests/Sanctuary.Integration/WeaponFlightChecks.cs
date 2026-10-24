@@ -101,7 +101,7 @@ public static class WeaponFlightChecks
                 && NamedElements.To256(actual.Fire)==row[8].GetInt32(),"Source percentage/critical/mastery then conversion ordering");impacts++;
         }
         Require(splits==216 && impacts==1536,"Incomplete Magic Arrow source fixture");
-        var old=System.Text.Json.Nodes.JsonNode.Parse(JsonSerializer.Serialize(Physical()));old.AsObject().Remove("PhysicalToMagicPercent");old.AsObject().Remove("PhysicalSupplement");
+        var old=System.Text.Json.Nodes.JsonNode.Parse(JsonSerializer.Serialize(Physical()));old.AsObject().Remove("PhysicalToMagicPercent");old.AsObject().Remove("PhysicalSupplement");old.AsObject().Remove("Conversion");
         Require(old.Deserialize<WeaponMissileDamage>()==Physical(),"Older flight payload without conversion changed");
         Log.Information("Magic Arrow component:216 conversion/1536 integrated source-native cases; legacy zero-conversion payload retained");
     }

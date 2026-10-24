@@ -309,7 +309,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native bow/crossbow A1 shot uses identified UO0xF42 logical travel and0x238 ordinary bow sound placeholders. Final firearrow travel, fire impact and source fire-arrow audio remain pending; talent and L/R-hotkey icons remain separate"
   },
   {
     "talentId": "amazon.coldarrow",

@@ -63,7 +63,7 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -89,10 +89,23 @@ public static class BowLaunch
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
+        if(ability==CombatAbility.FireArrow)
+        {
+            // Source skill endpoints include their own mastery before owner
+            // stat addition. Captured prepared weapon fire is not enhanced twice.
+            int mastery=NamedElements.MasteryPercent(owner,"fire");
+            elements=elements with
+            {
+                FireMin=checked(elements.FireMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
+                FireMax=checked(elements.FireMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery))
+            };
+        }
         var damage=FromSource(raw.Min*256,raw.Max*256,values.PhysicalDamage256(false),values.PhysicalDamage256(true),sourceDamage,
             ClassStats.PhysicalDamageBonus(owner,weapon),skillPercent,ClassGear.Bonus(owner,"dmg-demon%"),ClassGear.Bonus(owner,"dmg-undead%"),critical,elements);
         if(ability==CombatAbility.MagicArrow)
         {damage=damage with{PhysicalToMagicPercent=Math.Min(100,NecromancerSummons.Source("magicarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("magicarrow","dParam2"))};}
+        if(ability==CombatAbility.FireArrow)
+        {damage=damage with{Conversion=new("fire",Math.Min(100,NecromancerSummons.Source("firearrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("firearrow","dParam2")))};}
         int material=ClassGear.Material(weapon,"damage-physical"),potion=CombatPotions.Bonus(owner,"deep-wounds");
         if(material!=0 || potion!=0)
         {

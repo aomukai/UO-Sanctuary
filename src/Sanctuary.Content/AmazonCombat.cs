@@ -6,7 +6,7 @@ namespace Sanctuary;
 
 public static class AmazonCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.Decoy or CombatAbility.Evade or CombatAbility.Avoid or CombatAbility.Dodge or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.CriticalStrike or CombatAbility.Penetrate or CombatAbility.Pierce or CombatAbility.InnerSight;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.Decoy or CombatAbility.Evade or CombatAbility.Avoid or CombatAbility.Dodge or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.CriticalStrike or CombatAbility.Penetrate or CombatAbility.Pierce or CombatAbility.InnerSight;
     public static bool Handles(CombatAbility ability)=>AmazonBow.Handles(ability) || ability is CombatAbility.Decoy or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.InnerSight or CombatAbility.Jab or CombatAbility.ChargedStrike or CombatAbility.PowerStrike;
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>Handles(ability)
         && ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)==true && profile.Class==DiabloClass.Amazon

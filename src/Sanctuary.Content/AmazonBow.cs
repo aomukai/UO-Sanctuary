@@ -10,7 +10,7 @@ namespace Sanctuary;
 public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow;
     internal static ActionTiming Timing(AttackFamily family,int advance)
     {
         advance=Math.Max(1,advance);
@@ -37,7 +37,7 @@ public static class AmazonBow
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
-        if(ability==CombatAbility.MultipleShot && !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
+        if(ability!=CombatAbility.MagicArrow && !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
         if(selected!=Serial.Zero)
         {
             var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;
@@ -46,7 +46,7 @@ public static class AmazonBow
         var session=ClassCombat.For(owner);session.PendingLeft=session.HeldAbility==ability && session.HeldAttack;
         // start4 has a successful server start function, so its ordinary
         // wrapper pays here. Cancellation retains this paid cost.
-        if(ability==CombatAbility.MultipleShot && !NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,ability).Mana256))
+        if(ability!=CombatAbility.MagicArrow && !NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,ability).Mana256))
         {session.PendingAbility=CombatAbility.None;return false;}
         return true;
     }
@@ -57,9 +57,9 @@ public static class AmazonBow
         var point=ClassCombat.IsHostile(owner,target)?target.Location:session.PendingPoint;
         if(!Aim(owner,point)){return false;}
         var values=SkillMechanics.Values(owner,ability);bool multiple=ability==CombatAbility.MultipleShot;
-        if(!multiple && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        if(ability==CombatAbility.MagicArrow && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         int dx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),dy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
-        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):"magicarrow";
+        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.FireArrow?"firearrow":"magicarrow";
         var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
             :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
         long cast=WeaponMissiles.NewCast();int created=0;
@@ -75,9 +75,9 @@ public static class AmazonBow
                 NecromancerSummons.Source(missile,"NextHit")!=0?NecromancerSummons.Source(missile,"NextDelay"):0,missile)>0){created++;}
         }
         if(created==0){return false;}
-        if(multiple)
+        if(ability!=CombatAbility.MagicArrow)
         {
-            // Legacy do8 has no second quiver gate; the wrapper decrements
+            // Legacy do8/generic missile emission has no second quiver gate; its wrapper decrements
             // once afterward, ignoring an absent/stale stack. Modern inventory
             // transition equivalence remains recorded separately.
             BowAmmunition.Consume(owner,CombatTiming.Equipped(owner));

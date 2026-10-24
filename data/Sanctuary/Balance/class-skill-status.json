@@ -251,10 +251,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 7,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 action reuses Magic Arrow/Multiple Shot input, quantity and saved travelling collector. Successful start pays fixed3mana; one Arrow/Bolt is consumed after emission. Added hard-Exploding-synergy FP256 fire and independently mastered weapon fire are captured before enhanced/critical physical-to-fire conversion; converted fire receives no second mastery. Source conversion/impact/creator and dedicated native gear, interruption, resistance, real Cast packet/natural40ms and two-reload checks are tracked separately. Current skill AR transfer versus displayed10+9/rank, exact modern quiver/animation/stat/seed/proc/owner/client and inherited shared collision/target/mitigation limits remain acceptance work; no class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.coldarrow",
