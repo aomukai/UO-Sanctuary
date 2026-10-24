@@ -2,8 +2,8 @@
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.freezingarrow",
   "sourceId": 31,
-  "handlerEnabled": false,
-  "status": "Read-only next-skill preparation after Guided Arrow. Complete child creator360/freeze-only getter216 cases passed; Freezing Arrow handler remains disabled.",
+  "handlerEnabled": true,
+  "status": "Freezing Arrow installed with bounded source/native/real-input/parent-child-freeze/save regression. Modern event/path and shared bow acceptance gaps remain explicit; no class certificate.",
   "pinnedSkill": {
     "skill": "Freezing Arrow",
     "*Id": 31,
@@ -204,7 +204,8 @@
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
     "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
     "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
-    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
   },
   "reuseCandidates": [
     "AmazonBow A1/start4, fractional mana, once-only Arrow/Bolt emission, captured WeaponMissiles parent and existing Pierce/AR/block/item services.",
@@ -213,19 +214,23 @@
     "Existing cold creator and fire-only damage getter harnesses can exercise the corresponding explicit Skill31/MissileSkill creator and freeze-only getter. Source row differences must be executed before reuse is certified."
   ],
   "reviewedNotCompiled": [
-    "Pinned rank1 mana9 with0.25 extra per rank; radius5 source subtiles. Hard Cold Arrow adds12percent cold damage per rank; hard Ice Arrow adds5percent length. Raw base length50 frames; current skill uses A1 IAS and consumes quantity1.",
-    "Parent missile87 has full weapon source128, no explicit Skill/MissileSkill, ToHit1, Pierce1, AlwaysExplode1 and hit04. Child657 uses Skill31/MissileSkill, ETypefrze, ResultFlags5, HitFlags2, range1, hit01 and radius5. Visual children88/89 are client-only and are not extra damage missiles.",
-    "Shared complete hit04 creates HitSubMissile1 at the parent position, retains parent skill/rank and does not call immediate damage with current sHitPar1=0. Hit01 rolls one shared damage packet and dispatches source area damage. Existing Exploding Arrow proofs are reuse candidates; distinct row/element/length/getter behavior needs compiled execution.",
-    "Complete creator selects skill source128 for child Skill31 unless row SrcDamage255 disables it. It reads live owner skill/item damage/length at child creation; the child damage getter must separately establish freeze-only delivery, physical exclusion and length conversion. Do not infer double physical or cold/freeze delivery from the creator alone."
+    "Complete unchanged parent hit04, child hit01 and per-recipient callbacks execute256/4320 current-ID/cold-freeze packet cases separately from the360 child creator/216 freeze-only getter cases. They retain explicit table/stat/critical/world/event/factory adapters.",
+    "The existing reviewed ordinary missile loop creates a child on contact, AR miss/block, wall and lifetime through AlwaysExplode. The one-frame child runs on its next missile update; source global cross-flight catch-up/modern scheduling remain a declared adapter.",
+    "Source damage applies cold/freeze state before death settlement. Native SkillHealth commits death synchronously, so the typed cold impact applies the shared freeze before its damage/death commit; lethal area-corpse eligibility and preserved loot are tested explicitly. Full modern producer/event/death ordering remains acceptance work."
   ],
   "nextChecks": [
-    "Reuse the complete child creator360/freeze-getter216 source cases; verify specific parent hit04/child area hit01 and scheduling semantics before enabling a typed cold/freeze explosion consumer.",
-    "Verify area freeze, elite fallback, immunity, parent miss/block/Pierce/wall/lifetime, shared per-child roll, real gear and input, natural expiry and independent parent/child/state/two-reload persistence.",
-    "Keep modern event/geometry/stat/AR/seed/quiver/item/owner/client acceptance gaps explicit. Record final IceArrow/FreezeExplodeCenter/FreezeExplodeEjecta/contact/audio effects separately from tree/hotkey icons."
+    "Resolve recorded modern scheduling/event/AR/stat/seed/quiver/item/geometry/owner/client acceptance gaps in the final combat pass.",
+    "Create final travel/explosion/contact/freeze/audio effects and talent/hotkey icons from the separate registers."
   ],
   "damageSourceEvidence": "tools/reference/freezing-arrow-damage-engine-evidence.json",
   "compiledDamageFindings": [
     "Complete child creator selects current Skill31/MissileSkill and source128, captures physical plus independently declared skill/item cold and additive raw length.",
     "Complete ETypefrze getter selects cold damage and raw freeze length only: captured physical/other channels/critical/species percentages and ordinary chill length do not enter the child area packet."
-  ]
+  ],
+  "callbackSourceEvidence": "tools/reference/freezing-arrow-callback-engine-evidence.json",
+  "reviewedEventBlockHashes": {
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+  },
+  "nativeEvidence": "tools/reference/freezing-arrow-native-evidence.json"
 }

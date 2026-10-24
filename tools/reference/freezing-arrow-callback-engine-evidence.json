@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.freezingarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "sub_6FD10140",
+    "sub_6FCF5DE0",
+    "sub_6FD10200",
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion"
+  ],
+  "blockHashes": {
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b"
+  },
+  "sharedEvidence": "tools/reference/exploding-arrow-callback-engine-evidence.json",
+  "probe": {
+    "parentCases": 256,
+    "childAreaCases": 4320,
+    "path": ".local/class-skills/freezing-arrow-callback-source-probe.json",
+    "sha256": "1fd0313e6721fdbd744904f42f190a984218eae605712468fe282227e04ee92a"
+  },
+  "established": [
+    "Complete shared hit04 preserves owner/origin/Skill31/rank for current parent87/child657 IDs; current parent sHitPar1=0 does not dispatch an immediate child hit.",
+    "Complete hit01 rolls one declared cold/freeze packet and delivers per-recipient copies using area filter0x8583. Cold769/freeze52 with physical0 remain identical for all recipients despite deliberately destructive downstream service.",
+    "Shared callbacks preserve ResultFlags5/HitFlags2 and individual event/avoidance dispatch. Radius5 is supplied by the child row; no target LOS flag or independent damage reroll is added."
+  ],
+  "limits": [
+    "Damage getter/factory/world enumeration/stat/critical/final damage/events remain explicit adapters. The actual freeze-only getter is executed separately in freezing-arrow-damage-engine-evidence.json.",
+    "This does not execute complete modern scheduling/collision/geometry/seed/owner/client behavior. Native parent/child/state/input/reload verification is separate; handler remains disabled at this preparation stage."
+  ]
+}

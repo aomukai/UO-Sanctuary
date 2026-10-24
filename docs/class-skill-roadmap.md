@@ -8,7 +8,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 2 | Sorceress | 29 / 30 | 1 | 0 | Open |
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
-| 5 | Amazon | 20 / 30 | 1 | 9 | Open |
+| 5 | Amazon | 21 / 30 | 1 | 8 | Open |
 | 6 | Assassin | 0 / 30 | 0 | 30 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
@@ -206,7 +206,7 @@ Next Amazon preparation: [Slow Missiles](../tools/reference/slow-missiles-prefli
 | Guided Arrow | 22 | handler-present | Learned bow/crossbow A1 action reuses paid start, once-only Arrow/Bolt release and captured source128 weapon packet. Additive ED uses7percent per extra effective Guided rank plus12percent per hard Multiple Shot point. Saved modes1/2/5/6 distinguish selected lock, initial ground flight, delayed lowest-ID acquisition and ordinary straight extension. Source remaining-frame cadence, integer missile-centered search with owner LOS, ignored interceptors, no AR and no Pierce are separate from source shield block. Complete launch/factory/callback/selector probes and dedicated native gear/input/reload verification are recorded separately. Full modern Q12/path/collision/selection/stat/seed/quiver/item/owner/client acceptance remains open; lost selected target during windup retains the shared ground fallback pending current corroboration. Effects/audio and icons remain separate placeholders; no class certificate or item gate cleared. |
 | Immolation Arrow | 27 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Strafe | 26 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Freezing Arrow | 31 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Freezing Arrow | 31 | handler-present | Learned bow/crossbow A1 action reuses paid fractional start mana, once-only Arrow/Bolt emission and source128 weapon parent. Independent one-frame child captures retained parent rank plus current hard Cold damage/Ice length synergies and live item cold/mastery/raw length. Its freeze-only getter emits one cold/freeze packet per area, excluding physical/other channels and ordinary chill. Shared typed BowExplosions and FreezeStates handle radius, resistance/difficulty, elite chill fallback, original owner/longer expiry, thaw AI and frozen-corpse eligibility. Complete creator/getter/callback source matrices and native real gear/input/parent-child-state persistence are recorded separately. Exact modern event/AR/stat/seed/quiver/item/geometry/owner/client acceptance remains open; identified effects/audio and separate talent/hotkey icons remain pending. No class certificate or item gate cleared. |
 
 ## Assassin
 

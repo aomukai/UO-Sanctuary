@@ -52,16 +52,23 @@ public static class SkillCombat
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
         return loss;
     }
-    public static int ColdImpact(PlayerMobile source, Mobile target, int enhanced256, int coldFrames)
+    public static int ColdImpact(PlayerMobile source,Mobile target,int enhanced256,int coldFrames)
+        =>ColdImpact(source,target,enhanced256,coldFrames,false);
+    public static int FreezeImpact(PlayerMobile source,Mobile target,int enhanced256,int freezeFrames)
+        =>ColdImpact(source,target,enhanced256,freezeFrames,true);
+    private static int ColdImpact(PlayerMobile source,Mobile target,int enhanced256,int coldFrames,bool freeze)
     {
         if (target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return 0; }
         if(AmazonAvoidance.Missile(target)){return 0;}
         source.DoHarmful(target, true);
         double cold = SorceressEffects.Absorb(target, new(0, 0, enhanced256 / 256.0, 0, 0)).Cold;
         cold = NamedElements.Damage(source, target, cold, "cold", enhance: false);
+        // Native damage commits death synchronously. Apply source freeze first
+        // so its current hide/shatter/udead state participates in that commit.
+        if(freeze){FreezeStates.Apply(source,target,coldFrames,Core.TickCount);}
         int loss = SkillHealth.Damage(source, target, (int)Math.Clamp(Math.Floor(cold * 256), 0, int.MaxValue));
         if (target is BaseCreature creature) { CreatureHitRecovery.Apply(creature, source, loss); }
-        if (target is { Alive: true, Deleted: false })
+        if (!freeze && target is { Alive: true, Deleted: false })
         { GearEffects.ApplyChill(target, Core.TickCount, coldFrames * 40 / NecromancerEffects.DifficultyDivisor(target), source); }
         return loss;
     }

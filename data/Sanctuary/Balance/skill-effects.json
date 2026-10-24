@@ -429,7 +429,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native logical travel0xF42, bow sound0x238, explosion0x36BD and freeze0x374A are identified placeholders. Final IceArrow/freezingarrow, FreezeExplodeCenter/FreezeExplodeEjecta, cold impact/audio and freeze-state visuals remain pending. Talent/L/R-hotkey icons are separate"
   },
   {
     "talentId": "sorceress.icebolt",

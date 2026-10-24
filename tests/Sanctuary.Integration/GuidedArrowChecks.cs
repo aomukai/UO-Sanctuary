@@ -123,7 +123,9 @@ public static class GuidedArrowChecks
             {var f=Cast(p,aim:MagicArrowChecks.Aim(p,6));f=Step(f.Id,6);wall.MoveToWorld(new(p.X+2,p.Y,p.Z),p.Map);Require(!p.InLOS(target),"Owner LOS fixture");f=Step(f.Id,f.Guided.Remaining);Require(f.Guided.Mode==6,"Search used missile LOS instead of owner LOS");WeaponMissiles.Cancel(p);}
             finally{wall.Delete();target.Delete();}
             MagicArrowChecks.Mana(p);target=Enemy(p,5);var block=SourceBlocking.BlockRoll;try
-            {SourceBlocking.BlockRoll=_=>0;int hp=SkillHealth.Balance256(target);var f=Cast(p,target);Finish(f.Id);Require(SkillHealth.Balance256(target)==hp,"Guided bypassed source shield block");}
+            {SourceBlocking.Restore(SourceBlocking.Snapshot().Where(x=>x.Actor!=target.Serial.Value).Append(new SourceShield(target.Serial.Value,CreatureProfiles.Definition(target).Reference,1)).ToArray());
+                Require(SourceBlocking.TryRate(target,out int chance,out _) && chance==10,"Actual mapped skeleton shield fixture");
+                SourceBlocking.BlockRoll=_=>0;int hp=SkillHealth.Balance256(target);var f=Cast(p,target);Finish(f.Id);Require(SkillHealth.Balance256(target)==hp,"Guided bypassed source shield block");}
             finally{SourceBlocking.BlockRoll=block;target.Delete();}
         }finally{WeaponMissiles.Cancel(p);p.Delete();}
     }

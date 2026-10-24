@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.immolationarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "MISSMODE_CreateImmolationArrowHitSubmissiles",
+    "MISSMODE_SrvHit09_ImmolationArrow",
+    "MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire"
+  ],
+  "blockHashes": {
+    "MISSMODE_CreateImmolationArrowHitSubmissiles": "093ee82d4c10cc2c0f8f9b41177127218bf61e5df4a85ade9219671539964856",
+    "MISSMODE_SrvHit09_ImmolationArrow": "a8e52d6bd727be94b9171357e35199a5011834e2daba03086d6d8aa236d3a47f",
+    "MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire": "87a67081760cddb9be38bb8ca9980ac6c3f6bcc03b7cdb7d2e5c2422a5f607b4"
+  },
+  "probe": {
+    "hitDiscCases": 10368,
+    "softHitCases": 3072,
+    "path": ".local/class-skills/immolation-arrow-source-probe.json",
+    "sha256": "c49c947b660bc7333a94a15f19536edbfa683b9c33c66866c873ce944c0ecaa1"
+  },
+  "established": [
+    "Complete hit09 clears parent cold/item-freeze stats before ground emission and its one damage-getter/area dispatch. Missing missile/row/skill exits; current sub230 uses radius3/duration100 and radius4 explosion. Owner/skill/rank and source callbacks remain distinct.",
+    "Complete integer-disc maker emits29 eligible subtile cells for radius3 in the unblocked world, in x/y iteration order. Ray endpoints are candidate and twice its offset from the parent; declared walls/rooms/town remove individual cells. Positive duration clamps/flags1|0x8000 and original skill/rank/owner are preserved.",
+    "Complete srvdmg3 draws one source random number for a valid missile/row and ORs SOFTHIT0x4000 when low7bits are below19. Existing result flags remain intact."
+  ],
+  "limits": [
+    "Damage getter/area dispatch, world room/town/collision, factory allocation, formulas/stats and RNG are declared services. This compiles the complete specific callbacks/disc body, not a full modern factory/collision/damage/owner/geometry implementation. Null-owner matrix rows record callback arguments; downstream factory/area rejection is not simulated as actual damage.",
+    "Generic direct-hit result routing, parent/field creator channels, localdelay/payment, do5 field per-frame collision, DamageRate41 and full modern event/stat/seed/quiver/item/owner/client behavior still require proof. No handler or substitute field is enabled."
+  ]
+}

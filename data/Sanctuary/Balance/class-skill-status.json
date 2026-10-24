@@ -339,10 +339,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 31,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 action reuses paid fractional start mana, once-only Arrow/Bolt emission and source128 weapon parent. Independent one-frame child captures retained parent rank plus current hard Cold damage/Ice length synergies and live item cold/mastery/raw length. Its freeze-only getter emits one cold/freeze packet per area, excluding physical/other channels and ordinary chill. Shared typed BowExplosions and FreezeStates handle radius, resistance/difficulty, elite chill fallback, original owner/longer expiry, thaw AI and frozen-corpse eligibility. Complete creator/getter/callback source matrices and native real gear/input/parent-child-state persistence are recorded separately. Exact modern event/AR/stat/seed/quiver/item/geometry/owner/client acceptance remains open; identified effects/audio and separate talent/hotkey icons remain pending. No class certificate or item gate cleared."
     },
     {
       "talentId": "sorceress.icebolt",

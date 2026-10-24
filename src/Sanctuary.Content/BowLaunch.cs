@@ -75,9 +75,19 @@ public static class BowLaunch
         return new(FireMin:checked(Element(owner,low.Fire,"fire",0)+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
             FireMax:checked(Element(owner,high.Fire,"fire",1)+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery)));
     }
+    internal static MissileSourceStats ExplosionCold(PlayerMobile owner,SkillValues values)
+    {
+        // The child creator reads current owner/item stats, retaining its
+        // parent's rank. The freeze-only getter excludes all other channels.
+        var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
+        int mastery=NamedElements.MasteryPercent(owner,"cold");
+        return new(ColdMin:checked(Element(owner,low.Cold,"cold",0)+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
+            ColdMax:checked(Element(owner,high.Cold,"cold",1)+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery)),
+            ColdFrames:checked(low.ColdMs/40+values.DurationFrames));
+    }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
