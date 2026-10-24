@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "7a431544067ef4d2e67c78e0906c1b52104730a3fdb7163580e81041a000d97f",
+  "ContentAssemblySha256": "6eda454f92d82e2e84e18ac6255be89e3bc68cda4703fd52618d75f41317bf86",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -243,6 +243,7 @@
     "src/Sanctuary.Content/BarbarianWhirlwind.cs": "8ab5df0a7d445f793c9b1c15002ed771d0976dc17d3216fbfd2c63df763893b7",
     "src/Sanctuary.Content/BattleCommand.cs": "c6c47e668e85aae855f7e30cf978e4b5b6ce25984ba4f735b404a72cdb83031b",
     "src/Sanctuary.Content/BattleOrders.cs": "5e08e685d535734ab7954f93d1b3c1ef2197d1c1cf10ea85eb526ddc5b704bca",
+    "src/Sanctuary.Content/BladeSentinelAi.cs": "22750d91d51b9505b5bc1c3cfe4eb3b6a7f8bcdb3552913ea6459bbea3511949",
     "src/Sanctuary.Content/BladeSentinelBody.cs": "2e66f9f177bd30afc3e2f06af973e24ef0dee2da4f1b11ddd7f0cf5887f41af5",
     "src/Sanctuary.Content/BladeSentinelPackets.cs": "c5aa529987c37b4581f45bab1eea41dc59e7bd97268ae4ea3cb1c6a1cd42e4d1",
     "src/Sanctuary.Content/BlessedHammers.cs": "767cd07caf3f3b598cc6edd92b7e245285301f723539a9cde68d7aea4f53d8b1",

@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeTowardPathImplemented": false,
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079"
+  },
+  "compiledRoutineHashes": {
+    "sub_6FDAB610": "203272bd5eadaac8aec11e9576d3e617a17c937fae9cd9ee6892a06965faade4",
+    "sub_6FDAB6A0": "97b099bf3dcc5a821c8e10b0a98887f4a1239c7f492a4ddbf5d68330b2c699e0",
+    "PATH_GetDirections_6FDAB790": "4ef38e44993927f39c0b2a4331fb0d1d86cae6ba9d5145f59f37983724e1c5f8",
+    "sub_6FDAA880": "6a9d9cecfbc9895fd5012b50926e50e64e0de33fe86a2e94e5eb6e4580924bdf",
+    "sub_6FDAA720": "65e6163d63a1275c305d7679ef479e734bcd7b1d16c26a383e417f27cf592676",
+    "sub_6FDABA50": "43496bc2f89248dbe2deef188c80549d6807466b37b5b0a6539bff24a5519d0d",
+    "PATH_RayTrace": "5d29f53fe4c38b3cee0092326b4f31211ebe2fbd6801ee003f5d36688b2da306",
+    "PATH_CheckCollisionsToNextPosition": "6409756289e2ee04487bd18cb91bc37dcf39580f615a4c9969b45185eaa55302",
+    "PATH_Toward_6FDAA9F0": "0492229af23eab0f244e8b6331264072ce42067a6a69f6857b40ea50fd928823"
+  },
+  "initializerEvidence": "tools/reference/actor-path-engine-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/toward-path-source-probe.json",
+    "sha256": "a07170028949f3249a7ea87648c5ba8bbebb099691da000605e54c0602c1b5c8",
+    "contexts": 6480
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero runtime stderr required",
+  "established": [
+    "Complete toward-path, ray trace, next-position collision check, direction-index/table lookup, three-direction collision choice and distance heuristic execute unchanged together with the previously verified complete general initializer. Both path2 and13 use this routine with distinct source flags; offset0 is exercised.",
+    "Eight collision grids, nine horizontal/five vertical offsets, three fractional poses and budgets1/5/20 retain exact path, final/active/previous targets, direction/velocity/flags and ordered collision queries. Open paths can reach a distant target directly even when the distance budget is1; do not apply wall-follow distance rejection to this kernel."
+  ],
+  "limits": [
+    "Source proof only: native toward-path port and actor integration remain pending. The general initializer is marked BROKEN in D2MOO; source reconstruction and modern executable acceptance remain separate.",
+    "Valid synthetic room/grid, zero-footprint monster point target and no target adjustment are explicit services. Direction-offset helper is compiled but only offset0 is exercised. Successful path repair/event/mode/AI/missile consumers are not executed by this probe."
+  ]
+}

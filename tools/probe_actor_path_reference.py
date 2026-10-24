@@ -127,7 +127,7 @@ for(int wall:{0,1,2,3,4})for(int dx:{-101,-21,-20,-19,-8,-3,-2,0,2,3,8,19,20,21,
                                  'Successful point paths replace the active target with their final computed waypoint while preserving the original request as final target. Failed paths clear point count/index and moving flag.'],
                     limits=['D2MOO explicitly marks this general initializer BROKEN. Unchanged reconstructed execution is supplementary evidence; current executable acceptance remains open.',
                             'Only server monster, point target, path15, pattern0, mask0x3c01 and a town-allowed blade context are exercised. Other path dispatch entries and unreachable target-unit/target-adjustment branches assert. Room/grid services are explicit synthetic bounds; footprint removal/addition is a checked zero-footprint service.',
-                            'Successful repair switches to path2/3 before falling back to15 in the source; it remains unsupported until those complete kernels are executed/ported. This probe does not certify the AI/mode/event clock, full actor lifetime/combat/input or modern room geometry.'])
+                            'Successful repair switches to path2/13 before falling back to15 in the source; it remains unsupported until those complete kernels are executed/ported. This probe does not certify the AI/mode/event clock, full actor lifetime/combat/input or modern room geometry.'])
     p = ROOT / 'tools/reference/actor-path-engine-evidence.json'
     rendered = json.dumps(evidence, indent=2) + '\n'
     if check:

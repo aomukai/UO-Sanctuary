@@ -4,7 +4,7 @@
   "sourceId": 257,
   "handlerEnabled": false,
   "installed": false,
-  "status": "Blade Sentinel now initializes source point-target wall-follow paths on its prepared world body, preserving exact fractional position, requested/final/active target distinctions and source short-path/distance-budget rejection. The complete unchanged reconstructed initializer, target updater, destination admission and room flag updater run with unchanged PathWF and direction routines: 2,250 contexts, 810 successful paths (237 partial), and 10,305 ordered collision queries match the native port on every boot. Actual world tests exercise initialization, short/far rejection and resumed movement after two entity reloads. Focused and full suites each pass three boots/two reloads, retaining corrected Cloak and existing playable skills. All 70 Python tests pass; content/integration builds have zero warnings/errors. Matching installed smoke exits zero with save/config/client bytes unchanged and server stopped. The build remains 149 handlers (Assassin 10); Blade Sentinel remains unavailable pending full AI/mode/clock, spawn/weapon ownership, trap cap and combat/input integration.",
+  "status": "Blade Sentinel AI decision components now preserve first-think duration, strict expiry only when AI runs, once-only missile attempt (including allocation failure), fixed-endpoint reversal, owner fallback and idle3/5. Native comparisons match all 7,680 complete reconstructed AI decisions, 10 missing-skill gates, 8 consumed movement-override/fallback traces and 512 exact four-draw owner RNG contexts per boot. Complete unchanged source ModeChange and movement/idle/wander helpers establish that15/0/20 is consumed by the first walk even on failure; the reverse defaults to path13/distance5, falling back to path15/distance5. The new native parameter helper preserves that distinction. Existing prepared body/path/movement and corrected Cloak remain verified through three focused/full boots and two reloads each. All 70 Python tests pass; content/integration builds have zero warnings/errors. Matching installed smoke exits zero with saves/config/client bytes unchanged and server stopped. The build remains 149 handlers (Assassin 10); no autonomous Blade controller, live missile combat or learned handler is enabled.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
@@ -233,7 +233,8 @@
     "No generated weapon/armor wardrobe is specified by the Blade Sentinel or sentry path. Their dedicated skill/stat/AI context should proceed without treating deferred Shadow generated gear as a universal trap blocker. Shared stat/property abstractions may be reused where contracts match.",
     "Full PathWF plus complete pattern0 collision dispatcher/footprint source routines pass13,200 ASan/UBSan-clean vectors. Native paths and259,590 collision-call ordering match per boot. Native NPC hit calculation matches6,804 source outcomes. These kernels do not supply actual world collision, movement advancement, actor persistence or current binary equivalence.",
     "Complete actor speed/direction/acceleration/collision/update source routines and native components match3,240 contexts/64,800 frames per boot, including exact state/query/step ordering and declared failed repair boundaries. Successful path repair, actual actor/world/AI/owner/persistence/input remain separate.",
-    "Native prepared body has source stats, no collision footprint and explicit source lifetime ownership. Actual prepared entity/owner/fractional pose survives two world reloads and resumes source stepping. Full source AI/combat/cap/input/lifecycle remain disabled and separate."
+    "Native prepared body has source stats, no collision footprint and explicit source lifetime ownership. Actual prepared entity/owner/fractional pose survives two world reloads and resumes source stepping. Full source AI/combat/cap/input/lifecycle remain disabled and separate.",
+    "AI velocity/path override15/0/20 is set once per think and consumed by the first mode change, including failure. Reverse/owner walking may default to path13/distance5 then fallback15/5; verified source/native parameter traces must precede autonomous controller integration."
   ],
   "reuse": [
     "Shared S2/IAS timing and learned L/R/quick input, resource/cancel/local-delay consumers; the blade actor is not a lob projectile.",
@@ -259,12 +260,13 @@
   "attackEvidence": "tools/reference/assassin-trap-attack-engine-evidence.json",
   "movementReview": "tools/reference/blade-sentinel-movement-review.json",
   "nativeRemaining": [
-    "The general D2Common_10142 initializer is explicitly marked BROKEN in D2MOO. Complete unchanged reconstructed execution is supplementary evidence; this does not establish equivalence to current D2R 3.3.93847 executable path selection.",
-    "Only server monster, point target, path15, pattern0, mask0x3c01, source-town-allowed context is supported. Other path types, target-unit behavior, target adjustment and cross-room recache remain unsupported rather than substituted. Exact D2R/native terrain geometry and obstacle acceptance remain separate.",
-    "The native world body offers explicit BeginPreparedWalk and AdvancePrepared calls; no automatic AI/event clock or lifetime is enabled. Successful repair selects source path2/3 before fallback15 and still refuses until those kernels are executed/ported. No far-target clamp, A-star chase or generic reversal pause is introduced.",
-    "Actual spawn/difficulty/player-count/passive and first-missile weapon/stat suppliers, strict first-think expiry, fixed-endpoint reversal/owner fallback, shared trap cap5/FIFO, following collision missile and full damage/AR/defense/NHD/events/input/lifecycle remain next. Existing prepared entity persistence is not a full combat-actor certificate.",
-    "The first focused comparison caught a fixture ABI mismatch: negative rejection targets must use uint16 coordinates like the source record. The fixture was corrected; production negative-input validation was retained. Source path reconstruction and current cold-sunder/overlap/obstacle questions remain nonblocking.",
-    "Appearance remains Blade Sentinel [placeholder], native body0x9c/hue0x481. Effects/audio and talent/hotkey icons remain in the separate 240-entry pending inventories. No class completion or deferred named-item gate is cleared."
+    "BladeSentinelAi is a decision component with explicit prepare-walk, walk, owner-walk and missile-creation callbacks. Native walk parameters and fallback selection are verified against full source dispatch traces, but live mode/stat/event and path13 services are not yet connected to an automatic entity controller. Existing BeginPreparedWalk is specifically prepared wall-follow15 and must not be reused indiscriminately for every AI attempt.",
+    "Complete unchanged D2GAME_ModeChange, sub_6FC65680, mode-info/neutral/walk entry, velocity setters and AI tactics execute against explicit path/stat/animation/callback/event services. The original mode-info table and exact RNG helpers are retained. This is bounded source control-flow execution, not autonomous actor/missile or current executable equivalence.",
+    "Next implement/verify PATH_Toward_6FDAA9F0 with PATH_RayTrace/direction/collision helpers, source path13 flags and retained path type. Reverse/owner fallback can require path13/distance5 after the first15/20 override was consumed. Successful repair switches to path2 or13 before wall-follow15; prior path2/3 wording has been corrected to path2/13.",
+    "AI component JSON round-trips are not saved production controller state. Full source mode/AI/event integration, first-think expiry observations at actual AI dispatch, spawn/game/difficulty/accrued stats, first-missile weapon/stat collection and blade-owned damage/AR/defense/NHD/events remain required.",
+    "Shared trap cap5/FIFO, following collision missile, actual learned S2/IAS input and7mana/local25 delay, resource/cancel/equipment/lifecycle and full combat actor/missile reloads remain pending. The prepared native body is inaccessible through learned skills and has no automatic controller/lifetime; no fake failed-missile service or generic chase is activated.",
+    "The general initializer remains explicitly marked BROKEN in D2MOO; modern room/obstacle/overlap and malformed cold-sunder acceptance remain uncertain. Microsoft ui8/i64 literals use equivalent typed ABI literal operators; routine bodies are unchanged and runtime sanitizers require zero stderr.",
+    "Appearance remains Blade Sentinel [placeholder], native body0x9c/hue0x481. Effects/audio and talent/hotkey icons remain in separate 240-entry pending inventories. No class completion or deferred named-item gate is cleared."
   ],
   "requiredAtPreparation": [
     "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
@@ -274,10 +276,10 @@
     "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
   ],
   "required": [
-    "Connect complete source mode/stat/AI event clock and strict first-think expiry; extend path2/3 repair and room recache explicitly. Preserve fixed endpoints/reversal/owner fallback and source lifetime ownership. Expiry is checked only during source AI evaluation, not by an independent exact-frame deletion timer.",
-    "Connect actual spawn/game/difficulty/accrued stats and first-missile weapon/stat collection, then inherited blade-owned AR/defenses/mitigation/events. Preserve source NPC hit branch and avoid live player gear after ownership transfer.",
-    "Connect shared trap cap5/FIFO, following collision/NHD/defenses and saved full combat actor/missile state with owner/map/class/death/logout behavior.",
-    "Verify actual learned S2/IAS input,7mana/local25 delay, cancel/payment, real gear and unsupported terrain/height/owner/special-stat edges through two production combat reloads before enabling."
+    "Implement/verify complete source PATH_Toward_6FDAA9F0, PATH_RayTrace and direction/collision helpers; retain source path13/type/flags and distance5 on reverse/owner fallback after a failed first15/20 walk. Do not reconnect every attempt to BeginPreparedWalk/path15/20.",
+    "Connect complete source mode/stat/AI event clock and entity lifetime/persistence. Expiry is initialized on first AI evaluation and checked only at AI dispatch, with strict less-than; do not use an independent exact-frame deletion timer. Preserve immediate endpoint-to-AI dispatch, consumed overrides and source owner RNG.",
+    "Connect actual spawn/game/difficulty/accrued stats and first-missile weapon/stat collection, then blade-owned AR/defenses/mitigation/events. Preserve source NPC hit branch and avoid live player gear after ownership transfer.",
+    "Connect shared trap cap5/FIFO, following collision/NHD/defenses and saved full combat actor/missile state with owner/map/class/death/logout behavior; verify actual learned S2/IAS input,7mana/local25 delay, cancel/payment and two production combat reloads before enabling."
   ],
   "nativeMovementEvidence": "tools/reference/wall-follow-native-evidence.json",
   "wallFollowEvidence": "tools/reference/wall-follow-engine-evidence.json",
@@ -288,5 +290,9 @@
   "preparedBodyInstalled": true,
   "nativePreparedPathEvidence": "tools/reference/actor-path-native-evidence.json",
   "preparedPathInstalled": true,
-  "nextClockSourceEvidence": "tools/reference/source-events-engine-evidence.json"
+  "nextClockSourceEvidence": "tools/reference/source-events-engine-evidence.json",
+  "nativeAiDecisionEvidence": "tools/reference/blade-ai-native-evidence.json",
+  "sourceModeEvidence": "tools/reference/blade-mode-engine-evidence.json",
+  "aiDecisionsInstalled": true,
+  "nextTowardSourceEvidence": "tools/reference/toward-path-engine-evidence.json"
 }

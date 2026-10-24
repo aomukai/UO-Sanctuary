@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/include/MONSTER/MonsterMode.h": "2b2f05923b9fcdf9190020cf14162429bef91b3aa835741d93a2bb03d04191eb"
+  },
+  "compiledRoutineHashes": {
+    "D2GAME_ModeChange_6FC65220": "ece25d8680b1c04d9b9cc6141be396f7e7f30def1ee51e120d634760cdacc9a5",
+    "sub_6FC65680": "5eb75875dda940570c507cb6e62f299409c6f4ba5f03d6c16eeab9d90827961c",
+    "MONSTERMODE_GetModeChangeInfo": "fb644546852ba5e79a5054598432a61700a26729c7d1b0c54cd7b3d45c293338",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC64450": "867a4e937ef17ab22e27c38b3264d586e00a3ec98f1cff9068c7a7bdbb93c9fd",
+    "D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90": "bc31135fbf2eeaeedf11c0079f42cd8efa0f8385122419453fd6fee0193beb0f",
+    "D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0": "e0400157c4268be223af9ba576cd47b798cdbb93c026d38506655093b59da8b2",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "SUNIT_SetCombatMode": "fe40e3d4e000be5b3fb7262c1e0ca2132d5bf74d69ed3baf9646670ca49bffa3",
+    "AITACTICS_IdleInNeutralMode": "f33d3b068fb492a2fe39a87d61b567709f538faa7788d76327f85859bba5b894",
+    "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002",
+    "AITACTICS_SetVelocity": "d6b48af4872fb002be442f68d010ba119136c3259972cc40997f3d0a6fb3703b",
+    "AITACTICS_MoveToTarget": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193",
+    "AITACTICS_WalkToTargetCoordinatesDeleteAiEvent": "679fccfea86233e56dc837622620a32bd8ca2eb36b9574ceddff15b65f0359a1",
+    "AITACTICS_WalkCloseToUnit": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
+    "AITACTICS_WanderToTarget": "f49af85833af5796bcd13f377e1e6b8bb59fbabc99ece2d562aa17df58d5eb63",
+    "D2GAME_AICORE_WalkToOwner_6FCD0B60": "f66a2d8752aee2f6cff17a062eb0308f1ab9f23891a524bb426384acbeb01cd6"
+  },
+  "handlerEnabled": false,
+  "fixture": {
+    "path": ".local/class-skills/blade-mode-source-probe.json",
+    "sha256": "8ec995c735d75aedc901610a7a2d3298adccbd6c3a0e3254bfcf8e6fa8826dd3",
+    "modeCases": 8,
+    "ownerCases": 512
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero runtime stderr required",
+  "established": [
+    "Complete ModeChange, walk path preparation, mode-info initializer, neutral/walk entry, velocity setter and AI movement/idle/wander helpers execute unchanged with explicit path/stat services. The original mode-info table is retained.",
+    "A single SetVelocity(15,0,20) applies only to the first walk. ModeChange consumes/reset overrides before path calculation even when it fails. The reverse attempt defaults to path13/distance5 and falls back to path15/distance5 if13 fails. Reapplying15/20 to every AI walk would be incorrect.",
+    "Owner fallback uses four exact source random draws around the owner at distance5 or self at distance2 when ownerless; final seed and coordinates are retained for512 contexts."
+  ],
+  "limits": [
+    "General path calculation, stats/animation collectors, callback lookup, room refresh and event storage remain declared services; exact full PathWF and event queue are proved separately. This is a complete mode-dispatch control-flow proof, not actual autonomous actor/missile delivery.",
+    "Microsoft ui8/i64 literals use equivalent typed literal operators in the ABI shim; routine bodies are unchanged. Legacy reconstruction is supplementary evidence, not modern executable equivalence. Unsupported stat override/state/callback branches assert rather than returning invented results."
+  ]
+}
