@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d",
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d",
+    "source/D2Game/include/MONSTER/MonsterMode.h": "2b2f05923b9fcdf9190020cf14162429bef91b3aa835741d93a2bb03d04191eb"
+  },
+  "compiledRoutineHashes": {
+    "PATH_SetType": "9fde1be9597c09a1533a9fd87b7a93c25db764e1aa3350f64d5d3461cb1e0bb7",
+    "PATH_SetNewDistance": "b26f8bfc8eb307e2894b13488d3fca9bcf36d1b8f197d20b9afb22d45d09c1aa",
+    "PATH_SetDistance": "1669c897d6dc19e3e4b468220b3914556b6af97a70b6b5ffab9afc1e5a4307a0",
+    "D2COMMON_10170_PathSetTargetPos": "ecd886bb2ce2c08cec98153fa0fa0d5411baabd0e39d4b76248716335b1ed220",
+    "SUNIT_SetCombatMode": "fe40e3d4e000be5b3fb7262c1e0ca2132d5bf74d69ed3baf9646670ca49bffa3",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad",
+    "sub_6FCBD3A0": "79bef5eacaab5bc856c785235b81b51cdd15b2f83faddda387b7f4be48af6dd4",
+    "D2GAME_ModeChange_6FC65220": "ece25d8680b1c04d9b9cc6141be396f7e7f30def1ee51e120d634760cdacc9a5",
+    "sub_6FC65680": "5eb75875dda940570c507cb6e62f299409c6f4ba5f03d6c16eeab9d90827961c",
+    "MONSTERMODE_GetModeChangeInfo": "fb644546852ba5e79a5054598432a61700a26729c7d1b0c54cd7b3d45c293338",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC64450": "867a4e937ef17ab22e27c38b3264d586e00a3ec98f1cff9068c7a7bdbb93c9fd",
+    "sub_6FC64480": "7603af9f672bb7fb2846567e71ed934bc83d58cda7fcecea500a80f363df1060",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5",
+    "D2GAME_RemoveModeChangeEventCallback_6FC63B20": "0dd67eccb8b9778acf9de611df4cb3c3cfa1a8c75eac3ac6182783406648b3d5",
+    "D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90": "bc31135fbf2eeaeedf11c0079f42cd8efa0f8385122419453fd6fee0193beb0f",
+    "D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0": "e0400157c4268be223af9ba576cd47b798cdbb93c026d38506655093b59da8b2",
+    "D2GAME_MONSTERS_AiFunction01_6FC65080": "41a5519fb96e3b646cf9b1e66a20075cc59160e56ed32981f00ace73ee122faf",
+    "MONSTERMODE_EventHandler": "82d2dfef13d74d0233a5a03e1060cb531aba8d9db23ab6a05c68ef15aef7d215",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "AITACTICS_IdleInNeutralMode": "f33d3b068fb492a2fe39a87d61b567709f538faa7788d76327f85859bba5b894",
+    "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002",
+    "AITACTICS_SetVelocity": "d6b48af4872fb002be442f68d010ba119136c3259972cc40997f3d0a6fb3703b",
+    "AITACTICS_MoveToTarget": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193",
+    "AITACTICS_WalkToTargetCoordinatesDeleteAiEvent": "679fccfea86233e56dc837622620a32bd8ca2eb36b9574ceddff15b65f0359a1",
+    "AITACTICS_WalkCloseToUnit": "0ddbffb39d07a44d33de644f50b740f8caecd4f7d08641007d56faa2555cafcb",
+    "AITACTICS_WanderToTarget": "f49af85833af5796bcd13f377e1e6b8bb59fbabc99ece2d562aa17df58d5eb63",
+    "D2GAME_AICORE_WalkToOwner_6FCD0B60": "f66a2d8752aee2f6cff17a062eb0308f1ab9f23891a524bb426384acbeb01cd6",
+    "D2GAME_AI_Unk102_6FCE9FB0": "a4aa394880b056d37790011dcfb75167f3fe6995d976c781f183cd3905d5a1b4",
+    "AITHINK_Fn102_BladeCreeper": "2db0e2a29a0c135ee4169e1267a45864136a436717c6dc69de100b980b142306"
+  },
+  "fixture": {
+    "path": ".local/class-skills/blade-clock-source-probe.json",
+    "sha256": "6744cb7b727add2684a81e40405d421f80065df41603279d6c77bc4938658d8e",
+    "contexts": 64,
+    "frames": 11520
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero runtime stderr required",
+  "limits": [
+    "Prepared single blade context: base velocity12/75percent, point targets, zero-footprint room/grid and no freeze/special states. Whole source queue, ModeChange, AI, path and movement routines are composed. Stat/animation/callback routing services are explicit; run/walk rate math uses its unchanged verified routine.",
+    "Missile allocation is explicitly failed; death entry marks death mode without corpse/animation cleanup. This proves the prepared AI/movement clock, not full live spawn/weapon/missile/combat or current executable equivalence."
+  ]
+}

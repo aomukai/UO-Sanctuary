@@ -24,7 +24,7 @@ public static class BladeBodyChecks
         var target=new Point2D(p.X*2+8,p.Y*2);var state=new ActorMotionState((uint)((p.X*2<<16)+32768),(uint)((p.Y*2<<16)+32768),[target],target,0,2304,2304,0,0,new(0,0),new(0,0),20,0x820,0,[],0);
         return SourceActorMotion.DirectionToNext(state);
     }
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         var p=ClassSkillChecks.Player(DiabloClass.Assassin);p.Name="BladeBodyFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);
         int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface && !TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight==0);
@@ -40,7 +40,7 @@ public static class BladeBodyChecks
         }
         p.Delete();throw new InvalidOperationException("No blade body flat-floor corridor");
     }
-    private static AssassinTrapCreationStats Creation(PlayerMobile p)
+    internal static AssassinTrapCreationStats Creation(PlayerMobile p)
     {
         var row=SkillMechanics.For(CombatAbility.BladeSentinel);var values=new SkillValues(row,k=>k==row.SourceKey?3:0,_=>0,99);
         // Explicit spawn/stat service inputs, not a complete live summon factory.

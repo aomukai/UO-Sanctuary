@@ -9,10 +9,11 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
-internal sealed record BladeBodyState(uint Owner,AssassinTrapCreationStats Creation,ActorMotionState Motion,int Map,int Z,long Frames);
+internal sealed record BladeBodyState(uint Owner,AssassinTrapCreationStats Creation,ActorMotionState Motion,int Map,int Z,long Frames,
+    BladeControlState Control=null,DateTime NextFrameUtc=default,string ControllerFault=null);
 
-// World/entity component only. No learned cast, automatic AI/event clock,
-// missile/damage supplier, shared trap limit or expiry is activated here.
+// Prepared world entity. Its source controller can be activated with explicit
+// movement stats and a missile-creation service; no learned cast is enabled.
 [SerializationGenerator(0)]
 public partial class BladeSentinelBody:BaseCreature
 {
@@ -55,6 +56,9 @@ public partial class BladeSentinelBody:BaseCreature
         if(point.X<=0 || point.Y<=0 || point.X>=map.Width || point.Y>=map.Height){throw new InvalidDataException("Prepared blade outside world");}
         // Reuse the motion validator without advancing or consulting the world.
         SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
+        if(s.Control is{} control && (s.NextFrameUtc.Kind!=DateTimeKind.Utc || control.Frame<0 || control.Mode is not(0 or 1 or 2)
+            || control.Duration!=c.DurationFrames || control.Speed<=0 || control.Ai==null || control.NextThink<0))
+        {throw new InvalidDataException("Invalid saved blade controller");}
     }
     private void Store(BladeBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
     internal static BladeSentinelBody CreatePrepared(PlayerMobile owner,AssassinTrapCreationStats stats,ActorMotionState motion,int z)
@@ -91,6 +95,38 @@ public partial class BladeSentinelBody:BaseCreature
         var path=SourceActorPath.Initialize(input,distance,new(0,0,Map.Width*2,Map.Height*2),(x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this));
         Store(before with{Motion=path.Motion});return path;
     }
+    internal void StartPreparedController(Point2D destination,int speed,ulong seed,DateTime at)
+    {
+        var before=Prepared;Validate(before);
+        if(before.Control!=null || at.Kind!=DateTimeKind.Utc){throw new InvalidOperationException("Prepared blade controller already started or invalid clock");}
+        var origin=new Point2D((int)(before.Motion.X>>16),(int)(before.Motion.Y>>16));
+        var control=BladeSentinelController.Start(origin,destination,before.Creation.DurationFrames,speed,seed);
+        var motion=before.Motion with{Points=[],Index=0,PathType=15,Flags=0x800,Direction=new(0,0),Vector=new(0,0),Distance=20,Velocity=speed,MaximumVelocity=speed};
+        Store(before with{Control=control,Motion=motion,NextFrameUtc=at.AddMilliseconds(40),ControllerFault=null});BladeSentinelActors.Track(this);
+    }
+    internal void AdvanceController(DateTime at)
+    {
+        while(!Deleted && Prepared is{Control:not null,ControllerFault:null} before && before.NextFrameUtc<=at)
+        {
+            Validate(before);
+            if(Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
+                || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+            {throw new NotSupportedException("Blade controller owner/map/death/class lifecycle is not connected");}
+            var creation=before.Creation;
+            var frame=BladeSentinelController.Advance(before.Control,before.Motion,new(0,0,Map.Width*2,Map.Height*2),
+                (x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this),new Point2D(owner.X*2,owner.Y*2),()=>
+                {
+                    var create=BladeSentinelActors.CreateFollowingMissile??throw new NotSupportedException("Blade following missile/stat service is not connected");
+                    creation=create(this)??throw new InvalidDataException("Missing blade missile creation snapshot");
+                });
+            Store(before with{Control=frame.Control,Creation=creation,Motion=frame.Motion,Frames=before.Frames+frame.Control.Moves-before.Control.Moves,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
+            var point=Position(Prepared);if(Location!=point){MoveToWorld(point,Map);}AIObject?.AITimer.Stop();
+            if(frame.Control.Mode==0){Delete();}
+        }
+    }
+    internal void SuspendController(string reason)
+    {if(Prepared is{} before){Store(before with{ControllerFault=reason});}BladeSentinelActors.Forget(this);}
+    public override void OnAfterDelete(){BladeSentinelActors.Forget(this);base.OnAfterDelete();}
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void GenerateLoot(bool spawning){}
     public override bool OnBeforeDeath(){Delete();return false;}
@@ -99,6 +135,7 @@ public partial class BladeSentinelBody:BaseCreature
         AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved);Validate(_prepared);
         if(SummonMaster?.Serial.Value!=_prepared.Owner || Map?.MapID!=_prepared.Map || Location!=Position(_prepared))
         {throw new InvalidDataException("Prepared blade owner/position mismatch");}
+        if(_prepared.Control is{Mode:not 0} && _prepared.ControllerFault==null){BladeSentinelActors.Track(this);}
     }
 }
 
