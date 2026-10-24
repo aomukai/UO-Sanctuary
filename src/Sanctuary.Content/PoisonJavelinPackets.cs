@@ -8,9 +8,7 @@ namespace Sanctuary;
 // source-zero packet at its retained rank with live hard synergy and mastery.
 internal static class PoisonJavelinPackets
 {
-    internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon
-        && ClassGear.State(weapon) is{Identified:true} && ClassGear.Base(weapon) is{} basis
-        && ClassItemTypes.Is(basis.Type,"jave") && !ClassGear.Broken(weapon);
+    internal static bool WeaponAllowed(PlayerMobile owner)=>AmazonJavelins.WeaponAllowed(owner);
 
     internal static MissileSourceStats Prepare(MissileSourceStats owner,SkillValues values,int mastery,bool cloud)
     {

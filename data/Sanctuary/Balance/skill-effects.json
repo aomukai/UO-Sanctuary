@@ -58,7 +58,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native logical projectile0xF42 and throw sound0x238 are identified placeholders. Final LightningJavelin travel/contact, lightning overlay and amazon_lightning_1 audio pending; talent/L/R/quick-hotkey icons remain separate"
   },
   {
     "talentId": "amazon.chargedstrike",

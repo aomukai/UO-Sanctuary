@@ -34,6 +34,7 @@ public static class BowLaunch
     {
         var basis=ClassGear.Base(weapon);bool two=WeaponHands.TwoHanded(weapon);
         int min=two && basis.TwoHandMax>0?basis.TwoHandMin:basis.MinDamage,max=two && basis.TwoHandMax>0?basis.TwoHandMax:basis.MaxDamage;
+        if(!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon)?.Category=="Throwing" && basis.MissileMax>0){min=basis.MissileMin;max=basis.MissileMax;}
         int percent=physical?Math.Max(10,100+ClassStats.PhysicalDamageBonus(owner,weapon)+skillPercent)
             :Math.Max(0,100+ClassStats.DamageBonus(owner,weapon)-PaladinAuras.DamagePercent(owner));
         return (min+(max-min)*roll)*percent/10000.0;
@@ -87,9 +88,9 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
+        if(ability is not(CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
-        if(!(ability==CombatAbility.PoisonJavelin?PoisonJavelinPackets.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
+        if(!(AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
         if(values.Rank<=0){return null;}
         int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
@@ -99,12 +100,14 @@ public static class BowLaunch
         var elements=poison with
         {
             FireMin=Element(owner,low.Fire,"fire",0),FireMax=Element(owner,high.Fire,"fire",1),
-            LightningMin=Element(owner,low.Lightning,"ltng",0),LightningMax=Element(owner,high.Lightning,"ltng",1),
+            LightningMin=ability==CombatAbility.LightningBolt?NamedElements.To256(low.Lightning):Element(owner,low.Lightning,"ltng",0),LightningMax=ability==CombatAbility.LightningBolt?NamedElements.To256(high.Lightning):Element(owner,high.Lightning,"ltng",1),
             ColdMin=Element(owner,low.Cold,"cold",0),ColdMax=Element(owner,high.Cold,"cold",1),
             MagicMin=Element(owner,low.Magic,"mag",0),MagicMax=Element(owner,high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
+        if(ability==CombatAbility.LightningBolt)
+        {elements=elements with{LightningMin=checked(elements.LightningMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),NamedElements.MasteryPercent(owner,"ltng"))),LightningMax=checked(elements.LightningMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),NamedElements.MasteryPercent(owner,"ltng")))};}
         if(ability==CombatAbility.PoisonJavelin)
         {elements=PoisonJavelinPackets.Prepare(elements,values,NamedElements.MasteryPercent(owner,"pois"),false);}
         if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ImmolationArrow)
@@ -125,6 +128,7 @@ public static class BowLaunch
         }
         var damage=FromSource(raw.Min*256,raw.Max*256,values.PhysicalDamage256(false),values.PhysicalDamage256(true),sourceDamage,
             ClassStats.PhysicalDamageBonus(owner,weapon),skillPercent,ClassGear.Bonus(owner,"dmg-demon%"),ClassGear.Bonus(owner,"dmg-undead%"),critical,elements);
+        if(ability==CombatAbility.LightningBolt){damage=damage with{LightningJavelinPercent=100};}
         if(ability==CombatAbility.MagicArrow)
         {damage=damage with{PhysicalToMagicPercent=Math.Min(100,NecromancerSummons.Source("magicarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("magicarrow","dParam2"))};}
         if(ability==CombatAbility.FireArrow)

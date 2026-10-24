@@ -1,0 +1,86 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.lightningbolt",
+  "sourceId": 20,
+  "handlerEnabled": true,
+  "installedHandlerNumber": 137,
+  "amazonHandlers": 25,
+  "status": "Lightning Bolt is installed as handler137/Amazon25. Shared TH/IAS javelin controls pay fractional mana once at start and consume one quantity at release, without a localdelay. SrcDam96 scales the combined mastered skill and raw owner elemental endpoints to75percent. The missile uses no AR check, size2 source footprints over ordered saved path cells and post-selection LastCollide/Pierce. srvdmg12 rerolls lightning, adds the converted enhanced/critical physical roll and resets all other packet damage, durations and leech; independent item events including Crushing Blow remain active. Native comparisons pass2560 impact/reset cases,280 exact creator cases and392 stable ordered paths, with12 compiled mode-selector rows. Eight synthetic rank255 cases overflow older signed32-bit creator arithmetic; existing safe native arithmetic is retained and modern overflow behavior remains explicitly uncertain. Real Griffon/SoJ mastery/raw-item combination, cold/poison/leech reset, Crushing Blow, IAS versus FCR, Bloodwood throwing material and Deep Wounds supplements, Pierce, self-point fallback, once-only resources, paid mana-loss and last-quantity release, equipment/cancellation and death/respec checks pass. Focused/full each pass three boots/two reloads with actual Cast input and natural travel on every boot. Saved source-step arrays compare structurally; original flight/resources/bindings resume without replaying paid windups or resource charges. Poison Javelin and all10 prior bow inputs retain three-boot coverage. All70 Python tests and current482/15 fingerprints pass; all573 named decisions unchanged. C# builds have zero warnings/errors. Existing-world load/listen/clean shutdown passes with unchanged save bytes and a prior content/data/save backup. No class completion certificate; final effects/audio and talent/hotkey icons remain separate placeholders.",
+  "verification": {
+    "impactSourceNativeCases": 2560,
+    "exactCreatorSourceNativeCases": 280,
+    "explicitLegacyOverflowExclusions": 8,
+    "stableOrderedPathSourceNativeCases": 392,
+    "sourceModeSelectorCases": 12,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "focusedRealInputBoots": 3,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "combinedRealInputBoots": 3,
+    "earlierBowInputs": 10,
+    "retainedPoisonJavelinInputBoots": 3,
+    "pythonTests": 70,
+    "namedInputs": 482,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "sourceEvidence": [
+    "tools/reference/lightning-bolt-engine-evidence.json",
+    "tools/reference/poison-contact-engine-evidence.json",
+    "tools/reference/poison-path-engine-evidence.json",
+    "tools/reference/magic-arrow-engine-evidence.json",
+    "tools/reference/poison-javelin-native-evidence.json"
+  ],
+  "logs": {
+    "lightning-bolt-focused.log": ".local/class-skills/lightning-bolt-focused.log",
+    "lightning-bolt-focused-run.log": ".local/class-skills/lightning-bolt-focused-run.log",
+    "lightning-bolt-combined.log": ".local/class-skills/lightning-bolt-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "lightning-bolt-content-build.log": ".local/class-skills/lightning-bolt-content-build.log",
+    "lightning-bolt-integration-build.log": ".local/class-skills/lightning-bolt-integration-build.log",
+    "lightning-bolt-python-checks.log": ".local/class-skills/lightning-bolt-python-checks.log",
+    "lightning-bolt-readiness.log": ".local/class-skills/lightning-bolt-readiness.log",
+    "lightning-bolt-first-loop.log": ".local/class-skills/lightning-bolt-first-loop.log",
+    "lightning-bolt-roadmap.log": ".local/class-skills/lightning-bolt-roadmap.log",
+    "lightning-bolt-roadmap-check.log": ".local/class-skills/lightning-bolt-roadmap-check.log",
+    "lightning-bolt-projection.log": ".local/class-skills/lightning-bolt-projection.log",
+    "lightning-bolt-projection-check.log": ".local/class-skills/lightning-bolt-projection-check.log",
+    "lightning-bolt-source.log": ".local/class-skills/lightning-bolt-source.log",
+    "lightning-bolt-source-check.log": ".local/class-skills/lightning-bolt-source-check.log",
+    "lightning-bolt-source-probe.json": ".local/class-skills/lightning-bolt-source-probe.json",
+    "lightning-bolt-installed-server.log": ".local/class-skills/lightning-bolt-installed-server.log",
+    "lightning-bolt-installed-smoke.log": ".local/class-skills/lightning-bolt-installed-smoke.log",
+    "lightning-bolt-overflow-diagnostic.log": ".local/class-skills/lightning-bolt-overflow-diagnostic.log",
+    "lightning-bolt-material-fixture-diagnostic.log": ".local/class-skills/lightning-bolt-material-fixture-diagnostic.log",
+    "lightning-bolt-first-passing-focused.log": ".local/class-skills/lightning-bolt-first-passing-focused.log"
+  },
+  "limits": [
+    "Pinned D2R3.3.93847 tables remain authoritative. Older full-source routines execute against declared stat/formula/room/RNG services; they do not certify the current executable or full event pipeline.",
+    "Eight synthetic rank255/hard20-each/mastery25-or40 creator cases overflow the older final signed32-bit SrcDam96 multiply. The other280 creator cases match exactly. Existing shared long arithmetic remains safe; no guessed modern wraparound is enabled. Such extreme current-executable equivalence is unsupported pending evidence.",
+    "TH uses the full older player-mode attack-rate selector independently of the missing skill UseAttackRate flag. Cached AMTH16/event9 acquisition provenance and the ordinary repeat minus-one projection remain incomplete; exact modern TH/IAS/WSM/chill/skill-rate and graphical client timing need acceptance.",
+    "Stable ordered path crossing math and combined size2 finder footprints are ported. Source integer subtiles project to two per native tile; sector enumeration projects source room-list order. Full factory initial path chain, collision masks/terrain, source room identity/order, slow/returnfire and modern overlap/global mixed-flight/catch-up chronology remain acceptance gaps.",
+    "Current target delivery is native PvM and reuses shared typed mitigation/item callbacks. Exact modern stat-list/seed/event order, defense/avoidance, deferred quantity and inventory/upgrade/proc combinations, full owner transitions, PvP/hireling/prime-evil/shrine/sunder/client behavior remain separate. This handler does not clear existing item gates.",
+    "The source callback clears physical and status/leech packet channels; independent attacker events remain eligible. Real cold/poison/leech and Crushing Blow cases are covered, while all possible equipped item events and modern ordering are not certified.",
+    "Optional saved conversion and ordered-step fields retain version0 weapon-flight compatibility. Snapshot inspection holds clocks in the future, then resumes actual saved flight steps; it is not a certificate of offline modern event replay. Owner death/respec and existing committed wardrobe hooks clear both javelin parents and poison clouds."
+  ],
+  "buildHashes": {
+    "content": "e6d9b04e84e0596536d31140415c55f27686cdbab8d03d578688dc6283361570",
+    "integration": "74b2dcfc671e3b722aa9f6f9c205143adfe89858c64bc0653b8702011f4c6ef3"
+  },
+  "fixtureCorrections": [
+    "Full creator differential exposed eight synthetic older signed32-bit overflow rows; exact comparison excludes these explicitly and records the native existing safe arithmetic, without treating them as modern proof.",
+    "Material fixture initially declared a crafted physical roll on ordinary regular-resource SoulGlaive. Its existing crafting scope declares Wood; the fixture now sets the actual Bloodwood resource before storing an allowed5percent physical roll, then restores the original gear state/resource. No production crafting or item gate changed."
+  ],
+  "assets": {
+    "effect": "Identified logical projectile0xF42 and throw sound0x238 placeholders. Final LightningJavelin travel/contact, lightning overlay and amazon_lightning_1 audio pending.",
+    "icons": "Talent and L/R/quick icons remain independently pending."
+  },
+  "next": "Continue Amazon with Plague Javelin using existing TH controls, captured parent and poison preparation after pinning its distinct impact clouds. Current parent43 uses srvdo3 rather than Poison Javelin srvdo2, so do not clone its path-change trail. Verify cloud221 motion, ring emission/loops, size2, lifetime, hit-origin/AR/Pierce and resource rules. Lightning Strike remains individually deferred; continue unaffected skills.",
+  "installationRollback": {
+    "path": ".local/class-skills/pre-lightning-bolt-install",
+    "previousContentSha256": "5cfdbcfb8c57365ddcaf7d9fc4768b7e69603dd539b9a9c56d6d0faa283b5b78",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  }
+}

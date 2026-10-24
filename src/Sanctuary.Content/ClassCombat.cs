@@ -99,7 +99,7 @@ public static class ClassCombat
                 StatNetwork.Send(from);
                 ClassGear.Changed(from);
                 AmazonBow.EquipmentChanged(from);
-                PoisonJavelins.EquipmentChanged(from);
+                AmazonJavelins.EquipmentChanged(from);
             }
         };
         ClassCombatHooks.DefenseSuppressed = from => ClassMovement.IsRunning(from, Core.TickCount);

@@ -16,56 +16,10 @@ public static class PoisonJavelins
 {
     private static readonly Dictionary<long,PoisonCloud> _clouds=new();
     private static long _next;
-    internal static ActionTiming Timing(int advance)
-    {
-        advance=Math.Max(1,advance);
-        // Cached AMTH1HT:16 frames, missile event9, no TH starting bonus.
-        // Retain the ordinary modern repeat-cycle minus-one adapter.
-        return new(Math.Max(1,(16*256+advance-1)/advance-1),Math.Max(1,(9*256+advance-1)/advance));
-    }
-    private static bool Aim(PlayerMobile owner,Point3D point)=>owner.Map!=null && owner.Map!=Map.Internal
-        && point.X>=0 && point.Y>=0 && point.X<owner.Map.Width && point.Y<owner.Map.Height
-        && owner.InRange(point,CombatProtocol.SightRange)
-        && Math.Abs(point.Z-owner.Z)<16 && owner.InLOS(new Point3D(point.X,point.Y,point.Z+12))
-        && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
-    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
-    {
-        if(!AmazonCombat.Available(owner,CombatAbility.PoisonJavelin) || !NamedAmmunition.CanAttack(CombatTiming.Equipped(owner))){return false;}
-        if(selected!=Serial.Zero)
-        {var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;}
-        if(!SkillCombat.Begin(owner,CombatAbility.PoisonJavelin,selected,point,now,(p,_,_,aim)=>Aim(p,aim))){return false;}
-        var session=ClassCombat.For(owner);session.PendingLeft=session.HeldAbility==CombatAbility.PoisonJavelin && session.HeldAttack;
-        // Source start4 succeeds before the generic wrapper consumes mana.
-        if(!NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,CombatAbility.PoisonJavelin).Mana256))
-        {session.PendingAbility=CombatAbility.None;return false;}
-        return true;
-    }
-    public static bool Release(PlayerMobile owner)
-    {
-        // The do wrapper does not repeat affordability/start checks. A last
-        // javelin can have been removed after the paid start; emission still
-        // follows the same-weapon/native action guard and consumes afterward.
-        if(!AmazonCombat.Available(owner,CombatAbility.PoisonJavelin) || !FireGround.Ready(owner,CombatAbility.PoisonJavelin)){return false;}
-        var session=ClassCombat.For(owner);var target=World.FindMobile(session.PendingTarget);
-        var point=ClassCombat.IsHostile(owner,target)?target.Location:session.PendingPoint;
-        if(!Aim(owner,point)){return false;}
-        var values=SkillMechanics.Values(owner,CombatAbility.PoisonJavelin);
-        var packet=BowLaunch.Capture(owner,CombatAbility.PoisonJavelin,NamedCombat.ProjectileCritical(owner,AmazonBow.LaunchRandom),preparedValues:values);
-        int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;
-        long id=WeaponMissiles.Launch(owner,CombatAbility.PoisonJavelin,new(dx,dy,0x21,0),packet,WeaponMissiles.NewCast(),
-            NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),
-            NecromancerSummons.Source("poisonjav","Vel"),NecromancerSummons.Source("poisonjav","Range"),0,"poisonjav",values.Rank);
-        if(id<=0){return false;}
-        NamedAmmunition.Consume(CombatTiming.Equipped(owner),TimedEffects.Now);FireGround.Delay(owner,CombatAbility.PoisonJavelin);
-        owner.PlaySound(0x238); // Identified ordinary throw sound placeholder.
-        return true;
-    }
-    internal static void EquipmentChanged(PlayerMobile owner)
-    {
-        if(ClassCombat.Existing(owner) is{PendingAbility:CombatAbility.PoisonJavelin} session
-            && (!PoisonJavelinPackets.WeaponAllowed(owner) || CombatTiming.Equipped(owner)?.Serial!=session.PendingWeapon))
-        {session.PendingAbility=CombatAbility.None;}
-    }
+    internal static ActionTiming Timing(int advance)=>AmazonJavelins.Timing(advance);
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>AmazonJavelins.Begin(owner,CombatAbility.PoisonJavelin,selected,point,now);
+    public static bool Release(PlayerMobile owner)=>AmazonJavelins.Release(owner,CombatAbility.PoisonJavelin);
+    internal static void EquipmentChanged(PlayerMobile owner)=>AmazonJavelins.EquipmentChanged(owner);
     internal static bool Poison(PlayerMobile owner,BaseCreature target,int rate256,int frames,DateTime at)
     {
         // Native wild monsters have no equipment poison-length stat or poison
@@ -141,7 +95,7 @@ public static class PoisonJavelins
                 || cloud.LastCollision!=0 && !((Serial)cloud.LastCollision).IsMobile
                 || e==null || d.Min256!=0 || d.Max256!=0 || d.Percent!=0 || d.Critical || d.PhysicalSupplement!=null || d.Conversion!=null || d.PhysicalToMagicPercent!=0
                 || e!=new MissileSourceStats(PoisonMin:e.PoisonMin,PoisonMax:e.PoisonMax,PoisonFrames:e.PoisonFrames)
-                || d.DemonPercent!=0 || d.UndeadPercent!=0 || d.FireMastery!=0 || d.ColdMastery!=0 || d.LightningMastery!=0 || d.PoisonMastery!=0 || d.MagicMastery!=0 || d.SkillAttackPercent!=0 || d.FreezeColdLength
+                || d.LightningJavelinPercent!=null || d.DemonPercent!=0 || d.UndeadPercent!=0 || d.FireMastery!=0 || d.ColdMastery!=0 || d.LightningMastery!=0 || d.PoisonMastery!=0 || d.MagicMastery!=0 || d.SkillAttackPercent!=0 || d.FreezeColdLength
                 || e.PoisonMin<0 || e.PoisonMax<e.PoisonMin || e.PoisonFrames<=0 || !_clouds.TryAdd(cloud.Id,cloud))
             {throw new InvalidDataException("Invalid saved poison cloud");}
             _next=Math.Max(_next,cloud.Id);

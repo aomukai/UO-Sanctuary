@@ -64,10 +64,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 20,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned TH/IAS javelin uses once-only fractional start mana, release quantity and no localdelay. SrcDam96 scales the combined mastered skill and raw owner elemental endpoints. No AR callback; source size2 ordered path contacts and post-selection LastCollide preserve Pierce. srvdmg12 rerolls lightning, converts enhanced/critical physical and resets every other packet damage, duration and leech channel; separate item callbacks including Crushing Blow remain eligible. Source/native comparisons, real gear, actual Cast/natural travel and two reloads are recorded separately. Eight synthetic rank255 older signed-overflow cases are explicitly excluded from exact equivalence; existing safe arithmetic is retained pending modern evidence. Source room/grid/global-order/animation/stat/seed/owner/client and full item acceptance remain open. Effects/audio and tree/hotkey icons are independent identified placeholders."
     },
     {
       "talentId": "amazon.chargedstrike",

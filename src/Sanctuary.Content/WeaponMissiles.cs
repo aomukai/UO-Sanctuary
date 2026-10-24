@@ -21,7 +21,8 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     // Null retains the original saved Magic Arrow field and old packet meaning.
     public WeaponElementConversion Conversion{get;init;}
     public bool FreezeColdLength{get;init;}
-    internal bool ValidConversion=>(!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
+    public int? LightningJavelinPercent{get;init;}
+    internal bool ValidConversion=>(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
     // Existing Sanctuary material/potion physical additions are separate from
     // the source weapon endpoints, so victim-specific ED cannot multiply them.
     public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
@@ -55,6 +56,14 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
         int lightning=RollValue(e.LightningMin,e.LightningMax,LightningMastery,random),cold=RollValue(e.ColdMin,e.ColdMax,ColdMastery,random);
         int poison=RollValue(e.PoisonMin,e.PoisonMax,PoisonMastery,random);
         poisonRate256=poison;
+        if(LightningJavelinPercent is >0)
+        {
+            int convertedLightning=ConvertPhysical(physical,LightningJavelinPercent.Value).Magic256;
+            // srvdmg12 deliberately rerolls the lightning endpoint, then resets
+            // all damage, lengths and drain channels before adding lightning.
+            int second=RollValue(e.LightningMin,e.LightningMax,LightningMastery,random);poisonRate256=0;
+            return new(0,0,0,(second+convertedLightning)/256.0,0,0,0);
+        }
         // srvdmg1 runs after FillDamageParams: conversion sees the percentage-
         // enhanced, critical physical roll; existing elemental mastery is not
         // reapplied to this converted amount.
@@ -82,6 +91,7 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
     public bool PathChanged{get;init;}
+    public SourceStepTrace SourceSteps{get;init;}
 }
 public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc)
 {
@@ -131,14 +141,16 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || ability is CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
+            || ability is CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
             || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
             || ability!=CombatAbility.GuidedArrow && guided!=null
+            || ability==CombatAbility.LightningBolt && (missile!="lightningjavelin" || skillRank is <1 or >255 || frames!=25 || nextDelay!=0 || ray.ActivationFrame!=0 || damage?.LightningJavelinPercent!=100)
+            || ability!=CombatAbility.LightningBolt && damage?.LightningJavelinPercent!=null
             || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability!=CombatAbility.Strafe && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided});return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,SourceSteps=ability==CombatAbility.LightningBolt?new([new(owner.X*2,owner.Y*2)]):null});return id;
     }
     internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
     {
@@ -173,6 +185,8 @@ public static class WeaponMissiles
     }
     internal static void CancelPoison(Mobile owner)
     {foreach(long id in new List<long>(_flights.Keys)){if(_flights[id].Owner==owner.Serial.Value && _flights[id].Ability==CombatAbility.PoisonJavelin){_flights.Remove(id);}}PoisonJavelins.ClearClouds(owner);Prune();}
+    internal static void CancelJavelins(Mobile owner)
+    {foreach(long id in new List<long>(_flights.Keys)){if(_flights[id].Owner==owner.Serial.Value && AmazonJavelins.Handles(_flights[id].Ability)){_flights.Remove(id);}}PoisonJavelins.ClearClouds(owner);Prune();}
     internal static void Tick(DateTime at)
     {
         _keys.Clear();_keys.AddRange(_flights.Keys);_keys.Sort();
@@ -209,16 +223,34 @@ public static class WeaponMissiles
                 if(extended==null){_flights.Remove(flight.Id);}else{_flights[flight.Id]=extended;}return;
             }
         }
+        if(flight.Ability==CombatAbility.LightningBolt){next=next with{SourceSteps=SourceMissileSteps.Advance(flight)};}
         _flights[flight.Id]=next;
         if(next.Frame<flight.Activation){return;}
         Mobile selected=null;double nearest=double.MaxValue;
         var end=new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z);
         int query=(int)Math.Ceiling(Math.Max(Math.Abs(flight.Vx),Math.Abs(flight.Vy))+CombatHitboxes.BodyRadius+CombatHitboxes.TeethRadius+0.5);
+        if(flight.Ability==CombatAbility.LightningBolt)
+        {
+            foreach(var cell in next.SourceSteps.Cells)
+            {
+                var point=new Point3D((int)Math.Round(cell.X/2.0),(int)Math.Round(cell.Y/2.0),flight.Z);
+                foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(point,3))
+                {
+                    int size=candidate is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
+                    if(Math.Abs(candidate.Z-flight.Z)<16 && ClassCombat.IsHostile((PlayerMobile)owner,candidate)
+                        && CombatHitboxes.SourceTouches(2,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){selected=candidate;break;}
+                }
+                if(selected!=null){break;}
+            }
+        }
+        else
+        {
         foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(end,query))
         {
             if(candidate.Serial.Value==flight.LastCollision && flight.Ability!=CombatAbility.PoisonJavelin || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
                 || !CombatHitboxes.Intersect(flight.X,flight.Y,next.X,next.Y,flight.Z,candidate.Location,out double entry)){continue;}
             if(entry<nearest || entry==nearest && (selected==null || candidate.Serial.Value<selected.Serial.Value)){selected=candidate;nearest=entry;}
+        }
         }
         if(flight.HostileSpell)
         {
@@ -238,14 +270,14 @@ public static class WeaponMissiles
             HostileImpact((BaseCreature)owner,selected,flight);_flights.Remove(flight.Id);return;
         }
         var player=(PlayerMobile)owner;
-        if(flight.Ability==CombatAbility.PoisonJavelin && selected.Serial.Value==flight.LastCollision){return;}
+        if(AmazonJavelins.Handles(flight.Ability) && selected.Serial.Value==flight.LastCollision){return;}
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L)){RetainWithoutFlight=flight.Ability==CombatAbility.Strafe};}
         if(next.Guided!=null && !GuidedArrows.Accepts(next,selected)){return;}
         bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
-        bool hit=next.Guided!=null || ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true)==true;
+        bool hit=flight.Ability==CombatAbility.LightningBolt || next.Guided!=null || ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true)==true;
         if(flight.Ability==CombatAbility.ImmolationArrow)
         {
             // hit09 clears missile cold length before the direct hit.
@@ -276,7 +308,7 @@ public static class WeaponMissiles
                 if(flight.Ability==CombatAbility.PoisonJavelin){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
                 else if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
-            if(AmazonBow.Handles(flight.Ability) || flight.Ability==CombatAbility.PoisonJavelin)
+            if(AmazonBow.Handles(flight.Ability) || AmazonJavelins.Handles(flight.Ability))
             {
                 // Preserve the separate attacker/defender event paths. Leech
                 // and critical were already delivered from the saved packet.
@@ -319,6 +351,9 @@ public static class WeaponMissiles
         foreach(var flight in saved?.Flights??[])
         {
             if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
+                || flight.Ability==CombatAbility.LightningBolt && (flight.Missile!="lightningjavelin" || flight.SkillRank is <1 or >255 || flight.Activation!=0 || flight.NextDelay!=0 || flight.Damage.LightningJavelinPercent!=100 || flight.SourceSteps?.Cells is not{Length:>=1 and <=10})
+                || flight.SourceSteps?.Cells is{} sourceCells && Array.Exists(sourceCells,c=>c.X is <0 or >65535 || c.Y is <0 or >65535)
+                || flight.Ability!=CombatAbility.LightningBolt && (flight.SourceSteps!=null || flight.Damage.LightningJavelinPercent!=null)
                 || flight.PathChanged && flight.Ability!=CombatAbility.PoisonJavelin
                 || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
                     || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0
