@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/include/MISSILES/MissMode.h": "4a0592e70e2c1e8eda8a6e5941c900255506da386f8ce021a1c7da422e70fdff"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89",
+    "MISSMODE_SrvHit37_BladeCreeper": "c7df4c194283feed1fe93969feaab6f3df31c0df3130da29be88a5005a91b2ed",
+    "MISSMODE_SrvDo20_BladeCreeper": "12f6fb43a3a3e2ef6c2001ee7d5209b3aeefb2ded405827914ff02504a0a747a"
+  },
+  "fixture": {
+    "path": ".local/class-skills/blade-sentinel-hit-source-probe.json",
+    "sha256": "b3313604a5aab6ba7c9b87029bd0159ab173a443b56fb9017d90e05093c7251b",
+    "cases": 1152
+  },
+  "established": [
+    "Complete follow invokes complete collision/finder/router/hit37 with a monster blade as the actual missile owner. Follow teleports to the pet, resets frame10 and collision decrements it to9. Missing/dead pet returns2. Actual Size3 geometry/world traversal remains a declared finder service.",
+    "NHD/friendly gates run in the finder before selecting a contact. The router calls hit-success using blade owner and explicit missile tohit37, starts25-frame NHD even on a missed AR roll, and emits hit-by-missile once per contact. Successful AR then hit37 returns2 and reaches damage-reader/flag services. Failed AR skips those services.",
+    "Crucially, follow ignores the collision-handler return value and itself returns1 while pet lives. A missed AR roll or terrain barrier therefore does not independently delete this following missile through the generic collision return. AI/actor death controls its lifetime. No permanent LastCollide target is recorded by the pinned row.",
+    "Router also calls the declared event service with a null target on teardown/barrier paths; those call counts are checked without claiming actual null-target event dispatch. Legacy global JUSTHIT and failed allocation behavior are historical controls only. Modern origin/cast-scoped leases and exact AR/stat/event/damage/defense behavior still require an inherited native blade context."
+  ],
+  "services": [
+    "World masks, fixed ordered target list, path teleport and candidate geometry, AR decision, state allocation, packet reader and damage flags are declared services. The full collision/finder/router/hit37/follow execute unchanged. Full hit-success formula and full SetDamageFlags/mitigation are separate evidence, not executed in this harness.",
+    "No native actor handler, full player supplier/AI/seed/stat ordering, PvP/NPC passive acceptance or current executable equivalence is claimed."
+  ]
+}

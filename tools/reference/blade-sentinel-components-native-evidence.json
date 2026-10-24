@@ -1,0 +1,76 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "sourceId": 257,
+  "handlerEnabled": false,
+  "componentsInstalled": true,
+  "playableSkillInstalled": false,
+  "totalHandlersPresent": 149,
+  "assassinHandlers": 10,
+  "status": "Blade Sentinel preparation components are implemented, verified and installed in the existing 149-handler build (Assassin10); the playable Blade Sentinel handler remains disabled. Creation reuses the full summon-level calculation, applies current14 passive fields through explicit accrued-stat inputs, retains preliminary base-stat level then caster-level overwrite, refills supplied life and grants captured effective skill rank. Its exact malformed cold-sunder formula follows the separately compiled legacy zero/no-read behavior, with modern inheritance explicitly uncertain. A once-only successful missile stage adds owner AR and item/mastery percentages. Packet construction reuses BowLaunch and MissileSourceStats: physical skill endpoints plus separately96/48-scaled one/two-handed weapon endpoints, typed damage, poison rate/count/aggregate length and drains. Focused/full suites each pass three boots/two component-fixture JSON round-trips, 960 source/native packet comparisons per boot, 30 creation contexts, real learned ranks/Tarnhelm and current versus captured owner changes; Valkyrie shared-base checks pass. This is not production blade actor persistence or playable skill acceptance. All70 Python tests, 505/21 fingerprints and573 unchanged named decisions pass. Both builds have zero warnings/errors; matching existing-world smoke exits0 with save/config/client bytes unchanged, backup retained and server stopped.",
+  "sourceEvidenceByStage": {
+    "dispatchAI": "tools/reference/blade-sentinel-engine-evidence.json",
+    "formula": "tools/reference/blade-sentinel-formula-engine-evidence.json",
+    "damage": "tools/reference/blade-sentinel-damage-engine-evidence.json",
+    "summon": "tools/reference/assassin-trap-summon-engine-evidence.json",
+    "hit": "tools/reference/blade-sentinel-hit-engine-evidence.json",
+    "attack": "tools/reference/assassin-trap-attack-engine-evidence.json"
+  },
+  "movementReview": "tools/reference/blade-sentinel-movement-review.json",
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "componentFixtureRoundTripsPerSuite": 2,
+    "productionBladePersistence": false,
+    "actualBladeInput": false,
+    "nativeDamageComparisonsPerBoot": 960,
+    "nativeCreationContextsPerBoot": 30,
+    "sourceCases": {
+      "dispatchAI": 7781,
+      "formula": 70,
+      "damage": 960,
+      "summon": 5208,
+      "hit": 1152,
+      "attack": 6804
+    },
+    "totalBoundedSourceCases": 21975,
+    "pythonTests": 70,
+    "namedFingerprints": 505,
+    "firstLoopFingerprints": 21,
+    "unchangedNamedDecisions": 573
+  },
+  "fixtureCorrections": [
+    "Initial C++ damage scaffold lacked assert/BOOL shim declarations; the shim was fixed before successful compilation. Extracted routines unchanged.",
+    "Initial hit-router service assumed every event target was nonnull. Original teardown/barrier branches also invoke a null-target event; the fixture now records/checks those separately. No source routine changed or actual null-target dispatch assumed."
+  ],
+  "limits": [
+    "Reference remains D2R3.3.93847/Reign of the Warlock with Sanctuary precedence. Supplementary unchanged legacy source components use declared services and are not a full current executable equivalence certificate.",
+    "No Blade Sentinel actor, moving following missile, native five-trap list, actor-owner defense/mitigation/event supplier or learned skill input is enabled. Component real gear checks cover Tarnhelm skill ranks, not actual weapon stat collection. Current real one/two-hand/throwing/dual-claw gear, weapon critical/stat selection and Blade skill item/material/potion delivery remain work.",
+    "Current14 passive fields are captured through explicit caller stats; missing required stats throw. Old helper only had5 slots. Exact pinned unclosed cold-sunder formula yields0 without a stat callback in unchanged Fog; native component mirrors that bounded legacy behavior and keeps the general parser strict. Current binary cold-sunder inheritance remains uncertain and must not be silently repaired.",
+    "Native component fixture JSON round-trips across two reloads preserve owner/gear/hard ranks plus captured records. They do not constitute production blade actor/missile persistence, paid/unpaid cast resumption, cap replacement, owner/map/class/death/logoff or live AI/packet acceptance.",
+    "Full source path review identifies AI SetVelocity15/0/20 as WALL_FOLLOW path15/distance20, with no new velocity override from0. Full PathWF grid/obstacle/budget/tie behavior and mode/velocity/AI scheduling require implementation and source/native comparison before motion is enabled. Simple straight-return or ordinary pet chase would not preserve the source contract.",
+    "Full legacy hit router shows misses also consume25-frame NHD. Following mode ignores collision-handler return while pet lives. Modern lease origin scope, actual NPC hit-success/stat context, Size3 collision geometry, defenses/get-hit, target-AC changes, pierce/sunder, mastery/poison and owner event/kill attribution remain consumers to connect. No live player mitigation supplier should substitute for the blade owner.",
+    "Source NPC hit-success proof includes integer chance/level rounding, signed stats and exclusion of player-only ITD/fractional defense/species AR. These are not yet connected to a native blade; existing global player hit chance is unchanged. Actual prevent-heal nested behavior and exact modern RNG/stat/owner acceptance remain separate.",
+    "Final blade summon/travel/emerge/expiry visuals/audio and independent talent/L/R/quick icons remain pending in the separate240-entry asset inventories. No new graphical placeholders are consumed because the playable blade is not enabled. Shadow Warrior/Master remain individually deferred behind their generated NPC gear/skill/AI consumers; Blade Sentinel/sentries do not require an invented Shadow wardrobe dependency. No class certificate or deferred item-skill gate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/blade-sentinel-components-focused.log",
+    "combined": ".local/class-skills/blade-sentinel-components-combined.log",
+    "content-build": ".local/class-skills/blade-sentinel-components-content-build.log",
+    "integration-build": ".local/class-skills/blade-sentinel-components-integration-build.log",
+    "python-checks": ".local/class-skills/blade-sentinel-components-python-checks.log",
+    "named-readiness": ".local/class-skills/blade-sentinel-components-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-sentinel-components-first-loop.log",
+    "properties": ".local/class-skills/blade-sentinel-components-properties.log",
+    "installed-server": ".local/class-skills/blade-sentinel-components-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-sentinel-components-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-sentinel-components-client-check.log",
+    "blade-sentinel-source": ".local/class-skills/blade-sentinel-source.log",
+    "blade-sentinel-formula-source": ".local/class-skills/blade-sentinel-formula-source.log",
+    "blade-sentinel-damage-source": ".local/class-skills/blade-sentinel-damage-source.log",
+    "blade-sentinel-hit-source": ".local/class-skills/blade-sentinel-hit-source.log",
+    "assassin-trap-summon-source": ".local/class-skills/assassin-trap-summon-source.log",
+    "assassin-trap-attack-source": ".local/class-skills/assassin-trap-attack-source.log",
+    "blade-sentinel-movement-review": ".local/class-skills/blade-sentinel-movement-review.log"
+  }
+}

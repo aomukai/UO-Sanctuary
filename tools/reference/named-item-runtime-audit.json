@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "6efe1a35573d701d2e32dd44978fe038f607f518ff97402178def8bf83b2fffa",
+  "ContentAssemblySha256": "21cfa5604a1486fcab050374b1cc38ac98326e28fdbdd4b1cd7dfb589c9a5aee",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -221,6 +221,7 @@
     "src/Sanctuary.Content/AmazonStrafe.cs": "30f9cc90e565f56ee87b50df850ab9fff7390d6c2c7b0e4b4e0899bbea0e996d",
     "src/Sanctuary.Content/AssassinBuffs.cs": "00577a9ac6676219c44fb13230283be566e23096c821a0918fb1d3f3599334f8",
     "src/Sanctuary.Content/AssassinCombat.cs": "691ce671e7e3c834e3b331fd1f5c5f55023afef78292bbb9bc255c317b3dce5b",
+    "src/Sanctuary.Content/AssassinTrapCreation.cs": "0860ff39f05e83273287b5ada60e26d3c46c446854455e316129b4e8152302bd",
     "src/Sanctuary.Content/BalanceCatalog.cs": "4d03f3bddf177ec5fe26eee8d64a29f23671333248255d252280cf6089b21652",
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
     "src/Sanctuary.Content/BarbarianBerserk.cs": "7687c50a6c4ea7490a0caace654043abf1b5daf3cf92c194ffa4f48ff355eacf",
@@ -239,6 +240,7 @@
     "src/Sanctuary.Content/BarbarianWhirlwind.cs": "8ab5df0a7d445f793c9b1c15002ed771d0976dc17d3216fbfd2c63df763893b7",
     "src/Sanctuary.Content/BattleCommand.cs": "c6c47e668e85aae855f7e30cf978e4b5b6ce25984ba4f735b404a72cdb83031b",
     "src/Sanctuary.Content/BattleOrders.cs": "5e08e685d535734ab7954f93d1b3c1ef2197d1c1cf10ea85eb526ddc5b704bca",
+    "src/Sanctuary.Content/BladeSentinelPackets.cs": "c5aa529987c37b4581f45bab1eea41dc59e7bd97268ae4ea3cb1c6a1cd42e4d1",
     "src/Sanctuary.Content/BlessedHammers.cs": "767cd07caf3f3b598cc6edd92b7e245285301f723539a9cde68d7aea4f53d8b1",
     "src/Sanctuary.Content/Blizzards.cs": "d89fbbd619ed7a12433819bad41c74d473b1242c19bf65370a6c77d2b0c85a0d",
     "src/Sanctuary.Content/BoneBarriers.cs": "186a99f978f529a6c54e7df33f1e987348bc2638e60aa5adefee59647f182099",

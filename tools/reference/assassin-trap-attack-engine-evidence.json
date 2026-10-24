@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "source": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledUnchangedRoutine": {
+    "name": "SUNITDMG_IsHitSuccessful",
+    "sha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
+  },
+  "fixture": {
+    "path": ".local/class-skills/assassin-trap-attack-source-probe.json",
+    "sha256": "a73cfd896c31368197b43a90a61d762f029e8df6d5a2bebca89c62d837ec3f61",
+    "cases": 6804
+  },
+  "established": [
+    "Full hit-success routine runs the nonplayer branch for actual blade owner: explicit missile tohit is flat, then5*pet Dexterity plus pet tohit, with pet item_tohit_percent. Player-only ignore defense, fractional defense and demon/undead flat AR inputs are deliberately nonzero but never read.",
+    "It handles negative total defense and negative resulting AR before integer factor100*AR/(AR+defense), then integer level weighting and clamp5..95. RNG equality fails (roll>=chance). Successful rolls call the declared prevent-heal service exactly once.",
+    "Independent arithmetic checks cover levels1/30/99 on both sides, base AR0/250/5000, percent-150/0/28, total defense-30/0/1000 including missile-defense17, explicit missile tohit0/37, Dexterity0/20 and seven threshold rolls."
+  ],
+  "services": [
+    "Source stat/defense getters, percentage helper and explicit RNG integer are declared services. PreventMonsterHeal is a recorded call only; actual item prevent-heal eligibility and state effects are not executed. Full hit-success control flow executes unchanged.",
+    "No live native trap context or new global player hit-chance behavior is enabled. Exact current executable stats/rounding/RNG and the whole defense/event/state dependency graph remain separate."
+  ]
+}

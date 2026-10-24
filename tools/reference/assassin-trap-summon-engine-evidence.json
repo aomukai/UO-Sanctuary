@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FC7DA40": "0184fe25e51ced7e307ef7552c6980c7371af9156ee9b3807e448106f7e57b95",
+    "sub_6FC7D7A0": "0c9dbe575f7f98974dfad63f3e1fc728e77fb39e3d02b7e08637ba7b157a57e3",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
+    "sub_6FCF8610": "423d93a804d0045ea253f057bfd128c84442bdc06b4644c9b16ed3846f79a0a8"
+  },
+  "fixture": {
+    "path": ".local/class-skills/assassin-trap-summon-source-probe.json",
+    "sha256": "0cb7b65e90e964b16be8576c4386f11cde16b7df3b968c4f2f8c6a642dde4569",
+    "cases": {
+      "factory": 5184,
+      "fifo": 24
+    },
+    "total": 5208
+  },
+  "established": [
+    "Complete trap helper rejects invalid summon ids, validates/falls back pet type, uses caster coordinates if either explicit coordinate is zero, resolves ultimate nonmonster minion owner and rejects missing owners. Room/town gates occur before spawning. Owner-chain/base-stat/passive calls and final summon mode are checked.",
+    "Complete generic summon tries spawn radius-1 then4, marks revive/no-treasure, clamps cap to at least1, registers pet with ultimate owner, initializes AI and schedules frame+25. Blade do44 subsequently replaces that event with+1, separately proved. Base/passive return failures are ignored by the trap helper; this is a source control-flow fact, not a desired modern failure policy.",
+    "Complete registration helper sees pinned assassintrap group0 and forwards type/max to pet list and insertion services. Complete insertion evicts list head when at cap, appends new pet at tail and copies metadata. Five existing traps then one new leave101..104,303; current shared assassintrap cap is5. Zero max with declared no replenishment rejects/removes incoming instead.",
+    "Factory controls cover player versus nested monster versus missing minion owner, invalid monster/pet type, room/town, first/second spawn success, ignored stat failures and coordinate fallback. Separate FIFO controls cover caps0/1/2/5, empty/partial/full lists and null-pet GUID."
+  ],
+  "services": [
+    "Actual world spawn/stat/rank/formula, room/town, minion owner, packet/list wrappers, AI control initialization/event and mode services are explicit checked boundaries. Full base/passive helpers have separate Valkyrie evidence; current14-slot inherited data and actual stat consumers remain new work.",
+    "Registration sub_6FC7DBF0 wrapper is a declared direct bridge to the full compiled insertion, not full client packet/player data execution. No source heap allocation failure, negative existing count, over-cap list corruption, pet group>0, null owner, necropet/alternate flags or full modern executable equivalence is claimed."
+  ]
+}

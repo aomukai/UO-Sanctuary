@@ -4,7 +4,7 @@
   "sourceId": 257,
   "handlerEnabled": false,
   "installed": false,
-  "status": "Source preparation only. Complete dispatch/AI/follow/hit proof and exact passive-formula compiler proof pass. Installed build remains149 handlers/Assassin10; Blade Sentinel is not enabled.",
+  "status": "Blade Sentinel preparation components are implemented, verified and installed in the existing 149-handler build (Assassin10); the playable Blade Sentinel handler remains disabled. Creation reuses the full summon-level calculation, applies current14 passive fields through explicit accrued-stat inputs, retains preliminary base-stat level then caster-level overwrite, refills supplied life and grants captured effective skill rank. Its exact malformed cold-sunder formula follows the separately compiled legacy zero/no-read behavior, with modern inheritance explicitly uncertain. A once-only successful missile stage adds owner AR and item/mastery percentages. Packet construction reuses BowLaunch and MissileSourceStats: physical skill endpoints plus separately96/48-scaled one/two-handed weapon endpoints, typed damage, poison rate/count/aggregate length and drains. Focused/full suites each pass three boots/two component-fixture JSON round-trips, 960 source/native packet comparisons per boot, 30 creation contexts, real learned ranks/Tarnhelm and current versus captured owner changes; Valkyrie shared-base checks pass. This is not production blade actor persistence or playable skill acceptance. All70 Python tests, 505/21 fingerprints and573 unchanged named decisions pass. Both builds have zero warnings/errors; matching existing-world smoke exits0 with save/config/client bytes unchanged, backup retained and server stopped.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
@@ -224,10 +224,10 @@
   "sourceEvidence": "tools/reference/blade-sentinel-engine-evidence.json",
   "formulaEvidence": "tools/reference/blade-sentinel-formula-engine-evidence.json",
   "contracts": [
-    "Do44 summons at caster and stores fixed caster/cursor endpoints in an AI command. The shared factory resolves ultimate nonmonster owner, validates room/town, assigns assassintrap cap5, invokes base/passive helpers and summon mode. The full shared factory/pet-cap/skill assignment chain is still separate from the compiled do44 harness.",
+    "Complete do44 and separate shared trap summon/registration/FIFO routines are compiled with explicit services. Origin/cursor endpoints, ultimate owner, coordinate/room/town gates, spawn fallback, shared cap5 and oldest replacement are proved within those bounds. Native actor/list/assigned-skill lifecycle and full world/stat/packet chain remain delivery work.",
     "Complete initialized BladeCreeper AI stores expiry at first think+100+12*(effective rank-1), uses strict expiry<frame, attempts missile creation once, then walks between fixed endpoints with reversal on walk failure and owner fallback. Missing row/skill requests death. Explicit movement service keeps exact velocity/path/AI schedule unproved.",
-    "Missile392 is initially created through owner, then reassigned to pet, follows its coordinates each update, resets current frame10 and ends when pet owner is missing/dead. Actor lifetime, not missile Range expression alone, controls delivery. Full hit37 flags require generic hit-router/NextHit/ToHit/get-hit follow-up.",
-    "Pinned source includes SrcDam96 and missile Half2HSrc1; full physical/typed/poison/drain/percentage/mastery/critical construction and later owner routing must be executed before claiming which gear properties transfer. Do not replace this with a pure skill-damage projectile.",
+    "Complete following missile/collision/finder/router/hit37 now execute together with a declared NPC owner. Misses consume25-frame NHD and follow ignores generic collision returns while pet lives. Full NPC hit-success formula has independent proof; native NPC owner, geometry, defenses/get-hit, event and mitigation consumers still need connection.",
+    "Complete creator, typed add/scale, physical getters and tier code are compiled for SrcDam96 and Half2HSrc48. The native packet component matches960 cases with explicit one/two-hand/unarmed/throwing/secondary contexts. Actual player weapon/stat/critical collection, first-missile timing and ownership transfer remain separate; no live player mitigation should replace the inherited blade actor.",
     "Current row has14 passive fields: rank*5 tohit,5 immunity-pierce stats,4 elemental masteries and4 pierce stats. Old SetSummonPassiveStats executes only5 slots. Existing Valkyrie base/passive evidence is reusable within its declared bounds; it does not prove the current14-slot loop or the new actor consumers.",
     "Exact unclosed passivecalc6 compiles to0 without invoking the accrued-stat callback in unchanged legacy Fog Calc. The separately labeled closed control reads the stat. Do not automatically repair it; exact current3.3.93847 cold-sunder inheritance remains uncertain.",
     "No generated weapon/armor wardrobe is specified by the Blade Sentinel or sentry path. Their dedicated skill/stat/AI context should proceed without treating deferred Shadow generated gear as a universal trap blocker. Shared stat/property abstractions may be reused where contracts match."
@@ -238,13 +238,6 @@
     "Existing weapon missile FP256 construction, source hitboxes, per-origin NextHit leases, resistance/health/poison/owner attribution and persistence where source matches; prove the changed owner and inherited stats.",
     "SourceRandom may support later supplier/path RNG only with explicit source seed evidence. Do not substitute a new invented random stream."
   ],
-  "required": [
-    "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
-    "Execute full weapon and physical skill creator/getters including Half2HSrc, typed/rate/count/drain/critical/stat layers, owner reassignment and generic hit router/AR/NextHit defenses. Preserve unsupported modern item/supplier boundaries explicitly.",
-    "Map source walk/velocity/path/reversal/duration and chronological event service to native movement without normal pet chase/follow AI changing endpoints.",
-    "Implement persistent actor/skill/stat and following collision state, paid/unpaid casts, local delay, owner/map/class/death/cap lifecycle and save/reload compatibility.",
-    "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
-  ],
   "nonblockingQuestions": [
     "Exact current cold-sunder inheritance for the malformed formula. No source-data repair or default inferred from symmetry.",
     "Current overlapping blades/origin NextHit supplier scope and original seed/stat/event ordering.",
@@ -254,5 +247,35 @@
     "effects": "BladeCreeper summoned blade/travel/emerge/expiry visuals and bladecreeper_emerge_1 audio pending. Keep separate identified placeholders when native handler is built; no imagegen needed now.",
     "icons": "Talent and independent left/right/quick icons pending in existing240-entry inventory."
   },
-  "noClassCompletionCertificate": true
+  "noClassCompletionCertificate": true,
+  "componentsInstalled": true,
+  "nativeComponentsEvidence": "tools/reference/blade-sentinel-components-native-evidence.json",
+  "summonEvidence": "tools/reference/assassin-trap-summon-engine-evidence.json",
+  "damageEvidence": "tools/reference/blade-sentinel-damage-engine-evidence.json",
+  "hitEvidence": "tools/reference/blade-sentinel-hit-engine-evidence.json",
+  "attackEvidence": "tools/reference/assassin-trap-attack-engine-evidence.json",
+  "movementReview": "tools/reference/blade-sentinel-movement-review.json",
+  "nativeRemaining": [
+    "Reference remains D2R3.3.93847/Reign of the Warlock with Sanctuary precedence. Supplementary unchanged legacy source components use declared services and are not a full current executable equivalence certificate.",
+    "No Blade Sentinel actor, moving following missile, native five-trap list, actor-owner defense/mitigation/event supplier or learned skill input is enabled. Component real gear checks cover Tarnhelm skill ranks, not actual weapon stat collection. Current real one/two-hand/throwing/dual-claw gear, weapon critical/stat selection and Blade skill item/material/potion delivery remain work.",
+    "Current14 passive fields are captured through explicit caller stats; missing required stats throw. Old helper only had5 slots. Exact pinned unclosed cold-sunder formula yields0 without a stat callback in unchanged Fog; native component mirrors that bounded legacy behavior and keeps the general parser strict. Current binary cold-sunder inheritance remains uncertain and must not be silently repaired.",
+    "Native component fixture JSON round-trips across two reloads preserve owner/gear/hard ranks plus captured records. They do not constitute production blade actor/missile persistence, paid/unpaid cast resumption, cap replacement, owner/map/class/death/logoff or live AI/packet acceptance.",
+    "Full source path review identifies AI SetVelocity15/0/20 as WALL_FOLLOW path15/distance20, with no new velocity override from0. Full PathWF grid/obstacle/budget/tie behavior and mode/velocity/AI scheduling require implementation and source/native comparison before motion is enabled. Simple straight-return or ordinary pet chase would not preserve the source contract.",
+    "Full legacy hit router shows misses also consume25-frame NHD. Following mode ignores collision-handler return while pet lives. Modern lease origin scope, actual NPC hit-success/stat context, Size3 collision geometry, defenses/get-hit, target-AC changes, pierce/sunder, mastery/poison and owner event/kill attribution remain consumers to connect. No live player mitigation supplier should substitute for the blade owner.",
+    "Source NPC hit-success proof includes integer chance/level rounding, signed stats and exclusion of player-only ITD/fractional defense/species AR. These are not yet connected to a native blade; existing global player hit chance is unchanged. Actual prevent-heal nested behavior and exact modern RNG/stat/owner acceptance remain separate.",
+    "Final blade summon/travel/emerge/expiry visuals/audio and independent talent/L/R/quick icons remain pending in the separate240-entry asset inventories. No new graphical placeholders are consumed because the playable blade is not enabled. Shadow Warrior/Master remain individually deferred behind their generated NPC gear/skill/AI consumers; Blade Sentinel/sentries do not require an invented Shadow wardrobe dependency. No class certificate or deferred item-skill gate is cleared."
+  ],
+  "requiredAtPreparation": [
+    "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
+    "Execute full weapon and physical skill creator/getters including Half2HSrc, typed/rate/count/drain/critical/stat layers, owner reassignment and generic hit router/AR/NextHit defenses. Preserve unsupported modern item/supplier boundaries explicitly.",
+    "Map source walk/velocity/path/reversal/duration and chronological event service to native movement without normal pet chase/follow AI changing endpoints.",
+    "Implement persistent actor/skill/stat and following collision state, paid/unpaid casts, local delay, owner/map/class/death/cap lifecycle and save/reload compatibility.",
+    "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
+  ],
+  "required": [
+    "Compile/port full PathWF wall-follow grid, path/mode velocity and AI event/completion behavior.",
+    "Connect actual first-missile player source collection, then explicit inherited blade actor stats/AR/mitigation/event attribution; do not use live player gear after owner transfer.",
+    "Implement nonblocking/untargetable actor shape with proved source spawn flags, shared trap cap/FIFO, natural duration and saved production actor/following-missile state.",
+    "Connect learned S2/IAS input,7mana/local25 delay/cancel/payment, actual gear, movement/terrain/NHD/defense/lifecycle and two production save/reloads before enabling skill."
+  ]
 }
