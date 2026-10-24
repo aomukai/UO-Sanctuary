@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "routineHashes": {
+    "sub_6FC64E60": "0f72bf756ff353698863145c2c6c4f2f73c1fec900586037640d90b614c660af",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe"
+  },
+  "sequenceEvidence": "tools/reference/sentry-sequence-source-evidence.json",
+  "verification": {
+    "entryCases": 4,
+    "completeModeCallbackCases": 512
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-mode-source-probe.json",
+    "sha256": "8f69657c3f48cfdb2221c13062b9b08523d2f8cdef4e64b0a9eaf5fc7eb583fc"
+  },
+  "established": [
+    "Mode14 entry initializes the sequence and clears server-do flag64 before generic start, including a failed start result.",
+    "Complete mode14 callback tests end before action; unflagged normal skill dispatches action1/2 once after a do sets flag64, and advances sequence after dispatch. Channel flag1 and action4 controls remain distinct."
+  ],
+  "limits": [
+    "Actual mode-change event queue, start/do implementations, owner/target, base animation rate and end/neutral/AI scheduling are declared services, not a live trap controller.",
+    "Current pinned sentry entries contain event1 only; event2/4 and channelled flags are generic routine controls, not asserted Charged Bolt Sentry behavior."
+  ],
+  "handlerEnabled": false
+}

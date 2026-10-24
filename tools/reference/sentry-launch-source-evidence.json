@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routineHashes": {
+    "PATH_SetNewDistance": "b26f8bfc8eb307e2894b13488d3fca9bcf36d1b8f197d20b9afb22d45d09c1aa",
+    "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
+    "SKILLS_SrvDo017_ChargedBolt_BoltSentry": "9365a809a5698835c5f1603d25a61bb1c0b30b6ab114be1ecce328887afa546a"
+  },
+  "verification": {
+    "completeVolleyCases": 1152
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-launch-source-probe.json",
+    "sha256": "798d231d4c72f326d8a8e235dbba3b5c25428338dab718ff150b5b6f17c8aa4d"
+  },
+  "established": [
+    "Each ordinal re-queries aim; failed/zero coordinates skip only that missile. Allocation failure does not stop later ordinals or change successful do17 return.",
+    "Charged-bolt initialization uses aimX+ordinal seed, clamps total/current frames at77 and calls the full distance setter after uint8 conversion. Source range98 gives77 total frames and77 path distance."
+  ],
+  "limits": [
+    "Progressive missile selection, skill formula, target lookup, allocation and actual path building are explicit checked services.",
+    "No modern executable timing/target, actual world missile or collision/damage integration is established; range256 is an explicit non-gameplay clamp control."
+  ],
+  "handlerEnabled": false
+}

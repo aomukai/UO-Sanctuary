@@ -1,4 +1,8 @@
 {
+  "fixture": {
+    "path": ".local/class-skills/sentry-ai-source-probe.json",
+    "sha256": "2c076a1d7c894e1b1147943de7f7e4acb98a2764c48c99d49d75a5ed293d53f6"
+  },
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {

@@ -2254,9 +2254,9 @@
       "tree": "Traps",
       "sourceId": 261,
       "implementation": "pending",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Creation, AI101, sequence-frame and do17 launch components are prepared with captured hard skills and three inherited lightning stats. The distinct base-helper level is retained without Blade caster-level overwrite; difficulty refresh preserves the captured skills/passives. Source/native comparisons cover12288 AI decisions,2754 sequence frames,1728 damage creator/getter cases and1152 launch/initializer cases. Current range98 initializes77-frame/77-distance charged bolts, seeded from aimX+ordinal. Each ordinal re-queries aim and individual allocation failures do not stop the volley. This is component preparation; native world actor, mode14 dispatch/end/rate, projectile owner/path/collision/mitigation, learned S2 input/payment/cancellation and production entity persistence remain pending. Nonzero inherited sunder remains explicitly refused. See sentry-component-native-evidence.json; effects and icons remain separate."
     },
     {
       "talentId": "assassin.wakeoffire",

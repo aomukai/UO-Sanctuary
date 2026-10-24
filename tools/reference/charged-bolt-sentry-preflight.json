@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
   "handlerEnabled": false,
-  "status": "Next Assassin skill: pinned data/reuse contracts and complete supplementary AI101 shot accounting verified in isolation; native actor/firing and learned input pending.",
+  "status": "Charged Bolt Sentry creation, AI101, sequence-frame and do17 launch components are installed, with its learned handler still disabled. Captured context retains effective BoltSentry rank, hard Fire Blast/Shock Web/Lightning Sentry/Death Sentry levels and three inherited lightning stats; shared trap stat collection also preserves existing Blade behavior. The summon base level is retained instead of Blade do44 caster-level overwrite. Difficulty refresh recomputes base stats without rewriting skills/passives. Native comparisons cover 12,288 AI decisions, 2,754 sequence frames, 864 normal-route lightning endpoint comparisons from 1,728 source damage controls, and 1,152 source launch/initializer cases. Aim is queried per ordinal; failed target/allocation affects only that bolt. Current range 98 initializes 77-frame/77-distance paths seeded from aimX+ordinal. Focused/full three-boot/two-reload suites, 70 Python tests and original-world installed smoke pass with saves/config/client bytes unchanged. The build remains 150 handlers (Assassin 11), with Blade Shield the latest playable addition. World actor, mode14 integration, live missile combat and learned input remain pending.",
   "sourceSkill": {
     "skill": "Charged Bolt Sentry",
     "*Id": 261,
@@ -228,9 +228,10 @@
   },
   "reviewedRouting": [
     "Player skill261 uses do45 placement and common sub_6FCF8610 summon factory; S2/IAS,13mana, shared assassintrap maximum5. Actor has BoltSentry306 plus captured hard Fire Trauma/Shock Field/Lightning Sentry/Death Sentry context and three lightning mastery/pierce/sunder passive suppliers.",
-    "Actor BoltSentry306 uses do17, the same unchanged creator and charged-bolt initializer as Sorceress Charged Bolt. Missile identity is sentrychargedbolt; do17 calls progressive missile resolution. Its raw actor skill has no damage endpoints, so damage parent/supplier lookup must be traced before launch implementation.",
+    "Actor BoltSentry306 uses complete do17/ChargedBolt initializer. Current sentrychargedbolt495 has Skill261 and no MissileSkill flag, so full damage creation uses player Charged Bolt Sentry endpoints at the retained actor rank, with assigned hard synergies and inherited mastery. Stored actor skill306 does not override that default damage source.",
     "AI101 initializes remaining shots to-1, lazily evaluates actor calc4, checks owner and non-town room, obtains target through sub_6FCF2CC0, rejects distance>=aip4, uses100percent attack roll and decrements a shot before attempting UseSkill. Failed/no target paths use distinct stall values. Exact mode completion and event scheduling remain separate.",
-    "Player and actor calc4 are shot counts,5+hard Lightning Sentry/4; they are not a frame duration. Bolt count is5+hard Shock Field/3. Do not reuse Blade Sentinel DurationFrames=calc4 or its first-missile weapon inheritance for this elemental stationary trap."
+    "Player and actor calc4 are shot counts,5+hard Lightning Sentry/4; they are not a frame duration. Bolt count is5+hard Shock Field/3. Do not reuse Blade Sentinel DurationFrames=calc4 or its first-missile weapon inheritance for this elemental stationary trap.",
+    "do45 retains min(casterLevel, rank + floor(3*casterLevel/4)) from the complete shared base helper; unlike Blade do44 it has no caster-level overwrite. The current native capture verifies caster99/rank1 gives75 and real Griffon rank2 gives76."
   ],
   "reuse": [
     {
@@ -251,15 +252,30 @@
     }
   ],
   "required": [
-    "Connect verified AI101 and lazy shot accounting to a saved native actor; compile unchanged do17/initializer with declared service boundaries and trace progressive missile/damage skill parent resolution and sequence firing events.",
-    "Implement stationary saved world body, shared FIFO, supported inherited lightning stats/hard skills, explicit difficulty rescaling, original-facet policy, offline suppression and source-supported expiry/removal.",
-    "Connect learned right/quick S2 input,13mana release ordering, placement/cancellation and target/visibility/harmful-region services; verify real input, live damage, shot exhaustion and two reloads.",
-    "Track final sentry actor/bolt/cast/impact/audio effects and both icon uses separately; retain current placeholders."
+    "Implement the saved stationary Sentry world actor and native mode14 controller using the prepared captured context, AI101, sequence and source callback evidence; connect shared FIFO, owner-facet stat refresh, old-facet policy and offline suppression.",
+    "Connect trap-owned charged-bolt flight, collision, resistance-piercing/mitigation, damage credit and source event/rate/remaining-shot lifecycle, then learned right/quick S2 cast and13mana payment/cancellation.",
+    "Verify real connected firing, target changes, shot exhaustion, owner/facet/death/offline transitions and actual actor/missile saves through two reloads before enabling the handler. Keep idle-timeout and exact modern acceptance uncertain until supported."
   ],
   "uncertain": [
-    "Exact modern AI target/distance/visibility, sequence timing, idle/exhaustion/death removal and any independent timeout have not been established; do not invent a timeout from the shot count.",
-    "Captured versus live modern resistance-piercing/sunder/mastery and hard synergy context, projectile owner attribution, modern NextHit scope and current executable missile/stat/event equivalence require bounded evidence."
+    "These are creation/AI/sequence/damage/launch components, not a playable sentry. No world actor, automatic controller, mode14 entry/callback/end, live missile flight/collision/mitigation, learned S2 input/payment/cancellation or production entity persistence is enabled.",
+    "Component fixtures serialize captured creation, remaining shots and fractional sequence phase through two process/world reloads. This is explicit component context, not proof of a production sentry save schema or live world ownership lifecycle.",
+    "The damage matrix has 1,728 full source creator/getter cases, including 864 explicit MissileSkill override controls. Native Sentry lightning endpoints are compared only for the 864 normal Skill261 routes; the override is source-only and is not a native player feature.",
+    "Source owner/room/target/formula/chance, table/skill selection, stat composition, ratio, allocation and path-build services are explicit boundaries. No whole current executable, target geometry/visibility/seed/timing/stat/event equivalence is claimed.",
+    "Complete mode14 entry/callback source now has 4 entry and 512 callback controls with clean sanitizers; generic start/do, target and end/neutral/event scheduling remain explicit services. Live rate and event order still need native actor integration.",
+    "The supplementary source AI101 treats an owner town room as a death branch. Connecting that service must respect Sanctuary\u2019s approved old-facet retention/offline policy; verify cross-facet town transitions explicitly rather than silently adopting the older removal branch.",
+    "Current calc4 is a shot count, not duration. Firsthand idle expiry remains unconfirmed; do not invent an independent timeout from the tentative observation. Pinned shared cap 5/FIFO and approved old-facet/offline policies remain; actual Sentry adapters still need connection.",
+    "Nonzero inherited lightning sunder is explicitly refused until its immunity consumer exists. Effects and talent/hotkey icons retain separate 240-entry inventories with placeholders. No assets generated, class completed or Nightmare/Hell facet assignments invented."
   ],
   "compiledAiEvidence": "tools/reference/sentry-ai-source-evidence.json",
-  "compiledAiCases": 12288
+  "compiledAiCases": 12288,
+  "componentsInstalled": true,
+  "nativeEvidence": "tools/reference/sentry-component-native-evidence.json",
+  "observations": "tools/reference/sentry-observations.json",
+  "compiledSourceEvidence": {
+    "ai": "tools/reference/sentry-ai-source-evidence.json",
+    "sequence": "tools/reference/sentry-sequence-source-evidence.json",
+    "damage": "tools/reference/sentry-damage-source-evidence.json",
+    "launch": "tools/reference/sentry-launch-source-evidence.json",
+    "mode": "tools/reference/sentry-mode-source-evidence.json"
+  }
 }

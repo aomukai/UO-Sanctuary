@@ -132,6 +132,8 @@ def check():
         shutil.copy2(STAGE / 'shock-web-source-probe.json',folder / 'shock-web-source-probe.json')
         shutil.copy2(STAGE / 'shock-web-damage-source-probe.json',folder / 'shock-web-damage-source-probe.json')
         shutil.copy2(STAGE / 'blade-shield-damage-source-probe.json',folder / 'blade-shield-damage-source-probe.json')
+        for fixture in ['sentry-ai','sentry-sequence','sentry-damage','sentry-launch']:
+            shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll'):
             if name not in assemblies:
@@ -208,6 +210,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    sentry='sentry-component-check' if boot==0 else 'sentry-component-reload-check'
+                    session.send(sentry)
+                    assert session.expect(sentry+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     shield='blade-shield-check' if boot==0 else 'blade-shield-reload-check'
                     session.send(shield)
                     assert session.expect(shield+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

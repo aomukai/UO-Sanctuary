@@ -1,0 +1,15 @@
+{
+  "referenceVersion": "3.3.93847",
+  "observedAtUtc": "2026-10-24T22:48:43.743479+00:00",
+  "source": "User report from pinned playable Assassin",
+  "observation": "Has not waited to see a trap disappear. Believes it might after a while; normally replaces traps and recalls a cap around five.",
+  "established": [
+    "User has no timed idle-expiry observation."
+  ],
+  "uncertain": [
+    "Whether an independent idle timeout exists",
+    "Its duration or trigger if it exists"
+  ],
+  "interpretation": "The pinned shared cap5/FIFO remains authoritative. Do not invent an independent lifetime from this tentative report or reinterpret calc4 shot count as duration.",
+  "nonblocking": true
+}

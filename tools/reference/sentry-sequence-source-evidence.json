@@ -1,0 +1,114 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "routineHashes": {
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2"
+  },
+  "table": {
+    "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/monseq.json",
+    "commit": "fa1286949266498b294c40c2942521a7c0d7207a",
+    "blob": "352141d47a75e3562b3bfd816e4ebea318980ba5",
+    "sha256": "56d0348313038d532fcf6a0c77eb57afc8b2f705af7e94561b7086b209564d2a",
+    "rows": [
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 0
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 1
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 2,
+        "event": 1
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 3
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 4
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 5
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 6
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 7
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 8
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 9
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 10
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 11
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 12
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 13
+      },
+      {
+        "sequence": "seq_chargesentry",
+        "mode": "S2",
+        "frame": 14
+      }
+    ]
+  },
+  "verification": {
+    "initializationCases": 1,
+    "completeSequenceFrames": 2754
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-sequence-source-probe.json",
+    "sha256": "e4a92bb7bba74e36e519ea87af7fb1f50240745734ea84ac0d2985b08e51fb7f"
+  },
+  "scope": "Complete unchanged initializer, sequence advance, event lookup and end test with pinned current sequence entries; ASan/UBSan clean.",
+  "limits": [
+    "Actual NPC mode-entry/dispatch/end callbacks, live animation rate and event scheduling are separate.",
+    "Table lookup, ordinary-animation branch and frame bonus are declared services; the non-sequence branch is not exercised.",
+    "Source zero speed and unusual starting fractions are explicit controls, not asserted gameplay states; current sentry animation-rate acceptance remains pending."
+  ],
+  "handlerEnabled": false
+}
