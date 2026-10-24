@@ -64,6 +64,7 @@ def check():
         shutil.copy2(STAGE / 'bow-projectile-source-probe.json', folder / 'bow-projectile-source-probe.json')
         shutil.copy2(STAGE / 'weapon-missile-impact-probe.json', folder / 'weapon-missile-impact-probe.json')
         shutil.copy2(STAGE / 'magic-arrow-source-probe.json', folder / 'magic-arrow-source-probe.json')
+        shutil.copy2(STAGE / 'magic-arrow-action-source-probe.json', folder / 'magic-arrow-action-source-probe.json')
         shutil.copy2(STAGE / 'bow-launch-source-probe.json', folder / 'bow-launch-source-probe.json')
         shutil.copy2(STAGE / 'amazon-penetrate-source-probe.json', folder / 'amazon-penetrate-source-probe.json')
         shutil.copy2(STAGE / 'amazon-pierce-source-probe.json', folder / 'amazon-pierce-source-probe.json')
@@ -110,6 +111,19 @@ def check():
                     bow_launch='bow-launch-check' if boot==0 else 'bow-launch-reload-check'
                     session.send(bow_launch)
                     assert session.expect(bow_launch+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    magic='magic-arrow-cast-check' if boot==0 else 'magic-arrow-cast-reload-check'
+                    session.send(magic)
+                    assert session.expect(magic+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as magic_client:
+                        threading.Thread(target=drain_fixture_client,args=(magic_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('magic-arrow-input-check')
+                        assert session.expect(r'magic-arrow-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'magic-arrow-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        magic_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'magic-arrow-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    time.sleep(.15)
                     leech='weapon-leech-check' if boot==0 else 'weapon-leech-reload-check'
                     session.send(leech)
                     assert session.expect(leech+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

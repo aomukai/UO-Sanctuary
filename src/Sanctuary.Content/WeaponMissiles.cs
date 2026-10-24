@@ -211,6 +211,17 @@ public static class WeaponMissiles
                 if(damage.Cold>0){GearEffects.ApplyChill(selected,Core.TickCount,damage.ColdMs,owner);}
                 if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
+            if(AmazonBow.Handles(flight.Ability))
+            {
+                // Preserve the separate attacker/defender event paths. Leech
+                // and critical were already delivered from the saved packet.
+                if((flight.Flags&0x10000)==0)
+                {
+                    NecromancerEffects.WeaponHit(player,selected,Math.Min(loss,(int)parts.Physical),true,lifeTap:false);
+                    NamedCombat.AfterStrike(player,selected,true,ItemEffects);
+                }
+                GemCombat.WeaponHit(player,selected,loss,true);
+            }
             CombatDamage.Finish(selected,owner);
         }
         if(!pierce){_flights.Remove(flight.Id);}

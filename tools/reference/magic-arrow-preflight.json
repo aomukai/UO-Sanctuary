@@ -2,9 +2,9 @@
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.magicarrow",
   "sourceId": 6,
-  "handlerEnabled": false,
-  "componentOnly": true,
-  "status": "Magic Arrow conversion component now follows the compiled supplementary impact ordering with separate physical/magic mitigation and physical-only leech.216 split/1536 integrated source-native cases and native immune-target/mastery/leech/old-payload/saved-conversion checks pass. Focused/full native checks each pass three boots/two reloads, retaining Decoy source life behavior and natural expiry through the shared percentage helper. Content/integration builds have zero warnings/errors;70 Python tests and fresh467/15 fingerprints pass. Matching125-handler component build loads existing world and shuts down with exit0; server stopped, saves retained, client/native patches/item availability unchanged. Full Magic Arrow remains pending launch/input/payment/item-event integration; no new handler or class certificate.",
+  "handlerEnabled": true,
+  "componentOnly": false,
+  "status": "Superseded by installed native Magic Arrow; Magic Arrow is the126th installed handler/Amazon14. Learned bow/crossbow A1 inputs, L/R/quick bindings, no ammunition gate/debit, once-only fractional release mana and zero-mana rank13+ casts use the saved travelling collector. Source shot clocks and original modern repeat cycles remain distinct; real IAS/FCR gear, real out-and-back movement, equipment/recovery cancellation, supported item callbacks, actual Cast packets/natural40ms flight and saved paid-flight/unpaid-windup checks pass. Focused and combined native suites each pass three boots/two reloads with real input on all three boots;70 Python tests and fresh469/15 fingerprints pass. Final content/integration builds have zero warnings/errors. Matching126-handler build loads the existing world and shuts down exit0; server stopped, saves retained, client/native patches and all573 named availability flags unchanged. Current AR transfer, exact modern stat/mastery/seed/target-loss/item/owner/client branches remain explicit acceptance gaps; no class certificate or item gate cleared.",
   "sourceEvidence": "tools/reference/magic-arrow-engine-evidence.json",
   "reuse": [
     "WeaponMissiles saved Q12 flight, current owner AR/pierce, source impact rolls, typed mitigation, FP256 health and physical-only leech. No immediate-ray replacement.",
@@ -25,11 +25,13 @@
     "The shared percentage extraction retains960 Decoy source/native life/level cases and natural expiry across both reloads."
   ],
   "remaining": [
-    "Use the verified bow launch collector for the full Magic Arrow action. Raw endpoints, source scaling, typed/poison metadata and existing material/potion/Enchant/aura projection checks are complete within tools/reference/bow-launch-native-evidence.json; its explicit modern/stat/RNG limits remain.",
-    "Implement and test learned bow/crossbow availability, weapon A1/IAS timing, selected/free-ground input, right/left/quick bindings, no ammunition gate/debit, once-only fractional release mana, cancellation and held input. Pinned rank1 cost1.5mana, rank2 cost1.375 and rank13+ cost0.",
-    "Retain distinct attacker/defender item-event paths, source saved ToHit, actual current item eligibility and owner/client checks. Existing direct damage/leech/Crushing coverage is not every proc/knockback/open-wounds interaction.",
-    "Exact current3.3.93847 conversion versus extra-magic damage/mastery/stat inheritance needs current evidence. The compiled legacy harness supplies missile mastery stats explicitly; it does not prove how modern launch collects or inherits them. Do not infer current Warlock item-stat behavior from the injected fixture.",
-    "Literal legacy100percent conversion may leave less than100FP256 physical above the early-division threshold. Current executable behavior remains unproven; keep this boundary explicit."
+    "Current3.3.93847 player missile skill AR transfer remains uncertain: immutable older generic factory leaves extra ToHit0 despite pinned displayed10+9*(rank-1). Native uses existing live owner AR with0 additional bonus. This is an individually recorded gap, not a verified modern bug or invented bonus.",
+    "Old engine and original modern IAS calculator are bounded reference evidence; current executable/desktop animation, exact seed/correlation and full owner/stat/client parity remain unproven. Cached legacy AnimData acquisition provenance is incomplete. Human ordinary bow/crossbow only; transformed/foreign/NPC/alternate/sequence modes are excluded.",
+    "Current native sight/LOS/town/vertical guards and cursor-on-self rejection are existing port projections; source pixel/subtile/overlap/first-collision fidelity is not certified. A lost primary falls back to stored point, while a valid selected enemy uses its live release location; exact current target-loss and midcast soft-rank/stat/mana changes remain acceptance work.",
+    "Collector custom material/gem/potion quantization and independent supplement RNG/correlation, current Enchant/aura/mastery order, extra-magic and large100%conversion remainder retain their documented limits. Do not infer modern item stat inheritance from injected source fixtures.",
+    "Only supported existing native item services are dispatched. Individual knockback/fear/blind/freeze/slow/PMH/OW callback rules/order and every proc/charged/foreign/item event need broader current acceptance; no item acquisition gate is cleared. Native co-op hostility excludes player PvP and friendly/controlled/summoned targets.",
+    "Shared native SourceBlocking component/shield eligibility remains inherited: unsupported/unmapped species are gated by that existing consumer, not assigned invented D2 block metadata. Its source/current geometry and regional-component limits remain in the travelling missile evidence.",
+    "No class completion certificate. Missing final assets do not block the supported handler; unsupported/uncertain branches stay separately recorded while the Amazon roadmap continues."
   ],
   "nonblockingQuestions": [
     {
@@ -41,22 +43,51 @@
     "effects": "Identified existing weapon-flight0xF42 logical trail placeholder only. SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending in existing effect row.",
     "icons": "Existing independent talent and left/right hotkey icon requirements stay pending. No image generated or mapped."
   },
-  "next": "Implement and verify Magic Arrow A1/input/bindings/no-ammunition/payment/item-event consumers using the captured payload. Keep the current AR transfer question separate; no full handler claimed.",
+  "next": "Continue Multiple Shot using the verified shared collector/flight/fan; retain explicit modern Magic Arrow acceptance gaps.",
   "logs": {
-    "source": ".local/class-skills/magic-arrow-source.log",
-    "sourceFixture": ".local/class-skills/magic-arrow-source-probe.json",
-    "contentBuild": ".local/class-skills/magic-arrow-component-content-build.log",
-    "integrationBuild": ".local/class-skills/magic-arrow-component-integration-build.log",
-    "focused": ".local/class-skills/magic-arrow-component-focused.log",
-    "focusedRun": ".local/class-skills/magic-arrow-component-focused-run.log",
-    "combined": ".local/class-skills/magic-arrow-component-combined.log",
+    "source": ".local/class-skills/magic-arrow-cast-source.log",
+    "sourceFixture": ".local/class-skills/magic-arrow-action-source-probe.json",
+    "contentBuild": ".local/class-skills/magic-arrow-cast-content-build.log",
+    "integrationBuild": ".local/class-skills/magic-arrow-cast-integration-build.log",
+    "focused": ".local/class-skills/magic-arrow-cast-focused.log",
+    "focusedRun": ".local/class-skills/magic-arrow-cast-focused-run.log",
+    "initialFocused": ".local/class-skills/magic-arrow-cast-initial-focused.log",
+    "initialFocusedRun": ".local/class-skills/magic-arrow-cast-initial-focused-run.log",
+    "combined": ".local/class-skills/magic-arrow-cast-combined.log",
     "combinedRun": ".local/class-skills/full-suite-run.log",
-    "python": ".local/class-skills/magic-arrow-component-python-checks.log",
-    "installed": ".local/class-skills/magic-arrow-component-installed-smoke.log",
-    "installedServer": ".local/class-skills/magic-arrow-component-installed-server.log",
-    "initialFocusPrompt": ".local/class-skills/magic-arrow-component-focused-prompt-failure.log"
+    "python": ".local/class-skills/magic-arrow-cast-python-checks.log",
+    "installed": ".local/class-skills/magic-arrow-cast-installed-smoke.log",
+    "installedServer": ".local/class-skills/magic-arrow-cast-installed-server.log",
+    "lootFailure": ".local/class-skills/magic-arrow-cast-loot-failure.log",
+    "lootFailureRun": ".local/class-skills/magic-arrow-cast-loot-failure-run.log"
   },
   "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "actualSocketInputBootsPerSuite": 3,
+    "compiledTimingRows": 12,
+    "originalModernCycleRows": 12,
+    "pythonTests": 70,
+    "namedInputs": 469,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573,
+    "handlerEnabled": true,
+    "componentOnly": false
+  },
+  "buildHashes": {
+    "content": "33741a95a46e1e78bbe8efdeaf285fdd50fc1b34f0c18eea063776f53a0c04bf",
+    "integration": "f94eb71ca60ea77333c16262fc5704b7f8207d12a5b5f3be78e92e6a2922adc9"
+  },
+  "fixtureCorrections": [
+    "Initial focused harness skipped the owner-account prompt on restart, but these component fixtures create no accounts. Server waited at the prompt; interrupted the disposable run after first-boot checks passed, then handled the prompt on each boot. Final focused run passes both reloads; no runtime change.",
+    "Saved moving flight alone retains the existing10minute inspection hold; normal40ms travel is independently verified. No production lifetime is extended.",
+    "Initial readiness regeneration was attempted before the fresh native audit export and correctly refused stale hashes. Final generation and70 Python tests pass after the current467/15 exports."
+  ],
+  "bowLaunchEvidence": "tools/reference/bow-launch-native-evidence.json",
+  "subsequentScope": "Superseded by the installed native handler in magic-arrow-native-evidence.json. Earlier conversion/collector matrices retain their bounded historical scope; current uncertainty remains explicitly recorded in the native evidence.",
+  "historicalComponentVerification": {
     "componentOnly": true,
     "handlerEnabled": false,
     "focusedBoots": 3,
@@ -72,15 +103,20 @@
     "namedDefinitionsUnchanged": 573,
     "installedSmoke": "Existing-world2593/12000 listen and clean shutdown exit0; no save reset."
   },
-  "buildHashes": {
-    "content": "972dff0e28383a7e6974ea9c6b7b356b65c3ced278e855bc4ca58033d1e8f8c8",
-    "integration": "aac55e20cff9b1d2f0f60024b5865a4535d35dc05771556a65e04ea9eb79265b"
-  },
-  "fixtureCorrections": [
-    "Initial focused harness skipped the owner-account prompt on restart, but these component fixtures create no accounts. Server waited at the prompt; interrupted the disposable run after first-boot checks passed, then handled the prompt on each boot. Final focused run passes both reloads; no runtime change.",
-    "Saved moving flight alone retains the existing10minute inspection hold; normal40ms travel is independently verified. No production lifetime is extended.",
-    "Initial readiness regeneration was attempted before the fresh native audit export and correctly refused stale hashes. Final generation and70 Python tests pass after the current467/15 exports."
-  ],
-  "bowLaunchEvidence": "tools/reference/bow-launch-native-evidence.json",
-  "subsequentScope": "The collector evidence supersedes the earlier unimplemented launch-collection dependency for the supported ordinary single-bow/physical-skill cases. Full skill action, mana/no-ammunition, item events and recorded source/current/projection limits remain."
+  "nativeEvidence": "tools/reference/magic-arrow-native-evidence.json",
+  "actionEvidence": "tools/reference/magic-arrow-action-engine-evidence.json",
+  "historicalComponentLogs": {
+    "source": ".local/class-skills/magic-arrow-source.log",
+    "sourceFixture": ".local/class-skills/magic-arrow-source-probe.json",
+    "contentBuild": ".local/class-skills/magic-arrow-component-content-build.log",
+    "integrationBuild": ".local/class-skills/magic-arrow-component-integration-build.log",
+    "focused": ".local/class-skills/magic-arrow-component-focused.log",
+    "focusedRun": ".local/class-skills/magic-arrow-component-focused-run.log",
+    "combined": ".local/class-skills/magic-arrow-component-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/magic-arrow-component-python-checks.log",
+    "installed": ".local/class-skills/magic-arrow-component-installed-smoke.log",
+    "installedServer": ".local/class-skills/magic-arrow-component-installed-server.log",
+    "initialFocusPrompt": ".local/class-skills/magic-arrow-component-focused-prompt-failure.log"
+  }
 }

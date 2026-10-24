@@ -240,10 +240,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 6,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Saved conversion and bow launch collection are prepared:288 complete source creator cases,216 conversion/1536 impact rows, real named bows/poison/gems/materials/Enchant/aura/critical/physical potion snapshot and native moving-save checks are recorded separately. Shared poison contributions retain raw FP256 rates, aggregate frames/count before source scaling; physical skill endpoints join weapon source damage before percentages. Native material/potion supplements and ranged Enchant/aura rules retain existing project arithmetic with explicit projection/rounding/RNG limits. Full skill remains pending A1/IAS/input/bindings/no-ammunition/payment and item events; older generic player-arrow ToHit0 versus pinned displayed skill AR is individually uncertain. Full modern stat/mastery/client parity remains acceptance; no handler/item gate enabled."
+      "remaining": "Learned bow/crossbow A1 action and L/R/quick/selected/free-ground inputs use the saved travelling collector. No ammunition gate/debit; rank1 costs1.5mana, rank2 costs1.375 and rank13+ is free. Once-only fractional release payment, real IAS versus FCR gear, interruptible movement/equipment/recovery, actual Cast packets/natural40ms flight, supported item callbacks and two-reload pending-windup/saved-flight checks are recorded separately. Shared source conversion/typed/poison/critical/Pierce/leech and custom modifier limits remain. Original modern repeat-cycle minus-one is distinguished from the older ENDANIM clock. Older generic player-arrow ToHit0 versus pinned displayed skill AR, exact current source/mastery/seed/stat/owner/client/target-loss/modern item callbacks remain individually uncertain; no class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.firearrow",

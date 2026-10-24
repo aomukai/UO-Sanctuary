@@ -137,7 +137,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
-        'amazon.magicarrow':'Saved projectile component uses identified UO0xF42 logical trail. Full cast consumer and final SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending; talent/hotkey icons remain separate',
+        'amazon.magicarrow':'Native bow/crossbow A1 shot uses identified UO0xF42 logical trail and0x238 native bow sound placeholders. Final SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending; talent/hotkey icons remain separate',
         'amazon.decoy':'Static UO sex silhouette/hue0x481,0x376A appear marker and0x1E5 cast sound are identified placeholders. Final Decoy model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio pending. Talent/right-hotkey icons remain separate',
         'amazon.slowmissiles':'Cast/target presentation pending. Slowed native encounter bolt positions use identified UO0xF42/0x36D4/0x3818 markers at logical travel positions; final cast_slowmissiles, innersight target overlay and amazon_handofathena audio pending. Talent/right-hotkey icons remain separate',
         'amazon.evade':'Staged native0x1A4 sound only, with no S1/movement/recovery lock or visual marker. Final block_arrow_1 / amazon_dodge_1 audio pending; source row S1 alone does not establish a bitmap effect. No active hotkey',

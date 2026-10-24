@@ -28,7 +28,21 @@ public static class PaladinTravelChecks
         BaseCreature victim=unknown?new GraveyardLich():new GraveyardSkeleton();victim.Frozen=true;victim.CantWalk=true;
         victim.MoveToWorld(new(owner.X+offset,owner.Y,owner.Z),owner.Map);victim.AIObject.AITimer.Stop();
         Corpse corpse=null;var previous=ClassLootHooks.CreatureDied;
-        ClassLootHooks.CreatureDied=(actor,container)=>{previous?.Invoke(actor,container);if(actor==victim){corpse=container as Corpse;corpse?.DropItem(new Gold(7));}};
+        ClassLootHooks.CreatureDied=(actor,container)=>
+        {
+            if(actor!=victim){previous?.Invoke(actor,container);return;}
+            // Redemption needs a genuine retained corpse, not a random affix
+            // or ordinary throwing-base test. Keep the real capture/reward
+            // consumers with deterministic gold, as the Find Item fixture does.
+            int seed=0;var type=actor.GetType();var difficulty=MonsterVariants.Difficulty(actor);
+            if(CreatureGold.Policy(type,difficulty) is{Eligible:true})
+            {
+                while(seed<10000 && CreatureGold.Select(type,new Random(seed),difficulty)!="gld"){seed++;}
+                Require(seed<10000,"Ordinary Redemption gold treasure seed");
+            }
+            CorpseSkillRules.Capture(actor,container);RewardLife.Process(actor,container,new Random(seed));
+            corpse=container as Corpse;corpse?.DropItem(new Gold(7));
+        };
         try{owner.DoHarmful(victim,true);victim.Damage(victim.Hits+1,owner);CombatDamage.Finish(victim,owner);}
         finally{ClassLootHooks.CreatureDied=previous;}
         Require(corpse is{Deleted:false} && ClassLoot.HasContents(corpse),$"Real corpse/loot fixture: corpse={corpse?.Serial}, alive={victim.Alive}, deleted={victim.Deleted}");return corpse;

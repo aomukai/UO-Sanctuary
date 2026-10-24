@@ -1,0 +1,90 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.magicarrow",
+  "sourceId": 6,
+  "handlerEnabled": true,
+  "componentOnly": false,
+  "status": "Magic Arrow is the126th installed handler/Amazon14. Learned bow/crossbow A1 inputs, L/R/quick bindings, no ammunition gate/debit, once-only fractional release mana and zero-mana rank13+ casts use the saved travelling collector. Source shot clocks and original modern repeat cycles remain distinct; real IAS/FCR gear, real out-and-back movement, equipment/recovery cancellation, supported item callbacks, actual Cast packets/natural40ms flight and saved paid-flight/unpaid-windup checks pass. Focused and combined native suites each pass three boots/two reloads with real input on all three boots;70 Python tests and fresh469/15 fingerprints pass. Final content/integration builds have zero warnings/errors. Matching126-handler build loads the existing world and shuts down exit0; server stopped, saves retained, client/native patches and all573 named availability flags unchanged. Current AR transfer, exact modern stat/mastery/seed/target-loss/item/owner/client branches remain explicit acceptance gaps; no class certificate or item gate cleared.",
+  "sourceEvidence": "tools/reference/magic-arrow-engine-evidence.json",
+  "actionEvidence": "tools/reference/magic-arrow-action-engine-evidence.json",
+  "collectorEvidence": "tools/reference/bow-launch-native-evidence.json",
+  "implementation": [
+    "src/Sanctuary.Content/AmazonBow.cs",
+    "src/Sanctuary.Content/AmazonCombat.cs",
+    "src/Sanctuary.Content/ActionTiming.cs",
+    "src/Sanctuary.Content/ClassCombat.cs",
+    "src/Sanctuary.Content/ClassMovement.cs",
+    "src/Sanctuary.Content/WeaponMissiles.cs"
+  ],
+  "test": "tests/Sanctuary.Integration/MagicArrowChecks.cs",
+  "verifiedFocused": [
+    "Actual learned Amazon Magic Arrow accepts mapped active bow/crossbow equipment and L/R/quick bindings. Unlearned/backpack-bow and insufficient-mana paths reject without a shot/debit. No quiver is required, and actual Arrow3/Bolt4 stacks remain unchanged across bow/crossbow direct and held inputs.",
+    "Twelve native timing comparisons use compiled engine shot clocks and unchanged original modern repeat-cycle rows. Real Magefist FCR20 leaves timing unchanged; real Twitchthroe IAS20 shortens it. Ordinary A1 uses zero starting-frame bonus, bow14/event6 and crossbow20/event9 metadata; the modern repeat-cycle minus-one is distinct from old ENDANIM.",
+    "Actual rank1 release spends384FP256 once; rank2 costs352, rank12 costs32 and rank13+ casts at zero mana. Start and repeated ResolveAction pay nothing. Stop, real out-and-back steps, bow removal/re-equip and hit recovery cancel the unpaid shot; mana lost during windup prevents release.",
+    "Actual casts launch a captured travelling payload with current physical/conversion data. Existing independent per-created-missile critical and capped-four pierce-budget services are reused; no immediate ray or whole-fan critical is substituted. Detailed source/typed/poison/material/potion/Enchant/aura collection remains covered by the prior independent collector evidence.",
+    "Actual Blackhorn Face/Boneflesh on a travelling shot apply native20%slow, prevent healing and Open Wounds through existing callbacks. Flag0x10000 suppresses this attacker path. Saved LifeTap/WeaponLeech/Crushing remain separate, without a duplicate generic leech/critical call. Defender Gem callback remains a separate branch; complete PvP/proc dispatch is not established.",
+    "Genuine disposable TCP sockets receive normal version7 Cast packets through the logged-in parser on every boot. The normal40ms loop creates a shot before target HP changes, then delivers damage with exactly one1.5mana debit and unchanged Arrow3. This is normal server timing/input, not a desktop client certificate.",
+    "An actual paid moving cast persists its immutable payload, fractional mana, rank, bow identity and L/R/quick bindings through both reloads. A second unpaid windup is deliberately saved each time; it does not replay. The released shot still impacts after the bow is put in the backpack, with no repeated payment; the same held inspection payload is saved for the second reload."
+  ],
+  "fixtureControls": [
+    "Only named MagicArrowOwner/construction have hour-long regeneration wrappers. BowLaunchTarget is the already verified manually serialized skeleton subclass with no thinking/sector AI restart; production monster recovery is unchanged. Free19-cell equal-floor corridors exclude guarded towns and unrelated actors.",
+    "Saved moving payloads alone retain the existing10minute inspection hold. Separate real Cast packets/natural40ms flight run without a production lifetime extension. An offline saved owner cannot naturally complete its intentionally unpaid windup before restart.",
+    "Account/character selection is fixture-bootstrapped onto a real disposable TCP socket. Hit/damage/block providers are scoped for deterministic native geometry/health acceptance, restored on completion/failure. Natural animation/event/travel timing is not stepped by the fixture.",
+    "Initial cast-only focused run passed before item/real-socket/interruption expansions; retained separately. Final expanded focus also passes three boots/two reloads. No gameplay eligibility assertion was weakened.",
+    "First combined run stopped on preexisting ordinary corpse loot: NamedAmmunition.Maximum queried tax in the named-item base subset. The retained failure and tools/reference/loot-throwing-base-gap.json record the exact source row/lookup. Only PaladinTravelChecks Redemption corpse setup now selects deterministic actual-TC gold and runs real capture/reward consumers, matching the existing Find Item fixture. Other deaths forward their hook; no production loot/quantity rule or skill assertion was weakened. Final combined run passes."
+  ],
+  "limits": [
+    "Current3.3.93847 player missile skill AR transfer remains uncertain: immutable older generic factory leaves extra ToHit0 despite pinned displayed10+9*(rank-1). Native uses existing live owner AR with0 additional bonus. This is an individually recorded gap, not a verified modern bug or invented bonus.",
+    "Old engine and original modern IAS calculator are bounded reference evidence; current executable/desktop animation, exact seed/correlation and full owner/stat/client parity remain unproven. Cached legacy AnimData acquisition provenance is incomplete. Human ordinary bow/crossbow only; transformed/foreign/NPC/alternate/sequence modes are excluded.",
+    "Current native sight/LOS/town/vertical guards and cursor-on-self rejection are existing port projections; source pixel/subtile/overlap/first-collision fidelity is not certified. A lost primary falls back to stored point, while a valid selected enemy uses its live release location; exact current target-loss and midcast soft-rank/stat/mana changes remain acceptance work.",
+    "Collector custom material/gem/potion quantization and independent supplement RNG/correlation, current Enchant/aura/mastery order, extra-magic and large100%conversion remainder retain their documented limits. Do not infer modern item stat inheritance from injected source fixtures.",
+    "Only supported existing native item services are dispatched. Individual knockback/fear/blind/freeze/slow/PMH/OW callback rules/order and every proc/charged/foreign/item event need broader current acceptance; no item acquisition gate is cleared. Native co-op hostility excludes player PvP and friendly/controlled/summoned targets.",
+    "Shared native SourceBlocking component/shield eligibility remains inherited: unsupported/unmapped species are gated by that existing consumer, not assigned invented D2 block metadata. Its source/current geometry and regional-component limits remain in the travelling missile evidence.",
+    "No class completion certificate. Missing final assets do not block the supported handler; unsupported/uncertain branches stay separately recorded while the Amazon roadmap continues."
+  ],
+  "nonblockingQuestions": [
+    {
+      "question": "An existing Magic Arrow tooltip at a known effective rank could corroborate conversion/mana/damage display; resolving actual3.3 missile AR transfer needs executable/reference evidence beyond that display.",
+      "handling": "Recorded only; user asleep/away. Continue unaffected Amazon skills."
+    }
+  ],
+  "assets": {
+    "effects": "UO0xF42 logical travel and0x238 native bow sound are identified placeholders. Final SafeArrow/magicarrow travel, teethexplode impact and amazon_magicarrow_1 audio remain pending in the effects register.",
+    "icons": "Talent and left/right hotkey icons remain pending separately; no image generated/mapped."
+  },
+  "next": "Multiple Shot: reuse the same bow action/collector/flight and shared Teeth do8 fan, source start4/mana and one-arrow-after-fan sequencing. Keep current source/owner/client/proc gaps individual.",
+  "logs": {
+    "source": ".local/class-skills/magic-arrow-cast-source.log",
+    "sourceFixture": ".local/class-skills/magic-arrow-action-source-probe.json",
+    "contentBuild": ".local/class-skills/magic-arrow-cast-content-build.log",
+    "integrationBuild": ".local/class-skills/magic-arrow-cast-integration-build.log",
+    "focused": ".local/class-skills/magic-arrow-cast-focused.log",
+    "focusedRun": ".local/class-skills/magic-arrow-cast-focused-run.log",
+    "initialFocused": ".local/class-skills/magic-arrow-cast-initial-focused.log",
+    "initialFocusedRun": ".local/class-skills/magic-arrow-cast-initial-focused-run.log",
+    "combined": ".local/class-skills/magic-arrow-cast-combined.log",
+    "combinedRun": ".local/class-skills/full-suite-run.log",
+    "python": ".local/class-skills/magic-arrow-cast-python-checks.log",
+    "installed": ".local/class-skills/magic-arrow-cast-installed-smoke.log",
+    "installedServer": ".local/class-skills/magic-arrow-cast-installed-server.log",
+    "lootFailure": ".local/class-skills/magic-arrow-cast-loot-failure.log",
+    "lootFailureRun": ".local/class-skills/magic-arrow-cast-loot-failure-run.log"
+  },
+  "buildHashes": {
+    "content": "33741a95a46e1e78bbe8efdeaf285fdd50fc1b34f0c18eea063776f53a0c04bf",
+    "integration": "f94eb71ca60ea77333c16262fc5704b7f8207d12a5b5f3be78e92e6a2922adc9"
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "actualSocketInputBootsPerSuite": 3,
+    "compiledTimingRows": 12,
+    "originalModernCycleRows": 12,
+    "pythonTests": 70,
+    "namedInputs": 469,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Nonblocking preexisting ordinary throwing-base lookup gap; no production quantity/loot policy changed.",
+  "observed": "PaladinTravelChecks.Body random ordinary death treasure selected tax (Throwing Axe). GearProfiles.FromMonster -> NamedMaintenance.Track -> NamedAmmunition.Maximum called NamedEquipmentCatalog.Base(tax), which throws because tax is not in its named-item subset.",
+  "source": {
+    "path": "tools/reference/d2r-named-equipment/json/weapons.json",
+    "sha256": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "row": {
+      "name": "Throwing Axe",
+      "code": "tax",
+      "type": "taxe",
+      "maxstack": 200,
+      "minstack": 24,
+      "spawnstack": 48
+    }
+  },
+  "failureLog": ".local/class-skills/magic-arrow-cast-loot-failure.log",
+  "failureRun": ".local/class-skills/magic-arrow-cast-loot-failure-run.log",
+  "fixtureCorrection": "Only PaladinTravelChecks named Redemption corpse setup selects an ordinary gold outcome through the actual TC selector with a deterministic Random, then runs actual CorpseSkillRules.Capture and RewardLife.Process. Other deaths forward the original hook. Existing retained contents/redemption/species/resource assertions remain; arbitrary exceptions are not caught.",
+  "followup": "Reproduce tax and other ordinary throwing bases deterministically. Separate complete pinned weapon quantity metadata from the named-item subset; compare saved old quantities and source capacity/selection before a production fix. Do not return invented capacity0, suppress lookup failures or substitute another base.",
+  "classRoadmap": "Continue Magic Arrow/Amazon verification; keep this ordinary loot-generation gap separate from the earlier rejected-affix gap.",
+  "skillDependency": "Bow Magic Arrow/Multiple Shot are unaffected. Reuse complete pinned weapon quantity metadata before broadening ordinary javelin/throwing skill consumers; jav/tax and other unnamed throwing bases need deterministic coverage."
+}

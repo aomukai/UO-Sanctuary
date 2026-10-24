@@ -23,6 +23,7 @@ public static class ClassMovement
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
+        AmazonBow.Cancel(player);
         BarbarianWhirlwind.ExternalMove(player);
         // Bash/Stun are interruptible. Cancel on the accepted step itself,
         // so returning to the origin before the event cannot revive a paid packet.

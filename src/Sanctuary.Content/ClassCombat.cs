@@ -97,6 +97,7 @@ public static class ClassCombat
                 DualEquip.Changed(from);
                 StatNetwork.Send(from);
                 ClassGear.Changed(from);
+                AmazonBow.EquipmentChanged(from);
             }
         };
         ClassCombatHooks.DefenseSuppressed = from => ClassMovement.IsRunning(from, Core.TickCount);

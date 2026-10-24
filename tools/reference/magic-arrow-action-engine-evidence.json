@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.magicarrow",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+    "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+    "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+  },
+  "compiledRoutines": [
+    "UNITS_GetFrameBonus",
+    "sub_6FCBCE70"
+  ],
+  "blockHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "reviewedWrapperHashes": {
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e"
+  },
+  "legacyAnimDataHash": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+  "animations": [
+    {
+      "code": "AMA1BOW",
+      "frames": 14,
+      "event": 6,
+      "kind": 2
+    },
+    {
+      "code": "AMA1XBW",
+      "frames": 20,
+      "event": 9,
+      "kind": 2
+    }
+  ],
+  "originalModernCalculator": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "functionHash": "ee06905636d7f8d1ac252fa52c2f39d1ac12961461b2e2cd81b0bc9c821328c5",
+    "offsetHash": "06c72918d610b338ee16185a8e243d64a03cc8e96b01617c3024c8df3c18b6fe",
+    "cycleBlockHash": "fc268efc3c14f18fc0c6d0dedf5297fdf844609d0844f730007555373ae57a14",
+    "rows": 12
+  },
+  "fixture": {
+    "path": ".local/class-skills/magic-arrow-action-source-probe.json",
+    "sha256": "900ad876265a2be5dbc2aa32552c753516ad8bdeb7528b123f5bb1355778f622",
+    "rows": 12
+  },
+  "established": [
+    "Ordinary human Amazon bow and crossbow A1 have zero starting-frame bonus. Legacy missile events are kind2, metadata14/event6 and20/event9. The unchanged scheduler yields twelve event/end rows at declared animation advances.",
+    "Original modern calculator STANDARD human bow metadata agrees with the cached legacy rows. Its unchanged ordinary cycle expression uses ceil(frameCount*256/advance)-1. The native repeat cycle uses that modern expression while its shot event uses the separately compiled source event clock. At advance256 cycles13/19 emit at6/9.",
+    "Reviewed no-start-function wrapper returns without start mana payment. Generic do wrapper emits its declared srvmissile and subsequently consumes mana once; pinned Magic Arrow noammo1 has no decquant. Source generic player missile ToHit0 versus the pinned display remains independently uncertain."
+  ],
+  "limits": [
+    "Supplementary old engine and original calculator, not a3.3.93847 executable/client capture. Cached AnimData acquisition provenance remains incomplete; transformed/foreign-class/alternate/sequence modes are excluded.",
+    "Declared animation rate, metadata, ordinary weapon selection and empty event-list adapters isolate clocks. IAS/WSM/Fanaticism/chill, native input/cancellation/held pacing and resource/flight/item consumers require independent native checks.",
+    "Wrapper bodies are reviewed and hashed, not compiled by this probe. Exact current damage/mastery/AR/seed/stat inheritance, target-loss fallback, all proc/owner/client branches and full class acceptance remain open."
+  ]
+}
