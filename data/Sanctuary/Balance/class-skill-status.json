@@ -284,10 +284,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 16,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 action shares paid start, one Arrow/Bolt release and saved weapon flight. Parent captures weapon damage only; each contact including AR miss/shield block, wall and lifetime creates a separate one-frame fire-only child using retained parent rank and live owner gear/hard Fire Arrow synergy. Child rolls one shared fire packet, radius5 source subtiles, no area AR/shield/LOS gate, with individual existing fire mitigation/avoidance. Source creator/getter and callback evidence, real gear, input and independent parent/child reload checks are recorded separately. Older scheduler supports next-frame child dispatch; exact modern global cross-flight catch-up, AR/stat/seed/quiver/item/proc/owner/geometry/client parity remains acceptance work. Identified travel/explosion/audio placeholders and separate icons do not block mechanics; no class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.icearrow",

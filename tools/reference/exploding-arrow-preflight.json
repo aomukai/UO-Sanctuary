@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.explodingarrow",
-  "handlerEnabled": false,
-  "status": "Read-only next-skill preparation:256 parent/4320 child-area callback cases compiled from unchanged routines. Parent/child damage inheritance, scheduling and native integration remain pending; no handler enabled.",
+  "handlerEnabled": true,
+  "status": "Exploding Arrow installed with bounded source/native/real-input/independent parent-child save regression. Modern acceptance limits remain explicit; no class certificate.",
   "pinnedSkill": {
     "skill": "Exploding Arrow",
     "*Id": 16,
@@ -169,7 +169,8 @@
     "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
-    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d"
   },
   "reviewedBlockHashes": {
     "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
@@ -178,13 +179,16 @@
     "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
     "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
     "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
-    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "EVENT_ExecuteEventsImpl": "38156529d69e2b234547245e2a36f9f82a944f789d1737a53ef955b04d8420f8",
+    "sub_6FC35570": "ca60d8a4880489a8e9f45ec35f78cd32ef040777e88124115c0f6743319602b2",
+    "MISSILES_Initialize": "c77a4ae03ff02589f6b1d7e86f55ff0b89d0dbd77ff7a3e693990ac7df8b12ff",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d"
   },
   "reviewedNotCompiled": [
-    "Parent start4 uses the existing paid bow/quantity action. Parent missile has SrcDamage128 and lacks MissileSkill; child exp2 has MissileSkill/Skill, radius5, range1, AlwaysExplode, ResultFlags5/HitFlags2. Visual explosion radius3 is distinct from the server radius5.",
-    "Parent hit4 constructs up to four HitSubMissiles using current parent origin/skill/rank and returns3. Current parent sHitPar1=0 means it does not immediately call child hit handler inside this callback. Child scheduling/collision/AlwaysExplode order needs full-chain proof.",
-    "Child hit1 is shared with Fireball/Freezing Arrow explosion. It gets one damage packet, adds row flags and calls shared area delivery at missile coordinates. Area callback copies that packet per target before individual block/dodge/events/damage. Do not substitute independent random damage rolls per target without resolving the source/current difference.",
-    "Creator selects missile-derived versus skill-derived endpoints by Skill/MissileSkill, and has separate source-damage/sentinel rules. Factory applies owner/origin, skill/rank, damage creation and source seeded Pierce. Complete parent/child physical/item-fire/skill-fire inheritance needs a compiled matrix, not a Fire Arrow clone."
+    "Factory propagates parent origin/skill/rank into child. Complete creator and getter are separately compiled, as are hit4/hit1 and area delivery callbacks; full factory and world collision remain reviewed caller boundaries.",
+    "MISSILES_Initialize adds an infinite MODECHANGE timer. sub_6FC35570 prepends it to the list; EVENT_ExecuteEventsImpl stores its next pointer before invoking the current callback. A child prepended during the parent callback is visited on the following game frame, where range1 expires. Native uses40ms source frame; exact current scheduler/global cross-flight catch-up remains acceptance work.",
+    "Missile collision applies AR before hit4 and parent damage/shield after it. AlwaysExplode dispatches hit4 on a miss and forced terrain/lifetime removal. Area default0x8583 lacks the conditional0x200 LOS flag and child area defense requests avoidance, not shield block. Native preserves these distinctions within its existing co-op world adapter."
   ],
   "reuseCandidates": [
     "AmazonBow/BowAmmunition action, timing, fractional start payment, one Arrow/Bolt consumption and binding/input/save services.",
@@ -192,9 +196,10 @@
     "Existing Fireball shared source callback and SkillCombat mitigation/avoidance/block helpers, retaining one prepared area packet and individual target defenses where established."
   ],
   "nextChecks": [
-    "Compile complete parent hit4, child hit1, area callback/defense routing and relevant creator/factory branches with declared services. Include wall/lifetime explosion, miss/block/avoid, Pierce, primary/secondary overlap, source flags, owner loss, snapshots and random draw scope.",
-    "Pin the parent versus child physical/skill/item damage channels and critical/mastery/species behavior before implementation. Flag older/current discrepancies individually.",
-    "Implement native input/quantity/flight/area/persistence, hard-only14percent Fire Arrow synergy, actual gear and separate missing effects/icons after those mechanics are established."
+    "Resolve the documented modern AR/stat/seed/quiver/global-scheduler/item/proc/geometry/owner/client acceptance limits during the final combat pass.",
+    "Create final effects/audio and talent/hotkey icons from the separate asset registers."
   ],
-  "callbackEvidence": "tools/reference/exploding-arrow-callback-engine-evidence.json"
+  "callbackEvidence": "tools/reference/exploding-arrow-callback-engine-evidence.json",
+  "damageEvidence": "tools/reference/exploding-arrow-damage-engine-evidence.json",
+  "nativeEvidence": "tools/reference/exploding-arrow-native-evidence.json"
 }

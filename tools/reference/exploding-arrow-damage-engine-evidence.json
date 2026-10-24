@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "getterBlockSha256": "4fd344aff656a049a4a6a2ad63e803ca370618ad0525b7256f181fd14d2d1624",
+  "probe": {
+    "creatorCases": 72,
+    "getterCases": 72,
+    "path": ".local/class-skills/exploding-arrow-damage-source-probe.json",
+    "sha256": "81951f4346b6f966e2912067bafd58c906f93f797b05003ba70c2d1cc9cb9225"
+  },
+  "established": [
+    "Complete unchanged creator distinguishes current parent missile-derived source128 weapon/item endpoints from child skill-derived source128 weapon/item-plus-skill endpoints. Supplied origin stats do not replace the declared current owner stats in these rows.",
+    "Child fire-only getter executes unchanged and emits only fire, ignoring captured physical, critical and target species percentages. Combined with the independently compiled area callbacks, one fire packet is copied per target without independent damage rerolls.",
+    "Parent weapon impact needs the ordinary full damage path, whereas the child explosion must select only its fire channel. No Fire Arrow physical conversion is applied."
+  ],
+  "limits": [
+    "Owner/table/stat/skill/RNG services retain the original explicit harness boundaries. Item/skill endpoints are declared already-calculated inputs. This does not certify all current mastery/stat/seed paths or full factory/collision/child scheduling.",
+    "Factory/collision/scheduler caller chain is reviewed separately in exploding-arrow-preflight.json; it is not compiled by this damage harness. Live owner-stat reads at child creation follow the compiled creator, while parent skill/rank propagation follows the separate callback evidence. Native checks and modern acceptance are recorded separately."
+  ]
+}

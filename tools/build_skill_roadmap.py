@@ -15,6 +15,8 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'amazon.explodingarrow':'Learned bow/crossbow A1 action shares paid start, one Arrow/Bolt release and saved weapon flight. Parent captures weapon damage only; each contact including AR miss/shield block, wall and lifetime creates a separate one-frame fire-only child using retained parent rank and live owner gear/hard Fire Arrow synergy. Child rolls one shared fire packet, radius5 source subtiles, no area AR/shield/LOS gate, with individual existing fire mitigation/avoidance. Source creator/getter and callback evidence, real gear, input and independent parent/child reload checks are recorded separately. Older scheduler supports next-frame child dispatch; exact modern global cross-flight catch-up, AR/stat/seed/quiver/item/proc/owner/geometry/client parity remains acceptance work. Identified travel/explosion/audio placeholders and separate icons do not block mechanics; no class certificate or item gate cleared.',
+
     'amazon.coldarrow':'Learned bow/crossbow A1 action pays fractional3.5+0.125-per-rank mana at start and consumes one Arrow/Bolt at release. Hard-only Ice Arrow synergy, independently mastered skill/item cold, source physical-to-cold conversion and additive raw cold length use the saved collector. New weapon-missile cold state applies integer resistance/freeze-item/difficulty scaling, minimum frame, signed difficulty-specific rates and original strength/owner retention; optional state survives saves. Source/native gear, input, natural expiry and reload checks are separate. Ordinary cold corpse-shatter behavior is explicitly unsupported pending current corroboration of the older deadCol/raw-SHATTER branch; no destruction chance is invented. Other cold producers retain their existing callers; full other-animation, modern skill AR/stat/seed/quiver/geometry/item/owner/client parity remains acceptance work, not a class certificate.',
 
     'amazon.firearrow':'Learned bow/crossbow A1 action reuses Magic Arrow/Multiple Shot input, quantity and saved travelling collector. Successful start pays fixed3mana; one Arrow/Bolt is consumed after emission. Added hard-Exploding-synergy FP256 fire and independently mastered weapon fire are captured before enhanced/critical physical-to-fire conversion; converted fire receives no second mastery. Source conversion/impact/creator and dedicated native gear, interruption, resistance, real Cast packet/natural40ms and two-reload checks are tracked separately. Current skill AR transfer versus displayed10+9/rank, exact modern quiver/animation/stat/seed/proc/owner/client and inherited shared collision/target/mitigation limits remain acceptance work; no class certificate or item gate cleared.',
@@ -130,6 +132,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'amazon.explodingarrow',
     'amazon.coldarrow',
     'amazon.firearrow',
     'amazon.multipleshot',

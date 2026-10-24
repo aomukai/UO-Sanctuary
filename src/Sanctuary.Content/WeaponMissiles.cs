@@ -70,12 +70,16 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     WeaponMissileDamage Damage,DateTime NextUtc)
 {
     // Optional version0 properties preserve existing player-flight saves.
+    public int SkillRank{get;init;}
     public bool HostileSpell{get;init;}
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
 }
 public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc);
-public sealed record WeaponFlightSave(WeaponFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast);
+public sealed record WeaponFlightSave(WeaponFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast)
+{
+    public BowExplosion[] Explosions{get;init;}=[];
+}
 
 public sealed class WeaponMissileProfiles:GenericPersistence
 {
@@ -108,15 +112,16 @@ public static class WeaponMissiles
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
     internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
-    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null)
+    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null,int skillRank=0)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
+            || ability==CombatAbility.ExplodingArrow && skillRank<1
             || damage?.Elements==null || !damage.ValidConversion || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile});return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank});return id;
     }
     internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
     {
@@ -147,7 +152,7 @@ public static class WeaponMissiles
     internal static void Cancel(Mobile owner)
     {
         var ids=new List<long>();foreach(var (id,flight) in _flights){if(flight.Owner==owner.Serial.Value){ids.Add(id);}}
-        foreach(long id in ids){_flights.Remove(id);}Prune();
+        foreach(long id in ids){_flights.Remove(id);}BowExplosions.Cancel(owner);Prune();
     }
     internal static void Tick(DateTime at)
     {
@@ -161,9 +166,9 @@ public static class WeaponMissiles
                 if(at>=flight.NextUtc.AddMilliseconds((flight.Frames-flight.Frame)*40L)){_flights.Remove(id);}continue;
             }
             // Process overdue source frames before lifetime completion; lag must not skip impacts.
-            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){Step(owner,flight);}
+            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){BowExplosions.Tick(flight.NextUtc);Step(owner,flight);}
         }
-        Prune();
+        BowExplosions.Tick(at);Prune();
     }
     private static void Step(Mobile owner,WeaponFlight flight)
     {
@@ -171,7 +176,7 @@ public static class WeaponMissiles
         if(next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
-        {_flights.Remove(flight.Id);return;}
+        {if(!flight.HostileSpell){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;}
         _flights[flight.Id]=next;
         if(next.Frame<flight.Activation){return;}
         Mobile selected=null;double nearest=double.MaxValue;
@@ -206,7 +211,9 @@ public static class WeaponMissiles
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L));}
         bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
-        if(ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)!=true){_flights.Remove(flight.Id);return;}
+        bool hit=ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)==true;
+        BowExplosions.Create(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
+        if(!hit){_flights.Remove(flight.Id);return;}
         var damage=flight.Damage.Roll(selected,DamageRoll);
         if(selected is not BaseCreature creature || !SourceBlocking.TryBlock(creature,damage.Physical>0,out bool blocked))
         {_flights.Remove(flight.Id);return;}
@@ -260,13 +267,13 @@ public static class WeaponMissiles
         var ended=new List<(long,uint)>();foreach(var (key,lease) in _leases){if(!active.Contains(lease.Cast)){ended.Add(key);}}
         foreach(var key in ended){_leases.Remove(key);}
     }
-    internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast);
+    internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast){Explosions=BowExplosions.Snapshot()};
     internal static void Restore(WeaponFlightSave saved)
     {
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability==CombatAbility.ExplodingArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
                 || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
                     || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
                     || flight.Damage.PhysicalSupplement!=null || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
@@ -278,6 +285,6 @@ public static class WeaponMissiles
             _nextId=Math.Max(_nextId,flight.Id);_nextCast=Math.Max(_nextCast,flight.Cast);
         }
         foreach(var lease in saved?.Leases??[]){if(!_leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Duplicate weapon missile lease");}}
-        Prune();
+        BowExplosions.Restore(saved?.Explosions??[]);Prune();
     }
 }

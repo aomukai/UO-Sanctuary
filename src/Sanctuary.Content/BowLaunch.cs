@@ -61,9 +61,23 @@ public static class BowLaunch
         int Enhanced(long value)=>checked((int)Math.Max(0,value+value*mastery/100));
         return new(PoisonMin:Enhanced(minimum),PoisonMax:Enhanced(maximum),PoisonFrames:frames,PoisonCount:count);
     }
+    private static int Element(PlayerMobile owner,double value,string element,double roll)
+    {
+        double aura=PaladinElements.Weapon(owner,element,roll);
+        return NamedElements.To256(NamedElements.Enhance(owner,value-aura,element)+aura);
+    }
+    internal static MissileSourceStats ExplosionFire(PlayerMobile owner,SkillValues values)
+    {
+        // Child creation reads live owner stats, independent of the bow that
+        // launched its parent. Its later fire-only getter ignores other lanes.
+        var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
+        int mastery=NamedElements.MasteryPercent(owner,"fire");
+        return new(FireMin:checked(Element(owner,low.Fire,"fire",0)+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
+            FireMax:checked(Element(owner,high.Fire,"fire",1)+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery)));
+    }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -71,21 +85,13 @@ public static class BowLaunch
         int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):0);
         int sourceDamage=row.Number("SrcDam");var raw=ClassStats.WeaponBaseDamage(owner);
         var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
-        int Element(double value,string element,double roll)
-        {
-            // Preserve existing ranged aura single enhancement and released2.6
-            // Enchant/wielder enhancement. Captured endpoints are prepared;
-            // impact must not enhance them again from changed live gear.
-            double aura=PaladinElements.Weapon(owner,element,roll);
-            return NamedElements.To256(NamedElements.Enhance(owner,value-aura,element)+aura);
-        }
         var poison=Poison(owner,weapon);
         var elements=poison with
         {
-            FireMin=Element(low.Fire,"fire",0),FireMax=Element(high.Fire,"fire",1),
-            LightningMin=Element(low.Lightning,"ltng",0),LightningMax=Element(high.Lightning,"ltng",1),
-            ColdMin=Element(low.Cold,"cold",0),ColdMax=Element(high.Cold,"cold",1),
-            MagicMin=Element(low.Magic,"mag",0),MagicMax=Element(high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
+            FireMin=Element(owner,low.Fire,"fire",0),FireMax=Element(owner,high.Fire,"fire",1),
+            LightningMin=Element(owner,low.Lightning,"ltng",0),LightningMax=Element(owner,high.Lightning,"ltng",1),
+            ColdMin=Element(owner,low.Cold,"cold",0),ColdMax=Element(owner,high.Cold,"cold",1),
+            MagicMin=Element(owner,low.Magic,"mag",0),MagicMax=Element(owner,high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
