@@ -31,14 +31,14 @@ public static class AlliedOverlap
     {
         ClassCombatHooks.ActionAllowed = actor=>Allowed(actor) && !BarbarianLeap.Locked(actor) && !BarbarianWhirlwind.Locked(actor);
         ClassCombatHooks.OccupancyChanged = Arrived;
-        ClassCombatHooks.PassThrough = (first,second)=>LandingReservations.PassThrough(first,second)
+        ClassCombatHooks.PassThrough = (first,second)=>first?.BlocksFit==false || second?.BlocksFit==false || LandingReservations.PassThrough(first,second)
             || first is not SkillLandingReservation && second is not SkillLandingReservation
                 && (BarbarianLeap.Airborne(first) || BarbarianLeap.Airborne(second) || BarbarianWhirlwind.Passing(first) || PassThrough(first,second));
         ClassCombatHooks.OverlapMovement = pet => pet is IPersistentMinion && !PersistentMinions.CanThink(pet) || UpdatePet(pet, Core.TickCount);
         ClassCombatHooks.MovementGoal = Remember;
         ClassCombatHooks.FreeDestination = FreeDestination;
     }
-    public static bool PassThrough(Mobile a, Mobile b) => a != b && a is not BoneBarrierSegment && b is not BoneBarrierSegment
+    public static bool PassThrough(Mobile a, Mobile b) => a?.BlocksFit==true && b?.BlocksFit==true && a != b && a is not BoneBarrierSegment && b is not BoneBarrierSegment
         && a is { Deleted: false, Alive: true }
         && b is { Deleted: false, Alive: true } && !a.IsDeadBondedPet && !b.IsDeadBondedPet && ClassCombat.Friendly(a, b);
     public static bool Blocked(Mobile actor)

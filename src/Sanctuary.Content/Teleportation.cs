@@ -46,7 +46,7 @@ public static class Teleportation
         {
             foreach (var mobile in map.GetMobilesInRange<Mobile>(point, 0))
             {
-                if (mobile != traveller && !LandingReservations.OwnedBy(mobile,traveller) && (mobile.AccessLevel == AccessLevel.Player || !mobile.Hidden)
+                if (mobile.BlocksFit && mobile != traveller && !LandingReservations.OwnedBy(mobile,traveller) && (mobile.AccessLevel == AccessLevel.Player || !mobile.Hidden)
                     && mobile.Z + 16 > point.Z && point.Z + 16 > mobile.Z
                     && (!allowAllies || !AlliedOverlap.PassThrough(traveller, mobile))) { return false; }
             }

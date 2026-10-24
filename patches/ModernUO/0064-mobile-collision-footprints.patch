@@ -1,0 +1,25 @@
+diff --git a/Projects/Server/Mobiles/Mobile.cs b/Projects/Server/Mobiles/Mobile.cs
+--- a/Projects/Server/Mobiles/Mobile.cs
++++ b/Projects/Server/Mobiles/Mobile.cs
+@@ -5952,6 +5952,9 @@
+     public virtual void OnDamage(int amount, Mobile from, bool willKill)
+     {
+     }
++
++    // Zero-footprint source actors remain visible entities without occupying a cell.
++    public virtual bool BlocksFit => true;
+ 
+     public virtual bool CanBeDamaged() => !m_Blessed;
+ 
+diff --git a/Projects/Server/Maps/Map.cs b/Projects/Server/Maps/Map.cs
+--- a/Projects/Server/Maps/Map.cs
++++ b/Projects/Server/Maps/Map.cs
+@@ -1001,7 +1001,7 @@
+         {
+             foreach (var m in sector.Mobiles)
+             {
+-                if (m.Location.m_X == x && m.Location.m_Y == y && (m.AccessLevel == AccessLevel.Player || !m.Hidden) &&
++                if (m.BlocksFit && m.Location.m_X == x && m.Location.m_Y == y && (m.AccessLevel == AccessLevel.Player || !m.Hidden) &&
+                     m.Z + 16 > z && z + height > m.Z)
+                 {
+                     return false;

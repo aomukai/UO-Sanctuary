@@ -1,9 +1,10 @@
 [
   {
     "repository": "ModernUO",
-    "patchCount": 63,
-    "pathsCompared": 100,
+    "patchCount": 65,
+    "pathsCompared": 101,
     "result": "reverse-to-pinned-base/replay byte-equal; all native dirty files covered",
+    "pinnedBaseByteEqual": true,
     "upstreamHead": "eff9de028136b11e544fd81375d1e0e710e22dd6",
     "patchHashes": {
       "0001-character-creation-hooks.patch": "64e82dd7c4e1d474080b68f3466deb3587e7f834c82672eeade8146235cba9a4",
@@ -68,14 +69,19 @@
       "0060-creature-resource-maximum-hooks.patch": "6569488f0fa7714169d295b478c0926a5af7a7619f81d93412e018739de8f3bd",
       "0061-corpse-skill-selection-hook.patch": "fe38c9b3585173c92434214737a3618ff8ec8dd1406c864d24640184e2be6839",
       "0062-class-equip-transaction.patch": "e93989bf73fcf889563d207839c185f4b195c42c0ce311ba640bfc9616a2cad3",
-      "0063-class-deferred-death.patch": "7c9310ac86b6ca93a2a52adb122fa3df7a8d7144e3bd3eab16ac0a1da75d1e8b"
-    }
+      "0063-class-deferred-death.patch": "7c9310ac86b6ca93a2a52adb122fa3df7a8d7144e3bd3eab16ac0a1da75d1e8b",
+      "0064-mobile-collision-footprints.patch": "b0840f54e601486134413c83ce039679cf752b820ba51340d08e336aaf533637",
+      "0065-source-controlled-summon-lifetime.patch": "408297aa46d51a949473b5d5e1ff60c6310a7b5663c334a49dfa12a716442ef6"
+    },
+    "allNativeDirtyFilesCovered": true,
+    "uncoveredDirtyFiles": []
   },
   {
     "repository": "ClassicUO",
     "patchCount": 36,
     "pathsCompared": 41,
     "result": "reverse-to-pinned-base/replay byte-equal; all native dirty files covered",
+    "pinnedBaseByteEqual": true,
     "upstreamHead": "ee79d7ebc1cc0e53ff84fe6cae17d389e2737f93",
     "patchHashes": {
       "0001-use-fna-native-resolver.patch": "f9d89423a625052a36846f2abfa8bfd144cd731d4cc49da7c7449b3294966ddc",
@@ -114,6 +120,8 @@
       "0034-class-skill-roster-and-bindings.patch": "614f668e796889293133663834217b1abb28dc4b56a168dc493027e458408b98",
       "0035-allied-class-skill-targeting.patch": "cbfd541fac7475a79ad23e92d1941fe68cddd8cc60c6bf65a2de5abe36aab1ad",
       "0036-ally-targeted-left-and-held-skills.patch": "4e6127e8f58c4fbb04e47755b04ce460b9df04141059acfeeed16c31c9a4c524"
-    }
+    },
+    "allNativeDirtyFilesCovered": true,
+    "uncoveredDirtyFiles": []
   }
 ]

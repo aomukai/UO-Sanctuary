@@ -1,0 +1,70 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "componentsInstalled": true,
+  "preparedBodyInstalled": true,
+  "fullActorInstalled": false,
+  "playableSkillInstalled": false,
+  "totalHandlersPresent": 149,
+  "assassinHandlers": 10,
+  "status": "Blade Sentinel now has an internal prepared world-body component with captured creation stats, owner reference, exact fractional movement state and an identified native appearance placeholder. Shared Mobile.BlocksFit defaults true; the blade overrides false, and native placement, walking, allied action checks, teleport placement and Charge contact queries respect it. A separate native summon-timer switch defaults true; the blade owns that lifetime channel so the ordinary post-load timer cannot prematurely delete it. Actual world tests verify no shove or stamina cost, no placement obstruction, ordinary actor blocking, wall/caster-center masks, source level/AR/defense and exact resumed movement through two real entity reloads. Default ordinary summons still expire after load. Focused/full each pass three boots/two reloads, including earlier movement/path/packet/creation checks and corrected Cloak, Shock Web and Fire Blast input. All70 Python tests, 511/21 current fingerprints and573 unchanged named decisions pass. Native/content/integration builds have zero warnings/errors. Both upstream trees reverse exactly to their pinned Git bytes and replay to current bytes;65 ModernUO patches cover101 paths. Matching installed native/content smoke exits0 with save/config/client bytes unchanged, backup retained and server stopped. The build remains149 handlers (Assassin10); no learned Blade Sentinel handler, automatic AI, combat missile or trap cap is enabled.",
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "actualPreparedEntityReloads": 2,
+    "fullSuiteSaveReloads": 2,
+    "preparedFractionalPositionResumed": true,
+    "ordinaryNativeTimerRetained": true,
+    "sourceBodyNativeTimerSuppressed": true,
+    "fullCombatActorPersistence": false,
+    "automaticBladeAi": false,
+    "actualBladeInput": false,
+    "nativeMotionFramesPerBoot": 64800,
+    "nativePathComparisonsPerBoot": 13200,
+    "nativeMonsterHitComparisonsPerBoot": 6804,
+    "pythonTests": 70,
+    "namedFingerprints": 511,
+    "firstLoopFingerprints": 21,
+    "unchangedNamedDecisions": 573,
+    "serverPatchCount": 65,
+    "serverPatchPaths": 101,
+    "pinnedBaseAndCurrentReplayByteEqual": true
+  },
+  "earlierNativeEvidence": "tools/reference/actor-motion-native-evidence.json",
+  "sourceShapeEvidence": "tools/reference/blade-sentinel-movement-review.json",
+  "patchReplayEvidence": "tools/reference/class-patch-replay-evidence.json",
+  "patches": [
+    "patches/ModernUO/0064-mobile-collision-footprints.patch",
+    "patches/ModernUO/0065-source-controlled-summon-lifetime.patch"
+  ],
+  "placeholder": {
+    "name": "Blade Sentinel [placeholder]",
+    "body": 156,
+    "hue": 1153
+  },
+  "limits": [
+    "The body is an internal prepared entity component, with no Constructible/GM Add or learned acquisition route. It accepts explicit AssassinTrapCreationStats and an already prepared ActorMotionState; it is not the complete spawn/stat, path initialization, learned cast or actual weapon supplier. Snapshot life is currently restricted to integral HP in the native supported range; arbitrary fractional maximum-life/aura interactions are not silently rounded.",
+    "The body advances only through an explicit prepared-frame call. No automatic source AI/event clock, first-think duration/strict expiry, fixed-endpoint reversal/owner fallback, shared cap5/FIFO, following collision missile or combat/NHD/defense/event attribution is enabled. Successful repair and owner/map/class/lifecycle transitions refuse as unsupported rather than inventing behavior. Thus saved prepared entity state is verified, but full combat-actor persistence/input is not.",
+    "Native world collision is an explicit fixed-Z/16-height flat-floor projection on the established two-subtile scale. Source mask0x3c01 is supplied from native terrain/occupancy; mapped/default creature size projects center/cardinal NO_PATH presence. Exact current D2R room/terrain/grid/height, unmapped species/no-presence patterns, door transitions and client geometry remain acceptance work. Native room boundaries refuse without mutating actor state.",
+    "Source-backed size0/no-footprint and no ordinary attackability are represented by BlocksFit=false, noncommandable/inert AI and CanBeDamaged=false/Blessed. Full source TARGETABLE/CANBEATTACKED, special attacks/aura/filter/PvP ownership and downstream weapon/stat/event consumers remain distinct. Stored AttackPercent/passive/pierce fields are not a completed armed missile context.",
+    "UsesNativeSummonTimer=false prevents the native DateTime summon timer from controlling this source actor; the source AI expiry consumer must be integrated before enabling the skill. Existing ordinary summons default to true and retain their timers. The prepared body has no autonomous lifetime, so it remains inaccessible to normal acquisition while unfinished.",
+    "Source actor/path/motion evidence remains supplementary reconstructed legacy execution against pinned D2R3.3.93847 data, not a current executable equivalence certificate. General initializer is marked BROKEN in D2MOO; whole mode/AI/events and first-missile weapon/owner routing remain next. Current malformed cold-sunder, overlap and obstacle behavior remain unconfirmed; user has not tried Blade Sentinel.",
+    "Test fixtures create real native surface items on a physically clear controlled corridor. This replaces an initial fixture-only failure to find a natural flat corridor; no production terrain rule was loosened. SummonEnd is set/read by reflection in the test only because the native field/property is protected; production ownership uses the explicit virtual timer policy.",
+    "The body uses Name Blade Sentinel [placeholder], native body0x9c and hue0x481. Final summon/travel/emerge/expiry effects/audio and independent tree/L/R/quick icons remain in separate240-entry pending inventories. No class certificate or deferred item-skill gate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/blade-body-focused.log",
+    "combined": ".local/class-skills/blade-body-combined.log",
+    "native-build": ".local/class-skills/blade-body-native-build.log",
+    "content-build": ".local/class-skills/blade-body-content-build.log",
+    "integration-build": ".local/class-skills/blade-body-integration-build.log",
+    "python-checks": ".local/class-skills/blade-body-python-checks.log",
+    "named-readiness": ".local/class-skills/blade-body-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-body-first-loop.log",
+    "properties": ".local/class-skills/blade-body-properties.log",
+    "installed-server": ".local/class-skills/blade-body-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-body-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-body-client-check.log"
+  }
+}

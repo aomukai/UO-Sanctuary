@@ -1,0 +1,114 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using ModernUO.Serialization;
+using Server;
+using Server.Mobiles;
+
+namespace Sanctuary;
+
+internal sealed record BladeBodyState(uint Owner,AssassinTrapCreationStats Creation,ActorMotionState Motion,int Map,int Z,long Frames);
+
+// World/entity component only. No learned cast, automatic AI/event clock,
+// missile/damage supplier, shared trap limit or expiry is activated here.
+[SerializationGenerator(0)]
+public partial class BladeSentinelBody:BaseCreature
+{
+    [SerializableField(0,setter:"private")] private string _saved="{}";
+    private BladeBodyState _prepared;
+    internal BladeBodyState Prepared=>_prepared??(string.IsNullOrEmpty(_saved) || _saved=="{}"?null:_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved));
+    public override bool BlocksFit=>false;
+    public override bool UsesNativeSummonTimer=>false;
+    public override bool CanBeDamaged()=>false;
+    public override bool Commandable=>false;
+    public override bool IsBondable=>false;
+    public override bool IsDispellable=>false;
+    public override bool CanRegenHits=>false;
+    public override bool CanRegenMana=>false;
+    public override bool CanRegenStam=>false;
+    public override bool DeleteCorpseOnDeath=>true;
+    public override bool OnMoveOver(Mobile mobile)=>true;
+    public override bool IsEnemy(Mobile mobile)=>false;
+    public override bool CanBeHarmful(Mobile mobile,bool message,bool ignoreOurBlessedness)=>false;
+    // Deliberately absent Constructible: the unfinished component has no GM Add
+    // or player acquisition path. The serializer still needs its serial ctor.
+    public BladeSentinelBody():base(AIType.AI_Melee,FightMode.None,0)
+    {
+        Name="Blade Sentinel [placeholder]";Body=0x9C;Hue=0x481;Blessed=true;CantWalk=true;
+        Summoned=true;ControlSlots=0;NoKillAwards=true;SetStr(0);SetDex(0);SetInt(0);SetStam(0);SetMana(0);SetDamage(0,0);
+        AIObject?.AITimer.Stop();
+    }
+    private static Point3D Position(BladeBodyState s)=>new(
+        (int)Math.Round(((long)s.Motion.X-32768)/131072.0,MidpointRounding.AwayFromZero),
+        (int)Math.Round(((long)s.Motion.Y-32768)/131072.0,MidpointRounding.AwayFromZero),s.Z);
+    private static void Validate(BladeBodyState s)
+    {
+        if(s?.Creation is not{Rank:>=1 and <=255,Level:>=1 and <=99,Life256:>=256 and <=16640000} c
+            || c.Life256%256!=0 || c.Passives is not{Length:14} || c.Skills==null
+            || !c.Skills.Any(x=>x.Name=="Blade Sentinel" && x.Value==c.Rank) || c.DurationFrames!=100+12*(c.Rank-1)
+            || !((Serial)s.Owner).IsMobile || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
+            || s.Motion?.Points==null || s.Motion.SavedSteps==null || s.Frames<0 || s.Z is <-128 or >127)
+        {throw new InvalidDataException("Unsupported prepared blade body state");}
+        var point=Position(s);var map=Map.Maps[s.Map];
+        if(point.X<=0 || point.Y<=0 || point.X>=map.Width || point.Y>=map.Height){throw new InvalidDataException("Prepared blade outside world");}
+        // Reuse the motion validator without advancing or consulting the world.
+        SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
+    }
+    private void Store(BladeBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
+    internal static BladeSentinelBody CreatePrepared(PlayerMobile owner,AssassinTrapCreationStats stats,ActorMotionState motion,int z)
+    {
+        if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal
+            || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+        {throw new InvalidOperationException("Prepared blade needs a live Assassin world owner");}
+        var s=new BladeBodyState(owner.Serial.Value,stats,motion,owner.Map.MapID,z,0);Validate(s);
+        var body=new BladeSentinelBody();body.Store(s);body.SummonMaster=owner;body.SetHits(stats.Life256/256);
+        body.MoveToWorld(Position(s),owner.Map);body.AIObject?.AITimer.Stop();return body;
+    }
+    internal ActorMotionResult AdvancePrepared()
+    {
+        var before=Prepared;Validate(before);
+        if(Deleted || Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
+            || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+        {throw new NotSupportedException("Prepared blade owner/map lifecycle needs full AI integration");}
+        var next=SourceActorMotion.Advance(before.Motion,(x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this));
+        if(next.RepathRequired){throw new NotSupportedException("Prepared blade successful path repair is not connected");}
+        Store(before with{Motion=next.State,Frames=before.Frames+1});var point=Position(Prepared);
+        if(Location!=point){MoveToWorld(point,Map);}AIObject?.AITimer.Stop();return next;
+    }
+    public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
+    public override void GenerateLoot(bool spawning){}
+    public override bool OnBeforeDeath(){Delete();return false;}
+    [AfterDeserialization]private void AfterLoad()
+    {
+        AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<BladeBodyState>(_saved);Validate(_prepared);
+        if(SummonMaster?.Serial.Value!=_prepared.Owner || Map?.MapID!=_prepared.Map || Location!=Position(_prepared))
+        {throw new InvalidDataException("Prepared blade owner/position mismatch");}
+    }
+}
+
+// Explicit native flat-floor projection for source path pattern0/mask0x3c01.
+// Whole tile terrain/height and unmapped creature presence remain port adapters;
+// this does not claim current D2R room geometry or automatic path initialization.
+internal static class BladeWorldSpace
+{
+    internal static int Mask(Map map,int z,int cellX,int cellY,Mobile self)
+    {
+        int x=(int)Math.Round(cellX/2.0,MidpointRounding.AwayFromZero),y=(int)Math.Round(cellY/2.0,MidpointRounding.AwayFromZero);
+        if(map==null || map==Map.Internal || x<=0 || y<=0 || x>=map.Width || y>=map.Height)
+        {throw new NotSupportedException("Blade native room boundary is not mapped");}
+        if(!map.CanFit(x,y,z,16,true,false,true)){return 0x1000;}
+        // Pattern1/2 adds NO_PATH to the center/cardinal cells; the raw player
+        // and monster bits are not themselves in the monster movement mask.
+        foreach(var mobile in map.GetMobilesInRange<Mobile>(new Point3D(x,y,z),2))
+        {
+            if(mobile==self || !mobile.BlocksFit || mobile is not{Alive:true,Deleted:false} || mobile.IsDeadBondedPet
+                || mobile.Z+16<=z || z+16<=mobile.Z || mobile.AccessLevel>AccessLevel.Player && mobile.Hidden){continue;}
+            int dx=Math.Abs(cellX-mobile.X*2),dy=Math.Abs(cellY-mobile.Y*2);
+            int size=mobile is BaseCreature creature?CreatureProfiles.For(creature).Traits.Size??2:2;
+            if(size>0 && (size>=3?dx+dy<=1:dx==0 && dy==0)){return 0x1000;}
+        }
+        return 0;
+    }
+}

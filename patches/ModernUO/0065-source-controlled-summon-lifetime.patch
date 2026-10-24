@@ -1,0 +1,34 @@
+diff --git a/Projects/UOContent/Mobiles/BaseCreature.cs b/Projects/UOContent/Mobiles/BaseCreature.cs
+--- a/Projects/UOContent/Mobiles/BaseCreature.cs
++++ b/Projects/UOContent/Mobiles/BaseCreature.cs
+@@ -1380,6 +1380,9 @@
+         public virtual bool ReacquireOnMovement => false;
+ 
+         public static bool Summoning { get; set; }
++
++        // Source-controlled temporary actors own their frame-based lifetime.
++        public virtual bool UsesNativeSummonTimer => true;
+ 
+         public virtual bool IsDispellable => Summoned && !IsAnimatedDead;
+ 
+@@ -2528,7 +2531,7 @@
+                 NameHue = -1;
+             }
+ 
+-            if (_summoned && ClassCombatHooks.PersistentMinion?.Invoke(this) != true)
++            if (_summoned && UsesNativeSummonTimer && ClassCombatHooks.PersistentMinion?.Invoke(this) != true)
+             {
+                 new UnsummonTimer(this, _summonEnd - Core.Now).Start();
+             }
+@@ -3912,7 +3915,10 @@
+                 }
+             }
+ 
+-            new UnsummonTimer(creature, duration, onUnsummon).Start();
++            if (creature.UsesNativeSummonTimer)
++            {
++                new UnsummonTimer(creature, duration, onUnsummon).Start();
++            }
+             creature.SummonEnd = Core.Now + duration;
+ 
+             creature.MoveToWorld(p, caster.Map);

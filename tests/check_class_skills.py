@@ -52,6 +52,7 @@ def check():
                 if entry.name not in ('Sanctuary.Content.dll', 'UOContent.dll', 'Sanctuary', 'assemblies.json'):
                     (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
         native = ROOT / 'upstream/ModernUO/Distribution'
+        shutil.copy2(native / 'ModernUO.dll', folder / 'ModernUO.dll')
         shutil.copy2(native / 'Server.dll', folder / 'Server.dll')
         shutil.copy2(native / 'Assemblies/UOContent.dll', folder / 'Assemblies/UOContent.dll')
         for name, rel in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
@@ -194,6 +195,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    blade_body='blade-body-check' if boot==0 else 'blade-body-reload-check'
+                    session.send(blade_body)
+                    assert session.expect(blade_body+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     actor_motion='actor-motion-check' if boot==0 else 'actor-motion-reload-check'
                     session.send(actor_motion)
                     assert session.expect(actor_motion+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

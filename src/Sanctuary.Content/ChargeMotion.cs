@@ -33,7 +33,7 @@ internal static class ChargeMotion
         {
             // Native walking can push a hostile at full stamina. A charge must stop at
             // contact; retain Sanctuary's approved pass-through for cooperative allies.
-            if(actor!=owner && actor is{Alive:true,Deleted:false} && actor.Z<z+16 && actor.Z+16>z
+            if(actor.BlocksFit && actor!=owner && actor is{Alive:true,Deleted:false} && actor.Z<z+16 && actor.Z+16>z
                 && !ClassCombat.Friendly(owner,actor) && !ignoreHostiles){return false;}
         }
 
