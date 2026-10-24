@@ -3,7 +3,7 @@
   "talentId": "assassin.fireblast",
   "sourceId": 251,
   "handlerEnabled": false,
-  "status": "Source preparation:4032 complete lob/factory cases pass with declared services; ten supplementary S2 animation records identified. No native Fire Blast handler enabled.",
+  "status": "Fire Blast remains pending;147 handlers/Assassin8 stay installed. Source preparation now covers4032 lob/factory cases,128 landing callbacks,128 full hit routes,1000 full updates/copied-area cases,24 mode selectors,1152 full rate/dual-wield/event schedules and576 two-stage damage cases (7040 total bounded cases). All70 Python tests and unchanged installed/save/client hashes pass. No native Fire Blast handler, class certificate or final assets are claimed.",
   "sourceFields": {
     "skill": "Fire Trauma",
     "charclass": "ass",
@@ -172,13 +172,15 @@
     "Existing S2/attack-rate timing and actual protocol Cast/left/right bindings; do not copy an SC spell timing merely because it throws fire."
   ],
   "required": [
-    "Compile complete launch/lob/hit36/hit3/hit44 callbacks and nested factory/area services with declared scope and independent rank/resource/path goldens.",
-    "Trace actual landed-child lifetime/collision and damage snapshot versus live stats; do not collapse parent and child as an unproven immediate area.",
-    "Implement and verify learned L/R/quick input, S2/IAS, resource/cancellation, target/ground/obstruction/town/friendly/radius/mitigation, owner lifecycle, natural flight and two save/reloads."
+    "Trace complete path advancement/end/terrain behavior and source action/mana dispatcher before choosing the native adapter. Current callback proof declares path movement and child allocation as services, not full path equivalence.",
+    "Implement separate airborne/landed state and persistent scheduled frames, captured launch coordinates/rank, child-time synergy/mastery, shared impact roll and per-victim defenses. Verify natural flight, moving escape, no midair actor impact, barriers/landing/radius, exactly-once damage and two reloads.",
+    "Verify learned left/right/quick input, S2/IAS/dual-claw selection, fractional mana/cancellation/repeat, target and ground, town/friendly/immunity/mitigation, owner death/logout/respec/map changes and saved unpaid casts.",
+    "Resolve or explicitly guard unsupported signed32 extreme-rank damage boundary. Keep exact modern timing/geometry/event/seed/PvP/NPC/item-only delivery and missing assets individually recorded."
   ],
   "uncertain": [
     "Exact current lob range/grid/terrain/collision/timing and client animation acceptance.",
-    "Modern full event/seed/gear/stat/child creation and source special defense flags; NPC shadow/item-only suppliers remain separate."
+    "Modern full event/seed/gear/stat/child creation and source special defense flags; NPC shadow/item-only suppliers remain separate.",
+    "Extreme signed32 synergy overflow in older skill getters at rank255 with100 hard synergy points; current executable arithmetic not established."
   ],
   "assets": {
     "effects": "FireTraumaMissile/FireTraumaGround, bomb explosion and throw/impact audio pending; identified placeholders only.",
@@ -186,5 +188,18 @@
   },
   "sourceEvidence": "tools/reference/fire-blast-lob-engine-evidence.json",
   "currentBuildObservation": "tools/reference/fire-blast-current-observations.json",
-  "currentBuildObservationSummary": "A moving monster can evade the blast by leaving the selected position during the animation. Exact windup versus airborne aim-capture phase is not identified."
+  "currentBuildObservationSummary": "A moving monster can evade the blast by leaving the selected position during the animation. Exact windup versus airborne aim-capture phase is not identified.",
+  "sourceEvidenceByStage": {
+    "lob": "tools/reference/fire-blast-lob-engine-evidence.json",
+    "landing": "tools/reference/fire-blast-landing-engine-evidence.json",
+    "timing": "tools/reference/fire-blast-timing-engine-evidence.json",
+    "damage": "tools/reference/fire-blast-damage-engine-evidence.json"
+  },
+  "establishedPreparation": [
+    "Full hit36/ground hit3/hit44/common area/router/update bodies establish barrier-only flight mode6, no actor finder on that lane, fresh ground child386 at the current missile coordinates, retained owner/rank, then ground Range5 update expiry. Actor contact alone does not trigger damaging explosion. Explosion387 presentation is not a second damage packet.",
+    "The area reads one shared packet and copies it for each victim with independent defenses/events. Filter0x8583 and bCheckMonAuraFlag0 apply; do not add the caster LOS0x200 bit or exclude NOAURA. Copied-area Weapon Block suppresses damage without inventing a new block reaction. Actual native geometry/filter and recipient/reaction acceptance remain required.",
+    "Complete S2 mode/rate/dual-stat merge/scheduler bodies establish attack-rate controls: S2=14, base128,8frames,event4 in ten supplementary cached composites; primary weapon IAS plus global gear, average dual-weapon WSM, skill IAS and slow. SC/FCR and the sequence -30 penalty do not belong here. Ordinary repeat minus-one is a separately corroborated native adapter; cached animation acquisition provenance and modern frame/input acceptance remain open.",
+    "Full two-stage creator/getters/setter establish parent385 has no damage packet, child386 reads retained rank plus current hard synergies/fire mastery at child creation, then stores endpoints. Owner weapon/item elemental/poison/leech/critical and origin damage do not enter this pure skill child; no second live mastery is applied at impact. Five hard synergies are11percent each; Death Sentry is absent.",
+    "Full legacy synergy getter uses signed32 multiplication; rank255/max endpoint with total100 hard synergy points overflows. Six supplied mastery/item variants expose this boundary under explicitly declared -fwrapv. Modern behavior is unverified; do not silently propagate a negative endpoint or claim modern equivalence there."
+  ]
 }

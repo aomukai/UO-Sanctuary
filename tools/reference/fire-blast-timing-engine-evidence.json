@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518"
+  },
+  "compiledUnchangedRoutines": {
+    "animModeTables": "12516d188d7a36180c25f191cbacfb760d27ff5d1f25b6fa5a0349eaf2eb0a64",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_MergeDualWieldWeaponStatLists": "73baadce5283dd9fde1d28b52317cdfdff6c953479507a0322ebac0a1fb7a3a6",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fire-blast-timing-source-probe.json",
+    "sha256": "c9a7a9dc2e8edda487ea90574cf9fbf1bd678985afc91f78eca7e8158f64c791",
+    "caseCounts": {
+      "mode": 24,
+      "clock": 1152
+    }
+  },
+  "established": [
+    "Complete mode selector makes Assassin S2/mode14 use attack rate only when the used skill has UseAttackRate. Throw/A1 mode controls select attack rate independently; SC does not.",
+    "Complete dual stat merge activates the primary weapon and deactivates the secondary damage-stat list. Declared active-list IAS and WSM services then feed the complete source rate function. Primary IAS plus gear IAS use the120 diminishing expression; offhand IAS is excluded by that declared service. Paired source weapon attackrate correction produces the signed-truncated average WSM under the explicit primary-to-RARM adapter.",
+    "With declared S2 metadata8frames/speed128/event4, the complete frame-bonus getter returns0 and the complete scheduler produces ceil(1024/advance) effect and ceil(2048/advance) end. The existing current ordinary-repeat minus-one adapter is separate from that old end event; native input/held pacing/current acceptance remain required."
+  ],
+  "services": [
+    "Active/inactive damage-stat collection, inventory primary/RARM identity, usable source weapons and gear/skill/chill stats are declared services. The full property-stat engine/compositor/gear transactions are not newly compiled here; existing DamageRelated swing1/2/3 representation and real claw checks are reuse points.",
+    "Metadata8/128/event4 comes from the separately hashed supplementary cached AnimData records; its provenance is incomplete. Empty original event list and unchanged scheduler isolate event clocks; owner class6/mode14 is fixed for those cases.",
+    "No source seed/modern executable/client, melee-only mode, transforms, NPC/foreign suppliers or complete event mode acceptance is established by these fixtures."
+  ]
+}

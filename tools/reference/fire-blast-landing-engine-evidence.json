@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/include/MISSILES/MissMode.h": "4a0592e70e2c1e8eda8a6e5941c900255506da386f8ce021a1c7da422e70fdff"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0",
+    "D2GAME_CreateMissile_6FD115E0": "0bfc42e76f340ab44d81e9d1d21763d5cabb4e9af9bca3259a6821050dd9038a",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "MISSMODE_SrvHit44_ExplodingJavelin": "9935bede3a6880d0f94dbdd5043d4b7bdc53a56c060afd609738bad511dc4a4b",
+    "MISSMODE_SrvHit03_ExplosivePotion_BombOnGround": "fc83760755ffbd73fee7595af01c0a328017f149538e71324c746087bf6f8a64",
+    "MISSMODE_SrvHit36_MissileInAir": "b4ba05fbd5a58a9d96db66d4418baced59719a740e826328b18db48b0823cc5e",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fire-blast-landing-source-probe.json",
+    "sha256": "321ba5708304a9aa33b65c9c41396af22279c7940dd9f3c32ba55b789c2b0e9d",
+    "caseCounts": {
+      "callbacks": 128,
+      "routes": 128,
+      "updates": 1000
+    }
+  },
+  "status": "128 callback,128 complete router and1000 complete update cases pass independent guard/frame/routing/packet assertions; no native handler enabled.",
+  "established": [
+    "Hit36 creates one child386 through the complete coordinate factory helper for a null victim; direct actor contact returns0 and causes neither damage nor a child. Child keeps original owner, skill/rank, position and targetX137; a missing owner prevents allocation.",
+    "Ground hit3 only invokes full hit44 for a null victim. It fills one shared packet, uses pinned radius5 through aurarangecalc, sets row flags and calls full area dispatcher with filter0x8583 and NoAura checking0. Actor contacts return0 without direct or area damage.",
+    "Barrier collision mode is6 as pinned by the source enum, and skips actor finders. Full do1 moves first, then decrements lifetime; movement-end or frame<=0 goes through the real hit router. Synthetic room/flag early-removal controls remain distinct from landing callbacks.",
+    "Complete copied-area and impact wrappers copy the original packet per victim, apply individual defenses and preserve the shared original. Shield/dodge/weapon-block controls suppress successful-hit/events for one victim while the other receives the same raw3141 fire packet. WeaponBlock high flag is dropped by the original0xFE mask, as in the existing shared proof."
+  ],
+  "services": [
+    "Declared room/path advancement, current collision flags/steps, table/skill/radius, child allocator and item-independent damage-reader sentinels.",
+    "Area search is a declared victim enumeration service recording filter/radius/NoAura; per-victim defense is a declared flag service. Full copied packet/impact wrappers execute unchanged.",
+    "Unselected callback table entries are declared stubs. Full damage factory/getters/stat writer, world room/finder geometry, seed/critical/events/commit and modern executable acceptance remain separate."
+  ]
+}
