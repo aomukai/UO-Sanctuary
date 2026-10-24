@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "source": "User firsthand running-game observation,24October2026",
+  "question": "When throwing past a monster, does the bomb pass over it and explode near the chosen ground point, or detonate on that first monster?",
+  "answer": "yeah you can miss monsters if they run from that position during the animation",
+  "movingTargetCanEscapeChosenPosition": true,
+  "interpretation": "Supports a positional landing blast that a moving monster can evade. Consistent with the compiled source coordinate-aimed lob without a tracked-unit target.",
+  "limits": [
+    "The answer does not distinguish movement during caster windup from movement during the airborne arc; exact aim-capture time remains a separate source/current-build check.",
+    "It does not by itself establish the precise first-monster collision, wall/terrain/radius or numeric damage/timing boundaries."
+  ]
+}

@@ -1694,6 +1694,14 @@
       "firstLoopFingerprints": 21,
       "unchangedNamedDecisions": 573,
       "evidence": "tools/reference/mind-blast-native-evidence.json"
+    },
+    "fireBlastPreparation": {
+      "handlerEnabled": false,
+      "lobFactorySourceCases": 4032,
+      "cachedS2Records": 10,
+      "evidence": "tools/reference/fire-blast-lob-engine-evidence.json",
+      "currentObservation": "tools/reference/fire-blast-current-observations.json",
+      "next": "Complete landing/child damage, S2/dual-claw timing and native input/reload delivery."
     }
   },
   "logs": {
@@ -3195,7 +3203,7 @@
     "tools/build_class_skills.py": "b7855489920cba668b40d85d4017ce4d54d87ee8db1a8bf809e4681cc3a78425",
     "tools/build_skill_roadmap.py": "39e2e417665f56c82f3a272efc0cb0aea40754c24c88dfe63da5aa8953f9e573",
     "docs/class-skill-roadmap.md": "19ca5a61bc632596fc5a43fc6a37655fe1e14c0e2775dbaee5111afbef348c40",
-    "docs/skill-mechanical-reference.md": "b0482d41631f94a1c9cf88b384b82966976011e0e9aadfa5bdca2eb17eb2f410",
+    "docs/skill-mechanical-reference.md": "498aeacd89c41b4b7e7109948ab37643b1587b0fe1821805541ca3359d9cff60",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "9d288b4ddcf6e0f10cc331661a208238d80b29c18a43d5d3d36d8277f1c2e315",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -5197,7 +5205,7 @@
     "src/Sanctuary.Content/MindBlasts.cs": "7b3024632ca2f9481f43bce1c358bc365d571e7e5edd42353d563376c9e297b1",
     "tests/Sanctuary.Integration/MindBlastChecks.cs": "974b8d1e279d13d7cff3084710b9c52eea5a92a1acd95b3307e0a15163ac38c1",
     "tools/probe_mind_blast_reference.py": "148aaff2f0d831ef095c0d8ea0659d168c78a1d26db8b0c949022da05f34b86c",
-    "tools/reference/fire-blast-preflight.json": "d80ed0d848b8e7ad57553eed2da809fc802ea68d07744239bc973054e81f62c4",
+    "tools/reference/fire-blast-preflight.json": "87a1d6b8be99404ea07e1b2f9ceb50dfb46134a0be5c41fcc5a87fbfd4add029",
     "tools/reference/mind-blast-engine-evidence.json": "77c5d49e198f99b389cd5425d89e25797ea80b5e85eeb1fe7ea09e0bbddf783d",
     "tools/reference/mind-blast-native-evidence.json": "e40836413c07a7cfcf4ac18a6cda003434f7cf5d358ab3bae15b2d1a53162662",
     "tools/reference/shadow-summons-preflight.json": "5c5c7de0c5b2f0194b745b4db4ca11d4be69afa2c1dabda9f648a5217feaf29f",
@@ -5225,12 +5233,18 @@
     ".local/class-skills/mind-blast-client-check.log": "2f2ea74fe9177f58acc671f9728dea93bcbe23b9ac5968f40ca9752e98157a2c",
     ".local/class-skills/mind-blast-installed-smoke.log": "7d0dd8eac9c128849a7d5fa10982f62bf004f2314aea2732825bbe35842569e7",
     ".local/class-skills/mind-blast-installed-server.log": "0e88eeb83dff3949b76d0dd8e68b55260feef9e34ded853486f2fb3fce14b9ed",
-    ".local/class-skills/mind-blast-source.log": "7d9d98545dcb7ec09caa60668fdf01223ffbc1fa4e5c3067510615c5ec4ec0a2"
+    ".local/class-skills/mind-blast-source.log": "7d9d98545dcb7ec09caa60668fdf01223ffbc1fa4e5c3067510615c5ec4ec0a2",
+    "tools/probe_fire_blast_reference.py": "292b95eeabb9a6e6740b5bea07e8471013423070433415375f75e304164211b3",
+    "tools/reference/fire-blast-lob-engine-evidence.json": "d2a02ad9ec106eef17df34a80b15ced05a0bdf5728e0c3222c0600c039a97085",
+    "tools/reference/fire-blast-current-observations.json": "3ff8ce96309f58bee276e7c34c9a64740e95f2e1dfac5e4ea8875b1b6bd72f01",
+    ".local/class-skills/fire-blast-lob-source-probe.cpp": "926d811077f3e71aae9e54cf38bb0060a1203cd74ad9093c5326602ea4d5a35b",
+    ".local/class-skills/fire-blast-lob-source-probe.json": "1aa5ca9d731255351d7c8902154585a097511eaed841914b4ad3232a732bb192",
+    ".local/class-skills/fire-blast-lob-source.log": "0bf3489b01e908bb7c116e908282d0aec3aec830505fa2db6375a35ff0727524"
   },
   "totalHandlersPresent": 147,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 2108,
+  "verifiedArtifactCount": 2114,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Mind Blast is installed as handler147 (Assassin8). Learned right/quick SC/FCR target or ground casts pay15mana once at release and share one physical FP256 packet across a source-radius4 blast. Each eligible victim rolls inclusive conversion chance and150..249-frame duration independently. Current successful conversion deals damage without new stun/knockback, then uses shared allegiance/AI/damage-owner/friendly protection; failure retains damage/stun/source knockback. Mapped higher-level converts save/scale/restore level and life through the shared consumers, preserving the compiled truncation and restoration clamp. Flag8 aura cleanup removes known aura recipients while preserving Enchant. Paladin success damage and its higher-level gate remain separate. Independent rank1/3/20/21/255 goldens, real Tarnhelm hard20/effective21, mana/range/town/cancellation/movement/recovery, empty ground/radius/shared roll/per-victim RNG, physical immunity, inclusive chance equality, friendly protection, natural six-second expiry, actual input and legacy V0 defaults pass. Focused/full each pass three boots/two reloads with exact saved gear/ranks/bindings/mana/life/allegiance/temporary stats and no unpaid replay. Historical source preparation covers514 chance/2592 callback/40 removal/16 dispatch cases with declared services; modern success damage supersedes the old no-damage branch. All70 Python tests, 499/21 current fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors. Existing client bytes are unchanged; real ground Cast input passes every boot. Existing-world load/listen/shutdown exits0 with save/config/client bytes unchanged, backup retained and server stopped. Modern damage/scaling order, full event/AI/geometry/owner/NPC acceptance and final assets remain explicit gaps; no class certificate.",
   "installedTestBuild": true,
@@ -5242,6 +5256,6 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-24T12:41:24.955209+00:00",
+  "referencePreparationUpdatedAtUtc": "2026-10-24T12:52:38.957452+00:00",
   "historicalScopeNote": "Older entries in limits and component checks retain their original preparation scope/counts. Current handlerCounts, totalHandlersPresent, currentSourceAndAssemblies and installed evidence describe this checkpoint; older component-only counts are historical."
 }

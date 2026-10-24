@@ -1,0 +1,113 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FD11710": "d7c49b9347e191a5df970126072ac3fb50d8845d31b1e7749560c2cc5d43acab",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fire-blast-lob-source-probe.json",
+    "sha256": "1aa5ca9d731255351d7c8902154585a097511eaed841914b4ad3232a732bb192",
+    "cases": 4032
+  },
+  "cachedAnimation": {
+    "path": ".local/research/AnimData.d2",
+    "sha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+    "provenanceComplete": false,
+    "records": [
+      {
+        "code": "AIS2XBW",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS21HS",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS21HT",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS22HS",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS2HT1",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS22HT",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS2HT2",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS2HTH",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS2BOW",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      },
+      {
+        "code": "AIS2STF",
+        "frames": 8,
+        "speed": 128,
+        "event": 4,
+        "eventKind": 2
+      }
+    ]
+  },
+  "established": [
+    "Full lob helper emits flags0x420 with recorded owner-relative launch offsets, resolved explicit/selected/fallback coordinates, captured skill251/rank and no tracked-unit pTarget. The factory ignores those offsets because flag1 is absent and uses pOrigin coordinates; native ordinary Fire Blast passes zero offsets. Fire Blast bSkipCheck0 never calls quantity consumption. Zero unresolved coordinate refuses the helper.",
+    "Full factory keeps total50frames, computes velocity2304 from Vel12 times256 times75percent, and assigns current lifetime floor(max(1,source distance)*16/9). Source distance is max(abs(dx),abs(dy))+floor(min/2). Same-cell moving aim is nudged diagonally before computing that duration. Axis differences>=100 refuse creation.",
+    "All10 cached Assassin S2 composites have8frames, speed128 and event-kind2 atframe4. These are supplementary metadata with incomplete acquisition provenance, not current3.3 executable timing proof."
+  ],
+  "services": [
+    "Complete shared factory executes with declared room/allocation/path/stat/owner/event services. Damage collection/writing and source seed consumers remain sentinels inherited from the Guided Arrow factory harness; no combined native damage certificate is claimed.",
+    "The full source distance helper is compiled; trajectory advancement is a declared path service here. This proof establishes launch/current-frame inputs, not server movement, landing, full area/defense/event delivery or current geometry.",
+    "Unrelated Guided Arrow routines remain compiled for shared service reuse but are not called. Quantity is a declared stub exercised by controls; Fire Blast passes bSkipCheck0 and has no quantity request."
+  ],
+  "required": [
+    "Compile complete landing hit36/hit3/hit44, current do/update and shared area/filter/defense routing before enabling native delivery.",
+    "Resolve S2 IAS/WSM/dual-claw stat merge and scheduler/frame bonus with complete source and current acceptance.",
+    "Verify child damage creation and snapshot/live-stat context, actual learned input, resources, natural travel/landing, lifecycle and two reloads."
+  ]
+}

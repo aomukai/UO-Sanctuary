@@ -3,7 +3,7 @@
   "talentId": "assassin.fireblast",
   "sourceId": 251,
   "handlerEnabled": false,
-  "status": "Next unaffected Assassin skill after verified Mind Blast. Source preparation only; no handler enabled.",
+  "status": "Source preparation:4032 complete lob/factory cases pass with declared services; ten supplementary S2 animation records identified. No native Fire Blast handler enabled.",
   "sourceFields": {
     "skill": "Fire Trauma",
     "charclass": "ass",
@@ -183,5 +183,8 @@
   "assets": {
     "effects": "FireTraumaMissile/FireTraumaGround, bomb explosion and throw/impact audio pending; identified placeholders only.",
     "icons": "Separate talent/left/right/quick icons pending."
-  }
+  },
+  "sourceEvidence": "tools/reference/fire-blast-lob-engine-evidence.json",
+  "currentBuildObservation": "tools/reference/fire-blast-current-observations.json",
+  "currentBuildObservationSummary": "A moving monster can evade the blast by leaving the selected position during the animation. Exact windup versus airborne aim-capture phase is not identified."
 }
