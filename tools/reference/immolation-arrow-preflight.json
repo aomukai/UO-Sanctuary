@@ -2,8 +2,8 @@
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.immolationarrow",
   "sourceId": 27,
-  "handlerEnabled": false,
-  "status": "Source-only next-skill preparation after Freezing Arrow. Complete hit09/disc10368 and SOFTHIT3072 cases passed with declared services; no Immolation Arrow handler enabled.",
+  "handlerEnabled": true,
+  "status": "Installed134/Amazon22 with bounded source/native/real-input/save regression. Modern acceptance gaps remain explicit; no class certificate.",
   "pinnedSkill": {
     "skill": "Immolation Arrow",
     "*Id": 27,
@@ -195,14 +195,26 @@
   ],
   "reviewedNotCompiled": [
     "Pinned mana6+0.25per extra rank; source128 with explicit Skill27. Explosion fire endpoints use hard Exploding Arrow10percent per point. Skill calc1 disc radius3, calc2 explosion radius4 source subtiles; localdelay15frames.",
-    "Hit09 clears parent cold length and item freeze before creating ground missiles. It evaluates disc radius and hit-duration100, invokes the complete disc maker, then gets one parent fire-only packet, adds row flags and dispatches immediate area damage. Return3 leaves generic direct-hit routing to inspect; do not infer primary double damage or weapon-event ordering.",
+    "Hit09 clears parent cold length and item freeze before creating ground missiles. It evaluates disc radius and hit-duration100, invokes the complete disc maker, then gets one parent fire-only packet, adds row flags and dispatches immediate area damage. Subsequent complete router probe establishes area/disc before direct hit. Missile freeze clear does not suppress attacker item-freeze event; see separate event evidence.",
     "Disc maker emits each integer offset x,y in[-radius,radius] satisfying squared radius, with source collision ray from candidate offset to twice that offset, target room and non-town checks. Duration flags1|0x8000 and explicit range100 carry original skill/rank/owner. Source integer subtiles and full room/geometry adapters need compiled proof.",
     "ImmolationFire is a distinct unskilled missile-derived field: HitShift2 endpoints, hard Fire Arrow5percent synergy, range100, DamageRate41, no source weapon damage/critical transfer. srvdo5 and srvdmg3 use19/128 SOFTHIT chance. Existing FireWall proofs are shared references, not automatic current Immolation equivalence."
   ],
   "nextChecks": [
-    "Complete hit09/disc/SOFTHIT source cases are available. Establish generic parent/direct/area ordering and specific parent/field creator/damage-rate/do5/localdelay semantics before enabling consumers.",
-    "Add localdelay/source timing and typed saved parent/area/field consumers only after the contract is established. Verify real gear, quantity/cancellation/input, overlap/terrain/resistance/synergies, expiry/owner/resource and two reloads.",
-    "Keep unsupported or uncertain modern stat/seed/quiver/collision/event/item/owner/client branches explicit. Final FireArrow/groundFireBig/flame/explosion/audio effects and talent/hotkey icons remain separate assets."
+    "Resolve recorded modern field item-percent-fire, scheduler/stat/event/seed/quiver/geometry/room-order/owner/client acceptance in the final combat pass.",
+    "Create final fire travel/explosion/ground/audio effects and talent/hotkey icons from the separate registers."
   ],
-  "callbackSourceEvidence": "tools/reference/immolation-arrow-engine-evidence.json"
+  "callbackSourceEvidence": "tools/reference/immolation-arrow-engine-evidence.json",
+  "routingEvidence": "tools/reference/immolation-routing-engine-evidence.json",
+  "damageEvidence": "tools/reference/immolation-damage-engine-evidence.json",
+  "fieldEvidence": "tools/reference/immolation-field-engine-evidence.json",
+  "prerequisiteAudit": "tools/reference/talent-prerequisite-audit.json",
+  "talentCorrection": "The old catalog omitted Exploding Arrow from Immolation prerequisites. Current direct reqskill1 is restored. All30 Amazon dependency closures now match; copied existing-world load/listen/clean shutdown validates existing histories with unchanged original save bytes and no rank migration. Three later-class catalog differences remain in the global audit.",
+  "runtimeScope": [
+    "Immediate area reads captured parent fire; fields read current hard Fire synergy at creation while retaining parent rank. No field source weapon/item/critical or ApplyMastery enhancement. Source point footprints and one recipient per cell differ from earlier provisional circle fields.",
+    "Shared before-shift missile synergy kernel corrects the existing Meteor residual helper; complete1620 source differentials and focused Meteor real-state/reloads verify it separately. Other old field geometry remains an individual migration/acceptance scope.",
+    "Native sector enumeration projects source room-list order. Half-tile ray/cell terrain/Z/town/owner/filter/lag/seed/stat/event/quiver/client behavior retains declared limits. Native no-GETHIT fields preserve periodic recovery exclusion; source19/128 SOFTHIT draw is consumed as a refresh/result distinction."
+  ],
+  "itemEventEvidence": "tools/reference/immolation-item-event-engine-evidence.json",
+  "nativeEvidence": "tools/reference/immolation-arrow-native-evidence.json",
+  "referenceReviewNote": "This original preflight list is historical. Complete compiled evidence and native implementation/limits are linked above; it is not a claim that all listed blocks remain uncompiled."
 }

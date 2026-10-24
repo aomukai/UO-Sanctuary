@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.immolationarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "compiledRoutines": [
+    "MISSMODE_SrvDmgHitHandler",
+    "MISSILE_SetOwner",
+    "MISSILE_CheckUnitIfOwner"
+  ],
+  "blockHashes": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20"
+  },
+  "sharedCallbacks": "tools/reference/immolation-arrow-engine-evidence.json",
+  "probe": {
+    "cases": 192,
+    "path": ".local/class-skills/immolation-routing-source-probe.json",
+    "sha256": "0a0dc6659a39bb6556ac260f8ffd5175af3e91d11b024df248ac97ad9361ca6f"
+  },
+  "established": [
+    "Complete unchanged hit router invokes current Immolation hit09 before its successful direct FillDamageParams/SetDamageFlags path. The immediate area and29 ground creations also occur on an AR miss; the miss skips direct damage and removes the parent. Null collision still invokes hit09 through AlwaysExplode.",
+    "Parent hit09 clears cold length/item freeze before direct full-damage parameter reads. Positive current owner Pierce plus saved index permits continuing after a successful contact; index is consumed before AR. Parent LastCollide rejects a repeated most-recent victim.",
+    "Complete source LastCollide setters/checkers respect the row flag. ImmolationFire has no LastCollide, ToHit or CollideKill: repeated same-target contacts can use the direct field damage callback with no AR and keep the field active. Field removal/a4 ends it; SOFTHIT selection remains a separate complete callback."
+  ],
+  "limits": [
+    "Direct damage fill/flags, AR/hostility/stat/room and NHD/event services are explicit adapters. This establishes complete routing order and current row distinctions, not full prepared-damage/block/event/mitigation or modern collision execution. Unselected function-table callbacks are declared stubs.",
+    "Current localdelay, factory/creator packets, field do5 movement/collision/recipient footprint/cadence, DamageRate41, source RNG and modern owner/quiver/geometry/client behavior remain separate work. No handler is enabled."
+  ]
+}

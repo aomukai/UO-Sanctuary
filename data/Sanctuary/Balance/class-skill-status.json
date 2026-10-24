@@ -317,10 +317,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 27,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 pays fractional start mana, consumes one Arrow/Bolt and applies a separate15-frame release delay. Captured source128 weapon/skill-fire parent dispatches one immediate shared fire-only area and29 integer-source disc cells before its successful direct hit; AR miss/block/wall/lifetime/Pierce behavior is separately recorded. Source0 fields retain parent rank, read live hard Fire synergy, exclude item damage/critical/mastery, use point-unit footprints/one collider per cell and99 damaging updates with DamageRate41. Missile cold length clears while the separate attacker item-freeze event is retained. Shared missile endpoint kernel corrects before-HitShift synergy, including Meteor residuals. Immolation prerequisite now correctly requires Exploding Arrow; copied existing-world compatibility is verified. Complete source/native/gear/input/field/cooldown/two-reload evidence is separate. Modern stat/seed/event/geometry/room-order/owner/quiver/client acceptance remains open; effects/audio and tree/hotkey icons use identified placeholders. No class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.strafe",

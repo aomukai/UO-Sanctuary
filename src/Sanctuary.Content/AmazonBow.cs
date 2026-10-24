@@ -10,7 +10,7 @@ namespace Sanctuary;
 public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow;
     internal static ActionTiming Timing(AttackFamily family,int advance)
     {
         advance=Math.Max(1,advance);
@@ -52,14 +52,14 @@ public static class AmazonBow
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability)
     {
-        if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
+        if(!Handles(ability) || !AmazonCombat.Available(owner,ability) || !FireGround.Ready(owner,ability)){return false;}
         var session=ClassCombat.For(owner);var target=World.FindMobile(session.PendingTarget);
         var point=ClassCombat.IsHostile(owner,target)?target.Location:session.PendingPoint;
         if(!Aim(owner,point)){return false;}
         var values=SkillMechanics.Values(owner,ability);bool multiple=ability==CombatAbility.MultipleShot;
         if(ability==CombatAbility.MagicArrow && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         int dx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),dy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
-        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.FreezingArrow?"freezingarrow":ability==CombatAbility.GuidedArrow?"guidedarrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
+        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.FreezingArrow?"freezingarrow":ability==CombatAbility.ImmolationArrow?"immolationarrow":ability==CombatAbility.GuidedArrow?"guidedarrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
         var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
             :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
         long cast=WeaponMissiles.NewCast();int created=0;
@@ -87,6 +87,7 @@ public static class AmazonBow
             BowAmmunition.Consume(owner,CombatTiming.Equipped(owner));
         }
         else if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
+        FireGround.Delay(owner,ability);
         owner.PlaySound(0x238); // Identified ordinary native bow sound placeholder.
         return true;
     }

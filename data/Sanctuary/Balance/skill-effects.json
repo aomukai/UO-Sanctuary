@@ -399,7 +399,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native logical travel0xF42, bow sound0x238, explosion0x36BD and flame0x398C are identified placeholders. Final FireArrow/immolationarrow, groundFireBig/disc, explosion_medium_1/object_fire_loop_magic and fire impact/audio remain pending. Talent/L/R-hotkey icons are separate"
   },
   {
     "talentId": "amazon.strafe",

@@ -118,7 +118,7 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow && skillRank<1
+            || ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
             || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
             || ability!=CombatAbility.GuidedArrow && guided!=null
             || damage?.Elements==null || !damage.ValidConversion || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
@@ -227,6 +227,13 @@ public static class WeaponMissiles
         bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
         bool hit=next.Guided!=null || ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)==true;
+        if(flight.Ability==CombatAbility.ImmolationArrow)
+        {
+            // hit09 clears missile cold length before the direct hit.
+            // The separate attacker item-freeze event remains active.
+            next=next with{Damage=next.Damage with{Elements=next.Damage.Elements with{ColdFrames=0}}};
+            flight=flight with{Damage=next.Damage};_flights[flight.Id]=next;
+        }
         BowExplosions.Create(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
         var damage=flight.Damage.Roll(selected,DamageRoll);
@@ -292,7 +299,7 @@ public static class WeaponMissiles
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
                 || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
                     || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0
                     || flight.Frames!=flight.Frame+Math.Max(1,flight.Guided.Remaining) || flight.Flags!=(flight.Guided.Mode==1?0x20u:0x420u))

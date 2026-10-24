@@ -25,6 +25,7 @@ public static class BowExplosions
     private static long _next;
     internal static void Create(PlayerMobile owner,WeaponFlight parent,DateTime at)
     {
+        if(parent.Ability==CombatAbility.ImmolationArrow){ImmolationArrows.Contact(owner,parent,at);return;}
         if(parent.Ability is not(CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow) || parent.SkillRank<1 || owner.Map==null || owner.Map==Map.Internal
             || parent.X<0 || parent.Y<0 || parent.X>=owner.Map.Width || parent.Y>=owner.Map.Height){return;}
         bool freeze=parent.Ability==CombatAbility.FreezingArrow;

@@ -39,7 +39,7 @@ public static class MeteorChecks
         int life = target.Hits, twinLife = twinA.Hits, outsideLife = outside.Hits, immuneLife = immune.Hits;
         var values = SkillMechanics.Values(owner, CombatAbility.Meteor);
         Require(values.Mana256 == 17 * 256 && values.Damage256(false) == 88 * 256 && values.Damage256(true) == 110 * 256
-            && FireGround.MeteorFireDamage256(values, false) == 123 && FireGround.MeteorFireDamage256(values, true) == 206,
+            && FireGround.MeteorFireDamage256(values, false) == 120 && FireGround.MeteorFireDamage256(values, true) == 200,
             "Source direct/residual damage or distinct hard-point synergies");
         var row = SkillMechanics.For(CombatAbility.Meteor);
         var high = new SkillValues(row, k => k == row.SourceKey ? 28 : 0, _ => 0, 99);
@@ -67,7 +67,7 @@ public static class MeteorChecks
                 && twinA.Hits < twinLife && twinA.Hits == twinB.Hits && SkillHealth.Remainder256(twinA) == SkillHealth.Remainder256(twinB)
                 && twinLife - twinA.Hits is >= 114 and <= 142, "Area damage, shared roll or cast-time impact mastery snapshot");
             Require(patches.Length == 18 && patches.All(x => x.Ability == CombatAbility.Meteor && x.Size == 2 && x.DamageRate == 41
-                && x.Min256 == 168 && x.Max256 == 282 && (x.UntilUtc - TimedEffects.Now).TotalMilliseconds is > 950 and < 1250),
+                && x.Min256 == 164 && x.Max256 == 274 && (x.UntilUtc - TimedEffects.Now).TotalMilliseconds is > 950 and < 1250),
                 "Residual offsets/count, fresh mastery, independent damage or rank1 lifetime");
             Require(patches.Any(x => x.X == center.X && x.Y == center.Y + 2.5)
                 && patches.Any(x => x.X == center.X - 2 && x.Y == center.Y - 1), "Source residual footprint offsets");

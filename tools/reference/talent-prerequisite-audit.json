@@ -1,0 +1,4774 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Dependency closure, including redundant indirect prerequisites; not skill-mechanics or class-completion verification.",
+  "inputHashes": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "data/Sanctuary/talents.json": "0afa52a166c194d16e8b0e22d0ce0399726f168db0724b4a7248d7e0e909a429",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603"
+  },
+  "talents": 240,
+  "matching": 237,
+  "amazonMatching": 30,
+  "correctedEntry": {
+    "talentId": "amazon.immolationarrow",
+    "referenceSourceId": 27,
+    "previous": [
+      "amazon.magicarrow",
+      "amazon.firearrow",
+      "amazon.multipleshot"
+    ],
+    "current": [
+      "amazon.explodingarrow"
+    ],
+    "reason": "The legacy list omitted Exploding Arrow; raw current reqskill1 requires it. This is not an approved deviation."
+  },
+  "pending": [
+    {
+      "talentId": "barbarian.concentrate",
+      "missing": [],
+      "extra": [
+        "barbarian.leap"
+      ]
+    },
+    {
+      "talentId": "barbarian.berserk",
+      "missing": [],
+      "extra": [
+        "barbarian.leap"
+      ]
+    },
+    {
+      "talentId": "druid.armageddon",
+      "missing": [],
+      "extra": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.hurricane",
+        "druid.tornado",
+        "druid.twister"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "talentId": "amazon.jab",
+      "characterClass": "Amazon",
+      "sourceId": 10,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.powerstrike",
+      "characterClass": "Amazon",
+      "sourceId": 14,
+      "currentDirect": [
+        "amazon.jab"
+      ],
+      "referenceDirect": [
+        "amazon.jab"
+      ],
+      "currentClosure": [
+        "amazon.jab"
+      ],
+      "referenceClosure": [
+        "amazon.jab"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.poisonjavelin",
+      "characterClass": "Amazon",
+      "sourceId": 15,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.impale",
+      "characterClass": "Amazon",
+      "sourceId": 19,
+      "currentDirect": [
+        "amazon.jab"
+      ],
+      "referenceDirect": [
+        "amazon.jab"
+      ],
+      "currentClosure": [
+        "amazon.jab"
+      ],
+      "referenceClosure": [
+        "amazon.jab"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.lightningbolt",
+      "characterClass": "Amazon",
+      "sourceId": 20,
+      "currentDirect": [
+        "amazon.poisonjavelin"
+      ],
+      "referenceDirect": [
+        "amazon.poisonjavelin"
+      ],
+      "currentClosure": [
+        "amazon.poisonjavelin"
+      ],
+      "referenceClosure": [
+        "amazon.poisonjavelin"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.chargedstrike",
+      "characterClass": "Amazon",
+      "sourceId": 24,
+      "currentDirect": [
+        "amazon.jab",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike",
+        "amazon.lightningbolt"
+      ],
+      "referenceDirect": [
+        "amazon.powerstrike",
+        "amazon.lightningbolt"
+      ],
+      "currentClosure": [
+        "amazon.jab",
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike"
+      ],
+      "referenceClosure": [
+        "amazon.jab",
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.plaguejavelin",
+      "characterClass": "Amazon",
+      "sourceId": 25,
+      "currentDirect": [
+        "amazon.poisonjavelin",
+        "amazon.lightningbolt"
+      ],
+      "referenceDirect": [
+        "amazon.lightningbolt"
+      ],
+      "currentClosure": [
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin"
+      ],
+      "referenceClosure": [
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.fend",
+      "characterClass": "Amazon",
+      "sourceId": 30,
+      "currentDirect": [
+        "amazon.jab",
+        "amazon.impale"
+      ],
+      "referenceDirect": [
+        "amazon.impale"
+      ],
+      "currentClosure": [
+        "amazon.impale",
+        "amazon.jab"
+      ],
+      "referenceClosure": [
+        "amazon.impale",
+        "amazon.jab"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.lightningstrike",
+      "characterClass": "Amazon",
+      "sourceId": 34,
+      "currentDirect": [
+        "amazon.jab",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike",
+        "amazon.lightningbolt",
+        "amazon.chargedstrike"
+      ],
+      "referenceDirect": [
+        "amazon.chargedstrike"
+      ],
+      "currentClosure": [
+        "amazon.chargedstrike",
+        "amazon.jab",
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike"
+      ],
+      "referenceClosure": [
+        "amazon.chargedstrike",
+        "amazon.jab",
+        "amazon.lightningbolt",
+        "amazon.poisonjavelin",
+        "amazon.powerstrike"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.lightningfury",
+      "characterClass": "Amazon",
+      "sourceId": 35,
+      "currentDirect": [
+        "amazon.poisonjavelin",
+        "amazon.lightningbolt",
+        "amazon.plaguejavelin"
+      ],
+      "referenceDirect": [
+        "amazon.plaguejavelin"
+      ],
+      "currentClosure": [
+        "amazon.lightningbolt",
+        "amazon.plaguejavelin",
+        "amazon.poisonjavelin"
+      ],
+      "referenceClosure": [
+        "amazon.lightningbolt",
+        "amazon.plaguejavelin",
+        "amazon.poisonjavelin"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.innersight",
+      "characterClass": "Amazon",
+      "sourceId": 8,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.criticalstrike",
+      "characterClass": "Amazon",
+      "sourceId": 9,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.dodge",
+      "characterClass": "Amazon",
+      "sourceId": 13,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.slowmissiles",
+      "characterClass": "Amazon",
+      "sourceId": 17,
+      "currentDirect": [
+        "amazon.innersight"
+      ],
+      "referenceDirect": [
+        "amazon.innersight"
+      ],
+      "currentClosure": [
+        "amazon.innersight"
+      ],
+      "referenceClosure": [
+        "amazon.innersight"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.avoid",
+      "characterClass": "Amazon",
+      "sourceId": 18,
+      "currentDirect": [
+        "amazon.dodge"
+      ],
+      "referenceDirect": [
+        "amazon.dodge"
+      ],
+      "currentClosure": [
+        "amazon.dodge"
+      ],
+      "referenceClosure": [
+        "amazon.dodge"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.penetrate",
+      "characterClass": "Amazon",
+      "sourceId": 23,
+      "currentDirect": [
+        "amazon.criticalstrike"
+      ],
+      "referenceDirect": [
+        "amazon.criticalstrike"
+      ],
+      "currentClosure": [
+        "amazon.criticalstrike"
+      ],
+      "referenceClosure": [
+        "amazon.criticalstrike"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.decoy",
+      "characterClass": "Amazon",
+      "sourceId": 28,
+      "currentDirect": [
+        "amazon.innersight",
+        "amazon.slowmissiles"
+      ],
+      "referenceDirect": [
+        "amazon.slowmissiles"
+      ],
+      "currentClosure": [
+        "amazon.innersight",
+        "amazon.slowmissiles"
+      ],
+      "referenceClosure": [
+        "amazon.innersight",
+        "amazon.slowmissiles"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.evade",
+      "characterClass": "Amazon",
+      "sourceId": 29,
+      "currentDirect": [
+        "amazon.dodge",
+        "amazon.avoid"
+      ],
+      "referenceDirect": [
+        "amazon.avoid"
+      ],
+      "currentClosure": [
+        "amazon.avoid",
+        "amazon.dodge"
+      ],
+      "referenceClosure": [
+        "amazon.avoid",
+        "amazon.dodge"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.valkyrie",
+      "characterClass": "Amazon",
+      "sourceId": 32,
+      "currentDirect": [
+        "amazon.innersight",
+        "amazon.dodge",
+        "amazon.slowmissiles",
+        "amazon.avoid",
+        "amazon.decoy",
+        "amazon.evade"
+      ],
+      "referenceDirect": [
+        "amazon.decoy",
+        "amazon.evade"
+      ],
+      "currentClosure": [
+        "amazon.avoid",
+        "amazon.decoy",
+        "amazon.dodge",
+        "amazon.evade",
+        "amazon.innersight",
+        "amazon.slowmissiles"
+      ],
+      "referenceClosure": [
+        "amazon.avoid",
+        "amazon.decoy",
+        "amazon.dodge",
+        "amazon.evade",
+        "amazon.innersight",
+        "amazon.slowmissiles"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.pierce",
+      "characterClass": "Amazon",
+      "sourceId": 33,
+      "currentDirect": [
+        "amazon.criticalstrike",
+        "amazon.penetrate"
+      ],
+      "referenceDirect": [
+        "amazon.penetrate"
+      ],
+      "currentClosure": [
+        "amazon.criticalstrike",
+        "amazon.penetrate"
+      ],
+      "referenceClosure": [
+        "amazon.criticalstrike",
+        "amazon.penetrate"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.magicarrow",
+      "characterClass": "Amazon",
+      "sourceId": 6,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.firearrow",
+      "characterClass": "Amazon",
+      "sourceId": 7,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.coldarrow",
+      "characterClass": "Amazon",
+      "sourceId": 11,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.multipleshot",
+      "characterClass": "Amazon",
+      "sourceId": 12,
+      "currentDirect": [
+        "amazon.magicarrow"
+      ],
+      "referenceDirect": [
+        "amazon.magicarrow"
+      ],
+      "currentClosure": [
+        "amazon.magicarrow"
+      ],
+      "referenceClosure": [
+        "amazon.magicarrow"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.explodingarrow",
+      "characterClass": "Amazon",
+      "sourceId": 16,
+      "currentDirect": [
+        "amazon.magicarrow",
+        "amazon.firearrow",
+        "amazon.multipleshot"
+      ],
+      "referenceDirect": [
+        "amazon.firearrow",
+        "amazon.multipleshot"
+      ],
+      "currentClosure": [
+        "amazon.firearrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "referenceClosure": [
+        "amazon.firearrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.icearrow",
+      "characterClass": "Amazon",
+      "sourceId": 21,
+      "currentDirect": [
+        "amazon.coldarrow"
+      ],
+      "referenceDirect": [
+        "amazon.coldarrow"
+      ],
+      "currentClosure": [
+        "amazon.coldarrow"
+      ],
+      "referenceClosure": [
+        "amazon.coldarrow"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.guidedarrow",
+      "characterClass": "Amazon",
+      "sourceId": 22,
+      "currentDirect": [
+        "amazon.magicarrow",
+        "amazon.coldarrow",
+        "amazon.multipleshot"
+      ],
+      "referenceDirect": [
+        "amazon.coldarrow",
+        "amazon.multipleshot"
+      ],
+      "currentClosure": [
+        "amazon.coldarrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "referenceClosure": [
+        "amazon.coldarrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.immolationarrow",
+      "characterClass": "Amazon",
+      "sourceId": 27,
+      "currentDirect": [
+        "amazon.explodingarrow"
+      ],
+      "referenceDirect": [
+        "amazon.explodingarrow"
+      ],
+      "currentClosure": [
+        "amazon.explodingarrow",
+        "amazon.firearrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "referenceClosure": [
+        "amazon.explodingarrow",
+        "amazon.firearrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.strafe",
+      "characterClass": "Amazon",
+      "sourceId": 26,
+      "currentDirect": [
+        "amazon.magicarrow",
+        "amazon.multipleshot",
+        "amazon.coldarrow",
+        "amazon.guidedarrow"
+      ],
+      "referenceDirect": [
+        "amazon.guidedarrow"
+      ],
+      "currentClosure": [
+        "amazon.coldarrow",
+        "amazon.guidedarrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "referenceClosure": [
+        "amazon.coldarrow",
+        "amazon.guidedarrow",
+        "amazon.magicarrow",
+        "amazon.multipleshot"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "amazon.freezingarrow",
+      "characterClass": "Amazon",
+      "sourceId": 31,
+      "currentDirect": [
+        "amazon.coldarrow",
+        "amazon.icearrow"
+      ],
+      "referenceDirect": [
+        "amazon.icearrow"
+      ],
+      "currentClosure": [
+        "amazon.coldarrow",
+        "amazon.icearrow"
+      ],
+      "referenceClosure": [
+        "amazon.coldarrow",
+        "amazon.icearrow"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.icebolt",
+      "characterClass": "Sorceress",
+      "sourceId": 39,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.frozenarmor",
+      "characterClass": "Sorceress",
+      "sourceId": 40,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.frostnova",
+      "characterClass": "Sorceress",
+      "sourceId": 44,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.iceblast",
+      "characterClass": "Sorceress",
+      "sourceId": 45,
+      "currentDirect": [
+        "sorceress.icebolt"
+      ],
+      "referenceDirect": [
+        "sorceress.icebolt"
+      ],
+      "currentClosure": [
+        "sorceress.icebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.icebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.shiverarmor",
+      "characterClass": "Sorceress",
+      "sourceId": 50,
+      "currentDirect": [
+        "sorceress.frozenarmor",
+        "sorceress.icebolt",
+        "sorceress.iceblast"
+      ],
+      "referenceDirect": [
+        "sorceress.iceblast",
+        "sorceress.frozenarmor"
+      ],
+      "currentClosure": [
+        "sorceress.frozenarmor",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.frozenarmor",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.glacialspike",
+      "characterClass": "Sorceress",
+      "sourceId": 55,
+      "currentDirect": [
+        "sorceress.icebolt",
+        "sorceress.iceblast"
+      ],
+      "referenceDirect": [
+        "sorceress.iceblast"
+      ],
+      "currentClosure": [
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.blizzard",
+      "characterClass": "Sorceress",
+      "sourceId": 59,
+      "currentDirect": [
+        "sorceress.icebolt",
+        "sorceress.iceblast",
+        "sorceress.frostnova",
+        "sorceress.glacialspike"
+      ],
+      "referenceDirect": [
+        "sorceress.frostnova",
+        "sorceress.glacialspike"
+      ],
+      "currentClosure": [
+        "sorceress.frostnova",
+        "sorceress.glacialspike",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.frostnova",
+        "sorceress.glacialspike",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.chillingarmor",
+      "characterClass": "Sorceress",
+      "sourceId": 60,
+      "currentDirect": [
+        "sorceress.frozenarmor",
+        "sorceress.icebolt",
+        "sorceress.iceblast",
+        "sorceress.shiverarmor"
+      ],
+      "referenceDirect": [
+        "sorceress.shiverarmor"
+      ],
+      "currentClosure": [
+        "sorceress.frozenarmor",
+        "sorceress.iceblast",
+        "sorceress.icebolt",
+        "sorceress.shiverarmor"
+      ],
+      "referenceClosure": [
+        "sorceress.frozenarmor",
+        "sorceress.iceblast",
+        "sorceress.icebolt",
+        "sorceress.shiverarmor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.frozenorb",
+      "characterClass": "Sorceress",
+      "sourceId": 64,
+      "currentDirect": [
+        "sorceress.icebolt",
+        "sorceress.iceblast",
+        "sorceress.frostnova",
+        "sorceress.glacialspike",
+        "sorceress.blizzard"
+      ],
+      "referenceDirect": [
+        "sorceress.blizzard"
+      ],
+      "currentClosure": [
+        "sorceress.blizzard",
+        "sorceress.frostnova",
+        "sorceress.glacialspike",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.blizzard",
+        "sorceress.frostnova",
+        "sorceress.glacialspike",
+        "sorceress.iceblast",
+        "sorceress.icebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.coldmastery",
+      "characterClass": "Sorceress",
+      "sourceId": 65,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.chargedbolt",
+      "characterClass": "Sorceress",
+      "sourceId": 38,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.telekinesis",
+      "characterClass": "Sorceress",
+      "sourceId": 43,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.staticfield",
+      "characterClass": "Sorceress",
+      "sourceId": 42,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.lightning",
+      "characterClass": "Sorceress",
+      "sourceId": 49,
+      "currentDirect": [
+        "sorceress.chargedbolt"
+      ],
+      "referenceDirect": [
+        "sorceress.chargedbolt"
+      ],
+      "currentClosure": [
+        "sorceress.chargedbolt"
+      ],
+      "referenceClosure": [
+        "sorceress.chargedbolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.nova",
+      "characterClass": "Sorceress",
+      "sourceId": 48,
+      "currentDirect": [
+        "sorceress.staticfield"
+      ],
+      "referenceDirect": [
+        "sorceress.staticfield"
+      ],
+      "currentClosure": [
+        "sorceress.staticfield"
+      ],
+      "referenceClosure": [
+        "sorceress.staticfield"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.chainlightning",
+      "characterClass": "Sorceress",
+      "sourceId": 53,
+      "currentDirect": [
+        "sorceress.chargedbolt",
+        "sorceress.lightning"
+      ],
+      "referenceDirect": [
+        "sorceress.lightning"
+      ],
+      "currentClosure": [
+        "sorceress.chargedbolt",
+        "sorceress.lightning"
+      ],
+      "referenceClosure": [
+        "sorceress.chargedbolt",
+        "sorceress.lightning"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.teleport",
+      "characterClass": "Sorceress",
+      "sourceId": 54,
+      "currentDirect": [
+        "sorceress.telekinesis"
+      ],
+      "referenceDirect": [
+        "sorceress.telekinesis"
+      ],
+      "currentClosure": [
+        "sorceress.telekinesis"
+      ],
+      "referenceClosure": [
+        "sorceress.telekinesis"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.thunderstorm",
+      "characterClass": "Sorceress",
+      "sourceId": 57,
+      "currentDirect": [
+        "sorceress.chargedbolt",
+        "sorceress.staticfield",
+        "sorceress.lightning",
+        "sorceress.nova",
+        "sorceress.chainlightning"
+      ],
+      "referenceDirect": [
+        "sorceress.nova",
+        "sorceress.chainlightning"
+      ],
+      "currentClosure": [
+        "sorceress.chainlightning",
+        "sorceress.chargedbolt",
+        "sorceress.lightning",
+        "sorceress.nova",
+        "sorceress.staticfield"
+      ],
+      "referenceClosure": [
+        "sorceress.chainlightning",
+        "sorceress.chargedbolt",
+        "sorceress.lightning",
+        "sorceress.nova",
+        "sorceress.staticfield"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.energyshield",
+      "characterClass": "Sorceress",
+      "sourceId": 58,
+      "currentDirect": [
+        "sorceress.chargedbolt",
+        "sorceress.telekinesis",
+        "sorceress.lightning",
+        "sorceress.teleport",
+        "sorceress.chainlightning"
+      ],
+      "referenceDirect": [
+        "sorceress.teleport",
+        "sorceress.chainlightning"
+      ],
+      "currentClosure": [
+        "sorceress.chainlightning",
+        "sorceress.chargedbolt",
+        "sorceress.lightning",
+        "sorceress.telekinesis",
+        "sorceress.teleport"
+      ],
+      "referenceClosure": [
+        "sorceress.chainlightning",
+        "sorceress.chargedbolt",
+        "sorceress.lightning",
+        "sorceress.telekinesis",
+        "sorceress.teleport"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.lightningmastery",
+      "characterClass": "Sorceress",
+      "sourceId": 63,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.firebolt",
+      "characterClass": "Sorceress",
+      "sourceId": 36,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.warmth",
+      "characterClass": "Sorceress",
+      "sourceId": 37,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.inferno",
+      "characterClass": "Sorceress",
+      "sourceId": 41,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.blaze",
+      "characterClass": "Sorceress",
+      "sourceId": 46,
+      "currentDirect": [
+        "sorceress.inferno"
+      ],
+      "referenceDirect": [
+        "sorceress.inferno"
+      ],
+      "currentClosure": [
+        "sorceress.inferno"
+      ],
+      "referenceClosure": [
+        "sorceress.inferno"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.fireball",
+      "characterClass": "Sorceress",
+      "sourceId": 47,
+      "currentDirect": [
+        "sorceress.firebolt"
+      ],
+      "referenceDirect": [
+        "sorceress.firebolt"
+      ],
+      "currentClosure": [
+        "sorceress.firebolt"
+      ],
+      "referenceClosure": [
+        "sorceress.firebolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.firewall",
+      "characterClass": "Sorceress",
+      "sourceId": 51,
+      "currentDirect": [
+        "sorceress.inferno",
+        "sorceress.blaze"
+      ],
+      "referenceDirect": [
+        "sorceress.blaze"
+      ],
+      "currentClosure": [
+        "sorceress.blaze",
+        "sorceress.inferno"
+      ],
+      "referenceClosure": [
+        "sorceress.blaze",
+        "sorceress.inferno"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.enchant",
+      "characterClass": "Sorceress",
+      "sourceId": 52,
+      "currentDirect": [
+        "sorceress.firebolt",
+        "sorceress.warmth",
+        "sorceress.fireball"
+      ],
+      "referenceDirect": [
+        "sorceress.warmth",
+        "sorceress.fireball"
+      ],
+      "currentClosure": [
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.warmth"
+      ],
+      "referenceClosure": [
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.warmth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.meteor",
+      "characterClass": "Sorceress",
+      "sourceId": 56,
+      "currentDirect": [
+        "sorceress.firebolt",
+        "sorceress.inferno",
+        "sorceress.blaze",
+        "sorceress.firewall",
+        "sorceress.fireball"
+      ],
+      "referenceDirect": [
+        "sorceress.fireball",
+        "sorceress.firewall"
+      ],
+      "currentClosure": [
+        "sorceress.blaze",
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.firewall",
+        "sorceress.inferno"
+      ],
+      "referenceClosure": [
+        "sorceress.blaze",
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.firewall",
+        "sorceress.inferno"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.firemastery",
+      "characterClass": "Sorceress",
+      "sourceId": 61,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "sorceress.hydra",
+      "characterClass": "Sorceress",
+      "sourceId": 62,
+      "currentDirect": [
+        "sorceress.firebolt",
+        "sorceress.warmth",
+        "sorceress.fireball",
+        "sorceress.enchant"
+      ],
+      "referenceDirect": [
+        "sorceress.enchant"
+      ],
+      "currentClosure": [
+        "sorceress.enchant",
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.warmth"
+      ],
+      "referenceClosure": [
+        "sorceress.enchant",
+        "sorceress.fireball",
+        "sorceress.firebolt",
+        "sorceress.warmth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.raiseskeleton",
+      "characterClass": "Necromancer",
+      "sourceId": 70,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.skeletonmastery",
+      "characterClass": "Necromancer",
+      "sourceId": 69,
+      "currentDirect": [
+        "necromancer.raiseskeleton"
+      ],
+      "referenceDirect": [
+        "necromancer.raiseskeleton"
+      ],
+      "currentClosure": [
+        "necromancer.raiseskeleton"
+      ],
+      "referenceClosure": [
+        "necromancer.raiseskeleton"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.claygolem",
+      "characterClass": "Necromancer",
+      "sourceId": 75,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.golemmastery",
+      "characterClass": "Necromancer",
+      "sourceId": 79,
+      "currentDirect": [
+        "necromancer.claygolem"
+      ],
+      "referenceDirect": [
+        "necromancer.claygolem"
+      ],
+      "currentClosure": [
+        "necromancer.claygolem"
+      ],
+      "referenceClosure": [
+        "necromancer.claygolem"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.skeletalmage",
+      "characterClass": "Necromancer",
+      "sourceId": 80,
+      "currentDirect": [
+        "necromancer.raiseskeleton"
+      ],
+      "referenceDirect": [
+        "necromancer.raiseskeleton"
+      ],
+      "currentClosure": [
+        "necromancer.raiseskeleton"
+      ],
+      "referenceClosure": [
+        "necromancer.raiseskeleton"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.bloodgolem",
+      "characterClass": "Necromancer",
+      "sourceId": 85,
+      "currentDirect": [
+        "necromancer.claygolem"
+      ],
+      "referenceDirect": [
+        "necromancer.claygolem"
+      ],
+      "currentClosure": [
+        "necromancer.claygolem"
+      ],
+      "referenceClosure": [
+        "necromancer.claygolem"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.summonresist",
+      "characterClass": "Necromancer",
+      "sourceId": 89,
+      "currentDirect": [
+        "necromancer.claygolem",
+        "necromancer.golemmastery"
+      ],
+      "referenceDirect": [
+        "necromancer.golemmastery"
+      ],
+      "currentClosure": [
+        "necromancer.claygolem",
+        "necromancer.golemmastery"
+      ],
+      "referenceClosure": [
+        "necromancer.claygolem",
+        "necromancer.golemmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.irongolem",
+      "characterClass": "Necromancer",
+      "sourceId": 90,
+      "currentDirect": [
+        "necromancer.claygolem",
+        "necromancer.bloodgolem"
+      ],
+      "referenceDirect": [
+        "necromancer.bloodgolem"
+      ],
+      "currentClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem"
+      ],
+      "referenceClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.firegolem",
+      "characterClass": "Necromancer",
+      "sourceId": 94,
+      "currentDirect": [
+        "necromancer.claygolem",
+        "necromancer.bloodgolem",
+        "necromancer.irongolem"
+      ],
+      "referenceDirect": [
+        "necromancer.irongolem"
+      ],
+      "currentClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem",
+        "necromancer.irongolem"
+      ],
+      "referenceClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem",
+        "necromancer.irongolem"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.revive",
+      "characterClass": "Necromancer",
+      "sourceId": 95,
+      "currentDirect": [
+        "necromancer.raiseskeleton",
+        "necromancer.claygolem",
+        "necromancer.skeletalmage",
+        "necromancer.bloodgolem",
+        "necromancer.irongolem"
+      ],
+      "referenceDirect": [
+        "necromancer.skeletalmage",
+        "necromancer.irongolem"
+      ],
+      "currentClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem",
+        "necromancer.irongolem",
+        "necromancer.raiseskeleton",
+        "necromancer.skeletalmage"
+      ],
+      "referenceClosure": [
+        "necromancer.bloodgolem",
+        "necromancer.claygolem",
+        "necromancer.irongolem",
+        "necromancer.raiseskeleton",
+        "necromancer.skeletalmage"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.teeth",
+      "characterClass": "Necromancer",
+      "sourceId": 67,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.bonearmor",
+      "characterClass": "Necromancer",
+      "sourceId": 68,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.poisondagger",
+      "characterClass": "Necromancer",
+      "sourceId": 73,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.corpseexplosion",
+      "characterClass": "Necromancer",
+      "sourceId": 74,
+      "currentDirect": [
+        "necromancer.teeth"
+      ],
+      "referenceDirect": [
+        "necromancer.teeth"
+      ],
+      "currentClosure": [
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.bonewall",
+      "characterClass": "Necromancer",
+      "sourceId": 78,
+      "currentDirect": [
+        "necromancer.bonearmor"
+      ],
+      "referenceDirect": [
+        "necromancer.bonearmor"
+      ],
+      "currentClosure": [
+        "necromancer.bonearmor"
+      ],
+      "referenceClosure": [
+        "necromancer.bonearmor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.poisonexplosion",
+      "characterClass": "Necromancer",
+      "sourceId": 83,
+      "currentDirect": [
+        "necromancer.teeth",
+        "necromancer.corpseexplosion",
+        "necromancer.poisondagger"
+      ],
+      "referenceDirect": [
+        "necromancer.poisondagger",
+        "necromancer.corpseexplosion"
+      ],
+      "currentClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.poisondagger",
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.poisondagger",
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.bonespear",
+      "characterClass": "Necromancer",
+      "sourceId": 84,
+      "currentDirect": [
+        "necromancer.teeth",
+        "necromancer.corpseexplosion"
+      ],
+      "referenceDirect": [
+        "necromancer.corpseexplosion"
+      ],
+      "currentClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.boneprison",
+      "characterClass": "Necromancer",
+      "sourceId": 88,
+      "currentDirect": [
+        "necromancer.teeth",
+        "necromancer.bonearmor",
+        "necromancer.corpseexplosion",
+        "necromancer.bonewall",
+        "necromancer.bonespear"
+      ],
+      "referenceDirect": [
+        "necromancer.bonewall",
+        "necromancer.bonespear"
+      ],
+      "currentClosure": [
+        "necromancer.bonearmor",
+        "necromancer.bonespear",
+        "necromancer.bonewall",
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.bonearmor",
+        "necromancer.bonespear",
+        "necromancer.bonewall",
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.poisonnova",
+      "characterClass": "Necromancer",
+      "sourceId": 92,
+      "currentDirect": [
+        "necromancer.poisondagger",
+        "necromancer.teeth",
+        "necromancer.corpseexplosion",
+        "necromancer.poisonexplosion"
+      ],
+      "referenceDirect": [
+        "necromancer.poisonexplosion"
+      ],
+      "currentClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.poisondagger",
+        "necromancer.poisonexplosion",
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.corpseexplosion",
+        "necromancer.poisondagger",
+        "necromancer.poisonexplosion",
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.bonespirit",
+      "characterClass": "Necromancer",
+      "sourceId": 93,
+      "currentDirect": [
+        "necromancer.teeth",
+        "necromancer.corpseexplosion",
+        "necromancer.bonespear"
+      ],
+      "referenceDirect": [
+        "necromancer.bonespear"
+      ],
+      "currentClosure": [
+        "necromancer.bonespear",
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "referenceClosure": [
+        "necromancer.bonespear",
+        "necromancer.corpseexplosion",
+        "necromancer.teeth"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.amplifydamage",
+      "characterClass": "Necromancer",
+      "sourceId": 66,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.dimvision",
+      "characterClass": "Necromancer",
+      "sourceId": 71,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.weaken",
+      "characterClass": "Necromancer",
+      "sourceId": 72,
+      "currentDirect": [
+        "necromancer.amplifydamage"
+      ],
+      "referenceDirect": [
+        "necromancer.amplifydamage"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.ironmaiden",
+      "characterClass": "Necromancer",
+      "sourceId": 76,
+      "currentDirect": [
+        "necromancer.amplifydamage"
+      ],
+      "referenceDirect": [
+        "necromancer.amplifydamage"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.terror",
+      "characterClass": "Necromancer",
+      "sourceId": 77,
+      "currentDirect": [
+        "necromancer.amplifydamage",
+        "necromancer.weaken"
+      ],
+      "referenceDirect": [
+        "necromancer.weaken"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.weaken"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.weaken"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.confuse",
+      "characterClass": "Necromancer",
+      "sourceId": 81,
+      "currentDirect": [
+        "necromancer.dimvision"
+      ],
+      "referenceDirect": [
+        "necromancer.dimvision"
+      ],
+      "currentClosure": [
+        "necromancer.dimvision"
+      ],
+      "referenceClosure": [
+        "necromancer.dimvision"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.lifetap",
+      "characterClass": "Necromancer",
+      "sourceId": 82,
+      "currentDirect": [
+        "necromancer.amplifydamage",
+        "necromancer.ironmaiden"
+      ],
+      "referenceDirect": [
+        "necromancer.ironmaiden"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.ironmaiden"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.ironmaiden"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.attract",
+      "characterClass": "Necromancer",
+      "sourceId": 86,
+      "currentDirect": [
+        "necromancer.dimvision",
+        "necromancer.confuse"
+      ],
+      "referenceDirect": [
+        "necromancer.confuse"
+      ],
+      "currentClosure": [
+        "necromancer.confuse",
+        "necromancer.dimvision"
+      ],
+      "referenceClosure": [
+        "necromancer.confuse",
+        "necromancer.dimvision"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.decrepify",
+      "characterClass": "Necromancer",
+      "sourceId": 87,
+      "currentDirect": [
+        "necromancer.amplifydamage",
+        "necromancer.weaken",
+        "necromancer.terror"
+      ],
+      "referenceDirect": [
+        "necromancer.terror"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.terror",
+        "necromancer.weaken"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.terror",
+        "necromancer.weaken"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "necromancer.lowerresist",
+      "characterClass": "Necromancer",
+      "sourceId": 91,
+      "currentDirect": [
+        "necromancer.weaken",
+        "necromancer.amplifydamage",
+        "necromancer.terror",
+        "necromancer.ironmaiden",
+        "necromancer.lifetap",
+        "necromancer.decrepify"
+      ],
+      "referenceDirect": [
+        "necromancer.lifetap",
+        "necromancer.decrepify"
+      ],
+      "currentClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.decrepify",
+        "necromancer.ironmaiden",
+        "necromancer.lifetap",
+        "necromancer.terror",
+        "necromancer.weaken"
+      ],
+      "referenceClosure": [
+        "necromancer.amplifydamage",
+        "necromancer.decrepify",
+        "necromancer.ironmaiden",
+        "necromancer.lifetap",
+        "necromancer.terror",
+        "necromancer.weaken"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.prayer",
+      "characterClass": "Paladin",
+      "sourceId": 99,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.resistfire",
+      "characterClass": "Paladin",
+      "sourceId": 100,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.resistcold",
+      "characterClass": "Paladin",
+      "sourceId": 105,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.resistlightning",
+      "characterClass": "Paladin",
+      "sourceId": 110,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.defiance",
+      "characterClass": "Paladin",
+      "sourceId": 104,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.cleansing",
+      "characterClass": "Paladin",
+      "sourceId": 109,
+      "currentDirect": [
+        "paladin.prayer"
+      ],
+      "referenceDirect": [
+        "paladin.prayer"
+      ],
+      "currentClosure": [
+        "paladin.prayer"
+      ],
+      "referenceClosure": [
+        "paladin.prayer"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.vigor",
+      "characterClass": "Paladin",
+      "sourceId": 115,
+      "currentDirect": [
+        "paladin.prayer",
+        "paladin.cleansing",
+        "paladin.defiance"
+      ],
+      "referenceDirect": [
+        "paladin.cleansing",
+        "paladin.defiance"
+      ],
+      "currentClosure": [
+        "paladin.cleansing",
+        "paladin.defiance",
+        "paladin.prayer"
+      ],
+      "referenceClosure": [
+        "paladin.cleansing",
+        "paladin.defiance",
+        "paladin.prayer"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.meditation",
+      "characterClass": "Paladin",
+      "sourceId": 120,
+      "currentDirect": [
+        "paladin.prayer",
+        "paladin.cleansing"
+      ],
+      "referenceDirect": [
+        "paladin.cleansing"
+      ],
+      "currentClosure": [
+        "paladin.cleansing",
+        "paladin.prayer"
+      ],
+      "referenceClosure": [
+        "paladin.cleansing",
+        "paladin.prayer"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.redemption",
+      "characterClass": "Paladin",
+      "sourceId": 124,
+      "currentDirect": [
+        "paladin.prayer",
+        "paladin.cleansing",
+        "paladin.defiance",
+        "paladin.vigor"
+      ],
+      "referenceDirect": [
+        "paladin.vigor"
+      ],
+      "currentClosure": [
+        "paladin.cleansing",
+        "paladin.defiance",
+        "paladin.prayer",
+        "paladin.vigor"
+      ],
+      "referenceClosure": [
+        "paladin.cleansing",
+        "paladin.defiance",
+        "paladin.prayer",
+        "paladin.vigor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.salvation",
+      "characterClass": "Paladin",
+      "sourceId": 125,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.might",
+      "characterClass": "Paladin",
+      "sourceId": 98,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.holyfire",
+      "characterClass": "Paladin",
+      "sourceId": 102,
+      "currentDirect": [
+        "paladin.might"
+      ],
+      "referenceDirect": [
+        "paladin.might"
+      ],
+      "currentClosure": [
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.thorns",
+      "characterClass": "Paladin",
+      "sourceId": 103,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.blessedaim",
+      "characterClass": "Paladin",
+      "sourceId": 108,
+      "currentDirect": [
+        "paladin.might"
+      ],
+      "referenceDirect": [
+        "paladin.might"
+      ],
+      "currentClosure": [
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.concentration",
+      "characterClass": "Paladin",
+      "sourceId": 113,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.blessedaim"
+      ],
+      "referenceDirect": [
+        "paladin.blessedaim"
+      ],
+      "currentClosure": [
+        "paladin.blessedaim",
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.blessedaim",
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.holyfreeze",
+      "characterClass": "Paladin",
+      "sourceId": 114,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.holyfire"
+      ],
+      "referenceDirect": [
+        "paladin.holyfire"
+      ],
+      "currentClosure": [
+        "paladin.holyfire",
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.holyfire",
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.holyshock",
+      "characterClass": "Paladin",
+      "sourceId": 118,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.holyfire",
+        "paladin.holyfreeze"
+      ],
+      "referenceDirect": [
+        "paladin.holyfreeze"
+      ],
+      "currentClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.sanctuary",
+      "characterClass": "Paladin",
+      "sourceId": 119,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.thorns",
+        "paladin.holyfire",
+        "paladin.holyfreeze"
+      ],
+      "referenceDirect": [
+        "paladin.thorns",
+        "paladin.holyfreeze"
+      ],
+      "currentClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might",
+        "paladin.thorns"
+      ],
+      "referenceClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might",
+        "paladin.thorns"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.fanaticism",
+      "characterClass": "Paladin",
+      "sourceId": 122,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.blessedaim",
+        "paladin.concentration"
+      ],
+      "referenceDirect": [
+        "paladin.concentration"
+      ],
+      "currentClosure": [
+        "paladin.blessedaim",
+        "paladin.concentration",
+        "paladin.might"
+      ],
+      "referenceClosure": [
+        "paladin.blessedaim",
+        "paladin.concentration",
+        "paladin.might"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.conviction",
+      "characterClass": "Paladin",
+      "sourceId": 123,
+      "currentDirect": [
+        "paladin.might",
+        "paladin.thorns",
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.sanctuary"
+      ],
+      "referenceDirect": [
+        "paladin.sanctuary"
+      ],
+      "currentClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might",
+        "paladin.sanctuary",
+        "paladin.thorns"
+      ],
+      "referenceClosure": [
+        "paladin.holyfire",
+        "paladin.holyfreeze",
+        "paladin.might",
+        "paladin.sanctuary",
+        "paladin.thorns"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.sacrifice",
+      "characterClass": "Paladin",
+      "sourceId": 96,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.smite",
+      "characterClass": "Paladin",
+      "sourceId": 97,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.holybolt",
+      "characterClass": "Paladin",
+      "sourceId": 101,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.zeal",
+      "characterClass": "Paladin",
+      "sourceId": 106,
+      "currentDirect": [
+        "paladin.sacrifice"
+      ],
+      "referenceDirect": [
+        "paladin.sacrifice"
+      ],
+      "currentClosure": [
+        "paladin.sacrifice"
+      ],
+      "referenceClosure": [
+        "paladin.sacrifice"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.charge",
+      "characterClass": "Paladin",
+      "sourceId": 107,
+      "currentDirect": [
+        "paladin.smite"
+      ],
+      "referenceDirect": [
+        "paladin.smite"
+      ],
+      "currentClosure": [
+        "paladin.smite"
+      ],
+      "referenceClosure": [
+        "paladin.smite"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.vengeance",
+      "characterClass": "Paladin",
+      "sourceId": 111,
+      "currentDirect": [
+        "paladin.sacrifice",
+        "paladin.zeal"
+      ],
+      "referenceDirect": [
+        "paladin.zeal"
+      ],
+      "currentClosure": [
+        "paladin.sacrifice",
+        "paladin.zeal"
+      ],
+      "referenceClosure": [
+        "paladin.sacrifice",
+        "paladin.zeal"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.blessedhammer",
+      "characterClass": "Paladin",
+      "sourceId": 112,
+      "currentDirect": [
+        "paladin.holybolt"
+      ],
+      "referenceDirect": [
+        "paladin.holybolt"
+      ],
+      "currentClosure": [
+        "paladin.holybolt"
+      ],
+      "referenceClosure": [
+        "paladin.holybolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.conversion",
+      "characterClass": "Paladin",
+      "sourceId": 116,
+      "currentDirect": [
+        "paladin.sacrifice",
+        "paladin.zeal",
+        "paladin.vengeance"
+      ],
+      "referenceDirect": [
+        "paladin.vengeance"
+      ],
+      "currentClosure": [
+        "paladin.sacrifice",
+        "paladin.vengeance",
+        "paladin.zeal"
+      ],
+      "referenceClosure": [
+        "paladin.sacrifice",
+        "paladin.vengeance",
+        "paladin.zeal"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.holyshield",
+      "characterClass": "Paladin",
+      "sourceId": 117,
+      "currentDirect": [
+        "paladin.smite",
+        "paladin.holybolt",
+        "paladin.charge",
+        "paladin.blessedhammer"
+      ],
+      "referenceDirect": [
+        "paladin.charge",
+        "paladin.blessedhammer"
+      ],
+      "currentClosure": [
+        "paladin.blessedhammer",
+        "paladin.charge",
+        "paladin.holybolt",
+        "paladin.smite"
+      ],
+      "referenceClosure": [
+        "paladin.blessedhammer",
+        "paladin.charge",
+        "paladin.holybolt",
+        "paladin.smite"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "paladin.fistoftheheavens",
+      "characterClass": "Paladin",
+      "sourceId": 121,
+      "currentDirect": [
+        "paladin.sacrifice",
+        "paladin.holybolt",
+        "paladin.zeal",
+        "paladin.vengeance",
+        "paladin.blessedhammer",
+        "paladin.conversion"
+      ],
+      "referenceDirect": [
+        "paladin.blessedhammer",
+        "paladin.conversion"
+      ],
+      "currentClosure": [
+        "paladin.blessedhammer",
+        "paladin.conversion",
+        "paladin.holybolt",
+        "paladin.sacrifice",
+        "paladin.vengeance",
+        "paladin.zeal"
+      ],
+      "referenceClosure": [
+        "paladin.blessedhammer",
+        "paladin.conversion",
+        "paladin.holybolt",
+        "paladin.sacrifice",
+        "paladin.vengeance",
+        "paladin.zeal"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.howl",
+      "characterClass": "Barbarian",
+      "sourceId": 130,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.findpotion",
+      "characterClass": "Barbarian",
+      "sourceId": 131,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.shout",
+      "characterClass": "Barbarian",
+      "sourceId": 138,
+      "currentDirect": [
+        "barbarian.howl"
+      ],
+      "referenceDirect": [
+        "barbarian.howl"
+      ],
+      "currentClosure": [
+        "barbarian.howl"
+      ],
+      "referenceClosure": [
+        "barbarian.howl"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.taunt",
+      "characterClass": "Barbarian",
+      "sourceId": 137,
+      "currentDirect": [
+        "barbarian.howl"
+      ],
+      "referenceDirect": [
+        "barbarian.howl"
+      ],
+      "currentClosure": [
+        "barbarian.howl"
+      ],
+      "referenceClosure": [
+        "barbarian.howl"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.battlecry",
+      "characterClass": "Barbarian",
+      "sourceId": 146,
+      "currentDirect": [
+        "barbarian.howl",
+        "barbarian.taunt"
+      ],
+      "referenceDirect": [
+        "barbarian.taunt"
+      ],
+      "currentClosure": [
+        "barbarian.howl",
+        "barbarian.taunt"
+      ],
+      "referenceClosure": [
+        "barbarian.howl",
+        "barbarian.taunt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.finditem",
+      "characterClass": "Barbarian",
+      "sourceId": 142,
+      "currentDirect": [
+        "barbarian.findpotion"
+      ],
+      "referenceDirect": [
+        "barbarian.findpotion"
+      ],
+      "currentClosure": [
+        "barbarian.findpotion"
+      ],
+      "referenceClosure": [
+        "barbarian.findpotion"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.battleorders",
+      "characterClass": "Barbarian",
+      "sourceId": 149,
+      "currentDirect": [
+        "barbarian.howl",
+        "barbarian.shout"
+      ],
+      "referenceDirect": [
+        "barbarian.shout"
+      ],
+      "currentClosure": [
+        "barbarian.howl",
+        "barbarian.shout"
+      ],
+      "referenceClosure": [
+        "barbarian.howl",
+        "barbarian.shout"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.grimward",
+      "characterClass": "Barbarian",
+      "sourceId": 150,
+      "currentDirect": [
+        "barbarian.findpotion",
+        "barbarian.finditem"
+      ],
+      "referenceDirect": [
+        "barbarian.finditem"
+      ],
+      "currentClosure": [
+        "barbarian.finditem",
+        "barbarian.findpotion"
+      ],
+      "referenceClosure": [
+        "barbarian.finditem",
+        "barbarian.findpotion"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.warcry",
+      "characterClass": "Barbarian",
+      "sourceId": 154,
+      "currentDirect": [
+        "barbarian.howl",
+        "barbarian.taunt",
+        "barbarian.shout",
+        "barbarian.battlecry",
+        "barbarian.battleorders"
+      ],
+      "referenceDirect": [
+        "barbarian.battlecry",
+        "barbarian.battleorders"
+      ],
+      "currentClosure": [
+        "barbarian.battlecry",
+        "barbarian.battleorders",
+        "barbarian.howl",
+        "barbarian.shout",
+        "barbarian.taunt"
+      ],
+      "referenceClosure": [
+        "barbarian.battlecry",
+        "barbarian.battleorders",
+        "barbarian.howl",
+        "barbarian.shout",
+        "barbarian.taunt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.battlecommand",
+      "characterClass": "Barbarian",
+      "sourceId": 155,
+      "currentDirect": [
+        "barbarian.howl",
+        "barbarian.shout",
+        "barbarian.battleorders"
+      ],
+      "referenceDirect": [
+        "barbarian.battleorders"
+      ],
+      "currentClosure": [
+        "barbarian.battleorders",
+        "barbarian.howl",
+        "barbarian.shout"
+      ],
+      "referenceClosure": [
+        "barbarian.battleorders",
+        "barbarian.howl",
+        "barbarian.shout"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.swordmastery",
+      "characterClass": "Barbarian",
+      "sourceId": 127,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.axemastery",
+      "characterClass": "Barbarian",
+      "sourceId": 128,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.macemastery",
+      "characterClass": "Barbarian",
+      "sourceId": 129,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.polearmmastery",
+      "characterClass": "Barbarian",
+      "sourceId": 134,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.throwingmastery",
+      "characterClass": "Barbarian",
+      "sourceId": 135,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.spearmastery",
+      "characterClass": "Barbarian",
+      "sourceId": 136,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.increasedstamina",
+      "characterClass": "Barbarian",
+      "sourceId": 141,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.ironskin",
+      "characterClass": "Barbarian",
+      "sourceId": 145,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.increasedspeed",
+      "characterClass": "Barbarian",
+      "sourceId": 148,
+      "currentDirect": [
+        "barbarian.increasedstamina"
+      ],
+      "referenceDirect": [
+        "barbarian.increasedstamina"
+      ],
+      "currentClosure": [
+        "barbarian.increasedstamina"
+      ],
+      "referenceClosure": [
+        "barbarian.increasedstamina"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.naturalresistance",
+      "characterClass": "Barbarian",
+      "sourceId": 153,
+      "currentDirect": [
+        "barbarian.ironskin"
+      ],
+      "referenceDirect": [
+        "barbarian.ironskin"
+      ],
+      "currentClosure": [
+        "barbarian.ironskin"
+      ],
+      "referenceClosure": [
+        "barbarian.ironskin"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.bash",
+      "characterClass": "Barbarian",
+      "sourceId": 126,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.doubleswing",
+      "characterClass": "Barbarian",
+      "sourceId": 133,
+      "currentDirect": [
+        "barbarian.bash"
+      ],
+      "referenceDirect": [
+        "barbarian.bash"
+      ],
+      "currentClosure": [
+        "barbarian.bash"
+      ],
+      "referenceClosure": [
+        "barbarian.bash"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.leap",
+      "characterClass": "Barbarian",
+      "sourceId": 132,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.doublethrow",
+      "characterClass": "Barbarian",
+      "sourceId": 140,
+      "currentDirect": [
+        "barbarian.bash",
+        "barbarian.doubleswing"
+      ],
+      "referenceDirect": [
+        "barbarian.doubleswing"
+      ],
+      "currentClosure": [
+        "barbarian.bash",
+        "barbarian.doubleswing"
+      ],
+      "referenceClosure": [
+        "barbarian.bash",
+        "barbarian.doubleswing"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.stun",
+      "characterClass": "Barbarian",
+      "sourceId": 139,
+      "currentDirect": [
+        "barbarian.bash"
+      ],
+      "referenceDirect": [
+        "barbarian.bash"
+      ],
+      "currentClosure": [
+        "barbarian.bash"
+      ],
+      "referenceClosure": [
+        "barbarian.bash"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.leapattack",
+      "characterClass": "Barbarian",
+      "sourceId": 143,
+      "currentDirect": [
+        "barbarian.leap"
+      ],
+      "referenceDirect": [
+        "barbarian.leap"
+      ],
+      "currentClosure": [
+        "barbarian.leap"
+      ],
+      "referenceClosure": [
+        "barbarian.leap"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.concentrate",
+      "characterClass": "Barbarian",
+      "sourceId": 144,
+      "currentDirect": [
+        "barbarian.leap",
+        "barbarian.stun"
+      ],
+      "referenceDirect": [
+        "barbarian.stun"
+      ],
+      "currentClosure": [
+        "barbarian.bash",
+        "barbarian.leap",
+        "barbarian.stun"
+      ],
+      "referenceClosure": [
+        "barbarian.bash",
+        "barbarian.stun"
+      ],
+      "missing": [],
+      "extra": [
+        "barbarian.leap"
+      ]
+    },
+    {
+      "talentId": "barbarian.frenzy",
+      "characterClass": "Barbarian",
+      "sourceId": 147,
+      "currentDirect": [
+        "barbarian.bash",
+        "barbarian.doubleswing",
+        "barbarian.doublethrow"
+      ],
+      "referenceDirect": [
+        "barbarian.doublethrow"
+      ],
+      "currentClosure": [
+        "barbarian.bash",
+        "barbarian.doubleswing",
+        "barbarian.doublethrow"
+      ],
+      "referenceClosure": [
+        "barbarian.bash",
+        "barbarian.doubleswing",
+        "barbarian.doublethrow"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.whirlwind",
+      "characterClass": "Barbarian",
+      "sourceId": 151,
+      "currentDirect": [
+        "barbarian.bash",
+        "barbarian.leap",
+        "barbarian.stun",
+        "barbarian.concentrate",
+        "barbarian.leapattack"
+      ],
+      "referenceDirect": [
+        "barbarian.leapattack",
+        "barbarian.concentrate"
+      ],
+      "currentClosure": [
+        "barbarian.bash",
+        "barbarian.concentrate",
+        "barbarian.leap",
+        "barbarian.leapattack",
+        "barbarian.stun"
+      ],
+      "referenceClosure": [
+        "barbarian.bash",
+        "barbarian.concentrate",
+        "barbarian.leap",
+        "barbarian.leapattack",
+        "barbarian.stun"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "barbarian.berserk",
+      "characterClass": "Barbarian",
+      "sourceId": 152,
+      "currentDirect": [
+        "barbarian.bash",
+        "barbarian.stun",
+        "barbarian.concentrate"
+      ],
+      "referenceDirect": [
+        "barbarian.concentrate"
+      ],
+      "currentClosure": [
+        "barbarian.bash",
+        "barbarian.concentrate",
+        "barbarian.leap",
+        "barbarian.stun"
+      ],
+      "referenceClosure": [
+        "barbarian.bash",
+        "barbarian.concentrate",
+        "barbarian.stun"
+      ],
+      "missing": [],
+      "extra": [
+        "barbarian.leap"
+      ]
+    },
+    {
+      "talentId": "druid.firestorm",
+      "characterClass": "Druid",
+      "sourceId": 225,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.moltenboulder",
+      "characterClass": "Druid",
+      "sourceId": 229,
+      "currentDirect": [
+        "druid.firestorm"
+      ],
+      "referenceDirect": [
+        "druid.firestorm"
+      ],
+      "currentClosure": [
+        "druid.firestorm"
+      ],
+      "referenceClosure": [
+        "druid.firestorm"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.arcticblast",
+      "characterClass": "Druid",
+      "sourceId": 230,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.fissure",
+      "characterClass": "Druid",
+      "sourceId": 234,
+      "currentDirect": [
+        "druid.firestorm",
+        "druid.moltenboulder"
+      ],
+      "referenceDirect": [
+        "druid.moltenboulder"
+      ],
+      "currentClosure": [
+        "druid.firestorm",
+        "druid.moltenboulder"
+      ],
+      "referenceClosure": [
+        "druid.firestorm",
+        "druid.moltenboulder"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.cyclonearmor",
+      "characterClass": "Druid",
+      "sourceId": 235,
+      "currentDirect": [
+        "druid.arcticblast"
+      ],
+      "referenceDirect": [
+        "druid.arcticblast"
+      ],
+      "currentClosure": [
+        "druid.arcticblast"
+      ],
+      "referenceClosure": [
+        "druid.arcticblast"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.twister",
+      "characterClass": "Druid",
+      "sourceId": 240,
+      "currentDirect": [
+        "druid.arcticblast",
+        "druid.cyclonearmor"
+      ],
+      "referenceDirect": [
+        "druid.cyclonearmor"
+      ],
+      "currentClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor"
+      ],
+      "referenceClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.volcano",
+      "characterClass": "Druid",
+      "sourceId": 244,
+      "currentDirect": [
+        "druid.firestorm",
+        "druid.moltenboulder",
+        "druid.fissure"
+      ],
+      "referenceDirect": [
+        "druid.fissure"
+      ],
+      "currentClosure": [
+        "druid.firestorm",
+        "druid.fissure",
+        "druid.moltenboulder"
+      ],
+      "referenceClosure": [
+        "druid.firestorm",
+        "druid.fissure",
+        "druid.moltenboulder"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.tornado",
+      "characterClass": "Druid",
+      "sourceId": 245,
+      "currentDirect": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.twister"
+      ],
+      "referenceDirect": [
+        "druid.twister"
+      ],
+      "currentClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.twister"
+      ],
+      "referenceClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.twister"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.hurricane",
+      "characterClass": "Druid",
+      "sourceId": 250,
+      "currentDirect": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.twister",
+        "druid.tornado"
+      ],
+      "referenceDirect": [
+        "druid.tornado"
+      ],
+      "currentClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.tornado",
+        "druid.twister"
+      ],
+      "referenceClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.tornado",
+        "druid.twister"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.armageddon",
+      "characterClass": "Druid",
+      "sourceId": 249,
+      "currentDirect": [
+        "druid.firestorm",
+        "druid.moltenboulder",
+        "druid.arcticblast",
+        "druid.fissure",
+        "druid.cyclonearmor",
+        "druid.twister",
+        "druid.tornado",
+        "druid.volcano",
+        "druid.hurricane"
+      ],
+      "referenceDirect": [
+        "druid.volcano"
+      ],
+      "currentClosure": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.firestorm",
+        "druid.fissure",
+        "druid.hurricane",
+        "druid.moltenboulder",
+        "druid.tornado",
+        "druid.twister",
+        "druid.volcano"
+      ],
+      "referenceClosure": [
+        "druid.firestorm",
+        "druid.fissure",
+        "druid.moltenboulder",
+        "druid.volcano"
+      ],
+      "missing": [],
+      "extra": [
+        "druid.arcticblast",
+        "druid.cyclonearmor",
+        "druid.hurricane",
+        "druid.tornado",
+        "druid.twister"
+      ]
+    },
+    {
+      "talentId": "druid.werewolf",
+      "characterClass": "Druid",
+      "sourceId": 223,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.lycanthropy",
+      "characterClass": "Druid",
+      "sourceId": 224,
+      "currentDirect": [
+        "druid.werewolf"
+      ],
+      "referenceDirect": [
+        "druid.werewolf"
+      ],
+      "currentClosure": [
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.werebear",
+      "characterClass": "Druid",
+      "sourceId": 228,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.maul",
+      "characterClass": "Druid",
+      "sourceId": 233,
+      "currentDirect": [
+        "druid.werebear"
+      ],
+      "referenceDirect": [
+        "druid.werebear"
+      ],
+      "currentClosure": [
+        "druid.werebear"
+      ],
+      "referenceClosure": [
+        "druid.werebear"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.feralrage",
+      "characterClass": "Druid",
+      "sourceId": 232,
+      "currentDirect": [
+        "druid.werewolf"
+      ],
+      "referenceDirect": [
+        "druid.werewolf"
+      ],
+      "currentClosure": [
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.fireclaws",
+      "characterClass": "Druid",
+      "sourceId": 239,
+      "currentDirect": [
+        "druid.werewolf",
+        "druid.werebear",
+        "druid.feralrage",
+        "druid.maul"
+      ],
+      "referenceDirect": [
+        "druid.feralrage",
+        "druid.maul"
+      ],
+      "currentClosure": [
+        "druid.feralrage",
+        "druid.maul",
+        "druid.werebear",
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.feralrage",
+        "druid.maul",
+        "druid.werebear",
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.rabies",
+      "characterClass": "Druid",
+      "sourceId": 238,
+      "currentDirect": [
+        "druid.werewolf",
+        "druid.feralrage"
+      ],
+      "referenceDirect": [
+        "druid.feralrage"
+      ],
+      "currentClosure": [
+        "druid.feralrage",
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.feralrage",
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.shockwave",
+      "characterClass": "Druid",
+      "sourceId": 243,
+      "currentDirect": [
+        "druid.werebear",
+        "druid.maul"
+      ],
+      "referenceDirect": [
+        "druid.maul"
+      ],
+      "currentClosure": [
+        "druid.maul",
+        "druid.werebear"
+      ],
+      "referenceClosure": [
+        "druid.maul",
+        "druid.werebear"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.hunger",
+      "characterClass": "Druid",
+      "sourceId": 242,
+      "currentDirect": [
+        "druid.werewolf",
+        "druid.werebear",
+        "druid.feralrage",
+        "druid.maul",
+        "druid.fireclaws"
+      ],
+      "referenceDirect": [
+        "druid.fireclaws"
+      ],
+      "currentClosure": [
+        "druid.feralrage",
+        "druid.fireclaws",
+        "druid.maul",
+        "druid.werebear",
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.feralrage",
+        "druid.fireclaws",
+        "druid.maul",
+        "druid.werebear",
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.fury",
+      "characterClass": "Druid",
+      "sourceId": 248,
+      "currentDirect": [
+        "druid.werewolf",
+        "druid.feralrage",
+        "druid.rabies"
+      ],
+      "referenceDirect": [
+        "druid.rabies"
+      ],
+      "currentClosure": [
+        "druid.feralrage",
+        "druid.rabies",
+        "druid.werewolf"
+      ],
+      "referenceClosure": [
+        "druid.feralrage",
+        "druid.rabies",
+        "druid.werewolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.raven",
+      "characterClass": "Druid",
+      "sourceId": 221,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.poisoncreeper",
+      "characterClass": "Druid",
+      "sourceId": 222,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.oaksage",
+      "characterClass": "Druid",
+      "sourceId": 226,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.summonspiritwolf",
+      "characterClass": "Druid",
+      "sourceId": 227,
+      "currentDirect": [
+        "druid.raven"
+      ],
+      "referenceDirect": [
+        "druid.raven"
+      ],
+      "currentClosure": [
+        "druid.raven"
+      ],
+      "referenceClosure": [
+        "druid.raven"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.carrionvine",
+      "characterClass": "Druid",
+      "sourceId": 231,
+      "currentDirect": [
+        "druid.poisoncreeper"
+      ],
+      "referenceDirect": [
+        "druid.poisoncreeper"
+      ],
+      "currentClosure": [
+        "druid.poisoncreeper"
+      ],
+      "referenceClosure": [
+        "druid.poisoncreeper"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.heartofwolverine",
+      "characterClass": "Druid",
+      "sourceId": 236,
+      "currentDirect": [
+        "druid.oaksage"
+      ],
+      "referenceDirect": [
+        "druid.oaksage"
+      ],
+      "currentClosure": [
+        "druid.oaksage"
+      ],
+      "referenceClosure": [
+        "druid.oaksage"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.summondirewolf",
+      "characterClass": "Druid",
+      "sourceId": 237,
+      "currentDirect": [
+        "druid.raven",
+        "druid.oaksage",
+        "druid.summonspiritwolf"
+      ],
+      "referenceDirect": [
+        "druid.oaksage",
+        "druid.summonspiritwolf"
+      ],
+      "currentClosure": [
+        "druid.oaksage",
+        "druid.raven",
+        "druid.summonspiritwolf"
+      ],
+      "referenceClosure": [
+        "druid.oaksage",
+        "druid.raven",
+        "druid.summonspiritwolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.solarcreeper",
+      "characterClass": "Druid",
+      "sourceId": 241,
+      "currentDirect": [
+        "druid.poisoncreeper",
+        "druid.carrionvine"
+      ],
+      "referenceDirect": [
+        "druid.carrionvine"
+      ],
+      "currentClosure": [
+        "druid.carrionvine",
+        "druid.poisoncreeper"
+      ],
+      "referenceClosure": [
+        "druid.carrionvine",
+        "druid.poisoncreeper"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.spiritofbarbs",
+      "characterClass": "Druid",
+      "sourceId": 246,
+      "currentDirect": [
+        "druid.oaksage",
+        "druid.heartofwolverine"
+      ],
+      "referenceDirect": [
+        "druid.heartofwolverine"
+      ],
+      "currentClosure": [
+        "druid.heartofwolverine",
+        "druid.oaksage"
+      ],
+      "referenceClosure": [
+        "druid.heartofwolverine",
+        "druid.oaksage"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "druid.summongrizzly",
+      "characterClass": "Druid",
+      "sourceId": 247,
+      "currentDirect": [
+        "druid.raven",
+        "druid.oaksage",
+        "druid.summonspiritwolf",
+        "druid.summondirewolf"
+      ],
+      "referenceDirect": [
+        "druid.summondirewolf"
+      ],
+      "currentClosure": [
+        "druid.oaksage",
+        "druid.raven",
+        "druid.summondirewolf",
+        "druid.summonspiritwolf"
+      ],
+      "referenceClosure": [
+        "druid.oaksage",
+        "druid.raven",
+        "druid.summondirewolf",
+        "druid.summonspiritwolf"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.tigerstrike",
+      "characterClass": "Assassin",
+      "sourceId": 254,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.dragontalon",
+      "characterClass": "Assassin",
+      "sourceId": 255,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.dragonclaw",
+      "characterClass": "Assassin",
+      "sourceId": 260,
+      "currentDirect": [
+        "assassin.dragontalon"
+      ],
+      "referenceDirect": [
+        "assassin.dragontalon"
+      ],
+      "currentClosure": [
+        "assassin.dragontalon"
+      ],
+      "referenceClosure": [
+        "assassin.dragontalon"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.fistsoffire",
+      "characterClass": "Assassin",
+      "sourceId": 259,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.cobrastrike",
+      "characterClass": "Assassin",
+      "sourceId": 265,
+      "currentDirect": [
+        "assassin.tigerstrike"
+      ],
+      "referenceDirect": [
+        "assassin.tigerstrike"
+      ],
+      "currentClosure": [
+        "assassin.tigerstrike"
+      ],
+      "referenceClosure": [
+        "assassin.tigerstrike"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.dragontail",
+      "characterClass": "Assassin",
+      "sourceId": 270,
+      "currentDirect": [
+        "assassin.dragontalon",
+        "assassin.dragonclaw"
+      ],
+      "referenceDirect": [
+        "assassin.dragonclaw"
+      ],
+      "currentClosure": [
+        "assassin.dragonclaw",
+        "assassin.dragontalon"
+      ],
+      "referenceClosure": [
+        "assassin.dragonclaw",
+        "assassin.dragontalon"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.clawsofthunder",
+      "characterClass": "Assassin",
+      "sourceId": 269,
+      "currentDirect": [
+        "assassin.fistsoffire"
+      ],
+      "referenceDirect": [
+        "assassin.fistsoffire"
+      ],
+      "currentClosure": [
+        "assassin.fistsoffire"
+      ],
+      "referenceClosure": [
+        "assassin.fistsoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.bladesofice",
+      "characterClass": "Assassin",
+      "sourceId": 274,
+      "currentDirect": [
+        "assassin.fistsoffire",
+        "assassin.clawsofthunder"
+      ],
+      "referenceDirect": [
+        "assassin.clawsofthunder"
+      ],
+      "currentClosure": [
+        "assassin.clawsofthunder",
+        "assassin.fistsoffire"
+      ],
+      "referenceClosure": [
+        "assassin.clawsofthunder",
+        "assassin.fistsoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.dragonflight",
+      "characterClass": "Assassin",
+      "sourceId": 275,
+      "currentDirect": [
+        "assassin.dragontalon",
+        "assassin.dragonclaw",
+        "assassin.dragontail"
+      ],
+      "referenceDirect": [
+        "assassin.dragontail"
+      ],
+      "currentClosure": [
+        "assassin.dragonclaw",
+        "assassin.dragontail",
+        "assassin.dragontalon"
+      ],
+      "referenceClosure": [
+        "assassin.dragonclaw",
+        "assassin.dragontail",
+        "assassin.dragontalon"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.phoenixstrike",
+      "characterClass": "Assassin",
+      "sourceId": 280,
+      "currentDirect": [
+        "assassin.tigerstrike",
+        "assassin.fistsoffire",
+        "assassin.cobrastrike",
+        "assassin.clawsofthunder",
+        "assassin.bladesofice"
+      ],
+      "referenceDirect": [
+        "assassin.cobrastrike",
+        "assassin.bladesofice"
+      ],
+      "currentClosure": [
+        "assassin.bladesofice",
+        "assassin.clawsofthunder",
+        "assassin.cobrastrike",
+        "assassin.fistsoffire",
+        "assassin.tigerstrike"
+      ],
+      "referenceClosure": [
+        "assassin.bladesofice",
+        "assassin.clawsofthunder",
+        "assassin.cobrastrike",
+        "assassin.fistsoffire",
+        "assassin.tigerstrike"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.clawmastery",
+      "characterClass": "Assassin",
+      "sourceId": 252,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.psychichammer",
+      "characterClass": "Assassin",
+      "sourceId": 253,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.burstofspeed",
+      "characterClass": "Assassin",
+      "sourceId": 258,
+      "currentDirect": [
+        "assassin.clawmastery"
+      ],
+      "referenceDirect": [
+        "assassin.clawmastery"
+      ],
+      "currentClosure": [
+        "assassin.clawmastery"
+      ],
+      "referenceClosure": [
+        "assassin.clawmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.cloakofshadows",
+      "characterClass": "Assassin",
+      "sourceId": 264,
+      "currentDirect": [
+        "assassin.psychichammer"
+      ],
+      "referenceDirect": [
+        "assassin.psychichammer"
+      ],
+      "currentClosure": [
+        "assassin.psychichammer"
+      ],
+      "referenceClosure": [
+        "assassin.psychichammer"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.weaponblock",
+      "characterClass": "Assassin",
+      "sourceId": 263,
+      "currentDirect": [
+        "assassin.clawmastery"
+      ],
+      "referenceDirect": [
+        "assassin.clawmastery"
+      ],
+      "currentClosure": [
+        "assassin.clawmastery"
+      ],
+      "referenceClosure": [
+        "assassin.clawmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.fade",
+      "characterClass": "Assassin",
+      "sourceId": 267,
+      "currentDirect": [
+        "assassin.clawmastery",
+        "assassin.burstofspeed"
+      ],
+      "referenceDirect": [
+        "assassin.burstofspeed"
+      ],
+      "currentClosure": [
+        "assassin.burstofspeed",
+        "assassin.clawmastery"
+      ],
+      "referenceClosure": [
+        "assassin.burstofspeed",
+        "assassin.clawmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.shadowwarrior",
+      "characterClass": "Assassin",
+      "sourceId": 268,
+      "currentDirect": [
+        "assassin.clawmastery",
+        "assassin.psychichammer",
+        "assassin.weaponblock",
+        "assassin.cloakofshadows"
+      ],
+      "referenceDirect": [
+        "assassin.cloakofshadows",
+        "assassin.weaponblock"
+      ],
+      "currentClosure": [
+        "assassin.clawmastery",
+        "assassin.cloakofshadows",
+        "assassin.psychichammer",
+        "assassin.weaponblock"
+      ],
+      "referenceClosure": [
+        "assassin.clawmastery",
+        "assassin.cloakofshadows",
+        "assassin.psychichammer",
+        "assassin.weaponblock"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.mindblast",
+      "characterClass": "Assassin",
+      "sourceId": 273,
+      "currentDirect": [
+        "assassin.psychichammer",
+        "assassin.cloakofshadows"
+      ],
+      "referenceDirect": [
+        "assassin.cloakofshadows"
+      ],
+      "currentClosure": [
+        "assassin.cloakofshadows",
+        "assassin.psychichammer"
+      ],
+      "referenceClosure": [
+        "assassin.cloakofshadows",
+        "assassin.psychichammer"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.venom",
+      "characterClass": "Assassin",
+      "sourceId": 278,
+      "currentDirect": [
+        "assassin.clawmastery",
+        "assassin.burstofspeed",
+        "assassin.fade"
+      ],
+      "referenceDirect": [
+        "assassin.fade"
+      ],
+      "currentClosure": [
+        "assassin.burstofspeed",
+        "assassin.clawmastery",
+        "assassin.fade"
+      ],
+      "referenceClosure": [
+        "assassin.burstofspeed",
+        "assassin.clawmastery",
+        "assassin.fade"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.shadowmaster",
+      "characterClass": "Assassin",
+      "sourceId": 279,
+      "currentDirect": [
+        "assassin.clawmastery",
+        "assassin.psychichammer",
+        "assassin.weaponblock",
+        "assassin.cloakofshadows",
+        "assassin.shadowwarrior"
+      ],
+      "referenceDirect": [
+        "assassin.shadowwarrior"
+      ],
+      "currentClosure": [
+        "assassin.clawmastery",
+        "assassin.cloakofshadows",
+        "assassin.psychichammer",
+        "assassin.shadowwarrior",
+        "assassin.weaponblock"
+      ],
+      "referenceClosure": [
+        "assassin.clawmastery",
+        "assassin.cloakofshadows",
+        "assassin.psychichammer",
+        "assassin.shadowwarrior",
+        "assassin.weaponblock"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.fireblast",
+      "characterClass": "Assassin",
+      "sourceId": 251,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.shockweb",
+      "characterClass": "Assassin",
+      "sourceId": 256,
+      "currentDirect": [
+        "assassin.fireblast"
+      ],
+      "referenceDirect": [
+        "assassin.fireblast"
+      ],
+      "currentClosure": [
+        "assassin.fireblast"
+      ],
+      "referenceClosure": [
+        "assassin.fireblast"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.bladesentinel",
+      "characterClass": "Assassin",
+      "sourceId": 257,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.chargedboltsentry",
+      "characterClass": "Assassin",
+      "sourceId": 261,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.shockweb"
+      ],
+      "referenceDirect": [
+        "assassin.shockweb"
+      ],
+      "currentClosure": [
+        "assassin.fireblast",
+        "assassin.shockweb"
+      ],
+      "referenceClosure": [
+        "assassin.fireblast",
+        "assassin.shockweb"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.wakeoffire",
+      "characterClass": "Assassin",
+      "sourceId": 262,
+      "currentDirect": [
+        "assassin.fireblast"
+      ],
+      "referenceDirect": [
+        "assassin.fireblast"
+      ],
+      "currentClosure": [
+        "assassin.fireblast"
+      ],
+      "referenceClosure": [
+        "assassin.fireblast"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.bladefury",
+      "characterClass": "Assassin",
+      "sourceId": 266,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.bladesentinel",
+        "assassin.wakeoffire"
+      ],
+      "referenceDirect": [
+        "assassin.bladesentinel",
+        "assassin.wakeoffire"
+      ],
+      "currentClosure": [
+        "assassin.bladesentinel",
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "referenceClosure": [
+        "assassin.bladesentinel",
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.lightningsentry",
+      "characterClass": "Assassin",
+      "sourceId": 271,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.shockweb",
+        "assassin.chargedboltsentry"
+      ],
+      "referenceDirect": [
+        "assassin.chargedboltsentry"
+      ],
+      "currentClosure": [
+        "assassin.chargedboltsentry",
+        "assassin.fireblast",
+        "assassin.shockweb"
+      ],
+      "referenceClosure": [
+        "assassin.chargedboltsentry",
+        "assassin.fireblast",
+        "assassin.shockweb"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.wakeofinferno",
+      "characterClass": "Assassin",
+      "sourceId": 272,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "referenceDirect": [
+        "assassin.wakeoffire"
+      ],
+      "currentClosure": [
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "referenceClosure": [
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.deathsentry",
+      "characterClass": "Assassin",
+      "sourceId": 276,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.shockweb",
+        "assassin.chargedboltsentry",
+        "assassin.lightningsentry"
+      ],
+      "referenceDirect": [
+        "assassin.lightningsentry"
+      ],
+      "currentClosure": [
+        "assassin.chargedboltsentry",
+        "assassin.fireblast",
+        "assassin.lightningsentry",
+        "assassin.shockweb"
+      ],
+      "referenceClosure": [
+        "assassin.chargedboltsentry",
+        "assassin.fireblast",
+        "assassin.lightningsentry",
+        "assassin.shockweb"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "assassin.bladeshield",
+      "characterClass": "Assassin",
+      "sourceId": 277,
+      "currentDirect": [
+        "assassin.fireblast",
+        "assassin.bladesentinel",
+        "assassin.wakeoffire",
+        "assassin.bladefury"
+      ],
+      "referenceDirect": [
+        "assassin.bladefury"
+      ],
+      "currentClosure": [
+        "assassin.bladefury",
+        "assassin.bladesentinel",
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "referenceClosure": [
+        "assassin.bladefury",
+        "assassin.bladesentinel",
+        "assassin.fireblast",
+        "assassin.wakeoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.demonicmastery",
+      "characterClass": "Warlock",
+      "sourceId": 374,
+      "currentDirect": [
+        "warlock.summongoatman"
+      ],
+      "referenceDirect": [
+        "warlock.summongoatman"
+      ],
+      "currentClosure": [
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.summongoatman",
+      "characterClass": "Warlock",
+      "sourceId": 373,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.bloodoath",
+      "characterClass": "Warlock",
+      "sourceId": 378,
+      "currentDirect": [
+        "warlock.demonicmastery"
+      ],
+      "referenceDirect": [
+        "warlock.demonicmastery"
+      ],
+      "currentClosure": [
+        "warlock.demonicmastery",
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.demonicmastery",
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.deathmark",
+      "characterClass": "Warlock",
+      "sourceId": 375,
+      "currentDirect": [
+        "warlock.summongoatman"
+      ],
+      "referenceDirect": [
+        "warlock.summongoatman"
+      ],
+      "currentClosure": [
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.summontainted",
+      "characterClass": "Warlock",
+      "sourceId": 376,
+      "currentDirect": [
+        "warlock.summongoatman"
+      ],
+      "referenceDirect": [
+        "warlock.summongoatman"
+      ],
+      "currentClosure": [
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.bloodboil",
+      "characterClass": "Warlock",
+      "sourceId": 380,
+      "currentDirect": [
+        "warlock.deathmark"
+      ],
+      "referenceDirect": [
+        "warlock.deathmark"
+      ],
+      "currentClosure": [
+        "warlock.deathmark",
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.deathmark",
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.summondefiler",
+      "characterClass": "Warlock",
+      "sourceId": 377,
+      "currentDirect": [
+        "warlock.summontainted"
+      ],
+      "referenceDirect": [
+        "warlock.summontainted"
+      ],
+      "currentClosure": [
+        "warlock.summongoatman",
+        "warlock.summontainted"
+      ],
+      "referenceClosure": [
+        "warlock.summongoatman",
+        "warlock.summontainted"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.engorge",
+      "characterClass": "Warlock",
+      "sourceId": 379,
+      "currentDirect": [
+        "warlock.bloodboil"
+      ],
+      "referenceDirect": [
+        "warlock.bloodboil"
+      ],
+      "currentClosure": [
+        "warlock.bloodboil",
+        "warlock.deathmark",
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.bloodboil",
+        "warlock.deathmark",
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.consume",
+      "characterClass": "Warlock",
+      "sourceId": 381,
+      "currentDirect": [
+        "warlock.bloodoath"
+      ],
+      "referenceDirect": [
+        "warlock.bloodoath"
+      ],
+      "currentClosure": [
+        "warlock.bloodoath",
+        "warlock.demonicmastery",
+        "warlock.summongoatman"
+      ],
+      "referenceClosure": [
+        "warlock.bloodoath",
+        "warlock.demonicmastery",
+        "warlock.summongoatman"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.binddemon",
+      "characterClass": "Warlock",
+      "sourceId": 382,
+      "currentDirect": [
+        "warlock.engorge",
+        "warlock.summondefiler"
+      ],
+      "referenceDirect": [
+        "warlock.engorge",
+        "warlock.summondefiler"
+      ],
+      "currentClosure": [
+        "warlock.bloodboil",
+        "warlock.deathmark",
+        "warlock.engorge",
+        "warlock.summondefiler",
+        "warlock.summongoatman",
+        "warlock.summontainted"
+      ],
+      "referenceClosure": [
+        "warlock.bloodboil",
+        "warlock.deathmark",
+        "warlock.engorge",
+        "warlock.summondefiler",
+        "warlock.summongoatman",
+        "warlock.summontainted"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.levitationmastery",
+      "characterClass": "Warlock",
+      "sourceId": 383,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.hexbane",
+      "characterClass": "Warlock",
+      "sourceId": 385,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.cleave",
+      "characterClass": "Warlock",
+      "sourceId": 391,
+      "currentDirect": [
+        "warlock.levitationmastery"
+      ],
+      "referenceDirect": [
+        "warlock.levitationmastery"
+      ],
+      "currentClosure": [
+        "warlock.levitationmastery"
+      ],
+      "referenceClosure": [
+        "warlock.levitationmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.echoingstrike",
+      "characterClass": "Warlock",
+      "sourceId": 388,
+      "currentDirect": [
+        "warlock.levitationmastery"
+      ],
+      "referenceDirect": [
+        "warlock.levitationmastery"
+      ],
+      "currentClosure": [
+        "warlock.levitationmastery"
+      ],
+      "referenceClosure": [
+        "warlock.levitationmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.hexpurge",
+      "characterClass": "Warlock",
+      "sourceId": 389,
+      "currentDirect": [
+        "warlock.hexbane"
+      ],
+      "referenceDirect": [
+        "warlock.hexbane"
+      ],
+      "currentClosure": [
+        "warlock.hexbane"
+      ],
+      "referenceClosure": [
+        "warlock.hexbane"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.bladewarp",
+      "characterClass": "Warlock",
+      "sourceId": 390,
+      "currentDirect": [
+        "warlock.echoingstrike"
+      ],
+      "referenceDirect": [
+        "warlock.echoingstrike"
+      ],
+      "currentClosure": [
+        "warlock.echoingstrike",
+        "warlock.levitationmastery"
+      ],
+      "referenceClosure": [
+        "warlock.echoingstrike",
+        "warlock.levitationmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.psychicward",
+      "characterClass": "Warlock",
+      "sourceId": 387,
+      "currentDirect": [
+        "warlock.cleave"
+      ],
+      "referenceDirect": [
+        "warlock.cleave"
+      ],
+      "currentClosure": [
+        "warlock.cleave",
+        "warlock.levitationmastery"
+      ],
+      "referenceClosure": [
+        "warlock.cleave",
+        "warlock.levitationmastery"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.eldritchblast",
+      "characterClass": "Warlock",
+      "sourceId": 384,
+      "currentDirect": [
+        "warlock.psychicward"
+      ],
+      "referenceDirect": [
+        "warlock.psychicward"
+      ],
+      "currentClosure": [
+        "warlock.cleave",
+        "warlock.levitationmastery",
+        "warlock.psychicward"
+      ],
+      "referenceClosure": [
+        "warlock.cleave",
+        "warlock.levitationmastery",
+        "warlock.psychicward"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.hexsiphon",
+      "characterClass": "Warlock",
+      "sourceId": 386,
+      "currentDirect": [
+        "warlock.hexpurge"
+      ],
+      "referenceDirect": [
+        "warlock.hexpurge"
+      ],
+      "currentClosure": [
+        "warlock.hexbane",
+        "warlock.hexpurge"
+      ],
+      "referenceClosure": [
+        "warlock.hexbane",
+        "warlock.hexpurge"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.mirroredblades",
+      "characterClass": "Warlock",
+      "sourceId": 392,
+      "currentDirect": [
+        "warlock.bladewarp",
+        "warlock.eldritchblast"
+      ],
+      "referenceDirect": [
+        "warlock.bladewarp",
+        "warlock.eldritchblast"
+      ],
+      "currentClosure": [
+        "warlock.bladewarp",
+        "warlock.cleave",
+        "warlock.echoingstrike",
+        "warlock.eldritchblast",
+        "warlock.levitationmastery",
+        "warlock.psychicward"
+      ],
+      "referenceClosure": [
+        "warlock.bladewarp",
+        "warlock.cleave",
+        "warlock.echoingstrike",
+        "warlock.eldritchblast",
+        "warlock.levitationmastery",
+        "warlock.psychicward"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.miasmabolt",
+      "characterClass": "Warlock",
+      "sourceId": 395,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.ringoffire",
+      "characterClass": "Warlock",
+      "sourceId": 394,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.sigillethargy",
+      "characterClass": "Warlock",
+      "sourceId": 393,
+      "currentDirect": [],
+      "referenceDirect": [],
+      "currentClosure": [],
+      "referenceClosure": [],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.sigilrancor",
+      "characterClass": "Warlock",
+      "sourceId": 396,
+      "currentDirect": [
+        "warlock.sigillethargy"
+      ],
+      "referenceDirect": [
+        "warlock.sigillethargy"
+      ],
+      "currentClosure": [
+        "warlock.sigillethargy"
+      ],
+      "referenceClosure": [
+        "warlock.sigillethargy"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.miasmachain",
+      "characterClass": "Warlock",
+      "sourceId": 399,
+      "currentDirect": [
+        "warlock.miasmabolt"
+      ],
+      "referenceDirect": [
+        "warlock.miasmabolt"
+      ],
+      "currentClosure": [
+        "warlock.miasmabolt"
+      ],
+      "referenceClosure": [
+        "warlock.miasmabolt"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.flamewave",
+      "characterClass": "Warlock",
+      "sourceId": 398,
+      "currentDirect": [
+        "warlock.ringoffire"
+      ],
+      "referenceDirect": [
+        "warlock.ringoffire"
+      ],
+      "currentClosure": [
+        "warlock.ringoffire"
+      ],
+      "referenceClosure": [
+        "warlock.ringoffire"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.sigildeath",
+      "characterClass": "Warlock",
+      "sourceId": 400,
+      "currentDirect": [
+        "warlock.sigilrancor"
+      ],
+      "referenceDirect": [
+        "warlock.sigilrancor"
+      ],
+      "currentClosure": [
+        "warlock.sigillethargy",
+        "warlock.sigilrancor"
+      ],
+      "referenceClosure": [
+        "warlock.sigillethargy",
+        "warlock.sigilrancor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.enhancedentropy",
+      "characterClass": "Warlock",
+      "sourceId": 397,
+      "currentDirect": [
+        "warlock.miasmachain"
+      ],
+      "referenceDirect": [
+        "warlock.miasmachain"
+      ],
+      "currentClosure": [
+        "warlock.miasmabolt",
+        "warlock.miasmachain"
+      ],
+      "referenceClosure": [
+        "warlock.miasmabolt",
+        "warlock.miasmachain"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.apocalypse",
+      "characterClass": "Warlock",
+      "sourceId": 401,
+      "currentDirect": [
+        "warlock.flamewave",
+        "warlock.sigildeath"
+      ],
+      "referenceDirect": [
+        "warlock.flamewave",
+        "warlock.sigildeath"
+      ],
+      "currentClosure": [
+        "warlock.flamewave",
+        "warlock.ringoffire",
+        "warlock.sigildeath",
+        "warlock.sigillethargy",
+        "warlock.sigilrancor"
+      ],
+      "referenceClosure": [
+        "warlock.flamewave",
+        "warlock.ringoffire",
+        "warlock.sigildeath",
+        "warlock.sigillethargy",
+        "warlock.sigilrancor"
+      ],
+      "missing": [],
+      "extra": []
+    },
+    {
+      "talentId": "warlock.abyss",
+      "characterClass": "Warlock",
+      "sourceId": 402,
+      "currentDirect": [
+        "warlock.enhancedentropy"
+      ],
+      "referenceDirect": [
+        "warlock.enhancedentropy"
+      ],
+      "currentClosure": [
+        "warlock.enhancedentropy",
+        "warlock.miasmabolt",
+        "warlock.miasmachain"
+      ],
+      "referenceClosure": [
+        "warlock.enhancedentropy",
+        "warlock.miasmabolt",
+        "warlock.miasmachain"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  ],
+  "limits": [
+    "Entries in pending remain separate class-pass dependency differences. This audit does not establish any class completion.",
+    "Correcting Immolation adds a prerequisite and could reject an older inconsistent history. A copied existing-world load and final matching installed smoke must verify current saves without rewriting ranks, resetting histories or inventing points."
+  ]
+}

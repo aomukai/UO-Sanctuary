@@ -87,7 +87,7 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -105,11 +105,11 @@ public static class BowLaunch
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
-        if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow)
+        if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ImmolationArrow)
         {
             // Source skill endpoints include their own mastery before owner
             // stat addition. Captured prepared weapon fire is not enhanced twice.
-            bool fire=ability==CombatAbility.FireArrow;int mastery=NamedElements.MasteryPercent(owner,fire?"fire":"cold");
+            bool fire=ability is CombatAbility.FireArrow or CombatAbility.ImmolationArrow;int mastery=NamedElements.MasteryPercent(owner,fire?"fire":"cold");
             elements=fire?elements with
             {
                 FireMin=checked(elements.FireMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),

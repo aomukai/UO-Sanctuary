@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.immolationarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/UNIT/SUnitEvent.cpp": "1c02d9437eb0f9dacb9d7ee04d0065e3c67e5a759bb9f77ef732479a8caa2ac9",
+    "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledRoutines": [
+    "MISSMODE_SetDamageFlags",
+    "SUNITEVENT_Trigger",
+    "SKILLITEM_EventFunc14_Freeze"
+  ],
+  "blockHashes": {
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "SUNITEVENT_Trigger": "a9ca26b2192f0a4bf49946d86d9903b6b52783a4d8018dc16f91a8f6439f656b",
+    "SKILLITEM_EventFunc14_Freeze": "2b63b338c9aa425d73b8c0c334a14efa75a49860ed8ff487d3f7c37e941a158b",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55"
+  },
+  "reviewedNotCompiled": [
+    "SUNITDMG_ExecuteEvents"
+  ],
+  "pinnedItemFreeze": {
+    "Stat": "item_freeze",
+    "*ID": 134,
+    "Signed": 1,
+    "Send Bits": 5,
+    "fCallback": 1,
+    "Add": 666,
+    "Multiply": 12,
+    "1.09-Save Bits": 5,
+    "1.09-Save Add": 0,
+    "Save Bits": 5,
+    "Save Add": 0,
+    "damagerelated": 1,
+    "itemevent1": "domeleedamage",
+    "itemeventfunc1": 14,
+    "itemevent2": "domissiledamage",
+    "itemeventfunc2": 14,
+    "descpriority": 78,
+    "descfunc": 12,
+    "descval": 2,
+    "descstrpos": "ModStr3l",
+    "descstrneg": "ModStr3l",
+    "advdisplay": 2,
+    "lineNumber": 134
+  },
+  "probe": {
+    "cases": 32,
+    "path": ".local/class-skills/immolation-item-event-source-probe.json",
+    "sha256": "ea4dfe6033bab499fda8f11a4c2467acb0ece7b62bd776bb7c454f7974a45c3e"
+  },
+  "established": [
+    "Complete hit09 clears missile freeze, but does not clear the attacker equipment stat. Complete SetDamageFlags uses the stored owner for its successful weapon-source event path.",
+    "Complete event dispatcher passes its event-owning unit as the callback attacker. Complete item event14 reads that attacker stat134 and emits raw freeze length despite the missile stat having been cleared. Source level99/target1 ranged cases produce225 or27frames at declared rolls0/99.",
+    "Current itemstatcost134 explicitly registers event14 for domissiledamage. Native Immolation must retain the existing attacker item-freeze consumer; suppression inferred from the missile-stat clear is withdrawn. Source0 field control has no weapon-source event."
+  ],
+  "limits": [
+    "The reviewed complete ExecuteEvents body establishes owner DOMISSILEDMG dispatch, but its body is a declared successful-weapon-event service in this probe. The final resistance/state/death application and item registration/all modes are separate services, not claimed as a full engine run.",
+    "Blocking, random streams, current modern item-event timing/ownership and complete item/proc acceptance remain separate. The corrective native test must distinguish zero ordinary chill length from preserved real Iceblink freeze."
+  ]
+}

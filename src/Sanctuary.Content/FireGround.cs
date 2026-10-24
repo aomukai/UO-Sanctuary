@@ -9,7 +9,10 @@ namespace Sanctuary;
 
 public sealed record BlazeState(DateTime UntilUtc, int Rank, int Speed, int Map, int X, int Y, int Z);
 public sealed record FirePatch(long Id, uint Owner, CombatAbility Ability, int Map, double X, double Y, int Z,
-    int Min256, int Max256, int DamageRate, DateTime UntilUtc, DateTime NextUtc, int Size = 1);
+    int Min256, int Max256, int DamageRate, DateTime UntilUtc, DateTime NextUtc, int Size = 1)
+{
+    public int SkillRank{get;init;}
+}
 public sealed record FireMaker(long Id, uint Owner, int Rank, int Map, double X, double Y, int Z, double Dx, double Dy,
     int Min256, int Max256, int CellX, int CellY, DateTime UntilUtc, DateTime NextUtc);
 public sealed record FireCooldown(uint Owner, CombatAbility Ability, DateTime UntilUtc);
@@ -79,12 +82,22 @@ public static class FireGround
         return (Scale(minimum), Scale(maximum));
         int Scale(int value) => (int)Math.Clamp(NamedElements.Enhance(owner, value * (100 + potion) / 100.0, "fire"), 0, int.MaxValue);
     }
-    public static int MeteorFireDamage256(SkillValues values, bool maximum)
+    internal static int MissileDamage256(string key,int rank,int synergy,bool maximum)
     {
-        string key = maximum ? "EMax" : "EMin", growth = maximum ? "MaxELev" : "MinELev";
-        long damage = (long)SkillValues.Tier(NecromancerSummons.Source("meteorfire", key), values.Rank,
-            i => NecromancerSummons.Source("meteorfire", growth + i)) << NecromancerSummons.Source("meteorfire", "HitShift");
-        return (int)Math.Clamp(damage * (100 + NecromancerSummons.Formula("meteorfire", "EDmgSymPerCalc", values)) / 100, 0, int.MaxValue);
+        string field=maximum?"EMax":"EMin",growth=maximum?"MaxELev":"MinELev";
+        long damage=SkillValues.Tier(NecromancerSummons.Source(key,field),rank,i=>NecromancerSummons.Source(key,growth+i));
+        // Missile endpoints truncate synergy before HitShift; skill endpoints
+        // have a different order. Complete source helper differentials cover it.
+        damage+=damage*synergy/100;
+        return (int)Math.Clamp(damage<<NecromancerSummons.Source(key,"HitShift"),0,int.MaxValue);
+    }
+    public static int MeteorFireDamage256(SkillValues values,bool maximum)
+        =>MissileDamage256("meteorfire",values.Rank,NecromancerSummons.Formula("meteorfire","EDmgSymPerCalc",values),maximum);
+    internal static void AddImmolation(PlayerMobile owner,int rank,double x,double y,int z,int minimum,int maximum,int frames,DateTime at)
+    {
+        long id=++_nextId;
+        _patches.Add(id,new(id,owner.Serial.Value,CombatAbility.ImmolationArrow,owner.Map.MapID,x,y,z,minimum,maximum,
+            NecromancerSummons.Source("immolationfire","DamageRate"),at.AddMilliseconds(frames*40L),at.AddMilliseconds(40),1){SkillRank=rank});
     }
     public static void CastMeteor(PlayerMobile owner, Point3D target, SkillValues values)
     {
@@ -133,8 +146,8 @@ public static class FireGround
         _patches.Add(id, new(id, owner.Serial.Value, ability, owner.Map.MapID, x, y, z, min, max,
             NecromancerSummons.Source(key, "DamageRate"), now.AddMilliseconds(frames * 40), now.AddMilliseconds(40), NecromancerSummons.Source(key, "Size", 1)));
     }
-    private static PlayerMobile Owner(uint serial) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
-        && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == DiabloClass.Sorceress ? player : null;
+    private static PlayerMobile Owner(uint serial,bool amazon=false) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
+        && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == (amazon?DiabloClass.Amazon:DiabloClass.Sorceress) ? player : null;
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
@@ -145,9 +158,9 @@ public static class FireGround
         ids.Clear(); foreach (var (id, meteor) in _meteors) { if (meteor.Owner == owner.Serial.Value) { ids.Add(id); } }
         foreach (long id in ids) { _meteors.Remove(id); }
     }
-    private static void Tick()
-    {
-        var now = TimedEffects.Now; _keys.Clear(); _keys.AddRange(_meteors.Keys);
+    private static void Tick()=>Tick(TimedEffects.Now);
+    internal static void Tick(DateTime now)
+    { _keys.Clear(); _keys.AddRange(_meteors.Keys);
         foreach (long id in _keys)
         {
             var meteor = _meteors[id]; var owner = Owner(meteor.Owner);
@@ -178,7 +191,7 @@ public static class FireGround
         _keys.Clear(); _keys.AddRange(_patches.Keys);
         foreach (long id in _keys)
         {
-            if (!_patches.TryGetValue(id, out var patch)) { continue; }
+            if (!_patches.TryGetValue(id, out var patch) || patch.Ability==CombatAbility.ImmolationArrow) { continue; }
             var owner = Owner(patch.Owner);
             if (owner == null || patch.UntilUtc <= now || owner.Map != Map.Internal && (owner.Map.MapID != patch.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _patches.Remove(id); continue; }
@@ -194,6 +207,35 @@ public static class FireGround
             }
             if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
             { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, 0x489, 0); } // Placeholder ground flame.
+        }
+        TickImmolation(now);
+    }
+    private static void TickImmolation(DateTime at)
+    {
+        var queue=new PriorityQueue<FirePatch,(DateTime,long)>();
+        foreach(var value in _patches.Values)
+        {if(value.Ability==CombatAbility.ImmolationArrow && value.NextUtc<=at){queue.Enqueue(value,(value.NextUtc,value.Id));}}
+        while(queue.TryDequeue(out var due,out _))
+        {
+            if(!_patches.TryGetValue(due.Id,out var patch) || patch.NextUtc!=due.NextUtc){continue;}
+            var owner=Owner(patch.Owner,true);
+            if(owner==null || patch.NextUtc>=patch.UntilUtc || owner.Map!=Map.Internal && (owner.Map.MapID!=patch.Map || SpellHelper.IsTown(owner.Location,owner)))
+            {_patches.Remove(patch.Id);continue;}
+            if(owner.Map==Map.Internal){_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};continue;}
+            var point=new Point3D((int)Math.Round(patch.X),(int)Math.Round(patch.Y),patch.Z);
+            if(!owner.Map.CanFit(point,1,false,false,false)){_patches.Remove(patch.Id);continue;}
+            _patches[patch.Id]=patch with{NextUtc=patch.NextUtc.AddMilliseconds(40)};
+            if(ImmolationArrows.Recipient(owner,patch) is{} target)
+            {
+                int damage=WeaponMissileDamage.RollValue(patch.Min256,patch.Max256,0,WeaponMissiles.DamageRoll);
+                // No GETHIT flag on the field; the separate19/128 SOFTHIT
+                // draw affects source result/refresh flags, never weapon procs.
+                ImmolationArrows.SoftHitRoll(128);
+                SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);
+            }
+            if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
+            {Effects.SendLocationEffect(point,owner.Map,0x398C,3,10,0x489,0);} // Identified flame placeholder.
+            if(_patches.TryGetValue(patch.Id,out var next) && next.NextUtc<=at){queue.Enqueue(next,(next.NextUtc,next.Id));}
         }
     }
     public static FireGroundSave Snapshot() => new(new List<FirePatch>(_patches.Values).ToArray(), new List<FireMaker>(_makers.Values).ToArray(), Cooldowns(),
@@ -211,7 +253,8 @@ public static class FireGround
         foreach (var patch in saved.Patches)
         {
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
-                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor)
+                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow)
+                || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || !double.IsFinite(patch.X + patch.Y) || !_patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             _nextId = Math.Max(_nextId, patch.Id);
         }

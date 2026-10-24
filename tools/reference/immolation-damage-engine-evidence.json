@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.immolationarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "compiledRoutines": [
+    "SKILLS_CalculateDamageBonusByLevel",
+    "MISSILE_GetMinElemDamage",
+    "MISSILE_GetMaxElemDamage",
+    "MISSILE_SetDamageStats",
+    "MISSILE_CalculateDamageData",
+    "MISSILE_AddStatsToDamage",
+    "MISSILE_CalculateFinalDamage"
+  ],
+  "blockHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "probe": {
+    "cases": 1620,
+    "path": ".local/class-skills/immolation-damage-source-probe.json",
+    "sha256": "25edf8f671c9408bbccdd0079203f9bea112fe23226549db32dfa4818a491870"
+  },
+  "established": [
+    "Complete parent creator/field creator/stat setter distinguish source128 Skill27 weapon-plus-skill fire from unskilled source0 ImmolationFire. Field inherits no item fire/physical/critical or owner passive mastery stat. Parent skill endpoints are declared already-mastered providers.",
+    "Complete missile min/max elemental helpers and tier routine apply percentage synergy to integer table damage BEFORE HitShift. ImmolationFire rank1/hard Fire1 therefore yields48..100 FP256 rather than50..100. This is not skill-endpoint after-shift synergy arithmetic.",
+    "Current ImmolationFire lacks ApplyMastery: declared owner mastery0/15/40 does not alter its field packet. Positive control MeteorFire has ApplyMastery and executes both mastery calls. Complete stat setter does not copy owner passive fire mastery into the saved missile.",
+    "The shared native Meteor residual helper currently applies synergy after HitShift and differs at odd values (rank1/Inferno1:123..206 versus source120..200). Record and correct this shared arithmetic with compiled differentials when introducing the missile endpoint kernel."
+  ],
+  "limits": [
+    "Owner/table/stat/formula/skill endpoints, weapon selection, critical result and mastery-percentage helper are declared services. Empty monster-type bonus copying is explicit. This is complete creator/helper/setter execution, not full modern stat/mastery/seed or damage mitigation acceptance.",
+    "Current mastery behavior follows the pinned row plus supplemental source; direct modern-game item-%fire/burning corroboration remains open. Full parent routing/field collision/cadence/localdelay/geometry/owner/client verification is separate. No handler enabled."
+  ]
+}

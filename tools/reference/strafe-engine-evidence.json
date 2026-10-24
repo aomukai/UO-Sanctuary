@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.strafe",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "inputHashes": {
+    "tools/reference/d2r-named-equipment/json/skills.json": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "sharedQuantityEvidence": "tools/reference/bow-projectile-engine-evidence.json",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAma.cpp": "c20eeddf9c781b711a9a769053ffdbffa6b037377bb162022f6a1f652224c129"
+  },
+  "compiledRoutines": [
+    "sub_6FD107E0",
+    "sub_6FD10790",
+    "sub_6FD10880",
+    "sub_6FD107F0",
+    "SKILLS_AddDamagePercentBonus",
+    "SKILLS_SrvSt08_Strafe",
+    "SKILLS_SrvDo012_Strafe"
+  ],
+  "blockHashes": {
+    "sub_6FD107E0": "a80b7d769718241af77ca4fda7ce38c11171f7399d3ce47bc722a64f22c3a80f",
+    "sub_6FD10790": "29539876b0324726026313fb4afcc4dd3ff2ef266b121f07308b7b087ac6f658",
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "SKILLS_AddDamagePercentBonus": "186a78a307cafdd8672b518c0cd51697045f68a349ddb7a696bd3227f2945118",
+    "SKILLS_SrvSt08_Strafe": "bfa77ff623c1cd418ae112f11f47d82927095f3c2e70fe5a6de30a86b4bb821f",
+    "SKILLS_SrvDo012_Strafe": "5b0da0e0bbd3b4d81576bac0b01c8624451d9800dd832db623d2fdf0c1aa728e"
+  },
+  "probe": {
+    "startCases": 448,
+    "doCases": 1536,
+    "path": ".local/class-skills/strafe-source-probe.json",
+    "sha256": "8360ab390bd961137884fb02aa9e0d0e6ffc21824178b1e94d99f2563b3343b8"
+  },
+  "established": [
+    "Complete start8 validates ammo once, invokes quantity service once at successful start even with no target, and stores target/count. Explicit selected targets count eligible recipients, clamped between the current2+rank/4 minimum and min(4+rank-1,10) cap.",
+    "The complete selector receives-1 for initial ground selection, represented unsigned in its callback. It returns the lowest eligible identity through the fallback branch without copying its count to the optional output; start8 ground mode retains minimum shots even with many eligible targets. This is supplementary source behavior requiring current-build corroboration.",
+    "Complete do12 reuses an existing cached identity without rerunning aura eligibility, otherwise selects a cyclic successor. No-target returns1 without decrement/rollback; zero remaining returns0. It emits factory flags0x21 arrow682/bolt683 with additive ED initializer, decrements count even when the declared missile factory fails, then requests50percent rollback only if shots remain and a successor exists. No per-do quantity validation/decrement call occurs.",
+    "The complete additive initializer adds skill ED to prior missile ED. Declared current formula with rank20/hard Guided1/Multi1 adds115percent; shared factory/stat transfer remains separate."
+  ],
+  "limits": [
+    "Current raw table/formulas are pinned; older complete callbacks do not certify the modern executable. Aura range/filter/LOS/world eligibility, identity lifetime and target coordinates are explicit services. Cached dead/invalid entity lookup behavior needs caller-level source/current verification.",
+    "Inventory validation/quantity, formula interpreter, missile creator/stat capture/AR/Pierce/NHD, rollback scheduler and wrapper mana/event/animation lifecycle are declared services. Once-only quantity invocation at start does not yet certify full decrement/payment/cancellation behavior.",
+    "Ground-selected recipient count and source fallback behavior are explicit source/current questions. Full sequence cadence/lock/interrupt/catch-up and modern next-hit-delay scope must be established before enabling a native handler."
+  ]
+}

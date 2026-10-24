@@ -246,9 +246,7 @@
             "name": "Immolation Arrow",
             "requiredLevel": 24,
             "prerequisites": [
-              "amazon.magicarrow",
-              "amazon.firearrow",
-              "amazon.multipleshot"
+              "amazon.explodingarrow"
             ]
           },
           {

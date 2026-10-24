@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.immolationarrow",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "D2Common_10407_Impl",
+    "D2Common_10407",
+    "D2Common_10201",
+    "D2COMMON_10198_PathGetSaveStep",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster",
+    "MISSMODE_HandleMissileCollision",
+    "MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulderFirePath"
+  ],
+  "blockHashes": {
+    "D2Common_10407_Impl": "a4dd3288d710b1eb304eea6fa5b78455f11f976ade7434fd5299cc2207e126cb",
+    "D2Common_10407": "1bf28ede4159ad6b9e35df939d76006a30f7cf261b8722b6d65f0582af6209c7",
+    "D2Common_10201": "f187ed0d69699bb8347603d161100d952eb182ac6281bb89412d68fcaaf591b6",
+    "D2COMMON_10198_PathGetSaveStep": "860a3cdf651bddc716b55150eaea793c36f43a26a7f92c424418bb8322968a8d",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulderFirePath": "268c29a3489bac97845ea63fac10efd077d48822fde5f6ae823c592110666647"
+  },
+  "sharedRouter": "tools/reference/immolation-routing-engine-evidence.json",
+  "probe": {
+    "footprintCases": 1176,
+    "lifetimeCases": 40,
+    "roomOrderCases": 2,
+    "path": ".local/class-skills/immolation-field-source-probe.json",
+    "sha256": "a6e50e30ab12210b877c7094e1c15ae27b80750f82922f8e1ed1a51f9ae34e5f"
+  },
+  "established": [
+    "Complete do5/collision caller decrements lifetime before unit collision. A100-frame stationary field can damage on99 following updates; the final frame removes it without damage. Missing target collision masks do not damage; a hard wall removes the field. No LastCollide/ToHit/CollideKill permits repeated same-victim field contacts.",
+    "Complete D2Common_10407 lookup gives a point missile one cell against size1, a5-cell Manhattan cross against size2, and a3x3 square against size3 (larger clamps to3). Missile/nonliving targets are rejected by the complete current recipient callback.",
+    "Point lookup returns the first eligible unit in source room-list order; it does not hit all overlapping recipients or choose lowest ID. Native room/sector order remains a separate projection, but each field cell must select at most one recipient per update.",
+    "Reviewed source dynamic-path initialization saves one starting point; complete D2Common_10201 queries stationary collision masks. Complete do5 sets the0x40 field footprint and delegates collision/lifetime to the shared caller."
+  ],
+  "limits": [
+    "Room membership/coordinates, collision mask world grid, path velocity/movement, formula/stat/final damage/flags services remain declared adapters. These execute full lookup/callback/caller/do5 bodies, not a complete modern terrain/path/damage event engine.",
+    "Do5 animation draws are declared; exact seed correlation is not established. Native half-tile terrain/Z/room ordering, owner/world transitions, localdelay and full modern client/geometry behavior still need acceptance. No handler enabled."
+  ]
+}
