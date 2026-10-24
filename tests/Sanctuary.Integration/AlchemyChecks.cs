@@ -44,7 +44,7 @@ public static class AlchemyChecks
     private static void Empty(PlayerMobile p) { foreach (var i in p.Backpack.Items.ToArray()) { i.Delete(); } }
     private static void Check()
     {
-        Formula(); Drinking(); Crafting(); Drops(); Vendors();
+        RestorationCoverage(); Crafting(); Drops(); Vendors();
         _logger.Information("Alchemy coverage: seven class multipliers, ten source profiles, exact double probabilities/frozen dose, four mixtures/failure costs, stale/capacity/native bypass guards, 3-difficulty potion drops and unlimited vendor supply passed");
     }
     private static void Formula()
@@ -144,6 +144,7 @@ public static class AlchemyChecks
         var state = new CraftToolState(CraftQuality.Superior, true, 100); tool.Delete(); tool = Put(p, ItemOrigins.Create(ItemOrigin.Crafted, () => new MortarPestle(100))); CraftTransactions.Profiles.Store(tool, state);
         stale = Quote(); Require(CraftTransactions.Complete(Ticket(stale), new Roll(0, 0)) && tool.UsesRemaining == 100, "Crafted mortar did not save use");
     }
+    internal static void RestorationCoverage() { Formula(); Drinking(); }
     private static void Drops()
     {
         var p = Player();

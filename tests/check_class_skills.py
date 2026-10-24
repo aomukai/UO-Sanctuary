@@ -77,6 +77,7 @@ def check():
         shutil.copy2(STAGE / 'immolation-routing-source-probe.json', folder / 'immolation-routing-source-probe.json')
         shutil.copy2(STAGE / 'immolation-damage-source-probe.json', folder / 'immolation-damage-source-probe.json')
         shutil.copy2(STAGE / 'immolation-field-source-probe.json', folder / 'immolation-field-source-probe.json')
+        shutil.copy2(STAGE / 'poison-state-source-probe.json', folder / 'poison-state-source-probe.json')
         shutil.copy2(STAGE / 'poison-javelin-damage-source-probe.json', folder / 'poison-javelin-damage-source-probe.json')
         shutil.copy2(STAGE / 'strafe-source-probe.json', folder / 'strafe-source-probe.json')
         shutil.copy2(STAGE / 'strafe-timing-source-probe.json', folder / 'strafe-timing-source-probe.json')
@@ -120,6 +121,12 @@ def check():
                     poison_duration='poison-duration-check' if boot==0 else 'poison-duration-reload-check'
                     session.send(poison_duration)
                     assert session.expect(poison_duration+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    poison_state='poison-state-check' if boot==0 else 'poison-state-reload-check'
+                    session.send(poison_state)
+                    assert session.expect(poison_state+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('poison-state-live-check')
+                    assert session.expect(r'poison-state-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'poison-state-live-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     command = 'class-skills-check' if boot == 0 else 'class-skills-reload-check'
                     session.send(command)
                     assert session.expect(command+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]

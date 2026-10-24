@@ -17,7 +17,7 @@ public sealed record TimedEffectState(uint Owner, DateTime UpdatedUtc, DateTime 
     uint PoisonSource, int PoisonMs, double PoisonRate, double PoisonFraction,
     RestorationState Life, RestorationState Mana, TimedBuff[] Buffs,
     uint BleedSource = 0, int BleedMs = 0, double BleedRate = 0, double BleedFraction = 0, DateTime HealBlockedUntilUtc = default,
-    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null);
+    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null, SourcePoisonClock PoisonClock = null);
 
 internal sealed class RestorationLane
 {
@@ -41,6 +41,7 @@ internal sealed class TimedActor(DateTime now)
     internal int ChillPercent, PoisonMs;
     internal Serial PoisonSource;
     internal double PoisonRate, PoisonFraction;
+    internal SourcePoisonClock PoisonClock;
     internal Serial BleedSource;
     internal int BleedMs;
     internal double BleedRate, BleedFraction;
@@ -70,7 +71,7 @@ public static class TimedEffects
         EventSink.Disconnected += mobile => Settle(mobile, Now);
         EventSink.Logout += mobile => Settle(mobile, Now);
     }
-    public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100), () => Tick(Now));
+    public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), () => Tick(Now));
     internal static bool TryActor(Mobile owner, out TimedActor actor) => _actors.TryGetValue(owner.Serial, out actor);
     internal static TimedActor Actor(Mobile owner, DateTime now)
     {
@@ -93,7 +94,7 @@ public static class TimedEffects
     {
         if (_actors.TryGetValue(owner.Serial, out var a))
         {
-            if (owner.Hits >= owner.HitsMax) { a.Life.Clear(); }
+            if (SkillHealth.Full(owner)) { a.Life.Clear(); }
             if (owner.Mana >= owner.ManaMax) { a.Mana.Clear(); }
         }
     }
@@ -101,7 +102,7 @@ public static class TimedEffects
     {
         if (owner != null && _actors.TryGetValue(owner.Serial, out var a))
         {
-            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0;
+            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0; a.PoisonClock = null;
             a.BleedMs = 0; a.BleedRate = a.BleedFraction = 0; a.HealBlockedUntil = a.Updated;
             a.SlowUntil = a.Updated; a.SlowPercent = a.DefenseLoss = a.RunningRemainder = 0; a.Control = null;
             if (a.Buffs.Count == 0 && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
@@ -135,7 +136,7 @@ public static class TimedEffects
     {
         DateTime now = at ?? Now; Settle(owner, now);
         if (owner is not { Alive: true, Deleted: false } || owner.IsDeadBondedPet || amount is < 1 or > 1000000 || duration is < 1 or > 600000
-            || (life ? owner.Hits >= owner.HitsMax : owner.Mana >= owner.ManaMax)) { return false; }
+            || (life ? SkillHealth.Full(owner) : owner.Mana >= owner.ManaMax)) { return false; }
         var a = Actor(owner, now); var lane = life ? a.Life : a.Mana;
         if (lane.Duration > 600000 - duration) { return false; }
         if (lane.Units > 10000000000000L - amount * 1000000L) { return false; }
@@ -146,26 +147,29 @@ public static class TimedEffects
         if (owner == null || !_actors.TryGetValue(owner.Serial, out var a)) { return; }
         if (owner.Deleted || !owner.Alive || owner.IsDeadBondedPet) { Clear(owner); return; }
         if (now <= a.Updated) { return; }
+        if (a.PoisonMs == 0 && a.PoisonFraction >= 1 / 256.0)
+        {
+            // Old saves can retain a deferred whole-HP remainder after poison
+            // expires. Commit it once before a later application changes owner.
+            var previous = DamageTime; DamageTime = now;
+            try { PoisonStates.Advance(owner, a, 0); }
+            finally { DamageTime = previous; }
+            if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { Clear(owner); return; }
+        }
         int elapsed = (int)Math.Clamp((now - a.Updated).TotalMilliseconds, 0, 600000);
         DateTime cursor = a.Updated;
         // Catch-up follows the same short periodic steps as live play. Poison settles before healing in a step;
         // lethal damage cannot be undone by a later restorative payment from the same offline interval.
         while (elapsed > 0 && owner.Alive && !owner.Deleted && (a.PoisonMs > 0 || a.BleedMs > 0 || a.Life.Duration > 0 || a.Mana.Duration > 0))
         {
-            int step = a.PoisonMs > 0 || a.BleedMs > 0 ? Math.Min(100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
+            int step = a.PoisonMs > 0 || a.BleedMs > 0 ? Math.Min(a.PoisonClock != null ? 40 : 100, elapsed) : elapsed; elapsed -= step; cursor = cursor.AddMilliseconds(step);
+            a.Updated = cursor;
             if (a.PoisonMs > 0)
             {
                 int poisonStep = Math.Min(step, a.PoisonMs); a.PoisonMs -= poisonStep;
-                a.PoisonFraction += poisonStep * a.PoisonRate;
-                int damage = (int)Math.Floor(a.PoisonFraction + 1e-9); a.PoisonFraction -= damage;
-                if (damage > 0)
-                {
-                    var source = World.FindMobile(a.PoisonSource);
-                    // Damage-time consumers must see the historical tick during offline catch-up.
-                    var previous = DamageTime; DamageTime = cursor;
-                    try { owner.Damage(damage, source); CombatDamage.Finish(owner, source); }
-                    finally { DamageTime = previous; }
-                }
+                var previous = DamageTime; DamageTime = cursor;
+                try { PoisonStates.Advance(owner, a, poisonStep); }
+                finally { DamageTime = previous; }
             }
             if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { Clear(owner); return; }
             if (a.BleedMs > 0)
@@ -202,11 +206,11 @@ public static class TimedEffects
     }
     private static void Restore(Mobile player, RestorationLane lane, bool life, int step)
     {
-        if (life ? player.Hits >= player.HitsMax : player.Mana >= player.ManaMax) { lane.Clear(); return; }
+        if (life ? SkillHealth.Full(player) : player.Mana >= player.ManaMax) { lane.Clear(); return; }
         int points = lane.Advance(step);
-        if (life) { player.Hits = Math.Min(player.HitsMax, player.Hits + points); }
+        if (life) { SkillHealth.Heal(player, (int)Math.Min((long)points * 256, int.MaxValue)); }
         else { player.Mana = Math.Min(player.ManaMax, player.Mana + points); }
-        if (life ? player.Hits >= player.HitsMax : player.Mana >= player.ManaMax) { lane.Clear(); }
+        if (life ? SkillHealth.Full(player) : player.Mana >= player.ManaMax) { lane.Clear(); }
     }
     public static void Tick(DateTime now)
     {
@@ -255,18 +259,29 @@ public static class TimedEffects
         a.DefenseLoss = (int)Math.Min(CreatureProfiles.Defense(owner), (long)a.DefenseLoss + reduction);
     }
     internal static bool Poison(Mobile source, Mobile target, double total, int duration, DateTime now)
+        => ApplyPoison(source, target, total / duration, duration, null, now);
+    internal static bool PoisonFrames(Mobile source, Mobile target, int rate256, int frames, DateTime now)
+        => rate256 > 0 && frames is > 0 and <= int.MaxValue / 40
+            && ApplyPoison(source, target, rate256 / 10240.0, frames * 40, new(rate256, 0), now);
+    private static bool ApplyPoison(Mobile source, Mobile target, double rate, int duration, SourcePoisonClock clock, DateTime now)
     {
+        if (source == null || target == null || duration <= 0 || !double.IsFinite(rate) || rate is <= 0 or > 1000000) { return false; }
         Settle(target, now); if (!target.Alive || target.Deleted) { return false; }
-        var a = Actor(target, now); double rate = total / duration;
+        var a = Actor(target, now);
+        // Every valid monster application reschedules STATREGEN, even a weaker
+        // poison. Player frame phase remains independent from reapplication.
+        if (target is not PlayerMobile && a.PoisonClock is { } old) { a.PoisonClock = old with { ElapsedMs = 0 }; }
         if (a.PoisonMs > 0 && rate + 1e-12 < a.PoisonRate) { return false; }
-        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonSource = source.Serial; return true;
+        if (clock != null && target is PlayerMobile && a.PoisonClock is { } prior) { clock = clock with { ElapsedMs = prior.ElapsedMs }; }
+        if (a.PoisonMs == 0) { a.PoisonSource = source.Serial; }
+        a.PoisonRate = rate; a.PoisonMs = duration; a.PoisonClock = clock; return true;
     }
     public static bool CleansePoison(Mobile target, int remainingPercent, DateTime now)
     {
         Settle(target,now);
         if (!_actors.TryGetValue(target.Serial,out var actor) || actor.PoisonMs<=0 || !target.Alive) { return false; }
         actor.PoisonMs=actor.PoisonMs/40*Math.Clamp(remainingPercent,0,100)/100*40;
-        if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; }
+        if (actor.PoisonMs==0) { actor.PoisonRate=actor.PoisonFraction=0; actor.PoisonClock=null; }
         return true;
     }
     public static bool Bleed(Mobile source, Mobile target, double total, DateTime now)
@@ -302,7 +317,7 @@ public static class TimedEffects
             rows.Add(new(serial.Value, a.Updated, a.ChillUntil, a.ChillPercent, a.PoisonSource.Value, a.PoisonMs,
                 a.PoisonRate, a.PoisonFraction, a.Life.Snapshot(), a.Mana.Snapshot(), buffs,
                 a.BleedSource.Value, a.BleedMs, a.BleedRate, a.BleedFraction, a.HealBlockedUntil,
-                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold));
+                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold, a.PoisonClock));
         }
         return rows.ToArray();
     }
@@ -313,7 +328,7 @@ public static class TimedEffects
         {
             TimedEffectProfiles.Validate(r);
             var a = new TimedActor(r.UpdatedUtc) { ChillUntil = r.ChillUntilUtc, ChillPercent = r.ChillPercent,
-                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction,
+                PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction, PoisonClock = r.PoisonClock,
                 BleedSource = (Serial)r.BleedSource, BleedMs = r.BleedMs, BleedRate = r.BleedRate,
                 BleedFraction = r.BleedFraction, HealBlockedUntil = r.HealBlockedUntilUtc,
                 SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder, Cold = r.Cold };
@@ -336,12 +351,12 @@ public sealed class TimedEffectProfiles : GenericPersistence
     internal void Capture() => _snapshot = TimedEffects.Snapshot();
     public override void Serialize(IGenericWriter writer)
     {
-        writer.Write(2); writer.Write(_snapshot.Length);
+        writer.Write(3); writer.Write(_snapshot.Length);
         foreach (var row in _snapshot) { writer.Write(JsonSerializer.Serialize(row)); }
     }
     public override void Deserialize(IGenericReader reader)
     {
-        if (reader.ReadInt() is < 0 or > 2) { throw new InvalidDataException("Unsupported timed-effect version."); }
+        if (reader.ReadInt() is < 0 or > 3) { throw new InvalidDataException("Unsupported timed-effect version."); }
         int count = reader.ReadInt(); if (count is < 0 or > 1000000) { throw new InvalidDataException("Invalid timed-effect count."); }
         var rows = new TimedEffectState[count];
         for (int i = 0; i < count; i++)
@@ -360,6 +375,7 @@ public sealed class TimedEffectProfiles : GenericPersistence
         if (r == null || r.Owner == 0 || r.UpdatedUtc.Kind != DateTimeKind.Utc || r.ChillUntilUtc.Kind != DateTimeKind.Utc
             || r.ChillPercent is < -100 or > 50 || r.Cold!=null && r.ChillPercent==0 || r.PoisonMs < 0 || !double.IsFinite(r.PoisonRate)
             || r.PoisonRate is < 0 or > 1000000 || !double.IsFinite(r.PoisonFraction) || r.PoisonFraction is < -1e-8 or >= 1.00000001
+            || r.PoisonClock is { } poison && (r.PoisonMs <= 0 || poison.Rate256 <= 0 || poison.ElapsedMs is < 0 or > 39 || r.PoisonRate != poison.Rate256 / 10240.0)
             || r.BleedMs is < 0 or > 8000 || !double.IsFinite(r.BleedRate) || r.BleedRate is < 0 or > 1000000
             || !double.IsFinite(r.BleedFraction) || r.BleedFraction is < -1e-8 or >= 1.00000001
             || r.HealBlockedUntilUtc != default && r.HealBlockedUntilUtc.Kind != DateTimeKind.Utc

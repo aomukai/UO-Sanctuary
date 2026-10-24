@@ -31,6 +31,6 @@
   "limits": [
     "Stats/stat-list allocation/attachment/expiration, room/town/life-mask/state, game/event scheduling, max life, death/event and packet services are declared. Complete application/player/monster bodies execute, not the global modern event queue or final NPC death pipeline.",
     "The combined regen stat is a declared input; source natural regeneration, potion/replenish interactions and current modern poison interruptions/damage-event ordering remain separate. Do not infer global40ms phase or complete modern same-frame source ownership from this fixture.",
-    "Native existing TimedEffects poison currently uses whole-HP ordinary Damage, changes source on accepted refresh, permits player death. The saved60second rejection is corrected separately by poison-duration-native-evidence.json; no other consumer difference is changed there. These remaining differences are recorded for a deliberate shared-consumer migration before certifying Poison Javelin."
+    "The old native consumer used whole-HP ordinary Damage, replaced source on refresh and allowed player death. Shared direct FP256 health/original ownership/player-floor and saved source-frame receiver coverage is now recorded in poison-state-native-evidence.json. Earlier aggregate producers, exact mitigation/global phase/interruptions/combined regen, native delayed-death mapping and extended offline catch-up remain separate; no Poison Javelin handler is certified."
   ]
 }

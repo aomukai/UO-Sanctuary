@@ -35,7 +35,7 @@ public static class PotionRestoration
         var row = PotionBeltCatalog.Potion(potion.Kind, potion.Tier);
         bool life = row.Kind is RestorationKind.Healing or RestorationKind.InstantHealing or RestorationKind.Rejuvenation;
         bool mana = row.Kind is RestorationKind.Mana or RestorationKind.InstantMana or RestorationKind.Rejuvenation;
-        if (row.Kind != RestorationKind.CombatBuff && (!life || player.Hits >= player.HitsMax) && (!mana || player.Mana >= player.ManaMax)) { return false; }
+        if (row.Kind != RestorationKind.CombatBuff && (!life || SkillHealth.Full(player)) && (!mana || player.Mana >= player.ManaMax)) { return false; }
         if (row.Kind == RestorationKind.CombatBuff)
         {
             if (!CombatPotions.Apply(player, row.Tier)) { return false; }
@@ -49,7 +49,7 @@ public static class PotionRestoration
         }
         else
         {
-            if (life) { player.Hits = (int)Math.Min(player.HitsMax, player.Hits + (long)player.HitsMax * row.Amount / 100); }
+            if (life) { SkillHealth.Heal(player, (int)Math.Min((long)player.HitsMax * row.Amount / 100 * 256, int.MaxValue)); }
             if (mana) { player.Mana = (int)Math.Min(player.ManaMax, player.Mana + (long)player.ManaMax * row.Amount / 100); }
             TimedEffects.DiscardFullRestoration(player);
         }

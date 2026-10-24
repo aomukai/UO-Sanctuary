@@ -12,7 +12,7 @@ namespace Sanctuary.Integration;
 public static class PoisonDurationChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(PoisonDurationChecks));
-    private sealed record Target(uint Serial,int Rank,int Health,TimedEffectState State);
+    private sealed record Target(uint Serial,int Rank,int Health,int Balance256,TimedEffectState State);
     private sealed record Saved(uint Source,int Generation,Target[] Targets);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"poison-duration.json");
     public static void Configure(){Register("poison-duration-check",Check);Register("poison-duration-reload-check",Reload);}
@@ -34,7 +34,7 @@ public static class PoisonDurationChecks
                 && AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery)+(cloud?0:item+19)==Expected("nPoisonMaxDamage")
                 && values.DurationFrames+(cloud?0:length)==Expected("nPoisonLength"),"Complete source poison scalar/length differential");count++;
         }
-        Require(count==3456,"Source poison scalar case count");Log.Information("Poison Javelin:3456 source/native scalar comparisons passed; no handler or poison-regeneration migration enabled");
+        Require(count==3456,"Source poison scalar case count");Log.Information("Poison Javelin:3456 source/native scalar comparisons passed; no Poison Javelin handler enabled; shared regeneration checked separately");
     }
     private static void Check()
     {
@@ -45,7 +45,7 @@ public static class PoisonDurationChecks
             Require(duration==(rank==28?62000:516000),"Current skill long-duration golden");var target=new TimedEffectDummy{Frozen=true,RawStr=2000,Hits=2000,Name="LongPoisonTarget"};target.MoveToWorld(new(source.X+i+2,source.Y,source.Z),source.Map);
             // This is a duration/persistence test at declared1HP/sec, not a
             // claim that the unfinished Jav packet/regen consumer is integrated.
-            Require(TimedEffects.Poison(source,target,duration/1000.0,duration,start),"Long duration rejected by runtime");TimedEffects.Settle(target,start.AddSeconds(1));var state=State(target);Require(state.PoisonMs==duration-1000 && state.PoisonMs>60000 && target.Hits==1999,"Initial long poison elapsed state");saved[i]=new(target.Serial.Value,rank,target.Hits,state);
+            Require(TimedEffects.Poison(source,target,duration/1000.0,duration,start),"Long duration rejected by runtime");TimedEffects.Settle(target,start.AddSeconds(1));var state=State(target);Require(state.PoisonMs==duration-1000 && state.PoisonMs>60000 && target.Hits==1999,"Initial long poison elapsed state");saved[i]=new(target.Serial.Value,rank,target.Hits,SkillHealth.Balance256(target),state);
         }
         uint[] ids=saved.Select(x=>x.Serial).ToArray();Hold(ids,TimedEffects.Now.AddMinutes(10));Roundtrip();
         for(int i=0;i<saved.Length;i++)
@@ -63,9 +63,9 @@ public static class PoisonDurationChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));Require(World.FindMobile((Serial)saved.Source) is PlayerMobile,"Saved poison source missing");var rows=new Target[saved.Targets.Length];DateTime now=TimedEffects.Now;
         for(int i=0;i<rows.Length;i++)
         {
-            var old=saved.Targets[i];var target=World.FindMobile((Serial)old.Serial);Require(target is{Alive:true,Deleted:false} && target.Hits==old.Health && JsonSerializer.Serialize(State(target))==JsonSerializer.Serialize(old.State),$"Long poison duration/source/fraction reset or world load failed: health{target?.Hits}/{old.Health}; actual{JsonSerializer.Serialize(State(target))}; expected{JsonSerializer.Serialize(old.State)}");
-            int elapsed=saved.Generation==0?400:600;var resumed=old.State with{UpdatedUtc=now};TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==old.Serial?resumed:x).ToArray());TimedEffects.Settle(target,now.AddMilliseconds(elapsed));var state=State(target);double accrued=old.State.PoisonFraction+elapsed*old.State.PoisonRate;int whole=(int)Math.Floor(accrued+1e-9);
-            Require(target.Hits==old.Health-whole && state.PoisonMs==old.State.PoisonMs-elapsed && state.PoisonSource==saved.Source && Math.Abs(state.PoisonFraction-(accrued-whole))<1e-9,"Resumed long poison elapsed fraction/repayment");rows[i]=old with{Health=target.Hits,State=state};
+            var old=saved.Targets[i];var target=World.FindMobile((Serial)old.Serial);Require(target is{Alive:true,Deleted:false} && target.Hits==old.Health && SkillHealth.Balance256(target)==old.Balance256 && JsonSerializer.Serialize(State(target))==JsonSerializer.Serialize(old.State),$"Long poison duration/source/fraction reset or world load failed: health{target?.Hits}/{old.Health}; actual{JsonSerializer.Serialize(State(target))}; expected{JsonSerializer.Serialize(old.State)}");
+            int elapsed=saved.Generation==0?400:600;var resumed=old.State with{UpdatedUtc=now};TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==old.Serial?resumed:x).ToArray());TimedEffects.Settle(target,now.AddMilliseconds(elapsed));var state=State(target);double accrued=old.State.PoisonFraction+elapsed*old.State.PoisonRate;int raw=(int)Math.Floor(accrued*256+1e-9);
+            Require(SkillHealth.Balance256(target)==old.Balance256-raw && state.PoisonMs==old.State.PoisonMs-elapsed && state.PoisonSource==saved.Source && Math.Abs(state.PoisonFraction-(accrued-raw/256.0))<1e-9,"Resumed long poison elapsed fraction/repayment");rows[i]=old with{Health=target.Hits,Balance256=SkillHealth.Balance256(target),State=state};
         }
         Hold(rows.Select(x=>x.Serial).ToArray(),now.AddMinutes(10));for(int i=0;i<rows.Length;i++){rows[i]=rows[i] with{State=State(World.FindMobile((Serial)rows[i].Serial))};}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1,Targets=rows}));

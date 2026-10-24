@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledRoutines": [
+    "MONSTERUNIQUE_CalculatePercentage",
+    "SUNITDMG_ApplyResistancesAndAbsorb",
+    "SUNITDMG_CalculateTotalDamage"
+  ],
+  "blockHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+  },
+  "difficultySource": {
+    "path": "tools/reference/weapon-leech-difficulty-source.json",
+    "sha256": "28ff37334e2ea3bfd6fa62116e11f7cdf25d1be34c8f16a94cc7ee75b8a84764",
+    "expansionPenalties": [
+      0,
+      -40,
+      -100
+    ]
+  },
+  "probe": {
+    "cases": 72000,
+    "path": ".local/class-skills/poison-mitigation-source-probe.json",
+    "sha256": "11fb3a15b9bf7872d0e509c9182eb423fbcd1eb8dee605c01db9769633df3377"
+  },
+  "established": [
+    "Complete PvM total-damage/resistance bodies independently mitigate poison rate and frame length. Poison length uses poison-length resistance and passive poison pierce, with no max-poison-resistance stat; rate uses ordinary poison resistance and its maximum. Neither lane receives flat MDR or absorption.",
+    "The declared expansion game difficulty penalty applies to both player poison resistance and poison-length resistance. Positive player length resistance caps75; positive rate resistance caps75+max-res up to95. Negative values floor-100. NPC positive resistance can reach immunity100; passive pierce does not break that lane when its initial resistance is100or more.",
+    "Poison-resist shrine zeroes length before resistance, without requiring the rate lane to become zero. Nonzero resistance on large raw rate values above1048576 uses the full percentage helper\u2019s early division; zero resistance bypasses that helper and retains the raw value. Ordinary source frame lengths here multiply before division."
+  ],
+  "limits": [
+    "Complete source total-damage, resistance and percentage bodies execute with declared stats, room/world, classification, state, difficulty and event services. NPCs here are ordinary non-hireling/non-prime-evil actors; attacks are PvM, without cooperative PvP adaptation. No modern sunder, global event queue, item stat projection or final poison application is certified.",
+    "Raw rates/frame lengths are declared prepared packets; this does not exercise skill/item poison preparation or rolls. The selected source poison shrine is supplied as a state service. Native global versus per-monster difficulty context, exact item pierce/length projection and modern executable equivalence remain separate.",
+    "Existing aggregate total/duration producers can round differently from per-frame integer rate mitigation. This fixture prepares their deliberate migration; no Poison Javelin handler or changed mitigation caller is enabled here."
+  ]
+}

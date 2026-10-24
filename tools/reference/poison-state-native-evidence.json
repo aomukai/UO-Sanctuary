@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "scope": "Shared poison health/ownership/source-frame receiver and old-save settlement; Poison Javelin remains pending",
+  "status": "Shared poison now drains the FP256 health balance directly and retains its original owner when equal or stronger poison replaces it. Players remain at one life; NPCs can survive below one life and die at zero. Ticks do not dispatch ordinary Damage callbacks; native kill/corpse attribution still uses the original source. An optional saved integer40ms clock receives prepared poison rates. Earlier aggregate producers retain their elapsed-rate path while using the corrected health and ownership. Save version3 reads versions0\u20133; active/expired old pending HP fractions transfer once, and tiny negative rounding remainders normalize to zero. Approved T29 Protection still subtracts10 per tick at its historical deadline; restorative lanes and actual instant potions heal fractional life behind a rounded full display. Focused and full suites each pass three boots/two actual reloads, including natural timer checks; full retains all10 bow inputs every boot. All70 Python tests, fresh476/15 fingerprints and zero-warning/error builds pass. Existing-world boot/listen/clean shutdown passes with unchanged save bytes and a prior build/data/save backup. Handler count remains135/Amazon23; Poison Javelin is still unavailable. No class certificate or item availability gate changes.",
+  "sourceEvidence": [
+    "tools/reference/poison-state-engine-evidence.json",
+    "tools/reference/poison-mitigation-engine-evidence.json"
+  ],
+  "verification": {
+    "sourceApplicationCases": 384,
+    "sourceRegenerationCases": 2240,
+    "nativeNegativeHealthComparisons": 1624,
+    "nativeRealApplicationComparisons": 384,
+    "sourceOnlyMitigationCases": 72000,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "naturalTimerBootsPerSuite": 3,
+    "combinedBowInputBootsEach": 3,
+    "pythonTests": 70,
+    "namedInputs": 476,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "logs": {
+    "poison-state-focused.log": ".local/class-skills/poison-state-focused.log",
+    "poison-state-focused-run.log": ".local/class-skills/poison-state-focused-run.log",
+    "poison-state-combined.log": ".local/class-skills/poison-state-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "poison-state-content-build.log": ".local/class-skills/poison-state-content-build.log",
+    "poison-state-integration-build.log": ".local/class-skills/poison-state-integration-build.log",
+    "poison-state-python-checks.log": ".local/class-skills/poison-state-python-checks.log",
+    "poison-state-readiness.log": ".local/class-skills/poison-state-readiness.log",
+    "poison-state-first-loop.log": ".local/class-skills/poison-state-first-loop.log",
+    "poison-state-installed-server.log": ".local/class-skills/poison-state-installed-server.log",
+    "poison-state-installed-smoke.log": ".local/class-skills/poison-state-installed-smoke.log",
+    "poison-state-source.log": ".local/class-skills/poison-state-source.log",
+    "poison-state-source-check.log": ".local/class-skills/poison-state-source-check.log",
+    "poison-state-source-probe.json": ".local/class-skills/poison-state-source-probe.json",
+    "poison-state-focused-alchemy-drop-failed.log": ".local/class-skills/poison-state-focused-alchemy-drop-failed.log",
+    "poison-state-focused-alchemy-drop-run.log": ".local/class-skills/poison-state-focused-alchemy-drop-run.log",
+    "poison-state-focused-zero-body.log": ".local/class-skills/poison-state-focused-zero-body.log",
+    "poison-state-combined-zero-body-interrupted.log": ".local/class-skills/poison-state-combined-zero-body-interrupted.log",
+    "poison-state-combined-zero-body-run.log": ".local/class-skills/poison-state-combined-zero-body-run.log",
+    "poison-state-combined-before-negative-fraction.log": ".local/class-skills/poison-state-combined-before-negative-fraction.log",
+    "poison-state-combined-before-negative-fraction-run.log": ".local/class-skills/poison-state-combined-before-negative-fraction-run.log",
+    "poison-state-combined-before-restoration-cap.log": ".local/class-skills/poison-state-combined-before-restoration-cap.log",
+    "poison-state-combined-before-restoration-cap-run.log": ".local/class-skills/poison-state-combined-before-restoration-cap-run.log",
+    "poison-mitigation-source.log": ".local/class-skills/poison-mitigation-source.log",
+    "poison-mitigation-source-check.log": ".local/class-skills/poison-mitigation-source-check.log",
+    "poison-mitigation-source-probe.json": ".local/class-skills/poison-mitigation-source-probe.json"
+  },
+  "buildHashes": {
+    "content": "bca1033e7e8b2080ba2a20dfaea6cb8f593ea8672e0384dab87e22656030e521",
+    "integration": "5dfb05b39bd25b4a0972359ef85823b32d6ad834e5fa220f0822f05973c41264"
+  },
+  "limits": [
+    "Existing GearEffects and earlier class/item producers still supply their historical aggregate total/duration path. Exact raw rate/length mitigation, poison-item preparation/rounding and migration of every producer to the source-frame entry point remain separate.",
+    "Native catch-up still settles at most600000ms and advances to now; extended offline intervals/combined item lengths remain an explicit unresolved difference. Modern global phase/removal order, interruption/combined regeneration and NPC delayed-death/uninterruptable flags are not certified by the component fixtures.",
+    "The source-frame receiver uses a local40ms accumulator and explicit player/NPC refresh policy. Exact modern global phase, expiry-versus-final-tick ordering, poison interruptions, combined natural/potion/replenish regeneration and source NPC delayed-death/uninterruptable modes remain acceptance work. Native CanBeDamaged and SpellHelper town mapping remain adapters.",
+    "Complete source mitigation72000 cases are preparation only: no existing aggregate producer is silently converted to per-frame integer rate/length mitigation. Native global versus monster-local difficulty and complete item/rank/mastery/seed/proc/owner/client paths remain separate.",
+    "The broader original alchemy-check drop sweep remains failing on normal throwing-axe tax quantity lookup; the failing test is retained. The unchanged restorative formula/drinking methods are reused directly, and the focused full combat-potion checks pass. The complete ordinary throwing metadata projection is a recorded follow-up, not a catch-and-ignore workaround."
+  ],
+  "contract": [
+    "Source comparison covers1624 negative-regen health outcomes from the full2240-case player/monster source fixture, plus384 real native state applications. It does not claim the complete source natural-regeneration/positive-stat or death-event pipeline.",
+    "Equal/stronger poison replaces rate and duration, including shorter duration, without replacing the original source. Weaker poison retains rate/duration. Every valid NPC application resets the source clock phase, even if weaker; player phase stays independent. Source/frame metadata and committed FP health are separately saved.",
+    "NPC raw life256\u2192128 remains alive; the next128 unit debit kills at zero with original-source credit. A real Ogre corpse exercises native death/reward hooks. Nonlethal poison preserves paralysis and dispatches no OnDamage; ordinary Damage is a positive control. Players retain256 raw life under lethal poison.",
+    "Prepared source rates advance only at40ms boundaries. A39ms saved partial frame resumes after1ms, then after40ms on the second reload, without repayment. A naturally running timer verifies actual fractional loss without ordinary hit callbacks on each boot. Global modern scheduler phase remains unproven.",
+    "The saved legacy PoisonFraction remains measured in HP. Active and expired0.75HP pending balances transfer once into the shared committed health remainder; no deserializer applies damage. Old versions0\u20132 omit the new clock field. A genuine old tiny negative remainder cannot suppress the next integer raw unit.",
+    "Approved Protection verifies105HP loss with the historical elapsed-rate100ms catch-up path versus102HP with the integer40ms source path over the same32second/50HP-per-second input and30second deadline. Blocked damage is discarded; the separate source receiver does not call ordinary FinalDamage again.",
+    "Restorative formula/drinking assertions are reused from AlchemyChecks without changing its original full check. Shared restoration and a real instant potion accept half a missing HP when the visible whole-HP value is full, cap at the FP maximum and clear completed healing without losing other lanes. A ten-million-HP queued budget also fills correctly without overflowing its FP conversion."
+  ],
+  "fixtureCorrections": [
+    "A zero-body generic NPC fixture made the native corpse constructor assign Amount0. The probe and lethal timed-effect dummy now have explicit body0x32; clean focused/full logs replace the diagnostic runs, which remain retained.",
+    "A broader original alchemy-check hit a pre-existing normal throwing-base lookup failure. Its source dropping test remains unchanged and is recorded separately; only the affected restorative branches and independent full combat-potion fixture support this batch\u2019s potion claims.",
+    "Intermediate full runs were intentionally stopped when review identified the old negative-remainder transfer edge and a large queued-restoration FP conversion overflow. The correction and regression were added before the final clean focused/full runs; partial logs are retained."
+  ],
+  "installationRollback": {
+    "path": ".local/class-skills/pre-poison-state-install",
+    "previousContentSha256": "01bc0b01bcb9a4eee0fc3607f3705384c4b13db683972e6da8cd8dc98a978ef0",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  },
+  "next": "Resolve the complete pinned ordinary throwing quantity projection (tax is maxstack200), then finish Poison Javelin path/collision/do-handler, exact raw rate/length mitigation and TH mana/quantity/localdelay integration. Continue unaffected skills around individual unsupported modern details."
+}

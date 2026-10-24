@@ -173,7 +173,7 @@
     "Trail creator supplies pOrigin/owner/skill/rank and flags5, optionally range/loop flags. It overwrites nLoops with2*(rank-1), but current formula0 does not set loop flag8. Complete factory/path semantics must establish the actual effect."
   ],
   "nextChecks": [
-    "Migrate the shared poison consumer deliberately with FP256 life/ownership/player-floor/monster-death and save semantics; preserve or explicitly migrate existing fractional poison balances. Verify real outcomes, not only scalar equality.",
+    "Combine the shared source-frame poison receiver with exact rate/length mitigation and skill packet producers. Native direct HP/owner/player-floor and legacy pending-fraction handling are implemented; preserve T29 Protection and source clocks while addressing full modern scheduling/removal/interruptions and extended offline catch-up.",
     "Trace path flag-setting and complete do-handler decrement/removal/collision selection. Combine separately proved source0 packet,60frame stationary cloud and LastCollide identity without inventing trail spacing or permanent hit sets. Native mitigation/defense/proc ordering and modern phase remain separate.",
     "Integrate once-only fractional start mana, release quantity/localdelay, ordinary direct javelin and separate cloud settlement after source contract; verify ranks, gear, miss/Pierce/terrain/expiry, source poison caps and actual input/two reloads.",
     "Track Javelin/PoisonSparks/poisonpuff/trail/contact and poison audio separately from tree/hotkey icons; use clearly labelled placeholders."
@@ -183,14 +183,36 @@
   "damageEvidence": "tools/reference/poison-javelin-damage-engine-evidence.json",
   "poisonStateEvidence": "tools/reference/poison-state-engine-evidence.json",
   "sharedConsumerGaps": [
-    "Existing native poison settles whole-HP ordinary Damage, permits player death, and replaces the damage source on refresh. Compiled supplemental source instead applies FP256 HP regeneration, player one-life floor, monster zero-life death, and retains original poison stat-list owner. Deliberate shared-consumer migration remains before skill certification.",
-    "Current native catch-up settles at most600000ms and advances its clock to now. Skill255 poison alone is516000ms, but combined item durations/longer offline intervals need explicit review. Accepting saved positive int duration does not certify this behavior.",
-    "Modern global event phase, poison interruptions and same-frame stat/event order are not established by compiled component fixtures."
+    "Existing GearEffects and earlier class/item producers still supply their historical aggregate total/duration path. Exact raw rate/length mitigation, poison-item preparation/rounding and migration of every producer to the source-frame entry point remain separate.",
+    "Native catch-up still settles at most600000ms and advances to now; extended offline intervals/combined item lengths remain an explicit unresolved difference. Modern global phase/removal order, interruption/combined regeneration and NPC delayed-death/uninterruptable flags are not certified by the component fixtures."
   ],
   "routingEvidence": "tools/reference/poison-javelin-routing-engine-evidence.json",
   "factoryEvidence": "tools/reference/poison-javelin-factory-engine-evidence.json",
   "sharedImpactEvidence": "tools/reference/weapon-missile-impact-evidence.json",
   "factoryReviewFollowup": "Full factory480 cases establish child flags5 zero velocity and60frame lifetime independent of unflagged2*(rank-1) loops. Positive flag8 controls add9frames/loop; explicit range overrides row. Exact outer do-handler expiry/contact count is separate.",
   "collisionReviewFollowup": "Full router192 cases plus16 sequential contacts establish both rows use the generic full damage reader, parent-only AR/Pierce and LastCollide as most-recent type/ID rather than permanent victim set. Existing complete shared impact reader already establishes count>1 poison-length division; reuse that evidence.",
-  "durationPersistenceEvidence": "tools/reference/poison-duration-native-evidence.json"
+  "durationPersistenceEvidence": "tools/reference/poison-duration-native-evidence.json",
+  "sharedPoisonNativeEvidence": "tools/reference/poison-state-native-evidence.json",
+  "normalThrowingInventoryGap": {
+    "observed": "Broader alchemy-check source drop sweep fails at NamedAmmunition.Maximum for normal Throwing Axe tax; the original test remains unchanged. Restoration formula/drinking coverage is reused independently, and full combat-potion checks pass.",
+    "cause": "Normal tax is present in normal-bases but absent from the intentionally named-item-only bases catalogue. NamedAmmunition.Maximum requires that named catalogue instead of a complete ordinary throwing source projection.",
+    "pinnedSource": "tools/reference/d2r-named-equipment/json/weapons.json",
+    "sourceFields": {
+      "code": "tax",
+      "type": "taxe",
+      "maxstack": 200,
+      "minstack": 24,
+      "spawnstack": 48
+    },
+    "failureLog": ".local/class-skills/poison-state-focused-alchemy-drop-failed.log",
+    "next": "Add a complete pinned ordinary throwing-quantity source projection; do not return an invented cap or suppress the failing loot branch.",
+    "sourceStackRecords": 36,
+    "weaponRecords": 30,
+    "throwingPotionRecords": 6,
+    "sourceSha256": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "projectionNote": "The existing class-weapon-properties projection classifies affix hands, not weapon bases. Prefer a complete pinned quantity projection, shared by ordinary and named throwing weapons, while retaining explicit supported-family gates and source initial-quantity/stack-modifier questions."
+  },
+  "mitigationEvidence": "tools/reference/poison-mitigation-engine-evidence.json",
+  "mitigationReviewFollowup": "72000 complete PvM total-damage/resistance/percentage cases separately resolve integer poison rate and frame length. Player expansion difficulty applies to both lanes; length cap75 is separate from rate maximum75..95. NPC immunity/pierce, zero-length poison shrine and MDR exclusion are controls. Source large-value early division is conditional on nonzero resistance. Native prepared rate/length callers, global versus monster-local difficulty and modern executable equivalence remain separate; no handler is enabled.",
+  "sharedConsumerImplemented": "The shared native consumer now uses direct FP256 health, preserves the original source on equal/stronger refresh, leaves players at one life and kills NPCs at zero. Optional integer source rate/frame phase and old pending HP fractions are saved; dedicated native evidence records the bounded coverage."
 }

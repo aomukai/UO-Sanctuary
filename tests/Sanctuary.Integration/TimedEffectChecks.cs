@@ -77,9 +77,11 @@ public static class TimedEffectChecks
     {
         var dead = ImbuingChecks.Player(SkillName.Alchemy); DateTime now = TimedEffects.Now;
         TimedEffects.ApplyBuff(dead, TimedEffectCategory.Food, "capacity", 25, at: now); dead.Hits = 1;
-        TimedEffects.AddRestoration(dead, true, 100, 10000, now); var source = new Ogre(); TimedEffects.Poison(source, dead, 100, 1000, now);
-        TimedEffects.Settle(dead, now.AddSeconds(1));
-        Require(!dead.Alive && !TimedEffects.Snapshot().Any(r => r.Owner == dead.Serial.Value), "Lethal poison healed/retained effects"); source.Delete();
+        var source = new Ogre(); TimedEffects.Poison(source, dead, 100, 1000, now); TimedEffects.Settle(dead, now.AddSeconds(1));
+        Require(dead.Alive && SkillHealth.Balance256(dead) == 256 && TimedEffects.Buff(dead, TimedEffectCategory.Food) != null, "Player poison floor or retained food lost"); TimedEffects.Clear(dead); dead.Delete();
+        var lethal = new TimedEffectDummy { Body = 0x32, RawStr = 2000, Hits = 1 }; lethal.MoveToWorld(p.Location, p.Map);
+        TimedEffects.AddRestoration(lethal, true, 100, 10000, now); TimedEffects.Poison(source, lethal, 100, 1000, now); TimedEffects.Settle(lethal, now.AddSeconds(1));
+        Require(!lethal.Alive && !TimedEffects.Snapshot().Any(r => r.Owner == lethal.Serial.Value), "Lethal NPC poison healed/retained effects"); lethal.Delete(); source.Delete();
         var nativeDeath = ImbuingChecks.Player(SkillName.Alchemy); TimedEffects.ApplyBuff(nativeDeath, TimedEffectCategory.Potion, "protection", 10);
         nativeDeath.Kill(); Require(!TimedEffects.Snapshot().Any(r => r.Owner == nativeDeath.Serial.Value), "Native death retained buffs");
     }
