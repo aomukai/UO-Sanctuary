@@ -156,9 +156,9 @@ public static class ClassStats
             * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, 0.95);
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0,projectile:
         attacker.Weapon is BaseRanged || attacker is PlayerMobile player && CombatTiming.Weapon(CombatTiming.Equipped(player)).Family==AttackFamily.Throw);
-    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false)
+    internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true)
     {
-        if(!projectile){SorceressEffects.MeleeAttempt(attacker, defender);}
+        if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
         if (!classAttack && !classDefense && !PaladinAuras.CombatStats(attacker) && !PaladinAuras.CombatStats(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)

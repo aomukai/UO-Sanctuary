@@ -24,18 +24,18 @@ public static class BladeBodyChecks
         var target=new Point2D(p.X*2+8,p.Y*2);var state=new ActorMotionState((uint)((p.X*2<<16)+32768),(uint)((p.Y*2<<16)+32768),[target],target,0,2304,2304,0,0,new(0,0),new(0,0),20,0x820,0,[],0);
         return SourceActorMotion.DirectionToNext(state);
     }
-    internal static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh(int column=6000)
     {
         var p=ClassSkillChecks.Player(DiabloClass.Assassin);p.Name="BladeBodyFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);
         int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface && !TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight==0);
         for(int y=2600;y<3800;y+=32)
         {
             bool clear=true;
-            for(int x=5996;x<=6010;x++)for(int dy=-3;dy<=3;dy++)
+            for(int x=column-4;x<=column+10;x++)for(int dy=-3;dy<=3;dy++)
             {if(!Map.Trammel.CanFit(x,y+dy,0,16,true,true,false)){clear=false;}}
             if(!clear){continue;}
-            for(int x=5996;x<=6010;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
-            FixtureSpace.Place(p,new(6000,y,0),Map.Trammel);
+            for(int x=column-4;x<=column+10;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
+            FixtureSpace.Place(p,new(column,y,0),Map.Trammel);
             Log.Information("Blade body controlled native floor fixture: item={Floor} origin={Point}",floor,p.Location);return p;
         }
         p.Delete();throw new InvalidOperationException("No blade body flat-floor corridor");
@@ -51,7 +51,9 @@ public static class BladeBodyChecks
         var at=body.Location;p.MoveToWorld(new(at.X-1,at.Y,at.Z),body.Map);p.Stam=5;p.Direction=Direction.East;
         Require(!body.BlocksFit && body.Summoned && !body.UsesNativeSummonTimer && !body.CanBeDamaged() && !p.CanBeHarmful(body,false),"Blade source no-footprint/nonattackable/timer ownership");
         Require(body.Map.CanFit(at,16,true,true,true) && Teleportation.Space(body.Map,at,p),"Blade occupied Map.CanFit/teleport placement");
-        Require(p.Move(Direction.East) && p.Location==at && p.Stam==5 && AlliedOverlap.Allowed(p),"Walking through blade shoved or blocked allied actions");
+        bool moved=p.Move(Direction.East);
+        Require(moved && p.Location==at && p.Stam==5 && AlliedOverlap.Allowed(p),
+            $"Walking through blade shoved or blocked allied actions: moved={moved} position={p.Location} expected={at} stamina={p.Stam} allowed={AlliedOverlap.Allowed(p)}");
         p.MoveToWorld(new(at.X-2,at.Y,at.Z),body.Map);
         Require(BladeWorldSpace.Mask(body.Map,at.Z,at.X*2,at.Y*2,body)==0,"Zero-footprint body blocked its own source cell");
         var mob=new GraveyardSkeleton{Name="BladeBodyFixtureObstacle",NoKillAwards=true};mob.MoveToWorld(at,body.Map);mob.AIObject.AITimer.Stop();

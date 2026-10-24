@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.bladeshield",
-  "handlerEnabled": false,
-  "status": "Compiled pinned start28/do54/area142/callback/periodic and initial/recurring dispatch preparation; no native Blade Shield implementation or input enabled. Trap lifecycle questions answered separately.",
+  "handlerEnabled": true,
+  "status": "Blade Shield is installed as the 150th playable handler (Assassin 11/30): right/quick self SC/FCR cast creates an independent saved state and pays 27 + 2 per additional rank mana at start. The initial action reads current effective rank; recurring 25-frame pulses retain cast rank with live hard synergies/current weapon. One skill roll per area feeds independent AR/block and 96/128 weapon physical/typed/poison damage, critical, ordinary leech and durability. ResultFlags 32 suppresses weapon-event and direct item-kill callbacks. Recasts replace even a higher rank; town suppresses damage; death/expiry clear state; offline lifetime continues without attack replay. Focused/full three-boot/two-reload suites, real connected initial/recurring damage, 4,608 full-source player-fill comparisons, 30,828 source orchestration cases, 70 Python tests, matching client build and original-world installed smoke pass. Saves/config/client settings are preserved; exact modern range/flags/timing and graphical acceptance remain scoped.",
   "sourceSkill": {
     "skill": "Blade Shield",
     "*Id": 277,
@@ -118,14 +118,16 @@
     "Compiled initial/recurring dispatch confirms current effective rank for the initial used-skill dispatch and modifier-list cast rank for recurring positive-key pulses; state/list/skill identity gates end scheduling when absent. Full do-handler and actual state-expiry services remain separate."
   ],
   "required": [
-    "Trace and verify full generic start/do mana ordering and player animation/first-pulse path; compiled source state/area/callback/periodic orchestration is available with explicitly declared service fixtures.",
-    "Reuse source weapon physical/typed/poison/mastery/critical/AR/block/event pipelines where contracts match; verify copied once-per-area skill roll versus fresh per-target weapon processing, allowed proc/property gates and hit recovery/durability.",
-    "Implement saved independent self state with captured cast rank, live hard synergies/current weapon data, range/pulse/town behavior, SC timing and recasts plus death/logout/load and actual right/quick input.",
-    "Keep raw server gameplay callback and cosmetic attachment separate; final shield/cast/hit/audio and talent/hotkey icons remain in separate inventories."
+    "Revisit Blade Shield measured modern range, timing, item flags and poison-kill event propagation during acceptance; keep those independent of the remaining class roadmap."
   ],
   "limits": [
-    "Older reconstructed source is supplementary; current executable parity and modern item/event/durability behavior are unverified.",
-    "Current ordinary item-effect/property gates remain authoritative; no blanket new special-item/proc implementation is inferred."
+    "Current pinned table radius 6 source units maps to 3 native tiles, using shared Euclidean/LOS target geometry. Firsthand observation establishes beyond-contact reach but no numerical cutoff. The older secondary melee gate is not imposed as current executable proof; exact outer hit geometry and modern secondary range gate remain uncertain.",
+    "Current ResultFlags32 is interpreted with supplementary complete old FillDamageValues and separately reviewed ExecuteEvents. Direct item-kill suppression is verified with real Lidless Wall and an ordinary-weapon positive control; propagation to later poison deaths and all modern callbacks is unverified.",
+    "Supplementary AISC 17-frame/event 9 SC metadata uses the established FCR repeat-minus-one adapter; exact current executable frame, first-pulse and interrupted-cast behavior remain acceptance work. Cancelled first animation leaves its paid source-start state inactive until recast/expiry.",
+    "Source/native differential fixtures explicitly supply stat composition, selected weapon, class/species, RNG and combat services. These bounded comparisons do not establish whole modern executable equivalence, every item/stat combination, PvP, controller/NPC ownership, RNG correlation or full modern event/armor/recovery/durability behavior.",
+    "Unsupported positive target-defense adjustment and unmapped block/damage suppliers are warned and skipped; existing ordinary property/item-skill gates remain. No new NPC equipment or deferred item-skill support is inferred.",
+    "Persistence tests retain a future-held fixture clock through two reloads and independently age a real state to natural timer expiry. Natural live connected pulses pass on each boot; graphical client animation/attachment/impact/audio acceptance remains separate.",
+    "Blade Sentinel learned input and remaining terrain/combat acceptance remain individually deferred. Effects and talent/hotkey icons remain separate 240-entry inventories with identified placeholders; no assets generated, no class completed, no Nightmare/Hell facet assignments invented."
   ],
   "compiledSourceEvidence": "tools/reference/blade-shield-source-evidence.json",
   "compiledRoutineCases": {
@@ -144,5 +146,7 @@
     "sub_6FD13260",
     "sub_6FD13410",
     "D2GAME_MONSTERS_AiFunction09_6FD13470"
-  ]
+  ],
+  "installed": true,
+  "nativeEvidence": "tools/reference/blade-shield-native-evidence.json"
 }

@@ -95,6 +95,7 @@ public static class CombatTiming
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
     {
+        if(ability==CombatAbility.BladeShield){return BladeShields.Timing(Fcr(from));}
         if(ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return FireBlasts.Timing(from);}
         if(AmazonJavelins.Handles(ability)){return AmazonJavelins.Timing(WeaponSequenceAdvance(from));}
         if(AmazonBow.Handles(ability) || ability==CombatAbility.Strafe){return AmazonBow.Timing(from);}
@@ -128,6 +129,7 @@ public static class CombatTiming
     internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
+        if(ability==CombatAbility.BladeShield){return BladeShields.Timing(fcr);}
         if(ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return FireBlasts.Timing(FrameAdvance(weapon,ias,chill,skillAttackRate,baseSpeed:128));}
         int row = Math.Clamp((int)characterClass - 101, 0, 7);
         bool cast = !WeaponAttack(ability);

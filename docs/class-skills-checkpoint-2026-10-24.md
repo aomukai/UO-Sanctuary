@@ -2,7 +2,16 @@
 
 Goal active. Reference: **D2R3.3.93847 — Reign of the Warlock**. Approved Sanctuary deviations take precedence.
 
-- **Installed:149 handlers.** Necromancer28, Sorceress29, Paladin30, Barbarian25, Amazon27, Assassin10; Druid/Warlock mechanics pending. No class completion certificate.
+- **Installed: 150 handlers.** Necromancer 28, Sorceress 29, Paladin 30, Barbarian 25, Amazon 27, Assassin 11; Druid/Warlock mechanics pending. No class completion certificate.
+
+Latest component checkpoint: **[Playable Blade Shield](../tools/reference/blade-shield-native-evidence.json)**.
+
+Blade Shield is installed as the 150th playable handler (Assassin 11/30): right/quick self SC/FCR cast creates an independent saved state and pays 27 + 2 per additional rank mana at start. The initial action reads current effective rank; recurring 25-frame pulses retain cast rank with live hard synergies/current weapon. One skill roll per area feeds independent AR/block and 96/128 weapon physical/typed/poison damage, critical, ordinary leech and durability. ResultFlags 32 suppresses weapon-event and direct item-kill callbacks. Recasts replace even a higher rank; town suppresses damage; death/expiry clear state; offline lifetime continues without attack replay. Focused/full three-boot/two-reload suites, real connected initial/recurring damage, 4,608 full-source player-fill comparisons, 30,828 source orchestration cases, 70 Python tests, matching client build and original-world installed smoke pass. Saves/config/client settings are preserved; exact modern range/flags/timing and graphical acceptance remain scoped.
+
+Next: Continue Charged Bolt Sentry using the [pinned preflight and reuse contracts](../tools/reference/charged-bolt-sentry-preflight.json). Its complete older AI101 and shot-accounting source passes 12,288 isolated cases with clean sanitizers; native actor/firing/input remain pending. Effects and icons remain separate; no class completion certificate.
+
+## Previous checkpoint (before playable Blade Shield)
+
 Latest component checkpoint: **[Approved Blade trap facet/offline lifecycle](../tools/reference/blade-travel-native-evidence.json)**. Latest playable addition remains Shock Web.
 
 Approved short-lived trap lifecycle is installed for the unfinished Blade Sentinel backend: traps stay in their cast facet, retain path/weapon/rank/expiry, and use their own position for visibility and harmful-region checks while owner-facet stat rescaling remains intact. Disconnected owners suppress movement, arming and damage without freezing lifetime or replaying missed actions on return. Faulted controllers also continue expiring. Socket-null/Internal-map suppression, natural conductor expiry, original-clock deletion and armed offline save/reload with no damage pass in focused and full three-boot/two-reload suites. Blade Shield preparation passes 30,828 compiled source cases with clean ASan/UBSan; hit, weapon, state and selection services are explicit fixtures. Builds, 70 Python tests and original-world installed smoke pass. Total playable handlers remain 149; Blade Sentinel and Blade Shield input stay disabled pending their remaining acceptance.

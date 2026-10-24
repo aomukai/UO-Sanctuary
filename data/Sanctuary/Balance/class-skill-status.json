@@ -2319,10 +2319,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 277,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned right/quick self SC/FCR cast creates a separate saved state and pays27+2/rank mana at start. Initial action uses current effective rank; recurring25-frame callbacks retain cast rank with live hard synergies and per-target weapon stats. One skill roll is copied per area, with independent AR/block, source96/128 physical/typed/poison, mastery/generic/deadly critical and ordinary leech/durability. Current result32 suppresses ordinary weapon proc/retaliation and item-kill callbacks while ordinary weapons retain them. Recasts replace even higher ranks, town casts skip damage, death/expiry clear state, offline time does not replay attacks. Source/native/gear/input and two reloads are scoped in blade-shield-native-evidence.json. Exact current outer hit geometry, legacy secondary reach, interrupted-first-pulse behavior, deferred poison-kill event propagation, modern flags/item/stat/seed/frame equivalence and graphical acceptance remain explicit gaps. Final cast/attachment/contact/audio and talent/hotkey icons use separate placeholders."
     },
     {
       "talentId": "warlock.demonicmastery",

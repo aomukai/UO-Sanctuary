@@ -2,7 +2,15 @@
 
 Updated 25 October 2026. **Goal active.** Implement all 240 talents across eight classes against D2R **3.3.93847 — Reign of the Warlock**. Approved Sanctuary deviations take precedence. [Mechanical reference](skill-mechanical-reference.md), [roadmap](class-skill-roadmap.md), [dated checkpoint](class-skills-checkpoint-2026-10-24.md), [verification](class-skills-verification-2026-10-24.json).
 
-**149 handlers installed: Necromancer 28, Sorceress 29, Paladin 30, Barbarian 25, Amazon 27, Assassin 10; Druid/Warlock 0. No class completion certificate.** Warlock/Witch identity 108 and 30 pinned talents/source data/bindings staged; mechanics pending.
+**150 handlers installed: Necromancer 28, Sorceress 29, Paladin 30, Barbarian 25, Amazon 27, Assassin 11; Druid/Warlock 0. No class completion certificate.** Warlock/Witch identity 108 and 30 pinned talents/source data/bindings staged; mechanics pending.
+
+Latest component checkpoint: **[Playable Blade Shield](../tools/reference/blade-shield-native-evidence.json)**.
+
+Blade Shield is installed as the 150th playable handler (Assassin 11/30): right/quick self SC/FCR cast creates an independent saved state and pays 27 + 2 per additional rank mana at start. The initial action reads current effective rank; recurring 25-frame pulses retain cast rank with live hard synergies/current weapon. One skill roll per area feeds independent AR/block and 96/128 weapon physical/typed/poison damage, critical, ordinary leech and durability. ResultFlags 32 suppresses weapon-event and direct item-kill callbacks. Recasts replace even a higher rank; town suppresses damage; death/expiry clear state; offline lifetime continues without attack replay. Focused/full three-boot/two-reload suites, real connected initial/recurring damage, 4,608 full-source player-fill comparisons, 30,828 source orchestration cases, 70 Python tests, matching client build and original-world installed smoke pass. Saves/config/client settings are preserved; exact modern range/flags/timing and graphical acceptance remain scoped.
+
+Next: Continue Charged Bolt Sentry using the [pinned preflight and reuse contracts](../tools/reference/charged-bolt-sentry-preflight.json). Its complete older AI101 and shot-accounting source passes 12,288 isolated cases with clean sanitizers; native actor/firing/input remain pending. Effects and icons remain separate; no class completion certificate.
+
+## Previous checkpoint (before playable Blade Shield)
 
 Latest component checkpoint: **[Approved Blade trap facet/offline lifecycle](../tools/reference/blade-travel-native-evidence.json)**. Latest playable addition remains Shock Web.
 

@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "observedAtUtc": "2026-10-24T21:49:51.392913+00:00",
+  "observation": "It does hit mobs further away, but exact distance is not known; not very far.",
+  "source": "User observation on pinned playable Assassin",
+  "interpretation": "Confirms beyond direct contact, without a measured radius. Current table aura range6 is used; legacy secondary GetResultFlags reach cancellation is not treated as current executable proof.",
+  "uncertain": [
+    "Exact outer hit geometry",
+    "Modern secondary hit-range gate"
+  ],
+  "nonblocking": true
+}

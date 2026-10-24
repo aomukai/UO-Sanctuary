@@ -221,6 +221,7 @@ public static class ClassCombat
         AmazonFend.Cancel(from);
         AmazonMelee.Cancel(from);
         BarbarianBerserk.CancelMode(from);
+        BladeShields.Cancel(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
@@ -481,6 +482,7 @@ public static class ClassCombat
             || (CombatTiming.Equipped(from)?.Serial ?? Serial.Zero) != session.PendingWeapon)
         {
             session.PendingAbility = CombatAbility.None;
+            if(ability==CombatAbility.BladeShield){BladeShields.Cancel(from);}
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
@@ -501,7 +503,7 @@ public static class ClassCombat
         }
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
-        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability,session.PendingTarget); }
+        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability,session.PendingTarget,now); }
         if (SorceressCombat.Handles(ability))
         {
             var aimed = World.FindEntity(session.PendingTarget);

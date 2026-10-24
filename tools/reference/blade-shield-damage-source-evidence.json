@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020"
+  },
+  "completePlayerFillCases": 4608,
+  "fixture": {
+    "path": ".local/class-skills/blade-shield-damage-source-probe.json",
+    "sha256": "b15ab2cfc9e7da0e19f69548672d89ddb37df954cfc424bbeca450462a01ae08"
+  },
+  "established": [
+    "Complete ApplyDamageBonuses adds the existing skill roll to the independently enhanced/rolled current weapon, then scales their sum96/128. Complete FillDamageValues doubles that physical result once in mastery/generic/deadly order.",
+    "Each current weapon typed endpoint is mastery-enhanced and rolled before96/128 scaling. Poison rate scales while its source count/override length remains independent; ordinary player leech percentages remain unscaled.",
+    "Current result flag32 suppresses the attacked-in-melee callback in complete FillDamageValues. Complete ExecuteEvents is separately reviewed, not compiled here: its successful weapon and kill callback blocks also require flag32 absent."
+  ],
+  "limits": [
+    "Stat composition, selected weapon, physical skill roll, class/species and RNG are explicit fixtures. No claim of whole current executable equivalence.",
+    "Full mitigation, block/hit result, actual native delivery, item registration, durability and complete ExecuteEvents are separate boundaries.",
+    "Conversion, monster/hireling attacker, nonzero normal-damage stat, independent min/max percentages, stat damage-vs-montype and stun source lanes are compiled but not covered by this player matrix."
+  ],
+  "handlerEnabled": false
+}
