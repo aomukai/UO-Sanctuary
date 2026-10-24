@@ -171,12 +171,6 @@
     "Shared source area/filter/block wrapper, mitigation, fractional health and approved T29 spell additions, where the complete source path agrees.",
     "Existing S2/attack-rate timing and actual protocol Cast/left/right bindings; do not copy an SC spell timing merely because it throws fire."
   ],
-  "required": [
-    "Trace complete path advancement/end/terrain behavior and source action/mana dispatcher before choosing the native adapter. Current callback proof declares path movement and child allocation as services, not full path equivalence.",
-    "Implement separate airborne/landed state and persistent scheduled frames, captured launch coordinates/rank, child-time synergy/mastery, shared impact roll and per-victim defenses. Verify natural flight, moving escape, no midair actor impact, barriers/landing/radius, exactly-once damage and two reloads.",
-    "Verify learned left/right/quick input, S2/IAS/dual-claw selection, fractional mana/cancellation/repeat, target and ground, town/friendly/immunity/mitigation, owner death/logout/respec/map changes and saved unpaid casts.",
-    "Resolve or explicitly guard unsupported signed32 extreme-rank damage boundary. Keep exact modern timing/geometry/event/seed/PvP/NPC/item-only delivery and missing assets individually recorded."
-  ],
   "uncertain": [
     "Exact current lob range/grid/terrain/collision/timing and client animation acceptance.",
     "Modern full event/seed/gear/stat/child creation and source special defense flags; NPC shadow/item-only suppliers remain separate.",
@@ -218,5 +212,12 @@
     "Shadow Warrior/Master remain individually deferred behind generated NPC equipment/property and NPC skill/AI consumers. Next unaffected Assassin skill is Shock Web, with separately pinned do43/scatter/field preflight. No deferred item-skill gate or whole-class completion certificate is cleared."
   ],
   "nativeEvidence": "tools/reference/fire-blast-native-evidence.json",
-  "next": "Shock Web; Shadow Warrior/Master individually deferred. See shock-web-preflight.json and shadow-summons-preflight.json."
+  "next": "Shock Web; Shadow Warrior/Master individually deferred. See shock-web-preflight.json and shadow-summons-preflight.json.",
+  "preparationRequirements": [
+    "Trace complete path advancement/end/terrain behavior and source action/mana dispatcher before choosing the native adapter. Current callback proof declares path movement and child allocation as services, not full path equivalence.",
+    "Implement separate airborne/landed state and persistent scheduled frames, captured launch coordinates/rank, child-time synergy/mastery, shared impact roll and per-victim defenses. Verify natural flight, moving escape, no midair actor impact, barriers/landing/radius, exactly-once damage and two reloads.",
+    "Verify learned left/right/quick input, S2/IAS/dual-claw selection, fractional mana/cancellation/repeat, target and ground, town/friendly/immunity/mitigation, owner death/logout/respec/map changes and saved unpaid casts.",
+    "Resolve or explicitly guard unsupported signed32 extreme-rank damage boundary. Keep exact modern timing/geometry/event/seed/PvP/NPC/item-only delivery and missing assets individually recorded."
+  ],
+  "requirementsAtCurrentCheckpoint": "The bounded native checklist is verified and installed. Remaining modern acceptance and asset work is enumerated by nativeRemaining and fire-blast-native-evidence.json."
 }

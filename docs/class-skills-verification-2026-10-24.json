@@ -1696,13 +1696,13 @@
       "evidence": "tools/reference/mind-blast-native-evidence.json"
     },
     "fireBlastPreparation": {
-      "handlerEnabled": false,
+      "handlerEnabled": true,
       "lobFactorySourceCases": 4032,
       "cachedS2Records": 10,
       "evidence": "tools/reference/fire-blast-lob-engine-evidence.json",
       "currentObservation": "tools/reference/fire-blast-current-observations.json",
-      "next": "Complete travel/path/mana dispatcher, native separate parent/child delivery, real input and two reloads; installed147 remains intact.",
-      "status": "Fire Blast remains pending;147 handlers/Assassin8 stay installed. Source preparation now covers4032 lob/factory cases,128 landing callbacks,128 full hit routes,1000 full updates/copied-area cases,24 mode selectors,1152 full rate/dual-wield/event schedules and576 two-stage damage cases (7040 total bounded cases). All70 Python tests and unchanged installed/save/client hashes pass. No native Fire Blast handler, class certificate or final assets are claimed.",
+      "next": "Shock Web; see shock-web-preflight.json.",
+      "status": "Source preparation is complete; Fire Blast is installed as148/Assassin9 within the bounds recorded by checks.fireBlast.",
       "sourceCases": {
         "lobFactory": 4032,
         "landingCallbacks": 128,
@@ -1719,11 +1719,17 @@
         "damage": "tools/reference/fire-blast-damage-engine-evidence.json"
       },
       "remaining": [
-        "Trace complete path advancement/end/terrain behavior and source action/mana dispatcher before choosing the native adapter. Current callback proof declares path movement and child allocation as services, not full path equivalence.",
-        "Implement separate airborne/landed state and persistent scheduled frames, captured launch coordinates/rank, child-time synergy/mastery, shared impact roll and per-victim defenses. Verify natural flight, moving escape, no midair actor impact, barriers/landing/radius, exactly-once damage and two reloads.",
-        "Verify learned left/right/quick input, S2/IAS/dual-claw selection, fractional mana/cancellation/repeat, target and ground, town/friendly/immunity/mitigation, owner death/logout/respec/map changes and saved unpaid casts.",
-        "Resolve or explicitly guard unsupported signed32 extreme-rank damage boundary. Keep exact modern timing/geometry/event/seed/PvP/NPC/item-only delivery and missing assets individually recorded."
-      ]
+        "Reference remains D2R3.3.93847/Reign of the Warlock with Sanctuary precedence. Older source compiles7040 bounded lob/factory/landing/router/update/rate/damage cases with declared services; they are not full modern executable equivalence.1152 native timing helper comparisons and independent numeric/gameplay fixtures supplement them. Cached AnimData acquisition provenance remains incomplete; S2 throw animation9 is a placeholder.",
+        "Current user effective3/base1/items2 tooltip3.2 and approximate observed mana agree with pinned832FP256/3.25mana, but do not instrument fractional debit or settle rank1. Older consume validates3 but debits1 at rank1; native retains current pinned/common3mana. Mid-windup mana loss fizzles natively; older post-factory ignored-payment/allocation failure is explicitly unverified for modern D2R.",
+        "Older signed32 synergy multiplication overflows at extreme combinations, including rank255/max endpoint with100 total hard synergy points. These combinations explicitly refuse before debit at release (or refuse a newly unsupported landed child). Native does not silently wrap to negative damage. Modern arithmetic at that boundary is unresolved.",
+        "Native source subtiles project to half tiles, shared cast range, height16, Q12 velocity2304FP8 and chronological40ms frames. WALL/NoShoot static/multi/dynamic tile checks at native collision height supplement LOS so short segments cannot pass into and out of a wall. Exact current room/path/terrain masks, arc height, edges/diagonals/facing/client acceptance remain separate; flat flight/landing effects are identified placeholders.",
+        "Ground creation retains launch rank but reads current hard synergies/mastery, then snapshots endpoints and approved T29 elemental additions before one shared explosion draw. This does not certify original seed/event/stat-list ordering or every item skill/foreign supplier. Copy-area bAvoid1/bBlock0 bypasses ordinary shield block; native learned PvM species have no mapped NPC passive dodge/weapon-block supplier. PvP and future Shadow/NPC passive consumers remain separate.",
+        "Pending actions retain existing movement/recovery/equipment cancellation. Committed flights survive Stop/respec; foreign-map or class-history transitions remove them. Internalized/offline owners do not deliver damage; their short natural lifetime expires. Saved inspection states alone hold one hour, return their offline caster to the saved world and test resumption separately. Death during committed flight, full logout/reconnect/owner and wardrobe transitions still need acceptance.",
+        "Final FireTraumaMissile/FireTraumaGround/FireTraumaXplosion, throw/impact audio and independent talent/left/right/quick icons remain pending. UO animation9, travel/landing0x36E4, explosion0x36BD and sound0x23B are explicitly identified placeholders; no imagegen work occurred.",
+        "Shadow Warrior/Master remain individually deferred behind generated NPC equipment/property and NPC skill/AI consumers. Next unaffected Assassin skill is Shock Web, with separately pinned do43/scatter/field preflight. No deferred item-skill gate or whole-class completion certificate is cleared."
+      ],
+      "historicalSourceOnlyStatus": "Fire Blast remains pending;147 handlers/Assassin8 stay installed. Source preparation now covers4032 lob/factory cases,128 landing callbacks,128 full hit routes,1000 full updates/copied-area cases,24 mode selectors,1152 full rate/dual-wield/event schedules and576 two-stage damage cases (7040 total bounded cases). All70 Python tests and unchanged installed/save/client hashes pass. No native Fire Blast handler, class certificate or final assets are claimed.",
+      "installed": true
     },
     "fireBlastReferencePythonTests": 70,
     "fireBlast": {
@@ -5279,7 +5285,7 @@
     "src/Sanctuary.Content/MindBlasts.cs": "7b3024632ca2f9481f43bce1c358bc365d571e7e5edd42353d563376c9e297b1",
     "tests/Sanctuary.Integration/MindBlastChecks.cs": "974b8d1e279d13d7cff3084710b9c52eea5a92a1acd95b3307e0a15163ac38c1",
     "tools/probe_mind_blast_reference.py": "148aaff2f0d831ef095c0d8ea0659d168c78a1d26db8b0c949022da05f34b86c",
-    "tools/reference/fire-blast-preflight.json": "55a761542a6769fd78f4fc5605e4a20bbd939eb951c01177a211d9469161456f",
+    "tools/reference/fire-blast-preflight.json": "c3f3815e4353ed127a128413980d7fa610dd8125b93f98c86a721aa3e587e370",
     "tools/reference/mind-blast-engine-evidence.json": "77c5d49e198f99b389cd5425d89e25797ea80b5e85eeb1fe7ea09e0bbddf783d",
     "tools/reference/mind-blast-native-evidence.json": "e40836413c07a7cfcf4ac18a6cda003434f7cf5d358ab3bae15b2d1a53162662",
     "tools/reference/shadow-summons-preflight.json": "5c5c7de0c5b2f0194b745b4db4ca11d4be69afa2c1dabda9f648a5217feaf29f",
@@ -5344,7 +5350,7 @@
     ".local/class-skills/shock-web-source.log": "f0182f2530e80309aa86ae558f5f2d3381df346739f771b4e3bd7805b640289b",
     ".local/class-skills/fire-blast-focused.py": "73afdb1f98f40459b987e864e4d50088702725a8014881f4a0dd0f518d665c05",
     ".local/class-skills/fire-blast-install.py": "f90d038175211efc661aef2e96fa1d09bc4bc1868131038db9988e18a65d7905",
-    ".local/class-skills/fire-blast-finalize.py": "c61d310589ddb07623aabbbebbd6c2301066a69836ad6c7447ecac184d5352b3",
+    ".local/class-skills/fire-blast-finalize.py": "2adc3821b9957b207cfd68b0a8979d668b1c8eec5179b72a42ce124c73e97d62",
     ".local/class-skills/fire-blast-verify.py": "f5fe435e9ec0e8de97b34b8acf95817c1366881bbbbaffdf294e47b2f8637ba0",
     ".local/class-skills/fire-blast-action-review.py": "d4007e44904a9e32f23316d7a59c351ca9608ce24315bdce7704615452d2af78",
     ".local/class-skills/fire-blast-focused-corridor-failure.log": "ba3e93dc054ec0fc7a44da54bffe6f09581fb29481a78a474dc8a92c5a11a2aa",
