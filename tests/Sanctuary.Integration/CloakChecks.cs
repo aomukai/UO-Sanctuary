@@ -45,6 +45,46 @@ public static class CloakChecks
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p);bool start=held?ClassCombat.ContinueCast(p,CombatAbility.CloakOfShadows,hovered,new(65530,65530,0),Core.TickCount):ClassCombat.Perform(p,CombatAbility.CloakOfShadows,hovered,new(65530,65530,0),Core.TickCount);
         Require(start,$"Cloak begin: alive={p.Alive} overlap={AlliedOverlap.Allowed(p)} frozen={p.Frozen} paralyzed={p.Paralyzed} spell={p.Spell} recovery={HitRecovery.Active(p,Core.TickCount)} pending={ClassCombat.For(p).PendingAbility} available={ClassCombat.Available(p,CombatAbility.CloakOfShadows)} mana={mana} map={p.Map} point={p.Location}");ClassCombat.ReleaseCast(p);var s=ClassCombat.For(p);Require(s.PendingTarget==Serial.Zero && s.PendingPoint==p.Location && s.Animation==16 && NecromancerEffects.ManaBalance256(p)==mana,"Unpaid canonical SC self cast");Require(ClassCombat.ResolveAction(p,s.EffectAt) && NecromancerEffects.ManaBalance256(p)==mana-3328,"Exactly one13mana release");Require(!ClassCombat.ResolveAction(p,s.EffectAt),"Repeated payment");
     }
+    private static void Refused(PlayerMobile p,string context)
+    {
+        Ready(p);var state=CloakShadows.State(p);int mana=NecromancerEffects.ManaBalance256(p);
+        var session=ClassCombat.For(p);long effect=session.EffectAt;byte animation=session.Animation;
+        p.Direction=Direction.West;var aim=new Point3D(p.X+5,p.Y,p.Z);
+        Require(!ClassCombat.Perform(p,CombatAbility.CloakOfShadows,null,aim,Core.TickCount)
+            && session.PendingAbility==CombatAbility.None && session.EffectAt==effect && session.Animation==animation
+            && NecromancerEffects.ManaBalance256(p)==mana && CloakShadows.State(p)==state
+            && p.Direction==p.GetDirectionTo(aim),context+": no new animation, pending cast, mana or defense refresh");
+    }
+    private static void RecastGates()
+    {
+        var p=Fresh();var other=Fresh();Train(p,CombatAbility.CloakOfShadows,1);Train(other,CombatAbility.CloakOfShadows,1);
+        var first=Target(p);var last=Target(p,5,2);var fresh=Target(p,6,3);
+        // Keep fresh outside the first caster-centered pulse, then move it in.
+        fresh.MoveToWorld(new(p.X+20,p.Y,p.Z),p.Map);Cast(p);fresh.MoveToWorld(new(p.X+6,p.Y+3,p.Z),p.Map);
+        var captured=CloakShadows.State(p);var original=NecromancerEffects.Curse(last);
+        Refused(p,"Fresh group cannot bypass surviving cloaked targets");
+        first.Kill();first.Corpse?.Delete();Require(!first.Alive,"First test target survived death");
+        Refused(p,"One surviving target retains caster lock");
+        last.MoveToWorld(new(p.X+50,p.Y,p.Z),p.Map);
+        Refused(p,"Out-of-range surviving target retains caster lock");
+        Require(CloakShadows.State(p)==captured && NecromancerEffects.Curse(last)==original && NecromancerEffects.Curse(fresh)==null,"Rejected casts changed buffs/targets");
+        last.Kill();last.Corpse?.Delete();Require(!last.Alive,"Last test target survived death");
+        Cast(p);Require(NecromancerEffects.Curse(fresh)?.Source==p.Serial.Value,"Last target death did not unlock real cast/fresh group");
+        // The source-index is independent from the self-defense record. Existing
+        // saves need no new lock field, even if a self buff was already cleared.
+        CloakShadows.Clear(p);Refused(p,"Clearing self defense must not discard a living target lock");
+        NecromancerEffects.Profiles.Clear(fresh);
+        Require(CloakShadows.Apply(other,fresh,Values(1),TimedEffects.Now),"Cross-caster fixture");
+        Cast(p);Require(NecromancerEffects.Curse(fresh)?.Source==other.Serial.Value,"Another caster's target locked this caster or was overwritten");
+        Ready(p);int mana=NecromancerEffects.ManaBalance256(p);captured=CloakShadows.State(p);
+        Require(ClassCombat.Perform(p,CombatAbility.CloakOfShadows,null,p.Location,Core.TickCount),"Unblocked windup setup");long at=ClassCombat.For(p).EffectAt;
+        NecromancerEffects.Profiles.Clear(fresh);Require(CloakShadows.Apply(p,fresh,Values(1),TimedEffects.Now),"Release-time lock setup");
+        Require(!ClassCombat.ResolveAction(p,at) && NecromancerEffects.ManaBalance256(p)==mana && CloakShadows.State(p)==captured,"Release-time lock paid mana or refreshed defense");
+        var state=NecromancerEffects.Profiles.Find(fresh);NecromancerEffects.Profiles.Store(fresh,state with{Curse=state.Curse with{UntilUtc=TimedEffects.Now.AddMilliseconds(-1)}});
+        Cast(p);Require(NecromancerEffects.Curse(fresh)?.Source==p.Serial.Value,"Expired target curse retained a stale recast lock");
+        first.Delete();last.Delete();fresh.Delete();p.Delete();other.Delete();
+        Log.Information("Cloak corrected recast: fresh group, last survivor, range, death, source, release-time and expiry gates pass");
+    }
     private static void Goldens()
     {
         var row=SkillMechanics.For(CombatAbility.CloakOfShadows);Require(row.SourceId==264 && row.Number("aurafilter")==57347 && !ClassAbilities.SelfTarget(row.Ability),"Pinned filter/cursor-aim input");
@@ -56,7 +96,7 @@ public static class CloakChecks
     }
     private static void Check()
     {
-        Goldens();var p=Fresh();Require(!ClassCombat.Available(p,CombatAbility.CloakOfShadows),"Unlearned available");Train(p,CombatAbility.CloakOfShadows,1);
+        Goldens();RecastGates();var p=Fresh();Require(!ClassCombat.Available(p,CombatAbility.CloakOfShadows),"Unlearned available");Train(p,CombatAbility.CloakOfShadows,1);
         Require(!SkillBindings.Instance.Assign(p,true,CombatAbility.CloakOfShadows) && SkillBindings.Instance.Assign(p,false,CombatAbility.CloakOfShadows) && SkillBindings.Instance.AssignQuick(p,8,CombatAbility.CloakOfShadows),"Right/quick bindings");
         Ready(p);NecromancerEffects.SetMana256(p,3327);Require(!ClassCombat.Perform(p,CombatAbility.CloakOfShadows,null,p.Location,Core.TickCount),"Insufficient mana");Mana(p);
         Ready(p);int mana=NecromancerEffects.ManaBalance256(p);Require(ClassCombat.Perform(p,CombatAbility.CloakOfShadows,null,p.Location,Core.TickCount),"Cancelled begin");long at=ClassCombat.For(p).EffectAt;ClassCombat.Stop(p);Require(!ClassCombat.ResolveAction(p,at) && NecromancerEffects.ManaBalance256(p)==mana,"Cancelled cast paid");
@@ -73,8 +113,8 @@ public static class CloakChecks
             && ClassCombat.For(p).PendingAbility==CombatAbility.None && NecromancerEffects.ManaBalance256(p)==mana
             && CloakShadows.State(p)==first && p.Direction==p.GetDirectionTo(aim),"All-cloaked recast must turn without starting animation, payment or self refresh");
         var originalCurse=NecromancerEffects.Curse(near);var fresh=Target(p,6,3);
-        Hold(first with{UntilUtc=TimedEffects.Now.AddSeconds(2)});Cast(p);first=CloakShadows.State(p);
-        Require(first.UntilUtc>TimedEffects.Now.AddSeconds(7) && NecromancerEffects.Curse(near)==originalCurse && NecromancerEffects.Curse(fresh)?.Ability==CombatAbility.CloakOfShadows,"Current build recast: owner restarts, fresh group affected, old target unchanged");fresh.Delete();
+        Refused(p,"Corrected current-build fresh-group recast lock");
+        Require(CloakShadows.State(p)==first && NecromancerEffects.Curse(near)==originalCurse && NecromancerEffects.Curse(fresh)==null,"Rejected fresh-group cast changed owner/targets");fresh.Delete();
         foreach(var difficulty in new[]{MonsterDifficulty.Nightmare,MonsterDifficulty.Hell}){var t=Target(p,7,3,difficulty);var now=TimedEffects.Now;Require(CloakShadows.Apply(p,t,Values(1),now) && NecromancerEffects.Curse(t).UntilUtc==now.AddSeconds(8),"Cloak inherited Dim Vision difficulty divisor");t.Delete();}
         Train(p,CombatAbility.ClawMastery,1);Train(p,CombatAbility.BurstOfSpeed,1);AssassinBuffs.Cast(p,SkillMechanics.Values(p,CombatAbility.BurstOfSpeed));Require(CloakShadows.State(p)==first && AssassinBuffs.AttackRate(p)>0,"Quickness replaced independent Cloak");AssassinBuffs.Clear(p);
         var other=Fresh();Train(other,CombatAbility.CloakOfShadows,1);var now2=TimedEffects.Now;var old=NecromancerEffects.Curse(near);Require(!CloakShadows.Apply(other,near,Values(1),now2) && !CloakShadows.Apply(other,near,Values(3),now2) && !CloakShadows.Apply(p,near,Values(1),now2) && NecromancerEffects.Curse(near)==old,"Active cloak overwritten or refreshed");other.Delete();
@@ -100,7 +140,7 @@ public static class CloakChecks
     }
     private static void Reload()
     {
-        Goldens();var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var t=(BaseCreature)World.FindMobile((Serial)s.Target);var pending=(PlayerMobile)World.FindMobile((Serial)s.Pending);
+        Goldens();RecastGates();var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var t=(BaseCreature)World.FindMobile((Serial)s.Target);var pending=(PlayerMobile)World.FindMobile((Serial)s.Pending);
         Require(CloakShadows.State(p)==s.State && NecromancerEffects.Curse(t)==s.Curse && NamedControl.Blind(t),"Saved owner/target/blind state");Require(World.FindItem((Serial)s.Helm)?.Parent==p && SkillMechanics.Rank(p,CombatAbility.CloakOfShadows)==21 && ClassCreation.Profiles.GetRank(p.Serial,"assassin.cloakofshadows")==20,"Saved real gear/ranks");
         Require(NecromancerEffects.ManaBalance256(p)==s.Mana && ClassStats.Defense(p)==s.OwnerDefense && ClassStats.Defense(t)==s.TargetDefense,"Saved mana/defense");Require(SkillBindings.Instance.Get(p).Right==CombatAbility.CloakOfShadows && SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Assassin,8)==CombatAbility.CloakOfShadows,"Saved bindings");Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None && CloakShadows.State(pending)==null && NecromancerEffects.ManaBalance256(pending)==s.PendingMana,"Unpaid windup replayed");
         // Saved offline PlayerMobile actors load on Map.Internal. Re-enter the
@@ -108,18 +148,35 @@ public static class CloakChecks
         p.MoveToWorld(new(t.X-4,t.Y,t.Z),t.Map);
         Ready(p);var oldState=CloakShadows.State(p);Require(!ClassCombat.Perform(p,CombatAbility.CloakOfShadows,null,new(p.X+5,p.Y,p.Z),Core.TickCount)
             && NecromancerEffects.ManaBalance256(p)==s.Mana && CloakShadows.State(p)==oldState,"Reloaded all-cloaked cast must not pay/refresh/animate");
-        var fresh=Target(p,6,3);Cast(p);Require(CloakShadows.State(p).UntilUtc<TimedEffects.Now.AddSeconds(29) && NecromancerEffects.Curse(t)==s.Curse && NecromancerEffects.Curse(fresh)?.Ability==CombatAbility.CloakOfShadows,"Reloaded recast/fresh-group/no-refresh");fresh.Delete();NecromancerEffects.SetMana256(p,s.Mana);Hold(s.State with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)});NecromancerEffects.Profiles.Store(t,NecromancerEffects.Profiles.Find(t) with{Curse=s.Curse with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)}});
-        Later(180,"cloak-reload-result",()=>{Require(CloakShadows.State(p)==null && !NamedControl.Blind(t) && NecromancerEffects.DefenseStatPercent(t)==0,"Reloaded expiry/AI cleanup");Hold(s.State);NecromancerEffects.Profiles.Store(t,NecromancerEffects.Profiles.Find(t) with{Curse=s.Curse});Log.Information("cloak-reload-result: passed");});
+        var fresh=Target(p,6,3);Refused(p,"Reloaded surviving target blocks fresh group");Require(NecromancerEffects.Curse(t)==s.Curse && NecromancerEffects.Curse(fresh)==null,"Reloaded rejected cast changed targets");fresh.Delete();Hold(s.State with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)});NecromancerEffects.Profiles.Store(t,NecromancerEffects.Profiles.Find(t) with{Curse=s.Curse with{UntilUtc=TimedEffects.Now.AddMilliseconds(80)}});
+        Later(180,"cloak-reload-result",()=>{Require(CloakShadows.State(p)==null && !NamedControl.Blind(t) && NecromancerEffects.DefenseStatPercent(t)==0,"Reloaded expiry/AI cleanup");Cast(p);Require(NecromancerEffects.Curse(t)?.Source==p.Serial.Value,"Reloaded expiry did not release lock");NecromancerEffects.SetMana256(p,s.Mana);Hold(s.State);NecromancerEffects.Profiles.Store(t,NecromancerEffects.Profiles.Find(t) with{Curse=s.Curse});Log.Information("cloak-reload-result: passed");});
     }
     private static void Input()
     {
         var p=Fresh();Train(p,CombatAbility.CloakOfShadows,1);Ready(p);Require(SkillBindings.Instance.Assign(p,false,CombatAbility.CloakOfShadows) && SkillBindings.Instance.AssignQuick(p,8,CombatAbility.CloakOfShadows),"Connected binding");
         var net=NetState.Instances.Single(x=>x.Mobile==null && IPAddress.IsLoopback(x.Address));net.Seeded=true;net.CompressionEnabled=false;net.Mobile=p;p.NetState=net;var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);field.SetValue(net,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));net.ResetMovementState();net.SendMobileUpdate(p);
-        var victim=Target(p);int mana=NecromancerEffects.ManaBalance256(p);bool began=false;long deadline=Core.TickCount+5000;
+        var victim=Target(p);BaseCreature fresh=null;int mana=NecromancerEffects.ManaBalance256(p);bool began=false;long deadline=Core.TickCount+5000;
         void Wait(){try{Require(Core.TickCount<deadline,"Connected Cloak timeout");if(ClassCombat.For(p).PendingAbility==CombatAbility.CloakOfShadows){began=true;Require(NecromancerEffects.ManaBalance256(p)==mana,"Premature connected payment");}if(CloakShadows.State(p)==null){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}Require(began && CloakShadows.State(p) is{Rank:1,Defense:10} && NecromancerEffects.ManaBalance256(p)==mana-3328 && NecromancerEffects.Curse(victim)?.Ability==CombatAbility.CloakOfShadows,"Natural self cast/payment");
-            Ready(p);var active=CloakShadows.State(p);int paid=NecromancerEffects.ManaBalance256(p);p.Direction=Direction.West;var aim=new Point3D(p.X+5,p.Y,p.Z);
+            fresh=Target(p,6,3);Ready(p);var active=CloakShadows.State(p);int paid=NecromancerEffects.ManaBalance256(p);p.Direction=Direction.West;var aim=new Point3D(p.X+5,p.Y,p.Z);
             Log.Information("cloak-input: reject-ready ability={Ability} x={X} y={Y} z={Z}",(int)CombatAbility.CloakOfShadows,aim.X,aim.Y,aim.Z);
-            Later(350,"cloak-input-result",()=>{try{Require(ClassCombat.For(p).Sequence==2 && ClassCombat.For(p).PendingAbility==CombatAbility.None && NecromancerEffects.ManaBalance256(p)==paid && CloakShadows.State(p)==active && p.Direction==p.GetDirectionTo(aim),$"Rejected connected recast: sequence={ClassCombat.For(p).Sequence} pending={ClassCombat.For(p).PendingAbility} mana={NecromancerEffects.ManaBalance256(p)}/{paid} stateSame={CloakShadows.State(p)==active} direction={p.Direction}/{p.GetDirectionTo(aim)}");Log.Information("cloak-input-result: passed");}finally{victim.Delete();p.Delete();}});}catch(Exception e){victim.Delete();p.Delete();Log.Error(e,"cloak-input-result: failed");}}
+            Later(350,"cloak-input-result",()=>{try{Require(ClassCombat.For(p).Sequence==2 && ClassCombat.For(p).PendingAbility==CombatAbility.None && NecromancerEffects.ManaBalance256(p)==paid && CloakShadows.State(p)==active && p.Direction==p.GetDirectionTo(aim),$"Rejected connected recast: sequence={ClassCombat.For(p).Sequence} pending={ClassCombat.For(p).PendingAbility} mana={NecromancerEffects.ManaBalance256(p)}/{paid} stateSame={CloakShadows.State(p)==active} direction={p.Direction}/{p.GetDirectionTo(aim)}");Require(NecromancerEffects.Curse(fresh)==null,"Rejected connected cast affected fresh group");
+                victim.Kill();victim.Corpse?.Delete();Ready(p);
+                Log.Information("cloak-input: unlocked-ready ability={Ability} x={X} y={Y} z={Z}",(int)CombatAbility.CloakOfShadows,aim.X,aim.Y,aim.Z);
+                long until=Core.TickCount+5000;
+                void Unlocked()
+                {
+                    try
+                    {
+                        Require(Core.TickCount<until,"Connected unlocked cast timeout");
+                        if(NecromancerEffects.Curse(fresh)?.Ability!=CombatAbility.CloakOfShadows){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Unlocked);return;}
+                        Require(ClassCombat.For(p).Sequence==3 && NecromancerEffects.ManaBalance256(p)==paid-3328
+                            && CloakShadows.State(p)!=active && NecromancerEffects.Curse(fresh)?.Source==p.Serial.Value,"Connected last-death recast/payment/fresh target");
+                        Log.Information("cloak-input-result: passed");fresh.Delete();victim.Delete();p.Delete();
+                    }
+                    catch(Exception e){fresh?.Delete();victim.Delete();p.Delete();Log.Error(e,"cloak-input-result: failed");}
+                }
+                Timer.StartTimer(TimeSpan.FromMilliseconds(20),Unlocked);
+            }catch(Exception e){fresh?.Delete();victim.Delete();p.Delete();Log.Error(e,"cloak-input-result: failed");}});}catch(Exception e){fresh?.Delete();victim.Delete();p.Delete();Log.Error(e,"cloak-input-result: failed");}}
         Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("cloak-input: ready ability={Ability} x={X} y={Y} z={Z}",(int)CombatAbility.CloakOfShadows,65530,65530,0);Wait();});
     }
 }

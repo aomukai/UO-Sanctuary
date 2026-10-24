@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.cloakofshadows",
+  "source": "User firsthand extended live-game recheck,25 October 2026",
+  "report": "i've been using cloak of shadows a lot now and tested it thoroughly, and i must have been mistaken: while i have blind on a mob, and that mob is still alive, i cannot recast the skill. if the mob dies, i can, or when the effect ends.",
+  "followUp": "killed the test mobs so quick it looked like i could recast it freely",
+  "confirmed": [
+    "A living monster still blinded by this caster prevents recasting the skill.",
+    "The lock ends when the affected monsters die or the effect ends.",
+    "The earlier apparent unrestricted/fresh-group recasts were a mistaken observation caused by quickly killing the test monsters."
+  ],
+  "supersedes": "Earlier fresh-group bypass and self-defense restart claims as evidence for recasting while living targets remain cloaked.",
+  "uncertain": [
+    "The defense-bonus timer after killing the last blinded monster was not independently observed; the follow-up explained the earlier mistaken recasts. Preserve its existing duration unless new evidence establishes earlier removal.",
+    "Empty-area casts, non-blind defense-only targets, curse replacement, cross-caster/rank arbitration and current AI/darkness/remhit edges remain unconfirmed."
+  ],
+  "nativeAdapter": "Recast admission checks this caster's active Cloak curses on all living targets, without range restriction. Existing saved source/expiry records rebuild the target index; no new saved lock. Dead/deleted/expired targets do not lock. A successful admitted cast refreshes self defense normally. Defense-only targets use the same lock pending direct evidence; the self buff alone does not lock when no living affected targets remain."
+}

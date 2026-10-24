@@ -8,7 +8,7 @@
     "SKILLS_AuraCallback_CloakOfShadows": "d53ff91bce4d40f46f6473312fd89b148d02bce193c663ce3c171078575a39f4"
   },
   "proofEnablesHandler": false,
-  "currentBuildConflict": "The compiled older do47 global owner-state lock is contradicted by user testing in3.3.93847: recast costs13mana, affects fresh groups, restarts owner defense, and does not overwrite active target cloaks. All-cloaked recasts turn but refuse without animation/payment. Preserve this probe as historical source evidence, not the modern recast oracle.",
+  "currentBuildConflict": "The latest user3.3.93847 recheck retracts the earlier fresh-group bypass: living blinded targets prevent recasting; death/expiry releases it. Older do47 denies any existing owner state, so it supports caster-wide refusal but does not establish the observed early release after target death. Preserve the unchanged probe as historical source evidence, with current observations recorded separately in cloak-current-observations.json.",
   "scaffold": {
     "path": "tools/probe_assassin_buff_reference.py",
     "sha256": "a42e7b88e19a9476436711bb1323700f06b6c206e374f08b01ced51716c8f6ae"

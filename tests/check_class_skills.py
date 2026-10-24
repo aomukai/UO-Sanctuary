@@ -269,6 +269,9 @@ def check():
                         ready=session.expect(r'cloak-input: reject-ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,2,ability,0,x,y,z))
+                        ready=session.expect(r'cloak-input: unlocked-ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,3,ability,0,x,y,z))
                         assert session.expect(r'cloak-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     venom='venom-check' if boot==0 else 'venom-reload-check'
                     session.send(venom)

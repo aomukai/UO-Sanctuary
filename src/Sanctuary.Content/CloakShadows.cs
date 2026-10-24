@@ -44,14 +44,17 @@ public static class CloakShadows
     }
     private static bool RecastAllowed(PlayerMobile owner)
     {
-        if(State(owner)==null){return true;}
-        var values=SkillMechanics.Values(owner,CombatAbility.CloakOfShadows);int radius=(int)values.Eval("aurarangecalc");
-        foreach(var target in owner.Map.GetMobilesInRange<BaseCreature>(owner.Location,(int)Math.Ceiling(SkillGeometry.Tiles(radius))))
+        // Corrected 3.3.93847 firsthand observation: a surviving affected mob
+        // locks this caster globally. A fresh group or leaving the old group's
+        // range must not bypass it. Derive this from the saved curse sources so
+        // death, expiry and reload cannot leave a separate stale recast timer.
+        foreach(uint id in _targets)
         {
-            if(Target(owner,target,radius) && NecromancerEffects.Curse(target)?.Ability is not(CombatAbility.CloakOfShadows or CombatAbility.Attract)
-                && SourceCurseDuration.Incoming(target,"cloaked",(int)values.Eval("auralencalc"),out _)){return true;}
+            var target=World.FindMobile((Serial)id);
+            if(target is{Alive:true,Deleted:false} && NecromancerEffects.Curse(target) is{Ability:CombatAbility.CloakOfShadows} curse
+                && curse.Source==owner.Serial.Value){return false;}
         }
-        return false;
+        return true;
     }
     public static bool Begin(PlayerMobile owner,Serial target,Point3D point,long now)
     {
@@ -79,9 +82,8 @@ public static class CloakShadows
     }
     internal static NecromancerCurse Replacement(NecromancerCurse old,NecromancerCurse next)
     {
-        // Current 3.3.93847 firsthand tests supersede the older do47/factory:
-        // recasting restarts the owner buff and can affect a fresh group, but
-        // must not refresh or overwrite an already active target cloak.
+        // Target arbitration is separate from caster recast admission. Retain
+        // the no-overwrite adapter; cross-caster/rank acceptance remains open.
         if(old?.Ability is CombatAbility.Attract or CombatAbility.CloakOfShadows){return null;}
         return next;
     }

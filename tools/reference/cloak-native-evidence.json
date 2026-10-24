@@ -10,6 +10,83 @@
   ],
   "currentBuildObservation": {
     "referenceVersion": "3.3.93847",
+    "talentId": "assassin.cloakofshadows",
+    "source": "User firsthand extended live-game recheck,25 October 2026",
+    "report": "i've been using cloak of shadows a lot now and tested it thoroughly, and i must have been mistaken: while i have blind on a mob, and that mob is still alive, i cannot recast the skill. if the mob dies, i can, or when the effect ends.",
+    "followUp": "killed the test mobs so quick it looked like i could recast it freely",
+    "confirmed": [
+      "A living monster still blinded by this caster prevents recasting the skill.",
+      "The lock ends when the affected monsters die or the effect ends.",
+      "The earlier apparent unrestricted/fresh-group recasts were a mistaken observation caused by quickly killing the test monsters."
+    ],
+    "supersedes": "Earlier fresh-group bypass and self-defense restart claims as evidence for recasting while living targets remain cloaked.",
+    "uncertain": [
+      "The defense-bonus timer after killing the last blinded monster was not independently observed; the follow-up explained the earlier mistaken recasts. Preserve its existing duration unless new evidence establishes earlier removal.",
+      "Empty-area casts, non-blind defense-only targets, curse replacement, cross-caster/rank arbitration and current AI/darkness/remhit edges remain unconfirmed."
+    ],
+    "nativeAdapter": "Recast admission checks this caster's active Cloak curses on all living targets, without range restriction. Existing saved source/expiry records rebuild the target index; no new saved lock. Dead/deleted/expired targets do not lock. A successful admitted cast refreshes self defense normally. Defense-only targets use the same lock pending direct evidence; the self buff alone does not lock when no living affected targets remain."
+  },
+  "verification": {
+    "handlers": 149,
+    "assassinHandlers": 10,
+    "legacyDispatchCases": 192,
+    "rankGoldens": 5,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualInputBoots": 3,
+    "inputSequencePerBoot": [
+      "cast1",
+      "rejected fresh-group2",
+      "last affected target death",
+      "successful cast3"
+    ],
+    "pythonTests": 70,
+    "namedInputHashes": 507,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientCursorInputVerified": true,
+    "clientByteEqualToPrevious": true,
+    "saveSchemaChanged": false
+  },
+  "checks": "Cloak of Shadows recast admission is corrected to follow the user\u2019s extended D2R 3.3.93847 recheck. Living targets carrying this caster\u2019s active Cloak curse prevent another cast, including fresh-group attempts and targets outside the current area. Death/deletion of the last affected target or curse expiry releases the lock. Rejected attempts retain facing feedback without new animation, mana payment, target effects or defense refresh. Both admission and release check existing saved target source/expiry records; no save schema change or separate lock timer is introduced. Focused/full suites each pass three boots/two save-reloads, including real cast1, rejected fresh-group attempt2 and successful post-death cast3 on every boot. Earlier formulas, defense/AI separation, actual Tarnhelm ranks, cancellation, curse arbitration, natural expiry, input and saved state checks remain. All 70 Python tests, 507/21 current fingerprints and 573 unchanged named decisions pass; builds have zero warnings/errors. Matching existing-world smoke exits zero with save/config/client bytes unchanged, backup retained and server stopped. The build remains 149 handlers (Assassin 10); Blade Sentinel components remain installed and its handler disabled.",
+  "fixtureNotes": [
+    "Disposable world uses fixture-name mana-regeneration freeze and real constructor guard. Production timing and resource rules are unchanged.",
+    "Real duration/natural expiry is checked before one-hour saved-state inspection holds; unpaid windups never replay.",
+    "The unchanged historical do47 probe tests an owner-state lock. Current corrected recast admission instead follows living source-owned target curses so death/expiry can release it. Connected packets cover cast1, refused fresh-group attempt2 and successful cast3 after the last target dies; facing, payment, defense refresh and target application are checked.",
+    "Offline PlayerMobile fixtures load on Map.Internal; post-reload casts first re-enter the target world. Connected two-packet fixture uses increasing input sequences and asserts receipt of sequence2; an initial duplicate was correctly ignored by the replay guard.",
+    "Cross-caster equal/higher/lower rank calls retain the declared no-overwrite adapter. The previous fresh-group bypass/self-timer restart report is explicitly superseded by the user's extended recheck; post-last-death defense-bonus timing remains unobserved.",
+    "Corrected recast tests keep targets alive, add a fresh group, kill one of two survivors, move the last outside range, then kill it before a real cast. Separate source/expired/release-time gates pass on all three boots.",
+    "Actual saved target/owner/gear/mana/ranks/bindings preserve the rejection after both reloads. Natural delayed expiry releases the lock; a real paid cast succeeds before restoring the inspection hold for the next reload.",
+    "Focused three-boot Cloak/input checks passed before the integration-only Shock Web failure-message diagnostic was added. Full-suite coverage uses the rebuilt integration DLL with the unchanged Cloak code and assertions.",
+    "Real packet sequence1 casts, sequence2 is refused with a fresh nearby monster and an older surviving affected monster, then sequence3 casts after the last affected target is killed. All three boots verify exact one-time13mana payments and the fresh target effect."
+  ],
+  "limits": [
+    "The latest user recheck supersedes the earlier fresh-group bypass/self-timer restart observation as evidence for recasting with surviving affected targets. The follow-up explains that test monsters died too quickly. It does not independently establish the self-defense timer after the last target dies; its existing duration remains unchanged until better evidence.",
+    "Native admission scans all living targets carrying this caster\u2019s active Cloak curse, without radius/map restriction; the saved curse/source/expiry records rebuild the index after load. Defense-only non-blind targets share the lock as a declared adapter. Empty-area casts, curse replacement, unusual cross-caster/rank and map/lifecycle edges need direct current-build acceptance.",
+    "The unchanged older do47 probe refuses any existing owner state. This supports global refusal but does not prove the observed release after affected targets die. Its 192 bounded cases retain declared nested services and remain historical source evidence, not a current executable equivalence certificate.",
+    "The no-overwrite/Attract target arbitration adapter remains separate from caster admission. Full special-AI state10 behavior, NPC eligibility, remhit player behavior, global darkness and full current engine/client/PvP/NPC geometry/event acceptance remain open.",
+    "One initial full run stopped at a Shock Web connected-input timeout after the corrected Cloak checks passed. The failed log is retained. Added failure diagnostics report sequence, payment, target/caster positions and shards; no production Shock Web change or relaxed assertion was made. The subsequent complete three-boot suite passes unchanged timing gates; the transient timeout cause remains unconfirmed.",
+    "Skill effects/audio and talent/left/right/quick icons remain independently tracked placeholders. All 240 entries remain in each asset inventory. No class completion certificate or deferred item-skill acquisition/delivery gate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/cloak-recast-focused.log",
+    "combined": ".local/class-skills/cloak-recast-combined.log",
+    "content-build": ".local/class-skills/cloak-recast-content-build.log",
+    "integration-build": ".local/class-skills/cloak-recast-integration-build.log",
+    "python-checks": ".local/class-skills/cloak-recast-python-checks.log",
+    "named-readiness": ".local/class-skills/cloak-recast-named-readiness.log",
+    "first-loop": ".local/class-skills/cloak-recast-first-loop.log",
+    "properties": ".local/class-skills/cloak-recast-properties.log",
+    "installed-server": ".local/class-skills/cloak-recast-installed-server.log",
+    "installed-smoke": ".local/class-skills/cloak-recast-installed-smoke.log",
+    "client-check": ".local/class-skills/cloak-recast-client-check.log",
+    "source": ".local/class-skills/cloak-recast-source.log",
+    "first-full-failure": ".local/class-skills/cloak-recast-first-full-failure.log"
+  },
+  "supersededObservation": {
+    "referenceVersion": "3.3.93847",
     "source": "User firsthand live-game test,24October2026",
     "confirmed": [
       "Can pay13mana and cast on a fresh previously unaffected group while earlier targets remain cloaked.",
@@ -22,9 +99,10 @@
       "Cross-caster/different-rank behavior was not independently observed. Native no-overwrite policy applies uniformly until more specific current-build evidence exists.",
       "Exact on-hit owner-state removal and global client darkness behavior remain separate.",
       "Initial empty-area casting, active-owner empty-area casting, mixed fresh/cloaked cursor groups and cross-caster/rank admission have not all been independently tested. Native admission keeps initial source self casting and requires an eligible uncloaked target in the source caster-centered area while the owner buff is active; cursor only supplies facing."
-    ]
+    ],
+    "supersededBy": "tools/reference/cloak-current-observations.json"
   },
-  "verification": {
+  "historicalVerificationBeforeRecastCorrection": {
     "handlers": 144,
     "assassinHandlers": 5,
     "legacyDispatchCases": 192,
@@ -41,33 +119,5 @@
     "clientCursorInputVerified": true,
     "clientByteEqualToPrevious": true
   },
-  "checks": "Cloak of Shadows is installed as handler144/Assassin5. Learned right/quick SC/FCR self casts pay13mana once at release, capture additive owner defense and apply entry-only defense curses independently of blind-AI eligibility. User tests in3.3.93847 supersede the older global recast lock: recast restarts the self-defense timer, affects fresh groups and leaves active target cloaks unchanged; all-cloaked recasts turn but refuse before animation or payment. Rank1/20/21/28/255 goldens, real Tarnhelm hard20/effective21, radius edge/behind, unique/champion stat-versus-AI behavior, Normal/Nightmare/Hell duration, Quickness independence, other-curse/Attract replacement, cancellation/hit recovery/lost mana/town, natural expiry and actual input pass. Focused/full each pass three boots/two reloads, preserving exact gear/ranks/defense/mana/target states/bindings with no unpaid replay; fresh-group recast/no-overwrite is tested after reload.192 complete older dispatch/callback cases have explicit nested services and the modern conflict is retained.70 Python tests, fresh495/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; the rebuilt existing cursor-input client has44 existing warnings/zero errors. Existing-world load/listen/shutdown exits0 with original save/config bytes unchanged; previous content/client/data/saves backed up and server stopped. Exact source state10 AI, modern cross-caster/remhit/whole-engine acceptance and darkness/final assets remain open. Next is Venom.",
-  "fixtureNotes": [
-    "Disposable world uses fixture-name mana-regeneration freeze and real constructor guard. Production timing and resource rules are unchanged.",
-    "Real duration/natural expiry is checked before one-hour saved-state inspection holds; unpaid windups never replay.",
-    "Historical source global-owner lock remains tested by its192-case probe, while native current recast rules follow firsthand live-game observations. Connected rejection checks cover facing and absence of pending cast/payment/refresh; no self-target client override discards the cursor direction.",
-    "Offline PlayerMobile fixtures load on Map.Internal; post-reload casts first re-enter the target world. Connected two-packet fixture uses increasing input sequences and asserts receipt of sequence2; an initial duplicate was correctly ignored by the replay guard.",
-    "Cross-caster equal/higher/lower rank calls verify the declared uniform no-overwrite adapter; only ordinary same-caster fresh-group/no-refresh and owner timer restart are currently firsthand-confirmed."
-  ],
-  "limits": [
-    "Current3.3.93847 user tests supersede the older do47 caster-wide recast lock and generic same-rank target refresh. Recasting restarts self defense and affects fresh groups without overwriting active target cloaks. Initial/active-owner empty areas, mixed-group/cursor admission and cross-caster/different-rank combinations were not independently observed; the native no-overwrite policy applies uniformly pending more specific current evidence.",
-    "Full source special-AI state10 wander/idle/attack scheduling is not ported. Cloak shares the existing Dim Vision controller with captured motion, melee-only acquisition and special-attack suppression; exact modern NPC movement and restoration remain acceptance work. Uninterruptable NPC/state eligibility remains unverified. Non-Encounter imp1 conservatively receives no blind because its attachment-state adapter is absent; defense application is independent.",
-    "Source E003 species-boss, town and NOAURA filtering is distinct from blind-AI unique/superunique restrictions. Native source mappings and the existing explicit dungeon-archetype adapters remain bounded; PvP/hireling/neutral suppliers and full room/grid/height/stat/event acceptance are separate.",
-    "Owner remhit1 does not by itself establish player-on-hit removal. Reviewed surviving-monster event removal is not proof of player dispel. Native owner state currently remains until expiry/recast/lifecycle clear; exact modern hit-removal edge remains unverified.",
-    "192 unchanged older do47/callback cases retain declared formula/factory/search/AI services and are historical source evidence. Five current rank goldens and firsthand recast observations are separate. No complete current executable or class equivalence certificate is claimed.",
-    "Global darkness/light transitions, final cast/target overlays and assassin_cloakofdarkness audio remain presentation work with identified native markers. Talent/right-hotkey icons are separately pending. No item skill/acquisition gate is cleared."
-  ],
-  "logs": {
-    "focused": ".local/class-skills/cloak-focused.log",
-    "combined": ".local/class-skills/cloak-combined.log",
-    "content-build": ".local/class-skills/cloak-content-build.log",
-    "integration-build": ".local/class-skills/cloak-integration-build.log",
-    "client-build": ".local/class-skills/cloak-client-build.log",
-    "python-checks": ".local/class-skills/cloak-python-checks.log",
-    "named-readiness": ".local/class-skills/cloak-named-readiness.log",
-    "first-loop": ".local/class-skills/cloak-first-loop.log",
-    "installed-smoke": ".local/class-skills/cloak-installed-smoke.log",
-    "installed-server": ".local/class-skills/cloak-installed-server.log",
-    "source": ".local/class-skills/cloak-source.log"
-  }
+  "sourceObservationFile": "tools/reference/cloak-current-observations.json"
 }
