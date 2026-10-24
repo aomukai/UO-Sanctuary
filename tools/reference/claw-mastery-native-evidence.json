@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.clawmastery",
+  "sourceId": 252,
+  "handlerEnabled": true,
+  "installed": true,
+  "preflight": "tools/reference/claw-mastery-preflight.json",
+  "sharedSourceEvidence": "tools/reference/barbarian-mastery-engine-evidence.json",
+  "verification": {
+    "handlerCount": 140,
+    "assassinHandlers": 1,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 491,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "rankGoldens": 7,
+    "hardRank": 20,
+    "savedEffectiveRank": 24
+  },
+  "checks": [
+    "Current source Claw row252 populates the same melee mastery TH/damage/critical channels as the existing masteries, with h2h type-layer restriction and its own pinned parameters. h2h2 ancestry is checked explicitly.",
+    "Normal and real magic Tekagi activate only while identified/equipped/unbroken; actual Identify scroll is consumed. Swords, daggers, bows, null supplier inputs, inactive class history and unlearned all-skill gear do not receive claw mastery.",
+    "Actual attack-rating and physical endpoint consumers use additive skill/item/stat/enchant/aura pools; real Bartuc local weapon ED is kept separate from the mastery damage pool. Hard20 becomes effective23 with Bartuc/Tarnhelm and24 with Highlord; hard rank remains20.",
+    "Actual hit/miss and GearEffects.Strike health-loss checks verify mastery critical first, fallback Deadly Strike, short-circuit draw counts, no quadruple stacking and no elemental doubling. Existing Barbarian and Amazon regression consumers remain intact.",
+    "No L/R/quick binding or active cast is available for this passive. Class history, respec and actual death/resurrection preserve or remove learned effects as appropriate.",
+    "Saved actual owner/gear, hard/effective rank, native AR/damage and min/max endpoints survive both reloads; remove/re-equip and broken/repair gates are rechecked after reload.",
+    "Installed existing-world load/listen/shutdown exit0; temporary autosave suppression restored original configuration, existing save bytes unchanged and prior build/data/saves backed up."
+  ],
+  "limits": [
+    "Claw Mastery currently supplies learned Assassin melee h2h/h2h2 attack rating, damage and critical through the existing mastery consumers. Assassin dual-claw equipment/action/selection, charge-up/finisher/blade skill-specific collection, foreign oskills and complete modern stat/mode/seed/client acceptance remain separate work.",
+    "The unchanged source selector and critical evidence is reused from the existing Barbarian mastery proof because the current Claw row populates the same three item-type-layer stats. This is not a new current executable proof or a newly executed Claw-specific legacy probe. Native real claw/gear/critical tests are separate evidence.",
+    "Native rank goldens retain the shared two-stage diminishing model; optional current-build Claw Mastery tooltip corroboration remains nonblocking. The existing broader curve-reference conflict is not resolved by repeating formula checks.",
+    "Valkyrie is individually deferred: current-catalogue requested-quality NPC equipment/property/stat consumers are absent, and its possible item skill effects depend on the user-deferred item-effect systems. Existing creation/selection/player-property components remain installed; no source rolls are filtered out and no generic summon substitute is enabled.",
+    "No class is certified complete. Final Claw Mastery talent icon remains pending with text-label placeholder; active hotkey and cast effect are not applicable."
+  ],
+  "logs": {
+    "content-build": ".local/class-skills/claw-mastery-content-build.log",
+    "integration-build": ".local/class-skills/claw-mastery-integration-build.log",
+    "focused": ".local/class-skills/claw-mastery-focused.log",
+    "focused-run": ".local/class-skills/claw-mastery-focused-run.log",
+    "combined": ".local/class-skills/claw-mastery-combined.log",
+    "python-checks": ".local/class-skills/claw-mastery-python-checks.log",
+    "named-readiness": ".local/class-skills/claw-mastery-named-readiness.log",
+    "first-loop": ".local/class-skills/claw-mastery-first-loop.log",
+    "installed-smoke": ".local/class-skills/claw-mastery-installed-smoke.log",
+    "installed-server": ".local/class-skills/claw-mastery-installed-server.log"
+  },
+  "fixtureNotes": [
+    "The restricted class-history fixture requires worn gear to be removed before switching; the test now follows that existing helper contract. No production wardrobe behavior changed.",
+    "The pinned unique source key Cutthroat1 identifies Bartuc\u2019s Cut-Throat; the fixture uses source identity rather than its display name. No item catalogue row was rewritten."
+  ]
+}

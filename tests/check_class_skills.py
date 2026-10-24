@@ -189,6 +189,9 @@ def check():
                     properties='ordinary-properties-check' if boot==0 else 'ordinary-properties-reload-check'
                     session.send(properties)
                     assert session.expect(properties+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    claw='claw-mastery-check' if boot==0 else 'claw-mastery-reload-check'
+                    session.send(claw)
+                    assert session.expect(claw+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
                     session.send(fury)
                     assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

@@ -1,0 +1,97 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.burstofspeed",
+  "sourceId": 258,
+  "sourceKey": "Quickness",
+  "handlerEnabled": false,
+  "sourceFields": {
+    "skill": "Quickness",
+    "charclass": "ass",
+    "skilldesc": "quickness",
+    "srvdofunc": 18,
+    "aurastate": "quickness",
+    "auralencalc": "ln56",
+    "aurastat1": "velocitypercent",
+    "aurastatcalc1": "dm12",
+    "aurastat2": "attackrate",
+    "aurastatcalc2": "dm34",
+    "stsound": "assassin_quickness",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "SC",
+    "UseAttackRate": 1,
+    "ItemEffect": 1,
+    "reqlevel": 6,
+    "maxlvl": 20,
+    "reqskill1": "Claw Mastery",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 10,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "InTown": 1,
+    "Param1": 15,
+    "Param2": 70,
+    "Param3": 15,
+    "Param4": 60,
+    "Param5": 3000,
+    "Param6": 300,
+    "InGame": 1,
+    "HitShift": 8,
+    "aitype": 1,
+    "cost mult": 384,
+    "cost add": 3000
+  },
+  "currentStateRows": {
+    "fade": {
+      "state": "fade",
+      "*ID": 159,
+      "group": 2,
+      "rfblue": 1,
+      "rlblue": 1,
+      "rcblue": 1,
+      "rpblue": 1,
+      "overlay1": "fade",
+      "stat": "poisonresist",
+      "lineNumber": 159
+    },
+    "quickness": {
+      "state": "quickness",
+      "*ID": 157,
+      "group": 2,
+      "aura": 1,
+      "overlay1": "quickness",
+      "stat": "attackrate",
+      "lineNumber": 157
+    },
+    "venomclaws": {
+      "state": "venomclaws",
+      "*ID": 31,
+      "stat": "poisonmindam",
+      "itemtype": "mele",
+      "itemtrans": "cgrn",
+      "lineNumber": 31
+    }
+  },
+  "sourceHashes": {
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/reference/d2r-named-equipment/json/states.json": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "referenceOnly": "Read-only current data and supplementary old source inspection. No Burst of Speed handler or newly compiled source proof is enabled by this preflight.",
+  "reuse": [
+    "Existing SC cast timing/resource/input services and saved self-buff lifecycle. Existing Sorceress do18 armor is a reuse point, not an Assassin state adapter.",
+    "ActionTiming.cs separates item IAS from skillAttackRate; movement has shared skill velocity contributions. Do not send Burst attackrate through item IAS diminishing returns.",
+    "Current quickness and fade states both use group2, while venomclaws does not. Preserve exclusion independently from Venom coexistence. Old do18 calls sub_6FD11C90 before constructing the self-targeted statlist."
+  ],
+  "remaining": [
+    "Execute/review full old do18 state-group/stat/callback paths within explicit services and check current table differences.",
+    "Implement saved captured rank/velocity/attackrate/expiry and source refresh/lifecycle semantics, then connect correct skill-speed and movement pools.",
+    "Verify SC/town/10mana/interruption/paid release, effective ranks with real gear, Fade exclusion, Venom-compatible state design, natural expiry, actual input and two reloads.",
+    "Record current engine-only ambiguities and final quickness cast/overlay/audio, talent/right-hotkey icons separately."
+  ]
+}

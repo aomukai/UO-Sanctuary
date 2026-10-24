@@ -27,7 +27,7 @@ public static class NamedCombat
     public static double Deadly(PlayerMobile player, Random random)
     {
         // Normal melee tries mastery, generic critical, then Deadly Strike; double once.
-        int mastery=BarbarianMasteries.Bonus(player,CombatTiming.Equipped(player),3);
+        int mastery=WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),3);
         int chance = Math.Clamp(ClassGear.Bonus(player, "deadly"), 0, 100);
         return MeleeCritical(mastery,AmazonCombat.CriticalChance(player),chance,random)?2:1;
     }

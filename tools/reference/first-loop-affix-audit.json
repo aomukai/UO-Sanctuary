@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "5a28be5ea2f82a4540eb0b3aed65474d093f7071ebeb4d1b819578c565129a89",
+  "ContentAssemblySha256": "e5348ef29950e325a41b18e80f8947689ced23e470af6faa5b05bbf2a8b909f9",
   "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -12,7 +12,7 @@
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "96b31dba0c4b8813c1856294c8a62d2cb15a16df06549d3d7579e4dc52e95952",
     "src/Sanctuary.Content/ClassResources.cs": "aa0ab8b76b9d060b28b7c1f392a0d0638bc4df35788316e710a75cd3492e7020",
-    "src/Sanctuary.Content/ClassStats.cs": "cec479a1f46b0aef09dc19b634ae9b6bcd6110490e71b638caf45f5424985f62",
+    "src/Sanctuary.Content/ClassStats.cs": "8803d8591b1108bdf444e507baca357d062f2b907f3cd3b47b70d3132a3ad281",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",

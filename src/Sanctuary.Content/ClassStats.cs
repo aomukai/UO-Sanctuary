@@ -102,7 +102,7 @@ public static class ClassStats
         }
         int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att")+targetFlat);
         return PlayerAttackPercent(baseRating, skillPercent + AosAttributes.GetValue(player, AosAttribute.AttackChance)
-            + BarbarianMasteries.Bonus(player,CombatTiming.Equipped(player),1)
+            + WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),1)
             + AmazonCombat.AttackPercent(player)
             + (SorceressEffects.Enchantment(player)?.AttackPercent ?? 0) + PaladinAuras.AttackPercent(player));
     }
@@ -187,7 +187,7 @@ public static class ClassStats
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
         }
-        return statBonus + NamedGear.SetBonus(player, "dmg%") + PaladinAuras.DamagePercent(player)+BarbarianMasteries.Bonus(player,weapon,2);
+        return statBonus + NamedGear.SetBonus(player, "dmg%") + PaladinAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2);
     }
     internal static int WeaponStatPercent(int strength,int dexterity,int strengthBonus,int dexterityBonus)
         =>(int)((long)strengthBonus*strength/100+(long)dexterityBonus*dexterity/100);

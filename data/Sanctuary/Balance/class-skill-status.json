@@ -218,10 +218,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 32,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled."
+      "remaining": "Individually deferred while requested-quality current-catalogue NPC equipment/property/stat consumers and the user-deferred skill-based item effects remain unavailable. Creation, MonEquip/affix selection and shared ordinary player property consumers are installed and verified; they do not create a moving Valkyrie or its combat/cast/lifecycle persistence. Do not filter out unsupported source rolls or replace her equipment with generic pet stats. Continue unaffected Assassin skills; return to this dependency after the deferred item-effect pass."
     },
     {
       "talentId": "amazon.pierce",
@@ -2110,10 +2110,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 252,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Pinned effective-rank h2h/h2h2 melee attack rating, damage and critical now reach the shared mastery selector and physical attack consumers. Reuses existing additive pools and mastery-before-Deadly-Strike critical order; physical damage doubles once. Dedicated rank/gear/lifecycle/save/reload verification is recorded separately. Assassin dual-claw action/selection, charge-up/finisher/blade skills, foreign oskills and full modern mode/stat/seed/client acceptance remain separate work. No active binding or mana cost; final talent icon pending, hotkey/effect not applicable."
     },
     {
       "talentId": "assassin.psychichammer",

@@ -22,7 +22,7 @@
       "handling": "Recorded only. User is asleep; no respec or answer required to continue source and native work."
     }
   ],
-  "next": "Implement current-catalogue requested-quality NPC property rolls/stat consumers, retaining versioned source row identities, then Valkyrie moving combat/cast/resources/placement/replacement/lifecycle/persistence. Skill-dependent item effects remain on the post-class return list; never silently discard unsupported source rolls.",
+  "next": "Return to NPC quality/property/stat and moving summon lifecycle after its deferred dependencies; continue Assassin class mechanics now.",
   "assets": {
     "effects": "Existing Valkyrie effects register retains pending summon/model/weapon/contact/audio needs. No visual is invented as mechanical proof.",
     "icons": "Existing independent talent/right-hotkey icon register remains pending."
@@ -73,5 +73,7 @@
   "deferredItemSkillEffects": "docs/deferred-item-skill-effects.md",
   "userDecisionItemEffects": "Return to skill-dependent item effects after the relevant class skills. Keep an explicit list; numeric/range/utility property integration remains active shared dependency work.",
   "affixNativeEvidence": "tools/reference/valkyrie-affix-native-evidence.json",
-  "ordinaryPropertyNativeEvidence": "tools/reference/ordinary-properties-native-evidence.json"
+  "ordinaryPropertyNativeEvidence": "tools/reference/ordinary-properties-native-evidence.json",
+  "individuallyDeferred": true,
+  "deferralReason": "Actual requested-quality current-catalogue NPC item/stat consumers are absent, and source equipment can contain skill-dependent item effects deferred by the user until after class mechanics. Do not filter source rolls or substitute generic pet stats. Continue unaffected Assassin skills; existing creation/selection/player-property components remain installed."
 }
