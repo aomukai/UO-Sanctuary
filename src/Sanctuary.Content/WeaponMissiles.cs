@@ -19,7 +19,8 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     public int PhysicalToMagicPercent{get;init;}
     // Null retains the original saved Magic Arrow field and old packet meaning.
     public WeaponElementConversion Conversion{get;init;}
-    internal bool ValidConversion=>Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag";
+    public bool FreezeColdLength{get;init;}
+    internal bool ValidConversion=>(!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
     // Existing Sanctuary material/potion physical additions are separate from
     // the source weapon endpoints, so victim-specific ED cannot multiply them.
     public WeaponPhysicalSupplement PhysicalSupplement{get;init;}
@@ -224,7 +225,11 @@ public static class WeaponMissiles
             if((flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
             NecromancerEffects.LifeTap(owner,selected,NamedElements.To256(parts.Physical));
             WeaponLeech.Apply(player,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
-            if(damage.Cold>0){ColdStates.Apply(owner,selected,flight.Damage.Elements.ColdFrames,Core.TickCount);}
+            if(damage.Cold>0)
+            {
+                if(flight.Damage.FreezeColdLength){FreezeStates.Apply(owner,selected,flight.Damage.Elements.ColdFrames,Core.TickCount);}
+                else{ColdStates.Apply(owner,selected,flight.Damage.Elements.ColdFrames,Core.TickCount);}
+            }
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
@@ -276,7 +281,7 @@ public static class WeaponMissiles
             if(flight.Id<=0 || flight.Cast<=0 || flight.Ability==CombatAbility.ExplodingArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
                 || flight.Pierces is <0 or >4 || flight.HostileSpell && (flight.Missile!="firebolt" || flight.Pierces!=0
                     || flight.Slow is not{} slow || slow.VelocityPercent is <0 or >100 || slow.DamagePercent is <0 or >100
-                    || flight.Damage.PhysicalSupplement!=null || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
+                    || flight.Damage.PhysicalSupplement!=null || flight.Damage.FreezeColdLength || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.Min256!=0 || flight.Damage.Max256!=0 || flight.Damage.Elements.ColdMin!=0 || flight.Damage.Elements.ColdMax!=0
                     || flight.Damage.Elements.LightningMin!=0 || flight.Damage.Elements.LightningMax!=0 || flight.Damage.Elements.MagicMin!=0 || flight.Damage.Elements.MagicMax!=0
                     || flight.Damage.Elements.PoisonMin!=0 || flight.Damage.Elements.PoisonMax!=0 || flight.Damage.Elements.BurnMin!=0 || flight.Damage.Elements.BurnMax!=0))
             {throw new InvalidDataException("Invalid saved weapon missile");}

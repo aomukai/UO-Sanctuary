@@ -69,7 +69,7 @@ public static class CorpseSkillRules
         // Capture once, including when there is deliberately no supported drop
         // context. Repeated death/access callbacks must not revive an attempt.
         if(old!=null){return;}
-        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature),false,Treasure(creature)));
+        Profiles.Store(new(corpse.Serial.Value,known?key:null,known && _selectable[key],creature.Controlled || creature.Summoned || creature is BaseVendor,PaladinHolyFreeze.Shattered(creature) || FreezeStates.Shattered(creature),false,Treasure(creature)));
     }
     private static CorpseTreasure Treasure(BaseCreature creature)
     {

@@ -193,7 +193,9 @@ public static class TimedEffects
         }
         if (a.ChillUntil <= now) { ColdStates.Expire(owner,a); a.ChillPercent = 0; }
         if (a.SlowUntil <= now) { a.SlowPercent = 0; }
-        if (a.Control is { } control && control.FreezeUntil <= now && control.BlindUntil <= now && control.FearUntil <= now)
+        FreezeStates.Settle(owner,a,now);
+        if (a.Control is { } control && control.FreezeUntil <= now && control.BlindUntil <= now && control.FearUntil <= now
+            && (control.Freeze==null || control.Freeze.AiUntilUtc<=now))
         { a.Control = null; }
         if (a.Buffs.Count == 0 && a.ChillPercent == 0 && a.SlowPercent == 0 && a.DefenseLoss == 0 && a.Control == null && a.RunningRemainder == 0 && a.PoisonMs == 0 && a.PoisonFraction < 1e-12
             && a.BleedMs == 0 && a.HealBlockedUntil <= now && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
@@ -363,7 +365,8 @@ public sealed class TimedEffectProfiles : GenericPersistence
             || r.SlowPercent is < 0 or > 90 || r.DefenseLoss < 0 || r.RunningRemainder is < 0 or > 255
             || r.Control is { } c && (c.FreezeUntil != default && c.FreezeUntil.Kind != DateTimeKind.Utc
                 || c.BlindUntil != default && c.BlindUntil.Kind != DateTimeKind.Utc || c.FearUntil != default && c.FearUntil.Kind != DateTimeKind.Utc
-                || c.FearX is < 0 or > 100000 || c.FearY is < 0 or > 100000)
+                || c.FearX is < 0 or > 100000 || c.FearY is < 0 or > 100000
+                || c.Freeze is{} f && f.AiUntilUtc.Kind!=DateTimeKind.Utc)
             || !Lane(r.Life) || !Lane(r.Mana) || r.Buffs is not { Length: <= 3 }) { throw new InvalidDataException("Invalid timed effect."); }
         var categories = new HashSet<TimedEffectCategory>();
         foreach (var b in r.Buffs)

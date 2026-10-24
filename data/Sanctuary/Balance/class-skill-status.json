@@ -295,10 +295,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 21,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 action shares paid start, one Arrow/Bolt release and captured weapon flight. Physical damage stays intact; independently enhanced cold skill/item damage and additive raw cold length are captured. Hard Cold Arrow adds8percent damage and hard Freezing Arrow adds5percent length. Source callback converts captured cold length into freeze; shared frame-based application preserves original owner/longer expiry, difficulty division, elite chill fallback and a separate thaw AI delay. Frozen corpse eligibility uses the pinned freeze hide/shatter/udead mask. Complete source matrices, real gear/input and saved state/flight/corpse checks are recorded separately. Native hostile uninterruptable/hireling mode mapping, producer event/corpse presentation, modern AR/stat/seed/quiver/item/geometry/owner/client parity remain acceptance work; final effects/audio and icons are separate placeholders. No class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.guidedarrow",

@@ -19,8 +19,8 @@ public static class ColdStates
     internal static int LengthFrames(int frames,int resistance,bool cannotFreeze,bool half)
     {
         if(frames<=0 || cannotFreeze || resistance>=100){return 0;}
-        int value=Math.Max(0,SourcePercentage.Calculate(frames,Math.Clamp(100-resistance,0,200),100));
-        return half?value/2:value;
+        if(half){frames/=2;}
+        return Math.Max(0,SourcePercentage.Calculate(frames,Math.Clamp(100-resistance,0,200),100));
     }
     internal static void Expire(Mobile target,TimedActor actor)=>actor.Cold=null;
     public static int OtherRate(Mobile target)=>TimedEffects.TryActor(target,out var actor) && actor.Cold!=null && actor.ChillUntil>TimedEffects.Now?-actor.ChillPercent:0;
@@ -39,12 +39,16 @@ public static class ColdStates
         // no guessed destruction chance or corpse eligibility is enabled here.
         return true;
     }
+    internal static int Effect(Mobile target)
+    {
+        var rule=PaladinHolyFreeze.SourceRule(target);
+        return rule==null?-50:MonsterVariants.Difficulty((BaseCreature)target) switch
+        {MonsterDifficulty.Nightmare=>rule.Nightmare,MonsterDifficulty.Hell=>rule.Hell,_=>rule.Normal};
+    }
     public static bool Apply(Mobile source,Mobile target,int frames,long tick)
     {
         if(target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet){return false;}
-        var rule=PaladinHolyFreeze.SourceRule(target);bool monster=target is BaseCreature;
-        int effect=rule==null?-50:MonsterVariants.Difficulty((BaseCreature)target) switch
-        {MonsterDifficulty.Nightmare=>rule.Nightmare,MonsterDifficulty.Hell=>rule.Hell,_=>rule.Normal};
+        bool monster=target is BaseCreature;int effect=Effect(target);
         int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance);
         bool cannot=target is PlayerMobile p && ClassGear.Bonus(p,"nofreeze")>0,half=target is PlayerMobile q && ClassGear.Bonus(q,"half-freeze")>0;
         frames=LengthFrames(frames,resistance,cannot,half);

@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.icearrow",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHash": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+  "compiledRoutines": [
+    "MISSILE_CalculateDamageData",
+    "MISSILE_AddStatsToDamage",
+    "MISSILE_CalculateFinalDamage"
+  ],
+  "blockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "sharedEvidence": "tools/reference/cold-arrow-creator-engine-evidence.json",
+  "selector": {
+    "Skill": 21,
+    "MissileSkill": false,
+    "SrcDam": 128
+  },
+  "probe": {
+    "cases": 360,
+    "path": ".local/class-skills/ice-arrow-creator-source-probe.json",
+    "sha256": "5052db724f2d1ff4af30c69fcea3f9229128aa933601fe410232986e129b036b"
+  },
+  "established": [
+    "The complete unchanged creator selects Ice Arrow skill endpoints and length via explicit Skill21 without requiring MissileSkill. It adds raw weapon/item cold length at source128, with physical damage remaining separate."
+  ],
+  "limits": [
+    "The existing cold creator harness supplies declared skill damage/length and owner/stat/RNG services. These are bounded creator cases; current hard/soft synergy, real gear, mastery, freeze state, input and persistence are verified separately."
+  ]
+}

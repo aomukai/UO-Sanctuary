@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_RemoveFreezeState",
+    "SUNITDMG_ApplyFreezeState",
+    "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos",
+    "MONSTERUNIQUE_CalculatePercentage",
+    "SUNITDMG_CalculateTotalDamage",
+    "SUNITDMG_ApplyResistancesAndAbsorb"
+  ],
+  "blockHashes": {
+    "SUNITDMG_RemoveFreezeState": "fd628444248c82ed559b7331ab7b07126860133d06b7832a82bbe96b60fb7f11",
+    "SUNITDMG_ApplyFreezeState": "35bfe82a514a76bd671e022d575bc2426e98baa4a9a17faf503d8951495b32d2",
+    "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos": "4ab2860025b096cd6b35e157c66ee01b6bebeeff2542a4401a2b087490f1f7e1",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3"
+  },
+  "reviewedBlockHashes": {
+    "D2GAME_InitTimer_6FC351D0": "c8f898cd4e44bdf5e21b26afa613b310192c1e5e51b0c28a86768e3b15e9d52b",
+    "MONSTERS_IsBoss": "09f018466e279a28d984503675d6e76552ab5625e36316519db13eed4088c61e",
+    "D2GAME_SpawnMonster_6FC6F220": "e660c935ac1954b96f3ea03d898bb7165d0ffc28f50bb862dac918c422cd5b37"
+  },
+  "pinnedFreezeState": {
+    "path": "tools/reference/d2r-named-equipment/json/states.json",
+    "sha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "row": {
+      "state": "freeze",
+      "*ID": 1,
+      "curable": 1,
+      "monstaydeath": 1,
+      "hide": 1,
+      "shatter": 1,
+      "udead": 1,
+      "colorpri": 100,
+      "colorshift": 108,
+      "light-r": 150,
+      "light-g": 215,
+      "light-b": 255,
+      "onsound": "impact_bluemotize_1",
+      "lineNumber": 1
+    }
+  },
+  "difficultySource": {
+    "path": "tools/reference/weapon-leech-difficulty-source.json",
+    "sha256": "28ff37334e2ea3bfd6fa62116e11f7cdf25d1be34c8f16a94cc7ee75b8a84764",
+    "freezeDivisors": [
+      1,
+      2,
+      4
+    ]
+  },
+  "probe": {
+    "path": ".local/class-skills/freeze-state-source-probe.json",
+    "sha256": "3d6863ed707817c00865e717857d9dde316f1a6a80b25aba13b140e580ed548c",
+    "stateCases": 12096,
+    "removalCases": 1296,
+    "iceCallbackCases": 100,
+    "lengthCases": 224
+  },
+  "established": [
+    "Complete unchanged Ice Arrow callback converts captured cold length to freeze length and clears chill length without converting physical damage.",
+    "Complete unchanged freeze application retains original owner and the longer active expiry; source boss/unique-bit8/hireling paths delegate to cold, while uninterruptable and nonnegative ColdEffect gates are separate. Monster freeze division has no cold-state minimum-one clamp.",
+    "Complete unchanged removal honors the supplied death-stay mask, restores combat mode, and schedules normal or game-type-specific AI delay with15-frame fallback.",
+    "Complete unchanged total-damage and resistance routines establish cannot-freeze/half-duration handling before resistance. Odd input lengths distinguish the previous native helper order. Cold/freeze length lanes have no physical or magical flat reduction."
+  ],
+  "limits": [
+    "Stat/event/AI/mode/classification/world services are declared harness inputs. This is bounded older engine execution, not a full modern executable certificate. Player/PvP/hireling resistance special modes are outside the length matrix, which supplies a non-hireling monster defender and ordinary player attacker.",
+    "The reviewed event initializer moves expiry at or before the current frame to the next frame. Pinned freeze state has monstaydeath/hide/shatter/udead; this is distinct from ordinary cold random SHATTER. Exact death animation and full native event/corpse presentation remain acceptance work.",
+    "Cold fallback is a declared delegation; the separate cold-state evidence compiles its implementation. Event services record requested frames without executing the source scheduler. Raw zero-length-after-division expiry, AI wake timing, native mode mapping, source death/corpse masks and runtime persistence require individual integration checks."
+  ]
+}

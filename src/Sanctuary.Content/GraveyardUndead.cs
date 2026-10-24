@@ -115,7 +115,7 @@ public abstract partial class GraveyardUndead : BaseCreature
             list.Add($"{"Revived undead"}");
         }
     }
-    private bool ValidEnemy(Mobile target, int range) => !Deleted && Alive && !Frozen && !Paralyzed && CreatureHitRecovery.Remaining(this) == 0
+    private bool ValidEnemy(Mobile target, int range) => !Deleted && Alive && !Frozen && !Paralyzed && !FreezeStates.Waiting(this) && CreatureHitRecovery.Remaining(this) == 0
         && target is { Deleted: false, Alive: true, Blessed: false } && target.Map == Map
         && IsEnemy(target) && InRange(target, range) && Math.Abs(target.Z - Z) < 16
         && CanSee(target) && InLOS(target) && CanBeHarmful(target, false);

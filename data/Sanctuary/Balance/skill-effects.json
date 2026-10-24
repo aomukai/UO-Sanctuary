@@ -367,7 +367,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native travel0xF42, bow sound0x238 and freeze0x374A are identified placeholders. Final IceArrow/icearrow, iceexplode, amazon_coldarrow_1, impact_cold_1 and freeze-state visuals/audio remain pending. Talent/L/R-hotkey icons are separate"
   },
   {
     "talentId": "amazon.guidedarrow",

@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.icearrow",
-  "handlerEnabled": false,
-  "status": "Read-only next-skill preparation. Reuse bow/quantity/collector/projectile infrastructure, but establish the separate freeze-state contract before enabling this skill.",
+  "handlerEnabled": true,
+  "status": "Ice Arrow installed with bounded source/native/real-input/freeze/thaw/corpse/save regression. Runtime mode and modern acceptance gaps remain explicit; no class certificate.",
   "pinnedSkill": {
     "skill": "Ice Arrow",
     "*Id": 21,
@@ -109,23 +109,29 @@
   "sourceHashes": {
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
     "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
-    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d",
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8"
   },
   "reviewedBlockHashes": {
     "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos": "4ab2860025b096cd6b35e157c66ee01b6bebeeff2542a4401a2b087490f1f7e1",
     "SUNITDMG_ApplyFreezeState": "35bfe82a514a76bd671e022d575bc2426e98baa4a9a17faf503d8951495b32d2",
     "SUNITDMG_RemoveFreezeState": "fd628444248c82ed559b7331ab7b07126860133d06b7832a82bbe96b60fb7f11",
-    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f"
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "D2GAME_InitTimer_6FC351D0": "c8f898cd4e44bdf5e21b26afa613b310192c1e5e51b0c28a86768e3b15e9d52b",
+    "MONSTERS_IsBoss": "09f018466e279a28d984503675d6e76552ab5625e36316519db13eed4088c61e",
+    "D2GAME_SpawnMonster_6FC6F220": "e660c935ac1954b96f3ea03d898bb7165d0ffc28f50bb862dac918c422cd5b37"
   },
   "reviewedNotCompiled": [
-    "Ice Arrow has start4, skill source128, cold damage, hard Cold Arrow8percent damage and hard Freezing Arrow5percent length synergies. Rank1 mana4 with0.25 per rank. Missile icearrow has SkillIce Arrow (even without MissileSkill), so the complete creator selects skill endpoints; it does not have Fire/Cold Arrow physical-to-elemental damage callback.",
-    "Missile damage callback2 converts100percent of captured COLDLENGTH to FrzLen and clears ColdLen. Preserve ordinary weapon physical/typed channels; do not copy Cold Arrow physical conversion. Skill length and item cold length need complete creator verification.",
-    "Freeze application separately handles players as chill, uninterruptable monsters as rejected, bosses/champions/hirelings as chill, and nonnegative current difficulty ColdEffect as rejected. Ordinary freeze uses MonsterFreezeDiv, retains existing longer expiry/owner and reschedules AI. Source pre-resistance/duration minimum and corpse/removal policy require complete caller and native verification.",
-    "Existing NamedControl.FreezeSkill is a reuse candidate, not source-equivalent evidence: it currently uses a different elite/controlled projection, milliseconds, duration replacement and generic chill traits. Reuse common timed persistence/control consumers after resolving each difference; do not silently inherit these mismatches."
+    "Complete source freeze application/removal, Ice callback, total-damage/resistance and percentage routines are compiled separately. Event initializer and boss/unique classification callers are reviewed with hashes, preserving the distinction between component execution and full modern engine acceptance.",
+    "The shared NamedControl skill-freeze entry point now uses source frames, owner/expiry retention and separate post-thaw AI state. Source D2-only uninterruptable/hireling runtime mapping remains unsupported; item/other producer damage/death ordering and actual-client/corpse presentation remain separate migration work."
   ],
   "nextChecks": [
-    "Compile complete unchanged damage callback and freeze application/removal with explicit adapters and boundary matrices; inspect current difficulty divisors and resistance order.",
-    "Reuse saved bow action/ammunition/critical/collector/flight; add the separate freeze payload/state only after its source contract is established. Test real gear, hard versus soft ranks, ordinary/elite/boss variants, retained duration, actual input and two reloads.",
-    "Keep ordinary cold corpse gap and modern stat/seed/AR/quiver/geometry/owner/client uncertainty individually explicit. Record final IceArrow/iceexplode/audio effects separately from talent/hotkey icons."
-  ]
+    "Resolve the documented runtime mode/producer ordering and modern stat/AR/seed/quiver/AI/geometry/owner/client acceptance gaps in the final combat pass.",
+    "Create final effects/audio and talent/hotkey icons from the independent asset registers."
+  ],
+  "freezeEvidence": "tools/reference/freeze-state-engine-evidence.json",
+  "creatorEvidence": "tools/reference/ice-arrow-creator-engine-evidence.json",
+  "nativeEvidence": "tools/reference/ice-arrow-native-evidence.json"
 }

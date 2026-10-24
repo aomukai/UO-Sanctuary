@@ -7,7 +7,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record NamedControlState(DateTime FreezeUntil, DateTime BlindUntil, DateTime FearUntil,
-    uint FearSource, int FearX, int FearY);
+    uint FearSource, int FearX, int FearY, SourceFreezeState Freeze = null);
 
 public static class NamedControl
 {
@@ -26,16 +26,16 @@ public static class NamedControl
     public static bool Blind(Mobile owner) => State(owner)?.BlindUntil > TimedEffects.Now
         || NecromancerEffects.Curse(owner)?.Ability == CombatAbility.DimVision;
     public static bool Fear(Mobile owner) => State(owner)?.FearUntil > TimedEffects.Now;
-    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !Blind(owner) && !Fear(owner)
+    public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Blind(owner) && !Fear(owner)
         && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror)
         && SourceTerror.State(owner)?.Skill!=CombatAbility.Taunt;
-    public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !Fear(owner)
+    public static bool TargetAllowed(Mobile owner, Mobile target) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Fear(owner)
         && (!Blind(owner) || target != null && owner.Map == target.Map && owner.InRange(target, 1));
     private static int DifficultyDivisor(BaseCreature creature) => MonsterVariants.Difficulty(creature) switch
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 };
     private static bool AiTarget(Mobile target) => target is BaseCreature { Controlled: false, Summoned: false, Alive: true, Deleted: false }
         && !NamedCombat.Elite(target) && target is not BaseVendor;
-    private static void Interrupt(BaseCreature target)
+    internal static void Interrupt(BaseCreature target)
     {
         target.AIObject?.ResetApproachState(); target.AIObject?.ClearMoveIntent();
         if (target is GraveyardUndead undead) { undead.InterruptForRecovery(); }
@@ -70,17 +70,7 @@ public static class NamedControl
         Interrupt(creature); target.FixedEffect(0x374A, 10, 15, 0x480, 0); return true;
     }
     public static bool FreezeSkill(PlayerMobile source, Mobile target, int durationMs)
-    {
-        if (target is not BaseCreature creature || target.Deleted || !target.Alive || NamedElements.Resistance(source, target, "cold", target.ColdResistance) >= 100) { return false; }
-        if (NamedCombat.Elite(target) || creature.Controlled) { return GearEffects.ApplyChill(target, Core.TickCount, durationMs, source); }
-        if (CreatureProfiles.For(creature).Traits.ChillEffectiveness == 0) { return false; }
-        int resistance = NamedElements.Resistance(source, target, "cold", target.ColdResistance);
-        int duration = durationMs * Math.Clamp(100 - resistance, 0, 200) / (100 * DifficultyDivisor(creature));
-        if (duration <= 0) { return false; }
-        var now = TimedEffects.Now; var actor = TimedEffects.Actor(target, now); var state = actor.Control ?? Empty;
-        actor.Control = state with { FreezeUntil = now.AddMilliseconds(duration) };
-        Interrupt(creature); return true;
-    }
+        => FreezeStates.Apply(source,target,durationMs/40,Core.TickCount);
     public static int BlindLevel(int attackerLevel, int targetLevel, int bonus, bool ranged, int roll)
     {
         int chance = 5 * (attackerLevel + 4 * bonus - targetLevel + 6);
@@ -115,7 +105,7 @@ public static class NamedControl
     public static bool Think(BaseCreature creature)
     {
         if (creature.AIObject is not { } ai || State(creature) is not { } state) { return false; }
-        if (FrozenRemaining(creature) > 0) { return true; }
+        if (FrozenRemaining(creature) > 0 || FreezeStates.Waiting(creature)) { return true; }
         if (state.FearUntil > TimedEffects.Now)
         {
             var source = World.FindMobile((Serial)state.FearSource);

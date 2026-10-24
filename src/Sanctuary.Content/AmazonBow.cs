@@ -10,7 +10,7 @@ namespace Sanctuary;
 public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow;
     internal static ActionTiming Timing(AttackFamily family,int advance)
     {
         advance=Math.Max(1,advance);
@@ -59,7 +59,7 @@ public static class AmazonBow
         var values=SkillMechanics.Values(owner,ability);bool multiple=ability==CombatAbility.MultipleShot;
         if(ability==CombatAbility.MagicArrow && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         int dx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),dy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
-        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
+        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):ability==CombatAbility.ExplodingArrow?"explodingarrow":ability==CombatAbility.IceArrow?"icearrow":ability==CombatAbility.FireArrow?"firearrow":ability==CombatAbility.ColdArrow?"coldarrow":"magicarrow";
         var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
             :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
         long cast=WeaponMissiles.NewCast();int created=0;
