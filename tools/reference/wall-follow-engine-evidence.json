@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathWF.cpp": "02ac3a4246e9d53db0d8f5f5d684ce4b835cefe794d780160158a9505dee4e50",
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "translationUnit": "Complete PathWF.cpp plus complete COLLISION_CheckAnyCollisionWithPattern and COLLISION_SetMaskWithPattern, unchanged; collision enums retained from pinned header. Includes only supplied by ABI shim.",
+  "fixture": {
+    "path": ".local/class-skills/wall-follow-source-probe.json",
+    "sha256": "fed73a8d604efb41be6180052900bf4eee0b1013d83aef6a953459c019cf5944",
+    "cases": 13200
+  },
+  "sanitizers": "g++ -O1 -fsanitize=address,undefined -fno-sanitize-recover=all; zero diagnostic output required.",
+  "established": [
+    "Full Bresenham, paired left/right obstacle walk, subpath splice/loop/fallback and line simplification run against24 explicit grids,11 horizontal/5 vertical target offsets,budgets4/8/20/40/77 and point/unit target controls. Exact compressed path and collision query sequence are retained.",
+    "Unchanged routine rejects initial Chebyshev distances<=2 and distances>=budget; a targeted unit raises budgets below40 to40. Axis/perfect-diagonal unobstructed legal paths simplify to the target endpoint. Other routes are source comparison fixtures, not assumed A-star shortest paths."
+  ],
+  "services": [
+    "Full collision pattern dispatcher uses pattern0 (current blade size0) and mask0x3c01 (monster path). Its final cell/room lookup remains an explicit masked grid service, not native terrain or complete room collision. Other pattern branches are compiled but not exercised. Full footprint writer with pattern0 makes zero world writes on all13200 invocations. ABI structs retain16-bit coordinates/78-point output.",
+    "D2MOO PathWF is reconstructed/annotated source. It explicitly uses INT_MAX for an empty fallback path where its comment notes original-game memory behavior differed. Exact legacy/current binary behavior at that edge remains uncertain; unmodified D2MOO execution is supplementary evidence.",
+    "Full mode/velocity/room/path initialization, movement advancement, AI scheduling, native world projection and current executable remain outside this component. No learned blade handler enabled."
+  ]
+}

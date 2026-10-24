@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "21cfa5604a1486fcab050374b1cc38ac98326e28fdbdd4b1cd7dfb589c9a5aee",
+  "ContentAssemblySha256": "2d0758f7681c3c97fc0c5a43408efa21c580b79d1c8bfd984febb3c81cec15e0",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -221,6 +221,7 @@
     "src/Sanctuary.Content/AmazonStrafe.cs": "30f9cc90e565f56ee87b50df850ab9fff7390d6c2c7b0e4b4e0899bbea0e996d",
     "src/Sanctuary.Content/AssassinBuffs.cs": "00577a9ac6676219c44fb13230283be566e23096c821a0918fb1d3f3599334f8",
     "src/Sanctuary.Content/AssassinCombat.cs": "691ce671e7e3c834e3b331fd1f5c5f55023afef78292bbb9bc255c317b3dce5b",
+    "src/Sanctuary.Content/AssassinTrapAttack.cs": "c3a53f6059ce7ae1cbc5bd898759d2f4cd944677786affa770c079c7b773bf29",
     "src/Sanctuary.Content/AssassinTrapCreation.cs": "0860ff39f05e83273287b5ada60e26d3c46c446854455e316129b4e8152302bd",
     "src/Sanctuary.Content/BalanceCatalog.cs": "4d03f3bddf177ec5fe26eee8d64a29f23671333248255d252280cf6089b21652",
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
@@ -469,6 +470,7 @@
     "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
     "src/Sanctuary.Content/SourceTerror.cs": "05dc8172cd8a3d864799a592d5a12fcf2a65a1f9e93256ea3f53dc0182d659b4",
+    "src/Sanctuary.Content/SourceWallFollow.cs": "a492e449a202eb3437171ac2a7b746ccf1a3ac81ec43529779c091e2e47d6800",
     "src/Sanctuary.Content/StatNetwork.cs": "edce2fc4a5195c36dfe522855835de563ee6d6ca6ac966b8942b72ad57e63ba8",
     "src/Sanctuary.Content/SurveyGump.cs": "5dbf81b931effa50da8ae62852e9b94678a6be9d0f827b48aee5519c69580112",
     "src/Sanctuary.Content/TalentCatalog.cs": "64ac476a1881d3a55a2b6b89b300fb9e6167b0374c4081ced52c8052e8b5d4a6",

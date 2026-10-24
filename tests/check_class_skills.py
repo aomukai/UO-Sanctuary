@@ -99,6 +99,8 @@ def check():
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-creation-source-probe.json', folder / 'valkyrie-creation-source-probe.json')
         shutil.copy2(STAGE / 'blade-sentinel-damage-source-probe.json', folder / 'blade-sentinel-damage-source-probe.json')
+        shutil.copy2(STAGE / 'wall-follow-source-probe.json', folder / 'wall-follow-source-probe.json')
+        shutil.copy2(STAGE / 'assassin-trap-attack-source-probe.json', folder / 'assassin-trap-attack-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-affix-source-probe.json', folder / 'valkyrie-affix-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-equipment-source-probe.json', folder / 'valkyrie-equipment-source-probe.json')
         for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json','amazon-avoid-source-probe.json','amazon-evade-source-probe.json','slow-missiles-source-probe.json'):
@@ -191,6 +193,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    movement='assassin-trap-movement-check' if boot==0 else 'assassin-trap-movement-reload-check'
+                    session.send(movement)
+                    assert session.expect(movement+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     trap='assassin-trap-creation-check' if boot==0 else 'assassin-trap-creation-reload-check'
                     session.send(trap)
                     assert session.expect(trap+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "21cfa5604a1486fcab050374b1cc38ac98326e28fdbdd4b1cd7dfb589c9a5aee",
+  "ContentAssemblySha256": "2d0758f7681c3c97fc0c5a43408efa21c580b79d1c8bfd984febb3c81cec15e0",
   "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",

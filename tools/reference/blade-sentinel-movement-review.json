@@ -10,7 +10,10 @@
     "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
     "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
     "source/D2Common/src/Path/PathWF.cpp": "02ac3a4246e9d53db0d8f5f5d684ce4b835cefe794d780160158a9505dee4e50",
-    "source/D2Common/include/Path/PathWF.h": "81d9e453d4b372ff7f04f52f5ba321448d78044d3901a3371e6199698184de61"
+    "source/D2Common/include/Path/PathWF.h": "81d9e453d4b372ff7f04f52f5ba321448d78044d3901a3371e6199698184de61",
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a"
   },
   "reviewedRoutineHashes": {
     "AITHINK_Fn102_BladeCreeper": "2db0e2a29a0c135ee4169e1267a45864136a436717c6dc69de100b980b142306",
@@ -19,7 +22,15 @@
     "AITACTICS_MoveToTarget": "395367e2c5eec56ca7d0c914e698c52de6206e7906caf95aa77fedc8b00a8193",
     "D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0": "e0400157c4268be223af9ba576cd47b798cdbb93c026d38506655093b59da8b2",
     "D2GAME_ModeChange_6FC65220": "ece25d8680b1c04d9b9cc6141be396f7e7f30def1ee51e120d634760cdacc9a5",
-    "sub_6FC65680": "5eb75875dda940570c507cb6e62f299409c6f4ba5f03d6c16eeab9d90827961c"
+    "sub_6FC65680": "5eb75875dda940570c507cb6e62f299409c6f4ba5f03d6c16eeab9d90827961c",
+    "PATH_AllocDynamicPath": "c740f0efce05010b92c8fd80b7d8ed2ad9ee5bf17bad0133d3adb63c8969c629",
+    "D2Common_11281_CollisionPatternFromSize": "af2e776d6ab97778704cfaf11e9fc75464c007f85dd4359c7bfe2a2444593786",
+    "PATH_SetNewDistance": "b26f8bfc8eb307e2894b13488d3fca9bcf36d1b8f197d20b9afb22d45d09c1aa",
+    "COLLISION_CheckAnyCollisionWithPattern": "3ba6959de8af28256cfff14cf0e195c3c4047316378c3f2021f658ae478051e8",
+    "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
+    "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5"
   },
   "compiled": false,
   "established": [
@@ -28,8 +39,19 @@
     "ModeChange consumes path-type override, passes it through sub_6FC65680, which sets new distance/path type and runs path calculation. Path enum15 is WALL_FOLLOW and dispatch index15 maps to PATH_ComputePathOrSlideAlongObstacles.",
     "Thus endpoint movement requires source wall-follow behavior, not a straight ballistic return or a substituted general pet chase. Exact spatial/velocity/event projection still requires the full relevant path and mode consumers."
   ],
+  "sourceKernelEvidence": "tools/reference/wall-follow-engine-evidence.json",
+  "additionalReviewedFacts": [
+    "Current blade SizeX0 selects collision patternNONE, which still checks the masked center cell. Its footprint setter has no NONE case, so it adds no blocking footprint. Full pattern checker/setter are now included in the separate13200-case proof.",
+    "The generic monster spawn initializer sets velocitypercent75. Base monster velocity is monstatsVelocity<<8; the run/walk updater applies the derived percentage with minimum25. Exact selector/mode/stat/clock chain remains to be executed before choosing native speed.",
+    "PATH_SetNewDistance updates both nDistMax and nDist, capped at77. Thus the Blade AI distance20 enters the wall-follow budget; it is distinct from the separate PATH_SetDistance/nDistance field.",
+    "ISATT gates CANBEATTACKED in the reviewed monster initializer. Current blade row lacks isAtt; do not conflate this with the separate TARGETABLE flag assigned by MONSTER_Initialize. Full spawn flags and native nonattackability remain acceptance work."
+  ],
+  "supplementarySourceCaveats": [
+    "D2Common_10142 general path initializer is explicitly marked BROKEN in the reconstruction. The separately compiled/ported PathWF kernel does not certify that entire initializer or current binary path flow.",
+    "PathWF documents an empty-path INT_MAX fix relative to original memory behavior. Native follows the reconstruction within recorded bounds and refuses undefined sync-index/overflow edges; modern acceptance remains open."
+  ],
   "remaining": [
-    "Compile full PathWF algorithm/helpers with declared collision grids and independently check obstacles, corners, unreachable targets, path point budget and tie ordering.",
+    "Full PathWF kernel is compiled/ported and compared separately; connect the actual source room/pattern/mask world projection.",
     "Map source mode velocity/base12 and modifiers, path advancement, AI completion/failure event scheduling and lifetime checks to native time/half-tile coordinates.",
     "Keep exact modern terrain/movement acceptance explicit; this is an immutable source-flow review, not a full compiled path or native motion certificate."
   ]

@@ -1,0 +1,9 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "source": "User response to optional firsthand obstacle check",
+  "question": "Does Blade Sentinel curve around small obstacles/corners or stop and turn back?",
+  "answer": "i don't have the skill, never tried it",
+  "mechanicalObservationAvailable": false,
+  "interpretation": "No gameplay observation supplied. Modern obstacle/path acceptance remains unconfirmed; continue source/native work without requiring a respec."
+}
