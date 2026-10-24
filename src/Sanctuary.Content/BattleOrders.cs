@@ -37,7 +37,9 @@ public static class BattleOrders
     }
     private static int? CreatureMaximum(BaseCreature actor,int resource,int basis)
     {
-        if(World.Loading){return 65000;}int percent=Percent(actor);if(percent<=0){return null;}
+        if(World.Loading){return 65000;}
+        if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
+        int percent=Percent(actor);if(percent<=0){return null;}
         long base256=(long)basis*256;
         if(resource==0 && actor is SkeletonGuardian summon && actor.HitsMaxSeed==summon.CombatProfile.Life)
         {base256=summon.SourceLife256+((long)basis-summon.CombatProfile.Life)*256;}
@@ -55,7 +57,7 @@ public static class BattleOrders
         amount256=Math.Clamp(amount256,0,actor.StamMax*256);actor.Stam=amount256/256;
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
-    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=actor is AmazonDecoy?SkillHealth.Maximum256(actor):0};
+    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=actor is AmazonDecoy || PaladinConversion.Life(actor)!=null?SkillHealth.Maximum256(actor):0};
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
@@ -76,7 +78,7 @@ public static class BattleOrders
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;
         int priorLifeMaximum256=before.ExactLifeMaximum256>0?before.ExactLifeMaximum256:before.LifeMax*256;
-        int nextLifeMaximum256=actor is AmazonDecoy?SkillHealth.Maximum256(actor):life*256;
+        int nextLifeMaximum256=actor is AmazonDecoy || PaladinConversion.Life(actor)!=null?SkillHealth.Maximum256(actor):life*256;
         if(nextLifeMaximum256!=priorLifeMaximum256)
         {
             SkillHealth.SetBalance256(actor,Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));

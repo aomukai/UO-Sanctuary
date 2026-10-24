@@ -48,7 +48,7 @@ public static class SkillHealth
     public static void Configure() { Profiles = new(); EventSink.WorldSave += Profiles.Prune; Server.Mobiles.ClassCombatHooks.ApplyDamage256=Damage; }
     public static int Remainder256(Mobile target) => Profiles.Remainders.GetValueOrDefault(target.Serial).Fraction;
     public static void Clear(Mobile target) => Profiles.Remainders.Remove(target.Serial);
-    internal static int Maximum256(Mobile target)=>target is AmazonDecoy decoy?decoy.Maximum256:target.HitsMax*256;
+    internal static int Maximum256(Mobile target)=>PaladinConversion.Maximum256(target)??(target is AmazonDecoy decoy?decoy.Maximum256:target.HitsMax*256);
     internal static bool Full(Mobile target)=>Balance256(target)>=Maximum256(target);
     internal static int Balance256(Mobile target)
     {

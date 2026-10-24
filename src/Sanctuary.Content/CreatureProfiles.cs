@@ -216,6 +216,7 @@ public static class CreatureProfiles
         : mob is SkeletonGuardian pet ? pet.CombatProfile.Defense : mob is BoneBarrierSegment barrier ? barrier.SourceDefense : mob is AmazonDecoy decoy ? decoy.Snapshot?.Defense??0 : Math.Max(0, mob.Dex / 4 + (int)mob.ArmorRating);
     public static int Level(BaseCreature mob, MonsterDifficulty? difficulty = null)
     {
+        if(PaladinConversion.Life(mob) is{} conversion){return conversion.Level;}
         var row = Variant(mob, difficulty);
         return row is { Enabled: true, ApplyStats: true, Level: { } level } ? level
             : row.Rewards is { Enabled: true, Level: { } rewardLevel } ? rewardLevel : NativeLevel(mob);

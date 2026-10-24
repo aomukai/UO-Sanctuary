@@ -9,7 +9,8 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 public sealed record ConversionSourceRule(string Source,string Base,bool Evil,bool SwitchAi,bool Walk,bool Boss,bool Run=false,bool Attack1=false,bool Attackable=false,bool Npc=false,bool Interact=false,int Velocity=0,int RunVelocity=0,int Size=0,string Ai=null);
-public sealed record ConversionAllegiance(uint Target,uint Source,DateTime UntilUtc);
+public sealed record ConversionLife(int OriginalLevel,int OriginalMaximum,int Level,int Maximum256);
+public sealed record ConversionAllegiance(uint Target,uint Source,DateTime UntilUtc,CombatAbility Skill=CombatAbility.Conversion,ConversionLife Life=null);
 public sealed class ConversionProfiles:GenericPersistence
 {
     public ConversionProfiles():base("SanctuaryConversion",137){}
@@ -81,6 +82,55 @@ public static class PaladinConversion
         return rule.Base!="imp1" && ClassStats.Level(owner)>=ClassStats.Level(target);
     }
     internal static ConversionSourceRule SourceRule(BaseCreature target)=>target==null?null:_rules.GetValueOrDefault(CreatureProfiles.Definition(target).Reference??"");
+    // Keep the temporary stats until the removal transaction runs. Expiring a
+    // maximum in a getter first would let native resource clamps discard life.
+    internal static ConversionLife Life(Mobile target)=>target==null?null:_states.GetValueOrDefault(target.Serial.Value)?.Life;
+    internal static int? Maximum256(Mobile target)
+    {
+        if(Life(target) is not{} life){return null;}
+        long basis=life.Maximum256;
+        return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.Percent(target)),1,65000*256);
+    }
+    internal static bool MindBlastEligible(PlayerMobile owner,BaseCreature target)
+    {
+        // AIUTIL rejects uniques/superuniques, not champions. Attached Imps
+        // have no native attachment-state adapter and remain an explicit gap.
+        return owner is{Alive:true,Deleted:false} && WildEnemy(target) && ClassCombat.IsHostile(owner,target)
+            && target is not BaseHire && !target.BardProvoked
+            && target is not EncounterCreature{Grade:EncounterGrade.Unique or EncounterGrade.SuperUnique}
+            && SourceRule(target) is{Evil:true,SwitchAi:true,Walk:true,Boss:false,Attackable:true,Base:not "imp1"};
+    }
+    internal static void ClearAuras(Mobile target)
+    {
+        // Source stat-list flag8 is the AURA state bit, not every curse/buff.
+        // In particular Enchant, Cloak, Venom and ordinary curses survive.
+        PaladinAuras.Clear(target);BattleCommand.Clear(target);BarbarianShout.Clear(target);BattleOrders.Clear(target);
+    }
+    internal static ConversionLife Scale(int level,int maximum,int ownerLevel,out int current256,int currentWhole)
+    {
+        int max=(int)Math.Max(1,(long)maximum*ownerLevel/level*256);
+        current256=(int)Math.Clamp((long)currentWhole*ownerLevel/level*256,1,max);
+        return new(level,maximum,ownerLevel,max);
+    }
+    internal static int RestoredLife256(ConversionLife life,int maximum256,int current256)
+    {
+        int maximum=maximum256>>8,current=current256>>8;
+        int reconstructed=maximum==0?1:(int)Math.Max(1,(long)life.OriginalMaximum*current/maximum);
+        // Literal complete Mind Blast removal callback: the restored current
+        // life is capped by the converted maximum, not just the old maximum.
+        return Math.Min(maximum,reconstructed)*256;
+    }
+    internal static bool ApplyMindBlast(PlayerMobile owner,BaseCreature target,int frames)
+    {
+        if(frames<=0 || !MindBlastEligible(owner,target)){return false;}
+        ClearAuras(target);
+        int level=ClassStats.Level(target),ownerLevel=ClassStats.Level(owner),current=SkillHealth.Balance256(target);
+        ConversionLife life=null;
+        if(level>ownerLevel && level>0){life=Scale(level,SkillHealth.Maximum256(target)>>8,ownerLevel,out current,current>>8);}
+        _states[target.Serial.Value]=new(target.Serial.Value,owner.Serial.Value,TimedEffects.Now.AddMilliseconds(frames*40L),CombatAbility.MindBlast,life);
+        if(life!=null){SkillHealth.SetBalance256(target,current);target.Delta(MobileDelta.Hits);}
+        ResetTargeting(target);ClassCombat.Stop(owner);return true;
+    }
     private static bool Supported(PlayerMobile owner,BaseCreature target)
     {
         string key=target==null?null:CreatureProfiles.Definition(target).Reference;
@@ -92,6 +142,7 @@ public static class PaladinConversion
         && World.FindMobile(selected) is BaseCreature target && Supported(owner,target);
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
+        Prune();
         var session=ClassCombat.For(owner);
         if(now-session.NextAction>=0 && PaladinVengeance.ValidTarget(owner,selected)
             && World.FindMobile(selected) is BaseCreature unsupported && !Supported(owner,unsupported))
@@ -123,6 +174,7 @@ public static class PaladinConversion
     }
     internal static bool ApplyAllegiance(PlayerMobile owner,BaseCreature target,int frames)
     {
+        Prune();
         if(frames<=0 || !Eligible(owner,target)){return false;}
         _states[target.Serial.Value]=new(target.Serial.Value,owner.Serial.Value,TimedEffects.Now.AddMilliseconds(frames*40L));
         ResetTargeting(target);
@@ -146,8 +198,15 @@ public static class PaladinConversion
         {if(state.UntilUtc<=TimedEffects.Now || World.FindMobile((Serial)state.Target) is not BaseCreature{Alive:true,Deleted:false}){_expired.Add(state.Target);}}
         foreach(uint serial in _expired)
         {
+            var state=_states[serial];var target=World.FindMobile((Serial)serial) as BaseCreature;
+            int restored=state.Life!=null && target is{Alive:true,Deleted:false}?RestoredLife256(state.Life,SkillHealth.Maximum256(target),SkillHealth.Balance256(target)):-1;
             _states.Remove(serial);
-            if(World.FindMobile((Serial)serial) is BaseCreature{Alive:true,Deleted:false} target){ResetTargeting(target);}
+            if(target is{Alive:true,Deleted:false})
+            {
+                if(restored>=0){SkillHealth.SetBalance256(target,restored);target.Delta(MobileDelta.Hits);}
+                if(state.Skill==CombatAbility.MindBlast){ClearAuras(target);}
+                ResetTargeting(target);
+            }
         }
     }
     public static ConversionAllegiance[] Snapshot()
@@ -159,6 +218,10 @@ public static class PaladinConversion
         foreach(var row in rows)
         {
             if(!((Serial)row.Target).IsMobile || !((Serial)row.Source).IsMobile || row.UntilUtc.Kind!=DateTimeKind.Utc
+                || row.Skill is not(CombatAbility.Conversion or CombatAbility.MindBlast)
+                || row.Life is{} life && (row.Skill!=CombatAbility.MindBlast || life.Level<1 || life.OriginalLevel<=life.Level
+                    || life.OriginalMaximum is <1 or >65000 || life.Maximum256 is <1 or >65000*256
+                    || life.Maximum256!=Math.Max(1,(long)life.OriginalMaximum*life.Level/life.OriginalLevel*256))
                 || !next.TryAdd(row.Target,row)){throw new InvalidDataException("Invalid Conversion allegiance");}
         }
         _states.Clear();foreach(var row in next){_states.Add(row.Key,row.Value);}

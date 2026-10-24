@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.mindblast",
   "sourceId": 273,
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "sourceFields": {
     "skill": "Mind Blast",
     "charclass": "ass",
@@ -68,7 +68,7 @@
     "cost mult": 768,
     "cost add": 32000
   },
-  "status": "Read-only preparation after Weapon Block; no native handler enabled.",
+  "status": "Mind Blast is installed as handler147 (Assassin8). Learned right/quick SC/FCR target or ground casts pay15mana once at release and share one physical FP256 packet across a source-radius4 blast. Each eligible victim rolls inclusive conversion chance and150..249-frame duration independently. Current successful conversion deals damage without new stun/knockback, then uses shared allegiance/AI/damage-owner/friendly protection; failure retains damage/stun/source knockback. Mapped higher-level converts save/scale/restore level and life through the shared consumers, preserving the compiled truncation and restoration clamp. Flag8 aura cleanup removes known aura recipients while preserving Enchant. Paladin success damage and its higher-level gate remain separate. Independent rank1/3/20/21/255 goldens, real Tarnhelm hard20/effective21, mana/range/town/cancellation/movement/recovery, empty ground/radius/shared roll/per-victim RNG, physical immunity, inclusive chance equality, friendly protection, natural six-second expiry, actual input and legacy V0 defaults pass. Focused/full each pass three boots/two reloads with exact saved gear/ranks/bindings/mana/life/allegiance/temporary stats and no unpaid replay. Historical source preparation covers514 chance/2592 callback/40 removal/16 dispatch cases with declared services; modern success damage supersedes the old no-damage branch. All70 Python tests, 499/21 current fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors. Existing client bytes are unchanged; real ground Cast input passes every boot. Existing-world load/listen/shutdown exits0 with save/config/client bytes unchanged, backup retained and server stopped. Modern damage/scaling order, full event/AI/geometry/owner/NPC acceptance and final assets remain explicit gaps; no class certificate.",
   "reviewedSourceFiles": {
     "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
@@ -105,5 +105,18 @@
     "icons": "Talent and right/quick-hotkey icons pending separately."
   },
   "currentBuildObservation": "tools/reference/mind-blast-current-observations.json",
-  "currentBuildObservationSummary": "User effective3/base1/items2: successful conversion also damages, but causes no knockback or stun. Current damage supersedes the older callback success/no-damage path; the old no-crowd-control success behavior is corroborated. Exact damage/allegiance order remains open."
+  "currentBuildObservationSummary": "User effective3/base1/items2: successful conversion also damages, but causes no knockback or stun. Current damage supersedes the older callback success/no-damage path; the old no-crowd-control success behavior is corroborated. Exact damage/allegiance order remains open.",
+  "installed": true,
+  "nativeEvidence": "tools/reference/mind-blast-native-evidence.json",
+  "remaining": [
+    "Current firsthand 3.3.93847 effective3/base1/items2 testing establishes conversion-success health loss without knockback or stun. Numeric damage, modern damage/allegiance/level-scaling order and death during that transfer are not firsthand measured. The explicit native adapter commits damage while hostile, then converts surviving eligible victims; it never weakens global friendly protection.",
+    "The complete older do51/callback/removal and chance helpers run with declared table/stat/allocation/AI/event/damage/search/RNG services. These 514 chance,2592 callback,40 removal and16 dispatch cases are historical bounded evidence, not a current executable or complete event/seed/stat-list certificate. Native comparison includes255 positive-rank chance rows,28 normal higher-level scaling rows and20 saved-removal rows.",
+    "Higher-level life/level behavior preserves the compiled whole-life truncation, minimum one FP256 unit and unusual restoration clamp. Its exact modern acceptance remains open. Native real species level/max/current consumers and reload restoration are exercised through an isolated lower-level supplier; a legal learned rank24-to-level80 gameplay cast and modern max/stat/aura-change interactions still need acceptance. The source sub-whole-life restoration-to-zero death scheduling edge is not certified.",
+    "Source filter8383 uses attackable living enemies, town exclusion and caster-to-victim LOS; do51 does not exclude NOAURA. Native radius4 source subtiles projects to2 tiles, height16 and fixed shared cast range; source room/order/terrain/client assistance and exact equidistant/edge geometry remain separate. Ground casts do not invent Psychic Hammer acquisition rules.",
+    "Learned native PvM conversion requires mapped evil/walking/SwitchAI/nonboss attackable monsters. Unique/superunique, hireling, controlled/friendly and provoked actors do not convert; champions are not excluded merely for grade. Attached Imp state and native uninterruptable/source AI special modes lack complete adapters; Imps retain damage/control where supported but do not convert. Generic native dungeon actors can receive damage but need a reviewed source conversion mapping.",
+    "Known native flag8/AURA recipients are cleared on conversion entry/removal: Paladin auras, Shout, Battle Orders and Battle Command. Enchant and ordinary non-aura curses/buffs are retained. Future Druid/Shadow aura recipients, arbitrary max-life/level transformations while converted and all foreign/item-only/NPC/PvP suppliers remain separate work. Paladin Conversion retains its own no-success-damage and higher-level target gate.",
+    "Skill duration is150..249frames; saved fixture deadlines are deliberately held for inspection and do not redefine production timing. Current full stat/event/RNG/reaction/owner lifecycle and actual D2R/client acceptance remain open. This handler does not clear deferred item-skill gates or certify any whole class.",
+    "Native center0x373A, victim0x374A, cast0x1E5 sound and shared stun/knockback presentation are identified placeholders. Final mindblast center/hit, fist_will_cast overlay, assassin_psychichammer audio and separate talent/right/quick icons remain pending."
+  ],
+  "next": "Fire Blast; Shadow Warrior/Master individually deferred, see shadow-summons-preflight.json."
 }

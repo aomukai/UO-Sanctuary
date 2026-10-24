@@ -145,6 +145,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'assassin.mindblast':'Staged UO0x373A center,0x374A victim and0x1E5 sound; final mindblast center/hit, fist_will_cast overlay and assassin_psychichammer audio pending. Shared stun/knockback/conversion presentation remains placeholder. Separate talent/right-hotkey icons pending.',
         'assassin.weaponblock':'Shared native block animation20 is a placeholder; final dual-claw block animation/audio and talent icon pending. No active hotkey.',
         'assassin.venom':'Staged UO0x373A green cast marker and0x1E5 sound. Final venomclaws weapon/cast overlay and assassin_venom audio pending. Separate talent/right-hotkey icons pending.',
         'assassin.cloakofshadows':'Staged UO0x373A/0x375A caster/target markers and0x1E5 sound. Final darkness presentation, cloaked overlays, assassin_cloakofdarkness audio and separate talent/right-hotkey icons pending.',

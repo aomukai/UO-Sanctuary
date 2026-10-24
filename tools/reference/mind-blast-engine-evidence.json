@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.mindblast",
+  "proofEnablesHandler": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutines": {
+    "D2Common_11033": "a9b685d30479ecdf094fa85a79b79abdff0191015fb28a1fe1d614f3d9002ca2",
+    "D2COMMON_11036_GetMonCurseResistanceSubtraction": "f3881e0bad1073d5536439361706ea26538f5b0024ab8261aeeb862d813280ca",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_StatRemoveCallback_MindBlast": "e4af5e21ab2de39582d783d1c3735da76516b8e9cea391e02242dd7a79af4bec",
+    "SKILLS_AuraCallback_MindBlast": "8b8b56352ba89b280af492a466ae90fe38cf1bed06d7ec6b8b0cd3d9dc4899a1",
+    "SKILLS_SrvDo051_MindBlast": "378dd87b07f22c18527affae06e50f7701271a5ae7283d8949fe0d9ec57ccbe0"
+  },
+  "fixture": {
+    "path": ".local/class-skills/mind-blast-source-probe.json",
+    "sha256": "b0274971875c77974df96e438e58a4b3712b0fca8381f46db78e82111c1a455e",
+    "caseCounts": {
+      "chance": 514,
+      "callback": 2592,
+      "expiry": 40,
+      "dispatch": 16
+    }
+  },
+  "currentObservation": "tools/reference/mind-blast-current-observations.json",
+  "established": [
+    "The complete historical callback uses an inclusive conversion roll,150+limited100frames, shared existing conversion-state refresh, aura-flag8 cleanup and optional higher-level whole-life/level scaling. Its successful path performs no damage/events, explicitly conflicting with current user damage observations.",
+    "The complete removal callback restores original level/max life in FP256 but clamps current life using the current scaled maximum and reconstructed ratio. This unusual clamp is retained literally; it is not replaced with percentage-preserving healing.",
+    "Complete do51 rolls physical/elemental data once before area search; search receives the existing packet. Chance helper reads Param5/6 through the full diminishing helper. Current Param8=0 adds no Psychic Hammer hard-rank synergy."
+  ],
+  "services": [
+    "Stat/list allocation, existing-state presence, flags/ownership, alignment/AI/targets, table/formula, two supplied limited draws and event/damage calls are explicit services. Existing conversion and conversion-save cases with evil alignment are synthetic branch comparisons, not ordinary recast evidence.",
+    "Physical/elemental roll services write declared sentinels; full skill damage getters and current native damage/mitigation are separate. Area search is a recorded service without room/grid/height/filter simulation. State factory allocation-failure cases and owner/node updates do not simulate the complete actor/event engine."
+  ],
+  "limits": [
+    "Historical source preparation does not enable learned Mind Blast. Current successful conversion must damage without knockback or stun, superseding the old no-damage branch. Exact modern damage/allegiance/level ordering and unusual higher-level restoration require explicit acceptance limits.",
+    "The matrix uses ordinary whole HP and positive caster levels24/30/99, with one zero target-level branch. Full fractional/tiny/overflow, species/AI, event cleanup, NPC/PvP/foreign/item-only suppliers and complete native/graphical/persistence acceptance are not established."
+  ]
+}
