@@ -115,5 +115,6 @@ public static class SummonDifficulties
             pet.RefreshDifficulty();
             BattleOrders.Change(pet, resources, preserveSummonLifeRatio: true);
         }
+        BladeSentinelSummons.RescaleFor(owner);
     }
 }

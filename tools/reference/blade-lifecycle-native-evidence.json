@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "installed": true,
+  "handlerEnabled": false,
+  "totalHandlersPresent": 149,
+  "status": "Blade Sentinel has an automatic owner-facet stat adapter using retained birth/base-stat level. Difficulty changes adjust only the source base attack/defense/life portion, before or after first-missile AR inheritance, while preserving FP256 injury, captured weapon packet, passives, rank, path, seed and clock. Repeated notifications are idempotent; rescaled actor/missile state survives two world reloads. Registered traps are removed when their owner dies. An unregistered release adapter checks7mana, pays once after successful factory creation and applies an independent25-frame local delay; insufficient or duplicate releases do not debit/create. Focused/full suites pass three boots/two reloads,70 Python tests and clean builds pass. Matching installed smoke preserves saves/config/client bytes and leaves the server stopped. Learned Blade input remains disabled at149 total handlers. Facet travel/logout choices are recorded as nonblocking questions; full windup/input/cancellation, spatial/offline lifecycle and remaining combat acceptance are still pending.",
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "entityReloadsPerSuite": 2,
+    "automaticFacetStatHook": true,
+    "beforeAndAfterWeaponInheritance": true,
+    "fractionalInjuryRetained": true,
+    "immutableMissileRetained": true,
+    "clockSeedPathRankRetained": true,
+    "repeatedNotificationIdempotent": true,
+    "ownerDeathRemoval": true,
+    "unregisteredReleaseMana256": 1792,
+    "unregisteredLocalDelayFrames": 25,
+    "successfulPaymentOnly": true,
+    "duplicateReleaseRefused": true,
+    "fullLearnedInput": false,
+    "spatialFacetPolicyImplemented": false,
+    "offlineExpiryPolicyImplemented": false,
+    "pythonTests": 70,
+    "namedFingerprints": 523,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573
+  },
+  "priorSpawnEvidence": "tools/reference/blade-spawn-native-evidence.json",
+  "facetPolicy": "tools/reference/summon-facet-difficulty-policy.json",
+  "nonblockingQuestions": "tools/reference/blade-lifecycle-questions.json",
+  "limits": [
+    "The owner-facet hook changes retained stats only. It does not select whether traps travel, re-anchor or stay behind; existing spatial/controller map mismatch remains explicitly unsupported. Short-lived trap facet/logout questions are recorded in blade-lifecycle-questions.json without assuming answers.",
+    "The release adapter is not registered in AssassinCombat. Its shared Begin remains unavailable, and no talent/left/right/quick input is exposed. Full S2/IAS windup, cancellation, hand/equipment and network/graphical acceptance remain pending.",
+    "Release validates mana before creation and pays afterward, matching the successful no-start dispatch path. The older ignored-consume/reentrant failure edge remains uncertain; a failed native payment deletes the new body, but would not recreate an oldest trap already evicted by the factory.",
+    "Rescaling preserves born rank/base-stat level and adds only old/new source base deltas. It does not recollect owner gear/masteries/weapon or repeat Arm. Current literal blade life is100 across all difficulties; unchanged-maximum fractional injury is verified, while generic differing-HP scaling reuses the approved tested helper.",
+    "Rescaled Hell state, fractional injury and immutable missile are verified through two actual reloads at held clocks; owner return to a Normal facet reapplies its current stats. Held clocks do not prove elapsed offline policy or whole factory natural expiry.",
+    "Existing source reconstruction, native geometry/repair/event/NextHit supplier, full elemental/poison/drain/LifeTap/recovery/armor and current NPC drain uncertainties remain recorded. Final effects/audio and240 skill icons/effects inventories remain separate. No class completion certificate."
+  ],
+  "next": [
+    "Record user answers to short-lived trap facet travel and logout questions; keep them nonblocking and implement the selected spatial/expiry rules when known.",
+    "Finish full Blade S2/IAS learned windup/cancellation/input and remaining combat/terrain/event/expiry acceptance before enabling its handler.",
+    "Continue unaffected Assassin skills, beginning with Blade Shield source start28/do54 and its shared do142 periodic weapon-area consumer; keep trap questions from stalling the class roadmap."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/blade-lifecycle-focused.log",
+    "combined": ".local/class-skills/blade-lifecycle-combined.log",
+    "full-suite-run": ".local/class-skills/blade-lifecycle-full-suite-run.log",
+    "content-build": ".local/class-skills/blade-lifecycle-content-build.log",
+    "integration-build": ".local/class-skills/blade-lifecycle-integration-build.log",
+    "python-tests": ".local/class-skills/blade-lifecycle-python-tests.log",
+    "named-readiness": ".local/class-skills/blade-lifecycle-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-lifecycle-first-loop.log",
+    "properties": ".local/class-skills/blade-lifecycle-properties.log",
+    "installed-server": ".local/class-skills/blade-lifecycle-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-lifecycle-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-lifecycle-client-check.log",
+    "audit-native": ".local/class-skills/blade-lifecycle-audit-native.log",
+    "before-release-focused": ".local/class-skills/blade-lifecycle-before-release-focused.log"
+  }
+}

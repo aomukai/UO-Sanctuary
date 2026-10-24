@@ -4,7 +4,7 @@
   "sourceId": 257,
   "handlerEnabled": false,
   "installed": false,
-  "status": "Blade Sentinel now has an actual owner/source-data factory feeding its existing controller and following missiles. It collects effective rank and14 passive fields from supported real equipment, uses the pinned friendly/noRatio100HP and100AC spawn columns, adds difficulty-specific level stats before the caster-level overwrite, and derives speed2304 from base12/75percent. Unsupported nonzero sunder inheritance is refused. A saved shared assassintrap roster enforces cap5, removes oldest entries and retains insertion order after reload. Actual factory entities start at the caster, create one real following missile and move through controlled source phases. Focused/full suites pass three boots and two world reloads each, including oldest replacement after reload;180 unchanged source helper cases pass ASan/UBSan,70 Python tests and clean content/integration builds pass. Matching installed smoke leaves saves/config/client bytes unchanged and server stopped. The build remains149 handlers; learned Blade input/payment, owner/facet/lifecycle adapters and remaining combat acceptance are unfinished.",
+  "status": "Blade Sentinel has an automatic owner-facet stat adapter using retained birth/base-stat level. Difficulty changes adjust only the source base attack/defense/life portion, before or after first-missile AR inheritance, while preserving FP256 injury, captured weapon packet, passives, rank, path, seed and clock. Repeated notifications are idempotent; rescaled actor/missile state survives two world reloads. Registered traps are removed when their owner dies. An unregistered release adapter checks7mana, pays once after successful factory creation and applies an independent25-frame local delay; insufficient or duplicate releases do not debit/create. Focused/full suites pass three boots/two reloads,70 Python tests and clean builds pass. Matching installed smoke preserves saves/config/client bytes and leaves the server stopped. Learned Blade input remains disabled at149 total handlers. Facet travel/logout choices are recorded as nonblocking questions; full windup/input/cancellation, spatial/offline lifecycle and remaining combat acceptance are still pending.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
@@ -263,14 +263,12 @@
   "attackEvidence": "tools/reference/assassin-trap-attack-engine-evidence.json",
   "movementReview": "tools/reference/blade-sentinel-movement-review.json",
   "nativeRemaining": [
-    "Learned Blade Sentinel input is disabled. S2/IAS7mana/local25 delay, cancellation, mana admission/payment and hand/equipment/input acceptance still need integration. The internal factory deliberately performs no mana payment.",
-    "The factory uses the approved facet resolver for new actors. Existing Blade actors still need their own retained difficulty/map/owner-death/logout/class adapter; the five persistent Necromancer summon adapters are separate. Unsupported owner/map/controller states keep their recorded suspension behavior.",
-    "The source proof executes complete player-count and noRatio flags7 table helpers, not the whole monster initializer. Full initializer/component/placement/equipment and original seed allocation/draw order are separate; native source seed allocation remains an explicit supplier. No current executable equivalence is claimed.",
-    "Factory movement checks advance the selected actor controller at held source times to avoid advancing unrelated fixtures into the future. Actual native entity state persists through two reloads; earlier natural conductor/expiry/physical combat evidence remains separately scoped. Held clocks do not certify offline elapsed-time policy.",
-    "Only Blade Sentinel currently registers real traps; the same roster accepts future sentry actors via their summon master and shared pet type contract. Current fixed cap5/oldest replacement is verified; arbitrary pet types, pet-group interactions and dynamic cap changes are not certified.",
-    "Positive sunder properties remain unavailable in the existing item catalogue. The first guard fixture was correctly refused by that validator; the added inheritance refusal is tested directly without bypassing it. Malformed cold passivecalc6 retains exact prior zero/no-read handling, with modern behavior uncertain.",
-    "The existing live missile/actor limits remain: exact within-monster event order, successful repair/room/height/corner behavior, current NextHit supplier scope, full elemental/poison/drain/LifeTap/recovery/armor acceptance and modern NPC drain quirks. Source and native adapters remain explicitly distinct.",
-    "No class completion certificate. Final blade emergence/travel/expiry effects/audio and talent/left/right/quick icons remain separate240-entry asset inventories; the native body retains its identified placeholder."
+    "The owner-facet hook changes retained stats only. It does not select whether traps travel, re-anchor or stay behind; existing spatial/controller map mismatch remains explicitly unsupported. Short-lived trap facet/logout questions are recorded in blade-lifecycle-questions.json without assuming answers.",
+    "The release adapter is not registered in AssassinCombat. Its shared Begin remains unavailable, and no talent/left/right/quick input is exposed. Full S2/IAS windup, cancellation, hand/equipment and network/graphical acceptance remain pending.",
+    "Release validates mana before creation and pays afterward, matching the successful no-start dispatch path. The older ignored-consume/reentrant failure edge remains uncertain; a failed native payment deletes the new body, but would not recreate an oldest trap already evicted by the factory.",
+    "Rescaling preserves born rank/base-stat level and adds only old/new source base deltas. It does not recollect owner gear/masteries/weapon or repeat Arm. Current literal blade life is100 across all difficulties; unchanged-maximum fractional injury is verified, while generic differing-HP scaling reuses the approved tested helper.",
+    "Rescaled Hell state, fractional injury and immutable missile are verified through two actual reloads at held clocks; owner return to a Normal facet reapplies its current stats. Held clocks do not prove elapsed offline policy or whole factory natural expiry.",
+    "Existing source reconstruction, native geometry/repair/event/NextHit supplier, full elemental/poison/drain/LifeTap/recovery/armor and current NPC drain uncertainties remain recorded. Final effects/audio and240 skill icons/effects inventories remain separate. No class completion certificate."
   ],
   "requiredAtPreparation": [
     "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
@@ -280,9 +278,9 @@
     "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
   ],
   "required": [
-    "Connect learned S2/IAS input with7mana/local25 delay and complete cancellation/payment/hand/equipment acceptance, reusing the actual factory and shared trap roster.",
-    "Add Blade-specific retained facet/owner death/logout/class lifecycle, preserving creation context and immutable already-created missile packets. Keep source time/expiry policy explicit.",
-    "Complete live combat/event/NextHit/terrain and natural whole factory expiry/teardown acceptance; retain modern/source uncertainties rather than inventing behavior."
+    "Record user answers to short-lived trap facet travel and logout questions; keep them nonblocking and implement the selected spatial/expiry rules when known.",
+    "Finish full Blade S2/IAS learned windup/cancellation/input and remaining combat/terrain/event/expiry acceptance before enabling its handler.",
+    "Continue unaffected Assassin skills, beginning with Blade Shield source start28/do54 and its shared do142 periodic weapon-area consumer; keep trap questions from stalling the class roadmap."
   ],
   "nativeMovementEvidence": "tools/reference/wall-follow-native-evidence.json",
   "wallFollowEvidence": "tools/reference/wall-follow-engine-evidence.json",
@@ -308,5 +306,8 @@
   "facetDifficultyEvidence": "tools/reference/summon-facet-difficulty-native-evidence.json",
   "actualSpawnFactoryInstalled": true,
   "sharedTrapRosterInstalled": true,
-  "actualSpawnEvidence": "tools/reference/blade-spawn-native-evidence.json"
+  "actualSpawnEvidence": "tools/reference/blade-spawn-native-evidence.json",
+  "retainedFacetStatAdapterInstalled": true,
+  "unregisteredReleaseAdapterInstalled": true,
+  "lifecycleStatEvidence": "tools/reference/blade-lifecycle-native-evidence.json"
 }

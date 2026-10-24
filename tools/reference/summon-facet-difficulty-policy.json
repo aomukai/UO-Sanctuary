@@ -34,5 +34,9 @@
     "Clay Golem",
     "Blood Golem",
     "Fire Golem"
-  ]
+  ],
+  "partialAdapters": {
+    "Blade Sentinel": "Retained base-stat/FP256 life adapter and owner-facet notification verified before/after weapon inheritance. Spatial travel and offline lifecycle pending separate decisions."
+  },
+  "partialAdapterEvidence": "tools/reference/blade-lifecycle-native-evidence.json"
 }

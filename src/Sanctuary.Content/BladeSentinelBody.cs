@@ -110,6 +110,17 @@ public partial class BladeSentinelBody:BaseCreature
         Store(before with{Control=control,Motion=motion,NextFrameUtc=at.AddMilliseconds(40),ControllerFault=null});BladeSentinelActors.Track(this);
     }
     internal int Passive(string name)=>Prepared.Creation.Passives.Where(x=>x.Name==name).Sum(x=>x.Value);
+    internal void RescaleDifficulty(MonsterDifficulty difficulty)
+    {
+        var before=Prepared;Validate(before);
+        if(before.Spawn==null){throw new NotSupportedException("Synthetic prepared blade has no retained spawn difficulty");}
+        if(before.Spawn.Difficulty==difficulty){return;}
+        var next=BladeSentinelSummons.Rescale(before.Creation,before.Spawn,difficulty);
+        int life=SkillHealth.Balance256(this),maximum=SkillHealth.Maximum256(this);
+        Store(before with{Creation=next.Creation,Spawn=next.Context});
+        if(next.Creation.Life256!=before.Creation.Life256){SetHits(next.Creation.Life256/256);}
+        SkillHealth.SetBalance256(this,SummonDifficulties.Life256(life,maximum,SkillHealth.Maximum256(this)));
+    }
     internal uint RollSourceRandom()
     {
         var before=Prepared;var control=before.Control??throw new InvalidOperationException("Missing blade seed context");

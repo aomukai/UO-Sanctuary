@@ -92,6 +92,7 @@ public static class BladeSentinelActors
     internal static void Forget(BladeSentinelBody body)=>Active.Remove(body.Serial);
     internal static void Tick(DateTime at)
     {
+        AssassinTrapRoster.SweepOwners();
         while(true)
         {
             var actors=Active.Values.Where(x=>!x.Deleted && x.Prepared.Control!=null && x.Prepared.ControllerFault==null).ToArray();

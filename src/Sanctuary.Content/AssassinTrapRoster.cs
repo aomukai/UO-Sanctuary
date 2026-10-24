@@ -47,6 +47,14 @@ internal static class AssassinTrapRoster
         Entries.Add(actor.Serial.Value,new(owner.Serial.Value,actor.Serial.Value,_nextOrder++));
     }
     internal static void Forget(BaseCreature actor)=>Entries.Remove(actor.Serial.Value);
+    internal static void SweepOwners()
+    {
+        foreach(var entry in Entries.Values.ToArray())
+        {
+            if(World.FindMobile((Serial)entry.Owner) is not PlayerMobile{Alive:true,Deleted:false})
+            {World.FindMobile((Serial)entry.Actor)?.Delete();Entries.Remove(entry.Actor);}
+        }
+    }
     internal static void Prune()
     {
         foreach(var entry in Entries.Values.ToArray())

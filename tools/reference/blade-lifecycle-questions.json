@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "nonblocking clarification requested; no answer received yet",
+  "askedAtUtc": "2026-10-24T21:00:56.246413+00:00",
+  "questions": [
+    {
+      "question": "For short-lived traps such as Blade Sentinel, when you change facets should they stay in the old facet until they expire, or travel with you? Their stats would rescale to your new facet difficulty either way.",
+      "options": [
+        "Stay in the old facet until expiry",
+        "Travel with me and restart their path nearby"
+      ],
+      "answer": null
+    },
+    {
+      "question": "When you log out, should short-lived traps stop fighting and continue expiring while offline, or disappear immediately? Long-lived summons keep their existing persistence behavior.",
+      "options": [
+        "Stop fighting; lifetime keeps running",
+        "Disappear immediately"
+      ],
+      "answer": null
+    }
+  ],
+  "unaffectedWork": [
+    "Automatic owner-facet base-stat deltas from retained creation context, including armed blades.",
+    "Preserved fractional health and immutable already-created missile packets.",
+    "Owner-death cleanup.",
+    "Unregistered cast release adapter with exact7mana and25-frame local delay."
+  ],
+  "remainingDependentWork": [
+    "Spatial/facet and offline expiry adapter",
+    "Full learned windup/cancellation and actual client input",
+    "Remaining live combat/event/terrain acceptance"
+  ],
+  "learnedHandlerEnabled": false
+}

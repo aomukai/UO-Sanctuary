@@ -207,6 +207,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    lifecycle='blade-lifecycle-check' if boot==0 else 'blade-lifecycle-reload-check'
+                    session.send(lifecycle)
+                    assert session.expect(lifecycle+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     spawn='blade-spawn-check' if boot==0 else 'blade-spawn-reload-check'
                     session.send(spawn)
                     assert session.expect(spawn+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
