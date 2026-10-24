@@ -7,7 +7,7 @@ namespace Sanctuary;
 
 public static class AssassinCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.WeaponBlock or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom;
     public static bool Handles(CombatAbility ability)=>ability is CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom;
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin

@@ -145,7 +145,7 @@ public static class NecromancerCombat
     {
         if(target is not{Alive:true,Deleted:false} || ClassCombat.Friendly(owner,target)){return;}
         double rate = values.Damage(false) + (values.Damage(true) - values.Damage(false)) * Utility.RandomDouble();
-        if(missileDefense && AmazonAvoidance.Missile(target)){return;}
+        if(missileDefense && ClassAvoidance.Missile(target)){return;}
         GearEffects.ApplyPoison(owner, target, rate * values.DurationFrames, Core.TickCount, values.DurationFrames * 40);
     }
     private sealed class PoisonCloud(PlayerMobile owner, Point3D point, SkillValues values) : SkillField(owner, NecromancerSummons.Source("poisonexplosioncloud", "Range"), DiabloClass.Necromancer)

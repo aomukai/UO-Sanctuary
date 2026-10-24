@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "proofEnablesHandler": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/include/D2Items.h": "a6fac64ce9aa998c93a9af8fd9e3349c86cd7317ab1f1bcea55adbef7df33f94",
+    "source/D2Common/src/D2Composit.cpp": "703362434adf701aa3f5dac5300834b80de3b3d6e6ac91b4fe26124c4df0276c",
+    "source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57"
+  },
+  "compiledUnchangedRoutines": {
+    "ITEMS_CanBeEquipped": "f2a6f029f33a4b1c9401baa9de99214552c2075c8b8cdcba2e80ef662a62b21a",
+    "COMPOSIT_GetWeaponClassIdFromCode": "45b2725f58db504b541f317cc6493211e5d7e54e53d7c2953b6e8ed56a5291a4",
+    "COMPOSIT_GetWeaponClassCode": "ca7034603aeac89b99ea70a84cd74f1abf20f75b6269746096cf97c691291f3e",
+    "COMPOSIT_GetWeaponClassId": "d0e37a95eb718be31d8d0d8338b8980856b6970c45ca9bf988ad258a51249968"
+  },
+  "verifiedItemFlags": {
+    "IFLAG_BROKEN": 256,
+    "IFLAG_NOEQUIP": 16384
+  },
+  "compiledUnchangedTableSha256": "c1f5ab67b47f5d8701ffb12d71ad2f1b39942df3b2f12e7a40e8c6f7f10b7d63",
+  "fixture": {
+    "path": ".local/class-skills/assassin-claws-source-probe.json",
+    "sha256": "54d00a7ff58bc9716c09332141fceb66dc416d658c267fcd55a4606638caf783",
+    "cases": 18432
+  },
+  "established": [
+    "Complete item usability rejects BROKEN/NOEQUIP for ordinary item-data payloads. Complete compositor and ID wrapper select HT2/13 for two usable weapons on an Assassin in nonzero/nondead modes. The compositor does not itself restrict those two weapons to claws; legal equip and passive h2h stat-layer supply are separate.",
+    "The compiled source enum and code table establish HT2=13 without a supplied-composite shortcut. Null item data is explicitly synthetic and preserved as the original usability routine permits it."
+  ],
+  "services": [
+    "Inventory/primary/type/component/weapon-code/animation/character-row lookups are explicit services. Actor is an untransformed player; monster table is absent, wield type1 and primary right hand are supplied. Full legal item-equip/stat engine is not simulated."
+  ],
+  "limits": [
+    "No current executable or native gear transaction proof. Native legal claw families, owner/effective-rank properties, attack/missile defense/reaction, persistence and current acceptance remain separate."
+  ]
+}

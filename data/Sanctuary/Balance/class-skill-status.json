@@ -2154,10 +2154,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 263,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned effective-rank h2h passive reaches shared stationary weapon/missile/area defense with native dual-claw equipment and saved primary identity. Walking/running suppress it; no mana, Dexterity or ordinary block bonus enters the curve. Existing block reaction preserves active attacks. Source stat-layer/dispatch proof, real gear/input/attack/missile/reload verification and complete native flag/recovery acceptance are recorded separately. Foreign/item layers, full modern mode/stat/event/RNG/PvP/NPC consumers and final reaction/audio/talent icon remain gaps; no active hotkey."
     },
     {
       "talentId": "assassin.fade",

@@ -2728,14 +2728,15 @@
     "talentId": "assassin.weaponblock",
     "name": "Weapon Block",
     "characterClass": "Assassin",
-    "effects": "not-applicable",
+    "effects": "needed",
     "sourceEffects": {
-      "passivestate": "weaponblock"
+      "passivestate": "weaponblock",
+      "anim": "SC"
     },
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "None required"
+    "placeholder": "Shared native block animation20 is a placeholder; final dual-claw block animation/audio and talent icon pending. No active hotkey."
   },
   {
     "talentId": "assassin.fade",

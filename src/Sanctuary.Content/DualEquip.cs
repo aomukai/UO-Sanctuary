@@ -58,19 +58,19 @@ public static class DualEquip
         Item companion=null;int hands=0;foreach(var worn in owner.Items)
         {if(worn.Layer is Layer.OneHanded or Layer.TwoHanded){companion=worn;hands++;}}
         Layer layer=item is BaseShield?Layer.TwoHanded:Canonical(item);bool pair=false;Item shifted=null;
-        if(Barbarian(owner) && hands==1)
+        if(hands==1)
         {
-            if(item is BaseWeapon candidate && companion is BaseWeapon existing && WeaponHands.Eligible(candidate) && WeaponHands.Eligible(existing))
+            if(item is BaseWeapon candidate && companion is BaseWeapon existing && WeaponHands.CanPair(owner,candidate,existing))
             {layer=existing.Layer==Layer.OneHanded?Layer.TwoHanded:Layer.OneHanded;pair=true;}
-            else if(item is BaseShield && Hybrid(companion) && companion.Layer==Layer.TwoHanded){shifted=companion;}
-            else if(Hybrid(item) && companion is BaseShield){layer=Layer.OneHanded;}
+            else if(Barbarian(owner) && item is BaseShield && Hybrid(companion) && companion.Layer==Layer.TwoHanded){shifted=companion;}
+            else if(Barbarian(owner) && Hybrid(item) && companion is BaseShield){layer=Layer.OneHanded;}
         }
         return new Transaction(owner,item,companion,shifted,layer,pair);
     }
     internal static void Changed(PlayerMobile owner)
     {
         if(World.Loading || Deferred(owner) || Profiles==null){return;}
-        if(!Barbarian(owner)){Profiles.Store(owner,null);return;}
+        if(!WeaponHands.Supports(owner)){Profiles.Store(owner,null);return;}
         BaseWeapon sole=null;int weapons=0;bool shield=false,otherHand=false;
         foreach(var item in owner.Items)
         {
@@ -125,7 +125,7 @@ public static class DualEquip
             {
                 if(_success)
                 {
-                    if(Barbarian(_owner) && !Owned(_owner,_primary))
+                    if(WeaponHands.Supports(_owner) && !Owned(_owner,_primary))
                     {Profiles.Store(_owner,IdentityUsable(_companion) && _companion.Parent==_owner?_companion.Serial:IdentityUsable(_item)?_item.Serial:null);}
                 }
                 else

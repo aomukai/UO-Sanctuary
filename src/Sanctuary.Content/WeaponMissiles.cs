@@ -342,7 +342,7 @@ public static class WeaponMissiles
         target.FixedParticles(0x3709,10,10,5052,EffectLayer.LeftFoot);target.PlaySound(0x208);
         // Preserve the earlier native damage-draw-before-avoidance order.
         var damage=flight.Damage.Roll(target,DamageRoll);
-        if(AmazonAvoidance.Missile(target)){return;}
+        if(ClassAvoidance.Missile(target,flight.Missile)){return;}
         source.DoHarmful(target,true);
         var parts=SkillCombat.MitigatePrepared(source,target,damage);
         int loss=SkillHealth.Damage(source,target,NamedElements.To256(parts.Total));

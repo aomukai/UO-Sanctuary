@@ -46,11 +46,22 @@ public static class WeaponHands
         // Pure source one-handed bases and Barbarian one/two-handed swords.
         return !basis.TwoHanded || basis.OneOrTwoHanded && ClassItemTypes.Is(basis.Type,"swor");
     }
+    internal static bool Claw(BaseWeapon weapon)=>weapon!=null && !ClassGear.Broken(weapon)
+        && ClassGear.Slot(weapon)==GearSlot.Weapon && ClassGear.State(weapon) is{Identified:true}
+        && ClassGear.Base(weapon) is{TwoHanded:false} basis && ClassItemTypes.Is(basis.Type,"h2h");
+    internal static bool Supports(PlayerMobile owner)=>owner!=null && ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)==true
+        && profile.Class is DiabloClass.Barbarian or DiabloClass.Assassin;
+    internal static bool CanPair(PlayerMobile owner,BaseWeapon first,BaseWeapon second)
+    {
+        if(owner==null || ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)!=true){return false;}
+        return profile.Class==DiabloClass.Barbarian?Eligible(first) && Eligible(second)
+            :profile.Class==DiabloClass.Assassin && Claw(first) && Claw(second);
+    }
     internal static WeaponPair? Pair(PlayerMobile owner)
     {
-        if(owner==null || ClassCreation.Profiles?.TryGet(owner.Serial,out var profile)!=true || profile.Class!=DiabloClass.Barbarian
+        if(owner==null
             || owner.FindItemOnLayer(Layer.OneHanded) is not BaseWeapon first || owner.FindItemOnLayer(Layer.TwoHanded) is not BaseWeapon second
-            || !Eligible(first) || !Eligible(second)){return null;}
+            || !CanPair(owner,first,second)){return null;}
         int count=0,hands=0;foreach(var item in owner.Items)
         {if(item is BaseWeapon && ClassGear.Slot(item)==GearSlot.Weapon){count++;}if(item.Layer is Layer.OneHanded or Layer.TwoHanded){hands++;}}
         return count==2 && hands==2?DualEquip.Primary(owner)==second.Serial?new(second,first):new(first,second):null;

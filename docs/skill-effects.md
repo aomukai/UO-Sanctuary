@@ -200,7 +200,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Assassin | Psychic Hammer | needed | psychic_hammer_hit, psychic_hammer_curse |
 | Assassin | Burst of Speed | needed | quickness |
 | Assassin | Cloak of Shadows | needed | cloak_of_shadows |
-| Assassin | Weapon Block | not-applicable | weaponblock |
+| Assassin | Weapon Block | needed | weaponblock, SC |
 | Assassin | Fade | needed | fade |
 | Assassin | Shadow Warrior | needed | shadowwarrior, shadowwarrior |
 | Assassin | Mind Blast | needed | fist_will_cast, mindblast center, mindblast hit |

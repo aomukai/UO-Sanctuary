@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.weaponblock",
   "sourceId": 263,
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "sourceFields": {
     "skill": "Weapon Block",
     "charclass": "ass",
@@ -39,7 +39,7 @@
     "cost mult": 512,
     "cost add": 3000
   },
-  "status": "184320 complete historical layered getter/block-dispatch cases pass with explicit equipment/stat/RNG services. Learned native passive and real Assassin dual-claw support remain disabled.",
+  "status": "Weapon Block is installed as handler 146 (Assassin 7). Learned h2h/h2h2 chance now reaches the shared weapon and traced missile/area defense stages through real dual-claw equipment. The existing transaction, rollback, primary-hand identity and selected-weapon property consumers are reused. Walking/running suppress block; Dexterity, ordinary shield-block bonuses and mana do not enter its curve. Known traced hostile missiles request their source block reaction; copied areas suppress damage without introducing a block delay. Pending attacks/casts remain intact. Twenty rank goldens, the user effective-rank-22 reading of 58%, real Bartuc/Tarnhelm/Highlord/Guardian Angel, valid Valorite claws, broken/removed hands, wrong family/third hand, cancellation rollback, lifecycle and real equip packets pass. Natural hostile firebolts and charged bolts verify defense at impact after claw changes. Focused/full each pass three boots and two reloads with exact saved equipment, primary identity, rank and mana. Source preparation covers 184320 getter/dispatch, 18432 usable-item/compositor and 10920 full missile/area cases with declared services; 60 learned-layer rows are directly compared natively. All 70 Python tests, 498/21 current fingerprints and 573 unchanged named decisions pass. Content/integration builds have zero warnings/errors. Existing client bytes are unchanged and native equip packets pass all three boots. Installed-world load/listen/shutdown exits zero with original saves/config/client bytes unchanged; prior content/data/client/saves are backed up and server stopped. Modern complete block-mode/soft-hit/event/PvP/NPC acceptance and final assets remain open. Next is Mind Blast.",
   "reviewedSourceFiles": {
     "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
     "source/D2Common/src/D2Composit.cpp": "703362434adf701aa3f5dac5300834b80de3b3d6e6ac91b4fe26124c4df0276c",
@@ -56,13 +56,8 @@
     "Full older SUNITDMG_ApplyDodge first selects moving Evade and returns. Stationary dispatch next gets weapon block and requires composited weapon class13 (HT2/two claws), draws once for positive chance, then falls through to Avoid/Dodge on failure. Both ordinary attack and spell/missile dispatch need review.",
     "Full older composite source selects HT2 for an Assassin when both usable equipped hands pass ITEMTYPE_WEAPON; it does not repeat a claw-only check in that branch. Legal claw-pair equipment and passive h2h stat-layer eligibility must be established separately. Native DualEquip/WeaponHands currently restrict pairs to Barbarian; simply adding a chance would leave learned Weapon Block unusable through normal Assassin equipment.",
     "Source damage-mode reaction groups shield/weapon block under a last-block-frame/FBR throttle and soft-hit check. Full native animation/recovery acceptance is not established by chance-only evidence.",
-    "Sanctuary approved accepted-running-step rule disables avoidance; source walking/running branch also prevents stationary Weapon Block. Reuse accepted movement leases and retain current movement deviation."
-  ],
-  "required": [
-    "Compiled complete GetWeaponBlock/ApplyDodge/ApplyBlockOrDodge preparation now passes184320 cases, with explicit stat/item-type/composite/RNG services. Next establish the real dual-claw compositor/equipment path and independent dm12 rank goldens; do not substitute supplied composite13 for equipment evidence.",
-    "Support real dual claws through existing transactional equip/unequip/rollback/primary/save logic without breaking Barbarian one/two-handed swords or shield behavior; verify wrong family, broken/unidentified gear, history/respec and save reload.",
-    "Route stationary ordinary weapon and eligible traced missile/area checks through one shared weapon-block attempt at the existing defense stage. Preserve hit/collision/event ordering and block recovery; test walking/running/in-flight/equipped gear changes.",
-    "Verify direct actual hits, independent roll boundaries and draws, real soft-skill gear, no active bindings/mana, lifecycle and two reloads before enabling."
+    "Sanctuary approved accepted-running-step rule disables avoidance; source walking/running branch also prevents stationary Weapon Block. Reuse accepted movement leases and retain current movement deviation.",
+    "The newly compiled full copied-area wrapper writes WeaponBlock0x8000 and then applies its original0xFE mask, so damage/events are suppressed without a retained weapon-block mode flag. Native generic copied-area defense requests no block reaction; known traced hostile firebolt/lightningbolt supplies its GetHit/KnockBack context. Modern whole-engine flag/reaction equivalence remains unverified."
   ],
   "uncertain": [
     "Exact modern block animation/throttle, special unblockable effects, PvP/NPC/foreign passive layers and full event/RNG/stat acceptance remain open. Record gaps instead of assuming all damage is blockable."
@@ -104,5 +99,24 @@
   },
   "curvePreparation": "Existing shared dm12 two-stage rounding matches all20 listed guide values. Ranks8/11/12 distinguish the multiplication-first historical helper; rank3 corroborates36percent but does not distinguish those two rounding forms.",
   "currentBuildObservation": "tools/reference/weapon-block-current-tooltip.json",
-  "currentBuildObservationSummary": "User effective22/base20/items2:58percent chance, matching current shared dm12. This point also agrees with the older multiplication-first helper and does not independently distinguish rounding."
+  "currentBuildObservationSummary": "User effective22/base20/items2:58percent chance, matching current shared dm12. This point also agrees with the older multiplication-first helper and does not independently distinguish rounding.",
+  "initialRequired": [
+    "Compiled complete GetWeaponBlock/ApplyDodge/ApplyBlockOrDodge preparation now passes184320 cases, with explicit stat/item-type/composite/RNG services. Next establish the real dual-claw compositor/equipment path and independent dm12 rank goldens; do not substitute supplied composite13 for equipment evidence.",
+    "Support real dual claws through existing transactional equip/unequip/rollback/primary/save logic without breaking Barbarian one/two-handed swords or shield behavior; verify wrong family, broken/unidentified gear, history/respec and save reload.",
+    "Route stationary ordinary weapon and eligible traced missile/area checks through one shared weapon-block attempt at the existing defense stage. Preserve hit/collision/event ordering and block recovery; test walking/running/in-flight/equipped gear changes.",
+    "Verify direct actual hits, independent roll boundaries and draws, real soft-skill gear, no active bindings/mana, lifecycle and two reloads before enabling."
+  ],
+  "installed": true,
+  "compositionPreparation": "tools/reference/assassin-claws-engine-evidence.json",
+  "missilePreparation": "tools/reference/weapon-block-missile-engine-evidence.json",
+  "remaining": [
+    "The current user tooltip confirms effective rank 22 (base 20, items 2) at 58%. This rank agrees with both rounding forms. The shared two-stage dm12 curve also matches the historical official 20-rank table; current whole executable/stat/RNG equivalence is not certified.",
+    "The 184320-case source getter/dispatch, 18432-case complete usable-item/composition and 10920-case full missile/area wrapper probes declare nested services explicitly. Native comparison covers the 60 learned h2h-layer dispatch rows and actual equipped claws; synthetic foreign/nonpositive layers are not enabled.",
+    "Known hostile firebolt/lightningbolt reactions use their source GetHit/KnockBack context. Older copied-area WeaponBlock flags are removed by the original 0xFE mask after damage suppression; native generic copied areas introduce no block reaction. Full modern soft-hit/special-effect/player/PvP mode and event mapping remains acceptance work.",
+    "The existing block reaction preserves pending attacks/casts and uses the current native FBR timing consumer. Exact modern last-block-frame throttling, sequence/mode priority, all animation transitions and full client acceptance remain open. No complete source reaction-engine certificate is claimed.",
+    "Assassin pairs accept usable h2h/h2h2 claws through existing equip transactions, including valid crafted/material claws and selected-hand damage. Existing Barbarian restrictions stay unchanged. All future martial/finisher/trap/blade and foreign/item-only skill suppliers, NPC shadow consumers and special weapon/event paths remain separate; no item-skill gate is cleared.",
+    "Native block animation 20 is an identified placeholder. Final dual-claw block animation/audio and talent icon remain pending; active hotkey icon is not applicable."
+  ],
+  "nativeEvidence": "tools/reference/weapon-block-native-evidence.json",
+  "next": "Mind Blast; see mind-blast-preflight.json."
 }

@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.mindblast",
+  "source": "User firsthand current-game observation,24October2026",
+  "effectiveRank": 3,
+  "baseRank": 1,
+  "itemRanks": 2,
+  "conversionSuccessAlsoDamages": true,
+  "damageAmount": "Health falls; amount described as small, not numerically measured.",
+  "supersedes": "The older SKILLS_AuraCallback_MindBlast success path returns before ordinary damage. Current observation establishes that this no-damage behavior must not be copied.",
+  "limits": [
+    "Exact damage/event order versus conversion alignment/level scaling and numeric damage/mastery remain unverified. Successful conversion is observed to damage without knockback or stun.",
+    "This Mind Blast observation does not alter the separately tested Paladin Conversion no-damage-on-success contract."
+  ],
+  "conversionSuccessKnockback": false,
+  "conversionSuccessStun": false
+}

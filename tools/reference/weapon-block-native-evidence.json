@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "sourceId": 263,
+  "handlerEnabled": true,
+  "installed": true,
+  "sourceEvidence": [
+    "tools/reference/weapon-block-engine-evidence.json",
+    "tools/reference/assassin-claws-engine-evidence.json",
+    "tools/reference/weapon-block-missile-engine-evidence.json"
+  ],
+  "currentBuildObservation": "tools/reference/weapon-block-current-tooltip.json",
+  "verification": {
+    "handlers": 146,
+    "assassinHandlers": 7,
+    "sourceLayerDispatchCases": 184320,
+    "sourceCompositionCases": 18432,
+    "sourceMissileDispatchCases": 1800,
+    "sourceMissileFlagCases": 7680,
+    "sourceCopiedAreaCases": 1440,
+    "nativeLearnedLayerComparisons": 60,
+    "rankGoldens": 20,
+    "currentEffectiveRank": 22,
+    "currentChance": 58,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualEquipPacketBoots": 3,
+    "pythonTests": 70,
+    "namedInputHashes": 498,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientByteEqualToPrevious": true
+  },
+  "checks": "Weapon Block is installed as handler 146 (Assassin 7). Learned h2h/h2h2 chance now reaches the shared weapon and traced missile/area defense stages through real dual-claw equipment. The existing transaction, rollback, primary-hand identity and selected-weapon property consumers are reused. Walking/running suppress block; Dexterity, ordinary shield-block bonuses and mana do not enter its curve. Known traced hostile missiles request their source block reaction; copied areas suppress damage without introducing a block delay. Pending attacks/casts remain intact. Twenty rank goldens, the user effective-rank-22 reading of 58%, real Bartuc/Tarnhelm/Highlord/Guardian Angel, valid Valorite claws, broken/removed hands, wrong family/third hand, cancellation rollback, lifecycle and real equip packets pass. Natural hostile firebolts and charged bolts verify defense at impact after claw changes. Focused/full each pass three boots and two reloads with exact saved equipment, primary identity, rank and mana. Source preparation covers 184320 getter/dispatch, 18432 usable-item/compositor and 10920 full missile/area cases with declared services; 60 learned-layer rows are directly compared natively. All 70 Python tests, 498/21 current fingerprints and 573 unchanged named decisions pass. Content/integration builds have zero warnings/errors. Existing client bytes are unchanged and native equip packets pass all three boots. Installed-world load/listen/shutdown exits zero with original saves/config/client bytes unchanged; prior content/data/client/saves are backed up and server stopped. Modern complete block-mode/soft-hit/event/PvP/NPC acceptance and final assets remain open. Next is Mind Blast.",
+  "fixtureNotes": [
+    "Named fixture regeneration freeze and constructor guard isolate real health/mana observations; production regen/timing is unchanged.",
+    "Initial harness launch omitted SANCTUARY_TEST_NAMED_GEAR=1 and correctly rejected a disabled profession recipe. The corrected configured run is authoritative.",
+    "Fixture corrections used matching Valorite material identity, unequipped both claws before the existing class-history gate, and used the source key Cutthroat1 for the displayed Bartuc item. No production validation was weakened.",
+    "Natural projectile phases remove/re-equip the second claw after scheduling and verify impact-time eligibility; idle recovery is separate from an already pending SC cast.",
+    "Native generic area defense uses no block reaction. The source probe explicitly retains the old copied-area high-flag truncation; this is historical source evidence, not firsthand modern flag acceptance."
+  ],
+  "limits": [
+    "The current user tooltip confirms effective rank 22 (base 20, items 2) at 58%. This rank agrees with both rounding forms. The shared two-stage dm12 curve also matches the historical official 20-rank table; current whole executable/stat/RNG equivalence is not certified.",
+    "The 184320-case source getter/dispatch, 18432-case complete usable-item/composition and 10920-case full missile/area wrapper probes declare nested services explicitly. Native comparison covers the 60 learned h2h-layer dispatch rows and actual equipped claws; synthetic foreign/nonpositive layers are not enabled.",
+    "Known hostile firebolt/lightningbolt reactions use their source GetHit/KnockBack context. Older copied-area WeaponBlock flags are removed by the original 0xFE mask after damage suppression; native generic copied areas introduce no block reaction. Full modern soft-hit/special-effect/player/PvP mode and event mapping remains acceptance work.",
+    "The existing block reaction preserves pending attacks/casts and uses the current native FBR timing consumer. Exact modern last-block-frame throttling, sequence/mode priority, all animation transitions and full client acceptance remain open. No complete source reaction-engine certificate is claimed.",
+    "Assassin pairs accept usable h2h/h2h2 claws through existing equip transactions, including valid crafted/material claws and selected-hand damage. Existing Barbarian restrictions stay unchanged. All future martial/finisher/trap/blade and foreign/item-only skill suppliers, NPC shadow consumers and special weapon/event paths remain separate; no item-skill gate is cleared.",
+    "Native block animation 20 is an identified placeholder. Final dual-claw block animation/audio and talent icon remain pending; active hotkey icon is not applicable."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/weapon-block-focused.log",
+    "combined": ".local/class-skills/weapon-block-combined.log",
+    "content-build": ".local/class-skills/weapon-block-content-build.log",
+    "integration-build": ".local/class-skills/weapon-block-integration-build.log",
+    "python-checks": ".local/class-skills/weapon-block-python-checks.log",
+    "named-readiness": ".local/class-skills/weapon-block-named-readiness.log",
+    "first-loop": ".local/class-skills/weapon-block-first-loop.log",
+    "client-check": ".local/class-skills/weapon-block-client-check.log",
+    "installed-smoke": ".local/class-skills/weapon-block-installed-smoke.log",
+    "installed-server": ".local/class-skills/weapon-block-installed-server.log",
+    "source": ".local/class-skills/weapon-block-source.log",
+    "missile-source": ".local/class-skills/weapon-block-missile-source.log",
+    "composition-source": ".local/class-skills/assassin-claws-source.log"
+  }
+}

@@ -97,12 +97,12 @@ public static class EliteBolts
             if (victim == null) { continue; }
             if (bolt.Hit.Add(victim.Serial))
             {
-                if (bolt.Lightning > 0) { if(!AmazonAvoidance.Missile(victim)){EliteCombat.Damage(source, victim, lightning: bolt.Slow.Damage256(bolt.Lightning*256)/256.0);} }
+                if (bolt.Lightning > 0) { if(!ClassAvoidance.Missile(victim,"lightningbolt")){EliteCombat.Damage(source, victim, lightning: bolt.Slow.Damage256(bolt.Lightning*256)/256.0);} }
                 else if (bolt.Fire || ClassStats.CheckHit(source, victim,0,projectile:true) == true)
                 {
                     var attack = source.EncounterProfile.Attack1;
                     int damage = Utility.RandomMinMax(attack.MinDamage.Value, attack.MaxDamage.Value);
-                    if(bolt.Fire && AmazonAvoidance.Missile(victim)){Remove(bolt);continue;}
+                    if(bolt.Fire && ClassAvoidance.Missile(victim,"firebolt")){Remove(bolt);continue;}
                     if (Utility.Random(100) < source.Basis.CriticalChance) { damage *= 2; }
                     EliteCombat.Hit(source, victim, damage, bolt.Fire ? ResistanceType.Fire : ResistanceType.Physical, true, missile:bolt.Slow);
                 }

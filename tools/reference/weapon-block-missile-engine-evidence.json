@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "proofEnablesHandler": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "compiledUnchangedRoutines": {
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "verifiedScaffoldSha256": "2bb14d9473148933593515d9be11420bb37b1134a355bc8c426a7fb744a99582",
+  "fixture": {
+    "path": ".local/class-skills/weapon-block-missile-source-probe.json",
+    "sha256": "133e2379fac8798fcd375faf491fef9ae3e8110678e3bbd783eff993fa83030a",
+    "caseCounts": {
+      "dispatch": 1800,
+      "flags": 7680,
+      "area": 1440
+    }
+  },
+  "established": [
+    "Complete dispatch tries stationary weapon block for both melee and missile selection after shield; moving branches never reach it. Full missile wrapper maps weapon block to BLOCK and clears successful-hit/events. GetHit0/KnockBack0 instead clears success with SOFTHIT, suppressing the block-mode flag.",
+    "Complete copied-area wrapper independently blocks each nonzero packet without mutating its shared original. Its WeaponBlock0x8000 result is then removed by the original0xFE mask: damage/events are suppressed but no retained weapon-block reaction flag is established. The supplied repeated draw establishes order/count, not seeded independence."
+  ],
+  "services": [
+    "Checked unchanged full bodies are inherited from the regenerated Amazon Avoid scaffold. Positive weapon-block stat and composite13 replace only declared services; full layered getter and usable-weapon composition are separately proved. Amazon passives are zero.",
+    "Stat supply, RNG draw, tables, uninterruptable state, critical/events/commit and owner lookup remain explicit services. The whole damage actor/stat/event engine is not compiled."
+  ],
+  "limits": [
+    "Historical source proof alone does not enable a native handler. Real claw equip/live defense, current block reaction/noninterrupt behavior, soft-hit context mapping, persistence and modern client acceptance require separate native evidence."
+  ]
+}
