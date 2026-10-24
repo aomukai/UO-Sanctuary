@@ -246,6 +246,7 @@ public static class ClassCombat
 
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
+        if(ability==CombatAbility.CloakOfShadows){CloakShadows.Face(from,point);target=null;point=from.Location;}
         if(ClassAbilities.SelfTarget(ability)){target=null;point=from.Location;}
         if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
         var session = For(from);

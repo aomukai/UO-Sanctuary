@@ -10,7 +10,7 @@ namespace Sanctuary;
 
 public sealed record NecromancerMotion(uint Target, bool Flee, int OriginX, int OriginY);
 public sealed record NecromancerCurse(CombatAbility Ability, uint Source, int Rank, DateTime UntilUtc, int OriginX, int OriginY,
-    NecromancerMotion Motion = null, TerrorAi Terror = null);
+    NecromancerMotion Motion = null, TerrorAi Terror = null, bool CloakBlind = false);
 public sealed record NecromancerState(NecromancerCurse Curse = null, int BoneArmor = 0, int ManaFraction = 0);
 
 public sealed class NecromancerEffectProfiles : GenericPersistence
@@ -20,9 +20,9 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
     public NecromancerState Find(Mobile actor) => actor is { Alive: true, Deleted: false }
         ? _states.GetValueOrDefault(actor.Serial) : null;
     public void Store(Mobile actor, NecromancerState state)
-    {var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);}
+    {var before=_states.GetValueOrDefault(actor.Serial);_states[actor.Serial]=state;SourceTerror.Changed(actor,before?.Curse,state.Curse);CloakShadows.Changed(actor,before?.Curse,state.Curse);}
     public void Clear(Mobile actor)
-    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);}}
+    {if(_states.Remove(actor.Serial,out var old)){SourceTerror.Changed(actor,old.Curse,null);CloakShadows.Changed(actor,old.Curse,null);}}
     public override void Serialize(IGenericWriter writer)
     {
         Prune(); writer.Write(0); writer.Write(_states.Count);
@@ -49,7 +49,7 @@ public sealed class NecromancerEffectProfiles : GenericPersistence
         { if (World.FindMobile(serial) is not { Alive: true, Deleted: false }) { removed.Add(serial); } }
         foreach (var serial in removed) { _states.Remove(serial); }
     }
-    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);}
+    public override void PostDeserialize(){Prune();SourceTerror.AfterLoad(_states);CloakShadows.AfterLoad(_states);}
 }
 
 public static class NecromancerEffects
@@ -66,7 +66,8 @@ public static class NecromancerEffects
     public static bool IsCurse(CombatAbility a) => a is CombatAbility.AmplifyDamage or CombatAbility.DimVision
         or CombatAbility.Weaken or CombatAbility.IronMaiden or CombatAbility.Terror or CombatAbility.Confuse
         or CombatAbility.LifeTap or CombatAbility.Attract or CombatAbility.Decrepify or CombatAbility.LowerResist;
-    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt;
+    internal static bool KnownCurse(CombatAbility a)=>IsCurse(a) || a is CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.CloakOfShadows;
+    internal static bool Vision(NecromancerCurse curse)=>curse?.Ability==CombatAbility.DimVision || curse is{Ability:CombatAbility.CloakOfShadows,CloakBlind:true};
     public static NecromancerCurse Curse(Mobile actor) => Profiles?.Find(actor)?.Curse is { } curse && curse.UntilUtc > TimedEffects.Now ? curse : null;
     internal static SkillValues Values(NecromancerCurse curse) => new(SkillMechanics.For(curse.Ability),
         key => key == SkillMechanics.For(curse.Ability).SourceKey ? curse.Rank : 0, _ => 0, 1);
@@ -95,10 +96,10 @@ public static class NecromancerEffects
         target.FixedEffect(0x375A, 10, 15, 0x455, 0); // Placeholder curse marker.
         owner.DoHarmful(target); return true;
     }
-    private static NecromancerMotion CaptureMotion(BaseCreature creature)
+    internal static NecromancerMotion CaptureMotion(BaseCreature creature)
     {
         var previous = Curse(creature);
-        if (previous?.Ability == CombatAbility.DimVision) { return previous.Motion; }
+        if (Vision(previous)) { return previous.Motion; }
         if (previous?.Ability == CombatAbility.Terror) { return new(0, true, previous.OriginX, previous.OriginY); }
         if (NamedControl.State(creature) is { } control && control.FearUntil > TimedEffects.Now)
         { return new(0, true, control.FearX, control.FearY); }
@@ -136,7 +137,7 @@ public static class NecromancerEffects
         _ => 0
     } : 0;
     public static int OutgoingPhysicalPercent(Mobile actor)=>100+DamageStatPercent(actor);
-    internal static int DefenseStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.BattleCry} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
+    internal static int DefenseStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.BattleCry or CombatAbility.CloakOfShadows} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
     internal static int AttackStatPercent(Mobile actor)=>Curse(actor) is{Ability:CombatAbility.Taunt} curse?(int)Values(curse).Eval("aurastatcalc1"):0;
     public static int Slow(Mobile actor) => Curse(actor)?.Ability == CombatAbility.Decrepify ? 50 : 0;
     public static bool TargetAllowed(Mobile actor, Mobile target)
@@ -146,6 +147,7 @@ public static class NecromancerEffects
         {
             CombatAbility.Taunt when curse.Terror!=null => SourceTerror.TargetAllowed(actor,target),
             CombatAbility.Terror => curse.Terror!=null && SourceTerror.TargetAllowed(actor,target),
+            CombatAbility.CloakOfShadows when curse.CloakBlind => target != null && actor.Map == target.Map && actor.InRange(target, 1),
             CombatAbility.DimVision => target != null && actor.Map == target.Map && actor.InRange(target, 1),
             _ => true
         };
@@ -156,7 +158,7 @@ public static class NecromancerEffects
         if (Profiles.Find(creature) is { Curse: { } elapsed } state && elapsed.UntilUtc <= TimedEffects.Now)
         {
             Profiles.Store(creature, state with { Curse = null });
-            if (elapsed.Ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract)
+            if (Vision(elapsed) || elapsed.Ability is CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract)
             {
                 creature.Combatant = null; creature.FocusMob = null;
                 ai.ResetApproachState(); ai.ClearMoveIntent(); ai.Action = ActionType.Wander;
@@ -172,7 +174,7 @@ public static class NecromancerEffects
             var origin = new Point3D(curse.OriginX, curse.OriginY, creature.Z);
             ai.DoMove((Direction)(((int)creature.GetDirectionTo(origin) + 4) & 7)); return true;
         }
-        if (curse?.Ability == CombatAbility.DimVision)
+        if (Vision(curse))
         {
             if (curse.Motion is { } motion)
             {

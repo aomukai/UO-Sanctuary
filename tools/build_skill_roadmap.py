@@ -17,6 +17,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'assassin.cloakofshadows':'Learned right/quick SC/FCR self cast pays13mana once, captures additive defense and curses an entry-only source-filtered radius. Current3.3.93847 firsthand tests override the older global recast lock: recast restarts self defense, can affect fresh groups and never refreshes active target cloaks; all-cloaked recasts turn but refuse before animation/payment. Target defense penalty is independent of blind-AI eligibility; unique/superunique exclusion from blind does not exclude their stats. Reuses saved curse/Dim Vision motion and control consumers. Full source state10 wander/idle behavior, exact mixed-group/cursor/empty admission, cross-caster/different-rank modern arbitration, remhit player edge, global darkness and full engine/client acceptance remain explicit gaps. Final cast/target/darkness/audio and talent/right-hotkey icons use identified placeholders.',
     'assassin.psychichammer':'Learned right/quick targeted SC/FCR cast uses once-only fractional mana, separate physical/magic FP256 rolls and post-damage type/rank knockback. Reuses source-mode displacement and prepared resistance/absorb/health plus approved T29 elemental spell additions. Near-click acquisition uses the user-observed approximately two-tile adapter; exact modern radius/edge/facing/ties remain explicit acceptance gaps. Source start/do and complete damage-roll wrappers have separately declared nested services. Native source identity, mapped motion, target/resource/cancellation/input/reload checks are recorded separately. PvP/hireling/NPC suppliers, unmapped knockback modes, full modern event/stat/seed/client acceptance and final effects/audio/icons remain separate.',
 
     'assassin.fade':'Learned SC/FCR right/quick self-cast pays10mana once at release. Group2 captured state replaces Burst of Speed; four elemental channels and physical resistance enter existing raw pools before curses and caps. Incoming curse-mask duration subtracts the source truncated percentage, preserving one-frame boundaries; noncurse states and preexisting expiry remain unchanged. Native opacity uses an existing visual channel without invisibility. Source full factory/percentage and defensive-buff writers have separately bounded evidence. Player PvP, NPC suppliers, exact modern animation/stat/event acceptance and final art/audio/icons remain separate.',
@@ -148,6 +149,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'assassin.cloakofshadows',
     'assassin.psychichammer',
     'assassin.fade',
     'assassin.burstofspeed',

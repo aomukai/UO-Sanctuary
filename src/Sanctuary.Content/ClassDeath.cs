@@ -35,6 +35,7 @@ public static class ClassDeath
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         AssassinBuffs.Clear(player);
+        CloakShadows.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);

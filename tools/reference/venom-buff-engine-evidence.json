@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "talentId": "assassin.venom",
+  "proofEnablesHandler": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126",
+    "SKILLS_CurseStateCallback_DefensiveBuff": "f652788863509aad517a2ec9efeb407d03e3e4cd37ecc585c1156d8797d03704",
+    "SKILLS_SrvDo018_DefensiveBuff": "14356a01a90b9150a1333683ab2e7538f77168c54dc13e71de891ebee9fc1fbc"
+  },
+  "scaffold": {
+    "path": "tools/probe_assassin_buff_reference.py",
+    "sha256": "a42e7b88e19a9476436711bb1323700f06b6c206e374f08b01ced51716c8f6ae"
+  },
+  "fixture": {
+    "path": ".local/class-skills/venom-buff-source-probe.json",
+    "sha256": "ec9d439500184faedeba86acd386ce1824d0801c29d384b8c40d33d80278f0cc",
+    "cases": 144
+  },
+  "established": [
+    "Full do18/group/writer bodies leave Quickness/Fade unchanged for group0 venomclaws. Invalid skill/state or failed factory does not remove old Venom.",
+    "A successful new or reused factory statlist receives all three supplied poison-rate/override-length stats plus current modifier skill/rank. Returning an old list does not skip aura-stat reevaluation.",
+    "Factory rejection/reuse/allocation are explicit service modes. Their synthetic expiry values isolate dispatch/writer behavior and do not establish real same-rank refresh or lower-rank rejection."
+  ],
+  "services": [
+    "Formula outputs3000frames/1536minimum/2048maximum/10override frames and symbolic test stat IDs5/6/7 are opaque inputs, not rank, mastery, real stat-ID or compiler oracles.",
+    "Full shared curse factory and exact resource/payment wrapper are separate evidence. This probe does not infer whether a failed lower-rank recast spends mana.",
+    "Poison weapon/missile collection, mastery, scaling, RNG, mitigation, application, event/room/client acceptance and learned runtime integration remain separate."
+  ]
+}

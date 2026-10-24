@@ -140,7 +140,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+NecromancerEffects.DefenseStatPercent(player));
+            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }

@@ -7,16 +7,17 @@ namespace Sanctuary;
 
 public static class AssassinCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows;
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin
         && SkillMechanics.Rank(owner,ability) is >0 and <=255;
     private static bool Valid(PlayerMobile owner)=>owner.Map!=null && owner.Map!=Map.Internal;
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
-        =>ability==CombatAbility.PsychicHammer?PsychicHammers.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>Valid(p));
+        =>ability==CombatAbility.CloakOfShadows?CloakShadows.Begin(owner,selected,point,now):ability==CombatAbility.PsychicHammer?PsychicHammers.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>Valid(p));
     public static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected=default)
     {
+        if(ability==CombatAbility.CloakOfShadows){return CloakShadows.Release(owner);}
         if(ability==CombatAbility.PsychicHammer){return PsychicHammers.Release(owner,selected);}
         if(!owner.Alive || !Available(owner,ability) || !Valid(owner)){return false;}
         var values=SkillMechanics.Values(owner,ability);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}

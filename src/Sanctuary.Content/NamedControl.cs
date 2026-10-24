@@ -24,7 +24,7 @@ public static class NamedControl
     public static int FrozenRemaining(Mobile owner) => State(owner) is { } state
         ? (int)Math.Clamp((state.FreezeUntil - TimedEffects.Now).TotalMilliseconds, 0, 20000) : 0;
     public static bool Blind(Mobile owner) => State(owner)?.BlindUntil > TimedEffects.Now
-        || NecromancerEffects.Curse(owner)?.Ability == CombatAbility.DimVision;
+        || NecromancerEffects.Vision(NecromancerEffects.Curse(owner));
     public static bool Fear(Mobile owner) => State(owner)?.FearUntil > TimedEffects.Now;
     public static bool SpecialAllowed(Mobile owner) => FrozenRemaining(owner) == 0 && !FreezeStates.Waiting(owner) && !Blind(owner) && !Fear(owner)
         && NecromancerEffects.Curse(owner)?.Ability is not (CombatAbility.DimVision or CombatAbility.Terror)

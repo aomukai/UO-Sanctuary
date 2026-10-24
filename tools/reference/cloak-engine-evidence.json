@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": "source/D2Game/src/SKILLS/SkillAss.cpp",
+  "sourceSha256": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+  "compiledUnchangedRoutines": {
+    "SKILLS_SrvDo047_CloakOfShadows": "b94d2209b69a130c9ca96156ab373005e72462937000cb40251e7e5a1274fee3",
+    "SKILLS_AuraCallback_CloakOfShadows": "d53ff91bce4d40f46f6473312fd89b148d02bce193c663ce3c171078575a39f4"
+  },
+  "proofEnablesHandler": false,
+  "currentBuildConflict": "The compiled older do47 global owner-state lock is contradicted by user testing in3.3.93847: recast costs13mana, affects fresh groups, restarts owner defense, and does not overwrite active target cloaks. All-cloaked recasts turn but refuse without animation/payment. Preserve this probe as historical source evidence, not the modern recast oracle.",
+  "scaffold": {
+    "path": "tools/probe_assassin_buff_reference.py",
+    "sha256": "a42e7b88e19a9476436711bb1323700f06b6c206e374f08b01ced51716c8f6ae"
+  },
+  "fixture": {
+    "path": ".local/class-skills/cloak-source-probe.json",
+    "sha256": "69593499bd31c7cd79420ae1ee8f0e0ea9a4e9797560541a07945053380f45d5",
+    "cases": 192
+  },
+  "established": [
+    "Full do47 denies an existing owner state before changing stats, leaves Quickness/Fade untouched, captures owner passive stats/rank/duration and dispatches the configured filter/radius once.",
+    "Target callback applies curse stats with original supplied duration independently of optional AI activation. A dead target or failed target factory does not undo the already successful owner cast.",
+    "Invalid target state is checked after owner attachment. Current pinned rows are valid; malformed synthetic rows illustrate guard order without inventing production data."
+  ],
+  "services": [
+    "Formula outputs200frames/10defense/-15target/30radius are opaque service inputs. Native current rank formulas are verified separately.",
+    "Shared curse factory/statlist allocation, target search/filter and special-AI eligibility/dispatch are declared nested services. Separate full factory, aura-filter and AI-eligibility evidence must be retained; this probe does not certify them.",
+    "Exact current executable animation/light/AI/stat/event/room behavior remains acceptance work. No learned handler is enabled solely by this source proof."
+  ]
+}
