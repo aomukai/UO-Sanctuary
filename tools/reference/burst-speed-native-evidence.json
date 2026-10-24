@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.burstofspeed",
+  "sourceId": 258,
+  "handlerEnabled": true,
+  "installed": true,
+  "sourceEvidence": "tools/reference/assassin-buff-engine-evidence.json",
+  "verification": {
+    "handlers": 141,
+    "assassinHandlers": 2,
+    "sourceDispatchCases": 192,
+    "sourceRemovalCases": 4,
+    "rankGoldens": 6,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualInputBoots": 3,
+    "pythonTests": 70,
+    "namedInputHashes": 492,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientWarnings": 59,
+    "clientErrors": 0
+  },
+  "checks": "Burst of Speed is installed as handler141/Assassin2. Right/quick self-casts use shared SC/FCR and a once-only10mana release payment. Captured effective-rank velocity and skill IAS enter walk/run and attack/sequence pools; item IAS remains separate and casting is not accelerated. Source group2 permits lower-rank replacement. Real Twitchthroe/Magefist/Tarnhelm, friendly-hover/invalid-ground self input, town casts, cancellation/movement out-and-back/hit recovery/lost mana, respec/history/death, real duration and natural expiry pass. Focused/full each pass three boots/two reloads and real Burst input every boot; captured rank21, actual gear/bindings/mana/speed persist and an unpaid windup never replays. Inspection hold is explicitly separate from actual skill duration.192 unchanged source dispatch/group/writer and4 removal callback cases have declared services. All70 Python tests, fresh492/21 fingerprints,573 unchanged named decisions and zero-warning/error content/integration builds pass. Matching client rebuild succeeds with59 upstream warnings and no errors. Matching installed content loads the existing world and shuts down exit0 with unchanged save/config bytes; old content/data/saves/client are backed up and server stopped. Current NPC/item-skill dependencies remain deferred; next is Fade. No class completion certificate.",
+  "fixtureNotes": [
+    "Death and restricted history switching use separate fresh actors, respecting the helper\u2019s clean-state contract; no production class/death behavior was weakened.",
+    "Mana regeneration is frozen only for disposable integration actors by late fixture initialization; production mana regeneration is unchanged.",
+    "The original rank1/20 durations and real180ms shortened expiry are asserted before a separately labelled one-hour inspection hold for the long regression/save suite. Pending unpaid fixture windup is held separately; production duration/timing is not extended."
+  ],
+  "limits": [
+    "This enables learned player Burst of Speed. Fade/Venom, foreign oskills, item-proc and NPC suppliers remain separate work. Current Quickness/Fade group2 replacement and independent Venom membership are established in source; actual native cross-skill interaction completes when those handlers exist.",
+    "The source proof executes unchanged do18/group/aura/passive writers and removal callback with declared formula outputs/statlist allocation.192 dispatch/group and4 callback cases are bounded source evidence, not a fresh complete modern executable or formula-evaluator certificate.",
+    "SC/weapon timing and source movement geometry retain the existing native/project adapters. Full current animation/stat/mode/client acceptance remains open; the shared player skill-IAS and movement consumers are independently exercised.",
+    "Cast/quickness overlay/assassin_quickness audio use identified0x373A/0x1E5 placeholders. Final effects and talent/right-hotkey icons remain separate pending assets. No class certificate or item acquisition gate is cleared."
+  ],
+  "logs": {
+    "source": ".local/class-skills/burst-speed-source.log",
+    "source-check": ".local/class-skills/burst-speed-source-check.log",
+    "content-build": ".local/class-skills/burst-speed-content-build.log",
+    "integration-build": ".local/class-skills/burst-speed-integration-build.log",
+    "client-build": ".local/class-skills/burst-speed-client-build.log",
+    "focused": ".local/class-skills/burst-speed-focused.log",
+    "focused-run": ".local/class-skills/burst-speed-focused-run.log",
+    "combined": ".local/class-skills/burst-speed-combined.log",
+    "python-checks": ".local/class-skills/burst-speed-python-checks.log",
+    "named-readiness": ".local/class-skills/burst-speed-named-readiness.log",
+    "first-loop": ".local/class-skills/burst-speed-first-loop.log",
+    "installed-smoke": ".local/class-skills/burst-speed-installed-smoke.log",
+    "installed-server": ".local/class-skills/burst-speed-installed-server.log"
+  }
+}

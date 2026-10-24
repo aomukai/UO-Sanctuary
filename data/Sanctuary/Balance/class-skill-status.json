@@ -2132,10 +2132,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 258,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned right/quick self-cast uses SC/FCR and once-only10mana release payment through the shared caster. Source Quickness velocity and skill attackrate are captured separately from item IAS; attack/sequence and walk/run consumers share existing pools. State group2 replaces even higher old ranks; Fade\u2019s eventual handler shares this group, while Venom remains independent. Native input, real IAS/FCR/soft gear, cancellation, lifecycle, natural expiry and reload scope are recorded separately. Source do18/group/writer/removal proof has declared factory/formula services; modern native animation/stat/event acceptance remains open. Cast/overlay/audio and talent/right-hotkey icons use explicit placeholders."
     },
     {
       "talentId": "assassin.cloakofshadows",

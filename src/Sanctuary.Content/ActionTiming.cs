@@ -104,7 +104,7 @@ public static class CombatTiming
         if(ability is CombatAbility.PowerStrike or CombatAbility.ChargedStrike){return AmazonMelee.Timing(from);}
         ClassCreation.Profiles.TryGet(from.Serial, out var profile);
         return Calculate(profile?.Class ?? DiabloClass.Necromancer, ability, Weapon(weapon ?? Equipped(from)), Ias(from), Fcr(from),
-            WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, PaladinOffense.AttackRate(from));
+            WeaponAttack(ability) ? GearEffects.AttackSlow(from) : 0, PaladinOffense.AttackRate(from)+AssassinBuffs.AttackRate(from));
     }
     internal static int SequenceRateAdjustment(CombatAbility ability)=>ability switch
     {
@@ -124,7 +124,7 @@ public static class CombatTiming
         int advance=WeaponSequenceAdvance(owner,ability);
         return (point*256+advance-1)/advance;
     }
-    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner),SequenceRateAdjustment(ability));
+    internal static int WeaponSequenceAdvance(PlayerMobile owner,CombatAbility ability=CombatAbility.BasicAttack)=>FrameAdvance(Weapon(Equipped(owner)),Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),SequenceRateAdjustment(ability));
     public static ActionTiming Calculate(DiabloClass characterClass, CombatAbility ability, WeaponTiming weapon, int ias = 0, int fcr = 0, int chill = 0, int skillAttackRate = 0)
     {
         int row = Math.Clamp((int)characterClass - 101, 0, 7);

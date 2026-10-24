@@ -192,6 +192,20 @@ def check():
                     claw='claw-mastery-check' if boot==0 else 'claw-mastery-reload-check'
                     session.send(claw)
                     assert session.expect(claw+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    burst='burst-speed-check' if boot==0 else 'burst-speed-reload-check'
+                    session.send(burst)
+                    assert session.expect(burst+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    marker='burst-speed-result' if boot==0 else 'burst-speed-reload-result'
+                    assert session.expect(marker+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as fire_client:
+                        threading.Thread(target=drain_fixture_client,args=(fire_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('burst-speed-input-check')
+                        assert session.expect(r'burst-speed-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'burst-speed-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'burst-speed-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
                     session.send(fury)
                     assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

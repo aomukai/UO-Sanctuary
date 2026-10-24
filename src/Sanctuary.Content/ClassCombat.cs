@@ -88,8 +88,8 @@ public static class ClassCombat
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
-        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
+        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))
@@ -152,7 +152,7 @@ public static class ClassCombat
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
-        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability)
+        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability) || AssassinCombat.Available(from,ability)
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
@@ -246,6 +246,7 @@ public static class ClassCombat
 
     private static bool ContinueHold(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attack)
     {
+        if(ClassAbilities.SelfTarget(ability)){target=null;point=from.Location;}
         if (!attack && PaladinCombat.IsAura(ability)) { return ability==For(from).Right && PaladinCombat.Begin(from,ability); }
         var session = For(from);
         session.Target = Serial.Zero;
@@ -359,6 +360,7 @@ public static class ClassCombat
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (PaladinCombat.Handles(ability)) { return PaladinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (SorceressCombat.Handles(ability)) { return SorceressCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now); }
+        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (NecromancerCombat.Handles(ability))
         {
             return NecromancerCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now);
@@ -497,6 +499,7 @@ public static class ClassCombat
         }
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
+        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability); }
         if (SorceressCombat.Handles(ability))
         {
             var aimed = World.FindEntity(session.PendingTarget);

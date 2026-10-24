@@ -167,6 +167,7 @@ public sealed class CharacterProfiles : GenericPersistence
         AmazonDecoys.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
+        AssassinBuffs.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);
@@ -334,6 +335,7 @@ public sealed class CharacterProfiles : GenericPersistence
         player.Hits = life;
         player.Mana = CarryPool(mana, maxMana, player.ManaMax);
         player.Stam = CarryPool(stam, maxStam, player.StamMax);
+        AssassinBuffs.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
         BattleOrders.Clear(player);

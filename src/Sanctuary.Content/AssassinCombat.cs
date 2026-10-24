@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
+using Server;
 using Server.Items;
 using Server.Mobiles;
 
@@ -6,7 +7,20 @@ namespace Sanctuary;
 
 public static class AssassinCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed;
+    public static bool Handles(CombatAbility ability)=>ability==CombatAbility.BurstOfSpeed;
+    public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
+        && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin
+        && SkillMechanics.Rank(owner,ability) is >0 and <=255;
+    private static bool Valid(PlayerMobile owner)=>owner.Map!=null && owner.Map!=Map.Internal;
+    public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
+        =>SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>Valid(p));
+    public static bool Release(PlayerMobile owner,CombatAbility ability)
+    {
+        if(!owner.Alive || !Available(owner,ability) || !Valid(owner)){return false;}
+        var values=SkillMechanics.Values(owner,ability);if(!NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        AssassinBuffs.Cast(owner,values);return true;
+    }
 
     // Claw Mastery populates the same item-type-layer melee mastery stats as
     // Barbarian masteries. It never grants mastery to another weapon family.
