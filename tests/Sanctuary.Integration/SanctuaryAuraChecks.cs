@@ -142,12 +142,21 @@ public static class SanctuaryAuraChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         var target=(BaseCreature)World.FindMobile((Serial)saved.Target);owner.MoveToWorld(saved.Origin,Map.Trammel);
+        // Enemy() stops this fixture's ordinary AI on creation; deserialization
+        // starts native AI again. Keep that same isolation while inspecting motion.
+        target.Combatant=null;target.FocusMob=null;target.AIObject?.AITimer.Stop();
         Require(SourceKnockbacks.Snapshot().Single(x=>x.Target==saved.Target)==saved.Motion && target.Location==saved.Motion.Position,"Saved knockback position/phase/budget/deadline changed");
         Require(PaladinSanctuary.DamagePercent(owner,target)==150 && PaladinSanctuary.AttackFlat(owner,target)==100,"Saved supplier stats lost");
         SourceKnockbacks.Restore(SourceKnockbacks.Snapshot().Select(x=>x.Target==saved.Target?x with{NextUtc=TimedEffects.Now}:x).ToArray());
-        Later(200,"sanctuary-aura-reload-result",()=>
+        long deadline=Core.TickCount+3000;
+        void ObserveMotion()
         {
-            Require(target.Location.X==saved.Motion.Position.X+1 && SourceKnockbacks.Remaining(target)>0,"Saved accepted knockback failed to resume");
+            if(target.Location.X!=saved.Motion.Position.X+1)
+            {
+                Require(Core.TickCount<deadline,$"Saved accepted knockback failed to resume: actual={target.Location}, saved={saved.Motion.Position}, end={saved.Motion.End}, map={target.Map}, state={JsonSerializer.Serialize(SourceKnockbacks.Snapshot().Where(x=>x.Target==saved.Target))}");
+                Later(20,"sanctuary-aura-reload-result",ObserveMotion);return;
+            }
+            Require(target.Y==saved.Motion.End.Y,"Saved knockback changed its accepted endpoint");
             Later(1000,"sanctuary-aura-reload-result",()=>
             {
                 Require(SourceKnockbacks.Remaining(target)==0,"Resumed knockback/GH retained movement lock");
@@ -155,6 +164,7 @@ public static class SanctuaryAuraChecks
                 // Aura leases were not mutated here; preserve other fixtures added after the initial seed.
                 _log.Information("sanctuary-aura-reload-result: passed");
             });
-        });
+        }
+        Later(20,"sanctuary-aura-reload-result",ObserveMotion);
     }
 }

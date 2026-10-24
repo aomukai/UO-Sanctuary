@@ -2176,10 +2176,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 268,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Generated NPC equipment/stat consumers and NPC forms of selected Assassin skills/AI are pending; see shadow-summons-preflight.json. Continue unaffected skills."
     },
     {
       "talentId": "assassin.mindblast",
@@ -2187,10 +2187,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 273,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Source/native evidence verifies once-per-cast physical damage,15mana, per-target conversion, current success damage without stun/knockback, shared allegiance and higher-level stats, aura cleanup, actual input and two reloads within recorded bounds. Modern damage/scaling order, exact geometry/AI/event/owner/NPC acceptance and final assets remain open; see mind-blast-native-evidence.json."
     },
     {
       "talentId": "assassin.venom",
@@ -2209,10 +2209,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 279,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Complete generated NPC equipment/property and distinct skill/AI selection consumers are pending; see shadow-summons-preflight.json. Continue unaffected skills."
     },
     {
       "talentId": "assassin.fireblast",
@@ -2220,10 +2220,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 251,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned L/R/quick S2/IAS throws use separate saved airborne and landed states, once-only fractional release payment, retained rank/coordinate aim, live child-creation hard synergies/mastery, one copied-area roll and independent defenses. Native verification is recorded in fire-blast-native-evidence.json. Current rank3 tooltip corroborates3.25mana; rank1 legacy debit and extreme signed32 synergy overflow remain explicit gaps. Native grid/terrain/owner/event/client/PvP/NPC/item-only acceptance and final effects/icons remain separate."
     },
     {
       "talentId": "assassin.shockweb",

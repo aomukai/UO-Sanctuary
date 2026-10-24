@@ -9,5 +9,14 @@
   "limits": [
     "The answer does not distinguish movement during caster windup from movement during the airborne arc; exact aim-capture time remains a separate source/current-build check.",
     "It does not by itself establish the precise first-monster collision, wall/terrain/radius or numeric damage/timing boundaries."
-  ]
+  ],
+  "manaObservation": {
+    "recordedAtUtc": "2026-10-24T13:22:20.825965+00:00",
+    "effectiveRank": 3,
+    "hardRank": 1,
+    "itemRanks": 2,
+    "reportedTooltipMana": "3.2",
+    "report": "mine is at rank 3 (2 from items, only 1 hard point), and the price is listed as 3.2 mana, which seems to be what it uses - i see it fire at 3 of course, and i regen some mana",
+    "interpretation": "Corroborates pinned rank3 832FP256/3.25mana, displayed3.2, within ordinary whole-number display/regeneration observation. Does not measure fractional actual payment or resolve rank1 legacy consumption quirk."
+  }
 }

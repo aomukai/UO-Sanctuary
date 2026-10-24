@@ -145,6 +145,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'assassin.fireblast':'Staged UO throw animation9,0x36E4 travel/landing,0x36BD explosion and0x23B sound. Final FireTraumaMissile/FireTraumaGround/FireTraumaXplosion and throw/impact audio pending. Separate talent/left/right/quick icons pending.',
         'assassin.mindblast':'Staged UO0x373A center,0x374A victim and0x1E5 sound; final mindblast center/hit, fist_will_cast overlay and assassin_psychichammer audio pending. Shared stun/knockback/conversion presentation remains placeholder. Separate talent/right-hotkey icons pending.',
         'assassin.weaponblock':'Shared native block animation20 is a placeholder; final dual-claw block animation/audio and talent icon pending. No active hotkey.',
         'assassin.venom':'Staged UO0x373A green cast marker and0x1E5 sound. Final venomclaws weapon/cast overlay and assassin_venom audio pending. Separate talent/right-hotkey icons pending.',

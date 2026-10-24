@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "reviewedUnchangedRoutineHashes": {
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "D2GAME_CreateMissile_6FD115E0": "0bfc42e76f340ab44d81e9d1d21763d5cabb4e9af9bca3259a6821050dd9038a",
+    "PATH_ComputePathClassicMissile": "135321f4db886fd2e2467b16a92b6223e10a1b5ce740a34258dd927e83bfe23a",
+    "sub_6FDACEC0": "1ad83b1b113da8c3da3acbee61df332a72872ee52bcbf14b278a13ecbe75ab2a",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf",
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8"
+  },
+  "compiledByThisReview": false,
+  "reusedCompiledEvidence": [
+    "tools/reference/fire-blast-lob-engine-evidence.json",
+    "tools/reference/fire-blast-landing-engine-evidence.json",
+    "tools/reference/fire-blast-timing-engine-evidence.json",
+    "tools/reference/fire-blast-damage-engine-evidence.json",
+    "tools/reference/poison-path-engine-evidence.json",
+    "tools/reference/charge-motion-evidence.json"
+  ],
+  "findings": [
+    "No-start generic start validates ordinary learned mana/town and returns without debit. Generic do0 has no function, launches srvmissile through lob helper and treats the missile row as success; normal a5 then calls consume. Factory failure does not undo success in this old wrapper. Native payment precedes its infallible validated dictionary insertion; allocator-failure and mana-loss-during-windup old ignored-debit order are not modern certified.",
+    "Full old consume initializes cost0 and fills the baseline expression only when rank>1, then applies minmana. Thus old Fire Blast rank1 validates3mana but debits1mana. Rank3 validates/debits832FP256. Native follows pinned table/common modern SkillValues at rank1 (768FP256), with the old quirk explicitly uncertain. Current user effective3 tooltip3.2 and approximate whole-pool payment corroborate the ordinary table but do not settle rank1.",
+    "Classic missile path stores coordinate target and creates a straight missile path. Full step bypasses endpoint snapping for PATHTYPE_MISSILE. sub_6FCBC930 maps stopped10226 movement to ending result2, while the missile do1 moves before lifetime decrement/expiry. Reuse252 complete movement/update cases with declared stable vector/collision/room services; this review adds no complete modern path certificate.",
+    "Ground child factory rejects source distance max(absdx,absdy)+floor(min/2)>100. Retained rank and owner reach a fresh ground child at the current integer source position.",
+    "Copied-area call passes bAvoid1/bBlock0 to ApplyBlockOrDodge, bypassing ordinary shield block and using dodge/avoid/evade/weapon-block rules. Native learned PvM targets have no mapped NPC passive dodge/weapon-block suppliers. Existing player avoidance adapter is retained for shared scope, but PvP and future Shadow/NPC passive providers are not enabled by this handler."
+  ],
+  "limits": [
+    "Routine bodies are reviewed and pinned here, not newly compiled by this review. Existing separate full source probes declare their nested services. Current executable seed/event/stat/geometry, owner death while committed and exact client/terrain masks remain open.",
+    "Native two-subtile coordinates, height window, WALL/NoShoot tile projection, shared cast range and logout/map/history policy are explicit Sanctuary runtime adapters. A source-only review does not establish their exact D2R equivalence."
+  ]
+}

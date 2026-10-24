@@ -1,0 +1,74 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fireblast",
+  "sourceId": 251,
+  "handlerEnabled": true,
+  "installed": true,
+  "totalHandlersPresent": 148,
+  "assassinHandlers": 9,
+  "status": "Fire Blast is installed as handler148 (Assassin9). Learned L/R/quick S2/IAS throws pay fractional mana once at release, retain coordinate aim/rank and travel ballistically without creature impacts. A fresh landed child reads current hard synergies and fire mastery, holds five source frames and rolls one fire FP256 packet shared across independently filtered/defended recipients. Weapon/item elemental/poison/leech/critical are excluded; approved T29 additions retain original fire. Native WALL/NoShoot projection stops at barriers, while copied-area0x8583 has no caster-LOS requirement. Independent rank1/3/20/21/255 endpoints/mana, hard-only synergy,1152 source timing comparisons, actual legal IAS claws/Magefist/Tarnhelm, moving escape, separate landing delay, shared roll/radius/friendly/immunity, barriers, interruption/range/town, Stop/respec/foreign map/class, actual input and saved unpaid casts pass. Focused/full each pass three boots/two reloads, including resumed saved air and ground packets without repeated debit. All70 Python tests, 500/21 current fingerprints and573 unchanged named decisions pass; builds have zero warnings/errors. Existing-world load/listen/shutdown exits0 with original save/config/client bytes unchanged, backup retained and server stopped. Modern timing/geometry/seed/event/owner/PvP/NPC acceptance and final assets remain explicit gaps; no class certificate.",
+  "sourceEvidenceByStage": {
+    "lob": "tools/reference/fire-blast-lob-engine-evidence.json",
+    "landing": "tools/reference/fire-blast-landing-engine-evidence.json",
+    "timing": "tools/reference/fire-blast-timing-engine-evidence.json",
+    "damage": "tools/reference/fire-blast-damage-engine-evidence.json"
+  },
+  "reviewedActionPath": "tools/reference/fire-blast-action-review.json",
+  "currentObservations": "tools/reference/fire-blast-current-observations.json",
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "reloadsPerSuite": 2,
+    "actualGroundInputPerSuite": 3,
+    "nativeTimingComparisons": 1152,
+    "sourceCases": {
+      "lobFactory": 4032,
+      "landingCallbacks": 128,
+      "hitRoutes": 128,
+      "updates": 1000,
+      "modeSelectors": 24,
+      "rateAndEvent": 1152,
+      "damageCreators": 576
+    },
+    "pythonTests": 70,
+    "namedFingerprints": 500,
+    "firstLoopFingerprints": 21,
+    "unchangedNamedDecisions": 573
+  },
+  "fixtureCorrections": [
+    "The first fixture region had no suitable clear corridor; fixtures moved to the established test region without changing gameplay terrain.",
+    "Saved offline player casters load on Map.Internal. Reload fixtures now explicitly return them to their saved world before asking a held missile to resume; ordinary offline policy is unchanged.",
+    "An attempted arbitrary material IAS fixture was correctly rejected by equipment validation. It was replaced with actual legal generated magic IAS claws, primary promotion and real Magefist, without relaxing equipment rules.",
+    "The new wall regression exposed a real controller defect: adjacent LOS accepted a segment ending inside a wall. Native WALL/NoShoot static/multi/dynamic tile checks now stop the projectile before entering it. The same regression independently retains copied-area no-caster-LOS damage behind that wall.",
+    "A history-switch fixture attempted to change class during combat/recovery, which the existing transaction correctly rejects. An independent idle caster now checks foreign-class cleanup; no class-switch restriction was relaxed.",
+    "The first full run stopped on the older Sanctuary saved-knockback check at a fixed200ms observation. Its sparse original log does not conclusively identify the transient cause. The fixture now restores its original stopped-AI isolation after reload and polls the exact accepted endpoint within3seconds, then still requires finite recovery release. Exact saved phase/budget/deadline and first-boot natural timing assertions remain. Production knockback/movement clocks are unchanged; the full suite is rerun.",
+    "Temporary compile errors from API spelling/overload selection were corrected before matched builds and tests. No stale-assembly native run is accepted."
+  ],
+  "limits": [
+    "Reference remains D2R3.3.93847/Reign of the Warlock with Sanctuary precedence. Older source compiles7040 bounded lob/factory/landing/router/update/rate/damage cases with declared services; they are not full modern executable equivalence.1152 native timing helper comparisons and independent numeric/gameplay fixtures supplement them. Cached AnimData acquisition provenance remains incomplete; S2 throw animation9 is a placeholder.",
+    "Current user effective3/base1/items2 tooltip3.2 and approximate observed mana agree with pinned832FP256/3.25mana, but do not instrument fractional debit or settle rank1. Older consume validates3 but debits1 at rank1; native retains current pinned/common3mana. Mid-windup mana loss fizzles natively; older post-factory ignored-payment/allocation failure is explicitly unverified for modern D2R.",
+    "Older signed32 synergy multiplication overflows at extreme combinations, including rank255/max endpoint with100 total hard synergy points. These combinations explicitly refuse before debit at release (or refuse a newly unsupported landed child). Native does not silently wrap to negative damage. Modern arithmetic at that boundary is unresolved.",
+    "Native source subtiles project to half tiles, shared cast range, height16, Q12 velocity2304FP8 and chronological40ms frames. WALL/NoShoot static/multi/dynamic tile checks at native collision height supplement LOS so short segments cannot pass into and out of a wall. Exact current room/path/terrain masks, arc height, edges/diagonals/facing/client acceptance remain separate; flat flight/landing effects are identified placeholders.",
+    "Ground creation retains launch rank but reads current hard synergies/mastery, then snapshots endpoints and approved T29 elemental additions before one shared explosion draw. This does not certify original seed/event/stat-list ordering or every item skill/foreign supplier. Copy-area bAvoid1/bBlock0 bypasses ordinary shield block; native learned PvM species have no mapped NPC passive dodge/weapon-block supplier. PvP and future Shadow/NPC passive consumers remain separate.",
+    "Pending actions retain existing movement/recovery/equipment cancellation. Committed flights survive Stop/respec; foreign-map or class-history transitions remove them. Internalized/offline owners do not deliver damage; their short natural lifetime expires. Saved inspection states alone hold one hour, return their offline caster to the saved world and test resumption separately. Death during committed flight, full logout/reconnect/owner and wardrobe transitions still need acceptance.",
+    "Final FireTraumaMissile/FireTraumaGround/FireTraumaXplosion, throw/impact audio and independent talent/left/right/quick icons remain pending. UO animation9, travel/landing0x36E4, explosion0x36BD and sound0x23B are explicitly identified placeholders; no imagegen work occurred.",
+    "Shadow Warrior/Master remain individually deferred behind generated NPC equipment/property and NPC skill/AI consumers. Next unaffected Assassin skill is Shock Web, with separately pinned do43/scatter/field preflight. No deferred item-skill gate or whole-class completion certificate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/fire-blast-focused.log",
+    "combined": ".local/class-skills/fire-blast-combined.log",
+    "content-build": ".local/class-skills/fire-blast-content-build.log",
+    "integration-build": ".local/class-skills/fire-blast-integration-build.log",
+    "python-checks": ".local/class-skills/fire-blast-python-checks.log",
+    "named-readiness": ".local/class-skills/fire-blast-named-readiness.log",
+    "first-loop": ".local/class-skills/fire-blast-first-loop.log",
+    "properties": ".local/class-skills/fire-blast-properties.log",
+    "client-check": ".local/class-skills/fire-blast-client-check.log",
+    "installed-smoke": ".local/class-skills/fire-blast-installed-smoke.log",
+    "installed-server": ".local/class-skills/fire-blast-installed-server.log",
+    "lob-source": ".local/class-skills/fire-blast-lob-source.log",
+    "landing-source": ".local/class-skills/fire-blast-landing-source.log",
+    "timing-source": ".local/class-skills/fire-blast-timing-source.log",
+    "damage-source": ".local/class-skills/fire-blast-damage-source.log"
+  }
+}

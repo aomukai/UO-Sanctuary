@@ -2,8 +2,8 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fireblast",
   "sourceId": 251,
-  "handlerEnabled": false,
-  "status": "Fire Blast remains pending;147 handlers/Assassin8 stay installed. Source preparation now covers4032 lob/factory cases,128 landing callbacks,128 full hit routes,1000 full updates/copied-area cases,24 mode selectors,1152 full rate/dual-wield/event schedules and576 two-stage damage cases (7040 total bounded cases). All70 Python tests and unchanged installed/save/client hashes pass. No native Fire Blast handler, class certificate or final assets are claimed.",
+  "handlerEnabled": true,
+  "status": "Fire Blast is installed as handler148 (Assassin9). Learned L/R/quick S2/IAS throws pay fractional mana once at release, retain coordinate aim/rank and travel ballistically without creature impacts. A fresh landed child reads current hard synergies and fire mastery, holds five source frames and rolls one fire FP256 packet shared across independently filtered/defended recipients. Weapon/item elemental/poison/leech/critical are excluded; approved T29 additions retain original fire. Native WALL/NoShoot projection stops at barriers, while copied-area0x8583 has no caster-LOS requirement. Independent rank1/3/20/21/255 endpoints/mana, hard-only synergy,1152 source timing comparisons, actual legal IAS claws/Magefist/Tarnhelm, moving escape, separate landing delay, shared roll/radius/friendly/immunity, barriers, interruption/range/town, Stop/respec/foreign map/class, actual input and saved unpaid casts pass. Focused/full each pass three boots/two reloads, including resumed saved air and ground packets without repeated debit. All70 Python tests, 500/21 current fingerprints and573 unchanged named decisions pass; builds have zero warnings/errors. Existing-world load/listen/shutdown exits0 with original save/config/client bytes unchanged, backup retained and server stopped. Modern timing/geometry/seed/event/owner/PvP/NPC acceptance and final assets remain explicit gaps; no class certificate.",
   "sourceFields": {
     "skill": "Fire Trauma",
     "charclass": "ass",
@@ -201,5 +201,22 @@
     "Complete S2 mode/rate/dual-stat merge/scheduler bodies establish attack-rate controls: S2=14, base128,8frames,event4 in ten supplementary cached composites; primary weapon IAS plus global gear, average dual-weapon WSM, skill IAS and slow. SC/FCR and the sequence -30 penalty do not belong here. Ordinary repeat minus-one is a separately corroborated native adapter; cached animation acquisition provenance and modern frame/input acceptance remain open.",
     "Full two-stage creator/getters/setter establish parent385 has no damage packet, child386 reads retained rank plus current hard synergies/fire mastery at child creation, then stores endpoints. Owner weapon/item elemental/poison/leech/critical and origin damage do not enter this pure skill child; no second live mastery is applied at impact. Five hard synergies are11percent each; Death Sentry is absent.",
     "Full legacy synergy getter uses signed32 multiplication; rank255/max endpoint with total100 hard synergy points overflows. Six supplied mastery/item variants expose this boundary under explicitly declared -fwrapv. Modern behavior is unverified; do not silently propagate a negative endpoint or claim modern equivalence there."
-  ]
+  ],
+  "installed": true,
+  "nativeFiles": [
+    "src/Sanctuary.Content/FireBlasts.cs",
+    "tests/Sanctuary.Integration/FireBlastChecks.cs"
+  ],
+  "nativeRemaining": [
+    "Reference remains D2R3.3.93847/Reign of the Warlock with Sanctuary precedence. Older source compiles7040 bounded lob/factory/landing/router/update/rate/damage cases with declared services; they are not full modern executable equivalence.1152 native timing helper comparisons and independent numeric/gameplay fixtures supplement them. Cached AnimData acquisition provenance remains incomplete; S2 throw animation9 is a placeholder.",
+    "Current user effective3/base1/items2 tooltip3.2 and approximate observed mana agree with pinned832FP256/3.25mana, but do not instrument fractional debit or settle rank1. Older consume validates3 but debits1 at rank1; native retains current pinned/common3mana. Mid-windup mana loss fizzles natively; older post-factory ignored-payment/allocation failure is explicitly unverified for modern D2R.",
+    "Older signed32 synergy multiplication overflows at extreme combinations, including rank255/max endpoint with100 total hard synergy points. These combinations explicitly refuse before debit at release (or refuse a newly unsupported landed child). Native does not silently wrap to negative damage. Modern arithmetic at that boundary is unresolved.",
+    "Native source subtiles project to half tiles, shared cast range, height16, Q12 velocity2304FP8 and chronological40ms frames. WALL/NoShoot static/multi/dynamic tile checks at native collision height supplement LOS so short segments cannot pass into and out of a wall. Exact current room/path/terrain masks, arc height, edges/diagonals/facing/client acceptance remain separate; flat flight/landing effects are identified placeholders.",
+    "Ground creation retains launch rank but reads current hard synergies/mastery, then snapshots endpoints and approved T29 elemental additions before one shared explosion draw. This does not certify original seed/event/stat-list ordering or every item skill/foreign supplier. Copy-area bAvoid1/bBlock0 bypasses ordinary shield block; native learned PvM species have no mapped NPC passive dodge/weapon-block supplier. PvP and future Shadow/NPC passive consumers remain separate.",
+    "Pending actions retain existing movement/recovery/equipment cancellation. Committed flights survive Stop/respec; foreign-map or class-history transitions remove them. Internalized/offline owners do not deliver damage; their short natural lifetime expires. Saved inspection states alone hold one hour, return their offline caster to the saved world and test resumption separately. Death during committed flight, full logout/reconnect/owner and wardrobe transitions still need acceptance.",
+    "Final FireTraumaMissile/FireTraumaGround/FireTraumaXplosion, throw/impact audio and independent talent/left/right/quick icons remain pending. UO animation9, travel/landing0x36E4, explosion0x36BD and sound0x23B are explicitly identified placeholders; no imagegen work occurred.",
+    "Shadow Warrior/Master remain individually deferred behind generated NPC equipment/property and NPC skill/AI consumers. Next unaffected Assassin skill is Shock Web, with separately pinned do43/scatter/field preflight. No deferred item-skill gate or whole-class completion certificate is cleared."
+  ],
+  "nativeEvidence": "tools/reference/fire-blast-native-evidence.json",
+  "next": "Shock Web; Shadow Warrior/Master individually deferred. See shock-web-preflight.json and shadow-summons-preflight.json."
 }

@@ -1,0 +1,18 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.shockweb",
+  "retrievedAtUtc": "2026-10-24T13:57:38.518201+00:00",
+  "source": {
+    "publisher": "Blizzard Entertainment",
+    "url": "https://news.blizzard.com/en-us/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+    "section": "Patch2.7 / Quality-of-Life Updates and Bug Fixes / Gameplay"
+  },
+  "supported": [
+    "Official2.7 notes narrow Next Hit Delay to missiles from casting the same skill and treat each Assassin Martial Arts charge trigger as a separate cast. The old global JUSTHIT state is insufficient for a current implementation.",
+    "Trap skills receive elemental skill-damage modifiers. The notes also identify an offline trap resistance-reduction fix, plus a then-pending Switch-specific Lightning Sentry modifier issue."
+  ],
+  "inferenceAndLimits": [
+    "An origin/cast group per Shock Web throw is the intended native design candidate for its bomblets; exact overlap between repeated same-skill casts, independent suppliers and current three-platform details require acceptance. Do not claim the old global state alone proves current NHD.",
+    "This is primary historical released behavior, not a current3.3.93847 executable capture or proof that every later patch has no further change. Pinned current missile row389 still supplies NextHit1/NextDelay25; full collision/soft-hit/event integration remains pending."
+  ]
+}

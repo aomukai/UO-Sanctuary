@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.shockweb",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "pinnedSkillHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "compiledUnchangedRoutineHashes": {
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "PATH_ComputeSquaredDistance": "51e0c345c2b96906a4eedefe0ac6de352294697e09f05043ceca99a94feae90a",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "sub_6FCF8330": "912a002739cc106a5a5babb2fbe88ee82d79243e3c351de472fc739c4cde3d72",
+    "SKILLS_SrvDo043_ShockField": "adb554624ddd197009317fac32a8ae6638a471846e3dfdf00522c53a87cabebf"
+  },
+  "portability": "Only the MSVC integer literal suffix0x6AC690C5i64 is normalized toLL for g++; routine source hashes retain original text.",
+  "fixture": {
+    "path": ".local/class-skills/shock-web-source-probe.json",
+    "sha256": "d337f875650852dd592654dc73161b9084c355110bf94a2f6d97aeab535157f1",
+    "cases": 6720
+  },
+  "established": [
+    "Complete do43 and both progressive getters select srvmissileA/prgcalc1 because Shock Field has no progressive flag. Seven ranks and five hard Fire Blast counts feed declared count/radius formula services; no native handler is enabled.",
+    "Complete scatter invokes full SEED_InitLowSeed: despite its name it resets low=targetX AND high=666. Initial supplied high0/666/UINT_MAX has no effect. Complete seed recurrence and limited draw execute; independent Python integer recurrence compares every emitted coordinate, final seed and exact two-draw-per-attempt count.",
+    "Each of6+rank/4+hardFireBlast/3 attempts chooses square offsets[-range,range-1], skipping squared caster distance<4 without retry. Failure of the declared missile factory does not alter callback success or retries. Target lookup/invalid row/missile guards preserve seed and emit nothing.",
+    "Flags0x420/owner/origin/rank/skill256/missile388 are checked on every supplied factory call. Later full factory/path/landed-field behavior, original nested world seed/stat services and modern equivalence remain separate."
+  ],
+  "services": [
+    "Formula callback supplies the independent pinned count and radius expressions; table/state lookups isolate actual nonprogressive fields. Unsupported progressive charge-state branches deliberately assert if entered.",
+    "Target coordinates, declared nonmutating missile allocator and minimal unit metadata are services. Complete selected routines/seed/distance bodies execute; this does not compile whole world allocation, original caster RNG consumers or current client/NextHit/field behavior."
+  ]
+}

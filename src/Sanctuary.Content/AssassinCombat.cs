@@ -7,16 +7,17 @@ namespace Sanctuary;
 
 public static class AssassinCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.WeaponBlock or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom or CombatAbility.MindBlast;
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom or CombatAbility.MindBlast;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.FireBlast or CombatAbility.ClawMastery or CombatAbility.WeaponBlock or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom or CombatAbility.MindBlast;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.FireBlast or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.Venom or CombatAbility.MindBlast;
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin
         && SkillMechanics.Rank(owner,ability) is >0 and <=255;
     private static bool Valid(PlayerMobile owner)=>owner.Map!=null && owner.Map!=Map.Internal;
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
-        =>ability==CombatAbility.MindBlast?MindBlasts.Begin(owner,selected,point,now):ability==CombatAbility.Venom?Venoms.Begin(owner,selected,point,now):ability==CombatAbility.CloakOfShadows?CloakShadows.Begin(owner,selected,point,now):ability==CombatAbility.PsychicHammer?PsychicHammers.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>Valid(p));
+        =>ability==CombatAbility.FireBlast?FireBlasts.Begin(owner,selected,point,now):ability==CombatAbility.MindBlast?MindBlasts.Begin(owner,selected,point,now):ability==CombatAbility.Venom?Venoms.Begin(owner,selected,point,now):ability==CombatAbility.CloakOfShadows?CloakShadows.Begin(owner,selected,point,now):ability==CombatAbility.PsychicHammer?PsychicHammers.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>Valid(p));
     public static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected=default)
     {
+        if(ability==CombatAbility.FireBlast){return FireBlasts.Release(owner,selected);}
         if(ability==CombatAbility.MindBlast){return MindBlasts.Release(owner,selected);}
         if(ability==CombatAbility.Venom){return Venoms.Release(owner);}
         if(ability==CombatAbility.CloakOfShadows){return CloakShadows.Release(owner);}
