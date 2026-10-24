@@ -505,7 +505,10 @@ public static class ClassGear
     public static void Configure()
     {
         Profiles = new GearProfiles();
-        ClassGearHooks.IgnoreAppearanceRestrictions = item => State(item)?.NamedItemId != null;
+        // Mapped throwing bodies are appearances, including ordinary gear.
+        // Their pinned class, level and attribute gates still run in CanEquip.
+        ClassGearHooks.IgnoreAppearanceRestrictions = item => State(item)?.NamedItemId != null
+            || Converted(item) && Definition(item)?.Category == "Throwing" && Base(item) is { } basis && ClassItemTypes.Is(basis.Type, "thro");
         ItemStateHooks.Copied = (source, copy) =>
         {
             RuneMould.Copy(source, copy);

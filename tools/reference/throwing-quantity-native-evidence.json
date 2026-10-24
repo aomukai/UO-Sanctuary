@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "scope": "Shared ordinary/named throwing capacity lookup and mapped ordinary throwing equip",
+  "status": "Ordinary and named throwing weapons now share a complete pinned stack-capacity projection. Normal Throwing Axe tax no longer depends on a named-item-only catalogue, resolving the original alchemy drop-sweep failure. Mapped ordinary throwing appearances use the existing appearance-restriction hook while source class, level and attribute gates remain active. Saved counts and the quantity format are unchanged. Native checks cover all36 source base metadata rows, normal tax/bal/glv capacities, Magic/Rare ordinary tax, actual Gimmershred270+60=330, a real last-charge basic throw, empty/repeated-release rejection, copy/store/tracking without refill and two world reloads. The full original alchemy fixture passes on all three focused boots. Focused/full suites each pass three boots/two reloads; full retains all10 real bow inputs, poison state and prior class regressions. All70 Python tests, fresh477/15 fingerprints and zero-warning/error builds pass. Existing-world boot/listen/clean shutdown passes with unchanged save bytes and a prior build/data/save backup.135 handlers/Amazon23 remain installed; no item gate or class certificate changes. Initial stack generation, modern extra-stack cap/ordinary-affix/upgrade/full inventory and actual-client behavior remain explicit follow-ups.",
+  "sourceEvidence": [
+    "tools/reference/throwing-quantity-source.json",
+    "tools/reference/throwing-quantity-engine-evidence.json"
+  ],
+  "verification": {
+    "sourceStackRows": 36,
+    "throwingWeaponRows": 30,
+    "potionMetadataRows": 6,
+    "compiledGetterCases": 216,
+    "nativeBaseComparisons": 36,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "focusedOriginalAlchemyBoots": 3,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "combinedBowInputBootsEach": 3,
+    "pythonTests": 70,
+    "namedInputs": 477,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "logs": {
+    "throwing-quantity-focused.log": ".local/class-skills/throwing-quantity-focused.log",
+    "throwing-quantity-focused-run.log": ".local/class-skills/throwing-quantity-focused-run.log",
+    "throwing-quantity-combined.log": ".local/class-skills/throwing-quantity-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "throwing-quantity-content-build.log": ".local/class-skills/throwing-quantity-content-build.log",
+    "throwing-quantity-integration-build.log": ".local/class-skills/throwing-quantity-integration-build.log",
+    "throwing-quantity-python-checks.log": ".local/class-skills/throwing-quantity-python-checks.log",
+    "throwing-quantity-readiness.log": ".local/class-skills/throwing-quantity-readiness.log",
+    "throwing-quantity-first-loop.log": ".local/class-skills/throwing-quantity-first-loop.log",
+    "throwing-quantity-projection-check.log": ".local/class-skills/throwing-quantity-projection-check.log",
+    "throwing-quantity-source.log": ".local/class-skills/throwing-quantity-source.log",
+    "throwing-quantity-source-check.log": ".local/class-skills/throwing-quantity-source-check.log",
+    "throwing-quantity-source-probe.json": ".local/class-skills/throwing-quantity-source-probe.json",
+    "throwing-quantity-installed-server.log": ".local/class-skills/throwing-quantity-installed-server.log",
+    "throwing-quantity-installed-smoke.log": ".local/class-skills/throwing-quantity-installed-smoke.log",
+    "throwing-quantity-focused-equip-failed.log": ".local/class-skills/throwing-quantity-focused-equip-failed.log",
+    "throwing-quantity-focused-equip-run.log": ".local/class-skills/throwing-quantity-focused-equip-run.log"
+  },
+  "buildHashes": {
+    "content": "a3539852f2d90ead2831aea332a4ea604f673996d5a3d74274cdd34d45f5f57f",
+    "integration": "6d6145113efa2ebb2bc1f4be39cb10680f1e7634bfa0150d62166e32b6f66c29"
+  },
+  "limits": [
+    "Projection coverage is36 current weapon-table stack rows:30 throwing weapons and6 throwing potions. Existing native appearance/type gates remain; data presence does not implement throwing potions or unsupported appearances.",
+    "Track retains its existing initial full-count adapter and never rewrites existing counts. Source weapon/misc/quiver and quality/drop-override initialization have distinct callers; spawnstack is preserved as metadata, not silently used as a weapon initialization bound. Full factory initialization remains open.",
+    "Complete older getters supply216 cases and the511 total-max cap. Native source/native metadata comparison covers36 base rows; actual current Gimmershred330 tests extra-stack preservation. Exact modern upper cap and ordinary-affix/upgrade/replenish/full inventory/client behavior remain separate.",
+    "The appearance override is scoped to converted source throwing families and existing named items. Source equip checks precede it; a real unqualified human is rejected. This does not change unrelated armor/clothing appearance restrictions."
+  ],
+  "fixtureCorrection": "The initial real ordinary throw correctly failed because the human was still subject to its Gargoyle appearance race restriction. The production hook now treats mapped ordinary throwing bodies as appearances while retaining pinned equip requirements; no privileged fixture bypass was used. The failed diagnostic is retained.",
+  "installationRollback": {
+    "path": ".local/class-skills/pre-throwing-quantity-install",
+    "previousContentSha256": "bca1033e7e8b2080ba2a20dfaea6cb8f593ea8672e0384dab87e22656030e521",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  },
+  "next": "Continue Poison Javelin path/do-handler/contact, separate integer rate/length mitigation and TH start mana/release quantity/localdelay. The normal tax lookup/equip blocker is resolved."
+}

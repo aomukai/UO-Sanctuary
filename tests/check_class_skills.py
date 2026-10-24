@@ -77,6 +77,7 @@ def check():
         shutil.copy2(STAGE / 'immolation-routing-source-probe.json', folder / 'immolation-routing-source-probe.json')
         shutil.copy2(STAGE / 'immolation-damage-source-probe.json', folder / 'immolation-damage-source-probe.json')
         shutil.copy2(STAGE / 'immolation-field-source-probe.json', folder / 'immolation-field-source-probe.json')
+        shutil.copy2(STAGE / 'throwing-quantity-source-probe.json', folder / 'throwing-quantity-source-probe.json')
         shutil.copy2(STAGE / 'poison-state-source-probe.json', folder / 'poison-state-source-probe.json')
         shutil.copy2(STAGE / 'poison-javelin-damage-source-probe.json', folder / 'poison-javelin-damage-source-probe.json')
         shutil.copy2(STAGE / 'strafe-source-probe.json', folder / 'strafe-source-probe.json')
@@ -118,6 +119,9 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
+                    quantity='throwing-quantity-check' if boot==0 else 'throwing-quantity-reload-check'
+                    session.send(quantity)
+                    assert session.expect(quantity+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     poison_duration='poison-duration-check' if boot==0 else 'poison-duration-reload-check'
                     session.send(poison_duration)
                     assert session.expect(poison_duration+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

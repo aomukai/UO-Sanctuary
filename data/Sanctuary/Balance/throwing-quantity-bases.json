@@ -1,0 +1,254 @@
+[
+  {
+    "code": "7b8",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 270,
+    "spawn": 36
+  },
+  {
+    "code": "7bk",
+    "itemType": "tkni",
+    "minimum": 45,
+    "maximum": 300,
+    "spawn": 90
+  },
+  {
+    "code": "7gl",
+    "itemType": "jave",
+    "minimum": 12,
+    "maximum": 120,
+    "spawn": 30
+  },
+  {
+    "code": "7ja",
+    "itemType": "jave",
+    "minimum": 45,
+    "maximum": 150,
+    "spawn": 90
+  },
+  {
+    "code": "7pi",
+    "itemType": "jave",
+    "minimum": 40,
+    "maximum": 140,
+    "spawn": 75
+  },
+  {
+    "code": "7s7",
+    "itemType": "jave",
+    "minimum": 30,
+    "maximum": 120,
+    "spawn": 60
+  },
+  {
+    "code": "7ta",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 270,
+    "spawn": 48
+  },
+  {
+    "code": "7tk",
+    "itemType": "tkni",
+    "minimum": 60,
+    "maximum": 300,
+    "spawn": 120
+  },
+  {
+    "code": "7ts",
+    "itemType": "jave",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  },
+  {
+    "code": "9b8",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 200,
+    "spawn": 36
+  },
+  {
+    "code": "9bk",
+    "itemType": "tkni",
+    "minimum": 45,
+    "maximum": 240,
+    "spawn": 90
+  },
+  {
+    "code": "9gl",
+    "itemType": "jave",
+    "minimum": 12,
+    "maximum": 30,
+    "spawn": 30
+  },
+  {
+    "code": "9ja",
+    "itemType": "jave",
+    "minimum": 45,
+    "maximum": 90,
+    "spawn": 90
+  },
+  {
+    "code": "9pi",
+    "itemType": "jave",
+    "minimum": 40,
+    "maximum": 75,
+    "spawn": 75
+  },
+  {
+    "code": "9s9",
+    "itemType": "jave",
+    "minimum": 30,
+    "maximum": 60,
+    "spawn": 60
+  },
+  {
+    "code": "9ta",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 200,
+    "spawn": 48
+  },
+  {
+    "code": "9tk",
+    "itemType": "tkni",
+    "minimum": 60,
+    "maximum": 240,
+    "spawn": 120
+  },
+  {
+    "code": "9ts",
+    "itemType": "jave",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  },
+  {
+    "code": "am5",
+    "itemType": "ajav",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  },
+  {
+    "code": "ama",
+    "itemType": "ajav",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  },
+  {
+    "code": "amf",
+    "itemType": "ajav",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  },
+  {
+    "code": "bal",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 200,
+    "spawn": 36
+  },
+  {
+    "code": "bkf",
+    "itemType": "tkni",
+    "minimum": 45,
+    "maximum": 240,
+    "spawn": 90
+  },
+  {
+    "code": "glv",
+    "itemType": "jave",
+    "minimum": 24,
+    "maximum": 60,
+    "spawn": 60
+  },
+  {
+    "code": "gpl",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "gpm",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "gps",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "jav",
+    "itemType": "jave",
+    "minimum": 45,
+    "maximum": 90,
+    "spawn": 90
+  },
+  {
+    "code": "opl",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "opm",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "ops",
+    "itemType": "tpot",
+    "minimum": 3,
+    "maximum": 25,
+    "spawn": 6
+  },
+  {
+    "code": "pil",
+    "itemType": "jave",
+    "minimum": 40,
+    "maximum": 75,
+    "spawn": 75
+  },
+  {
+    "code": "ssp",
+    "itemType": "jave",
+    "minimum": 30,
+    "maximum": 60,
+    "spawn": 60
+  },
+  {
+    "code": "tax",
+    "itemType": "taxe",
+    "minimum": 24,
+    "maximum": 200,
+    "spawn": 48
+  },
+  {
+    "code": "tkf",
+    "itemType": "tkni",
+    "minimum": 60,
+    "maximum": 240,
+    "spawn": 120
+  },
+  {
+    "code": "tsp",
+    "itemType": "jave",
+    "minimum": 48,
+    "maximum": 120,
+    "spawn": 120
+  }
+]

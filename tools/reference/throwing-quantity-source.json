@@ -1,0 +1,14 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "sourcePath": "tools/reference/d2r-named-equipment/json/weapons.json",
+  "sourceSha256": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+  "rows": 36,
+  "throwingWeapons": 30,
+  "throwingPotions": 6,
+  "policy": "Complete source stack metadata, separate from named-item eligibility and native appearance support. Runtime throwing-family gate remains in place. Existing saved counts and initialization policy are not rewritten by this projection.",
+  "limits": [
+    "Source spawnstack is retained losslessly; it is not assumed to be the initialization bound for stackable weapons. Source weapon/misc/quiver and quality/drop-override initialization differ and need their complete callers.",
+    "The supplemental older total-max helper caps base plus extra stack at511. This data projection does not by itself certify the modern upper-cap/extra-stack or initial-quantity pipeline."
+  ]
+}

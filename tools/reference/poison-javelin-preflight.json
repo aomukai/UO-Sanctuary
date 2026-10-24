@@ -205,14 +205,17 @@
       "spawnstack": 48
     },
     "failureLog": ".local/class-skills/poison-state-focused-alchemy-drop-failed.log",
-    "next": "Add a complete pinned ordinary throwing-quantity source projection; do not return an invented cap or suppress the failing loot branch.",
+    "next": "Source factory initialization, modern extra-stack/ordinary-affix/upgrade/full inventory/client acceptance remain distinct; continue Poison Javelin mechanics.",
     "sourceStackRecords": 36,
     "weaponRecords": 30,
     "throwingPotionRecords": 6,
     "sourceSha256": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
-    "projectionNote": "The existing class-weapon-properties projection classifies affix hands, not weapon bases. Prefer a complete pinned quantity projection, shared by ordinary and named throwing weapons, while retaining explicit supported-family gates and source initial-quantity/stack-modifier questions."
+    "projectionNote": "The existing class-weapon-properties projection classifies affix hands, not weapon bases. Prefer a complete pinned quantity projection, shared by ordinary and named throwing weapons, while retaining explicit supported-family gates and source initial-quantity/stack-modifier questions.",
+    "status": "Resolved lookup and mapped ordinary equip; original full alchemy fixture passes through two reloads.",
+    "resolutionEvidence": "tools/reference/throwing-quantity-native-evidence.json"
   },
   "mitigationEvidence": "tools/reference/poison-mitigation-engine-evidence.json",
   "mitigationReviewFollowup": "72000 complete PvM total-damage/resistance/percentage cases separately resolve integer poison rate and frame length. Player expansion difficulty applies to both lanes; length cap75 is separate from rate maximum75..95. NPC immunity/pierce, zero-length poison shrine and MDR exclusion are controls. Source large-value early division is conditional on nonzero resistance. Native prepared rate/length callers, global versus monster-local difficulty and modern executable equivalence remain separate; no handler is enabled.",
-  "sharedConsumerImplemented": "The shared native consumer now uses direct FP256 health, preserves the original source on equal/stronger refresh, leaves players at one life and kills NPCs at zero. Optional integer source rate/frame phase and old pending HP fractions are saved; dedicated native evidence records the bounded coverage."
+  "sharedConsumerImplemented": "The shared native consumer now uses direct FP256 health, preserves the original source on equal/stronger refresh, leaves players at one life and kills NPCs at zero. Optional integer source rate/frame phase and old pending HP fractions are saved; dedicated native evidence records the bounded coverage.",
+  "throwingQuantityEvidence": "tools/reference/throwing-quantity-native-evidence.json"
 }

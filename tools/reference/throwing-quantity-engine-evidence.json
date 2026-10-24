@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Items/Items.cpp": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57"
+  },
+  "compiledRoutines": [
+    "ITEMS_GetMaxStack",
+    "ITEMS_GetTotalMaxStack",
+    "ITEMS_GetSpawnStackFromItemId",
+    "ITEMS_GetSpawnStack",
+    "ITEMS_GetMinStackFromItemId",
+    "ITEMS_GetMinStack"
+  ],
+  "blockHashes": {
+    "ITEMS_GetMaxStack": "54e1beaf6f77aeaec2ad771489614a846d91a115f893f518a990bd9e1a42e250",
+    "ITEMS_GetTotalMaxStack": "5cceb9b54ba4d6e4703f8b531693b869fd70c21a2a773ed3d906bee24114dd26",
+    "ITEMS_GetSpawnStackFromItemId": "ce72b7f90e5ffa3870490e467ae68a33c93f69c92b96dd58df0fd6a90a2f1272",
+    "ITEMS_GetSpawnStack": "87383b1b2d0116579ca4fc433d6fcead51462d36b9da2ef75ec94c5fb1089a15",
+    "ITEMS_GetMinStackFromItemId": "cfa0ce126335c7135af543a0c6a9fddefb8a6617264a2bf4d94fdfd7803dbd15",
+    "ITEMS_GetMinStack": "a1526450beb6af79438f4efb658ee9872e5daabae4543a99513ef984069eb8cb"
+  },
+  "pinnedWeaponHash": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+  "probe": {
+    "rows": 36,
+    "cases": 216,
+    "path": ".local/class-skills/throwing-quantity-source-probe.json",
+    "sha256": "4828768d7fcf6d11a522ef1da25fc0b1d7108ee1505322efaa98fa2d72f68623"
+  },
+  "established": [
+    "Full getters return the current base minimum, maximum and spawn metadata independent of named-item definitions. Tax is min24/max200/spawn48; all30 throwing weapon and6 potion rows are covered.",
+    "The complete older total-max helper adds extra-stack to base maximum then caps at511. Large bonus controls distinguish that cap from uncapped addition."
+  ],
+  "limits": [
+    "Item lookup, item type and extra-stack stat access are declared services. This proves complete older getters with current pinned rows, not modern executable equivalence or item creation/roll/stat preparation.",
+    "Current native lookup migration preserves its existing base-plus-named-stack behavior and saved counts. Complete modern upper-cap/ordinary-affix/initial-quantity handling remains separate; no data-only support is taken as native throwing-potion implementation."
+  ]
+}

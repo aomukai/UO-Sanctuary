@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "bca1033e7e8b2080ba2a20dfaea6cb8f593ea8672e0384dab87e22656030e521",
+  "ContentAssemblySha256": "a3539852f2d90ead2831aea332a4ea604f673996d5a3d74274cdd34d45f5f57f",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -82,6 +82,7 @@
     "data/Sanctuary/Balance/sources.json": "3b90ebcb0a5b7e0d4b38b3dd7460d49ac93f9b87c4a0b6e3a839928ab2613874",
     "data/Sanctuary/Balance/survey-dungeons.json": "37d849d9935aff81f2e8dd865325d0f58d08579e275dc444fb358573d56f25fc",
     "data/Sanctuary/Balance/tavern-gamblers.json": "b738e3662d15a9780cd32f6e4b3cf46e45c3735010f79f868b04ade2e5d8eca0",
+    "data/Sanctuary/Balance/throwing-quantity-bases.json": "b05eb24bb77339233e30a30cbacf386dd942815005fb701a6b33a02d2232a8b8",
     "data/Sanctuary/Balance/tinkering-sockets.json": "baefb8e156867c045bc66f1cf90749694fc2e282c1d205df3687dc2867f6398f",
     "data/Sanctuary/Balance/town-markets.json": "53779bd94f32f3d50d54c19f701a08ee90408f055cd17c09c3a425f042ed42ac",
     "data/Sanctuary/Balance/treasure-hunts.json": "aafcfdc4124e0f49e4062515469d4fada1d8fac4662697ed753220778e9795e1",
@@ -250,7 +251,7 @@
     "src/Sanctuary.Content/ClassCreation.cs": "429cc23645b184830ee8bfe1aeba57f12db5895c82f29a542e805ccf68b127ee",
     "src/Sanctuary.Content/ClassDeath.cs": "b7a222add95937d9e765d922087610e21e8af78bc8430c5c0a0bea3d44be4246",
     "src/Sanctuary.Content/ClassEquipment.cs": "d872733e9fb4e9c1d1b7428ad4ef3a351e1e8414d00e7448ccf3ef3ef6e4a016",
-    "src/Sanctuary.Content/ClassGear.cs": "b2059334feb03f30cab2d8ed5d73211232199360d73534224e1a0836dd702b95",
+    "src/Sanctuary.Content/ClassGear.cs": "f394bebc31d1c964c1684111ea9c4bd9fa935d0cfbb8391a27d01367c92b41fa",
     "src/Sanctuary.Content/ClassItemTypes.cs": "de5f163ec178a3e90d79bcd6b33320b410473a17e4d63c2e4b344e6b8beaf025",
     "src/Sanctuary.Content/ClassLoot.cs": "48815a22ac5734f32eaadbc4401a0f35016727e33de102ef8d5aa84e8c4395af",
     "src/Sanctuary.Content/ClassMovement.cs": "63b4993a9ceae1af7a7e8282c41da0e6e53facd0cc066a753c30c10c7d743b2e",
@@ -366,7 +367,7 @@
     "src/Sanctuary.Content/MonsterExperience.cs": "62b256c45b18bbd98dd0605a3567e67baf84116226a142fa80940197ef15a292",
     "src/Sanctuary.Content/MonsterVariants.cs": "6f3487a1d75fafdd7f6174d2272fbc4e53075c875a0c771019daac00f1a9a2d4",
     "src/Sanctuary.Content/MouldRewards.cs": "8c574a78799948fac1fcce2e27a4336d7fb84624c344ec4620ff14c5b4558f38",
-    "src/Sanctuary.Content/NamedAmmunition.cs": "890ac77fff40602d1e8a058fbce17e06db01d3f9db15e71c092d106517309294",
+    "src/Sanctuary.Content/NamedAmmunition.cs": "7f9a2ef50c9d74a9fc4de13137ddd1f3ed29fd0783a26ddd5baf3ddc49a715c8",
     "src/Sanctuary.Content/NamedCombat.cs": "e6acd32610f357f7c9a17f1295cf1bbb696dac65777d836222bb8545b1c6f107",
     "src/Sanctuary.Content/NamedControl.cs": "a50a6836d1c7b223436b8cb3927257d8b231cdbd048b08925198f886bfb839dc",
     "src/Sanctuary.Content/NamedElements.cs": "1ccf25a09c781572d04b2c1baadb686854937bfe7a34ce0ee9ce85f5338d6a4b",

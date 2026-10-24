@@ -7,24 +7,37 @@ using Server;
 namespace Sanctuary;
 
 public sealed record NamedQuantity(int Remaining, DateTime DueUtc);
+public sealed record ThrowingQuantityBase(string Code, string ItemType, int Minimum, int Maximum, int Spawn);
 
 // A named throwing weapon stays one native item; its charges cannot be split into duplicate named weapons.
 public static class NamedAmmunition
 {
     internal static readonly Dictionary<Serial, NamedQuantity> Quantities = new();
     private static readonly List<Serial> _keys = new();
+    private static readonly Dictionary<string, ThrowingQuantityBase> _bases = new(StringComparer.Ordinal);
     private static readonly DateTime _paused = new(DateTime.MaxValue.Ticks, DateTimeKind.Utc);
     public static NamedAmmunitionProfiles Profiles { get; private set; }
-    public static void Configure() => Profiles = new();
+    public static void Configure()
+    {
+        _bases.Clear();
+        foreach (var row in BalanceCatalog.Read<ThrowingQuantityBase>("throwing-quantity-bases"))
+        {
+            if (string.IsNullOrWhiteSpace(row.Code) || row.ItemType is not ("taxe" or "tkni" or "jave" or "ajav" or "tpot")
+                || row.Minimum <= 0 || row.Spawn < row.Minimum || row.Maximum < row.Spawn || row.Maximum > 10000 || !_bases.TryAdd(row.Code, row))
+            { throw new InvalidDataException("Invalid source throwing quantity base."); }
+        }
+        Profiles = new();
+    }
+    internal static ThrowingQuantityBase Source(string code) => _bases.TryGetValue(code, out var row) ? row
+        : throw new InvalidDataException("Missing source throwing quantity base: " + code);
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
     public static int Maximum(Item item)
     {
         if (ClassGear.State(item) is not { BaseCode: not null } state
             || ClassGear.Definition(item)?.Category!="Throwing") { return 0; }
-        var basis = NamedGear.Catalog.Base(state.BaseCode);
-        if (basis.SourceTable != "weapons" || !basis.SourceFields.TryGetProperty("maxstack", out var cap)
-            || !cap.TryGetInt32(out int maximum) || maximum <= 0) { return 0; }
-        return maximum + (state.NamedItemId==null?0:Property(state, "stack"));
+        // The named catalogue intentionally omits bases with no named item.
+        // Ordinary throwing axes/knives/javelins use the same pinned capacities.
+        return Source(state.BaseCode).Maximum + (state.NamedItemId==null?0:Property(state, "stack"));
     }
     private static int Property(GearState state, string code)
     {
