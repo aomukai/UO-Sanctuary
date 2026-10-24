@@ -88,7 +88,7 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
+        if(ability is not(CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!(AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -108,7 +108,7 @@ public static class BowLaunch
         };
         if(ability==CombatAbility.LightningBolt)
         {elements=elements with{LightningMin=checked(elements.LightningMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),NamedElements.MasteryPercent(owner,"ltng"))),LightningMax=checked(elements.LightningMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),NamedElements.MasteryPercent(owner,"ltng")))};}
-        if(ability==CombatAbility.PoisonJavelin)
+        if(ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin)
         {elements=PoisonJavelinPackets.Prepare(elements,values,NamedElements.MasteryPercent(owner,"pois"),false);}
         if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ImmolationArrow)
         {

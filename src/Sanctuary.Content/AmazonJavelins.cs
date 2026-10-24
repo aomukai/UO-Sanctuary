@@ -8,7 +8,7 @@ namespace Sanctuary;
 
 public static class AmazonJavelins
 {
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonJavelin or CombatAbility.LightningBolt;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonJavelin or CombatAbility.LightningBolt or CombatAbility.PlagueJavelin;
     internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon
         && ClassGear.State(weapon) is{Identified:true} && ClassGear.Base(weapon) is{} basis
         && ClassItemTypes.Is(basis.Type,"jave") && !ClassGear.Broken(weapon);
@@ -31,28 +31,30 @@ public static class AmazonJavelins
         {var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;}
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,aim)=>Aim(p,aim))){return false;}
         var session=ClassCombat.For(owner);session.PendingLeft=session.HeldAbility==ability && session.HeldAttack;
-        // Source start4 succeeds before the generic wrapper consumes mana.
-        if(!NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,ability).Mana256))
+        // Ordinary start4 consumes mana here; Plague usemanaondo defers it.
+        if(ability!=CombatAbility.PlagueJavelin && !NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,ability).Mana256))
         {session.PendingAbility=CombatAbility.None;return false;}
         return true;
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability)
     {
-        // The do wrapper does not repeat affordability/start checks. A last
-        // javelin can have been removed after the paid start; emission still
-        // follows the same-weapon/native action guard and consumes afterward.
+        // The same-weapon guard survives windup. Plague alone repeats its do-mana
+        // check; quantity removed after start does not add another equip gate.
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability) || !FireGround.Ready(owner,ability)){return false;}
         var session=ClassCombat.For(owner);var target=World.FindMobile(session.PendingTarget);
         var point=ClassCombat.IsHostile(owner,target)?target.Location:session.PendingPoint;
         if(!Aim(owner,point)){return false;}
         var values=SkillMechanics.Values(owner,ability);
+        // Plague has usemanaondo: recheck at do, then consume after emission.
+        if(ability==CombatAbility.PlagueJavelin && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         var packet=BowLaunch.Capture(owner,ability,NamedCombat.ProjectileCritical(owner,AmazonBow.LaunchRandom),preparedValues:values);
-        string missile=ability==CombatAbility.LightningBolt?"lightningjavelin":"poisonjav";
+        string missile=ability==CombatAbility.LightningBolt?"lightningjavelin":ability==CombatAbility.PlagueJavelin?"plaguejavelin":"poisonjav";
         int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;
         long id=WeaponMissiles.Launch(owner,ability,new(dx,dy,0x21,0),packet,WeaponMissiles.NewCast(),
             NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),
             NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),0,missile,values.Rank);
         if(id<=0){return false;}
+        if(ability==CombatAbility.PlagueJavelin){NecromancerEffects.Pay(owner,values.Mana256);}
         NamedAmmunition.Consume(CombatTiming.Equipped(owner),TimedEffects.Now);FireGround.Delay(owner,ability);
         owner.PlaySound(0x238); // Identified ordinary throw sound placeholder.
         return true;

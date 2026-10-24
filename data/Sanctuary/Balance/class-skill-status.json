@@ -86,10 +86,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 25,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned TH/IAS javelin differs from Poison Javelin and Lightning Bolt: usemanaondo checks/pays at successful release, consumes one quantity and applies25-frame localdelay. Source128 parent15-frame flight emits no path-change trail. Full hit02 creates23 source-zero moving clouds in8+15 rings, on hit/miss/block/null contact; victim origin and successful Pierce are distinct. Captured parent/retained-rank live-hard-synergy poison packets use shared independent rate/length receiver. Clouds use size2 ordered source path/LastCollide and87-frame factory lifetime with3loops. Source/native damage, actual gear/input, resources, target changes, motion/expiry and two-reload checks are recorded separately. Whole resource/launcher wrappers are reviewed source, not compiled; exact modern AR transfer versus displayed30+9/rank, initial cloud path/first-contact timing, grid/room/global phase/slow/returnfire/owner/item/client remain acceptance gaps. Effects/audio and talent/hotkey icons remain separate identified placeholders."
     },
     {
       "talentId": "amazon.fend",

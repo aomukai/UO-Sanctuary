@@ -31,8 +31,11 @@ internal static class SourceMissileSteps
     }
     internal static SourceStepTrace Advance(WeaponFlight flight)
     {
-        var trace=Crossings((long)Math.Round(flight.X*131072+32768),(long)Math.Round(flight.Y*131072+32768),
-            (int)Math.Round(flight.Vx*131072),(int)Math.Round(flight.Vy*131072));
-        return trace.Cells.Length>0?trace:flight.SourceSteps;
+        return Advance(flight.X,flight.Y,flight.Vx,flight.Vy,flight.SourceSteps);
+    }
+    internal static SourceStepTrace Advance(double x,double y,double vx,double vy,SourceStepTrace previous)
+    {
+        var trace=Crossings((long)Math.Round(x*131072+32768),(long)Math.Round(y*131072+32768),(int)Math.Round(vx*131072),(int)Math.Round(vy*131072));
+        return trace.Cells.Length>0?trace:previous;
     }
 }

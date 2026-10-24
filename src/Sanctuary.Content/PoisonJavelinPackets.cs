@@ -21,10 +21,10 @@ internal static class PoisonJavelinPackets
             PoisonFrames=checked(packet.PoisonFrames+values.DurationFrames)
         };
     }
-    internal static WeaponMissileDamage Cloud(PlayerMobile owner,int rank)
+    internal static WeaponMissileDamage Cloud(PlayerMobile owner,int rank,CombatAbility ability=CombatAbility.PoisonJavelin)
     {
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
-        var values=SkillMechanics.Values(owner,CombatAbility.PoisonJavelin,rank);
+        var values=SkillMechanics.Values(owner,ability,rank);
         return new(0,0,0,0,0,false,Prepare(new(),values,NamedElements.MasteryPercent(owner,"pois"),true));
     }
 }

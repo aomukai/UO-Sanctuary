@@ -281,4 +281,4 @@ Jab uses the existing native weapon animation and sound0x238 as identified place
 
 Inner Sight: native0x375A hue0x481 is the identified cast_innersight/innersight cast and repeating target-mark placeholder. Final target illumination/overlay and cast visuals remain pending; the talent/hotkey icon is recorded separately. Actual graphical/light comparison is still required.
 
-Lightning Bolt uses logical projectile0xF42 and throw sound0x238 as identified placeholders. Final LightningJavelin travel/contact, lightning overlay and amazon_lightning_1 audio remain pending. Talent/L/R/quick-hotkey icons remain in the separate register.
+Plague Javelin uses logical throw0xF42, sound0x238 and green0x374A cloud markers as identified placeholders. Final Javelin/PoisonSparks/poisonpuff moving impact clouds, contact/cast/explosion/loop audio remain pending. Talent/L/R/quick-hotkey icons remain in the separate register.
