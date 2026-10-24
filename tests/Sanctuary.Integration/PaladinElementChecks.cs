@@ -129,7 +129,8 @@ public static class PaladinElementChecks
     }
     private static void Seed(PlayerMobile owner,PlayerMobile ally,BaseCreature pet,BaseCreature[] enemies)
     {
-        var state=PaladinAuras.Snapshot();var at=TimedEffects.Now.AddMinutes(5);
+        // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
+        var state=PaladinAuras.Snapshot();var at=TimedEffects.Now.AddMinutes(10);
         state=state with{Emitters=state.Emitters.Select(x=>x.Owner==owner.Serial.Value?x with{NextUtc=at}:x).ToArray(),
             Leases=state.Leases.Select(x=>x.Source==owner.Serial.Value?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};
         PaladinAuras.Restore(state);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,ally.Serial.Value,pet.Serial.Value,enemies.Select(x=>x.Serial.Value).ToArray(),owner.Location,state)));

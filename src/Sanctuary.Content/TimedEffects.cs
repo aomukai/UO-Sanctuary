@@ -12,11 +12,12 @@ namespace Sanctuary;
 public enum TimedEffectCategory : byte { Potion, Food, Map }
 public sealed record TimedBuff(TimedEffectCategory Category, string Id, int Magnitude, DateTime ExpiresUtc, string Context);
 public sealed record RestorationState(long Units, long Remainder, int Duration);
+public sealed record SourceColdState(uint Source);
 public sealed record TimedEffectState(uint Owner, DateTime UpdatedUtc, DateTime ChillUntilUtc, int ChillPercent,
     uint PoisonSource, int PoisonMs, double PoisonRate, double PoisonFraction,
     RestorationState Life, RestorationState Mana, TimedBuff[] Buffs,
     uint BleedSource = 0, int BleedMs = 0, double BleedRate = 0, double BleedFraction = 0, DateTime HealBlockedUntilUtc = default,
-    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0);
+    DateTime SlowUntilUtc = default, int SlowPercent = 0, int DefenseLoss = 0, NamedControlState Control = null, int RunningRemainder = 0, SourceColdState Cold = null);
 
 internal sealed class RestorationLane
 {
@@ -46,6 +47,7 @@ internal sealed class TimedActor(DateTime now)
     internal DateTime HealBlockedUntil, SlowUntil;
     internal int SlowPercent, DefenseLoss, RunningRemainder;
     internal NamedControlState Control;
+    internal SourceColdState Cold;
     internal readonly RestorationLane Life = new(), Mana = new();
     internal readonly Dictionary<TimedEffectCategory, TimedBuff> Buffs = new();
 }
@@ -99,7 +101,7 @@ public static class TimedEffects
     {
         if (owner != null && _actors.TryGetValue(owner.Serial, out var a))
         {
-            a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0;
+            a.Cold=null; a.ChillUntil = a.Updated; a.ChillPercent = a.PoisonMs = 0; a.PoisonRate = a.PoisonFraction = 0;
             a.BleedMs = 0; a.BleedRate = a.BleedFraction = 0; a.HealBlockedUntil = a.Updated;
             a.SlowUntil = a.Updated; a.SlowPercent = a.DefenseLoss = a.RunningRemainder = 0; a.Control = null;
             if (a.Buffs.Count == 0 && a.Life.Duration == 0 && a.Mana.Duration == 0) { _actors.Remove(owner.Serial); }
@@ -189,7 +191,7 @@ public static class TimedEffects
             if (a.Buffs.TryGetValue(category, out var b) && b.ExpiresUtc <= now)
             { a.Buffs.Remove(category); if (category == TimedEffectCategory.Food && owner is PlayerMobile p) { FoodEffects.Refresh(p); } }
         }
-        if (a.ChillUntil <= now) { a.ChillPercent = 0; }
+        if (a.ChillUntil <= now) { ColdStates.Expire(owner,a); a.ChillPercent = 0; }
         if (a.SlowUntil <= now) { a.SlowPercent = 0; }
         if (a.Control is { } control && control.FreezeUntil <= now && control.BlindUntil <= now && control.FearUntil <= now)
         { a.Control = null; }
@@ -218,7 +220,7 @@ public static class TimedEffects
     internal static void Chill(Mobile owner, int percent, int duration, DateTime now)
     {
         Settle(owner, now); if (!owner.Alive || owner.Deleted || owner.IsDeadBondedPet) { return; }
-        var a = Actor(owner, now); a.ChillPercent = percent;
+        var a = Actor(owner, now); if(a.ChillUntil<=now || a.ChillPercent==0){a.ChillPercent = percent;}
         a.ChillUntil = new DateTime(Math.Max(a.ChillUntil.Ticks, now.AddMilliseconds(duration).Ticks), DateTimeKind.Utc);
     }
     public static int Slow(Mobile owner, DateTime now) => owner is { Alive: true, Deleted: false }
@@ -298,7 +300,7 @@ public static class TimedEffects
             rows.Add(new(serial.Value, a.Updated, a.ChillUntil, a.ChillPercent, a.PoisonSource.Value, a.PoisonMs,
                 a.PoisonRate, a.PoisonFraction, a.Life.Snapshot(), a.Mana.Snapshot(), buffs,
                 a.BleedSource.Value, a.BleedMs, a.BleedRate, a.BleedFraction, a.HealBlockedUntil,
-                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder));
+                a.SlowUntil, a.SlowPercent, a.DefenseLoss, a.Control, a.RunningRemainder, a.Cold));
         }
         return rows.ToArray();
     }
@@ -312,7 +314,7 @@ public static class TimedEffects
                 PoisonSource = (Serial)r.PoisonSource, PoisonMs = r.PoisonMs, PoisonRate = r.PoisonRate, PoisonFraction = r.PoisonFraction,
                 BleedSource = (Serial)r.BleedSource, BleedMs = r.BleedMs, BleedRate = r.BleedRate,
                 BleedFraction = r.BleedFraction, HealBlockedUntil = r.HealBlockedUntilUtc,
-                SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder };
+                SlowUntil = r.SlowUntilUtc, SlowPercent = r.SlowPercent, DefenseLoss = r.DefenseLoss, Control = r.Control, RunningRemainder = r.RunningRemainder, Cold = r.Cold };
             a.Life.Restore(r.Life); a.Mana.Restore(r.Mana);
             foreach (var b in r.Buffs) { a.Buffs.Add(b.Category, b); }
             restored.Add((Serial)r.Owner, a);
@@ -352,7 +354,7 @@ public sealed class TimedEffectProfiles : GenericPersistence
         static bool Lane(RestorationState l) => l != null && l.Duration is >= 0 and <= 600000 && l.Units is >= 0 and <= 10000000000000L
             && l.Remainder is >= 0 and < 1000000 && (l.Duration > 0 || l.Units == 0);
         if (r == null || r.Owner == 0 || r.UpdatedUtc.Kind != DateTimeKind.Utc || r.ChillUntilUtc.Kind != DateTimeKind.Utc
-            || r.ChillPercent is < 0 or > 50 || r.PoisonMs is < 0 or > 60000 || !double.IsFinite(r.PoisonRate)
+            || r.ChillPercent is < -100 or > 50 || r.Cold!=null && r.ChillPercent==0 || r.PoisonMs is < 0 or > 60000 || !double.IsFinite(r.PoisonRate)
             || r.PoisonRate is < 0 or > 1000000 || !double.IsFinite(r.PoisonFraction) || r.PoisonFraction is < -1e-8 or >= 1.00000001
             || r.BleedMs is < 0 or > 8000 || !double.IsFinite(r.BleedRate) || r.BleedRate is < 0 or > 1000000
             || !double.IsFinite(r.BleedFraction) || r.BleedFraction is < -1e-8 or >= 1.00000001

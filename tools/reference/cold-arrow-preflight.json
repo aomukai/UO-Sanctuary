@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.coldarrow",
-  "handlerEnabled": false,
-  "status": "Read-only next-skill review during Fire Arrow full regression. Typed conversion is already source-tested; complete Cold Arrow remains unavailable.",
+  "handlerEnabled": true,
+  "status": "Cold Arrow installed with source/native/input/state/save regression; ordinary cold corpse-shatter projection remains individually unsupported.",
   "pinnedData": {
     "skill": {
       "skill": "Cold Arrow",
@@ -138,5 +138,9 @@
     "bow": "AmazonBow/BowAmmunition/BowLaunch/WeaponMissiles and optional typed conversion; Fire Arrow already exercises them.",
     "duration": "GearEffects.ApplyChill/TimedEffects and existing spell ColdImpact; difficulty ownership and truncation need reconciliation, not duplicate effects.",
     "corpse": "CorpseSkillRules already captures PaladinHolyFreeze.Shattered. Shared corpse eligibility should reuse that consumer, but ordinary ApplyColdState uses a distinct defender-seed/deadcol branch; do not copy Holy Freeze\u2019s20percent roll as an assumed ordinary-chill policy."
-  }
+  },
+  "corpseGap": "tools/reference/cold-corpse-reference-gap.json",
+  "compiledStateEvidence": "tools/reference/cold-state-engine-evidence.json",
+  "compiledCreatorEvidence": "tools/reference/cold-arrow-creator-engine-evidence.json",
+  "nativeEvidence": "tools/reference/cold-arrow-native-evidence.json"
 }

@@ -217,10 +217,10 @@ public static class WeaponMissiles
             if((flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
             NecromancerEffects.LifeTap(owner,selected,NamedElements.To256(parts.Physical));
             WeaponLeech.Apply(player,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
+            if(damage.Cold>0){ColdStates.Apply(owner,selected,flight.Damage.Elements.ColdFrames,Core.TickCount);}
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
-                if(damage.Cold>0){GearEffects.ApplyChill(selected,Core.TickCount,damage.ColdMs,owner);}
                 if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
             if(AmazonBow.Handles(flight.Ability))

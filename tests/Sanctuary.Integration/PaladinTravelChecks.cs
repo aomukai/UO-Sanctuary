@@ -115,7 +115,8 @@ public static class PaladinTravelChecks
     }
     private static void Seed(PlayerMobile vigor,PlayerMobile redeemer,PlayerMobile ally)
     {
-        var snapshot=PaladinAuras.Snapshot();uint[] ids=[vigor.Serial.Value,redeemer.Serial.Value];var at=TimedEffects.Now.AddMinutes(5);
+        // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
+        var snapshot=PaladinAuras.Snapshot();uint[] ids=[vigor.Serial.Value,redeemer.Serial.Value];var at=TimedEffects.Now.AddMinutes(10);
         snapshot=snapshot with{Emitters=snapshot.Emitters.Select(x=>ids.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=snapshot.Leases.Select(x=>ids.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};PaladinAuras.Restore(snapshot);
         var first=Body(redeemer,3);var second=Body(redeemer,4);
@@ -125,7 +126,7 @@ public static class PaladinTravelChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var snapshot=PaladinAuras.Snapshot();uint[] ids=[saved.Vigor,saved.Redemption];
         PaladinAuraSave Scope(PaladinAuraSave state)=>new(state.Emitters.Where(x=>ids.Contains(x.Owner)).ToArray(),state.Leases.Where(x=>ids.Contains(x.Source)).ToArray());
-        Require(JsonSerializer.Serialize(Scope(snapshot))==JsonSerializer.Serialize(Scope(saved.State)),"Saved Vigor/Redemption emitter or secondary values changed");
+        Require(JsonSerializer.Serialize(Scope(snapshot))==JsonSerializer.Serialize(Scope(saved.State)),$"Saved Vigor/Redemption state changed at{TimedEffects.Now:O}: actual={JsonSerializer.Serialize(Scope(snapshot))}; saved={JsonSerializer.Serialize(Scope(saved.State))}");
         var vigor=(PlayerMobile)World.FindMobile((Serial)saved.Vigor);var redeemer=(PlayerMobile)World.FindMobile((Serial)saved.Redemption);var ally=(PlayerMobile)World.FindMobile((Serial)saved.Ally);
         vigor.MoveToWorld(saved.Origin,Map.Trammel);redeemer.MoveToWorld(new(saved.Origin.X+1,saved.Origin.Y,saved.Origin.Z),Map.Trammel);ally.MoveToWorld(new(saved.Origin.X+2,saved.Origin.Y,saved.Origin.Z),Map.Trammel);
         var corpses=saved.Corpses.Select(x=>(Corpse)World.FindItem((Serial)x)).ToArray();

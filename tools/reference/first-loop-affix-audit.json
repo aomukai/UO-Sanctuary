@@ -1,14 +1,14 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "46edd7981f7aff681ce1ab639bb01a56577d92ee3e968cb3ea8299ef257fed83",
-  "ContentAssemblySha256": "68f0f2eb8405d3c3767e5f16f66d68d35a4a381474222ae022b8ef359e5e91c9",
+  "ContentAssemblySha256": "50fd181a14c946ea75b1d77fb05f64c64fa328fb2fd83eb6959418d2100b23b2",
   "ContentAssemblyPath": ".local/class-skills/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
-    "src/Sanctuary.Content/ActionTiming.cs": "5c2b56a9b20671d9d0399a0c3cbce8f5b46e1bc3d2bb06fe3bf1a1cb85e0e9f3",
+    "src/Sanctuary.Content/ActionTiming.cs": "78e51849d0ae727c82aaeee434d300c4f55712dff2158a65d5a327bfa51da43e",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "b2059334feb03f30cab2d8ed5d73211232199360d73534224e1a0836dd702b95",
     "src/Sanctuary.Content/ClassStats.cs": "cec479a1f46b0aef09dc19b634ae9b6bcd6110490e71b638caf45f5424985f62",
@@ -16,7 +16,7 @@
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "6495bfc16c0ad0c5a5c053c125fae02aa93828a5dfc5aa32f3f4d305d5e32751",
+    "src/Sanctuary.Content/GearEffects.cs": "e9a3ec8172d2fd3341bc3a22e777c91e658dcfcd85270058996f313a61283e9a",
     "src/Sanctuary.Content/GearProfiles.cs": "9d384cef47c3267c27cbae69f88eee816b9c1298f893e143f7d2eb7c1993596d",
     "src/Sanctuary.Content/HitRecovery.cs": "8d75d76f25bacba9083a3ef369df2cb69496915072c5115a2bf271ae5cbf7547"
   },

@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "status": "Fire Arrow handler installed with source/native/full regression and two reloads. Cold Arrow remains source preparation only; typed Cold conversion is a component, not an enabled talent.",
+  "status": "Fire Arrow and Cold Arrow native handlers installed. Separate native evidence records their verification; ordinary cold corpse-shatter projection remains individually unsupported.",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
@@ -261,6 +261,7 @@
   "nativeEvidence": "tools/reference/fire-arrow-native-evidence.json",
   "handlerEnabledBySkill": {
     "Fire Arrow": true,
-    "Cold Arrow": false
-  }
+    "Cold Arrow": true
+  },
+  "coldNativeEvidence": "tools/reference/cold-arrow-native-evidence.json"
 }

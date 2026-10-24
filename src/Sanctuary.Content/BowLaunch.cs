@@ -63,7 +63,7 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -89,15 +89,20 @@ public static class BowLaunch
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
-        if(ability==CombatAbility.FireArrow)
+        if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow)
         {
             // Source skill endpoints include their own mastery before owner
             // stat addition. Captured prepared weapon fire is not enhanced twice.
-            int mastery=NamedElements.MasteryPercent(owner,"fire");
-            elements=elements with
+            bool fire=ability==CombatAbility.FireArrow;int mastery=NamedElements.MasteryPercent(owner,fire?"fire":"cold");
+            elements=fire?elements with
             {
                 FireMin=checked(elements.FireMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
                 FireMax=checked(elements.FireMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery))
+            }:elements with
+            {
+                ColdMin=checked(elements.ColdMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery)),
+                ColdMax=checked(elements.ColdMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery)),
+                ColdFrames=checked(elements.ColdFrames+values.DurationFrames)
             };
         }
         var damage=FromSource(raw.Min*256,raw.Max*256,values.PhysicalDamage256(false),values.PhysicalDamage256(true),sourceDamage,
@@ -106,6 +111,8 @@ public static class BowLaunch
         {damage=damage with{PhysicalToMagicPercent=Math.Min(100,NecromancerSummons.Source("magicarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("magicarrow","dParam2"))};}
         if(ability==CombatAbility.FireArrow)
         {damage=damage with{Conversion=new("fire",Math.Min(100,NecromancerSummons.Source("firearrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("firearrow","dParam2")))};}
+        if(ability==CombatAbility.ColdArrow)
+        {damage=damage with{Conversion=new("cold",Math.Min(100,NecromancerSummons.Source("coldarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("coldarrow","dParam2")))};}
         int material=ClassGear.Material(weapon,"damage-physical"),potion=CombatPotions.Bonus(owner,"deep-wounds");
         if(material!=0 || potion!=0)
         {

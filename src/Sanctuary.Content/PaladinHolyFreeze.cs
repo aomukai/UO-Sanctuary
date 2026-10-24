@@ -44,6 +44,7 @@ public static class PaladinHolyFreeze
     // Modern corpse/death/chill state interactions still require comparison.
     public static bool Shattered(Mobile target)=>target!=null && _leases.TryGetValue(target.Serial.Value,out var lease)
         && lease.Shatter;
+    internal static HolyFreezeSourceRule SourceRule(Mobile target)=>target is BaseCreature creature && _rules.TryGetValue(CreatureProfiles.Definition(creature).Reference ?? "",out var rule)?rule:null;
     public static bool Eligible(Mobile target,out int coldEffect)
     {
         coldEffect=0;

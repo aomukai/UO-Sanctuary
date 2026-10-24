@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledRoutines": [
+    "SUNITDMG_GetColdEffect",
+    "SUNITDMG_RemoveShatterState",
+    "SUNITDMG_ApplyColdState"
+  ],
+  "blockHashes": {
+    "SUNITDMG_GetColdEffect": "7d051591600ed130d662c8167f0846e812750df4f4d26334420edce1983b5214",
+    "SUNITDMG_RemoveShatterState": "7533732c65af9981cbd00ea05ced02e0292ba5d6edea26acdc9e6b1ee36c8747",
+    "SUNITDMG_ApplyColdState": "f59727eadf20b0a2f9c5c76ba28ac7a422b5033a68b8c5146ff6e43ffa294ce7"
+  },
+  "difficultySource": {
+    "path": "tools/reference/weapon-leech-difficulty-source.json",
+    "gitBlob": "1bf58cf8273d40a0e79db35a105141e4bf0ddf10",
+    "sha256": "28ff37334e2ea3bfd6fa62116e11f7cdf25d1be34c8f16a94cc7ee75b8a84764",
+    "divisors": [
+      1,
+      2,
+      4
+    ]
+  },
+  "positiveCurrentSources": [
+    "frozenhorror1",
+    "frozenhorror2",
+    "frozenhorror3",
+    "frozenhorror4",
+    "frozenhorror5"
+  ],
+  "probe": {
+    "path": ".local/class-skills/cold-state-source-probe.json",
+    "sha256": "224771d9b5318b5c1eb973966d829b1438b4ae0230359975b64642d313170b2d",
+    "stateCases": 7200,
+    "removalCases": 4
+  },
+  "established": [
+    "Complete unchanged cold state application/getter/removal execute, preserving source monster-only difficulty division, minimum frame, existing-state strength/expiry and shared shatter reroll/removal order.",
+    "Valid application draws defender RNG even for nonmonsters; shatter requires the source threshold and monster deadcol flag. Ordinary cold and Holy Freeze have distinct roll policies.",
+    "Pinned current Hell Frozen Horror rows contain positive33 cold effect: treating every cold effect as an absolute slow would be incorrect. Source preserves the signed velocity/attack/other rates."
+  ],
+  "limits": [
+    "Stat-list/event/animation/seed/mode services are explicit isolated adapters, not a whole-engine or modern-executable certificate. Supplied cold length is already mitigated; pre-resistance/MDR/freeze-item order needs separate review.",
+    "Death stay-state mask is supplied in the removal harness. Pinned state masks are recorded in cold-corpse-reference-gap.json; exact native death/corpse/owner/animation/seed interactions remain independent acceptance work."
+  ]
+}

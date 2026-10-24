@@ -126,7 +126,8 @@ public static class PaladinConvictionChecks
     }
     private static void Seed(PlayerMobile owner,PlayerMobile ally,BaseCreature pet,BaseCreature enemy)
     {
-        var at=TimedEffects.Now.AddMinutes(5);var all=PaladinAuras.Snapshot();
+        // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
+        var at=TimedEffects.Now.AddMinutes(10);var all=PaladinAuras.Snapshot();
         var auras=new PaladinAuraSave(all.Emitters.Where(x=>x.Owner==owner.Serial.Value).Select(x=>x with{NextUtc=at}).ToArray(),
             all.Leases.Where(x=>x.Source==owner.Serial.Value && x.Ability==CombatAbility.Conviction).Select(x=>x with{UntilUtc=at.AddSeconds(3)}).ToArray());
         var hostile=PaladinConviction.Snapshot().Where(x=>x.Source==owner.Serial.Value && World.FindMobile((Serial)x.Target) is{Alive:true,Deleted:false}).Select(x=>x with{UntilUtc=at.AddSeconds(3)}).ToArray();

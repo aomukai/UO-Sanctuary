@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "sub_6FD10140",
+    "sub_6FCF5DE0",
+    "sub_6FD10200",
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion"
+  ],
+  "blockHashes": {
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+    "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion": "e0b23ca0464eab53349e716dfae8d223bb75d2775be0a34bd192c98d62f37a0b"
+  },
+  "probe": {
+    "parentCases": 256,
+    "childAreaCases": 4320,
+    "path": ".local/class-skills/exploding-arrow-callback-source-probe.json",
+    "sha256": "ffdb3cc4ad94252f63b033fd38db29604e028c5ce66595c362a2bd78b87f765d"
+  },
+  "established": [
+    "Complete parent hit4 copies original owner/origin/skill/rank into each positive HitSubMissile creation attempt. Optional immediate child hit dispatch occurs only after successful creation and positive parent sHitPar1; current Exploding Arrow row has0.",
+    "Complete child hit1 obtains one declared damage packet, adds row flags and invokes the shared area delivery at child coordinates. Positive row radius overrides skill formula; nonpositive row radius evaluates a clamped minimum1 skill radius. Missing missile/record/owner/required skill exits without damage.",
+    "Complete area delivery uses default filter0x8583. Each recipient callback copies the original prepared packet before complete per-target block/dodge/result/event/missile routing. A deliberately destructive downstream stub cannot contaminate the next recipient; flagged successful/unblocked events remain individual."
+  ],
+  "limits": [
+    "World recipient enumeration, formula/stat/damage getter, factory allocation, critical and final damage/event services are explicit adapters. This establishes callback ordering/data flow, not modern collision/factory/damage channel inheritance or live-engine equivalence.",
+    "Parent versus child physical/item-fire/skill-fire, weapon events, source sentinels, creation-time versus impact-time modifiers, wall/lifetime/AlwaysExplode/child scheduling/Pierce and actual current behavior remain to establish before a handler is enabled. No independent per-recipient damage reroll is introduced by the compiled callbacks."
+  ]
+}

@@ -323,7 +323,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native bow/crossbow A1 and logical travel use identified UO0xF42/0x238 placeholders; cold state uses0x374A hue0x480. Final IceArrow/coldarrow, iceexplode, amazon_coldarrow_1, impact_cold_1 and cold-state audio/art pending. Talent/L/R-hotkey icons remain separate"
   },
   {
     "talentId": "amazon.multipleshot",

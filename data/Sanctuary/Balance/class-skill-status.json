@@ -262,10 +262,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 11,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bow/crossbow A1 action pays fractional3.5+0.125-per-rank mana at start and consumes one Arrow/Bolt at release. Hard-only Ice Arrow synergy, independently mastered skill/item cold, source physical-to-cold conversion and additive raw cold length use the saved collector. New weapon-missile cold state applies integer resistance/freeze-item/difficulty scaling, minimum frame, signed difficulty-specific rates and original strength/owner retention; optional state survives saves. Source/native gear, input, natural expiry and reload checks are separate. Ordinary cold corpse-shatter behavior is explicitly unsupported pending current corroboration of the older deadCol/raw-SHATTER branch; no destruction chance is invented. Other cold producers retain their existing callers; full other-animation, modern skill AR/stat/seed/quiver/geometry/item/owner/client parity remains acceptance work, not a class certificate."
     },
     {
       "talentId": "amazon.multipleshot",

@@ -148,10 +148,10 @@ public static class SmiteChecks
     {
         // This fixture saves the stun. Moving knockback persistence has a separate fixture.
         SourceKnockbacks.Clear(control);
-        var held=CombatStuns.Snapshot().Single(x=>x.Target==control.Serial.Value) with{UntilUtc=TimedEffects.Now.AddMinutes(5)};
+        var held=CombatStuns.Snapshot().Single(x=>x.Target==control.Serial.Value) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
         CombatStuns.Restore(CombatStuns.Snapshot().Where(x=>x.Target!=held.Target).Append(held).ToArray());
         HolyShields.Cast(owner,SkillMechanics.Values(owner,CombatAbility.HolyShield));
-        var holy=HolyShields.State(owner) with{UntilUtc=TimedEffects.Now.AddMinutes(5)};
+        var holy=HolyShields.State(owner) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
         HolyShields.Restore(HolyShields.Snapshot().Where(x=>x.Owner!=owner.Serial.Value).Append(holy).ToArray());
         owner.Hits=owner.HitsMax-20;SkillHealth.Clear(owner);SkillHealth.Damage(owner,owner,17);Mana(owner);Stop(enemy);Stop(control);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,enemy.Serial.Value,shield.Serial.Value,control.Serial.Value,owner.Location,owner.Map.MapID,Life(owner),Life(enemy),NecromancerEffects.ManaBalance256(owner),held,HolyShields.State(owner),CombatTiming.Equipped(owner)?.Serial.Value??0,ClassGear.Bonus(owner,"normal-damage"))));

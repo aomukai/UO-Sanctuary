@@ -132,7 +132,8 @@ public static class BlessedHammerChecks
     }
     private static void Seed(PlayerMobile owner,BaseCreature first,BaseCreature second)
     {
-        var flight=Launch(owner);var at=TimedEffects.Now.AddMinutes(5);
+        // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
+        var flight=Launch(owner);var at=TimedEffects.Now.AddMinutes(10);
         flight=flight with{Frame=2,Point=1,XFp16=0,YFp16=65536,VelocityQ8=3706,AccelerationCounter=3,LastCollision=first.Serial.Value,
             Min256=2560,Max256=2560,NextUtc=at,UntilUtc=at.AddSeconds(5)};
         Replace(flight);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,first.Serial.Value,second.Serial.Value,flight)));

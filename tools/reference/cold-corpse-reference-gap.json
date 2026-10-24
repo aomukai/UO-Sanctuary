@@ -1,0 +1,80 @@
+{
+  "referenceVersion": "3.3.93847",
+  "feature": "Ordinary cold corpse-shatter projection",
+  "handlerEnabled": false,
+  "status": "Individually unsupported. Continue Cold Arrow damage/conversion/chill and unaffected class skills; do not infer a current destruction chance from the raw older bit.",
+  "sourceEvidence": "tools/reference/cold-state-engine-evidence.json",
+  "pinnedStates": {
+    "path": "tools/reference/d2r-named-equipment/json/states.json",
+    "sha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "rows": {
+      "cold": {
+        "state": "cold",
+        "*ID": 11,
+        "curable": 1,
+        "stat": "velocitypercent",
+        "colorpri": 100,
+        "colorshift": 108,
+        "light-r": 150,
+        "light-g": 215,
+        "light-b": 255,
+        "onsound": "impact_bluemotize_1",
+        "lineNumber": 11
+      },
+      "freeze": {
+        "state": "freeze",
+        "*ID": 1,
+        "curable": 1,
+        "monstaydeath": 1,
+        "hide": 1,
+        "shatter": 1,
+        "udead": 1,
+        "colorpri": 100,
+        "colorshift": 108,
+        "light-r": 150,
+        "light-g": 215,
+        "light-b": 255,
+        "onsound": "impact_bluemotize_1",
+        "lineNumber": 1
+      },
+      "shatter": {
+        "state": "shatter",
+        "*ID": 107,
+        "monstaydeath": 1,
+        "bossstaydeath": 1,
+        "hide": 1,
+        "shatter": 1,
+        "udead": 1,
+        "lineNumber": 107
+      }
+    }
+  },
+  "legacyDeathConsumer": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "path": "source/D2Game/src/MONSTER/MonsterMode.cpp",
+    "sha256": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "routine": "sub_6FC63E80",
+    "reviewed": "Updates stay-death states and removes targetability for hide-mask states; separately handles dead-collision flags. Full consumer not compiled here."
+  },
+  "rawBranch": {
+    "effect": "Valid older ApplyColdState writes STATE_SHATTER when defender roll>=20 and monster deadCol flag is set; otherwise clears it.",
+    "pinnedDeadCollisionSources": [
+      "barricadetower",
+      "duriel",
+      "evilhut",
+      "firetower",
+      "gargoyletrap",
+      "lightningspire",
+      "sarcophagus",
+      "trappedsoul1",
+      "trappedsoul2",
+      "turret1",
+      "turret2",
+      "turret3",
+      "uberduriel"
+    ],
+    "concern": "The pinned flagged set is collision-preserving structures and Duriel variants. These raw writes and current state masks alone do not establish ordinary D2R cold-kill corpse destruction. No guessed20percent replacement is enabled."
+  },
+  "nativeScope": "Existing Holy Freeze corpse projection is preserved. Ordinary weapon cold has source-tested duration/rates/owner persistence, with no new corpse destruction, SHATTER RNG or cross-producer flag interaction enabled.",
+  "nextEvidence": "Current-build ordinary cold kill/corpse observations or reliable modern engine trace, including an ordinary non-deadCol monster and Holy Freeze/freeze coexistence."
+}
