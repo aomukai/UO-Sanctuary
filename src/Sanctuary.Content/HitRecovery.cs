@@ -57,6 +57,7 @@ public static class HitRecovery
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
         AmazonImpale.Cancel(player);
+        AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
@@ -89,7 +90,7 @@ public static class HitRecovery
 
     public static bool Apply(PlayerMobile player, int damage, long now)
     {
-        if(AmazonFend.Locked(player,now) || AmazonImpale.Locked(player,now) || AmazonJab.Locked(player,now) || PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
+        if(AmazonStrafe.Locked(player,now) || AmazonFend.Locked(player,now) || AmazonImpale.Locked(player,now) || AmazonJab.Locked(player,now) || PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
         {
             return false;
@@ -110,6 +111,7 @@ public static class HitRecovery
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
         AmazonImpale.Cancel(player);
+        AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
         BarbarianBerserk.CancelMode(player);

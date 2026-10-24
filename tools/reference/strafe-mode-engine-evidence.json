@@ -1,0 +1,29 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.strafe",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518"
+  },
+  "compiledRoutines": [
+    "D2GAME_PLRMODES_First_6FC7F340"
+  ],
+  "blockHashes": {
+    "D2GAME_PLRMODES_First_6FC7F340": "f03ac114e6a1e8fe1cba6390a6092bde5c5d7000a585741d18f88d3e46447ef7"
+  },
+  "probe": {
+    "cases": 4224,
+    "path": ".local/class-skills/strafe-mode-source-probe.json",
+    "sha256": "0231ca9e087f8ab6b611864230297e515baaab6def1fcb8e259021f5b0c8fdd3"
+  },
+  "established": [
+    "Complete mode-entry gate with Strafe do12/no interrupt flag refuses ordinary checked walk/run/get-hit/knockback entry while active. Death entry is allowed unless already in death/dead or explicit uninterruptable state. Missing row/skill and forced caller controls are distinct branches.",
+    "Attack/cast/throw/special1/sequence requests can pass this first gate through end-event-plus5-frame comparison; this gate alone does not establish whether subsequent input is queued, replaces/restarts the sequence or is refused by outer callers. Do not equate its accepted return with a completed mode change."
+  ],
+  "limits": [
+    "State/used-skill/table/end-event services and player neutral transition are declared. The complete mode-change/input/event callers, current modern queuing/cancellation and force/death ordering remain separate; no native movement/attack lock is certified.",
+    "This is supplemental older engine evidence. Current pinned Strafe interrupt field is absent, but exact3.3.93847 gameplay, gear/dodge/owner/scheduler/rendered-client behavior still requires native/current acceptance."
+  ]
+}

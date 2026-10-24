@@ -87,12 +87,12 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow))
+        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!WeaponAllowed(owner)){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
         if(values.Rank<=0){return null;}
-        int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):0);
+        int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
         int sourceDamage=row.Number("SrcDam");var raw=ClassStats.WeaponBaseDamage(owner);
         var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
         var poison=Poison(owner,weapon);
@@ -136,6 +136,7 @@ public static class BowLaunch
             int Extra(double roll)=>checked(NamedElements.To256(MaterialReference(owner,weapon,roll,true,skillPercent)*material+potion)*sourceDamage/128);
             damage=damage with{PhysicalSupplement=new(Extra(0),Extra(1))};
         }
+        if(ability==CombatAbility.Strafe){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
         return damage;
     }
 }

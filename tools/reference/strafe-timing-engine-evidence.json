@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.strafe",
+  "handlerEnabled": false,
+  "repository": "https://github.com/Warren1001/IAS_Calculator",
+  "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+  "fileHashes": {
+    "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+    "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+    "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+  },
+  "functionHashes": {
+    "rbf": "f1b665fc0e40708db5720878697fd9f2cf41e6eda4a6c0fc88bbd1e1d1319b4a",
+    "rhits": "fb6b6b4515da0a1aaff29f71347dd41c25e6e0082afff41ea45c35013a761388",
+    "getStartingFrame": "ee06905636d7f8d1ac252fa52c2f39d1ac12961461b2e2cd81b0bc9c821328c5"
+  },
+  "rollbackBlockHash": "88bcfedf1282fb869b0fdc1e275fc0bfe1480014b6293d900c6c76aaf1a3178c",
+  "probe": {
+    "rows": 12,
+    "path": ".local/class-skills/strafe-timing-source-probe.json",
+    "sha256": "89c4f317b0997fbba3b8c36495e5bcf02b86f999a05dfa4379cb84434021be7b"
+  },
+  "established": [
+    "Original current-family calculator uses50percent rollback, zero Amazon bow/crossbow start bonus, action/end frames6/14 and9/20. Twelve unmodified block observations cover six declared rates and both weapon families.",
+    "Each repeat rolls back the rate-advanced animation position after the actual event: floor(floor((start*256+rate*elapsed)/256)*50/100). It does not simply halve ordinary attack duration or force a2-frame interval. Original four-hit and five-hit presentations retain different crossbow final recovery where oscillation applies.",
+    "Final cycle duration includes its last hit: ceil((end-lastStart)*256/rate)-1. It is not an extra whole recovery cycle after that hit. Existing Amazon Fend math is a reuse candidate with its separate start2/rollback30/action/end metadata."
+  ],
+  "limits": [
+    "Primary author implementation with verified repository blobs; UI/table/weapon metadata and rate inputs are declared. This is not pinned3.3.93847 executable timing, a complete player-mode scheduler, or a native Strafe controller.",
+    "Four/five-hit original presentations establish recurring clock behavior, not current shot count. Source count/target/resource evidence is separate. Dynamic IAS/slow/gear transitions, end-event alignment, lag/catch-up/interrupt/lock, next-hit-delay and full rendered-client parity remain acceptance work."
+  ]
+}

@@ -2,8 +2,8 @@
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.strafe",
   "sourceId": 26,
-  "handlerEnabled": false,
-  "status": "Source component prepared after Immolation Arrow:448 complete start/count and1536 do12 cases pass. Full wrapper/resource/sequence/modern scheduler and native handler remain pending.",
+  "handlerEnabled": true,
+  "status": "Installed135/Amazon23 with bounded source/native/real-input/two-reload coverage. All10 Amazon bow/crossbow handlers are present; no tree/class parity certificate.",
   "pinnedSkill": {
     "skill": "Strafe",
     "*Id": 26,
@@ -171,9 +171,8 @@
     "Missiles682/683 use NextHit1/NextDelay4, ordinary AR/Pierce/weapon events and range50. Exact modern NHD lease boundaries, displayed versus transferred skill AR, full source stat/seed/quiver/geometry/owner/client behavior remain individual acceptance gaps."
   ],
   "nextChecks": [
-    "Compile complete start8/do12 plus relevant wrapper/quantity/selection/rollback/scheduler chain with explicit services. Establish shot counts, selected/ground/empty/dead targets, target succession and payment/ammunition timing.",
-    "Implement learned A1 sequence and emitted saved flights only after the contract is established; test actual gear/IAS, interruption or lock, mana/quantity, targets/terrain/AR/Pierce/NHD and real input/two reloads.",
-    "Track final Arrow/XBowBolt fan/rapid-shot/contact/audio effects and talent/hotkey icons separately; use identified placeholders during mechanics."
+    "Resolve the explicit modern ground/client acquisition, outer queued/restarted input,2.7 supplier/cast NHD and full missile AR/stat/seed/geometry/quiver/owner/client gaps in final combat acceptance.",
+    "Create final effects/audio and separate talent/hotkey icons. Continue unaffected Amazon skills."
   ],
   "callbackEvidence": "tools/reference/strafe-engine-evidence.json",
   "sharedQuantityEvidence": "tools/reference/bow-projectile-engine-evidence.json",
@@ -181,5 +180,27 @@
     "Complete ground selector called with-1 uses an unsigned fallback and does not copy its count output. Older start8 ground mode keeps minimum shots even with many targets; verify current build before selecting a native contract.",
     "Cached identity is reused without aura eligibility recheck in do12. Full server lookup/death/target lifecycle and modern behavior remain to establish.",
     "No-target do12 returns1 without decrement/rollback. Outer animation/end/state behavior remains to trace; no guessed free-running sequence is enabled."
-  ]
+  ],
+  "actionEvidence": "tools/reference/strafe-action-engine-evidence.json",
+  "timingEvidence": "tools/reference/strafe-timing-engine-evidence.json",
+  "modeEvidence": "tools/reference/strafe-mode-engine-evidence.json",
+  "primaryCorroboration": [
+    {
+      "url": "https://news.blizzard.com/en-us/article/23899624/diablo-ii-resurrected-ladder-season-three-has-concluded",
+      "scope": "Released2.6 fixes both Strafe AR application and its residual75percent weapon damage. Current raw parent SrcDamage128 and skill ToHit30+9/rank control the candidate."
+    },
+    {
+      "url": "https://news.blizzard.com/en-us/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+      "scope": "Released2.7 establishes same-skill NextHit isolation only. Exact supplier/cast lifetime boundaries remain unverified; candidate keeps a series-local lease and does not claim complete modern pool equivalence."
+    }
+  ],
+  "runtimeLimits": [
+    "Source legacy ground minimum/cached-identity semantics and original current-family rollback are implemented with explicit native geometry and scheduling adapters. Full modern caller/end-event/queued/restarted attack input still needs acceptance.",
+    "Candidate movement/Stop/get-hit lock follows the existing native noninterruptible-series policy. Older complete mode gate rejects checked movement/get-hit but accepts some attack requests; the outer modern/client queuing/restart behavior is not established. This is not an approved deviation.",
+    "Modern2.6 AR is connected as a captured additive skill percentage in the existing live-owner native hit check. Complete source missile-tohit/base/stat/RNG transfer and impact transitions remain separate acceptance work.",
+    "A series-local4-frame next-hit lease survives gaps with no active flight and saved reload. Full2.7 cross-cast/supplier same-skill scope remains unproven. Final Arrow/XBowBolt/audio and talent/hotkey icons are separate placeholders.",
+    "Initial selected dead/removed input is rejected by the shared native target filter. Complete current client auto-acquisition/dead-target fallback is not established; do not treat that rejection as certified D2R behavior."
+  ],
+  "nativeEvidence": "tools/reference/strafe-native-evidence.json",
+  "referenceReviewNote": "Original reviewedNotCompiled list is historical; complete compiled action/count/target/mode and original calculator evidence is linked separately. Full modern/outer event/input and cross-cast/supplier NHD remain unresolved."
 }

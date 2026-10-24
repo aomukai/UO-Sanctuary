@@ -328,10 +328,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 26,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned A1 sequence reuses bow capture/flights, one start Arrow/Bolt plus11mana, source target/count and rate-advanced50percent rollback. Each emitted source128 packet captures live skill ED and current30+9/rank skill AR. Series-local four-frame gates survive empty-flight gaps and save/reload. Dedicated source/native/input/reload scope is recorded separately; current2.7 cross-cast/supplier NHD, modern attack queuing/restart, source ground-count/current-cached-target behavior and full stat/seed/geometry/quiver/owner/client acceptance remain explicit. Installed checkpoint is authoritative. Effects/audio and talent/hotkey icons use separate identified placeholders."
     },
     {
       "talentId": "amazon.freezingarrow",

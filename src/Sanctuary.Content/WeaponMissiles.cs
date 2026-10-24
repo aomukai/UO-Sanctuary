@@ -17,6 +17,7 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     // Optional saved field: old player/NPC flights retain zero conversion.
     // Magic Arrow captures its DmgCalc at launch; retain this saved field.
     public int PhysicalToMagicPercent{get;init;}
+    public int SkillAttackPercent{get;init;}
     // Null retains the original saved Magic Arrow field and old packet meaning.
     public WeaponElementConversion Conversion{get;init;}
     public bool FreezeColdLength{get;init;}
@@ -77,7 +78,13 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
 }
-public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc);
+public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc)
+{
+    // Strafe reuses its cast across individually emitted arrows. Keep its
+    // cast-local gate through empty-flight gaps; modern cross-cast/supplier
+    // same-skill scope remains a separately recorded acceptance gap.
+    public bool RetainWithoutFlight{get;init;}
+}
 public sealed record WeaponFlightSave(WeaponFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast)
 {
     public BowExplosion[] Explosions{get;init;}=[];
@@ -121,7 +128,7 @@ public static class WeaponMissiles
             || ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
             || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
             || ability!=CombatAbility.GuidedArrow && guided!=null
-            || damage?.Elements==null || !damage.ValidConversion || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
+            || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability!=CombatAbility.Strafe && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
@@ -222,11 +229,11 @@ public static class WeaponMissiles
         var player=(PlayerMobile)owner;
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
-        if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L));}
+        if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L)){RetainWithoutFlight=flight.Ability==CombatAbility.Strafe};}
         if(next.Guided!=null && !GuidedArrows.Accepts(next,selected)){return;}
         bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
         if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
-        bool hit=next.Guided!=null || ClassStats.CheckHit(owner,selected,0,HitRoll,projectile:true)==true;
+        bool hit=next.Guided!=null || ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true)==true;
         if(flight.Ability==CombatAbility.ImmolationArrow)
         {
             // hit09 clears missile cold length before the direct hit.
@@ -288,9 +295,8 @@ public static class WeaponMissiles
     }
     private static void Prune()
     {
-        if(_flights.Count==0){_leases.Clear();return;}
         var active=new HashSet<long>();foreach(var flight in _flights.Values){active.Add(flight.Cast);}
-        var ended=new List<(long,uint)>();foreach(var (key,lease) in _leases){if(!active.Contains(lease.Cast)){ended.Add(key);}}
+        var ended=new List<(long,uint)>();foreach(var (key,lease) in _leases){if(!active.Contains(lease.Cast) && (!lease.RetainWithoutFlight || lease.UntilUtc<=TimedEffects.Now)){ended.Add(key);}}
         foreach(var key in ended){_leases.Remove(key);}
     }
     internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast){Explosions=BowExplosions.Snapshot()};
@@ -299,7 +305,7 @@ public static class WeaponMissiles
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
                 || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
                     || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0
                     || flight.Frames!=flight.Frame+Math.Max(1,flight.Guided.Remaining) || flight.Flags!=(flight.Guided.Mode==1?0x20u:0x420u))

@@ -11,7 +11,7 @@ public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
     public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow;
-    internal static ActionTiming Timing(AttackFamily family,int advance)
+    internal static ActionTiming Timing(AttackFamily family,int advance,int start=0)
     {
         advance=Math.Max(1,advance);
         // Ordinary Amazon A1 has no bow/xbow starting-frame bonus. Cached
@@ -19,7 +19,7 @@ public static class AmazonBow
         // The original modern IAS calculator uses the ordinary repeat-cycle
         // minus-one; the old isolated scheduler ENDANIM event is a later clock.
         int frames=family==AttackFamily.Crossbow?20:14,action=family==AttackFamily.Crossbow?9:6;
-        return new(Math.Max(1,(frames*256+advance-1)/advance-1),(action*256+advance-1)/advance);
+        return new(Math.Max(1,((frames-start)*256+advance-1)/advance-1),Math.Max(1,((action-start)*256+advance-1)/advance));
     }
     internal static ActionTiming Timing(PlayerMobile owner)=>Timing(CombatTiming.Weapon(CombatTiming.Equipped(owner)).Family,CombatTiming.WeaponSequenceAdvance(owner));
     internal static void Cancel(PlayerMobile owner)

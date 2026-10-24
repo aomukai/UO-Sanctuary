@@ -25,8 +25,8 @@ public static class MagicArrowChecks
     private static void Rates()
     {
         var health=Mobile.HitsRegenRateHandler;var mana=Mobile.ManaRegenRateHandler;
-        Mobile.HitsRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner" or "FireArrowOwner" or "ColdArrowOwner" or "ExplodingArrowOwner" or "IceArrowOwner" or "GuidedArrowOwner" or "FreezingArrowOwner" or "ImmolationArrowOwner"?TimeSpan.FromHours(1):health?.Invoke(p)??Mobile.DefaultHitsRate;
-        Mobile.ManaRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner" or "FireArrowOwner" or "ColdArrowOwner" or "ExplodingArrowOwner" or "IceArrowOwner" or "GuidedArrowOwner" or "FreezingArrowOwner" or "ImmolationArrowOwner"?TimeSpan.FromHours(1):mana?.Invoke(p)??Mobile.DefaultManaRate;
+        Mobile.HitsRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner" or "FireArrowOwner" or "ColdArrowOwner" or "ExplodingArrowOwner" or "IceArrowOwner" or "GuidedArrowOwner" or "FreezingArrowOwner" or "ImmolationArrowOwner" or "StrafeOwner"?TimeSpan.FromHours(1):health?.Invoke(p)??Mobile.DefaultHitsRate;
+        Mobile.ManaRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner" or "FireArrowOwner" or "ColdArrowOwner" or "ExplodingArrowOwner" or "IceArrowOwner" or "GuidedArrowOwner" or "FreezingArrowOwner" or "ImmolationArrowOwner" or "StrafeOwner"?TimeSpan.FromHours(1):mana?.Invoke(p)??Mobile.DefaultManaRate;
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Magic Arrow learned bow action, mana, no ammunition and saved flight",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));

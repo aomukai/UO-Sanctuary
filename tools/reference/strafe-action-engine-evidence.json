@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.strafe",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "compiledRoutines": [
+    "sub_6FD11340",
+    "sub_6FD118C0",
+    "sub_6FD119C0",
+    "sub_6FD12950",
+    "D2GAME_SKILLS_Handler_6FD12BA0"
+  ],
+  "blockHashes": {
+    "sub_6FD11340": "9cfe48a3dfd845a735f504b62c9588f68f288542bfd6a7ff7dabcd2135c88dc9",
+    "sub_6FD118C0": "93d308c1c66284a19fba0427e3623494a46390e94f0796efb43d03a0626dd033",
+    "sub_6FD119C0": "def5e47b8803f92cfb2c8f4df44a7f796f4c9e5a0d36589ec191a9735c61409e",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "sharedCallbacks": "tools/reference/strafe-engine-evidence.json",
+  "probe": {
+    "startCases": 6144,
+    "doCases": 432,
+    "path": ".local/class-skills/strafe-action-source-probe.json",
+    "sha256": "2e4e1d46adaad3ed5b361beedb5a2a4f483149776b37a83dd827b9ac45b03fec"
+  },
+  "established": [
+    "Complete generic start wrapper invokes full start8 and full inventory validation/quantity selection/decrement. Successful normal start subtracts exactly one Arrow/Bolt before one declared11mana debit. Empty/no-target successful starts still consume both; low mana/empty ammo/town reject before debit. The skip-start-payment caller control bypasses mana validation/debit but does not bypass ammunition.",
+    "Complete generic do wrapper invokes full do12. Current Strafe has a start function, no usemanaondo and no decquant flag: later do events neither validate/debit mana nor consume more ammo, including zero remaining ammunition, zero current mana, absent targets and failed missile-factory controls. Last do12 emits before returning0; generic wrapper returns0 after the emitted final arrow.",
+    "Complete quantity decrement subtracts/clamps one stack, refreshes durability/packets/cleanup before mana payment. Actual stack metadata, equipped-quiver/reload/destruction and client packet services remain declared; the shared bow ammunition probe provides wider selection coverage."
+  ],
+  "limits": [
+    "Mana eligibility and exact debit routine are declared11mana services here; complete stat/mana callback/charge/player-mode wrapper and modern caller flags remain outside this proof. Room/town/LOS, inventory type/use metadata, formula interpreter and missile factory are declared services.",
+    "Complete start/do/quantity bodies execute without patching, but this does not establish modern Strafe sequence timing, lock/interrupt/input/gear/owner/save lifecycle, target-selection differences, AR/stat/RNG/next-hit/geometry/current-client parity. No native handler is enabled."
+  ]
+}

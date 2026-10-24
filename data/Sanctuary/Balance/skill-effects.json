@@ -415,7 +415,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native logical arrow/bolt0xF42 and ordinary bow sound0x238 are identified placeholders. Final rapid Arrow/XBowBolt travel/contact, amazon_multi_arrow_1/weapon_xbow_1 and attack-start audio remain pending. Talent/L/R-hotkey icons are separate"
   },
   {
     "talentId": "amazon.freezingarrow",

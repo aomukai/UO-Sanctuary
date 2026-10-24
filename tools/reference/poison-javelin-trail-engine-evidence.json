@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.poisonjavelin",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "D2Common_10234",
+    "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles",
+    "MISSMODE_SrvDo02_PlagueJavelin_PoisonJavelin_PoisonTrap",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod"
+  ],
+  "blockHashes": {
+    "D2Common_10234": "3337909227ece0cfd865281b9fd9a720aeefd75dd721b5a1c55e28dc497b8d18",
+    "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles": "561fc56615b0d12d5bb536abb45c8d1f184c4f99960a2bca57ec6025625031fc",
+    "MISSMODE_SrvDo02_PlagueJavelin_PoisonJavelin_PoisonTrap": "59c0cebd84ab332d0a22d0838c3e4523221c30542e9ade02b17e91d293e267e6",
+    "MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod": "306501ecd3ab733337b122d79b17f2fce2062730dbe8c4a4dd930cd1ae0ae415"
+  },
+  "probe": {
+    "parentCases": 768,
+    "creatorCases": 108,
+    "cloudCases": 4,
+    "path": ".local/class-skills/poison-javelin-trail-source-probe.json",
+    "sha256": "1602842207bd59e2ed3632315748e25c5afaf2253355be37402c095cea929733"
+  },
+  "established": [
+    "Complete parent do2 calls trail creation before generic collision, including its final collision update. Full10234 only accepts dynamic paths with flag0x8; null path or merely another flag cannot emit a cloud. Exact outer path flag-setting cadence/positions remain to trace.",
+    "Complete child creator uses current parent coordinates, original owner/origin/skill/rank, flags5 and optional range/loop flags. It overwrites nLoops with2*(rank-1) even when current formula0 leaves loop flag8 absent; the full factory must establish whether that unflagged value affects actual lifetime.",
+    "Complete child do3 writes0x40 only for no-path/zero-velocity fields, then delegates full collision. This does not by itself establish recipient footprint, damage type, lifetime or repeat-poison application."
+  ],
+  "limits": [
+    "Formula, generic collision, actual missile factory/stat inheritance, owner lookup and room/world masks are declared services. Full path flag-setting, creator SrcDamage-1 and getter, damage/rate/length/count and current executable geometry/seed/owner/client behavior remain outside this proof.",
+    "No Poison Javelin handler or substitute generic green cloud is enabled. These older complete bodies prepare the next Amazon skill; current tables remain the mechanical pin."
+  ]
+}
