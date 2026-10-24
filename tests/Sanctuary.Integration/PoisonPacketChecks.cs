@@ -65,7 +65,7 @@ public static class PoisonPacketChecks
         Require(PoisonJavelinPackets.Cloud(owner,1)==synergized && SkillMechanics.Rank(owner,CombatAbility.PoisonJavelin)>1,"Cloud lost retained rank or used soft synergy");
         owner.AddToBackpack(weapon);Require(BowLaunch.Capture(owner,CombatAbility.PoisonJavelin,false)==null && PoisonJavelinPackets.Cloud(owner,1)==synergized,"Cloud required current javelin");Require(owner.EquipItem(weapon),"Restore javelin");
         Require(NecromancerEffects.ManaBalance256(owner)==mana && NamedAmmunition.Remaining(weapon)==quantity,"Preparation charged resources");
-        Require(!AmazonCombat.Implemented(CombatAbility.PoisonJavelin),"Unverified handler was enabled by packet preparation");
+        Require(AmazonCombat.Implemented(CombatAbility.PoisonJavelin),"Verified packet consumer is unavailable");
         var target=new PoisonRegenProbe{Frozen=true,RawStr=2000,Hits=2000};target.MoveToWorld(new(owner.X+3,owner.Y+3,owner.Z),owner.Map);
         var prepared=PoisonPackets.Mitigate(257,1550,false,33,33,0,0,0);Require(prepared==new PreparedPoison(172,1038) && prepared.Commit(owner,target,TimedEffects.Now),"Native resisted per-frame commit");
         int before=SkillHealth.Balance256(target);var at=State(target).UpdatedUtc;TimedEffects.Settle(target,at.AddMilliseconds(40));Require(before-SkillHealth.Balance256(target)==172 && State(target).PoisonMs==41520-40 && target.DamageCalls==0,"Prepared rate/frame consumer integration");

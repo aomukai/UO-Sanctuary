@@ -2,8 +2,8 @@
   "referenceVersion": "3.3.93847",
   "talentId": "amazon.poisonjavelin",
   "sourceId": 15,
-  "handlerEnabled": false,
-  "status": "Native parent/cloud preparation3456 and independent rate/length mitigation72000 comparisons verified through real poison HP/frame/source state and two reloads. Complete generic collision/update5120 cases compiled. No Poison Javelin handler enabled.",
+  "handlerEnabled": true,
+  "status": "Poison Javelin136/Amazon24 installed with native TH/parent/cloud/poison/input and two-reload verification. See native evidence; modern acceptance gaps remain explicit.",
   "pinnedSkill": {
     "skill": "Poison Javelin",
     "*Id": 15,
@@ -173,10 +173,8 @@
     "Trail creator supplies pOrigin/owner/skill/rank and flags5, optionally range/loop flags. It overwrites nLoops with2*(rank-1), but current formula0 does not set loop flag8. Complete factory/path semantics must establish the actual effect."
   ],
   "nextChecks": [
-    "Reuse verified native PoisonJavelinPackets/BowLaunch preparation and PoisonPackets.Mitigate/PreparedPoison.Commit rather than rebuilding skill endpoints or aggregate mitigation. Connect explicit NPC resistance/PLR/pierce context before per-frame commit; global player difficulty/shrine/modern source-state gaps remain explicit.",
-    "Integrate native saved path-change trail before parent move, independent source-zero60frame cloud and one selected LastCollide contact per update. Source generic expiry precedes contact on the last frame. Flag initial value/full source path, footprint/finder ordering and modern global event cadence remain separately recorded.",
-    "Integrate once-only fractional start mana, release quantity/localdelay, ordinary direct javelin and separate cloud settlement after source contract; verify ranks, gear, miss/Pierce/terrain/expiry, source poison caps and actual input/two reloads.",
-    "Track Javelin/PoisonSparks/poisonpuff/trail/contact and poison audio separately from tree/hotkey icons; use clearly labelled placeholders."
+    "Retain source/native scope and named item gates; continue modern event/grid/room-order/stat/seed/item/owner/client acceptance without treating a handler as class completion.",
+    "Continue next unaffected Amazon skill: Lightning Bolt with distinct conversion/AR/quantity/missile contract."
   ],
   "trailEvidence": "tools/reference/poison-javelin-trail-engine-evidence.json",
   "creatorReviewFollowup": "Complete creator/skill getters/stat writer now compiled in poison-javelin-damage-engine-evidence.json. Child39 has source0: independently evaluated retained-rank/live declared synergy/mastery skill poison, excluding weapon/item/origin damage. Impact/count division and cloud collision remain separate.",
@@ -221,5 +219,15 @@
   "packetNativeEvidence": "tools/reference/poison-packet-native-evidence.json",
   "collisionUpdateEvidence": "tools/reference/poison-collision-engine-evidence.json",
   "pathMovementEvidence": "tools/reference/poison-path-engine-evidence.json",
-  "pathReviewFollowup": "Complete step/vector-downshift/10226/recache/reset252 cases establish previous flag from saved integer-subtile crossings, subcell no-flag and early barrier behavior. Native source path initialization/initial flag, direction/acceleration services, room transitions and geometry remain explicit integration adapters."
+  "pathReviewFollowup": "Complete step/vector-downshift/10226/recache/reset252 cases establish previous flag from saved integer-subtile crossings, subcell no-flag and early barrier behavior. Native source path initialization/initial flag, direction/acceleration services, room transitions and geometry remain explicit integration adapters.",
+  "nativeEvidence": "tools/reference/poison-javelin-native-evidence.json",
+  "remainingAcceptance": [
+    "Pinned3.3.93847 tables take precedence over supplemental older-engine source. Cached AMTH16/event9 metadata has incomplete acquisition provenance; ordinary-repeat minus-one and exact current TH/IAS/WSM/chill/skill-rate/graphical animation still require current-executable/client comparison.",
+    "Source finder footprints are ported, while native sectors project room-list order and native swept parent/CanFit terrain project source collision grids. The2source-subtiles/native-tile mapping, actual room order/masks, initial source path chain, parent selection versus source saved steps, mixed-flight global event chronology, lag/current-state catch-up and modern zero-point targeting remain explicit adapters/acceptance gaps. No first-collider is skipped merely because it was the last hit.",
+    "Current target delivery is native PvM. Wild NPC poison-length resistance is0 and difficulty has already prepared their ordinary poison resistance; the source player-only global difficulty penalty is not guessed from a monster-local setting. PvP/cooperative adaptation, equipped/hireling/prime-evil actors, native shrine and modern sunder remain separate.",
+    "Existing shared poison original ownership, player floor and T29 Protection stay authoritative. Exact modern global regeneration/removal/final tick/interruptions, combined natural/potion/replenish regeneration, delayed death and extended offline catch-up remain unproven. Other aggregate poison producers are not migrated by this handler.",
+    "Actual hard synergy and Tarnhelm soft-point behavior are verified by retained packet tests. Poison mastery0/25/40 is covered by3456 source/native packet comparisons; an extra real-item attempt used the wrong set namespace, and the catalogue confirms correctpiece/88 Trang claws remains gated by existing set dependencies. No gate was opened; complete real mastery/poison-item/RNG/proc/deferred-quantity/upgrade/inventory/client acceptance remains separate.",
+    "Owner death/reset and existing committed wardrobe hook clear parent/clouds; active poison retains its original source through the shared receiver. Existing flight internal-map/expiry policy is reused. Full disconnect/reconnect/class-commit/owner-loss/event/client behavior remains acceptance work.",
+    "Saved optional PoisonClouds and PathChanged fields retain version0 weapon-flight format; missing fields default to empty/false. Persistence tests hold effect clocks in the future to isolate serialization, then resume actual saved states. This is not a certificate of offline modern event replay."
+  ]
 }

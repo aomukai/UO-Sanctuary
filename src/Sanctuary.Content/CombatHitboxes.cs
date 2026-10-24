@@ -10,6 +10,15 @@ public static class CombatHitboxes
     public const double TeethRadius = 0.25;
     public const int BodyHeight = 16;
 
+    // D2Common_10407_Impl combines missile size with the actor footprint.
+    internal static bool SourceTouches(int missileSize,int targetSize,int dx,int dy)
+    {
+        if(missileSize is <1 or >3 || targetSize<1){return false;}
+        int key=Math.Min(targetSize,3)+3*(missileSize-1),x=Math.Abs(dx),y=Math.Abs(dy);
+        return key switch{1=>x==0&&y==0,2 or 4=>x+y<=1,5=>x+y<=2,3 or 7=>x<=1&&y<=1,
+            6 or 8=>x<=2&&y<=1||y<=2&&x<=1,9=>x<=2&&y<=2,_=>false};
+    }
+
     // A swept circle against a body footprint, measured in world tiles. Screen
     // pixels, animation gaps, and the mouse selection rectangle never enter this test.
     public static bool Intersect(Point3D start, Point3D end, Point3D body, out double entry)

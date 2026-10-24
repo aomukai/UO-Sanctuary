@@ -12,7 +12,7 @@ public static class ImmolationArrows
 {
     internal static Func<int,int> SoftHitRoll=Utility.Random;
     internal static bool Touches(int size,int dx,int dy)
-        =>size>0 && (size==1?dx==0 && dy==0:size==2?Math.Abs(dx)+Math.Abs(dy)<=1:Math.Abs(dx)<=1 && Math.Abs(dy)<=1);
+        =>CombatHitboxes.SourceTouches(1,size,dx,dy);
     internal static int FieldDamage256(SkillValues values,bool maximum)
         =>FireGround.MissileDamage256("immolationfire",values.Rank,NecromancerSummons.Formula("immolationfire","EDmgSymPerCalc",values),maximum);
     internal static Mobile Recipient(PlayerMobile owner,FirePatch patch)

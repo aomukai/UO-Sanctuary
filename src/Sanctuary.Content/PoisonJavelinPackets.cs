@@ -10,7 +10,7 @@ internal static class PoisonJavelinPackets
 {
     internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon
         && ClassGear.State(weapon) is{Identified:true} && ClassGear.Base(weapon) is{} basis
-        && ClassItemTypes.Is(basis.Type,"jave") && NamedAmmunition.CanAttack(weapon);
+        && ClassItemTypes.Is(basis.Type,"jave") && !ClassGear.Broken(weapon);
 
     internal static MissileSourceStats Prepare(MissileSourceStats owner,SkillValues values,int mastery,bool cloud)
     {

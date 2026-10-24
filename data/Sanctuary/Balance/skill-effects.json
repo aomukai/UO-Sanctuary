@@ -33,7 +33,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native logical projectile0xF42, ordinary throw sound0x238 and green0x374A/hue0x3F cloud marker are identified placeholders. Final Javelin, PoisonSparks/poisonpuff, trail/contact and amazon_cast_poison/weapon_throw_1/object_poison_loop audio pending. Talent/L/R-hotkey icons remain separate"
   },
   {
     "talentId": "amazon.impale",

@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.poisonjavelin",
+  "sourceId": 15,
+  "handlerEnabled": true,
+  "installedHandlerNumber": 136,
+  "amazonHandlers": 24,
+  "status": "Poison Javelin is installed as handler136/Amazon24. Learned TH/IAS left/right/quick and free-ground casts pay once at start, emit a captured source128 javelin and consume one quantity at release with a saved15-frame localdelay. Mana lost after start and a quantity removed during windup do not add a second do-event gate. Prior path-change state creates one independent source-zero cloud before the next parent movement, including final update; no cloud is emitted on the initial clear flag. Parent AR/Pierce/block/item delivery reuses saved weapon flights; clouds retain parent rank, read live hard Plague synergy/mastery, exclude weapon/item/critical damage and preserve post-selection LastCollide. Separate integer rate/length mitigation commits fractional poison through the shared receiver.735 full-source finder geometry comparisons, real IAS versus FCR gear, zero-point factory fallback, live child hard synergy/immutable earlier clouds, first-collider/changed/returning victims,59 contact opportunities/60-frame expiry, two-victim Pierce, AR-miss removal, empty/last-quantity/low-mana/cancel/equipment and death/respec checks pass. Actual Cast packets/natural40ms travel run on all three boots of focused/full suites. Paid unemitted windups do not replay; parent, path flag, independent clouds/LastCollide, poison HP/rate/source, quantity, delay and bindings survive two actual reloads. All10 earlier bow inputs retain three-boot coverage. All70 Python tests and current480/15 fingerprints pass; all573 named decisions unchanged. C# builds have zero warnings/errors. Existing-world load/listen/clean shutdown passes with unchanged save bytes and prior content/data/save backup. No class completion certificate; final effects/audio and talent/hotkey icons remain separate placeholders.",
+  "verification": {
+    "finderSourceNativeCases": 735,
+    "preparedCreatorCases": 3456,
+    "preparedMitigationCases": 72000,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "focusedRealInputBoots": 3,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "combinedRealInputBoots": 3,
+    "earlierBowInputs": 10,
+    "pythonTests": 70,
+    "namedInputs": 480,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "sourceEvidence": [
+    "tools/reference/poison-contact-engine-evidence.json",
+    "tools/reference/poison-path-engine-evidence.json",
+    "tools/reference/poison-collision-engine-evidence.json",
+    "tools/reference/poison-javelin-trail-engine-evidence.json",
+    "tools/reference/poison-javelin-damage-engine-evidence.json",
+    "tools/reference/poison-javelin-factory-engine-evidence.json",
+    "tools/reference/poison-javelin-routing-engine-evidence.json",
+    "tools/reference/poison-packet-native-evidence.json",
+    "tools/reference/poison-state-native-evidence.json"
+  ],
+  "logs": {
+    "poison-javelin-focused.log": ".local/class-skills/poison-javelin-focused.log",
+    "poison-javelin-focused-run.log": ".local/class-skills/poison-javelin-focused-run.log",
+    "poison-javelin-combined.log": ".local/class-skills/poison-javelin-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "poison-javelin-content-build.log": ".local/class-skills/poison-javelin-content-build.log",
+    "poison-javelin-integration-build.log": ".local/class-skills/poison-javelin-integration-build.log",
+    "poison-javelin-python-checks.log": ".local/class-skills/poison-javelin-python-checks.log",
+    "poison-javelin-readiness.log": ".local/class-skills/poison-javelin-readiness.log",
+    "poison-javelin-first-loop.log": ".local/class-skills/poison-javelin-first-loop.log",
+    "poison-javelin-roadmap.log": ".local/class-skills/poison-javelin-roadmap.log",
+    "poison-javelin-roadmap-check.log": ".local/class-skills/poison-javelin-roadmap-check.log",
+    "poison-javelin-projection.log": ".local/class-skills/poison-javelin-projection.log",
+    "poison-javelin-projection-check.log": ".local/class-skills/poison-javelin-projection-check.log",
+    "poison-contact-source.log": ".local/class-skills/poison-contact-source.log",
+    "poison-contact-source-check.log": ".local/class-skills/poison-contact-source-check.log",
+    "poison-contact-source-probe.json": ".local/class-skills/poison-contact-source-probe.json",
+    "poison-javelin-installed-server.log": ".local/class-skills/poison-javelin-installed-server.log",
+    "poison-javelin-installed-smoke.log": ".local/class-skills/poison-javelin-installed-smoke.log",
+    "poison-javelin-missing-projection-failed.log": ".local/class-skills/poison-javelin-missing-projection-failed.log",
+    "poison-javelin-missing-projection-failed-run.log": ".local/class-skills/poison-javelin-missing-projection-failed-run.log",
+    "poison-javelin-fixture-regen-failed.log": ".local/class-skills/poison-javelin-fixture-regen-failed.log",
+    "poison-javelin-resistance-reload-diagnostic.log": ".local/class-skills/poison-javelin-resistance-reload-diagnostic.log",
+    "poison-javelin-gated-mastery-item.log": ".local/class-skills/poison-javelin-gated-mastery-item.log",
+    "poison-javelin-first-passing-focused.log": ".local/class-skills/poison-javelin-first-passing-focused.log"
+  },
+  "limits": [
+    "Pinned3.3.93847 tables take precedence over supplemental older-engine source. Cached AMTH16/event9 metadata has incomplete acquisition provenance; ordinary-repeat minus-one and exact current TH/IAS/WSM/chill/skill-rate/graphical animation still require current-executable/client comparison.",
+    "Source finder footprints are ported, while native sectors project room-list order and native swept parent/CanFit terrain project source collision grids. The2source-subtiles/native-tile mapping, actual room order/masks, initial source path chain, parent selection versus source saved steps, mixed-flight global event chronology, lag/current-state catch-up and modern zero-point targeting remain explicit adapters/acceptance gaps. No first-collider is skipped merely because it was the last hit.",
+    "Current target delivery is native PvM. Wild NPC poison-length resistance is0 and difficulty has already prepared their ordinary poison resistance; the source player-only global difficulty penalty is not guessed from a monster-local setting. PvP/cooperative adaptation, equipped/hireling/prime-evil actors, native shrine and modern sunder remain separate.",
+    "Existing shared poison original ownership, player floor and T29 Protection stay authoritative. Exact modern global regeneration/removal/final tick/interruptions, combined natural/potion/replenish regeneration, delayed death and extended offline catch-up remain unproven. Other aggregate poison producers are not migrated by this handler.",
+    "Actual hard synergy and Tarnhelm soft-point behavior are verified by retained packet tests. Poison mastery0/25/40 is covered by3456 source/native packet comparisons; an extra real-item attempt used the wrong set namespace, and the catalogue confirms correctpiece/88 Trang claws remains gated by existing set dependencies. No gate was opened; complete real mastery/poison-item/RNG/proc/deferred-quantity/upgrade/inventory/client acceptance remains separate.",
+    "Owner death/reset and existing committed wardrobe hook clear parent/clouds; active poison retains its original source through the shared receiver. Existing flight internal-map/expiry policy is reused. Full disconnect/reconnect/class-commit/owner-loss/event/client behavior remains acceptance work.",
+    "Saved optional PoisonClouds and PathChanged fields retain version0 weapon-flight format; missing fields default to empty/false. Persistence tests hold effect clocks in the future to isolate serialization, then resume actual saved states. This is not a certificate of offline modern event replay."
+  ],
+  "buildHashes": {
+    "content": "5cfdbcfb8c57365ddcaf7d9fc4768b7e69603dd539b9a9c56d6d0faa283b5b78",
+    "integration": "7251e7c6fbd863565778a1bf2143bdfa9aef837b73ec98fded3aa3777ece2f45"
+  },
+  "fixtureCorrections": [
+    "First native launch exposed omitted poisonjav/cloud rows in the shared missile projection. Both exact pinned rows are now included by the generator; no invented fallback constants.",
+    "Saved-resource check initially saw ordinary mana regeneration because the new fixture name was not in the existing one-hour snapshot control. It now uses the same test-only control as older bow fixtures, with no production resource change.",
+    "Resumed direct damage was correct; the native skeleton source profile reapplies its50percent poison resistance on load. The fixture now explicitly expects16FP256 from saved32FP256 rate and a16FP256 next-frame cloud loss.",
+    "The optional mastery item probe used an invalid set namespace. Correctpiece/88 is separately confirmed unavailable by the unchanged named audit, so real mastery gear remains a documented nonblocking item dependency; pure compiled/native mastery coverage is retained."
+  ],
+  "assets": {
+    "effect": "Identified logical projectile0xF42, throw sound0x238 and green0x374A/hue0x3F cloud marker. Final Javelin/PoisonSparks/poisonpuff/trail/contact/audio pending.",
+    "icons": "Talent and L/R/quick icons remain independently pending."
+  },
+  "next": "Continue Amazon with Lightning Bolt source-specific conversion, AR, TH/quantity/flight and actual input/reload checks; keep individual blockers recorded.",
+  "installationRollback": {
+    "path": ".local/class-skills/pre-poison-javelin-install",
+    "previousContentSha256": "8d8edefd41e856f880109abef8b06a01ef4f304a89c96de4b61842527f059bff",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  }
+}

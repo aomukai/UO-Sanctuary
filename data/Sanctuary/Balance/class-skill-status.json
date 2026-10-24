@@ -42,10 +42,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 15,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Source preparation only: complete creator/skill getters, poison application/regen, router/contact and factory components establish a skill-only stationary cloud and most-recent-victim LastCollide. The shared poison consumer now uses FP256 health, original ownership, a player one-life floor and optional saved integer40ms frame clock; approved Protection and restorative behavior are preserved. Source/native scope is recorded separately. Handler remains pending path/do-handler/contact, exact poison mitigation and TH resource integration. Modern event phase/interruptions, other legacy producers and extended offline catch-up stay explicit; effects/audio and talent/hotkey icons are separate."
+      "remaining": "Learned TH/IAS javelin pays fractional start mana, emits captured source128 parent and consumes one quantity at release with15-frame localdelay. Saved previous path-change flags create source-zero stationary60-frame clouds before movement; clouds retain parent rank and live hard Plague synergy/mastery, with59 possible contact passes. Complete finder footprints and post-selection LastCollide preserve first-collider semantics. Native parent AR/Pierce/block/item delivery and separate integer poison rate/length receiver reuse verified components. Real Cast input, gear changes, once-only resources, poison/source/state, paid windup, independent saved flights/clouds/delay and death/respec checks are recorded separately. Modern source grid/room order/event/TH animation/stat/seed/owner/client and full item coverage remain acceptance work; effects/audio and tree/hotkey icons use identified placeholders."
     },
     {
       "talentId": "amazon.impale",

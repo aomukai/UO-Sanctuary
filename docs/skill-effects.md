@@ -261,7 +261,7 @@ Decoy entity: static UO sex silhouette/hue0x481 and0x376A appear marker are iden
 
 Slow Missiles: logical slowed encounter-bolt positions use identified UO0xF42/0x36D4/0x3818 markers; final missile presentation remains pending. Cast_slowmissiles, the innersight target overlay and amazon_handofathena audio still need final assets and a cast/target consumer. Talent and right-hotkey icons are tracked separately. Full skill availability is pending the remaining mechanics.
 
-Poison Javelin preparation: Javelin parent, PoisonSparks cloud, poisonpuff child/trail/contact, amazon_cast_poison/weapon_throw_1/object_poison_loop audio and cast presentation remain pending. No handler or new placeholder is active yet. Future temporary assets must be labelled; the separate talent/hotkey icons remain needed. Factory cloud lifetime is a mechanical clock, not a certificate of final animation timing.
+Poison Javelin: native logical projectile0xF42, ordinary throw sound0x238 and green0x374A/hue0x3F cloud marker are identified placeholders. Final Javelin/PoisonSparks/poisonpuff travel/trail/contact, amazon_cast_poison/weapon_throw_1/object_poison_loop audio and cast presentation remain needed. Talent and L/R/quick-hotkey icons remain separately pending. Source60-frame cloud lifetime is a mechanical clock, not final animation timing.
 
 Evade uses native0x1A4 sound as an identified placeholder with no S1 animation/visual marker or movement lock. Final block_arrow_1/amazon_dodge_1 audio remains pending; a bitmap visual is not established by row animS1. Its passive talent icon is separate; no active hotkey icon.
 

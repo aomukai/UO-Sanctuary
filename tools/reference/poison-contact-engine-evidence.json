@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": [
+    "D2Common_10407_Impl"
+  ],
+  "blockHashes": {
+    "D2Common_10407_Impl": "a4dd3288d710b1eb304eea6fa5b78455f11f976ade7434fd5299cc2207e126cb"
+  },
+  "probe": {
+    "cases": 735,
+    "path": ".local/class-skills/poison-contact-source-probe.json",
+    "sha256": "fa02b1f90943c2a8d566f83681a0817a33eed7d7e35aa7b2ef612cbd20c92026"
+  },
+  "cachedAnimation": {
+    "path": ".local/research/AnimData.d2",
+    "sha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+    "records": [
+      {
+        "code": "AMTHHTH",
+        "frames": 16,
+        "speed": 256,
+        "event": 9,
+        "eventKind": 2
+      },
+      {
+        "code": "AMTH1HS",
+        "frames": 16,
+        "speed": 256,
+        "event": 9,
+        "eventKind": 2
+      },
+      {
+        "code": "AMTH1HT",
+        "frames": 16,
+        "speed": 256,
+        "event": 9,
+        "eventKind": 2
+      }
+    ],
+    "provenanceComplete": false
+  },
+  "established": [
+    "Full finder combines missile size1..3 with target footprint, clamps target sizes above3 and rejects size0. Current size2 poison cloud gives diamond radius1 for size1 targets, diamond radius2 for size2, and the cross of2x1 arms for size3. Native sectors retain their own enumeration order as the room-list adapter.",
+    "The finder returns the first callback-eligible collider. The LastCollide identity check happens later in the generic hit router, not in this finder; an unchanged first collider must not be skipped in order to poison another actor.",
+    "Cached Amazon TH records all have16 frames/event9 and event-kind2. Existing full UNITS_GetFrameBonus review returns0 for TH; the native ordinary-repeat minus-one adapter and exact modern animation remain separate from this source metadata."
+  ],
+  "limits": [
+    "One valid room, alive monster, declared size/coordinates and accepting callback isolate complete finder geometry. Full hostility/collision masks, linked-room/native sector ordering and modern grid/client equivalence remain acceptance work.",
+    "Cached animation acquisition provenance is incomplete. The16/event9 TH clock is a declared supplementary source adapter; current3.3 executable animation/IAS/chill/WSM/skill-rate comparison remains open."
+  ]
+}

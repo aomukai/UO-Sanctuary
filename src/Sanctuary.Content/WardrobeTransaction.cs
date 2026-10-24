@@ -127,6 +127,7 @@ public static class WardrobeTransaction
         { NecromancerEffects.Profiles.Store(player, skillState with { BoneArmor = 0 }); }
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
+        PoisonJavelins.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonDecoys.Cancel(player);

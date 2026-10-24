@@ -40,7 +40,10 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
         return minimum+(span>0?Math.Clamp(roll,0,span-1):0);
     }
     internal GearDamage Roll(Mobile target,Func<int,int> random)=>Roll(target!=null,NamedCombat.Demon(target),GemCombat.Undead(target),random);
+    internal GearDamage Roll(Mobile target,Func<int,int> random,out int poisonRate256)=>Roll(target!=null,NamedCombat.Demon(target),GemCombat.Undead(target),random,out poisonRate256);
     internal GearDamage Roll(bool hasTarget,bool demon,bool undead,Func<int,int> random)
+        =>Roll(hasTarget,demon,undead,random,out _);
+    private GearDamage Roll(bool hasTarget,bool demon,bool undead,Func<int,int> random,out int poisonRate256)
     {
         int physical=RollValue(Min256,Max256,0,random);
         int percent=Math.Max(-90,Percent+(demon?DemonPercent:0)+(undead?UndeadPercent:0));
@@ -51,6 +54,7 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
         int fire=RollValue(e.FireMin,e.FireMax,FireMastery,random),magic=RollValue(e.MagicMin,e.MagicMax,MagicMastery,random);
         int lightning=RollValue(e.LightningMin,e.LightningMax,LightningMastery,random),cold=RollValue(e.ColdMin,e.ColdMax,ColdMastery,random);
         int poison=RollValue(e.PoisonMin,e.PoisonMax,PoisonMastery,random);
+        poisonRate256=poison;
         // srvdmg1 runs after FillDamageParams: conversion sees the percentage-
         // enhanced, critical physical roll; existing elemental mastery is not
         // reapplied to this converted amount.
@@ -77,6 +81,7 @@ public sealed record WeaponFlight(long Id,long Cast,uint Owner,int Map,CombatAbi
     public bool HostileSpell{get;init;}
     public string Missile{get;init;}
     public SlowMissilePayload? Slow{get;init;}
+    public bool PathChanged{get;init;}
 }
 public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc)
 {
@@ -88,6 +93,7 @@ public sealed record WeaponFlightLease(long Cast,uint Target,DateTime UntilUtc)
 public sealed record WeaponFlightSave(WeaponFlight[] Flights,WeaponFlightLease[] Leases,long NextId,long NextCast)
 {
     public BowExplosion[] Explosions{get;init;}=[];
+    public PoisonCloud[] PoisonClouds{get;init;}=[];
 }
 
 public sealed class WeaponMissileProfiles:GenericPersistence
@@ -125,7 +131,7 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
+            || ability is CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
             || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
             || ability!=CombatAbility.GuidedArrow && guided!=null
             || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability!=CombatAbility.Strafe && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
@@ -163,8 +169,10 @@ public static class WeaponMissiles
     internal static void Cancel(Mobile owner)
     {
         var ids=new List<long>();foreach(var (id,flight) in _flights){if(flight.Owner==owner.Serial.Value){ids.Add(id);}}
-        foreach(long id in ids){_flights.Remove(id);}BowExplosions.Cancel(owner);Prune();
+        foreach(long id in ids){_flights.Remove(id);}BowExplosions.Cancel(owner);PoisonJavelins.ClearClouds(owner);Prune();
     }
+    internal static void CancelPoison(Mobile owner)
+    {foreach(long id in new List<long>(_flights.Keys)){if(_flights[id].Owner==owner.Serial.Value && _flights[id].Ability==CombatAbility.PoisonJavelin){_flights.Remove(id);}}PoisonJavelins.ClearClouds(owner);Prune();}
     internal static void Tick(DateTime at)
     {
         _keys.Clear();_keys.AddRange(_flights.Keys);_keys.Sort();
@@ -177,14 +185,17 @@ public static class WeaponMissiles
                 if(at>=flight.NextUtc.AddMilliseconds((flight.Frames-flight.Frame)*40L)){_flights.Remove(id);}continue;
             }
             // Process overdue source frames before lifetime completion; lag must not skip impacts.
-            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){BowExplosions.Tick(flight.NextUtc);Step(owner,flight);}
+            while(_flights.TryGetValue(id,out flight) && flight.NextUtc<=at){BowExplosions.Tick(flight.NextUtc);PoisonJavelins.Tick(flight.NextUtc);Step(owner,flight);}
         }
-        BowExplosions.Tick(at);Prune();
+        BowExplosions.Tick(at);PoisonJavelins.Tick(at);Prune();
     }
     private static void Step(Mobile owner,WeaponFlight flight)
     {
+        if(flight.Ability==CombatAbility.PoisonJavelin && flight.PathChanged){PoisonJavelins.Trail((PlayerMobile)owner,flight);}
         if(flight.Guided!=null){flight=GuidedArrows.Steer((PlayerMobile)owner,flight);}
         var next=flight with{X=flight.X+flight.Vx,Y=flight.Y+flight.Vy,Frame=flight.Frame+1,NextUtc=flight.NextUtc.AddMilliseconds(40)};
+        if(flight.Ability==CombatAbility.PoisonJavelin)
+        {next=next with{PathChanged=(int)Math.Floor(flight.X*2+.5)!=(int)Math.Floor(next.X*2+.5)||(int)Math.Floor(flight.Y*2+.5)!=(int)Math.Floor(next.Y*2+.5)};}
         if(flight.Guided==null && next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
@@ -205,7 +216,7 @@ public static class WeaponMissiles
         int query=(int)Math.Ceiling(Math.Max(Math.Abs(flight.Vx),Math.Abs(flight.Vy))+CombatHitboxes.BodyRadius+CombatHitboxes.TeethRadius+0.5);
         foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(end,query))
         {
-            if(candidate.Serial.Value==flight.LastCollision || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
+            if(candidate.Serial.Value==flight.LastCollision && flight.Ability!=CombatAbility.PoisonJavelin || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
                 || !CombatHitboxes.Intersect(flight.X,flight.Y,next.X,next.Y,flight.Z,candidate.Location,out double entry)){continue;}
             if(entry<nearest || entry==nearest && (selected==null || candidate.Serial.Value<selected.Serial.Value)){selected=candidate;nearest=entry;}
         }
@@ -227,6 +238,7 @@ public static class WeaponMissiles
             HostileImpact((BaseCreature)owner,selected,flight);_flights.Remove(flight.Id);return;
         }
         var player=(PlayerMobile)owner;
+        if(flight.Ability==CombatAbility.PoisonJavelin && selected.Serial.Value==flight.LastCollision){return;}
         if(_leases.TryGetValue((flight.Cast,selected.Serial.Value),out var lease) && lease.UntilUtc>flight.NextUtc){return;}
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L)){RetainWithoutFlight=flight.Ability==CombatAbility.Strafe};}
@@ -243,7 +255,7 @@ public static class WeaponMissiles
         }
         BowExplosions.Create(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
-        var damage=flight.Damage.Roll(selected,DamageRoll);
+        var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(selected is not BaseCreature creature || !SourceBlocking.TryBlock(creature,damage.Physical>0,out bool blocked))
         {_flights.Remove(flight.Id);return;}
         if(!blocked)
@@ -261,9 +273,10 @@ public static class WeaponMissiles
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
-                if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
+                if(flight.Ability==CombatAbility.PoisonJavelin){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
+                else if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
-            if(AmazonBow.Handles(flight.Ability))
+            if(AmazonBow.Handles(flight.Ability) || flight.Ability==CombatAbility.PoisonJavelin)
             {
                 // Preserve the separate attacker/defender event paths. Leech
                 // and critical were already delivered from the saved packet.
@@ -299,13 +312,14 @@ public static class WeaponMissiles
         var ended=new List<(long,uint)>();foreach(var (key,lease) in _leases){if(!active.Contains(lease.Cast) && (!lease.RetainWithoutFlight || lease.UntilUtc<=TimedEffects.Now)){ended.Add(key);}}
         foreach(var key in ended){_leases.Remove(key);}
     }
-    internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast){Explosions=BowExplosions.Snapshot()};
+    internal static WeaponFlightSave Snapshot()=>new(new List<WeaponFlight>(_flights.Values).ToArray(),new List<WeaponFlightLease>(_leases.Values).ToArray(),_nextId,_nextCast){Explosions=BowExplosions.Snapshot(),PoisonClouds=PoisonJavelins.Snapshot()};
     internal static void Restore(WeaponFlightSave saved)
     {
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
+                || flight.PathChanged && flight.Ability!=CombatAbility.PoisonJavelin
                 || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
                     || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0
                     || flight.Frames!=flight.Frame+Math.Max(1,flight.Guided.Remaining) || flight.Flags!=(flight.Guided.Mode==1?0x20u:0x420u))
@@ -321,6 +335,6 @@ public static class WeaponMissiles
             _nextId=Math.Max(_nextId,flight.Id);_nextCast=Math.Max(_nextCast,flight.Cast);
         }
         foreach(var lease in saved?.Leases??[]){if(!_leases.TryAdd((lease.Cast,lease.Target),lease)){throw new InvalidDataException("Duplicate weapon missile lease");}}
-        BowExplosions.Restore(saved?.Explosions??[]);Prune();
+        BowExplosions.Restore(saved?.Explosions??[]);PoisonJavelins.Restore(saved?.PoisonClouds??[]);Prune();
     }
 }
