@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/ITEMS/ItemsMagic.cpp": "ff65c78c37e031da46bbd13d83626c39ce0ddc6971c6e4a7791e594d25b57ede",
+    "source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f"
+  },
+  "compiledUnchangedRoutines": {
+    "ITEMS_ComputeCraftedMagicAffixLevel": "4cfbfd594bbe083865b64fadf2143ff03997da3f96fe01ef9ea37b5b488c6495",
+    "ITEMMODS_AffixPlayerClassisCompatible": "6e116bce01b48e3b52d40a29a838d83aa7a29fc951b1f672a06b820c2bef34d6",
+    "ITEMMODS_HasAffixWithGroup": "4e2bb2845d727cebad6cbd8e8adf6c2ea276421c6817b080c1df1b861958608f",
+    "ComputeAffixFrequency": "dadcfea34b12a1570d253f83e1b3ef6c5bc48ae536a5340042c522f3c3898549",
+    "MagicItemRollAffix": "a2ee16098705bd7d77b061f5a333b2168d6b1f9933bda938ffba56f752009b13",
+    "ITEMS_RollMagicAffixesNew": "d2b0be39a81efc94e689ab209a0ca69471d16e65c81211344a9c526735f12515",
+    "ITEMMODS_CanItemHaveMagicAffix": "0a03cc5229d75bb3d2ffd29323c6285461b77514678bccecd96fff4e15cf6cad",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e"
+  },
+  "pinnedTableHashes": {
+    "magicprefix": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d",
+    "magicsuffix": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415",
+    "itemtypes": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae",
+    "properties": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "weapons": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "armor": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "misc": "116264d5df4e7724beaf9a7ae1f005c58544a5a50a331baf4b370a4f01110072"
+  },
+  "fixture": {
+    "path": ".local/class-skills/valkyrie-affix-source-probe.json",
+    "sha256": "03a44283db6e1e00cf4056fe88573736b90ef4eed7b6ed9fa19aaa8d372a39f0",
+    "cases": 5184
+  },
+  "established": [
+    "Complete unchanged new-affix selector, level/frequency/weighted picker, existing-group/class-compatibility, item-type/property eligibility and two seed helpers execute against all current affix rows and all18 Valkyrie bases.",
+    "Each fixture records the whole ordered eligible pool with weights, exact selected source reference and final seed. Real earlier source-selected prefix groups are excluded. Normal/raw levels1/25/46/99/103/787, magic/rare qualities, both affix kinds three seed states, and forced/unforced attempts are covered.",
+    "The complete old weighted picker draws from totalWeight+1, with the endpoint assigned to the last eligible row. Even forced selection consumes the two-way seed draw first.",
+    "Raw item level is retained; only affix level clamps1..99. Circlet magic levels multiply each affix frequency by its level. Player supported-property filtering is not applied."
+  ],
+  "services": [
+    "Item format100, current base/row/property lookup, current-equivalence item-type classifier and existing item affix storage are declared services. No full source table loader, item creation or property execution is claimed.",
+    "The original weighted picker is enclosed in a namespace, and a wrapper records its input pool before delegating. Its body is unchanged. All selected references are pinned extraction row IDs, not assertions about modern binary affix IDs.",
+    "Inactive nameless/zero-frequency rows use a valid neutral first-property lookup sentinel to avoid undefined old negative pointer access. They cannot be selected. The modern table parser and invalid-record behavior remain outside this proof."
+  ],
+  "limits": [
+    "This is affix selection only. Magic/rare outer orchestration, rare names, property value generation/stat application, item-level side effects, actual NPC inventory/combat/casting/lifecycle/saves and modern/client acceptance remain pending. No learned Valkyrie handler is enabled.",
+    "Full legacy CanItemHaveMagicAffix rejects a first socket property independently of the no-sockets summon request. This suspicious old behavior is preserved as bounded supplementary evidence; modern socket-affix eligibility is explicitly uncertain.",
+    "No original global item/owner seed allocation or exact modern RNG stream claim. No class completion certificate."
+  ]
+}

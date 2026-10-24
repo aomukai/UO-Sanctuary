@@ -114,6 +114,14 @@
     "json/monequip.json": {
       "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/monequip.json",
       "sha256": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772"
+    },
+    "json/magicprefix.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/magicprefix.json",
+      "sha256": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d"
+    },
+    "json/magicsuffix.json": {
+      "url": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/magicsuffix.json",
+      "sha256": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415"
     }
   },
   "mechanicsReferenceVersion": "3.3.93847",

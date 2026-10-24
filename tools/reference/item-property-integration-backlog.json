@@ -1,0 +1,1525 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Source-level integration inventory. Ordinary whitelist and named registration are not proof that every stat/event/parameter or NPC consumer works.",
+  "counts": {
+    "ordinaryAcceptedCodes": 34,
+    "legacyAffixes": 967,
+    "legacyFilteredAffixes": 507,
+    "valkyrieTypeCompatibleAffixes": 478,
+    "valkyrieAcceptedByOrdinaryFilter": 189,
+    "valkyrieFilteredAffixes": 289,
+    "valkyrieMissingCodes": 53,
+    "valkyrieExistingNamedRegistrations": 48,
+    "valkyrieOutsideNamedRegistration": [
+      "att-skill",
+      "charged",
+      "gethit-skill",
+      "hit-skill",
+      "war"
+    ]
+  },
+  "ordinaryAcceptedCodes": [
+    "ac",
+    "ac%",
+    "att",
+    "att%",
+    "balance1",
+    "balance2",
+    "balance3",
+    "block",
+    "cast1",
+    "cast2",
+    "cast3",
+    "dex",
+    "dmg%",
+    "dmg-max",
+    "dmg-min",
+    "enr",
+    "gold%",
+    "hp",
+    "mag%",
+    "mana",
+    "move1",
+    "move2",
+    "move3",
+    "res-all",
+    "res-cold",
+    "res-fire",
+    "res-ltng",
+    "res-pois",
+    "stam",
+    "str",
+    "swing1",
+    "swing2",
+    "swing3",
+    "vit"
+  ],
+  "valkyrieMissingProperties": [
+    {
+      "code": "ac/lvl",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:520",
+        "MagicPrefix:521"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "ama",
+      "modifierOccurrences": 4,
+      "affixCount": 4,
+      "affixes": [
+        "MagicPrefix:560",
+        "MagicPrefix:561",
+        "MagicPrefix:562",
+        "MagicPrefix:563"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "ass",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:588",
+        "MagicPrefix:589"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "att%/lvl",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicPrefix:539"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "att-demon",
+      "modifierOccurrences": 6,
+      "affixCount": 6,
+      "affixes": [
+        "MagicPrefix:423",
+        "MagicPrefix:424",
+        "MagicPrefix:425",
+        "MagicPrefix:426",
+        "MagicPrefix:427",
+        "MagicPrefix:428"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "att-skill",
+      "modifierOccurrences": 7,
+      "affixCount": 7,
+      "affixes": [
+        "MagicSuffix:419",
+        "MagicSuffix:420",
+        "MagicSuffix:424",
+        "MagicSuffix:437",
+        "MagicSuffix:442",
+        "MagicSuffix:443",
+        "MagicSuffix:444"
+      ],
+      "modes": [
+        "Proc"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "No scalar/range/scaled registration",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "att-undead",
+      "modifierOccurrences": 5,
+      "affixCount": 5,
+      "affixes": [
+        "MagicPrefix:595",
+        "MagicPrefix:596",
+        "MagicPrefix:597",
+        "MagicPrefix:598",
+        "MagicPrefix:599"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "att/lvl",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:526",
+        "MagicPrefix:537"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "bar",
+      "modifierOccurrences": 4,
+      "affixCount": 4,
+      "affixes": [
+        "MagicPrefix:578",
+        "MagicPrefix:579",
+        "MagicPrefix:580",
+        "MagicPrefix:581"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "charged",
+      "modifierOccurrences": 42,
+      "affixCount": 42,
+      "affixes": [
+        "MagicSuffix:461",
+        "MagicSuffix:462",
+        "MagicSuffix:463",
+        "MagicSuffix:467",
+        "MagicSuffix:469",
+        "MagicSuffix:470",
+        "MagicSuffix:471",
+        "MagicSuffix:475",
+        "MagicSuffix:483",
+        "MagicSuffix:486",
+        "MagicSuffix:487",
+        "MagicSuffix:495",
+        "MagicSuffix:496",
+        "MagicSuffix:497",
+        "MagicSuffix:501",
+        "MagicSuffix:503",
+        "MagicSuffix:511",
+        "MagicSuffix:513",
+        "MagicSuffix:515",
+        "MagicSuffix:519",
+        "MagicSuffix:529",
+        "MagicSuffix:531",
+        "MagicSuffix:533",
+        "MagicSuffix:559",
+        "MagicSuffix:561",
+        "MagicSuffix:563",
+        "MagicSuffix:577",
+        "MagicSuffix:583",
+        "MagicSuffix:587",
+        "MagicSuffix:597",
+        "MagicSuffix:599",
+        "MagicSuffix:605",
+        "MagicSuffix:607",
+        "MagicSuffix:609",
+        "MagicSuffix:619",
+        "MagicSuffix:629",
+        "MagicSuffix:633",
+        "MagicSuffix:639",
+        "MagicSuffix:653",
+        "MagicSuffix:657",
+        "MagicSuffix:781",
+        "MagicSuffix:785"
+      ],
+      "modes": [
+        "Charges"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "No scalar/range/scaled registration",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "cold-len",
+      "modifierOccurrences": 9,
+      "affixCount": 9,
+      "affixes": [
+        "MagicPrefix:541",
+        "MagicPrefix:542",
+        "MagicPrefix:543",
+        "MagicPrefix:544",
+        "MagicSuffix:176",
+        "MagicSuffix:177",
+        "MagicSuffix:178",
+        "MagicSuffix:179",
+        "MagicSuffix:180"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "cold-max",
+      "modifierOccurrences": 9,
+      "affixCount": 9,
+      "affixes": [
+        "MagicPrefix:541",
+        "MagicPrefix:542",
+        "MagicPrefix:543",
+        "MagicPrefix:544",
+        "MagicSuffix:176",
+        "MagicSuffix:177",
+        "MagicSuffix:178",
+        "MagicSuffix:179",
+        "MagicSuffix:180"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "cold-min",
+      "modifierOccurrences": 9,
+      "affixCount": 9,
+      "affixes": [
+        "MagicPrefix:541",
+        "MagicPrefix:542",
+        "MagicPrefix:543",
+        "MagicPrefix:544",
+        "MagicSuffix:176",
+        "MagicSuffix:177",
+        "MagicSuffix:178",
+        "MagicSuffix:179",
+        "MagicSuffix:180"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-cold",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:735"
+      ],
+      "modes": [
+        "DamageRange"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-demon",
+      "modifierOccurrences": 6,
+      "affixCount": 6,
+      "affixes": [
+        "MagicPrefix:423",
+        "MagicPrefix:424",
+        "MagicPrefix:425",
+        "MagicPrefix:426",
+        "MagicPrefix:427",
+        "MagicPrefix:428"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-fire",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:736"
+      ],
+      "modes": [
+        "DamageRange"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-ltng",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:738"
+      ],
+      "modes": [
+        "DamageRange"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-pois",
+      "modifierOccurrences": 11,
+      "affixCount": 11,
+      "affixes": [
+        "MagicPrefix:555",
+        "MagicPrefix:556",
+        "MagicPrefix:557",
+        "MagicPrefix:558",
+        "MagicPrefix:559",
+        "MagicSuffix:234",
+        "MagicSuffix:235",
+        "MagicSuffix:236",
+        "MagicSuffix:237",
+        "MagicSuffix:238",
+        "MagicSuffix:737"
+      ],
+      "modes": [
+        "DamageRange"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-to-mana",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicPrefix:199"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg-undead",
+      "modifierOccurrences": 5,
+      "affixCount": 5,
+      "affixes": [
+        "MagicPrefix:595",
+        "MagicPrefix:596",
+        "MagicPrefix:597",
+        "MagicPrefix:598",
+        "MagicPrefix:599"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dmg/lvl",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:526",
+        "MagicPrefix:531"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "dru",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:584",
+        "MagicPrefix:585"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "ease",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicSuffix:369",
+        "MagicSuffix:370"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "fire-max",
+      "modifierOccurrences": 10,
+      "affixCount": 10,
+      "affixes": [
+        "MagicPrefix:545",
+        "MagicPrefix:546",
+        "MagicPrefix:547",
+        "MagicPrefix:548",
+        "MagicPrefix:549",
+        "MagicSuffix:183",
+        "MagicSuffix:184",
+        "MagicSuffix:185",
+        "MagicSuffix:186",
+        "MagicSuffix:187"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "fire-min",
+      "modifierOccurrences": 10,
+      "affixCount": 10,
+      "affixes": [
+        "MagicPrefix:545",
+        "MagicPrefix:546",
+        "MagicPrefix:547",
+        "MagicPrefix:548",
+        "MagicPrefix:549",
+        "MagicSuffix:183",
+        "MagicSuffix:184",
+        "MagicSuffix:185",
+        "MagicSuffix:186",
+        "MagicSuffix:187"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "gethit-skill",
+      "modifierOccurrences": 8,
+      "affixCount": 8,
+      "affixes": [
+        "MagicSuffix:421",
+        "MagicSuffix:422",
+        "MagicSuffix:423",
+        "MagicSuffix:428",
+        "MagicSuffix:434",
+        "MagicSuffix:435",
+        "MagicSuffix:436",
+        "MagicSuffix:454"
+      ],
+      "modes": [
+        "Proc"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "No scalar/range/scaled registration",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "half-freeze",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:182"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "hit-skill",
+      "modifierOccurrences": 4,
+      "affixCount": 4,
+      "affixes": [
+        "MagicSuffix:418",
+        "MagicSuffix:432",
+        "MagicSuffix:433",
+        "MagicSuffix:662"
+      ],
+      "modes": [
+        "Proc"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "No scalar/range/scaled registration",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "hp/lvl",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicSuffix:407",
+        "MagicSuffix:409"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "indestruct",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:404"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "knock",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:309"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "lifesteal",
+      "modifierOccurrences": 10,
+      "affixCount": 10,
+      "affixes": [
+        "MagicSuffix:352",
+        "MagicSuffix:353",
+        "MagicSuffix:354",
+        "MagicSuffix:355",
+        "MagicSuffix:356",
+        "MagicSuffix:357",
+        "MagicSuffix:358",
+        "MagicSuffix:742",
+        "MagicSuffix:743",
+        "MagicSuffix:744"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "light",
+      "modifierOccurrences": 6,
+      "affixCount": 6,
+      "affixes": [
+        "MagicPrefix:266",
+        "MagicPrefix:267",
+        "MagicSuffix:310",
+        "MagicSuffix:311",
+        "MagicSuffix:312",
+        "MagicSuffix:741"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "ltng-max",
+      "modifierOccurrences": 10,
+      "affixCount": 10,
+      "affixes": [
+        "MagicPrefix:550",
+        "MagicPrefix:551",
+        "MagicPrefix:552",
+        "MagicPrefix:553",
+        "MagicPrefix:554",
+        "MagicSuffix:189",
+        "MagicSuffix:190",
+        "MagicSuffix:191",
+        "MagicSuffix:192",
+        "MagicSuffix:193"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "ltng-min",
+      "modifierOccurrences": 10,
+      "affixCount": 10,
+      "affixes": [
+        "MagicPrefix:550",
+        "MagicPrefix:551",
+        "MagicPrefix:552",
+        "MagicPrefix:553",
+        "MagicPrefix:554",
+        "MagicSuffix:189",
+        "MagicSuffix:190",
+        "MagicSuffix:191",
+        "MagicSuffix:192",
+        "MagicSuffix:193"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "mana-kill",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:417",
+        "MagicPrefix:418"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "mana/lvl",
+      "modifierOccurrences": 3,
+      "affixCount": 3,
+      "affixes": [
+        "MagicPrefix:540",
+        "MagicSuffix:408",
+        "MagicSuffix:409"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "manasteal",
+      "modifierOccurrences": 7,
+      "affixCount": 7,
+      "affixes": [
+        "MagicSuffix:359",
+        "MagicSuffix:360",
+        "MagicSuffix:361",
+        "MagicSuffix:362",
+        "MagicSuffix:363",
+        "MagicSuffix:364",
+        "MagicSuffix:365"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "nec",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:570",
+        "MagicPrefix:571"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "noheal",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:276"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "pal",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:564",
+        "MagicPrefix:565"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "red-dmg",
+      "modifierOccurrences": 9,
+      "affixCount": 9,
+      "affixes": [
+        "MagicSuffix:115",
+        "MagicSuffix:116",
+        "MagicSuffix:117",
+        "MagicSuffix:118",
+        "MagicSuffix:119",
+        "MagicSuffix:120",
+        "MagicSuffix:121",
+        "MagicSuffix:122",
+        "MagicSuffix:123"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "red-mag",
+      "modifierOccurrences": 7,
+      "affixCount": 7,
+      "affixes": [
+        "MagicSuffix:124",
+        "MagicSuffix:125",
+        "MagicSuffix:126",
+        "MagicSuffix:127",
+        "MagicSuffix:128",
+        "MagicSuffix:129",
+        "MagicSuffix:130"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "regen",
+      "modifierOccurrences": 7,
+      "affixCount": 7,
+      "affixes": [
+        "MagicSuffix:269",
+        "MagicSuffix:270",
+        "MagicSuffix:271",
+        "MagicSuffix:272",
+        "MagicSuffix:273",
+        "MagicSuffix:274",
+        "MagicSuffix:739"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "regen-stam",
+      "modifierOccurrences": 3,
+      "affixCount": 3,
+      "affixes": [
+        "MagicPrefix:201",
+        "MagicPrefix:202",
+        "MagicPrefix:662"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "rep-dur",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicSuffix:402",
+        "MagicSuffix:403"
+      ],
+      "modes": [
+        "Parameter"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "res-pois-len",
+      "modifierOccurrences": 3,
+      "affixCount": 3,
+      "affixes": [
+        "MagicSuffix:366",
+        "MagicSuffix:367",
+        "MagicSuffix:368"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "skilltab",
+      "modifierOccurrences": 72,
+      "affixCount": 72,
+      "affixes": [
+        "MagicPrefix:433",
+        "MagicPrefix:434",
+        "MagicPrefix:435",
+        "MagicPrefix:436",
+        "MagicPrefix:437",
+        "MagicPrefix:438",
+        "MagicPrefix:439",
+        "MagicPrefix:440",
+        "MagicPrefix:441",
+        "MagicPrefix:445",
+        "MagicPrefix:446",
+        "MagicPrefix:447",
+        "MagicPrefix:448",
+        "MagicPrefix:449",
+        "MagicPrefix:450",
+        "MagicPrefix:451",
+        "MagicPrefix:452",
+        "MagicPrefix:453",
+        "MagicPrefix:457",
+        "MagicPrefix:458",
+        "MagicPrefix:459",
+        "MagicPrefix:460",
+        "MagicPrefix:461",
+        "MagicPrefix:462",
+        "MagicPrefix:463",
+        "MagicPrefix:464",
+        "MagicPrefix:465",
+        "MagicPrefix:469",
+        "MagicPrefix:470",
+        "MagicPrefix:471",
+        "MagicPrefix:472",
+        "MagicPrefix:473",
+        "MagicPrefix:474",
+        "MagicPrefix:475",
+        "MagicPrefix:476",
+        "MagicPrefix:477",
+        "MagicPrefix:481",
+        "MagicPrefix:482",
+        "MagicPrefix:483",
+        "MagicPrefix:484",
+        "MagicPrefix:485",
+        "MagicPrefix:486",
+        "MagicPrefix:487",
+        "MagicPrefix:488",
+        "MagicPrefix:489",
+        "MagicPrefix:493",
+        "MagicPrefix:494",
+        "MagicPrefix:495",
+        "MagicPrefix:496",
+        "MagicPrefix:497",
+        "MagicPrefix:498",
+        "MagicPrefix:499",
+        "MagicPrefix:500",
+        "MagicPrefix:501",
+        "MagicPrefix:505",
+        "MagicPrefix:506",
+        "MagicPrefix:507",
+        "MagicPrefix:508",
+        "MagicPrefix:509",
+        "MagicPrefix:510",
+        "MagicPrefix:511",
+        "MagicPrefix:512",
+        "MagicPrefix:513",
+        "MagicPrefix:703",
+        "MagicPrefix:704",
+        "MagicPrefix:705",
+        "MagicPrefix:706",
+        "MagicPrefix:707",
+        "MagicPrefix:708",
+        "MagicPrefix:709",
+        "MagicPrefix:710",
+        "MagicPrefix:711"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "sock",
+      "modifierOccurrences": 3,
+      "affixCount": 3,
+      "affixes": [
+        "MagicPrefix:420",
+        "MagicPrefix:421",
+        "MagicPrefix:422"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "sor",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:574",
+        "MagicPrefix:575"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "stamdrain",
+      "modifierOccurrences": 1,
+      "affixCount": 1,
+      "affixes": [
+        "MagicSuffix:397"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "thorns",
+      "modifierOccurrences": 5,
+      "affixCount": 5,
+      "affixes": [
+        "MagicSuffix:161",
+        "MagicSuffix:162",
+        "MagicSuffix:163",
+        "MagicSuffix:164",
+        "MagicSuffix:734"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "Registered; reuse candidate, not an NPC/ordinary-affix acceptance certificate",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    },
+    {
+      "code": "war",
+      "modifierOccurrences": 2,
+      "affixCount": 2,
+      "affixes": [
+        "MagicPrefix:712",
+        "MagicPrefix:713"
+      ],
+      "modes": [
+        "Numeric"
+      ],
+      "ordinaryAffixRoute": "Rejected by current ClassGear.Implemented",
+      "namedPropertyRegistration": "No scalar/range/scaled registration",
+      "npcEquipment": "Dedicated stat/event consumer not implemented yet"
+    }
+  ],
+  "lastVerifiedNamedItemEffectGates": {
+    "Breaching-Affix1": [
+      "unique/436"
+    ],
+    "Breaching-Affix2": [
+      "unique/436"
+    ],
+    "Breaching-Affix3": [
+      "unique/436"
+    ],
+    "Breaching-Affix4": [
+      "unique/436"
+    ],
+    "Breaching-Affix6": [
+      "unique/436"
+    ],
+    "Gelid-Affix1": [
+      "unique/427"
+    ],
+    "Gelid-Affix2": [
+      "unique/427"
+    ],
+    "Gelid-Affix3": [
+      "unique/427"
+    ],
+    "Gelid-Affix4": [
+      "unique/427"
+    ],
+    "Gelid-Affix5": [
+      "unique/427"
+    ],
+    "Gelid-Affix6": [
+      "unique/427"
+    ],
+    "Incendiary-Affix1": [
+      "unique/433"
+    ],
+    "Incendiary-Affix2": [
+      "unique/433"
+    ],
+    "Incendiary-Affix3": [
+      "unique/433"
+    ],
+    "Incendiary-Affix4": [
+      "unique/433"
+    ],
+    "Incendiary-Affix6": [
+      "unique/433"
+    ],
+    "Magnetic-Affix1": [
+      "unique/434"
+    ],
+    "Magnetic-Affix2": [
+      "unique/434"
+    ],
+    "Magnetic-Affix3": [
+      "unique/434"
+    ],
+    "Magnetic-Affix4": [
+      "unique/434"
+    ],
+    "Magnetic-Affix6": [
+      "unique/434"
+    ],
+    "Mystical-Affix1": [
+      "unique/437"
+    ],
+    "Mystical-Affix2": [
+      "unique/437"
+    ],
+    "Mystical-Affix3": [
+      "unique/437"
+    ],
+    "Mystical-Affix4": [
+      "unique/437"
+    ],
+    "Mystical-Affix6": [
+      "unique/437"
+    ],
+    "Virulent-Affix1": [
+      "unique/435"
+    ],
+    "Virulent-Affix2": [
+      "unique/435"
+    ],
+    "Virulent-Affix3": [
+      "unique/435"
+    ],
+    "Virulent-Affix4": [
+      "unique/435"
+    ],
+    "Virulent-Affix6": [
+      "unique/435"
+    ],
+    "att-skill": [
+      "unique/166",
+      "unique/254",
+      "unique/259",
+      "unique/416"
+    ],
+    "aura": [
+      "unique/301"
+    ],
+    "charged": [
+      "piece/120",
+      "unique/135",
+      "unique/137",
+      "unique/142",
+      "unique/148",
+      "unique/149",
+      "unique/150",
+      "unique/153",
+      "unique/156",
+      "unique/166",
+      "unique/204",
+      "unique/222",
+      "unique/229",
+      "unique/289",
+      "unique/296",
+      "unique/300",
+      "unique/319",
+      "unique/320",
+      "unique/328",
+      "unique/332",
+      "unique/345",
+      "unique/355",
+      "unique/370",
+      "unique/373",
+      "unique/375",
+      "unique/378",
+      "unique/383",
+      "unique/384",
+      "unique/385",
+      "unique/387"
+    ],
+    "death-skill": [
+      "unique/349",
+      "unique/392",
+      "unique/393",
+      "unique/394",
+      "unique/395"
+    ],
+    "explosivearrow": [
+      "unique/190",
+      "unique/199",
+      "unique/332",
+      "unique/61",
+      "unique/69"
+    ],
+    "gethit-skill": [
+      "piece/109",
+      "piece/118",
+      "piece/122",
+      "piece/71",
+      "piece/73",
+      "piece/91",
+      "piece/98",
+      "unique/129",
+      "unique/136",
+      "unique/137",
+      "unique/141",
+      "unique/153",
+      "unique/171",
+      "unique/197",
+      "unique/204",
+      "unique/222",
+      "unique/226",
+      "unique/227",
+      "unique/229",
+      "unique/237",
+      "unique/245",
+      "unique/246",
+      "unique/252",
+      "unique/264",
+      "unique/270",
+      "unique/277",
+      "unique/284",
+      "unique/341",
+      "unique/345",
+      "unique/348",
+      "unique/349",
+      "unique/356",
+      "unique/378",
+      "unique/408",
+      "unique/409",
+      "unique/410",
+      "unique/411",
+      "unique/420",
+      "unique/421",
+      "unique/422",
+      "unique/423",
+      "unique/424",
+      "unique/425"
+    ],
+    "hit-skill": [
+      "piece/100",
+      "piece/103",
+      "piece/111",
+      "piece/94",
+      "piece/96",
+      "unique/129",
+      "unique/132",
+      "unique/133",
+      "unique/136",
+      "unique/144",
+      "unique/145",
+      "unique/146",
+      "unique/149",
+      "unique/150",
+      "unique/151",
+      "unique/153",
+      "unique/160",
+      "unique/163",
+      "unique/164",
+      "unique/165",
+      "unique/178",
+      "unique/188",
+      "unique/192",
+      "unique/195",
+      "unique/197",
+      "unique/235",
+      "unique/236",
+      "unique/257",
+      "unique/258",
+      "unique/260",
+      "unique/273",
+      "unique/292",
+      "unique/306",
+      "unique/312",
+      "unique/319",
+      "unique/321",
+      "unique/323",
+      "unique/326",
+      "unique/334",
+      "unique/337",
+      "unique/338",
+      "unique/353",
+      "unique/360",
+      "unique/364",
+      "unique/378",
+      "unique/385",
+      "unique/387",
+      "unique/412",
+      "unique/417"
+    ],
+    "kill-skill": [
+      "unique/315"
+    ],
+    "levelup-skill": [
+      "unique/396",
+      "unique/397",
+      "unique/398",
+      "unique/399"
+    ],
+    "magdam-rand": [
+      "unique/416"
+    ],
+    "magicarrow": [
+      "piece/94",
+      "unique/192",
+      "unique/331",
+      "unique/60",
+      "unique/64"
+    ],
+    "oskill": [
+      "unique/331",
+      "unique/347",
+      "unique/353",
+      "unique/355",
+      "unique/365",
+      "unique/415"
+    ],
+    "pierce-dmg": [
+      "unique/424"
+    ],
+    "pierce-immunity-cold": [
+      "unique/427"
+    ],
+    "pierce-immunity-damage": [
+      "unique/436"
+    ],
+    "pierce-immunity-fire": [
+      "unique/433"
+    ],
+    "pierce-immunity-light": [
+      "unique/434"
+    ],
+    "pierce-immunity-magic": [
+      "unique/437"
+    ],
+    "pierce-immunity-poison": [
+      "unique/435"
+    ],
+    "reanimate": [
+      "unique/298"
+    ],
+    "roguesbow-affix1": [
+      "unique/62"
+    ],
+    "skill": [
+      "piece/78",
+      "unique/108",
+      "unique/11",
+      "unique/111",
+      "unique/13",
+      "unique/131",
+      "unique/141",
+      "unique/144",
+      "unique/146",
+      "unique/152",
+      "unique/154",
+      "unique/16",
+      "unique/160",
+      "unique/169",
+      "unique/17",
+      "unique/170",
+      "unique/172",
+      "unique/185",
+      "unique/186",
+      "unique/190",
+      "unique/191",
+      "unique/194",
+      "unique/20",
+      "unique/245",
+      "unique/246",
+      "unique/310",
+      "unique/338",
+      "unique/35",
+      "unique/350",
+      "unique/351",
+      "unique/361",
+      "unique/368",
+      "unique/389",
+      "unique/408",
+      "unique/409",
+      "unique/411",
+      "unique/412",
+      "unique/414",
+      "unique/54",
+      "unique/56",
+      "unique/57",
+      "unique/58",
+      "unique/66"
+    ],
+    "skill-rand": [
+      "unique/358"
+    ],
+    "skilltab-war": [
+      "unique/413"
+    ],
+    "war": [
+      "piece/135",
+      "unique/410",
+      "unique/411"
+    ]
+  },
+  "limits": [
+    "The current Valkyrie catalogue contains every type-compatible source affix, before rank/quality filtering. A rejected affix is not a separate missing mechanic; several rows can share one code.",
+    "Most numeric/range/scaled effects already have named-item paths. Ordinary rolls bypass those templates/aliases/ranges; NamedGear.ActiveProperties also requires a named-item identity and player wearer. Removing the ordinary whitelist alone would yield missing or incorrect effects.",
+    "Named registrations for skill/skilltab remain parameter-dependent; current consumers are predominantly player-specific. NPC inheritance, weapon-local versus global stats, proc ownership and save behavior require dedicated adapters and verification.",
+    "Last verified named-item gates are retained as historical runtime evidence, not a fresh certificate for the in-progress working tree. Some gates reflect unimplemented class/item replacement paths or unresolved source definitions, not missing general damage systems.",
+    "Approved exclusions, including charms, remain intentional and must not be turned into new feature requirements."
+  ],
+  "implementationOrder": [
+    "Connect one shared property representation/alias/range/level-scaled resolver to ordinary and named gear, with existing numeric/save compatibility; keep unsupported events explicit.",
+    "Implement complete source-quality affix/property rolling and actual NPC equipment stat consumers, reusing the shared combat/resource/skill systems. Do not filter out unsupported source rolls or use player-only effects as NPC proof.",
+    "After the relevant class mechanics are ready, return to the deferred skill-effect list: skill-event dispatch, charges, oskills/item auras and remaining newer properties, using the relevant class handlers and exact ownership/resource/target/trigger rules. Individually uncertain mechanics remain recorded while unaffected work continues.",
+    "Verify real ordinary magic/rare and named items plus NPC equipment through damage/resources/skills/events and two save/reload cycles. Refresh acquisition eligibility only after its consumer checks pass."
+  ],
+  "sourceHashes": {
+    "src/Sanctuary.Content/ClassGear.cs": "f394bebc31d1c964c1684111ea9c4bd9fa935d0cfbb8391a27d01367c92b41fa",
+    "src/Sanctuary.Content/NamedPropertyRuntime.cs": "a11767e4c1f6badf27271f0959417f714aff7c9af9f6ce1f080b92302a1425bb",
+    "src/Sanctuary.Content/NamedSkills.cs": "2a86ad26fb5a288f34179da98e18a9e74a829f0036753b574abc4ac11b71f5a2",
+    "src/Sanctuary.Content/NamedGear.cs": "cc505f725a1a7e25d5d70b73fe0a7e0d1b647005bee4735384b55207d06af4e3",
+    "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
+    "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
+    "tools/reference/named-item-runtime-audit.json": "954c4f21f34454dc5941602aea356fcc49ec0f805a52b0f82abfa2dbbe35c11c"
+  },
+  "deferredSkillEffects": [
+    {
+      "codes": "att-skill, hit-skill, gethit-skill",
+      "feature": "Chance to cast on attack, on striking, or when struck",
+      "required": "Trigger stage, chance/rank, target, ownership, delivery and cooldown; then exercise each referenced class skill.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "kill-skill, death-skill, levelup-skill",
+      "feature": "Chance to cast on kill, death, or level-up",
+      "required": "Correct event and caster/target lifetime; a working spell alone does not implement the event system.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "charged",
+      "feature": "Charged skills",
+      "required": "Use/recharge rules, rank, resource policy, charge depletion and persisted charges.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "oskill",
+      "feature": "Cross-class skill grants",
+      "required": "Rank/grant rules, class restrictions, bindings and equipment/lifecycle removal.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "aura",
+      "feature": "Aura while equipped",
+      "required": "Item aura suppliers, combining items/ranks, recipients, pulses and equipment removal.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "reanimate",
+      "feature": "Reanimate as a monster",
+      "required": "Source species, on-kill chance, ownership, original monster abilities, lifetime and persistence; do not substitute a generic pet.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "magicarrow, explosivearrow",
+      "feature": "Item replacement arrows",
+      "required": "Connect the actual item attack to the existing class projectile/area mechanics and verify ammunition/resource rules.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": ""
+    },
+    {
+      "codes": "skill, skill-rand, class/tree/all-skill bonuses",
+      "feature": "Direct and general skill bonuses",
+      "required": "Review the referenced class handlers and item-grant adapters; preserve ordinary hard-point versus effective-rank rules. Warlock bonuses remain included.",
+      "status": "Deferred item-effect pass after relevant class mechanics",
+      "note": "Existing named class/tree/all-skill bonus paths remain in use where supported; this is a return/reverification list, not a claim that every listed grant is absent."
+    }
+  ],
+  "userDecision": "Keep skill-dependent item effects on a return list and implement them after the relevant class skills. Numeric/range/utility property integration remains active dependency work. No unavailable item or unfinished skill is enabled by listing it."
+}

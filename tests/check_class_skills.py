@@ -98,6 +98,8 @@ def check():
         shutil.copy2(STAGE / 'decoy-source-probe.json', folder / 'decoy-source-probe.json')
         shutil.copy2(STAGE / 'jab-source-probe.json', folder / 'jab-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-creation-source-probe.json', folder / 'valkyrie-creation-source-probe.json')
+        shutil.copy2(STAGE / 'valkyrie-affix-source-probe.json', folder / 'valkyrie-affix-source-probe.json')
+        shutil.copy2(STAGE / 'valkyrie-equipment-source-probe.json', folder / 'valkyrie-equipment-source-probe.json')
         for fixture in ('power-strike-scalar-probe.json','power-strike-flow-probe.json','charged-strike-source-probe.json','weapon-sequence-rate-probe.json','impale-source-probe.json','fend-source-probe.json','amazon-dodge-source-probe.json','amazon-avoid-source-probe.json','amazon-evade-source-probe.json','slow-missiles-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
@@ -181,6 +183,9 @@ def check():
                     valk='valkyrie-creation-check' if boot==0 else 'valkyrie-creation-reload-check'
                     session.send(valk)
                     assert session.expect(valk+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    affix='valkyrie-affix-check' if boot==0 else 'valkyrie-affix-reload-check'
+                    session.send(affix)
+                    assert session.expect(affix+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
                     session.send(fury)
                     assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

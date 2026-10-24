@@ -28,7 +28,9 @@
     "json/missiles.json": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
     "json/pettype.json": "27da537883a5b7f196f7750cced1a86640a9a3d434fc1515d3138a0a33cf0c91",
     "json/monstats2.json": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
-    "json/monequip.json": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772"
+    "json/monequip.json": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772",
+    "json/magicprefix.json": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d",
+    "json/magicsuffix.json": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415"
   },
   "mappingInputs": {
     "normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",

@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "corroboratingCommit": "1f16064e09b97e3e65abd6943662207cff00b07f",
+  "comparison": {
+    "magicprefix": {
+      "jsonUrl": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/magicprefix.json",
+      "jsonSha256": "9e7c42d608768e7f1dd1332345a258e4d5e4347ff48a16e8f9d1e974db39787d",
+      "tsvUrl": "https://raw.githubusercontent.com/pinkufairy/D2R-Excel/1f16064e09b97e3e65abd6943662207cff00b07f/magicprefix.txt",
+      "tsvSha256": "3cf2b5f730d5b93388146acdb6e2a7cffb0aa0bf23e2c95b2d80d00841720381",
+      "jsonRows": 721,
+      "tsvRows": 722,
+      "checkedFields": 11425,
+      "extractionAnnotationsNotInTsv": {
+        "expansion": 501
+      },
+      "differences": []
+    },
+    "magicsuffix": {
+      "jsonUrl": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/magicsuffix.json",
+      "jsonSha256": "d7060a8a19c2772747f0cd5d82b1571a774f953789d3ade1f7cac426df97e415",
+      "tsvUrl": "https://raw.githubusercontent.com/pinkufairy/D2R-Excel/1f16064e09b97e3e65abd6943662207cff00b07f/magicsuffix.txt",
+      "tsvSha256": "a697a051d988c78cbbbc8fe30d565cf473989817ce4d8a2bb08a321e2bc15c43",
+      "jsonRows": 785,
+      "tsvRows": 786,
+      "checkedFields": 12421,
+      "extractionAnnotationsNotInTsv": {
+        "expansion": 523
+      },
+      "differences": []
+    }
+  }
+}

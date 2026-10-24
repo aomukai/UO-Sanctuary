@@ -1,0 +1,59 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.valkyrie",
+  "component": "Equipment requests and affix selection; full skill unavailable",
+  "handlerEnabled": false,
+  "itemPropertyApplicationEnabled": false,
+  "installed": true,
+  "engineEvidence": "tools/reference/valkyrie-affix-engine-evidence.json",
+  "tableEvidence": "tools/reference/summon-affix-table-evidence.json",
+  "propertyInventory": "tools/reference/item-property-integration-backlog.json",
+  "deferredItemSkillEffects": "docs/deferred-item-skill-effects.md",
+  "verification": {
+    "sourceNativeSelectionCases": 5184,
+    "sourceNativeEquipmentCases": 80,
+    "extraEndpointCases": 100,
+    "sourceTableFields": 23846,
+    "currentSourceAffixes": 478,
+    "currentBases": 18,
+    "currentItemTypes": 105,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 488,
+    "firstLoopInputHashes": 15,
+    "namedDecisionsUnchanged": 573,
+    "handlers": 139,
+    "amazonHandlers": 27
+  },
+  "checks": [
+    "Exact full source eligible pool order and weights, forced/unforced seed draws, extra-weight endpoint, group exclusion and selected source row/final seed; raw level787 remains separate from affix level99.",
+    "Exact complete source MonEquip requests, quality/slot/base/level, occupied slots, row-seed consumption, request flags and failed upper-weapon creation fallback to a lower-threshold row.",
+    "Actual trained Amazon and equipped Tarnhelm change the effective threshold16-to17; later removed gear changes future requests while original captures remain unchanged. Actual owner/gear and fixture request/seed records persist through both reloads; this is not NPC/item persistence.",
+    "All4 earlier javelin and10 bow input checks remain on every full-suite boot. No handler or named acquisition eligibility change.",
+    "Existing-world installed load/listen/shutdown exit0 passes with temporary autosave suppression and restored original config bytes; original save bytes unchanged; prior build/data/saves backed up."
+  ],
+  "limits": [
+    "Valkyrie remains unavailable: actual source-quality item/property generation, NPC stat/event consumers, original HP spawn, moving AI/attack/cast/resources/delay/placement/replacement/lifecycle and entity persistence are not implemented by selection/request components.",
+    "The full old selector/picker/level/type-property eligibility/group/class/seed helpers execute with declared table/type/item services. Source references are extraction rows, not exact modern binary affix IDs. No global item seed allocation or modern RNG equivalence is certified.",
+    "Full old CanItemHaveMagicAffix rejects a first socket property independently of the summon no-sockets request. Exact modern socket-affix behavior remains uncertain; the selection component is not a final modern skill certificate.",
+    "Skill-dependent item effects are deferred until the class mechanics are ready, per the user. The return register covers procs, charges, oskills, item auras, reanimation, replacement attacks and remaining grants; non-skill property integration remains active work.",
+    "Existing ordinary magic/rare generation only accepts34 codes; it would reject289 of478 current Valkyrie type candidates across53 codes,48 of which have named registrations. Registration is not ordinary-affix or NPC acceptance. No source rolls are silently removed by the new NPC catalogue."
+  ],
+  "logs": {
+    "source": ".local/class-skills/valkyrie-affix-source.log",
+    "source-check": ".local/class-skills/valkyrie-affix-source-check.log",
+    "content-build": ".local/class-skills/valkyrie-affix-content-build.log",
+    "integration-build": ".local/class-skills/valkyrie-affix-integration-build.log",
+    "focused": ".local/class-skills/valkyrie-affix-focused.log",
+    "focused-run": ".local/class-skills/valkyrie-affix-focused-run.log",
+    "combined": ".local/class-skills/valkyrie-affix-combined.log",
+    "python-checks": ".local/class-skills/valkyrie-affix-python-checks.log",
+    "named-readiness": ".local/class-skills/valkyrie-affix-named-readiness.log",
+    "first-loop": ".local/class-skills/valkyrie-affix-first-loop.log",
+    "installed-smoke": ".local/class-skills/valkyrie-affix-installed-smoke.log",
+    "installed-server": ".local/class-skills/valkyrie-affix-installed-server.log"
+  }
+}

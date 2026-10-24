@@ -63,18 +63,20 @@ public static class EquipmentBalance
         new(type, "Clothing", "belt", GearWeight.None, "Normal", false, null,
             "src/Sanctuary.Content/PotionTabards.cs", null, GearSlot.Belt, code, true));
     public static bool IsType(string code, string ancestor)
+        => IsType(_types, code, ancestor);
+    internal static bool IsType(IReadOnlyDictionary<string,GearItemType> types,string code,string ancestor)
     {
         if (code == ancestor)
         {
             return true;
         }
-        if (!_types.TryGetValue(code, out var definition))
+        if (!types.TryGetValue(code, out var definition))
         {
             return false;
         }
         foreach (var parent in definition.Parents)
         {
-            if (IsType(parent, ancestor))
+            if (IsType(types,parent,ancestor))
             {
                 return true;
             }

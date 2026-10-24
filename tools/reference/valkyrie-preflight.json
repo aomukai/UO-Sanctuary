@@ -3,7 +3,7 @@
   "talentId": "amazon.valkyrie",
   "sourceId": 32,
   "handlerEnabled": false,
-  "status": "Creation component prepared: source level/AC/TH and supplied spawn-HP life scaling, six aura fields, all seven current passive slots and hard-only inherited skills. Full old helpers compile in 5184 bounded cases. Native equipment, actual spawn and combat/lifecycle consumers remain pending; no learned handler enabled.",
+  "status": "Valkyrie equipment-request and current-affix selection components are installed;139 handlers/Amazon27 remain. All18 source bases,19 MonEquip rows and478 type-compatible current affixes retain original quality/slot/raw level/property metadata without the player supported-effect filter. Requested no-socket/no-ethereal/no-sell/maxdurability flags, occupied-slot/singleton seed draws and failed-creation fallback are represented.5184 complete source/native ordered pool/weight/selected-row/final-seed comparisons pass, including100 extra-endpoint cases and80 complete source equipment-plan comparisons. Real Tarnhelm rank16-to17 changes the requested spear from9p9 to7p7 and captures the original raw level/requests. Focused/full each pass three boots/two reloads with actual owner/gear and fixture request persistence; no production NPC/item/property/save is claimed. Current affix tables independently match23846 source fields. The user-requested deferred item skill-effect list and exact ordinary/named/NPC property inventory are recorded separately from visual effects/icons. All70 Python tests,488/15 fresh fingerprints,573 unchanged named decisions and zero-warning/error C# builds pass. Matching content loads the existing world and shuts down exit0 with unchanged save/config bytes; prior content/data/saves are backed up and server stopped. Next: shared non-skill property routing/rolling and NPC stat consumers; skill effects return after their class mechanics.",
   "evidence": "tools/reference/valkyrie-equipment-engine-evidence.json",
   "referenceComparison": "data/Sanctuary/skill-reference.json#monequip",
   "reuse": [
@@ -22,7 +22,7 @@
       "handling": "Recorded only. User is asleep; no respec or answer required to continue source and native work."
     }
   ],
-  "next": "Implement requested-quality NPC equipment and affix effects, then the moving Valkyrie entity, cast/resource/localdelay/placement/replacement and lifecycle consumers. Existing snapshot component stays unavailable as a learned skill until these are wired.",
+  "next": "Connect shared property aliases/ranges/scaling to ordinary affixes and NPC equipment, implement actual source property/stat application, then the moving Valkyrie cast/combat/lifecycle. Keep skill procs/charges/oskills/item auras and other skill-based item effects on the post-class return list; do not silently omit source affix rolls.",
   "assets": {
     "effects": "Existing Valkyrie effects register retains pending summon/model/weapon/contact/audio needs. No visual is invented as mechanical proof.",
     "icons": "Existing independent talent/right-hotkey icon register remains pending."
@@ -66,5 +66,11 @@
     "finding": "ITEMS_SetItemLevel clamps only minimum1 and stores raw dwItemLevel. Keep calc2 item level (including rank255=>787) distinct from player GearProfiles1..99 and the separate affix-level computation. Existing AffixBalance count/pool helpers are reuse candidates, not a source-quality NPC generator certificate.",
     "wrapper": "sub_6FC61190 requests requested quality, noSockets1, noEthereal1, marks no-sell, then equips and restores maximum durability. Trace full item/affix initialization and NPC stat consumption rather than use normal loot-quality selection."
   },
-  "creationNativeEvidence": "tools/reference/valkyrie-creation-native-evidence.json"
+  "creationNativeEvidence": "tools/reference/valkyrie-creation-native-evidence.json",
+  "affixEngineEvidence": "tools/reference/valkyrie-affix-engine-evidence.json",
+  "affixTableEvidence": "tools/reference/summon-affix-table-evidence.json",
+  "propertyIntegrationBacklog": "tools/reference/item-property-integration-backlog.json",
+  "deferredItemSkillEffects": "docs/deferred-item-skill-effects.md",
+  "userDecisionItemEffects": "Return to skill-dependent item effects after the relevant class skills. Keep an explicit list; numeric/range/utility property integration remains active shared dependency work.",
+  "affixNativeEvidence": "tools/reference/valkyrie-affix-native-evidence.json"
 }
