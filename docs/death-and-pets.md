@@ -14,6 +14,10 @@ For a hotkey, make a ClassicUO macro with **Say** text `[Cast RaiseSkeleton` and
 
 Learning and assignment are server validated. Holding a mouse button cannot bypass casting speed. A level-up restores life, mana and stamina, and displays the earned point counts. Cumulative experience and all spent/unspent progression survive saves; there is no death XP loss. The original character profile remains format 2; mouse bindings use their own versioned `SanctuaryBindings` persistence file.
 
+## Approved facet scaling (implementation pending)
+
+Existing summons will rescale to their owner’s designated facet difficulty while preserving current life percentage. Nightmare/Hell facet assignments are still to be designated. This is a new approved Sanctuary rule, not yet a live behavior or a replacement for the existing ownership/parking lifecycle. See [the shared policy and remaining tests](summon-facet-difficulty.md).
+
 ## Guardians
 
 Skeletons use the native **Guard me** standing order, following the owner, engaging attackers and returning after combat. Spoken pet commands and command menus are disabled. They cannot attack players, friendly NPCs or controlled pets. Ordinary left-clicking the ground still moves; hold Shift to use a left-bound skill in place.

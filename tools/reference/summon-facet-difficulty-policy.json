@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "decision": "approved Sanctuary deviation",
+  "approvedOnLocalDate": "2026-10-25",
+  "trigger": "Owner enters a facet designated with a different difficulty",
+  "difficultySource": "Explicit Normal/Nightmare/Hell designation of the owner's facet",
+  "existingSummonsRescale": true,
+  "preserveCurrentLifePercentage": true,
+  "facetAssignments": {},
+  "assignmentStatus": "Specific Nightmare/Hell facets will be designated later; no map identities are inferred.",
+  "implementationStatus": "Approved design, not implemented by the Blade Sentinel following-missile checkpoint",
+  "firsthandDecisions": [
+    "Existing summons rescale when their owner changes areas",
+    "we will designate a facet as nightmare or hell, and entering it should be detectable, then we can scale accordingly",
+    "Preserve current life percentage"
+  ],
+  "implementationRequirements": [
+    "Detect the owner's facet transition and resolve its explicit difficulty designation.",
+    "Recompute difficulty-dependent summon stats from retained summoning context; apply to existing summons, not only newly created ones.",
+    "Preserve the current-life ratio through changes to maximum life, retaining source FP256 precision.",
+    "Treat rescaling as a stat transition, not a new cast, summon, mana payment or lifetime refresh.",
+    "Keep immutable already-created missile weapon packets separate from difficulty-dependent actor base stats.",
+    "Respect existing class ownership, parking, teleport/follow and death persistence rules. Verify injured transitions in both directions and save/reload."
+  ],
+  "remaining": [
+    "Facet assignments",
+    "Shared native implementation for current and future summon families",
+    "Fractional rounding, transition order, parked/offline pets and relevant stat-consumer tests"
+  ]
+}

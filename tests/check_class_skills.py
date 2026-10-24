@@ -108,6 +108,8 @@ def check():
         shutil.copy2(STAGE / 'toward-path-source-probe.json', folder / 'toward-path-source-probe.json')
         shutil.copy2(STAGE / 'toward-motion-source-probe.json', folder / 'toward-motion-source-probe.json')
         shutil.copy2(STAGE / 'blade-clock-source-probe.json', folder / 'blade-clock-source-probe.json')
+        shutil.copy2(STAGE / 'blade-sentinel-hit-source-probe.json', folder / 'blade-sentinel-hit-source-probe.json')
+        shutil.copy2(STAGE / 'nonplayer-leech-source-probe.json', folder / 'nonplayer-leech-source-probe.json')
         shutil.copy2(STAGE / 'assassin-trap-attack-source-probe.json', folder / 'assassin-trap-attack-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-affix-source-probe.json', folder / 'valkyrie-affix-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-equipment-source-probe.json', folder / 'valkyrie-equipment-source-probe.json')
@@ -201,6 +203,11 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    blade_missile='blade-missile-check' if boot==0 else 'blade-missile-reload-check'
+                    session.send(blade_missile)
+                    assert session.expect(blade_missile+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    marker='blade-missile-result' if boot==0 else 'blade-missile-reload-result'
+                    assert session.expect(marker+r': (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
                     blade_controller='blade-controller-check' if boot==0 else 'blade-controller-reload-check'
                     session.send(blade_controller)
                     assert session.expect(blade_controller+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

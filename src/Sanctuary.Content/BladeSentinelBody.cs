@@ -95,14 +95,22 @@ public partial class BladeSentinelBody:BaseCreature
         var path=SourceActorPath.Initialize(input,distance,new(0,0,Map.Width*2,Map.Height*2),(x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this));
         Store(before with{Motion=path.Motion});return path;
     }
-    internal void StartPreparedController(Point2D destination,int speed,ulong seed,DateTime at)
+    internal void StartPreparedController(Point2D destination,int speed,ulong seed,DateTime at,bool hasCommand=true)
     {
         var before=Prepared;Validate(before);
         if(before.Control!=null || at.Kind!=DateTimeKind.Utc){throw new InvalidOperationException("Prepared blade controller already started or invalid clock");}
         var origin=new Point2D((int)(before.Motion.X>>16),(int)(before.Motion.Y>>16));
-        var control=BladeSentinelController.Start(origin,destination,before.Creation.DurationFrames,speed,seed);
+        var control=BladeSentinelController.Start(origin,destination,before.Creation.DurationFrames,speed,seed) with{HasCommand=hasCommand};
         var motion=before.Motion with{Points=[],Index=0,PathType=15,Flags=0x800,Direction=new(0,0),Vector=new(0,0),Distance=20,Velocity=speed,MaximumVelocity=speed};
+        // All blade actors and their missiles share source frame boundaries.
+        at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
         Store(before with{Control=control,Motion=motion,NextFrameUtc=at.AddMilliseconds(40),ControllerFault=null});BladeSentinelActors.Track(this);
+    }
+    internal int Passive(string name)=>Prepared.Creation.Passives.Where(x=>x.Name==name).Sum(x=>x.Value);
+    internal uint RollSourceRandom()
+    {
+        var before=Prepared;var control=before.Control??throw new InvalidOperationException("Missing blade seed context");
+        ulong seed=control.Seed;uint value=SourceRandom.Roll(ref seed);Store(before with{Control=control with{Seed=seed}});return value;
     }
     internal void AdvanceController(DateTime at)
     {

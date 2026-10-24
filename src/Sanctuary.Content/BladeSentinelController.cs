@@ -79,23 +79,31 @@ internal static class BladeSentinelController
     }
 }
 
-// A controller is never acquired by a learned skill until its real creation,
-// following missile/stat supplier, trap cap and combat/input consumers exist.
+// Prepared controllers and missiles share one25Hz conductor. Learned casts
+// remain gated until spawn, trap cap and combat/input consumers are verified.
 public static class BladeSentinelActors
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(BladeSentinelActors));
     private static readonly Dictionary<Serial,BladeSentinelBody> Active=new();
     internal static Func<BladeSentinelBody,AssassinTrapCreationStats> CreateFollowingMissile;
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
+    public static void Initialize()
+    {CreateFollowingMissile??=BladeSentinelMissiles.Create;Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));}
     internal static void Track(BladeSentinelBody body)=>Active[body.Serial]=body;
     internal static void Forget(BladeSentinelBody body)=>Active.Remove(body.Serial);
     internal static void Tick(DateTime at)
     {
-        foreach(var body in Active.Values.OrderByDescending(x=>x.Serial.Value).ToArray())
+        while(true)
         {
-            if(body.Deleted){Forget(body);continue;}
-            try{body.AdvanceController(at);}
-            catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared blade controller suspended: {Serial}",body.Serial);}
+            var actors=Active.Values.Where(x=>!x.Deleted && x.Prepared.Control!=null && x.Prepared.ControllerFault==null).ToArray();
+            DateTime next=actors.Select(x=>x.Prepared.NextFrameUtc).Append(BladeSentinelMissiles.NextFrame).Min();
+            if(next>at){return;}
+            // Source infinite missiles run before the monster event phase.
+            BladeSentinelMissiles.TickFrame(next);
+            foreach(var body in actors.Where(x=>x.Prepared.NextFrameUtc==next).OrderByDescending(x=>x.Serial.Value))
+            {
+                try{body.AdvanceController(next);}
+                catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared blade controller suspended: {Serial}",body.Serial);}
+            }
         }
     }
 }

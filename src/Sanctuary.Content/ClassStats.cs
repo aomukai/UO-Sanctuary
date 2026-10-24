@@ -100,12 +100,19 @@ public static class ClassStats
         {
             return Math.Max(5, mobile.Dex * 2);
         }
-        int baseRating = Math.Max(1, 5 * player.Dex - 35 + For(profile.Class).AttackBonus + ClassGear.Bonus(player, "att")+targetFlat);
-        return PlayerAttackPercent(baseRating, skillPercent + AosAttributes.GetValue(player, AosAttribute.AttackChance)
-            + WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),1)
-            + AmazonCombat.AttackPercent(player)
-            + (SorceressEffects.Enchantment(player)?.AttackPercent ?? 0) + PaladinAuras.AttackPercent(player));
+        int baseRating = Math.Max(1, PlayerAttackBase(player)+targetFlat);
+        return PlayerAttackPercent(baseRating, skillPercent + PlayerItemAttackPercent(player)
+            + WeaponMasteries.Bonus(player,CombatTiming.Equipped(player),1));
     }
+    // UNITS_GetAttackRate is the flat pool before item percent/mastery. Summon
+    // inheritance must not copy the already multiplied player attack rating.
+    internal static int PlayerAttackBase(PlayerMobile player)
+    {
+        if(!ClassCreation.Profiles.TryGet(player.Serial,out var profile)){throw new ArgumentException("Missing class attack context");}
+        return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
+    }
+    internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
+        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+PaladinAuras.AttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {

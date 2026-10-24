@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "source": {
+    "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+    "sha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledUnchangedBlocks": {
+    "cap": "42cfc35c171f6bf2a125fa7eeba841b65551ecebc8e9e00509eaadc6ca24e7c0",
+    "nonplayer": "61e828ebaa290d51bfee849d153fe05eef5d14b52597660eb22f0ffbff9e6c02",
+    "victimMana": "5583f8a41df12970725ec86a3c082ecacaf4b554191d7db48db57d22a9918a6c"
+  },
+  "fixture": {
+    "path": ".local/class-skills/nonplayer-leech-source-probe.json",
+    "sha256": "86530559c315b5f9ef476d0d02626708ebeb5bd7958ad23921d1e983ef0bdfc6",
+    "cases": 14400
+  },
+  "sanitizers": "ASan/UBSan; zero runtime stderr required",
+  "established": [
+    "The ordinary non-hireling NPC branch removes the six-bit preparation shift before treating life/mana/stamina drain as flat FP256 amounts, capped to physical/victim resources. Their sum, after drain effectiveness, heals the NPC only up to its missing life. No player difficulty leech divisors or player mana recovery apply.",
+    "The victim-mana tail subtracts the original nonplayer mana drain field and applies the below256 cutoff only when that field is positive. Zero drain leaves sub-point mana unchanged."
+  ],
+  "limits": [
+    "Bounded selected arithmetic blocks, not full ExecuteEvents. Owner/victim stat services, zero stamina drain, already-mitigated physical, NPC branch selection and positive drain guard are explicit.",
+    "The parent CalculateTotalDamage separately adds positive NPC life-drain to direct HP damage. That parent/table/mitigation route is reviewed source evidence and is not compiled by this arithmetic probe.",
+    "Modern executable acceptance of these legacy-derived NPC drain quirks remains uncertain. No original-player leech or item-event ownership is inferred."
+  ]
+}

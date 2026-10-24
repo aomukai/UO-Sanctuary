@@ -75,6 +75,29 @@ public static class BowLaunch
         double aura=PaladinElements.Weapon(owner,element,roll);
         return NamedElements.To256(NamedElements.Enhance(owner,value-aura,element)+aura);
     }
+    // Raw weapon stat collection is shared by arrows, javelins and the player
+    // stage of Blade Sentinel. Skill-specific additions stay with their caller.
+    internal static MissileSourceStats WeaponElements(PlayerMobile owner,BaseWeapon weapon,bool unenhancedLightning=false)
+    {
+        var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
+        return Poison(owner,weapon) with
+        {
+            FireMin=Element(owner,low.Fire,"fire",0),FireMax=Element(owner,high.Fire,"fire",1),
+            LightningMin=unenhancedLightning?NamedElements.To256(low.Lightning):Element(owner,low.Lightning,"ltng",0),
+            LightningMax=unenhancedLightning?NamedElements.To256(high.Lightning):Element(owner,high.Lightning,"ltng",1),
+            ColdMin=Element(owner,low.Cold,"cold",0),ColdMax=Element(owner,high.Cold,"cold",1),
+            MagicMin=Element(owner,low.Magic,"mag",0),MagicMax=Element(owner,high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
+            LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
+            ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
+        };
+    }
+    internal static WeaponPhysicalSupplement PhysicalSupplement(PlayerMobile owner,BaseWeapon weapon,int sourceDamage,int skillPercent=0)
+    {
+        int material=ClassGear.Material(weapon,"damage-physical"),potion=CombatPotions.Bonus(owner,"deep-wounds");
+        if(material==0 && potion==0){return null;}
+        int Extra(double roll)=>checked(NamedElements.To256((material==0?0:MaterialReference(owner,weapon,roll,true,skillPercent)*material)+potion)*sourceDamage/128);
+        return new(Extra(0),Extra(1));
+    }
     internal static MissileSourceStats ExplosionFire(PlayerMobile owner,SkillValues values)
     {
         // Child creation reads live owner stats, independent of the bow that
@@ -103,17 +126,7 @@ public static class BowLaunch
         if(values.Rank<=0){return null;}
         int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
         int sourceDamage=row.Number("SrcDam");var raw=ClassStats.WeaponBaseDamage(owner);
-        var low=GearEffects.Damage(owner,0);var high=GearEffects.Damage(owner,1);
-        var poison=Poison(owner,weapon);
-        var elements=poison with
-        {
-            FireMin=Element(owner,low.Fire,"fire",0),FireMax=Element(owner,high.Fire,"fire",1),
-            LightningMin=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?NamedElements.To256(low.Lightning):Element(owner,low.Lightning,"ltng",0),LightningMax=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?NamedElements.To256(high.Lightning):Element(owner,high.Lightning,"ltng",1),
-            ColdMin=Element(owner,low.Cold,"cold",0),ColdMax=Element(owner,high.Cold,"cold",1),
-            MagicMin=Element(owner,low.Magic,"mag",0),MagicMax=Element(owner,high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
-            LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
-            ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
-        };
+        var elements=WeaponElements(owner,weapon,ability is CombatAbility.LightningBolt or CombatAbility.LightningFury);
         if(ability is CombatAbility.LightningBolt or CombatAbility.LightningFury)
         {elements=elements with{LightningMin=checked(elements.LightningMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),NamedElements.MasteryPercent(owner,"ltng"))),LightningMax=checked(elements.LightningMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),NamedElements.MasteryPercent(owner,"ltng")))};}
         if(ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin)
@@ -144,12 +157,7 @@ public static class BowLaunch
         if(ability==CombatAbility.ColdArrow)
         {damage=damage with{Conversion=new("cold",Math.Min(100,NecromancerSummons.Source("coldarrow","dParam1")+(values.Rank-1)*NecromancerSummons.Source("coldarrow","dParam2")))};}
         if(ability==CombatAbility.IceArrow){damage=damage with{FreezeColdLength=true};}
-        int material=ClassGear.Material(weapon,"damage-physical"),potion=CombatPotions.Bonus(owner,"deep-wounds");
-        if(material!=0 || potion!=0)
-        {
-            int Extra(double roll)=>checked(NamedElements.To256(MaterialReference(owner,weapon,roll,true,skillPercent)*material+potion)*sourceDamage/128);
-            damage=damage with{PhysicalSupplement=new(Extra(0),Extra(1))};
-        }
+        damage=damage with{PhysicalSupplement=PhysicalSupplement(owner,weapon,sourceDamage,skillPercent)};
         if(ability==CombatAbility.Strafe){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
         if(Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
         return damage;

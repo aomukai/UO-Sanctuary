@@ -45,4 +45,23 @@ public static class WeaponLeech
         if(result.Life256>0 || result.Mana256>0)
         {owner.FixedEffect(0x376A,10,10,result.Life256>0?0x26:0x489,0);} // Identified leech placeholder; overlays151/152 pending.
     }
+    // The nonplayer ExecuteEvents branch treats captured drains as flat
+    // fixed-point amounts and heals its attacker, never the original player.
+    internal static WeaponLeechResult Nonplayer(int physical256,int victimLife256,int victimMana256,int missingLife256,
+        int lifeDrain,int manaDrain,int drain)
+    {
+        int physical=Math.Min(Math.Max(0,physical256),Math.Max(0,victimLife256));
+        long life=Math.Min(Math.Max(0,lifeDrain),physical),mana=Math.Min(Math.Max(0,manaDrain),Math.Max(0,victimMana256));
+        long healing=drain>0?(life+mana)*drain/100:0;
+        int remaining=(int)Math.Max(0,(long)victimMana256-Math.Max(0,manaDrain));if(manaDrain>0 && remaining<256){remaining=0;}
+        return new((int)Math.Min(Math.Max(0,missingLife256),healing),0,remaining);
+    }
+    internal static void Apply(BaseCreature owner,BaseCreature target,int physical256,MissileSourceStats saved)
+    {
+        if(saved.LifeDrain==0 && saved.ManaDrain==0){return;}
+        int mana=NecromancerEffects.ManaBalance256(target);
+        var result=Nonplayer(physical256,SkillHealth.Balance256(target),mana,SkillHealth.Maximum256(owner)-SkillHealth.Balance256(owner),
+            saved.LifeDrain,saved.ManaDrain,GemCombat.Drain(target));
+        SkillHealth.Heal(owner,result.Life256);if(result.VictimMana256!=mana){NecromancerEffects.SetMana256(target,result.VictimMana256);}
+    }
 }
