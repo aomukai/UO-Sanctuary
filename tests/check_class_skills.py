@@ -81,6 +81,7 @@ def check():
         shutil.copy2(STAGE / 'poison-state-source-probe.json', folder / 'poison-state-source-probe.json')
         shutil.copy2(STAGE / 'poison-mitigation-source-probe.json', folder / 'poison-mitigation-source-probe.json')
         shutil.copy2(STAGE / 'poison-contact-source-probe.json', folder / 'poison-contact-source-probe.json')
+        shutil.copy2(STAGE / 'lightning-fury-source-probe.json', folder / 'lightning-fury-source-probe.json')
         shutil.copy2(STAGE / 'plague-javelin-source-probe.json', folder / 'plague-javelin-source-probe.json')
         shutil.copy2(STAGE / 'lightning-bolt-source-probe.json', folder / 'lightning-bolt-source-probe.json')
         shutil.copy2(STAGE / 'poison-javelin-damage-source-probe.json', folder / 'poison-javelin-damage-source-probe.json')
@@ -176,6 +177,18 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
+                    session.send(fury)
+                    assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as fire_client:
+                        threading.Thread(target=drain_fixture_client,args=(fire_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('lightning-fury-input-check')
+                        assert session.expect(r'lightning-fury-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'lightning-fury-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'lightning-fury-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     time.sleep(.15)
                     command = 'class-skills-check' if boot == 0 else 'class-skills-reload-check'
                     session.send(command)

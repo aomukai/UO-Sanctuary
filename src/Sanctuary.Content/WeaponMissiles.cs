@@ -142,16 +142,25 @@ public static class WeaponMissiles
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
-            || ability is CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
+            || ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && skillRank<1
             || ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(guided) || missile!="guidedarrow" || pierces!=0 || nextDelay!=0 || skillRank<1 || frames!=Math.Max(1,guided.Remaining) || ray.ActivationFrame!=0 || guided.Mode is not(1 or 2) || ray.Flags!=(guided.Mode==1?0x20u:0x420u))
             || ability!=CombatAbility.GuidedArrow && guided!=null
             || ability==CombatAbility.LightningBolt && (missile!="lightningjavelin" || skillRank is <1 or >255 || frames!=25 || nextDelay!=0 || ray.ActivationFrame!=0 || damage?.LightningJavelinPercent!=100)
+            || ability==CombatAbility.LightningFury && (missile is not("lightningfury" or "furylightning") || skillRank is <1 or >255 || frames!=25 || nextDelay!=0 || ray.ActivationFrame!=0 || damage?.LightningJavelinPercent!=null)
             || ability!=CombatAbility.LightningBolt && damage?.LightningJavelinPercent!=null
             || damage?.Elements==null || !damage.ValidConversion || damage.SkillAttackPercent<0 || ability!=CombatAbility.Strafe && damage.SkillAttackPercent!=0 || damage.Elements.LifeDrain<0 || damage.Elements.ManaDrain<0
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,SourceSteps=ability==CombatAbility.LightningBolt?new([new(owner.X*2,owner.Y*2)]):null});return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile,SkillRank=skillRank,Guided=guided,SourceSteps=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?new([new(owner.X*2,owner.Y*2)]):null});return id;
+    }
+    internal static long LaunchFuryChild(PlayerMobile owner,WeaponFlight parent,Mobile target,DateTime at)
+    {
+        int sx=(int)Math.Floor(parent.X*2+.5),sy=(int)Math.Floor(parent.Y*2+.5);
+        var packet=AmazonLightningFury.Child(owner,parent.SkillRank);
+        long id=Launch(owner,CombatAbility.LightningFury,new(target.X*2-sx,target.Y*2-sy,0x20,0),packet,parent.Cast,0,
+            NecromancerSummons.Source("furylightning","Vel"),NecromancerSummons.Source("furylightning","Range"),0,"furylightning",parent.SkillRank);
+        if(id>0){_flights[id]=_flights[id] with{X=sx/2.0,Y=sy/2.0,Z=parent.Z,NextUtc=at.AddMilliseconds(40),SourceSteps=new([new(sx,sy)])};}return id;
     }
     internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
     {
@@ -214,7 +223,7 @@ public static class WeaponMissiles
         if(flight.Guided==null && next.Frame>=flight.Frames || next.X<0 || next.Y<0 || next.X>=owner.Map.Width || next.Y>=owner.Map.Height
             || !owner.Map.LineOfSight(new Point3D((int)Math.Round(flight.X),(int)Math.Round(flight.Y),flight.Z+12),
                 new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z+12)))
-        {if(!flight.HostileSpell){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);} _flights.Remove(flight.Id);return;}
+        {if(!flight.HostileSpell){BowExplosions.Create((PlayerMobile)owner,next,flight.NextUtc);PlagueJavelins.Burst((PlayerMobile)owner,next,null,flight.NextUtc);AmazonLightningFury.Burst((PlayerMobile)owner,next,flight.NextUtc);} _flights.Remove(flight.Id);return;}
         if(flight.Guided is{} guidance)
         {
             next=next with{Guided=guidance with{Remaining=guidance.Remaining-1}};
@@ -224,13 +233,13 @@ public static class WeaponMissiles
                 if(extended==null){_flights.Remove(flight.Id);}else{_flights[flight.Id]=extended;}return;
             }
         }
-        if(flight.Ability==CombatAbility.LightningBolt){next=next with{SourceSteps=SourceMissileSteps.Advance(flight)};}
+        if(flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury){next=next with{SourceSteps=SourceMissileSteps.Advance(flight)};}
         _flights[flight.Id]=next;
         if(next.Frame<flight.Activation){return;}
         Mobile selected=null;double nearest=double.MaxValue;
         var end=new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),flight.Z);
         int query=(int)Math.Ceiling(Math.Max(Math.Abs(flight.Vx),Math.Abs(flight.Vy))+CombatHitboxes.BodyRadius+CombatHitboxes.TeethRadius+0.5);
-        if(flight.Ability==CombatAbility.LightningBolt)
+        if(flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury)
         {
             foreach(var cell in next.SourceSteps.Cells)
             {
@@ -276,9 +285,10 @@ public static class WeaponMissiles
         next=next with{LastCollision=selected.Serial.Value};_flights[flight.Id]=next;
         if(flight.NextDelay>0){_leases[(flight.Cast,selected.Serial.Value)]=new(flight.Cast,selected.Serial.Value,flight.NextUtc.AddMilliseconds(flight.NextDelay*40L)){RetainWithoutFlight=flight.Ability==CombatAbility.Strafe};}
         if(next.Guided!=null && !GuidedArrows.Accepts(next,selected)){return;}
-        bool pierce=CurrentPierce(player)>0 && flight.Pierces>0;
-        if(pierce){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
-        bool hit=flight.Ability==CombatAbility.LightningBolt || next.Guided!=null || ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true)==true;
+        bool furyChild=AmazonLightningFury.IsChild(flight);
+        bool pierce=furyChild || CurrentPierce(player)>0 && flight.Pierces>0;
+        if(pierce && !furyChild){next=next with{Pierces=flight.Pierces-1};_flights[flight.Id]=next;}
+        bool hit=flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury || next.Guided!=null || ClassStats.CheckHit(owner,selected,flight.Damage.SkillAttackPercent,HitRoll,projectile:true)==true;
         if(flight.Ability==CombatAbility.ImmolationArrow)
         {
             // hit09 clears missile cold length before the direct hit.
@@ -286,7 +296,7 @@ public static class WeaponMissiles
             next=next with{Damage=next.Damage with{Elements=next.Damage.Elements with{ColdFrames=0}}};
             flight=flight with{Damage=next.Damage};_flights[flight.Id]=next;
         }
-        BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
+        BowExplosions.Create(player,next,flight.NextUtc);PlagueJavelins.Burst(player,next,selected,flight.NextUtc);AmazonLightningFury.Burst(player,next,flight.NextUtc); // AlwaysExplode survives a parent attack miss.
         if(!hit){_flights.Remove(flight.Id);return;}
         var damage=flight.Damage.Roll(selected,DamageRoll,out int poisonRate256);
         if(selected is not BaseCreature creature || !SourceBlocking.TryBlock(creature,damage.Physical>0,out bool blocked))
@@ -295,7 +305,7 @@ public static class WeaponMissiles
         {
             owner.DoHarmful(selected,true);
             var parts=SkillCombat.MitigatePrepared(owner,selected,damage with{Poison=0});
-            if((flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
+            if(!furyChild && (flight.Flags&0x10000)==0){NamedCombat.Crushing(player,selected,true,ItemEffects);}
             NecromancerEffects.LifeTap(owner,selected,NamedElements.To256(parts.Physical));
             WeaponLeech.Apply(player,creature,NamedElements.To256(parts.Physical),flight.Damage.Elements);
             if(damage.Cold>0)
@@ -306,10 +316,10 @@ public static class WeaponMissiles
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
-                if(flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
+                if(flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin || flight.Ability==CombatAbility.LightningFury && !furyChild){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
                 else if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
-            if(AmazonBow.Handles(flight.Ability) || AmazonJavelins.Handles(flight.Ability))
+            if(!furyChild && (AmazonBow.Handles(flight.Ability) || AmazonJavelins.Handles(flight.Ability)))
             {
                 // Preserve the separate attacker/defender event paths. Leech
                 // and critical were already delivered from the saved packet.
@@ -351,10 +361,13 @@ public static class WeaponMissiles
         _flights.Clear();_leases.Clear();_nextId=saved?.NextId??0;_nextCast=saved?.NextCast??0;
         foreach(var flight in saved?.Flights??[])
         {
-            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.PlagueJavelin or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
+            if(flight.Id<=0 || flight.Cast<=0 || flight.Ability is CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow && flight.SkillRank<1 || flight.Frame<0 || flight.Frame>=flight.Frames || flight.Frames>250 || flight.Damage?.Elements==null || !flight.Damage.ValidConversion || flight.Damage.SkillAttackPercent<0 || flight.Ability!=CombatAbility.Strafe && flight.Damage.SkillAttackPercent!=0
                 || flight.Ability==CombatAbility.LightningBolt && (flight.Missile!="lightningjavelin" || flight.SkillRank is <1 or >255 || flight.Activation!=0 || flight.NextDelay!=0 || flight.Damage.LightningJavelinPercent!=100 || flight.SourceSteps?.Cells is not{Length:>=1 and <=10})
+                || flight.Ability==CombatAbility.LightningFury && (flight.Missile is not("lightningfury" or "furylightning") || flight.SkillRank is <1 or >255 || flight.Frames!=25 || flight.NextDelay!=0 || flight.Activation!=0 || flight.SourceSteps?.Cells is not{Length:>=1 and <=10} || flight.HostileSpell
+                    || AmazonLightningFury.IsChild(flight) && (flight.Pierces!=0 || !AmazonLightningFury.ValidChild(flight.Damage)))
                 || flight.SourceSteps?.Cells is{} sourceCells && Array.Exists(sourceCells,c=>c.X is <0 or >65535 || c.Y is <0 or >65535)
-                || flight.Ability!=CombatAbility.LightningBolt && (flight.SourceSteps!=null || flight.Damage.LightningJavelinPercent!=null)
+                || flight.Ability!=CombatAbility.LightningBolt && flight.Damage.LightningJavelinPercent!=null
+                || flight.Ability is not(CombatAbility.LightningBolt or CombatAbility.LightningFury) && flight.SourceSteps!=null
                 || flight.PathChanged && flight.Ability!=CombatAbility.PoisonJavelin
                 || flight.Ability==CombatAbility.GuidedArrow && (!GuidedArrows.Valid(flight.Guided) || flight.Missile!="guidedarrow" || flight.Pierces!=0 || flight.NextDelay!=0 || flight.SkillRank<1
                     || flight.Damage.Conversion!=null || flight.Damage.PhysicalToMagicPercent!=0 || flight.Damage.FreezeColdLength || flight.HostileSpell || flight.Activation!=0

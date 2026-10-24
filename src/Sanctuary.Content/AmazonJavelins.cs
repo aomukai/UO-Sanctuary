@@ -8,7 +8,7 @@ namespace Sanctuary;
 
 public static class AmazonJavelins
 {
-    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonJavelin or CombatAbility.LightningBolt or CombatAbility.PlagueJavelin;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.PoisonJavelin or CombatAbility.LightningBolt or CombatAbility.PlagueJavelin or CombatAbility.LightningFury;
     internal static bool WeaponAllowed(PlayerMobile owner)=>CombatTiming.Equipped(owner) is{} weapon
         && ClassGear.State(weapon) is{Identified:true} && ClassGear.Base(weapon) is{} basis
         && ClassItemTypes.Is(basis.Type,"jave") && !ClassGear.Broken(weapon);
@@ -48,7 +48,7 @@ public static class AmazonJavelins
         // Plague has usemanaondo: recheck at do, then consume after emission.
         if(ability==CombatAbility.PlagueJavelin && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         var packet=BowLaunch.Capture(owner,ability,NamedCombat.ProjectileCritical(owner,AmazonBow.LaunchRandom),preparedValues:values);
-        string missile=ability==CombatAbility.LightningBolt?"lightningjavelin":ability==CombatAbility.PlagueJavelin?"plaguejavelin":"poisonjav";
+        string missile=ability==CombatAbility.LightningFury?"lightningfury":ability==CombatAbility.LightningBolt?"lightningjavelin":ability==CombatAbility.PlagueJavelin?"plaguejavelin":"poisonjav";
         int dx=(point.X-owner.X)*2,dy=(point.Y-owner.Y)*2;
         long id=WeaponMissiles.Launch(owner,ability,new(dx,dy,0x21,0),packet,WeaponMissiles.NewCast(),
             NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),AmazonBow.LaunchRandom),

@@ -119,10 +119,10 @@
       "characterClass": "Amazon",
       "tree": "Javelin and Spear Skills",
       "sourceId": 35,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned TH/IAS javelin pays fractional start mana once, consumes one quantity at emission and has no localdelay. Source128 parent keeps weapon/item/species/critical plus skill lightning; no Lightning Bolt conversion/reset. Size2 ordered source paths skip AR. Full hit20/filter/area callback searches around integer missile position in room/list order, caps at rank+1, permits the primary target, excludes caster/dead/friendly/invalid/town/NOAURA and has no owner-LOS bit. Source0 secondary bolts retain parent rank/live hard synergy/mastery, exclude item/critical and weapon callbacks, and continue after contacts without a Pierce passive, using post-selection LastCollide. Parent passive Pierce remains separate and can create another group. Source/native creator, actual gear/input, resource, multi-target/persistence and lifecycle coverage is recorded separately. Full allocator/classic source establishes initial saved origin, while declared nested vector/type/room services and exact modern first-update/primary overlap/global chronology/stat/seed/owner/client remain acceptance gaps. Effects/audio and tree/hotkey icons are separate identified placeholders."
     },
     {
       "talentId": "amazon.innersight",

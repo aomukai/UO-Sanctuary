@@ -88,7 +88,7 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
+        if(ability is not(CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
         if(!(AmazonJavelins.Handles(ability)?AmazonJavelins.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
@@ -100,13 +100,13 @@ public static class BowLaunch
         var elements=poison with
         {
             FireMin=Element(owner,low.Fire,"fire",0),FireMax=Element(owner,high.Fire,"fire",1),
-            LightningMin=ability==CombatAbility.LightningBolt?NamedElements.To256(low.Lightning):Element(owner,low.Lightning,"ltng",0),LightningMax=ability==CombatAbility.LightningBolt?NamedElements.To256(high.Lightning):Element(owner,high.Lightning,"ltng",1),
+            LightningMin=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?NamedElements.To256(low.Lightning):Element(owner,low.Lightning,"ltng",0),LightningMax=ability is CombatAbility.LightningBolt or CombatAbility.LightningFury?NamedElements.To256(high.Lightning):Element(owner,high.Lightning,"ltng",1),
             ColdMin=Element(owner,low.Cold,"cold",0),ColdMax=Element(owner,high.Cold,"cold",1),
             MagicMin=Element(owner,low.Magic,"mag",0),MagicMax=Element(owner,high.Magic,"mag",1),ColdFrames=low.ColdMs/40,
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
-        if(ability==CombatAbility.LightningBolt)
+        if(ability is CombatAbility.LightningBolt or CombatAbility.LightningFury)
         {elements=elements with{LightningMin=checked(elements.LightningMin+AmazonMelee.EnhanceEndpoint(values.Damage256(false),NamedElements.MasteryPercent(owner,"ltng"))),LightningMax=checked(elements.LightningMax+AmazonMelee.EnhanceEndpoint(values.Damage256(true),NamedElements.MasteryPercent(owner,"ltng")))};}
         if(ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin)
         {elements=PoisonJavelinPackets.Prepare(elements,values,NamedElements.MasteryPercent(owner,"pois"),false);}

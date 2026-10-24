@@ -133,7 +133,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Identified logical projectile0xF42 and throw sound0x238 for parent and child flights. Final LightningJavelin parent, LightningStrike secondary bolts, contacts and amazon_lightning_1/sorceress_lightning_1 audio pending. Talent/L/R/quick icons remain separate"
   },
   {
     "talentId": "amazon.innersight",
