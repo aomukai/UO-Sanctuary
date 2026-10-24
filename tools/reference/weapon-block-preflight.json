@@ -1,0 +1,108 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "sourceId": 263,
+  "handlerEnabled": false,
+  "sourceFields": {
+    "skill": "Weapon Block",
+    "charclass": "ass",
+    "skilldesc": "weapon block",
+    "passivestate": "weaponblock",
+    "passiveitype": "h2h",
+    "passivestat1": "passive_weaponblock",
+    "passivecalc1": "dm12",
+    "enhanceable": 1,
+    "attackrank": 0,
+    "range": "rng",
+    "itypea1": "h2h",
+    "itypeb1": "h2h",
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "SC",
+    "UseAttackRate": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Claw Mastery",
+    "leftskill": 0,
+    "rightskill": 0,
+    "minmana": 0,
+    "manashift": 8,
+    "mana": 0,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "passive": 1,
+    "Param1": 20,
+    "Param2": 65,
+    "InGame": 1,
+    "HitShift": 8,
+    "aitype": 10,
+    "cost mult": 512,
+    "cost add": 3000
+  },
+  "status": "184320 complete historical layered getter/block-dispatch cases pass with explicit equipment/stat/RNG services. Learned native passive and real Assassin dual-claw support remain disabled.",
+  "reviewedSourceFiles": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Common/src/D2Composit.cpp": "703362434adf701aa3f5dac5300834b80de3b3d6e6ac91b4fe26124c4df0276c",
+    "source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c"
+  },
+  "reuse": [
+    "Existing dm12 formula, learned/passive binding restrictions, real gear/soft-rank and class lifecycle checks.",
+    "Existing Barbarian DualEquip transactional hand layers, persisted primary identity and WeaponHands scoped damage-related contribution. Extend deliberately to Assassin dual h2h/h2h2 rather than adding a parallel equipment system.",
+    "Existing ClassStats shield-then-Amazon avoidance and traced missile/area avoidance call sites; preserve source order and exact attack versus missile eligibility.",
+    "Existing HitRecovery.Block and saved gear/property consumer tests; do not assume the current recovery adapter proves whole source block-mode throttling."
+  ],
+  "reviewedContracts": [
+    "Full older SUNITDMG_GetWeaponBlock reads up to32 passive_weaponblock stat layers and either-hand item-type matching. Its nonpositive-layer branch assigns independently of the nValue>max condition; preserve this precedence in any compiled comparison. Learned source Weapon Block uses positive h2h layer.",
+    "Full older SUNITDMG_ApplyDodge first selects moving Evade and returns. Stationary dispatch next gets weapon block and requires composited weapon class13 (HT2/two claws), draws once for positive chance, then falls through to Avoid/Dodge on failure. Both ordinary attack and spell/missile dispatch need review.",
+    "Full older composite source selects HT2 for an Assassin when both usable equipped hands pass ITEMTYPE_WEAPON; it does not repeat a claw-only check in that branch. Legal claw-pair equipment and passive h2h stat-layer eligibility must be established separately. Native DualEquip/WeaponHands currently restrict pairs to Barbarian; simply adding a chance would leave learned Weapon Block unusable through normal Assassin equipment.",
+    "Source damage-mode reaction groups shield/weapon block under a last-block-frame/FBR throttle and soft-hit check. Full native animation/recovery acceptance is not established by chance-only evidence.",
+    "Sanctuary approved accepted-running-step rule disables avoidance; source walking/running branch also prevents stationary Weapon Block. Reuse accepted movement leases and retain current movement deviation."
+  ],
+  "required": [
+    "Compiled complete GetWeaponBlock/ApplyDodge/ApplyBlockOrDodge preparation now passes184320 cases, with explicit stat/item-type/composite/RNG services. Next establish the real dual-claw compositor/equipment path and independent dm12 rank goldens; do not substitute supplied composite13 for equipment evidence.",
+    "Support real dual claws through existing transactional equip/unequip/rollback/primary/save logic without breaking Barbarian one/two-handed swords or shield behavior; verify wrong family, broken/unidentified gear, history/respec and save reload.",
+    "Route stationary ordinary weapon and eligible traced missile/area checks through one shared weapon-block attempt at the existing defense stage. Preserve hit/collision/event ordering and block recovery; test walking/running/in-flight/equipped gear changes.",
+    "Verify direct actual hits, independent roll boundaries and draws, real soft-skill gear, no active bindings/mana, lifecycle and two reloads before enabling."
+  ],
+  "uncertain": [
+    "Exact modern block animation/throttle, special unblockable effects, PvP/NPC/foreign passive layers and full event/RNG/stat acceptance remain open. Record gaps instead of assuming all damage is blockable."
+  ],
+  "assets": {
+    "effects": "Source block presentation/audio may need final animation/marker; no new offensive skill effect assumed.",
+    "icons": "Talent icon pending; active hotkey icon not applicable for a passive."
+  },
+  "dispatchPreparation": "tools/reference/weapon-block-engine-evidence.json",
+  "historicalOfficialGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/assassin-shadow.shtml",
+    "scope": "Historical supplementary corroboration only; current3.3.93847 table and firsthand evidence take precedence.",
+    "rank1To20": [
+      26,
+      32,
+      36,
+      39,
+      42,
+      44,
+      46,
+      47,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      56,
+      56,
+      57,
+      57
+    ],
+    "rules": [
+      "Requires two equipped claws; Dexterity and ordinary increased-block chance do not modify this passive.",
+      "Standing and attacking are eligible; walking and running are not. Whirlwind is treated as an attack by this old guide; native Assassin oskill Whirlwind delivery remains deferred."
+    ]
+  },
+  "curvePreparation": "Existing shared dm12 two-stage rounding matches all20 listed guide values. Ranks8/11/12 distinguish the multiplication-first historical helper; rank3 corroborates36percent but does not distinguish those two rounding forms.",
+  "currentBuildObservation": "tools/reference/weapon-block-current-tooltip.json",
+  "currentBuildObservationSummary": "User effective22/base20/items2:58percent chance, matching current shared dm12. This point also agrees with the older multiplication-first helper and does not independently distinguish rounding."
+}

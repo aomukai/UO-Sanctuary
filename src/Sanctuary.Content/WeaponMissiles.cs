@@ -21,6 +21,7 @@ public sealed record WeaponMissileDamage(int Min256,int Max256,int Percent,int D
     // Null retains the original saved Magic Arrow field and old packet meaning.
     public WeaponElementConversion Conversion{get;init;}
     public bool FreezeColdLength{get;init;}
+    public bool SourcePoisonFrames{get;init;}
     public int? LightningJavelinPercent{get;init;}
     internal bool ValidConversion=>(LightningJavelinPercent==null || Conversion==null && PhysicalToMagicPercent==0 && !FreezeColdLength) && (!FreezeColdLength || Conversion==null && PhysicalToMagicPercent==0) && (Conversion==null || PhysicalToMagicPercent==0 && Conversion.Element is "fire" or "cold" or "mag");
     // Existing Sanctuary material/potion physical additions are separate from
@@ -316,7 +317,7 @@ public static class WeaponMissiles
             int loss=SkillHealth.Damage(owner,selected,NamedElements.To256(parts.Total));CreatureHitRecovery.Apply(creature,owner,loss);
             if(selected.Alive && !selected.Deleted)
             {
-                if(flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin || flight.Ability==CombatAbility.LightningFury && !furyChild){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
+                if(flight.Damage.SourcePoisonFrames || flight.Ability is CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin || flight.Ability==CombatAbility.LightningFury && !furyChild){PoisonJavelins.Poison(player,creature,poisonRate256,flight.Damage.Elements.PoisonImpactFrames,flight.NextUtc);}
                 else if(damage.Poison>0){GearEffects.ApplyPoison(owner,selected,damage.Poison,Core.TickCount,damage.PoisonMs,enhance:false);}
             }
             if(!furyChild && (AmazonBow.Handles(flight.Ability) || AmazonJavelins.Handles(flight.Ability)))

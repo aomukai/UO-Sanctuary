@@ -1,0 +1,61 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.venom",
+  "sourceId": 278,
+  "handlerEnabled": true,
+  "installed": true,
+  "sourceEvidence": [
+    "tools/reference/venom-buff-engine-evidence.json",
+    "tools/reference/venom-damage-engine-evidence.json",
+    "tools/reference/fade-curse-engine-evidence.json",
+    "tools/reference/venom-formula-symbols.json"
+  ],
+  "currentBuildObservation": "tools/reference/venom-current-tooltip.json",
+  "verification": {
+    "handlers": 145,
+    "assassinHandlers": 6,
+    "legacyDispatchCases": 144,
+    "legacyDamageCases": 10240,
+    "sharedFactoryCases": 2268,
+    "rankGoldens": 3,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualInputBoots": 3,
+    "pythonTests": 70,
+    "namedInputHashes": 497,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientCanonicalSelfTargetVerified": true
+  },
+  "checks": "Venom is installed as handler145/Assassin6. Learned right/quick SC/FCR self casts pay12mana once after successful release and capture effective rank, cast-time poison mastery, raw poison rates and a10-frame override in an independent persistent state. Fade, Burst of Speed and Cloak remain independent. Raw named/socket/material item poison joins the captured rates; melee applies live poison mastery and an independent exclusive-maximum roll, while older-source ranged collection has no second live multiplier and remains a modern acceptance gap. Optional saved raw-rate weapon packets feed existing source-frame mitigation/health without rounding to a poison total. User current-build rank1/21 damage/length/duration readings, independent rank1/20/21 goldens and all tier endpoints/rank255 source comparisons, actual Wormskull/Tekagi/Bow/Tarnhelm, poison immunity, exact40ms health settlement, natural expiry, same/higher/lower recasts, lifecycle/cancellation/town and real input pass. Focused/full each pass three boots/two reloads, preserving buff/ranks/gear/bindings/mana/raw poison/source/health and no unpaid replay. Source evidence includes144 complete do18 cases,10240 getter/missile/poison-lane comparisons and the existing2268 factory cases with declared services.70 Python tests, fresh497/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; matching client includes Venom self targeting and builds with59 existing warnings/zero errors. Existing-world load/listen/shutdown exits0 with original save/config bytes unchanged; prior content/client/data/saves are backed up and server stopped. Modern ranged mastery, ordinary non-Venom poison integration, special suppliers/whole-engine acceptance and final assets remain open. Next is Weapon Block.",
+  "fixtureNotes": [
+    "Production duration/regen/recovery rules are unchanged. Named fixture mana/HP regen freeze and construction guard keep delivery observations isolated.",
+    "Natural expiration is observed before one-hour persistence inspection holds. Poison clock is held only after actual40ms damage checks; reload resumes one precise frame with source identity and no payment/damage replay.",
+    "Optional new GearDamage.SourcePoison and WeaponMissileDamage.SourcePoisonFrames retain old saved JSON defaults. Native actual landed melee is checked; ranged launch arithmetic and source-mode metadata are bounded separately from a full live graphical projectile acceptance."
+  ],
+  "limits": [
+    "User current-build tooltips confirm rank1:60\u201380 poison/0.4seconds/120seconds, and effective21/base19/items2:450\u2013470/0.4seconds/360seconds. The latter distinguishes pinned12second/rank duration growth from the older official guide. Intermediate ranks, modern executable mastery, RNG and whole-engine equivalence are not certified.",
+    "Full older missile creator/add/scale/setter collects captured Venom plus live item poison without a second live owner poison-mastery multiplier; this is implemented and explicitly awaits modern ranged Venom confirmation. Blizzard2.6 ranged Enchant/Fire Mastery changes do not establish a poison change.",
+    "The10240-case probe compiles complete elemental getters, missile routines and percentage helper but only the unchanged poison lane of FillDamageValues. Nested formula/stat/table/RNG services are declared. The complete parent weapon routine, event ordering and actor engine are not compiled by this evidence.",
+    "Ordinary non-Venom melee/ranged poison still has its preexisting aggregate/source-count/mastery differences; raw Venom delivery does not certify those independent paths. NPC/foreign/item suppliers, all special weapon skills, PvP and full engine/client acceptance remain separate. No item-skill gate is cleared.",
+    "The independent Venom state uses the shared factory same/equal/higher-rank contract. The null-start outer wrapper resource order was reviewed, not newly compiled. Native insufficient/cancel/move/recovery/lost-mana/lower-rank failures preserve payment and captured state.",
+    "Pinned skillcalc confirms enms/exms are mastered FP256 endpoints and edma is elemental length. A separately recorded clc alias-index error affects only pending Warlock source formulas and must be corrected before their delivery.",
+    "UO0x373A green cast and0x1E5 sound are explicit placeholders. Final venomclaws weapon/cast overlay, assassin_venom audio and separately listed talent/right-hotkey icons remain pending."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/venom-focused.log",
+    "combined": ".local/class-skills/venom-combined.log",
+    "content-build": ".local/class-skills/venom-content-build.log",
+    "integration-build": ".local/class-skills/venom-integration-build.log",
+    "client-build": ".local/class-skills/venom-client-build.log",
+    "python-checks": ".local/class-skills/venom-python-checks.log",
+    "named-readiness": ".local/class-skills/venom-named-readiness.log",
+    "first-loop": ".local/class-skills/venom-first-loop.log",
+    "installed-smoke": ".local/class-skills/venom-installed-smoke.log",
+    "installed-server": ".local/class-skills/venom-installed-server.log",
+    "buff-source": ".local/class-skills/venom-buff-source.log",
+    "damage-source": ".local/class-skills/venom-damage-source.log"
+  }
+}

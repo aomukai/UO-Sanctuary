@@ -114,7 +114,7 @@ public sealed class SkillValues
             "edmn" => Damage256(false) / 256, "edmx" => Damage256(true) / 256,
             // Formula callback 52 is unshifted elemental minimum including mastery. Prayer has no element/mastery.
             "edns" when _skill.Ability == CombatAbility.Prayer => Rank > 0 ? Damage256(false) : 0,
-            "edln" => DurationFrames,
+            "edln" or "edma" => DurationFrames,
             _ => throw new NotSupportedException($"Unsupported D2 skill formula symbol: {name}({argument}).{property}")
         };
     }

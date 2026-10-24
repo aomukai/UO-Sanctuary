@@ -9,7 +9,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
-| 6 | Assassin | 5 / 30 | 0 | 25 | Open |
+| 6 | Assassin | 6 / 30 | 0 | 24 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
@@ -232,7 +232,7 @@ Current Amazon checkpoint:27 handlers are present, through [Lightning Fury](../t
 | Fade | 267 | handler-present | Learned SC/FCR right/quick self-cast pays10mana once at release. Group2 captured state replaces Burst of Speed; four elemental channels and physical resistance enter existing raw pools before curses and caps. Incoming curse-mask duration subtracts the source truncated percentage, preserving one-frame boundaries; noncurse states and preexisting expiry remain unchanged. Native opacity uses an existing visual channel without invisibility. Source full factory/percentage and defensive-buff writers have separately bounded evidence. Player PvP, NPC suppliers, exact modern animation/stat/event acceptance and final art/audio/icons remain separate. |
 | Shadow Warrior | 268 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Mind Blast | 273 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Venom | 278 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Venom | 278 | handler-present | Learned right/quick SC/FCR12mana self cast captures poison endpoints/mastery/rank and an independent persistent10-frame override state. Reuses raw named/socket/material poison collection and shared source-frame poison mitigation/health. Existing aggregate non-Venom item poison remains separate. Complete source do18 and full skill/missile plus melee-lane comparisons bound rank/capture/live-melee-mastery/override behavior. Current ranged Venom mastery, source-count aggregation outside Venom, full special-skill/NPC/foreign suppliers, mode/event/stat/RNG/client acceptance and final weapon/cast/audio/tree/hotkey assets remain explicit gaps. |
 | Shadow Master | 279 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fire Blast | 251 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Shock Web | 256 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

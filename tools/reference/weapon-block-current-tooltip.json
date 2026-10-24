@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "source": "User firsthand current-game tooltip,24October2026",
+  "effectiveRank": 22,
+  "baseRank": 20,
+  "itemRanks": 2,
+  "chancePercent": 58,
+  "limits": [
+    "This rank corroborates the current shared dm12 curve but does not distinguish its rounding from the older helper at every rank. Tooltip alone does not establish dual-claw/movement/attack/missile/block-recovery behavior."
+  ]
+}

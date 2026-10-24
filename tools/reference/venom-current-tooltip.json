@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.venom",
+  "source": "User firsthand current-game tooltip,24October2026",
+  "effectiveRank": 1,
+  "poisonMinimum": 60,
+  "poisonMaximum": 80,
+  "poisonSeconds": 0.4,
+  "buffSeconds": 120,
+  "limits": [
+    "User rank1 and rank21 corroborate both pinned damage/length endpoints and120/360second buff durations. The360second reading distinguishes current duration growth from the older guide. Intermediate ranks and weapon-delivery/mastery behavior are not directly observed by these tooltips."
+  ],
+  "additionalReadings": [
+    {
+      "effectiveRank": 21,
+      "baseRank": 19,
+      "itemRanks": 2,
+      "poisonMinimum": 450,
+      "poisonMaximum": 470,
+      "poisonSeconds": 0.4,
+      "buffSeconds": 360
+    }
+  ],
+  "durationComparison": {
+    "inferredSecondsPerRankBetweenReadings": 12,
+    "pinnedParameter2Frames": 300,
+    "framesPerSecond": 25,
+    "matchesPinnedTable": true
+  }
+}

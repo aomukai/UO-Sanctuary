@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.venom",
+  "proofEnablesHandler": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutines": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "compiledUnchangedStatementBlock": {
+    "parent": "SUNITDMG_FillDamageValues",
+    "sha256": "e1c1a5c20d66c51a7bc599b533d899ef292fc8613fd6bbdbe6f8635e2665bbe1",
+    "scope": "Complete poison rate/length lane only, not the complete weapon/damage function."
+  },
+  "scaffold": {
+    "path": ".local/class-skills/poison-javelin-damage-source-probe.cpp",
+    "sha256": "5e03a6282213961f45020c99811597b70a5d66eb1e6ce3ad5639c2e011bb5fb7"
+  },
+  "pinnedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "fixture": {
+    "path": ".local/class-skills/venom-damage-source-probe.json",
+    "sha256": "539cc2a435c12d428ccb71c10fb72867e9c6e37f7505f838accb2a0c31b82b3c",
+    "cases": 10240
+  },
+  "established": [
+    "Full elemental getters capture Venom rate endpoints with cast-time poison mastery and10-frame length. All tier boundaries and rank255 are separate from live weapon mastery.",
+    "Complete unchanged melee poison lane adds a live-mastered owner poison roll to any prepared rate, scales the sum by SrcDam/128, and adds override length instead of averaging item length/count. Under override the existing packet length is preserved; without override the entire combined length is divided by item count.",
+    "Full older weapon missile creator/add/scale/setter collects captured Venom plus item poison rates without a second owner-mastery multiplication, substitutes override length, excludes item count under override and does not copy owner poison mastery into the missile."
+  ],
+  "services": [
+    "Mastery ratio helper, unit/stat/table/weapon lookups, formula evaluator, roll endpoints, critical and empty mon-type stat copy are explicit services inherited from the checked creator scaffold. No global actor/event or current executable is simulated.",
+    "Source factor32/128 and initial prepared poison rate/length are driver inputs. The outer FillDamageValues zero-to128 default and other damage/event/weapon branches are reviewed outside the compiled poison lane.",
+    "Override0 with captured Venom-rate endpoints is a synthetic arithmetic comparison, not a claim that the actual Venom state can omit its override stat."
+  ],
+  "limits": [
+    "Current-game rank1 and rank21 tooltips corroborate damage/length endpoints and120/360second buff durations; the latter distinguishes pinned12second/rank growth from the older guide. Modern ranged Venom mastery has not been directly observed. Blizzard2.6 explicitly changed ranged Enchant/Fire Mastery; that does not establish whether modern poison was changed. Do not present older missile behavior as current executable proof.",
+    "Ordinary non-Venom melee/ranged collectors retain separate source-count/mastery gaps. Learned Venom deliberately uses raw collection with distinct captured and live mastery; native delivery evidence is separate from this source probe.",
+    "This source probe alone does not verify native source-frame mitigation/application/persistence, delivery, item/source snapshots, real gear/input or reload behavior; those require separate native evidence."
+  ]
+}

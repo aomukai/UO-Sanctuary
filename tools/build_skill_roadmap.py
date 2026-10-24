@@ -17,6 +17,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'assassin.venom':'Learned right/quick SC/FCR12mana self cast captures poison endpoints/mastery/rank and an independent persistent10-frame override state. Reuses raw named/socket/material poison collection and shared source-frame poison mitigation/health. Existing aggregate non-Venom item poison remains separate. Complete source do18 and full skill/missile plus melee-lane comparisons bound rank/capture/live-melee-mastery/override behavior. Current ranged Venom mastery, source-count aggregation outside Venom, full special-skill/NPC/foreign suppliers, mode/event/stat/RNG/client acceptance and final weapon/cast/audio/tree/hotkey assets remain explicit gaps.',
     'assassin.cloakofshadows':'Learned right/quick SC/FCR self cast pays13mana once, captures additive defense and curses an entry-only source-filtered radius. Current3.3.93847 firsthand tests override the older global recast lock: recast restarts self defense, can affect fresh groups and never refreshes active target cloaks; all-cloaked recasts turn but refuse before animation/payment. Target defense penalty is independent of blind-AI eligibility; unique/superunique exclusion from blind does not exclude their stats. Reuses saved curse/Dim Vision motion and control consumers. Full source state10 wander/idle behavior, exact mixed-group/cursor/empty admission, cross-caster/different-rank modern arbitration, remhit player edge, global darkness and full engine/client acceptance remain explicit gaps. Final cast/target/darkness/audio and talent/right-hotkey icons use identified placeholders.',
     'assassin.psychichammer':'Learned right/quick targeted SC/FCR cast uses once-only fractional mana, separate physical/magic FP256 rolls and post-damage type/rank knockback. Reuses source-mode displacement and prepared resistance/absorb/health plus approved T29 elemental spell additions. Near-click acquisition uses the user-observed approximately two-tile adapter; exact modern radius/edge/facing/ties remain explicit acceptance gaps. Source start/do and complete damage-roll wrappers have separately declared nested services. Native source identity, mapped motion, target/resource/cancellation/input/reload checks are recorded separately. PvP/hireling/NPC suppliers, unmapped knockback modes, full modern event/stat/seed/client acceptance and final effects/audio/icons remain separate.',
 
@@ -149,6 +150,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'assassin.venom',
     'assassin.cloakofshadows',
     'assassin.psychichammer',
     'assassin.fade',

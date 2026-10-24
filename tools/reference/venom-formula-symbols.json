@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceUrl": "https://raw.githubusercontent.com/blizzhackers/d2data/fa1286949266498b294c40c2942521a7c0d7207a/json/skillcalc.json",
+  "sha256": "ad91df31bab1a57beda330ac1184d3dbddab0207a88b3e0d90a92093c06af6fd",
+  "rows": {
+    "enms": {
+      "code": "enms",
+      "*Description": "Elemental Damage Min with Elemental Mastery (256ths)",
+      "lineNumber": 52
+    },
+    "exms": {
+      "code": "exms",
+      "*Description": "Elemental Damage Max with Elemental Mastery (256ths)",
+      "lineNumber": 53
+    },
+    "edma": {
+      "code": "edma",
+      "*Description": "Elemental Damage Length with Elemental Mastery",
+      "lineNumber": 51
+    },
+    "clc0": {
+      "code": "clc0",
+      "*Description": "The calc10 field value",
+      "lineNumber": 104
+    },
+    "clc1": {
+      "code": "clc1",
+      "*Description": "The calc1 field value",
+      "lineNumber": 55
+    }
+  },
+  "reviewedSource": "D2Common D2Skills.cpp sub_6FDAF6A0 cases51/52/53 and complete elemental getters. edma passes include-mastery1 to the length getter, whose fourth argument is unused.",
+  "additionalFinding": "SkillValues clc index currently adds1. Pinned clc1 maps calc1 and clc0 maps calc10. Five formulas in pending Warlock skills use these aliases; current implemented class source formulas have none. Correct before Warlock delivery; do not silently alter reference text."
+}

@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.weaponblock",
+  "proofEnablesHandler": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874"
+  },
+  "compiledUnchangedRoutines": {
+    "SUNITDMG_GetWeaponBlock": "ad989d48d0fdca435f83ca8dd2b1e27b7ddb7c1c725f52a9fb8e535d7c68e9dd",
+    "SUNITDMG_ApplyDodge": "688e30f2631bace0edf5338b7e319dfb8f9f3cad5196ba85971a0cedbb5cb7c8",
+    "SUNITDMG_ApplyBlockOrDodge": "92d9ff2aa5d7a608a27efdddfb0f536b4c38401d562e0b061e82cc7175636edf"
+  },
+  "fixture": {
+    "path": ".local/class-skills/weapon-block-source-probe.json",
+    "sha256": "1e3ed2c5142ad0719e2a618a0deb8825c504574c4df48320608553415644e649",
+    "cases": 184320
+  },
+  "established": [
+    "Complete layered stat getter uses either-hand item-type eligibility, positive-layer maximum and the original nonpositive-layer assignment precedence. Parent h2h2-to-h2h type matching is a declared nested service.",
+    "Complete dispatch tries eligible shield first, then stationary composite13 Weapon Block, then Avoid/Dodge. Walking/running returns through Evade before weapon-block stat collection. Equality fails each roll; only positive eligible chances consume a draw."
+  ],
+  "services": [
+    "Declared inventory/stat supplies, item-type inheritance, composite class0/13, zero Amazon passives, block rate and repeated supplied RNG draw. The composite class is not derived from real equipment in this probe. Full composite/equip transaction evidence remains required.",
+    "Eight synthetic stat-layer inventories include mixed and nonpositive layers to expose source precedence; these are not a claim that learned Weapon Block supplies such foreign layers. Only player dispatch is exercised."
+  ],
+  "limits": [
+    "Historical source preparation only. No modern executable or native skill delivery is established. Full usable dual-claw equipment, current dm12 curve, native attack/missile defense stages, mode/recovery/throttle/event/RNG consumers, persistence and item/foreign grants remain separate.",
+    "Source running shield reduction is retained in this comparison; Sanctuary approved accepted-running-step avoidance disable takes precedence in native combat."
+  ]
+}

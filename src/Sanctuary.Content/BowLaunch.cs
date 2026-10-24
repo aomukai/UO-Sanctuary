@@ -39,7 +39,7 @@ public static class BowLaunch
             :Math.Max(0,100+ClassStats.DamageBonus(owner,weapon)-PaladinAuras.DamagePercent(owner));
         return (min+(max-min)*roll)*percent/10000.0;
     }
-    internal static MissileSourceStats Poison(PlayerMobile owner,BaseWeapon weapon)
+    internal static MissileSourceStats RawPoison(PlayerMobile owner,BaseWeapon weapon)
     {
         long minimum=0,maximum=0;int frames=0,count=0;
         foreach(var source in NamedGear.PoisonSources(owner))
@@ -58,9 +58,17 @@ public static class BowLaunch
             maximum+=NamedElements.To256(MaterialReference(owner,weapon,1,false,0)*material/75);
             frames+=75;count++;
         }
+        return new(PoisonMin:checked((int)minimum),PoisonMax:checked((int)maximum),PoisonFrames:frames,PoisonCount:count);
+    }
+    internal static MissileSourceStats Poison(PlayerMobile owner,BaseWeapon weapon)
+    {
+        var raw=RawPoison(owner,weapon);
+        if(Venoms.State(owner) is{} venom){return WeaponPoisonPackets.AddVenom(raw,venom);}
+        // Retain the existing non-Venom item-poison preparation for now. Its
+        // modern ranged mastery/source-count acceptance is recorded separately.
         int mastery=NamedElements.MasteryPercent(owner,"pois");
-        int Enhanced(long value)=>checked((int)Math.Max(0,value+value*mastery/100));
-        return new(PoisonMin:Enhanced(minimum),PoisonMax:Enhanced(maximum),PoisonFrames:frames,PoisonCount:count);
+        int Enhanced(int value)=>checked((int)Math.Max(0,value+(long)value*mastery/100));
+        return raw with{PoisonMin=Enhanced(raw.PoisonMin),PoisonMax=Enhanced(raw.PoisonMax)};
     }
     private static int Element(PlayerMobile owner,double value,string element,double roll)
     {
@@ -143,6 +151,7 @@ public static class BowLaunch
             damage=damage with{PhysicalSupplement=new(Extra(0),Extra(1))};
         }
         if(ability==CombatAbility.Strafe){damage=damage with{SkillAttackPercent=(int)values.Formula("toht")};}
+        if(Venoms.State(owner)!=null){damage=damage with{SourcePoisonFrames=true};}
         return damage;
     }
 }

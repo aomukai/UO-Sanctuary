@@ -8,6 +8,7 @@ namespace Sanctuary;
 
 public readonly record struct GearDamage(double Physical, double Fire, double Cold, double Lightning, double Poison, int PoisonMs = 3000, int ColdMs = 2000, double Magic = 0)
 {
+    public WeaponPoisonRoll SourcePoison{get;init;}
     public double Total => Physical + Fire + Cold + Lightning + Poison + Magic;
 }
 
@@ -96,7 +97,15 @@ public static class GearEffects
     }
     public static void Tick(long now) => TimedEffects.Tick(TimedEffects.TimeAt(now));
     public static void Clear(Mobile mobile) => TimedEffects.ClearGear(mobile);
-    public static GearDamage Damage(PlayerMobile player, double roll, Mobile target = null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null)
+    public static GearDamage Damage(PlayerMobile player,double roll,Mobile target=null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,int> poisonRoll=null)
+    {
+        var result=OrdinaryDamage(player,roll,target,skillPhysicalPercent,physicalRoll);
+        if(Venoms.State(player) is not{} venom){return result;}
+        int EndPoint(int span)=>Math.Clamp((int)(Math.Clamp(roll,0,1)*Math.Max(0,span-1)),0,Math.Max(0,span-1));
+        var poison=WeaponPoisonPackets.Capture(player,CombatTiming.Equipped(player),venom,poisonRoll??EndPoint);
+        return result with{Poison=poison.Total,PoisonMs=poison.Frames*40,SourcePoison=poison};
+    }
+    private static GearDamage OrdinaryDamage(PlayerMobile player, double roll, Mobile target = null,int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null)
     {
         roll = Math.Clamp(roll, 0, 1);
         var weapon = CombatTiming.Equipped(player);
@@ -167,7 +176,7 @@ public static class GearEffects
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
         bool ranged = CombatTiming.Weapon(weapon).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw;
-        var packet=preparedImpact??PrepareWeaponImpact(player,target,roll,effects,preparedDamage??Damage(player,roll,target,skillPhysicalPercent,physicalRoll),skillElements,projectileCritical:projectileCritical);
+        var packet=preparedImpact??PrepareWeaponImpact(player,target,roll,effects,preparedDamage??Damage(player,roll,target,skillPhysicalPercent,physicalRoll,Utility.Random),skillElements,projectileCritical:projectileCritical);
         var damage=packet.Damage;var parts=packet.Parts;int absorbed256=packet.Absorbed256;
         double physical=parts.Physical,total=packet.LifeDamage256 is{} stored?stored/256.0:parts.Total;
         if(beforeCommit!=null && !beforeCommit(NamedElements.To256(physical))){return 0;}
@@ -188,7 +197,7 @@ public static class GearEffects
         if (target.Alive && !target.Deleted)
         {
             if (damage.Cold > 0) { ApplyChill(target, Core.TickCount, damage.ColdMs, player); }
-            if (damage.Poison > 0) { ApplyPoison(player, target, damage.Poison, Core.TickCount, damage.PoisonMs); }
+            if(damage.Poison>0){if(damage.SourcePoison is{} poison){poison.Commit(player,target,TimedEffects.Now);}else{ApplyPoison(player,target,damage.Poison,Core.TickCount,damage.PoisonMs);}}
         }
         int loss = Math.Max(0, before - target.Hits);
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)
