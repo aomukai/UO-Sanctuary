@@ -2748,7 +2748,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Staged UO0x373A flash,0x1E5 sound and existing named-opacity channel; final Fade cast/overlay/translucency and assassin_fade audio pending. Talent/right-hotkey icons remain separate."
   },
   {
     "talentId": "assassin.shadowwarrior",

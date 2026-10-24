@@ -547,5 +547,5 @@ public static class ClassGear
         {
             ResistanceType.Fire=>"res-fire",ResistanceType.Cold=>"res-cold",ResistanceType.Poison=>"res-pois",
             ResistanceType.Energy=>"res-ltng",_=>"res-physical"
-        })+(type==ResistanceType.Physical?0:Bonus(player,"res-all"))+PaladinResistance.Bonus(player,type)+BarbarianCombat.Resistance(player,type));
+        })+(type==ResistanceType.Physical?0:Bonus(player,"res-all"))+PaladinResistance.Bonus(player,type)+BarbarianCombat.Resistance(player,type)+AssassinBuffs.Resistance(player,type));
 }

@@ -19,19 +19,19 @@
   },
   "fixture": {
     "path": ".local/class-skills/assassin-buff-source-probe.json",
-    "sha256": "31f69188108a6757e9d0df647a63025861aa5dbee49e06ab1fcc7797b44b966e",
-    "dispatchCases": 192,
+    "sha256": "2cda5811ada6acf2bcb5fb5f61c826a6887412a20a2f2df18d0ac4993781d5d3",
+    "dispatchCases": 384,
     "removalCases": 4
   },
   "established": [
-    "Full do18 dispatch clears all source group2 states before applying its own state, including an equal/higher/lower existing Quickness; independent Venom remains.",
-    "Aura writers preserve supplied velocity/attack and mirror attackrate to other_animrate; source modifier skill/rank and callback are installed. Invalid skill/state returns before clearing existing state.",
+    "Full do18 dispatch clears all source group2 states before applying its own state, including an equal/higher/lower existing Quickness or Fade; independent Venom remains.",
+    "Aura/passive writers preserve all six Fade resistance channels and fade=2, or supplied velocity/attack and mirror attackrate to other_animrate; source modifier skill/rank and callback are installed. Invalid skill/state returns before clearing existing state.",
     "Removal callback unregisters events first, clears ordinary live/dead non-stay state, updates movement/animation and refreshes passives; synthetic stay-death exception is separate."
   ],
   "services": [
-    "Skill formula results are explicit opaque inputs (3000frames,23velocity,21attack), not a newly compiled formula evaluator or rank oracle. Current rank formulas and native consumers are verified separately.",
+    "Skill formula results are explicit opaque inputs (3000frames,23velocity,21attack,19elemental,47curse,1physical,2fade), not a newly compiled formula evaluator or rank oracle. Current rank formulas and native consumers are verified separately.",
     "Statlist allocation/attach and callback registration are declared services. The unchanged full shared factory already has separate Inner Sight source evidence; no new complete stat graph/event scheduler or modern executable proof is claimed.",
-    "Current group membership uses Quickness157/Fade159 and independent Venom31. No Fade or Venom handler is enabled by this source probe."
+    "Current group membership uses Quickness157/Fade159 and independent Venom31. This source probe alone does not enable either handler."
   ],
   "limits": [
     "Exact modern animation/stat/event/client equivalence remains acceptance work. Current table fields take precedence over the supplementary older engine.",

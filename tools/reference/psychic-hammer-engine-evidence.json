@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": "source/D2Game/src/SKILLS/SkillAss.cpp",
+  "sourceSha256": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+  "compiledUnchangedRoutines": {
+    "SKILLS_SrvSt22_PsychicHammer": "020e441de287a211b38c6e1a7ee63914c24c20fa51fc5741011405ebe782979d",
+    "SKILLS_SrvDo033_PsychicHammer": "06a235b46b9069f67f70a80636ea3d23df118c8033d9b14e84e1af1560c4bf62"
+  },
+  "fixture": {
+    "path": ".local/class-skills/psychic-hammer-source-probe.json",
+    "sha256": "5a52e173c62042bc943b15739774eefeafa7e0af2d561b7c4339edcbc8701f47",
+    "cases": 2916
+  },
+  "established": [
+    "Both caster and target town checks and player/monster target-type guards precede damage; invalid skill row has its own do guard.",
+    "Damage roll and event execution occur before successful-hit and knockback flags. Player/hireling uses calc4, species boss calc3, unique typeflag8 calc2, ordinary calc1; formula rank clamps to1 after damage rolling.",
+    "Positive supplied chance draws once and uses a strict modulo100 comparison. Less than one whole life sets flag2 before missile-damage execution; no physical attack-rating roll or travelling projectile is present in these functions."
+  ],
+  "services": [
+    "Damage roll/event/missile receivers, target lookup, town/type/boss/unique/hireling predicates, HP and RNG are explicit services. Supplied formula outputs100/55/32/32 are opaque routing inputs, not rank goldens.",
+    "The source bodies are unchanged. Full damage/event/stat/seed/collision/knockback mode implementation, modern executable behavior and native learned skill integration are separate work."
+  ],
+  "handlerEnabled": false
+}

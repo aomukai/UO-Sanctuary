@@ -7,8 +7,8 @@ namespace Sanctuary;
 
 public static class AssassinCombat
 {
-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed;
-    public static bool Handles(CombatAbility ability)=>ability==CombatAbility.BurstOfSpeed;
+    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.ClawMastery or CombatAbility.BurstOfSpeed or CombatAbility.Fade;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.BurstOfSpeed or CombatAbility.Fade;
     public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Assassin
         && SkillMechanics.Rank(owner,ability) is >0 and <=255;

@@ -12,6 +12,7 @@ public static class PaladinCleansing
     {
         _states.Clear();foreach(var row in BalanceCatalog.Read<SkillStateRule>("class-states")) { _states.Add(row.State,row); }
     }
+    public static bool IsCurse(string state)=>_states.TryGetValue(state,out var rule) && rule.Curse;
     public static bool Curable(string state)=>_states.TryGetValue(state,out var rule) && rule.Curse && rule.Curable;
     public static DateTime Shorten(DateTime until,DateTime now,int remainingPercent)
     {

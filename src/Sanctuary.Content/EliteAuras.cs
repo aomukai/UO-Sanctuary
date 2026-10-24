@@ -108,7 +108,11 @@ public static class EliteAuras
     internal static void Amplify(Mobile target, TimeSpan duration)
     {
         if (target is not { Deleted: false, Alive: true } || target is EncounterCreature { Grade: EncounterGrade.Champion, Champion: ChampionKind.Possessed }) { return; }
-        Curses.Apply(target.Serial, TimedEffects.Now.Add(duration)); Refresh(target);
+        int frames=(int)Math.Clamp(duration.TotalMilliseconds/40,0,int.MaxValue);
+        if(!SourceCurseDuration.Incoming(target,"amplifydamage",frames,out int reduced)){return;}
+        // Preserve the existing native duration exactly when no curse resistance
+        // applies; a Fade receiver uses the source integer-frame result.
+        Curses.Apply(target.Serial,TimedEffects.Now.Add(AssassinBuffs.CurseResistance(target)==0?duration:TimeSpan.FromMilliseconds(reduced*40L))); Refresh(target);
         target.FixedParticles(0x374A, 10, 15, 5028, EffectLayer.Waist);
     }
     private static void Remove(Mobile target, ref ResistanceMod mod)

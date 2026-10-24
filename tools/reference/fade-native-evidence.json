@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fade",
+  "sourceId": 267,
+  "handlerEnabled": true,
+  "installed": true,
+  "sourceEvidence": [
+    "tools/reference/assassin-buff-engine-evidence.json",
+    "tools/reference/fade-curse-engine-evidence.json"
+  ],
+  "verification": {
+    "handlers": 142,
+    "assassinHandlers": 3,
+    "sourceDispatchCases": 384,
+    "sourceRemovalCases": 4,
+    "sourceCurseCases": 2268,
+    "rankGoldens": 4,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualInputBoots": 3,
+    "pythonTests": 70,
+    "namedInputHashes": 493,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientWarnings": 59,
+    "clientErrors": 0
+  },
+  "checks": "Fade is installed as handler142/Assassin3. Right/quick SC/FCR self-casts pay10mana once at release, replace Burst of Speed even at lower rank, and capture four elemental resistances, physical reduction, curse resistance and duration. Raw resistance joins existing pools before caps/curses/pierce; real Stormshield reaches55 raw/50 capped and Amplify yields-45. Curse-mask duration subtracts the source truncated percentage and preserves one-frame effects; noncurse states and existing curse expiry are unchanged. Existing opacity never grants invisibility. Rank1/20/21/255 goldens, real Tarnhelm/equipment, town/friendly-hover input, cancellation/movement/hit recovery/lost mana, death/history/respec, actual expiry and legacy V0 BoS JSON pass. Focused/full each pass three boots/two reloads and real Fade/Burst input every boot; captured ranks/resistance/mana/gear/curse expiry/bindings persist and unpaid casts never replay.384 source buff dispatch/writer,4 callback and2268 curse-factory/percentage cases have declared services.70 Python tests, fresh493/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; client has59 upstream warnings and zero errors. Installed existing-world smoke exits0 with save/config bytes unchanged; prior content/data/client/saves are backed up and server stopped. Psychic Hammer is next; item-skill dependencies and final art remain separate.",
+  "fixtureNotes": [
+    "Disposable fixture-only mana regeneration freeze runs after production initialization. No production regeneration changed.",
+    "The real rank durations and natural180ms shortened expiry pass before a labelled one-hour inspection hold for the long regression. Pending unpaid windups are held separately; production timing/duration is unchanged.",
+    "V0 optional Fade fields preserve legacy BoS JSON; death and class history use separate actors respecting clean-state prerequisites."
+  ],
+  "limits": [
+    "Learned player Fade is implemented; Venom, foreign oskills, proc/charge/aura suppliers and NPC/Shadow suppliers remain separate. No item acquisition gates or unsupported source rolls are changed.",
+    "The384 unchanged do18/group/writer and4 removal cases use explicit formula/statlist services. The2268 unchanged curse factory/percentage cases declare state-mask/statlist/event services. These are supplementary older-source isolation, not a complete3.3.93847 executable certificate.",
+    "The current curse receiver reaches the hostile elite Amplify producer and shared Necromancer curse application. Player PvP remains disabled by existing allegiance rules. Future curse/shrine producers must opt into the shared receiver; no unimplemented producer is claimed. NPC-only Battle Cry/Taunt/Terror still have no NPC curse-resistance supplier; no fake PvP/NPC adapter was enabled.",
+    "Native Fade casting leaves existing curse expiry unchanged, matching the reviewed source group2 path. Exact current-build existing-curse behavior, full stat/mode/event/geometry/client acceptance and optional Fade tooltip corroboration remain open.",
+    "Existing opacity channel adapts fade=2 without invisibility/targetability changes. Final cast/overlay/translucency/audio and talent/right-hotkey icons remain separately pending with identified placeholders. No class completion certificate."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/fade-focused.log",
+    "combined": ".local/class-skills/fade-combined.log",
+    "content-build": ".local/class-skills/fade-content-build.log",
+    "integration-build": ".local/class-skills/fade-integration-build.log",
+    "client-build": ".local/class-skills/fade-client-build.log",
+    "python-checks": ".local/class-skills/fade-python-checks.log",
+    "named-readiness": ".local/class-skills/fade-named-readiness.log",
+    "first-loop": ".local/class-skills/fade-first-loop.log",
+    "installed-smoke": ".local/class-skills/fade-installed-smoke.log",
+    "installed-server": ".local/class-skills/fade-installed-server.log",
+    "curse-source": ".local/class-skills/fade-curse-source.log",
+    "psychic-hammer-source": ".local/class-skills/psychic-hammer-source.log"
+  }
+}

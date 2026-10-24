@@ -2135,7 +2135,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned right/quick self-cast uses SC/FCR and once-only10mana release payment through the shared caster. Source Quickness velocity and skill attackrate are captured separately from item IAS; attack/sequence and walk/run consumers share existing pools. State group2 replaces even higher old ranks; Fade\u2019s eventual handler shares this group, while Venom remains independent. Native input, real IAS/FCR/soft gear, cancellation, lifecycle, natural expiry and reload scope are recorded separately. Source do18/group/writer/removal proof has declared factory/formula services; modern native animation/stat/event acceptance remains open. Cast/overlay/audio and talent/right-hotkey icons use explicit placeholders."
+      "remaining": "Learned right/quick self-cast uses SC/FCR and once-only10mana release payment through the shared caster. Source Quickness velocity and skill attackrate are captured separately from item IAS; attack/sequence and walk/run consumers share existing pools. State group2 replaces even higher old ranks; Fade shares this group, while Venom remains independent. Native input, real IAS/FCR/soft gear, cancellation, lifecycle, natural expiry and reload scope are recorded separately. Source do18/group/writer/removal proof has declared factory/formula services; modern native animation/stat/event acceptance remains open. Cast/overlay/audio and talent/right-hotkey icons use explicit placeholders."
     },
     {
       "talentId": "assassin.cloakofshadows",
@@ -2165,10 +2165,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 267,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/FCR right/quick self-cast pays10mana once at release. Group2 captured state replaces Burst of Speed; four elemental channels and physical resistance enter existing raw pools before curses and caps. Incoming curse-mask duration subtracts the source truncated percentage, preserving one-frame boundaries; noncurse states and preexisting expiry remain unchanged. Native opacity uses an existing visual channel without invisibility. Source full factory/percentage and defensive-buff writers have separately bounded evidence. Player PvP, NPC suppliers, exact modern animation/stat/event acceptance and final art/audio/icons remain separate."
     },
     {
       "talentId": "assassin.shadowwarrior",

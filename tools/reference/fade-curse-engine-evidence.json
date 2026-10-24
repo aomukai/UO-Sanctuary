@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "scaffold": {
+    "path": "tools/probe_inner_sight_reference.py",
+    "sha256": "e209aeefc6e565be0cd66695efbb25ad2b3485315e525f785fe048f064889acc"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fade-curse-source-probe.json",
+    "sha256": "6796796748c6700fa032177a8d8721e5b2a6325c99cef7b9744ab577e1667239",
+    "cases": 2268
+  },
+  "established": [
+    "Complete shared factory applies curse resistance only to a curse-mask state, rejects resistance>=100 before touching the old state, and subtracts the source truncated percentage before Attract/rank arbitration.",
+    "One frame survives any positive resistance below100; unmasked positive states are unchanged. Equal rank refreshes the reduced duration, lower rank preserves the old expiry and rank, and Attract prevents a curse-mask replacement.",
+    "The complete original percentage helper is included, retaining its large-value early division rather than substituting a uniform64bit multiply."
+  ],
+  "services": [
+    "Unit type is player; state mask, resistance, Attract, supplied rank/duration, state/owner storage, allocation and clock/event operations use the previously reviewed explicit factory scaffold. Formula evaluation, full stat graph, allocator failures, event scheduler and modern executable behavior are outside this proof.",
+    "Mask=true on the scaffold state17 is a synthetic receiver input, not a claim that current Inner Sight is a curse. Native lookup uses the pinned actual state mask data."
+  ],
+  "limits": [
+    "This is a complete older factory isolation with declared services, not a3.3.93847 whole-executable certificate. Native damage, class-specific casting and receiver wiring are independently verified."
+  ]
+}

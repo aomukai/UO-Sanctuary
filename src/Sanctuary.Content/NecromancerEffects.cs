@@ -83,6 +83,7 @@ public static class NecromancerEffects
         var values = SkillMechanics.Values(owner, ability);
         int frames = (int)values.Eval("auralencalc");
         if (ai) { frames /= DifficultyDivisor(target); }
+        if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}
         var state = Profiles.Find(target) ?? new();
         var motion = ability == CombatAbility.DimVision && target is BaseCreature blinded ? CaptureMotion(blinded) : null;
         Profiles.Store(target, state with { Curse = new(ability, owner.Serial.Value, rank,

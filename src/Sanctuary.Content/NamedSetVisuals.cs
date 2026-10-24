@@ -20,7 +20,7 @@ public static class NamedSetVisuals
     public static bool Faded(PlayerMobile owner)
     {
         if (owner is not { Alive: true, Deleted: false } || !ClassCombat.Enabled(owner)) { return false; }
-        return ClassGear.Bonus(owner, "fade") > 0;
+        return ClassGear.Bonus(owner, "fade") > 0 || AssassinBuffs.Faded(owner);
     }
     public static byte Opacity(PlayerMobile owner) => Faded(owner) ? NamedVisualProtocol.Faded : NamedVisualProtocol.Opaque;
     public static bool Active(PlayerMobile owner)

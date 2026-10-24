@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fade",
   "sourceId": 267,
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "sourceFields": {
     "skill": "Fade",
     "charclass": "ass",
@@ -61,17 +61,31 @@
     "AssassinBuffs group2 captured-state/cast/lifecycle/persistence and the compiled source do18 dispatch/group/stat-writer contract. Expand validated source fields before enabling Fade.",
     "Existing player resistance and damage mitigation, curse state flags and shared curse application are reuse points. No Fade consumer is enabled solely because the table exists."
   ],
-  "required": [
+  "next": "Psychic Hammer: targeted physical/magic damage, source knockback rank/type chance and real target/resource/input lifecycle.",
+  "initialRequired": [
     "Connect four elemental resistance bonuses and damageresist=ln78 (one per effective rank) to the actual capped damage/resistance consumers.",
     "Implement curse_resistance=dm34 in incoming curse-mask states using source duration minus truncated percentage; source >=100 branch rejects application. Preserve non-curse states and verify preexisting curse behavior separately.",
     "Preserve Quickness/Fade replacement, Venom independence, current rank capture, duration,10mana,SC/town and complete lifecycle/reload behavior.",
     "Keep the passive fade=2 visual/transparency source field separately identified; it must not grant invisibility or change hostility/targetability. Final cast/overlay/audio and talent/right-hotkey icons remain pending."
   ],
-  "sourceContext": {
+  "initialSourceContext": {
     "path": ".local/class-skills/d2moo-pinned-source/source/D2Game/src/SKILLS/Skills.cpp",
     "sha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "reviewedFunction": "sub_6FD10EC0",
     "scope": "Read-only shared factory inspection. New Fade curse-length or existing-curse consumer behavior is not certified by this note."
   },
-  "next": "Compile/verify the curse-resistance receiver and connect actual Fade stat consumers before enabling its handler."
+  "installed": true,
+  "status": "Fade is installed as handler142/Assassin3. Right/quick SC/FCR self-casts pay10mana once at release, replace Burst of Speed even at lower rank, and capture four elemental resistances, physical reduction, curse resistance and duration. Raw resistance joins existing pools before caps/curses/pierce; real Stormshield reaches55 raw/50 capped and Amplify yields-45. Curse-mask duration subtracts the source truncated percentage and preserves one-frame effects; noncurse states and existing curse expiry are unchanged. Existing opacity never grants invisibility. Rank1/20/21/255 goldens, real Tarnhelm/equipment, town/friendly-hover input, cancellation/movement/hit recovery/lost mana, death/history/respec, actual expiry and legacy V0 BoS JSON pass. Focused/full each pass three boots/two reloads and real Fade/Burst input every boot; captured ranks/resistance/mana/gear/curse expiry/bindings persist and unpaid casts never replay.384 source buff dispatch/writer,4 callback and2268 curse-factory/percentage cases have declared services.70 Python tests, fresh493/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; client has59 upstream warnings and zero errors. Installed existing-world smoke exits0 with save/config bytes unchanged; prior content/data/client/saves are backed up and server stopped. Psychic Hammer is next; item-skill dependencies and final art remain separate.",
+  "nativeEvidence": "tools/reference/fade-native-evidence.json",
+  "sourceEvidence": [
+    "tools/reference/assassin-buff-engine-evidence.json",
+    "tools/reference/fade-curse-engine-evidence.json"
+  ],
+  "remaining": [
+    "Learned player Fade is implemented; Venom, foreign oskills, proc/charge/aura suppliers and NPC/Shadow suppliers remain separate. No item acquisition gates or unsupported source rolls are changed.",
+    "The384 unchanged do18/group/writer and4 removal cases use explicit formula/statlist services. The2268 unchanged curse factory/percentage cases declare state-mask/statlist/event services. These are supplementary older-source isolation, not a complete3.3.93847 executable certificate.",
+    "The current curse receiver reaches the hostile elite Amplify producer and shared Necromancer curse application. Player PvP remains disabled by existing allegiance rules. Future curse/shrine producers must opt into the shared receiver; no unimplemented producer is claimed. NPC-only Battle Cry/Taunt/Terror still have no NPC curse-resistance supplier; no fake PvP/NPC adapter was enabled.",
+    "Native Fade casting leaves existing curse expiry unchanged, matching the reviewed source group2 path. Exact current-build existing-curse behavior, full stat/mode/event/geometry/client acceptance and optional Fade tooltip corroboration remain open.",
+    "Existing opacity channel adapts fade=2 without invisibility/targetability changes. Final cast/overlay/translucency/audio and talent/right-hotkey icons remain separately pending with identified placeholders. No class completion certificate."
+  ]
 }

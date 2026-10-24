@@ -9,7 +9,7 @@ def build(check=False):
  for name in ['states','skills']:
   raw=(ref/'json'/f'{name}.json').read_bytes();pins[name]=hashlib.sha256(raw).hexdigest();assert pins[name]==meta['files']['json/'+name+'.json']['sha256'];tables[name]=json.loads(raw)
  assert {(x['state'],x['*ID']) for x in tables['states'].values() if x.get('group')==2}=={('quickness',157),('fade',159)}
- assert tables['states']['venomclaws']['*ID']==31 and not tables['states']['venomclaws'].get('group') and tables['skills']['258']['srvdofunc']==18
+ assert tables['states']['venomclaws']['*ID']==31 and not tables['states']['venomclaws'].get('group') and tables['skills']['258']['srvdofunc']==18 and tables['skills']['267']['srvdofunc']==18
 
  def source(path):
   raw=(STAGE/'d2moo-pinned-source'/path).read_bytes();assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(x['sha'] for x in tree['tree'] if x['path']==path);hashes[path]=hashlib.sha256(raw).hexdigest();return raw.decode()
@@ -35,7 +35,7 @@ struct D2StatesTxt{int wGroup=0;}states[200];
 struct Tables{int nStatesTxtRecordCount=200,nItemStatCostTxtRecordCount=16;int pItemStatCostTxt[16]={};}tables;auto* sgptDataTables=&tables;
 struct D2SkillsTxt{int nAuraState=157,dwAuraLenCalc=0,wAuraStat[6]={0,1,-1,-1,-1,-1},dwAuraStatCalc[6]={1,2,0,0,0,0},nPassiveStat[5]={-1,-1,-1,-1,-1},dwPassiveCalc[5]={},wAuraEvent[3]={-1,-1,-1},wAuraEventFunc[3]={};}skill;
 struct D2CurseStrc{D2UnitStrc* pUnit=nullptr;D2UnitStrc* pTarget=nullptr;int nSkill=0,nSkillLevel=0,nStat=0,nDuration=0,nState=0;Callback pStateRemoveCallback=nullptr;};
-int values[3],guard=0,frees=0,updates=0,refreshes=0,unregisters=0,gfx=0,factory=0;bool stay=false;
+int values[7],guard=0,frees=0,updates=0,refreshes=0,unregisters=0,gfx=0,factory=0;bool stay=false;
 D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int){return guard==1?nullptr:&skill;}
 D2StatesTxt* SKILLS_GetStatesTxtRecord(int state){return state>=0 && state<200?&states[state]:nullptr;}
 bool STATES_CheckState(D2UnitStrc* p,int state){return p->active[state];}
@@ -57,26 +57,29 @@ void STATES_ToggleGfxStateFlag(D2UnitStrc*,int,int){gfx++;}
 D2StatListStrc* sub_6FD10EC0(D2CurseStrc* c){factory++;auto* p=new D2StatListStrc{c->nState,c->nSkillLevel,c->nSkill,game.dwGameFrame+c->nDuration,{},c->pStateRemoveCallback};c->pTarget->lists[c->nState]=p;c->pTarget->active[c->nState]=true;return p;}
 '''+group+writer+passive+callback+dispatch+r'''
 int main(){states[157].wGroup=states[159].wGroup=2;bool first=true;std::printf("{\"dispatch\":[");
-for(int old:{0,1,2,3})for(int oldRank:{1,3,20,255})for(int rank:{1,20})for(int venom:{0,1})for(int mode:{0,1,2}){
+for(int kind:{0,1})for(int old:{0,1,2,3})for(int oldRank:{1,3,20,255})for(int rank:{1,20})for(int venom:{0,1})for(int mode:{0,1,2}){
  D2UnitStrc owner;for(int state:{157,159,31})if((state==157 && (old&1)) || (state==159 && (old&2)) || (state==31 && venom)){owner.active[state]=true;owner.lists[state]=new D2StatListStrc{state,oldRank,0,999,{},nullptr};}
- guard=mode;skill.nAuraState=mode==2?200:157;values[0]=3000;values[1]=23;values[2]=21;frees=updates=refreshes=unregisters=gfx=factory=0;
- int success=SKILLS_SrvDo018_DefensiveBuff(&game,&owner,258,rank);auto* active=STATLIST_GetStatListFromUnitAndState(&owner,157);
- if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",old,oldRank,rank,venom,mode,success,owner.active[157],owner.active[159],owner.active[31],active?active->rank:0,active?active->expiry:0,active?active->stats[0]:0,active?active->stats[1]:0,active?active->stats[2]:0,frees,factory,updates,gfx);
+ guard=mode;skill=D2SkillsTxt{};skill.nAuraState=mode==2?200:kind?159:157;values[0]=3000;values[1]=23;values[2]=21;values[3]=19;values[4]=47;values[5]=1;values[6]=2;
+ if(kind){for(int i=0;i<6;i++){skill.wAuraStat[i]=5+i;skill.dwAuraStatCalc[i]=i<4?3:i;}skill.nPassiveStat[0]=11;skill.dwPassiveCalc[0]=6;}frees=updates=refreshes=unregisters=gfx=factory=0;
+ int success=SKILLS_SrvDo018_DefensiveBuff(&game,&owner,kind?267:258,rank);auto* active=STATLIST_GetStatListFromUnitAndState(&owner,kind?159:157);
+ if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",kind,old,oldRank,rank,venom,mode,success,owner.active[157],owner.active[159],owner.active[31],active?active->rank:0,active?active->expiry:0,active?active->stats[0]:0,active?active->stats[1]:0,active?active->stats[2]:0,frees,factory,updates,gfx,active?active->stats[5]:0,active?active->stats[6]:0,active?active->stats[7]:0,active?active->stats[8]:0,active?active->stats[9]:0,active?active->stats[10]:0,active?active->stats[11]:0);
  for(auto& e:owner.lists)delete e.second;
 }std::printf("],\"removal\":[");first=true;
 for(int dead:{0,1})for(int retain:{0,1}){D2UnitStrc owner;owner.active[157]=true;owner.dead=dead;stay=retain;unregisters=updates=refreshes=0;SKILLS_CurseStateCallback_DefensiveBuff(&owner,157,nullptr);if(!first)std::printf(",");first=false;std::printf("[%d,%d,%d,%d,%d,%d]",dead,retain,owner.active[157],unregisters,updates,refreshes);}
 std::printf("]}\n");}
 '''
- p=STAGE/'assassin-buff-source-probe.cpp';p.write_text(cpp);binary=p.with_suffix('');subprocess.run(['g++','-std=c++20','-O2',str(p),'-o',str(binary)],check=True);fixture=json.loads(subprocess.check_output([str(binary)]));assert len(fixture['dispatch'])==192 and len(fixture['removal'])==4
- for old,oldRank,rank,venom,mode,ok,quick,fade,poison,current,expiry,velocity,attack,other,freed,factoryCalls,updates,gfx in fixture['dispatch']:
-  if mode==0:assert (ok,quick,fade,poison,current,expiry,velocity,attack,other,freed,factoryCalls,updates,gfx)==(1,1,0,venom,rank,3400,23,21,21,int(bool(old&1))+int(bool(old&2)),1,2,1)
-  else:assert (ok,quick,fade,poison,current,freed,factoryCalls,updates,gfx)==(0,int(bool(old&1)),int(bool(old&2)),venom,oldRank if old&1 else 0,0,0,0,0)
+ p=STAGE/'assassin-buff-source-probe.cpp';p.write_text(cpp);binary=p.with_suffix('');subprocess.run(['g++','-std=c++20','-O2',str(p),'-o',str(binary)],check=True);fixture=json.loads(subprocess.check_output([str(binary)]));assert len(fixture['dispatch'])==384 and len(fixture['removal'])==4
+ for kind,old,oldRank,rank,venom,mode,ok,quick,fade,poison,current,expiry,velocity,attack,other,freed,factoryCalls,updates,gfx,fire,cold,light,poisonRes,curse,physical,opacity in fixture['dispatch']:
+  if mode==0:
+   assert (ok,quick,fade,poison,current,expiry,freed,factoryCalls,updates,gfx)==(1,1-kind,kind,venom,rank,3400,int(bool(old&1))+int(bool(old&2)),1,2,1)
+   assert (velocity,attack,other,fire,cold,light,poisonRes,curse,physical,opacity)==((0,0,0,19,19,19,19,47,1,2) if kind else (23,21,21,0,0,0,0,0,0,0))
+  else:assert (ok,quick,fade,poison,current,freed,factoryCalls,updates,gfx)==(0,int(bool(old&1)),int(bool(old&2)),venom,oldRank if old&(2 if kind else 1) else 0,0,0,0,0)
  for dead,retain,active,unreg,updates,refresh in fixture['removal']:assert (active,unreg,updates,refresh)==(int(bool(dead and retain)),1,int(not(dead and retain)),int(not(dead and retain)))
  out=STAGE/'assassin-buff-source-probe.json';out.write_text(json.dumps(fixture,separators=(',',':'))+'\n')
- e=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],sourceHashes=hashes,compiledUnchangedRoutines=blocks,pinnedTableHashes=pins,fixture=dict(path=str(out.relative_to(ROOT)),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),dispatchCases=192,removalCases=4),established=['Full do18 dispatch clears all source group2 states before applying its own state, including an equal/higher/lower existing Quickness; independent Venom remains.', 'Aura writers preserve supplied velocity/attack and mirror attackrate to other_animrate; source modifier skill/rank and callback are installed. Invalid skill/state returns before clearing existing state.', 'Removal callback unregisters events first, clears ordinary live/dead non-stay state, updates movement/animation and refreshes passives; synthetic stay-death exception is separate.'],services=['Skill formula results are explicit opaque inputs (3000frames,23velocity,21attack), not a newly compiled formula evaluator or rank oracle. Current rank formulas and native consumers are verified separately.', 'Statlist allocation/attach and callback registration are declared services. The unchanged full shared factory already has separate Inner Sight source evidence; no new complete stat graph/event scheduler or modern executable proof is claimed.', 'Current group membership uses Quickness157/Fade159 and independent Venom31. No Fade or Venom handler is enabled by this source probe.'],limits=['Exact modern animation/stat/event/client equivalence remains acceptance work. Current table fields take precedence over the supplementary older engine.', 'The writer mirror to other_animrate is retained as source context; native player attack/movement/cast pools are exercised independently.'])
+ e=dict(referenceVersion='3.3.93847',legacyCommit=tree['sha'],sourceHashes=hashes,compiledUnchangedRoutines=blocks,pinnedTableHashes=pins,fixture=dict(path=str(out.relative_to(ROOT)),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),dispatchCases=384,removalCases=4),established=['Full do18 dispatch clears all source group2 states before applying its own state, including an equal/higher/lower existing Quickness or Fade; independent Venom remains.', 'Aura/passive writers preserve all six Fade resistance channels and fade=2, or supplied velocity/attack and mirror attackrate to other_animrate; source modifier skill/rank and callback are installed. Invalid skill/state returns before clearing existing state.', 'Removal callback unregisters events first, clears ordinary live/dead non-stay state, updates movement/animation and refreshes passives; synthetic stay-death exception is separate.'],services=['Skill formula results are explicit opaque inputs (3000frames,23velocity,21attack,19elemental,47curse,1physical,2fade), not a newly compiled formula evaluator or rank oracle. Current rank formulas and native consumers are verified separately.', 'Statlist allocation/attach and callback registration are declared services. The unchanged full shared factory already has separate Inner Sight source evidence; no new complete stat graph/event scheduler or modern executable proof is claimed.', 'Current group membership uses Quickness157/Fade159 and independent Venom31. This source probe alone does not enable either handler.'],limits=['Exact modern animation/stat/event/client equivalence remains acceptance work. Current table fields take precedence over the supplementary older engine.', 'The writer mirror to other_animrate is retained as source context; native player attack/movement/cast pools are exercised independently.'])
  path=ROOT/'tools/reference/assassin-buff-engine-evidence.json';text=json.dumps(e,indent=2)+'\n'
  if check:assert path.read_text()==text
  else:path.write_text(text)
- print('Assassin defensive buffs:192 complete dispatch/group/writer cases and4 complete removal callback cases pass with declared services.')
+ print('Assassin defensive buffs:384 complete dispatch/group/writer cases and4 complete removal callback cases pass with declared services.')
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');build(p.parse_args().check)

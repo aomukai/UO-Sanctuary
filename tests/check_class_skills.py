@@ -104,6 +104,7 @@ def check():
             shutil.copy2(STAGE / fixture,folder / fixture)
         for fixture in ('barbarian-mastery-source-probe.json','throwing-projectile-source-probe.json'):
             shutil.copy2(STAGE / fixture,folder / fixture)
+        shutil.copy2(STAGE / 'fade-curse-source-probe.json', folder / 'fade-curse-source-probe.json')
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll'):
             if name not in assemblies:
@@ -206,6 +207,20 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'burst-speed-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    fade='fade-check' if boot==0 else 'fade-reload-check'
+                    session.send(fade)
+                    assert session.expect(fade+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    marker='fade-result' if boot==0 else 'fade-reload-result'
+                    assert session.expect(marker+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as fire_client:
+                        threading.Thread(target=drain_fixture_client,args=(fire_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('fade-input-check')
+                        assert session.expect(r'fade-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'fade-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'fade-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
                     session.send(fury)
                     assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
