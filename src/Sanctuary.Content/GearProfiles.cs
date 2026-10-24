@@ -265,11 +265,11 @@ public sealed class GearProfiles : GenericPersistence
                 var mod = source.Modifiers[i];
                 var rolled = affix.Modifiers[i];
                 if (rolled.Code != mod.Code || rolled.Parameter != mod.Parameter || rolled.Mode != mod.Mode
-                    || rolled.Min != mod.Min || rolled.Max != mod.Max || rolled.Value == null
-                    || rolled.Value < mod.Min || rolled.Value > mod.Max)
+                    || rolled.Min != mod.Min || rolled.Max != mod.Max)
                 {
                     throw new InvalidDataException("Saved affix roll escaped its source range.");
                 }
+                OrdinaryAffixProperties.Projection(mod,rolled.Value);
             }
         }
         int perKind = state.Roll.Rarity == GearRarity.Magic ? 1 : 3;
@@ -376,7 +376,9 @@ public sealed class GearProfiles : GenericPersistence
                 for (int k = 0; k < modifiers.Length; k++)
                 {
                     var mod = source.Modifiers[k];
-                    modifiers[k] = new(mod.Code, mod.Parameter, mod.Min, mod.Max, mod.Mode, reader.ReadInt());
+                    int stored=reader.ReadInt();
+                    if(mod.Mode!=ModifierMode.Numeric && stored!=0){throw new InvalidDataException("Invalid ordinary range/parameter save sentinel");}
+                    modifiers[k] = new(mod.Code, mod.Parameter, mod.Min, mod.Max, mod.Mode, mod.Mode==ModifierMode.Numeric?stored:null);
                 }
                 affixes[j] = new(source, modifiers);
             }

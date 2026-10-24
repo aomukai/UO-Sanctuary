@@ -41,8 +41,12 @@ public static class FirstLoopCatalogueChecks
         var spawnableEffects = AffixBalance.All.Where(ClassGear.Implemented)
             .SelectMany(a => a.Modifiers).Select(m => m.Code).ToHashSet();
         var candidates = AffixBalance.All.SelectMany(a => a.Modifiers).Select(m => m.Code).Concat(declaredEffects).Distinct();
-        var actualEffects = candidates.Where(code => ClassGear.Implemented(AffixBalance.All[0] with
-            { Modifiers = [new AffixModifier(code, "", 0, 1, ModifierMode.Numeric)] })).ToHashSet();
+        var actualEffects = candidates.Where(code =>
+        {
+            var modifiers=AffixBalance.All.SelectMany(a=>a.Modifiers).Where(m=>m.Code==code).ToArray();
+            if(modifiers.Length==0){modifiers=[new AffixModifier(code,"",0,1,ModifierMode.Numeric)];}
+            return modifiers.Any(mod=>ClassGear.Implemented(AffixBalance.All[0] with{Modifiers=[mod]}));
+        }).ToHashSet();
         Require(declaredEffects.SetEquals(actualEffects), "Consumer inventory differs from live-generation guard");
         var factories = new Dictionary<string, Func<Item>>
         {
@@ -98,7 +102,7 @@ public static class FirstLoopCatalogueChecks
                     var eligible = AffixBalance.All.Where(a => ClassGear.Implemented(a)
                         && AffixBalance.Eligible(a, basis.Type, affixLevel, rarity)).OrderBy(a => a.Id, StringComparer.Ordinal).ToArray();
                     Require(eligible.Length > 0 && eligible.All(a => a.Modifiers.All(m =>
-                        m.Mode == ModifierMode.Numeric && declaredEffects.Contains(m.Code) && m.Code != "sock")),
+                        OrdinaryAffixProperties.ValidMode(m) && declaredEffects.Contains(m.Code) && m.Code != "sock")),
                         $"Unsupported pool for {code}/{itemLevel}/{rarity}");
                     // Exercise the real roller across seeds; validate ranges, groups,
                     // rarity and requirements through the persisted-state validator.
@@ -132,6 +136,8 @@ public static class FirstLoopCatalogueChecks
             ContentAssemblySha256 = Hash(typeof(ClassGear).Assembly.Location),
             ContentAssemblyPath = artifact,
             InputHashes = new[] { "src/Sanctuary.Content/ClassGear.cs", "src/Sanctuary.Content/AffixBalance.cs",
+                "src/Sanctuary.Content/OrdinaryAffixProperties.cs", "src/Sanctuary.Content/NamedPropertyRuntime.cs",
+                "src/Sanctuary.Content/NamedGear.cs",
                 "src/Sanctuary.Content/GearProfiles.cs", "src/Sanctuary.Content/EquipmentEconomy.cs",
                 "src/Sanctuary.Content/HitRecovery.cs", "src/Sanctuary.Content/GearEffects.cs", "src/Sanctuary.Content/EquipmentCrafting.cs",
                 "data/Sanctuary/Balance/affixes.json", "data/Sanctuary/Balance/item-types.json",

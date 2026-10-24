@@ -37,10 +37,11 @@ public static class NamedAmmunition
             || ClassGear.Definition(item)?.Category!="Throwing") { return 0; }
         // The named catalogue intentionally omits bases with no named item.
         // Ordinary throwing axes/knives/javelins use the same pinned capacities.
-        return Source(state.BaseCode).Maximum + (state.NamedItemId==null?0:Property(state, "stack"));
+        return Source(state.BaseCode).Maximum + Property(state, "stack");
     }
     private static int Property(GearState state, string code)
     {
+        if(state?.NamedItemId==null){return OrdinaryAffixProperties.FixedValue(state,code);}
         foreach (var property in NamedGear.Catalog.Item(state.NamedItemId).Properties)
         {
             if (!property.SourceEnabled || property.Code != code) { continue; }
@@ -48,7 +49,7 @@ public static class NamedAmmunition
         }
         return 0;
     }
-    public static int Rate(Item item) => ClassGear.State(item) is { NamedItemId: not null } state ? Property(state, "rep-quant") : 0;
+    public static int Rate(Item item) => Property(ClassGear.State(item),"rep-quant");
     public static int Remaining(Item item) => item == null ? 0 : Quantities.GetValueOrDefault(item.Serial)?.Remaining ?? Maximum(item);
     public static bool CanAttack(Item item) => item == null || Maximum(item) == 0 || Remaining(item) > 0;
     public static void Track(Item item)

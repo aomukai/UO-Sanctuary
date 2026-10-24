@@ -186,6 +186,9 @@ def check():
                     affix='valkyrie-affix-check' if boot==0 else 'valkyrie-affix-reload-check'
                     session.send(affix)
                     assert session.expect(affix+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    properties='ordinary-properties-check' if boot==0 else 'ordinary-properties-reload-check'
+                    session.send(properties)
+                    assert session.expect(properties+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     fury='lightning-fury-check' if boot==0 else 'lightning-fury-reload-check'
                     session.send(fury)
                     assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

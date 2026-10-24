@@ -420,6 +420,314 @@
       "consumer": "src/Sanctuary.Content/GearDrops.cs#MagicFind",
       "scope": "Working equipped numeric affixes and saved gold-armour material rolls are snapshotted at death. Source item-quality checks use MF without changing treasure/base selection; unsupported Set/Unique outcomes remain empty.",
       "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ac/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att%/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att-demon",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att-undead",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "att/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "block2",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/HitRecovery.cs#Block",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cold-len",
+      "unit": "frames",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cold-max",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "cold-min",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-cold",
+      "unit": "fixed-minimum-maximum-and-source-frames",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-demon",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-fire",
+      "unit": "fixed-minimum-maximum-and-source-frames",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-ltng",
+      "unit": "fixed-minimum-maximum-and-source-frames",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-pois",
+      "unit": "poison-rate-fp8-and-source-frames",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-to-mana",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg-undead",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "dmg/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ease",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "fire-max",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "fire-min",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "half-freeze",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "howl",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "hp/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/ClassResources.cs#PerLevel",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ignore-ac",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "indestruct",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "knock",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "lifesteal",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "light",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ltng-max",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "ltng-min",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "mana-kill",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "mana/lvl",
+      "unit": "eighths-per-character-level",
+      "consumer": "src/Sanctuary.Content/ClassResources.cs#PerLevel",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "manasteal",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "noheal",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "red-dmg",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "red-mag",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "regen",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "regen-stam",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "rep-dur",
+      "unit": "source-maintenance-rate",
+      "consumer": "src/Sanctuary.Content/NamedMaintenance.cs#Rate",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "rep-quant",
+      "unit": "source-maintenance-rate",
+      "consumer": "src/Sanctuary.Content/NamedAmmunition.cs#Property",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "res-pois-len",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "stack",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/NamedAmmunition.cs#Property",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "stamdrain",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
+    },
+    {
+      "code": "thorns",
+      "unit": "source-item-property-units",
+      "consumer": "src/Sanctuary.Content/OrdinaryAffixProperties.cs#Projection",
+      "scope": "Ordinary affix projection reuses named scalar aliases, range/parameter interpretation and existing player consumers. NPC equipment is separate work; skill effects and sockets remain deferred/gated.",
+      "status": "consumer-and-generation-guard-enabled"
     }
   ],
   "affixQueryItemLevels": [

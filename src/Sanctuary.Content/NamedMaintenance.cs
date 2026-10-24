@@ -18,7 +18,8 @@ public static class NamedMaintenance
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), () => Tick(TimedEffects.Now));
     public static int Rate(GearState state)
     {
-        if (state?.NamedItemId == null || NamedGear.Catalog == null) { return 0; }
+        if (state?.NamedItemId == null) { return OrdinaryAffixProperties.FixedValue(state,"rep-dur"); }
+        if (NamedGear.Catalog == null) { return 0; }
         foreach (var property in NamedGear.Catalog.Item(state.NamedItemId).Properties)
         {
             if (property.SourceEnabled && property.Code == "rep-dur")

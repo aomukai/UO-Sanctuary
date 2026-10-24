@@ -177,7 +177,8 @@ public static class NamedGear
     }
     public static int FixedValue(GearState state, string code)
     {
-        if (state?.NamedItemId == null || Catalog == null) { return 0; }
+        if (state?.NamedItemId == null) { return OrdinaryAffixProperties.FixedValue(state,code); }
+        if (Catalog == null) { return 0; }
         int total = 0;
         foreach (var template in _templates[state.NamedItemId])
         { if (template.Key.StartsWith("p/", StringComparison.Ordinal) && template.Property.Code == code) { total += FindRoll(state, template.Key).Value; } }
@@ -234,6 +235,12 @@ public static class NamedGear
     private static NamedBonusPreview[] Bonuses(PlayerMobile player) => Equipped(player).Bonuses;
     public static IEnumerable<(NamedProperty Property, NamedPropertyRoll Roll)> ActiveProperties(PlayerMobile player)
     {
+        foreach(var item in player.Items)
+        {
+            if(ClassGear.State(item) is not{NamedItemId:null} state || !ClassGear.Active(player,item)){continue;}
+            foreach(var property in OrdinaryAffixProperties.Properties(state))
+            {if(WeaponHands.Contributes(player,item,property.Property.Code)){yield return property;}}
+        }
         foreach (var worn in Equipped(player).Items)
         {
             var state = worn.State;
@@ -386,7 +393,7 @@ public static class NamedGear
             int frames = NamedPropertyRuntime.Parameter(property);
             return FormattableString.Invariant($"Adds {value.Value * frames / 256.0:0.##}–{value.Maximum * frames / 256.0:0.##} Poison Damage Over {frames / 25.0:0.##} Seconds");
         }
-        string label = Catalog.Properties.First(p => p.Code == property.Code).SourceFields.TryGetProperty("*Tooltip", out var tooltip)
+        string label = Catalog?.Properties.FirstOrDefault(p => p.Code == property.Code) is{} definition && definition.SourceFields.TryGetProperty("*Tooltip", out var tooltip)
             ? tooltip.GetString() : null;
         label ??= property.Code + ": #";
         var skill = NamedSkills.Description(property);

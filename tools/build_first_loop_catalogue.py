@@ -110,7 +110,7 @@ def build(source, audit_path, root=ROOT):
         require(query['Rarity'] in ['Magic', 'Rare'], 'Unsupported rarity in audit')
         rows = [affixes[id] for id in query['AffixIds']]
         require(len(rows) == len(set(query['AffixIds'])) and rows, f'Empty/duplicate affix pool: {key}')
-        require(all(m['mode'] == 'Numeric' and m['code'] in units and m['code'] != 'sock'
+        require(all(m['mode'] in ('Numeric', 'Parameter', 'DamageRange') and m['code'] in units and m['code'] != 'sock'
                     for row in rows for m in row['modifiers']), f'Unsupported compound effect: {key}')
         require(all(row['level'] <= query['AffixLevel'] and (not row['maxLevel'] or row['maxLevel'] >= query['AffixLevel'])
                     and (query['Rarity'] != 'Rare' or row['rare']) for row in rows), f'Level/rarity gate drift: {key}')

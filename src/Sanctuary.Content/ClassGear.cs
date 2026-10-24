@@ -16,13 +16,18 @@ public static class ClassGear
         "str", "dex", "enr", "vit", "hp", "mana", "stam", "att", "att%", "ac", "ac%",
         "dmg%", "dmg-min", "dmg-max", "res-all", "res-fire", "res-cold", "res-ltng", "res-pois",
         "swing1", "swing2", "swing3", "cast1", "cast2", "cast3", "move1", "move2", "move3", "block",
-        "balance1", "balance2", "balance3", "gold%", "mag%"
+        "balance1", "balance2", "balance3", "gold%", "mag%",
+        "ac/lvl", "att%/lvl", "att-demon", "att-undead", "att/lvl", "block2", "cold-len", "cold-max", "cold-min",
+        "dmg-cold", "dmg-demon", "dmg-fire", "dmg-ltng", "dmg-pois", "dmg-to-mana", "dmg-undead", "dmg/lvl", "ease",
+        "fire-max", "fire-min", "half-freeze", "howl", "hp/lvl", "ignore-ac", "indestruct", "knock", "lifesteal", "light",
+        "ltng-max", "ltng-min", "mana-kill", "mana/lvl", "manasteal", "noheal", "red-dmg", "red-mag", "regen", "regen-stam",
+        "rep-dur", "rep-quant", "res-pois-len", "stack", "stamdrain", "thorns"
     };
     public static bool Implemented(AffixDefinition affix)
     {
         foreach (var mod in affix.Modifiers)
         {
-            if (mod.Mode != ModifierMode.Numeric || !_implemented.Contains(mod.Code))
+            if (!_implemented.Contains(mod.Code) || !OrdinaryAffixProperties.ValidMode(mod))
             {
                 return false;
             }
@@ -107,16 +112,7 @@ public static class ClassGear
             return 0;
         }
         int value = GemSockets.Bonus(item, state, code) + NamedGear.Bonus(item, code);
-        foreach (var affix in state.Roll.Affixes)
-        {
-            foreach (var mod in affix.Modifiers)
-            {
-                if (mod.Code == code)
-                {
-                    value += mod.Value ?? 0;
-                }
-            }
-        }
+        value+=OrdinaryAffixProperties.Bonus(state,code,item.RootParent is PlayerMobile owner?ClassStats.Level(owner):1);
         foreach (var rune in state.Runes) { if (rune.Pattern.EffectCode == code) { value += rune.Percentage; } }
         string materialCode = code switch
         {
@@ -250,8 +246,8 @@ public static class ClassGear
             ClassGearStat.MinDamage => Damage(item).Min,
             ClassGearStat.MaxDamage => Damage(item).Max,
             ClassGearStat.Defense => Defense(item),
-            ClassGearStat.StrengthRequirement => Math.Max(0, (basis?.Strength ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + NamedGear.Bonus(item, "ease")) / 100,
-            ClassGearStat.DexterityRequirement => Math.Max(0, (basis?.Dexterity ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + NamedGear.Bonus(item, "ease")) / 100,
+            ClassGearStat.StrengthRequirement => Math.Max(0, (basis?.Strength ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + Bonus(item, "ease")) / 100,
+            ClassGearStat.DexterityRequirement => Math.Max(0, (basis?.Dexterity ?? 0) - (NamedGear.Ethereal(item) ? 10 : 0)) * Math.Max(0, 100 + Bonus(item, "ease")) / 100,
             ClassGearStat.IntelligenceRequirement => 0,
             ClassGearStat.StrengthBonus => EffectiveBonus(item, "str"),
             ClassGearStat.DexterityBonus => EffectiveBonus(item, "dex"),
@@ -438,9 +434,9 @@ public static class ClassGear
             {
                 foreach (var modifier in affix.Modifiers)
                 {
-                    if (modifier.Code == "mag%")
-                    { list.Add($"{affix.Definition.Name}{": better chance of finding magic items +"}{modifier.Value}{"%"}"); }
-                    else { list.Add($"{affix.Definition.Name}{": "}{modifier.Code}{" "}{modifier.Value}"); }
+                    var source=new AffixModifier(modifier.Code,modifier.Parameter,modifier.Min,modifier.Max,modifier.Mode);
+                    list.Add(affix.Definition.Name+": "+NamedGear.PropertyText(OrdinaryAffixProperties.Template(source),
+                        OrdinaryAffixProperties.Projection(source,modifier.Value),item.RootParent is PlayerMobile wearer?ClassStats.Level(wearer):1));
                 }
             }
         }

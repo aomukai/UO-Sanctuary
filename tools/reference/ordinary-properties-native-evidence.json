@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Shared ordinary player-equipment non-skill property routing",
+  "installed": true,
+  "handlerEnabled": false,
+  "npcItemPropertyApplicationEnabled": false,
+  "userDecision": "Defer skill-dependent item effects until the relevant class mechanics; continue non-skill foundation work.",
+  "propertyInventory": "tools/reference/item-property-integration-backlog.json",
+  "deferredItemSkillEffects": "docs/deferred-item-skill-effects.md",
+  "verification": {
+    "ordinaryAcceptedCodes": 78,
+    "legacyAcceptedAffixes": 725,
+    "sourceModifierProjections": 909,
+    "valkyrieTypeCompatibleAffixes": 478,
+    "valkyrieAcceptedByOrdinaryGuard": 322,
+    "valkyrieFilteredByOrdinaryGuard": 156,
+    "realSavedItems": 13,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 489,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "handlers": 139,
+    "amazonHandlers": 27
+  },
+  "checks": [
+    "Real ordinary Drop/FromMonster magic rolls use eligible source levels/weights, then actual IdentifyScroll/Identification.Reveal and native equipment. A real rare compound poison roll exercises the same active-property route.",
+    "Scalar lifesteal/manasteal aliases reach real GemCombat.Leech; fire ranges reach actual health loss, cold retains original frames, poison retains separate raw rate endpoints/length/count. Broken/unequipped and unidentified bonuses remain inactive.",
+    "Fractional hp/lvl retains param*level*32 FP256 through ClassResources without double counting; removal restores exact baseline. Ordinary red-mag reaches mitigation and ease reaches native item requirements.",
+    "Intrinsic flag, repair and quantity use shared existing item consumers. Source flag func20 is distinct from original saved numeric0. Actual self-repair, replenishment, consumption, stack maximum and future due clocks persist.",
+    "All13 real item GearState records, including null scalar range/parameter values and a compound rare item, compare exactly after both reloads; poison and scaled-resource consumers remain functional after reload.",
+    "All4 earlier javelin and10 bow input checks retain every-boot coverage in the full suite. No talent handler or named-item acquisition decision changed.",
+    "Installed load/listen/shutdown exit0 with temporary autosave suppression and restored original configuration; existing save bytes unchanged, prior build/data/saves backed up."
+  ],
+  "sourceNotes": {
+    "booleanProperty": "tools/reference/d2r-named-equipment/json/properties.json: indestruct func20",
+    "supplementarySource": ".local/class-skills/d2moo-pinned-source/source/D2Common/src/Items/ItemMods.cpp",
+    "supplementaryFunction": "ITEMMODS_PropertyFunc20",
+    "supplementarySourceSha256": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
+    "ordinarySource": "Legacy ordinary affixes remain from their existing sources.json pin; current NPC row identities are not resolved through that older catalogue."
+  },
+  "limits": [
+    "This is an ordinary player-equipment property-routing checkpoint. Valkyrie has no actual generated NPC equipment, NPC property/stat consumer or learned summon handler yet. The complete current NPC affix pool remains unfiltered.",
+    "Skill-dependent item effects remain explicitly deferred until their class mechanics: proc events, charges, oskills, equipped auras, reanimation, replacement arrows and remaining direct/class/tree grants. Socket-affix eligibility remains separately gated; charms remain intentionally excluded.",
+    "The bridge reuses existing named-property combat/resource/control/maintenance interpretation. It is not a new current D2R executable or complete item-generation/RNG certificate. Legacy ordinary source IDs/rolled scalars remain distinct from current NPC extraction row IDs.",
+    "Actual tests cover real magic and rare rolls, scalar aliases, fire/cold/poison ranges, fractional per-level life, MDR, requirements, repair, replenishment, stack capacity and indestructibility, with identification/equipment/broken/removal gates and two reloads. They do not certify every combination of all78 ordinary codes, all source property functions or modern NPC behaviors.",
+    "Indestructible uses pinned Properties func20, corroborated by supplementary old ITEMMODS_PropertyFunc20: always add flag1, even when the affix numeric min/max are0. Original ordinary roll0 remains in its existing save field; interpreted flag1 is separate."
+  ],
+  "logs": {
+    "content-build": ".local/class-skills/ordinary-properties-content-build.log",
+    "integration-build": ".local/class-skills/ordinary-properties-integration-build.log",
+    "focused": ".local/class-skills/ordinary-properties-focused.log",
+    "focused-run": ".local/class-skills/ordinary-properties-focused-run.log",
+    "combined": ".local/class-skills/ordinary-properties-combined.log",
+    "python-checks": ".local/class-skills/ordinary-properties-python-checks.log",
+    "named-readiness": ".local/class-skills/ordinary-properties-named-readiness.log",
+    "first-loop": ".local/class-skills/ordinary-properties-first-loop.log",
+    "installed-smoke": ".local/class-skills/ordinary-properties-installed-smoke.log",
+    "installed-server": ".local/class-skills/ordinary-properties-installed-server.log"
+  }
+}
