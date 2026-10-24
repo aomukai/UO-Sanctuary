@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.psychichammer",
+  "sourceId": 253,
+  "handlerEnabled": true,
+  "installed": true,
+  "sourceEvidence": [
+    "tools/reference/psychic-hammer-engine-evidence.json",
+    "tools/reference/psychic-hammer-damage-engine-evidence.json"
+  ],
+  "verification": {
+    "handlers": 143,
+    "assassinHandlers": 4,
+    "sourceDispatchCases": 2916,
+    "sourceSpellRollCases": 128,
+    "rankGoldens": 4,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "actualInputBoots": 3,
+    "pythonTests": 70,
+    "namedInputHashes": 494,
+    "firstLoopInputHashes": 21,
+    "namedDecisionsUnchanged": 573,
+    "clientSourceUnchanged": true
+  },
+  "checks": "Psychic Hammer is installed as handler143/Assassin4. Learned right/quick SC/FCR instant targeted casts pay fractional mana once at release, roll physical then magic FP256 endpoints independently with an exclusive maximum, and select knockback chance by source target kind/rank after damage. Shared mitigation, fractional health and source displacement/recovery are reused; approved T29 adds four immediate elemental channels. Ground clicks acquire the cursor-nearest valid enemy within the user-observed approximately2 native tiles; far ground and ties decline acquisition. Held empty-ground input preserves its acquired target. Source rank1/20/21/255, physical immunity retaining magic/knockback, real Tarnhelm hard20/effective21, cancellation/movement/recovery/lost mana/range/town/friendly checks, natural motion and actual input pass. Focused/full each pass three boots/two reloads; saved gear/ranks/mana/health/knockback/bindings remain exact, resumed motion repeats no damage/payment, and unpaid casts never replay.2916 source start/do and128 source spell-roll cases have declared nested services.70 Python tests, fresh494/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; existing client input supports ability193 unchanged. Installed existing-world load/listen/shutdown exits0 with save/config bytes unchanged, previous content/data/saves backed up and server stopped. Exact modern targeting and whole-engine acceptance plus final assets remain open. Next is Cloak of Shadows.",
+  "fixtureNotes": [
+    "The initial fixture used native Poison.Lesser to suppress regeneration; it incorrectly lost24 life on reload. Production poison was unchanged. The corrected disposable fixture uses late fixture-name HP/MP regeneration handlers and real constructor guards.",
+    "Real natural knockback is asserted independently before one-hour inspection holds for saved motion/unpaid casts; production displacement/timing is unchanged.",
+    "Source factory dispatch routing uses opaque chance inputs; current formula/rank goldens and complete spell-roll comparisons are independent native checks. Actual mapped damage/motion targets are regular GraveyardSkeletons; full native unique/boss/hireling/PvP acceptance remains separate."
+  ],
+  "limits": [
+    "Near-click radius2 native tiles is the user-observed approximately2\u20133yard projection, not an extracted modern client constant. Exact radius/edge/facing/height/tie behavior remains uncertain; exact equidistant ties decline acquisition.",
+    "Native learned PvP/hireling/NPC suppliers, unmapped species knockback modes and complete current stat/seed/event/client/mode/room geometry acceptance remain separate. Native encounter unique versus monstats-boss are distinct; unmapped non-encounter boss fallback uses existing native traits.",
+    "2916 complete older start/do and128 complete physical/elemental spell-roll wrapper cases have explicit target/type/formula/endpoint/RNG/channel services. The full shared event/defense/knockback receiver paths were reviewed, not newly compiled or certified as the current executable.",
+    "Approved T29 elemental spell additions remain separate from the source physical/magic packet. No weapon damage, critical, leech, quantity, AR, shield or travel projectile is invented for this skill.",
+    "Final Psychic Hammer cast/impact overlays, cast/impact audio and talent/right-hotkey icons remain separate identified placeholders. No class certificate or item skill/acquisition gate is cleared."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/psychic-hammer-focused.log",
+    "combined": ".local/class-skills/psychic-hammer-combined.log",
+    "content-build": ".local/class-skills/psychic-hammer-content-build.log",
+    "integration-build": ".local/class-skills/psychic-hammer-integration-build.log",
+    "python-checks": ".local/class-skills/psychic-hammer-python-checks.log",
+    "named-readiness": ".local/class-skills/psychic-hammer-named-readiness.log",
+    "first-loop": ".local/class-skills/psychic-hammer-first-loop.log",
+    "installed-smoke": ".local/class-skills/psychic-hammer-installed-smoke.log",
+    "installed-server": ".local/class-skills/psychic-hammer-installed-server.log",
+    "source": ".local/class-skills/psychic-hammer-source.log",
+    "damage-source": ".local/class-skills/psychic-hammer-damage-source.log"
+  }
+}

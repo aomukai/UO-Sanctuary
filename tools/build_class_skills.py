@@ -145,6 +145,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'assassin.psychichammer':'Staged UO0x374A impact and0x1E5/0x1F1 sounds; final psychic_hammer_hit/cast curse overlays and assassin_psychichammer/holybolt impact audio pending. Separate talent/right-hotkey icons pending.',
         'assassin.fade':'Staged UO0x373A flash,0x1E5 sound and existing named-opacity channel; final Fade cast/overlay/translucency and assassin_fade audio pending. Talent/right-hotkey icons remain separate.',
         'assassin.burstofspeed':'Staged UO0x373A flash and0x1E5 sound; final quickness cast/overlay and assassin_quickness audio pending. Talent/right-hotkey icons remain separate.',
         'amazon.lightningfury':'Identified logical projectile0xF42 and throw sound0x238 for parent and child flights. Final LightningJavelin parent, LightningStrike secondary bolts, contacts and amazon_lightning_1/sorceress_lightning_1 audio pending. Talent/L/R/quick icons remain separate',

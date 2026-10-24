@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.psychichammer",
   "sourceId": 253,
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "sourceFields": {
     "skill": "Psychic Hammer",
     "*Id": 253,
@@ -88,18 +88,14 @@
     "lineNumber": 253
   },
   "tableSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
-  "sourceEvidence": "tools/reference/psychic-hammer-engine-evidence.json",
+  "sourceEvidence": [
+    "tools/reference/psychic-hammer-engine-evidence.json",
+    "tools/reference/psychic-hammer-damage-engine-evidence.json"
+  ],
   "reuse": [
     "SkillCombat shared target/cast/resource and physical/magic mitigation plus SkillValues.PhysicalDamage256 and Damage256 endpoints; no weapon/mastery/critical payload is allowed.",
     "SourceKnockbacks already supplies mapped species eligibility, full source endpoint duration, timed displacement, interruption and persistence. Keep its bounded native geometry/mode limits explicit.",
     "Current pinned species boss and encounter unique identity must be separate from generic NamedCombat.Elite. No hireling/PvP target adapter exists solely because source has a branch."
-  ],
-  "required": [
-    "Retain SC/FCR, right/quick only, effective rank and fractional mana: manashift6 * (16 + rank - 1), with source resource lifecycle checked before enabling.",
-    "Targeted instantaneous physical+magic spell damage. Reviewed complete roll wrappers in Skills.cpp call physical first, then elemental, with ITEMS_RollLimitedRandomNumber(maxFP256-minFP256)+minFP256 (exclusive maximum). Audit that existing source RNG helper, endpoint/mastery services and event delivery before enabling; no continuous double substitute, projectile, AR, weapon damage or leech.",
-    "Retain start22/do33 guards, target changes/death/town/LOS/range, ordinary vs unique vs monstats-boss chance, strict comparison and source target HP flag boundary.",
-    "Verify actual damage and mapped movement/recovery, real soft gear, bindings/socket input, cancellation/lifecycle and two reloads before marking installed.",
-    "Inspect complete SUNITDMG_ExecuteEvents/ExecuteMissileDamage defense and knockback-order receivers before choosing native block/avoid/recovery behavior. The start/do probe declares those receivers as services and does not prove they are absent."
   ],
   "uncertain": [
     "SearchEnemyNear and target selection leeway need source/current corroboration; do not silently reuse FOH aim geometry.",
@@ -109,9 +105,43 @@
     "effects": "psychic_hammer_hit overlay; psychic_hammer_curse cast overlay; assassin_psychichammer cast and paladin_holybolt_impact_1 sounds. Explicit existing effects may stand in until asset pass.",
     "icons": "Separate talent-tree and right/quick hotkey icons pending."
   },
-  "next": "After Fade installation checkpoint, implement learned Psychic Hammer using verified shared consumers and retain bounded source identity/target gaps.",
+  "next": "Cloak of Shadows; see cloak-of-shadows-preflight.json.",
   "sourceNotes": [
     "MONSTERS_IsBoss uses the pinned monstats boss bit, independently of unique/champion grades. Current CreatureProfiles and PaladinConversion source identity are reuse points.",
     "Damage roll wrappers are reviewed here; only the start/do bodies are compiled in psychic-hammer-engine-evidence.json. Do not present reviewed nested roll bodies as executed source evidence."
+  ],
+  "observations": [
+    {
+      "source": "User playing pinned D2R3.3.93847",
+      "date": "2026-10-24",
+      "report": "Empty ground near a monster selects the enemy closest to the click. Clicking at the caster feet cannot acquire an enemy10yards away. Approximate leeway2\u20133yards, about2 UO tiles; shotgun-like general aiming."
+    }
+  ],
+  "targetingAdapter": {
+    "nearClickTiles": 2,
+    "shape": "Native Euclidean circle around cursor",
+    "status": "Approximate user-observed projection; exact modern edge/facing/tie behavior not established. Equidistant ties decline acquisition."
+  },
+  "reviewedReceiverNotes": [
+    "Complete CalculateTotalDamage/ExecuteEvents/ExecuteMissileDamage reviewed in pinned SUnitDmg.cpp: damage commits in events before chance; do33 starts with no attack/block/avoid/gethit request and adds successful/knockback flags afterward.",
+    "Monster mode fallback changes unsupported knockback to get-hit; mapped SourceKnockbacks plus CreatureHitRecovery are reused. Exact current receiver/stat/event/geometry acceptance remains open.",
+    "Approved T29 magical-penetration adds four immediate elemental channels from original spell damage; no new poison/chill status. Native damage source endpoints are enhanced once before independent limited rolls."
+  ],
+  "initialRequired": [
+    "Retain SC/FCR, right/quick only, effective rank and fractional mana: manashift6 * (16 + rank - 1), with source resource lifecycle checked before enabling.",
+    "Targeted instantaneous physical+magic spell damage. Reviewed complete roll wrappers in Skills.cpp call physical first, then elemental, with ITEMS_RollLimitedRandomNumber(maxFP256-minFP256)+minFP256 (exclusive maximum). Audit that existing source RNG helper, endpoint/mastery services and event delivery before enabling; no continuous double substitute, projectile, AR, weapon damage or leech.",
+    "Retain start22/do33 guards, target changes/death/town/LOS/range, ordinary vs unique vs monstats-boss chance, strict comparison and source target HP flag boundary.",
+    "Verify actual damage and mapped movement/recovery, real soft gear, bindings/socket input, cancellation/lifecycle and two reloads before marking installed.",
+    "Inspect complete SUNITDMG_ExecuteEvents/ExecuteMissileDamage defense and knockback-order receivers before choosing native block/avoid/recovery behavior. The start/do probe declares those receivers as services and does not prove they are absent."
+  ],
+  "installed": true,
+  "status": "Psychic Hammer is installed as handler143/Assassin4. Learned right/quick SC/FCR instant targeted casts pay fractional mana once at release, roll physical then magic FP256 endpoints independently with an exclusive maximum, and select knockback chance by source target kind/rank after damage. Shared mitigation, fractional health and source displacement/recovery are reused; approved T29 adds four immediate elemental channels. Ground clicks acquire the cursor-nearest valid enemy within the user-observed approximately2 native tiles; far ground and ties decline acquisition. Held empty-ground input preserves its acquired target. Source rank1/20/21/255, physical immunity retaining magic/knockback, real Tarnhelm hard20/effective21, cancellation/movement/recovery/lost mana/range/town/friendly checks, natural motion and actual input pass. Focused/full each pass three boots/two reloads; saved gear/ranks/mana/health/knockback/bindings remain exact, resumed motion repeats no damage/payment, and unpaid casts never replay.2916 source start/do and128 source spell-roll cases have declared nested services.70 Python tests, fresh494/21 fingerprints and573 unchanged named decisions pass. Content/integration builds have zero warnings/errors; existing client input supports ability193 unchanged. Installed existing-world load/listen/shutdown exits0 with save/config bytes unchanged, previous content/data/saves backed up and server stopped. Exact modern targeting and whole-engine acceptance plus final assets remain open. Next is Cloak of Shadows.",
+  "nativeEvidence": "tools/reference/psychic-hammer-native-evidence.json",
+  "remaining": [
+    "Near-click radius2 native tiles is the user-observed approximately2\u20133yard projection, not an extracted modern client constant. Exact radius/edge/facing/height/tie behavior remains uncertain; exact equidistant ties decline acquisition.",
+    "Native learned PvP/hireling/NPC suppliers, unmapped species knockback modes and complete current stat/seed/event/client/mode/room geometry acceptance remain separate. Native encounter unique versus monstats-boss are distinct; unmapped non-encounter boss fallback uses existing native traits.",
+    "2916 complete older start/do and128 complete physical/elemental spell-roll wrapper cases have explicit target/type/formula/endpoint/RNG/channel services. The full shared event/defense/knockback receiver paths were reviewed, not newly compiled or certified as the current executable.",
+    "Approved T29 elemental spell additions remain separate from the source physical/magic packet. No weapon damage, critical, leech, quantity, AR, shield or travel projectile is invented for this skill.",
+    "Final Psychic Hammer cast/impact overlays, cast/impact audio and talent/right-hotkey icons remain separate identified placeholders. No class certificate or item skill/acquisition gate is cleared."
   ]
 }

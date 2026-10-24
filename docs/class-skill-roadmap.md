@@ -9,7 +9,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 3 | Paladin | 30 / 30 | 0 | 0 | Open |
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
-| 6 | Assassin | 3 / 30 | 0 | 27 | Open |
+| 6 | Assassin | 4 / 30 | 0 | 26 | Open |
 | 7 | Druid | 0 / 30 | 0 | 30 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
@@ -225,7 +225,7 @@ Current Amazon checkpoint:27 handlers are present, through [Lightning Fury](../t
 | Dragon Flight | 275 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Phoenix Strike | 280 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Claw Mastery | 252 | handler-present | Pinned effective-rank h2h/h2h2 melee attack rating, damage and critical now reach the shared mastery selector and physical attack consumers. Reuses existing additive pools and mastery-before-Deadly-Strike critical order; physical damage doubles once. Dedicated rank/gear/lifecycle/save/reload verification is recorded separately. Assassin dual-claw action/selection, charge-up/finisher/blade skills, foreign oskills and full modern mode/stat/seed/client acceptance remain separate work. No active binding or mana cost; final talent icon pending, hotkey/effect not applicable. |
-| Psychic Hammer | 253 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Psychic Hammer | 253 | handler-present | Learned right/quick targeted SC/FCR cast uses once-only fractional mana, separate physical/magic FP256 rolls and post-damage type/rank knockback. Reuses source-mode displacement and prepared resistance/absorb/health plus approved T29 elemental spell additions. Near-click acquisition uses the user-observed approximately two-tile adapter; exact modern radius/edge/facing/ties remain explicit acceptance gaps. Source start/do and complete damage-roll wrappers have separately declared nested services. Native source identity, mapped motion, target/resource/cancellation/input/reload checks are recorded separately. PvP/hireling/NPC suppliers, unmapped knockback modes, full modern event/stat/seed/client acceptance and final effects/audio/icons remain separate. |
 | Burst of Speed | 258 | handler-present | Learned right/quick self-cast uses SC/FCR and once-only10mana release payment through the shared caster. Source Quickness velocity and skill attackrate are captured separately from item IAS; attack/sequence and walk/run consumers share existing pools. State group2 replaces even higher old ranks; Fade shares this group, while Venom remains independent. Native input, real IAS/FCR/soft gear, cancellation, lifecycle, natural expiry and reload scope are recorded separately. Source do18/group/writer/removal proof has declared factory/formula services; modern native animation/stat/event acceptance remains open. Cast/overlay/audio and talent/right-hotkey icons use explicit placeholders. |
 | Cloak of Shadows | 264 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Weapon Block | 263 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

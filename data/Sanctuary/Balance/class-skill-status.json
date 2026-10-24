@@ -2121,10 +2121,10 @@
       "characterClass": "Assassin",
       "tree": "Shadow Disciplines",
       "sourceId": 253,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned right/quick targeted SC/FCR cast uses once-only fractional mana, separate physical/magic FP256 rolls and post-damage type/rank knockback. Reuses source-mode displacement and prepared resistance/absorb/health plus approved T29 elemental spell additions. Near-click acquisition uses the user-observed approximately two-tile adapter; exact modern radius/edge/facing/ties remain explicit acceptance gaps. Source start/do and complete damage-roll wrappers have separately declared nested services. Native source identity, mapped motion, target/resource/cancellation/input/reload checks are recorded separately. PvP/hireling/NPC suppliers, unmapped knockback modes, full modern event/stat/seed/client acceptance and final effects/audio/icons remain separate."
     },
     {
       "talentId": "assassin.burstofspeed",

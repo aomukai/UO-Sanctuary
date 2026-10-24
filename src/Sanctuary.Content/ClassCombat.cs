@@ -263,9 +263,9 @@ public static class ClassCombat
         session.HoldUntil = now + CombatProtocol.HoldLeaseMs;
         if (ability != CombatAbility.Teleport && session.PendingAbility == ability && session.PendingLeft == attack)
         {
-            // Ground FoH has already acquired a primary. Held empty-ground input
+            // Ground FoH/Psychic Hammer already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability!=CombatAbility.FistOfTheHeavens || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -499,7 +499,7 @@ public static class ClassCombat
         }
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
-        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability); }
+        if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability,session.PendingTarget); }
         if (SorceressCombat.Handles(ability))
         {
             var aimed = World.FindEntity(session.PendingTarget);

@@ -1,0 +1,107 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.cloakofshadows",
+  "sourceId": 264,
+  "handlerEnabled": false,
+  "sourceFields": {
+    "skill": "Cloak of Shadows",
+    "*Id": 264,
+    "charclass": "ass",
+    "skilldesc": "cloak of shadows",
+    "srvdofunc": 47,
+    "aurafilter": 57347,
+    "aurastate": "cloak_of_shadows",
+    "auratargetstate": "cloaked",
+    "auralencalc": "ln34",
+    "aurarangecalc": "dm12",
+    "aurastat1": "skill_armor_percent",
+    "aurastatcalc1": "\"-min(ln56,95)\"",
+    "passivestat1": "item_armor_percent",
+    "passivecalc1": "ln78",
+    "cltstfunc": 7,
+    "enhanceable": 1,
+    "attackrank": 0,
+    "anim": "SC",
+    "seqtrans": "SC",
+    "monanim": "SC",
+    "UseAttackRate": 1,
+    "reqlevel": 12,
+    "maxlvl": 20,
+    "reqskill1": "Psychic Hammer",
+    "leftskill": 0,
+    "rightskill": 1,
+    "minmana": 1,
+    "manashift": 8,
+    "mana": 13,
+    "lvlmana": 0,
+    "interrupt": 1,
+    "Param1": 30,
+    "*Param1 Description": "Radius Min",
+    "Param2": 30,
+    "*Param2 Description": "Radius Max",
+    "Param3": 200,
+    "*Param3 Description": "Duration baseline",
+    "Param4": 25,
+    "*Param4 Description": "Duration per level",
+    "Param5": 15,
+    "*Param5 Description": "Armor % reduction baseline",
+    "Param6": 3,
+    "*Param6 Description": "Armor % reduction per level",
+    "Param7": 10,
+    "*Param7 Description": "Armor % bonus baseline",
+    "Param8": 3,
+    "*Param8 Description": "Armor % bonus per level",
+    "InGame": 1,
+    "HitShift": 8,
+    "aitype": 2,
+    "cost mult": 512,
+    "cost add": 8000,
+    "lineNumber": 264
+  },
+  "states": {
+    "cloak_of_shadows": {
+      "state": "cloak_of_shadows",
+      "*ID": 153,
+      "remhit": 1,
+      "armblue": 1,
+      "setfunc": 2,
+      "onsound": "assassin_cloakofdarkness",
+      "lineNumber": 153
+    },
+    "cloaked": {
+      "state": "cloaked",
+      "*ID": 156,
+      "curse": 1,
+      "armred": 1,
+      "overlay1": "cloaked",
+      "stat": "skill_armor_percent",
+      "lineNumber": 156
+    }
+  },
+  "reviewedSource": [
+    "SkillAss.cpp SKILLS_SrvDo047_CloakOfShadows and SKILLS_AuraCallback_CloakOfShadows (complete bodies reviewed, not compiled by this preflight).",
+    "Skills.cpp sub_6FD15190 and source shared curse factory; D2Common Units.cpp UNITS_GetDefense; SUnitDmg.cpp complete event/remhit path reviewed."
+  ],
+  "reuse": [
+    "Shared timed state/persistence and SC/FCR self caster; Cloak must be independent of Quickness/Fade group2, with same-state recast denied while owner state exists.",
+    "Necromancer curse slot/stat/AI motion restoration and pinned curse-mask factory duration/rank/Attract arbitration; cloaked is a real curse while owner state is not.",
+    "Existing raw defense additive pools, Dim Vision special-AI eligibility/controller and source radius/filter helpers. Preserve statistical defense penalty independently of whether AI switching is allowed."
+  ],
+  "required": [
+    "Source do47 first attaches owner item_armor_percent=ln78 for ln34 frames, then aura-target curses use -min(ln56,95). Read and retain current aurafilter57347, radiusdm12 and original entry-only target population; do not invent pulses or target-following aura.",
+    "Owner no-recast gating, 13mana/SC, independent cloak versus BoS/Fade, hard/effective ranks, town/expiry/movement/death/history/respec and reload/input checks.",
+    "Keep curse stat application separate from Dim Vision AI eligibility. Boss/unique/hireling/special-AI restrictions must be established by source helpers, not generic elite exclusion.",
+    "UNITS_GetDefense combines item_armor_percent and skill_armor_percent. Verify exact basis/minimum/order versus existing native raw defense before choosing its consumer.",
+    "Table owner remhit1 is not alone proof of player-on-hit removal: reviewed ExecuteEvents calls sub_6FCF8DD0 for surviving monster defenders. Review other receiver paths and current behavior before introducing player dispel.",
+    "Do47/callback passes the original evaluated duration to the target curse factory; do not silently reuse Necromancer Dim Vision's separate difficulty divisor. Check the full shared factory/AI receiver before changing the supplied duration.",
+    "Reuse the complete shared factory rank/Attract/curse arbitration contract from Fade source evidence. Audit existing Necromancer Apply before sharing it; a single curse record by itself does not establish equal/lower-rank replacement parity."
+  ],
+  "uncertain": [
+    "Exact modern curse arbitration, NPC controller/movement restoration and global darkness/vision/mode/room/stat/client behavior need acceptance. Source metadata and reviewed bodies alone are not learned handler verification."
+  ],
+  "assets": {
+    "effects": "Cloak/darkness cast, cloaked target overlay and assassin_cloakofdarkness sound need final assets; existing native light/marker channels may be identified placeholders.",
+    "icons": "Separate talent and right-hotkey icons pending."
+  },
+  "next": "Compile complete do47/callback plus necessary source guards/services and implement real self-defense and target curse/AI consumers after Psychic Hammer checkpoint."
+}

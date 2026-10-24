@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledUnchangedRoutines": {
+    "D2GAME_RollPhysicalDamage_6FD14EC0": "2bb96a9a36a4ff8a9d3ad5f3a1c090803b6d6e3f71ea281edc1d04da60e766aa",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "SUNITDMG_RollDamage": "283ced6e19bfc20ed7fac383bfbebf6d713efb18b44ceb931644ae3fd0f10529"
+  },
+  "fixture": {
+    "path": ".local/class-skills/psychic-hammer-damage-source-probe.json",
+    "sha256": "f5896fe5fb3cb65e6502d1b77e4fa1e065532fc211bea356fab6dd1bb241ac69",
+    "cases": 128
+  },
+  "established": [
+    "Full spell roll wrapper calls physical then elemental. Physical adds to its own channel; magic delivery is a declared channel service.",
+    "Both wrappers use a limited draw over maximum-minus-minimum, excluding the upper FP256 endpoint. Physical endpoint mode0 and elemental endpoint/length mode1 are asserted.",
+    "Independent draws and endpoint mastery round-trip across128 supplied positive endpoint/range cases. Native pinned-rank formulas are checked separately."
+  ],
+  "services": [
+    "Endpoint formula/mastery evaluation, limited RNG and magic channel delivery are explicit services. These are not a newly compiled full skill evaluator, source seed generator or complete damage/stat/event receiver.",
+    "Current rank1/20/21/255 endpoint values are supplied inputs, not derived by this legacy probe. Shared native formula goldens remain independent checks."
+  ]
+}

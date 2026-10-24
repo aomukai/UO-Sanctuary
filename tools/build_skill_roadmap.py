@@ -17,6 +17,8 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'assassin.psychichammer':'Learned right/quick targeted SC/FCR cast uses once-only fractional mana, separate physical/magic FP256 rolls and post-damage type/rank knockback. Reuses source-mode displacement and prepared resistance/absorb/health plus approved T29 elemental spell additions. Near-click acquisition uses the user-observed approximately two-tile adapter; exact modern radius/edge/facing/ties remain explicit acceptance gaps. Source start/do and complete damage-roll wrappers have separately declared nested services. Native source identity, mapped motion, target/resource/cancellation/input/reload checks are recorded separately. PvP/hireling/NPC suppliers, unmapped knockback modes, full modern event/stat/seed/client acceptance and final effects/audio/icons remain separate.',
+
     'assassin.fade':'Learned SC/FCR right/quick self-cast pays10mana once at release. Group2 captured state replaces Burst of Speed; four elemental channels and physical resistance enter existing raw pools before curses and caps. Incoming curse-mask duration subtracts the source truncated percentage, preserving one-frame boundaries; noncurse states and preexisting expiry remain unchanged. Native opacity uses an existing visual channel without invisibility. Source full factory/percentage and defensive-buff writers have separately bounded evidence. Player PvP, NPC suppliers, exact modern animation/stat/event acceptance and final art/audio/icons remain separate.',
     'assassin.burstofspeed':'Learned right/quick self-cast uses SC/FCR and once-only10mana release payment through the shared caster. Source Quickness velocity and skill attackrate are captured separately from item IAS; attack/sequence and walk/run consumers share existing pools. State group2 replaces even higher old ranks; Fade shares this group, while Venom remains independent. Native input, real IAS/FCR/soft gear, cancellation, lifecycle, natural expiry and reload scope are recorded separately. Source do18/group/writer/removal proof has declared factory/formula services; modern native animation/stat/event acceptance remains open. Cast/overlay/audio and talent/right-hotkey icons use explicit placeholders.',
     'assassin.clawmastery':'Pinned effective-rank h2h/h2h2 melee attack rating, damage and critical now reach the shared mastery selector and physical attack consumers. Reuses existing additive pools and mastery-before-Deadly-Strike critical order; physical damage doubles once. Dedicated rank/gear/lifecycle/save/reload verification is recorded separately. Assassin dual-claw action/selection, charge-up/finisher/blade skills, foreign oskills and full modern mode/stat/seed/client acceptance remain separate work. No active binding or mana cost; final talent icon pending, hotkey/effect not applicable.',
@@ -146,6 +148,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'assassin.psychichammer',
     'assassin.fade',
     'assassin.burstofspeed',
     'assassin.clawmastery',
