@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/Fog/src/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    "source/Fog/include/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    "source/D2Common/src/DataTbls/SkillsTbls.cpp": "af6ff0c8e0edceb3d2ae9ae22a92c6203e2206906adc66a67275b1d0a7756fb9"
+  },
+  "pinnedHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "fixture": {
+    "path": ".local/class-skills/blade-sentinel-formula-source-probe.json",
+    "sha256": "3b677c7065e70e00141488df757386b1a5f0951336202675ec1a43c0eae5dd6a",
+    "cases": 70
+  },
+  "compiled": "Complete unchanged Fog Calc.cpp and Calc.h; only type/calling-convention shim headers. Exact pinned passivecalc2..14 and separately labeled balanced control for slot6.",
+  "symbolServices": "Reviewed SkillsTbls stat keyword5/two arguments and accrued property0. Stat name linker resolves each supplied pinned itemstatcost ID; callback returns explicit -100/0/1/50/200 sentinels. Full SkillsTbls linker and real stat acquisition are not compiled.",
+  "established": [
+    "The exact unclosed passivecalc6 compiles but does not emit/call the stat function. Across all five supplied accrued values it evaluates to zero. Adding a closing parenthesis executes the callback and returns the sentinel; that is a separate control, not an authorized correction of source data.",
+    "All twelve other pinned stat formulas execute exactly one callback and return supplied accrued value. A generic auto-close adapter would change slot6 behavior and is not justified by the older compiler."
+  ],
+  "limits": [
+    "This is legacy compiler behavior against current pinned source text, not proof of current3.3.93847 binary behavior or actual cold-sunder inheritance. Current cold-sunder inheritance remains explicitly uncertain.",
+    "No native formula repair, handler enablement, current inherited14-slot helper equivalence or class certificate is claimed."
+  ]
+}

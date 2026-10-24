@@ -322,8 +322,8 @@
       "class": "Assassin",
       "scope": "Assassin10/30; no class completion certificate.",
       "status": "Shock Web installed/verified within recorded bounds.",
-      "nextBatch": "Blade Sentinel; Shadow Warrior/Master individually deferred behind NPC equipment/skill/AI contexts.",
-      "preflight": "Blade Sentinel source preparation next.",
+      "nextBatch": "Blade Sentinel shared summon/stat/damage/owner consumers and native delivery; Shadows individually deferred.",
+      "preflight": "tools/reference/blade-sentinel-preflight.json",
       "barbarianFirsthandGameplayUnavailable": true,
       "amazonFirsthandGameplayAvailable": true
     },
@@ -1790,6 +1790,23 @@
       "firstLoopFingerprints": 21,
       "unchangedNamedDecisions": 573,
       "evidence": "tools/reference/shock-web-native-evidence.json"
+    },
+    "bladeSentinelPreparation": {
+      "handlerEnabled": false,
+      "installed": false,
+      "sourceCases": 7781,
+      "formulaCases": 70,
+      "evidence": "tools/reference/blade-sentinel-engine-evidence.json",
+      "formulaEvidence": "tools/reference/blade-sentinel-formula-engine-evidence.json",
+      "preflight": "tools/reference/blade-sentinel-preflight.json",
+      "nativeState": "Installed build remains149/Assassin10; current native verification is Shock Web. No C# or installed data changes in this source-only follow-up.",
+      "next": [
+        "Compile/check full general trap summon factory and pet cap/replacement semantics, summon base/passive/assigned skill and untargetable/nonblocking actor shape; resolve current14-slot data without claiming old5-slot equivalence.",
+        "Execute full weapon and physical skill creator/getters including Half2HSrc, typed/rate/count/drain/critical/stat layers, owner reassignment and generic hit router/AR/NextHit defenses. Preserve unsupported modern item/supplier boundaries explicitly.",
+        "Map source walk/velocity/path/reversal/duration and chronological event service to native movement without normal pet chase/follow AI changing endpoints.",
+        "Implement persistent actor/skill/stat and following collision state, paid/unpaid casts, local delay, owner/map/class/death/cap lifecycle and save/reload compatibility.",
+        "Verify independent ranks/hard synergies/real one- and two-handed gear, IAS versus FCR, all inherited stats and explicit malformed formula policy, actual input, movement/terrain/rate/resources/friendly/immune/AR/recovery, cap replacement, natural expiry and two reloads before installation."
+      ]
     }
   },
   "logs": {
@@ -2952,7 +2969,9 @@
     "shock-web-installed-server": ".local/class-skills/shock-web-installed-server.log",
     "shock-web-source": ".local/class-skills/shock-web-source.log",
     "shock-web-field-source": ".local/class-skills/shock-web-field-source.log",
-    "shock-web-damage-source": ".local/class-skills/shock-web-damage-source.log"
+    "shock-web-damage-source": ".local/class-skills/shock-web-damage-source.log",
+    "blade-sentinel-source": ".local/class-skills/blade-sentinel-source.log",
+    "blade-sentinel-formula-source": ".local/class-skills/blade-sentinel-formula-source.log"
   },
   "limits": [
     "No class acceptance certificate yet",
@@ -3337,7 +3356,7 @@
     "tools/build_class_skills.py": "699b1e3f2f1766bfc5ffcb2b79202be31f8f9eb9f2af3a881004b15e66be44d0",
     "tools/build_skill_roadmap.py": "e95d7ebf093f2ebea23e54018849714eb06bf29bc1a994ce45e534272d1f1bcf",
     "docs/class-skill-roadmap.md": "03b5d8f151ad595fda5e9a5cabff98a43c433b2411624022e424fca7dd301ac5",
-    "docs/skill-mechanical-reference.md": "2f67d4f9892b92846384355fbc6f850ac08d468ae76d4a7a6c3cc9ae7e630627",
+    "docs/skill-mechanical-reference.md": "d997419cb275989ba8bbc0ddf45c540d2b0374fa965a82b47d487078d6af26b1",
     "docs/class-skills-checkpoint-2026-10-22.md": "00f3fb0e5947d5e8194dd062910b1a7a6de3fedd89c7592ab4c4c6fb3095ef0a",
     "data/Sanctuary/Balance/skill-effects.json": "59105b1ef7253878248c64d7d301e3af61d7d9cacf3bf2313d0ffc0c42b9bc12",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
@@ -3517,7 +3536,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "f9be3e0d9cf7acdcebcae4664ce407a7944950481df842458968783c651b9d09",
+    "docs/class-skills-resume-checkpoint.md": "d7af8791273abf832e24735c86a69de6dc20ee7404826749dd368cc26c31b9a3",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -4295,7 +4314,7 @@
     "tools/reference/power-strike-modern-correction.json": "9e28b52088042e958aee3514c66eac8b40956a159385ab5677f7b0b7a88bb892",
     "tools/reference/charged-strike-preflight.json": "627fdc326872bbdd6d2bab7227f2d58965165ffbba7d26f93cf253b0c40b9c2e",
     "tools/reference/sorceress-current-lightning-tooltips.json": "e7871e2852bbcec9fc90eca6ad688d80a91a9bf7b7ebf55712207f0da634ec85",
-    "docs/class-skills-checkpoint-2026-10-24.md": "93ab194ae9a73fbe2c4d2f79a6d535f0c2b225816c5b2fe7bd4c71f6ab19d003",
+    "docs/class-skills-checkpoint-2026-10-24.md": "3292a600590d920381797a78667defe0031577087ee841bfbdfe89a03da06276",
     ".local/class-skills/power-strike-source-probe.log": "09b968a0731b7912a096aa6f28519bb3c9efd10c01ef7a8bf7402e4e94c6673e",
     ".local/class-skills/power-strike-content-build.log": "6ff9610be771f263182d89b1ed8eaec36f0f431648988f2a0221db8e0b98319a",
     ".local/class-skills/power-strike-integration-build.log": "df789323d25d46283e82e9aeffa89cc01f0c58651bd64d9421f34a9436172e09",
@@ -5164,7 +5183,7 @@
     "tools/reference/claw-mastery-preflight.json": "ea4d748242e68e9a42591d00b6f2e031d5da142015d0d6471ff73c7961055425",
     "tools/reference/assassin-buff-preflight.json": "7c61e918fe2690dde99bb3d72fa2a998b66c2c58c4f92ef0c8e646dd428a3a83",
     "tools/reference/claw-mastery-native-evidence.json": "532068299ad5d062c0d1a0db090fefd25f3ffad872c2232a1e2c02336198505e",
-    ".local/class-skills/assassin-next-notes.json": "f9d9509e1419803891bfd4540082bbda86ce186da4cce728e92d73020d6f9bfa",
+    ".local/class-skills/assassin-next-notes.json": "5ea891b9ef35ea0887eeb088f36d4e6fac852e9d9e6142f02469bbc9a78c50fa",
     ".local/class-skills/claw-mastery-focused.py": "c79f836652d86f2282d01ef146cc5a2025c08018d8e6d92d43547188953f44c3",
     ".local/class-skills/claw-mastery-content-build.log": "b925bcaad9a9ba3c954f28cb738acfc57a61cfbc63e26bd73dad51e64e82a265",
     ".local/class-skills/claw-mastery-integration-build.log": "c57d4e0bf8f9af44f4e5e4075f35eb910b9d7f68ac89d799f600dd872e7f22cf",
@@ -5461,12 +5480,28 @@
     ".local/class-skills/shock-web-installed-smoke.log": "cca9c4a1e445ef841be4231807c8bfd6a319506b08c47af283ce19c2e6a81564",
     ".local/class-skills/shock-web-installed-server.log": "e9f801bb6b23d7550b30d0ff7dbace1383bb72ed2934e30fc3fd9701d5157393",
     ".local/class-skills/shock-web-field-source.log": "4425c540b834682b8fa672c8b92b4ebf01c147e19a39843ecdbeb4f82d29e7d9",
-    ".local/class-skills/shock-web-damage-source.log": "de88725b753d3526b77bb97b8949c87dd013ac3de23f18cefcb8a6b18fd8921b"
+    ".local/class-skills/shock-web-damage-source.log": "de88725b753d3526b77bb97b8949c87dd013ac3de23f18cefcb8a6b18fd8921b",
+    "tools/probe_blade_sentinel_formula_reference.py": "cce219c7ecdb89df9f4a7669b3b0eff2f3ebc3dfaf6a04a552e5a25f38f01115",
+    "tools/probe_blade_sentinel_reference.py": "cf8d87c3514a64e5101a2b9bfc9e6e0bbbc351b18b3c793c89dde25f44b86568",
+    "tools/reference/blade-sentinel-engine-evidence.json": "dc6b13b460c70db7a167809597a41548627ec43054e06d2d39de2c2ca5f85e62",
+    "tools/reference/blade-sentinel-formula-engine-evidence.json": "8e142495ca9970ea40e0c38a7e2d2c09a981abd0d96f56cc992e3f6c20c4b160",
+    "tools/reference/blade-sentinel-preflight.json": "2cf3b2a278cdbb19a2fd121b7dbe247c1509265165a1ef1f7d394a24e9d9a363",
+    ".local/class-skills/blade-sentinel-checkpoint.py": "88e661ec9a42717a7050124740d2ddf1ed7f3287d806268a886a4ab10d0de4e4",
+    ".local/class-skills/blade-sentinel-source.log": "53634788902d334f67657b10501a7d30a768122b3fbcd768b9231487ef9971b7",
+    ".local/class-skills/blade-sentinel-formula-source.log": "3541f1d876015b719321b05497cbb51523d6fc1cd1cbd5269768493de382dcf1",
+    ".local/class-skills/blade-sentinel-source-probe.cpp": "77e4deffe3ae58f9f2ca737c1141d7a51e6cc9341a093bb8ae9b1a11ffbc8ce0",
+    ".local/class-skills/blade-sentinel-source-probe.json": "ad739a3060acac6f72d54680a8e9f8a0bb66506f45e196f1941aa2a89efea85b",
+    ".local/class-skills/blade-sentinel-formula-source-probe.json": "3b677c7065e70e00141488df757386b1a5f0951336202675ec1a43c0eae5dd6a",
+    ".local/class-skills/blade-sentinel-formula-probe/Calc.cpp": "104b90ecf5934f7e0135eacb29991222905ea6c702ed3f285fbb45db9c966b44",
+    ".local/class-skills/blade-sentinel-formula-probe/Calc.h": "d5ea8cde64ac63176aa990a92ed0e683b087fbceaa2f9560864c03f3f558abb7",
+    ".local/class-skills/blade-sentinel-formula-probe/D2BasicTypes.h": "01051a4ec449c41ee049eb642633bf44691499bc62fb4bcdae90bdccf1cf2d52",
+    ".local/class-skills/blade-sentinel-formula-probe/Fog.h": "90a2d4f788ce5aa63d931e97a9bb0712b08e33807728a0cac8b2b184e3be2a73",
+    ".local/class-skills/blade-sentinel-formula-probe/main.cpp": "4a18f1ac1f5a5fe9af6cea5e0a6abb4f325c7771c16d556c3fcdff2928f75ca5"
   },
   "totalHandlersPresent": 149,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 2202,
+  "verifiedArtifactCount": 2218,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Shock Web is installed as handler 149 (Assassin 10). Shared S2/IAS lob throws spend 6 mana once at release and use the pinned hard-point count and source-seeded square scatter, including skipped nearby placements. Fresh landed children read current hard lightning synergies/mastery, retain fixed minimum damage and provide persistent soft-hit lightning fields with source footprints, contact ordering, expiry and cast-scoped 25-frame leases. Native field overlap follows the declared modern cast-origin adapter; exact current-build overlap cadence remains unverified. Focused/full suites each pass three boots, two save/reloads and real ground cast input, including exact saved air/field/lease/cooldown/resource state. Fire Blast saved phases and input pass after shared-lob extraction. All 70 Python tests, 503/21 current fingerprints and 573 unchanged named decisions pass; both builds have zero warnings/errors. Existing-world load/listen/shutdown exits 0 with save/config/client bytes unchanged, backup retained and server stopped. Current timing/terrain/seed/owner/PvP/NPC acceptance and final assets remain explicit gaps; no class completion certificate.",
   "installedTestBuild": true,
@@ -5478,6 +5513,6 @@
     "scope": "Root code/data/reference evidence/tests/docs and native patch stacks; existing ignored runtime/build/save files remain local.",
     "historyAuthority": "Git commit history and origin/main; no force push or submodule rewrite."
   },
-  "referencePreparationUpdatedAtUtc": "2026-10-24T14:52:32.818878+00:00",
+  "referencePreparationUpdatedAtUtc": "2026-10-24T14:59:54.919309+00:00",
   "historicalScopeNote": "Older entries in limits and component checks retain their original preparation scope/counts. Current handlerCounts, totalHandlersPresent, currentSourceAndAssemblies and installed evidence describe this checkpoint; older component-only counts are historical."
 }

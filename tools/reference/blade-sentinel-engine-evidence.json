@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledUnchangedRoutines": {
+    "SKILLS_SrvDo044_BladeSentinel": "62313b951e61bc86bb1a399c2d9c195e90e1fa997e83a0efaba86d62beb8617d",
+    "D2GAME_AI_Unk102_6FCE9FB0": "a4aa394880b056d37790011dcfb75167f3fe6995d976c781f183cd3905d5a1b4",
+    "AITHINK_Fn102_BladeCreeper": "2db0e2a29a0c135ee4169e1267a45864136a436717c6dc69de100b980b142306",
+    "MISSMODE_SrvDo20_BladeCreeper": "12f6fb43a3a3e2ef6c2001ee7d5209b3aeefb2ded405827914ff02504a0a747a",
+    "MISSMODE_SrvHit37_BladeCreeper": "c7df4c194283feed1fe93969feaab6f3df31c0df3130da29be88a5005a91b2ed"
+  },
+  "pinnedSkillHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "fixture": {
+    "path": ".local/class-skills/blade-sentinel-source-probe.json",
+    "sha256": "ad739a3060acac6f72d54680a8e9f8a0bb66506f45e196f1941aa2a89efea85b",
+    "cases": {
+      "ai": 7680,
+      "missingSkill": 10,
+      "dispatch": 80,
+      "follow": 8,
+      "initialization": 1,
+      "hit": 2
+    },
+    "total": 7781
+  },
+  "established": [
+    "Full do44 gates missing row/summon/target/factory, sets server flag before target lookup, summons at caster through declared generic factory, overwrites final pet level with caster level, relocates to caster and copies fixed origin/cursor endpoints. AI is scheduled gameFrame+1 and flag8 cleared only after successful creation.",
+    "Full initialization sets expiry=-1,direction=1,created=0. First AI evaluation stores frame+100+12*(effective rank-1); expiration is strict less-than, not less-or-equal. Missing skill row or learned summon skill requests death mode0.",
+    "First eligible AI tries missile392 once, initially created through minion owner (or self fallback) at pet coordinates and then owned by pet. Only successful creation adds owner attack rate and item attack percent plus weapon mastery to pet. A failed allocation still marks attempt complete. Invalid missile id does not mark it complete.",
+    "AI walks toward stored destination first, switches direction on failure/endpoint and tries origin; reverse phase mirrors this. Both failures try owner range5, otherwise idle5. Missing command idles3. Velocity call15/0/20 is retained; the actual world walk/movement service is not compiled here.",
+    "Full missile follow routine removes when pet owner missing/dead, otherwise teleports to live pet when a dynamic path exists, resets current frame10 each update and invokes collision. Lifetime therefore follows pet existence rather than a standalone missile Range counter. Full hit37 returns2 for actor contact,0 without actor; shared router meanings remain separate."
+  ],
+  "services": [
+    "General sub_6FCF8610 summon factory, base/passive stat suppliers, rank/duration formula, world walk/room/path, missile creator, owner lookup, attack rate/mastery/weapon and collision are explicit checked services. This proof does not execute generated base stats, current14 passive slots, weapon damage, hit router, pet cap replacement or path traversal.",
+    "Current table values are hash-pinned; older routine/control-flow proof is not exact modern executable equivalence. No native handler enabled, class completion, final asset or arbitrary save compatibility claim."
+  ]
+}
