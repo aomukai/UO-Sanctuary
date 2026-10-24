@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b"
+  },
+  "routineHashes": {
+    "AIUTIL_GetDistanceToCoordinatesWithSize": "cca0a7743bf6e71455bafdc36eebbebd44fe461cb1e4d9598b4636c49a38d5d1",
+    "AIUTIL_GetDistanceToCoordinates_FullUnitSize": "2280f19f84e99134245e5a6d320418269ed5a767462e5a616ea7fc921b2bb4d0",
+    "sub_6FCF1A50": "38400bf0c73ba87f9a3c394562a34f30af71954854dcb63a1d32eda71fae6095",
+    "sub_6FCF1980": "e934bc8a97a5a756ddd62b54fe6f2359cbcd05d897162402a3ce2be8cb0bf4a4",
+    "sub_6FCF1B30": "6e215743966a96314271ffc160e6a8cd465660eaf5ad071b00abec28d48b8b5d",
+    "sub_6FCF27B0": "b8d3519ca0d74ab457fe6477ed09667e219e4a84067a5a00b476f74f8fd2ac2a",
+    "sub_6FCF2CC0": "89a6f5005a5e86d9a594d6232fc8b981351c88ee24b861ee9d029e1f5404727e"
+  },
+  "cases": 4096,
+  "fixture": {
+    "path": ".local/class-skills/sentry-target-source-probe.json",
+    "sha256": "1013e2f68c61f7af09c69ccc4014f809427ae29752abd7226d4fed985c915dd5"
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "nativeEvidence": "tools/reference/sentry-target-native-evidence.json",
+  "established": [
+    "Complete full-size distance, eligibility, callback6/callback7, alternative chooser and main selector execute together. Primary vs low-threat pools, distance48 inclusion, strict smaller-distance/tie retention, barrier rejection, alternative distance5 guard, path success/failure and fallback distance20 guard remain distinct.",
+    "Explicit remembered-target service overrides scanning. The alternative path probe restores original path type/target/target-coordinate fields."
+  ],
+  "limits": [
+    "Room enumeration, hostile/allegiance test, source remembered-target resolver, path initializer, collision, invisible-player roll/melee and current executable equivalence are declared services; this is not a whole AI engine.",
+    "Eligibility matrix varies hostile service results with live/non-town/attackable/non-invisible targets; invisible branch and native player PvP are not certified.",
+    "Source callback7 dereferences monster-row metadata without a null guard. No-record controls have no primary and never enter that branch; native integration must flag unsupported missing-row fallback instead of silently inventing threat data."
+  ]
+}

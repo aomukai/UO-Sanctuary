@@ -33,12 +33,7 @@ public partial class BladeSentinelBody:BaseCreature
     public override bool OnMoveOver(Mobile mobile)=>true;
     public override bool IsEnemy(Mobile mobile)=>false;
     public override bool CanBeHarmful(Mobile mobile,bool message,bool ignoreOurBlessedness)=>false;
-    internal bool TrapTarget(PlayerMobile owner,Mobile target)=>target is BaseCreature creature && target!=owner
-        && target.Alive && !target.Deleted && target.Map==Map && !target.Blessed && !target.IsDeadBondedPet
-        && !PaladinConversion.Active(target) && creature is not Server.Mobiles.BaseVendor
-        && !creature.Controlled && !creature.Summoned && creature.GetMaster()==null && !creature.InitialInnocent
-        && creature.FightMode is not(FightMode.None or FightMode.Aggressor or FightMode.Evil)
-        && creature.IsEnemy(owner) && CanSee(target) && base.CanBeHarmful(target,false,true);
+    internal bool TrapTarget(PlayerMobile owner,Mobile target)=>AssassinTrapTargets.Eligible(this,owner,target,()=>base.CanBeHarmful(target,false,true));
     // Deliberately absent Constructible: the unfinished component has no GM Add
     // or player acquisition path. The serializer still needs its serial ctor.
     public BladeSentinelBody():base(AIType.AI_Melee,FightMode.None,0)

@@ -19,6 +19,7 @@
     "sha256": "234b5c138fca82f65ac20bf7c9a93b6afa2e68f62fece0e33ff5006f8dff7477"
   },
   "sanitizers": "ASan/UBSan clean",
+  "nativeEvidence": "tools/reference/sentry-target-native-evidence.json",
   "portableSubstitution": "MSVC hexadecimal i64 suffix changed to ULL without changing the uint64 multiply; ABI structures declared explicitly.",
   "established": [
     "Complete source direction-index/table lookup, charged-bolt random-offset lookup, RNG advance and path generation execute together.",
@@ -26,7 +27,7 @@
     "The32-entry offset table deliberately omits its final zero; do not normalize it to an unbiased three-entry roll."
   ],
   "limits": [
-    "Source-only preparation; the current native ChargedBolts helpers have not been compared against this new complete fixture. No handler, live path/motion/collision/damage or whole current executable acceptance follows from it.",
+    "This script supplies source-only preparation; separate native helper comparisons are recorded in sentry-target-native-evidence.json. No handler, live path/motion/collision/damage or whole current executable acceptance follows from this probe alone.",
     "Room/collision, missile lifetime/activation/velocity, native coordinate projection, path rebuilding and source ownership/property consumers remain outside this kernel."
   ]
 }

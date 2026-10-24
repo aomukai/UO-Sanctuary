@@ -24,17 +24,17 @@ public static class BladeBodyChecks
         var target=new Point2D(p.X*2+8,p.Y*2);var state=new ActorMotionState((uint)((p.X*2<<16)+32768),(uint)((p.Y*2<<16)+32768),[target],target,0,2304,2304,0,0,new(0,0),new(0,0),20,0x820,0,[],0);
         return SourceActorMotion.DirectionToNext(state);
     }
-    internal static PlayerMobile Fresh(int column=6000)
+    internal static PlayerMobile Fresh(int column=6000,int reach=10)
     {
         var p=ClassSkillChecks.Player(DiabloClass.Assassin);p.Name="BladeBodyFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);
         int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface && !TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight==0);
         for(int y=2600;y<3800;y+=32)
         {
             bool clear=true;
-            for(int x=column-4;x<=column+10;x++)for(int dy=-3;dy<=3;dy++)
+            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++)
             {if(!Map.Trammel.CanFit(x,y+dy,0,16,true,true,false)){clear=false;}}
             if(!clear){continue;}
-            for(int x=column-4;x<=column+10;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
+            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
             FixtureSpace.Place(p,new(column,y,0),Map.Trammel);
             Log.Information("Blade body controlled native floor fixture: item={Floor} origin={Point}",floor,p.Location);return p;
         }

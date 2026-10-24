@@ -115,9 +115,11 @@ public static class SentryActorChecks
             body.AdvanceController(before.NextFrameUtc.AddDays(1),false);
             Require(body.Prepared.Control.Frame==2160001&&body.Prepared.Control is{Mode:1,Attempts:0,Dispatches:0,Ai.RemainingShots:-1}
                 &&body.Prepared.Seed==before.Seed&&!body.Deleted,"Long offline interval replayed actions, invented expiry or froze elapsed clock");
-            Require(AssassinSentryActors.SelectTarget==null&&AssassinSentryActors.Dispatch==null,"Production sentry has an unverified target/missile service");
+            Require(AssassinSentryActors.SelectTarget!=null&&AssassinSentryActors.Dispatch==null,"Sentry target adapter or unfinished projectile gate changed");
+            var selector=AssassinSentryActors.SelectTarget;AssassinSentryActors.SelectTarget=null;
             bool refused=false;try{body.AdvanceController(body.Prepared.NextFrameUtc,true);}catch(NotSupportedException e)
             {refused=e.Message.Contains("target-selection");body.SuspendController(e.Message);}
+            finally{AssassinSentryActors.SelectTarget=selector;}
             Require(refused&&body.Prepared.ControllerFault!=null&&body.Prepared.Control.Attempts==0,"Unconnected world target service claimed success");
             body.AdvanceController(body.Prepared.NextFrameUtc.AddMilliseconds(400),true);
             Require(body.Prepared.Control is{Attempts:0,Dispatches:0},"Faulted controller replayed actions");

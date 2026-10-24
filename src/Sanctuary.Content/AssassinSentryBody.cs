@@ -80,6 +80,7 @@ public partial class AssassinSentryBody:BaseCreature
         }
         catch{body.Delete();throw;}
     }
+    internal bool TrapTarget(PlayerMobile owner,Mobile target)=>AssassinTrapTargets.Eligible(this,owner,target,()=>base.CanBeHarmful(target,false,true));
     internal int Passive(string name)=>Prepared.Creation.Passive(name);
     internal void RescaleDifficulty(MonsterDifficulty difficulty)
     {
@@ -144,11 +145,12 @@ public static class AssassinSentryActors
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(AssassinSentryActors));
     private static readonly Dictionary<Serial,AssassinSentryBody> Active=new();
-    // Intentionally unbound. A test fixture can supply these explicit service
-    // boundaries; production must not claim dummy allocation or damage success.
+    // The mapped native selector is bound at Initialize. Real damaging bolts
+    // remain a separate service until their ownership/combat is verified.
     internal static Func<AssassinSentryBody,SentryTarget?> SelectTarget;
     internal static Action<AssassinSentryBody,uint> Dispatch;
-    public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
+    public static void Initialize()
+    {SelectTarget??=AssassinSentryWorldTargets.Select;Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));}
     internal static void Track(AssassinSentryBody body)=>Active[body.Serial]=body;
     internal static void Forget(AssassinSentryBody body)=>Active.Remove(body.Serial);
     internal static void Tick(DateTime at)

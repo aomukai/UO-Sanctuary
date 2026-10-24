@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
   "handlerEnabled": false,
-  "status": "Charged Bolt Sentry now has a saved stationary actor and automatic per-frame mode14 controller backend, with learned input still disabled. Complete source/native composition matches 192 contexts/42,240 frames: entry2 dispatch on the third subsequent phase, neutral on phase16, then15-frame AI delay, final-shot firing and failed-start debit. Actual world entities retain owner, captured stats, remaining shots, sequence/target, RNG and UTC deadline through two reloads. Mixed Blade/Sentry cap5 FIFO, post-reload oldest replacement, owner death, owner-facet stat scaling with retained cast facet and FP256 injury pass. Same-facet owner town removes the trap; approved cross-facet retention uses the trap room. Offline/faulted controllers advance elapsed time without actions, RNG or attack replay; a pending windup is discarded without refunding its shot. Focused/full three-boot/two-reload suites,70 Python checks and original-world installed smoke pass. Saves/config/client bytes are unchanged. Target selection and do dispatch are explicit unbound service boundaries: fixture dispatch records orchestration, not projectile damage. Real targeting/charged-bolt flight and combat, do45 S1 emergence, learned S2 input/payment/cancellation and exact modern acceptance remain pending. No independent idle timeout is invented. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition.",
+  "status": "Charged Bolt Sentry now uses a mapped native target selector, backed by 4,096 complete source/native selection comparisons. It retains separate primary and low-threat pools, source full-size distance, strict nearest/tie ordering, missile-barrier rejection, and the source alternative/path/fallback decisions. Actual mapped monsters verify movement, wall occlusion, an owner on another facet, dead/deleted exclusion and the selected-distance-25 AI refusal. Shared ChargedBolts heading, seeded path and final RNG state match all 2,160 complete source cases, including uint16 coordinate wrapping. Blade and Sentry reuse the same native allegiance/actor-local harmful-region predicate; existing Blade regressions pass. Focused/full three-boot/two-reload suites, 70 Python checks and original-world installed smoke pass with saves/config/client bytes unchanged. The low-threat unit-target path service remains explicitly unbound; source callback7 missing-row fallback is refused rather than assigned invented threat data. Real damaging bolts, emergence and learned input remain pending. Total handlers remain 150, Assassin 11; latest playable addition remains Blade Shield.",
   "sourceSkill": {
     "skill": "Charged Bolt Sentry",
     "*Id": 261,
@@ -252,23 +252,23 @@
     }
   ],
   "required": [
-    "Connect source target-selection and trap-owned charged-bolt flight/collision/mitigation/pierce/credit, reusing prepared per-ordinal launch and shared charged-bolt path/health/property consumers where their contracts agree. Couple the conductor to the shared missile-before-monster source phase before claiming live projectile/event equivalence.",
-    "Resolve player do45 spawn S1 emergence and complete right/quick S2 cast,13mana payment/cancellation/hand/range/terrain behavior, then enable learned input only after connected real firing and actor/missile persistence checks.",
-    "Keep idle expiry, current animation-rate/target/geometry/RNG/event/client equivalence and unsupported sunder explicitly uncertain; continue unaffected skills if an individual branch cannot be established."
+    "Connect saved trap-owned charged-bolt motion, collision and damage using the now source-compared path/seed helpers and shared health/mitigation/pierce/credit consumers. Process missiles before monsters in each source frame and verify released snapshots, ownership and save/reload.",
+    "Resolve the source missile-movement reconstruction condition and the low-threat unit-target path adapter independently; do not silently replace either with the monster point-path routine. Keep any native motion/geometry adapter explicitly scoped.",
+    "Complete do45 S1 emergence and right/quick S2 cast with 13 mana payment/cancellation, then enable learned input only after real connected volley, shot exhaustion, target changes and actor/missile persistence acceptance."
   ],
   "uncertain": [
-    "Prepared world actor/controller backend, not a playable Sentry: production target-selection and damaging-missile dispatch services remain unbound and fault explicitly. Tests use declared target/do fixture services; they do not establish allegiance, real missile allocation, collision, damage, credit or connected Sentry input.",
-    "Initial neutral/AI+25 is an explicit prepared-entry condition, not proof of player do45 S1 emergence. Retained sequence speed256 follows the compiled initializer; full animation-rate/start/mode-change/scheduler/current executable equivalence remains scoped. Natural wall-clock/connected Sentry conductor acceptance remains pending; actor phase tests advance explicit UTC frame deadlines.",
-    "The composed source harness runs complete AI101, mode14, neutral and sequence routines, with constrained event/mode-entry/start/do/room/skill/target/chance services. It asserts the pinned mode14 selector and infinite-before-scheduled phase order; it is not the whole engine.",
-    "Offline actors discard unfinished windups without refunding their already-debited shot, continue elapsed time and resume AI on the next permitted frame. No independent sentry idle lifetime is known, so none is invented or confused with calc4 remaining shots. User report is tentative.",
-    "Same-facet owner-town removal follows the supplementary source; across facets Sanctuary approved old-facet retention takes precedence and town status comes from the retained trap room. Real connected owner travel/logout and native target/room geometry still need acceptance before learned input.",
-    "Nonzero inherited lightning sunder remains explicitly refused. Captured mastery/pierce endpoints are prepared, but real trap-owned mitigation/pierce and damage-credit consumers are not yet connected. No weapon damage, critical, leech or next-hit delay is invented.",
-    "Effects and talent/hotkey icons remain separate240-entry inventories with labelled placeholders. No imagegen assets, class completion certificate or new Nightmare/Hell facet assignment."
+    "The selector is connected for mapped native enemies. Native room-query radius26, Z tolerance, enumeration/ties, CanSee and InLOS are explicit port adapters, not proof of current D2R room/visibility geometry or invisible-state behavior.",
+    "Primary-path success/failure and resolved remembered targets are complete core services in the source/native matrix. The native source-unit target-adjusting path probe is not bound. If a primary and an alternative within source distance5 require it, the actor faults explicitly; the existing point-target path kernel is not substituted. Native sentries have no attacker-override AI record; pending Control.Target is not treated as one.",
+    "Source callback7 dereferences absent monster-row metadata. The native core explicitly refuses that branch; mapped-world selection also refuses an unknown source size. PvP, D2 STATE_INVIS and full source allegiance/room/path state remain separate acceptance work.",
+    "The new charged-bolt comparison proves heading, path points and final seed only. It does not prove live velocity/waypoint timing, source movement flags, room/collision, activation/lifetime, health mitigation, pierce, credit, return-fire, recovery or missile persistence.",
+    "Do not relabel SourceActorMotion as charged-bolt movement. Its contract is monster point paths2/13/15. The supplementary D2Common_10226 body has a D2_VERSION_113C IsUnitSomething conditional whose default excludes UNIT_MISSILE, despite the reconstructed game wrapper using that routine. Resolve the reconstruction/version condition before a literal port; this is not an observed current-D2R bug.",
+    "Sentry actor persistence and mode14 baseline remain verified in the current full suite, but real damaging missile dispatch is unbound, player do45 S1 emergence is unfinished, and learned right/quick S2/payment/cancellation remains disabled. No independent idle timeout is inferred from the tentative user report.",
+    "Effects and talent/hotkey icons retain separate 240-entry inventories with labelled placeholders. No final art, new facet difficulty assignment or class completion certificate."
   ],
   "compiledAiEvidence": "tools/reference/sentry-ai-source-evidence.json",
   "compiledAiCases": 12288,
   "componentsInstalled": true,
-  "nativeEvidence": "tools/reference/sentry-actor-native-evidence.json",
+  "nativeEvidence": "tools/reference/sentry-target-native-evidence.json",
   "observations": "tools/reference/sentry-observations.json",
   "compiledSourceEvidence": {
     "ai": "tools/reference/sentry-ai-source-evidence.json",
@@ -277,7 +277,8 @@
     "launch": "tools/reference/sentry-launch-source-evidence.json",
     "mode": "tools/reference/sentry-mode-source-evidence.json",
     "controller": "tools/reference/sentry-controller-source-evidence.json",
-    "chargedBoltPath": "tools/reference/charged-bolt-path-source-evidence.json"
+    "chargedBoltPath": "tools/reference/charged-bolt-path-source-evidence.json",
+    "target": "tools/reference/sentry-target-source-evidence.json"
   },
   "actorBackendInstalled": true,
   "targetSelectorNext": {
@@ -289,13 +290,24 @@
       "sub_6FCF27B0 may choose nearby alternative if path to primary fails, with callback7 fallback; do not replace this with an unqualified nearest-native-enemy heuristic"
     ],
     "remaining": [
-      "Compile/verify eligibility sub_6FCF1A50, room enumeration/ties, remembered-target handling, path-service branches and native allegiance/size/collision adapters before binding production target selection."
+      "Bind and verify the full source unit-target path probe, including target adjustment; source default monster path budget14 is visible in PATH_AllocDynamicPath but does not by itself establish the target-adjusting initializer.",
+      "Retain explicit acceptance gaps for native room/enumeration/ties, D2 invisibility/PvP and attacker-override AI state."
     ],
     "sourceSha256": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
     "reuseCandidates": [
       "CreatureProfiles.Targeting.Threat and Traits.Size for mapped species; do not invent threat metadata for unmapped natives.",
       "Blade trap owner/allegiance/visibility and actor-local region adapters, only after comparing their source contract to sub_6FCF1A50.",
       "Prepared per-ordinal Sentry launch, ChargedBolts low-level path/seed components, and shared missile-before-monster conductor; player-specific Sorceress field/cast code is not a drop-in trap missile."
-    ]
+    ],
+    "status": "Complete core and mapped-world selector connected; alternative unit-target path service remains unbound",
+    "nativeEvidence": "tools/reference/sentry-target-native-evidence.json"
+  },
+  "motionReview": {
+    "routine": "D2Common_10226",
+    "source": "source/D2Common/src/Path/PathMisc.cpp",
+    "sourceSha256": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "caution": "Do not relabel SourceActorMotion as charged-bolt movement. Its contract is monster point paths2/13/15. The supplementary D2Common_10226 body has a D2_VERSION_113C IsUnitSomething conditional whose default excludes UNIT_MISSILE, despite the reconstructed game wrapper using that routine. Resolve the reconstruction/version condition before a literal port; this is not an observed current-D2R bug.",
+    "actorMovementEvidence": "tools/reference/actor-motion-engine-evidence.json",
+    "nativePathEvidence": "tools/reference/sentry-target-native-evidence.json"
   }
 }
