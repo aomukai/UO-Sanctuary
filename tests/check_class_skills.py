@@ -124,6 +124,19 @@ def check():
                         magic_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'magic-arrow-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     time.sleep(.15)
+                    multi='multiple-shot-check' if boot==0 else 'multiple-shot-reload-check'
+                    session.send(multi)
+                    assert session.expect(multi+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as multi_client:
+                        threading.Thread(target=drain_fixture_client,args=(multi_client,),daemon=True).start()
+                        time.sleep(.15)
+                        session.send('multiple-shot-input-check')
+                        assert session.expect(r'multiple-shot-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'multiple-shot-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,x,y,z=map(int,ready.groups())
+                        multi_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'multiple-shot-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    time.sleep(.15)
                     leech='weapon-leech-check' if boot==0 else 'weapon-leech-reload-check'
                     session.send(leech)
                     assert session.expect(leech+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]

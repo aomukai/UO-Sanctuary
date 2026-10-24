@@ -103,7 +103,9 @@ public static class PaladinResistanceChecks
     }
     private static void Seed(PlayerMobile[] owners,PlayerMobile ally,BaseCreature pet)
     {
-        uint[] ids=owners.Select(x=>x.Serial.Value).ToArray();var at=TimedEffects.Now.AddMinutes(5);var state=PaladinAuras.Snapshot();
+        // Inspection hold only: the full suite now outlives five minutes.
+        // The separate resumed-pulse check below still requires ordinary <3s leases.
+        uint[] ids=owners.Select(x=>x.Serial.Value).ToArray();var at=TimedEffects.Now.AddMinutes(10);var state=PaladinAuras.Snapshot();
         state=state with{Emitters=state.Emitters.Select(x=>ids.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=state.Leases.Select(x=>ids.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};
         PaladinAuras.Restore(state);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(ids,ally.Serial.Value,pet.Serial.Value,owners[0].Location,state)));
@@ -112,7 +114,8 @@ public static class PaladinResistanceChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var state=PaladinAuras.Snapshot();
         PaladinAuraSave Scope(PaladinAuraSave s)=>new(s.Emitters.Where(x=>saved.Owners.Contains(x.Owner)).ToArray(),s.Leases.Where(x=>saved.Owners.Contains(x.Source)).ToArray());
-        Require(JsonSerializer.Serialize(Scope(state))==JsonSerializer.Serialize(Scope(saved.State)),"Saved resistance rank, maximum, source or expiry changed");
+        Require(JsonSerializer.Serialize(Scope(state))==JsonSerializer.Serialize(Scope(saved.State)),
+            $"Saved resistance rank, maximum, source or expiry changed at{TimedEffects.Now:O}: actual={JsonSerializer.Serialize(Scope(state))}; saved={JsonSerializer.Serialize(Scope(saved.State))}");
         var owners=saved.Owners.Select(x=>(PlayerMobile)World.FindMobile((Serial)x)).ToArray();var ally=(PlayerMobile)World.FindMobile((Serial)saved.Ally);var pet=(BaseCreature)World.FindMobile((Serial)saved.Pet);
         for(int i=0;i<owners.Length;i++){owners[i].MoveToWorld(new(saved.Origin.X+i,saved.Origin.Y,saved.Origin.Z),Map.Trammel);}
         Require(pet.IsStabled && pet.StabledBy==owners[1],"Native offline pet custody was not retained");

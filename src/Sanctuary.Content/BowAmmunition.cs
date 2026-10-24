@@ -6,7 +6,7 @@ using Server.Mobiles;
 namespace Sanctuary;
 
 // Native backpack stacks project D2's equipped quiver into the existing port inventory.
-// Prepared for bow skills; not wired into basic attacks or a skill until its release handler is verified.
+// Multiple Shot consumes once after its accepted fan. Basic attacks retain their existing port policy.
 public static class BowAmmunition
 {
     public static Type AmmoType(PlayerMobile owner,BaseWeapon weapon)

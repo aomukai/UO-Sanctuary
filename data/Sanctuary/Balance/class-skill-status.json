@@ -273,10 +273,10 @@
       "characterClass": "Amazon",
       "tree": "Bow and Crossbow Skills",
       "sourceId": 12,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Shared source do8 fan, native bow ammo, saved travelling direct damage and per-missile bow launch collection are prepared. Actual named/Gem/material/Enchant/aura/poison endpoints and SrcDam96 rate/count/physical scaling plus current hard Guided Arrow synergy have native component checks. Critical selection remains per created missile, supplied by the separate existing helper. Full handler remains pending start/mana/one-ammunition-after-fan, central/outer item callbacks and complete owner/client acceptance. Exact modern seed/geometry/activation/mastery/source-stat and preserved material projection remain explicit limits; no immediate-ray replacement or whole-fan critical sharing."
+      "remaining": "Learned bow/crossbow A1 action reuses Magic Arrow timing/input and Teeth do8 fan. Successful start4 pays mana once; one Arrow/Bolt is consumed after the fan. Current rank/count/cap, SrcDam96 physical/typed/poison scaling, hard Guided Arrow12% synergy, per-created critical and saved cast identity/central flags/profile/NHD are integrated. Focused real-input, actual Lycander soft-cap, hard-only synergy, stale inventory/start-payment, central/outer item callbacks and two-reload paid-windup/travelling-fan checks are recorded separately. Existing bounded pierce helper lacks the source owner-seeded fan correlation; exact modern inventory transitions/NHD scope, native geometry/last-collision, mastery/stat/proc/owner/client remain explicit acceptance gaps. No class certificate or item gate cleared."
     },
     {
       "talentId": "amazon.explodingarrow",

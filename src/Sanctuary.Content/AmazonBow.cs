@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using Server;
+using Server.Items;
 using Server.Mobiles;
 using Server.Spells;
 
@@ -9,7 +10,7 @@ namespace Sanctuary;
 public static class AmazonBow
 {
     internal static Random LaunchRandom=Random.Shared;
-    public static bool Handles(CombatAbility ability)=>ability==CombatAbility.MagicArrow;
+    public static bool Handles(CombatAbility ability)=>ability is CombatAbility.MagicArrow or CombatAbility.MultipleShot;
     internal static ActionTiming Timing(AttackFamily family,int advance)
     {
         advance=Math.Max(1,advance);
@@ -36,12 +37,18 @@ public static class AmazonBow
     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability) || !AmazonCombat.Available(owner,ability)){return false;}
+        if(ability==CombatAbility.MultipleShot && !BowAmmunition.CanRelease(owner,CombatTiming.Equipped(owner))){return false;}
         if(selected!=Serial.Zero)
         {
             var target=World.FindMobile(selected);if(!ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;
         }
         if(!SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,aim)=>Aim(p,aim))){return false;}
-        var session=ClassCombat.For(owner);session.PendingLeft=session.HeldAbility==ability && session.HeldAttack;return true;
+        var session=ClassCombat.For(owner);session.PendingLeft=session.HeldAbility==ability && session.HeldAttack;
+        // start4 has a successful server start function, so its ordinary
+        // wrapper pays here. Cancellation retains this paid cost.
+        if(ability==CombatAbility.MultipleShot && !NecromancerEffects.Pay(owner,SkillMechanics.Values(owner,ability).Mana256))
+        {session.PendingAbility=CombatAbility.None;return false;}
+        return true;
     }
     public static bool Release(PlayerMobile owner,CombatAbility ability)
     {
@@ -49,16 +56,33 @@ public static class AmazonBow
         var session=ClassCombat.For(owner);var target=World.FindMobile(session.PendingTarget);
         var point=ClassCombat.IsHostile(owner,target)?target.Location:session.PendingPoint;
         if(!Aim(owner,point)){return false;}
-        var values=SkillMechanics.Values(owner,ability);if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
-        // One independently created missile owns its critical result and pierce
-        // budget. No quiver gate/debit: pinned Magic Arrow has noammo1/decquant0.
-        bool critical=NamedCombat.ProjectileCritical(owner,LaunchRandom);
-        var damage=BowLaunch.Capture(owner,ability,critical);
-        int pierces=NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),LaunchRandom);
-        var ray=new FanRay((int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile),33,NecromancerSummons.Source("magicarrow","Activate"));
-        long id=WeaponMissiles.Launch(owner,ability,ray,damage,WeaponMissiles.NewCast(),pierces,NecromancerSummons.Source("magicarrow","Vel"),NecromancerSummons.Source("magicarrow","Range"),0);
-        if(id==0){return false;}
-        if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
+        var values=SkillMechanics.Values(owner,ability);bool multiple=ability==CombatAbility.MultipleShot;
+        if(!multiple && !NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
+        int dx=(int)((point.X-owner.X)*SkillGeometry.SubtilesPerTile),dy=(int)((point.Y-owner.Y)*SkillGeometry.SubtilesPerTile);
+        string missile=multiple?(BowAmmunition.AmmoType(owner,CombatTiming.Equipped(owner))==typeof(Arrow)?"multipleshotarrow":"multipleshotbolt"):"magicarrow";
+        var rays=multiple?FanGeometry.Create(dx,dy,(int)values.Eval("calc1"),(int)values.Eval("calc3"),(int)values.Eval("calc2"))
+            :new[]{new FanRay(dx,dy,33,NecromancerSummons.Source(missile,"Activate"))};
+        long cast=WeaponMissiles.NewCast();int created=0;
+        foreach(var ray in rays)
+        {
+            // Keep critical selection per created missile. The existing bounded
+            // pierce helper is a port adapter; exact source seed correlation
+            // across the fan remains explicitly unverified.
+            bool critical=NamedCombat.ProjectileCritical(owner,LaunchRandom);
+            var damage=BowLaunch.Capture(owner,ability,critical,preparedValues:values);
+            int pierces=NamedProjectiles.PierceBudget(WeaponMissiles.CurrentPierce(owner),LaunchRandom);
+            if(WeaponMissiles.Launch(owner,ability,ray,damage,cast,pierces,NecromancerSummons.Source(missile,"Vel"),NecromancerSummons.Source(missile,"Range"),
+                NecromancerSummons.Source(missile,"NextHit")!=0?NecromancerSummons.Source(missile,"NextDelay"):0,missile)>0){created++;}
+        }
+        if(created==0){return false;}
+        if(multiple)
+        {
+            // Legacy do8 has no second quiver gate; the wrapper decrements
+            // once afterward, ignoring an absent/stale stack. Modern inventory
+            // transition equivalence remains recorded separately.
+            BowAmmunition.Consume(owner,CombatTiming.Equipped(owner));
+        }
+        else if(!NecromancerEffects.Pay(owner,values.Mana256)){throw new InvalidOperationException("Bow release lost validated mana within one event");}
         owner.PlaySound(0x238); // Identified ordinary native bow sound placeholder.
         return true;
     }

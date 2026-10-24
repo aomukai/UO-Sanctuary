@@ -96,7 +96,7 @@ public static class WeaponMissiles
     internal static long NewCast()=>++_nextCast;
     internal static WeaponFlight State(long id)=>_flights.GetValueOrDefault(id);
     internal static int CurrentPierce(PlayerMobile owner)=>NamedProjectiles.PierceChance(owner);
-    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4)
+    internal static long Launch(PlayerMobile owner,CombatAbility ability,FanRay ray,WeaponMissileDamage damage,long cast,int pierces=0,int velocity=24,int frames=50,int nextDelay=4,string missile=null)
     {
         if(owner is not{Alive:true,Deleted:false} || owner.Map==null || owner.Map==Map.Internal || !ClassCombat.Enabled(owner)
             || SpellHelper.IsTown(owner.Location,owner) || cast<=0 || frames is <1 or >250 || velocity is <1 or >64 || ray.ActivationFrame<0 || nextDelay<0
@@ -104,7 +104,7 @@ public static class WeaponMissiles
             || damage.Elements.BurnMin!=0 || damage.Elements.BurnMax!=0 || damage.Elements.BurnFrames!=0){return 0;}
         var v=FanGeometry.Velocity(ray,velocity);long id=++_nextId;
         _flights.Add(id,new(id,cast,owner.Serial.Value,owner.Map.MapID,ability,owner.X,owner.Y,owner.Z,v.X,v.Y,0,frames,
-            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now));return id;
+            ray.ActivationFrame,nextDelay,Math.Clamp(pierces,0,4),0,ray.Flags,damage,TimedEffects.Now){Missile=missile});return id;
     }
     internal static long LaunchHostileFirebolt(BaseCreature owner,Point3D aim,int minimum256,int maximum256)
     {

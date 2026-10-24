@@ -25,15 +25,15 @@ public static class MagicArrowChecks
     private static void Rates()
     {
         var health=Mobile.HitsRegenRateHandler;var mana=Mobile.ManaRegenRateHandler;
-        Mobile.HitsRegenRateHandler=p=>_creating || p.Name=="MagicArrowOwner"?TimeSpan.FromHours(1):health?.Invoke(p)??Mobile.DefaultHitsRate;
-        Mobile.ManaRegenRateHandler=p=>_creating || p.Name=="MagicArrowOwner"?TimeSpan.FromHours(1):mana?.Invoke(p)??Mobile.DefaultManaRate;
+        Mobile.HitsRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner"?TimeSpan.FromHours(1):health?.Invoke(p)??Mobile.DefaultHitsRate;
+        Mobile.ManaRegenRateHandler=p=>_creating || p.Name is "MagicArrowOwner" or "MultipleShotOwner"?TimeSpan.FromHours(1):mana?.Invoke(p)??Mobile.DefaultManaRate;
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Magic Arrow learned bow action, mana, no ammunition and saved flight",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh(string name="MagicArrowOwner")
     {
-        PlayerMobile p;_creating=true;try{p=new PlayerMobile{Body=0x190,Name="MagicArrowOwner",Player=true};}finally{_creating=false;}
+        PlayerMobile p;_creating=true;try{p=new PlayerMobile{Body=0x190,Name=name,Player=true};}finally{_creating=false;}
         p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Amazon);ClassCreation.Profiles.AdvanceLevel(p,99);
         while(p.RawStr<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Strength");}
         while(p.RawDex<100){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Dexterity),"Dexterity");}
@@ -48,12 +48,12 @@ public static class MagicArrowChecks
         }
         Require(found,"No independent Magic Arrow corridor");p.Hits=p.HitsMax;Mana(p);return p;
     }
-    private static Point3D Aim(PlayerMobile p,int x=10)=>new(p.X+x,p.Y,p.Z);
-    private static void Mana(PlayerMobile p)=>NecromancerEffects.SetMana256(p,Math.Min(p.ManaMax*256,50*256+17));
-    private static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=Core.TickCount;}
+    internal static Point3D Aim(PlayerMobile p,int x=10)=>new(p.X+x,p.Y,p.Z);
+    internal static void Mana(PlayerMobile p)=>NecromancerEffects.SetMana256(p,Math.Min(p.ManaMax*256,50*256+17));
+    internal static void Ready(PlayerMobile p){ClassCombat.Stop(p);ClassCombat.For(p).NextAction=Core.TickCount;}
     private static void Train(PlayerMobile p,int rank)
     {while(SkillMechanics.Rank(p,CombatAbility.MagicArrow)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,"amazon.magicarrow",out var why),"Train "+why);}}
-    private static BaseWeapon Bow(PlayerMobile p,Type type)
+    internal static BaseWeapon Bow(PlayerMobile p,Type type)
     {
         if(CombatTiming.Equipped(p) is{} old){p.AddToBackpack(old);}
         var bow=(BaseWeapon)RuneSocketChecks.Host(p,type,2);Require(p.EquipItem(bow) && ClassGear.Active(p,bow),"Mapped bow equip");return bow;
@@ -135,7 +135,7 @@ public static class MagicArrowChecks
         Ready(p);Require(ClassCombat.Perform(p,CombatAbility.MagicArrow,null,Aim(p),Core.TickCount),"Saved unpaid bow windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,p.Location,f,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p))));
     }
-    private static BowLaunchTarget Target(PlayerMobile p)
+    internal static BowLaunchTarget Target(PlayerMobile p)
     {
         var target=new BowLaunchTarget{Frozen=true,CantWalk=true,NoKillAwards=true,Name="MagicArrowTarget"};target.SetHits(50000);
         target.MoveToWorld(Aim(p,5),p.Map);target.AIObject.AITimer.Stop();target.SetResistance(ResistanceType.Physical,0);return target;
