@@ -87,9 +87,9 @@ public static class BowLaunch
     }
     internal static WeaponMissileDamage Capture(PlayerMobile owner,CombatAbility ability,bool critical,int? missilePercent=null,SkillValues preparedValues=null)
     {
-        if(ability is not(CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
+        if(ability is not(CombatAbility.PoisonJavelin or CombatAbility.MagicArrow or CombatAbility.MultipleShot or CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.ImmolationArrow or CombatAbility.Strafe))
         {throw new NotSupportedException("This bow collector requires a separately integrated skill elemental source.");}
-        if(!WeaponAllowed(owner)){return null;}
+        if(!(ability==CombatAbility.PoisonJavelin?PoisonJavelinPackets.WeaponAllowed(owner):WeaponAllowed(owner))){return null;}
         var weapon=CombatTiming.Equipped(owner);var values=preparedValues??SkillMechanics.Values(owner,ability);var row=SkillMechanics.For(ability);
         if(values.Rank<=0){return null;}
         int skillPercent=missilePercent??(ability==CombatAbility.MultipleShot?(int)values.Eval("calc5"):ability==CombatAbility.GuidedArrow?(int)values.Eval("calc1"):ability==CombatAbility.Strafe?(int)values.Eval("calc2"):0);
@@ -105,6 +105,8 @@ public static class BowLaunch
             LifeDrain=Math.Max(0,ClassGear.Bonus(owner,"life-steal%")+CombatPotions.Bonus(owner,"stealing")),
             ManaDrain=Math.Max(0,ClassGear.Bonus(owner,"mana-steal%")+CombatPotions.Bonus(owner,"stealing"))
         };
+        if(ability==CombatAbility.PoisonJavelin)
+        {elements=PoisonJavelinPackets.Prepare(elements,values,NamedElements.MasteryPercent(owner,"pois"),false);}
         if(ability is CombatAbility.FireArrow or CombatAbility.ColdArrow or CombatAbility.IceArrow or CombatAbility.ImmolationArrow)
         {
             // Source skill endpoints include their own mastery before owner

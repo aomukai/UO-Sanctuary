@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "scope": "Prepared Poison Javelin parent/cloud and independent raw poison mitigation",
+  "status": "Poison Javelin parent/cloud preparation now runs natively: the parent retains prepared weapon/item poison rate, aggregate length/count, physical/typed damage and critical, while source-zero clouds exclude those channels and use retained rank with live hard synergy/mastery. Shared poison mitigation independently computes integer rate and frame length with explicit PvM stat/difficulty context.72000 complete source mitigation and3456 complete source creator cases match native helpers. Real ordinary glv capture, live hard Plague synergy, actual Tarnhelm soft-point exclusion/retained rank, weapon removal independence and no preparation resource charge pass. A mitigated172FP256/1038frame packet commits through the real poison receiver; one-frame fractional HP, original source and exact remaining frames survive two actual world reloads. Full/focused three-boot checks and all70 Python tests pass; current479/15 fingerprints and all573 named decisions are verified. C# builds have zero warnings/errors; matching installed content boots the existing world and shuts down exit0 with unchanged save bytes. No Poison Javelin handler is enabled yet;135 handlers/Amazon23 remain. Native path/cloud/contact/start/release/item/input integration remains next, with modern scheduling/stat/seed/owner/client acceptance explicit.",
+  "verification": {
+    "mitigationComparisons": 72000,
+    "creatorComparisons": 3456,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "combinedBoots": 3,
+    "combinedReloads": 2,
+    "bowInputBootsEach": 3,
+    "pythonTests": 70,
+    "namedInputs": 479,
+    "firstLoopInputs": 15,
+    "namedDefinitionsUnchanged": 573
+  },
+  "sourceEvidence": [
+    "tools/reference/poison-javelin-damage-engine-evidence.json",
+    "tools/reference/poison-mitigation-engine-evidence.json",
+    "tools/reference/poison-collision-engine-evidence.json",
+    "tools/reference/poison-path-engine-evidence.json"
+  ],
+  "logs": {
+    "poison-packet-focused.log": ".local/class-skills/poison-packet-focused.log",
+    "poison-packet-focused-run.log": ".local/class-skills/poison-packet-focused-run.log",
+    "poison-packet-combined.log": ".local/class-skills/poison-packet-combined.log",
+    "full-suite-run.log": ".local/class-skills/full-suite-run.log",
+    "poison-packet-content-build.log": ".local/class-skills/poison-packet-content-build.log",
+    "poison-packet-integration-build.log": ".local/class-skills/poison-packet-integration-build.log",
+    "poison-packet-python-checks.log": ".local/class-skills/poison-packet-python-checks.log",
+    "poison-packet-readiness.log": ".local/class-skills/poison-packet-readiness.log",
+    "poison-packet-first-loop.log": ".local/class-skills/poison-packet-first-loop.log",
+    "poison-packet-roadmap.log": ".local/class-skills/poison-packet-roadmap.log",
+    "poison-packet-installed-server.log": ".local/class-skills/poison-packet-installed-server.log",
+    "poison-packet-installed-smoke.log": ".local/class-skills/poison-packet-installed-smoke.log",
+    "poison-collision-source.log": ".local/class-skills/poison-collision-source.log",
+    "poison-collision-source-check.log": ".local/class-skills/poison-collision-source-check.log",
+    "poison-collision-source-probe.json": ".local/class-skills/poison-collision-source-probe.json",
+    "poison-path-source.log": ".local/class-skills/poison-path-source.log",
+    "poison-path-source-check.log": ".local/class-skills/poison-path-source-check.log",
+    "poison-path-source-probe.json": ".local/class-skills/poison-path-source-probe.json",
+    "poison-packet-focused-professions-disabled.log": ".local/class-skills/poison-packet-focused-professions-disabled.log",
+    "poison-packet-focused-professions-disabled-run.log": ".local/class-skills/poison-packet-focused-professions-disabled-run.log",
+    "poison-packet-combined-order-failed.log": ".local/class-skills/poison-packet-combined-order-failed.log",
+    "poison-packet-combined-order-failed-run.log": ".local/class-skills/poison-packet-combined-order-failed-run.log",
+    "poison-packet-order-reproduce.log": ".local/class-skills/poison-packet-order-reproduce.log",
+    "poison-packet-order-reproduce-run.log": ".local/class-skills/poison-packet-order-reproduce-run.log"
+  },
+  "buildHashes": {
+    "content": "8d8edefd41e856f880109abef8b06a01ef4f304a89c96de4b61842527f059bff",
+    "integration": "311b7a84be9e6d1968fafda99b02c1f7f165770fe65756018a4fa9d25554c1f5"
+  },
+  "limits": [
+    "The packet collector is integrated and tested but not reachable as a class skill handler. Poison Javelin remains unavailable until native trail/cloud/contact, TH/IAS, once-only start mana/release quantity/localdelay, defense/item events and real input/save coverage are connected.",
+    "PoisonPackets.Mitigate accepts prepared raw stat pools and explicit player/NPC difficulty context; it does not infer a global difficulty from a monster-local setting. Current compiled context is ordinary expansion PvM, without PvP/cooperative scaling, hireling/prime-evil adaptations, sunder or a native shrine adapter. Negative pierce/maximum bonus and positive difficulty penalty are explicitly rejected as unsupported inputs.",
+    "Existing aggregate-total poison producers are unchanged. These native per-frame helpers do not certify complete item poison preparation/RNG, global modern event phase, removal/final tick/interruptions, combined natural/potion/replenish regeneration, delayed NPC death or extended offline catch-up.",
+    "The252 complete path cases supply stable velocity and valid room/collision services; full direction/acceleration and initial factory flags remain separate. Original32-bit decompiler pointer casts produce host64-bit compiler warnings, preserved in source logs. The5120 complete generic collision/update cases use declared world/path/finder/end-handler services.59 cloud contact opportunities are distinct from60frames of lifetime; native saved-step geometry, target scan ordering, outer event/removal and current executable equivalence remain separate."
+  ],
+  "fixtureCorrection": "The first focused run omitted SANCTUARY_TEST_NAMED_GEAR=1, leaving professions disabled and correctly failing the unchanged combat-potion recipe control before packet checks. The retained diagnostic records this runner configuration error; the final focused/full runs use the existing enabled-professions environment. The first full run also placed the new saved-clock fixture before PoisonStateChecks deliberately downgraded all actor states to old formats0..2. A focused reproduction proved health/rate/length/source identical but clock null. The full runner now creates the new-format fixture after that legacy compatibility test, matching the original focused order; no production save logic was changed.",
+  "next": "Connect prepared packets to native saved parent/cloud trail and contact consumers, plus source TH start/release resources and actual input. No class certificate or availability gate cleared.",
+  "installationRollback": {
+    "path": ".local/class-skills/pre-poison-packet-install",
+    "previousContentSha256": "a3539852f2d90ead2831aea332a4ea604f673996d5a3d74274cdd34d45f5f57f",
+    "priorContentDataAndSavesRetained": true,
+    "existingSaveBytesUnchanged": true
+  }
+}

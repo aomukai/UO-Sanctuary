@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "a3539852f2d90ead2831aea332a4ea604f673996d5a3d74274cdd34d45f5f57f",
+  "ContentAssemblySha256": "8d8edefd41e856f880109abef8b06a01ef4f304a89c96de4b61842527f059bff",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -238,7 +238,7 @@
     "src/Sanctuary.Content/BoneBarriers.cs": "186a99f978f529a6c54e7df33f1e987348bc2638e60aa5adefee59647f182099",
     "src/Sanctuary.Content/BowAmmunition.cs": "51b3a7edfed99f9c802411dabc9c236ff245a0a0c8f669273b44133a2f923a42",
     "src/Sanctuary.Content/BowExplosions.cs": "1ffd0af3775b9455da2c49adb42e77339aec2bc3ca0227202c1cef0f585f125a",
-    "src/Sanctuary.Content/BowLaunch.cs": "81f5b8f4007b62c73b1c901e4578be53a966939ebb3ee729697513d0809bc6f3",
+    "src/Sanctuary.Content/BowLaunch.cs": "3a19cb27fb321a527652fed807a6dab1d794ef7c55ae77f7cc718a850b4f793a",
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
     "src/Sanctuary.Content/CarpentryCrafting.cs": "3db990690064d43a852bfb55514d30a0c784cbb2b94ff6dfc18b8e5c37dee6eb",
     "src/Sanctuary.Content/CarpentryGump.cs": "12a1f8e678a70da584f74654d916d68011465565e046308253440519e4e88471",
@@ -401,6 +401,8 @@
     "src/Sanctuary.Content/PaladinVigor.cs": "d8af81bbaf67c65c8befc3d8f29afee0b6082bde72f24e72858af261abc54d08",
     "src/Sanctuary.Content/PaladinZeal.cs": "e7940a98be03e20fc17f1ab8d509bdfd09c3ffd0ac68fc2cee07e9f25361da8f",
     "src/Sanctuary.Content/PersistentMinions.cs": "b5c6f5b9d8e27d638212fcc32d5ab3f19fe31975c570d392ae597a27fb65dbd1",
+    "src/Sanctuary.Content/PoisonJavelinPackets.cs": "73470e5d08937883ca791913367a6d692dc84c93a30ed9d65ad19396031e0efd",
+    "src/Sanctuary.Content/PoisonPackets.cs": "180d8c6392cb32af87974ab92a60f0bdfd9f14262697988fa806b06c23f54a9c",
     "src/Sanctuary.Content/PoisonStates.cs": "df1f17b2a3ff910c96683b1a632b73713c20ebe86a53c0b5abc43dce9cc33c10",
     "src/Sanctuary.Content/PotionBeltNetwork.cs": "9f26deba558cce3b846bcdbabbf4d955c44b05c9d7606eced3084f5719588cbf",
     "src/Sanctuary.Content/PotionBelts.cs": "0ec0a21fa8e69778ecf764b39f635939a4271ac65001f192c786907425e3320c",

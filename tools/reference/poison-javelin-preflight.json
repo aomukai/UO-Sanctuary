@@ -3,7 +3,7 @@
   "talentId": "amazon.poisonjavelin",
   "sourceId": 15,
   "handlerEnabled": false,
-  "status": "Source trail768/creator108/cloud4, complete packet3456, poison application384/regen2240, hit routes192/sequential contacts16 and factory480 cases compiled. No Poison Javelin handler enabled.",
+  "status": "Native parent/cloud preparation3456 and independent rate/length mitigation72000 comparisons verified through real poison HP/frame/source state and two reloads. Complete generic collision/update5120 cases compiled. No Poison Javelin handler enabled.",
   "pinnedSkill": {
     "skill": "Poison Javelin",
     "*Id": 15,
@@ -173,8 +173,8 @@
     "Trail creator supplies pOrigin/owner/skill/rank and flags5, optionally range/loop flags. It overwrites nLoops with2*(rank-1), but current formula0 does not set loop flag8. Complete factory/path semantics must establish the actual effect."
   ],
   "nextChecks": [
-    "Combine the shared source-frame poison receiver with exact rate/length mitigation and skill packet producers. Native direct HP/owner/player-floor and legacy pending-fraction handling are implemented; preserve T29 Protection and source clocks while addressing full modern scheduling/removal/interruptions and extended offline catch-up.",
-    "Trace path flag-setting and complete do-handler decrement/removal/collision selection. Combine separately proved source0 packet,60frame stationary cloud and LastCollide identity without inventing trail spacing or permanent hit sets. Native mitigation/defense/proc ordering and modern phase remain separate.",
+    "Reuse verified native PoisonJavelinPackets/BowLaunch preparation and PoisonPackets.Mitigate/PreparedPoison.Commit rather than rebuilding skill endpoints or aggregate mitigation. Connect explicit NPC resistance/PLR/pierce context before per-frame commit; global player difficulty/shrine/modern source-state gaps remain explicit.",
+    "Integrate native saved path-change trail before parent move, independent source-zero60frame cloud and one selected LastCollide contact per update. Source generic expiry precedes contact on the last frame. Flag initial value/full source path, footprint/finder ordering and modern global event cadence remain separately recorded.",
     "Integrate once-only fractional start mana, release quantity/localdelay, ordinary direct javelin and separate cloud settlement after source contract; verify ranks, gear, miss/Pierce/terrain/expiry, source poison caps and actual input/two reloads.",
     "Track Javelin/PoisonSparks/poisonpuff/trail/contact and poison audio separately from tree/hotkey icons; use clearly labelled placeholders."
   ],
@@ -190,7 +190,7 @@
   "factoryEvidence": "tools/reference/poison-javelin-factory-engine-evidence.json",
   "sharedImpactEvidence": "tools/reference/weapon-missile-impact-evidence.json",
   "factoryReviewFollowup": "Full factory480 cases establish child flags5 zero velocity and60frame lifetime independent of unflagged2*(rank-1) loops. Positive flag8 controls add9frames/loop; explicit range overrides row. Exact outer do-handler expiry/contact count is separate.",
-  "collisionReviewFollowup": "Full router192 cases plus16 sequential contacts establish both rows use the generic full damage reader, parent-only AR/Pierce and LastCollide as most-recent type/ID rather than permanent victim set. Existing complete shared impact reader already establishes count>1 poison-length division; reuse that evidence.",
+  "collisionReviewFollowup": "Full generic collision body5120 cases establishes movement-before-decrement, expiry-before-contact and59 potential contact passes for60-frame stationary cloud. Do2 trail creation precedes that body. Native path flag/position, cloud footprint/finder/order and outer handler remain integration work.",
   "durationPersistenceEvidence": "tools/reference/poison-duration-native-evidence.json",
   "sharedPoisonNativeEvidence": "tools/reference/poison-state-native-evidence.json",
   "normalThrowingInventoryGap": {
@@ -217,5 +217,9 @@
   "mitigationEvidence": "tools/reference/poison-mitigation-engine-evidence.json",
   "mitigationReviewFollowup": "72000 complete PvM total-damage/resistance/percentage cases separately resolve integer poison rate and frame length. Player expansion difficulty applies to both lanes; length cap75 is separate from rate maximum75..95. NPC immunity/pierce, zero-length poison shrine and MDR exclusion are controls. Source large-value early division is conditional on nonzero resistance. Native prepared rate/length callers, global versus monster-local difficulty and modern executable equivalence remain separate; no handler is enabled.",
   "sharedConsumerImplemented": "The shared native consumer now uses direct FP256 health, preserves the original source on equal/stronger refresh, leaves players at one life and kills NPCs at zero. Optional integer source rate/frame phase and old pending HP fractions are saved; dedicated native evidence records the bounded coverage.",
-  "throwingQuantityEvidence": "tools/reference/throwing-quantity-native-evidence.json"
+  "throwingQuantityEvidence": "tools/reference/throwing-quantity-native-evidence.json",
+  "packetNativeEvidence": "tools/reference/poison-packet-native-evidence.json",
+  "collisionUpdateEvidence": "tools/reference/poison-collision-engine-evidence.json",
+  "pathMovementEvidence": "tools/reference/poison-path-engine-evidence.json",
+  "pathReviewFollowup": "Complete step/vector-downshift/10226/recache/reset252 cases establish previous flag from saved integer-subtile crossings, subcell no-flag and early barrier behavior. Native source path initialization/initial flag, direction/acceleration services, room transitions and geometry remain explicit integration adapters."
 }

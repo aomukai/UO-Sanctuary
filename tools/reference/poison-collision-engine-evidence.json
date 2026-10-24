@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": [
+    "MISSMODE_HandleMissileCollision"
+  ],
+  "blockHashes": {
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d"
+  },
+  "probe": {
+    "cases": 5120,
+    "path": ".local/class-skills/poison-collision-source-probe.json",
+    "sha256": "80f51dc5326646fcb94165b498544b0bee6692364377c80e8b8c15ba73a43c8e"
+  },
+  "established": [
+    "Full do-collision body attempts moving-path advancement before lifetime decrement. A failed moving-path result ends through the damage handler without decrementing the frame. Otherwise it decrements once before contact selection, and frame<=0 ends before contacts. A stationary60-frame cloud therefore has59 possible contact passes, followed by its ending callback.",
+    "NOCOLLIDE returns after lifetime decrement. Collision flags1or4 remove; barrier mode, not-yet-activated frame or zero flags skip contact. Missing route callback removes. Active saved steps use one candidate finder; first candidate immediately dispatches one hit handler. No candidate plus wallbit4 dispatches an ending handler and returns removal2.",
+    "Trail do2 invokes its creator before this entire body (existing complete trail proof). Thus a cloud may be created from the previous path-change flag before the next move, including the parent final update; this is not an every-cell emission loop."
+  ],
+  "limits": [
+    "World/path advancement, room masks, saved steps, route callback, owner, candidate finder and final hit/removal handler are declared services. These5120 cases cover valid missile/row/path/room with one saved step; null/invalid input, full path computation, actual finder spatial/ordering, outer event/removal and modern executable equivalence remain separate.",
+    "Combined source proofs establish packet/factory/router/update contracts; no Poison Javelin handler is enabled by this fixture. Native trail geometry, do-handler integration, start/release resources, item events and actual input/reload remain to implement."
+  ]
+}

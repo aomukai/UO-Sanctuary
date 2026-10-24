@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "compiledRoutines": [
+    "sub_6FDAB810",
+    "sub_6FDACEC0",
+    "PATH_RecacheRoomAtCoordIfNeeded",
+    "PATH_ResetMovement",
+    "D2Common_10226"
+  ],
+  "blockHashes": {
+    "sub_6FDAB810": "a1ace3679ab94dc699642651ee239acdea17857b8ff9540dcd0cb6e9dfa887c2",
+    "sub_6FDACEC0": "1ad83b1b113da8c3da3acbee61df332a72872ee52bcbf14b278a13ecbe75ab2a",
+    "PATH_RecacheRoomAtCoordIfNeeded": "81bd1010c7545828bdebe77d1075090e1dc64e59c9e3ee97ce22ea694aeef65f",
+    "PATH_ResetMovement": "bfaed12f8b87080b508ac11f4095acb938e2f1a773e5c727ac8b42a19eb75c8c",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675"
+  },
+  "probe": {
+    "cases": 252,
+    "path": ".local/class-skills/poison-path-source-probe.json",
+    "sha256": "7c659d987a8b82c98df5373482fa4a1b821c932ededcfa0afa8700201c3c3ee0"
+  },
+  "established": [
+    "Complete10226 clears path-change flag0x8 before each update. Complete movement step sets it only after saved integer-subtile crossings reach its normal completion path. Subtile-fraction movement can leave flag0; several crossed steps still yield one flag for the later do2 creator.",
+    "Full step includes its vector downshifts, saved-step loop and wall/missile-barrier early return. Early barrier return can leave saved steps without setting path-change0x8; full wrapper resets stopped movement. Current source rooms and client coordinates are committed by the full recache helper.",
+    "Existing complete do2 creates at previous coordinates/flag before this next update. Therefore native integration must retain previous path-change state rather than spawning a cloud per current swept cell."
+  ],
+  "limits": [
+    "Stable input velocity vectors, collision responses and valid single-room lookup are declared services. Acceleration/direction solver, complete path initialization/initial flag, room transitions, outer global scheduling, actual source finder and modern executable equivalence remain separate.",
+    "These252 source movement cases are not native combat geometry acceptance. Collision footprint/path interpolation and initial cloud policy still require explicit integration; no class handler is enabled."
+  ],
+  "reviewedInitialization": {
+    "blockHashes": {
+      "PATH_AllocDynamicPath": "c740f0efce05010b92c8fd80b7d8ed2ad9ee5bf17bad0133d3adb63c8969c629",
+      "PATH_SetType": "9fde1be9597c09a1533a9fd87b7a93c25db764e1aa3350f64d5d3461cb1e0bb7",
+      "PATH_ComputePathClassicMissile": "135321f4db886fd2e2467b16a92b6223e10a1b5ce740a34258dd927e83bfe23a",
+      "PATH_MissileToTarget": "edf82a97fe8d21ebf618f6f7d8b98d88da51995b2501f09195c7458aab8bdb5d"
+    },
+    "compiled": false,
+    "finding": "Read-only factory/allocator review: SUNIT_AllocUnitData missile branch calls calloc-backed PATH_AllocDynamicPath. PATH_SetType missile flag table entry4 is0x60000; PATH_MissileToTarget sets0x20 after classic path calculation. These reviewed bodies do not deliberately set0x8 on creation. Verify remaining position/target/velocity setters and full initialization before declaring first-cloud behavior; do not substitute an always-on initial trail."
+  }
+}

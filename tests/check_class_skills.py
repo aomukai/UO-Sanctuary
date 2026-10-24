@@ -79,6 +79,7 @@ def check():
         shutil.copy2(STAGE / 'immolation-field-source-probe.json', folder / 'immolation-field-source-probe.json')
         shutil.copy2(STAGE / 'throwing-quantity-source-probe.json', folder / 'throwing-quantity-source-probe.json')
         shutil.copy2(STAGE / 'poison-state-source-probe.json', folder / 'poison-state-source-probe.json')
+        shutil.copy2(STAGE / 'poison-mitigation-source-probe.json', folder / 'poison-mitigation-source-probe.json')
         shutil.copy2(STAGE / 'poison-javelin-damage-source-probe.json', folder / 'poison-javelin-damage-source-probe.json')
         shutil.copy2(STAGE / 'strafe-source-probe.json', folder / 'strafe-source-probe.json')
         shutil.copy2(STAGE / 'strafe-timing-source-probe.json', folder / 'strafe-timing-source-probe.json')
@@ -131,6 +132,11 @@ def check():
                     session.send('poison-state-live-check')
                     assert session.expect(r'poison-state-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'poison-state-live-result: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    # Legacy v0..2 control rewrites every existing actor without a source clock.
+                    # Create the new-format persistence fixture after that deliberate downgrade.
+                    packet='poison-packet-check' if boot==0 else 'poison-packet-reload-check'
+                    session.send(packet)
+                    assert session.expect(packet+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     command = 'class-skills-check' if boot == 0 else 'class-skills-reload-check'
                     session.send(command)
                     assert session.expect(command+r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
