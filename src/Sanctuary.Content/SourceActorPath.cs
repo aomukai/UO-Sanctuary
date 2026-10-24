@@ -11,7 +11,7 @@ internal readonly record struct ActorPathRoom(int X,int Y,int Width,int Height)
     internal bool Contains(Point2D p)=>p.X>=X && p.Y>=Y && (long)p.X<(long)X+Width && (long)p.Y<(long)Y+Height;
 }
 
-// Server monster / point target / path15 / pattern0 component. The complete
+// Server monster / point target / path2,13,15 / pattern0 component. The complete
 // reconstructed initializer is marked BROKEN upstream: its bounded execution
 // is supplementary evidence, not modern executable equivalence. Successful
 // repair uses other path types and is deliberately not substituted here.
@@ -33,7 +33,10 @@ internal static class SourceActorPath
             || Math.Abs(origin.X-state.Target.X)>100 || Math.Abs(origin.Y-state.Target.Y)>100 || !room.Contains(state.Target))
         {return Fail();}
         motion=motion with{FinalTarget=state.Target};
-        var points=SourceWallFollow.Find(origin,state.Target,distance,false,(x,y)=>(collision(x,y)&0x3c01)!=0);
+        bool Blocked(int x,int y)=>(collision(x,y)&0x3c01)!=0;
+        Point2D[] points;
+        if(motion.PathType==15){points=distance==0?[]:SourceWallFollow.Find(origin,state.Target,distance,false,Blocked);}
+        else{(motion,points)=SourceTowardPath.Find(motion,state.Target,distance,Blocked);}
         if(points.Length==0){return Fail();}
         motion=SourceActorMotion.DirectionToNext(motion with{Points=points,Index=0});
         if(motion.Index>=points.Length){return Fail();}

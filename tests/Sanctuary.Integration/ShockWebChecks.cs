@@ -52,7 +52,10 @@ public static class ShockWebChecks
     private static Skeleton Target(PlayerMobile p,int dx=4,int dy=0)
     {
         Skeleton t;_creating=true;try{t=new Skeleton{Name="ShockWebFixtureTarget",NoKillAwards=true};}finally{_creating=false;}
-        t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);Stop(t);t.SetHits(20000);t.SetResistance(ResistanceType.Energy,0);return t;
+        // These ground-shot fixtures require a stationary target. Stopping its
+        // current AI timer alone does not prevent later AI reacquisition. The
+        // moving-escape check below relocates its target explicitly.
+        t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);Stop(t);t.Frozen=true;t.SetHits(20000);t.SetResistance(ResistanceType.Energy,0);return t;
     }
     private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;p.Frozen=p.Paralyzed=false;NecromancerEffects.SetMana256(p,p.ManaMax*256);DelayClear(p);}
     private static void DelayClear(PlayerMobile p)

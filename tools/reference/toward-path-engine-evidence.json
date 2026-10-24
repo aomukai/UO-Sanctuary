@@ -2,7 +2,8 @@
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": false,
-  "nativeTowardPathImplemented": false,
+  "nativeVerifiedByThisSourceProbe": false,
+  "nativeEvidence": "tools/reference/toward-path-native-evidence.json",
   "sourceHashes": {
     "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079"
   },
@@ -29,7 +30,7 @@
     "Eight collision grids, nine horizontal/five vertical offsets, three fractional poses and budgets1/5/20 retain exact path, final/active/previous targets, direction/velocity/flags and ordered collision queries. Open paths can reach a distant target directly even when the distance budget is1; do not apply wall-follow distance rejection to this kernel."
   ],
   "limits": [
-    "Source proof only: native toward-path port and actor integration remain pending. The general initializer is marked BROKEN in D2MOO; source reconstruction and modern executable acceptance remain separate.",
+    "Source proof only; the native toward path and motion component is verified separately. The general initializer is marked BROKEN in D2MOO; source reconstruction and modern executable acceptance remain separate.",
     "Valid synthetic room/grid, zero-footprint monster point target and no target adjustment are explicit services. Direction-offset helper is compiled but only offset0 is exercised. Successful path repair/event/mode/AI/missile consumers are not executed by this probe."
   ]
 }

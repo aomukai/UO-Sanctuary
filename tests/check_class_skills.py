@@ -105,6 +105,8 @@ def check():
         shutil.copy2(STAGE / 'actor-path-source-probe.json', folder / 'actor-path-source-probe.json')
         shutil.copy2(STAGE / 'blade-sentinel-source-probe.json', folder / 'blade-sentinel-source-probe.json')
         shutil.copy2(STAGE / 'blade-mode-source-probe.json', folder / 'blade-mode-source-probe.json')
+        shutil.copy2(STAGE / 'toward-path-source-probe.json', folder / 'toward-path-source-probe.json')
+        shutil.copy2(STAGE / 'toward-motion-source-probe.json', folder / 'toward-motion-source-probe.json')
         shutil.copy2(STAGE / 'assassin-trap-attack-source-probe.json', folder / 'assassin-trap-attack-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-affix-source-probe.json', folder / 'valkyrie-affix-source-probe.json')
         shutil.copy2(STAGE / 'valkyrie-equipment-source-probe.json', folder / 'valkyrie-equipment-source-probe.json')
@@ -207,6 +209,12 @@ def check():
                     blade_ai='blade-ai-check' if boot==0 else 'blade-ai-reload-check'
                     session.send(blade_ai)
                     assert session.expect(blade_ai+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    toward_path='toward-path-check' if boot==0 else 'toward-path-reload-check'
+                    session.send(toward_path)
+                    assert session.expect(toward_path+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    toward_motion='toward-motion-check' if boot==0 else 'toward-motion-reload-check'
+                    session.send(toward_motion)
+                    assert session.expect(toward_motion+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     actor_motion='actor-motion-check' if boot==0 else 'actor-motion-reload-check'
                     session.send(actor_motion)
                     assert session.expect(actor_motion+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

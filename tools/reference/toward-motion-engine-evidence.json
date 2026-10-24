@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "sourceInitializerEvidence": "tools/reference/toward-path-engine-evidence.json",
+  "sourceMotionEvidence": "tools/reference/actor-motion-engine-evidence.json",
+  "compiledUnitSha256": "ec3f532ce3f86eb5c7a8bd5d086b2f257aa75aabf359bf4cabf77917e473b3fa",
+  "fixture": {
+    "path": ".local/class-skills/toward-motion-source-probe.json",
+    "sha256": "da6c8ac9f636d4325ae344d789c0c959bede7273a7827f7e6dcf4195b57c9ee5",
+    "contexts": 2592,
+    "frames": 124416
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero runtime stderr required",
+  "established": [
+    "Complete unchanged source initializer, toward/ray/direction kernel and outer actor movement/collision routines execute together for path2/13 across eight grids, six horizontal/three vertical offsets, three fractional poses and budgets1/5/20,48 consecutive movement calls each.",
+    "Exact FP16 positions, path count/index, direction/velocity vectors, flags, distance, collision mask, saved-step count, repair requests and collision query order are retained per frame. A distance counter reaching zero does not independently stop these point-target paths."
+  ],
+  "limits": [
+    "Valid room/grid, zero-footprint monster, point target, prepared velocity2304 and failed repair service remain explicit. Calling the motion primitive after a failed initialization is a component reset control, not a claim that real neutral AI dispatches movement.",
+    "This does not execute whole mode/stat collectors, AI/event scheduling, automatic actor/missile/combat/input or current D2R executable. Unchanged legacy reconstruction is supplementary evidence; the general initializer remains marked BROKEN."
+  ]
+}

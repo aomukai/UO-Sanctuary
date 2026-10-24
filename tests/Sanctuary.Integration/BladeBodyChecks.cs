@@ -79,6 +79,10 @@ public static class BladeBodyChecks
         Require(initialized.Motion.Points.SequenceEqual(new[]{target}) && initialized.Target==target && initialized.PreviousTarget==target
             && initialized.Motion.FinalTarget==target && initialized.Motion.X==fractional.X && initialized.Motion.Y==fractional.Y
             && body.Prepared.Frames==1,"Actual body source path initialization/fractional position");
+        var toward=body.BeginPreparedWalk(target,1,13);
+        Require(toward.Motion.PathType==13 && toward.Motion.Distance==1 && (toward.Motion.Flags&0x900)==0x100
+            && toward.Motion.Points.SequenceEqual(new[]{target}) && toward.Motion.X==fractional.X && toward.Motion.Y==fractional.Y,
+            "Actual toward-finish body path inherited wall-follow distance rejection or snapped pose");
         var before=body.Prepared;bool closed=false;try{BladeWorldSpace.Mask(body.Map,body.Z,0,0,body);}catch(NotSupportedException){closed=true;}Require(closed && body.Prepared==before,"Unmapped native boundary accepted/mutated actor");
         var ordinary=new GraveyardSkeleton{Name="BladeBodyFixtureDefaultSummonTimer",NoKillAwards=true,Summoned=true};
         NativeEnd(ordinary,TimedEffects.Now.AddMilliseconds(50));ordinary.MoveToWorld(new(p.X-3,p.Y+2,p.Z),p.Map);ordinary.AIObject.AITimer.Stop();
@@ -93,7 +97,8 @@ public static class BladeBodyChecks
         Require(body!=null && !body.Deleted && Same(body.Prepared,saved.State) && body.SummonMaster==p && !body.BlocksFit && body.Summoned
             && !body.UsesNativeSummonTimer && NativeEnd(body)==DateTime.MinValue,"Saved actual body/source/pose or managed native timer ownership");
         Require(World.FindMobile((Serial)saved.OrdinaryTimer)==null,"Ordinary summon did not retain native post-load unsummon timer");
-        Require(ClassStats.Level(body)==saved.State.Creation.Level && ClassStats.Defense(body)==saved.State.Creation.Defense && ClassStats.AttackRating(body)==saved.State.Creation.Attack && body.Hits==100,"Saved source stats/getters");
+        Require(ClassStats.Level(body)==saved.State.Creation.Level && ClassStats.Defense(body)==saved.State.Creation.Defense && ClassStats.AttackRating(body)==saved.State.Creation.Attack && body.Hits==100
+            && body.Prepared.Motion.PathType==13 && (body.Prepared.Motion.Flags&0x900)==0x100,"Saved source stats/getters/path13");
         p.MoveToWorld(new(body.X-2,body.Y,body.Z),body.Map);var result=body.AdvancePrepared();Require(result.Moving && body.Prepared.Frames==saved.State.Frames+1 && body.Prepared.Motion.X==saved.State.Motion.X+36864,"Saved fractional frame failed to resume");
         // Save the newly advanced real entity for the next process reload.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared}));
