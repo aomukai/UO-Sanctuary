@@ -1,0 +1,2555 @@
+[
+  {
+    "level": 0,
+    "defense": [
+      1,
+      1,
+      1
+    ],
+    "attack": [
+      1,
+      1,
+      1
+    ],
+    "expansionDefense": [
+      1,
+      1,
+      1
+    ],
+    "expansionAttack": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "level": 1,
+    "defense": [
+      6,
+      92,
+      147
+    ],
+    "attack": [
+      8,
+      108,
+      216
+    ],
+    "expansionDefense": [
+      6,
+      108,
+      173
+    ],
+    "expansionAttack": [
+      8,
+      108,
+      216
+    ]
+  },
+  {
+    "level": 2,
+    "defense": [
+      12,
+      102,
+      162
+    ],
+    "attack": [
+      12,
+      126,
+      254
+    ],
+    "expansionDefense": [
+      12,
+      120,
+      190
+    ],
+    "expansionAttack": [
+      12,
+      126,
+      254
+    ]
+  },
+  {
+    "level": 3,
+    "defense": [
+      18,
+      112,
+      177
+    ],
+    "attack": [
+      18,
+      144,
+      292
+    ],
+    "expansionDefense": [
+      18,
+      132,
+      208
+    ],
+    "expansionAttack": [
+      18,
+      144,
+      292
+    ]
+  },
+  {
+    "level": 4,
+    "defense": [
+      24,
+      122,
+      192
+    ],
+    "attack": [
+      26,
+      162,
+      330
+    ],
+    "expansionDefense": [
+      24,
+      144,
+      226
+    ],
+    "expansionAttack": [
+      26,
+      162,
+      330
+    ]
+  },
+  {
+    "level": 5,
+    "defense": [
+      30,
+      133,
+      207
+    ],
+    "attack": [
+      35,
+      180,
+      368
+    ],
+    "expansionDefense": [
+      30,
+      156,
+      243
+    ],
+    "expansionAttack": [
+      35,
+      180,
+      368
+    ]
+  },
+  {
+    "level": 6,
+    "defense": [
+      36,
+      143,
+      222
+    ],
+    "attack": [
+      45,
+      198,
+      406
+    ],
+    "expansionDefense": [
+      36,
+      168,
+      261
+    ],
+    "expansionAttack": [
+      45,
+      198,
+      406
+    ]
+  },
+  {
+    "level": 7,
+    "defense": [
+      42,
+      153,
+      236
+    ],
+    "attack": [
+      56,
+      216,
+      444
+    ],
+    "expansionDefense": [
+      42,
+      180,
+      278
+    ],
+    "expansionAttack": [
+      56,
+      216,
+      444
+    ]
+  },
+  {
+    "level": 8,
+    "defense": [
+      48,
+      163,
+      252
+    ],
+    "attack": [
+      67,
+      234,
+      482
+    ],
+    "expansionDefense": [
+      48,
+      192,
+      296
+    ],
+    "expansionAttack": [
+      67,
+      234,
+      482
+    ]
+  },
+  {
+    "level": 9,
+    "defense": [
+      54,
+      173,
+      267
+    ],
+    "attack": [
+      78,
+      252,
+      520
+    ],
+    "expansionDefense": [
+      54,
+      204,
+      314
+    ],
+    "expansionAttack": [
+      78,
+      252,
+      520
+    ]
+  },
+  {
+    "level": 10,
+    "defense": [
+      60,
+      184,
+      281
+    ],
+    "attack": [
+      89,
+      270,
+      558
+    ],
+    "expansionDefense": [
+      60,
+      216,
+      331
+    ],
+    "expansionAttack": [
+      89,
+      270,
+      558
+    ]
+  },
+  {
+    "level": 11,
+    "defense": [
+      66,
+      194,
+      297
+    ],
+    "attack": [
+      100,
+      288,
+      596
+    ],
+    "expansionDefense": [
+      66,
+      228,
+      349
+    ],
+    "expansionAttack": [
+      100,
+      288,
+      596
+    ]
+  },
+  {
+    "level": 12,
+    "defense": [
+      72,
+      204,
+      311
+    ],
+    "attack": [
+      111,
+      306,
+      634
+    ],
+    "expansionDefense": [
+      72,
+      240,
+      366
+    ],
+    "expansionAttack": [
+      111,
+      306,
+      634
+    ]
+  },
+  {
+    "level": 13,
+    "defense": [
+      78,
+      214,
+      326
+    ],
+    "attack": [
+      122,
+      324,
+      672
+    ],
+    "expansionDefense": [
+      78,
+      252,
+      384
+    ],
+    "expansionAttack": [
+      122,
+      324,
+      672
+    ]
+  },
+  {
+    "level": 14,
+    "defense": [
+      84,
+      224,
+      342
+    ],
+    "attack": [
+      133,
+      342,
+      710
+    ],
+    "expansionDefense": [
+      84,
+      264,
+      402
+    ],
+    "expansionAttack": [
+      133,
+      342,
+      710
+    ]
+  },
+  {
+    "level": 15,
+    "defense": [
+      90,
+      235,
+      356
+    ],
+    "attack": [
+      144,
+      360,
+      748
+    ],
+    "expansionDefense": [
+      90,
+      276,
+      419
+    ],
+    "expansionAttack": [
+      144,
+      360,
+      748
+    ]
+  },
+  {
+    "level": 16,
+    "defense": [
+      96,
+      245,
+      371
+    ],
+    "attack": [
+      155,
+      378,
+      786
+    ],
+    "expansionDefense": [
+      96,
+      288,
+      437
+    ],
+    "expansionAttack": [
+      155,
+      378,
+      786
+    ]
+  },
+  {
+    "level": 17,
+    "defense": [
+      102,
+      255,
+      386
+    ],
+    "attack": [
+      166,
+      396,
+      824
+    ],
+    "expansionDefense": [
+      102,
+      300,
+      454
+    ],
+    "expansionAttack": [
+      166,
+      396,
+      824
+    ]
+  },
+  {
+    "level": 18,
+    "defense": [
+      108,
+      265,
+      401
+    ],
+    "attack": [
+      177,
+      414,
+      862
+    ],
+    "expansionDefense": [
+      108,
+      312,
+      472
+    ],
+    "expansionAttack": [
+      177,
+      414,
+      862
+    ]
+  },
+  {
+    "level": 19,
+    "defense": [
+      114,
+      275,
+      417
+    ],
+    "attack": [
+      188,
+      432,
+      900
+    ],
+    "expansionDefense": [
+      114,
+      324,
+      490
+    ],
+    "expansionAttack": [
+      188,
+      432,
+      900
+    ]
+  },
+  {
+    "level": 20,
+    "defense": [
+      120,
+      286,
+      431
+    ],
+    "attack": [
+      199,
+      450,
+      938
+    ],
+    "expansionDefense": [
+      120,
+      336,
+      507
+    ],
+    "expansionAttack": [
+      199,
+      450,
+      938
+    ]
+  },
+  {
+    "level": 21,
+    "defense": [
+      126,
+      296,
+      446
+    ],
+    "attack": [
+      210,
+      468,
+      976
+    ],
+    "expansionDefense": [
+      126,
+      348,
+      525
+    ],
+    "expansionAttack": [
+      210,
+      468,
+      976
+    ]
+  },
+  {
+    "level": 22,
+    "defense": [
+      132,
+      306,
+      461
+    ],
+    "attack": [
+      221,
+      486,
+      1014
+    ],
+    "expansionDefense": [
+      132,
+      360,
+      542
+    ],
+    "expansionAttack": [
+      221,
+      486,
+      1014
+    ]
+  },
+  {
+    "level": 23,
+    "defense": [
+      138,
+      316,
+      476
+    ],
+    "attack": [
+      232,
+      504,
+      1052
+    ],
+    "expansionDefense": [
+      138,
+      372,
+      560
+    ],
+    "expansionAttack": [
+      232,
+      504,
+      1052
+    ]
+  },
+  {
+    "level": 24,
+    "defense": [
+      144,
+      326,
+      491
+    ],
+    "attack": [
+      243,
+      522,
+      1090
+    ],
+    "expansionDefense": [
+      144,
+      384,
+      578
+    ],
+    "expansionAttack": [
+      243,
+      522,
+      1090
+    ]
+  },
+  {
+    "level": 25,
+    "defense": [
+      150,
+      337,
+      506
+    ],
+    "attack": [
+      254,
+      540,
+      1128
+    ],
+    "expansionDefense": [
+      150,
+      396,
+      595
+    ],
+    "expansionAttack": [
+      254,
+      540,
+      1128
+    ]
+  },
+  {
+    "level": 26,
+    "defense": [
+      156,
+      347,
+      521
+    ],
+    "attack": [
+      265,
+      558,
+      1166
+    ],
+    "expansionDefense": [
+      156,
+      408,
+      613
+    ],
+    "expansionAttack": [
+      265,
+      558,
+      1166
+    ]
+  },
+  {
+    "level": 27,
+    "defense": [
+      162,
+      357,
+      536
+    ],
+    "attack": [
+      276,
+      576,
+      1204
+    ],
+    "expansionDefense": [
+      162,
+      420,
+      630
+    ],
+    "expansionAttack": [
+      276,
+      576,
+      1204
+    ]
+  },
+  {
+    "level": 28,
+    "defense": [
+      168,
+      367,
+      551
+    ],
+    "attack": [
+      287,
+      594,
+      1242
+    ],
+    "expansionDefense": [
+      168,
+      432,
+      648
+    ],
+    "expansionAttack": [
+      287,
+      594,
+      1242
+    ]
+  },
+  {
+    "level": 29,
+    "defense": [
+      174,
+      377,
+      566
+    ],
+    "attack": [
+      298,
+      612,
+      1280
+    ],
+    "expansionDefense": [
+      174,
+      444,
+      666
+    ],
+    "expansionAttack": [
+      298,
+      612,
+      1280
+    ]
+  },
+  {
+    "level": 30,
+    "defense": [
+      180,
+      388,
+      581
+    ],
+    "attack": [
+      309,
+      630,
+      1318
+    ],
+    "expansionDefense": [
+      180,
+      456,
+      683
+    ],
+    "expansionAttack": [
+      309,
+      630,
+      1318
+    ]
+  },
+  {
+    "level": 31,
+    "defense": [
+      186,
+      398,
+      596
+    ],
+    "attack": [
+      320,
+      648,
+      1356
+    ],
+    "expansionDefense": [
+      186,
+      468,
+      701
+    ],
+    "expansionAttack": [
+      320,
+      648,
+      1356
+    ]
+  },
+  {
+    "level": 32,
+    "defense": [
+      192,
+      408,
+      610
+    ],
+    "attack": [
+      331,
+      666,
+      1394
+    ],
+    "expansionDefense": [
+      192,
+      480,
+      718
+    ],
+    "expansionAttack": [
+      331,
+      666,
+      1394
+    ]
+  },
+  {
+    "level": 33,
+    "defense": [
+      198,
+      418,
+      626
+    ],
+    "attack": [
+      342,
+      684,
+      1432
+    ],
+    "expansionDefense": [
+      198,
+      492,
+      736
+    ],
+    "expansionAttack": [
+      342,
+      684,
+      1432
+    ]
+  },
+  {
+    "level": 34,
+    "defense": [
+      204,
+      428,
+      641
+    ],
+    "attack": [
+      353,
+      702,
+      1470
+    ],
+    "expansionDefense": [
+      204,
+      504,
+      754
+    ],
+    "expansionAttack": [
+      353,
+      702,
+      1470
+    ]
+  },
+  {
+    "level": 35,
+    "defense": [
+      210,
+      439,
+      655
+    ],
+    "attack": [
+      364,
+      720,
+      1508
+    ],
+    "expansionDefense": [
+      210,
+      516,
+      771
+    ],
+    "expansionAttack": [
+      364,
+      720,
+      1508
+    ]
+  },
+  {
+    "level": 36,
+    "defense": [
+      216,
+      449,
+      671
+    ],
+    "attack": [
+      375,
+      738,
+      1546
+    ],
+    "expansionDefense": [
+      216,
+      528,
+      789
+    ],
+    "expansionAttack": [
+      375,
+      738,
+      1546
+    ]
+  },
+  {
+    "level": 37,
+    "defense": [
+      222,
+      459,
+      685
+    ],
+    "attack": [
+      386,
+      756,
+      1584
+    ],
+    "expansionDefense": [
+      222,
+      540,
+      806
+    ],
+    "expansionAttack": [
+      386,
+      756,
+      1584
+    ]
+  },
+  {
+    "level": 38,
+    "defense": [
+      228,
+      469,
+      700
+    ],
+    "attack": [
+      397,
+      774,
+      1622
+    ],
+    "expansionDefense": [
+      228,
+      552,
+      824
+    ],
+    "expansionAttack": [
+      397,
+      774,
+      1622
+    ]
+  },
+  {
+    "level": 39,
+    "defense": [
+      234,
+      479,
+      716
+    ],
+    "attack": [
+      408,
+      792,
+      1660
+    ],
+    "expansionDefense": [
+      234,
+      564,
+      842
+    ],
+    "expansionAttack": [
+      408,
+      792,
+      1660
+    ]
+  },
+  {
+    "level": 40,
+    "defense": [
+      240,
+      490,
+      730
+    ],
+    "attack": [
+      419,
+      810,
+      1698
+    ],
+    "expansionDefense": [
+      240,
+      576,
+      859
+    ],
+    "expansionAttack": [
+      419,
+      810,
+      1698
+    ]
+  },
+  {
+    "level": 41,
+    "defense": [
+      246,
+      500,
+      745
+    ],
+    "attack": [
+      430,
+      828,
+      1736
+    ],
+    "expansionDefense": [
+      246,
+      588,
+      877
+    ],
+    "expansionAttack": [
+      430,
+      828,
+      1736
+    ]
+  },
+  {
+    "level": 42,
+    "defense": [
+      252,
+      510,
+      760
+    ],
+    "attack": [
+      441,
+      846,
+      1774
+    ],
+    "expansionDefense": [
+      252,
+      600,
+      894
+    ],
+    "expansionAttack": [
+      441,
+      846,
+      1774
+    ]
+  },
+  {
+    "level": 43,
+    "defense": [
+      258,
+      520,
+      775
+    ],
+    "attack": [
+      452,
+      864,
+      1812
+    ],
+    "expansionDefense": [
+      258,
+      612,
+      912
+    ],
+    "expansionAttack": [
+      452,
+      864,
+      1812
+    ]
+  },
+  {
+    "level": 44,
+    "defense": [
+      264,
+      530,
+      791
+    ],
+    "attack": [
+      463,
+      882,
+      1850
+    ],
+    "expansionDefense": [
+      264,
+      624,
+      930
+    ],
+    "expansionAttack": [
+      463,
+      882,
+      1850
+    ]
+  },
+  {
+    "level": 45,
+    "defense": [
+      270,
+      541,
+      805
+    ],
+    "attack": [
+      474,
+      900,
+      1888
+    ],
+    "expansionDefense": [
+      270,
+      636,
+      947
+    ],
+    "expansionAttack": [
+      474,
+      900,
+      1888
+    ]
+  },
+  {
+    "level": 46,
+    "defense": [
+      276,
+      551,
+      820
+    ],
+    "attack": [
+      485,
+      918,
+      1926
+    ],
+    "expansionDefense": [
+      276,
+      648,
+      965
+    ],
+    "expansionAttack": [
+      485,
+      918,
+      1926
+    ]
+  },
+  {
+    "level": 47,
+    "defense": [
+      282,
+      561,
+      835
+    ],
+    "attack": [
+      496,
+      936,
+      1964
+    ],
+    "expansionDefense": [
+      282,
+      660,
+      982
+    ],
+    "expansionAttack": [
+      496,
+      936,
+      1964
+    ]
+  },
+  {
+    "level": 48,
+    "defense": [
+      288,
+      571,
+      850
+    ],
+    "attack": [
+      507,
+      954,
+      2002
+    ],
+    "expansionDefense": [
+      288,
+      672,
+      1000
+    ],
+    "expansionAttack": [
+      507,
+      954,
+      2002
+    ]
+  },
+  {
+    "level": 49,
+    "defense": [
+      294,
+      581,
+      865
+    ],
+    "attack": [
+      518,
+      972,
+      2040
+    ],
+    "expansionDefense": [
+      294,
+      684,
+      1018
+    ],
+    "expansionAttack": [
+      518,
+      972,
+      2040
+    ]
+  },
+  {
+    "level": 50,
+    "defense": [
+      300,
+      592,
+      880
+    ],
+    "attack": [
+      529,
+      990,
+      2078
+    ],
+    "expansionDefense": [
+      300,
+      696,
+      1035
+    ],
+    "expansionAttack": [
+      529,
+      990,
+      2078
+    ]
+  },
+  {
+    "level": 51,
+    "defense": [
+      306,
+      602,
+      895
+    ],
+    "attack": [
+      540,
+      1008,
+      2116
+    ],
+    "expansionDefense": [
+      306,
+      708,
+      1053
+    ],
+    "expansionAttack": [
+      540,
+      1008,
+      2116
+    ]
+  },
+  {
+    "level": 52,
+    "defense": [
+      312,
+      612,
+      910
+    ],
+    "attack": [
+      551,
+      1026,
+      2154
+    ],
+    "expansionDefense": [
+      312,
+      720,
+      1070
+    ],
+    "expansionAttack": [
+      551,
+      1026,
+      2154
+    ]
+  },
+  {
+    "level": 53,
+    "defense": [
+      318,
+      622,
+      925
+    ],
+    "attack": [
+      562,
+      1044,
+      2192
+    ],
+    "expansionDefense": [
+      318,
+      732,
+      1088
+    ],
+    "expansionAttack": [
+      562,
+      1044,
+      2192
+    ]
+  },
+  {
+    "level": 54,
+    "defense": [
+      324,
+      632,
+      940
+    ],
+    "attack": [
+      573,
+      1062,
+      2230
+    ],
+    "expansionDefense": [
+      324,
+      744,
+      1106
+    ],
+    "expansionAttack": [
+      573,
+      1062,
+      2230
+    ]
+  },
+  {
+    "level": 55,
+    "defense": [
+      330,
+      643,
+      955
+    ],
+    "attack": [
+      584,
+      1080,
+      2268
+    ],
+    "expansionDefense": [
+      330,
+      756,
+      1123
+    ],
+    "expansionAttack": [
+      584,
+      1080,
+      2268
+    ]
+  },
+  {
+    "level": 56,
+    "defense": [
+      336,
+      653,
+      970
+    ],
+    "attack": [
+      595,
+      1098,
+      2306
+    ],
+    "expansionDefense": [
+      336,
+      768,
+      1141
+    ],
+    "expansionAttack": [
+      595,
+      1098,
+      2306
+    ]
+  },
+  {
+    "level": 57,
+    "defense": [
+      342,
+      663,
+      984
+    ],
+    "attack": [
+      606,
+      1116,
+      2344
+    ],
+    "expansionDefense": [
+      342,
+      780,
+      1158
+    ],
+    "expansionAttack": [
+      606,
+      1116,
+      2344
+    ]
+  },
+  {
+    "level": 58,
+    "defense": [
+      348,
+      673,
+      1000
+    ],
+    "attack": [
+      617,
+      1134,
+      2382
+    ],
+    "expansionDefense": [
+      348,
+      792,
+      1176
+    ],
+    "expansionAttack": [
+      617,
+      1134,
+      2382
+    ]
+  },
+  {
+    "level": 59,
+    "defense": [
+      354,
+      683,
+      1015
+    ],
+    "attack": [
+      628,
+      1152,
+      2420
+    ],
+    "expansionDefense": [
+      354,
+      804,
+      1194
+    ],
+    "expansionAttack": [
+      628,
+      1152,
+      2420
+    ]
+  },
+  {
+    "level": 60,
+    "defense": [
+      360,
+      694,
+      1029
+    ],
+    "attack": [
+      639,
+      1170,
+      2458
+    ],
+    "expansionDefense": [
+      360,
+      816,
+      1211
+    ],
+    "expansionAttack": [
+      639,
+      1170,
+      2458
+    ]
+  },
+  {
+    "level": 61,
+    "defense": [
+      366,
+      704,
+      1045
+    ],
+    "attack": [
+      650,
+      1188,
+      2496
+    ],
+    "expansionDefense": [
+      366,
+      828,
+      1229
+    ],
+    "expansionAttack": [
+      650,
+      1188,
+      2496
+    ]
+  },
+  {
+    "level": 62,
+    "defense": [
+      372,
+      714,
+      1059
+    ],
+    "attack": [
+      661,
+      1206,
+      2534
+    ],
+    "expansionDefense": [
+      372,
+      840,
+      1246
+    ],
+    "expansionAttack": [
+      661,
+      1206,
+      2534
+    ]
+  },
+  {
+    "level": 63,
+    "defense": [
+      378,
+      724,
+      1074
+    ],
+    "attack": [
+      672,
+      1224,
+      2572
+    ],
+    "expansionDefense": [
+      378,
+      852,
+      1264
+    ],
+    "expansionAttack": [
+      672,
+      1224,
+      2572
+    ]
+  },
+  {
+    "level": 64,
+    "defense": [
+      384,
+      734,
+      1090
+    ],
+    "attack": [
+      683,
+      1242,
+      2610
+    ],
+    "expansionDefense": [
+      384,
+      864,
+      1282
+    ],
+    "expansionAttack": [
+      683,
+      1242,
+      2610
+    ]
+  },
+  {
+    "level": 65,
+    "defense": [
+      390,
+      745,
+      1104
+    ],
+    "attack": [
+      694,
+      1260,
+      2648
+    ],
+    "expansionDefense": [
+      390,
+      876,
+      1299
+    ],
+    "expansionAttack": [
+      694,
+      1260,
+      2648
+    ]
+  },
+  {
+    "level": 66,
+    "defense": [
+      396,
+      755,
+      1119
+    ],
+    "attack": [
+      705,
+      1278,
+      2686
+    ],
+    "expansionDefense": [
+      396,
+      888,
+      1317
+    ],
+    "expansionAttack": [
+      705,
+      1278,
+      2686
+    ]
+  },
+  {
+    "level": 67,
+    "defense": [
+      402,
+      765,
+      1134
+    ],
+    "attack": [
+      716,
+      1296,
+      2724
+    ],
+    "expansionDefense": [
+      402,
+      900,
+      1334
+    ],
+    "expansionAttack": [
+      716,
+      1296,
+      2724
+    ]
+  },
+  {
+    "level": 68,
+    "defense": [
+      408,
+      775,
+      1149
+    ],
+    "attack": [
+      727,
+      1314,
+      2762
+    ],
+    "expansionDefense": [
+      408,
+      912,
+      1352
+    ],
+    "expansionAttack": [
+      727,
+      1314,
+      2762
+    ]
+  },
+  {
+    "level": 69,
+    "defense": [
+      414,
+      785,
+      1165
+    ],
+    "attack": [
+      738,
+      1332,
+      2800
+    ],
+    "expansionDefense": [
+      414,
+      924,
+      1370
+    ],
+    "expansionAttack": [
+      738,
+      1332,
+      2800
+    ]
+  },
+  {
+    "level": 70,
+    "defense": [
+      420,
+      796,
+      1179
+    ],
+    "attack": [
+      749,
+      1350,
+      2838
+    ],
+    "expansionDefense": [
+      420,
+      936,
+      1387
+    ],
+    "expansionAttack": [
+      749,
+      1350,
+      2838
+    ]
+  },
+  {
+    "level": 71,
+    "defense": [
+      426,
+      806,
+      1194
+    ],
+    "attack": [
+      760,
+      1368,
+      2876
+    ],
+    "expansionDefense": [
+      426,
+      948,
+      1405
+    ],
+    "expansionAttack": [
+      760,
+      1368,
+      2876
+    ]
+  },
+  {
+    "level": 72,
+    "defense": [
+      432,
+      816,
+      1209
+    ],
+    "attack": [
+      771,
+      1386,
+      2914
+    ],
+    "expansionDefense": [
+      432,
+      960,
+      1422
+    ],
+    "expansionAttack": [
+      771,
+      1386,
+      2914
+    ]
+  },
+  {
+    "level": 73,
+    "defense": [
+      438,
+      826,
+      1224
+    ],
+    "attack": [
+      782,
+      1404,
+      2952
+    ],
+    "expansionDefense": [
+      438,
+      972,
+      1440
+    ],
+    "expansionAttack": [
+      782,
+      1404,
+      2952
+    ]
+  },
+  {
+    "level": 74,
+    "defense": [
+      444,
+      836,
+      1239
+    ],
+    "attack": [
+      793,
+      1422,
+      2990
+    ],
+    "expansionDefense": [
+      444,
+      984,
+      1458
+    ],
+    "expansionAttack": [
+      793,
+      1422,
+      2990
+    ]
+  },
+  {
+    "level": 75,
+    "defense": [
+      450,
+      847,
+      1254
+    ],
+    "attack": [
+      804,
+      1440,
+      3028
+    ],
+    "expansionDefense": [
+      450,
+      996,
+      1475
+    ],
+    "expansionAttack": [
+      804,
+      1440,
+      3028
+    ]
+  },
+  {
+    "level": 76,
+    "defense": [
+      456,
+      857,
+      1269
+    ],
+    "attack": [
+      815,
+      1458,
+      3066
+    ],
+    "expansionDefense": [
+      456,
+      1008,
+      1493
+    ],
+    "expansionAttack": [
+      815,
+      1458,
+      3066
+    ]
+  },
+  {
+    "level": 77,
+    "defense": [
+      462,
+      867,
+      1284
+    ],
+    "attack": [
+      826,
+      1476,
+      3104
+    ],
+    "expansionDefense": [
+      462,
+      1020,
+      1510
+    ],
+    "expansionAttack": [
+      826,
+      1476,
+      3104
+    ]
+  },
+  {
+    "level": 78,
+    "defense": [
+      468,
+      877,
+      1299
+    ],
+    "attack": [
+      837,
+      1494,
+      3142
+    ],
+    "expansionDefense": [
+      468,
+      1032,
+      1528
+    ],
+    "expansionAttack": [
+      837,
+      1494,
+      3142
+    ]
+  },
+  {
+    "level": 79,
+    "defense": [
+      474,
+      887,
+      1314
+    ],
+    "attack": [
+      848,
+      1512,
+      3180
+    ],
+    "expansionDefense": [
+      474,
+      1044,
+      1546
+    ],
+    "expansionAttack": [
+      848,
+      1512,
+      3180
+    ]
+  },
+  {
+    "level": 80,
+    "defense": [
+      480,
+      898,
+      1329
+    ],
+    "attack": [
+      859,
+      1530,
+      3218
+    ],
+    "expansionDefense": [
+      480,
+      1056,
+      1563
+    ],
+    "expansionAttack": [
+      859,
+      1530,
+      3218
+    ]
+  },
+  {
+    "level": 81,
+    "defense": [
+      486,
+      908,
+      1344
+    ],
+    "attack": [
+      870,
+      1548,
+      3256
+    ],
+    "expansionDefense": [
+      486,
+      1068,
+      1581
+    ],
+    "expansionAttack": [
+      870,
+      1548,
+      3256
+    ]
+  },
+  {
+    "level": 82,
+    "defense": [
+      492,
+      918,
+      1358
+    ],
+    "attack": [
+      881,
+      1566,
+      3294
+    ],
+    "expansionDefense": [
+      492,
+      1080,
+      1598
+    ],
+    "expansionAttack": [
+      881,
+      1566,
+      3294
+    ]
+  },
+  {
+    "level": 83,
+    "defense": [
+      498,
+      928,
+      1374
+    ],
+    "attack": [
+      892,
+      1584,
+      3332
+    ],
+    "expansionDefense": [
+      498,
+      1092,
+      1616
+    ],
+    "expansionAttack": [
+      892,
+      1584,
+      3332
+    ]
+  },
+  {
+    "level": 84,
+    "defense": [
+      504,
+      938,
+      1389
+    ],
+    "attack": [
+      903,
+      1602,
+      3370
+    ],
+    "expansionDefense": [
+      504,
+      1104,
+      1634
+    ],
+    "expansionAttack": [
+      903,
+      1602,
+      3370
+    ]
+  },
+  {
+    "level": 85,
+    "defense": [
+      510,
+      949,
+      1403
+    ],
+    "attack": [
+      914,
+      1620,
+      3408
+    ],
+    "expansionDefense": [
+      510,
+      1116,
+      1651
+    ],
+    "expansionAttack": [
+      914,
+      1620,
+      3408
+    ]
+  },
+  {
+    "level": 86,
+    "defense": [
+      516,
+      959,
+      1419
+    ],
+    "attack": [
+      925,
+      1638,
+      3446
+    ],
+    "expansionDefense": [
+      516,
+      1128,
+      1669
+    ],
+    "expansionAttack": [
+      925,
+      1638,
+      3446
+    ]
+  },
+  {
+    "level": 87,
+    "defense": [
+      522,
+      969,
+      1433
+    ],
+    "attack": [
+      936,
+      1656,
+      3484
+    ],
+    "expansionDefense": [
+      522,
+      1140,
+      1686
+    ],
+    "expansionAttack": [
+      936,
+      1656,
+      3484
+    ]
+  },
+  {
+    "level": 88,
+    "defense": [
+      528,
+      979,
+      1448
+    ],
+    "attack": [
+      947,
+      1674,
+      3522
+    ],
+    "expansionDefense": [
+      528,
+      1152,
+      1704
+    ],
+    "expansionAttack": [
+      947,
+      1674,
+      3522
+    ]
+  },
+  {
+    "level": 89,
+    "defense": [
+      534,
+      989,
+      1464
+    ],
+    "attack": [
+      958,
+      1692,
+      3560
+    ],
+    "expansionDefense": [
+      534,
+      1164,
+      1722
+    ],
+    "expansionAttack": [
+      958,
+      1692,
+      3560
+    ]
+  },
+  {
+    "level": 90,
+    "defense": [
+      540,
+      1000,
+      1478
+    ],
+    "attack": [
+      969,
+      1710,
+      3598
+    ],
+    "expansionDefense": [
+      540,
+      1176,
+      1739
+    ],
+    "expansionAttack": [
+      969,
+      1710,
+      3598
+    ]
+  },
+  {
+    "level": 91,
+    "defense": [
+      546,
+      1010,
+      1493
+    ],
+    "attack": [
+      980,
+      1728,
+      3636
+    ],
+    "expansionDefense": [
+      546,
+      1188,
+      1757
+    ],
+    "expansionAttack": [
+      980,
+      1728,
+      3636
+    ]
+  },
+  {
+    "level": 92,
+    "defense": [
+      552,
+      1020,
+      1508
+    ],
+    "attack": [
+      991,
+      1746,
+      3674
+    ],
+    "expansionDefense": [
+      552,
+      1200,
+      1774
+    ],
+    "expansionAttack": [
+      991,
+      1746,
+      3674
+    ]
+  },
+  {
+    "level": 93,
+    "defense": [
+      558,
+      1030,
+      1523
+    ],
+    "attack": [
+      1002,
+      1764,
+      3712
+    ],
+    "expansionDefense": [
+      558,
+      1212,
+      1792
+    ],
+    "expansionAttack": [
+      1002,
+      1764,
+      3712
+    ]
+  },
+  {
+    "level": 94,
+    "defense": [
+      564,
+      1040,
+      1539
+    ],
+    "attack": [
+      1013,
+      1782,
+      3750
+    ],
+    "expansionDefense": [
+      564,
+      1224,
+      1810
+    ],
+    "expansionAttack": [
+      1013,
+      1782,
+      3750
+    ]
+  },
+  {
+    "level": 95,
+    "defense": [
+      570,
+      1051,
+      1553
+    ],
+    "attack": [
+      1024,
+      1800,
+      3788
+    ],
+    "expansionDefense": [
+      570,
+      1236,
+      1827
+    ],
+    "expansionAttack": [
+      1024,
+      1800,
+      3788
+    ]
+  },
+  {
+    "level": 96,
+    "defense": [
+      576,
+      1061,
+      1568
+    ],
+    "attack": [
+      1035,
+      1818,
+      3826
+    ],
+    "expansionDefense": [
+      576,
+      1248,
+      1845
+    ],
+    "expansionAttack": [
+      1035,
+      1818,
+      3826
+    ]
+  },
+  {
+    "level": 97,
+    "defense": [
+      582,
+      1071,
+      1583
+    ],
+    "attack": [
+      1046,
+      1836,
+      3864
+    ],
+    "expansionDefense": [
+      582,
+      1260,
+      1862
+    ],
+    "expansionAttack": [
+      1046,
+      1836,
+      3864
+    ]
+  },
+  {
+    "level": 98,
+    "defense": [
+      588,
+      1081,
+      1598
+    ],
+    "attack": [
+      1057,
+      1854,
+      3902
+    ],
+    "expansionDefense": [
+      588,
+      1272,
+      1880
+    ],
+    "expansionAttack": [
+      1057,
+      1854,
+      3902
+    ]
+  },
+  {
+    "level": 99,
+    "defense": [
+      594,
+      1091,
+      1613
+    ],
+    "attack": [
+      1068,
+      1872,
+      3940
+    ],
+    "expansionDefense": [
+      594,
+      1284,
+      1898
+    ],
+    "expansionAttack": [
+      1068,
+      1872,
+      3940
+    ]
+  },
+  {
+    "level": 100,
+    "defense": [
+      600,
+      1102,
+      1628
+    ],
+    "attack": [
+      1079,
+      1890,
+      3978
+    ],
+    "expansionDefense": [
+      600,
+      1296,
+      1915
+    ],
+    "expansionAttack": [
+      1079,
+      1890,
+      3978
+    ]
+  },
+  {
+    "level": 101,
+    "defense": [
+      606,
+      1112,
+      1643
+    ],
+    "attack": [
+      1090,
+      1908,
+      4016
+    ],
+    "expansionDefense": [
+      606,
+      1308,
+      1933
+    ],
+    "expansionAttack": [
+      1090,
+      1908,
+      4016
+    ]
+  },
+  {
+    "level": 102,
+    "defense": [
+      612,
+      1122,
+      1658
+    ],
+    "attack": [
+      1101,
+      1926,
+      4054
+    ],
+    "expansionDefense": [
+      612,
+      1320,
+      1950
+    ],
+    "expansionAttack": [
+      1101,
+      1926,
+      4054
+    ]
+  },
+  {
+    "level": 103,
+    "defense": [
+      618,
+      1132,
+      1673
+    ],
+    "attack": [
+      1112,
+      1944,
+      4092
+    ],
+    "expansionDefense": [
+      618,
+      1332,
+      1968
+    ],
+    "expansionAttack": [
+      1112,
+      1944,
+      4092
+    ]
+  },
+  {
+    "level": 104,
+    "defense": [
+      624,
+      1142,
+      1688
+    ],
+    "attack": [
+      1123,
+      1962,
+      4130
+    ],
+    "expansionDefense": [
+      624,
+      1344,
+      1986
+    ],
+    "expansionAttack": [
+      1123,
+      1962,
+      4130
+    ]
+  },
+  {
+    "level": 105,
+    "defense": [
+      630,
+      1153,
+      1703
+    ],
+    "attack": [
+      1134,
+      1980,
+      4168
+    ],
+    "expansionDefense": [
+      630,
+      1356,
+      2003
+    ],
+    "expansionAttack": [
+      1134,
+      1980,
+      4168
+    ]
+  },
+  {
+    "level": 106,
+    "defense": [
+      636,
+      1163,
+      1718
+    ],
+    "attack": [
+      1145,
+      1998,
+      4206
+    ],
+    "expansionDefense": [
+      636,
+      1368,
+      2021
+    ],
+    "expansionAttack": [
+      1145,
+      1998,
+      4206
+    ]
+  },
+  {
+    "level": 107,
+    "defense": [
+      642,
+      1173,
+      1732
+    ],
+    "attack": [
+      1156,
+      2016,
+      4244
+    ],
+    "expansionDefense": [
+      642,
+      1380,
+      2038
+    ],
+    "expansionAttack": [
+      1156,
+      2016,
+      4244
+    ]
+  },
+  {
+    "level": 108,
+    "defense": [
+      648,
+      1183,
+      1748
+    ],
+    "attack": [
+      1167,
+      2034,
+      4282
+    ],
+    "expansionDefense": [
+      648,
+      1392,
+      2056
+    ],
+    "expansionAttack": [
+      1167,
+      2034,
+      4282
+    ]
+  },
+  {
+    "level": 109,
+    "defense": [
+      654,
+      1193,
+      1763
+    ],
+    "attack": [
+      1178,
+      2052,
+      4320
+    ],
+    "expansionDefense": [
+      654,
+      1404,
+      2074
+    ],
+    "expansionAttack": [
+      1178,
+      2052,
+      4320
+    ]
+  },
+  {
+    "level": 110,
+    "defense": [
+      2100,
+      2100,
+      2100
+    ],
+    "attack": [
+      6532,
+      6532,
+      6532
+    ],
+    "expansionDefense": [
+      2100,
+      2100,
+      2100
+    ],
+    "expansionAttack": [
+      6532,
+      6532,
+      6532
+    ]
+  }
+]

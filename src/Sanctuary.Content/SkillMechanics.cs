@@ -62,6 +62,7 @@ public sealed class SkillValues
     private readonly SkillDefinition _skill;
     private readonly Func<string, int> _rank, _baseRank;
     private readonly int _level, _depth;
+    public CombatAbility Ability => _skill.Ability;
     public int Rank => _rank(_skill.SourceKey);
     public SkillValues(SkillDefinition skill, Func<string, int> rank, Func<string, int> baseRank, int level, int depth = 0)
     { _skill = skill; _rank = rank; _baseRank = baseRank; _level = level; _depth = depth; }
@@ -78,6 +79,11 @@ public sealed class SkillValues
         return Formula(expression);
     }
     public long Formula(string expression) => SkillFormula.Evaluate(expression, Resolve);
+    // Summon creation supplies an explicit captured source-stat context. Do not
+    // infer missing accrued stats from native UO properties or default them to 0.
+    public long StatEval(string field, Func<string, int> accrued) => SkillFormula.Evaluate(_skill.Text(field),
+        (name, argument, property) => name == "stat" && property == "accr"
+            ? accrued(argument) : Resolve(name, argument, property));
     public long ElementalEval(string field, int minimum256, int maximum256) => SkillFormula.Evaluate(_skill.Text(field),
         (name, argument, property) => name == "enms" ? minimum256 : name == "exms" ? maximum256 : Resolve(name, argument, property));
     private long Resolve(string name, string argument, string property)

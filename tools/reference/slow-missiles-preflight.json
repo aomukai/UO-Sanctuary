@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "status": "Graveyard firebolts now use shared saved Q12 travel with pinned firebolt velocity20/lifetime50 and captured source slow percentages, replacing the homing impact timer. Released shots are independent of subsequent caster freeze/actions, and do not delay the next windup. Focused and full native checks each pass three boots/two reloads, including real overlapping casts, terrain/Bone Wall/moving targets, FP256 damage, damage-draw-before-Avoid order, old player-save defaults and resumed incoming flight. Content/integration build with zero warnings/errors; all70 Python tests and current465/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains unavailable and no class certificate is claimed.",
+  "status": "Individually deferred after current producer/target inventory. Installed captured state and encounter/firebolt components remain verified. Learned cast and source-filter integration, ordinary native ranged bridge, native spell/breath/child consumers and exact modern order/in-flight behavior are incomplete. Continue Valkyrie creation/equipment; handler139/Amazon27 baseline unchanged.",
   "currentSkill": {
     "talentId": "amazon.slowmissiles",
     "name": "Slow Missiles",
@@ -109,9 +109,11 @@
     "Exact filter50563 differences, multi-caster priority, already-flying and child behavior, missile lifespan/range vs speed, canSlow0, zero velocity, native producers, persistence and current client/owner presentation require dedicated coverage."
   ],
   "nextActions": [
-    "Encounter bolts and shared incoming Graveyard firebolts pass final focused/full three boots/two reloads and matching installed smoke. Full cast/target and other producers remain open; handler count124/Amazon12.",
-    "Continue full cast/input/target selection and remaining hostile producer integration: real travel bridge for ordinary native ranged hits and relevant spell/child/canSlow0 consumers. Graveyard firebolts now use the shared saved Q12 controller; see linked bounded evidence.",
-    "Replace or corroborate the explicit native one-tile/frame/18-step geometry adapter against pinned source base speed/lifetime/Size/activation. Keep source snapshots/RNG/current damage order separate; do not certify the class from this component."
+    "Preserve installed state/launch components and prior bounded evidence. Implement learned cast/target rules only alongside an explicitly supported hostile producer scope; a cast-only handler would not establish working Slow Missiles.",
+    "Ordinary native BaseRanged.OnSwing resolves CheckHit/OnHit immediately after OnFired. A real launch/travel/impact bridge must preserve source state capture, original hit/item events and fractional typed mitigation. Native visuals alone do not slow damage delivery.",
+    "Inventory native Fireball/MagicArrow/EnergyBolt and FireBreath timers/owner/child callbacks, including mapped native dragon species. Do not assume that a shared AOS damage hook supplies speed/lifetime or CanSlow behavior.",
+    "Resolve source-boss and target adaptation separately. SourceAuraTargets excludes unreferenced native profiles and GraveyardLich; EncounterCreature is an explicit native adapter. Do not invent D2 species identities or use native elite grade for monstats boss exclusion.",
+    "Continue Valkyrie creation and requested-quality NPC equipment implementation; Lightning Strike remains a separate documented source/observation gap."
   ],
   "assets": {
     "effect": "Cast_slowmissiles, affected-state presentation and amazon_handofathena sound remain pending in existing separate effects register; no new art generated.",
@@ -132,5 +134,50 @@
   "nativeComponentEvidence": "tools/reference/slow-missiles-component-native-evidence.json",
   "sourceBossScope": "32 full unchanged helper cases confirm species boss flag only; native Champion/Unique grade is not the source boss predicate.",
   "nativeBoltEvidence": "tools/reference/slow-missiles-bolts-native-evidence.json",
-  "nativeFireboltEvidence": "tools/reference/hostile-firebolt-native-evidence.json"
+  "nativeFireboltEvidence": "tools/reference/hostile-firebolt-native-evidence.json",
+  "previousInstalledPreparationStatus": "Graveyard firebolts now use shared saved Q12 travel with pinned firebolt velocity20/lifetime50 and captured source slow percentages, replacing the homing impact timer. Released shots are independent of subsequent caster freeze/actions, and do not delay the next windup. Focused and full native checks each pass three boots/two reloads, including real overlapping casts, terrain/Bone Wall/moving targets, FP256 damage, damage-draw-before-Avoid order, old player-save defaults and resumed incoming flight. Content/integration build with zero warnings/errors; all70 Python tests and current465/15 fingerprints pass. Matching124-handler content loads the existing world and shuts down with exit0. Server stopped; saves retained; client/native patches/item availability unchanged. Full Slow Missiles casting remains unavailable and no class certificate is claimed.",
+  "producerInventory": [
+    {
+      "producer": "EncounterCreature ordinary ranged/caster and Lightning Enchanted",
+      "launch": "EliteBolts.Launch",
+      "consumer": "Captured SlowMissilePayload changes existing native adapter travel and typed damage; existing native three-boot evidence retained.",
+      "targetScope": "SourceAuraTargets explicitly allows EncounterCreature native profiles; this is not a source species/boss certificate."
+    },
+    {
+      "producer": "GraveyardLich firebolt",
+      "launch": "GraveyardUndead.ReleaseFirebolt / WeaponMissiles.LaunchHostileFirebolt",
+      "consumer": "Saved Q12 source firebolt flight captures velocity/damage; direct state application tested.",
+      "targetScope": "GraveyardLich has no source species reference. A learned area cast using the current SourceAuraTargets helper would omit it; explicit adaptation is pending."
+    },
+    {
+      "producer": "Native BaseRanged weapons",
+      "launch": "BaseRanged.OnSwing / OnFired",
+      "consumer": "No captured slow flight. CheckHit and OnHit run immediately after visual emission. Native projectile bridge pending.",
+      "targetScope": "Native RatmanArcher and similar unreferenced profiles currently fail SourceAuraTargets; broader species mapping remains provisional."
+    },
+    {
+      "producer": "Native Fireball and other legacy spell projectiles",
+      "launch": "Fireball.Target; related MagicArrow/EnergyBolt paths require individual tracing",
+      "consumer": "Fireball emits MovingParticles and calls SpellHelper.Damage. No saved source slow capture/geometry adapter; exact supported spell/child scope still needs inventory.",
+      "targetScope": "Unreferenced native spellcasters are excluded by current aura target mapping. Player PvP is outside current cooperative hostility."
+    },
+    {
+      "producer": "Native FireBreath",
+      "launch": "FireBreath.BreathEffect_Callback / BreathDamage_Callback / BreathDealDamage",
+      "consumer": "Native effect/damage timers use current source HP damage. Captured source SlowMissiles payload is absent. Source-equivalent CanSlow/child behavior is not established.",
+      "targetScope": "Several native dragons already map to megademon3 and therefore pass source aura metadata. Mapping does not certify native breath as a D2 missile."
+    }
+  ],
+  "producerInventoryHashes": {
+    "src/Sanctuary.Content/AmazonInnerSight.cs": "340c43f55a07b81d1e0bb5f9c16a7e3b3d9b0fc90e1002b12adcd4fe9a68abb2",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs": "866ed162ec878a68806af6d7e7edc627551d742f03e3557ac8b6eeb3418d243f",
+    "src/Sanctuary.Content/EliteBolts.cs": "6c65f1c60db72d75e4407b54d96228a062e909ac84a5bc3dbf5f2f5a1e0af034",
+    "src/Sanctuary.Content/EncounterCreature.cs": "8154d341abc8c754e23216ec5d2f0d9f5395cc45d13fe780207677066d78a144",
+    "src/Sanctuary.Content/GraveyardUndead.cs": "436cd45790d6470172d7fbfcd108f1772d8a31ccf23d4f687d0d5e5637cedce1",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "91bc40b22504f69c53a02ca1ceababc9ef5c89252dc61baa8eee6fdefc69b753",
+    "data/Sanctuary/Balance/uo-creatures.json": "3bda865653f577f4718f636bcd7e98de413d8324daf342608460f1d5f53ae23e",
+    "upstream/ModernUO/Projects/UOContent/Items/Weapons/Ranged/BaseRanged.cs": "a719e5f857b6d5ba5bd97569a2a0decf7027209225d644a90e486eb7a8c062b5",
+    "upstream/ModernUO/Projects/UOContent/Spells/Third/Fireball.cs": "4209abe87b1f5fe240807426bcbc074f864a98e3d02902ebf710398720ac7e2a",
+    "upstream/ModernUO/Projects/UOContent/Mobiles/Abilities/Fire Breath/FireBreath.cs": "d2ce6a72501fea461b2e1788f8f62332c7084747b47604e4447bde7e80d64205"
+  }
 }

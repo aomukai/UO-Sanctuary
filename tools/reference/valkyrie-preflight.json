@@ -3,7 +3,7 @@
   "talentId": "amazon.valkyrie",
   "sourceId": 32,
   "handlerEnabled": false,
-  "status": "Source equipment thresholds and dispatch prepared; native gear/stat/combat consumers remain implementation dependencies. Continue unaffected bow skills.",
+  "status": "Creation component prepared: source level/AC/TH and supplied spawn-HP life scaling, six aura fields, all seven current passive slots and hard-only inherited skills. Full old helpers compile in 5184 bounded cases. Native equipment, actual spawn and combat/lifecycle consumers remain pending; no learned handler enabled.",
   "evidence": "tools/reference/valkyrie-equipment-engine-evidence.json",
   "referenceComparison": "data/Sanctuary/skill-reference.json#monequip",
   "reuse": [
@@ -19,10 +19,10 @@
   "nonblockingQuestions": [
     {
       "question": "Optional later observation from an already-skilled Amazon: effective Valkyrie rank and displayed life/defense/attack values could corroborate the current creation snapshot.",
-      "handling": "Recorded only. User is asleep; no respec or answer required. Ordinary bow skills can proceed independently."
+      "handling": "Recorded only. User is asleep; no respec or answer required to continue source and native work."
     }
   ],
-  "next": "Magic Arrow source conversion/no-ammo and bow launch-stat capture, then other bow skills using the existing projectile/fan systems.",
+  "next": "Implement requested-quality NPC equipment and affix effects, then the moving Valkyrie entity, cast/resource/localdelay/placement/replacement and lifecycle consumers. Existing snapshot component stays unavailable as a learned skill until these are wired.",
   "assets": {
     "effects": "Existing Valkyrie effects register retains pending summon/model/weapon/contact/audio needs. No visual is invented as mechanical proof.",
     "icons": "Existing independent talent/right-hotkey icon register remains pending."
@@ -56,5 +56,15 @@
   "fixtureCorrections": [
     "New source-manifest entry initially made named-item-coverage stale. Regeneration adds only its MonEquip provenance hash; remaining catalogue content is byte-semantically unchanged. Retained failed reproduction log; final70-test run passes.",
     "Metadata audit reused a Decoy-only harness that expected an account-creation prompt on every boot. Named fixture creates saved accounts, so restart has no prompt. Interrupted that disposable run after its first audit/save passed; wait for the prompt on first boot only. Corrected run passes both reloads; no gameplay change."
-  ]
+  ],
+  "creationEngineEvidence": "tools/reference/valkyrie-creation-engine-evidence.json",
+  "equipmentFollowup": {
+    "notes": ".local/class-skills/valkyrie-equipment-next-notes.json",
+    "legacySetterSource": "source/D2Common/src/Items/Items.cpp",
+    "legacySetterSourceSha256": "e494cec39b71240e81a473df30b1a4069b0ad7e3962886475457b8e28ec0ee57",
+    "scope": "Read-only supplementary source inspection; helper not newly compiled and no exact modern item-level consumer claim.",
+    "finding": "ITEMS_SetItemLevel clamps only minimum1 and stores raw dwItemLevel. Keep calc2 item level (including rank255=>787) distinct from player GearProfiles1..99 and the separate affix-level computation. Existing AffixBalance count/pool helpers are reuse candidates, not a source-quality NPC generator certificate.",
+    "wrapper": "sub_6FC61190 requests requested quality, noSockets1, noEthereal1, marks no-sell, then equips and restores maximum durability. Trace full item/affix initialization and NPC stat consumption rather than use normal loot-quality selection."
+  },
+  "creationNativeEvidence": "tools/reference/valkyrie-creation-native-evidence.json"
 }

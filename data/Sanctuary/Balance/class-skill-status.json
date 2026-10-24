@@ -163,10 +163,10 @@
       "characterClass": "Amazon",
       "tree": "Passive and Magic Skills",
       "sourceId": 17,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "State and mapped encounter/firebolt launch consumers are installed, but learned cast/target selection, ordinary native ranged travel and relevant native spell/breath/child producers remain individually unsupported. Source species-boss exclusion must use monstats identity, not native elite grade. Modern in-flight behavior and exact damage order remain uncertain. See the producer inventory in slow-missiles-preflight.json; continue Valkyrie creation/equipment without claiming this skill complete."
     },
     {
       "talentId": "amazon.avoid",
@@ -221,7 +221,7 @@
       "implementation": "pending",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Creation snapshot component retains source level/AC/TH additions, spawned-HP percentage, six aura stats, seven current passive fields and hard-only Dodge/Avoid/Evade/Critical Strike. Complete old base/passive helper comparisons and actual soft-rank gear tests are separately bounded. Native requested-quality equipment/affix generation, actual spawn HP, moving AI/attacks and stat consumers, cast/resources/delay/placement/lifecycle/persistence and modern/client acceptance still need implementation. No summon handler is enabled."
     },
     {
       "talentId": "amazon.pierce",

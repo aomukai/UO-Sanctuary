@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "amazon.valkyrie",
+  "component": "Creation snapshot; full talent unavailable",
+  "handlerEnabled": false,
+  "installed": true,
+  "engineEvidence": "tools/reference/valkyrie-creation-engine-evidence.json",
+  "verification": {
+    "sourceNativeCases": 5184,
+    "pinnedLevelRows": 111,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "namedInputHashes": 486,
+    "firstLoopInputHashes": 15,
+    "namedDecisionsUnchanged": 573,
+    "handlers": 139,
+    "amazonHandlers": 27
+  },
+  "checks": [
+    "Complete old source helper/native level, life, passive/aura, inherited skill and raw equipment-level comparisons in three difficulties and both game contexts.",
+    "Actual trained Amazon/real Tarnhelm soft rank; hard-only synergy and inherited passive ranks; seven distinct source-stat fields retained at preparation.",
+    "Removing real gear and training more hard points changes future values only; previous SkillValues and creation record remain captured. Missing accrued context, wrong skill identity and invalid difficulty are rejected.",
+    "Saved native owner and removed gear persist through two reloads; fixture creation-record JSON round-trip remains stable. No production summon entity/save is introduced.",
+    "Existing four javelin and10 bow actual input checks remain on every full-suite boot; prior class/item/shared systems retain full regression coverage.",
+    "Existing-world installed load/listen/exit0 and save-byte preservation pass; prior content/data/saves backed up."
+  ],
+  "limits": [
+    "Valkyrie creation is a component, not an available talent or a spawned NPC. Actual spawn HP RNG, requested-quality NPC equipment/affixes, moving AI/attacks and stat consumers, casting/resources/delay/placement, lifecycle and summon persistence remain pending.",
+    "Compiled source comparison executes complete unchanged legacy base/passive helpers with declared formula/stat/event/equipment services. The current seven-slot snapshot retains two fields beyond the old five-slot loop; exact modern accrued-stat layers and consumers remain acceptance work.",
+    "Reload coverage preserves actual learned ranks/real gear and a fixture creation-record round-trip. It does not claim production Valkyrie entity persistence.",
+    "Slow Missiles is individually deferred with a concrete producer/target inventory: ordinary native ranged immediate hits, legacy spells/breath/children and learned cast/source-boss scope remain unsupported. The active goal continues with Valkyrie equipment."
+  ],
+  "assets": {
+    "effect": "Existing final Valkyrie model/summon/attack/contact/audio needs remain pending; no model is instantiated by this stats component.",
+    "icon": "Talent and right-hotkey icons remain in the independent register."
+  },
+  "logs": {
+    "source": ".local/class-skills/valkyrie-creation-source.log",
+    "source-check": ".local/class-skills/valkyrie-creation-source-check.log",
+    "content-build": ".local/class-skills/valkyrie-creation-content-build.log",
+    "integration-build": ".local/class-skills/valkyrie-creation-integration-build.log",
+    "focused": ".local/class-skills/valkyrie-creation-focused.log",
+    "focused-run": ".local/class-skills/valkyrie-creation-focused-run.log",
+    "combined": ".local/class-skills/valkyrie-creation-combined.log",
+    "python-checks": ".local/class-skills/valkyrie-creation-python-checks.log",
+    "installed-smoke": ".local/class-skills/valkyrie-creation-installed-smoke.log",
+    "installed-server": ".local/class-skills/valkyrie-creation-installed-server.log",
+    "installed-server-autosave-boundary-failure": ".local/class-skills/valkyrie-creation-installed-server-autosave-boundary-failure.log",
+    "install-run-autosave-boundary-failure": ".local/class-skills/valkyrie-creation-install-run-autosave-boundary-failure.log",
+    "smoke-recovery": ".local/class-skills/valkyrie-creation-smoke-recovery.log",
+    "named-readiness": ".local/class-skills/valkyrie-creation-named-readiness.log",
+    "first-loop": ".local/class-skills/valkyrie-creation-first-loop.log"
+  },
+  "fixtureCorrections": [
+    "First installed smoke coincided with the five-minute automatic-save boundary and failed byte preservation. Its logs and resulting save are retained. The prior save backup was restored byte-for-byte, corrected smoke temporarily disabled autosaving, load/listen/shutdown exit0 passed, and original config bytes were restored. Existing saves match the pre-install backup; no production mechanics changed for this fixture correction."
+  ]
+}

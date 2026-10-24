@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "compiledUnchangedRoutines": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "pinnedTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "monlvl": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "fixture": {
+    "path": ".local/class-skills/valkyrie-creation-source-probe.json",
+    "sha256": "3d5576f5f226e691a5eb13e2ed28a22ee646c05157686b360081baafc03d957c",
+    "cases": 5184
+  },
+  "data": {
+    "path": "data/Sanctuary/Balance/summon-level-stats.json",
+    "sha256": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b"
+  },
+  "established": [
+    "Complete base helper overwrites level with min(casterLevel,max(1,rank+3*casterLevel/4)), then adds the difficulty/game-context monlvl AC and TH to existing spawn stats. All111 pinned rows and all three difficulty columns are exported without choosing a new summon HP baseline.",
+    "Complete old passive helper applies five additive passive stats and six nonzero aura stats, fills both maximum/current life with existing maximum plus source percentage(calc1), grants positive hard-point summon skills and dispatches equipment with the supplied item level.",
+    "Pinned current Valkyrie row has seven passive stats. First two are armor percent and zero toht; five accrued immunity-piercing stats follow. Current source data, rather than the old five-slot loop, defines the prepared seven-slot native snapshot.",
+    "Hard Decoy points supply life and elemental resistance synergies; resistance caps85. Dodge/Avoid/Evade/Critical Strike use hard points only. Equipment item level is retained as the raw calc2 value; downstream creation clamping remains separate."
+  ],
+  "services": [
+    "Formula service supplies the explicitly asserted pinned row expressions. It does not compile the original formula VM. Caller stats/spawn baseline, stat list allocation/storage, nested item-event/state/overlay and equipment routines are declared services; equipment is only a recorded request.",
+    "All tested passive/aura itemstatcost rows have no item events. Full old helpers are compiled unchanged; this is not execution of the modern seven-slot loop or the full source stat dependency graph.",
+    "All source cases use positive bounded owner levels and HP values, valid records and successful allocation. The old percentage helper executes unchanged. Original spawn HP RNG, difficulty/player-count scaling and requested-quality gear are not inferred from these inputs."
+  ],
+  "limits": [
+    "No learned Valkyrie handler or NPC is enabled by this component. Stat inheritance consumers, gear affixes, moving AI/attacks, HP regeneration, resource/delay/placement/lifecycle/saves and actual client remain pending.",
+    "No current-executable equivalence certificate. Exact modern accrued-stat layers and the two additional passive slots require later consumer acceptance."
+  ]
+}
