@@ -1,0 +1,74 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": true,
+  "handlerCount": 149,
+  "classHandlerCountsUnchanged": true,
+  "families": [
+    "Raise Skeleton",
+    "Raise Skeletal Mage",
+    "Clay Golem",
+    "Blood Golem",
+    "Fire Golem"
+  ],
+  "productionFacetAssignments": [],
+  "nativeEngineChanges": false,
+  "verification": {
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "reloadsPerSuite": 2,
+    "nativeFacetChangeHook": true,
+    "currentLifeFP256": true,
+    "parkedAndOffline": true,
+    "legacyMissingLedger": true,
+    "activeBattleOrders": true,
+    "equalMaximumRefresh": true,
+    "repeatedNotifications": true,
+    "ordinaryPetsUnchanged": true,
+    "ownerManaAndDeadlinesUnchanged": true,
+    "newSummonDifficulty": true,
+    "pythonTests": 70,
+    "namedFingerprints": 520,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573
+  },
+  "status": "Approved facet difficulty scaling is implemented for existing persistent skeletons, skeletal mages and clay/blood/fire golems. The native location/map hook resolves explicit facet designations, refreshes pinned difficulty columns and level additions from retained summon ranks, and preserves injured current life percentage with integer FP256 rounding. Parked summons, unchanged notifications, existing Battle Orders and owner cast/resource deadlines are retained. A difficulty ledger loads before mobiles without changing their serialized inheritance; old summons without entries default to Normal. Equal-maximum stat refreshes retain the saved injury too. New summons use the owner facet immediately. Focused/full checks pass three boots and two reloads each;70 Python tests and both clean builds pass. Matching original-world smoke preserves saves/config/client bytes and leaves the server stopped. Shipped facet assignments remain empty. The build remains149 handlers; Blade Sentinel still needs actual spawn/passive collection, cap/cast/lifecycle integration and remaining combat acceptance.",
+  "limits": [
+    "Specific Nightmare/Hell facet assignments are not supplied. Shipped facet-difficulties.json is empty, so unassigned playable facets retain Normal. Test designations are disposable fixtures, not production choices.",
+    "Only the five current persistent Necromancer summon families consume the new ledger. Blade Sentinel, timed barriers, revived creatures, Hydra/Decoy representations and future Valkyrie/Druid/Warlock summons need their own retained-context adapters. This is not a certificate of complete summon or class fidelity.",
+    "Current life scales by old/new native maximum, floors once to FP256 and retains at least1/256 for a living positive balance. Repeated same-difficulty notifications do not round again. Integer native maximum caps and existing Battle Orders resource/regeneration policy remain in use.",
+    "The hook changes stats only; it reuses existing minion parking/login/death/follow/teleport rules rather than creating new positions or ownership. Existing attacks keep their original cancellation/lifecycle contracts. No already-created Blade missile packet is modified.",
+    "D2R3.3.93847 pinned tables supply the difficulty columns; dynamic rescaling across facets and its life-ratio policy are approved Sanctuary deviations. The existing Necromancer formulas/action periods retain their previously documented source/balance limits; no new whole-class parity certificate is claimed."
+  ],
+  "harnessCorrections": [
+    "Unconditional socketed-weapon fixtures now enable professions even without optional named-item coverage.",
+    "The runner supplies its project root to the unconditional independent Vengeance probe.",
+    "Initial stale Python fingerprint failures were resolved by actual runtime re-export, not weakening validators."
+  ],
+  "sourceData": [
+    "data/Sanctuary/Balance/necromancer-summons.json",
+    "data/Sanctuary/Balance/facet-difficulties.json"
+  ],
+  "approvedPolicy": "tools/reference/summon-facet-difficulty-policy.json",
+  "logs": {
+    "focused": ".local/class-skills/facet-focused.log",
+    "combined": ".local/class-skills/facet-combined.log",
+    "full-suite-run": ".local/class-skills/facet-full-suite-run.log",
+    "content-build": ".local/class-skills/facet-content-build.log",
+    "integration-build": ".local/class-skills/facet-integration-build.log",
+    "python-tests": ".local/class-skills/facet-python-tests.log",
+    "audit-native": ".local/class-skills/facet-audit-native.log",
+    "named-readiness": ".local/class-skills/facet-named-readiness.log",
+    "first-loop": ".local/class-skills/facet-first-loop.log",
+    "properties": ".local/class-skills/facet-properties.log",
+    "installed-server": ".local/class-skills/facet-installed-server.log",
+    "installed-smoke": ".local/class-skills/facet-installed-smoke.log",
+    "client-check": ".local/class-skills/facet-client-check.log"
+  },
+  "retainedHarnessFailures": [
+    ".local/class-skills/facet-first-full.log",
+    ".local/class-skills/facet-full-suite-missing-professions.log",
+    ".local/class-skills/facet-python-before-audit.log",
+    ".local/class-skills/facet-rootless-full.log",
+    ".local/class-skills/facet-full-suite-missing-root.log"
+  ]
+}

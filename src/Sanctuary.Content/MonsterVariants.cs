@@ -13,7 +13,8 @@ namespace Sanctuary;
 public static class MonsterVariants
 {
     internal static MonsterVariantProfiles Profiles { get; private set; }
-    public static MonsterDifficulty Difficulty(BaseCreature creature) => creature is EncounterCreature encounter ? encounter.Difficulty : Profiles?.Find(creature.Serial) ?? MonsterDifficulty.Normal;
+    public static MonsterDifficulty Difficulty(BaseCreature creature) => creature is SkeletonGuardian summon ? SummonDifficulties.For(summon)
+        : creature is EncounterCreature encounter ? encounter.Difficulty : Profiles?.Find(creature.Serial) ?? MonsterDifficulty.Normal;
     internal static NormalMonsterStats Melee(GraveyardUndead creature, NormalMonsterStats normal)
     {
         if (normal == null || Difficulty(creature) == MonsterDifficulty.Normal) { return normal; }

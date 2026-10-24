@@ -38,6 +38,9 @@ def save_snapshot(session):
 
 
 def check():
+    # The unconditional Vengeance probe and socketed-weapon fixtures need these
+    # even when the optional complete named-item audit is not requested.
+    os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     logpath = STAGE / 'native-checks.log'
     with tempfile.TemporaryDirectory(prefix='sanctuary-class-skills-', dir='/dev/shm') as temp:
         folder = Path(temp)
@@ -141,7 +144,7 @@ def check():
         config['listeners'] = [f'127.0.0.1:{port}']
         config['settings'].update({'autosave.enabled':'False','pingServer.enabled':'True','pingServer.port':str(ping_port),
             'sanctuary.graveyard.enabled':'False','world.savePath':'Saves','crashGuard.restartServer':'False',
-            'sanctuary.professions.enabled':'True' if os.environ.get('SANCTUARY_TEST_NAMED_GEAR') == '1' else 'False'})
+            'sanctuary.professions.enabled':'True'})
         configpath.write_text(json.dumps(config))
         with logpath.open('w') as log:
             for boot in range(3):
@@ -203,6 +206,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    facet='summon-difficulty-check' if boot==0 else 'summon-difficulty-reload-check'
+                    session.send(facet)
+                    assert session.expect(facet+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     blade_missile='blade-missile-check' if boot==0 else 'blade-missile-reload-check'
                     session.send(blade_missile)
                     assert session.expect(blade_missile+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

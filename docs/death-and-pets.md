@@ -14,9 +14,9 @@ For a hotkey, make a ClassicUO macro with **Say** text `[Cast RaiseSkeleton` and
 
 Learning and assignment are server validated. Holding a mouse button cannot bypass casting speed. A level-up restores life, mana and stamina, and displays the earned point counts. Cumulative experience and all spent/unspent progression survive saves; there is no death XP loss. The original character profile remains format 2; mouse bindings use their own versioned `SanctuaryBindings` persistence file.
 
-## Approved facet scaling (implementation pending)
+## Approved facet scaling
 
-Existing summons will rescale to their owner’s designated facet difficulty while preserving current life percentage. Nightmare/Hell facet assignments are still to be designated. This is a new approved Sanctuary rule, not yet a live behavior or a replacement for the existing ownership/parking lifecycle. See [the shared policy and remaining tests](summon-facet-difficulty.md).
+Persistent skeletons, skeletal mages and clay/blood/fire golems now rescale to their owner’s designated facet difficulty while preserving current life percentage, including parked summons. Nightmare/Hell facet assignments are still to be designated, so shipped facets retain Normal. Other summon adapters remain pending. See [the shared policy and verification](summon-facet-difficulty.md).
 
 ## Guardians
 

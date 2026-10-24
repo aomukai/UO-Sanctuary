@@ -159,6 +159,7 @@ public static class PersistentMinions
         {
             return;
         }
+        SummonDifficulties.Sync(owner);
         using var snapshot = PooledRefList<BaseCreature>.Create();
         foreach (var follower in followers) { if (follower is BaseCreature pet) { snapshot.Add(pet); } }
         foreach (var follower in snapshot)

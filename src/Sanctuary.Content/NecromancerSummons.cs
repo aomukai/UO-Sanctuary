@@ -21,6 +21,10 @@ public static class NecromancerSummons
     }
     public static int Source(string key, string field, int fallback = 0) => _sources[key].TryGetValue(field, out var value)
         && value.ValueKind == System.Text.Json.JsonValueKind.Number && value.TryGetInt32(out int number) ? number : fallback;
+    public static int Source(string key, string field, MonsterDifficulty difficulty)
+        => Source(key, difficulty == MonsterDifficulty.Normal ? field
+            : (field == "minHP" ? "MinHP" : field == "maxHP" ? "MaxHP" : field)
+                + (difficulty == MonsterDifficulty.Nightmare ? "(N)" : "(H)"));
     public static int Formula(string key, string field, SkillValues values)
     {
         if (!_sources[key].TryGetValue(field, out var value)) { return 0; }
@@ -62,7 +66,7 @@ public partial class NecromancerMinion : SkeletonGuardian
     private MonsterProfile _summonProfile;
     private Dictionary<string, int> _snapshot;
     private long _nextAura = Core.TickCount;
-    public int SummonMagicResistance => Kind == CombatAbility.None ? 0 : NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"), "ResMa");
+    public int SummonMagicResistance => Kind == CombatAbility.None ? 0 : NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"), "ResMa", SummonDifficulty);
     public int FireAbsorb => Kind == CombatAbility.FireGolem ? Values(Kind).Diminishing(1, 2) : 0;
     public int VelocityPercent => Kind==CombatAbility.None?0:Passive("velocitypercent");
     public bool IsMage => Kind == CombatAbility.RaiseSkeletalMage;
@@ -85,8 +89,8 @@ public partial class NecromancerMinion : SkeletonGuardian
             if (Kind==CombatAbility.None) { return base.SkillWeaponDamage; }
             if (IsMage) { return (CombatProfile.MinDamage,CombatProfile.MaxDamage); }
             string key=SkillMechanics.For(Kind).Text("summon"); int percent=Math.Max(10,100+Passive("damagepercent")+PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this));
-            int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD")*percent/100);
-            return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD")*percent/100));
+            int min=Math.Max(1,NecromancerSummons.Source(key,"A1MinD",SummonDifficulty)*percent/100);
+            return (min,Math.Max(min,NecromancerSummons.Source(key,"A1MaxD",SummonDifficulty)*percent/100));
         }
     }
     public override MonsterProfile CombatProfile => _summonProfile ??= BuildProfile();
@@ -95,7 +99,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         get
         {
             if(Kind==CombatAbility.None){return base.SourceLife256;}
-            long basis=(long)(NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"),"minHP")+(IsMage?Mastery*8:0))*256;
+            long basis=(long)(NecromancerSummons.Source(SkillMechanics.For(Kind).Text("summon"),"minHP",SummonDifficulty)+(IsMage?Mastery*8:0))*256;
             return basis+basis*(long)Values(Kind).Eval("calc1")/100;
         }
     }
@@ -121,12 +125,21 @@ public partial class NecromancerMinion : SkeletonGuardian
         _ranks = JsonSerializer.Serialize(_snapshot); _element = Utility.Random(4); _resistance = NecromancerSummons.Resistance(owner);
         Initialize(owner, SkillMechanics.Rank(owner, ability), NamedSkills.Rank(owner, "necromancer.skeletonmastery"));
         Appearance(); _summonProfile = null; SetHits(CombatProfile.Life); SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
+        RefreshResistances();
+    }
+    private void RefreshResistances()
+    {
+        if (Kind == CombatAbility.None) { return; }
         string key = SkillMechanics.For(Kind).Text("summon");
-        SetResistance(ResistanceType.Physical, NecromancerSummons.Source(key, "ResDm"));
-        SetResistance(ResistanceType.Fire, NecromancerSummons.Source(key, "ResFi") - FireAbsorb + _resistance);
-        SetResistance(ResistanceType.Cold, NecromancerSummons.Source(key, "ResCo") + _resistance);
-        SetResistance(ResistanceType.Energy, NecromancerSummons.Source(key, "ResLi") + _resistance);
-        SetResistance(ResistanceType.Poison, NecromancerSummons.Source(key, "ResPo") + _resistance);
+        SetResistance(ResistanceType.Physical, NecromancerSummons.Source(key, "ResDm", SummonDifficulty));
+        SetResistance(ResistanceType.Fire, NecromancerSummons.Source(key, "ResFi", SummonDifficulty) - FireAbsorb + _resistance);
+        SetResistance(ResistanceType.Cold, NecromancerSummons.Source(key, "ResCo", SummonDifficulty) + _resistance);
+        SetResistance(ResistanceType.Energy, NecromancerSummons.Source(key, "ResLi", SummonDifficulty) + _resistance);
+        SetResistance(ResistanceType.Poison, NecromancerSummons.Source(key, "ResPo", SummonDifficulty) + _resistance);
+    }
+    internal override void RefreshDifficulty()
+    {
+        _summonProfile = null; base.RefreshDifficulty(); RefreshResistances();
     }
     private void Appearance()
     {
@@ -138,10 +151,10 @@ public partial class NecromancerMinion : SkeletonGuardian
     }
     private MonsterProfile BuildProfile()
     {
-        if (Kind == CombatAbility.None) { return SkeletonStats.For(Level, Rank, Mastery); }
+        if (Kind == CombatAbility.None) { return SkeletonStats.For(Level, Rank, Mastery, difficulty: SummonDifficulty); }
         string key = SkillMechanics.For(Kind).Text("summon"); var values = Values(Kind);
-        int life = NecromancerSummons.Source(key, "minHP"), min = NecromancerSummons.Source(key, "A1MinD"), max = NecromancerSummons.Source(key, "A1MaxD");
-        int defense = NecromancerSummons.Source(key, "AC"), attack = NecromancerSummons.Source(key, "A1TH");
+        int life = NecromancerSummons.Source(key, "minHP", SummonDifficulty), min = NecromancerSummons.Source(key, "A1MinD", SummonDifficulty), max = NecromancerSummons.Source(key, "A1MaxD", SummonDifficulty);
+        int defense = NecromancerSummons.Source(key, "AC", SummonDifficulty), attack = NecromancerSummons.Source(key, "A1TH", SummonDifficulty);
         if (IsMage)
         {
             life = (life + Mastery * 8) * (100 + (int)values.Eval("calc1")) / 100;
@@ -155,8 +168,8 @@ public partial class NecromancerMinion : SkeletonGuardian
             min = min * (100 + damageBonus) / 100; max = max * (100 + damageBonus) / 100;
         }
         int petLevel = Math.Clamp(Rank + 3 * Level / 4, 1, Level);
-        attack += NecromancerSummons.Source("level-" + petLevel, "L-TH");
-        defense += NecromancerSummons.Source("level-" + petLevel, "L-AC");
+        attack += NecromancerSummons.Source("level-" + petLevel, "L-TH", SummonDifficulty);
+        defense += NecromancerSummons.Source("level-" + petLevel, "L-AC", SummonDifficulty);
         int movement = 720 * 8 / Math.Max(1, NecromancerSummons.Source(key, "Velocity", 8));
         movement = movement * 100 / (100 + Passive("velocitypercent"));
         return new(petLevel, Math.Max(1, life), attack, defense, Math.Max(1, min), Math.Max(min, max), IsMage ? 1000 : 720, movement, 0, 0, 0, 0, 0);

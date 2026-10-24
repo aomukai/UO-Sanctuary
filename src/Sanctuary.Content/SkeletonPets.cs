@@ -16,21 +16,23 @@ namespace Sanctuary;
 
 public static class SkeletonStats
 {
-    // Legacy expansion Normal: MonStats necroskeleton, MonLvl L-AC/L-TH,
+    // Expansion: pinned MonStats necroskeleton, MonLvl L-AC/L-TH,
     // and Skills Raise Skeleton/Skeleton Mastery. See docs/death-and-pets.md.
-    public static MonsterProfile For(int level, int rank, int mastery, int auraDamagePercent = 0)
+    public static MonsterProfile For(int level, int rank, int mastery, int auraDamagePercent = 0, MonsterDifficulty difficulty = MonsterDifficulty.Normal)
     {
         level = Math.Clamp(level, 1, 99);
         rank = Math.Clamp(rank, 1, 255);
         mastery = Math.Clamp(mastery, 0, 255);
         int extraRanks = Math.Max(0, rank - 3);
-        int life = (21 + 8 * mastery) * (2 + extraRanks) / 2;
+        int life = (NecromancerSummons.Source("necroskeleton", "minHP", difficulty) + 8 * mastery) * (2 + extraRanks) / 2;
         int ratingBonus = 15 * (rank + mastery);
-        int levelAttack = level switch { 1 => 8, 2 => 12, 3 => 18, 4 => 26, 5 => 35, _ => 11 * level - 21 };
+        int levelAttack = NecromancerSummons.Source("level-" + level, "L-TH", difficulty);
         int flatDamage = SkillValues.Tier(0, rank, i => new[] { 0, 1, 2, 3, 4 }[i - 1]) + 2 * mastery;
         int damagePercent = Math.Max(10,100 + 7 * extraRanks + auraDamagePercent);
-        return new MonsterProfile(level, life, 5 + levelAttack + ratingBonus, 5 + 6 * level + ratingBonus,
-            (1 + flatDamage) * damagePercent / 100, (2 + flatDamage) * damagePercent / 100,
+        return new MonsterProfile(level, life, NecromancerSummons.Source("necroskeleton", "A1TH", difficulty) + levelAttack + ratingBonus,
+            NecromancerSummons.Source("necroskeleton", "AC", difficulty) + NecromancerSummons.Source("level-" + level, "L-AC", difficulty) + ratingBonus,
+            (NecromancerSummons.Source("necroskeleton", "A1MinD", difficulty) + flatDamage) * damagePercent / 100,
+            (NecromancerSummons.Source("necroskeleton", "A1MaxD", difficulty) + flatDamage) * damagePercent / 100,
             720, 240, 0, 0, 0, 0, 0);
     }
 }
@@ -144,6 +146,7 @@ public static class SkeletonPets
 public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
 {
     public virtual DiabloClass SummonClass => DiabloClass.Necromancer;
+    public MonsterDifficulty SummonDifficulty => SummonDifficulties.For(this);
     [SerializableField(0, setter: "private")]
     private int _level = 1;
     [SerializableField(1, setter: "private")]
@@ -157,15 +160,15 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     private long _nextAttack = Core.TickCount;
     private long _lastRecovery, _recoveryFraction;
     private MonsterProfile _profile;
-    // Normal difficulty skeleton values; action/movement periods are project balance values.
+    // Explicit owner-facet difficulty; action/movement periods are project balance values.
     public virtual MonsterProfile CombatProfile => _profile ??= CreateProfile();
     public virtual (int Min,int Max) SkillWeaponDamage
     {
-        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this)); return (profile.MinDamage,profile.MaxDamage); }
+        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this),SummonDifficulty); return (profile.MinDamage,profile.MaxDamage); }
     }
-    private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery);
+    private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery, difficulty: SummonDifficulty);
     // Summon creation writes this FP256 result into its base life before BO.
-    public virtual long SourceLife256=>(21L+8*Math.Clamp(Mastery,0,255))*256*(2+Math.Max(0,Math.Clamp(Rank,1,255)-3))/2;
+    public virtual long SourceLife256=>((long)NecromancerSummons.Source("necroskeleton","minHP",SummonDifficulty)+8*Math.Clamp(Mastery,0,255))*256*(2+Math.Max(0,Math.Clamp(Rank,1,255)-3))/2;
     [Constructible]
     public SkeletonGuardian() : base(AIType.AI_Melee, FightMode.Closest, 14)
     {
@@ -189,12 +192,18 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _level = ClassStats.Level(owner);
         _rank = rank;
         _mastery = mastery;
+        SummonDifficulties.Created(this, owner);
         _profile = null;
         SetHits(CombatProfile.Life);
         SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
         int resist = NecromancerSummons.Resistance(owner);
         SetResistance(ResistanceType.Fire, resist); SetResistance(ResistanceType.Cold, resist);
         SetResistance(ResistanceType.Energy, resist); SetResistance(ResistanceType.Poison, resist);
+    }
+    internal virtual void RefreshDifficulty()
+    {
+        _profile = null;
+        SetHits(CombatProfile.Life); SetDamage(CombatProfile.MinDamage, CombatProfile.MaxDamage);
     }
     public override bool Commandable => false;
     public override bool IsBondable => false;

@@ -73,16 +73,18 @@ public static class BattleOrders
     }
     internal static int Regeneration256(SkeletonGuardian actor)=>_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??5;
     private static void Remember(Mobile actor,int staminaFraction,int? regeneration)=>_resources[actor.Serial.Value]=new(actor.Serial.Value,actor.HitsMax,actor.ManaMax,actor.StamMax,staminaFraction,regeneration);
-    internal static void Change(Mobile actor,Pools before)
+    internal static void Change(Mobile actor,Pools before,bool preserveSummonLifeRatio=false)
     {
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;
         int priorLifeMaximum256=before.ExactLifeMaximum256>0?before.ExactLifeMaximum256:before.LifeMax*256;
         int nextLifeMaximum256=actor is AmazonDecoy || PaladinConversion.Life(actor)!=null?SkillHealth.Maximum256(actor):life*256;
-        if(nextLifeMaximum256!=priorLifeMaximum256)
+        if(nextLifeMaximum256!=priorLifeMaximum256 || preserveSummonLifeRatio)
         {
-            SkillHealth.SetBalance256(actor,Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
-            regen=Regen(actor,life,regen);
+            SkillHealth.SetBalance256(actor,preserveSummonLifeRatio
+                ?SummonDifficulties.Life256(before.Life256,priorLifeMaximum256,nextLifeMaximum256)
+                :Rescale256(before.Life256,priorLifeMaximum256,nextLifeMaximum256));
+            if(nextLifeMaximum256!=priorLifeMaximum256){regen=Regen(actor,life,regen);}
         }
         if(mana!=before.ManaMax){NecromancerEffects.SetMana256(actor,Rescale256(before.Mana256,before.ManaMax*256,mana*256));}
         int stam256=before.Stamina256;
