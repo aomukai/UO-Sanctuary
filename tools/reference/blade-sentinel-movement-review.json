@@ -13,7 +13,8 @@
     "source/D2Common/include/Path/PathWF.h": "81d9e453d4b372ff7f04f52f5ba321448d78044d3901a3371e6199698184de61",
     "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
     "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a"
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
   },
   "reviewedRoutineHashes": {
     "AITHINK_Fn102_BladeCreeper": "2db0e2a29a0c135ee4169e1267a45864136a436717c6dc69de100b980b142306",
@@ -30,7 +31,11 @@
     "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
     "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
     "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
-    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5"
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "SUNIT_Add": "f185358f0146706fd2901f4927f2bf987f5b6fea1f2dc3d8e8adb1499187764c",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad",
+    "sub_6FC64480": "7603af9f672bb7fb2846567e71ed934bc83d58cda7fcecea500a80f363df1060",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5"
   },
   "compiled": false,
   "established": [
@@ -40,7 +45,9 @@
     "Thus endpoint movement requires source wall-follow behavior, not a straight ballistic return or a substituted general pet chase. Exact spatial/velocity/event projection still requires the full relevant path and mode consumers."
   ],
   "sourceKernelEvidence": "tools/reference/wall-follow-engine-evidence.json",
+  "sourceActorMotionEvidence": "tools/reference/actor-motion-engine-evidence.json",
   "additionalReviewedFacts": [
+    "Server SUNIT_Add monster branch passes0 to PATH_AllocDynamicPath bSetFlag. Monster walk tick calls the shared SUnit movement wrapper despite its misleading pMissile parameter name, and that wrapper updates with base1024. Walk completion switches neutral and dispatches AITHINK immediately; no generic15-frame reversal pause should be invented. Complete whole AI/mode/event acceptance remains separate.",
     "Current blade SizeX0 selects collision patternNONE, which still checks the masked center cell. Its footprint setter has no NONE case, so it adds no blocking footprint. Full pattern checker/setter are now included in the separate13200-case proof.",
     "The generic monster spawn initializer sets velocitypercent75. Base monster velocity is monstatsVelocity<<8; the run/walk updater applies the derived percentage with minimum25. Exact selector/mode/stat/clock chain remains to be executed before choosing native speed.",
     "PATH_SetNewDistance updates both nDistMax and nDist, capped at77. Thus the Blade AI distance20 enters the wall-follow budget; it is distinct from the separate PATH_SetDistance/nDistance field.",
@@ -52,7 +59,7 @@
   ],
   "remaining": [
     "Full PathWF kernel is compiled/ported and compared separately; connect the actual source room/pattern/mask world projection.",
-    "Map source mode velocity/base12 and modifiers, path advancement, AI completion/failure event scheduling and lifetime checks to native time/half-tile coordinates.",
+    "Complete velocity/vector/step/update routines and native motion component are compared separately. Connect actual mode selection/stats, path initialization/repair, native world projection, AI completion/failure events and lifetime to production actors.",
     "Keep exact modern terrain/movement acceptance explicit; this is an immutable source-flow review, not a full compiled path or native motion certificate."
   ]
 }

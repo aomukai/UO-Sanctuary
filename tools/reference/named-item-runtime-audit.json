@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f9cd3c8c454e65e64d186e0f8ad28c56c2ebbd7ee22cc1e353d3bed7cf04746a",
+  "ContentAssemblySha256": "97754672749a94d2903147aad80dd15d766902538a4228617ab5ca595ce4a4c2",
   "NativeAssemblySha256": "2312e9c6ad641562f0518d30440cbab771dc6be033a3bdf18d596b996d19ba0d",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -463,6 +463,7 @@
     "src/Sanctuary.Content/SocketGump.cs": "bceea7cd674d1ed0f6764aa489d7bca84e5948290c80535be0f93dbcfd35f691",
     "src/Sanctuary.Content/SorceressCombat.cs": "8b139976865bc7ce23b0dd0f8be1577f62e1a69f7267d31a266cc443d9af8209",
     "src/Sanctuary.Content/SorceressEffects.cs": "2ab16af90d35a2343bf3b137b8dd58be19292dbae77ee799250fcceba9c163a6",
+    "src/Sanctuary.Content/SourceActorMotion.cs": "e598fe3b3b75db4f3f79065d120aa200e21925ded7e9cefc51de6ec2f111aa9f",
     "src/Sanctuary.Content/SourceBlocking.cs": "3264e796c12f84fdc060569e51eb326e2fb5e9f79e9647f209e9f7cd3b539344",
     "src/Sanctuary.Content/SourceCurseDuration.cs": "fa75d68ab83b70b31292bb6825b4c81c73bc4df7ec4ad267ab2f9ab42503058d",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "54de2fb6aad03f07fe6eb7b075546dc5a59475d8dfba2e4b649770da9bfe7afd",

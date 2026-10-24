@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "compiledRoutineHashes": {
+    "COLLISION_CheckCollisionMask": "9499ac00928c8290ab8b09cca5a4c467c4038c19c4ba6d6e1e1766fa7a939dc5",
+    "COLLISION_CheckMaskWithPattern": "207708fb2b457597e08abc8d790570716f9df2c7c12df23969579526e90b8383",
+    "COLLISION_SetMaskWithPattern": "08139b9168f05cc3d88eac9b6b98a0b18c2a703edd7a10ac5abeaf98f342fbec",
+    "COLLISION_ResetMaskWithPattern": "e9801cc87a31e5b70dc376f0bdb12468ea71cf280c7da587bcee3cae2cb4cfa6",
+    "COLLISION_TryTeleportUnitCollisionMask": "b26ca136f729a43792e4efe78a35f11facdd21ba8fd6bb86eab1a8af292c66d8",
+    "PATH_SetVelocity": "90e1d47ed19c106dc1b79989a01e3998c64674c2f9e7c8a4b24a76f80247bcd1",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_GetAnimStatBasePercentage": "10423c95fc725502dd335dae7a1d18a56db30c784d9ad7b3f48fb3ce53502162",
+    "UNITS_GetBaseAnimSpeed": "a889c63e03e882cf43fad46314a9cbb5670a5ec065a0ec581dfacb9d3cac5484",
+    "UNITS_GetBaseVelocity": "49fa853de5d4fb83a6a954cae42eb98348c89f84328e1b296ea7916e2c366fea",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "PATH_GetDirectionVector": "5c2696a69365ea71a13684941cd8ec6cc727082a819b313d68005cb8c1fc8c34",
+    "PATH_ComputeVelocityAndDirectionVectorsToNextPoint": "80a72d98efa8f800bf6c5fa7ec6c3e0e7cb7275f86772d782c3d727e27eb8273",
+    "sub_6FD5CEB0": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+    "sub_6FD5DB70": "4e9f923d7095955b45df7cc826c6707b283d1b67d31489e9922609b912ee5f95",
+    "sub_6FDAB810": "a1ace3679ab94dc699642651ee239acdea17857b8ff9540dcd0cb6e9dfa887c2",
+    "sub_6FDACEC0": "1ad83b1b113da8c3da3acbee61df332a72872ee52bcbf14b278a13ecbe75ab2a",
+    "PATH_RecacheRoomAtCoordIfNeeded": "81bd1010c7545828bdebe77d1075090e1dc64e59c9e3ee97ce22ea694aeef65f",
+    "PATH_ResetMovement": "bfaed12f8b87080b508ac11f4095acb938e2f1a773e5c727ac8b42a19eb75c8c",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675"
+  },
+  "fixture": {
+    "path": ".local/class-skills/actor-motion-source-probe.json",
+    "sha256": "23dc1ca91e8f2d0d262284d6b853b725f2ba50fb1176fda618e95af8c31995ff",
+    "contexts": 3240,
+    "frameComparisons": 64800
+  },
+  "sanitizers": "ASan/UBSan, zero stderr and successful exit required",
+  "established": [
+    "Complete actor run/walk velocity updater, stat-base conversion, base-speed/velocity getters, direction lookup/waypoint selection, acceleration, path availability, full collision step and outer10226 update run together for four routes plus two explicit path-exhaustion/repath controls, duplicate points, three fractional starts, five velocity percentages, two faster-move values, three collision grids, three accelerations and both saved-step flag states.",
+    "Complete pattern0 check/teleport/footprint routines use a declared valid room/grid lookup. No source footprint writes occur. Exact FP16 position, point count/index, flags, speed/acceleration/vector/distance/collision/step state and collision query order are retained every frame.",
+    "Default base12/75percent/no faster move gives FP8 velocity2304 and axial FP16 advance36864 per moving update before waypoint clamp; independent Python velocity/animation goldens match all contexts."
+  ],
+  "services": [
+    "Current monstats base velocity12 is supplied with synthetic base animation speed128 (spatial velocity is independent). Item/skill faster-move and velocity-percent stats are explicit inputs, not a live actor stat collector. Full top-level mode selector and current animation-rate acceptance remain separate.",
+    "Uses1.13 optimization with server-style monster flags (no0x10/no ISASYNC), point targets and path15. The source server allocator passes0 to PATH_AllocDynamicPath bSetFlag; initialization/mode selection remains separately reviewed. Other path types/target-unit contexts are outside this component.",
+    "Repath callback is declared to fail and the exhausted-path controls verify its call/no-call boundary; target-unit distance/target update and invalid footprint branches assert if reached. Valid room/grid lookup, client position output and facing/turn consumer are declared services. General path initialization, native world/height/presence projection, AI event schedule and current executable remain separate.",
+    "The original unused saved-step count-to-pointer casts produce64-bit compiler warnings; those pointers are never dereferenced. No source body was repaired for those warnings. This source proof does not enable a learned Blade Sentinel handler or claim production actor persistence."
+  ]
+}
