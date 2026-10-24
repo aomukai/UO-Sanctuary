@@ -16,7 +16,7 @@ public static class PlagueJavelinChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(PlagueJavelinChecks));
     private sealed class Minimum:Random{public override int Next(int maximum)=>0;}
-    
+
     private static string Manifest=>Path.Join(Core.BaseDirectory,"plague-javelin.json");
     public static void Configure(){Register("plague-javelin-check",Check);Register("plague-javelin-reload-check",Reload);Register("plague-javelin-input-check",Input);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Plague Javelin do-mana, burst/moving poison clouds and persistence",_=>Core.LoopContext.Post(()=>

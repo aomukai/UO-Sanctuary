@@ -4442,7 +4442,7 @@
     ".local/class-skills/lightning-bolt-material-fixture-diagnostic.log": "5446e804d50496402b1cd8a474754a7f504889bf7f77b6f62c00c6f6681b1157",
     ".local/class-skills/lightning-bolt-first-passing-focused.log": "435e56f55960355970c28788a5c01c0da9ad11c3f074c74cddf25276a8dde02f",
     "src/Sanctuary.Content/PlagueJavelins.cs": "140baa1fc48cc32c1aa44ca5f65a882573dd7f9bb5781144537c612a764263dc",
-    "tests/Sanctuary.Integration/PlagueJavelinChecks.cs": "3f9b092c7d3fb998d6ac4e83c30e4e0db1b96ffdd9e8264d8d1c74cc3dbb709b",
+    "tests/Sanctuary.Integration/PlagueJavelinChecks.cs": "95cfab9b290f31865e8eaefa6b926ecacdc3e64526f342b051b3b3f149a83062",
     "tools/probe_plague_javelin_reference.py": "8660408e18564ecdacf8fd85a57008c596256c6d94fd54b2b64e05280d0c459c",
     "tools/reference/plague-javelin-engine-evidence.json": "9b37bff86052281b7f24e9f8cf57880de79f55f7ba0805ce7f8702cef0a3545f",
     "tools/reference/plague-javelin-native-evidence.json": "1ca06d4a331c2d30b2dd27230733abb3b3de99c4bb563fef938260c76b8f7ffe",
