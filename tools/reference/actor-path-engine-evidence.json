@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesentinel",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Path/PathWF.cpp": "02ac3a4246e9d53db0d8f5f5d684ce4b835cefe794d780160158a9505dee4e50",
+    "source/D2Common/src/D2Collision.cpp": "d1c043081967ae24afc68c5a26f4101a0cec4695359870a427dfe1a4e4f639c1",
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8"
+  },
+  "compiledRoutineHashes": {
+    "COLLISION_CheckAnyCollisionWithPattern": "3ba6959de8af28256cfff14cf0e195c3c4047316378c3f2021f658ae478051e8",
+    "sub_6FDA8220": "c5f907c372dfce467c6321a72ce89e201a114e6001471c8a3fbb69ae1f1dd46a",
+    "PATH_IsTargetDestinationAllowed": "6b258f02ebb139648dceef20ca3c8778596d654c525f90ea1e3e0f1dfee923b4",
+    "PATH_UpdateTargetUnit": "bac350be6952388214fc8e49964ab23a7df0d05b369cc538f719b10aadf43b08",
+    "D2Common_10142": "48bebfef10d8da82693fc42ab063b5a4aaa4bf098331e075465d0de8d975a401"
+  },
+  "motionEvidence": "tools/reference/actor-motion-engine-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/actor-path-source-probe.json",
+    "sha256": "5204a58e09e4fb96444d2e56385ab8a6e759ea5875c094f785f3b21680a2a27d",
+    "contexts": 2250
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero stderr required",
+  "established": [
+    "Complete unchanged D2Common_10142, target-unit updater, destination admission and room-crossing flag updater run with the complete unchanged PathWF translation unit and previously verified direction routine. Point-target paths retain final/previous/requested target distinctions and exact state/query ordering.",
+    "No far-target clipping is present: initializer rejects offsets greater than100 per axis; PathWF rejects Chebyshev distance<=2 or >=distance budget. Native port must not replace this with an invented clamp.",
+    "Successful point paths replace the active target with their final computed waypoint while preserving the original request as final target. Failed paths clear point count/index and moving flag."
+  ],
+  "limits": [
+    "D2MOO explicitly marks this general initializer BROKEN. Unchanged reconstructed execution is supplementary evidence; current executable acceptance remains open.",
+    "Only server monster, point target, path15, pattern0, mask0x3c01 and a town-allowed blade context are exercised. Other path dispatch entries and unreachable target-unit/target-adjustment branches assert. Room/grid services are explicit synthetic bounds; footprint removal/addition is a checked zero-footprint service.",
+    "Successful repair switches to path2/3 before falling back to15 in the source; it remains unsupported until those complete kernels are executed/ported. This probe does not certify the AI/mode/event clock, full actor lifetime/combat/input or modern room geometry."
+  ]
+}

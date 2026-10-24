@@ -72,12 +72,19 @@ public static class BladeBodyChecks
         Require(body.Prepared.Creation==stats && body.SummonMaster==p && body.Location==p.Location && body.Hits==100
             && ClassStats.Level(body)==99 && ClassStats.Defense(body)==stats.Defense && ClassStats.AttackRating(body)==stats.Attack,"Prepared actual actor/source stats/center bias");
         Space(p,body);var result=body.AdvancePrepared();Require(result.Moving && body.Prepared.Frames==1 && body.Prepared.Motion.X==pose.X+36864,"Actual actor first fixed-point frame");
+        var fractional=body.Prepared.Motion;var cell=new Point2D((int)(fractional.X>>16),(int)(fractional.Y>>16));
+        var shortPath=body.BeginPreparedWalk(new(cell.X+2,cell.Y));Require(shortPath.Motion.Points.Length==0 && (shortPath.Motion.Flags&0x20)==0,"Source short-path rejection replaced with native chase");
+        var farPath=body.BeginPreparedWalk(new(cell.X+20,cell.Y));Require(farPath.Motion.Points.Length==0,"Source distance budget silently clipped");
+        var target=new Point2D(cell.X+12,cell.Y);var initialized=body.BeginPreparedWalk(target);
+        Require(initialized.Motion.Points.SequenceEqual(new[]{target}) && initialized.Target==target && initialized.PreviousTarget==target
+            && initialized.Motion.FinalTarget==target && initialized.Motion.X==fractional.X && initialized.Motion.Y==fractional.Y
+            && body.Prepared.Frames==1,"Actual body source path initialization/fractional position");
         var before=body.Prepared;bool closed=false;try{BladeWorldSpace.Mask(body.Map,body.Z,0,0,body);}catch(NotSupportedException){closed=true;}Require(closed && body.Prepared==before,"Unmapped native boundary accepted/mutated actor");
         var ordinary=new GraveyardSkeleton{Name="BladeBodyFixtureDefaultSummonTimer",NoKillAwards=true,Summoned=true};
         NativeEnd(ordinary,TimedEffects.Now.AddMilliseconds(50));ordinary.MoveToWorld(new(p.X-3,p.Y+2,p.Z),p.Map);ordinary.AIObject.AITimer.Stop();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,ordinary.Serial.Value)));
         Require(!AssassinCombat.Implemented(CombatAbility.BladeSentinel),"Prepared actor enabled unfinished learned handler");
-        Log.Information("Blade body: actual no-footprint movement/placement, source stats and prepared fractional pose pass; no AI/cast/damage enabled");
+        Log.Information("Blade body: actual no-footprint movement/placement, source stats, point-path initialization and prepared fractional pose pass; no AI/cast/damage enabled");
     }
     private static bool Same(BladeBodyState a,BladeBodyState b)=>JsonSerializer.Serialize(a)==JsonSerializer.Serialize(b);
     private static void Reload()

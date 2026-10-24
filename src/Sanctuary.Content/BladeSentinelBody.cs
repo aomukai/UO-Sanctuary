@@ -77,6 +77,19 @@ public partial class BladeSentinelBody:BaseCreature
         Store(before with{Motion=next.State,Frames=before.Frames+1});var point=Position(Prepared);
         if(Location!=point){MoveToWorld(point,Map);}AIObject?.AITimer.Stop();return next;
     }
+    internal ActorPathState BeginPreparedWalk(Point2D target,int distance=20)
+    {
+        var before=Prepared;Validate(before);
+        if(Deleted || Map?.MapID!=before.Map || World.FindMobile((Serial)before.Owner) is not PlayerMobile{Alive:true,Deleted:false} owner
+            || owner.Map!=Map || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile) || profile.Class!=DiabloClass.Assassin)
+        {throw new NotSupportedException("Prepared blade owner/map lifecycle needs full AI integration");}
+        if(Map.Width*2>65536 || Map.Height*2>65536){throw new NotSupportedException("Native map exceeds source path coordinates");}
+        // Explicit native-map room adapter. The source keeps fractional position
+        // while computing from its integer cell; do not snap the actor here.
+        var input=new ActorPathState(before.Motion with{Flags=(before.Motion.Flags&0xFF)|0x800,Distance=distance},target,new(0,0));
+        var path=SourceActorPath.Initialize(input,distance,new(0,0,Map.Width*2,Map.Height*2),(x,y)=>BladeWorldSpace.Mask(Map,before.Z,x,y,this));
+        Store(before with{Motion=path.Motion});return path;
+    }
     public override void OnThink(){AIObject?.AITimer.Stop();Combatant=null;FocusMob=null;Warmode=false;}
     public override void GenerateLoot(bool spawning){}
     public override bool OnBeforeDeath(){Delete();return false;}

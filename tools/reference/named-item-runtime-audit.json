@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "8b7c8800ef9d31be661f3084e2f88a30ea9cebbf2bbaff83ff062fbaf9455f24",
+  "ContentAssemblySha256": "7a431544067ef4d2e67c78e0906c1b52104730a3fdb7163580e81041a000d97f",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -243,7 +243,7 @@
     "src/Sanctuary.Content/BarbarianWhirlwind.cs": "8ab5df0a7d445f793c9b1c15002ed771d0976dc17d3216fbfd2c63df763893b7",
     "src/Sanctuary.Content/BattleCommand.cs": "c6c47e668e85aae855f7e30cf978e4b5b6ce25984ba4f735b404a72cdb83031b",
     "src/Sanctuary.Content/BattleOrders.cs": "5e08e685d535734ab7954f93d1b3c1ef2197d1c1cf10ea85eb526ddc5b704bca",
-    "src/Sanctuary.Content/BladeSentinelBody.cs": "e04c4c07ed5adb65f0e47289e76f5a3ec8a22bb3038e5b593e1b1dccd6ab7957",
+    "src/Sanctuary.Content/BladeSentinelBody.cs": "2e66f9f177bd30afc3e2f06af973e24ef0dee2da4f1b11ddd7f0cf5887f41af5",
     "src/Sanctuary.Content/BladeSentinelPackets.cs": "c5aa529987c37b4581f45bab1eea41dc59e7bd97268ae4ea3cb1c6a1cd42e4d1",
     "src/Sanctuary.Content/BlessedHammers.cs": "767cd07caf3f3b598cc6edd92b7e245285301f723539a9cde68d7aea4f53d8b1",
     "src/Sanctuary.Content/Blizzards.cs": "d89fbbd619ed7a12433819bad41c74d473b1242c19bf65370a6c77d2b0c85a0d",
@@ -467,6 +467,7 @@
     "src/Sanctuary.Content/SorceressCombat.cs": "8b139976865bc7ce23b0dd0f8be1577f62e1a69f7267d31a266cc443d9af8209",
     "src/Sanctuary.Content/SorceressEffects.cs": "2ab16af90d35a2343bf3b137b8dd58be19292dbae77ee799250fcceba9c163a6",
     "src/Sanctuary.Content/SourceActorMotion.cs": "e598fe3b3b75db4f3f79065d120aa200e21925ded7e9cefc51de6ec2f111aa9f",
+    "src/Sanctuary.Content/SourceActorPath.cs": "5c7bd073a9190c35dc3c1be913b00adfa90ee240c0da75d012c49128e80a3d63",
     "src/Sanctuary.Content/SourceBlocking.cs": "3264e796c12f84fdc060569e51eb326e2fb5e9f79e9647f209e9f7cd3b539344",
     "src/Sanctuary.Content/SourceCurseDuration.cs": "fa75d68ab83b70b31292bb6825b4c81c73bc4df7ec4ad267ab2f9ab42503058d",
     "src/Sanctuary.Content/SourceKnockbacks.cs": "54de2fb6aad03f07fe6eb7b075546dc5a59475d8dfba2e4b649770da9bfe7afd",

@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d"
+  },
+  "translationUnit": "Complete unchanged Event.cpp; Event.h declarations/enums/records retained. Only includes/pragmas supplied by the host ABI.",
+  "fixture": {
+    "path": ".local/class-skills/source-events-probe.json",
+    "sha256": "2f5dce293afa6ea735e73024321cdf5b1ce907da552528b569c2d0d19af7cc68",
+    "scenarios": 21,
+    "framesPerScenario": 66
+  },
+  "sanitizers": "ASan/UBSan; successful exit and zero stderr required",
+  "established": [
+    "Phase order is missile infinite/timed, player infinite/timed, monster infinite/timed, object infinite/timed, item infinite/timed.",
+    "Monster timed AI that creates movement and following-missile infinite events runs both next frame; missile phase precedes monster movement. Infinite callbacks inserting at their own phase head defer the new event until next frame. A missile callback can insert a monster event that runs later in that same frame.",
+    "Deleting the current event is deferred safely; deleting the next event advances the saved iterator. Timed events requested at/past current frame clamp to next frame. Bucket collisions64 frames apart do not fire early."
+  ],
+  "limits": [
+    "Allocator macros use host malloc/calloc/free; unit timer fields, state checks and game callbacks are declared services. Only ordinary uninterruptible-state=false unit contexts are exercised. The full queue implementation is executed, but this does not yet execute monster mode/AI/movement or missile combat callbacks.",
+    "Reconstructed legacy queue behavior is supplementary source evidence. It does not prove current D2R executable scheduling or native controller acceptance, and enables no learned skill."
+  ]
+}
