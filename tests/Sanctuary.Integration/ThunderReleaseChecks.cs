@@ -104,7 +104,7 @@ public static class ThunderReleaseChecks
         {
             try
             {
-                Require(Core.TickCount<deadline,"Natural Thunder lifetime timeout");Require(Own(p).Flights.All(x=>x.Fault==null),"Natural missile fault");
+                Require(Core.TickCount<deadline,"Natural Thunder lifetime timeout");Require(net.Running && p.NetState==net,"Natural Thunder client disconnected");Require(Own(p).Flights.All(x=>x.Fault==null),"Natural missile fault");
                 damaged|=SkillHealth.Balance256(secondary)<hp;
                 if(Own(p).Flights.Length==0)
                 {Require(damaged && NecromancerEffects.ManaBalance256(p)==mana && AssassinCharges.State(p,CombatAbility.ClawsOfThunder)?.Count==2,"Natural damaging release/expiry/payment/consumption");Cleanup();Log.Information("thunder-natural-result: passed");return;}

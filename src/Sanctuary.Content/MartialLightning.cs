@@ -202,7 +202,9 @@ public static class MartialLightning
             {Flights.Remove(s.Id);return;}
         }
         Flights[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(x),(int)Math.Round(y),s.Z),map,0x3818,3,10,0x482,0);} // Identified lightning trail placeholder.
+        // Sample the temporary nova markers:64mechanical rays plus16bolts
+        // must not enqueue80particle packets in one server phase.
+        if(frame%2==0 && (s.Bolt || s.Id%8==0)){Effects.SendLocationEffect(new Point3D((int)Math.Round(x),(int)Math.Round(y),s.Z),map,0x3818,3,10,0x482,0);} // Identified lightning trail placeholder.
     }
     private static void Validate(ThunderFlight s)
     {
