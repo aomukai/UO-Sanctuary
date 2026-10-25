@@ -2632,6 +2632,20 @@
       "fullBoots": 3,
       "reloadsPerSuite": 2,
       "handlerEnabled": false
+    },
+    "fistsFireSourcePreparation": {
+      "updatedAtUtc": "2026-10-25T09:10:10.610815+00:00",
+      "scope": "Source-only preparation; installed b55d5de content/152handlers unchanged; no native Fists handler",
+      "builderCases": 4096,
+      "conversionCases": 15360,
+      "sequenceCompositions": 640,
+      "progressiveReleaseCases": 3456,
+      "evidence": [
+        "tools/reference/fists-fire-source-evidence.json",
+        "tools/reference/assassin-claw-sequence-source-evidence.json",
+        "tools/reference/martial-fire-release-source-evidence.json"
+      ],
+      "next": "Full native Fists charge/action/inline/area/field/input/lifecycle integration using complete scoped source evidence."
     }
   },
   "logs": {
@@ -4900,7 +4914,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "3e79e3181482b2cca69ac1ec22c4b960f2c70b46e5a6c80385fc9553e4c77537",
+    "docs/class-skills-resume-checkpoint.md": "a2a72825a5880a5ea22293f8793a39fb087594a2900da47a6ce3ad43b049325f",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -7964,7 +7978,7 @@
     "tools/build_kick_reference.py": "c37892ff85db62e7652878ae717cd245b13ea4801e2cda817a9462614a7487f1",
     "tests/Sanctuary.Integration/DragonKickChecks.cs": "70cc485a4f38251e45fe91b7d3c6c68a14ce61f69f3083c5e1fee64a9b7aa492",
     "tools/reference/dragon-kick-native-evidence.json": "1f4923c98582bc07bc6f7f2bfa22ddfea416d04a49057c15eda8fdf61911dab2",
-    "tools/reference/fists-of-fire-preflight.json": "6a585f7a0b733228ae2d2d267e095e45771513250482f008f1c744cc1b625db2",
+    "tools/reference/fists-of-fire-preflight.json": "c7b7279c16f6d0b55d6d139d24fe1bf7890832ac06fc6cf0ffab7293df4f3a45",
     ".local/class-skills/dragon-kick-work-state.json": "37bd9ff5c5ed5411a0f0690b2f24ecb11bab6d0ae65f4a0be053f6705e5a12ca",
     ".local/class-skills/dragon-kick-packet-source-check.log": "ae5016cefafdfce7d233e9a7a951fcd3cfb2a46ba52bcc684388c75fa4b83f79",
     ".local/class-skills/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
@@ -7972,12 +7986,22 @@
     ".local/class-skills/dragon-kick-audit-native.py": "dbe66f441435a4a195ba0f6a28f5aabdd5c520f8a7149a61867041caca97c758",
     ".local/class-skills/dragon-kick-install.py": "89f610a51b8b64f221bb37a4641123fc5dfaec2da25f384ba53be54fc9ddb05c",
     ".local/class-skills/dragon-kick-finalize.py": "d3f021926dab91668d68f539350443371018012294eca0bb54350e0c4a36b6ed",
-    ".local/class-skills/dragon-kick-verify.py": "b1f2a6e2c32534e51c16dae6ea7c3c283231cc64aa5dae7ec1ba8c547b3e2e60"
+    ".local/class-skills/dragon-kick-verify.py": "b1f2a6e2c32534e51c16dae6ea7c3c283231cc64aa5dae7ec1ba8c547b3e2e60",
+    "tools/probe_fists_of_fire_reference.py": "6d25cd8bf3db03b23b7ea7c92018096f3339783dca46a96bb3bfe67a569d4207",
+    "tools/probe_assassin_claw_sequence_reference.py": "4a4d37a7f26a583dfb458a0f467eae9c5f71aeb7311e2a1224c58562ddd9428b",
+    "tools/probe_martial_fire_release_reference.py": "7971a4384a81e26b61c219e3b5387471a6e8fa5d5cf9e0740b11d35e99f3c21f",
+    "tools/reference/fists-fire-source-evidence.json": "e995d4a575c233e9b703882eed8fe0a8508b0a53bffed0414a84a22f343a8bfe",
+    "tools/reference/assassin-claw-sequence-source-evidence.json": "58530c5e0a425eeb8264e50ac193b419aa15ba1f5861117a2ba434a5bddf2e2e",
+    "tools/reference/martial-fire-release-source-evidence.json": "a5169888c1bf39fcba561fac4c939d9fec6cfaaf61d73e8dece3e2851d471514",
+    ".local/class-skills/fists-fire-source-check.log": "09e57ecfd6105f151b69f68c8bab1a479984caa00bd9ed151e57eb48339279c0",
+    ".local/class-skills/assassin-claw-sequence-source-check.log": "351ffcc7dc6ee0ea49020167af972af98988ece425da547d1a3b86980dc078aa",
+    ".local/class-skills/martial-fire-release-source-check.log": "a27cf480214337805700d67c839d4b04ffb47756302dd13d49829f148fe89982",
+    ".local/class-skills/fists-fire-next-notes.json": "9f77172cf15bcddacdcf7c280042944a790d677001af289169d69849eac2321e"
   },
   "totalHandlersPresent": 152,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 3330,
+  "verifiedArtifactCount": 3340,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Prepared kick physical component/current15-row boot data are installed; learned Dragon Talon remains disabled. Focused/full suites each pass3boots/2reloads with24576 complete source body/boot helpers,62208 physical compositions and255 Talon numeric goldens per boot. Actual Bartuc retained attributes/selected hand, normal/exceptional/elite boots,Steelrend ED, immutable packet and unchanged Tiger charge/gear captures survive actual world reloads. Retained Cobra natural charge+ordinary-Attack input passes3runs per suite. All70 Python tests,current554/21 audit fingerprints and573 unchanged named decisions pass. Matching original-world smoke loads/listens/shuts down0; saves/config/client bytes unchanged, server stopped. Handlers remain152/Assassin13; Cobra is the latest playable skill. Current local strict CASC extraction corroborates all15boot bases,selected4skill fields and32Assassin animation records; KK13frames/action4 metadata is established, while current sequence/rewind/rate/consume/hit/block/delivery/input remain separate gates. No class completion certificate.",
   "installedTestBuild": true,

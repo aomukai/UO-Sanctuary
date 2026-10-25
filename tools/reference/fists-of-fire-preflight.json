@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Complete source builder/conversion and scheduler/player ordinal bridge prepared; native handler pending",
+  "status": "Complete source builder/conversion, claw ordinal bridge and stacked area/ground release prepared; native full skill integration next",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -124,6 +124,8 @@
     "Legacy sequence16 is single12points/action6 or dual16points/actions6,10.640 complete scheduler/callback/selector/do35/do34 compositions pass under explicit rate/frame-bonus/dispatch services. Current SQ attack-rate derivation/selected base208/dual WSM need separate composition/native acceptance.",
     "Complete prgdam4 consumer and conversion use max(initial,current) rank, one skill element roll, SOFTHIT0x4000 and min(3*rank,100)percent existing physical conversion. No multiplication by charge count.15360 cases include cold sibling controls and invalid count4 source corruption control.",
     "4096 complete do35/do34 cases cover no/single/dual/same/invalid hands, phase, hit/miss, missing row/target and cap/refresh. No native Fists handler is enabled.",
-    "Progressive stack1 invokes earlier callbacks by temporary charge level then restores full count. Fists has no server missileA/B; callback143 at count1 should return without spawning, count2 callback38 commits parent before independent radial damage, count3 callback39 scatters up to radius-squared local-seeded ground flames. Compile these complete routines and source generic field collision before native integration."
-  ]
+    "Progressive stack1 invokes earlier callbacks by temporary charge level then restores full count. Fists has no server missileA/B; callback143 at count1 should return without spawning, count2 callback38 commits parent before independent radial damage, count3 callback39 scatters up to radius-squared local-seeded ground flames. Compile these complete routines and source generic field collision before native integration.",
+    "3456 complete old sub77E0+143/38/39+progressive getter+copy-per-target callback cases pass with declared RNG/damage/world services. Parent drain precedes area coordinates/damage. Ground callback consumes one owner seed before validation, then32 local limited draws at radius4 and source557/259/rank/flags1 factory requests. Actual SourceRandom exists and must be reused in native placement. No native Fists handler yet."
+  ],
+  "progressiveReleaseEvidence": "tools/reference/martial-fire-release-source-evidence.json"
 }

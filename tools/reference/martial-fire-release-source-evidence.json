@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fistsoffire",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledRoutines": {
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo038_FistsOfFire_BladesOfIce_ProgressiveFn2": "71259c405fee7b5db27bc1c59c13c0ee84f5ae24c2a6df8ac38cfc9e2eb109fc",
+    "SKILLS_SrvDo039_FistsOfFire_BladesOfIce_ProgressiveFn3": "003f8acdc1a884265a76c47cc27bf0c582c5280832a86fe8b0c6976ff11d93f3",
+    "SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn": "226af98db59cda0eb4798b616f4e1cb709f21bcc0cefafce2d924a0dc5042928",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb"
+  },
+  "fixture": {
+    "path": ".local/class-skills/martial-fire-release-source-probe.json",
+    "sha256": "cfc65d85ac5334cf4e49b890331122abb9406db4087797c5853b78c42c1feaea",
+    "cases": 3456,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete old progressive dispatcher temporarily selects charge levels1/2 for earlier stacked callbacks, restores full count, then executes final callback. Rank is max(stored,current). Source list removal occurs after dispatch even with zero rank; current consume-one policy is separate.",
+    "Missing Fists server missileA suppresses callback143. Charge2/3 callback38 drains parent before coordinate resolution, rolls an independent skill area packet and copies it per receiver. Explicit mutation of one receiver packet does not affect the next.",
+    "Charge3 callback39 consumes one owner seed before record/coordinate validation, then uses a local seed for16attempts at radius4, rejecting outside-circle points. Valid fields retain explicit557/259/rank/flags1 factory arguments."
+  ],
+  "declaredServices": [
+    "Element roll supplies rank*100; physical skill roll0 reflects selected Fists zero physical endpoints, not a compiled damage getter. Area enumeration supplies two accepting receivers with a mutating damage service; complete target/filter/mitigation is not claimed.",
+    "Owner RNG is incrementing fixture state; local limited RNG is a deterministic declared sequence, not the actual D2 PRNG. Tests establish seed ownership/draw count/control flow and positions for those supplied draws.",
+    "Legacy state removal, item durability/primary commit, factory allocation and room validity are explicit services. No actual parent health/proc/death or native field lifecycle acceptance.",
+    "sub6FCF6D70 service aborts because real Fists has no missileA. Full143body compiles; Royal Strike positive-missile branches need their own proof."
+  ],
+  "limits": [
+    "Current consume-one, full source PRNG/skill damage/mastery/area filter, generic field collision and native handler/input/persistence remain separate.",
+    "This proves full selected callback/dispatcher control flow, not a native Fists or modern executable certificate. Effects/icons are independently pending."
+  ]
+}
