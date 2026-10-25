@@ -1,0 +1,94 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.clawsofthunder",
+  "sourceId": 269,
+  "installed": true,
+  "handlerEnabled": true,
+  "components": [
+    "src/Sanctuary.Content/MartialLightning.cs",
+    "src/Sanctuary.Content/AssassinClaws.cs",
+    "src/Sanctuary.Content/AssassinCharges.cs",
+    "src/Sanctuary.Content/AssassinCombat.cs",
+    "src/Sanctuary.Content/TigerStrikes.cs",
+    "src/Sanctuary.Content/ActionTiming.cs",
+    "data/Sanctuary/Balance/necromancer-summons.json"
+  ],
+  "sourceEvidence": [
+    "tools/reference/martial-lightning-source-evidence.json",
+    "tools/reference/thunder-damage-source-evidence.json",
+    "tools/reference/thunder-rate-source-evidence.json",
+    "tools/reference/missile-acceleration-source-evidence.json",
+    "tools/reference/assassin-claw-sequence-source-evidence.json",
+    "tools/reference/charged-bolt-path-source-evidence.json"
+  ],
+  "candidate": {
+    "contentSha256": "6a329407c82bd0a968f0eba3974aeeca75dcf1ac73aa992d87eabc194e8736e4",
+    "integrationSha256": "a2b1d8f85a66023560a458acef105db04d30b913557021e2f0b95470495bbc6a",
+    "sourceCommit": "560b566c06e0af2170d41ae45996d19296fbf4ce"
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "compiledEmissionCases": 3456,
+    "exactNativePatternContextsPerBoot": 18,
+    "compiledAndNativeChildEndpointsPerBoot": 576,
+    "currentOriginalAndNativeRatesPerBoot": 2304,
+    "nativeSequenceClocksPerBoot": 576,
+    "compiledAndNativeAccelerationVectorsPerBoot": 1800,
+    "pinnedRankCapturesPerBoot": 255,
+    "naturalInputPathsPerBoot": [
+      "quick Cast",
+      "right HoldCast/release",
+      "left HoldAttack/release",
+      "ordinary charged Attack"
+    ],
+    "naturalSecondaryDamageAndExpiryPerSuite": 3
+  },
+  "fullRegression": "Claws of Thunder is installed as a learned skill. Focused and full suites each pass three boots/two reloads, including quick/right-held/left-held/ordinary charged Attack and live-clock lightning from a lethal parent damaging a nearby target then expiring on all boots. The action reuses sequence16,primary WSM/IAS,one/two selected claws,once-paid4mana,capped independent charges and ordinary low-mana fallback. Its ordinary finisher adds lightning with no physical conversion,retains Tiger/Cobra/Fists consumption and emits64nova rays plus16seeded charged bolts. Native checks cover576 complete child damage/mastery cases,2304 current-family rates,576 clocks,18 exact emitted patterns,1800 full acceleration/vector contexts and255 rank captures per boot. Actual Griffon rank/mastery/pierce,lethal/miss/stacked families,shared4frame trigger windows,separate casts,offline expiry,facet cleanup,seed progression and saved child paths/clock/lease/gear/resources/injury pass. Saving frame4 resumes frame5 nova deceleration exactly. Retained Fists/Tiger/Cobra/kick and all70 Python checks pass; current audits cover557/21 fingerprints with573 unchanged named decisions. Original-world startup passes with saves/config/client bytes unchanged; server stopped. Total handlers154;Assassin15. No class completion certificate.",
+  "logs": {
+    "focused": ".local/class-skills/thunder-focused.log",
+    "focused-run": ".local/class-skills/thunder-focused-run.log",
+    "combined": ".local/class-skills/thunder-combined.log",
+    "full-suite-run": ".local/class-skills/thunder-full-suite-run.log",
+    "content-build": ".local/class-skills/thunder-content-build.log",
+    "integration-build": ".local/class-skills/thunder-integration-build.log",
+    "python-tests": ".local/class-skills/thunder-python-tests.log",
+    "named-readiness": ".local/class-skills/thunder-named-readiness.log",
+    "first-loop": ".local/class-skills/thunder-first-loop.log",
+    "properties": ".local/class-skills/thunder-properties.log",
+    "installed-server": ".local/class-skills/thunder-installed-server.log",
+    "installed-smoke": ".local/class-skills/thunder-installed-smoke.log",
+    "install-run": ".local/class-skills/thunder-install-run.log",
+    "client-check": ".local/class-skills/thunder-client-check.log",
+    "first-focused-failure": ".local/class-skills/thunder-first-focused-failure.log",
+    "reload-fixture-failure": ".local/class-skills/thunder-reload-fixture-failure.log"
+  },
+  "backup": ".local/class-skills/pre-thunder-install",
+  "runtimeInputs": {
+    "named": 557,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true
+  },
+  "limits": [
+    "Handler presence and scoped source/native checks are not complete3.3.93847 executable equivalence. Current mode/stat/event/target/rate mutation/property/proc/PvP/NPC and graphical acceptance remain separate.",
+    "Source rings/LCG/initializer and five-update acceleration are compared to complete old functions with current tables. Original current-family calculator corroborates primary-hand builder speed; it is not a pinned executable oracle.",
+    "Charged path movement retains the explicitly labelled existing native shared waypoint/heading adapter,plus source-size stepping and native terrain/allegiance projection. Full reconstructed movement/sector/ordering/factory-stat/child seed derivation is not certified.",
+    "The native owner-low draw service is a documented RNG adapter,not a persistent full D2 player seed. Child source LCG/path/damage progression is saved; whole-game RNG equivalence remains open.",
+    "Released Blizzard2.7 notes establish separate martial trigger cast scope. Nova/bolt children share that Thunder trigger lease; exact pinned collision/defense/event/terrain/slow rounding remains acceptance work.",
+    "Ordinary Attack retains its current consume-one policy with provisional retained deadline/proportional AR. Dragon multi-contact consumption/guaranteed-hit/block is not inferred from this builder.",
+    "Emitted player missiles age without damage while offline and are discarded on death,class or facet change,following existing native player-projectile lifecycle. Approved trap cross-facet retention remains separate.",
+    "Final orbital/claw/contact/nova/charged-bolt/impact/audio art and talent/left/right/quick icons remain independent inventories; UO0x238 audio,0x375A hue0x481 charge marker and0x3818 hue0x482 trail are identified placeholders."
+  ],
+  "failureCorrections": [
+    "The first native table guard rejected nova Accel=-1000,so a constant-velocity candidate was never installed. Full1800-case source velocity/counter/vector comparison now drives nova deceleration on each fifth update,with maximum velocity and signed shifts preserved. Actual frame4saved counter resumes frame5speed3608 exactly.",
+    "The first full run exposed real4096byte-buffer disconnects from placeholder particle bursts. Its old natural test could pass after early damage,so that full result was rejected. Nova presentation now samples8of64ray markers while retaining all64nova+16bolt mechanical flights. The strengthened natural test requires a live connection throughout damage and lifetime on all boots; final logs must contain no buffer-exhaustion warning.",
+    "A combined saved resource/injury assertion failed in the first reload. Fixture-only hit and mana regeneration are now held during creation and for named fixtures; precise payload/resource checks pass through two actual reloads. Production regeneration is unchanged.",
+    "Held reload payload clocks and hit leases shift by one identical offset,retaining their relative deadlines. Natural13/77frame lifetimes and actual connected expiration are checked separately.",
+    "Foreign Thunder flights/leases are isolated during test-only future clock advancement,following the earlier Fists field interference correction. Production shared ticking is unchanged."
+  ],
+  "next": "Continue Assassin with Blades of Ice using blades-of-ice-preflight.json:37current local fields corroborate3mana,shared do35/sequence16,independent charges,prgdam4cold,no conversion,callback38area and callback39scatter of Size1freeze cubes. Reuse the complete3456-case inline/area/scatter/LCG/damage10composition,then compose current cold length/getters,area filter0x870B and actual target chill/freeze/cube collision before porting. Dragon Claw and Dragon Talon remain individual modern contact/charge/hit/block deferrals; do not guess those policies or ask the traps-only player to test martial arts. Keep the complete eight-class/240-skill goal active and effects/icons separate.",
+  "updatedAtUtc": "2026-10-25T12:04:39.838465+00:00"
+}

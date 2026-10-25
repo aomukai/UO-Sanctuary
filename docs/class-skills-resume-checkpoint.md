@@ -1,6 +1,16 @@
 # Current class-skill resume checkpoint
 
-**Current candidate — Claws of Thunder.** Learned four-mana claw action and ordinary finisher lightning/nova/bolt releases are implemented in staged source, with saved missiles and a trigger-scoped four-frame hit window. Source checks cover3,456 full emission/PRNG/init contexts,576 full child damage/stat cases and2,304 current-family rate contexts. Focused3boot/2reload tests pass. The first full run exposed real buffer-exhaustion disconnects from placeholder trails; its permissive natural check could pass after early damage,so that full result is rejected. Presentation now samples nova markers while retaining every mechanical ray/bolt,and the live check requires connection throughout. Corrected builds and focused3boot/2reload checks now pass with continuous live connections and no buffer warning; a fresh full regression is starting; candidate154 handlers/Assassin15 is not installed. Installed runtime remains the153-handler Fists checkpoint below. Dragon Claw is individually deferred on modern multi-contact consumption/block evidence; continue unaffected Thunder work. Work state: `.local/class-skills/thunder-work-state.json`.
+**Latest playable skill — Claws of Thunder.** The skill is installed: charging pays four mana once and uses one or two claws. An ordinary finisher releases lightning, a nova at two charges, and seeded bolts at three. Charges remain independent from Tiger Strike, Cobra Strike, and Fists of Fire.
+
+**Verified:** focused and full suites each pass three boots and two reloads, including quick cast, both held inputs, ordinary finishers, and sustained live connections. Saved missile clocks, hit windows, resources, injury, and nova deceleration survive reloads. All 70 Python tests, current item audits, and the original-world smoke test pass. Saves, configuration, and client bytes are unchanged; the server is stopped. **154 handlers are installed, including 15 Assassin skills. No class completion is claimed.**
+
+**Still unverified:** the documented adapters do not prove complete current executable, movement, stat, proc, PvP/NPC, or graphical equivalence. [Detailed evidence and limits](../tools/reference/thunder-native-evidence.json) separate the verified contexts from those gaps.
+
+**Next:** continue Blades of Ice using its [preflight](../tools/reference/blades-of-ice-preflight.json). Its 37 corroborated current table fields and 3,456 composed source cases establish the inline cold, area, scatter, and cube callback ordering. Current damage/length getters and actual freeze, chill, collision, and lifecycle consumers still need integration. Dragon Claw and Dragon Talon remain individual finisher deferrals; continue unaffected skills and keep the complete eight-class, 240-skill goal active. The player only uses fire/lightning traps; do not repeat martial-arts playtest questions.
+
+**Assets:** final charge, claw, contact, nova, bolt, and audio effects remain separate from talent and hotkey icons. Identified placeholders remain in use.
+
+Earlier paragraphs below are retained history; this latest installed checkpoint governs continuation.
 
 **Latest playable skill — Fists of Fire.** Its one- and two-claw action, charge gain and ordinary charged release are installed. The action pays two mana once; successful unblocked claw contacts build charges. Movement, weapon changes, hit recovery, death and respec cancel remaining contacts. Insufficient mana performs one ordinary attack.
 
