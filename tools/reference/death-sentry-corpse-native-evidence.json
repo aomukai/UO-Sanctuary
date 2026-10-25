@@ -1,0 +1,85 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "handlerEnabled": false,
+  "scope": "Prepared real Death Sentry creation and native NPC312 corpse explosion engine; automatic AI/mode/learned input remains disabled by an explicit controller fault.",
+  "focusedBoots": 3,
+  "focusedReloads": 2,
+  "sourceComparisonsPerBoot": {
+    "ai": 5484,
+    "orderedSearch": 46080,
+    "searchGrowth": 2,
+    "packet": 1080
+  },
+  "contentSha256": "97548be7853903c30684c2c6ae0d621544e0cbd02d027af3068ab065984e79be",
+  "integrationSha256": "40ff6ef997f2de7769634cf9226ed08c4928efbdcd63ddfed4dae3645f597c78",
+  "inputHashes": {
+    "src/Sanctuary.Content/CorpseBaseSnapshots.cs": "914319aab2c8671640cbf0e9adf7ca824dd7d0bd42f2450721fcd1262f718d57",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "2375300196e3b7ddba62835ee6572668bca9ab1c51774fce27d699a2df403ffb",
+    "src/Sanctuary.Content/CorpseExplosionPackets.cs": "d8ba36248d3bfd3650144513c632f6be7e751f0efdfd1db12cc171388e9da041",
+    "src/Sanctuary.Content/AssassinSentryCorpses.cs": "1ead1fde8a17fa40a306934a6f7edbbcba2ba889e1c7041e4fa77f646906a8f7",
+    "src/Sanctuary.Content/AssassinDeathSentryAi.cs": "5aaf2160681fa1a666508eada36388c5f38113abd93861674a0246dc227c4913",
+    "src/Sanctuary.Content/AssassinDeathSentryCorpses.cs": "55bd7ded7f2c4dacb3d8608714abe70cceed018a7eccb081a3a0d740a0593d1e",
+    "src/Sanctuary.Content/AssassinSentryBody.cs": "25e71985e6a66c8c573b9122e107d5948d042d9594ad6087eb44b8660689b378",
+    "src/Sanctuary.Content/AssassinSentryCreation.cs": "9f1b164a1e635e34ca38bca217ad725a96171db797d332b9992909182d9365da",
+    "src/Sanctuary.Content/SentryNpcSkills.cs": "34e230fe3438c33d8c761127e850e7f9c3eb9b48eaca75e230d9648a0c420c53",
+    "src/Sanctuary.Content/BalanceCatalog.cs": "7ea00a00ed51c13749bbdeb0a3cff785d61d7a729a09687628211f9b792506c5",
+    "tests/Sanctuary.Integration/DeathSentrySourceGoldens.cs": "a717a575fae30a62d553e6f96245cd03b62ea0998fedf2dbf025121696a5c40c",
+    "tests/Sanctuary.Integration/DeathSentryExplosionChecks.cs": "93747b597f541d7cd5a543334d2d08071b267689a7c30dfb6534dffb373278f8",
+    "tools/build_class_skills.py": "81e892e230504510486fc992bcfef8909649a903d06a89b1bb0c9d8042a1b7dc",
+    "data/Sanctuary/Balance/sentry-npc-skills.json": "45b312ccec0f90a04f3efa862eb2693cdd46d5f7a0ab00a82e0734e009ae83ed",
+    "data/Sanctuary/Balance/necromancer-summons.json": "dc27d873f7ee7ce3990840155e01eb7255bdabc2a6afa50cbb7a079f0160b4c3",
+    "data/Sanctuary/Balance/skill-effects.json": "690f6e3d23a629992cc9e1a21f12eca30c033482a8f4ebbcf43f9164679f544b",
+    "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
+    "tools/reference/death-sentry-ai-source-evidence.json": "4f11d0658d7e3d829164c4eed84eb19e18dfd350a502df14f9256b36fa9ddb09",
+    "tools/reference/death-sentry-corpse-search-source-evidence.json": "72e299f792b3b0ae9e58eb97178bd48d75aec357ad8f832dcc9aeb71a01f22ef",
+    "tools/reference/corpse-explosion-source-evidence.json": "9a402cfbb532893550035b4ccc0939d8ae07dd8f217008130cb1d00ec86535c5",
+    "tools/reference/d2r-local-sentry-animation-evidence.json": "b4376a63d59a80cc4735377187e297909c9e74439492967472827c601bbd51bb",
+    "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
+    "src/Sanctuary.Content/NamedElements.cs": "1545262d63b4556fcd8d8ed8614fdc2216063f774b00d2eda21ea4700e082883",
+    "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
+    "src/Sanctuary.Content/AssassinTrapStats.cs": "61330a28dfc1ee2e4166d14edde76c7ddf7ce96a34ae519f936007f335552db8",
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9"
+  },
+  "evidenceHashes": {
+    ".local/class-skills/death-sentry/death-explosion-checks.log": "3bbf3516e1f5421b85069d790728b289bb82fcef6f884f3ced948ad5d6067e45",
+    ".local/class-skills/death-explosion-focused-run.log": "c6163adb143f2a91f7e5154a7f738fe369ea938bafc30fa033287ad3e3957970",
+    ".local/class-skills/death-sentry-content-build.log": "0276cb90cab534d6a66e3330462f9ed7646fc69556399ad496dc2d0efe604fdf",
+    ".local/class-skills/death-sentry-integration-build.log": "0f611a6cfe9089a8e1a04af41476d7dd4a86d166e9e961d263a3beae9b6e0921",
+    ".local/class-skills/death-explosion-focused.py": "1a14ceb41363fdc51d40adb3a1319d7f50010ef7f540b767a17a29ad93af6ba7"
+  },
+  "fireWriterInspection": {
+    "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "path": "source/D2Game/src/SKILLS/Skills.cpp",
+    "fileSha256": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "routineSha256": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "scope": "Inspected complete sub_6FD11E40: fire lane directly adds supplied damage/hit class; no mastery multiplication. This is inspection, not a new compiled helper/current executable certificate."
+  },
+  "verified": [
+    "Real seven-passive Death actor and NPC312/324 table separation; hard Fire Blast10 gives8shared shots at effective Death rank6.",
+    "Real Mang Song+5/pierce capture persists after removing the staff; owner moves to another facet while the original NPC damages enemies around its old-facet corpse.",
+    "One corpse-seeded exclusive FP256 roll, independent physical/fire rounding, one shared area packet, separate physical-only inner edge and fire outer edge.",
+    "Physical/fire immunities retain the other half; inherited fire pierce does not break immunity. NPC explosion does not debit owner mana.",
+    "Atomic noselect/seed advance, consumed/animated flags, no duplicate corpse use, original gold retained, explicit MissingSnapshot/MissingSeed results.",
+    "Ordered native corpse projection preserves original monster identity; saved actor, unused corpse and seed produce the same next packet across two reloads."
+  ],
+  "limits": [
+    "Full regression/audits/original-world install are not claimed for this separate checkout.",
+    "NPC AI104 direct corpse mode9 and lightning mode14 must be connected through their distinct generic event paths; current LG S2 has15frames and marker2atframe0. Table Sk1mode alone does not override the older hardcoded AI mode.",
+    "Native source frame uses floor(Core.TickCount/40); native corpse seed allocation is explicit Random.Shared32bit/SourceRandom.InitLow, not the D2R monster spawn stream. Seedless old metadata remains unsupported.",
+    "Native sector/item-list order, tile2/source-cell mapping, center-distance/height/visibility and approved corpse access/loot filters are declared adapters, not current room/geometry equivalence.",
+    "Nonzero inherited sunder remains unsupported. Modern event/proc/PvP/retirement/GUID and final visual/audio/icon acceptance remain separate."
+  ],
+  "baseCommit": "1870401",
+  "sourceReferences": [
+    "tools/reference/death-sentry-ai-source-evidence.json",
+    "tools/reference/death-sentry-corpse-search-source-evidence.json",
+    "tools/reference/corpse-explosion-source-evidence.json",
+    "tools/reference/d2r-local-sentry-animation-evidence.json"
+  ],
+  "nativeDependencies": {
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  }
+}

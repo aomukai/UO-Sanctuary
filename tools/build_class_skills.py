@@ -135,11 +135,20 @@ public static class ClassAbilities
 
 def products():
     talents, rows, assets = compile_skills()
+    source_skills = json.loads((SOURCE / 'json/skills.json').read_text())
+    death = next(row for row in rows if row['talentId'] == 'assassin.deathsentry')
+    sentry_npc = []
+    for source_id in (312, 324):
+        source = next(row for row in source_skills.values() if row.get('*Id') == source_id)
+        sentry_npc.append({**death, 'name':source['skill'], 'sourceId':source_id,
+                          'sourceKey':source['skill'], 'left':False, 'right':False,
+                          'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k != 'lineNumber'},
+                          'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,13)}})
     monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry']]
+               if r.get('Id','').lower() in ['necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
     models = json.loads((SOURCE / 'json/monstats2.json').read_text())
     summons += [{'key':'infernosentry-model','fields':{k:v for k,v in models['infernosentry'].items() if isinstance(v,int)}}]
     summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
@@ -162,6 +171,7 @@ def products():
         'assassin.fireblast':'Staged UO throw animation9,0x36E4 travel/landing,0x36BD explosion and0x23B sound. Final FireTraumaMissile/FireTraumaGround/FireTraumaXplosion and throw/impact audio pending. Separate talent/left/right/quick icons pending.',
         'assassin.mindblast':'Staged UO0x373A center,0x374A victim and0x1E5 sound; final mindblast center/hit, fist_will_cast overlay and assassin_psychichammer audio pending. Shared stun/knockback/conversion presentation remains placeholder. Separate talent/right-hotkey icons pending.',
         'assassin.weaponblock':'Shared native block animation20 is a placeholder; final dual-claw block animation/audio and talent icon pending. No active hotkey.',
+        'assassin.deathsentry':'Prepared actor uses identified UO0x9C body/hue0x482 and corpse explosion0x36BD placeholders. Final DeathSentry emergence/S2/SQ/neutral/retirement, sentrylightningbolt2, corpse blast/contact and assassin trap audio remain pending. Talent/right-hotkey icons remain separate. Learned AI/mode/retirement input acceptance is not cleared by these placeholders.',
         'assassin.venom':'Staged UO0x373A green cast marker and0x1E5 sound. Final venomclaws weapon/cast overlay and assassin_venom audio pending. Separate talent/right-hotkey icons pending.',
         'assassin.cloakofshadows':'Staged UO0x373A/0x375A caster/target markers and0x1E5 sound. Final darkness presentation, cloaked overlays, assassin_cloakofdarkness audio and separate talent/right-hotkey icons pending.',
         'assassin.psychichammer':'Staged UO0x374A impact and0x1E5/0x1F1 sounds; final psychic_hammer_hit/cast curse overlays and assassin_psychichammer/holybolt impact audio pending. Separate talent/right-hotkey icons pending.',
@@ -246,6 +256,7 @@ def products():
            ROOT/'data/Sanctuary/Balance/classes.json':json.dumps(class_stats,indent=2)+'\n',
            ROOT/'data/Sanctuary/talents.json':json.dumps(talents,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-skills.json':json.dumps(rows,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/sentry-npc-skills.json':json.dumps(sentry_npc,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-states.json':json.dumps([dict(state=r['state'],curse=bool(r.get('curse')),curable=bool(r.get('curable'))) for r in json.loads((SOURCE/'json/states.json').read_text()).values() if r.get('state')],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-icons.json':json.dumps(icons,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-effects.json':json.dumps(effects,indent=2)+'\n',

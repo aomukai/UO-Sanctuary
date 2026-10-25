@@ -22,7 +22,7 @@ internal static class AssassinSentryCreation
     {
         if(difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell){throw new ArgumentOutOfRangeException();}
         string source=ability switch
-        {CombatAbility.ChargedBoltSentry=>"chargeboltsentry",CombatAbility.WakeOfFire=>"wakeofdestruction",CombatAbility.LightningSentry=>"lightningsentry",CombatAbility.WakeOfInferno=>"infernosentry",
+        {CombatAbility.ChargedBoltSentry=>"chargeboltsentry",CombatAbility.WakeOfFire=>"wakeofdestruction",CombatAbility.LightningSentry=>"lightningsentry",CombatAbility.WakeOfInferno=>"infernosentry",CombatAbility.DeathSentry=>"deathsentry",
             _=>throw new NotSupportedException("Unsupported stationary sentry ability")};
         int Field(string field)=>NecromancerSummons.Source(source,field,difficulty);
         if(NecromancerSummons.Source(source,"noRatio")!=1 || NecromancerSummons.Source(source,"Align")!=1
@@ -37,10 +37,10 @@ internal static class AssassinSentryCreation
     internal static SentryCreationStats Prepare(SkillValues values,int casterLevel,MonsterDifficulty difficulty,Func<string,int> accrued)
     {
         ArgumentNullException.ThrowIfNull(values);ArgumentNullException.ThrowIfNull(accrued);
-        if(values.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno)){throw new ArgumentException("Expected a supported stationary sentry",nameof(values));}
+        if(values.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry)){throw new ArgumentException("Expected a supported stationary sentry",nameof(values));}
         var spawn=SourceSpawn(difficulty,values.Ability);var basis=ValkyrieCreation.Base(casterLevel,values.Rank,(int)difficulty,true,spawn);
         var row=SkillMechanics.For(values.Ability);
-        var passives=Enumerable.Range(1,3).Select(i=>new SummonStat(row.Text("passivestat"+i),
+        var passives=Enumerable.Range(1,7).Where(i=>row.Text("passivestat"+i)!="0").Select(i=>new SummonStat(row.Text("passivestat"+i),
             AssassinTrapStats.InheritedValue(row.Text("passivestat"+i),checked((int)values.StatEval("passivecalc"+i,accrued))))).ToArray();
         var skills=Enumerable.Range(1,5).Select(i=>new SummonStat(row.Text("sumskill"+i),checked((int)values.Eval("sumsk"+i+"calc"))))
             .Where(x=>x.Value>0).ToArray();
@@ -73,6 +73,7 @@ internal static class AssassinSentryCreation
         CombatAbility.ChargedBoltSentry=>checked((int)Values(stats).Eval("calc4")),
         // These player rows have no calc4; NPC281/313 Param8 mirrors player Param1.
         CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno=>Values(stats).Param(1),
+        CombatAbility.DeathSentry=>checked((int)SentryNpcSkills.Values(312,stats.Rank,stats.Level,stats.Skill).Eval("calc4")),
         _=>throw new NotSupportedException("Unsupported stationary sentry shots")
     };
     internal static int Bolts(SentryCreationStats stats)
@@ -84,7 +85,7 @@ internal static class AssassinSentryCreation
     }
     internal static (int Min,int Max) Lightning(SentryCreationStats stats)
     {
-        if(stats.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry)){throw new NotSupportedException("Lightning packet requires a supported lightning sentry");}
+        if(stats.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.LightningSentry or CombatAbility.DeathSentry)){throw new NotSupportedException("Lightning packet requires a supported lightning sentry");}
         var values=Values(stats);int mastery=stats.Passive("passive_ltng_mastery");
         return(AmazonMelee.EnhanceEndpoint(values.Damage256(false),mastery),AmazonMelee.EnhanceEndpoint(values.Damage256(true),mastery));
     }

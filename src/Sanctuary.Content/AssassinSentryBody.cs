@@ -21,6 +21,7 @@ internal sealed record SentryBodyState(uint Owner,SentryCreationStats Creation,i
     // A distinct ordinary S2 clock; older CBS saves retain their sequence clock.
     public WakeFireControlState WakeControl{get;init;}
     public InfernoControlState InfernoControl{get;init;}
+    public DeathSentryAiState DeathAi{get;init;}
 }
 
 // Saved stationary actor backend. No Constructible or learned input path exists
@@ -53,37 +54,42 @@ public partial class AssassinSentryBody:BaseCreature
     private static void Validate(SentryBodyState s)
     {
         if(s?.Creation is not{Rank:>=1 and <=255,CasterLevel:>=1 and <=99,Level:>=1 and <=99,Life256:25600} c
-            || c.Passives is not{Length:3} || c.Skills==null || c.Passives.Select(x=>x.Name).Distinct().Count()!=3
-            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno) || c.Skills.Any(x=>x.Value is <1 or >255)
+            || c.Passives==null || c.Passives.Length!=(c.Ability==CombatAbility.DeathSentry?7:3) || c.Skills==null || c.Passives.Select(x=>x.Name).Distinct().Count()!=c.Passives.Length
+            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || c.Skills.Any(x=>x.Value is <1 or >255)
             || c.Skills.Select(x=>x.Name).Distinct().Count()!=c.Skills.Length
             || c.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
-            || c.Passive("item_pierce_light_immunity")!=0 || c.Passive("item_pierce_fire_immunity")!=0 || !((Serial)s.Owner).IsMobile
+            || c.Passive("item_pierce_light_immunity")!=0 || c.Passive("item_pierce_fire_immunity")!=0 || c.Passive("item_pierce_damage_immunity")!=0 || !((Serial)s.Owner).IsMobile
             || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
             || s.Position.X<=0 || s.Position.Y<=0 || s.Position.X>=Map.Maps[s.Map].Width || s.Position.Y>=Map.Maps[s.Map].Height
             || s.Position.Z is <-128 or >127 || s.NextFrameUtc.Kind!=DateTimeKind.Utc)
         {throw new InvalidDataException("Unsupported saved sentry body state");}
-        if(c.Ability==CombatAbility.WakeOfFire)
+        if(c.Ability==CombatAbility.DeathSentry)
         {
-            if(s.Control!=null || s.InfernoControl!=null){throw new InvalidDataException("Wake cannot retain a lightning/Inferno sequence clock");}
+            if(s.Control!=null || s.InfernoControl!=null || s.WakeControl!=null || s.DeathAi is not{RemainingShots:>=-1})
+            {throw new InvalidDataException("Death Sentry requires its distinct AI104 context");}
+        }
+        else if(c.Ability==CombatAbility.WakeOfFire)
+        {
+            if(s.Control!=null || s.InfernoControl!=null || s.DeathAi!=null){throw new InvalidDataException("Wake cannot retain a lightning/Inferno/death sequence clock");}
             AssassinWakeFire.Validate(s.WakeControl);
         }
         else if(c.Ability==CombatAbility.WakeOfInferno)
         {
-            if(s.Control!=null || s.WakeControl!=null){throw new InvalidDataException("Inferno cannot retain another sentry clock");}
+            if(s.Control!=null || s.WakeControl!=null || s.DeathAi!=null){throw new InvalidDataException("Inferno cannot retain another sentry clock");}
             AssassinInfernoControl.Validate(s.InfernoControl);
             if(s.InfernoControl.Burst is{} burst && burst.HardWake!=c.Skill("Wake of Fire Sentry"))
             {throw new InvalidDataException("Saved Inferno burst disagrees with captured hard Wake");}
         }
         else
         {
-            if(s.WakeControl!=null || s.InfernoControl!=null){throw new InvalidDataException("Lightning sentry cannot retain a fire clock");}
+            if(s.WakeControl!=null || s.InfernoControl!=null || s.DeathAi!=null){throw new InvalidDataException("Lightning sentry cannot retain a fire/death clock");}
             AssassinSentryController.Validate(s.Control);
         }
         if(s.CachedAim is{} aim && (aim.X is <0 or >65535 || aim.Y is <0 or >65535))
         {throw new InvalidDataException("Invalid saved sentry target-path coordinate");}
         var expected=AssassinSentryCreation.Rescale(c,c.Difficulty);var row=SkillMechanics.For(c.Ability);
         string actorSkill=row.Text("sumskill1");
-        var passiveNames=Enumerable.Range(1,3).Select(i=>row.Text("passivestat"+i)).ToArray();
+        var passiveNames=Enumerable.Range(1,7).Select(i=>row.Text("passivestat"+i)).Where(x=>x!="0").ToArray();
         var skillNames=Enumerable.Range(1,5).Select(i=>row.Text("sumskill"+i)).Where(x=>x!="0").ToArray();
         if(c.Level!=expected.Level || c.Defense!=expected.Defense || c.Attack!=expected.Attack
             || !c.Skills.Any(x=>x.Name==actorSkill&&x.Value==c.Rank)
@@ -105,10 +111,11 @@ public partial class AssassinSentryBody:BaseCreature
         // Prepared fixtures retain their explicit neutral/+25 initial state.
         // Emerging actors retain S1 ENDANIM+15 and the original AI+25 event.
         at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
-        bool wake=ability==CombatAbility.WakeOfFire,inferno=ability==CombatAbility.WakeOfInferno;
+        bool wake=ability==CombatAbility.WakeOfFire,inferno=ability==CombatAbility.WakeOfInferno,death=ability==CombatAbility.DeathSentry;
         var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,
-            wake||inferno?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40))
-            {CachedAim=new(0,0),WakeControl=wake?AssassinWakeFire.Start(emerging):null,InfernoControl=inferno?AssassinInfernoControl.Start(emerging):null};Validate(state);
+            wake||inferno||death?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40),death?"Death Sentry mode/AI dispatch is not connected":null)
+            {CachedAim=new(0,0),WakeControl=wake?AssassinWakeFire.Start(emerging):null,InfernoControl=inferno?AssassinInfernoControl.Start(emerging):null,
+                DeathAi=death?AssassinDeathSentryAi.Start(unchecked((int)(Core.TickCount/40))):null};Validate(state);
         var body=new AssassinSentryBody();
         try
         {
