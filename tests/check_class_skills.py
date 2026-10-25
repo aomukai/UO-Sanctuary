@@ -66,7 +66,7 @@ def check():
         shutil.copy2(STAGE / 'sentry-emergence-source-probe.json', folder / 'sentry-emergence-source-probe.json')
         shutil.copy2(STAGE / 'sentry-unit-path-source-probe.json', folder / 'sentry-unit-path-source-probe.json')
         shutil.copy2(STAGE / 'blade-fury-channel-source-probe.json', folder / 'blade-fury-channel-source-probe.json')
-        for fixture in ['blade-fury-resource','blade-fury-timing','blade-fury-release']:
+        for fixture in ['blade-fury-resource','blade-fury-timing','blade-fury-release','blade-fury-sequence']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
         shutil.copy2(STAGE / 'blade-fury-damage-source-probe.json', folder / 'blade-fury-damage-source-probe.json')
         for fixture in ['sentry-target','charged-bolt-path']:
@@ -226,6 +226,18 @@ def check():
                     session.send('blade-fury-missile-natural-check')
                     assert session.expect(r'blade-fury-missile-natural-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'blade-fury-missile-natural-result: (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
+                    sequence='blade-fury-sequence-check' if boot==0 else 'blade-fury-sequence-reload-check'
+                    session.send(sequence)
+                    assert session.expect(sequence+r': (passed|failed)',timeout=90).group(1)=='passed',logpath.read_text()[-6000:]
+                    if boot>0:
+                        session.send('blade-fury-mode-reload-check')
+                        assert session.expect(r'blade-fury-mode-reload-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('blade-fury-mode-live-check')
+                        assert session.expect(r'blade-fury-mode-live-check: (passed|failed)',timeout=10).group(1)=='passed',logpath.read_text()[-6000:]
+                        client.sendall(bytes([0x73,0]))
+                        assert session.expect(r'blade-fury-mode-live-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     release='blade-fury-release-check' if boot==0 else 'blade-fury-release-reload-check'
                     session.send(release)
                     assert session.expect(release+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

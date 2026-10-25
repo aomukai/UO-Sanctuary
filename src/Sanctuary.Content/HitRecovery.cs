@@ -50,11 +50,12 @@ public static class HitRecovery
         if (Active(player, now)) { return; }
         var session = ClassCombat.For(player);
         // Released2.4: a successful block still negates damage but does not interrupt an active skill/attack animation.
-        if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0){return;}
+        if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0 || BladeFuryModes.Active(player)){return;}
         int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
+        BladeFuryModes.Interrupt(player);
         AmazonJab.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonStrafe.Cancel(player);
@@ -109,6 +110,7 @@ public static class HitRecovery
         session.PendingAbility = CombatAbility.None;
         session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
+        BladeFuryModes.Interrupt(player);
         AmazonJab.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonStrafe.Cancel(player);

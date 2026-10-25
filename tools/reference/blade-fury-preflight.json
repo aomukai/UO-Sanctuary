@@ -316,9 +316,12 @@
     "fieldDocumentation": "tools/reference/blade-fury-primary-notes.json#fieldDocumentation",
     "releaseFinding": "Complete source stop0x12/state/list/resource composition and focused/full native suites now verify distinct cleared Inferno bit and retained timed list. The correction is installed; source timing is not a current client release certificate.",
     "modeEntryFlags": "Reviewed older XY/ID mode entry clears server-do flag64 before invoking the start wrapper. The bounded channel record defaults to64; production event dispatch must compose that caller step, rather than skipping its first action because it reused the fixture default.",
-    "rewindCallerScope": "Fresh sequence initialization resets the epoch. Do not replay that initialization for an active-list reentry without proving the real caller path: immediate renewal can address a negative sequence index, which the native planner explicitly rejects. No padding or guessed client frame is approved."
+    "rewindCallerScope": "Fresh sequence initialization resets the epoch. Do not replay that initialization for an active-list reentry without proving the real caller path: immediate renewal can address a negative sequence index, which the native planner explicitly rejects. No padding or guessed client frame is approved.",
+    "serverSequence": "Prepared SQ23 mode/event component and player timer are being verified. Explicit accepted start callbacks are separate from the unresolved client heartbeat/fresh-reentry gate. Source matrices include warmup, release, neutral end, stale removal and expiry/action FIFO ties."
   },
   "releaseNativeEvidence": "tools/reference/blade-fury-release-native-evidence.json",
   "releaseSourceEvidence": "tools/reference/blade-fury-release-source-evidence.json",
-  "releaseComponentInstalled": true
+  "releaseComponentInstalled": true,
+  "sequenceSourceEvidence": "tools/reference/blade-fury-sequence-source-evidence.json",
+  "sequenceNativeEvidence": "tools/reference/blade-fury-sequence-native-evidence.json"
 }

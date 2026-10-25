@@ -100,6 +100,7 @@ public static class ClassCombat
                 ClassGear.Changed(from);
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
+                BladeFuryModes.EquipmentChanged(from);
             }
         };
         ClassCombatHooks.DefenseSuppressed = from => ClassMovement.IsRunning(from, Core.TickCount);
@@ -222,6 +223,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
+        BladeFuryModes.Interrupt(from);
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;

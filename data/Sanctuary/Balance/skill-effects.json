@@ -2887,7 +2887,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared bladefragment1 travel uses shared UO0xF42 marker, explicitly a placeholder. Final SQ/channel/cast, Expansion bladefury bladefragment1/2/3 travel/impact and assassin_bladefury_throw_1/hit audio remain pending. Separate talent/left/right/quick icons pending; learned input remains gated."
+    "placeholder": "Prepared bladefragment1 travel uses shared UO0xF42 marker, explicitly a placeholder. Prepared server SQ23 timer has no final player sequence/channel rendering. Final SQ/channel/cast, Expansion bladefury bladefragment1/2/3 travel/impact and assassin_bladefury_throw_1/hit audio remain pending. Separate talent/left/right/quick icons pending; learned input remains gated."
   },
   {
     "talentId": "assassin.lightningsentry",

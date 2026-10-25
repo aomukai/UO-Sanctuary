@@ -163,6 +163,7 @@ public sealed class CharacterProfiles : GenericPersistence
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);
         BladeFuryMissiles.Cancel(player);
+        BladeFuryModes.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonDecoys.Cancel(player);
