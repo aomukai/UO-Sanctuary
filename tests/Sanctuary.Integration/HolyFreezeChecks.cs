@@ -90,6 +90,9 @@ public static class HolyFreezeChecks
                 PaladinHolyFreeze.Slow(owner,victim,one,TimedEffects.Now);PaladinHolyFreeze.RollPercent=()=>0;PaladinHolyFreeze.RollShatter(victim);
                 AOS.Damage(victim,owner,100000,false,100,0,0,0,0,weaponDamage:false);
                 var corpse=victim.Corpse as Corpse;Require(corpse!=null,"Shatter victim left no corpse; life="+victim.Hits);
+                // Keep this saved-state inspection fixture beyond the growing
+                // three-boot suite; ordinary corpse decay remains unchanged.
+                corpse.BeginDecay(TimeSpan.FromHours(1));
                 Require(CorpseSkillRules.Shattered(corpse),"Shatter marker absent from captured corpse: "+JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(corpse)));
                 // Ordinary reward cleanup intentionally removes native backpack drops. Seed retained loot after that existing policy.
                 var gold=new Gold(777);corpse.DropItem(gold);
@@ -121,7 +124,7 @@ public static class HolyFreezeChecks
         var target=(BaseCreature)World.FindMobile((Serial)saved.Target);owner.MoveToWorld(saved.Origin,Map.Trammel);target.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);
         Require(PaladinHolyFreeze.Effect(target)==saved.Lease && PaladinHolyFreeze.Shattered(target),"Saved independent slow/source/rank/shatter/deadline changed");
         var corpse=World.FindItem((Serial)saved.Corpse) as Corpse;Require(CorpseSkillRules.Shattered(corpse) && corpse.Items.Count>0
-            && !CorpseSkillRules.Usable(owner,corpse,20) && !SkeletonPets.Usable(owner,corpse),"Saved shatter corpse/loot changed");
+            && !CorpseSkillRules.Usable(owner,corpse,20) && !SkeletonPets.Usable(owner,corpse),$"Saved shatter corpse/loot changed: corpse={corpse?.Serial},deleted={corpse?.Deleted},items={corpse?.Items.Count},shattered={CorpseSkillRules.Shattered(corpse)}");
         target.SetResistance(ResistanceType.Cold,0);int hp=target.Hits;
         var state=PaladinAuras.Snapshot();PaladinAuras.Restore(state with{Emitters=state.Emitters.Select(x=>x.Owner==saved.Owner?x with{NextUtc=TimedEffects.Now}:x).ToArray()});
         Later(150,"holy-freeze-reload-result",()=>

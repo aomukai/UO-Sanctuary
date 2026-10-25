@@ -45,6 +45,7 @@
   },
   "preparedComposition": "tools/reference/dragon-tail-source-evidence.json",
   "rateEvidence": "tools/reference/dragon-tail-rate-source-evidence.json",
+  "clockEvidence": "tools/reference/dragon-tail-clock-source-evidence.json",
   "reuse": [
     "Prepared body/boot physical packets and actual15current boot bases;selected-hand and stat-list context.",
     "Saved independent Tiger/Cobra/Fists/Thunder/Ice/Phoenix charges and common one-charge consumption;do not copy ordinary Attack weapon damage into kicks.",
@@ -58,7 +59,7 @@
   ],
   "required": [
     "Compose current charged guaranteed-hit versus shield block/dodge and exact one-charge consumption with kick delivery;older all-state removal is not authoritative.",
-    "4608original current-family rates and10local KK13frame/action4/base256records establish primary WSM/IAS and-40modifier without SQ-30. Compose exact server clock/action/end boundaries and modifier lifetime before scheduling;do not substitute Tiger A1 or Talon SQ19.",
+    "4608original current-family rates and10local KK13frame/action4/base256records establish primary WSM/IAS and-40modifier without SQ-30. 4490complete older scheduler/frame-bonus contexts establish one action at ceil(1024/advance)and end at ceil(3328/advance). Compose start27modifier posting/lifetime,current executable and native scheduling before enabling;do not substitute Tiger A1 or Talon SQ19.",
     "Recompose actual boot/body/Tiger/Fists conversion/other elements/leech/proc/mitigation with current data;full old CalculateTotalDamage remains a service boundary in the current Tail probe.",
     "Resolve knockback and recipients after lethal parent contact;verify real gear/difficulty/immunity,ranks/resources/fallback,cancellation,all natural input paths and save/reload.",
     "Keep each uncertain branch explicit and continue unaffected skills;do not ask the traps-only player for martial-arts tests."

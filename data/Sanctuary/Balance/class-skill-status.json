@@ -2078,7 +2078,7 @@
       "tree": "Martial Arts",
       "sourceId": 274,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
       "remaining": "Shared primary-rate sequence16 builds independent Ice charges with one/two claw contacts and once-paid3mana; low mana uses ordinary charged Attack. Ordinary finisher adds separately mastered cold without physical conversion; its skill cold duration replaces weapon cold duration. Count2 adds target-centered cold area with caster LOS; count3 freezes the parent and scatters saved stationary Size1 ice cubes with both cold/freeze lengths. Cubes retain their most recent collider,30frame lifetime,captured endpoints/pierce and clocks. Scoped source/native verification and installation state are in blades-of-ice-preflight.json. Current executable/stat/RNG/geometry/proc/PvP/NPC/exceptional missile/client contexts and ordinary chill corpse destruction remain explicit acceptance gaps. Final effects/audio and talent/left/right/quick icons remain separate identified placeholders."
     },
@@ -2100,9 +2100,9 @@
       "tree": "Martial Arts",
       "sourceId": 280,
       "implementation": "handler-present",
-      "verification": "build-only",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Candidate single-contact do34/A1 builder pays4mana once and stores independent25AR charges. Ordinary successful Attack consumes one per family and releases only the selected tier:60frame meteor warning/impact/18fire fields,7source-directed lightning paths,or16elapsed0curving freeze-only missiles. Saved warnings/paths/seeds/target vectors/leases/fields reuse source packet/collision/cold and native world consumers. Current installation/verification scope is in phoenix-strike-preflight.json. Literal older signed vector packing,current executable/stat/RNG/geometry/proc/PvP/NPC/client and cached A1 timing remain explicit acceptance gaps. Effects/audio and talent/left/right/quick icons remain separate identified placeholders."
+      "remaining": "Single-contact do34/A1 builder pays4mana once and stores independent25AR charges. Ordinary successful Attack consumes one per family and releases only the selected tier:60frame meteor warning/impact/18fire fields,7source-directed lightning paths,or16elapsed0curving freeze-only missiles. Saved warnings/paths/seeds/target vectors/leases/fields reuse source packet/collision/cold and native world consumers. Current installation/verification scope is in phoenix-strike-preflight.json. Literal older signed vector packing,current executable/stat/RNG/geometry/proc/PvP/NPC/client and cached A1 timing remain explicit acceptance gaps. Effects/audio and talent/left/right/quick icons remain separate identified placeholders."
     },
     {
       "talentId": "assassin.clawmastery",
