@@ -214,6 +214,31 @@
       "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
       "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
       "routineSha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
+    },
+    "UNITS_InitializeSequence": {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routineSha256": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485"
+    },
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routineSha256": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028"
+    },
+    "UNITS_CanAnimModeUseAttackRate": {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routineSha256": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df"
+    },
+    "UNITS_UpdateOtherAnimRateAndVelocity": {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routineSha256": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33"
+    },
+    "UNITS_UpdateAnimRateAndVelocity": {
+      "path": "source/D2Common/src/Units/Units.cpp",
+      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+      "routineSha256": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
     }
   },
   "channelEvidence": "tools/reference/blade-fury-channel-source-evidence.json",
@@ -239,6 +264,12 @@
       "path": "src/Sanctuary.Content/BowLaunch.cs",
       "additionalPath": "src/Sanctuary.Content/BladeSentinelPackets.cs",
       "contract": "Reuse FromSource arithmetic after a Blade Fury player collector is checked. BowLaunch.Capture explicitly restricts supported Amazon skills/weapons, BladeSentinelPackets explicitly restricts Blade Sentinel, and BladeShieldDamage rolls melee damage. Do not erase those guards or route Fury through an NPC/melee collector."
+    },
+    {
+      "component": "WeaponMissiles flight/impact/persistence",
+      "path": "src/Sanctuary.Content/WeaponMissiles.cs",
+      "additionalPath": "src/Sanctuary.Content/ClassStats.cs",
+      "contract": "Reuse saved packets/health/typed/poison/leech/credit where compatible. Launch/Restore currently accept nonzero SkillAttackPercent only for Strafe; add an explicit validated Fury contract, not a blanket relaxation. Existing weapon-event delivery is gated to AmazonBow/AmazonJavelins, so Fury needs its own checked on-strike/defender path. Force no passive Pierce/arrow substitution and no weapon wear under the documented Fury contract. Generic player ownership supports other classes, but saved flight/activation/slow/motion acceptance still needs Fury tests."
     }
   ],
   "required": [
@@ -252,7 +283,8 @@
     "Current cadence/warmup/state-renewal/rank1 debit and input scheduling are unobserved. Param4=5 gives bounded source strict-deadline opportunities at frame+5, not a current animation certificate.",
     "Complete owner/death/offline/motion, unarmed/two-handed/dual-claw behavior, live gear/procs/durability, AR interpretation and full source seed/world ordering remain acceptance work.",
     "Do48 reports a creation attempt even after factory failure; resource behavior must follow composed callers, not a guessed refund.",
-    "Current AR semantics are corroborated: released official2.4 notes add10percent per effective rank, matching pinned ToHitCalc=lvl*10. Old do48/factory lacks its injection because it predates that change. Add a documented native bridge to the existing missile skill-AR percentage lane; do not gate progress on finding that newer producer in old source. Native current AR/hit/item/class acceptance remains pending."
+    "Current AR semantics are corroborated: released official2.4 notes add10percent per effective rank, matching pinned ToHitCalc=lvl*10. Old do48/factory lacks its injection because it predates that change. Add a documented native bridge to the existing missile skill-AR percentage lane; do not gate progress on finding that newer producer in old source. Native current AR/hit/item/class acceptance remains pending.",
+    "Selected-weapon mastery AR: current ClassStats.BaseAttackRating adds WeaponMasteries.Bonus even when CheckHit receives projectile:true; that flag controls defense/attempt notification, not the AR pool. The older SUNITDMG_IsHitSuccessful missile branch omits weapon-mastery AR. Verify the current Fury contract or explicitly supply the proper AR pool before binding the generic hit call. This does not affect the prepared packet/resource/planner components."
   ],
   "assets": {
     "effectsInventory": "data/Sanctuary/Balance/skill-effects.json",
@@ -271,5 +303,16 @@
   "componentInstalled": true,
   "resourceNativeEvidence": "tools/reference/blade-fury-resource-native-evidence.json",
   "primaryNotes": "tools/reference/blade-fury-primary-notes.json",
-  "damageEvidence": "tools/reference/blade-fury-damage-source-evidence.json"
+  "damageEvidence": "tools/reference/blade-fury-damage-source-evidence.json",
+  "pendingOptionalObservation": {
+    "status": "unanswered",
+    "blocking": false,
+    "question": "D2R3.3.93847 Blade Fury: brief press/release before first blade still emits? Steady-stream release stops immediately or emits a tail?",
+    "instruction": "Record answer if received; do not repeat while pending. Continue independent weapon/projectile work."
+  },
+  "sourceRateReview": {
+    "compiledByThisReview": false,
+    "finding": "Older InitializeSequence sets dwSeqSpeed256. Pinned Fury seqtrans=A1 and absent useAttackRate do not select FCR/attack-rate modulation under the reviewed ordinary SQ route. UpdateOther writes wAnimSpeed, not dwSeqSpeed. This suggests retaining source fixed sequence rate; compose the complete route before binding it. Do not feed Fury through generic IAS/FCR timing merely because it has a weapon/cast animation.",
+    "scope": "Full named bodies reviewed, source skill/row and identity mode assumptions retained; complete native/source initialization/rate/mode-entry and current executable acceptance remain pending."
+  }
 }

@@ -15,7 +15,23 @@ public static class SanctuaryAuraChecks
     private static readonly ILogger _log=LogFactory.GetLogger(typeof(SanctuaryAuraChecks));
     private sealed record Saved(uint Owner,uint Target,Point3D Origin,PaladinAuraSave Aura,SourceKnockbackState Motion);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"sanctuary-aura-checks.json");
-    public static void Configure(){Register("sanctuary-aura-check",Check);Register("sanctuary-aura-reload-check",Reload);}
+    public static void Configure()
+    {
+        Register("sanctuary-aura-check",Check);Register("sanctuary-aura-reload-check",Reload);
+        // Every scene creature has stopped ordinary AI at creation. Native
+        // deserialization restarts those timers; restore the same isolation
+        // before other checks give the far/control actors time to wander.
+        EventSink.WorldLoad+=()=>
+        {
+            int count=0;
+            foreach(var actor in World.Mobiles.Values.OfType<BaseCreature>())
+            {
+                if(actor.Name?.StartsWith("SanctuaryAuraFixture",StringComparison.Ordinal)!=true){continue;}
+                actor.Combatant=null;actor.FocusMob=null;actor.AIObject?.AITimer.Stop();count++;
+            }
+            if(count>0){_log.Information("Sanctuary scene reload: restored stopped ordinary AI for {Count} fixture creatures",count);}
+        };
+    }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Sanctuary undead supplier, pulse, native knockback and persistence",
         _=>Core.LoopContext.Post(()=>{try{action();_log.Information("{Name}: passed",name);}catch(Exception e){_log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string reason){if(!value){throw new InvalidOperationException(reason);}}
@@ -34,7 +50,7 @@ public static class SanctuaryAuraChecks
     }
     private static GraveyardSkeleton Enemy(PlayerMobile owner,int dx,int dy=0)
     {
-        var enemy=new GraveyardSkeleton{NoKillAwards=true};enemy.MoveToWorld(new(owner.X+dx,owner.Y+dy,owner.Z),owner.Map);
+        var enemy=new GraveyardSkeleton{Name="SanctuaryAuraFixtureEnemy",NoKillAwards=true};enemy.MoveToWorld(new(owner.X+dx,owner.Y+dy,owner.Z),owner.Map);
         enemy.AIObject.AITimer.Stop();enemy.SetHits(20000);enemy.Hits=enemy.HitsMax;enemy.Poison=Poison.Lesser;enemy.SetResistance(ResistanceType.Physical,0);
         return enemy;
     }
@@ -47,8 +63,8 @@ public static class SanctuaryAuraChecks
             && twenty.Damage256(false)==54067 && twenty.Damage256(true)==66355,"Pinned Sanctuary goldens");
         Require(SourceKnockbacks.Offset(1,0,5)==(1,0,98304) && SourceKnockbacks.Offset(-1,0,5)==(-1,0,98304)
             && SourceKnockbacks.Offset(1,1,5)==(1,1,139022),"Explicit source-subtile/native endpoint projection");
-        var target=Enemy(owner,1);var far=Enemy(owner,5);var beast=new Ogre{Frozen=true};beast.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);beast.AIObject.AITimer.Stop();
-        var immune=new LichLord{Frozen=true};MonsterVariants.Assign(immune,MonsterDifficulty.Hell);immune.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);immune.AIObject.AITimer.Stop();immune.Poison=Poison.Lesser;
+        var target=Enemy(owner,1);var far=Enemy(owner,5);var beast=new Ogre{Name="SanctuaryAuraFixtureBeast",Frozen=true};beast.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);beast.AIObject.AITimer.Stop();
+        var immune=new LichLord{Name="SanctuaryAuraFixtureImmune",Frozen=true};MonsterVariants.Assign(immune,MonsterDifficulty.Hell);immune.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);immune.AIObject.AITimer.Stop();immune.Poison=Poison.Lesser;
         Require(GemCombat.Undead(immune) && NamedElements.MagicResistance(immune)==100 && SourceKnockbacks.Rule(immune)==null,"Magic-immune/unmapped control fixture");
         var ally=ClassSkillChecks.Player(DiabloClass.Necromancer);ally.MoveToWorld(new(owner.X,owner.Y-1,owner.Z),owner.Map);
         var pet=Enemy(owner,0,-2);Require(pet.SetControlMaster(ally),"Sanctuary pet ownership");
@@ -147,6 +163,13 @@ public static class SanctuaryAuraChecks
         target.Combatant=null;target.FocusMob=null;target.AIObject?.AITimer.Stop();
         Require(SourceKnockbacks.Snapshot().Single(x=>x.Target==saved.Target)==saved.Motion && target.Location==saved.Motion.Position,"Saved knockback position/phase/budget/deadline changed");
         Require(PaladinSanctuary.DamagePercent(owner,target)==150 && PaladinSanctuary.AttackFlat(owner,target)==100,"Saved supplier stats lost");
+        var nearby=new System.Collections.Generic.List<string>();
+        foreach(var actor in target.Map.GetMobilesInRange<Mobile>(saved.Motion.End,1))
+        {nearby.Add($"{actor.Serial}:{actor.Name}@{actor.Location}");}
+        _log.Information("Sanctuary motion reload start: target={Target} end={End} frozen={Frozen} paralyzed={Paralyzed} terrainFit={Terrain} occupiedFit={Occupied} nearby={Nearby}",
+            target.Location,saved.Motion.End,target.Frozen,target.Paralyzed,
+            target.Map.CanFit(saved.Motion.End,16,true,false,true),target.Map.CanFit(saved.Motion.End,16,true,true,true),
+            string.Join(";",nearby));
         SourceKnockbacks.Restore(SourceKnockbacks.Snapshot().Select(x=>x.Target==saved.Target?x with{NextUtc=TimedEffects.Now}:x).ToArray());
         long deadline=Core.TickCount+3000;
         void ObserveMotion()

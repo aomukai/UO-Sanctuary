@@ -3,7 +3,7 @@
   "installed": false,
   "handlerEnabled": false,
   "fullPending": true,
-  "status": "Blade Fury ordinary-player payment wrappers and SQ23 event planning pass focused three boots/two reloads, with real fractional mana/soft-rank payments and saved-owner reloads. Full regression underway; installed9c93a9a unchanged.",
+  "status": "Native Blade Fury payment/animation components and actual fractional player payments pass combined focused3boots/2reloads. First full run failed an older Sanctuary scene reload; scoped whole-scene AI restoration now passes the combined focused suite. Repeated full regression running; installed9c93a9a unchanged.",
   "sourceEvidence": [
     "tools/reference/blade-fury-resource-source-evidence.json",
     "tools/reference/blade-fury-timing-source-evidence.json"
@@ -52,5 +52,15 @@
     "focused": ".local/class-skills/blade-fury-resource-focused.log",
     "focused-run": ".local/class-skills/blade-fury-resource-focused-run.log",
     "full-suite-run": ".local/class-skills/blade-fury-resource-full-suite-run.log"
+  },
+  "regressionInvestigation": {
+    "failedRunTerminal": true,
+    "log": ".local/class-skills/blade-fury-resource-sanctuary-reload-failure.log",
+    "runLog": ".local/class-skills/blade-fury-resource-sanctuary-reload-failure-run.log",
+    "finding": "First full run failed Sanctuary reload: target stayed at saved cell and motion state expired. Deserialization restarted all fixture AI; the old reload only stopped the target, leaving far/control actors able to wander. Actual interfering actor was not captured in that failed log.",
+    "testChange": "Unique Sanctuary fixture creature names; WorldLoad restores the stopped ordinary AI used at creation for the whole scene. Added terrain/occupancy/nearby diagnostics. Actual endpoint/recovery assertions and production movement remain unchanged.",
+    "verificationPending": true,
+    "combinedFocusedPassed": true,
+    "focusedLog": ".local/class-skills/blade-fury-resource-sanctuary-focused.log"
   }
 }
