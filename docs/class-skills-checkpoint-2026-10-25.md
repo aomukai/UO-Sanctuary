@@ -1,3 +1,13 @@
+# Latest class mechanics checkpoint —25 October2026
+
+Prepared Fists of Fire finisher/field component installed; learned Fists claw action stays disabled. Focused/full suites each pass3boots/2reloads. Each initial boot compares6144 selected fire conversion controls,512 successful source builder gains and255 rank/count controls. Actual Sorceress/Eschuta fire mastery proves critical-before-conversion and no duplicate mastery on converted fire; native Assassin claw contexts exercise ordinary Attack, independent Tiger/Cobra/Fists consumption,fire immunity,zero physical leech at mapped full conversion,SOFTHIT with retained elite retaliation,parent death before secondary area/fields,misses,overlap,offline expiry,map cleanup and saved source fields/charges. Natural64-frame fields and deliberately held reload payloads are distinct tests. Retained Cobra natural charge/finisher input passes3runs per suite. All70 Python tests,current555/21 audit fingerprints and573 unchanged named decisions pass. Original-world smoke loads/listens/shuts down0; saves/config/client bytes unchanged and server stopped. Handlers remain152/Assassin13; Cobra is the latest playable skill. No class completion certificate.
+
+Continue Fists of Fire claw action: compose complete SQ attack-rate/base208/dual intrinsic WSM context with sequence16 and contact ordinals0/1, then implement one/two-claw start/payment/events, selected hands, low-mana ordinary Attack fallback, paid cancellation and actual held/right/quick input. Reuse installed charge/finisher/fields. Dragon Talon consumption/timing/delivery remains individually deferred. Player only uses fire/lightning traps; no repeated martial/Fury playtest questions. Continue unaffected work if a specific branch remains unsupported.
+
+[Native scope and limitations](../tools/reference/fists-fire-native-evidence.json), [roadmap](class-skill-roadmap.md), [effects](skill-effects.md), [icons](skill-icons.md).
+
+The earlier kick component checkpoint is retained below.
+
 # Class mechanics checkpoint —25 October2026
 
 Goal active. Reference **D2R3.3.93847 — Reign of the Warlock**; approved Sanctuary deviations take precedence. Installed152 handlers: Necromancer28,Sorceress29,Paladin30,Barbarian25,Amazon27,Assassin13; Druid/Warlock0. No class completion certificate. Cobra Strike remains the latest playable skill. Dragon Talon has a prepared physical component, with learned input disabled.

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Prepared native finisher/fields candidate under focused/full verification; learned claw action not enabled",
+  "status": "Prepared finisher/fields installed; separate learned claw action pending",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -97,23 +97,22 @@
   },
   "currentLocalCorroboration": "tools/reference/d2r-local-kick-data-evidence.json",
   "reusable": [
-    "Existing start23 target validation and saved independent charge ledger; do35 has its own alternating-hand/sequence behavior and must be compiled before porting.",
+    "Existing start23 target validation and saved independent charge ledger; complete do35/do34 and sequence16 ordinal bridge are compiled. The separate native claw action is next.",
     "Existing selected-hand stat contexts, source weapon packets, typed mitigation/poison/leech, progressive damage consumers, field actors and explosion geometry.",
     "Current local animation metadata and old explicit player-sequence tables are separate evidence; source sequence16 must be traced rather than borrowing generic A1 timing."
   ],
   "required": [
-    "Compile complete do35 builder, prgdam4/sub_6FCF5BC0 conversion, progressive callbacks143/38/39 and their shared complete services under scoped source fixtures.",
-    "Trace initial/alternate claw sequence16 timing, selected hand, payment and charge gain on each contact. Verify claw eligibility and paid cancellation without inventing current mode behavior.",
-    "Resolve progressive stacking/physical-to-fire conversion and hard Phoenix Strike synergy with current values, charge rank retention and modern consume-one policy.",
-    "Verify actual weapon/stat/item/fire-immunity/radius/missile/field/lifecycle/reload/input contexts; do not enable unsupported branches merely to raise counts.",
-    "Continue unaffected skills if specific mechanics remain blocked, record nonblocking questions without repeating martial-arts playtest requests to the player."
+    "Compose complete source SQ attack rate with selected primary IAS,base208,dual intrinsic WSM,clamp and ordinal scheduler before native action acceptance.",
+    "Implement one/two-claw sequence16 events,once-paid2mana,selected hands,low-mana ordinary Attack fallback and paid cancellation. Builders gain charges without consuming existing families.",
+    "Verify actual held/right/quick learned input and natural timer/cancellation/reload contexts before enabling the skill.",
+    "Retain explicit modern/stat/seed/geometry/proc/client acceptance gaps and separate effects/icons. Continue unaffected work without martial-arts playtest questions."
   ],
   "assets": {
     "effects": "Final hand charge1/2/3, fire conversion/area/firewall, skill audio and charge-release markers remain separate from mechanics; use labelled placeholders.",
     "icons": "Talent/left/right/quick icons remain independently inventoried."
   },
   "limits": [
-    "No handler or native Fists of Fire certificate yet. Player only uses trap builds; no martial-arts observations available.",
+    "No learned Fists handler or claw-action certificate. Prepared finisher/fields have separate scoped source/native verification; player only uses traps and has no martial-arts observation.",
     "Dragon Talon action/delivery gaps remain individually deferred; its prepared physical component is reusable for later kick finishers."
   ],
   "builderConversionEvidence": "tools/reference/fists-fire-source-evidence.json",
@@ -128,7 +127,15 @@
     "3456 complete old sub77E0+143/38/39+progressive getter+copy-per-target callback cases pass with declared RNG/damage/world services. Parent drain precedes area coordinates/damage. Ground callback consumes one owner seed before validation, then32 local limited draws at radius4 and source557/259/rank/flags1 factory requests. Actual SourceRandom exists and must be reused in native placement. No native Fists handler yet."
   ],
   "progressiveReleaseEvidence": "tools/reference/martial-fire-release-source-evidence.json",
-  "nativeComponentInstalled": false,
+  "nativeComponentInstalled": true,
   "nativeCandidate": "src/Sanctuary.Content/FistsFireRelease.cs",
-  "nativeChecks": "tests/Sanctuary.Integration/FistsFireChecks.cs"
+  "nativeChecks": "tests/Sanctuary.Integration/FistsFireChecks.cs",
+  "nativeEvidence": "tools/reference/fists-fire-native-evidence.json",
+  "next": "Continue Fists of Fire claw action: compose complete SQ attack-rate/base208/dual intrinsic WSM context with sequence16 and contact ordinals0/1, then implement one/two-claw start/payment/events, selected hands, low-mana ordinary Attack fallback, paid cancellation and actual held/right/quick input. Reuse installed charge/finisher/fields. Dragon Talon consumption/timing/delivery remains individually deferred. Player only uses fire/lightning traps; no repeated martial/Fury playtest questions. Continue unaffected work if a specific branch remains unsupported.",
+  "verifiedPreparation": {
+    "sourceBuildersConversion": "tools/reference/fists-fire-source-evidence.json",
+    "sourceOrdinalSequence": "tools/reference/assassin-claw-sequence-source-evidence.json",
+    "sourceStackedRelease": "tools/reference/martial-fire-release-source-evidence.json",
+    "nativeFinisherFields": "tools/reference/fists-fire-native-evidence.json"
+  }
 }

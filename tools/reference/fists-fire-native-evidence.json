@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fistsoffire",
+  "component": "Prepared progressive fire finisher and source-size2 stationary fields",
+  "installed": true,
+  "handlerEnabled": false,
+  "components": [
+    "src/Sanctuary.Content/FistsFireRelease.cs",
+    "src/Sanctuary.Content/AssassinCharges.cs",
+    "src/Sanctuary.Content/TigerStrikes.cs",
+    "src/Sanctuary.Content/GearEffects.cs",
+    "src/Sanctuary.Content/FireGround.cs",
+    "src/Sanctuary.Content/ImmolationArrows.cs",
+    "data/Sanctuary/Balance/necromancer-summons.json"
+  ],
+  "sourceEvidence": [
+    "tools/reference/fists-fire-source-evidence.json",
+    "tools/reference/assassin-claw-sequence-source-evidence.json",
+    "tools/reference/martial-fire-release-source-evidence.json",
+    "tools/reference/immolation-field-engine-evidence.json",
+    "tools/reference/poison-contact-engine-evidence.json",
+    "tools/reference/d2r-local-kick-data-evidence.json"
+  ],
+  "candidate": {
+    "contentSha256": "74af89f627718eb2fb4da23aeb7be106d042821afc5211402ae74915149ed172",
+    "integrationSha256": "d86f67a16b87917e64b12200f0dafbfe02f9a27b48dd60f978565393d755cfcc"
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "selectedConversionCasesPerInitialBoot": 6144,
+    "successfulBuilderCasesPerInitialBoot": 512,
+    "numericRankCountControlsPerInitialBoot": 255,
+    "retainedCobraNaturalInputRunsPerSuite": 3,
+    "liveGear": [
+      "Eschuta on an actual Sorceress supplies available item/mastery context for shared conversion; unavailable Ormus/facets are not enabled for testing.",
+      "Assassin actual primary claw/Bartuc offhand stats and saved primary identity reach ordinary charged Attack. Separate learned Fists claw action is disabled."
+    ],
+    "reloadScope": "Independent charges/ranks/AR/absolute deadlines and selected claws persist; source patches use deliberately held ten-minute NextUtc payloads for two reloads. Natural64-frame lifetime,offline lifetime and no offline damage are tested separately on the initial boot."
+  },
+  "fullRegression": "Prepared Fists of Fire finisher/field component installed; learned Fists claw action stays disabled. Focused/full suites each pass3boots/2reloads. Each initial boot compares6144 selected fire conversion controls,512 successful source builder gains and255 rank/count controls. Actual Sorceress/Eschuta fire mastery proves critical-before-conversion and no duplicate mastery on converted fire; native Assassin claw contexts exercise ordinary Attack, independent Tiger/Cobra/Fists consumption,fire immunity,zero physical leech at mapped full conversion,SOFTHIT with retained elite retaliation,parent death before secondary area/fields,misses,overlap,offline expiry,map cleanup and saved source fields/charges. Natural64-frame fields and deliberately held reload payloads are distinct tests. Retained Cobra natural charge/finisher input passes3runs per suite. All70 Python tests,current555/21 audit fingerprints and573 unchanged named decisions pass. Original-world smoke loads/listens/shuts down0; saves/config/client bytes unchanged and server stopped. Handlers remain152/Assassin13; Cobra is the latest playable skill. No class completion certificate.",
+  "logs": {
+    "focused": ".local/class-skills/fists-fire-focused.log",
+    "focused-run": ".local/class-skills/fists-fire-focused-run.log",
+    "combined": ".local/class-skills/fists-fire-combined.log",
+    "full-suite-run": ".local/class-skills/fists-fire-full-suite-run.log",
+    "content-build": ".local/class-skills/fists-fire-content-build.log",
+    "integration-build": ".local/class-skills/fists-fire-integration-build.log",
+    "python-tests": ".local/class-skills/fists-fire-python-tests.log",
+    "named-readiness": ".local/class-skills/fists-fire-named-readiness.log",
+    "first-loop": ".local/class-skills/fists-fire-first-loop.log",
+    "properties": ".local/class-skills/fists-fire-properties.log",
+    "installed-server": ".local/class-skills/fists-fire-installed-server.log",
+    "installed-smoke": ".local/class-skills/fists-fire-installed-smoke.log",
+    "client-check": ".local/class-skills/fists-fire-client-check.log",
+    "install-run": ".local/class-skills/fists-fire-install-run.log",
+    "first-focused-failure": ".local/class-skills/fists-fire-first-focused-failure.log",
+    "first-python-failure": ".local/class-skills/fists-fire-first-python-failure.log",
+    "partial-before-soft-hit-review": ".local/class-skills/fists-fire-partial-before-soft-hit-review.log"
+  },
+  "backup": ".local/class-skills/pre-fists-fire-install",
+  "runtimeInputs": {
+    "named": 555,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true
+  },
+  "limits": [
+    "No learned Fists action/input certificate. One/two-claw SQ rates,selected-hand events,once-paid mana and cancellation/input remain the next integration step.",
+    "Legacy source formulas/flags/control flow and current numeric tables are scoped separately from the modern executable. Retained one-charge expiry/proportional AR is the existing explicitly provisional adapter.",
+    "The source large-value percentage helper retains early division; current executable behavior at that extreme remains uncertain.",
+    "Native area uses existing hostility/town/Z projection and half-tile source radius; native sector order/terrain/room/proc/seed/PvP/NPC/graphical acceptance remains separate. Source owner seed acquisition is a native supplier; local scatter uses the source LCG.",
+    "Prepared fields capture endpoints/mastery with the finisher packet. Same-event stat mutation through parent/area item procs before source child factory creation remains acceptance work.",
+    "SOFTHIT suppresses mapped hit recovery while preserving existing native elite retaliation. Full modern proc/result flag equivalence is not claimed.",
+    "Field owner map cleanup follows the existing source-field adapter; approved trap travel/offline lifetime behavior remains a separately scoped summon/trap system.",
+    "Final charge/claw/contact/area/ground/audio effects and talent/left/right/quick icons remain independently inventoried placeholders; no image generation."
+  ],
+  "failureCorrections": [
+    "Initial fixture location had no flat floor; moved into an established native column and separated its row from Blade fixtures after the first full scene interference.",
+    "Unavailable Ormus was replaced by available Sorceress/Eschuta shared-mastery context; no item gate was loosened.",
+    "Reload fixture explicitly returns the offline owner from Map.Internal before checking resumed field damage.",
+    "Cobra merged-rounding discriminator now chooses a real receiver resistance exposing the difference while still checking exact native health/resource results.",
+    "Code review preserved native elite damage retaliation separately from the suppressed recovery pose; an actual eight-bolt Lightning Enchanted check covers it."
+  ],
+  "updatedAtUtc": "2026-10-25T09:44:58.291867+00:00",
+  "next": "Continue Fists of Fire claw action: compose complete SQ attack-rate/base208/dual intrinsic WSM context with sequence16 and contact ordinals0/1, then implement one/two-claw start/payment/events, selected hands, low-mana ordinary Attack fallback, paid cancellation and actual held/right/quick input. Reuse installed charge/finisher/fields. Dragon Talon consumption/timing/delivery remains individually deferred. Player only uses fire/lightning traps; no repeated martial/Fury playtest questions. Continue unaffected work if a specific branch remains unsupported."
+}
