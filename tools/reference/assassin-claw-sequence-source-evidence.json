@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fistsoffire",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865",
+    "source/D2Game/src/PLAYER/Player.cpp": "d22428034a002b53f4694512d9d87c91e857fbebf55ee553452a6e246e9ab147"
+  },
+  "compiledRoutines": {
+    "gPlayerSequenceDragonClaw_HTH_HT1": "c36fec3df052725b86c415da50397fe1af5d558c8659677c1778fc1290958270",
+    "gPlayerSequenceDragonClaw_HT2": "97bb84bf4abc44bed2a9f903424e7f69b10c7a3fbb199d6c1ca4dc8517ad33f9",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+    "sub_6FC80EE0": "7aa059e046e52e4688c30ef03b67f193336c66b643268593a79c92d0f8bafab2"
+  },
+  "reuse": "tools/reference/fists-fire-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/assassin-claw-sequence-source-probe.json",
+    "sha256": "63dfec0e0b371c17e7267342798acb7b11d1d0bba94267d0a7ea962752ac96db",
+    "cases": 640,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete scheduler numbers melee action contacts0,1 independently of visual sequence frame6,10. Complete player callback writes that ordinal with UNITS_SetAnimationFrame before invoking the declared skill-dispatch bridge.",
+    "Complete player weapon selector therefore chooses first then second hand for weapsel3. Full do35 clears its flag after first dual contact to allow the second callback, then sets it; single-claw flags complete at first contact. Both events use complete do34 hit/gain logic.",
+    "Legacy sequence16 has12points/action6 for single and16points/actions6,10 for dual. Supplied rates compose exact event/end schedules, including two contacts within a fast tick and zero-rate no-contact control."
+  ],
+  "declaredServices": [
+    "Frame bonus0 and sequence rate are explicit inputs, not compiled animation-rate derivation. Current A2/S4 selection/rate/executable acceptance remains separate.",
+    "Skill-dispatch bridge directly invokes full do35, supplying hit masks/rank; generic dispatcher/start/payment is not compiled here. Player used-skill flags0 and living state select ordinary callback path; unselected branches abort.",
+    "Inventory mapping and stat-list/damage allocation services are reused from bounded builder proof. No full native physical/proc/geometry/modern controller certification."
+  ],
+  "limits": [
+    "Native learned Fists handler, current SQ rate calculation and full area/field/conversion/lifecycle/input are pending.",
+    "Current local animation acquisition corroborates cached metadata only; these hardcoded legacy player sequence arrays are separate source evidence.",
+    "The event ordinal bridge is established, not a guessed replacement of visual frame with hand index."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fistsoffire",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledRoutines": {
+    "sub_6FCF5BC0": "e740b401d198473cff5ce134603f63c196e37a3bc70994994d2ee7e1bd35bad4",
+    "SKILLS_SrvDo035_FistsOfFire_ClawsOfThunder_BladesOfIce": "2b058e16202ec8e7cb1d5885cb76c0ab75546afefa92c0cfffff3cc78d50b7bd"
+  },
+  "reusedCompleteRoutines": [
+    "sub_6FCF5870",
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike"
+  ],
+  "conversionFixture": {
+    "path": ".local/class-skills/fists-fire-conversion-source-probe.json",
+    "sha256": "356dadb63181916d915f3d861271ed856604579197496049050db1101a55da2a",
+    "cases": 15360
+  },
+  "builderFixture": {
+    "path": ".local/class-skills/fists-fire-builder-source-probe.json",
+    "sha256": "8e650749258bf4d2e7f5338d4f96717a16acea04417559b1e5483c28f718d5e7",
+    "cases": 4096
+  },
+  "sanitizers": "ASan+UBSan",
+  "declaredServices": [
+    "Reuses complete Cobra/Tiger source builder/consumer harness; element roll supplies rank*100 in the selected channel, not actual skill endpoint/mastery proof. Formula service supplies current Fists calc1=3*rank; typed writer adds the converted packet.",
+    "Inventory services expose absent/single/dual/same-pointer/invalid-offhand and no-inventory contexts. Flag phase is raw source dwSeqFrame; scheduler/player-callback ordinal bridge requires separate composition.",
+    "Target/hit/allocation/stat-list/world services retain prior explicit boundaries. Source soft-hit constant0x4000 matches SUnitDmg.h; no native reaction behavior is certified."
+  ],
+  "established": [
+    "Complete do35 delegates each event to complete do34; valid successful hits gain up to3 charges/refresh375frames while preserving initial rank. Wrapper always returns1 even when delegated builder returns0.",
+    "True distinct/equippable weapon pairs (or absent inventory) clear SKSRVDOFUNC on even raw phase and set it on odd; single/invalid pairs set the flag. This flag is not a per-strike mana payment.",
+    "Complete prgdam4 path uses max(stored,current) rank, applies skill element roll once, sets soft-hit, then converts min(3*rank,100) percent of existing physical into that element. Fire conversion remains once per charged contact, not multiplied by charge count. Cold controls are declared sibling behavior, not a Blades of Ice handler."
+  ],
+  "limits": [
+    "No native Fists handler, current player sequence/rate/input or full progressive143/38/39 area/field/lifecycle certificate.",
+    "Skill damage endpoint/mastery/RNG, modern consume-one expiry/AR and full weapon/typed/leech/soft-hit/proc ordering remain separate. Invalid count4 is a source corruption control; native saved ledger only accepts1..3.",
+    "Actual source mana payment is once after successful start23 for this non-usemanaondo skill; full start/payment integration still requires native acceptance."
+  ]
+}

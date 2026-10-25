@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Next unaffected Assassin skill; source preparation only",
+  "status": "Complete source builder/conversion and scheduler/player ordinal bridge prepared; native handler pending",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -115,5 +115,15 @@
   "limits": [
     "No handler or native Fists of Fire certificate yet. Player only uses trap builds; no martial-arts observations available.",
     "Dragon Talon action/delivery gaps remain individually deferred; its prepared physical component is reusable for later kick finishers."
+  ],
+  "builderConversionEvidence": "tools/reference/fists-fire-source-evidence.json",
+  "clawSequenceEvidence": "tools/reference/assassin-claw-sequence-source-evidence.json",
+  "findings": [
+    "Complete do35 calls complete do34 on each contact; both successful claws may gain independent charges, while2mana is paid once at accepted start23 because UseManaOnDo is absent. The phase flag is not a second mana debit.",
+    "Full scheduler numbers action contacts0/1 and full player callback writes that ordinal with UNITS_SetAnimationFrame. Complete player selector then resolves weapsel3 primary/secondary; visual points6/10 must not be used directly as hand parity.",
+    "Legacy sequence16 is single12points/action6 or dual16points/actions6,10.640 complete scheduler/callback/selector/do35/do34 compositions pass under explicit rate/frame-bonus/dispatch services. Current SQ attack-rate derivation/selected base208/dual WSM need separate composition/native acceptance.",
+    "Complete prgdam4 consumer and conversion use max(initial,current) rank, one skill element roll, SOFTHIT0x4000 and min(3*rank,100)percent existing physical conversion. No multiplication by charge count.15360 cases include cold sibling controls and invalid count4 source corruption control.",
+    "4096 complete do35/do34 cases cover no/single/dual/same/invalid hands, phase, hit/miss, missing row/target and cap/refresh. No native Fists handler is enabled.",
+    "Progressive stack1 invokes earlier callbacks by temporary charge level then restores full count. Fists has no server missileA/B; callback143 at count1 should return without spawning, count2 callback38 commits parent before independent radial damage, count3 callback39 scatters up to radius-squared local-seeded ground flames. Compile these complete routines and source generic field collision before native integration."
   ]
 }
