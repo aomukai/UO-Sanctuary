@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    "source/D2Common/src/Units/UnitFinds.cpp": "c3fcadb0f26a5dca61f19f2cd2e3ab24b990a62e9ece50e528da0057a0c45118",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routineHashes": {
+    "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+    "D2COMMON_11021": "5dc342ebedf2495a6c1d64e2d9032698056e00f6082111ddb28aaa66459f240e",
+    "UNITFINDS_InitializeUnitFindData": "511ea78d80ab42b82b9ac13ae209689c4f44991258f33498e65b109d8537ee2b",
+    "UNITFINDS_FreeUnitFindData": "d81c7c199cbec272e1e3a7a913846efb806abb14b43ae350a57799cf94183c51",
+    "UNITFINDS_FindAllMatchingUnitsInNeighboredRooms": "e026411dd849eced5fd86a1c7a74f91b7e971ef6aefd0e123846aca04a8a2af6",
+    "UNITFINDS_TestUnit": "1405150711fd2bda5f54e954ca7bdf7b82874d130a235a7e9612be9bf0811a7b",
+    "sub_6FD15320": "45c5c493a70c698bc5bf668838ef4525bb81e0624296e95861288c44ff03560d",
+    "sub_6FD15210": "3fc4599ff84286b8284dd9c9bcf21040cda7e8f19a2aadbc37ec2d5ca81af3cb"
+  },
+  "commonCorpseEvidence": "tools/reference/sentry-corpse-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/death-sentry-corpse-search-source-probe.json",
+    "sha256": "74140a2a8fee8cdd7a3050dde8bd85295ea08644ffe3e408af569409a046db2e",
+    "searchCases": 46080,
+    "arrayGrowthCases": 2
+  },
+  "established": [
+    "Complete search wrapper uses a fixed10-unit inclusive squared-radius query centered on the chosen enemy, independent of positive skill rank; null caller/target or nonpositive rank returns before allocation.",
+    "Complete common corpse predicate, ordinal wrapper and callback exclude live/nonmonster/undead-masked/missing-model/nonselectable units before the4098 generic finder filter.",
+    "The result is the first eligible corpse in room-list/unit-linked-list order, not the nearest corpse. Adjacent-room order can change the result. The separate AI104 explosion-distance/remembered-GUID gate occurs after selection.",
+    "Roomless searches return no corpse and free the allocated array. Twenty-corpse controls exercise the complete finder growth15-to30 and free path without changing first-result order."
+  ],
+  "limits": [
+    "Rooms, coordinates, ordered lists, allocation, model/state lookup and game/pool services are explicit fixtures. This is not a modern executable or binary-layout certificate.",
+    "Only flags4098 and the common corpse callback execute; unrelated generic finder flags, missile/undead/collision/custom-callback branches are retained but not certified.",
+    "Actual native world/corpse eligibility, room/sector traversal order, loot/ownership rules, saved corpses, damage and retirement remain separate. Current trap/zombie model rows are corroborated by the linked common-corpse proof."
+  ],
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr required",
+  "handlerEnabled": false
+}

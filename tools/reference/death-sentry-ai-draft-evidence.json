@@ -5,11 +5,12 @@
   "handlerEnabled": false,
   "completeComparisons": 5484,
   "jsonRoundTrips": 5484,
+  "initializationComparisons": 1,
   "hashes": {
     ".local/class-skills/death-sentry-ai-source-probe.json": "8184202e856a6a51b86853099109737e4810b8fe9b928d71c1b56aad204295b9",
     ".local/class-skills/death-sentry-ai-draft-run.log": "6ceb342f4d24dd35a2f39c8636d65128ed1f8b953f6c4144979ab16d30583c89",
-    ".local/class-skills/death-sentry-ai-draft/AssassinDeathSentryAi.cs": "67fd218a9ed13f5ff726ffd0919d537a276207d1bf058d738638fb9ace88ed0e",
-    ".local/class-skills/death-sentry-ai-draft/Program.cs": "f88910287744b8a0f8f6321cc2e999b9acc4af2002294cd843f572fa72a6094d",
+    ".local/class-skills/death-sentry-ai-draft/AssassinDeathSentryAi.cs": "5aaf2160681fa1a666508eada36388c5f38113abd93861674a0246dc227c4913",
+    ".local/class-skills/death-sentry-ai-draft/Program.cs": "e952dfded13c4a967da8e395d3bdd39053753d2837769c0eab9fb0fbec43e209",
     ".local/class-skills/death-sentry-ai-draft/Probe.csproj": "68aaa5c9e5b44b6ff3c7eb4a1687312bd2ff6cbe95781ce909a5836515b776b2"
   },
   "scope": "Uninstalled C# AI104 decision component matches complete legacy source traces, including remaining shots, remembered corpse, owner/corpse/chance query counts and pre-UseSkill state.",

@@ -343,7 +343,7 @@
     "Lightning NPC324 uses missile641 with player276 lightning damage: minimum1, max50 plus8/14/22/28/34 increments and hard Lightning Sentry synergy12percent. Its Size2/LastCollide1/noNextHit path can reuse the corrected candidate filter; Pierce1 and no CollideKill remain distinct flags."
   ],
   "required": [
-    "Complete unchanged legacy AI104/helper passes5484contexts; complete do55 producer/recipient callback/percentage helper passes8640contexts, both sanitizer-clean. Actual corpse selector, current base-life lookup, seed advancement, area enumeration/filtering and native integration remain separate. Existing Necromancer whole-percent RNG/single half-radius differ from the source producer/callback; do not copy that handler unchanged.",
+    "Complete legacy AI104/helper passes5484contexts; do55 producer/recipient callback/percentage helper passes8640; corpse selector/common predicate/room finder passes46080plus2array-growth controls; current-data base HP calculator passes52100, all sanitizer-clean. C#decision, ordered search, packet and base-life drafts match their applicable source outputs. Native room/sector order, original corpse identity/frame mapping, profile/level/difficulty snapshot, seed advancement, saved corpses and area filtering/damage remain separate. Existing Necromancer whole-percent RNG/single half-radius differ from the source producer/callback; do not copy that handler unchanged.",
     "Resolve full owned NPC retirement/death/GUID lifetime and test real corpse/lightning priorities, rank/gear, fractional resources, owner offline/facet changes, and saved actors/projectiles/corpses before enabling."
   ],
   "reuse": [
@@ -364,5 +364,7 @@
   "packetDraftEvidence": "tools/reference/corpse-explosion-draft-evidence.json",
   "localMonsterLevelEvidence": "tools/reference/d2r-local-monlvl-evidence.json",
   "compiledCorpseBaseEvidence": "tools/reference/corpse-base-life-source-evidence.json",
-  "corpseBaseDraftEvidence": "tools/reference/corpse-base-life-draft-evidence.json"
+  "corpseBaseDraftEvidence": "tools/reference/corpse-base-life-draft-evidence.json",
+  "compiledCorpseSearchEvidence": "tools/reference/death-sentry-corpse-search-source-evidence.json",
+  "corpseSearchDraftEvidence": "tools/reference/death-sentry-corpse-search-draft-evidence.json"
 }

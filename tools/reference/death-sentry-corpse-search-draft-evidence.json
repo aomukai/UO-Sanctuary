@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceEvidence": "tools/reference/death-sentry-corpse-search-source-evidence.json",
+  "installed": false,
+  "handlerEnabled": false,
+  "completeComparisons": 46080,
+  "jsonRoundTrips": 46080,
+  "twentyCorpseControls": 2,
+  "hashes": {
+    ".local/class-skills/death-sentry-corpse-search-source-probe.json": "74140a2a8fee8cdd7a3050dde8bd85295ea08644ffe3e408af569409a046db2e",
+    ".local/class-skills/death-sentry-corpse-search-draft-run.log": "cafaa8f1c2797fa35bc4436c2888967bad18ee0416e138802b78eb6ed3882203",
+    ".local/class-skills/death-sentry-corpse-search-draft/AssassinSentryCorpses.cs": "1ead1fde8a17fa40a306934a6f7edbbcba2ba889e1c7041e4fa77f646906a8f7",
+    ".local/class-skills/death-sentry-corpse-search-draft/Program.cs": "57ab032333963dce3c15c219edc8043372f5700a8faff3b996b710ab41eeff25",
+    ".local/class-skills/death-sentry-corpse-search-draft/Probe.csproj": "cfdbe7899e676a97e7fb3e07f58fa1630401e37006d243f28388514fd5a20ed7"
+  },
+  "scope": "Uninstalled C# ordered corpse-search component matches complete common predicate/wrapper/room-finder outputs under flags4098. Fixed10-unit inclusive radius is centered on the enemy; first eligible order is preserved.",
+  "limits": [
+    "Native room/sector traversal, source identity/frame mapping, corpse metadata/eligibility and approved loot rules remain separate services.",
+    "No world actor, corpse capture/persistence, damage, learned input, modern executable equivalence or retirement is certified."
+  ]
+}

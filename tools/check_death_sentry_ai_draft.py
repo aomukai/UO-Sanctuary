@@ -12,12 +12,15 @@ CSHARP = r'''
 using System;
 namespace Sanctuary;
 internal enum DeathSentryDecision { None=0,Die=1,Idle=2,Explode=3,Lightning=4 }
-internal sealed record DeathSentryAiState(int RemainingShots=-1,int LastCorpse=0);
+internal sealed record DeathSentryAiState(int RemainingShots,int LastCorpse);
 internal sealed record DeathSentryAiResult(DeathSentryAiState State,DeathSentryDecision Decision,int IdleFrames=0,int Target=0);
 // Complete AI104 decision component. Lookup, target/corpse search, chance and
 // native mode/event services remain explicit, as in the source differential.
 internal static class AssassinDeathSentryAi
 {
+    // The shared source initializer stores the current game frame, not zero
+    // or a fabricated corpse sentinel. Native frame/identity mapping is separate.
+    internal static DeathSentryAiState Start(int gameFrame)=>new(-1,gameFrame);
     internal static DeathSentryAiResult Think(DeathSentryAiState state,Func<bool> ownerValid,
         bool row,bool skill,int rank,Func<int> shotCount,Func<(bool Has,int Id,int Distance)> selectEnemy,
         Func<(bool Has,int Id,int Distance)> selectCorpse,Func<bool> chance,int rangeBase=10,int rangePerRank=1,
@@ -63,6 +66,7 @@ using Sanctuary;
 string root=args[0];
 using var doc=JsonDocument.Parse(File.ReadAllText(root+"/.local/class-skills/death-sentry-ai-source-probe.json"));
 int count=0;
+if(AssassinDeathSentryAi.Start(42)!=new DeathSentryAiState(-1,42)){throw new Exception("Source shared initialization mismatch");}
 foreach(var row in doc.RootElement.EnumerateArray())
 {
     int V(int i)=>row[i].GetInt32();int mask=V(0),ownerQueries=0,corpseQueries=0,chanceQueries=0;
@@ -107,7 +111,7 @@ run=subprocess.run([str(ROOT/'.tools/dotnet/dotnet'),'run','--project',str(stage
 assert not run.stderr and '5484 complete source comparisons' in run.stdout,run.stdout+run.stderr
 log=STAGE/'death-sentry-ai-draft-run.log';log.write_text(run.stdout)
 paths=[fixture,log,*[stage/name for name in ['AssassinDeathSentryAi.cs','Program.cs','Probe.csproj']]]
-evidence=dict(referenceVersion='3.3.93847',sourceEvidence='tools/reference/death-sentry-ai-source-evidence.json',installed=False,handlerEnabled=False,completeComparisons=5484,jsonRoundTrips=5484,
+evidence=dict(referenceVersion='3.3.93847',sourceEvidence='tools/reference/death-sentry-ai-source-evidence.json',installed=False,handlerEnabled=False,completeComparisons=5484,jsonRoundTrips=5484,initializationComparisons=1,
     hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
     scope='Uninstalled C# AI104 decision component matches complete legacy source traces, including remaining shots, remembered corpse, owner/corpse/chance query counts and pre-UseSkill state.',
     limits=['No native actor, actual search, mode/sequence consumer, corpse damage, persistence, player input, current executable equivalence or retirement is certified.','The candidate is a draft outside the content assembly; promote only with native integration, lifecycle and saved-world checks.'])
