@@ -1,0 +1,166 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontail",
+  "handlerEnabled": false,
+  "originalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "date": "2026-09-28T23:44:32Z",
+    "fileHashes": {
+      "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+      "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+      "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+    },
+    "scope": "Original implementation with README credit for D2R3.3 player-sequence dump; supplementary current-family primary evidence, not a3.3.93847 executable oracle."
+  },
+  "initializer": "DRAGON_TAIL: addSkill(new Skill(\"Dragon Tail\", false, false, false, false))",
+  "reusedUnchangedClassHash": "72c21b3b8a1223ddb08c9fcd146c2d25d1a91ea76649843c19c8cf9c0d60378a",
+  "reusedUnchangedFunctions": {
+    "calculateAnimationSpeed": "df33a9786098714d57e4548184696313e0e3cf0a9c1331a93d63ab83fa4f9a71",
+    "calculateSIAS": "b3737269b7ff67ef8dcb79a2a07bec5b1eb1a636527397706f531d4775fce30c",
+    "calculateEIAS": "17917168709c73ed7811387e0ce48641ce60de5e61007495d052dbd7aba3b3c1",
+    "getWSM": "cbdccbb859e76f6cef00297ff42715c5c6b34bd81c4cf7e4da35a77b05b06983",
+    "getWeaponIAS": "a8ed454a3a8ac3c1fe81b4f4918bccf594d969ca051826560f8d74d2337ff47a",
+    "getSequence": "22e080bfedc1052d437c1534abd60d0108e675079cc20032830e939b2c0bf757",
+    "isSecondWeaponSet": "cf7749cbca5ebb55aba58963e9ff8eb961f0c1fef994e1fdbc93b59982cb8fb0",
+    "isCharacterSelected": "332df63171009005b5da485f4ea0bfa88cd7ecea96d2b33f4adb310c814fa636",
+    "limitEIAS": "4e863a94ef512260a865cb2255935d3d16db1ef2e299b587761b6059344b17cb",
+    "trun": "cc56c98fafdfae194caf14813cca304e98c132268e05057249dfb3803a8453c4",
+    "convertIAStoEIAS": "7d38047cf89cf66548c68491a204fe3491f277f091d5737fcf714de4923a8845"
+  },
+  "framesFunctionSha256": "4efdc6fb73ffed220cb72f664361218da5f790c9b9272d6b2cee311d03f15a34",
+  "fixture": {
+    "path": ".local/class-skills/dragon-tail-rate-source-probe.json",
+    "sha256": "a36571bd6b1206edc0f348577fec12c17cce0479060d80687c3652a19cbe40b2",
+    "jsSha256": "2db45f337f990243546d9311de367daefd3fcfba9b88e675c4bbcfe32ae733f3",
+    "cases": 4608
+  },
+  "localAnimation": {
+    "evidence": "tools/reference/d2r-local-animation-evidence.json",
+    "rawSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "records": [
+      {
+        "code": "AIKKHTH",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKKBOW",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKKSTF",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKKXBW",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKK1HS",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKKHT1",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKK2HS",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKK1HT",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKKHT2",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIKK2HT",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "established": [
+    "Actual original Dragon Tail Skill is not a sequence and does not use a dual-only averaging branch. EIAS uses primary WSM and primary+global diminishing IAS,with separate-40skill rate and supplied buffs/slows. No SQ-30penalty is added.",
+    "Actual original animation branch retains256base and13frames. All10current local AIKK weapon-class records independently show13frames,speed256 and action marker4."
+  ],
+  "services": [
+    "Reuses declared UI buff/item/hand/visibility services from claw rate probe;only Burst skill-rate and SLOWED_BY are varied. Current executable stat collection and runtime rate posting are not compiled.",
+    "Original author calculator is supplementary primary current-family evidence;it is not a pinned3.3.93847 executable oracle. Raw current animation bytes are separately hash-verified."
+  ],
+  "limits": [
+    "Frame metadata/advance are established in this bounded scope;exact server initial clock/action/end boundary and modifier lifetime still need composition and native input verification.",
+    "Charged guaranteed-hit/block,one-charge consumption,packet/stat/proc ordering and learned Dragon Tail remain gated."
+  ]
+}

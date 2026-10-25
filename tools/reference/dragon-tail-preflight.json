@@ -1,0 +1,71 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontail",
+  "sourceId": 270,
+  "status": "Current table and bounded older start/do preparation;learned handler disabled",
+  "installed": false,
+  "handlerEnabled": false,
+  "source": {
+    "cachedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "localSkills": {
+      "path": ".local/research/d2r-3.3.93847/skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "fieldsCorroborated": 28
+    },
+    "skill": {
+      "srvstfunc": 27,
+      "srvdofunc": 50,
+      "srvmissilea": "dragontail missile",
+      "aurarangecalc": "par3",
+      "range": "h2h",
+      "weapsel": 4,
+      "anim": "KK",
+      "seqtrans": "KK",
+      "UseAttackRate": 1,
+      "SearchEnemyXY": 1,
+      "AttackNoMana": 1,
+      "mana": 10,
+      "lvlmana": 0,
+      "manashift": 8,
+      "finishing": 1,
+      "prgchargestocast": 0,
+      "prgchargesconsumed": 1,
+      "calc1": "ln12",
+      "Param1": 50,
+      "Param2": 20,
+      "Param3": 6,
+      "Param4": -40,
+      "Param8": 1,
+      "ToHit": 20,
+      "LevToHit": 15,
+      "Kick": 1,
+      "HitShift": 8,
+      "EType": "fire"
+    }
+  },
+  "preparedComposition": "tools/reference/dragon-tail-source-evidence.json",
+  "rateEvidence": "tools/reference/dragon-tail-rate-source-evidence.json",
+  "reuse": [
+    "Prepared body/boot physical packets and actual15current boot bases;selected-hand and stat-list context.",
+    "Saved independent Tiger/Cobra/Fists/Thunder/Ice/Phoenix charges and common one-charge consumption;do not copy ordinary Attack weapon damage into kicks.",
+    "Existing fire mitigation/area recipients,weapon drain,health,freeze/corpse,lifecycle and natural input infrastructure."
+  ],
+  "mechanics": [
+    "Current KK single finisher:10mana,skill AR20+15*(rank-1),fire damage percentage50+20*(rank-1),source radius6,and attack-rate modifier-40.",
+    "Current finishing1/prgchargestocast0/prgchargesconsumed1/Param8=1indicate one-charge consumption and charged-only always-hit rule. Older start27/do50do not implement that modern branch.",
+    "Complete older source allocation calls total-damage reduction before storing kick damage. Do50copies stored physical before progressive/durability hooks and applies additive current mastery+skill percentage to that copy. Declared physical immunity yields zero seed.",
+    "Older do50suppresses its burst only if the owner died after durability;complete area wrapper uses0x8583and per-recipient packet copies. Native current death/target/hostility/filter/block acceptance remains separate."
+  ],
+  "required": [
+    "Compose current charged guaranteed-hit versus shield block/dodge and exact one-charge consumption with kick delivery;older all-state removal is not authoritative.",
+    "4608original current-family rates and10local KK13frame/action4/base256records establish primary WSM/IAS and-40modifier without SQ-30. Compose exact server clock/action/end boundaries and modifier lifetime before scheduling;do not substitute Tiger A1 or Talon SQ19.",
+    "Recompose actual boot/body/Tiger/Fists conversion/other elements/leech/proc/mitigation with current data;full old CalculateTotalDamage remains a service boundary in the current Tail probe.",
+    "Resolve knockback and recipients after lethal parent contact;verify real gear/difficulty/immunity,ranks/resources/fallback,cancellation,all natural input paths and save/reload.",
+    "Keep each uncertain branch explicit and continue unaffected skills;do not ask the traps-only player for martial-arts tests."
+  ],
+  "assets": {
+    "effects": "Kick/contact/charge/fire-burst/knockback/audio need final assets;identified placeholders may be used without blocking mechanics.",
+    "icons": "Talent/left/right/quick icons remain in the separate240row inventory."
+  },
+  "next": "Prepare KK/rate and modern single-finisher hit/charge/packet paths before enabling Dragon Tail. No class completion certificate."
+}
