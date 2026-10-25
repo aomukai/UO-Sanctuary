@@ -2860,7 +2860,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared stationary body0x9C/hue0x482 and0x3818 hue0x482 travelling markers are identified placeholders. The saved mechanical S1 phase uses labelled cached-lg-s1-15-v1 timing; its visible animation remains pending. Final chargeboltsentry S1/S2/NU/DT actor, sentrychargedbolt travel/impact and audio pending. Separate talent/right/quick icons pending; learned input remains gated."
+    "placeholder": "Prepared stationary body0x9C/hue0x482 and0x3818 hue0x482 travelling markers are identified placeholders. The saved mechanical S1 phase uses labelled cached-lg-s1-15-v1 timing; its visible animation remains pending. Unregistered free-cell do45 release uses0x23B as an identified assassin_summon audio placeholder; final S2 cast/audio remains pending. Final chargeboltsentry S1/S2/NU/DT actor, sentrychargedbolt travel/impact and audio pending. Separate talent/right/quick icons pending; learned input remains gated."
   },
   {
     "talentId": "assassin.wakeoffire",

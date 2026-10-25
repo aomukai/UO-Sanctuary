@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.chargedboltsentry",
+  "installed": false,
+  "handlerEnabled": false,
+  "releaseAdapterPrepared": true,
+  "fullPending": true,
+  "status": "An unregistered Charged Bolt Sentry do45 release adapter is prepared and passes the focused three-boot/two-reload suite. It reuses shared Assassin S2/IAS timing and the existing Decoy free-cell placement/resource contract, creates the real saved S1 trap at the resolved point, and pays current-table13mana once after successful creation. Invalid or obstructed placement and insufficient mana do not debit or alter the trap roster. A successful sixth cast replaces the oldest shared trap; no invented local delay is added. Present targets override retained aim, deleted targets retain it, and cross-map targets are refused. Actual paid actors retain cast rank after gear removal, S1 phase/clock, FP256 injury and fractional mana through two world reloads. Full regression and installation of this release adapter are pending; the installed150-handler build remains the verified saved-S1 checkpoint at3df4dcc. Learned Sentry input remains disabled.",
+  "sourceEvidence": "tools/reference/sentry-cast-source-evidence.json",
+  "installedBaselineEvidence": "tools/reference/sentry-emergence-native-evidence.json",
+  "installedBaselineCommit": "3df4dccfea959a64d2a882a12b55bfe7b37ef6b5",
+  "verification": {
+    "focusedBoots": 3,
+    "worldReloads": 2,
+    "currentTableRank1Mana256": 3328,
+    "fractionalRemainder256": 127,
+    "freeCellS1Creation": true,
+    "failedPlacementNoPaymentOrEviction": true,
+    "sixthCastOldestReplacement": true,
+    "noIndependentSkillDelay": true,
+    "presentAndDeletedAim": true,
+    "crossMapRefused": true,
+    "actualPaidActorReloads": 2,
+    "birthRankRetainedAfterGearRemoval": true,
+    "phaseClockInjuryAndManaRetained": true,
+    "learnedInput": false,
+    "fullRegressionComplete": false
+  },
+  "limits": [
+    "Placement supports a free native cell with existing map/LOS/town/range/height rules. The reconstructed D2GAME_SpawnNormalMonster_6FC68E30 returns null and its implementation is commented decompilation. Exact radius-1/4 search, collision/room/order and occupied-monster overlap are unsupported; no guessed nearest-cell/caster fallback is introduced.",
+    "The complete192-case legacy generic start/do45 wrapper probe uses declared rank3 thirteen-mana eligibility/debit services. Its lost-mana-between-start-and-do exception and full rank1 payment behavior are not current3.3 executable confirmation. The adapter explicitly reuses the existing Decoy mana recheck and current-table13 at rank1; it does not silently apply the old minmana quirk or free-trap exception.",
+    "Begin still fails the ordinary handler-availability gate. Shared player scheduler owns cancellation and once-only do/recovery; no complete learned windup, right/quick packet, interruption/equipment/cursor acceptance or current executable timing certificate is claimed.",
+    "S1 cached animation provenance, saved native-shared-chargedbolt-v1 motion, low-threat unit-target path, corpse/GUID retention and already-fired-bolt ownership after exhaustion/replacement remain open. These limitations are separate from free-cell creation and resource/persistence checks.",
+    "The source currently supplies no independent idle timeout. The user did not wait for expiry and only tentatively expects one; cap5/shot count do not establish timed expiry.",
+    "Effects and talent/hotkey icons remain separate240-row inventories. Body0x9C/hue0x482, blue0x3818 travel and cast sound0x23B are identified placeholders. No final art, new facet assignment or class completion is claimed."
+  ],
+  "nonblockingQuestions": [
+    "Current-build behavior if mana is lost during S2 windup remains unobserved.",
+    "Current occupied-target placement/search ordering remains unmeasured.",
+    "An independent idle-expiry duration has not been observed."
+  ],
+  "fixtureCorrection": "An actual reload diagnostic retained exact actor state,12850 life,rank2 and S1 frame7/AI25, but ordinary player regeneration raised mana127 to1663. The test-only named fixture and constructor now use a one-hour mana regen rate, installed after production initialization as in existing Assassin fixtures. Gameplay regeneration is unchanged.",
+  "logs": {
+    "focused": ".local/class-skills/sentry-cast-focused.log",
+    "focusedRun": ".local/class-skills/sentry-cast-focused-run.log",
+    "fullRun": ".local/class-skills/sentry-cast-full-suite-run.log",
+    "firstFailure": ".local/class-skills/sentry-cast-first-reload-failure.log",
+    "diagnostic": ".local/class-skills/sentry-cast-regen-diagnostic.log",
+    "contentBuild": ".local/class-skills/sentry-cast-content-build.log",
+    "integrationBuild": ".local/class-skills/sentry-cast-integration-build.log"
+  }
+}

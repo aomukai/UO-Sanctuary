@@ -215,6 +215,9 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    casting='sentry-cast-check' if boot==0 else 'sentry-cast-reload-check'
+                    session.send(casting)
+                    assert session.expect(casting+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     emergence='sentry-emergence-check' if boot==0 else 'sentry-emergence-reload-check'
                     session.send(emergence)
                     assert session.expect(emergence+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
