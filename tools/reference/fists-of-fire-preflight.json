@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Learned Fists candidate: sequence base/rate corrected from current-family original code; focused rerun pending before new full regression",
-  "installed": false,
-  "handlerEnabled": false,
+  "status": "Learned Fists of Fire installed with scoped source/native verification",
+  "installed": true,
+  "handlerEnabled": true,
   "nonblocking": true,
   "source": {
     "skillId": 259,
@@ -102,17 +102,16 @@
     "Current local animation metadata and old explicit player-sequence tables are separate evidence; source sequence16 must be traced rather than borrowing generic A1 timing."
   ],
   "required": [
-    "Compose complete source SQ attack rate with selected primary IAS,base208,dual intrinsic WSM,clamp and ordinal scheduler before native action acceptance.",
-    "Implement one/two-claw sequence16 events,once-paid2mana,selected hands,low-mana ordinary Attack fallback and paid cancellation. Builders gain charges without consuming existing families.",
-    "Verify actual held/right/quick learned input and natural timer/cancellation/reload contexts before enabling the skill.",
-    "Retain explicit modern/stat/seed/geometry/proc/client acceptance gaps and separate effects/icons. Continue unaffected work without martial-arts playtest questions."
+    "Retain the documented current executable/stat/rate/target/geometry/proc/seed/PvP/NPC/client acceptance gaps; no class completion is claimed.",
+    "Final charge/claw/contact/area/ground/audio effects and separate talent/hotkey icons remain asset work.",
+    "Continue the Assassin roadmap; do not ask the traps-only player for martial-arts observations."
   ],
   "assets": {
     "effects": "Final hand charge1/2/3, fire conversion/area/firewall, skill audio and charge-release markers remain separate from mechanics; use labelled placeholders.",
     "icons": "Talent/left/right/quick icons remain independently inventoried."
   },
   "limits": [
-    "No learned Fists handler or claw-action certificate. Prepared finisher/fields have separate scoped source/native verification; player only uses traps and has no martial-arts observation.",
+    "Learned handler and real input are installed. Scoped native checks do not certify full current executable equivalence; see fists-claw-native-evidence.json.",
     "Dragon Talon action/delivery gaps remain individually deferred; its prepared physical component is reusable for later kick finishers."
   ],
   "builderConversionEvidence": "tools/reference/fists-fire-source-evidence.json",
@@ -131,7 +130,7 @@
   "nativeCandidate": "src/Sanctuary.Content/FistsFireRelease.cs",
   "nativeChecks": "tests/Sanctuary.Integration/FistsFireChecks.cs",
   "nativeEvidence": "tools/reference/fists-fire-native-evidence.json",
-  "next": "Continue Fists of Fire claw action: compose complete SQ attack-rate/base208/dual intrinsic WSM context with sequence16 and contact ordinals0/1, then implement one/two-claw start/payment/events, selected hands, low-mana ordinary Attack fallback, paid cancellation and actual held/right/quick input. Reuse installed charge/finisher/fields. Dragon Talon consumption/timing/delivery remains individually deferred. Player only uses fire/lightning traps; no repeated martial/Fury playtest questions. Continue unaffected work if a specific branch remains unsupported.",
+  "next": "Continue Assassin with Dragon Claw (source260,start25/do46): reuse the complete1,152-case/2,304-contact start/packet/do46/progressive source composition, then resolve both-claw stat posting, current per-contact versus per-sequence consumption and charged guaranteed-hit/block before enabling native integration. Do not reuse charge-building contact semantics as a finisher. Keep unsupported modern branches explicit and continue Claws of Thunder using claws-of-thunder-preflight.json if an individual branch remains blocked. The player only uses fire/lightning traps; do not repeat martial-arts/Fury playtest questions. All eight classes/240 skills and separate effects/icons remain in scope.",
   "verifiedPreparation": {
     "sourceBuildersConversion": "tools/reference/fists-fire-source-evidence.json",
     "sourceOrdinalSequence": "tools/reference/assassin-claw-sequence-source-evidence.json",
@@ -142,5 +141,6 @@
   "clawRateEvidence": "tools/reference/assassin-claw-rate-source-evidence.json",
   "candidateChecks": "tests/Sanctuary.Integration/FistsClawChecks.cs",
   "modernClawRateEvidence": "tools/reference/assassin-claw-modern-rate-evidence.json",
-  "timingCorrection": "Ordinary A1HT base208 does not select SQ base. Current original calculator gives Fists256base and primary WSM/IAS, with a distinct averaging branch for Dragon Claw. Old dual rate proof is a declared control, not current policy. First full was stopped before installation."
+  "timingCorrection": "Ordinary A1HT base208 does not select SQ base. Current original calculator gives Fists256base and primary WSM/IAS, with a distinct averaging branch for Dragon Claw. Old dual rate proof is a declared control, not current policy. First full was stopped before installation.",
+  "clawNativeEvidence": "tools/reference/fists-claw-native-evidence.json"
 }
