@@ -21,7 +21,7 @@ internal sealed record SentryBodyState(uint Owner,SentryCreationStats Creation,i
     // A distinct ordinary S2 clock; older CBS saves retain their sequence clock.
     public WakeFireControlState WakeControl{get;init;}
     public InfernoControlState InfernoControl{get;init;}
-    public DeathSentryAiState DeathAi{get;init;}
+    public DeathSentryControlState DeathControl{get;init;}
 }
 
 // Saved stationary actor backend. No Constructible or learned input path exists
@@ -65,24 +65,25 @@ public partial class AssassinSentryBody:BaseCreature
         {throw new InvalidDataException("Unsupported saved sentry body state");}
         if(c.Ability==CombatAbility.DeathSentry)
         {
-            if(s.Control!=null || s.InfernoControl!=null || s.WakeControl!=null || s.DeathAi is not{RemainingShots:>=-1})
+            if(s.Control!=null || s.InfernoControl!=null || s.WakeControl!=null)
             {throw new InvalidDataException("Death Sentry requires its distinct AI104 context");}
+            AssassinDeathSentryControl.Validate(s.DeathControl);
         }
         else if(c.Ability==CombatAbility.WakeOfFire)
         {
-            if(s.Control!=null || s.InfernoControl!=null || s.DeathAi!=null){throw new InvalidDataException("Wake cannot retain a lightning/Inferno/death sequence clock");}
+            if(s.Control!=null || s.InfernoControl!=null || s.DeathControl!=null){throw new InvalidDataException("Wake cannot retain a lightning/Inferno/death sequence clock");}
             AssassinWakeFire.Validate(s.WakeControl);
         }
         else if(c.Ability==CombatAbility.WakeOfInferno)
         {
-            if(s.Control!=null || s.WakeControl!=null || s.DeathAi!=null){throw new InvalidDataException("Inferno cannot retain another sentry clock");}
+            if(s.Control!=null || s.WakeControl!=null || s.DeathControl!=null){throw new InvalidDataException("Inferno cannot retain another sentry clock");}
             AssassinInfernoControl.Validate(s.InfernoControl);
             if(s.InfernoControl.Burst is{} burst && burst.HardWake!=c.Skill("Wake of Fire Sentry"))
             {throw new InvalidDataException("Saved Inferno burst disagrees with captured hard Wake");}
         }
         else
         {
-            if(s.WakeControl!=null || s.InfernoControl!=null || s.DeathAi!=null){throw new InvalidDataException("Lightning sentry cannot retain a fire/death clock");}
+            if(s.WakeControl!=null || s.InfernoControl!=null || s.DeathControl!=null){throw new InvalidDataException("Lightning sentry cannot retain a fire/death clock");}
             AssassinSentryController.Validate(s.Control);
         }
         if(s.CachedAim is{} aim && (aim.X is <0 or >65535 || aim.Y is <0 or >65535))
@@ -113,9 +114,9 @@ public partial class AssassinSentryBody:BaseCreature
         at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
         bool wake=ability==CombatAbility.WakeOfFire,inferno=ability==CombatAbility.WakeOfInferno,death=ability==CombatAbility.DeathSentry;
         var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,
-            wake||inferno||death?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40),death?"Death Sentry mode/AI dispatch is not connected":null)
+            wake||inferno||death?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40))
             {CachedAim=new(0,0),WakeControl=wake?AssassinWakeFire.Start(emerging):null,InfernoControl=inferno?AssassinInfernoControl.Start(emerging):null,
-                DeathAi=death?AssassinDeathSentryAi.Start(unchecked((int)(Core.TickCount/40))):null};Validate(state);
+                DeathControl=death?AssassinDeathSentryControl.Start(unchecked((int)(Core.TickCount/40)),emerging):null};Validate(state);
         var body=new AssassinSentryBody();
         try
         {
@@ -159,6 +160,7 @@ public partial class AssassinSentryBody:BaseCreature
                     Control=before.Control==null?null:AssassinSentryController.Inactive(before.Control,checked((int)due)),
                     WakeControl=before.WakeControl==null?null:AssassinWakeFire.Inactive(before.WakeControl,checked((int)due)),
                     InfernoControl=before.InfernoControl==null?null:AssassinInfernoControl.Inactive(before.InfernoControl,checked((int)due)),
+                    DeathControl=before.DeathControl==null?null:AssassinDeathSentryControl.Inactive(before.DeathControl,checked((int)due)),
                     NextFrameUtc=before.NextFrameUtc.AddTicks(checked(due*40*TimeSpan.TicksPerMillisecond))
                 });
                 continue;
@@ -168,6 +170,42 @@ public partial class AssassinSentryBody:BaseCreature
             // Keep the source owner-town exit while sharing a facet. Across
             // facets, approved old-facet retention uses the trap room instead.
             bool town=owner.Map==Map?SpellHelper.IsTown(owner.Location,owner):SpellHelper.IsTown(Location,this);
+            if(before.Creation.Ability==CombatAbility.DeathSentry)
+            {
+                var npc=SentryNpcSkills.Values(312,before.Creation.Rank,before.Creation.Level,before.Creation.Skill);
+                var death=AssassinDeathSentryControl.Advance(before.DeathControl,()=>!town,true,true,before.Creation.Rank,
+                    ()=>AssassinSentryCreation.Shots(before.Creation),
+                    ()=>
+                    {
+                        var target=(AssassinSentryActors.SelectTarget??throw new NotSupportedException("Sentry source target-selection service is not connected"))(this);
+                        selected=target?.Serial??0;return target;
+                    },
+                    ()=>
+                    {
+                        if(World.FindMobile((Serial)selected) is not BaseCreature enemy){return null;}
+                        var choice=AssassinDeathSentryCorpses.Select(this,owner,enemy,before.Creation.Rank);
+                        return choice.Corpse==null?null:new DeathCorpseTarget(choice.Corpse.Serial.Value,choice.OriginalGuid,choice.Distance);
+                    },
+                    ()=>SourceRandom.Limited(ref seed,100)<NecromancerSummons.Source("deathsentry","aip3"),
+                    (kind,id)=>
+                    {
+                        if(kind==DeathSentryDecision.Lightning && World.FindMobile((Serial)id) is{Deleted:false} target)
+                        {cached=AssassinSentryAim.Begin(cached,new(target.X*2,target.Y*2));Direction=GetDirectionTo(target);}
+                        else if(kind==DeathSentryDecision.Explode && World.FindItem((Serial)id) is{} corpse){Direction=GetDirectionTo(corpse);}
+                        return true; // NPC312/324 have no start function.
+                    },
+                    id=>
+                    {
+                        var result=AssassinDeathSentryCorpses.Explode(this,World.FindItem((Serial)id) as Server.Items.Corpse);
+                        if(result.Status is DeathExplosionStatus.MissingSnapshot or DeathExplosionStatus.MissingSeed)
+                        {LogFactory.GetLogger(typeof(AssassinSentryBody)).Warning("Death Sentry skipped unsupported legacy corpse {Corpse}: {Status}",id,result.Status);}
+                    },
+                    id=>AssassinSentryLightning.DispatchDeath(this,id),npc.Param(3),npc.Param(4),
+                    NecromancerSummons.Source("deathsentry","aip4"),NecromancerSummons.Source("deathsentry","aip2"));
+                Store(before with{DeathControl=death,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),
+                    ControllerFault=death.Mode==0?AssassinDeathSentryControl.RetirementFault:null});
+                AIObject?.AITimer.Stop();continue;
+            }
             if(before.Creation.Ability==CombatAbility.WakeOfInferno)
             {
                 var inferno=AssassinInfernoControl.Advance(before.InfernoControl,true,true,town,true,true,before.Creation.Skill("Wake of Fire Sentry"),

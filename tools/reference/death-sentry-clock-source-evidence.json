@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "parentEvidence": "tools/reference/wake-of-fire-clock-source-evidence.json",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a"
+  },
+  "routineHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC645E0": "0974fabbe5032e2cf6ee285470a555aafa7575186f5ec783e32d99b28021f742",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5",
+    "D2GAME_MONSTERS_AiFunction02_6FC65150": "c2c26d3cd1f8bb72c199c212f3b0e6cc13a81b29067e0082dc73c6aa82a039e8",
+    "sub_6FC64790": "44afcbcc07adb7a65b25be726164368e266644826c1c4f3e7283f72f82dfad89",
+    "D2GAME_MONSTERS_AiFunction01_6FC65080": "41a5519fb96e3b646cf9b1e66a20075cc59160e56ed32981f00ace73ee122faf",
+    "AITACTICS_Idle": "ebd28ee5845f789f73cbc6dad96e105345280197d855257ce48e396ef687d002"
+  },
+  "pinnedInputHashes": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "localAnimationEvidence": "tools/reference/d2r-local-sentry-animation-evidence.json",
+  "animation": {
+    "code": "LGS2HTH",
+    "frames": 15,
+    "speed": 256,
+    "events": [
+      [
+        0,
+        2
+      ]
+    ]
+  },
+  "fixture": {
+    "path": ".local/class-skills/death-sentry-clock-source-probe.json",
+    "sha256": "bca67dd50ec82bb72ea3685c689c44d8d1b4df4db0f813034036aee91140e385",
+    "cases": 96
+  },
+  "zeroIdleControls": 2,
+  "established": [
+    "Older AI104 explicitly requests corpse mode9, despite current NPC312/MonStats SQ labels; lightning remains mode14.",
+    "Complete direct S2 entry/scheduler/action/end/neutral bodies dispatch current LG marker2 once at+1 and finish at+15 at supplied speed256; with no future AI deadline next think is+30.",
+    "A false start result is ignored on the direct route. Six supplied rates, four AI deadlines and stunned/normal neutral delays execute. Complete AITACTICS_Idle maps zero frames to one."
+  ],
+  "limits": [
+    "Source data/current animation plus complete older bodies do not certify the modern executable or full live animation-rate graph.",
+    "The inherited harness retains declared record/layout, mode change, registry/state, used non-channelled skill, start/do and event-list services. The skill service records dispatch rather than invoking native corpse damage.",
+    "AI104, current corpse filtering, mode14 lightning and final retirement must still be composed in the native controller."
+  ]
+}

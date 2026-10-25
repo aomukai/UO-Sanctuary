@@ -2926,7 +2926,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared actor uses identified UO0x9C body/hue0x482 and corpse explosion0x36BD placeholders. Final DeathSentry emergence/S2/SQ/neutral/retirement, sentrylightningbolt2, corpse blast/contact and assassin trap audio remain pending. Talent/right-hotkey icons remain separate. Learned AI/mode/retirement input acceptance is not cleared by these placeholders."
+    "placeholder": "Prepared automatic actor uses identified UO0x9C body/hue0x482, travelling bolt0x3818 and corpse explosion0x36BD placeholders. Final DeathSentry emergence/S2/SQ/neutral/retirement, sentrylightningbolt2, corpse blast/contact and assassin trap audio remain pending. Talent/right-hotkey icons remain separate. Learned placement/payment and final retirement acceptance are not cleared by these placeholders."
   },
   {
     "talentId": "assassin.bladeshield",

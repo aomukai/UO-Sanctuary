@@ -19,13 +19,13 @@ public static class DeathSentryExplosionChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Death Sentry corpse RNG/area engine; learned AI dispatch remains disabled",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool condition,string message){if(!condition){throw new InvalidOperationException(message);}}
-    private static void Train(PlayerMobile owner,CombatAbility ability,int rank)
+    internal static void Train(PlayerMobile owner,CombatAbility ability,int rank)
     {
         var row=SkillMechanics.For(ability);Require(TalentCatalog.TryGet(DiabloClass.Assassin,row.TalentId,out var talent),"Missing Assassin talent");
         foreach(string prerequisite in talent.Prerequisites){Train(owner,SkillMechanics.All.Single(x=>x.TalentId==prerequisite).Ability,1);}
         while(ClassCreation.Profiles.GetRank(owner.Serial,row.TalentId)<rank){Require(ClassCreation.Profiles.TryTrain(owner.Serial,row.TalentId,out _),"Train "+row.TalentId);}
     }
-    private static Corpse Body(PlayerMobile owner,Point3D point)
+    internal static Corpse Body(PlayerMobile owner,Point3D point)
     {
         var victim=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};MonsterVariants.Assign(victim,MonsterDifficulty.Hell);
         victim.MoveToWorld(point,owner.Map);victim.AIObject.AITimer.Stop();Corpse corpse=null;
@@ -37,7 +37,7 @@ public static class DeathSentryExplosionChecks
         Require(corpse is{Deleted:false} && CorpseSkillRules.Profiles.Find(corpse)?.BaseLife?.Seed==SourceRandom.InitLow(31337),"Actual death did not retain supplied native seed");
         corpse.BeginDecay(TimeSpan.FromHours(1));return corpse;
     }
-    private static BladeMissileTarget Target(Corpse corpse,int dx,int dy=0)
+    internal static BladeMissileTarget Target(Corpse corpse,int dx,int dy=0)
     {
         var target=new BladeMissileTarget{Name="DeathSentryAreaFixture",NoKillAwards=true};target.MoveToWorld(new(corpse.X+dx,corpse.Y+dy,corpse.Z),corpse.Map);target.AIObject.AITimer.Stop();
         target.SetHits(100000);target.Hits=target.HitsMax;foreach(var resistance in new[]{ResistanceType.Physical,ResistanceType.Fire}){target.SetResistance(resistance,0);}return target;
@@ -79,7 +79,7 @@ public static class DeathSentryExplosionChecks
         Require(owner.EquipItem(staff),"Actual +5/pierce staff");ClassGear.Refresh(owner);
         var actor=AssassinSentryBody.CreatePrepared(owner,new(owner.X+2,owner.Y,owner.Z),TimedEffects.Now,SourceRandom.InitLow(23),CombatAbility.DeathSentry);
         var c=actor.Prepared.Creation;Require(c.Rank==6 && c.Passives.Length==7 && c.Skill("Fire Trauma")==10 && AssassinSentryCreation.Shots(c)==8
-            && actor.Prepared.DeathAi.RemainingShots==-1 && actor.Prepared.Control==null && actor.Prepared.ControllerFault!=null,"Actual Death Sentry creation/passives/hard-only shots/distinct AI context");
+            && actor.Prepared.DeathControl.Ai.RemainingShots==-1 && actor.Prepared.Control==null && actor.Prepared.ControllerFault==null,"Actual Death Sentry creation/passives/hard-only shots/distinct AI context");
         // Owner equipment/location changes must not replace the captured trap
         // rank/pierce or drag its corpse targeting into the new facet.
         owner.AddToBackpack(staff);ClassGear.Refresh(owner);

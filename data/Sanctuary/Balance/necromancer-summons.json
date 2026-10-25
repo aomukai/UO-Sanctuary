@@ -3941,6 +3941,42 @@
     }
   },
   {
+    "key": "sentrylightningbolt2",
+    "fields": {
+      "pCltDoFunc": 8,
+      "pSrvDoFunc": 1,
+      "CltParam1": 3,
+      "Vel": 30,
+      "MaxVel": 30,
+      "Range": "10 +  (lvl *  2)",
+      "Light": 4,
+      "Red": 255,
+      "Green": 255,
+      "Blue": 255,
+      "InitSteps": 0,
+      "Activate": 0,
+      "LoopAnim": 2,
+      "animrate": 1024,
+      "AnimLen": 2,
+      "AnimSpeed": 16,
+      "CollideType": 3,
+      "LastCollide": 1,
+      "ClientCol": 1,
+      "Size": 2,
+      "CanSlow": 1,
+      "ReturnFire": 1,
+      "GetHit": 1,
+      "Trans": 1,
+      "Pierce": 1,
+      "Skill": "Death Sentry",
+      "ResultFlags": 4,
+      "HitClass": 64,
+      "NumDirections": 1,
+      "TravelSound": "sorceress_lightning_1",
+      "CltSubMissile1": "lightninghit"
+    }
+  },
+  {
     "key": "shock field in air",
     "fields": {
       "pCltDoFunc": 1,
