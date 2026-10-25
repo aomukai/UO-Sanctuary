@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "nativeVerifiedByThisSourceProbe": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "compiledRoutineHashes": {
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+    "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+    "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "sharedAbiEvidence": "tools/reference/blade-fury-channel-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/blade-fury-resource-source-probe.json",
+    "cases": 7200,
+    "sha256": "13a4ea085c4063659d0908387ad7d2818d68b9da1336d3c61e414e26c77f667b"
+  },
+  "established": [
+    "Complete generic start/do wrappers, st26/do48 and actual ordinary-player mana eligibility/consumer compose. Fresh state checks six-mana availability; usemanaondo prevents generic start debit. Existing-state start can itself emit and debit before a do event.",
+    "Generic do rejects insufficient current-table mana before do48. A same-frame start emission sets a future deadline, preventing a duplicate do-event shot/payment. Failed missile allocation still counts as an attempted shot and consumes mana under these callers.",
+    "The complete old consumer debits zero at effective rank1, while its eligibility still requires one mana from the pinned table. Ranks3 and20 debit320 and864FP. This rank1 disagreement is explicit, not a current-build certificate or approved free-cast policy."
+  ],
+  "limits": [
+    "Ordinary learned player, rank1/3/20, valid room/nontown, no charges/Blood Mana/LoS/delay/quantity. Unexecuted special branches assert; their presence in compiled bodies is not verification.",
+    "Start followed by a same-frame do with declared intervening mana value is an orchestration control, not full production held-input/SQ scheduling. Animation rewind, aim, stat/event storage and missile allocation remain explicit services.",
+    "Current table resource policy must override the legacy rank1 debit discrepancy. Modern warmup/cadence, source SQ23/rewind, native player input, weapon/missile/persistence remain pending."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr"
+}

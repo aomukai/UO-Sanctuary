@@ -252,7 +252,7 @@
     }
   ],
   "required": [
-    "Resolve source corpse/GUID retention and already-released missile allegiance/damage/events after trap exhaustion or replacement before changing native living-actor ownership gates.",
+    "Deferred nonblocking: resolve current corpse/GUID lifetime and death-entry stat cleanup after exhaustion/replacement before changing native living-actor ownership gates. Retained-dead-owner HP flow has 23040 complete source cases; this does not establish actual retention.",
     "Resolve exact source/current charged-bolt motion differences beyond the saved native-shared-chargedbolt-v1 adapter, reusing existing missile kernels only within their verified contracts.",
     "Keep exact spawn-search fallback/overlap, current lost-mana/rank1 edge and cached S1/S2 timing explicitly uncertain. Complete learned right/quick scheduling/cancellation/once-only payment and remaining combat/lifecycle acceptance before enabling Sentry input."
   ],
@@ -279,7 +279,8 @@
     "mode": "tools/reference/sentry-mode-source-evidence.json",
     "controller": "tools/reference/sentry-controller-source-evidence.json",
     "chargedBoltPath": "tools/reference/charged-bolt-path-source-evidence.json",
-    "target": "tools/reference/sentry-target-source-evidence.json"
+    "target": "tools/reference/sentry-target-source-evidence.json",
+    "deadOwnerHealth": "tools/reference/sentry-dead-damage-source-evidence.json"
   },
   "actorBackendInstalled": true,
   "targetSelectorNext": {
@@ -329,5 +330,11 @@
   "unitPathBoundInCandidate": true,
   "unitPathInstalled": true,
   "preparedUnitPathStatus": "Charged Bolt Sentry has an installed stationary unit-target reachability helper, verified by both focused and full three-boot/two-reload suites. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
-  "ownerRoutingSourceEvidence": "tools/reference/sentry-owner-source-evidence.json"
+  "ownerRoutingSourceEvidence": "tools/reference/sentry-owner-source-evidence.json",
+  "deferredNonblocking": {
+    "reason": "Current corpse/GUID retention and death-entry stat cleanup remain unestablished. The 23040-case complete retained-dead-owner missile/resistance/event/HP source composition proves health damage only while the declared registry and stats remain retained. Native living-actor gate is unchanged.",
+    "sourceEvidence": "tools/reference/sentry-dead-damage-source-evidence.json",
+    "nextUnaffectedSkill": "assassin.bladefury",
+    "userIdleExpiryReport": "tools/reference/sentry-observations.json"
+  }
 }
