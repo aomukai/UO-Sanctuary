@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragonclaw",
+  "sourceId": 260,
+  "status": "Next Assassin finisher; source/native integration pending",
+  "installed": false,
+  "handlerEnabled": false,
+  "nonblocking": true,
+  "source": {
+    "skillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "currentLocalTableSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "corroboratedFields": {
+      "srvstfunc": 25,
+      "srvdofunc": 46,
+      "seqnum": 16,
+      "weapsel": 3,
+      "itypea1": "h2h",
+      "itypeb1": "h2h",
+      "anim": "SQ",
+      "seqtrans": "A1",
+      "UseAttackRate": 1,
+      "AttackNoMana": 1,
+      "mana": 2,
+      "lvlmana": 0,
+      "manashift": 8,
+      "finishing": 1,
+      "prgchargestocast": 0,
+      "prgchargesconsumed": 1,
+      "calc1": "ln12 + skill('Claw Mastery'.blvl)*par7",
+      "calc4": 0,
+      "Param1": 50,
+      "Param2": 15,
+      "Param7": 4,
+      "ToHit": 40,
+      "LevToHit": 25,
+      "SrcDam": 128
+    }
+  },
+  "reviewedOnly": [
+    "Complete start25 body in SkillMonst.cpp only requires a target. It does not precompute an attack packet; generic start/payment wrapper remains separate.",
+    "Complete do46 in SkillAss.cpp calls full sub6FCF8C70 separately per contact, invokes progressive release on its resulting packet, drains/commits durability, then clears/sets the sequence flag by contact ordinal. These bodies are reviewed, not newly compiled by this preflight.",
+    "sub6FCF8C70 adds progressive AR and skill AR, Tiger ED and own calc1, fills the weapon packet before shared progressive elemental conversion, and allocates combat even for unsuccessful result. Exact nested services need composition."
+  ],
+  "reusable": [
+    "Installed Fists sequence16 contacts0/1 and saved primary/secondary hand contexts, input,once-paid mana,cancellation and actual world reload tests. Do not reuse builder ChargeContact semantics for a finisher.",
+    "Existing independent Tiger/Cobra/Fists ledger, ordinary Attack fire conversion/stacked area/fields,source weapon packets and physical drain.",
+    "Original current-family calculator has a distinct dualOnly Dragon Claw rate branch: separately diminished hand IAS and WSM average,base256. Fists primary-only rate must not be copied. See assassin-claw-modern-rate-evidence.json."
+  ],
+  "required": [
+    "Compile full start25/do46/sub6FCF8C70/progressive-release and scheduler/selector/packet ordering under explicit real service contexts.",
+    "Use both-claw eligibility fromitypea/itypeb; confirm allocation/miss/block/lethal/target-loss/rank/synergy/item contexts.",
+    "Resolve current per-contact versus per-sequence consumption and charged guaranteed-hit/block semantics; legacy full-list removal does not prove modern consume-one behavior.",
+    "Integrate actual current Dragon rate/stat suppliers, once-paid2mana, ordinary low-mana fallback,cancellation and real quick/held input; test two world reloads before enabling."
+  ],
+  "questions": [
+    "Current charged finisher guarantee/block and per-contact consumption need current primary evidence or direct observations. Player only plays traps: do not repeat martial-arts playtest requests.",
+    "Firsthand2022 primary-hand chance-to-hit sharing report is not current3.3.93847 proof; retain it as an acceptance question, not an invented behavior."
+  ],
+  "assets": {
+    "effects": "Final dual-claw sequence/contact/charge-release/audio remain pending; identified ordinary weapon/charge/fire markers can be reused during mechanics.",
+    "icons": "Talent/left/right/quick icons are separately inventoried."
+  },
+  "continueIfBlocked": "Document any specific unsupported branch and continue Claws of Thunder; keep the all-class goal active."
+}

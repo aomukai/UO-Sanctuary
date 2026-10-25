@@ -64,9 +64,14 @@ public static class EnchantChecks
         Cast(owner, pet);
         Require(ClassStats.AttackRating(pet) == petRating * 120 / 100, "Pet attack rating omitted Enchant");
         NativeWeapon(ally, enemy, false); NativeWeapon(pet, enemy, false); NativeWeapon(pet, enemy, true);
-        int life = enemy.Hits;
+        int life = enemy.Hits, beforePet256=SkillHealth.Balance256(enemy);
         SkillCombat.HitParts(pet, enemy, new(100, 0, 0, 0, 0), true, weapon: true);
-        Require(life - enemy.Hits is >= 111 and <= 114, "Summon typed attack omitted or duplicated Enchant");
+        var petEnchant=SorceressEffects.Enchantment(pet);int petLoss256=beforePet256-SkillHealth.Balance256(enemy);
+        int petMin256=100*256+NamedElements.To256(NamedElements.Enhance(pet,petEnchant.Min256/256.0,"fire"));
+        int petMax256=100*256+NamedElements.To256(NamedElements.Enhance(pet,petEnchant.Max256/256.0,"fire"));
+        // Earlier native hits retain their fractional damage. Whole-Hits loss
+        // can cross the next integer; compare the exact packet budget instead.
+        Require(petLoss256>=petMin256 && petLoss256<=petMax256,$"Summon typed Enchant FP loss={petLoss256}, expected={petMin256}..{petMax256}, whole={life-enemy.Hits}");
         Cast(owner, enemy);
         Require(SorceressEffects.Enchantment(owner) != null && SorceressEffects.Enchantment(enemy) == null, "Hostile Enchant did not fall back to self");
         NativeWeapon(owner, enemy, false); NativeWeapon(owner, enemy, true);
