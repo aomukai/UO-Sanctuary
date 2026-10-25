@@ -178,7 +178,10 @@ public static class AssassinSentryActors
     internal static Func<AssassinSentryBody,SentryTarget?> SelectTarget;
     internal static Action<AssassinSentryBody,uint> Dispatch;
     public static void Initialize()
-    {SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=AssassinSentryBolts.Dispatch;}
+    {
+        AssassinSentryWorldTargets.PrimaryPath??=AssassinSentryUnitPath.Probe;
+        SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=AssassinSentryBolts.Dispatch;
+    }
     internal static void Track(AssassinSentryBody body)=>Active[body.Serial]=body;
     internal static void Forget(AssassinSentryBody body)=>Active.Remove(body.Serial);
     internal static AssassinSentryBody[] Actors()=>Active.Values.Where(x=>!x.Deleted).ToArray();

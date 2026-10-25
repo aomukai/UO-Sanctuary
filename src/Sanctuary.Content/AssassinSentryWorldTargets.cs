@@ -10,8 +10,9 @@ namespace Sanctuary;
 
 internal static class AssassinSentryWorldTargets
 {
-    // The source probes a unit-target path, including target adjustment. The
-    // existing point-target path kernel must not stand in for that service.
+    // The complete type2 setter/initializer composition bounds reuse of the
+    // toward kernel for this stationary zero-lead unit-target query. Other
+    // unit-path contexts and the legacy pointer-clear quirk remain separate.
     internal static Func<AssassinSentryBody,Mobile,bool> PrimaryPath;
     internal static SentryTarget? Select(AssassinSentryBody body)
     {
@@ -30,7 +31,7 @@ internal static class AssassinSentryWorldTargets
         }).ToArray();
         var result=AssassinSentryTargets.Select(new(body.X*2,body.Y*2),candidates,_=>true,
             candidate=>!body.InLOS(World.FindMobile((Serial)candidate.Serial)),
-            candidate=>(PrimaryPath??throw new NotSupportedException("Sentry low-threat alternative needs an unmapped unit-target path probe"))(body,World.FindMobile((Serial)candidate.Serial)));
+            candidate=>(PrimaryPath??throw new NotSupportedException("Sentry stationary unit-target path service is not connected"))(body,World.FindMobile((Serial)candidate.Serial)));
         // Native sentries currently have no source attacker-override AI record.
         // The core supports an explicitly resolved remembered target; it is not
         // confused with Control.Target, which is the pending volley's aim.

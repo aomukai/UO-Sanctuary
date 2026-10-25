@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.chargedboltsentry",
+  "installed": false,
+  "handlerEnabled": false,
+  "unitPathBoundInCandidate": true,
+  "fullPending": true,
+  "status": "Charged Bolt Sentry has a bound stationary unit-target reachability helper, prepared and passing the focused three-boot/two-reload suite. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. Full regression and installation of this helper are pending; the installed150-handler build remains the verified internal cast-release checkpoint at96aa73e. Learned Sentry input remains disabled.",
+  "sourceEvidence": "tools/reference/sentry-unit-path-source-evidence.json",
+  "previousCastEvidence": "tools/reference/sentry-cast-native-evidence.json",
+  "installedBaselineCommit": "96aa73e",
+  "verification": {
+    "focusedBoots": 3,
+    "worldReloads": 2,
+    "sourceCompositionsPerBoot": 4032,
+    "orderedCollisionQueriesPerBoot": 27200,
+    "sourceEitherZeroUnitGate": true,
+    "productionPrimaryPathBound": true,
+    "reachablePrimary": true,
+    "closeLowThreatAlternative": true,
+    "callback7PrimaryFallback": true,
+    "distantAlternativeGuard": true,
+    "ownerFacetIndependent": true,
+    "queryPreservesSavedActor": true,
+    "actualSceneReloads": 2,
+    "restoredControllerLowThreatWindup": true,
+    "shippedThreatProfilesUnchanged": true,
+    "learnedInput": false,
+    "fullRegressionComplete": false
+  },
+  "limits": [
+    "The bounded source composition uses a reconstructed general initializer explicitly marked BROKEN upstream. Current3.3 executable paths/rooms, arbitrary moving player/door/missile targets, masks, lead, direction offsets and unrelated unit-path contexts are not certified. The native world adapter retains existing UO map/height/footprint/LOS projection rather than claiming native D2 room geometry.",
+    "Full source PATH_SetType2 clears target-footprint-removal and target-adjustment flags. The helper leaves target footprint collision in the shared native mask. The fixed budget14 follows generic monster allocation and the pinned chargeboltsentry flying/opendoors/Velocity0 row; controls also compare budget5.",
+    "The complete old source coordinate restore clears its raw target pointer and registry validation does not recreate it. This is an explicitly recorded legacy quirk, not confirmed current behavior. The native stationary body has no D2 raw path pointer; the pure reachability query preserves its saved logical CachedAim and pending controller target, rather than claiming a binary path-state rollback.",
+    "Native low-threat scenes use a scoped test-only zombie threat1 profile, restored synchronously afterward. Shipped creature profiles and targeting balance are unchanged. Walk-only test blockers retain LOS; source callback7 scanning/eligibility remains independently covered by4096 complete selector cases.",
+    "Source corpse/GUID retention and damage/events for already-fired bolts after exhaustion/replacement, saved native-shared-chargedbolt-v1 versus exact current motion, spawn-search fallback/occupied-target placement, current lost-mana/rank1 edge and complete learned input/cancellation remain open. Cached S1/S2 animation provenance and current executable/client timing acceptance remain separate.",
+    "Effects and talent/hotkey icons remain separate240-row inventories, with identified body/travel/audio placeholders. No final art, independent idle timeout, new facet assignment, learned handler or class completion is claimed."
+  ],
+  "fixtureCorrection": "The first reload scene and controller checks passed, but the next fixture creation failed because the disconnected owner was on Internal. Reload now explicitly re-enters its saved origin/map before checks, matching the established existing Sentry fixtures. No gameplay owner or map rule changed.",
+  "logs": {
+    "focused": ".local/class-skills/sentry-unit-path-focused.log",
+    "focusedRun": ".local/class-skills/sentry-unit-path-focused-run.log",
+    "fullRun": ".local/class-skills/sentry-unit-path-full-suite-run.log",
+    "ownerReentryFailure": ".local/class-skills/sentry-unit-path-owner-reentry-failure.log",
+    "ownerReentryRun": ".local/class-skills/sentry-unit-path-owner-reentry-run.log",
+    "sourceCheck": ".local/class-skills/sentry-unit-path-source-check.log",
+    "contentBuild": ".local/class-skills/sentry-unit-path-content-build.log",
+    "integrationBuild": ".local/class-skills/sentry-unit-path-integration-build.log"
+  }
+}

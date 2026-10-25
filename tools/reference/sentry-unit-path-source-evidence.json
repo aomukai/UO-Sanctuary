@@ -1,7 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "handlerEnabled": false,
-  "nativeUnitPathImplemented": false,
+  "nativeVerifiedByThisSourceProbe": false,
+  "nativeEvidence": "tools/reference/sentry-unit-path-native-evidence.json",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
@@ -29,7 +30,7 @@
     "Six obstacle grids, offsets, fractions, budgets5/14, old path13/15, old target present/absent and declared callback7 fallback/no-fallback branches execute under clean ASan/UBSan. Callback7 only runs if no path points; fallback distance10 keeps primary replacement, no fallback permits the close alternative."
   ],
   "limits": [
-    "Supplementary reconstructed source; D2Common_10142 is marked BROKEN, and current3.3 executable/path/room equivalence is not asserted. Native integration remains pending.",
+    "Supplementary reconstructed source; D2Common_10142 is marked BROKEN, and current3.3 executable/path/room equivalence is not asserted. Native integration and current build acceptance are verified separately.",
     "Town/room/grid and zero-footprint services retain the existing synthetic contracts. Target size service returns1, but temporary type2 disables target-footprint removal and target adjustment. Actor lead/speed0, pattern0/mask0x3c01 and monster targets are declared; arbitrary moving players, doors, offsets, masks, room crossing, target death/registry reuse and other path types are not covered.",
     "Callback7 scanning here is a declared checked fallback service (none or third target at10); its full eligibility/nearest selection remains separately covered by4096 selector cases. Native collision adapters and saved actor state consequences require their own tests before binding.",
     "The reused translation unit retains unrelated unexecuted reconstructed motion helpers whose integer-to-pointer casts produce64-bit compiler warnings. The executed probe requires clean ASan/UBSan runtime stderr; this is not a certificate for those unrelated ABI paths."
