@@ -1,0 +1,107 @@
+[
+  {
+    "code": "hbt",
+    "min": 10,
+    "max": 20,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "lbt",
+    "min": 3,
+    "max": 8,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "mbt",
+    "min": 6,
+    "max": 12,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "tbt",
+    "min": 8,
+    "max": 16,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "uhb",
+    "min": 83,
+    "max": 149,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "ulb",
+    "min": 65,
+    "max": 100,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "umb",
+    "min": 69,
+    "max": 118,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "utb",
+    "min": 50,
+    "max": 145,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "uvb",
+    "min": 60,
+    "max": 110,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "vbt",
+    "min": 4,
+    "max": 10,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "xhb",
+    "min": 39,
+    "max": 80,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "xlb",
+    "min": 26,
+    "max": 46,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "xmb",
+    "min": 23,
+    "max": 52,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "xtb",
+    "min": 37,
+    "max": 64,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  },
+  {
+    "code": "xvb",
+    "min": 28,
+    "max": 50,
+    "strengthPercent": 120,
+    "dexterityPercent": 0
+  }
+]

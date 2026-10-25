@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "referenceVersion": "3.3.93847",
+  "sourceManifest": "tools/reference/d2r-named-equipment/sources.json",
+  "sourceHashes": {
+    "json/armor.json": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+    "json/itemtypes.json": "cbfc6d0abdddb20ae0fa9f50e07a072fd075967c5fff5e6455bcf93be922d3ae"
+  },
+  "bootRows": 15,
+  "scope": "Kick base damage and strength/dexterity coefficients only. Legacy equipment projections remain separate, as with smite-shields; real active boot source identity selects current kick values. No kick action/timing or property eligibility certificate."
+}

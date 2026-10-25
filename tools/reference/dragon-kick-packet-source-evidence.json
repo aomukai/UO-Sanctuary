@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledRoutines": {
+    "sub_6FCF7CE0": "fb6cab859027d65162dcc79046b28daac2a7d2eacc51dae2314d2ae2bbe35329"
+  },
+  "reusedCompleteRoutines": [
+    "SKILLS_GetMinPhysDamage",
+    "SKILLS_GetMaxPhysDamage",
+    "SKILLS_CalculateKickDamage",
+    "UNITS_CanDualWield",
+    "sub_6FC7C7B0",
+    "sub_6FC7C900"
+  ],
+  "reuseEvidence": [
+    "tools/reference/dragon-kick-damage-source-evidence.json",
+    "tools/reference/dragon-talon-hands-source-evidence.json"
+  ],
+  "fixture": {
+    "path": ".local/class-skills/dragon-kick-packet-source-probe.json",
+    "sha256": "ae2ceb1848bb2dde1ea28be23d6a6e2d6cc8eb2231e3983fcd07db688861dd46",
+    "cases": 62208,
+    "sanitizers": "ASan+UBSan"
+  },
+  "declaredServices": [
+    "Tiger ED is supplied by a packet additive callback; complete Tiger consumer is separately proved. Cobra callback supplies40life/40mana to observe placement only; no charge delivery/consumption proof here.",
+    "FillDamageValues is an explicit call boundary: verifies flags3, a5=1 and source128; invokes complete source hand-context wrapper. Does not compile full elemental/leech/critical/proc collector.",
+    "Kick skill elemental callback is a counter/no-op for the declared zero-elemental Dragon Talon row. Integer percentage uses declared signed64-bit multiply/truncation; bounded inputs do not overflow source endpoints. Limited RNG returns min(draw,span-1), or0for nonpositive span."
+  ],
+  "established": [
+    "Complete packet body composes separately enhanced body and boot endpoints, rolls one exclusive-end physical packet, sets flags3, invokes skill element hook and only with inventory proceeds to fill and Cobra callback.",
+    "No-inventory control retains initial flat-kick contribution and skips boot/fill/Cobra; full per-item contexts are separate.",
+    "Both damage-stat lists are disabled for boot arithmetic; primary is restored before/within fill. Final active primary is retained, with secondary disabled."
+  ],
+  "limits": [
+    "Native prepared component/handler/timing/input/modern charge-consumption/block semantics remain pending. This proves bounded physical composition with explicit downstream services.",
+    "Current flat-kick double-add behavior and integer/RNG/executable equivalence require corroboration. Full typed damage, weapon leech and item event acceptance remain separate."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontalon",
+  "component": "Prepared kick physical packet/current boot capture",
+  "installed": false,
+  "handlerEnabled": false,
+  "components": [
+    "src/Sanctuary.Content/DragonKickDamage.cs",
+    "data/Sanctuary/Balance/kick-boots.json"
+  ],
+  "sourceEvidence": [
+    "tools/reference/dragon-kick-damage-source-evidence.json",
+    "tools/reference/dragon-kick-packet-source-evidence.json",
+    "tools/reference/dragon-talon-hands-source-evidence.json",
+    "tools/reference/kick-data-source.json"
+  ],
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "sourceBodyBootCasesPerBoot": 24576,
+    "sourcePhysicalPacketCasesPerBoot": 62208,
+    "bootBases": 15,
+    "numericGoldensPerBoot": 255,
+    "retainedCobraNaturalChargeFinisherRuns": 3,
+    "liveGear": [
+      "Actual Bartuc primary/offhand nondamage attributes retained; weapon ED excluded from boot arithmetic; selected hand does not alter physical source capture.",
+      "Actual Goblin Toe/Gorerider/Shadowdancer identify Normal/Exceptional/Elite bases; active boots and actual Steelrend ED capture are exercised before and after removal.",
+      "Saved selected weapons, all three boot entities, active elite boots,Steelrend and independent initial Tiger state survive two actual world reloads; recomputed physical capture is unchanged.",
+      "Capture is immutable and does not consume charges, spend mana, create an action or wear gear. No kick input or damage delivery is claimed."
+    ],
+    "failureCorrection": "First focused comparison found the legacy normal/equipment-tier boot projection uses0damage while current armor supplies real kick endpoints. Added separate pinned current15-row kick-boots table, following existing Smite architecture; general equipment projections unchanged."
+  },
+  "candidate": {
+    "contentSha256": "7c16ffec7a3ef6124d1bbd912123ba71ef04d51b26d4f6ae83aa2b10422f6c1c",
+    "integrationSha256": "6c6afd369ab32b166082c84095f5b6eb719b95bccc88727efeba40bd95d80a75"
+  },
+  "fullRegression": "pending",
+  "limits": [
+    "No learned Dragon Talon handler. Current timing/modern consumption/guaranteed-hit/block/target/typed/leech/proc/cancellation/input remain explicit separate gates.",
+    "Source packet proof declares downstream fill and charge callback services; complete physical composition is not a full modern ExecuteEvents certificate.",
+    "Flat kick stat is an explicit caller input; no new flat-kick item producer is claimed. Old double-add with boots remains uncorroborated for current D2R.",
+    "Capture reuses existing native stat/equip/active-base and aura/curse mappings. Full modern property/stat/seed/executable/client acceptance remains separate.",
+    "Final kick poses/impact/knockback/audio/charge visuals and talent/left/right/quick icons remain separately inventoried; no image generation."
+  ]
+}
