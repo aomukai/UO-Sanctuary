@@ -413,6 +413,13 @@
       "SKILLS_SrvDo041_RoyalStrike_ProgressiveFn3": "0f01cad806a292e9a8edbdeed8ba17e43c9890e32b619fc5b5213bd26a019d28",
       "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb"
     },
+    "reviewedMissileSourceHash": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "reviewedOnlyMissileRoutines": {
+      "MISSMODE_SrvDo35_RoyalStrikeChaosIce": "2a9b9cba2c0ddac3935a5a2e6494177e112d2497569a0833af05eadea30caf40",
+      "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos": "4ab2860025b096cd6b35e157c66ee01b6bebeeff2542a4401a2b087490f1f7e1",
+      "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+      "MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor": "f54c079ceb702c12d0c809113f0f5117058648e8f2a253d794c29bb39de93ab5"
+    },
     "localCascCorroboration": {
       "path": ".local/research/d2r-3.3.93847/skills.txt",
       "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
@@ -456,7 +463,7 @@
   "established": [
     "Current source280uses start23/do34,mele ancestry,A1,left/right input,4mana and AttackNoMana1; reuse the single-contact Tiger/Cobra builder rather than the dual-claw do35sequence.",
     "Absent prgstack/prgdam mean only the selected charge tier callback runs; this is distinct from Fists/Thunder/Ice stacked releases. Existing ordinary consume-one remains separate from the legacy full-list removal.",
-    "Tier1callback40creates royalstrikemeteorcenter at the current target. Tier2callback143uses progressive step10and full sub6FCF6D70; tier3callback41emits16chaos-ice missiles with a private source RNG and saved target seed/vector. These are reviewed source facts,not a compiled Phoenix/native certificate."
+    "Tier1callback40creates royalstrikemeteorcenter at the current target. Tier2callback143uses progressive step10and full sub6FCF6D70; tier3callback41emits16chaos-ice missiles with a private source RNG and saved target seed/vector. These source facts have separately scoped compiled producer/path/damage components;no native skill certificate is claimed."
   ],
   "reuse": [
     "Tiger/Cobra do34melee builder,once-paid resources/cancellation,independent charge families and ordinary successful consume-one.",
@@ -465,12 +472,20 @@
   ],
   "required": [
     "Retain the current local32skill-field corroboration; corroborate seven missile rows,source ancestry and relevant A1 metadata.",
-    "Compile complete progressive tier selection,meteor center/falling/area/fire factory and clocks,lightning pattern/initializer/collision/child endpoints,and chaos-ice homing/velocity/damage2/freeze paths with current tables.",
+    "Retain the3456complete tier/producer/LCG cases,4096chain initializer/path cases and1152four-row packet cases. Compose complete meteor center/falling/area/fire factory and clocks,chain first-direction/movement/collision/NextHit,and chaos-ice homing/velocity/damage2/freeze paths with current tables.",
     "Phoenix uses nonstacked tier selection: do not release all elemental tiers or silently copy Thunder bolts/Ice cubes. Trace distinct two-tier versus multiple charged-family interaction.",
     "Verify real weapon/gear/stored-live ranks/hard synergy/mastery,hit/block/miss/immunity,resource/fallback/lifecycle,real quick/both held/ordinary inputs,saved children/states and original-world smoke before installation.",
     "Do not repeat martial-arts/Fury questions to the traps-only player; keep unsupported mechanics explicit and proceed with unaffected work."
   ],
-  "preparedComposition": "tools/reference/phoenix-release-source-evidence.json",
+  "preparedComposition": [
+    "tools/reference/phoenix-release-source-evidence.json",
+    "tools/reference/phoenix-chain-init-source-evidence.json",
+    "tools/reference/phoenix-damage-source-evidence.json"
+  ],
+  "openMechanics": [
+    "Chaos-ice do35rebuilds its target every third remaining frame,using saved low seed and signed packed vector. The older signed targetY addition may carry a negative X into the high Y half;current executable behavior remains unverified. Do not silently normalize it into a clean pair or invent homing.",
+    "Chaos-ice damage2with current dParam1=100copies stored cold length to freeze and clears ordinary cold length. Reuse compiled freeze-state component evidence;this differs from Ice cubes damage10which retains both lanes."
+  ],
   "assets": {
     "effects": "Final Phoenix charge tiers,meteor warning/fall/explosion/fire,chain lightning,chaos ice/trail/freeze and audio remain pending; use identified native placeholders after implementation.",
     "icons": "Talent/left/right/quick icons remain in the separate240-row icon inventory."

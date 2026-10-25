@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "reusedCompleteComposition": "tools/reference/martial-lightning-source-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/src/Monsters/Monsters.cpp": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledAdditionalRoutines": {
+    "D2Common_11053": "6dc301c1ec0b445ee10ef784a5413dca7e87035fa38dd47dd14d61af062e7c97",
+    "PATH_GetPathPoints": "d4c773e5698a8a9fd1204149ca17255a640024cb92cff5acc171bc813c0ae9dc",
+    "PATH_SetNumberOfPathPoints": "35ab09ff2b58fc0f053486566f0358961be9772bd62fca0e0d9be11fc3cc20c6",
+    "sub_6FCF7390": "b1161adb9a6e84031749d871b7cd279a8e3da71b5adb5d1f7123652b259d7456"
+  },
+  "fixture": {
+    "path": ".local/class-skills/phoenix-chain-init-source-probe.json",
+    "sha256": "6798a10b019f8a38f6ac7a3658118106c5223310e800908cf553ce1a5db4549f",
+    "cppSha256": "580250ec840e6db98a78f8e5d566eb5c0a622ad3c0f3f9145f65df5e0bd258b4",
+    "cases": 4096,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete sub6FCF7390caps frames>=78to77,initializes the supplied low seed/high666,sets charged path and source distance,then writes exactly one point per frame. Current Phoenix chain Range60therefore keeps60frames.",
+    "Full source direction64-to8lookup and private LCG execute. Two initial draws choose sign and2..4direction step; after point0and every15thpoint,the sign flips and one fresh step draw occurs. Final seed and every uint16path coordinate are compared,including wrap controls.",
+    "Complete path-point access/count helpers execute; precomputed paths retain origin,initial direction,child seed,points/count and source frame cap for future native reuse."
+  ],
+  "services": [
+    "Initial direction0..63is an explicit service input. UNITS_GetDirectionToCoords/PATH_ComputeDirection,outer factory/velocity movement/collision/NextHit/packet/event/owner/client are not compiled here.",
+    "Frame accessors,type setter and first-point coordinate getters reuse bounded parent services. Complete path distance setter is inherited. Generic missile allocation aborts because this isolated initializer must not allocate."
+  ],
+  "next": "Compose the producer-selected seven chains with real factory/damage/first-point direction/movement and current4frame hit-delay before enabling Phoenix. Meteor and chaos-ice paths remain separate."
+}

@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "sourceComposition": "tools/reference/immolation-damage-engine-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "blockHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "additionalLengthSourceHash": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+  "additionalLengthRoutineHash": "a902ea2870ea544ae872b408f532d6af74f9008fd94b125d0af45a30b630cc8d",
+  "pinnedMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "rows": [
+    "royalstrikemeteor",
+    "royalstrikechainlightning",
+    "royalstrikechaosice",
+    "royalstrikemeteorfire"
+  ],
+  "fixture": {
+    "path": ".local/class-skills/phoenix-damage-source-probe.json",
+    "sha256": "6876fbd90f93320116bea178cc103985d23faf731fc4d05322ce8fd83504dffe",
+    "cppSha256": "da46fce2d97850917c759c1bda8121458ef08c16fd805238c41050404bf2a9cb",
+    "cases": 1152,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete missile creator/endpoints/tier/stat writer execute the four current damaging Phoenix rows with source0. Owner weapon/item damage,critical and leech controls do not enter any packet.",
+    "Meteor fire/lightning/chaos cold/meteor ground fire apply their separate hard Fists10percent,Claws13percent,Blades10percent,Fists6percent formulas before HitShift8/8/8/3,then mastery once. The full stat writer does not copy mastery for a second impact enhancement.",
+    "Complete raw cold length getter uses100base and10/15/20per-level tiers for chaos ice. Source damage2and final cold/freeze application remain separate. Ground fire is raw HitShift3damage; this probe does not assert its collision frequency or displayed DPS."
+  ],
+  "services": [
+    "Synergy formula and mastery percentage are explicit supplied services. The mastery service uses a64bit intermediate so rank255controls do not overflow the harness;this does not certify the current engine percentage implementation. Complete creator/getters/writer and raw cold length getter execute,not a duplicated runtime formula.",
+    "Rank,item/weapon stats and unconditional critical control are supplied. Factory inheritance,target impact,cold/freeze,field cadence,trajectory/NextHit/event/owner/client are not executed."
+  ],
+  "next": "Compose real meteor factory/impact/fire cadence and chaos-ice damage2/movement; then native learned action and child lifecycle. No handler or class certificate."
+}
