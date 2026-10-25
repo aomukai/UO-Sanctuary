@@ -149,21 +149,27 @@ public static class GearEffects
         double enhanced=NamedElements.Enhance(player,total-aura,element)+aura;
         return enhanced;
     }
-    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null)
+    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null,int physicalToFirePercent=0)
     {
         bool ranged=NamedCombat.Ranged(player);
         double rawPhysical=damage.Physical*(projectileCritical is{} critical?(critical?2:1):NamedCombat.Deadly(player,effects));
         // Skill elements already include their source percentage/mastery rounding.
         // Ordinary weapon hits must also reach Energy Shield before resistance.
-        double convertedMagic=0;
+        double convertedMagic=0,convertedFire=0;
+        if(physicalToMagicPercent>0 && physicalToFirePercent>0){throw new NotSupportedException("Simultaneous weapon conversion families are unmapped");}
         if(physicalToMagicPercent>0)
         {
             var split=BarbarianConcentrate.Split(NamedElements.To256(rawPhysical),physicalToMagicPercent);
             rawPhysical=split.Physical256/256.0;convertedMagic=split.Magic256/256.0;
         }
+        if(physicalToFirePercent>0)
+        {
+            var split=WeaponMissileDamage.ConvertPhysical(NamedElements.To256(rawPhysical),physicalToFirePercent);
+            rawPhysical=split.Physical256/256.0;convertedFire=split.Magic256/256.0;
+        }
         var extra=skillElements.GetValueOrDefault();
         var parts=SkillCombat.MitigatePrepared(player,target,new(NamedElements.Enhance(player,rawPhysical,"physical"),
-            WeaponElement(player,damage.Fire,"fire",roll,ranged)+extra.Fire,
+            WeaponElement(player,damage.Fire,"fire",roll,ranged)+extra.Fire+convertedFire,
             WeaponElement(player,damage.Cold,"cold",roll,ranged)+extra.Cold,
             WeaponElement(player,damage.Lightning,"ltng",roll,ranged)+extra.Lightning,0,
             Magic:NamedElements.Enhance(player,damage.Magic,"mag")+convertedMagic),out int absorbed256);
@@ -171,7 +177,7 @@ public static class GearEffects
         return new(damage,parts,absorbed256);
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
-        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null)
+        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null,bool softHit=false)
     {
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
@@ -192,7 +198,13 @@ public static class GearEffects
         {
             SkillHealth.Damage(player,target,NamedElements.To256(total));
             if (target is BaseCreature creature)
-            { CreatureHitRecovery.Apply(creature, player, Math.Max(0, before - target.Hits), true); }
+            {
+                int reactionDamage=Math.Max(0,before-target.Hits);
+                // SOFTHIT suppresses the recovery reaction, preserving the
+                // existing elite damage callback independently of that pose.
+                if(softHit){EliteCombat.OnStruck(creature,player,reactionDamage);}
+                else{CreatureHitRecovery.Apply(creature,player,reactionDamage,true);}
+            }
             CombatDamage.Finish(target, player);
         }
         if (target.Alive && !target.Deleted)

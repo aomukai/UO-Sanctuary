@@ -24,7 +24,7 @@ public static class ImmolationArrows
         {
             int size=target is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
             int dx=(int)(patch.X*2)-target.X*2,dy=(int)(patch.Y*2)-target.Y*2;
-            if(Math.Abs(target.Z-patch.Z)<16 && Touches(size,dx,dy) && ClassCombat.IsHostile(owner,target)
+            if(Math.Abs(target.Z-patch.Z)<16 && CombatHitboxes.SourceTouches(patch.Size,size,dx,dy) && ClassCombat.IsHostile(owner,target)
                 && !SpellHelper.IsTown(target.Location,owner)){return target;}
         }
         return null;

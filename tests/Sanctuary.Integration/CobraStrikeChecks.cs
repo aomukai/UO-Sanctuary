@@ -169,7 +169,20 @@ public static class CobraStrikeChecks
         p.AddToBackpack(CombatTiming.Equipped(p));var a=new Tekagi();ClassGear.Profiles.Convert(a,99,GearRarity.Normal,new Random(173));p.AddToBackpack(a);Require(p.EquipItem(a),"Primary claw");var b=(BaseWeapon)Named(p,"Cutthroat1");var ring=Named(p,"Manald Heal");Require(WeaponHands.Pair(p)!=null && CombatTiming.Equipped(p)==a && ClassGear.Bonus(p,"life-steal%")==0 && ClassGear.Bonus(p,"mana-steal%")>0,"Selected claw drain filter");
         var t=Target(p);Resources(p);AssassinCharges.Clear(p);Swing(p,t);Swing(p,t);Require(Cobra(p).InitialRank==4,"Offhand soft skill capture");Resources(p);Finish(p,t);p.AddToBackpack(a);Require(CombatTiming.Equipped(p)==b && ClassGear.Bonus(p,"life-steal%")>0 && p.EquipItem(a),"Primary promotion");ClassGear.Refresh(p);
         Hold(p,new MartialCharge(p.Serial.Value,CombatAbility.CobraStrike,3,1,150,TimedEffects.Now.AddSeconds(15)),new MartialCharge(p.Serial.Value,CombatAbility.TigerStrike,2,1,100,TimedEffects.Now.AddSeconds(14)));Resources(p);var e=Expected(p,t);Require(e.Drain.LifePercent>AssassinCharges.CobraDrain(Cobra(p),SkillMechanics.Rank(p,CombatAbility.CobraStrike)).LifePercent && e.Drain.ManaPercent>0,"Combined source item/skill drain fields");Finish(p,t);
-        var rounding=Target(p,MonsterDifficulty.Hell);Hold(p,new MartialCharge(p.Serial.Value,CombatAbility.CobraStrike,3,1,150,TimedEffects.Now.AddSeconds(15)),new MartialCharge(p.Serial.Value,CombatAbility.TigerStrike,2,1,100,TimedEffects.Now.AddSeconds(14)));Resources(p);var merged=Expected(p,rounding);
+        var rounding=Target(p,MonsterDifficulty.Hell);Hold(p,new MartialCharge(p.Serial.Value,CombatAbility.CobraStrike,3,1,150,TimedEffects.Now.AddSeconds(15)),new MartialCharge(p.Serial.Value,CombatAbility.TigerStrike,2,1,100,TimedEffects.Now.AddSeconds(14)));Resources(p);
+        // Actual equipment/body rolls can land on an exactly divisible packet.
+        // Choose a real receiver resistance exposing the rounding distinction;
+        // Finish still verifies the exact merged result against native health.
+        bool discriminator=false;
+        for(int resistance=0;resistance<100;resistance++)
+        {
+            rounding.SetResistance(ResistanceType.Physical,resistance);var candidate=Expected(p,rounding);int hit=NamedElements.To256(candidate.Packet.Parts.Physical);
+            var sk=AssassinCharges.CobraDrain(Cobra(p),SkillMechanics.Rank(p,CombatAbility.CobraStrike));var it=WeaponLeech.Capture(p);
+            var s=WeaponLeech.Calculate(hit,SkillHealth.Balance256(rounding),0,sk.LifePercent,sk.ManaPercent,GemCombat.Drain(rounding),3,3);
+            var i=WeaponLeech.Calculate(hit,SkillHealth.Balance256(rounding),0,it.LifePercent,it.ManaPercent,GemCombat.Drain(rounding),3,3);
+            if(candidate.Recovery.Mana256!=s.Mana256+i.Mana256 || candidate.Recovery.Life256!=s.Life256+i.Life256){discriminator=true;break;}
+        }
+        Require(discriminator,"No native resistance exposes merged source drain rounding");var merged=Expected(p,rounding);
         int physical=NamedElements.To256(merged.Packet.Parts.Physical);var skill=AssassinCharges.CobraDrain(Cobra(p),SkillMechanics.Rank(p,CombatAbility.CobraStrike));var item=WeaponLeech.Capture(p);
         var separateSkill=WeaponLeech.Calculate(physical,SkillHealth.Balance256(rounding),0,skill.LifePercent,skill.ManaPercent,GemCombat.Drain(rounding),3,3);var separateItem=WeaponLeech.Calculate(physical,SkillHealth.Balance256(rounding),0,item.LifePercent,item.ManaPercent,GemCombat.Drain(rounding),3,3);
         Require(merged.Recovery.Mana256!=separateSkill.Mana256+separateItem.Mana256 || merged.Recovery.Life256!=separateSkill.Life256+separateItem.Life256,"Need a visible merged-before-rounding discriminator");Finish(p,rounding);Delete(rounding);

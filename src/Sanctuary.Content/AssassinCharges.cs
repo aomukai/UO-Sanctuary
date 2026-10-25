@@ -22,6 +22,7 @@ public sealed class MartialChargeProfiles:GenericPersistence
 }
 public static class AssassinCharges
 {
+    internal static bool Supports(CombatAbility ability)=>TigerStrikes.Handles(ability) || ability==CombatAbility.FistsOfFire;
     // Separate slots allow later charge families to share this lifecycle without
     // granting Tiger's physical bonus to their charge-building attacks.
     private static readonly Dictionary<(uint,CombatAbility),MartialCharge> States=new();
@@ -34,7 +35,7 @@ public static class AssassinCharges
         =>Owner(owner) && States.TryGetValue((owner.Serial.Value,ability),out var state) && state.UntilUtc>TimedEffects.Now?state:null;
     internal static MartialCharge Build(MartialCharge old,uint owner,SkillValues values,DateTime at)
     {
-        if(!TigerStrikes.Handles(values.Ability) || values.Rank is <1 or >255){throw new NotSupportedException("Unmapped martial charge builder");}
+        if(!Supports(values.Ability) || values.Rank is <1 or >255){throw new NotSupportedException("Unmapped martial charge builder");}
         if(old!=null && (old.Owner!=owner || old.Ability!=values.Ability)){throw new InvalidDataException("Charge slot mismatch");}
         if(old?.UntilUtc<=at){old=null;}
         int count=old?.Count??0,added=count<3?(int)values.Eval("aurastatcalc2"):0;
@@ -54,8 +55,8 @@ public static class AssassinCharges
         var row=SkillMechanics.For(CombatAbility.TigerStrike);var values=new SkillValues(row,_=>rank,_=>0,1);
         return checked(state.Count*(int)values.Eval("calc1"));
     }
-    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike)}.Where(x=>x!=null).ToArray();
-    internal static bool Any(Mobile owner)=>State(owner,CombatAbility.TigerStrike)!=null || State(owner,CombatAbility.CobraStrike)!=null;
+    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike),State(owner,CombatAbility.FistsOfFire)}.Where(x=>x!=null).ToArray();
+    internal static bool Any(Mobile owner)=>Finisher(owner).Length!=0;
     internal static PlayerWeaponDrain CobraDrain(MartialCharge state,int currentRank)
     {
         if(state==null || state.Count is <1 or >3){return default;}int rank=Math.Max(state.InitialRank,currentRank);if(rank<=0){return default;}
@@ -88,7 +89,7 @@ public static class AssassinCharges
         var restored=new Dictionary<(uint,CombatAbility),MartialCharge>();
         foreach(var s in saved)
         {
-            if(s==null || s.Owner==0 || !((Serial)s.Owner).IsMobile || !TigerStrikes.Handles(s.Ability) || s.Count is <1 or >3
+            if(s==null || s.Owner==0 || !((Serial)s.Owner).IsMobile || !Supports(s.Ability) || s.Count is <1 or >3
                 || s.InitialRank is <1 or >255 || s.AttackPercent!=s.Count*SkillMechanics.For(s.Ability).Parameter(4)
                 || !restored.TryAdd((s.Owner,s.Ability),s)){throw new InvalidDataException("Invalid martial charge state");}
         }

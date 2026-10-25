@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Complete source builder/conversion, claw ordinal bridge and stacked area/ground release prepared; native full skill integration next",
+  "status": "Prepared native finisher/fields candidate under focused/full verification; learned claw action not enabled",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -127,5 +127,8 @@
     "Progressive stack1 invokes earlier callbacks by temporary charge level then restores full count. Fists has no server missileA/B; callback143 at count1 should return without spawning, count2 callback38 commits parent before independent radial damage, count3 callback39 scatters up to radius-squared local-seeded ground flames. Compile these complete routines and source generic field collision before native integration.",
     "3456 complete old sub77E0+143/38/39+progressive getter+copy-per-target callback cases pass with declared RNG/damage/world services. Parent drain precedes area coordinates/damage. Ground callback consumes one owner seed before validation, then32 local limited draws at radius4 and source557/259/rank/flags1 factory requests. Actual SourceRandom exists and must be reused in native placement. No native Fists handler yet."
   ],
-  "progressiveReleaseEvidence": "tools/reference/martial-fire-release-source-evidence.json"
+  "progressiveReleaseEvidence": "tools/reference/martial-fire-release-source-evidence.json",
+  "nativeComponentInstalled": false,
+  "nativeCandidate": "src/Sanctuary.Content/FistsFireRelease.cs",
+  "nativeChecks": "tests/Sanctuary.Integration/FistsFireChecks.cs"
 }

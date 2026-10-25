@@ -99,6 +99,13 @@ public static class FireGround
         _patches.Add(id,new(id,owner.Serial.Value,CombatAbility.ImmolationArrow,owner.Map.MapID,x,y,z,minimum,maximum,
             NecromancerSummons.Source("immolationfire","DamageRate"),at.AddMilliseconds(frames*40L),at.AddMilliseconds(40),1){SkillRank=rank});
     }
+    internal static void AddFists(PlayerMobile owner,int rank,double x,double y,int z,int minimum,int maximum,DateTime at)
+    {
+        long id=++_nextId;const string key="fistsoffirefirewall";
+        _patches.Add(id,new(id,owner.Serial.Value,CombatAbility.FistsOfFire,owner.Map.MapID,x,y,z,minimum,maximum,
+            NecromancerSummons.Source(key,"DamageRate"),at.AddMilliseconds(NecromancerSummons.Source(key,"Range")*40L),
+            at.AddMilliseconds(40),NecromancerSummons.Source(key,"Size")){SkillRank=rank});
+    }
     public static void CastMeteor(PlayerMobile owner, Point3D target, SkillValues values)
     {
         var damage = Damage(owner, values); long id = ++_nextId;
@@ -146,8 +153,9 @@ public static class FireGround
         _patches.Add(id, new(id, owner.Serial.Value, ability, owner.Map.MapID, x, y, z, min, max,
             NecromancerSummons.Source(key, "DamageRate"), now.AddMilliseconds(frames * 40), now.AddMilliseconds(40), NecromancerSummons.Source(key, "Size", 1)));
     }
-    private static PlayerMobile Owner(uint serial,bool amazon=false) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
-        && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == (amazon?DiabloClass.Amazon:DiabloClass.Sorceress) ? player : null;
+    private static PlayerMobile Owner(uint serial,DiabloClass characterClass=DiabloClass.Sorceress) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
+        && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == characterClass ? player : null;
+    private static bool SourceField(CombatAbility ability)=>ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire;
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
@@ -191,7 +199,7 @@ public static class FireGround
         _keys.Clear(); _keys.AddRange(_patches.Keys);
         foreach (long id in _keys)
         {
-            if (!_patches.TryGetValue(id, out var patch) || patch.Ability==CombatAbility.ImmolationArrow) { continue; }
+            if (!_patches.TryGetValue(id, out var patch) || SourceField(patch.Ability)) { continue; }
             var owner = Owner(patch.Owner);
             if (owner == null || patch.UntilUtc <= now || owner.Map != Map.Internal && (owner.Map.MapID != patch.Map || SpellHelper.IsTown(owner.Location, owner)))
             { _patches.Remove(id); continue; }
@@ -208,17 +216,17 @@ public static class FireGround
             if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
             { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, 0x489, 0); } // Placeholder ground flame.
         }
-        TickImmolation(now);
+        TickSourceFields(now);
     }
-    private static void TickImmolation(DateTime at)
+    private static void TickSourceFields(DateTime at)
     {
         var queue=new PriorityQueue<FirePatch,(DateTime,long)>();
         foreach(var value in _patches.Values)
-        {if(value.Ability==CombatAbility.ImmolationArrow && value.NextUtc<=at){queue.Enqueue(value,(value.NextUtc,value.Id));}}
+        {if(SourceField(value.Ability) && value.NextUtc<=at){queue.Enqueue(value,(value.NextUtc,value.Id));}}
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_patches.TryGetValue(due.Id,out var patch) || patch.NextUtc!=due.NextUtc){continue;}
-            var owner=Owner(patch.Owner,true);
+            var owner=Owner(patch.Owner,patch.Ability==CombatAbility.FistsOfFire?DiabloClass.Assassin:DiabloClass.Amazon);
             if(owner==null || patch.NextUtc>=patch.UntilUtc || owner.Map!=Map.Internal && (owner.Map.MapID!=patch.Map || SpellHelper.IsTown(owner.Location,owner)))
             {_patches.Remove(patch.Id);continue;}
             if(owner.Map==Map.Internal){_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};continue;}
@@ -253,8 +261,9 @@ public static class FireGround
         foreach (var patch in saved.Patches)
         {
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
-                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow)
+                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
+                || patch.Ability==CombatAbility.FistsOfFire && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || !double.IsFinite(patch.X + patch.Y) || !_patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             _nextId = Math.Max(_nextId, patch.Id);
         }
