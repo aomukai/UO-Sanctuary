@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
   "handlerEnabled": false,
-  "status": "Charged Bolt Sentry prepared actors now fire real saved trap-owned lightning bolts through their source mode14 controller. Each release captures the source-compared path/heading/final seed, lightning endpoints, pierce, slow payload, ownership and clock. One trap conductor processes Blade/Sentry missile phases before all trap monster phases. Connected natural firing causes real damage; immediate fixture socket disposal stops actions while released bolts continue expiring. Actual Griffon birth rank/mastery/pierce survive owner gear removal, with mastery applied once. Native checks cover signed FP256 pierce, immunity protection, no weapon leech, NPC-to-player kill credit, captured slow velocity/damage, orphan suppression/expiry and real flight restoration through two world reloads. Focused/full three-boot/two-reload suites, 70 Python checks and original-world installed smoke pass; saves/config/client bytes are unchanged. Movement is explicitly saved as native-shared-chargedbolt-v1, reusing the existing ChargedBolts Advance adapter; exact current D2R movement remains unverified. Removal/corpse ownership, missing-target path fallback, low-threat unit-target path, do45 S1 emergence and learned S2/payment/input remain pending. Total handlers remain 150, Assassin 11; Blade Shield remains the latest playable addition.",
+  "status": "Charged Bolt Sentry now retains its attack-start target-path coordinate in the actual saved actor. Present targets supply their current coordinates at each bolt release without rewriting that cache; deleted targets use the retained aim, and either-zero fallback suppresses individual missiles. New actors start with zero cache, while older saves without this field retain an explicit unknown state instead of inventing a position.100 compiled complete stationary source initializer/registry/getter cases match the native aim component. Actual actor windups verify moving versus deleted targets, real bolt factory paths and zero-fallback suppression; deleted-target pending casts retain their exact aim through two actual world reloads and emit one continued volley. Existing Sentry damage/gear/slow/credit/live/offline and Blade/shared-trap regressions pass. Focused/full suites each pass three boots/two reloads;70 Python tests and original-world installed smoke pass with save/config/client bytes unchanged. Total handlers remain150, Assassin11; learned Sentry input is still disabled. Exact movement, removal/corpse ownership, cross-map or historical unknown aim, low-threat path probe, emergence and player casting remain separately documented gaps.",
   "sourceSkill": {
     "skill": "Charged Bolt Sentry",
     "*Id": 261,
@@ -252,23 +252,23 @@
     }
   ],
   "required": [
-    "Resolve source actor-removal/corpse ownership and cached path-target coordinates for deleted pending targets, plus the low-threat unit-target path probe. Keep each uncertain branch explicit rather than inventing a fallback.",
-    "Establish source missile movement/version behavior beyond the current saved native adapter, reusing verified direction/step/path kernels only when the unit/flag contract agrees. Preserve the working real projectile backend during that correction.",
-    "Complete do45 S1 emergence and learned right/quick S2 cast with13mana payment/cancellation, verify real player casting and final-shot/removal/target transitions through actor/missile reloads, then enable the handler when its mechanical gates are satisfied."
+    "Implement the S1 emergence phase using the40-case source scheduler/end/neutral preparation: declared cached15-frame emergence preserves AI+25. Retain incomplete animation provenance and verify native phase/save/offline behavior before enabling player input.",
+    "Connect the low-threat unit-target path probe with its target/footprint/coordinate restoration contract, reusing the verified general/toward kernels within their actual unit contract.",
+    "Resolve trap removal/corpse ownership for already-released bolts and source/current missile movement; preserve the working prepared backend and document individual unsupported branches.",
+    "Complete learned right/quick S2 casting with13mana payment/cancellation, shot exhaustion and player-target transitions, then enable the handler when its mechanical requirements are verified."
   ],
   "uncertain": [
-    "Real projectile backend is enabled for prepared actors, while learned input remains disabled. Movement/waypoint timing and native LOS/room/height/sector order use the existing native ChargedBolts geometry adapter, explicitly labelled native-shared-chargedbolt-v1 in saved states. The source-compared 2160 heading/path/seed cases do not certify movement or the unresolved D2Common10226 version conditional.",
-    "Missing/deleted/dead actual actor suppresses projectile combat while its77-frame lifetime continues; no fake player-owned damage source is substituted. Source corpse retention after trap exhaustion/replacement and its effect on already-released bolts remain unverified; this branch must be resolved before learned input. Owner death/logout/class/facet transitions and current D2R event/room/client equivalence retain their separate acceptance scopes.",
-    "Per-ordinal do17 target coordinates are re-read for a still-present target, including a dead-but-present source object. A deleted or cross-map pending target currently faults explicitly because the source saved path-target coordinate fallback is not connected. The nearby low-threat alternative unit-target path service is still unbound.",
-    "The native world collider currently supports mapped hostile NPCs, with shared source size1 footprints and actor-local harmful-region checks. Player PvP/invisibility, full missile defense/event consumers, relative ordering between missile collections, actor corpse handling and source return-fire/critical/current executable timing remain separate. Current chargeboltsentry Crit defaults0; source tables requiring another route are refused.",
-    "Pure lightning uses captured mastered endpoints and signed pierce through shared immunity/MDR/absorb/health/recovery consumers. No weapon damage, weapon critical, leech, item-hit proc or next-hit delay is invented. Existing shared reward attribution is used; full item-event/kill-effect parity remains independent from the verified NPC-to-player credit lookup.",
-    "Slow state is an explicit existing component service; factory capture and velocity/damage scaling are checked, without claiming the deferred Amazon Slow Missiles player cast is enabled or every modern rounding/event order is certified.",
-    "No independent idle expiry is invented from the tentative user report. Effects and talent/hotkey icons remain separate240-entry inventories; body0x9C/hue0x482 and0x3818 blue travel markers are identified placeholders. No final art, class certificate or new facet difficulty designation."
+    "Source proof uses the unchanged reconstructed D2Common_10142/PATH_UpdateTargetUnit plus registry refresh/target getter, with declared type/GUID registry lookup and the existing synthetic room/grid and zero-footprint services. Reused identity/pointer replacement is not certified. D2MOO marks its general initializer BROKEN. This is supplementary source evidence, not exact current3.3.93847 executable acceptance.",
+    "The native implementation retains the stationary unit-target cache consequence; it does not claim a complete native mode-change or unit-target path engine. The source zero target-lead parameter dwSpeed is distinct from movement velocity. Source mode14 preparation invokes path13; collision/room/order/current animation remain native adapter scopes.",
+    "Cross-map pending targets remain explicitly unsupported. An older saved pending cast with no CachedAim may use its still-present target, but faults explicitly if that target disappears. A new successful valid-target windup establishes known aim. No arbitrary zero, current target position, player position or projectile origin is substituted for unknown historical cache.",
+    "The real bolts retain native-shared-chargedbolt-v1 movement. Exact source/current movement, relative missile collection ordering, source corpse/GUID retention after shot exhaustion or replacement, dead actor damage ownership, complete item/kill-event behavior and full client/executable acceptance remain separate.",
+    "Low-threat target selection still has an unbound unit-target path probe; do45 S1 emergence and learned S2 right/quick input with13mana payment/cancellation remain unfinished. This checkpoint enables no new learned skill and certifies no completed class.",
+    "Effects and talent/hotkey icons remain separate240-row inventories with identified actor/travel placeholders. No final art or independent idle timeout is invented. Existing saves/client/configuration are preserved and the installed server is stopped."
   ],
   "compiledAiEvidence": "tools/reference/sentry-ai-source-evidence.json",
   "compiledAiCases": 12288,
   "componentsInstalled": true,
-  "nativeEvidence": "tools/reference/sentry-bolt-native-evidence.json",
+  "nativeEvidence": "tools/reference/sentry-aim-native-evidence.json",
   "observations": "tools/reference/sentry-observations.json",
   "compiledSourceEvidence": {
     "ai": "tools/reference/sentry-ai-source-evidence.json",
@@ -312,5 +312,8 @@
     "nativeAdapter": "native-shared-chargedbolt-v1",
     "nativeEvidence": "tools/reference/sentry-bolt-native-evidence.json"
   },
-  "realPreparedProjectiles": true
+  "realPreparedProjectiles": true,
+  "aimEvidence": "tools/reference/sentry-aim-native-evidence.json",
+  "boltEvidence": "tools/reference/sentry-bolt-native-evidence.json",
+  "deletedTargetFallback": true
 }

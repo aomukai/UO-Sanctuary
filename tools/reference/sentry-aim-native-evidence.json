@@ -1,37 +1,129 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
   "totalHandlersPresent": 150,
   "assassinHandlers": 11,
-  "status": "Development checkpoint: saved windup aim and deleted-target fallback are implemented. Source100 and focused Sentry/Fist suites pass three boots/two actual reloads. Full combined regression previously stopped on a seven-minute Fist corpse fixture; that inspection hold is corrected and full verification/install remain pending. Installed content remains the prior verified238d973 build.",
+  "status": "Charged Bolt Sentry now retains its attack-start target-path coordinate in the actual saved actor. Present targets supply their current coordinates at each bolt release without rewriting that cache; deleted targets use the retained aim, and either-zero fallback suppresses individual missiles. New actors start with zero cache, while older saves without this field retain an explicit unknown state instead of inventing a position.100 compiled complete stationary source initializer/registry/getter cases match the native aim component. Actual actor windups verify moving versus deleted targets, real bolt factory paths and zero-fallback suppression; deleted-target pending casts retain their exact aim through two actual world reloads and emit one continued volley. Existing Sentry damage/gear/slow/credit/live/offline and Blade/shared-trap regressions pass. Focused/full suites each pass three boots/two reloads;70 Python tests and original-world installed smoke pass with save/config/client bytes unchanged. Total handlers remain150, Assassin11; learned Sentry input is still disabled. Exact movement, removal/corpse ownership, cross-map or historical unknown aim, low-threat path probe, emergence and player casting remain separately documented gaps.",
   "sourceEvidence": "tools/reference/sentry-aim-source-evidence.json",
   "previousBoltEvidence": "tools/reference/sentry-bolt-native-evidence.json",
   "verification": {
-    "sourceAimCasesPerBoot": 100,
+    "contentAssemblySha256": "05dc60a91fca910963765e8958460f239f4b36c67c28ce493ea912f6d166f759",
+    "integrationAssemblySha256": "edec4dff31fcfb63c7c23d9a90e64c6d681f7bbb4ad3eb2dfbbd5e2e11f84b5d",
     "focusedBoots": 3,
+    "fullBoots": 3,
     "worldReloadsPerSuite": 2,
+    "sourceAimCasesPerBoot": 100,
     "actualWindupCache": true,
     "presentTargetRequery": true,
     "deletedTargetFallback": true,
+    "actualFactoryPaths": true,
     "pendingDeletedTargetReloads": 2,
     "zeroFallbackSuppressesMissiles": true,
     "historicalUnknownAimRejected": true,
     "crossMapTargetSupported": false,
-    "fullRegressionPending": true,
-    "installedSmokePending": true,
     "learnedInput": false,
-    "contentAssemblySha256": "05dc60a91fca910963765e8958460f239f4b36c67c28ce493ea912f6d166f759",
-    "integrationAssemblySha256": "edec4dff31fcfb63c7c23d9a90e64c6d681f7bbb4ad3eb2dfbbd5e2e11f84b5d"
+    "pythonTests": 70,
+    "namedFingerprints": 538,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573
   },
-  "remaining": [
-    "Complete final combined regression, audits and original-world install smoke before installing this checkpoint.",
-    "Do45 S1 emergence, player S2 input/payment, low-threat unit-target path, cross-map or historical unknown aim, source movement and corpse/removal ownership remain gated.",
-    "Effects and icons remain separate with identified placeholders; no idle timeout is inferred."
+  "limits": [
+    "Source proof uses the unchanged reconstructed D2Common_10142/PATH_UpdateTargetUnit plus registry refresh/target getter, with declared type/GUID registry lookup and the existing synthetic room/grid and zero-footprint services. Reused identity/pointer replacement is not certified. D2MOO marks its general initializer BROKEN. This is supplementary source evidence, not exact current3.3.93847 executable acceptance.",
+    "The native implementation retains the stationary unit-target cache consequence; it does not claim a complete native mode-change or unit-target path engine. The source zero target-lead parameter dwSpeed is distinct from movement velocity. Source mode14 preparation invokes path13; collision/room/order/current animation remain native adapter scopes.",
+    "Cross-map pending targets remain explicitly unsupported. An older saved pending cast with no CachedAim may use its still-present target, but faults explicitly if that target disappears. A new successful valid-target windup establishes known aim. No arbitrary zero, current target position, player position or projectile origin is substituted for unknown historical cache.",
+    "The real bolts retain native-shared-chargedbolt-v1 movement. Exact source/current movement, relative missile collection ordering, source corpse/GUID retention after shot exhaustion or replacement, dead actor damage ownership, complete item/kill-event behavior and full client/executable acceptance remain separate.",
+    "Low-threat target selection still has an unbound unit-target path probe; do45 S1 emergence and learned S2 right/quick input with13mana payment/cancellation remain unfinished. This checkpoint enables no new learned skill and certifies no completed class.",
+    "Effects and talent/hotkey icons remain separate240-row inventories with identified actor/travel placeholders. No final art or independent idle timeout is invented. Existing saves/client/configuration are preserved and the installed server is stopped."
+  ],
+  "next": [
+    "Implement the S1 emergence phase using the40-case source scheduler/end/neutral preparation: declared cached15-frame emergence preserves AI+25. Retain incomplete animation provenance and verify native phase/save/offline behavior before enabling player input.",
+    "Connect the low-threat unit-target path probe with its target/footprint/coordinate restoration contract, reusing the verified general/toward kernels within their actual unit contract.",
+    "Resolve trap removal/corpse ownership for already-released bolts and source/current missile movement; preserve the working prepared backend and document individual unsupported branches.",
+    "Complete learned right/quick S2 casting with13mana payment/cancellation, shot exhaustion and player-target transitions, then enable the handler when its mechanical requirements are verified."
   ],
   "logs": {
+    "source-build": ".local/class-skills/sentry-aim-source-build.log",
     "focused": ".local/class-skills/sentry-aim-focused.log",
-    "failedFull": ".local/class-skills/sentry-aim-foh-corpse-failure.log"
-  }
+    "focused-run": ".local/class-skills/sentry-aim-focused-run.log",
+    "combined": ".local/class-skills/sentry-aim-combined.log",
+    "full-suite-run": ".local/class-skills/sentry-aim-full-suite-run.log",
+    "content-build": ".local/class-skills/sentry-aim-content-build.log",
+    "integration-build": ".local/class-skills/sentry-aim-integration-build.log",
+    "python-tests": ".local/class-skills/sentry-aim-python-tests.log",
+    "named-readiness": ".local/class-skills/sentry-aim-named-readiness.log",
+    "first-loop": ".local/class-skills/sentry-aim-first-loop.log",
+    "properties": ".local/class-skills/sentry-aim-properties.log",
+    "installed-server": ".local/class-skills/sentry-aim-installed-server.log",
+    "installed-smoke": ".local/class-skills/sentry-aim-installed-smoke.log",
+    "client-check": ".local/class-skills/sentry-aim-client-check.log",
+    "reference-check": ".local/class-skills/sentry-aim-reference-check.log",
+    "generated-check": ".local/class-skills/sentry-aim-generated-check.log",
+    "roadmap-check": ".local/class-skills/sentry-aim-roadmap-check.log",
+    "install-run": ".local/class-skills/sentry-aim-install-run.log",
+    "crossfacet-fixture-failure": ".local/class-skills/sentry-aim-crossfacet-fixture-failure.log",
+    "crossfacet-fixture-run": ".local/class-skills/sentry-aim-crossfacet-fixture-run.log",
+    "foh-corpse-failure": ".local/class-skills/sentry-aim-foh-corpse-failure.log",
+    "foh-corpse-run": ".local/class-skills/sentry-aim-foh-corpse-run.log"
+  },
+  "fixtureCorrection": "An older orchestration fixture selected the owner as a synthetic target even after moving that owner to another facet. Its dispatch only records control flow. It now uses an actor-local synthetic identity so the retained remote-owner policy is tested without an impossible cross-map selected target. The production cross-map guard is preserved, and real target/aim/damage tests remain separate.",
+  "followupSourceReview": {
+    "scope": "Read-only supplementary reconstruction review; no full modern lifecycle certificate",
+    "facts": [
+      "Pet FIFO replacement calls PLAYERPETS_RemovePetFromList with a4=1. Its sub_6FC7CF50 removes an already-HASBEENDELETED unit, but otherwise sets NOXP and calls KillMonster for a killable trap; the current row has killable1. Trace the death/mode callbacks and room deletion separately before replacing immediate native deletion.",
+      "SUNIT_GetServerUnit scans the type/GUID list without a living predicate, and SUNIT_GetOwner uses that registry. A retained dead trap may therefore differ from an absent owner. Source corpse/GUID lifetime and damage/event consumers still need composed verification.",
+      "The cached AnimData source contains lg S1/S2 metadata; its acquisition provenance is incomplete. Extract and record its exact S1 entries before implementing emergence. The pinned trap row has Code lg, summode S1 and no independent idle timeout.",
+      "Source owner lookup alone does not prove damage from a retained dead trap. Compose downstream sub_6FCBD900 allegiance, ExecuteEvents and ExecuteMissileDamage eligibility and actual corpse/GUID retention before changing the native live-owner gate."
+    ],
+    "sources": {
+      ".local/class-skills/d2moo-pinned-source/source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+      ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+      ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+      ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+    },
+    "cachedAnimation": {
+      "scope": "read-only supplementary cached metadata; acquisition provenance incomplete",
+      "sha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+      "records": [
+        {
+          "name": "LGDTHTH",
+          "frames": 23,
+          "speed": 256,
+          "events": []
+        },
+        {
+          "name": "LGNUHTH",
+          "frames": 15,
+          "speed": 256,
+          "events": []
+        },
+        {
+          "name": "LGS1HTH",
+          "frames": 15,
+          "speed": 256,
+          "events": []
+        },
+        {
+          "name": "LGS2HTH",
+          "frames": 15,
+          "speed": 256,
+          "events": [
+            [
+              0,
+              2
+            ]
+          ]
+        },
+        {
+          "name": "LGDDHTH",
+          "frames": 1,
+          "speed": 256,
+          "events": []
+        }
+      ]
+    }
+  },
+  "fohInspectionFixtureCorrection": "The preceding full run passed all new Sentry checks, then failed the composite Fist of the Heavens second-reload invariant at10:14:21. That invariant included a real NPC corpse created before the first completed result at10:07:19; normal decay deletes NPC corpses after seven minutes. The saved inspection corpse now receives a one-hour test-only hold, and individual strike/bolt/corpse/cooldown assertions are separated without dropping any requirement. Production corpse timing and skill code are unchanged. The failed log is retained; focused/full reruns use the final integration fixture assembly.",
+  "emergencePreparationEvidence": "tools/reference/sentry-emergence-source-evidence.json"
 }
