@@ -76,6 +76,7 @@ def check():
         shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
         shutil.copy2(ROOT / 'tools/reference/tiger-strike-source-evidence.json',folder / 'tiger-strike-source-evidence.json')
         shutil.copy2(STAGE / 'sentry-controller-source-probe.json', folder / 'sentry-controller-source-probe.json')
+        shutil.copy2(STAGE / 'lightning-sentry-damage-source-probe.json',folder / 'lightning-sentry-damage-source-probe.json')
         for part in ['clock','damage','factory']:
             shutil.copy2(STAGE / ('wake-of-fire-'+part+'-source-probe.json'),folder / ('wake-of-fire-'+part+'-source-probe.json'))
         shutil.copy2(STAGE / 'sentry-aim-source-probe.json', folder / 'sentry-aim-source-probe.json')
@@ -184,7 +185,7 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
@@ -363,6 +364,12 @@ def check():
                         assert session.expect(r'sentry-bolt-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         client.sendall(bytes([0x73,0])) # Real ping satisfies the normal connecting-socket first-packet gate.
                         assert session.expect(r'sentry-bolt-live-result: (passed|failed)',timeout=9).group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('lightning-sentry-live-check')
+                        assert session.expect(r'lightning-sentry-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        client.sendall(bytes([0x73,0]))
+                        assert session.expect(r'lightning-sentry-live-result: (passed|failed)',timeout=9).group(1)=='passed',logpath.read_text()[-6000:]
                     target='sentry-target-check' if boot==0 else 'sentry-target-reload-check'
                     session.send(target)
                     assert session.expect(target+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

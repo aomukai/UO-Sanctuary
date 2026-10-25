@@ -76,7 +76,12 @@ def build(check=False):
             limits=['Current local skills are directly compared; monster/model rows are hash-pinned cached reference data and are not newly corroborated against local archives by this script.',
                     'No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit.'],
             next='Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers.')
-        if source_id==271:e['compiledLaunchEvidence']='tools/reference/lightning-sentry-launch-source-evidence.json'
+        if source_id==271:
+            e['compiledLaunchEvidence']='tools/reference/lightning-sentry-launch-source-evidence.json'
+            e['nativeCandidateEvidence']='tools/reference/lightning-sentry-native-evidence.json'
+            e['required']=['Prepared saved actor/real straight Size2 bolt passes focused three boots/two reloads and connected clocks. Deployment/full regression status is recorded in linked native evidence.',
+                           'Learned do45 placement/payment acceptance and complete retirement/death/GUID chronology remain individually gated. Zero-velocity path flags and inherited sunder remain explicitly unsupported; modern geometry/order/RNG/client acceptance remains open.']
+            e['limits'][1]='This preflight does not certify learned placement, retirement or class completion. The linked native component evidence separately records actual actor/projectile/damage/reload checks.'
         out=ROOT/'tools/reference'/f'{stem}-preflight.json';encoded=json.dumps(e,indent=2)+'\n'
         if check:assert out.read_text()==encoded,stem+' preflight stale'
         else:out.write_text(encoded)

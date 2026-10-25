@@ -133,15 +133,19 @@ public static class AssassinSentryBolts
         if(frame%2==0){Effects.SendLocationEffect(new Point3D((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,0x3818,3,10,0x482,0);} // Placeholder bolt.
     }
     internal static int Impact(AssassinSentryBody body,BaseCreature target,SentryBoltState s)
+        =>Impact(body,target,"sentrychargedbolt",s.Minimum256,s.Maximum256,s.Pierce,s.Seed).WholeLoss;
+    // Both source-zero NPC lightning routes share block/resistance/recovery,
+    // but each projectile owns its RNG and its own continuation policy.
+    internal static (int WholeLoss,ulong Seed) Impact(AssassinSentryBody body,BaseCreature target,string missile,int minimum256,int maximum256,int pierce,ulong seed)
     {
-        SorceressEffects.MissileHit(body,target,"sentrychargedbolt");
-        ulong seed=s.Seed;int raw=WeaponMissileDamage.RollValue(s.Minimum256,s.Maximum256,0,bound=>(int)SourceRandom.Limited(ref seed,bound));
+        SorceressEffects.MissileHit(body,target,missile);
+        ulong stream=seed;int raw=WeaponMissileDamage.RollValue(minimum256,maximum256,0,bound=>(int)SourceRandom.Limited(ref stream,bound));
         if(!SourceBlocking.TryBlock(target,false,out bool blocked)){throw new NotSupportedException("Sentry spell-block supplier is not mapped");}
-        if(blocked){return 0;}
+        if(blocked){return(0,stream);}
         body.DoHarmful(target,true);
-        var result=NamedElements.Resolve256(body,target,raw,"ltng",enhance:false,pierceOverride:s.Pierce);
+        var result=NamedElements.Resolve256(body,target,raw,"ltng",enhance:false,pierceOverride:pierce);
         if(result.Absorbed256>0){SkillHealth.Heal(target,result.Absorbed256);}
-        int loss=SkillHealth.Damage(body,target,result.Damage256);CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);return loss;
+        int loss=SkillHealth.Damage(body,target,result.Damage256);CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);return(loss,stream);
     }
     internal static SentryBoltSave Snapshot()=>new(Bolts.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
     internal static void Restore(SentryBoltSave saved)

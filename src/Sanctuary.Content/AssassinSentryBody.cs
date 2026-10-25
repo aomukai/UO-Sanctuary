@@ -53,7 +53,7 @@ public partial class AssassinSentryBody:BaseCreature
     {
         if(s?.Creation is not{Rank:>=1 and <=255,CasterLevel:>=1 and <=99,Level:>=1 and <=99,Life256:25600} c
             || c.Passives is not{Length:3} || c.Skills==null || c.Passives.Select(x=>x.Name).Distinct().Count()!=3
-            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire) || c.Skills.Any(x=>x.Value is <1 or >255)
+            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry) || c.Skills.Any(x=>x.Value is <1 or >255)
             || c.Skills.Select(x=>x.Name).Distinct().Count()!=c.Skills.Length
             || c.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
             || c.Passive("item_pierce_light_immunity")!=0 || c.Passive("item_pierce_fire_immunity")!=0 || !((Serial)s.Owner).IsMobile
@@ -183,11 +183,12 @@ public partial class AssassinSentryBody:BaseCreature
                         if(target.Map!=Map){throw new NotSupportedException("Cross-map sentry start target is not mapped");}
                         cached=AssassinSentryAim.Begin(cached,new(target.X*2,target.Y*2));
                     }
-                    return true; // Actor306 has no start function; emergence/input remain gated.
+                    return true; // NPC306/313 have no start function; player input remains gated.
                 },
-                target=>(AssassinSentryActors.Dispatch??throw new NotSupportedException("Sentry real charged-bolt missile factory is not connected"))(this,target));
-            Store(before with{Control=control,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
-            if(control.Mode==0){Delete();return;}
+                target=>(AssassinSentryActors.Dispatch??throw new NotSupportedException("Sentry real lightning projectile factory is not connected"))(this,target));
+            Store(before with{Control=control,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),
+                ControllerFault=control.Mode==0&&before.Creation.Ability==CombatAbility.LightningSentry?"Lightning Sentry retirement/death/GUID lifecycle is not connected":null});
+            if(control.Mode==0){if(before.Creation.Ability!=CombatAbility.LightningSentry){Delete();}return;}
             AIObject?.AITimer.Stop();
         }
     }
@@ -219,7 +220,13 @@ public static class AssassinSentryActors
     public static void Initialize()
     {
         AssassinSentryWorldTargets.PrimaryPath??=AssassinSentryUnitPath.Probe;
-        SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=AssassinSentryBolts.Dispatch;
+        SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=DispatchLightning;
+    }
+    private static void DispatchLightning(AssassinSentryBody body,uint target)
+    {
+        if(body.Prepared.Creation.Ability==CombatAbility.LightningSentry){AssassinSentryLightning.Dispatch(body,target);}
+        else if(body.Prepared.Creation.Ability==CombatAbility.ChargedBoltSentry){AssassinSentryBolts.Dispatch(body,target);}
+        else{throw new NotSupportedException("Unsupported sentry sequence projectile supplier");}
     }
     internal static void Track(AssassinSentryBody body)=>Active[body.Serial]=body;
     internal static void Forget(AssassinSentryBody body)=>Active.Remove(body.Serial);

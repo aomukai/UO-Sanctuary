@@ -21,9 +21,9 @@ public static class AssassinTrapClock
         {
             var blades=BladeSentinelActors.Actors();var sentries=AssassinSentryActors.Actors();
             DateTime next=blades.Select(x=>x.Prepared.NextFrameUtc).Concat(sentries.Select(x=>x.Prepared.NextFrameUtc))
-                .Append(BladeSentinelMissiles.NextFrame).Append(AssassinSentryBolts.NextFrame).Min();
+                .Append(BladeSentinelMissiles.NextFrame).Append(AssassinSentryBolts.NextFrame).Append(AssassinSentryLightning.NextFrame).Min();
             if(next>at){return;}
-            BladeSentinelMissiles.TickFrame(next);AssassinSentryBolts.TickFrame(next);
+            BladeSentinelMissiles.TickFrame(next);AssassinSentryBolts.TickFrame(next);AssassinSentryLightning.TickFrame(next);
             var actors=blades.Where(x=>x.Prepared.NextFrameUtc==next).Cast<Mobile>()
                 .Concat(sentries.Where(x=>x.Prepared.NextFrameUtc==next)).OrderByDescending(x=>x.Serial.Value).ToArray();
             foreach(var actor in actors)

@@ -1,0 +1,79 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.lightningsentry",
+  "installed": false,
+  "handlerEnabled": false,
+  "status": "Prepared actor/real bolt focused16families and3connected runs passed; full class suite live handle56786",
+  "candidateDirectory": ".local/class-skills/lightning-sentry",
+  "contentSha256": "354ef360fe596af2ddb2850858f8455dd0a32c235f29054bac672ff91d8bc109",
+  "integrationSha256": "7c4d708a71b2e85f8c5d3ab86d400deb838d44cc4b792201f415277aa8daa180",
+  "inputHashes": {
+    "src/Sanctuary.Content/AssassinSentryCreation.cs": "55cadeefcac10f9d87cb6390284d6de579db7e2369950cef66303446a15ac6e7",
+    "src/Sanctuary.Content/AssassinSentryBody.cs": "2d7a3f6f0b1662857476b1e57dd0d82294e03ae73a1ea2f01d0a2aee40991a71",
+    "src/Sanctuary.Content/AssassinSentryBolts.cs": "1b2b5def73e7309b64fcb6820348e18aaedb35f95b21f71aa5b19fa9fa70acc1",
+    "src/Sanctuary.Content/AssassinSentryLightning.cs": "a731be3816bdd18e4eb124503a16a67176aef982b95d34b7028cc42e99b93307",
+    "src/Sanctuary.Content/AssassinTrapClock.cs": "7d4d88733e7a2bc9ce244468d8ba44ac12fb563f5b74cb0faa8b82f8e0b8f7c6",
+    "tests/Sanctuary.Integration/LightningSentryChecks.cs": "8505a790e14e267652b1843e033e40691758927915019689ae822c4715944067",
+    "tests/check_class_skills.py": "a99585325d8159698d02d8c3eceee411488fb3514540fbe5366f3c8ddffd1e38",
+    "data/Sanctuary/Balance/necromancer-summons.json": "7616d05d4a13df59bd6f9eb34980e390438d2405ce7bcf1109767c0f26f82421",
+    "data/Sanctuary/Balance/class-skill-status.json": "a27e4212b815c791bb3fbad1af83b4d09983958c6676356d4a4decfed4c7f121",
+    "data/Sanctuary/Balance/skill-effects.json": "f0598a323234274fdeb07d6405b222c22b1e2d220e8efa201fa5213ddab148b4"
+  },
+  "fixedEvidenceHashes": {
+    ".local/class-skills/lightning-sentry/focused-checks.log": "76c7be7327a65e57abd7d739701794995fb1b2137900ba47d6bc5af364b6f48d",
+    ".local/class-skills/lightning-sentry-focused-run.log": "6749b14f8563a1b4909f0bd4c19110ae8ef44dc4d769874e70091cc0b14ce7e4",
+    ".local/class-skills/lightning-sentry-content-build.log": "f2a87162ddaccc7262865069efade4c9c9029bf122c3162d33c7fab29d453984",
+    ".local/class-skills/lightning-sentry-integration-build.log": "8b8a6a5f2af31414dd00f95ac403a61c5958b92cdf7f44c551aad906699f2730",
+    ".local/class-skills/lightning-sentry-focused.py": "1b95793b92e20dc40d560b7c90399fa3a1dc079a8249fec2aaebb5f6a2829d78",
+    "tools/reference/lightning-sentry-launch-source-evidence.json": "7ff75332a8fa18f7eba994b0a6b8b742343ae5846f12ad27d0507adb3489ca82",
+    "tools/reference/lightning-sentry-damage-source-evidence.json": "613192f90bbb93e985564d6d0360952b0ce64b103d0ed55bbae19c3654364214",
+    "tools/reference/missile-history-finder-source-evidence.json": "bcd6c9b06b794b917cb1ce161b327987ff0e5ef77bbff5ea7962192327cedc0c",
+    ".local/class-skills/lightning-sentry-damage-source-probe.json": "90e45fef0cfc6a2f9ecd828357eb107bebbdaadad309a01b08e3f4e14d21ceff"
+  },
+  "protectedInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "verifiedAtUtc": "2026-10-25T17:41:27.394033+00:00",
+  "verified": {
+    "focusedBoots": 3,
+    "actualWorldReloads": 2,
+    "retainedFamilies": 16,
+    "connectedClocks": 3,
+    "completeSourceLaunchCases": 9216,
+    "completeSourceDamageCases": 3711,
+    "nativeApplicableDamageComparisonsPerBoot": 1983,
+    "sourceAllRankGoldens": 255,
+    "zeroWarningErrorBuilds": true
+  },
+  "scope": [
+    "Actual saved actor captures effective NPC313 and hard Shock Web/CBS/Death Sentry skills plus three lightning passives. NPC313 uses fixed10shots; the shared sequence emits one real bolt each time. A real Griffon raises rank/mastery/pierce at birth, and removing it does not alter the actor.",
+    "Actual source-zero lightning uses player271 endpoints despite stored actor313. Signed pierce, ordinary immunity, actual NPC/original player kill credit, one-recipient-per-phase Size2 penetration and most-recent collision history are exercised. The bolt stores and resumes its own RNG, path, clock, damage and history across two actual reloads.",
+    "Native walls stop bolts; owner-facet difficulty rescales retained old-facet actors with fractional injury preserved. Connected frame conductors fire damaging bolts; socket loss stops attacks while projectile lifetime continues. Exact ten-shot exhaustion is held at a labelled preparation boundary."
+  ],
+  "limits": [
+    "Full class regression, current runtime audit publication/readiness and existing-world installation smoke remain pending for this candidate. The installed5125a93 build and original saves/config/client remain unchanged.",
+    "No learned Lightning Sentry placement/payment/input or finished retirement is claimed. The prepared actor records an explicit terminal fault instead of inventing dead-owner/GUID removal timing. Native living-actor missile gating remains unchanged.",
+    "Current pinned rows, locally matched skill fields and supplementary compiled old bodies support the component. Native Q12/subtile/height/LOS/room enumeration and Random.Shared allocation-seed projection do not certify current executable global geometry/event/RNG order or actual-client behavior.",
+    "Zero-velocity path flags and nonzero inherited sunder are explicitly unsupported. The 1728 source MissileSkill override controls select an unused damage-free NPC row; this component handles the pinned non-override row and compares1983 applicable cases, rather than claiming3711 native cases.",
+    "Final S1/S2/NU/DT actor, straight bolt/trail/contact/audio and talent/right/quick icons remain separate identified placeholders. No handler count/class completion is claimed."
+  ],
+  "fullRegression": {
+    "status": "running",
+    "log": ".local/class-skills/lightning-sentry-full-run.log",
+    "nativeLog": ".local/class-skills/lightning-sentry/native-checks.log",
+    "session": 56786
+  },
+  "next": "Finish the full suite/fresh audit/install acceptance for this prepared component; then continue distinct Inferno/Death controllers and shared retirement while retaining individual learned-cast gates."
+}

@@ -1,3 +1,13 @@
+# Current candidate — Lightning Sentry actor and real bolt
+
+Lightning Sentry now has a staged saved actor and real straight, penetrating Size2 lightning bolt. Zero-warning/error builds,16focused families, three boots/two actual reloads and three connected conductor tests pass. Captured effective/hard ranks, fixed10shots,1983applicable complete-source packet comparisons per boot (all255ranks), real Griffon capture, most-recent collider history, wall removal, NPC/player kill credit, saved RNG/flight/actor phase, old-facet rescaling and offline expiry are covered. The full class suite is live at handle56786 in `.local/class-skills/lightning-sentry`. No installation, new learned handler or class completion is claimed. Installed5125a93 build/saves/config/client remain unchanged;156handlers/Assassin17.
+
+Continue full handle56786 without restarting on an observation timeout. Runtime/test/data inputs are frozen in `.local/class-skills/lightning-sentry-candidate-state.json`. Require terminal full success, fresh named/first-loop audits/readiness,70Python checks and existing-world smoke before installing. Learned do45 placement/payment and retirement/death/GUID chronology remain individual gates; zero-velocity path flags and inherited sunder are explicitly unsupported. Exact current geometry/global event/seed order and final client/assets remain acceptance work. Continue independent Inferno/Death source work while this suite runs; do not mutate frozen runtime inputs.
+
+[Native evidence](../tools/reference/lightning-sentry-native-evidence.json).
+
+Earlier installed checkpoints follow.
+
 # Latest installed component — shared missile history and prepared Wake actor
 
 Shared missile history fix and prepared Wake actor are installed. Overlapping javelin/cloud/Fury contacts pass red/green, focused and full native suites over three boots/two actual reloads. Parked Plague inspection targets are isolated between real damage checks, with an actual travelling Multiple Shot control and per-save resource invariants. All70 Python tests, current563/21 audit fingerprints and573 unchanged named decisions pass. Existing-world smoke loads/listens/shuts down0; saves/config/client bytes are unchanged and the server is stopped.156handlers/Assassin17; learned Wake remains disabled and no class is complete.
