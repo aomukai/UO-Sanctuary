@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativePolicyChanged": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Game/src/MONSTER/MonsterRegion.cpp": "2478b96c69798cc3ca68b771ad6527d2da04acfdb34a18b39d05fd8500a8e4e0",
+    "source/D2Common/src/D2Dungeon.cpp": "499cac30e2419f9e9ce2789ce0d6f4dfb062ae1690bb216c071b358c288e900a",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "compiledRoutineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "STATLIST_IsExtended": "1239d1122a0ec4f6c3a40f761df496bc237397fc66a233c1f463e36f9d1bcaad",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "D2Common_10469": "03e931e822deff014d44ad5780f3aff015319a378596abfa52e96741f173e3f6",
+    "SUNIT_GetUnitList": "04a1df050a9563226f253099751db9e5ce2bebae629e7c719fc951597eba6bd7",
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "AIUTIL_CheckAiControlFlag": "5ff07904d58308952298180f38c6357422a500424869894142445b378679d587",
+    "AIUTIL_ToggleAiControlFlag": "66af26ffbf7292e5844c4efa351492ef4084f87e6d36709d6bfa8d70e4346c73",
+    "AIGENERAL_AllocAiControl": "e6b9fbd946b98480f3ba590aa757fbe79c15998f2ef08d55fce95bf250673567",
+    "AIGENERAL_SetOwnerData": "abde36e777fe92553212921cc09e08306d5b71ef470dfbbbd1526dd13d2bff95",
+    "AIGENERAL_UpdateMinionList": "0b6907f9d6927c34aa7f8f4ca18e78df16f9d4a693bbb7f90d3ce1f000c1425f",
+    "STATES_UpdateStayDeathFlags": "497975854515a2be2374edf89a7b2cd2142d6a3ae65049ec522f868cf41b0a5f",
+    "sub_6FC68240": "73ec9e72f79eb18d1ab56e8f10016e54a19be27cde5808811eaf63c58d00a1d3",
+    "DUNGEON_SaveKilledUnitGUID": "210b6bcfcac5d1c3b199cd38f5e1e9f2713ce14f94bce9f860d873582b49be3b",
+    "D2GAME_MONSTERMODE_Unk_6FC63040": "531a8dab609a43ff1bf48a704e0524c422554e071b52734581e8d4775fb244f4",
+    "sub_6FC63E80": "c0e232a3f4d4e313f0f85e991f3163082c242b63753cf147991fbf65d7a63331",
+    "sub_6FC63B30": "1ba629928acb640a9921885e00ae9ca02b429780aa42bdde0d457d658e0ff656",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad"
+  },
+  "pinnedMonstatsSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "actualUnitFlagValues": {
+    "UNITFLAG_TARGETABLE": 2,
+    "UNITFLAG_HASTXTMSG": 256,
+    "UNITFLAGEX_STOREOWNERINFO": 1024,
+    "UNITFLAG_NOTC": 131072
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-death-entry-source-probe.json",
+    "sha256": "9e66e7266ae2d42ade6ec7ee80a7af0ebc48c3acd54a2d839c6e6f2ce702781f",
+    "cases": 1152
+  },
+  "established": [
+    "Complete regular death entry and cleanup, AI ownership helpers, common stat cleanup, StayDeath state flags, region bookkeeping, killed-GUID history and death-end bodies execute together on one modeled unit.",
+    "The inherited root fire stats and assigned skills survive common cleanup and both ownership paths still resolve the registered caster after entry and dead mode12. Actual unit flag values distinguish dwFlags cleanup from the separate dwFlagEx owner-info bit.",
+    "Complete AI allocation starts flags0/list-null, and SetOwnerData with0/0 leaves those flags unchanged. Empty-child-list controls for flags1/3 also preserve this actor own caster link; update-minion-list is not an unconditional owner clear.",
+    "Regular SplEndDeath0 completion does not unlink this actor. Killed-unit GUID bookkeeping writes a four-slot room history and is not registry deletion. The complete death loot wrapper returns immediately for retained UNITFLAG_NOTC; animation scheduling/timing is not supplied by this test."
+  ],
+  "services": [
+    "Typed registration, zeroed allocation, root stat storage, nonextended attachment unlink/free, state-array access, source AI-control access and regular-friendly region inputs are explicit fixtures. Owner lookup and the transition bodies execute unchanged.",
+    "Combat-mode assignment, chat/target/path/event services and empty death-event subscribers are checked boundaries. Outer mode-change animation scheduling is separate. Nonempty child-minion graphs, death-damage monsters, special death-end modes and other event consumers assert through unused services.",
+    "No final corpse/GUID lifetime, room-unload compression/removal, current executable timing or native retired-actor damage policy is certified. Existing native living-actor gates are unchanged; no live immortal or player-substituted damage proxy is introduced."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

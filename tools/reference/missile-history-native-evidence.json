@@ -1,11 +1,11 @@
 {
   "referenceVersion": "3.3.93847",
   "installed": false,
-  "status": "Shared history candidate remains uninstalled; v4 traces health-only live fixture drift found before save",
+  "status": "Eight-family focused3boots/2reloads passed after isolating cross-fixture arrow damage; fullv5 running",
   "fullPending": true,
-  "candidateDirectory": ".local/class-skills/missile-history",
+  "candidateDirectory": ".local/class-skills/missile-history-v5",
   "contentSha256": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
-  "integrationSha256": "ac4a0e2b94bebdb6f41985a35c1c22a58e859902553ee76bedaaf5eeeaad90f7",
+  "integrationSha256": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
   "inputHashes": {
     "src/Sanctuary.Content/WeaponMissiles.cs": "cd7a0d08c15c0464fc99a0034841763844358520ba35998b6d8821f02ddebea0",
     "src/Sanctuary.Content/PoisonJavelins.cs": "19be4e3bc97bb79e67e8d8124c021bc6a804cbd493ccadfd16cd127c632cef45",
@@ -35,7 +35,8 @@
     ".local/class-skills/missile-history-focused-run.log": "fdbd39d0653180750c993e37b50d9430fbb549f232ac51b55e543faa1c652d6b",
     ".local/class-skills/missile-history-focused.py": "c4684e6872519f82aad398ce0b9f9701328560f71ef2cf36e7ebb4a910e8af55",
     ".local/class-skills/missile-history-content-build.log": "d482d29d3f5dd92a861847c82c5898ed4f10bcae12c170ee17f731b37b4c575f",
-    ".local/class-skills/missile-history-integration-build.log": "bdc17e9e417f82b0baf08e669656b009d1c5e44748637a31b336b0144af8888f"
+    ".local/class-skills/missile-history-integration-build.log": "bdc17e9e417f82b0baf08e669656b009d1c5e44748637a31b336b0144af8888f",
+    ".local/class-skills/missile-history-v5/focused-checks.log": "16cbc634096b32d7f85914f7a41845836ff96f8e5955ed7ab239acd9245c7010"
   },
   "protectedInstalledArtifacts": {
     ".local/class-skills/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
@@ -52,7 +53,7 @@
     ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
-  "updatedAtUtc": "2026-10-25T16:50:19.352297+00:00",
+  "updatedAtUtc": "2026-10-25T17:12:18.683823+00:00",
   "verified": {
     "focusedBoots": 3,
     "actualWorldReloads": 2,
@@ -98,7 +99,7 @@
       "poisonActual": null,
       "poisonExpected": null
     },
-    "finding": "The mismatch exists before the world save: target health alone changed during subsequent live checks. This is not evidence of a serialization loss. Cause still being traced."
+    "finding": "Before-save target health drift was traced to another fixture\u2019s Multiple Shot arrow. Inspection target is now Blessed only between its own real damage checks. A real vulnerable overlapping control still takes travelling-arrow damage."
   },
   "diagnosticRegression": {
     "focusedWithNamed": {
@@ -119,11 +120,33 @@
     },
     "activeFull": {
       "status": "running",
+      "session": 77836,
+      "directory": ".local/class-skills/missile-history-v5",
+      "log": ".local/class-skills/missile-history-v5/native-checks.log",
+      "integrationSha256": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
+      "scope": "Trace removed; Plague damage target unprotected during its own checks, protected between checks; actual Multiple Shot control and per-save invariant; full suite with fresh named/first-loop exports."
+    },
+    "tracedFull": {
+      "status": "terminal-failure-cause-confirmed",
       "session": 69738,
-      "directory": ".local/class-skills/missile-history-v4",
       "log": ".local/class-skills/missile-history-v4/native-checks.log",
-      "integrationSha256": "6e0e6b5e5f74629776ce0e80293b4014b1b4a7ca6ffd3d4580acbbd940e4abe2",
-      "scope": "Same content assembly. Test-only parked-target OnHitsChange stack tracing, exact resource assertions, per-save invariants and failure-world preservation. No passing full certificate."
+      "finding": "A real Multiple Shot input arrow hit the parked Plague inspection target; Stack trace links SkillHealth.Damage to WeaponMissiles.Step during multiple-shot-input. Existing health drift was test contamination, not save loss."
+    },
+    "focusedAfterIsolation": {
+      "status": "passed",
+      "boots": 3,
+      "reloads": 2,
+      "checks": [
+        "missile-history",
+        "poison-javelin",
+        "lightning-bolt",
+        "plague-javelin",
+        "lightning-fury",
+        "wake-fire-actor",
+        "sentry-bolt",
+        "named-gear"
+      ],
+      "log": ".local/class-skills/missile-history-v5/focused-checks.log"
     }
   }
 }

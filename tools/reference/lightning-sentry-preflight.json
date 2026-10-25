@@ -285,7 +285,7 @@
     "Current skill min1 has zero minimum increments; maximum starts20 with10/16/24/34/44 increments. Hard Shock Web and Charged Bolt Sentry contribute18percent each. Keep fixed minimum behavior and inherited mastery independently checked."
   ],
   "required": [
-    "Recompose the generic NPC313 missile dispatch, relative target/factory flags, damage getters and actual moving Size2 history-filtered world bolt. Existing CBS do17 multi-bolt emission is not this route.",
+    "Complete generic NPC313 handler/absolute-target wrapper/factory now passes9,216contexts, including registered dead targets, cached path fallback and failed allocation. Connect the native moving Size2 history-filtered bolt; existing CBS do17 multi-bolt emission is not this route.",
     "Reuse shared creation/sequence/AI/FIFO/offline/difficulty only after extending the lightning-specific skill capture and fixed-shot supplier. Resolve shared retirement/death/GUID ownership and verify real learned casting/gear/damage/reloads before enabling."
   ],
   "reuse": [
@@ -300,5 +300,6 @@
     "Current local skills are directly compared; monster/model rows are hash-pinned cached reference data and are not newly corroborated against local archives by this script.",
     "No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit."
   ],
-  "next": "Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers."
+  "next": "Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers.",
+  "compiledLaunchEvidence": "tools/reference/lightning-sentry-launch-source-evidence.json"
 }

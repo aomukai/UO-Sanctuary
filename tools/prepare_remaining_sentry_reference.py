@@ -37,7 +37,7 @@ def build(check=False):
           'Fixed10shots: NPC313calc4=par8=10 mirrors player271Param1. The player has no calc4. Monster lightningsentry uses AI101, strict active distance25 and seq_chargesentry with the same lg model as Charged Bolt Sentry.',
           'Source-zero missile526 uses player Lightning Sentry damage, Size2, basic do1, LastCollide1, no NextHit or CollideKill, Vel30 and current Range10+2*rank. Do not copy weapon conversion/reset or the charged-bolt path/random fan.',
           'Current skill min1 has zero minimum increments; maximum starts20 with10/16/24/34/44 increments. Hard Shock Web and Charged Bolt Sentry contribute18percent each. Keep fixed minimum behavior and inherited mastery independently checked.'],
-         ['Recompose the generic NPC313 missile dispatch, relative target/factory flags, damage getters and actual moving Size2 history-filtered world bolt. Existing CBS do17 multi-bolt emission is not this route.',
+         ['Complete generic NPC313 handler/absolute-target wrapper/factory now passes9,216contexts, including registered dead targets, cached path fallback and failed allocation. Connect the native moving Size2 history-filtered bolt; existing CBS do17 multi-bolt emission is not this route.',
           'Reuse shared creation/sequence/AI/FIFO/offline/difficulty only after extending the lightning-specific skill capture and fixed-shot supplier. Resolve shared retirement/death/GUID ownership and verify real learned casting/gear/damage/reloads before enabling.'],
          [('source/D2Game/src/AI/AiThink.cpp','AITHINK_Fn101_AssassinSentry')]),
         (272,'wake-of-inferno','assassin.wakeofinferno',[311],['inferno sentry 1','inferno sentry 2'],
@@ -76,6 +76,7 @@ def build(check=False):
             limits=['Current local skills are directly compared; monster/model rows are hash-pinned cached reference data and are not newly corroborated against local archives by this script.',
                     'No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit.'],
             next='Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers.')
+        if source_id==271:e['compiledLaunchEvidence']='tools/reference/lightning-sentry-launch-source-evidence.json'
         out=ROOT/'tools/reference'/f'{stem}-preflight.json';encoded=json.dumps(e,indent=2)+'\n'
         if check:assert out.read_text()==encoded,stem+' preflight stale'
         else:out.write_text(encoded)

@@ -14,12 +14,11 @@ namespace Sanctuary.Integration;
 
 public static class PlagueJavelinChecks
 {
-    private static uint _parkedTarget;
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(PlagueJavelinChecks));
     private sealed class Minimum:Random{public override int Next(int maximum)=>0;}
 
     private static string Manifest=>Path.Join(Core.BaseDirectory,"plague-javelin.json");
-    public static void Configure(){Register("plague-javelin-check",Check);Register("plague-javelin-reload-check",Reload);Register("plague-javelin-input-check",Input);Register("plague-javelin-snapshot-check",Snapshot);if(File.Exists(Manifest)){_parkedTarget=JsonSerializer.Deserialize<SavedPlague>(File.ReadAllText(Manifest)).Target;}}
+    public static void Configure(){Register("plague-javelin-check",Check);Register("plague-javelin-reload-check",Reload);Register("plague-javelin-input-check",Input);Register("plague-javelin-snapshot-check",Snapshot);}
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Plague Javelin do-mana, burst/moving poison clouds and persistence",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
@@ -128,20 +127,41 @@ public static class PlagueJavelinChecks
     private static void Persist()
     {
         var p=Fresh();Train(p,CombatAbility.PlagueJavelin);var w=Weapon(p);var target=Target(p);target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);Require(SkillBindings.Instance.Assign(p,true,CombatAbility.PlagueJavelin) && SkillBindings.Instance.Assign(p,false,CombatAbility.PlagueJavelin) && SkillBindings.Instance.AssignQuick(p,3,CombatAbility.PlagueJavelin),"Saved bindings");
-        var f=Cast(p,target);while(Own(p).Length>0){WeaponMissiles.Tick(Own(p).Single().NextUtc);}var first=Clouds(p)[2];Hold(p,[],[first]);PlagueJavelins.Tick(first.NextUtc.AddMilliseconds(40));HoldPoison(target,TimedEffects.Now.AddMinutes(10));var clouds=Clouds(p).Select(x=>x with{NextUtc=TimedEffects.Now.AddMinutes(10)}).ToArray();f=Cast(p,target);WeaponMissiles.Tick(f.NextUtc);f=Own(p).Single() with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,[f],clouds);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.PlagueJavelin,null,MagicArrowChecks.Aim(p),Core.TickCount),"Unpaid/unemitted windup save");var until=TimedEffects.Now.AddMinutes(10);Delay(p,until);File.WriteAllText(Manifest,JsonSerializer.Serialize(new SavedPlague(p.Serial.Value,target.Serial.Value,w.Serial.Value,p.Location,f,clouds,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),NamedAmmunition.Remaining(w),State(target),until)));_parkedTarget=target.Serial.Value;
+        var f=Cast(p,target);while(Own(p).Length>0){WeaponMissiles.Tick(Own(p).Single().NextUtc);}var first=Clouds(p)[2];Hold(p,[],[first]);PlagueJavelins.Tick(first.NextUtc.AddMilliseconds(40));HoldPoison(target,TimedEffects.Now.AddMinutes(10));var clouds=Clouds(p).Select(x=>x with{NextUtc=TimedEffects.Now.AddMinutes(10)}).ToArray();f=Cast(p,target);WeaponMissiles.Tick(f.NextUtc);f=Own(p).Single() with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,[f],clouds);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.PlagueJavelin,null,MagicArrowChecks.Aim(p),Core.TickCount),"Unpaid/unemitted windup save");var until=TimedEffects.Now.AddMinutes(10);Delay(p,until);target.Blessed=true;File.WriteAllText(Manifest,JsonSerializer.Serialize(new SavedPlague(p.Serial.Value,target.Serial.Value,w.Serial.Value,p.Location,f,clouds,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),NamedAmmunition.Remaining(w),State(target),until)));
     }
-    private static void Check()=>Controlled(()=>{Differential();Cases();GearCases();Lifecycle();Persist();});
-    internal static void TraceParkedHealth(Mobile target,int oldValue)
+    private static void Check()=>Controlled(()=>{Differential();Cases();GearCases();Lifecycle();Persist();Parked();});
+    private static void Parked()
     {
-        if(!World.Loading&&target.Serial.Value==_parkedTarget&&target.Hits!=oldValue)
-        {Log.Information("Parked Plague health changed: serial={Serial} point={Point} hits={Old}/{Current} stack={Trace}",target.Serial,target.Location,oldValue,target.Hits,Environment.StackTrace);}
+        Snapshot();var saved=JsonSerializer.Deserialize<SavedPlague>(File.ReadAllText(Manifest));
+        var target=(BowLaunchTarget)World.FindMobile((Serial)saved.Target);int before=SkillHealth.Balance256(target);
+        var attacker=MagicArrowChecks.Fresh("MultipleShotOwner");BowLaunchTarget control=null;
+        try
+        {
+            Train(attacker,CombatAbility.MultipleShot);MagicArrowChecks.Bow(attacker,typeof(Bow));attacker.AddToBackpack(new Arrow(30));
+            attacker.MoveToWorld(new(saved.Origin.X+1,saved.Origin.Y,saved.Origin.Z),target.Map);control=MagicArrowChecks.Target(attacker);control.MoveToWorld(target.Location,target.Map);
+            control.SetResistance(ResistanceType.Physical,0);int controlLife=SkillHealth.Balance256(control);
+            MagicArrowChecks.Mana(attacker);MagicArrowChecks.Ready(attacker);
+            bool began=ClassCombat.Perform(attacker,CombatAbility.MultipleShot,null,new Point3D(saved.Origin.X+10,saved.Origin.Y,saved.Origin.Z),Core.TickCount);
+            Require(began,$"Cross-fixture Multiple Shot start: point={attacker.Location}/{target.Location}, available={AmazonCombat.Available(attacker,CombatAbility.MultipleShot)}, overlap={AlliedOverlap.Allowed(attacker)}, ammo={BowAmmunition.CanRelease(attacker,CombatTiming.Equipped(attacker))}, mana={NecromancerEffects.ManaBalance256(attacker)}, los={attacker.InLOS(target.Location)}");
+            ClassCombat.ReleaseCast(attacker);
+            Require(ClassCombat.ResolveAction(attacker,ClassCombat.For(attacker).EffectAt),"Cross-fixture Multiple Shot release");
+            for(int i=0;i<100&&SkillHealth.Balance256(control)==controlLife;i++)
+            {
+                var flights=WeaponMissiles.Snapshot().Flights.Where(x=>x.Owner==attacker.Serial.Value).ToArray();
+                if(flights.Length==0){break;}WeaponMissiles.Tick(flights.Min(x=>x.NextUtc));
+            }
+            Require(SkillHealth.Balance256(control)<controlLife&&SkillHealth.Balance256(target)==before,
+                "Parked target took collateral damage or protection test did not deliver real travelling arrow damage");
+            WeaponMissiles.Cancel(attacker);Snapshot();Log.Information("Plague parked target:actual Multiple Shot arrows damage an overlapping vulnerable control while saved inspection health/resources/poison remain unchanged");
+        }
+        finally{WeaponMissiles.Cancel(attacker);control?.Delete();attacker.Delete();}
     }
     private static void Snapshot()
     {
         if(!File.Exists(Manifest)){return;}
         var s=JsonSerializer.Deserialize<SavedPlague>(File.ReadAllText(Manifest));
         var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var target=(BowLaunchTarget)World.FindMobile((Serial)s.Target);var w=(BaseWeapon)World.FindItem((Serial)s.Weapon);
-        Require(p!=null&&target!=null&&w!=null,"Saved Plague fixture entity vanished before snapshot");
+        Require(p!=null&&target!=null&&w!=null&&target.Blessed,"Saved Plague fixture entity/protection missing before snapshot");
         Require(SkillHealth.Balance256(target)==s.Health&&NecromancerEffects.ManaBalance256(p)==s.Mana
             &&NamedAmmunition.Remaining(w)==s.Quantity&&JsonSerializer.Serialize(State(target))==JsonSerializer.Serialize(s.Poison),
             $"Snapshot resources/poison: health={SkillHealth.Balance256(target)}/{s.Health}, mana={NecromancerEffects.ManaBalance256(p)}/{s.Mana}, quantity={NamedAmmunition.Remaining(w)}/{s.Quantity}, actual={JsonSerializer.Serialize(State(target))}, expected={JsonSerializer.Serialize(s.Poison)}");
@@ -149,9 +169,9 @@ public static class PlagueJavelinChecks
     private static void Reload()=>Controlled(()=>
     {
         var s=JsonSerializer.Deserialize<SavedPlague>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var target=(BowLaunchTarget)World.FindMobile((Serial)s.Target);var w=(BaseWeapon)World.FindItem((Serial)s.Weapon);Require(Own(p).Single()==s.Flight && Clouds(p).SequenceEqual(s.Clouds),"Saved parent/moving cloud structural steps/packet/LastCollide");Require(SkillHealth.Balance256(target)==s.Health && NecromancerEffects.ManaBalance256(p)==s.Mana && NamedAmmunition.Remaining(w)==s.Quantity && JsonSerializer.Serialize(State(target))==JsonSerializer.Serialize(s.Poison),$"Saved resources/poison: health={SkillHealth.Balance256(target)}/{s.Health}, mana={NecromancerEffects.ManaBalance256(p)}/{s.Mana}, quantity={NamedAmmunition.Remaining(w)}/{s.Quantity}, actual={JsonSerializer.Serialize(State(target))}, expected={JsonSerializer.Serialize(s.Poison)}");Require(ClassCombat.For(p).PendingAbility==CombatAbility.None && SkillBindings.Instance.Get(p)==(CombatAbility.PlagueJavelin,CombatAbility.PlagueJavelin) && SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Amazon,3)==CombatAbility.PlagueJavelin && !FireGround.Ready(p,CombatAbility.PlagueJavelin),"Saved bindings/delay and discarded unpaid windup");
-        _parkedTarget=0;
+        Require(target.Blessed,"Saved Plague inspection protection lost");target.Blessed=false;
         p.MoveToWorld(s.Origin,Map.Maps[s.Flight.Map]);target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);target.SetResistance(ResistanceType.Poison,0);TimedEffects.Clear(target);p.AddToBackpack(w);int hp=SkillHealth.Balance256(target),physical=NamedElements.To256(s.Flight.Damage.Roll(target,_=>0).Physical);var now=TimedEffects.Now;Hold(p,[s.Flight with{NextUtc=now}],s.Clouds);while(Own(p).Length>0){WeaponMissiles.Tick(Own(p).Single().NextUtc);}Require(SkillHealth.Balance256(target)==hp-physical && Clouds(p).Length==24 && State(target)?.PoisonClock?.Rate256==109,"Resumed original parent plus fresh burst");
-        var cloud=s.Clouds[0] with{NextUtc=now};Hold(p,[],[cloud]);TimedEffects.Clear(target);PlagueJavelins.Tick(now);Require((State(target)==null)==(cloud.LastCollision==target.Serial.Value) && Clouds(p).Single().Frame==cloud.Frame+1,"Saved LastCollide or motion lost");var other=Target(p);other.MoveToWorld(target.Location,p.Map);target.MoveToWorld(new(p.X+12,p.Y,p.Z),p.Map);PlagueJavelins.Tick(now.AddMilliseconds(40));Require(State(other)?.PoisonSource==s.Owner && State(other)?.PoisonClock?.Rate256==109,"Resumed cloud new collider/source");other.Delete();Require(NecromancerEffects.ManaBalance256(p)==s.Mana && NamedAmmunition.Remaining(w)==s.Quantity,"Reload repaid resources");target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);Require(p.EquipItem(w),"Restore weapon");TimedEffects.Clear(target);var held=s.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};var cs=Clouds(p).Select(x=>x with{NextUtc=TimedEffects.Now.AddMinutes(10)}).ToArray();Hold(p,[held],cs);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.PlagueJavelin,null,MagicArrowChecks.Aim(p),Core.TickCount),"Next unpaid windup");var until=TimedEffects.Now.AddMinutes(10);Delay(p,until);File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Flight=held,Clouds=cs,Health=SkillHealth.Balance256(target),Poison=State(target),Cooldown=until}));_parkedTarget=target.Serial.Value;
+        var cloud=s.Clouds[0] with{NextUtc=now};Hold(p,[],[cloud]);TimedEffects.Clear(target);PlagueJavelins.Tick(now);Require((State(target)==null)==(cloud.LastCollision==target.Serial.Value) && Clouds(p).Single().Frame==cloud.Frame+1,"Saved LastCollide or motion lost");var other=Target(p);other.MoveToWorld(target.Location,p.Map);target.MoveToWorld(new(p.X+12,p.Y,p.Z),p.Map);PlagueJavelins.Tick(now.AddMilliseconds(40));Require(State(other)?.PoisonSource==s.Owner && State(other)?.PoisonClock?.Rate256==109,"Resumed cloud new collider/source");other.Delete();Require(NecromancerEffects.ManaBalance256(p)==s.Mana && NamedAmmunition.Remaining(w)==s.Quantity,"Reload repaid resources");target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);Require(p.EquipItem(w),"Restore weapon");TimedEffects.Clear(target);var held=s.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};var cs=Clouds(p).Select(x=>x with{NextUtc=TimedEffects.Now.AddMinutes(10)}).ToArray();Hold(p,[held],cs);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.PlagueJavelin,null,MagicArrowChecks.Aim(p),Core.TickCount),"Next unpaid windup");var until=TimedEffects.Now.AddMinutes(10);Delay(p,until);target.Blessed=true;File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Flight=held,Clouds=cs,Health=SkillHealth.Balance256(target),Poison=State(target),Cooldown=until}));Parked();
     });
     private static void Input()
     {

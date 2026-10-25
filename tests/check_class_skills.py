@@ -34,6 +34,9 @@ def save_snapshot(session):
     if remaining > 0:
         time.sleep(remaining)
     _last_snapshot = time.monotonic()
+    # A parked damage fixture must remain unchanged between its own checks.
+    session.send('plague-javelin-snapshot-check')
+    assert session.expect(r'plague-javelin-snapshot-check: (passed|failed)').group(1) == 'passed'
     session.send('save')
     session.expect(r'Writing world save snapshot done')
 

@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.lightningsentry",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledRoutineHashes": {
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/lightning-sentry-launch-source-probe.json",
+    "sha256": "83117bdbd5eb70060b34748785e91f6b933cbade045047ac727368bd5a310c8f",
+    "cases": 9216
+  },
+  "established": [
+    "Current NPC313 has no custom start/do and launches missile526 through the complete generic handler and absolute-target wrapper. One factory call is attempted; there is no CBS fan, charged-bolt seed or waypoint initialization.",
+    "Absolute coordinates and flags33 originate at the trap. A present target, including a dead but registered target, supplies its current position; otherwise the retained first path point supplies aim. Either zero coordinate suppresses allocation. Same-position moving aim falls back to(+1,+1).",
+    "Complete factory uses current affine range10+2*rank and velocity30*256*75/100=5760FP8; actor skill313/rank stay stored while the separate source-zero damage proof selects player271 from missile526.",
+    "The generic handler reports success and reaches its generic payment callback even when coordinates, room, missile row or allocation prevent a projectile. This is not proof of a player mana debit: the supplier is an NPC and the consumer is an explicitly declared service here.",
+    "Missing skill rows and missing current/highest skills reject before launch. Present used skill with no room clears the used skill. Optional NPC attack rating adds the factory attack-bonus flag; it does not change the zero-ToHit current missile into an attack-roll skill."
+  ],
+  "services": [
+    "Existing Guided Arrow complete-factory harness supplies room/allocation/path/stat/owner/damage/event services; unchanged bodies are fingerprinted. Damage, path construction and stat writes are not recomposed in this launch proof.",
+    "Used/highest skill lookup, coordinate accessors, zero delay and NPC mana-consumer calls are explicit services. Noncurrent lob/item/quantity/mana-gate branches abort. Native NPC animation/action caller, actual world movement/hits, retirement and modern executable behavior remain separate."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}
