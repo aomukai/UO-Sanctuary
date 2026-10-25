@@ -4,7 +4,7 @@
   "sourceSkillId": 266,
   "combatAbilityId": 207,
   "handlerEnabled": false,
-  "status": "Blade Fury ordinary-player payment wrappers, SQ23 profile and shared source event planner are installed. Focused/full suites each pass three boots/two reloads, comparing7200 complete resource and490 initial/renewal source cases per boot. Current-table rank1 costs256FP; fresh six-mana availability does not debit six mana, active state uses per-shot eligibility, same-frame reentry cannot double-shoot/pay and failed factory attempts still pay. Actual Tarnhelm rank changes select256/288FP payments, and real character/equipment plus607FP mana (95FP remainder) survive two world reloads. Source animation arrays are component plans; production held input/mode/rate/event dispatch/cancellation and saved channel/projectile integration remain pending. All70 Python tests, current545/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Saves/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11; Blade Shield is still latest playable. Sentry retirement remains individually deferred.",
+  "status": "Prepared player packet and real saved size1 bladefragment1 flight pass focused3boots/2reloads, including960 source comparisons and natural timer hits each boot. Full regression pending. Installed03eb611 remains unchanged.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -246,7 +246,7 @@
     "Bounded channel component installed and focused/full verified against6912 channel and12 expiry cases per boot. No production held-input or channel persistence claim.",
     "Ordinary native resource wrappers installed and7200 source cases verified per boot in focused/full3boot/2reload suites, with explicit current-table rank1 correction and actual saved character/soft-rank/fractional payments. Generic world/used-skill/charges/Blood Mana remain caller scope.",
     "Native SQ23 profile and shared event planner installed;490 initial/renewal source cases match per boot. Bind original mode entry/rate, seqinput12 held input, event dispatch/state-expiry/cancellation; planner alone is not full input.",
-    "Connect factory flags32 and the960-case complete player creator evidence to a dedicated Fury collector using shared BowLaunch.FromSource arithmetic. Preserve current SrcDam96/Half2HSrc, separate unscaled skill physical, typed/poison/drain and documented10percent-per-rank AR. Complete saved flight/owner/slow/property/credit. Pinned server rows bind no hit52; no radial children.",
+    "Dedicated player collector and saved size1/no-pierce flight implemented and focused verified against960 source creator cases, actual gear, natural timer damage, lifecycle and two world reloads. Finish full regression/install. Current mastery-AR/slow rounding and broad properties/client acceptance remain scoped.",
     "Verify L/R/quick input, target death/cached aim, turning/movement/weapon-loss interruption, active resources/leases/flight reload, natural emission and installed-world smoke before enabling the handler."
   ],
   "uncertain": [
@@ -288,5 +288,6 @@
   },
   "rateEvidence": "tools/reference/blade-fury-rate-source-evidence.json",
   "nativeArFormulaNote": "SkillValues.Formula(\"toht\") currently reads ToHit/LevToHit, not ToHitCalc. Fury has ToHitCalc=lvl*10; use a checked current formula resolver/Eval(\"ToHitCalc\") for its percentage bridge rather than accidentally capturing zero from the old convenience symbol.",
-  "resourceComponentsInstalled": true
+  "resourceComponentsInstalled": true,
+  "missileNativeEvidence": "tools/reference/blade-fury-missile-native-evidence.json"
 }

@@ -68,6 +68,7 @@ def check():
         shutil.copy2(STAGE / 'blade-fury-channel-source-probe.json', folder / 'blade-fury-channel-source-probe.json')
         for fixture in ['blade-fury-resource','blade-fury-timing']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
+        shutil.copy2(STAGE / 'blade-fury-damage-source-probe.json', folder / 'blade-fury-damage-source-probe.json')
         for fixture in ['sentry-target','charged-bolt-path']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
         shutil.copy2(STAGE / 'blade-spawn-source-probe.json', folder / 'blade-spawn-source-probe.json')
@@ -219,6 +220,12 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    fury='blade-fury-missile-check' if boot==0 else 'blade-fury-missile-reload-check'
+                    session.send(fury)
+                    assert session.expect(fury+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    session.send('blade-fury-missile-natural-check')
+                    assert session.expect(r'blade-fury-missile-natural-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    assert session.expect(r'blade-fury-missile-natural-result: (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
                     resource='blade-fury-resource-check' if boot==0 else 'blade-fury-resource-reload-check'
                     session.send(resource)
                     assert session.expect(resource+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

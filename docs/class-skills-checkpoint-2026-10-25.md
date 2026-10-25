@@ -2,6 +2,8 @@
 
 Goal active. Reference: **D2R3.3.93847 — Reign of the Warlock**; approved Sanctuary deviations take precedence. Installed150 handlers: Necromancer28, Sorceress29, Paladin30, Barbarian25, Amazon27, Assassin11; Druid/Warlock0. Blade Shield remains latest playable. No class completion certificate.
 
+Current candidate: **Blade Fury player missiles**. Dedicated weapon/skill capture and saved size1 bladefragment1 flights pass focused three boots/two reloads:960 source creator cases, actual weapon/critical/poison/no-ammo/no-wear, travelling impact, captured slow, death/respec and immutable saved-flight continuation. Natural server-timer hits pass each boot. Current mastery-AR/slow rounding and full input/event/client acceptance remain scoped. Full regression/install pending; installed03eb611 is unchanged;150 handlers remain. [Evidence](../tools/reference/blade-fury-missile-native-evidence.json).
+
 ## Implemented
 
 - Blade Fury bounded start/do/expiry component, ordinary-player payment wrappers and SQ23 event planning. Native planner retains initial/renewal epochs and scheduled events; it does not register production input/timers or persist an active cast.

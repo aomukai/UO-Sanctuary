@@ -128,6 +128,7 @@ public static class WardrobeTransaction
         SorceressEffects.Profiles.Clear(player);
         ChargedStrikeBolts.Cancel(player);
         AmazonJavelins.Cancel(player);
+        BladeFuryMissiles.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonDecoys.Cancel(player);
