@@ -3,10 +3,10 @@
   "talentId": "assassin.lightningsentry",
   "installed": false,
   "handlerEnabled": false,
-  "status": "Prepared actor/real bolt focused16families and3connected runs passed; full class suite live handle56786",
-  "candidateDirectory": ".local/class-skills/lightning-sentry",
+  "status": "Focused16families plus actual Find Item/reload/decay controls pass3boots/2reloads after fixture lifetime correction; fullv2 live handle71275",
+  "candidateDirectory": ".local/class-skills/lightning-sentry-v2",
   "contentSha256": "354ef360fe596af2ddb2850858f8455dd0a32c235f29054bac672ff91d8bc109",
-  "integrationSha256": "7c4d708a71b2e85f8c5d3ab86d400deb838d44cc4b792201f415277aa8daa180",
+  "integrationSha256": "bfad553f7dd466cdae5986cc23f83bab66598c942a04c8fa22059d1f9b970b18",
   "inputHashes": {
     "src/Sanctuary.Content/AssassinSentryCreation.cs": "55cadeefcac10f9d87cb6390284d6de579db7e2369950cef66303446a15ac6e7",
     "src/Sanctuary.Content/AssassinSentryBody.cs": "2d7a3f6f0b1662857476b1e57dd0d82294e03ae73a1ea2f01d0a2aee40991a71",
@@ -14,10 +14,11 @@
     "src/Sanctuary.Content/AssassinSentryLightning.cs": "a731be3816bdd18e4eb124503a16a67176aef982b95d34b7028cc42e99b93307",
     "src/Sanctuary.Content/AssassinTrapClock.cs": "7d4d88733e7a2bc9ce244468d8ba44ac12fb563f5b74cb0faa8b82f8e0b8f7c6",
     "tests/Sanctuary.Integration/LightningSentryChecks.cs": "8505a790e14e267652b1843e033e40691758927915019689ae822c4715944067",
-    "tests/check_class_skills.py": "a99585325d8159698d02d8c3eceee411488fb3514540fbe5366f3c8ddffd1e38",
+    "tests/check_class_skills.py": "2d066bff15c430d873cccb83a171edef53a459f2ed10b1073fd39435f8aaeb25",
     "data/Sanctuary/Balance/necromancer-summons.json": "7616d05d4a13df59bd6f9eb34980e390438d2405ce7bcf1109767c0f26f82421",
     "data/Sanctuary/Balance/class-skill-status.json": "a27e4212b815c791bb3fbad1af83b4d09983958c6676356d4a4decfed4c7f121",
-    "data/Sanctuary/Balance/skill-effects.json": "f0598a323234274fdeb07d6405b222c22b1e2d220e8efa201fa5213ddab148b4"
+    "data/Sanctuary/Balance/skill-effects.json": "f0598a323234274fdeb07d6405b222c22b1e2d220e8efa201fa5213ddab148b4",
+    "tests/Sanctuary.Integration/FindItemChecks.cs": "f6ebfaa9b33cea34b87a07e76f45ab6c0e4cab5e9165e8c859b7f5a0cd1969d8"
   },
   "fixedEvidenceHashes": {
     ".local/class-skills/lightning-sentry/focused-checks.log": "76c7be7327a65e57abd7d739701794995fb1b2137900ba47d6bc5af364b6f48d",
@@ -28,7 +29,16 @@
     "tools/reference/lightning-sentry-launch-source-evidence.json": "7ff75332a8fa18f7eba994b0a6b8b742343ae5846f12ad27d0507adb3489ca82",
     "tools/reference/lightning-sentry-damage-source-evidence.json": "613192f90bbb93e985564d6d0360952b0ce64b103d0ed55bbae19c3654364214",
     "tools/reference/missile-history-finder-source-evidence.json": "bcd6c9b06b794b917cb1ce161b327987ff0e5ef77bbff5ea7962192327cedc0c",
-    ".local/class-skills/lightning-sentry-damage-source-probe.json": "90e45fef0cfc6a2f9ecd828357eb107bebbdaadad309a01b08e3f4e14d21ceff"
+    ".local/class-skills/lightning-sentry-damage-source-probe.json": "90e45fef0cfc6a2f9ecd828357eb107bebbdaadad309a01b08e3f4e14d21ceff",
+    "tests/Sanctuary.Integration/FindItemChecks.cs": "f6ebfaa9b33cea34b87a07e76f45ab6c0e4cab5e9165e8c859b7f5a0cd1969d8",
+    ".local/class-skills/lightning-sentry-full-first-failure.log": "9b8d8327515eb563b482e9919c04c17c35747d8886ef2d99dc8664ff02b2d053",
+    ".local/class-skills/lightning-sentry/native-first-failure.log": "21d0f795390b898a0c99a079525bf82ffc206c67327c9a44f05490f635ff6fe8",
+    ".local/class-skills/lightning-sentry-v2/preserved-world-inspection.log": "d77564a155dca87a4340b21eeeba34d08e496664d1908e3269bbf524e6f381ce",
+    ".local/class-skills/lightning-sentry-find-item-inspect-run.log": "987adba83544ff881b9e68d1c1022f9cf6d11702290f3a5865fd36849c7c22f5",
+    ".local/class-skills/lightning-sentry-find-item-inspect.py": "cc56e9bc9555560614b4a298534a2cbb312e7b5b4b00981bc82c69db33c99bcd",
+    ".local/class-skills/lightning-sentry-v2-focused-run.log": "6749b14f8563a1b4909f0bd4c19110ae8ef44dc4d769874e70091cc0b14ce7e4",
+    ".local/class-skills/lightning-sentry-v2/focused-checks.log": "7eed293098d1f6569c06164e89345fc9b97780866be930cf14f9887183a63a29",
+    ".local/class-skills/lightning-sentry-integration-v2-build.log": "1ff73611c7e5de189a5ca0d756c39def5096c59957fe32e51ac04e97e0a7129f"
   },
   "protectedInstalledArtifacts": {
     ".local/class-skills/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
@@ -71,9 +81,31 @@
   ],
   "fullRegression": {
     "status": "running",
-    "log": ".local/class-skills/lightning-sentry-full-run.log",
-    "nativeLog": ".local/class-skills/lightning-sentry/native-checks.log",
-    "session": 56786
+    "log": ".local/class-skills/lightning-sentry-v2-full-run.log",
+    "nativeLog": ".local/class-skills/lightning-sentry-v2/native-checks.log",
+    "session": 71275
   },
-  "next": "Finish the full suite/fresh audit/install acceptance for this prepared component; then continue distinct Inferno/Death controllers and shared retirement while retaining individual learned-cast gates."
+  "next": "Finish the full suite/fresh audit/install acceptance for this prepared component; then continue distinct Inferno/Death controllers and shared retirement while retaining individual learned-cast gates.",
+  "previousFocusedEvidence": {
+    "directory": ".local/class-skills/lightning-sentry",
+    "boots": 3,
+    "reloads": 2
+  },
+  "diagnosticRegression": {
+    "status": "fixture-expiry-proved",
+    "originalFullTerminal": true,
+    "originalFullSession": 56786,
+    "originalFullNativeLog": ".local/class-skills/lightning-sentry/native-first-failure.log",
+    "preservedWorld": ".local/class-skills/lightning-sentry/failure-world",
+    "inspectionLog": ".local/class-skills/lightning-sentry-v2/preserved-world-inspection.log",
+    "finding": "Initial Find Item check passed at02:48:30; its retained used corpse was absent in the snapshot at02:55:34, while the two younger specimens and their exact source/drop records remained. Before-timer world-load inspection proves this was already missing from the saved world. Native NPC corpse decay is seven minutes; the preceding passing suite used06m56s, this one07m04s. Parked specimens now have explicit one-hour fixture timers only; separate actual short native decay controls still delete corpse and metadata.",
+    "focusedWithFindItem": {
+      "status": "passed",
+      "boots": 3,
+      "reloads": 2,
+      "connectedClocks": 3,
+      "decayControls": 3,
+      "log": ".local/class-skills/lightning-sentry-v2/focused-checks.log"
+    }
+  }
 }

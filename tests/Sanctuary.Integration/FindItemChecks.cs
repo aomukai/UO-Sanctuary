@@ -19,7 +19,7 @@ public static class FindItemChecks
     private sealed record Saved(uint Owner,uint Used,uint Unused,uint Pending,Point3D Origin,int Map,int Mana256,CorpseSkillRecord UsedState,CorpseSkillRecord UnusedState,uint[] UsedItems,uint[] PendingItems);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"find-item.json");
     private static bool _creating;
-    public static void Configure(){Rates();Register("find-item-check",Check);Register("find-item-reload-check",Reload);}
+    public static void Configure(){Rates();Register("find-item-check",Check);Register("find-item-reload-check",Reload);Register("find-item-snapshot-check",Snapshot);Register("find-item-decay-check",Decay);Register("find-item-inspect",Inspect);if(Environment.GetEnvironmentVariable("SANCTUARY_FIND_ITEM_INSPECT_WORLD")=="1"){EventSink.WorldLoad+=Inspect;}}
     [CallPriority(int.MaxValue)] public static void Initialize()=>Rates();
     private static void Rates()
     {
@@ -155,13 +155,46 @@ public static class FindItemChecks
     {
         owner.Mana=owner.ManaMax;var unused=Body(owner);var pending=Body(owner);Start(owner,pending);ClassCombat.For(owner).EffectAt=ClassCombat.For(owner).NextAction=Core.TickCount+600000; // Inspection only; actual timing was checked above.
         NecromancerEffects.SetMana256(owner,NecromancerEffects.ManaBalance256(owner)-17);
+        // These are parked persistence specimens, after the real cast checks.
+        // Do not let the unrelated native seven-minute corpse timer bound the suite.
+        foreach(var body in new[]{used,unused,pending}){body.BeginDecay(TimeSpan.FromHours(1));}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,used.Serial.Value,unused.Serial.Value,pending.Serial.Value,owner.Location,owner.Map.MapID,NecromancerEffects.ManaBalance256(owner),CorpseSkillRules.Profiles.Find(used),CorpseSkillRules.Profiles.Find(unused),Items(used),Items(pending))));
+    }
+    private static void Inspect()
+    {
+        if(!File.Exists(Manifest)){return;}
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
+        var rows=new[]{saved.Used,saved.Unused,saved.Pending}.Select(serial=>
+        {
+            var body=World.FindItem((Serial)serial) as Corpse;
+            return new{Serial=serial,Exists=body!=null,Deleted=body?.Deleted,Bones=body?.IsBones,Rule=CorpseSkillRules.Profiles.Find(body)};
+        }).ToArray();
+        Log.Information("Find Item saved-world inspection: {Rows}",JsonSerializer.Serialize(rows));
+    }
+    private static void Snapshot()
+    {
+        if(!File.Exists(Manifest)){return;}
+        var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var used=World.FindItem((Serial)s.Used) as Corpse;
+        var unused=World.FindItem((Serial)s.Unused) as Corpse;var pending=World.FindItem((Serial)s.Pending) as Corpse;
+        Require(used!=null&&unused!=null&&pending!=null&&CorpseSkillRules.Profiles.Find(used)==s.UsedState
+            &&CorpseSkillRules.Profiles.Find(unused)==s.UnusedState,"Parked Find Item corpse/metadata changed before save");
+        Retained(used,s.UsedItems);Retained(pending,s.PendingItems);
+    }
+    private static void Decay()
+    {
+        var owner=Fresh();var body=Body(owner);Require(CorpseSkillRules.Profiles.Find(body)!=null,"Decay control has no source metadata");
+        body.BeginDecay(TimeSpan.FromMilliseconds(80));
+        Later(250,()=>
+        {
+            try{Require(body.Deleted&&World.FindItem(body.Serial)==null&&CorpseSkillRules.Profiles.Find(body)==null,"Real corpse expiry or metadata cleanup disabled");Log.Information("find-item-decay-result: passed");}
+            finally{body.Delete();owner.Delete();}
+        });
     }
     private static void Check(){Goldens();var owner=Fresh();var used=Synchronous(owner);Attach(owner);Natural(owner,used,Body(owner));}
     private static void Reload()
     {
         Goldens();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);owner.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);var used=(Corpse)World.FindItem((Serial)saved.Used);var unused=(Corpse)World.FindItem((Serial)saved.Unused);var pending=(Corpse)World.FindItem((Serial)saved.Pending);
-        Require(CorpseSkillRules.Profiles.Find(used)==saved.UsedState && CorpseSkillRules.Profiles.Find(unused)==saved.UnusedState && saved.UsedState.NoSelect && !saved.UnusedState.NoSelect,"Saved source/drop context/attempt state");Retained(used,saved.UsedItems);Retained(pending,saved.PendingItems);Require(!CorpseSkillRules.NoSelect(pending) && NecromancerEffects.ManaBalance256(owner)==saved.Mana256 && ClassCombat.For(owner).PendingAbility==CombatAbility.None && ClassCombat.For(owner).FindItemTarget==Serial.Zero,"Transient action replay or paid/fractional mana loss");
+        Require(CorpseSkillRules.Profiles.Find(used)==saved.UsedState && CorpseSkillRules.Profiles.Find(unused)==saved.UnusedState && saved.UsedState.NoSelect && !saved.UnusedState.NoSelect,$"Saved source/drop context/attempt state: usedExists={used!=null}, unusedExists={unused!=null}, actualUsed={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(used))}, expectedUsed={JsonSerializer.Serialize(saved.UsedState)}, actualUnused={JsonSerializer.Serialize(CorpseSkillRules.Profiles.Find(unused))}, expectedUnused={JsonSerializer.Serialize(saved.UnusedState)}");Retained(used,saved.UsedItems);Retained(pending,saved.PendingItems);Require(!CorpseSkillRules.NoSelect(pending) && NecromancerEffects.ManaBalance256(owner)==saved.Mana256 && ClassCombat.For(owner).PendingAbility==CombatAbility.None && ClassCombat.For(owner).FindItemTarget==Serial.Zero,"Transient action replay or paid/fractional mana loss");
         Require(!BarbarianFindItem.Release(owner,pending.Serial) && !CorpseSkillRules.NoSelect(pending) && !CorpseRecoveryHooks.CanAnimate(used) && CorpseRecoveryHooks.CanAnimate(unused),"Restored noselect/native animation hook/free release");pending.Delete();Attach(owner);Natural(owner,used,unused);
     }
 }

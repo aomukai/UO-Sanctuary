@@ -37,6 +37,8 @@ def save_snapshot(session):
     # A parked damage fixture must remain unchanged between its own checks.
     session.send('plague-javelin-snapshot-check')
     assert session.expect(r'plague-javelin-snapshot-check: (passed|failed)').group(1) == 'passed'
+    session.send('find-item-snapshot-check')
+    assert session.expect(r'find-item-snapshot-check: (passed|failed)').group(1) == 'passed'
     session.send('save')
     session.expect(r'Writing world save snapshot done')
 
@@ -1285,6 +1287,9 @@ def check():
                         session.send(find_item_command)
                         assert session.expect(find_item_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         assert session.expect(r'find-item-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                        session.send('find-item-decay-check')
+                        assert session.expect(r'find-item-decay-check: (passed|failed)').group(1)=='passed'
+                        assert session.expect(r'find-item-decay-result: (passed|failed)',timeout=3).group(1)=='passed',logpath.read_text()[-6000:]
                         save_snapshot(session)
                     if boot<2:
                         session.send('blade-offline-stage')
