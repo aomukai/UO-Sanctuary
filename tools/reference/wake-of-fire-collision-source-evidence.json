@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/include/MISSILES/MissMode.h": "4a0592e70e2c1e8eda8a6e5941c900255506da386f8ce021a1c7da422e70fdff",
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5"
+  },
+  "compiledRoutineHashes": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/wake-of-fire-collision-source-probe.json",
+    "sha256": "e7bb8ce72bcf724e18851b2b7f66aa472e6a342c5dd33e3e54c862182ffa33f9",
+    "cases": 7680
+  },
+  "established": [
+    "Both moving maker mode8/Size2 and wave mode3/Size1 use the same full player/monster finder; their terrain mask distinction remains supplied by the respective route. Neither row uses AR, CollideKill or a special hit/damage callback.",
+    "The complete generic update moves before lifetime decrement. A failed move ends without decrement; otherwise lifetime0 ends before searching. Valid collider selection has priority over the barrier bit, and no collider plus barrier ends the missile.",
+    "Both NextHit and LastCollide are checked in the finder, allowing a delayed or repeated first candidate to expose the second. LastCollide is checked again in the router before updating history; a repeated first candidate must not hide another eligible actor.",
+    "A fresh selected target updates LastCollide and starts the four-frame historical JUSTHIT lease before damage fill/flags. Failed lease allocation still routes the current hit. Previous history survives delayed/repeated/no-target/expiry paths.",
+    "Producer do31, verified separately, attempts one opposite pair before this update using the prior path-change flag. Multiple crossed cells do not themselves imply one pair per cell or a time-only emission fan."
+  ],
+  "services": [
+    "Actual path movement, rooms, terrain masks, saved-step geometry, candidate enumeration and final damage fill/commit are explicit services. Source Size1/2 values are declared at the footprint service; native spatial projection remains separate.",
+    "This uses historical global JUSTHIT for source ordering only. Current D2R same-skill supplier/cast identity and shared maker/wave delay scope remain acceptance work; no new native lease policy is invented here.",
+    "The maker-specific opposite emission, complete factory and fire getter proofs are separate. This does not establish an actual world wave, connected damage, retired owner/stat lifetime or current executable equivalence."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

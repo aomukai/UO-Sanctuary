@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "857b69ab1b73be354254f639b6b788a1ca625e51ddbe55825d34ee58e4ac4253",
+  "ContentAssemblySha256": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -64,7 +64,7 @@
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
     "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
-    "data/Sanctuary/Balance/necromancer-summons.json": "00f4088e45a2bf07b7d0b12c75ba2bb363399f12822b0d258d4cbf48ca8e26e6",
+    "data/Sanctuary/Balance/necromancer-summons.json": "5b915d8629b6f43c4c6757dc9cc16d9a7b62ccb5644fea4e846377ee74362114",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/potion-belts.json": "97081b7cca48cb3dc17c16c1f54cf8c151fee82474858dc6966653c04a3f9a42",
     "data/Sanctuary/Balance/power-scrolls.json": "4563cb89d0b75f26c14bed8121b3c56c33bd44234047f9d9276d4c508f531f8f",
@@ -246,6 +246,7 @@
     "src/Sanctuary.Content/AssassinTrapCreation.cs": "0860ff39f05e83273287b5ada60e26d3c46c446854455e316129b4e8152302bd",
     "src/Sanctuary.Content/AssassinTrapRoster.cs": "3124fe4f57c0f2962360b188db77ae3f96472ef7365c793002bd785620215cb6",
     "src/Sanctuary.Content/AssassinTrapStats.cs": "61330a28dfc1ee2e4166d14edde76c7ddf7ce96a34ae519f936007f335552db8",
+    "src/Sanctuary.Content/AssassinWakeFire.cs": "4a93b789d916a0712e6704073aa24f3820e8eb04ac437b4280e12ad97b5ffba5",
     "src/Sanctuary.Content/BalanceCatalog.cs": "b52e104356097fdd73ce6d2bb3537bb9f6bcd4860c9d79e7f51500089066d6b4",
     "src/Sanctuary.Content/BarbarianBattleCry.cs": "635e66665af02e4df9213199f8cf0d748a851747463a6fdc8cc1ffc192053e13",
     "src/Sanctuary.Content/BarbarianBerserk.cs": "7687c50a6c4ea7490a0caace654043abf1b5daf3cf92c194ffa4f48ff355eacf",

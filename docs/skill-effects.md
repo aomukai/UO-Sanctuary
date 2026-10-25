@@ -2,6 +2,8 @@
 
 This register is independent of mechanical completion. No final assets have been generated or installed in this pass. Keep the original prompt/source image, transparency, scale/directional frames, timing, client mapping and actual-client verification with each eventual asset.
 
+Sanctuary presentation preference: visible damaging effects should match their active damaging lifetime. This is user taste, not D2R reference evidence; final assets must communicate the supported mechanics. See [reference precedence and recorded preference](skill-mechanical-reference.md#sanctuary-decisions-retained).
+
 Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. Names, damage type and mechanics are authoritative independently of their placeholder appearance. Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.
 
 | Class | Skill | Effect work | Source cues |

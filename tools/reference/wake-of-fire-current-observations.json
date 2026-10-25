@@ -11,7 +11,24 @@
         "Whether already-moving waves continue to damage after visual disappearance.",
         "Internal NPC/GUID lifetime, exact frame count or inherited-stat cleanup."
       ]
+    },
+    {
+      "source": "User firsthand follow-up on the pinned installation",
+      "observedAt": "2026-10-25T15:45:23.930905+00:00",
+      "reported": "There are no remaining visible waves: the last wave finishes its course as the contraption drops; both end at the same time.",
+      "established": "User observed the final visible wave and visible trap collapse finish together; no wave was available afterward for the proposed post-disappearance damage check.",
+      "notEstablished": [
+        "Exact frame counts, skill rank, open-space path/lifetime or all possible target/terrain contexts.",
+        "Hidden actor/GUID retention, inherited-stat cleanup or damage from a hypothetical wave surviving visual disappearance."
+      ]
     }
   ],
-  "implementationEffect": "Retain a distinct retiring animation phase. Do not equate visual disappearance with internal owner deletion or missile expiry."
+  "implementationEffect": "Verify the combined actor/wave visible chronology against the reported joint finish. Do not turn this qualitative observation into an exact shared timer, instant owner deletion or a post-disappearance damage rule. Keep final visuals and mechanical owner lifetime separately scoped.",
+  "presentationPreference": {
+    "source": "User taste description; explicitly not D2R reference data",
+    "recordedAt": "2026-10-25T15:47:35.684035+00:00",
+    "request": "Anything with an effect still visible should continue doing what that effect represents, such as damage.",
+    "sanctuaryInterpretation": "Keep final wave visuals and their active damaging lifetime aligned. Match presentation to the supported mechanics; exact timers and ownership still require mechanical evidence.",
+    "referenceEvidence": false
+  }
 }

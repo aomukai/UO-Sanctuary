@@ -1,3 +1,13 @@
+# Latest installed component — Wake of Fire prepared firing
+
+Wake of Fire prepared firing is installed as a reusable component. Direct S2 clocks, five-shot AI, hard-synergy/fire-mastery endpoints and relative maker/wave plans pass focused and full suites, each with three boots and two restarts. Snapshot coverage is prepared fixture JSON, not registered actor/projectile persistence. All70 Python tests,563/21 current audit fingerprints and573 unchanged named decisions pass. Existing-world smoke succeeds with saves/config/client bytes unchanged and server stopped. Learned Wake placement, real waves/damage and retirement remain unfinished.156 handlers/Assassin17;no class completion certificate.
+
+Connect actual Wake actor placement, maker/wave motion and damage with source finder semantics: both LastCollide and NextHit exclude candidates before selection. Compose prior-frame path-change emission, current four-frame lease identity and DamageRate205 reduction scaling. Reuse shared trap creation/FIFO/difficulty/offline/facet contracts only where matched. Complete full death-entry/GUID/removal chronology before changing dead-owner policy; isolated common death cleanup preserves root fire passives. User sees final visible wave and trap drop finish together; no post-disappearance wave/damage was observed. Keep presentation taste separate from reference facts. Learned Tail and other individual deferrals remain explicit; continue the full eight-class/240-talent roadmap.
+
+[Scoped evidence](../tools/reference/wake-of-fire-prepared-native-evidence.json).
+
+Earlier checkpoints follow.
+
 # Latest installed component — prepared kick packets
 
 Prepared kick packets and Dragon Tail fire are installed as reusable components; learned Dragon finishers remain disabled. Kick physical damage comes from body/boots and Tiger charges, excluding weapon physical and ordinary critical rolls. Typed gear, Fists conversion, Thunder/Ice, Cobra drain and Venom reuse existing consumers. Tail fire uses copied resisted physical, current skill/mastery, source percentage rounding and independent recipient mitigation. Unsupported old signed-overflow contexts are rejected. Focused and full suites each pass three boots and two reloads, including 1,920 complete Tail source contexts, 255 numeric goldens, actual Deadly Strike/Raven/Gore/Bartuc gear, primary/offhand and bow scopes, six charge families, poison delivery, immunity, walls, lethal/dead-owner behavior and saved packets/resources. All 70 Python tests and current 562/21 audit fingerprints pass with 573 unchanged named decisions. Existing-world smoke succeeds; saves, configuration and client bytes are unchanged and the server is stopped. Handler count remains 156; Assassin 17. No class completion certificate.

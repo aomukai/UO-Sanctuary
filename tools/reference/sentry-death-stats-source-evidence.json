@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativePolicyChanged": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "compiledRoutineHashes": {
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "STATLIST_IsExtended": "1239d1122a0ec4f6c3a40f761df496bc237397fc66a233c1f463e36f9d1bcaad",
+    "STATLIST_AddUnitStat": "616ec88197c6a1ddd8e5b614729324fcbb202653378edb5fcf2d3ef3dad618da",
+    "D2Common_10469": "03e931e822deff014d44ad5780f3aff015319a378596abfa52e96741f173e3f6"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-death-stats-source-probe.json",
+    "sha256": "7f5a9d91256501333b3dd6f0a695e8f1ce81f36d4c42d07430c1fca8ffc70ee7",
+    "cases": 720
+  },
+  "established": [
+    "Complete summon passive helper sends all three current Wake inherited fire stats through complete AddUnitStat into the pet root stat list. They are not created as the removable aura-stat attachment; current Wake has no aura-stat entries and these stats have no item-event hooks.",
+    "Complete D2Common_10469 only walks pMyLastList attachments on an extended root. Ordinary non-item/non-protected/non-stay-death attachments are freed in any tested list order; BASIC, OVERLAY, 0x100, item-owned and stay-death controls survive.",
+    "The root passive values and separately assigned summon skills survive this isolated cleanup in all 720 cases. The earlier hypothesis that inherited Wake mastery necessarily disappears in this common cleanup is unsupported.",
+    "Null cleanup unit and nonextended-root controls perform no attachment cleanup. The root itself is never passed to the free service."
+  ],
+  "services": [
+    "Formula/accrued stats, row/itemstatcost lookup, skill assignment and event/equipment callbacks retain explicit summon harness services. Actual additive root storage is a declared array service reached through the unchanged AddUnitStat body.",
+    "Stat-list freeing is a checked unlink/count service, not full total-stat recomputation or callback execution. Only nonextended attached lists are valid here; the source loop does not establish malformed extended-child behavior.",
+    "This does not compose full trap death entry, StayDeath state flags, minion cleanup, corpse/GUID retention, owner deletion, current executable behavior or native retired-owner damage policy. Do not infer an immortal proxy from this root-stat result."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}
