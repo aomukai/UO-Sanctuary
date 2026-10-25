@@ -3,7 +3,7 @@
   "talentId": "assassin.clawsofthunder",
   "sourceId": 269,
   "ability": 188,
-  "status": "Unaffected next builder if Dragon Claw current finisher policy is individually deferred; source/native work pending",
+  "status": "Learned Thunder and saved missile candidate in focused native/input/reload verification",
   "installed": false,
   "handlerEnabled": false,
   "source": {
@@ -58,7 +58,10 @@
         "EType": "ltng",
         "EMin": 1,
         "EMax": 30,
-        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8"
+        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8",
+        "Accel": -1000,
+        "MaxVel": 24,
+        "ApplyMastery": 1
       },
       "clawsofthunderbolt": {
         "pSrvDoFunc": 1,
@@ -76,7 +79,10 @@
         "EType": "ltng",
         "EMin": 1,
         "EMax": 40,
-        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8"
+        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8",
+        "Accel": 0,
+        "MaxVel": 12,
+        "ApplyMastery": 1
       }
     }
   },
@@ -87,23 +93,27 @@
     "Original sub6FD14170 ring and sub6FCF6600 share the64direction table. Sorceress Nova private expanding-radius approximation is not proof of64missile collision behavior."
   ],
   "reviewedOnly": [
-    "Full callback36 reads target,positive rank,row,progressive missile and calc1+table velocity,then emits64nova missiles centered on the struck target through sub6FD14170. Each uses flags3 plus velocityflag4 when nonzero.",
-    "Full callback37 resolves progressive missile/target coordinate,chooses step from progressive calc or aura range,draws one owner seed and invokes full sub6FCF6600. For current step4,the64direction ring emits16bolts.",
-    "Full sub6FCF6600 uses a private seed,one seed draw per emitted child,charged path initializer6C10 and a post-factory target-X value from Royal Strike Param2+1. Do not assume the Sorceress/Sentry ordinal/aim seed initializer applies.",
-    "Full6C10 caps total/current lifetime to77when initial range>=78,initializes child low seed,sets charged-bolt path and distance,then builds the path. This source body remains to be compiled with full step/distance/path suppliers."
+    "Full outer current executable factory/path/stat/target/geometry/proc/client behavior remains outside the bounded source/native adapters."
   ],
   "required": [
-    "Compile the complete progressive dispatcher,36/37/ring/factory/init/path and collision/next-delay contexts before adapting the player nova/bolt release. Record owner versus child seed and event order.",
-    "Keep shared4frame NextHit/NextDelay behavior explicit across nova/bolt children and separate releases; do not silently substitute per-projectile hit-once behavior.",
-    "Prove current inline/child damage endpoints,hard Phoenix synergy8,mastery/pierce/soft-hit/block/proc/parent-death,actual selected hands/ranks and independent charges.",
-    "Implement source/native release and saved projectile lifecycle,then learned charge action/cost/fallback/real quick/held input and two reloads. Use clearly identified existing lightning/charge placeholders and keep final assets separate."
+    "Finish focused and full three-boot/two-reload native suites, current audits, original-world backup/install/smoke and checksums before claiming the learned candidate installed.",
+    "Retain the explicitly labelled shared charged-path/native geometry/owner seed services and exact current executable/stat/proc/PvP/NPC/client acceptance limits.",
+    "Final charge/claw/nova/bolt/contact/audio effects and separate talent/hotkey icons remain asset work."
   ],
   "questions": [
-    "Exact modern missile next-delay scope and current mode/target/stat/proc/client acceptance remain unverified.",
+    "Released2.7 notes establish a separate cast per martial charge trigger; native nova/bolt children share its4frame delay. Exact pinned executable collision/stat/event/geometry/client acceptance remains open.",
     "No request for martial-arts playtest observations from the traps-only player. Unsupported branches stay explicit and nonblocking for other skills."
   ],
   "assets": {
     "effects": "Final charge orbital/claw/contact/nova/bolt travel/impact/audio pending. Existing UO lightning/charge markers may be identified placeholders during mechanics.",
     "icons": "Talent/left/right/quick icons remain separately inventoried."
-  }
+  },
+  "candidateHandlerEnabled": true,
+  "sourceEvidence": [
+    "tools/reference/martial-lightning-source-evidence.json",
+    "tools/reference/thunder-damage-source-evidence.json",
+    "tools/reference/thunder-rate-source-evidence.json",
+    "tools/reference/missile-acceleration-source-evidence.json"
+  ],
+  "candidate": "src/Sanctuary.Content/MartialLightning.cs"
 }

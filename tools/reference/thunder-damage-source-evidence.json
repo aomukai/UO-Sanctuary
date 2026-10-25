@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.clawsofthunder",
+  "sourceComposition": "tools/reference/immolation-damage-engine-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "blockHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_SetDamageStats": "16a3fa97e7ba9fd4ae28f4128d4f2e6b32736f0252a563b294df73d6c93145c1"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "pinnedMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/thunder-damage-source-probe.json",
+    "sha256": "8afa97bbf0e9c2784b1d91e1ea29ffc05761c883bfdfa9b0b95f65d9c8d9d285",
+    "cppSha256": "f433f309e5024a1e71587eee490ba5e5424b05457c9753b09d3513683a12d5e7",
+    "cases": 576
+  },
+  "established": [
+    "Complete child creator/min-max getters/tier/stat writer execute current Thunder nova/bolt rows with no weapon source. All supplied owner item/physical/fire/leech/critical controls are excluded.",
+    "Current hard Phoenix synergy8percent applies to integer missile damage before HitShift8; ApplyMastery adds lightning mastery once afterward. Full stat writer stores the enhanced endpoints without copying owner mastery into the missile.",
+    "Both children retain minimum1before synergy,distinct maximum/growth/range data and source0. This is separate from inline skill damage and its after-HitShift synergy ordering."
+  ],
+  "services": [
+    "Synergy formula returns supplied hard*8,mastery percentage helper returns supplied percentage; current lookup and full creator/getters/writer are reused from the referenced complete composition.",
+    "Prepared owner/item/weapon stats and actual target/health/proc/random roll/missile movement are outside this numeric fixture."
+  ],
+  "limits": [
+    "Scoped child endpoint/stat proof,not a learned handler or full modern executable certificate.",
+    "Inline weapon progressive lightning,modern charge retention,NHD/collision/lifecycle/input and final effects/icons remain separate work."
+  ]
+}

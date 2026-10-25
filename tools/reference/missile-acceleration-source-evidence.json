@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079"
+  },
+  "compiledFunctionHash": "becafa1650d520f6b2827c03f242e1ca950e7673a9e22ec36571a23927673176",
+  "fixture": {
+    "path": ".local/class-skills/missile-acceleration-source-probe.json",
+    "sha256": "91bd57c29d978affc6d52dd6afa34fa4535eaefbed0fc5f0fff0e16ce8ce0f64",
+    "cases": 1800,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Full source function adds acceleration on the fifth velocity update,then resets its counter. It clamps negative resulting speed to0; an overshoot of maximum clamps to maximum and clears acceleration.",
+    "Nonpositive base velocity selects1024; source magnitude and direction multiplications use signed shifts. Negative vector components retain that truncation behavior."
+  ],
+  "services": [
+    "All dynamic-path fields,base velocity and Q12 direction are explicit inputs; this does not compile the outer scheduler/path updater.",
+    "Native ordinary missile adapter uses base0/default1024 and one call per active source frame. Charged-path waypoint movement remains a separately labelled existing adapter."
+  ],
+  "limits": [
+    "Source/native velocity-kernel evidence,not current executable movement or full collision equivalence.",
+    "Thunder nova current table Accel=-1000/MaxVel24 needs this component; previous constant-speed candidate failed its guard before installation."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.clawsofthunder",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "compiledRoutines": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "PATH_SetNewDistance": "b26f8bfc8eb307e2894b13488d3fca9bcf36d1b8f197d20b9afb22d45d09c1aa",
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2": "7b98653240c5efd9c71ea2e3c9445cd69f54ca415dca463da34d42e521b6f8aa",
+    "SKILLS_SrvDo037_ClawsOfThunder_ProgressiveFn3": "3a77aaaefe0a44c3c962cbbe5348d248bc1db7ae04e24d6398d53bfd988528e9",
+    "sub_6FCF6600": "9b44a51cbac5a3ef8e6773390b43b86959c8334bc82ba78e21363f1fd552d237",
+    "sub_6FCF6C10": "4bbd7e9b61bff9e26aa38dd4ea290555075a3e24a7ddfcd096b8b2efc3d133a8",
+    "sub_6FD14170": "2d0a4b0f5e5cd52c04cf272c351e8f460b7b1a28346eff16532d3c68eb5f2349",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419"
+  },
+  "reusedComposition": "tools/reference/martial-fire-release-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/martial-lightning-source-probe.json",
+    "sha256": "fb721cd3a8038117e385c5a98b2cb1211245b2b4f826fd5c8a265f6785e42f21",
+    "cppSha256": "09266f1199ba908a016fbc4b53c271e8fd6beb95fcf0ad87e47ed946d2eb7e83",
+    "cases": 3456,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete progressive dispatcher temporarily sets count2 for the stacked nova callback before restoring count3 for the bolt callback. Rank0 skips emission but source list removal still occurs after a valid release.",
+    "Nova emits64directions from the target with velocity24,flags7,no private seed initializer. Bolts emit16directions(step4) from the target with flags3 and a distinct charged initializer.",
+    "Complete seed initializer/LCG/item wrapper establish unchanged owner seed for nova and exactly one owner draw for the bolt trigger; each of16bolts consumes one private child-seed draw even if allocation fails.",
+    "Complete charged initializer caps98frames to77,sets both total/current frames,initializes low seed with high666,sets charged path and clamps distance77 before invoking declared path construction. After factory returns,the full target-X setter writes Royal Strike Param2+1=7; null failed allocations are safe."
+  ],
+  "services": [
+    "Real current skill constants and separate Royal Strike Param2=6 are supplied. Generic formula/stat-list/target coordinates/factory allocation reuse bounded existing services; current damage and native life/procs are not claimed.",
+    "Missile factory supplies current nova13/bolt98table lifetimes and preserves callback arguments; allocationKind1fails alternate attempts. Actual factory damage/stat/owner/event creation is not compiled.",
+    "Path type and frame accessors are declared services. Complete distance setter is compiled, but D2Common10142 only records its call; final charged path and frame-by-frame collision remain separate existing evidence/native adapters.",
+    "The existing limited RNG stub in unused inherited Fists callbacks is not exercised. All selected owner/child draws use the complete original LCG and item wrapper."
+  ],
+  "modernNextHit": {
+    "source": "https://news.blizzard.com/en-us/article/23938388/diablo-ii-resurrected-ladder-season-4-has-concluded",
+    "rule": "Released2.7 notes give each martial charge-up skill trigger a distinct cast for missile hit-delay purposes. Thunder nova/bolt children of that trigger share its four-frame delay; separate trigger casts do not suppress one another.",
+    "inference": "Grouping nova and bolt children by their Thunder trigger follows the source stacked callback composition and official per-trigger rule; exact pinned executable acceptance remains open."
+  },
+  "limits": [
+    "Source preparation only; no learned Thunder handler or damaging native missile is enabled by this evidence.",
+    "Old source full-list charge removal is a control,not modern consume-one policy. Native ordinary Attack already has a separate explicitly scoped current policy.",
+    "No full current executable/animation/stat/packet/event/property/terrain/slow/NextHit/client certificate. Effects/icons remain separate."
+  ]
+}

@@ -12,7 +12,7 @@ public static class AssassinClaws
 {
     internal sealed record Series(CombatAbility Ability,Serial Primary,Serial Secondary,Serial Target,Map Map,Point3D Origin,
         long Started,long Until,int Released,bool Basic,int[] Events);
-    internal static bool Handles(CombatAbility ability)=>ability==CombatAbility.FistsOfFire;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder;
     internal static (int End,int[] Events) Schedule(bool dual,int advance)
     {
         if(advance<=0){throw new NotSupportedException("Claw sequence requires a positive source frame advance");}
@@ -24,7 +24,7 @@ public static class AssassinClaws
     internal static int Advance(PlayerMobile owner)
     {
         var pair=WeaponHands.Pair(owner);var primary=pair?.Primary??CombatTiming.Equipped(owner);
-        // Current-family original Fists calculator uses primary WSM/IAS and
+        // Current-family original Fists/Thunder calculators use primary WSM/IAS and
         // sequence base256. Old dual mean/A1 base208 is a separate control.
         // At sequence entry ordinal0, ensure a
         // caller's temporary damage-hand scope cannot select secondary IAS.
@@ -84,8 +84,8 @@ public static class AssassinClaws
                 if(s.Basic){TigerStrikes.BasicStrike(owner,target);CombatDamage.Finish(target,owner);}
                 else{TigerStrikes.ChargeContact(owner,target,SkillMechanics.Values(owner,s.Ability));}
             }
-            // The selected-hand scope closes before validating saved primary
-            // identity or allowing an equipment/death callback to cancel it.
+            // Validate actual equipped-pair identity independently of the
+            // temporary damage hand; callbacks may cancel the paid action.
             if(session.ClawAttack!=s){return processed;}
             if(!Valid(owner,s)){Cancel(owner);return processed;}
         }

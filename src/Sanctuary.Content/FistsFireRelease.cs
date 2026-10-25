@@ -7,8 +7,8 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-// Prepared finisher component. The learned Fists action stays gated until its
-// separate claw sequence, selected-hand timing and input have native acceptance.
+// Fists finisher component; the learned claw action and selected-hand
+// sequence are implemented separately in AssassinClaws.
 internal sealed record FistsFirePacket(int Count,int Rank,int ConversionPercent,int Inline256,int Min256,int Max256,
     int FieldMin256,int FieldMax256,int Radius,int ScatterRadius);
 public static class FistsFireRelease

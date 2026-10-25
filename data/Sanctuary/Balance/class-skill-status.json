@@ -2022,10 +2022,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 260,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Individually deferred while current per-contact versus per-sequence consume-one and charged hit/block behavior remain unverified. Complete1,152-case/2,304-contact legacy start/packet/do46/progressive source composition and distinct current dual-only speed controls are prepared; see dragon-claw-preflight.json. Do not port old full-list removal or guess multi-contact policy. Continue Claws of Thunder and unaffected skills."
     },
     {
       "talentId": "assassin.fistsoffire",
@@ -2066,10 +2066,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 269,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned candidate uses shared primary-rate sequence16,one/two claw charge contacts and once-paid4mana with ordinary low-mana fallback. Ordinary Attack combines separate lightning charges with Tiger/Cobra/Fists and emits64nova rays plus16seeded bolts for the stacked3charge trigger. Saved missiles retain source-derived five-update nova deceleration,child path/RNG/clock/damage/pierce/slow and trigger-scoped4frame hit leases. Current installation/verification scope is in claws-of-thunder-preflight.json. Shared native charged motion/geometry and full pinned executable/stat/proc/PvP/NPC/client acceptance remain explicit gaps. Final effects/audio and talent/hotkey icons remain separately inventoried identified placeholders."
     },
     {
       "talentId": "assassin.bladesofice",

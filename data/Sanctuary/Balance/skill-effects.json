@@ -2621,7 +2621,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Shared UO claw pose/audio0x238,charge flash0x375A hue0x481 and travelling0x3818 hue0x482 markers are identified placeholders. Final orbital charges,claw/contact,nova/charged-bolt travel/impact and audio pending. Talent/left/right/quick icons remain separate."
   },
   {
     "talentId": "assassin.bladesofice",

@@ -22,7 +22,7 @@ public sealed class MartialChargeProfiles:GenericPersistence
 }
 public static class AssassinCharges
 {
-    internal static bool Supports(CombatAbility ability)=>TigerStrikes.Handles(ability) || ability==CombatAbility.FistsOfFire;
+    internal static bool Supports(CombatAbility ability)=>TigerStrikes.Handles(ability) || ability is CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder;
     // Separate slots allow later charge families to share this lifecycle without
     // granting Tiger's physical bonus to their charge-building attacks.
     private static readonly Dictionary<(uint,CombatAbility),MartialCharge> States=new();
@@ -55,7 +55,7 @@ public static class AssassinCharges
         var row=SkillMechanics.For(CombatAbility.TigerStrike);var values=new SkillValues(row,_=>rank,_=>0,1);
         return checked(state.Count*(int)values.Eval("calc1"));
     }
-    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike),State(owner,CombatAbility.FistsOfFire)}.Where(x=>x!=null).ToArray();
+    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike),State(owner,CombatAbility.FistsOfFire),State(owner,CombatAbility.ClawsOfThunder)}.Where(x=>x!=null).ToArray();
     internal static bool Any(Mobile owner)=>Finisher(owner).Length!=0;
     internal static PlayerWeaponDrain CobraDrain(MartialCharge state,int currentRank)
     {

@@ -66,6 +66,8 @@ def check():
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(ROOT / 'tools/reference/dragon-kick-damage-source-evidence.json',folder / 'dragon-kick-damage-source-evidence.json')
         shutil.copy2(STAGE / 'assassin-claw-modern-rate-probe.json',folder / 'assassin-claw-modern-rate-probe.json')
+        for name in ['martial-lightning','thunder-damage','thunder-rate','missile-acceleration']:
+            shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['cobra-strike','cobra-strike-composition','cobra-strike-builder']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
@@ -176,6 +178,18 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
+                    for name in ['thunder-claw','thunder-release']:
+                        command=name+('-check' if boot==0 else '-reload-check')
+                        session.send(command)
+                        assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('thunder-natural-check')
+                        assert session.expect(r'thunder-natural-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        assert session.expect(r'thunder-natural-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        fists_claw_input(session,client,logpath,prefix='thunder-claw')
                     claws='fists-claw-check' if boot==0 else 'fists-claw-reload-check'
                     session.send(claws)
                     assert session.expect(claws+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
