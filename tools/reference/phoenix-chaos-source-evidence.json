@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledRoutines": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "MISSILE_GetTargetX": "6501371e1dd0fd1d986893fb2e9d0c7873d0ba6a3b530a035505778c3ed0d674",
+    "MISSILE_GetTargetY": "22953b91788c79525d62af861bfbe713521e578c58445cdd384fe94495618ee3",
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "MISSILE_SetTargetY": "af3d66a6221ba76a361c1397904d237c3f52fbdcacf16c0025a69e3c289f6cd3",
+    "MISSMODE_SrvDo35_RoyalStrikeChaosIce": "2a9b9cba2c0ddac3935a5a2e6494177e112d2497569a0833af05eadea30caf40"
+  },
+  "fixture": {
+    "path": ".local/class-skills/phoenix-chaos-source-probe.json",
+    "sha256": "0293da35f6f49580bed81e34fe647ffd2fb892a0e9ffe3bbae0779a32f96a5ac",
+    "cppSha256": "c37ee9da2c3e3c5ea75f9040390aab0ec5a6d0be1293b4711165e7c2e5ed0a3a",
+    "cases": 5400,
+    "negativeXPackingContexts": 570,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "The complete misleadingly named MISSILE_GetRemainingFrames returns total-current,which is elapsed frames under the countdown caller. Full do35therefore rebuilds at elapsed0,3,6,...with current Param1=3,including the very first update,before collision/movement.",
+    "Full do35reseeds from saved targetX(high666),draws once to choose which signed vector component flips,and computes truncated quarter-rotated offsets. Each zero component becomes1. Full target setters retain new low seed and the literal signed-add packed vector.",
+    "Negative X packing carries into the high signed Y half. The literal older source behavior is preserved in this oracle;current executable parity is explicitly unverified. Native code must label this source-derived behavior rather than silently normalize packed pairs."
+  ],
+  "services": [
+    "World position and path-target/rebuild/collision callbacks are explicit services;full do35/elapsed getter/target getters-setters/LCG execute. No full path movement,health,NextHit,freeze,owner/world/client certificate.",
+    "Valid source unit data/table contexts are supplied. Null missile/missing record are controlled guards of do35before the collision service;the unrelated malformed generic missing-record router remains excluded."
+  ],
+  "next": "Port literal elapsed-frame/seed/vector transform with explicit current-build packing caveat. Compose source freeze-only damage2,current40frame movement/collision and native saved child lifecycle before enabling Phoenix."
+}

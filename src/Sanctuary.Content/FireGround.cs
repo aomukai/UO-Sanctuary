@@ -106,6 +106,12 @@ public static class FireGround
             NecromancerSummons.Source(key,"DamageRate"),at.AddMilliseconds(NecromancerSummons.Source(key,"Range")*40L),
             at.AddMilliseconds(40),NecromancerSummons.Source(key,"Size")){SkillRank=rank});
     }
+    internal static void AddPhoenix(PlayerMobile owner,int rank,double x,double y,int z,int minimum,int maximum,DateTime at)
+    {
+        long id=++_nextId;const string key="royalstrikemeteorfire";
+        _patches.Add(id,new(id,owner.Serial.Value,CombatAbility.PhoenixStrike,owner.Map.MapID,x,y,z,minimum,maximum,0,
+            at.AddMilliseconds(MartialPhoenixPackets.MeteorFieldFrames(rank)*40L),at.AddMilliseconds(40),NecromancerSummons.Source(key,"Size")){SkillRank=rank});
+    }
     public static void CastMeteor(PlayerMobile owner, Point3D target, SkillValues values)
     {
         var damage = Damage(owner, values); long id = ++_nextId;
@@ -155,7 +161,7 @@ public static class FireGround
     }
     private static PlayerMobile Owner(uint serial,DiabloClass characterClass=DiabloClass.Sorceress) => World.FindMobile((Serial)serial) is PlayerMobile { Alive: true, Deleted: false } player
         && ClassCreation.Profiles.TryGet(player.Serial, out var profile) && profile.Class == characterClass ? player : null;
-    private static bool SourceField(CombatAbility ability)=>ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire;
+    private static bool SourceField(CombatAbility ability)=>ability is CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike;
     public static void Cancel(Mobile owner)
     {
         var ids = new List<long>();
@@ -167,7 +173,8 @@ public static class FireGround
         foreach (long id in ids) { _meteors.Remove(id); }
     }
     private static void Tick()=>Tick(TimedEffects.Now);
-    internal static void Tick(DateTime now)
+    internal static void Tick(DateTime now)=>Tick(now,null);
+    internal static void Tick(DateTime now,bool? allowActions)
     { _keys.Clear(); _keys.AddRange(_meteors.Keys);
         foreach (long id in _keys)
         {
@@ -216,9 +223,9 @@ public static class FireGround
             if ((now.Ticks / TimeSpan.TicksPerMillisecond / 40) % 5 == 0)
             { Effects.SendLocationEffect(point, owner.Map, 0x398C, 5, 10, 0x489, 0); } // Placeholder ground flame.
         }
-        TickSourceFields(now);
+        TickSourceFields(now,allowActions);
     }
-    private static void TickSourceFields(DateTime at)
+    private static void TickSourceFields(DateTime at,bool? allowActions)
     {
         var queue=new PriorityQueue<FirePatch,(DateTime,long)>();
         foreach(var value in _patches.Values)
@@ -226,9 +233,11 @@ public static class FireGround
         while(queue.TryDequeue(out var due,out _))
         {
             if(!_patches.TryGetValue(due.Id,out var patch) || patch.NextUtc!=due.NextUtc){continue;}
-            var owner=Owner(patch.Owner,patch.Ability==CombatAbility.FistsOfFire?DiabloClass.Assassin:DiabloClass.Amazon);
+            var owner=Owner(patch.Owner,patch.Ability==CombatAbility.ImmolationArrow?DiabloClass.Amazon:DiabloClass.Assassin);
             if(owner==null || patch.NextUtc>=patch.UntilUtc || owner.Map!=Map.Internal && (owner.Map.MapID!=patch.Map || SpellHelper.IsTown(owner.Location,owner)))
             {_patches.Remove(patch.Id);continue;}
+            if(patch.Ability==CombatAbility.PhoenixStrike && (owner.Map==Map.Internal || !(allowActions??owner.NetState is{Running:true})))
+            {if(patch.UntilUtc<=at){_patches.Remove(patch.Id);}else{_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};}continue;}
             if(owner.Map==Map.Internal){_patches[patch.Id]=patch with{NextUtc=at.AddMilliseconds(40)};continue;}
             var point=new Point3D((int)Math.Round(patch.X),(int)Math.Round(patch.Y),patch.Z);
             if(!owner.Map.CanFit(point,1,false,false,false)){_patches.Remove(patch.Id);continue;}
@@ -238,7 +247,7 @@ public static class FireGround
                 int damage=WeaponMissileDamage.RollValue(patch.Min256,patch.Max256,0,WeaponMissiles.DamageRoll);
                 // No GETHIT flag on the field; the separate19/128 SOFTHIT
                 // draw affects source result/refresh flags, never weapon procs.
-                ImmolationArrows.SoftHitRoll(128);
+                if(patch.Ability!=CombatAbility.PhoenixStrike){ImmolationArrows.SoftHitRoll(128);}
                 SkillCombat.FireFrame(owner,target,damage,patch.DamageRate);
             }
             if((patch.NextUtc.Ticks/TimeSpan.TicksPerMillisecond/40)%5==0)
@@ -261,9 +270,9 @@ public static class FireGround
         foreach (var patch in saved.Patches)
         {
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
-                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire)
+                || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || patch.Ability==CombatAbility.FistsOfFire && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
+                || patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || !double.IsFinite(patch.X + patch.Y) || !_patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             _nextId = Math.Max(_nextId, patch.Id);
         }

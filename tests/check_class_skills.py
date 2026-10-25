@@ -66,7 +66,7 @@ def check():
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(ROOT / 'tools/reference/dragon-kick-damage-source-evidence.json',folder / 'dragon-kick-damage-source-evidence.json')
         shutil.copy2(STAGE / 'assassin-claw-modern-rate-probe.json',folder / 'assassin-claw-modern-rate-probe.json')
-        for name in ['martial-lightning','thunder-damage','thunder-rate','missile-acceleration','martial-cold','ice-damage','ice-impact','ice-rate']:
+        for name in ['martial-lightning','thunder-damage','thunder-rate','missile-acceleration','martial-cold','ice-damage','ice-impact','ice-rate','phoenix-chain-init','phoenix-direction','phoenix-chaos','phoenix-damage','phoenix-meteor']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['cobra-strike','cobra-strike-composition','cobra-strike-builder']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
@@ -178,7 +178,7 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['phoenix-path','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

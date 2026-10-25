@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "reusedCompleteComposition": "tools/reference/fire-blast-landing-source-evidence.json",
+  "sourceHash": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+  "compiledAdditionalRoutines": {
+    "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter": "1113fd0573dd0ffbffe34ed894014d488d264a0bd3f8f32346acbdf5711053aa",
+    "MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor": "f54c079ceb702c12d0c809113f0f5117058648e8f2a253d794c29bb39de93ab5",
+    "MISSMODE_CreateMeteor_MoltenBoulderSubmissiles": "b60345be1230f9d5f9bc44e9f84ab6dd8321d2d31a93634073043271ce25dfb6"
+  },
+  "fixture": {
+    "path": ".local/class-skills/phoenix-meteor-source-probe.json",
+    "sha256": "00e08727e4d2dc2c536281ffac06ef16af76186b85e2283e2ebde67cf52fcdbd",
+    "cppSha256": "c2cbccadf7ad7080f1a510a528043679d507679b0cc9a8613b80c766bde8a1b8",
+    "cases": 288,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete generic do1/collision/router decrements a stationary center and invokes its AlwaysExplode hit4only on expiry. Current Range60therefore expires after60updates;positive remaining frames do not create the damaging meteor.",
+    "Full hit4creates child563from the center origin with retained280/rank,then immediately calls its full damage router with ending1. Full hit14rolls one copied area packet at radius6/filter0x8583,bCheckMonAuraFlag0.",
+    "Full field producer emits18source567positions with skill/rank/owner and30+15*(rank-1)override,flags0x8001;rank0control uses default range/no override. Failed meteor allocation prevents area/fields;failed individual fields do not suppress later attempts."
+  ],
+  "services": [
+    "Factory records parent-origin inheritance,exact request flags/coordinates/rank/range and controlled allocation failure;complete numeric creator/mastery/length/writer is separate1152-case evidence.",
+    "Copied area/filter/defense/health services inherit the bounded Fire Blast composition;actual geometry/PvP/NPC/life/procs are not executed here.",
+    "Current60frame constant and selected hit4/hit14table routes are supplied. Generic server frame scheduling,full owner/stat mutation and native warning/impact/field persistence remain separate."
+  ],
+  "limits": [
+    "Malformed missing-table routing is excluded:the complete older generic router dereferences its table after the collision wrapper delegates a missing record. Valid current rows are supplied; native validation must guard absent/changed tables rather than port that crash."
+  ],
+  "next": "Use a saved60frame warning;create impact/field packets from retained rank and current owner stats at expiry,then verify actual source fields and native input/lifecycle. No learned handler enabled."
+}
