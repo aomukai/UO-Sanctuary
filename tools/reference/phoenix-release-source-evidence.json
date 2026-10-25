@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "reusedCompleteComposition": "tools/reference/martial-lightning-source-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledAdditionalRoutines": {
+    "MISSILE_SetTargetY": "af3d66a6221ba76a361c1397904d237c3f52fbdcacf16c0025a69e3c289f6cd3",
+    "sub_6FCF6D70": "38caa57113c6afa164bf9b6323cb46b342ad812a371d34ece7da689e59238002",
+    "SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1": "0841220641fb6abcc119d33ba096bf0bf26ee372646a73fb3cd46b6ef5e6f364",
+    "SKILLS_SrvDo041_RoyalStrike_ProgressiveFn3": "0f01cad806a292e9a8edbdeed8ba17e43c9890e32b619fc5b5213bd26a019d28"
+  },
+  "fixture": {
+    "path": ".local/class-skills/phoenix-release-source-probe.json",
+    "sha256": "ad3096bc2002507b6f9c2d7692671a4edcc4c9ab1674afa7779963352ae447ce",
+    "cppSha256": "f4d37b4de67ea834b9f928e7dac0a647fd4b53cfa26c705a104272e20fcbebf6",
+    "cases": 3456,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Full progressive dispatcher with current prgstack0calls only the selected40/143/41tier,with rank/target/success/range/state gates. Old list removal remains a separate control.",
+    "Tier1requests one564meteor center. Tier2uses one owner draw only after valid coordinates and7step10directions,one private LCG seed per child,flags3and init callback,then sets each successful chain targetX7.",
+    "Tier3uses one owner draw before coordinate validation,then32private draws for16vector pairs;zero/zero becomes20/0. Failed allocations do not rewind RNG. Successful569children receive the current private low seed in targetX and packed uint16vector in targetY."
+  ],
+  "services": [
+    "Complete full source callbacks,progressive getters,dispatcher,LCG and target setters execute with current supplied280row/constants.",
+    "Factory records explicit requests,alternating allocation failure,and saved target fields. Falling-meteor factory,damage,clock,collision and event services are not compiled.",
+    "Charged initializer is an explicit service pointer and is not executed; current full chain path and chaos-ice movement/damage2 remain independent gates.",
+    "Stat lists/formulas/target/range services inherit the bounded parent harness. This is not a current executable,modern consume-one or native skill certificate."
+  ],
+  "next": "Compose complete selected missile creator/damage/movement/factory/control routes before enabling Phoenix. Effects/icons remain separate."
+}
