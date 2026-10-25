@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontalon",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledRoutines": {
+    "SKILLS_SrvSt24_DragonTalon": "a52a25f734acff209da22d706e9e2269890347cc9829519b4323c9556bbe97cf",
+    "SKILLS_SrvDo042_DragonTalon": "bc9c052e66ab95170b0c765aec9542f4a418bd66f74b3057942e196cf0163ed7"
+  },
+  "currentSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "fixture": {
+    "path": ".local/class-skills/dragon-talon-sequence-source-probe.json",
+    "sha256": "afd065899c36eae4538f53e9579ff3c3f727e2492f52ae659f0d4df9db0b5af8",
+    "startCases": 4080,
+    "sequenceCases": 3000,
+    "sanitizers": "ASan+UBSan"
+  },
+  "declaredServices": [
+    "Start packet builder is an observed call boundary, not compiled damage. Used-skill/record/selected-target/range services expose explicit presence controls.",
+    "Sequence charge dispatcher and durability functions are counters; they do not prove damage commitment or modern charge consumption. Formula service evaluates current floor(rank/6)+1 kick count and declared diminishing knockback formula; it is not compiled formula interpreter proof.",
+    "Category services select ordinary/unique/boss/hireling/player contexts; RNG returns declared integer controls. Source level reads execute literally. Null used skill in do42 is excluded because the routine dereferences it unconditionally."
+  ],
+  "established": [
+    "Start prepares one packet and stores total-kicks minus1 only with valid row/usedskill/selected target in melee range; selected missing target clears remaining count.",
+    "Each valid selected-target do42 calls charge dispatcher and durability before testing remaining kicks. Positive remaining count decrements and prepares another packet, calls durability again, and rewinds100percent only while further kicks remain.",
+    "Last follow-up kick selects category-specific diminishing knockback; initial single kick is marked knockback unconditionally by start24."
+  ],
+  "limits": [
+    "No damage/boot/property/charge-consumption/hit-guarantee/block/input/payment/timing or native handler certificate. This is complete older start/do42 control flow with declared services.",
+    "Current consume-one/guaranteed-hit policy postdates source and needs a separate identified adapter. Exact per-kick versus per-sequence modern behavior is not settled by this proof.",
+    "No copied arithmetic fragment is presented as full kick damage proof. Final visual/audio/icons are independently pending."
+  ]
+}

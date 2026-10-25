@@ -275,10 +275,11 @@
   "primaryNotes": "tools/reference/blade-fury-primary-notes.json",
   "damageEvidence": "tools/reference/blade-fury-damage-source-evidence.json",
   "pendingOptionalObservation": {
-    "status": "unanswered",
+    "status": "answered-unobserved",
     "blocking": false,
     "question": "D2R3.3.93847 Blade Fury: brief press/release before first blade still emits? Steady-stream release stops immediately or emits a tail?",
-    "instruction": "Record answer if received; do not repeat while pending. Continue independent weapon/projectile work."
+    "instruction": "Player has not used this skill. No release behavior was observed; do not repeat this question. Continue unaffected mechanics.",
+    "answer": "I don't know, I've never tried Blade Fury."
   },
   "sourceRateReview": {
     "compiledCompositionEvidence": "tools/reference/blade-fury-rate-source-evidence.json",
@@ -312,7 +313,7 @@
         "sub_6FCBD120"
       ]
     },
-    "optionalReleaseObservation": "Still pending and nonblocking; do not repeat the question.",
+    "optionalReleaseObservation": "Player has never tried Blade Fury; release behavior remains unobserved/nonblocking; do not repeat.",
     "fieldDocumentation": "tools/reference/blade-fury-primary-notes.json#fieldDocumentation",
     "releaseFinding": "Complete source stop0x12/state/list/resource composition and focused/full native suites now verify distinct cleared Inferno bit and retained timed list. The correction is installed; source timing is not a current client release certificate.",
     "modeEntryFlags": "Reviewed older XY/ID mode entry clears server-do flag64 before invoking the start wrapper. The bounded channel record defaults to64; production event dispatch must compose that caller step, rather than skipping its first action because it reused the fixture default.",
@@ -329,7 +330,7 @@
     "branch": "assassin.bladefury client/held frontend",
     "reason": "Server fresh mode/action/end/expiry and explicit start/stop callbacks are verified. Current client heartbeat/reentry and full fresh player mode entry over a surviving lease are not established; resetting the sequence and guessing the gate can produce an early shot or negative rewind.",
     "nextUnaffectedSkill": "assassin.tigerstrike",
-    "optionalReleaseObservationPending": true,
+    "optionalReleaseObservationPending": false,
     "backendPreserved": true
   }
 }

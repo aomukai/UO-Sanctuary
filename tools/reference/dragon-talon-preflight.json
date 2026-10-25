@@ -1,0 +1,123 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontalon",
+  "status": "Next skill; source review only, no native handler",
+  "installed": false,
+  "nonblocking": true,
+  "source": {
+    "skillId": 255,
+    "skillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "fields": {
+      "skill": "Dragon Talon",
+      "*Id": 255,
+      "charclass": "ass",
+      "skilldesc": "dragon talon",
+      "srvstfunc": 24,
+      "srvdofunc": 42,
+      "stsound": "assassin_kick_1",
+      "cltstfunc": 6,
+      "cltdofunc": 4,
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "h2h",
+      "weapsel": 4,
+      "anim": "KK",
+      "seqtrans": "KK",
+      "monanim": "A1",
+      "seqnum": 19,
+      "TargetableOnly": 1,
+      "SearchEnemyXY": 1,
+      "AttackNoMana": 1,
+      "reqlevel": 1,
+      "maxlvl": 20,
+      "leftskill": 1,
+      "rightskill": 1,
+      "minmana": 1,
+      "manashift": 8,
+      "mana": 6,
+      "lvlmana": 0,
+      "finishing": 1,
+      "prgchargestocast": 0,
+      "prgchargesconsumed": 1,
+      "calc1": "lvl/6+1",
+      "*calc1 desc": "# of kicks",
+      "calc2": "dm34",
+      "*calc2 desc": "Knockback % VS Unique Monster",
+      "calc3": "dm56",
+      "*calc3 desc": "Knockback % VS Boss",
+      "calc4": "dm56",
+      "*calc4 desc": "Knockback % VS Player",
+      "Param1": 5,
+      "*Param1 Description": "Damage % baseline",
+      "Param2": 7,
+      "*Param2 Description": "Damage % per level",
+      "Param3": 50,
+      "*Param3 Description": "Knockback % VS Unique Monster Min",
+      "Param4": 100,
+      "*Param4 Description": "Knockback % VS Unique Monster Max",
+      "Param5": 25,
+      "*Param5 Description": "Knockback % VS Boss Min",
+      "Param6": 99,
+      "*Param6 Description": "Knockback % VS Boss Max",
+      "Param8": 1,
+      "*Param8 Description": "Always Hit (0 = disabled | 1 = enabled only when Charges are consumed)",
+      "InGame": 1,
+      "ToHit": 20,
+      "LevToHit": 35,
+      "Kick": 1,
+      "HitShift": 8,
+      "aitype": 4,
+      "cost mult": 256,
+      "cost add": 1000,
+      "lineNumber": 255
+    }
+  },
+  "legacyReview": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "files": {
+      "D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+      "D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+    },
+    "routines": [
+      "SKILLS_SrvSt24_DragonTalon",
+      "sub_6FCF7BC0",
+      "sub_6FCF7CE0",
+      "SKILLS_SrvDo042_DragonTalon",
+      "SKILLS_GetMinPhysDamage",
+      "SKILLS_GetMaxPhysDamage",
+      "SKILLS_CalculateKickDamage",
+      "sub_6FCF77E0"
+    ]
+  },
+  "primaryModernPolicy": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "reviewedOn": "2026-10-25",
+    "finding": "Released2.4 notes say Dragon Talon consumes one of each martial charge and always hits only when the Assassin has charges. Current pinned finishing/prgchargesconsumed1/Param8=1 fields agree. Older complete routines predate this change; do not infer modern bypass-block or per-sequence versus per-kick consumption from the old all-state removal."
+  },
+  "reviewedFindings": [
+    "Start24 sets remaining kicks to floor(rank/6) and allocates the first hit packet immediately. Source do42 commits charge payload for the current contact before durability, decrements remaining count, and allocates the next packet. Do not reuse Tiger/Cobra release-time preparation blindly.",
+    "Kick body base endpoints use max(1,str+dex-20)/4 and /3 before FP256 shift; base skill/Tiger ED and boot damage ED are separate source terms. Complete source routines and boundary comparisons are required before using these as native mechanics.",
+    "Boot base min/max and StrBonus/DexBonus are present in pinned armor source; use real catalogue base identities including exceptional/elite boots. EquipmentBalance currently has raw named source access but no dedicated kick consumer.",
+    "Kick damage helper temporarily unmerges both owned/equippable weapon stat lists, restores main selection, and applies nonweapon fill before Cobra percentages. Ordinary weapon damage must not be substituted. Full weapon property eligibility/event ordering must be traced.",
+    "Last-kick knockback is source-calculated with ordinary/unique/boss/player contexts; single initial kick uses a separate immediate path. do42 includes a suspicious level expression subtracting the same target level twice; retain source observation without silently correcting or asserting modern behavior.",
+    "Old charge consumer removes all active lists after successful in-range packets. Current consume-one and guaranteed-hit behavior need an explicitly identified modern adapter and verification; existing Tiger/Cobra expiry/AR policy remains provisional."
+  ],
+  "reusable": [
+    "Independent saved Tiger/Cobra states and rank selection; consume-one API, cancellation/death/history lifecycle and source player drain packet",
+    "Existing prepared melee packets, FP256 mitigation/resources, mapped shield block, natural socket input and reload fixtures",
+    "Named catalogue raw source fields, equipment base/tier identity, selected-hand stat contexts; source knockback geometry where supported"
+  ],
+  "required": [
+    "Compile unchanged complete kick start/builder/damage/sequence routines with declared services; distinguish extracted arithmetic from complete control-flow proof.",
+    "Trace KK/sequence19 mode/action scheduling and repeated-kick event order; verify payment once, insufficient-mana approved ordinary-Attack fallback, selected-target death/range loss and cancellation.",
+    "Implement real boot/nonweapon property capture and kick-specific damage; prove selected claw/offhand/boot changes, Tiger/Cobra coexistence, success/miss/block/immunity, life/mana recovery and predeath order.",
+    "Resolve modern per-kick/per-sequence charge consumption and hit guarantee semantics from current executable or authoritative evidence, or flag individually unsupported contexts; no invented behavior.",
+    "Run focused/full suites with real input and two actual reloads, preserve installed build/saves, update roadmap and separate assets after passing."
+  ],
+  "assets": {
+    "effects": "Kick pose/impact, final-kick knockback and martial charge releases need final visuals/audio; use labelled native pose/flash placeholders only.",
+    "icons": "Talent tree and left/right/quick bindings remain separately inventoried."
+  },
+  "sourceEvidence": "tools/reference/dragon-talon-sequence-source-evidence.json",
+  "preparedProof": "4080 complete older start and3000 complete sequence controls execute unchanged routines under ASan/UBSan, with explicit call-boundary services. Damage/payment/timing/modern consumption remain unproved."
+}

@@ -34,15 +34,16 @@
       "Three actual socket sequences produce naturally timed paid charge hits then ordinary-Attack leech, with no direct release calls for those sequences. Source RNG hooks are identified controls, not executable seed equivalence."
     ],
     "fixtureNotes": [
-      "Difficulty fixture initially attempted to assign a custom OnThink-free subclass; project API only accepts supported exact monster types. Dedicated synchronous difficulty checks now use actual GraveyardZombie variants; saved/natural Normal targets reuse the existing non-regenerating subclass.",
-      "The asynchronous socket fixture originally passed through the synchronous control wrapper, restoring RNG hooks too soon. It now owns those controls through its final timer callback; production combat code was unchanged by this fixture correction."
+      "Difficulty fixture initially attempted to assign a custom OnThink-free subclass; project API only accepts supported exact monster types. Dedicated synchronous difficulty checks now use actual GraveyardZombie variants; saved/natural Normal targets use an explicit non-regenerating, nonretaliating serialized normal-Zombie fixture.",
+      "The asynchronous socket fixture originally passed through the synchronous control wrapper, restoring RNG hooks too soon. It now owns those controls through its final timer callback; production combat code was unchanged by this fixture correction.",
+      "First full suite failed on second reload: owner life lost256FP256. A delayed focused reproduction isolated life loss; an idle observation showed the damaged saved monster retained a combatant. Temporary Frozen does not provide persistent nonretaliation. Saved/natural Normal targets now use an explicitly passive serialized GraveyardZombie fixture with CanBeHarmful=false and no regeneration/OnThink. Production runtime content is unchanged by this fixture correction. Corrected focused3boots/2reloads pass with an8second idle resource assertion before second save; full rerun pending."
     ]
   },
   "candidate": {
     "contentSha256": "27a12e65e2b07e34e2557c951e8d1e000ef43cd115463392b4a1e14a89b2e8fc",
-    "integrationSha256": "89ee0ff584c0d61c8a7c4502865fd73712a9cae11e933b85b055064e9d4a2870"
+    "integrationSha256": "1b2f4db548ed64303bd807a3b363274cfe55a15defd22399de2a0c62e43905e6"
   },
-  "fullRegression": "pending",
+  "fullRegression": "First full run failed at second reload due outgoing-damage fixture allowing retaliation; final integration fixture rerun pending, runtime content unchanged.",
   "limits": [
     "Current per-creature difficulty projection reuses the existing source WeaponLeech adapter. Full facet/global difficulty acceptance remains separate.",
     "Current finisher retained expiry/proportional AR and cached A1 timing retain Tiger explicitly provisional adapters; modern executable/dual-hand/transformed/foreign-class/stat/seed/geometry and held-cursor acceptance remain open.",

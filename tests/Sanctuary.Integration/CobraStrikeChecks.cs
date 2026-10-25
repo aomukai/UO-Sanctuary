@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using Server;
+using Server.Collections;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -12,6 +13,20 @@ using Server.Network;
 
 namespace Sanctuary.Integration;
 
+// A damage receiver for outgoing leech/reload tests. Native temporary Frozen
+// is neither persistent nor a promise that a damaged monster cannot retaliate.
+public sealed class CobraPassiveTarget:GraveyardZombie
+{
+    public CobraPassiveTarget(){}
+    public CobraPassiveTarget(Serial serial):base(serial){}
+    public override bool CanRegenHits=>false;
+    public override bool CanRegenMana=>false;
+    public override void OnThink(){}
+    public override void OnSectorActivate()=>AIObject?.AITimer.Stop();
+    public override bool CanBeHarmful(Mobile target,bool message,bool ignoreOurBlessedness)=>false;
+    public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+    public override void Deserialize(IGenericReader reader){base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Cobra passive fixture version");}}
+}
 public sealed class CobraDeathTarget:GraveyardZombie
 {
     public static Action Died;
@@ -37,7 +52,7 @@ public static class CobraStrikeChecks
         Mobile.HitsRegenRateHandler=x=>Creating || x.Name?.StartsWith("CobraFixture",StringComparison.Ordinal)==true?TimeSpan.FromHours(1):hp?.Invoke(x)??Mobile.DefaultHitsRate;
         Mobile.ManaRegenRateHandler=x=>Creating || x.Name?.StartsWith("CobraFixture",StringComparison.Ordinal)==true?TimeSpan.FromHours(1):mp?.Invoke(x)??Mobile.DefaultManaRate;
     }
-    public static void Configure(){Rates();Register("cobra-strike-check",Check);Register("cobra-strike-reload-check",Reload);Register("cobra-strike-input-check",Input);}
+    public static void Configure(){Rates();Register("cobra-strike-check",Check);Register("cobra-strike-reload-check",Reload);Register("cobra-strike-input-check",Input);Register("cobra-strike-idle-check",Observe);}
     [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Cobra Strike shared charge action, source player drain, input and world reload",_=>Core.LoopContext.Post(()=>
     {try{if(name=="cobra-strike-input-check"){action();}else{Controlled(action);}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
@@ -57,7 +72,7 @@ public static class CobraStrikeChecks
     {
         Creating=true;try
         {
-            BaseCreature t=skeleton?new GraveyardSkeleton():death?new CobraDeathTarget():difficulty!=MonsterDifficulty.Normal?new GraveyardZombie():new BladeMissileTarget();
+            BaseCreature t=skeleton?new GraveyardSkeleton():death?new CobraDeathTarget():difficulty!=MonsterDifficulty.Normal?new GraveyardZombie():new CobraPassiveTarget();
             if(difficulty!=MonsterDifficulty.Normal){MonsterVariants.Assign(t,difficulty);}t.Name="CobraFixtureTarget";t.Frozen=t.CantWalk=true;t.NoKillAwards=true;t.AIObject?.AITimer.Stop();t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.SetHits(50000);t.Hits=t.HitsMax;t.SetMana(100);NecromancerEffects.SetMana256(t,100*256+17);
             foreach(var k in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){t.SetResistance(k,0);}return t;
         }finally{Creating=false;}
@@ -169,10 +184,16 @@ public static class CobraStrikeChecks
         p=Fresh(5880);AssassinCharges.Gain(p,Values(1));Require(ClassCreation.Profiles.TryActivateHistory(p,DiabloClass.Paladin) && !AssassinCharges.Any(p) && ClassCreation.Profiles.TryActivateHistory(p,DiabloClass.Assassin),"History retained Cobra");AssassinCharges.Gain(p,Values(1));ClassCreation.Profiles.TryGet(p.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(p,profile);Require(!AssassinCharges.Any(p),"Respec retained Cobra");Require(ClassCreation.Profiles.TryTrain(p.Serial,"assassin.tigerstrike",out _) && ClassCreation.Profiles.TryTrain(p.Serial,"assassin.cobrastrike",out _),"Retrain");AssassinCharges.Gain(p,Values(1));p.Kill();p.Resurrect();Require(!AssassinCharges.Any(p),"Death retained Cobra");p.Corpse?.Delete();p.Delete();
     }
     private static void Check(){Differential();var p=Fresh();Cases(p);Delivery(p);GearAndSave(p);Lifecycle();}
+    private static string DamageTrace(Mobile p){string result="";foreach(var x in p.DamageEntries.ByDescending()){result+=$"{x.Damager?.Serial}/{x.Damager?.Name}:{x.DamageGiven};";}return result;}
+    private static void Observe(){var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=World.FindMobile((Serial)s.Owner);var t=World.FindMobile((Serial)s.Target);Require(!t.CanBeHarmful(p,false) && SkillHealth.Balance256(p)==s.OwnerLife && NecromancerEffects.ManaBalance256(p)==s.Mana,"Idle fixture changed saved outgoing-hit resources");Log.Information("Cobra idle observation: life={Life}, expected={Expected}, damage={Trace}, target={Target}, combatant={Combatant}",SkillHealth.Balance256(p),s.OwnerLife,DamageTrace(p),t.Serial,t.Combatant?.Serial);}
     private static void Reload()
     {
         Differential();var s=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)s.Owner);var t=(BaseCreature)World.FindMobile((Serial)s.Target);var pending=(PlayerMobile)World.FindMobile((Serial)s.Pending);
-        Require(AssassinCharges.Finisher(p).SequenceEqual(s.Charges) && NecromancerEffects.ManaBalance256(p)==s.Mana && SkillHealth.Balance256(p)==s.OwnerLife && SkillHealth.Balance256(t)==s.Life && NecromancerEffects.ManaBalance256(t)==s.TargetMana,"Saved separate states/resources/injury");Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None && !AssassinCharges.Any(pending) && NecromancerEffects.ManaBalance256(pending)==s.PendingMana,"Paid pending replay/refund");
+        Require(AssassinCharges.Finisher(p).SequenceEqual(s.Charges),"Saved independent charges: actual="+JsonSerializer.Serialize(AssassinCharges.Finisher(p))+" expected="+JsonSerializer.Serialize(s.Charges));
+        Require(NecromancerEffects.ManaBalance256(p)==s.Mana,$"Saved owner mana: {NecromancerEffects.ManaBalance256(p)} expected {s.Mana}");
+        Require(SkillHealth.Balance256(p)==s.OwnerLife,$"Saved owner life: {SkillHealth.Balance256(p)} expected {s.OwnerLife}; damage="+DamageTrace(p)+" target="+t.Serial+" target combatant="+t.Combatant?.Serial);
+        Require(SkillHealth.Balance256(t)==s.Life,$"Saved victim life: {SkillHealth.Balance256(t)} expected {s.Life}");
+        Require(NecromancerEffects.ManaBalance256(t)==s.TargetMana,$"Saved victim mana: {NecromancerEffects.ManaBalance256(t)} expected {s.TargetMana}");Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None && !AssassinCharges.Any(pending) && NecromancerEffects.ManaBalance256(pending)==s.PendingMana,"Paid pending replay/refund");
         p.MoveToWorld(s.Origin,Map.Trammel);Require(CombatTiming.Equipped(p)?.Serial.Value==s.Primary && WeaponHands.Pair(p)?.Secondary.Serial.Value==s.Secondary,"Saved selected hand");Finish(p,t);Hold(p,s.Charges);SkillHealth.SetBalance256(p,s.OwnerLife);NecromancerEffects.SetMana256(p,s.Mana);SkillHealth.SetBalance256(t,s.Life);NecromancerEffects.SetMana256(t,s.TargetMana);
     }
     private static void Input()
