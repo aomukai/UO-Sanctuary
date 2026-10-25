@@ -1,0 +1,163 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeofinferno",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/SKILLS/SkillMonst.cpp": "2f5e399e347540b916b5390a308b2ffe40218f4b771267a6059fbfd394097d4d",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledRoutineHashes": {
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "SKILLS_SrvSt53_MonInferno": "d917bf69195a3a002e40c4d3a054ae270853d7b739a8635b8b155f2b51e8496e",
+    "SKILLS_SetInfernoFrame": "867f7b71c2cc879c1abb321a5b8d27af4322b55ecda3abb5af11ec9203ee7c4c",
+    "SKILLS_SrvDo095_MonInferno": "dada47cdb177dc1ade33867965f04bd2a425b97cfefb082755d2590ae66c080f",
+    "SKILLS_UpdateInfernoAnimationParameters": "45284dc054f57d39f417f729eb5f94288047d7dcbbb4f1908648a48139f22760",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "localModeEvidence": "tools/reference/d2r-local-monmode-evidence.json",
+  "currentSequence": {
+    "path": ".local/research/d2r-3.3.93847/monseq-inferno-verified.txt",
+    "sha256": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c",
+    "points": 14,
+    "actionIndex": 9,
+    "records": [
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "1",
+        "dir": "",
+        "event": "1",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      }
+    ]
+  },
+  "fixture": {
+    "path": ".local/class-skills/inferno-sentry-channel-source-probe.json",
+    "sha256": "bc1b0b9210ca50840f979b2665a0870a45f44fd52d7593eb06cd12023ad0ffb9",
+    "cases": 4608
+  },
+  "established": [
+    "Complete NPC start53 stores current frame+15+hard Wake of Fire and enables Inferno state. Complete do95 emits through flags37/absolute aim/supplied velocity, then applies the duration helper and animation fields.",
+    "The complete factory initially uses50frames and velocity12*256*75/100=2304FP8. The complete updater replaces total/current frames and path distance with20+hard Wake, and missile animation speed with3840/duration. DamageRate82 remains its source reduction-scaling stat.",
+    "Before the deadline and with Inferno state present, successful emission deletes end/mode events and requests another mode event after3frames. At/after the deadline or with state absent, it still emits this shot, then schedules end animation after model InfernoLen14; missing model uses11.",
+    "Missing aim or allocation schedules the same model14/fallback11 end and returns0. Missing skill/used skill/missile row returns0 without emission or new end event.",
+    "The current xx/sequence14 branch rewrites dwSeqFrame to8 plus its existing37/256 fraction and dwFrameCountPrecise to10*256. The separate dwSeqFrameCount stays14*256, matching the current14-entry sequence with action1 at index9. The nonsequence control sets only visual frame9. These fields are not interchangeable; a generic non-rewinding firing controller is not equivalent."
+  ],
+  "services": [
+    "Existing complete Guided Arrow factory harness supplies allocation/room/path/seed/damage/stat/event services. Formula service returns current table20+hard,15+hard and3; direct formula parsing, density conductor and outer AI101/sequence dispatch are separate.",
+    "Used skill/state/event accessors and model presence are declared services. UNITS_SetAnimationFrame is the complete original body. Current local text/binary data identifies raw monanim xx as sequence index14. Mode14 is the current-row source branch; numeric mode0 is a comparison control. This does not claim a modern executable code trace.",
+    "No native Inferno actor, source-zero beam damage/collision, LastCollide spacing, full sequence/event interleaving, retirement, learned input, modern executable or rendered graphics is certified. The separate damage-source proof remains linked by the preflight."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

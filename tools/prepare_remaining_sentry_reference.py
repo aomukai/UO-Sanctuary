@@ -82,6 +82,11 @@ def build(check=False):
             e['required']=['Prepared saved actor/real straight Size2 bolt passes focused three boots/two reloads and connected clocks. Deployment/full regression status is recorded in linked native evidence.',
                            'Learned do45 placement/payment acceptance and complete retirement/death/GUID chronology remain individually gated. Zero-velocity path flags and inherited sunder remain explicitly unsupported; modern geometry/order/RNG/client acceptance remains open.']
             e['limits'][1]='This preflight does not certify learned placement, retirement or class completion. The linked native component evidence separately records actual actor/projectile/damage/reload checks.'
+        if source_id==272:
+            e['compiledChannelEvidence']='tools/reference/inferno-sentry-channel-source-evidence.json'
+            e['inspectedLegacy']['scope']='These are inspection hashes; compiledChannelEvidence separately records complete executed source bodies. No modern executable certificate.'
+            e['localModeEvidence']='tools/reference/d2r-local-monmode-evidence.json'
+            e['required'][0]='Complete NPC53/95, frame helpers and factory execute4608current-row/control contexts. Fresh current monmode text/binary identifies xx as sequence14; freshly corroborated Inferno sequence has14entries/action1atindex9. Do95 rewinds the sequence point to8 and remaining time10 while retaining sequence length14, requests emissions after3frames before the15+hardWake deadline, and uses model14-frame end/fallback11. Next compose AI101, full mode14 event/server-do flags and sequence interleaving before a native beam controller.'
         out=ROOT/'tools/reference'/f'{stem}-preflight.json';encoded=json.dumps(e,indent=2)+'\n'
         if check:assert out.read_text()==encoded,stem+' preflight stale'
         else:out.write_text(encoded)

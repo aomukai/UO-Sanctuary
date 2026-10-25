@@ -1,0 +1,140 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "reader": {
+    "library": "https://github.com/ladislav-zezula/CascLib",
+    "commit": "38a34665624b8775bb875274b36191b21c38d97b",
+    "build": "Release static, Linux compatibility compiler define LPDWORD=PDWORD; no source body patch",
+    "sourcePath": ".local/class-skills/casc-reference-reader.cpp",
+    "sourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "open": "CascOpenStorage local/offline default flags0; CascOpenFile by name with CASC_STRICT_DATA_CHECK, no encrypted-zero override or downloads"
+  },
+  "files": {
+    "txt": {
+      "path": ".local/research/d2r-3.3.93847/monmode.txt",
+      "archivePath": "data:data/global/excel/monmode.txt",
+      "size": 238,
+      "sha256": "2663c45b5ca74916db0114335babe7fc6dd9d357322892df501f7850e4385b52"
+    },
+    "bin": {
+      "path": ".local/research/d2r-3.3.93847/monmode.bin",
+      "archivePath": "data:data/global/excel/monmode.bin",
+      "size": 580,
+      "sha256": "71792aaa383158063667adddc1dd22a0ddea1cb03ecb076a80f4bf8db4df6a9d"
+    }
+  },
+  "rows": [
+    {
+      "index": 0,
+      "name": "death",
+      "code": "DT",
+      "token": "DT"
+    },
+    {
+      "index": 1,
+      "name": "neutral",
+      "code": "NU",
+      "token": "NU"
+    },
+    {
+      "index": 2,
+      "name": "walk",
+      "code": "WL",
+      "token": "WL"
+    },
+    {
+      "index": 3,
+      "name": "gethit",
+      "code": "GH",
+      "token": "GH"
+    },
+    {
+      "index": 4,
+      "name": "attack1",
+      "code": "A1",
+      "token": "A1"
+    },
+    {
+      "index": 5,
+      "name": "attack2",
+      "code": "A2",
+      "token": "A2"
+    },
+    {
+      "index": 6,
+      "name": "block",
+      "code": "BL",
+      "token": "BL"
+    },
+    {
+      "index": 7,
+      "name": "cast",
+      "code": "SC",
+      "token": "SC"
+    },
+    {
+      "index": 8,
+      "name": "skill1",
+      "code": "S1",
+      "token": "S1"
+    },
+    {
+      "index": 9,
+      "name": "skill2",
+      "code": "S2",
+      "token": "S2"
+    },
+    {
+      "index": 10,
+      "name": "skill3",
+      "code": "S3",
+      "token": "S3"
+    },
+    {
+      "index": 11,
+      "name": "skill4",
+      "code": "S4",
+      "token": "S4"
+    },
+    {
+      "index": 12,
+      "name": "dead",
+      "code": "DD",
+      "token": "DD"
+    },
+    {
+      "index": 13,
+      "name": "knockback",
+      "code": "KB",
+      "token": "GH"
+    },
+    {
+      "index": 14,
+      "name": "sequence",
+      "code": "xx",
+      "token": "xx"
+    },
+    {
+      "index": 15,
+      "name": "run",
+      "code": "RN",
+      "token": "RN"
+    }
+  ],
+  "sequence": {
+    "index": 14,
+    "name": "sequence",
+    "code": "xx",
+    "token": "xx"
+  },
+  "established": [
+    "Strict read-only local CASC extraction yielded current monmode.txt238bytes and monmode.bin580bytes while pinned build metadata still matched3.3.93847.",
+    "All16text row names/tokens match the bounded binary header and36-byte row layout. Sequence is index14, with code/token xx. Current skill311 monanim xx therefore selects the sequence14 branch in the paired reconstructed source probe.",
+    "Code and animation token are distinct: knockback index13 uses code KB but token GH. The binary comparison validates stored name/token, not a guessed stored code field."
+  ],
+  "limits": [
+    "This is a bounded data-layout comparison, not a general modern binary compiler/parser or executable certificate. The modern36-byte binary rows differ from the old four-byte stub and are not parsed using the old ABI.",
+    "Sequence identity does not by itself prove live action, rewind/density, AI, rate, event ordering, missile collision or retirement. Those require their own composed source/native evidence."
+  ]
+}
