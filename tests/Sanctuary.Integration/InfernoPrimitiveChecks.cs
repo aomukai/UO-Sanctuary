@@ -69,7 +69,7 @@ public static class InfernoPrimitiveChecks
                     Require(first.Hits == a && next.Hits == b - 10, "Immune collision stopped the piercing flame or broke immunity");
                     first.SetResistance(ResistanceType.Fire, 0);
                     var held = main with { Frame = 5, X = owner.X + 1.40625, LastCollision = first.Serial.Value,
-                        NextUtc = TimedEffects.Now.AddMinutes(10), UntilUtc = TimedEffects.Now.AddMinutes(10).AddMilliseconds(480) };
+                        NextUtc = TimedEffects.Now.Add(FixtureSpace.Retention), UntilUtc = TimedEffects.Now.Add(FixtureSpace.Retention).AddMilliseconds(480) };
                     InfernoFlames.Restore(InfernoFlames.Snapshot().Append(held).ToArray());
                     File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, first.Serial.Value, next.Serial.Value, held)));
                     _log.Information("inferno-primitives-result: passed");

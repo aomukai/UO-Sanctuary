@@ -153,7 +153,7 @@ public static class PaladinResourceChecks
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
         Select(owner,CombatAbility.Cleansing);Select(meditation,CombatAbility.Meditation);
-        var at=TimedEffects.Now.AddMinutes(10);uint[] owners=[owner.Serial.Value,prayer.Serial.Value,meditation.Serial.Value];
+        var at=TimedEffects.Now.Add(FixtureSpace.Retention);uint[] owners=[owner.Serial.Value,prayer.Serial.Value,meditation.Serial.Value];
         var snapshot=PaladinAuras.Snapshot();snapshot=snapshot with
         {Emitters=snapshot.Emitters.Select(x=>owners.Contains(x.Owner)?x with{NextUtc=at,FlatManaNumerator=x.Owner==prayer.Serial.Value?123:0}:x).ToArray(),
          Leases=snapshot.Leases.Select(x=>owners.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};

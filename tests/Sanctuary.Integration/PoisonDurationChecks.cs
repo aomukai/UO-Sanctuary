@@ -47,7 +47,7 @@ public static class PoisonDurationChecks
             // claim that the unfinished Jav packet/regen consumer is integrated.
             Require(TimedEffects.Poison(source,target,duration/1000.0,duration,start),"Long duration rejected by runtime");TimedEffects.Settle(target,start.AddSeconds(1));var state=State(target);Require(state.PoisonMs==duration-1000 && state.PoisonMs>60000 && target.Hits==1999,"Initial long poison elapsed state");saved[i]=new(target.Serial.Value,rank,target.Hits,SkillHealth.Balance256(target),state);
         }
-        uint[] ids=saved.Select(x=>x.Serial).ToArray();Hold(ids,TimedEffects.Now.AddMinutes(10));Roundtrip();
+        uint[] ids=saved.Select(x=>x.Serial).ToArray();Hold(ids,TimedEffects.Now.Add(FixtureSpace.Retention));Roundtrip();
         for(int i=0;i<saved.Length;i++)
         {
             var target=World.FindMobile((Serial)saved[i].Serial);var row=State(target);Require(row.PoisonMs==saved[i].State.PoisonMs && row.PoisonRate==saved[i].State.PoisonRate,"Long poison real serializer roundtrip");
@@ -67,7 +67,7 @@ public static class PoisonDurationChecks
             int elapsed=saved.Generation==0?400:600;var resumed=old.State with{UpdatedUtc=now};TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==old.Serial?resumed:x).ToArray());TimedEffects.Settle(target,now.AddMilliseconds(elapsed));var state=State(target);double accrued=old.State.PoisonFraction+elapsed*old.State.PoisonRate;int raw=(int)Math.Floor(accrued*256+1e-9);
             Require(SkillHealth.Balance256(target)==old.Balance256-raw && state.PoisonMs==old.State.PoisonMs-elapsed && state.PoisonSource==saved.Source && Math.Abs(state.PoisonFraction-(accrued-raw/256.0))<1e-9,"Resumed long poison elapsed fraction/repayment");rows[i]=old with{Health=target.Hits,Balance256=SkillHealth.Balance256(target),State=state};
         }
-        Hold(rows.Select(x=>x.Serial).ToArray(),now.AddMinutes(10));for(int i=0;i<rows.Length;i++){rows[i]=rows[i] with{State=State(World.FindMobile((Serial)rows[i].Serial))};}
+        Hold(rows.Select(x=>x.Serial).ToArray(),now.Add(FixtureSpace.Retention));for(int i=0;i<rows.Length;i++){rows[i]=rows[i] with{State=State(World.FindMobile((Serial)rows[i].Serial))};}
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Generation=saved.Generation+1,Targets=rows}));
     }
 }

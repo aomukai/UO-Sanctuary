@@ -128,7 +128,7 @@ public static class TauntChecks
     private static void Seed(PlayerMobile owner,GraveyardSkeleton target)
     {
         var now=TimedEffects.Now;Train(owner,CombatAbility.Taunt,20);owner.Mana=owner.ManaMax;NecromancerEffects.Profiles.Clear(target);target.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);Cast(owner,target);Require(NecromancerEffects.Curse(target)?.Rank==20,"Saved learned-rank Taunt");Stop(target,true);Think(target);
-        var curse=NecromancerEffects.Curse(target);curse=curse with{Terror=curse.Terror with{NextUtc=now.AddMinutes(10)}};Replace(target,curse);
+        var curse=NecromancerEffects.Curse(target);curse=curse with{Terror=curse.Terror with{NextUtc=now.Add(FixtureSpace.Retention)}};Replace(target,curse);
         var statsOnly=Enemy(owner,12);Stop(statsOnly,true);var vanished=Fresh(owner);Require(BarbarianTaunt.Apply(vanished,statsOnly,1,now),"Saved stat-only seed");vanished.Delete();Think(statsOnly);Require(SourceTerror.State(statsOnly)==null && NecromancerEffects.Curse(statsOnly)?.UntilUtc==DateTime.MaxValue,"AI exit stat preservation seed");
         var control=Enemy(owner,15);Stop(control,true);NecromancerEffects.SetMana256(owner,NecromancerEffects.ManaBalance256(owner)-17);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,control.Serial.Value,statsOnly.Serial.Value,owner.Location,owner.Map.MapID,NecromancerEffects.ManaBalance256(owner),curse,ClassStats.AttackRating(target))));

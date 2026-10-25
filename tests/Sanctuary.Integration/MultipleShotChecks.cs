@@ -124,7 +124,7 @@ public static class MultipleShotChecks
     {
         var p=Fresh();Train(p,CombatAbility.MultipleShot,4);var bow=NamedGear.Create("unique/65",99,new Random(53),true);p.AddToBackpack(bow);Require(p.EquipItem(bow),"Saved actual Hellclap");
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.MultipleShot) && SkillBindings.Instance.Assign(p,false,CombatAbility.MultipleShot) && SkillBindings.Instance.AssignQuick(p,4,CombatAbility.MultipleShot),"Saved bindings");
-        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var fan=Cast(p,target:target);var until=TimedEffects.Now.AddMinutes(10);fan=fan.Select(x=>x with{NextUtc=until}).ToArray();Hold(p,fan);
+        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var fan=Cast(p,target:target);var until=TimedEffects.Now.Add(FixtureSpace.Retention);fan=fan.Select(x=>x with{NextUtc=until}).ToArray();Hold(p,fan);
         Require(SkillHealth.Balance256(target)==50000*256,"Instant instead of travelling fan damage");Ready(p);
         Require(ClassCombat.Perform(p,CombatAbility.MultipleShot,null,Aim(p),Core.TickCount),"Saved paid/unemitted fan windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,ammo.Serial.Value,p.Location,fan,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),ammo.Amount)));
@@ -139,7 +139,7 @@ public static class MultipleShotChecks
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Flights[0].Map]);var bow=World.FindItem((Serial)saved.Bow);p.AddToBackpack(bow);
         int expected=NamedElements.To256(saved.Flights[0].Damage.Roll(target,_=>0).Total);Hold(p,saved.Flights.Select(x=>x with{NextUtc=TimedEffects.Now}).ToArray());Finish(p);
         Require(SkillHealth.Balance256(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana && ammo.Amount==saved.Quantity,"Fan shotgun/NHD or resumed resource repayment");
-        var until=TimedEffects.Now.AddMinutes(10);var held=saved.Flights.Select(x=>x with{NextUtc=until}).ToArray();Hold(p,held);Require(p.EquipItem(bow),"Reload bow re-equip");Ready(p);
+        var until=TimedEffects.Now.Add(FixtureSpace.Retention);var held=saved.Flights.Select(x=>x with{NextUtc=until}).ToArray();Hold(p,held);Require(p.EquipItem(bow),"Reload bow re-equip");Ready(p);
         Require(ClassCombat.Perform(p,CombatAbility.MultipleShot,null,Aim(p),Core.TickCount),"Saved next paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flights=held,Health=SkillHealth.Balance256(target),Mana=NecromancerEffects.ManaBalance256(p)}));
     });

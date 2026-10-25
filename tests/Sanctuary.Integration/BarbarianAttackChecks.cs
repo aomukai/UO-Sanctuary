@@ -54,7 +54,7 @@ public static class BarbarianAttackChecks
     private static void Freeze(Mobile actor)
     {
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
-        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(10)}:x).ToArray());
+        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray());
     }
     private static void Resist(BaseCreature target,int physical)
     {
@@ -173,11 +173,11 @@ public static class BarbarianAttackChecks
     {
         Stop(enemy);Stop(control);Freeze(owner);Freeze(enemy);Freeze(control);Ready(owner);Mana(owner);
         Require(SkillBindings.Instance.Assign(owner,true,CombatAbility.Bash) && SkillBindings.Instance.Assign(owner,false,CombatAbility.Stun),"Saved attack bindings");
-        var state=CombatStuns.Snapshot().Single(x=>x.Target==control.Serial.Value) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
+        var state=CombatStuns.Snapshot().Single(x=>x.Target==control.Serial.Value) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         CombatStuns.Restore(CombatStuns.Snapshot().Where(x=>x.Target!=state.Target).Append(state).ToArray());
         // Save one paid, uncommitted action. Active combat input/prepared packet must not replay after restart.
         int hp=Life(enemy);Require(ClassCombat.Perform(owner,CombatAbility.Bash,enemy,enemy.Location,Core.TickCount),"Saved pending Bash start");ClassCombat.ReleaseCast(owner);
-        var pending=ClassCombat.For(owner);pending.EffectAt=Core.TickCount+600000;pending.BarbarianAttack=pending.BarbarianAttack with{EffectAt=pending.EffectAt}; // Fixture-only pending inspection hold.
+        var pending=ClassCombat.For(owner);pending.EffectAt=Core.TickCount+FixtureSpace.RetentionMilliseconds;pending.BarbarianAttack=pending.BarbarianAttack with{EffectAt=pending.EffectAt}; // Fixture-only pending inspection hold.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,enemy.Serial.Value,weapon.Serial.Value,helm.Serial.Value,control.Serial.Value,owner.Location,owner.Map.MapID,NecromancerEffects.ManaBalance256(owner),hp,state)));
     }
     private static void Check()

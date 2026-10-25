@@ -153,7 +153,7 @@ public static class FindItemChecks
     }
     private static void Seed(PlayerMobile owner,Corpse used)
     {
-        owner.Mana=owner.ManaMax;var unused=Body(owner);var pending=Body(owner);Start(owner,pending);ClassCombat.For(owner).EffectAt=ClassCombat.For(owner).NextAction=Core.TickCount+600000; // Inspection only; actual timing was checked above.
+        owner.Mana=owner.ManaMax;var unused=Body(owner);var pending=Body(owner);Start(owner,pending);ClassCombat.For(owner).EffectAt=ClassCombat.For(owner).NextAction=Core.TickCount+FixtureSpace.RetentionMilliseconds; // Inspection only; actual timing was checked above.
         NecromancerEffects.SetMana256(owner,NecromancerEffects.ManaBalance256(owner)-17);
         // These are parked persistence specimens, after the real cast checks.
         // Do not let the unrelated native seven-minute corpse timer bound the suite.
@@ -182,7 +182,12 @@ public static class FindItemChecks
     }
     private static void Decay()
     {
-        var owner=Fresh();var body=Body(owner);Require(CorpseSkillRules.Profiles.Find(body)!=null,"Decay control has no source metadata");
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));
+        // Decay needs a real corpse, not a second unoccupied combat arena.
+        var owner=new PlayerMobile{Body=0x190,Player=true,Name="FindItemDecayFixture"};
+        ClassCreation.Profiles.Assign(owner,DiabloClass.Barbarian);ClassCreation.Profiles.AdvanceLevel(owner,99);
+        owner.MoveToWorld(saved.Origin,Map.Maps[saved.Map]);
+        var body=Body(owner);Require(CorpseSkillRules.Profiles.Find(body)!=null,"Decay control has no source metadata");
         body.BeginDecay(TimeSpan.FromMilliseconds(80));
         Later(250,()=>
         {

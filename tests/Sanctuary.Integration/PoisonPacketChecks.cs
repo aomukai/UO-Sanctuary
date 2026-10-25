@@ -51,7 +51,7 @@ public static class PoisonPacketChecks
     {while(ClassCreation.Profiles.GetRank(owner.Serial,id)<rank){Require(TalentCatalog.TryGet(DiabloClass.Amazon,id,out var d),"Talent");foreach(var prerequisite in d.Prerequisites){Train(owner,prerequisite);}Require(ClassCreation.Profiles.TryTrain(owner.Serial,id,out _),"Train "+id);}}
     private static TimedEffectState State(Mobile target)=>TimedEffects.Snapshot().Single(x=>x.Owner==target.Serial.Value);
     private static void FreezeClock(Mobile target)
-    {var state=State(target);TimedEffects.Load(TimedEffects.Snapshot().Where(x=>x.Owner!=target.Serial.Value).Append(state with{UpdatedUtc=TimedEffects.Now.AddMinutes(10)}).ToArray());}
+    {var state=State(target);TimedEffects.Load(TimedEffects.Snapshot().Where(x=>x.Owner!=target.Serial.Value).Append(state with{UpdatedUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}).ToArray());}
     private static void Check()
     {
         Differential();var owner=MagicArrowChecks.Fresh("PoisonPacketOwner");Train(owner,"amazon.poisonjavelin");

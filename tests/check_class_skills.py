@@ -1235,6 +1235,8 @@ def check():
                         session.send(berserk_command)
                         assert session.expect(berserk_command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                         assert session.expect(r'berserk-result: (passed|failed)',timeout=10).group(1)=='passed',logpath.read_text()[-6000:]
+                        session.send('berserk-snapshot-check')
+                        assert session.expect(r'berserk-snapshot-result: (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
                         save_snapshot(session)
                         berserk_client.shutdown(socket.SHUT_RDWR)
                     time.sleep(.15)

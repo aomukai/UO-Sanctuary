@@ -120,7 +120,7 @@ public static class SlowMissilesComponentChecks
         var owner=Fresh();Train(owner,"amazon.slowmissiles");var target=Target(owner);var expired=Target(owner);
         var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);Require(owner.EquipItem(helm),"Saved named item");ClassGear.Refresh(owner);
         Require(AmazonSlowMissiles.Apply(owner,target,SkillMechanics.Rank(owner,CombatAbility.SlowMissiles),TimedEffects.Now),"Saved captured state");owner.AddToBackpack(helm);ClassGear.Refresh(owner);
-        var state=AmazonSlowMissiles.State(target) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
+        var state=AmazonSlowMissiles.State(target) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         AmazonSlowMissiles.Restore(AmazonSlowMissiles.Snapshot().Where(x=>x.Target!=target.Serial.Value).Append(state).Append(state with{Target=expired.Serial.Value,UntilUtc=TimedEffects.Now.AddMilliseconds(500)}).ToArray());
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,target.Serial.Value,expired.Serial.Value,helm.Serial.Value,state,NecromancerEffects.ManaBalance256(owner),owner.Location,AmazonSlowMissiles.Capture(target,true))));
     }

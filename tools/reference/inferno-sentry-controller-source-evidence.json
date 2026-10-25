@@ -1,0 +1,235 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeofinferno",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/SKILLS/SkillMonst.cpp": "2f5e399e347540b916b5390a308b2ffe40218f4b771267a6059fbfd394097d4d",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Game/include/GAME/Event.h": "fc355f45ea843c3d658de0c26d943a85e20ad3a74b795332a12b824663c1544d",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "compiledRoutineHashes": {
+    "UNITS_SetAnimationFrame": "b75a6e38068a3df6ed711d5f19273515a62ae4a9a33ab4e0e49f31d76ad8b355",
+    "SKILLS_SrvSt53_MonInferno": "d917bf69195a3a002e40c4d3a054ae270853d7b739a8635b8b155f2b51e8496e",
+    "SKILLS_SetInfernoFrame": "867f7b71c2cc879c1abb321a5b8d27af4322b55ecda3abb5af11ec9203ee7c4c",
+    "SKILLS_SrvDo095_MonInferno": "dada47cdb177dc1ade33867965f04bd2a425b97cfefb082755d2590ae66c080f",
+    "SKILLS_UpdateInfernoAnimationParameters": "45284dc054f57d39f417f729eb5f94288047d7dcbbb4f1908648a48139f22760",
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "D2EventTimerStrc": "47d6486a346712ee83f6684b1c79a5dce2289f27f7c6eacb189824e7c6287d06",
+    "D2EventTimerSlabListStrc": "1aa7816b850f72ae467d9441d905ff32ccccf20fd09ace4ffa61467d4af41291",
+    "D2EventTimerQueueStrc": "08c22278e86225f67b51a4fbe79e2be2b6026dd710c34c7889ee94181e75527f",
+    "EVENT_MapUnitTypeToIndex": "17ebdbec33f1bcb0e2f02418851b03e21da70cb5dfd0395292b4213229d5f3b1",
+    "sub_6FC353D0": "fe0482a1d1525397c2d63a180d8e926deec48dce91e53fc6e9e0cc4d26a291b9",
+    "sub_6FC34890": "105bddf6de26390b8d84f2dcf4e6d243f1b2d56cfbb39c11b2e2cfc8602d0236",
+    "D2GAME_EVENTS_Delete_6FC34840": "70bb0e91e3510a6885e9219361d2d34a214ba955054d8f7044861143ebfdbec4",
+    "EVENT_AssignTimerToUnit": "e3f845d6e44fea0b7e1d4f4c5a8519337b4f324f06b8a0e978946e46b47bf150",
+    "EVENT_AllocateTimer": "ef08b0a7e9d7d4284a701e99bb07329d3515a9535ab349c2742252c120109be6",
+    "EVENT_AllocateUnitTimer": "6cd0356f113325ecef00e6a18234805ac2841a5cbfe2458fbb4f3ae7433f9019",
+    "D2GAME_InitTimer_6FC351D0": "c8f898cd4e44bdf5e21b26afa613b310192c1e5e51b0c28a86768e3b15e9d52b",
+    "EVENT_SetEvent": "a35b9f9572809e337f861e900a2fa8a76795d449abaa25f1891c68a298f89e5f",
+    "sub_6FC35570": "ca60d8a4880489a8e9f45ec35f78cd32ef040777e88124115c0f6743319602b2",
+    "EVENT_ExecuteEventsImpl": "38156529d69e2b234547245e2a36f9f82a944f789d1737a53ef955b04d8420f8",
+    "EVENT_ExecuteMonsterEvents": "1a7aa9ce1453901de63cab0f571f48e8be37932b9c6285de784548d7fd9a792b",
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2",
+    "D2C_SkillsTxtFlagIndices": "d58c1973c067d130b255cb3f3ef968e1c794d2719904f72eb07361b1595da68b",
+    "sub_6FD11420": "8fa9ee9928643e37dacf95e57103fcf14b4ea0fa203de24d0d4bd601d399291e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "sub_6FD13260": "ac5cb3b349bce1c4dc48c60eae618e6ea35fc2e1c73f8f5e87c00b89db0b0fb9",
+    "sub_6FD13410": "fd33f2386b3d7aa6d8573f8350174409f13932eea278f8b740fd59d13e10b5de",
+    "sub_6FC64E60": "0f72bf756ff353698863145c2c6c4f2f73c1fec900586037640d90b614c660af",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe",
+    "sub_6FCBD3A0": "79bef5eacaab5bc856c785235b81b51cdd15b2f83faddda387b7f4be48af6dd4"
+  },
+  "sourceConstants": {
+    "UNITFLAG_SKSRVDOFUNC": 64,
+    "UNITFLAG_CANBEATTACKED": 4,
+    "UNITFLAG_SQGFXCHANGE": 16384
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "currentSequence": {
+    "path": ".local/research/d2r-3.3.93847/monseq-inferno-verified.txt",
+    "sha256": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c",
+    "points": 14,
+    "actionIndex": 9,
+    "records": [
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "1",
+        "dir": "",
+        "event": "1",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      },
+      {
+        "sequence": "seq_infernosentry",
+        "mode": "S2",
+        "frame": "0",
+        "dir": "",
+        "event": "",
+        "*eol": "0"
+      }
+    ]
+  },
+  "parentChannelEvidence": "tools/reference/inferno-sentry-channel-source-evidence.json",
+  "localModeEvidence": "tools/reference/d2r-local-monmode-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/inferno-sentry-controller-source-probe.json",
+    "sha256": "c73652093b085d8a21ca13bc01156c798a3e6909317ec0b2b4a05d35178ecd0e",
+    "contexts": 240,
+    "framesPerContext": 120,
+    "traceFrames": 28800
+  },
+  "inputs": {
+    "effectiveRanks": [
+      1,
+      20
+    ],
+    "hardWakeRanks": [
+      0,
+      1,
+      2,
+      20
+    ],
+    "failureOffsets": [
+      -1,
+      0,
+      12,
+      16,
+      40
+    ],
+    "failureKinds": [
+      "coordinate acquisition",
+      "missile allocation",
+      "Inferno state removal"
+    ],
+    "control": "NPC313 generic direct dispatcher, intentionally fed the same Inferno sequence; its actual Lightning Sentry sequence remains separate."
+  },
+  "established": [
+    "Complete mode14 entry clears actual server-do bit0x40. Complete source sequence initialization/advance/end detection and current14-row Inferno sequence are executed together with NPC53/95, generic skill wrapper/dispatcher and complete missile factory.",
+    "Complete monster event-list allocation/assignment, insertion, delete/unlink and execution bodies are composed. Active infinite mode callbacks are marked for deferred removal, then replaced by finite mode events. Each simulated monster phase uses the source infinite-before-current-finite-bucket ordering. No flag8/active timer or duplicate mode/end timer survives a phase.",
+    "With entry at25 and source sequence speed256, initial action9 is consumed at35. Successful custom do95 leaves server-do bit clear, rewinds to8 then advances back to action9 with9 remaining frames. The sequence pauses between the requested3-frame callbacks; elapsed wall frames alone do not advance it.",
+    "Hard Wake0 stores deadline40, emits35/38/41 and requests end55. Hard Wake20 stores60, emits35 through62 every3frames and requests end76. The final successful emission occurs on the first requested callback at/after the deadline, or on the first callback after Inferno state removal.",
+    "Failed coordinate acquisition or allocation stops repetition and requests model14-frame end from that callback. Coordinate failure makes no factory attempt; allocation failure makes an attempt without an emission. A failed callback does not rewind the sequence; the remaining finite queue contains only the end event.",
+    "Comparison NPC313 generic direct-missile dispatch sets server-do bit0x40 even when its target coordinates/allocation fail. With the intentionally shared Inferno sequence it dispatches once at35, then the unpaused sequence ends at40. This control distinguishes generic direct missiles from custom Inferno emission without claiming it is the real Lightning Sentry sequence."
+  ],
+  "services": [
+    "Single-burst mode entry is invoked at declared frame25; start-dispatch service calls complete NPC53 directly. Full skill selection/AI101, outer monster event bridge and mode-end/neutral service are not compiled here. End service records the requested end and removes mode/end events; no neutral animation, next AI delay, shot debit or retirement claim follows.",
+    "One600-record source-shaped timer slab is preallocated and source allocation/recycling runs within it; requesting slab growth asserts. Source event structs are compiled with native host layout; this is a source-control-flow proof, not a historical or modern packed ABI certificate.",
+    "Current NPC311/313 flags are verified against the pinned skill rows. Actual Unit header flags are0x40/0x4/0x4000; inherited factory harness abstract32/16 aliases are replaced for this composition. The remaining unrelated service aliases do not certify modern numeric ABI.",
+    "Room/target/path/damage-stat/seed/allocation services and formula values remain declared as bounded by the parent channel/factory proof. Failure inputs are synthetic controls. Beam motion, first-step/contact/damage, target turning and room/grid order are not exercised.",
+    "No modern executable trace, native Inferno actor, saved channel state, learned placement/payment, final graphics, retirement or class completion is certified."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required; independent expected timeline checks every emitted frame and all28800 sequence/flag/queue snapshots."
+}

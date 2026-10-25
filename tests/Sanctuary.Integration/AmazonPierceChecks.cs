@@ -74,7 +74,7 @@ public static class AmazonPierceChecks
             Leases=all.Leases.Select(l=>l.Cast==state.Cast?l with{UntilUtc=l.UntilUtc+delta}:l).ToArray()});}
     private static void Save(PlayerMobile owner,Item weapon,Item helm,Item amulet,Item belt,Mobile first,Mobile second)
     {long id=Launch(owner);Require(id>0,"Saved launch rejected");int before=Health(first);Step(id);
-        Require(Health(first)==before-20*256 && WeaponMissiles.State(id) is{Pierces:3},"Saved learned Pierce first impact/budget");Hold(id,TimedEffects.Now.AddMinutes(10));
+        Require(Health(first)==before-20*256 && WeaponMissiles.State(id) is{Pierces:3},"Saved learned Pierce first impact/budget");Hold(id,TimedEffects.Now.Add(FixtureSpace.Retention));
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,weapon.Serial.Value,helm.Serial.Value,amulet.Serial.Value,belt.Serial.Value,
             first.Serial.Value,second.Serial.Value,Health(first),Health(second),owner.Location,WeaponMissiles.State(id))));}
     private static void Check()

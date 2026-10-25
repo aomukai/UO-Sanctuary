@@ -132,7 +132,7 @@ public static class WhirlwindChecks
     {
         var owner=Fresh();Require(SkillBindings.Instance.Assign(owner,true,CombatAbility.Whirlwind),"Spin binding");Require(Begin(owner),"Saved spin start");if(moved){Step(owner,7);}
         var state=BarbarianWhirlwind.State(owner);Require(state!=null && (moved?state.Index>0:state.Index==0),"Saved phase");
-        state=state with{NextUtc=TimedEffects.Now.AddMinutes(10)};BarbarianWhirlwind.Restore(BarbarianWhirlwind.Snapshot().Select(s=>s.Owner==state.Owner?state:s).ToArray());
+        state=state with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};BarbarianWhirlwind.Restore(BarbarianWhirlwind.Snapshot().Select(s=>s.Owner==state.Owner?state:s).ToArray());
         return new(state,owner.Mana,NecromancerEffects.Profiles.Find(owner)?.ManaFraction??0);
     }
     private static void Check()

@@ -119,8 +119,8 @@ public static class LifeTapChecks
     }
     private static void Save(PlayerMobile caster,PlayerMobile owner,BaseCreature target)
     {
-        Reset(owner);Cast(caster,target);var state=NecromancerEffects.Profiles.Find(target);NecromancerEffects.Profiles.Store(target,state with{Curse=state.Curse with{UntilUtc=TimedEffects.Now.AddMinutes(10)}});
-        long id=Launch(owner,257,2080|0x10000);var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(f=>f.Id==id?f with{NextUtc=TimedEffects.Now.AddMinutes(10)}:f).ToArray()});
+        Reset(owner);Cast(caster,target);var state=NecromancerEffects.Profiles.Find(target);NecromancerEffects.Profiles.Store(target,state with{Curse=state.Curse with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}});
+        long id=Launch(owner,257,2080|0x10000);var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(f=>f.Id==id?f with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:f).ToArray()});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(caster.Serial.Value,owner.Serial.Value,target.Serial.Value,Life(owner),Life(target),owner.Location,caster.Location,NecromancerEffects.Curse(target),WeaponMissiles.State(id))));
     }
     private static void Check()

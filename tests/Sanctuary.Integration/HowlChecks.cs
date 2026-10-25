@@ -129,7 +129,7 @@ public static class HowlChecks
     private static void Seed(PlayerMobile owner,GraveyardSkeleton target,GraveyardSkeleton far)
     {
         Train(owner,CombatAbility.Howl,20);CancelRays(owner);target.Frozen=target.CantWalk=false;target.MoveToWorld(new(owner.X+4,owner.Y,owner.Z),owner.Map);NecromancerEffects.Profiles.Clear(target);Require(BarbarianHowl.Hit(owner,target,20,TimedEffects.Now),"Seed Terror");Stop(target);
-        Think(target);Stop(target,true);var curse=NecromancerEffects.Curse(target);var hold=TimedEffects.Now.AddMinutes(10);curse=curse with{UntilUtc=hold,Terror=curse.Terror with{NextUtc=hold}};Replace(target,curse);
+        Think(target);Stop(target,true);var curse=NecromancerEffects.Curse(target);var hold=TimedEffects.Now.Add(FixtureSpace.Retention);curse=curse with{UntilUtc=hold,Terror=curse.Terror with{NextUtc=hold}};Replace(target,curse);
         var now=TimedEffects.Now;BarbarianShout.Cast(owner,SkillMechanics.Values(owner,CombatAbility.Howl,20),now,CombatAbility.Howl);var ray=BarbarianShout.Snapshot().Rays.First(x=>x.Owner==owner.Serial.Value && x.Ray==0);
         for(int i=0;i<6;i++){var move=BarbarianShout.Advance(0,ray.Velocity,ray.AccelerationCounter,CombatAbility.Howl,ray.Acceleration);ray=ray with{X=ray.X+move.X,Y=ray.Y+move.Y,Velocity=move.Velocity,AccelerationCounter=move.Counter,Acceleration=move.Acceleration,Frame=i+1};}
         ray=ray with{NextUtc=hold,UntilUtc=hold.AddMilliseconds(480)};var wave=BarbarianShout.Snapshot();BarbarianShout.Restore(wave with{Rays=wave.Rays.Where(x=>x.Owner!=owner.Serial.Value).Append(ray).ToArray()});

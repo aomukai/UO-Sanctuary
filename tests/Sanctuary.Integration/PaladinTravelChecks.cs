@@ -116,7 +116,7 @@ public static class PaladinTravelChecks
     private static void Seed(PlayerMobile vigor,PlayerMobile redeemer,PlayerMobile ally)
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
-        var snapshot=PaladinAuras.Snapshot();uint[] ids=[vigor.Serial.Value,redeemer.Serial.Value];var at=TimedEffects.Now.AddMinutes(10);
+        var snapshot=PaladinAuras.Snapshot();uint[] ids=[vigor.Serial.Value,redeemer.Serial.Value];var at=TimedEffects.Now.Add(FixtureSpace.Retention);
         snapshot=snapshot with{Emitters=snapshot.Emitters.Select(x=>ids.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=snapshot.Leases.Select(x=>ids.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};PaladinAuras.Restore(snapshot);
         var first=Body(redeemer,3);var second=Body(redeemer,4);

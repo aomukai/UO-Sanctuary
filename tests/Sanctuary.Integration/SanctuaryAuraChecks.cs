@@ -147,7 +147,7 @@ public static class SanctuaryAuraChecks
     private static void Seed(PlayerMobile owner,BaseCreature target)
     {
         target.MoveToWorld(new(owner.X+1,owner.Y,owner.Z),owner.Map);owner.Mana=owner.ManaMax;Require(SkillBindings.Instance.Assign(owner,false,CombatAbility.Sanctuary),"Seed Sanctuary selection");
-        PaladinSanctuary.Pulse(owner,Values(1),TimedEffects.Now);var deadline=TimedEffects.Now.AddMinutes(10);
+        PaladinSanctuary.Pulse(owner,Values(1),TimedEffects.Now);var deadline=TimedEffects.Now.Add(FixtureSpace.Retention);
         var motion=SourceKnockbacks.Snapshot().Single(x=>x.Target==target.Serial.Value) with{NextUtc=deadline};
         SourceKnockbacks.Restore(SourceKnockbacks.Snapshot().Select(x=>x.Target==target.Serial.Value?motion:x).ToArray());
         var aura=PaladinAuras.Snapshot();aura=aura with{Emitters=aura.Emitters.Select(x=>x.Owner==owner.Serial.Value?x with{NextUtc=deadline}:x).ToArray(),

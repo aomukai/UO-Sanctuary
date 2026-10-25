@@ -141,7 +141,7 @@ public static class ImpaleChecks
     }
     private static void Persist(PlayerMobile owner,BaseWeapon weapon,Item helm)
     {
-        var target=Enemy(owner);Ready(owner);var attack=Begin(owner,target);Commit(owner,target,attack);ClassCombat.ResolveAction(owner,attack.Until);var held=TimedEffects.Now.AddMinutes(10);
+        var target=Enemy(owner);Ready(owner);var attack=Begin(owner,target);Commit(owner,target,attack);ClassCombat.ResolveAction(owner,attack.Until);var held=TimedEffects.Now.Add(FixtureSpace.Retention);
         ImpaleSlow.Restore(ImpaleSlow.Snapshot().Select(s=>s.Target==target.Serial.Value?s with{UntilUtc=held}:s).ToArray());Ready(owner);Begin(owner,target);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,weapon.Serial.Value,helm.Serial.Value,target.Serial.Value,owner.Location,NecromancerEffects.ManaBalance256(owner),SkillHealth.Balance256(target),weapon.HitPoints,NamedAmmunition.Remaining(weapon),SkillMechanics.Rank(owner,CombatAbility.Impale),ImpaleSlow.Effect(target))));
     }
@@ -152,6 +152,6 @@ public static class ImpaleChecks
         Require(owner!=null && weapon?.Parent==owner && target!=null && NecromancerEffects.ManaBalance256(owner)==saved.Mana && SkillHealth.Balance256(target)==saved.Life && weapon.HitPoints==saved.Durability && NamedAmmunition.Remaining(weapon)==saved.Quantity && SkillMechanics.Rank(owner,CombatAbility.Impale)==saved.Rank,"Saved Impale gear/resources/target/rank");
         Require(ImpaleSlow.Effect(target)==saved.Slow && GearEffects.MovementSlow(target)>=saved.Slow.Velocity && ClassCombat.Existing(owner)?.Impale==null && ClassCombat.Existing(owner)?.PendingAbility is null or CombatAbility.None,"Slow payload changed or transient Impale replayed");Require(SkillBindings.Instance.Get(owner).Left==CombatAbility.Impale && World.FindItem((Serial)saved.Helm)?.Parent==owner.Backpack,"Saved bindings/soft rank item");
         owner.MoveToWorld(saved.Origin,Map.Trammel);target.Frozen=target.CantWalk=true;target.AIObject.AITimer.Stop();Ready(owner);var attack=Begin(owner,target);Require(Commit(owner,target,attack)>0,"Post-load Impale failed");ClassCombat.ResolveAction(owner,attack.Until);
-        var held=TimedEffects.Now.AddMinutes(10);ImpaleSlow.Restore(ImpaleSlow.Snapshot().Select(s=>s.Target==target.Serial.Value?s with{UntilUtc=held}:s).ToArray());File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Mana=NecromancerEffects.ManaBalance256(owner),Life=SkillHealth.Balance256(target),Durability=weapon.HitPoints,Quantity=NamedAmmunition.Remaining(weapon),Slow=ImpaleSlow.Effect(target)}));
+        var held=TimedEffects.Now.Add(FixtureSpace.Retention);ImpaleSlow.Restore(ImpaleSlow.Snapshot().Select(s=>s.Target==target.Serial.Value?s with{UntilUtc=held}:s).ToArray());File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Mana=NecromancerEffects.ManaBalance256(owner),Life=SkillHealth.Balance256(target),Durability=weapon.HitPoints,Quantity=NamedAmmunition.Remaining(weapon),Slow=ImpaleSlow.Effect(target)}));
     }
 }

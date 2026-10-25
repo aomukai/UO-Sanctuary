@@ -149,7 +149,7 @@ public static class BattleCommandChecks
     }
     private static void Seed(PlayerMobile owner,PlayerMobile ally,PlayerMobile necro,PlayerMobile far)
     {
-        var at=TimedEffects.Now;var hold=at.AddMinutes(10);BarbarianShout.Cast(owner,SkillMechanics.Values(owner,CombatAbility.BattleCommand,2),at,CombatAbility.BattleCommand);
+        var at=TimedEffects.Now;var hold=at.Add(FixtureSpace.Retention);BarbarianShout.Cast(owner,SkillMechanics.Values(owner,CombatAbility.BattleCommand,2),at,CombatAbility.BattleCommand);
         BattleCommand.Apply(owner,ally,2,at);BattleCommand.Apply(owner,necro,2,at);if(SkeletonPets.Count(necro)<3){Summon(necro,false);}
         var ray=BarbarianShout.Snapshot().Rays.First(x=>x.Owner==owner.Serial.Value && x.Ability==CombatAbility.BattleCommand && x.Ray==0);
         for(int i=0;i<6;i++){var motion=BarbarianShout.Advance(0,ray.Velocity,ray.AccelerationCounter);ray=ray with{X=ray.X+motion.X,Y=ray.Y+motion.Y,Frame=i+1,Velocity=motion.Velocity,AccelerationCounter=motion.Counter};}

@@ -105,7 +105,7 @@ public static class PaladinResistanceChecks
     {
         // Inspection hold only: the full suite now outlives five minutes.
         // The separate resumed-pulse check below still requires ordinary <3s leases.
-        uint[] ids=owners.Select(x=>x.Serial.Value).ToArray();var at=TimedEffects.Now.AddMinutes(10);var state=PaladinAuras.Snapshot();
+        uint[] ids=owners.Select(x=>x.Serial.Value).ToArray();var at=TimedEffects.Now.Add(FixtureSpace.Retention);var state=PaladinAuras.Snapshot();
         state=state with{Emitters=state.Emitters.Select(x=>ids.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=state.Leases.Select(x=>ids.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};
         PaladinAuras.Restore(state);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(ids,ally.Serial.Value,pet.Serial.Value,owners[0].Location,state)));

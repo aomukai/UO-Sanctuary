@@ -124,7 +124,7 @@ public static class PaladinAuraChecks
         SorceressEffects.Profiles.Clear(ally);PaladinAuras.Clear(ally);
         Select(owner,CombatAbility.Might);Select(defender,CombatAbility.Defiance);Select(aim,CombatAbility.BlessedAim);
         Require(PaladinAuras.DamagePercent(ally)==40 && PaladinAuras.DefensePercent(ally)==70 && PaladinAuras.AttackPercent(ally)==75,"Independent allied aura combination");
-        var snapshot=PaladinAuras.Snapshot();var at=TimedEffects.Now.AddMinutes(10);uint[] owners=[owner.Serial.Value,defender.Serial.Value,aim.Serial.Value];
+        var snapshot=PaladinAuras.Snapshot();var at=TimedEffects.Now.Add(FixtureSpace.Retention);uint[] owners=[owner.Serial.Value,defender.Serial.Value,aim.Serial.Value];
         // Hold only test deadlines across the growing regression suite; source periods/lifetimes were checked above.
         snapshot=snapshot with{Emitters=snapshot.Emitters.Select(x=>owners.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=snapshot.Leases.Select(x=>owners.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};

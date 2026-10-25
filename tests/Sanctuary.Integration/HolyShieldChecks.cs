@@ -106,7 +106,7 @@ public static class HolyShieldChecks
         {
             Require(HolyShields.State(owner)==null && HolyShields.DefensePercent(owner)==0 && HolyShields.BlockBonus(owner)==0,"Expired Holy Shield retained effects");
             // Inspection hold after the real expiry assertion above.
-            Cast(owner);state=HolyShields.State(owner) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};Replace(state);
+            Cast(owner);state=HolyShields.State(owner) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Replace(state);
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,shield.Serial.Value,state,owner.Location,owner.Map.MapID)));_log.Information("holy-shield-result: passed");
         });
     }

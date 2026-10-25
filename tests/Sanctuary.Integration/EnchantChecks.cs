@@ -104,7 +104,7 @@ public static class EnchantChecks
         // Rank2 naturally lasts168s. The growing combined suite can exceed that
         // before its second reload. Hold only this inspection fixture's deadline;
         // source duration and expiry behavior were checked above, independently.
-        var saved = SorceressEffects.Enchantment(ally) with { UntilUtc = TimedEffects.Now.AddMinutes(10) };
+        var saved = SorceressEffects.Enchantment(ally) with { UntilUtc = TimedEffects.Now.Add(FixtureSpace.Retention) };
         SorceressEffects.Profiles.Store(ally,(SorceressEffects.Profiles.Find(ally) ?? new()) with { Enchantment = saved });
         pet.IsBonded = true; pet.Kill(); pet.ResurrectPet();
         Require(!pet.IsDeadBondedPet && SorceressEffects.Profiles.Find(pet) == null, "Creature death/resurrection restored stale skill effects");

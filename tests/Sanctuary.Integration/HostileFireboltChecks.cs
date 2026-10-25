@@ -174,9 +174,9 @@ public static class HostileFireboltChecks
     private static void Persist()
     {
         Reset();Slow();long id=Launch();Step(id,3);var flight=WeaponMissiles.State(id);Require(flight!=null && flight.Frame==3,"Saved moving incoming phase");
-        var state=AmazonSlowMissiles.State(_source) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
+        var state=AmazonSlowMissiles.State(_source) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         AmazonSlowMissiles.Restore(AmazonSlowMissiles.Snapshot().Where(x=>x.Target!=_source.Serial.Value).Append(state).ToArray());
-        var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==id?x with{NextUtc=TimedEffects.Now.AddMinutes(10)}:x).ToArray()});
+        var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==id?x with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray()});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(_receiver.Serial.Value,_caster.Serial.Value,_source.Serial.Value,_origin,WeaponMissiles.State(id),state,SkillHealth.Balance256(_receiver),NecromancerEffects.ManaBalance256(_receiver))));
     }
     private static void Check()

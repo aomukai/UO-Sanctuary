@@ -135,7 +135,7 @@ public static class WeaponLeechChecks
         var first=Enemy(owner,3);var second=Enemy(owner,5);Resources(owner);long id=Launch(owner,Payload(saved),2);Step(id,4);
         Require(WeaponMissiles.State(id) is{Pierces:1} && Life(owner)==20*256+128+900 && Mana(owner)==10*256+64+643,"First captured leech impact");
         owner.AddToBackpack(bow);owner.AddToBackpack(ring);ClassGear.Refresh(owner);Require(ClassGear.Bonus(owner,"life-steal%")==0 && ClassGear.Bonus(owner,"mana-steal%")==0,"Live gear leech not removed");
-        var flight=WeaponMissiles.State(id);var leases=WeaponMissiles.Snapshot().Leases.Where(l=>l.Cast==flight.Cast).ToArray();Hold(flight,leases,TimedEffects.Now.AddMinutes(10));Write(owner,bow,ring,belt,first,second,WeaponMissiles.State(id));
+        var flight=WeaponMissiles.State(id);var leases=WeaponMissiles.Snapshot().Leases.Where(l=>l.Cast==flight.Cast).ToArray();Hold(flight,leases,TimedEffects.Now.Add(FixtureSpace.Retention));Write(owner,bow,ring,belt,first,second,WeaponMissiles.State(id));
         Require(Launch(owner,Payload(saved with{LifeDrain=-1}))==0,"Negative drain accepted");Require(Launch(owner,Payload(saved with{BurnMin=1}))==0,"Unimplemented burn accepted");
     }
     private static void Reload()
@@ -149,6 +149,6 @@ public static class WeaponLeechChecks
         owner.MoveToWorld(saved.Origin,Map.Trammel);Hold(saved.Flight,saved.Leases,TimedEffects.Now);Step(saved.Flight.Id);
         Require(Life(owner)==saved.Life+900 && Mana(owner)==saved.Mana+643 && Life(first)==saved.FirstLife && Mana(first)==saved.FirstMana
             && Life(second)==saved.SecondLife-15744 && Mana(second)==saved.SecondMana-320,"Resumed captured leech used current gear or replayed first impact");
-        Hold(saved.Flight,saved.Leases,TimedEffects.Now.AddMinutes(10),true);Write(owner,World.FindItem((Serial)saved.Bow),World.FindItem((Serial)saved.Ring),World.FindItem((Serial)saved.Belt),first,second,WeaponMissiles.State(saved.Flight.Id));
+        Hold(saved.Flight,saved.Leases,TimedEffects.Now.Add(FixtureSpace.Retention),true);Write(owner,World.FindItem((Serial)saved.Bow),World.FindItem((Serial)saved.Ring),World.FindItem((Serial)saved.Belt),first,second,WeaponMissiles.State(saved.Flight.Id));
     }
 }

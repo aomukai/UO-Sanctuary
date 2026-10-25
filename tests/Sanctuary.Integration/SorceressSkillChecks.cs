@@ -86,7 +86,7 @@ public static class SorceressSkillChecks
                     Require(Math.Abs((state.Armor.UntilUtc-TimedEffects.Now).TotalSeconds-164)<1
                         && Math.Abs((state.Shield.UntilUtc-TimedEffects.Now).TotalSeconds-144)<1,"Natural cold armor/Energy Shield cast lifetimes changed");
                     // Only saved inspection deadlines are held beyond the full suite; runtime casts retain source lifetimes.
-                    var inspection=TimedEffects.Now.AddMinutes(10);
+                    var inspection=TimedEffects.Now.Add(FixtureSpace.Retention);
                     state=state with{Armor=state.Armor with{UntilUtc=inspection},Shield=state.Shield with{UntilUtc=inspection}};
                     SorceressEffects.Profiles.Store(owner,state);
                     File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, state.Armor, state.Shield)));

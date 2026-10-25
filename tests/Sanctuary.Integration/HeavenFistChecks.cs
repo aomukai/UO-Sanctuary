@@ -191,7 +191,7 @@ public static class HeavenFistChecks
     private static void Seed(PlayerMobile owner,BaseCreature primary,BaseCreature undead,BaseCreature demon,PlayerMobile ally,BaseCreature pet,HeavenStrike dead)
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
-        var at=TimedEffects.Now.AddMinutes(10);HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
+        var at=TimedEffects.Now.Add(FixtureSpace.Retention);HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
         var strike=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{ImpactUtc=at,Min256=2560,Max256=2560};Replace(strike);
         dead=dead with{ImpactUtc=at.AddSeconds(1)};Replace(dead);
         // Keep the real corpse for serialization inspection beyond the full

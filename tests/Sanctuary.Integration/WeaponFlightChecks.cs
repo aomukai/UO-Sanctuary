@@ -173,7 +173,7 @@ public static class WeaponFlightChecks
     }
     private static void Hold(WeaponFlight flight)
     {
-        var all=WeaponMissiles.Snapshot();var delta=TimedEffects.Now.AddMinutes(10)-flight.NextUtc;
+        var all=WeaponMissiles.Snapshot();var delta=TimedEffects.Now.Add(FixtureSpace.Retention)-flight.NextUtc;
         WeaponMissiles.Restore(all with{Flights=all.Flights.Select(f=>f.Id==flight.Id?f with{NextUtc=f.NextUtc+delta}:f).ToArray(),
             Leases=all.Leases.Select(l=>l.Cast==flight.Cast?l with{UntilUtc=l.UntilUtc+delta}:l).ToArray()});
     }
@@ -210,7 +210,7 @@ public static class WeaponFlightChecks
             Finish(flight.Id);Require(Health(first)==saved.FirstHealth && Health(second)==saved.SecondHealth-64*256
                 && NecromancerEffects.ManaBalance256(owner)==saved.Mana256 && arrows.Amount==saved.Amount,"Resumed collision/last-target/resource semantics");
             // Keep the already-proven moving payload inspectable for the second restart.
-            all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};delta=held.NextUtc-saved.Flight.NextUtc;
+            all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};delta=held.NextUtc-saved.Flight.NextUtc;
             var leases=saved.Leases.Select(l=>l with{UntilUtc=l.UntilUtc+delta}).ToArray();
             WeaponMissiles.Restore(all with{Flights=all.Flights.Where(f=>f.Id!=held.Id).Append(held).ToArray(),
                 Leases=all.Leases.Where(l=>l.Cast!=held.Cast).Concat(leases).ToArray()});

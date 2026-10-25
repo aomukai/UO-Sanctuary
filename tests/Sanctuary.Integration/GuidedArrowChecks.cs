@@ -133,9 +133,9 @@ public static class GuidedArrowChecks
     {
         var p=Fresh();Train(p,CombatAbility.GuidedArrow,20);var bow=NamedGear.Create("unique/282",99,new Random(31),true);p.AddToBackpack(bow);Require(p.EquipItem(bow),"Saved real Lycander");var ammo=new Arrow(20);p.AddToBackpack(ammo);var target=Enemy(p,8);
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.GuidedArrow) && SkillBindings.Instance.Assign(p,false,CombatAbility.GuidedArrow) && SkillBindings.Instance.AssignQuick(p,9,CombatAbility.GuidedArrow),"Saved bindings");
-        var one=Cast(p,target);one=Step(one.Id,3) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,one);
-        var two=Cast(p,aim:MagicArrowChecks.Aim(p,6));two=Step(two.Id) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,one,two);
-        var three=Cast(p,aim:MagicArrowChecks.Aim(p,6));three=Step(three.Id,three.Guided.Remaining) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Require(three.Guided.Mode==5,"Saved acquired phase");Hold(p,one,two,three);
+        var one=Cast(p,target);one=Step(one.Id,3) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,one);
+        var two=Cast(p,aim:MagicArrowChecks.Aim(p,6));two=Step(two.Id) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,one,two);
+        var three=Cast(p,aim:MagicArrowChecks.Aim(p,6));three=Step(three.Id,three.Guided.Remaining) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Require(three.Guided.Mode==5,"Saved acquired phase");Hold(p,one,two,three);
         MagicArrowChecks.Ready(p);Require(ClassCombat.Perform(p,CombatAbility.GuidedArrow,null,MagicArrowChecks.Aim(p),Core.TickCount),"Saved paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,ammo.Serial.Value,p.Location,Own(p),SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),ammo.Amount)));
     }
@@ -147,7 +147,7 @@ public static class GuidedArrowChecks
             && SkillBindings.Instance.Get(p)==(CombatAbility.GuidedArrow,CombatAbility.GuidedArrow) && SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Amazon,9)==CombatAbility.GuidedArrow,"Saved phases/velocity/damage/resources/bindings or replayed windup");
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Flights[0].Map]);p.AddToBackpack(bow);int expected=saved.Flights.Sum(f=>NamedElements.To256(f.Damage.Roll(target,_=>0).Total));
         foreach(var flight in saved.Flights){Hold(p,flight with{NextUtc=TimedEffects.Now});Finish(flight.Id);}Require(SkillHealth.Balance256(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana && ammo.Amount==saved.Quantity,"Resumed immutable weapon packet/repeated payment");
-        var held=saved.Flights.Select(f=>f with{NextUtc=TimedEffects.Now.AddMinutes(10)}).ToArray();Hold(p,held);Require(p.EquipItem(bow),"Reload actual bow");MagicArrowChecks.Ready(p);Require(ClassCombat.Perform(p,CombatAbility.GuidedArrow,null,MagicArrowChecks.Aim(p),Core.TickCount),"Next paid/unemitted windup");
+        var held=saved.Flights.Select(f=>f with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}).ToArray();Hold(p,held);Require(p.EquipItem(bow),"Reload actual bow");MagicArrowChecks.Ready(p);Require(ClassCombat.Perform(p,CombatAbility.GuidedArrow,null,MagicArrowChecks.Aim(p),Core.TickCount),"Next paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flights=held,Health=SkillHealth.Balance256(target),Mana=NecromancerEffects.ManaBalance256(p)}));
     });
     private static void Input()

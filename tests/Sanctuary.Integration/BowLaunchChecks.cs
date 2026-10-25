@@ -192,7 +192,7 @@ public static class BowLaunchChecks
         Require(CreatureProfiles.Definition(target).Type==typeof(GraveyardSkeleton).FullName,"Fixture lost mapped skeleton species");
         target.MoveToWorld(new(p.X+5,p.Y,p.Z),p.Map);Require(ClassCombat.IsHostile(p,target),"Nonhostile collected target");
         long id=WeaponMissiles.Launch(p,CombatAbility.MagicArrow,new(20,0,2080,1),damage,WeaponMissiles.NewCast(),frames:40,nextDelay:0);
-        Require(id>0,"Collected Hellclap launch");var flight=WeaponMissiles.State(id);Hold(flight,TimedEffects.Now.AddMinutes(10));p.AddToBackpack(bow);
+        Require(id>0,"Collected Hellclap launch");var flight=WeaponMissiles.State(id);Hold(flight,TimedEffects.Now.Add(FixtureSpace.Retention));p.AddToBackpack(bow);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,p.Location,WeaponMissiles.State(id),Health(target),NecromancerEffects.ManaBalance256(p))));
     }
     private static void Check(){Differential();GearAndPoison();MaterialsAndBuffs();Persist();}
@@ -206,7 +206,7 @@ public static class BowLaunchChecks
         Controlled(()=>{Hold(saved.Flight,TimedEffects.Now);Finish(saved.Flight.Id);});
         target.Map.GetSector(target.Location).Activate();target.OnSectorActivate();target.OnThink();
         Require(Health(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana,"Resumed collected payload used removed bow or repaid resources");
-        var all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};WeaponMissiles.Restore(all with{Flights=all.Flights.Append(held).ToArray()});
+        var all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};WeaponMissiles.Restore(all with{Flights=all.Flights.Append(held).ToArray()});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=held,Health=Health(target)}));
     }
 }

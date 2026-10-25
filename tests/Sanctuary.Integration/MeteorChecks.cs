@@ -84,7 +84,7 @@ public static class MeteorChecks
             Require(SorceressCombat.Release(owner, CombatAbility.Meteor, Serial.Zero, center), "Next Meteor after local delay failed");
             var saved = FireGround.Snapshot(); var pending = saved.Meteors.Single(x => x.Owner == owner.Serial.Value);
             // Extend only this fixture's deadline so two process reloads can inspect the pending payload.
-            pending = pending with { ImpactUtc = TimedEffects.Now.AddMinutes(10) };
+            pending = pending with { ImpactUtc = TimedEffects.Now.Add(FixtureSpace.Retention) };
             FireGround.Restore(saved with { Meteors = saved.Meteors.Select(x => x.Id == pending.Id ? pending : x).ToArray() });
             File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, pending)));
             _log.Information("meteor-result: passed");

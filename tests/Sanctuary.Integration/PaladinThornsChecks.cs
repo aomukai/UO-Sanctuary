@@ -131,7 +131,7 @@ public static class PaladinThornsChecks
     private static void Seed(PlayerMobile owner,PlayerMobile ally,BaseCreature pet,BaseCreature enemy)
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
-        var all=PaladinAuras.Snapshot();var at=TimedEffects.Now.AddMinutes(10);
+        var all=PaladinAuras.Snapshot();var at=TimedEffects.Now.Add(FixtureSpace.Retention);
         var saved=new PaladinAuraSave(all.Emitters.Where(x=>x.Owner==owner.Serial.Value).Select(x=>x with{NextUtc=at}).ToArray(),
             all.Leases.Where(x=>x.Source==owner.Serial.Value && x.Ability==CombatAbility.Thorns).Select(x=>x with{UntilUtc=at.AddSeconds(3)}).ToArray());
         Copies(saved,owner.Serial.Value);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,ally.Serial.Value,pet.Serial.Value,enemy.Serial.Value,owner.Location,saved)));

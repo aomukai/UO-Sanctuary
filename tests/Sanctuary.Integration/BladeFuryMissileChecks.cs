@@ -158,7 +158,7 @@ public static class BladeFuryMissileChecks
     {
         var p=Fresh();var w=Equip(p,new Tekagi());var target=Target(p,15);var f=Launch(p,3,22);
         WeaponMissiles.Tick(f.NextUtc.AddMilliseconds(40));f=Own(p).Single();Require(f.Frame==2&&f.SourceSteps.Cells.Length>0,"Saved real flight progression");
-        f=f with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,f);
+        f=f with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,f);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,w.Serial.Value,p.Location,f,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p))));
     }
     private static void Lifecycle()
@@ -179,7 +179,7 @@ public static class BladeFuryMissileChecks
         p.MoveToWorld(s.Origin,Map.Maps[s.Flight.Map]);target.MoveToWorld(new(p.X+5,p.Y,p.Z),p.Map);p.AddToBackpack(w);ClassGear.Refresh(p);
         var f=s.Flight with{NextUtc=TimedEffects.Now};Hold(p,f);int health=SkillHealth.Balance256(target);var expected=f.Damage.Roll(target,_=>0);
         Drain(p);Require(SkillHealth.Balance256(target)==health-NamedElements.To256(expected.Total)&&NecromancerEffects.ManaBalance256(p)==s.Mana,"Restored immutable packet failed damaging continuation or repaid mana");
-        Require(p.EquipItem(w),"Restore saved selected weapon");ClassGear.Refresh(p);f=s.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,f);
+        Require(p.EquipItem(w),"Restore saved selected weapon");ClassGear.Refresh(p);f=s.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,f);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(s with{Flight=f,Health=SkillHealth.Balance256(target)}));
         Log.Information("Blade Fury flight reload: actual player/weapon/source path/packet/profile/clock retained; gear swap does not rewrite released damage; continuation damages once without payment; learned input remains gated");
     }

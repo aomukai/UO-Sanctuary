@@ -6,6 +6,11 @@ namespace Sanctuary.Integration;
 
 internal static class FixtureSpace
 {
+    // Park inspected state only after its actual timing/expiry checks. The
+    // full retained suite and two reloads now exceed the old ten-minute hold.
+    // Natural expiry controls keep their original short deadlines.
+    internal const int RetentionMilliseconds=3_600_000;
+    internal static TimeSpan Retention=>TimeSpan.FromMilliseconds(RetentionMilliseconds);
     internal static bool ClearOfAllies(PlayerMobile p,Point3D point,Map map)
     {
         foreach(var other in map.GetMobilesInRange<Mobile>(point,0))

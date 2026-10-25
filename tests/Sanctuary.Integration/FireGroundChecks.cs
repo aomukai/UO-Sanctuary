@@ -96,7 +96,7 @@ public static class FireGroundChecks
                         var patches = Patches(owner);
                         Require(patches.Length == 2 && (patches[0].UntilUtc - TimedEffects.Now).TotalSeconds > 100, "High source-rank field lifetime fixture");
                         // Ordinary source lifetime is checked above. Keep the reload payload independent of suite duration.
-                        patches = patches.Select(x => x with { UntilUtc = TimedEffects.Now.AddMinutes(10) }).ToArray();
+                        patches = patches.Select(x => x with { UntilUtc = TimedEffects.Now.Add(FixtureSpace.Retention) }).ToArray();
                         var all = FireGround.Snapshot();
                         FireGround.Restore(all with { Patches = all.Patches.Select(x => patches.FirstOrDefault(p => p.Id == x.Id) ?? x).ToArray() });
                         File.WriteAllText(Manifest, JsonSerializer.Serialize(new Saved(owner.Serial.Value, fraction.Serial.Value,

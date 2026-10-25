@@ -142,7 +142,7 @@ public static class ShoutChecks
     }
     private static void Seed(PlayerMobile owner,PlayerMobile ally,BaseCreature pet,BaseCreature enemy,PlayerMobile far)
     {
-        var hold=TimedEffects.Now.AddMinutes(10);foreach(var target in new Mobile[]{owner,ally,pet}){Replace(BarbarianShout.State(target) with{UntilUtc=hold});}
+        var hold=TimedEffects.Now.Add(FixtureSpace.Retention);foreach(var target in new Mobile[]{owner,ally,pet}){Replace(BarbarianShout.State(target) with{UntilUtc=hold});}
         var expired=Fresh(owner);BarbarianShout.Apply(owner,expired,1,TimedEffects.Now);Replace(BarbarianShout.State(expired) with{UntilUtc=TimedEffects.Now.AddMilliseconds(500)});
         BarbarianShout.Cast(owner,SkillMechanics.Values(owner,CombatAbility.Shout,2),TimedEffects.Now);
         foreach(var target in new Mobile[]{owner,ally,pet}){Replace(BarbarianShout.State(target) with{UntilUtc=hold});}

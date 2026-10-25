@@ -108,7 +108,7 @@ public static class HolyBoltChecks
     {
         // Snapshot inspection hold only; ordinary duration/pulse checks remain separate.
         HolyBolts.Cast(owner,new(owner.X+14,owner.Y,owner.Z),SkillMechanics.Values(owner,CombatAbility.HolyBolt,1));
-        var flight=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value);var at=TimedEffects.Now.AddMinutes(10);
+        var flight=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value);var at=TimedEffects.Now.Add(FixtureSpace.Retention);
         flight=flight with{NextUtc=at,UntilUtc=at.AddSeconds(2),X=owner.X+1,Y=owner.Y,Frame=2,LastCollision=ally.Serial.Value,Min256=3072,Max256=6144};
         Replace(flight);File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,ally.Serial.Value,pet.Serial.Value,undead.Serial.Value,flight)));
     }

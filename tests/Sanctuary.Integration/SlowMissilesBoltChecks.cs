@@ -145,7 +145,7 @@ public static class SlowMissilesBoltChecks
         if(_phase<2){Require(_owner.Hits==_before-LightningLoss(_phase==0?100:67),"Natural captured lightning damage");}
         Log.Information("Slow native bolt phase={Phase} elapsedMs={Elapsed} lifeLoss={Loss}",_phase,Core.TickCount-_started,_before-_owner.Hits);
         if(++_phase<3){Next();return;}
-        Cleanup();Reset();Slow(20);var state=AmazonSlowMissiles.State(_source) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};
+        Cleanup();Reset();Slow(20);var state=AmazonSlowMissiles.State(_source) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         AmazonSlowMissiles.Restore(AmazonSlowMissiles.Snapshot().Where(x=>x.Target!=_source.Serial.Value).Append(state).ToArray());
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(_owner.Serial.Value,_caster.Serial.Value,_source.Serial.Value,_origin,state,NecromancerEffects.ManaBalance256(_owner))));
         Log.Information("slow-missiles-bolts-result: passed");

@@ -50,7 +50,7 @@ public static class BerserkChecks
     private static void Freeze(Mobile actor)
     {
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
-        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(10)}:x).ToArray());
+        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray());
     }
     private static void Ready(PlayerMobile owner){BarbarianConcentrate.Cancel(owner);ClassCombat.Stop(owner);ClassCombat.For(owner).NextAction=ClassCombat.For(owner).RecoveryUntil=Core.TickCount;}
     private static void Clean(PlayerMobile owner){Ready(owner);BarbarianBerserk.Clear(owner);}
@@ -171,7 +171,7 @@ public static class BerserkChecks
     private static void Seed(PlayerMobile owner,Skeleton enemy,Item weapon,Item helm)
     {
         Clean(owner);Freeze(owner);Freeze(enemy);Stop(enemy);int defense=ClassStats.Defense(owner),hp=Life(enemy);Start(owner,enemy);var action=ClassCombat.For(owner);
-        var state=BarbarianBerserk.State(owner) with{UntilUtc=TimedEffects.Now.AddMinutes(10)};Replace(state);action.EffectAt=Core.TickCount+600000;action.NextAction=action.EffectAt+1000;action.BarbarianAttack=action.BarbarianAttack with{EffectAt=action.EffectAt}; // Saved inspection holds only, after natural durations pass.
+        var state=BarbarianBerserk.State(owner) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Replace(state);action.EffectAt=Core.TickCount+FixtureSpace.RetentionMilliseconds;action.NextAction=action.EffectAt+1000;action.BarbarianAttack=action.BarbarianAttack with{EffectAt=action.EffectAt}; // Saved inspection holds only, after natural durations pass.
         var expired=Fresh(owner);Train(expired,CombatAbility.Berserk,1);BarbarianBerserk.Begin(expired,SkillMechanics.Values(expired,CombatAbility.Berserk),Core.TickCount);Replace(BarbarianBerserk.State(expired) with{UntilUtc=TimedEffects.Now.AddMilliseconds(500)});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,enemy.Serial.Value,weapon.Serial.Value,helm.Serial.Value,expired.Serial.Value,NecromancerEffects.ManaBalance256(owner),hp,defense,state,owner.Location,owner.Map.MapID)));
     }

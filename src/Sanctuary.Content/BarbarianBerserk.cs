@@ -69,7 +69,16 @@ public static class BarbarianBerserk
         {if(pair.Value.UntilUtc<=TimedEffects.Now || !Eligible(World.FindMobile((Serial)pair.Key))){_expired.Add(pair.Key);}}
         foreach(uint serial in _expired){Clear(World.FindMobile((Serial)serial));_states.Remove(serial);}
     }
-    public static BerserkState[] Snapshot(){Prune();return new List<BerserkState>(_states.Values).ToArray();}
+    public static BerserkState[] Snapshot()
+    {
+        // GenericPersistence writes this payload on a serialization worker.
+        // Prune/Clear refresh live mobiles and queue equipment-validation
+        // timers; only the game-loop timer may perform that cleanup.
+        var at=TimedEffects.Now;var saved=new List<BerserkState>();
+        foreach(var pair in _states)
+        {if(pair.Value.UntilUtc>at && Eligible(World.FindMobile((Serial)pair.Key))){saved.Add(pair.Value);}}
+        return saved.ToArray();
+    }
     public static void Restore(BerserkState[] states)
     {
         if(states==null){throw new InvalidDataException("Missing Berserk states");}_states.Clear();

@@ -131,7 +131,7 @@ public static class MagicArrowChecks
         var p=Fresh();Train(p,1);var bow=Bow(p,typeof(Bow));Require(SkillBindings.Instance.Assign(p,true,CombatAbility.MagicArrow) && SkillBindings.Instance.Assign(p,false,CombatAbility.MagicArrow) && SkillBindings.Instance.AssignQuick(p,2,CombatAbility.MagicArrow),"Saved bindings");
         var target=new BowLaunchTarget{Frozen=true,CantWalk=true,NoKillAwards=true,Name="MagicArrowTarget"};target.SetHits(50000);target.MoveToWorld(Aim(p,5),p.Map);target.AIObject.AITimer.Stop();target.SetResistance(ResistanceType.Physical,0);
         var f=Cast(p,target);Require(SkillHealth.Balance256(target)==50000*256,"Instant instead of travelling cast damage");
-        var all=WeaponMissiles.Snapshot();f=f with{NextUtc=TimedEffects.Now.AddMinutes(10)};WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==f.Id?f:x).ToArray()});
+        var all=WeaponMissiles.Snapshot();f=f with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==f.Id?f:x).ToArray()});
         Ready(p);Require(ClassCombat.Perform(p,CombatAbility.MagicArrow,null,Aim(p),Core.TickCount),"Saved unpaid bow windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,p.Location,f,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p))));
     }
@@ -207,7 +207,7 @@ public static class MagicArrowChecks
         int expected=NamedElements.To256(saved.Flight.Damage.Roll(target,_=>0).Total);
         var all=WeaponMissiles.Snapshot();WeaponMissiles.Restore(all with{Flights=all.Flights.Select(x=>x.Id==saved.Flight.Id?x with{NextUtc=TimedEffects.Now}:x).ToArray()});Finish(saved.Flight.Id);
         Require(SkillHealth.Balance256(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana,"Cast flight changed payload/paid twice");
-        all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};WeaponMissiles.Restore(all with{Flights=all.Flights.Append(held).ToArray()});
+        all=WeaponMissiles.Snapshot();var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};WeaponMissiles.Restore(all with{Flights=all.Flights.Append(held).ToArray()});
         Require(p.EquipItem(bow),"Saved bow re-equip");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.MagicArrow,null,Aim(p),Core.TickCount),"Saved unpaid reload windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=held,Health=SkillHealth.Balance256(target)}));
     });

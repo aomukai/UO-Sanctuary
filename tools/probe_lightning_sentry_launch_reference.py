@@ -23,6 +23,9 @@ def build(check=False):
     relative='source/D2Game/src/SKILLS/Skills.cpp'
     raw=(STAGE/'d2moo-pinned-source'/relative).read_bytes()
     assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==next(x['sha'] for x in tree['tree'] if x['path']==relative)
+    unit_relative='source/D2Common/include/Units/Units.h';unit_raw=(STAGE/'d2moo-pinned-source'/unit_relative).read_bytes()
+    assert hashlib.sha1(b'blob '+str(len(unit_raw)).encode()+b'\0'+unit_raw).hexdigest()==next(x['sha'] for x in tree['tree'] if x['path']==unit_relative)
+    constants={name:int(re.search(r'\b'+name+r'\s*=\s*(0x[0-9A-Fa-f]+)',unit_raw.decode())[1],16) for name in ['UNITFLAG_SKSRVDOFUNC','UNITFLAG_CANBEATTACKED']}
     routines={}
     def routine(name):
         source=raw.decode();m=re.search(r'^.*\b'+name+r'\([^;\n]*\)\s*\n\{',source,re.M);assert m,name
@@ -43,6 +46,8 @@ def build(check=False):
         assert base.count(old)==1,old
         base=base.replace(old,new)
     replace('#include <algorithm>','#include <algorithm>\n#include <cassert>')
+    replace('UNITFLAG_SKSRVDOFUNC=32','UNITFLAG_SKSRVDOFUNC='+str(constants['UNITFLAG_SKSRVDOFUNC']))
+    replace('UNITFLAG_CANBEATTACKED=16','UNITFLAG_CANBEATTACKED='+str(constants['UNITFLAG_CANBEATTACKED']))
     replace('nSeqCurrentFramePrecise=0,','dwSeqFrame=0,nSeqCurrentFramePrecise=0,')
     replace('struct D2SkillsTxt{int wSrvMissileA=86,wSrvMissileB=86;int dwCalc[4]={};};',
             'struct D2SkillsTxt{int wSrvMissileA=86,wSrvMissileB=86;int dwCalc[4]={};unsigned dwFlags[2]={};int wSrvDoFunc=0,wSrvStartFunc=0,wSrvMissile=526,wItemEffect=1,dwDelay=0,nAnim=18;};')
@@ -103,15 +108,16 @@ for(int rank:{1,3,20,255})for(int aim=0;aim<6;aim++)for(int mode:{0,1,2})for(int
         assert attack==(tohit if success else 0)
     fixture=STAGE/'lightning-sentry-launch-source-probe.json';fixture.write_text(json.dumps(data,separators=(',',':'))+'\n')
     evidence=dict(referenceVersion='3.3.93847',talentId='assassin.lightningsentry',handlerEnabled=False,legacyCommit=tree['sha'],
-        sourceHashes={relative:hashlib.sha256(raw).hexdigest(),'source/D2Game/src/MISSILES/Missiles.cpp':shared['sourceHashes']['source/D2Game/src/MISSILES/Missiles.cpp']},
-        compiledRoutineHashes={**routines,'MISSILES_CreateMissileFromParams':shared['blockHashes']['MISSILES_CreateMissileFromParams']},pinnedInputHashes=pins,
+        sourceHashes={unit_relative:hashlib.sha256(unit_raw).hexdigest(),relative:hashlib.sha256(raw).hexdigest(),'source/D2Game/src/MISSILES/Missiles.cpp':shared['sourceHashes']['source/D2Game/src/MISSILES/Missiles.cpp']},
+        compiledRoutineHashes={**routines,'MISSILES_CreateMissileFromParams':shared['blockHashes']['MISSILES_CreateMissileFromParams']},pinnedInputHashes=pins,sourceConstants=constants,
         fixture=dict(path=str(fixture.relative_to(ROOT)),sha256=hashlib.sha256(fixture.read_bytes()).hexdigest(),cases=len(data)),
         established=['Current NPC313 has no custom start/do and launches missile526 through the complete generic handler and absolute-target wrapper. One factory call is attempted; there is no CBS fan, charged-bolt seed or waypoint initialization.',
             'Absolute coordinates and flags33 originate at the trap. A present target, including a dead but registered target, supplies its current position; otherwise the retained first path point supplies aim. Either zero coordinate suppresses allocation. Same-position moving aim falls back to(+1,+1).',
             'Complete factory uses current affine range10+2*rank and velocity30*256*75/100=5760FP8; actor skill313/rank stay stored while the separate source-zero damage proof selects player271 from missile526.',
             'The generic handler reports success and reaches its generic payment callback even when coordinates, room, missile row or allocation prevent a projectile. This is not proof of a player mana debit: the supplier is an NPC and the consumer is an explicitly declared service here.',
             'Missing skill rows and missing current/highest skills reject before launch. Present used skill with no room clears the used skill. Optional NPC attack rating adds the factory attack-bonus flag; it does not change the zero-ToHit current missile into an attack-roll skill.'],
-        services=['Existing Guided Arrow complete-factory harness supplies room/allocation/path/stat/owner/damage/event services; unchanged bodies are fingerprinted. Damage, path construction and stat writes are not recomposed in this launch proof.',
+        services=['This composition pins server-do64 and attackable4 from the actual Unit header, replacing the parent abstract numeric aliases32/16 before composing the generic handler. These corrections leave all9216launch outputs unchanged; this is preparation for the hardcoded mode14 bit6 consumer.',
+            'Existing Guided Arrow complete-factory harness supplies room/allocation/path/stat/owner/damage/event services; unchanged bodies are fingerprinted. Damage, path construction and stat writes are not recomposed in this launch proof.',
             'Used/highest skill lookup, coordinate accessors, zero delay and NPC mana-consumer calls are explicit services. Noncurrent lob/item/quantity/mana-gate branches abort. Native NPC animation/action caller, actual world movement/hits, retirement and modern executable behavior remain separate.'],
         sanitizers='ASan/UBSan: exit0 and empty runtime stderr required')
     out=ROOT/'tools/reference/lightning-sentry-launch-source-evidence.json';encoded=json.dumps(evidence,indent=2)+'\n'

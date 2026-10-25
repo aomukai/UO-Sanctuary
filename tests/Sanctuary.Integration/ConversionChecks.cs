@@ -172,7 +172,7 @@ public static class ConversionChecks
         Require(!PaladinConversion.Eligible(owner,pet) && ClassCombat.Friendly(pet,converted) && !converted.CanBeHarmful(pet,false),"Converted ally harmed pet or converted owned pet");pet.Delete();
         // Hold this fixture's absolute deadline across the much longer combined suite.
         // The16-second source duration and real timer expiry have separate checks.
-        PaladinConversion.Restore(PaladinConversion.Snapshot().Select(x=>x.Target==converted.Serial.Value?x with{UntilUtc=TimedEffects.Now.AddMinutes(10)}:x).ToArray());
+        PaladinConversion.Restore(PaladinConversion.Snapshot().Select(x=>x.Target==converted.Serial.Value?x with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray());
         lease=PaladinConversion.Snapshot().Single(x=>x.Target==converted.Serial.Value);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,converted.Serial.Value,enemy.Serial.Value,p,owner.Map.MapID,life,maximum,lease)));
         var elapsed=new Zombie{NoKillAwards=true};elapsed.MoveToWorld(new(p.X+5,p.Y,p.Z),owner.Map);Stop(elapsed);

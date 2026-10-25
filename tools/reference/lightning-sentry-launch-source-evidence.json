@@ -4,6 +4,7 @@
   "handlerEnabled": false,
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
   },
@@ -15,6 +16,10 @@
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "sourceConstants": {
+    "UNITFLAG_SKSRVDOFUNC": 64,
+    "UNITFLAG_CANBEATTACKED": 4
   },
   "fixture": {
     "path": ".local/class-skills/lightning-sentry-launch-source-probe.json",
@@ -29,6 +34,7 @@
     "Missing skill rows and missing current/highest skills reject before launch. Present used skill with no room clears the used skill. Optional NPC attack rating adds the factory attack-bonus flag; it does not change the zero-ToHit current missile into an attack-roll skill."
   ],
   "services": [
+    "This composition pins server-do64 and attackable4 from the actual Unit header, replacing the parent abstract numeric aliases32/16 before composing the generic handler. These corrections leave all9216launch outputs unchanged; this is preparation for the hardcoded mode14 bit6 consumer.",
     "Existing Guided Arrow complete-factory harness supplies room/allocation/path/stat/owner/damage/event services; unchanged bodies are fingerprinted. Damage, path construction and stat writes are not recomposed in this launch proof.",
     "Used/highest skill lookup, coordinate accessors, zero delay and NPC mana-consumer calls are explicit services. Noncurrent lob/item/quantity/mana-gate branches abort. Native NPC animation/action caller, actual world movement/hits, retirement and modern executable behavior remain separate."
   ],

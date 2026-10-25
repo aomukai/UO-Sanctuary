@@ -107,7 +107,7 @@ public static class DecoyComponentChecks
     private static void Persist(PlayerMobile owner)
     {
         var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);Require(owner.EquipItem(helm),"Saved Decoy soft rank");ClassGear.Refresh(owner);
-        var pet=Create(owner);Require(pet!=null,"Saved entity");owner.AddToBackpack(helm);ClassGear.Refresh(owner);pet.HoldUntil(TimedEffects.Now.AddMinutes(10));SkillHealth.Damage(owner,pet,100*256+257);pet.Pause();
+        var pet=Create(owner);Require(pet!=null,"Saved entity");owner.AddToBackpack(helm);ClassGear.Refresh(owner);pet.HoldUntil(TimedEffects.Now.Add(FixtureSpace.Retention));SkillHealth.Damage(owner,pet,100*256+257);pet.Pause();
         // Separate caster avoids the one-Decoy replacement cap. Its short saved
         // deadline tests offline expiry; production skill durations are unchanged.
         var other=Fresh();var expired=Create(other);expired.HoldUntil(TimedEffects.Now.AddMilliseconds(100));

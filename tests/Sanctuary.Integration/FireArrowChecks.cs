@@ -153,7 +153,7 @@ public static class FireArrowChecks
     {
         var p=Fresh();Train(p,CombatAbility.FireArrow,20);Train(p,CombatAbility.ExplodingArrow);var bow=NamedGear.Create("unique/65",99,new Random(53),true);p.AddToBackpack(bow);Require(p.EquipItem(bow),"Saved Hellclap");
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.FireArrow) && SkillBindings.Instance.Assign(p,false,CombatAbility.FireArrow) && SkillBindings.Instance.AssignQuick(p,5,CombatAbility.FireArrow),"Saved bindings");
-        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var flight=Cast(p,target) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,flight);
+        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var flight=Cast(p,target) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,flight);
         Require(SkillHealth.Balance256(target)==50000*256,"Instant Fire damage");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.FireArrow,null,Aim(p),Core.TickCount),"Paid/unemitted save windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,ammo.Serial.Value,p.Location,flight,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),ammo.Amount)));
     }
@@ -167,7 +167,7 @@ public static class FireArrowChecks
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Flight.Map]);var bow=World.FindItem((Serial)saved.Bow);p.AddToBackpack(bow);
         int expected=NamedElements.To256(saved.Flight.Damage.Roll(target,_=>0).Total);Hold(p,saved.Flight with{NextUtc=TimedEffects.Now});Finish(saved.Flight.Id);
         Require(SkillHealth.Balance256(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana && ammo.Amount==saved.Quantity,"Resumed Fire payload or resource repayment");
-        var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,held);Require(p.EquipItem(bow),"Reload bow re-equip");Ready(p);
+        var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,held);Require(p.EquipItem(bow),"Reload bow re-equip");Ready(p);
         Require(ClassCombat.Perform(p,CombatAbility.FireArrow,null,Aim(p),Core.TickCount),"Next paid/unemitted save windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=held,Health=SkillHealth.Balance256(target),Mana=NecromancerEffects.ManaBalance256(p)}));
     });

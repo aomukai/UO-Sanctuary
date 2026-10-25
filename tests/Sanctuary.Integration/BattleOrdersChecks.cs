@@ -181,7 +181,7 @@ public static class BattleOrdersChecks
     }
     private static void Seed(PlayerMobile owner,PlayerMobile ally,NecromancerMinion golem,BaseCreature pet,PlayerMobile necro,PlayerMobile far)
     {
-        var at=TimedEffects.Now;var hold=at.AddMinutes(10);
+        var at=TimedEffects.Now;var hold=at.Add(FixtureSpace.Retention);
         BarbarianShout.Cast(owner,SkillMechanics.Values(owner,CombatAbility.BattleOrders,2),at,CombatAbility.BattleOrders);
         var ray=BarbarianShout.Snapshot().Rays.First(x=>x.Owner==owner.Serial.Value && x.Ability==CombatAbility.BattleOrders && x.Ray==0);
         for(int frame=0;frame<6;frame++){var motion=BarbarianShout.Advance(0,ray.Velocity,ray.AccelerationCounter);ray=ray with{X=ray.X+motion.X,Y=ray.Y+motion.Y,Frame=frame+1,Velocity=motion.Velocity,AccelerationCounter=motion.Counter};}

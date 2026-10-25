@@ -49,7 +49,7 @@ public static class ConcentrateChecks
     private static void Freeze(Mobile actor)
     {
         TimedEffects.Poison(actor,actor,.000001,60000,TimedEffects.Now);
-        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.AddMinutes(10)}:x).ToArray());
+        TimedEffects.Load(TimedEffects.Snapshot().Select(x=>x.Owner==actor.Serial.Value?x with{UpdatedUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x).ToArray());
     }
     private static void Ready(PlayerMobile owner){BarbarianConcentrate.Cancel(owner);ClassCombat.Stop(owner);ClassCombat.For(owner).NextAction=ClassCombat.For(owner).RecoveryUntil=Core.TickCount;}
     private static void Mana(PlayerMobile owner){owner.Mana=owner.ManaMax;NecromancerEffects.Profiles.Store(owner,new());}
@@ -179,7 +179,7 @@ public static class ConcentrateChecks
     {
         Ready(owner);Mana(owner);Stop(enemy);Freeze(owner);Freeze(enemy);int defense=ClassStats.Defense(owner),hp=Life(enemy);
         Require(ClassCombat.Perform(owner,CombatAbility.Concentrate,enemy,enemy.Location,Core.TickCount),"Saved paid Concentrate start");ClassCombat.ReleaseCast(owner);
-        var state=ClassCombat.For(owner);state.EffectAt=Core.TickCount+600000;state.NextAction=state.EffectAt+1000;
+        var state=ClassCombat.For(owner);state.EffectAt=Core.TickCount+FixtureSpace.RetentionMilliseconds;state.NextAction=state.EffectAt+1000;
         state.Concentrate=state.Concentrate with{Until=state.NextAction};state.BarbarianAttack=state.BarbarianAttack with{EffectAt=state.EffectAt}; // Fixture-only save inspection hold, after normal-clock expiry passed.
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,enemy.Serial.Value,weapon.Serial.Value,helm.Serial.Value,NecromancerEffects.ManaBalance256(owner),hp,defense,owner.Location,owner.Map.MapID)));
     }

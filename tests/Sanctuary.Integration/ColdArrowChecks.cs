@@ -171,8 +171,8 @@ public static class ColdArrowChecks
     {
         var p=Fresh();Train(p,CombatAbility.ColdArrow,20);Train(p,CombatAbility.IceArrow);var bow=MagicArrowChecks.Bow(p,typeof(Bow));
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.ColdArrow) && SkillBindings.Instance.Assign(p,false,CombatAbility.ColdArrow) && SkillBindings.Instance.AssignQuick(p,6,CombatAbility.ColdArrow),"Saved bindings");
-        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var first=Cast(p,target);Finish(first.Id);Require(TimedEffects.TryActor(target,out var state) && state.Cold!=null,"Actual arrow did not apply saved cold state");state.ChillUntil=TimedEffects.Now.AddMinutes(10);
-        var flight=Cast(p,target) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,flight);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.ColdArrow,null,Aim(p),Core.TickCount),"Paid/unemitted saved windup");
+        var ammo=new Arrow(10);p.AddToBackpack(ammo);var target=Target(p);var first=Cast(p,target);Finish(first.Id);Require(TimedEffects.TryActor(target,out var state) && state.Cold!=null,"Actual arrow did not apply saved cold state");state.ChillUntil=TimedEffects.Now.Add(FixtureSpace.Retention);
+        var flight=Cast(p,target) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,flight);Ready(p);Require(ClassCombat.Perform(p,CombatAbility.ColdArrow,null,Aim(p),Core.TickCount),"Paid/unemitted saved windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,bow.Serial.Value,ammo.Serial.Value,p.Location,flight,SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(p),ammo.Amount,state.ChillUntil,state.Cold)));
     }
     private static void NaturalExpiry()
@@ -195,8 +195,8 @@ public static class ColdArrowChecks
         p.MoveToWorld(saved.Origin,Map.Maps[saved.Flight.Map]);var bow=World.FindItem((Serial)saved.Bow);p.AddToBackpack(bow);
         int expected=NamedElements.To256(saved.Flight.Damage.Roll(target,_=>0).Total);Hold(p,saved.Flight with{NextUtc=TimedEffects.Now});Finish(saved.Flight.Id);
         Require(SkillHealth.Balance256(target)==saved.Health-expected && NecromancerEffects.ManaBalance256(p)==saved.Mana && ammo.Amount==saved.Quantity,"Resumed cold payload/resource repayment");
-        TimedEffects.TryActor(target,out state);Require(state.Cold==saved.Cold && state.ChillUntil==saved.ChillUntil,"Resumed shorter chill replaced saved state");state.ChillUntil=TimedEffects.Now.AddMinutes(10);
-        var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,held);Require(p.EquipItem(bow),"Reload bow");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.ColdArrow,null,Aim(p),Core.TickCount),"Next paid/unemitted windup");
+        TimedEffects.TryActor(target,out state);Require(state.Cold==saved.Cold && state.ChillUntil==saved.ChillUntil,"Resumed shorter chill replaced saved state");state.ChillUntil=TimedEffects.Now.Add(FixtureSpace.Retention);
+        var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,held);Require(p.EquipItem(bow),"Reload bow");Ready(p);Require(ClassCombat.Perform(p,CombatAbility.ColdArrow,null,Aim(p),Core.TickCount),"Next paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=held,Health=SkillHealth.Balance256(target),Mana=NecromancerEffects.ManaBalance256(p),ChillUntil=state.ChillUntil}));
     });
     private static void Input()

@@ -112,7 +112,7 @@ public static class HolyFreezeChecks
     }
     private static void Seed(PlayerMobile owner,Mobile target,Corpse corpse)
     {
-        var deadline=TimedEffects.Now.AddMinutes(10);var lease=PaladinHolyFreeze.Effect(target) with{UntilUtc=deadline,Shatter=true};
+        var deadline=TimedEffects.Now.Add(FixtureSpace.Retention);var lease=PaladinHolyFreeze.Effect(target) with{UntilUtc=deadline,Shatter=true};
         PaladinHolyFreeze.Restore(PaladinHolyFreeze.Snapshot().Select(x=>x.Target==target.Serial.Value?lease:x).ToArray());
         var aura=PaladinAuras.Snapshot();aura=aura with{Emitters=aura.Emitters.Select(x=>x.Owner==owner.Serial.Value?x with{NextUtc=deadline}:x).ToArray(),
             Leases=aura.Leases.Select(x=>x.Source==owner.Serial.Value?x with{UntilUtc=deadline}:x).ToArray()};PaladinAuras.Restore(aura);

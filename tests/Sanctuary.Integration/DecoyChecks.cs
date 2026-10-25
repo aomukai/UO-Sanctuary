@@ -147,7 +147,7 @@ public static class DecoyChecks
     }
     private static void Persist()
     {
-        var owner=Fresh();Train(owner,CombatAbility.Decoy);Require(SkillBindings.Instance.Assign(owner,false,CombatAbility.Decoy) && SkillBindings.Instance.AssignQuick(owner,3,CombatAbility.Decoy),"Saved bindings");var helm=Helm(owner);Mana(owner);var pet=Cast(owner,Point(owner));owner.AddToBackpack(helm);ClassGear.Refresh(owner);pet.HoldUntil(TimedEffects.Now.AddMinutes(10));SkillHealth.Damage(owner,pet,100*256+257);pet.Pause();
+        var owner=Fresh();Train(owner,CombatAbility.Decoy);Require(SkillBindings.Instance.Assign(owner,false,CombatAbility.Decoy) && SkillBindings.Instance.AssignQuick(owner,3,CombatAbility.Decoy),"Saved bindings");var helm=Helm(owner);Mana(owner);var pet=Cast(owner,Point(owner));owner.AddToBackpack(helm);ClassGear.Refresh(owner);pet.HoldUntil(TimedEffects.Now.Add(FixtureSpace.Retention));SkillHealth.Damage(owner,pet,100*256+257);pet.Pause();
         // An unpaid pending windup must not replay after restart.
         Ready(owner);Require(ClassCombat.Perform(owner,CombatAbility.Decoy,null,Point(owner,5),Core.TickCount),"Saved unpaid pending cast");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,pet.Serial.Value,helm.Serial.Value,owner.Location,pet.Location,pet.Snapshot,pet.ExpiresUtc,SkillHealth.Balance256(pet),NecromancerEffects.ManaBalance256(owner))));

@@ -119,7 +119,7 @@ public static class LeapChecks
         if(phase==LeapPhase.Airborne){Step(owner,10);}
         else if(phase==LeapPhase.Recovery){while(BarbarianLeap.State(owner).Phase!=LeapPhase.Recovery){Step(owner);}}
         var state=BarbarianLeap.State(owner);Require(state.Phase==phase,"Wrong saved phase");
-        state=state with{NextUtc=TimedEffects.Now.AddMinutes(10)};
+        state=state with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
         BarbarianLeap.Restore(BarbarianLeap.Snapshot().Select(s=>s.Owner==state.Owner?state:s).ToArray());
         return new(state,owner.Mana,NecromancerEffects.Profiles.Find(owner)?.ManaFraction??0,obstacle?.Serial.Value??0);
     }

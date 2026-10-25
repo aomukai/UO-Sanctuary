@@ -128,7 +128,7 @@ public static class PoisonStateChecks
         var npc = Target(source); Require(TimedEffects.PoisonFrames(source, npc, 16, 1550, now), "Saved source-frame poison"); TimedEffects.Settle(npc, now.AddMilliseconds(39));
         var player = MagicArrowChecks.Fresh("SavedPoisonPlayer"); player.Hits = 1; SkillHealth.Clear(player); Require(TimedEffects.PoisonFrames(source, player, 512, 10000, now), "Saved player poison"); TimedEffects.Settle(player, now.AddMilliseconds(39));
         var legacy = Target(source, 10); SkillHealth.SetBalance256(legacy, 2432); Replace(legacy, Seed(legacy, source, 5000, .001, .75, now));
-        Mobile[] targets = [npc, player, legacy]; foreach (var target in targets) { Replace(target, State(target) with { UpdatedUtc = TimedEffects.Now.AddMinutes(10) }); }
+        Mobile[] targets = [npc, player, legacy]; foreach (var target in targets) { Replace(target, State(target) with { UpdatedUtc = TimedEffects.Now.Add(FixtureSpace.Retention) }); }
         var valid = State(npc);
         foreach (var invalid in new[] { valid with { PoisonClock = new(0, 0) }, valid with { PoisonClock = new(16, 40) }, valid with { PoisonClock = new(16, -1) }, valid with { PoisonRate = 99 }, valid with { PoisonMs = 0 } })
         { bool rejected = false; try { TimedEffectProfiles.Validate(invalid); } catch (InvalidDataException) { rejected = true; } Require(rejected, "Invalid source poison clock accepted"); }
@@ -144,7 +144,7 @@ public static class PoisonStateChecks
             Replace(target, before with { UpdatedUtc = now }); int elapsed = saved.Generation == 0 ? 1 : 40; TimedEffects.Settle(target, now.AddMilliseconds(elapsed));
             int expected = old.Player ? 256 : old.Legacy ? (saved.Generation == 0 ? 2240 : 2230) : old.Balance256 - 16;
             Require(SkillHealth.Balance256(target) == expected && State(target).PoisonSource == saved.Source && State(target).PoisonMs == old.State.PoisonMs - elapsed, "Resumed poison repaid/lost a frame, fraction or owner");
-            Replace(target, State(target) with { UpdatedUtc = now.AddMinutes(10) }); rows[i] = old with { Balance256 = SkillHealth.Balance256(target), State = State(target) };
+            Replace(target, State(target) with { UpdatedUtc = now.Add(FixtureSpace.Retention) }); rows[i] = old with { Balance256 = SkillHealth.Balance256(target), State = State(target) };
         }
         File.WriteAllText(Manifest, JsonSerializer.Serialize(saved with { Generation = saved.Generation + 1, Targets = rows }));
     }

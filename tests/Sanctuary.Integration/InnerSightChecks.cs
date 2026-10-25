@@ -117,8 +117,8 @@ public static class InnerSightChecks
     {
         var target=Enemy(owner);var expired=Enemy(owner,5);var caster=Fresh(DiabloClass.Necromancer);Train(caster,"necromancer.lifetap");
         var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);Require(owner.EquipItem(helm),"Saved soft rank");ClassGear.Refresh(owner);Mana(owner);Cast(owner);owner.AddToBackpack(helm);ClassGear.Refresh(owner);
-        Require(NecromancerEffects.Apply(caster,target,CombatAbility.LifeTap,1),"Saved independent curse");var state=NecromancerEffects.Profiles.Find(target);NecromancerEffects.Profiles.Store(target,state with{Curse=state.Curse with{UntilUtc=TimedEffects.Now.AddMinutes(10)}});
-        var all=AmazonInnerSight.Snapshot();AmazonInnerSight.Restore(all.Select(x=>x.Target==target.Serial.Value?x with{UntilUtc=TimedEffects.Now.AddMinutes(10)}:x.Target==expired.Serial.Value?x with{UntilUtc=TimedEffects.Now.AddMilliseconds(500)}:x).ToArray());
+        Require(NecromancerEffects.Apply(caster,target,CombatAbility.LifeTap,1),"Saved independent curse");var state=NecromancerEffects.Profiles.Find(target);NecromancerEffects.Profiles.Store(target,state with{Curse=state.Curse with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}});
+        var all=AmazonInnerSight.Snapshot();AmazonInnerSight.Restore(all.Select(x=>x.Target==target.Serial.Value?x with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)}:x.Target==expired.Serial.Value?x with{UntilUtc=TimedEffects.Now.AddMilliseconds(500)}:x).ToArray());
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,caster.Serial.Value,target.Serial.Value,expired.Serial.Value,helm.Serial.Value,owner.Location,NecromancerEffects.ManaBalance256(owner),AmazonInnerSight.State(target),NecromancerEffects.Curse(target))));
     }
     private static void Check()

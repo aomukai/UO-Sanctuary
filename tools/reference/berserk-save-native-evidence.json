@@ -1,0 +1,40 @@
+{
+  "status": "Targeted red/green worker regression passed; v4 focused/full acceptance pending. Not installed.",
+  "installed": false,
+  "saveVersion": 0,
+  "updatedAtUtc": "2026-10-25T18:39:15.900032+00:00",
+  "finding": "BerserkProfiles.Serialize invoked Snapshot->Prune->Clear->ClassStats.Refresh on an engine serialization worker. A state expiring just before save queued PlayerMobile equipment-validation work while the world was saving.",
+  "change": "Snapshot now filters eligible unexpired records without mutating the live dictionary, clearing actions or refreshing mobiles. The existing game-loop prune timer still performs normal cleanup. Save version and JSON state shape are unchanged.",
+  "red": {
+    "contentSha256": "354ef360fe596af2ddb2850858f8455dd0a32c235f29054bac672ff91d8bc109",
+    "sourceSha256": "7687c50a6c4ea7490a0caace654043abf1b5daf3cf92c194ffa4f48ff355eacf",
+    "log": ".local/class-skills/berserk-snapshot-red.log",
+    "runLog": ".local/class-skills/berserk-snapshot-red-run.log",
+    "result": "Expected live-equipment-validation assertion failure; isolated server shuts down0."
+  },
+  "green": {
+    "contentSha256": "83890a06cd2ad1a2d72e241e830b526f5375c6d3dc4de874c2ecccef29759675",
+    "integrationSha256": "49ca1f1547de8aeba231fdb53d5c749f8da05bde5b7fe6739e675f5261db417f",
+    "log": ".local/class-skills/berserk-snapshot-green.log",
+    "runLog": ".local/class-skills/berserk-snapshot-green-run.log",
+    "result": "Actual profiles serializer called from Task.Run while main loop waits; expired record omitted, future record retained, defense/deadline unchanged, native equipment-validation flags remain clear; isolated server shuts down0."
+  },
+  "scope": [
+    "This targeted worker check uses a real .NET background task, actual profiles/BufferWriter/BufferReader and live PlayerMobiles. It observes the native equipment-validation guard through reflection; no new production test hook.",
+    "Actual engine saves, natural Berserk expiry, temporary-state cancellation, damage/input/gear/offline and two reloads remain required in the full v4 regression.",
+    "The unrelated Inner Sight failure was an elapsed ten-minute test inspection hold: exact state/curse persisted correctly, then expired during the final boot. Shared one-hour inspection holds affect integration tests only; real expiry controls and production lifetimes remain unchanged."
+  ],
+  "inputHashes": {
+    "src/Sanctuary.Content/BarbarianBerserk.cs": "20eaa5d7bcd33085806a9d17c7c641069250e773773d7bc692cdb8d5a3759079",
+    "tests/Sanctuary.Integration/BerserkSnapshotChecks.cs": "e3ba6652637e79765c0b4b412dedf25cd782df5826d359a900a1e7b46e19544b",
+    "tests/Sanctuary.Integration/FixtureSpace.cs": "63f659955ffe0afd31dee9874dcb947e11f7a37cc3a1de370fbe7e8d6b3d7eb0",
+    "tests/check_class_skills.py": "7551480c71b1f8cdc14ffb42e459761bf23c87d7f3a7d797611b5dd9adc9400c",
+    ".local/class-skills/berserk-snapshot-regression.py": "4e0deacd4e8068a3f2092bc32eb619964f25521935da93666fc3668c7de4a7f8",
+    ".local/class-skills/berserk-snapshot-red.log": "011c7e1edbe859d14f59a8f2e5f1bcf147433165546c4b23fe8ff9a8ec938f86",
+    ".local/class-skills/berserk-snapshot-red-run.log": "efdf4f04b9211131b0a806194fcde7076e363de2b0da8f220742f2e77df7ed65",
+    ".local/class-skills/berserk-snapshot-green.log": "691ffecbb1e21a884301a42ccfe80c7772f33a308ab76f8b61a59a064fab9b81",
+    ".local/class-skills/berserk-snapshot-green-run.log": "91fdd02b60cc8a6b0fd567fc8130c77c41dc2df196a09d437e3b5bb74f7b99a8",
+    ".local/class-skills/lightning-sentry-v3/inner-sight-deadline-diagnostic.json": "5561693008b1e93ddef3753ac535e517cc2d976a03f535182b64eedf6294bb1d",
+    ".local/class-skills/inspection-retention-migration.json": "9cf1ded548a15694df05aba7ab4622424e89107096a0a801667c09bedd3153f9"
+  }
+}

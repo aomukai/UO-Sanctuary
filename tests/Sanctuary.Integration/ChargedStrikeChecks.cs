@@ -153,7 +153,7 @@ public static class ChargedStrikeChecks
         Ready(owner);SkillHealth.SetBalance256(owner,owner.HitsMax*256);var target=Enemy(owner,30);ChargedStrikeBolts.Cast(owner,new(owner.X+10,owner.Y,owner.Z),SkillMechanics.Values(owner,CombatAbility.ChargedStrike));
         Later(160,"charged-strike-result",()=>
         {
-            var moving=Flights(owner);Require(moving.Length>0 && moving.All(f=>f.Frame>0 && (f.X!=f.OriginX || f.Y!=f.OriginY)),"No real moving bolt snapshot");var held=TimedEffects.Now.AddMinutes(10);Replace(moving.Select(f=>f with{NextUtc=held,UntilUtc=held.AddSeconds(10)}).ToArray(),owner);
+            var moving=Flights(owner);Require(moving.Length>0 && moving.All(f=>f.Frame>0 && (f.X!=f.OriginX || f.Y!=f.OriginY)),"No real moving bolt snapshot");var held=TimedEffects.Now.Add(FixtureSpace.Retention);Replace(moving.Select(f=>f with{NextUtc=held,UntilUtc=held.AddSeconds(10)}).ToArray(),owner);
             Controlled(()=>{var melee=Enemy(owner);Ready(owner);Begin(owner,melee);});
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,weapon.Serial.Value,helm.Serial.Value,target.Serial.Value,owner.Location,NecromancerEffects.ManaBalance256(owner),SkillHealth.Balance256(target),weapon.HitPoints,NamedAmmunition.Remaining(weapon),SkillMechanics.Rank(owner,CombatAbility.ChargedStrike),Flights(owner))));
         });

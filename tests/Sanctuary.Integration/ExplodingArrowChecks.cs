@@ -192,8 +192,8 @@ public static class ExplodingArrowChecks
         var p=Fresh();Train(p,CombatAbility.ExplodingArrow);var bow=NamedGear.Create("unique/65",99,new Maximum(),true);p.AddToBackpack(bow);Require(p.EquipItem(bow),"Saved Hellclap");
         Require(SkillBindings.Instance.Assign(p,true,CombatAbility.ExplodingArrow) && SkillBindings.Instance.Assign(p,false,CombatAbility.ExplodingArrow)
             && SkillBindings.Instance.AssignQuick(p,7,CombatAbility.ExplodingArrow),"Saved exploding bindings");
-        var ammo=new Arrow(10);p.AddToBackpack(ammo);var first=Enemy(p);Cast(p,first);var blast=Contact(p) with{NextUtc=TimedEffects.Now.AddMinutes(10)};
-        first.MoveToWorld(new(p.X+5,p.Y+2,p.Z),p.Map);var second=Enemy(p);var flight=Cast(p,second) with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,flight,blast);
+        var ammo=new Arrow(10);p.AddToBackpack(ammo);var first=Enemy(p);Cast(p,first);var blast=Contact(p) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};
+        first.MoveToWorld(new(p.X+5,p.Y+2,p.Z),p.Map);var second=Enemy(p);var flight=Cast(p,second) with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,flight,blast);
         Ready(p);Require(ClassCombat.Perform(p,CombatAbility.ExplodingArrow,null,Aim(p),Core.TickCount),"Saved paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,first.Serial.Value,second.Serial.Value,bow.Serial.Value,ammo.Serial.Value,p.Location,flight,blast,
             SkillHealth.Balance256(first),SkillHealth.Balance256(second),NecromancerEffects.ManaBalance256(p),ammo.Amount)));
@@ -215,7 +215,7 @@ public static class ExplodingArrowChecks
         BowExplosions.Restore(BowExplosions.Snapshot().Select(x=>x.Owner==p.Serial.Value?x with{NextUtc=TimedEffects.Now}:x).ToArray());BowExplosions.Tick(TimedEffects.Now);
         Require(SkillHealth.Balance256(first)==saved.FirstHealth-saved.Blast.Min256-next.Min256 && SkillHealth.Balance256(second)==saved.SecondHealth-parent-saved.Blast.Min256-next.Min256
             && NecromancerEffects.ManaBalance256(p)==saved.Mana && ammo.Amount==saved.Quantity,"Resumed parent/fire-only children or resource repayment");
-        var held=saved.Flight with{NextUtc=TimedEffects.Now.AddMinutes(10)};var blast=saved.Blast with{NextUtc=TimedEffects.Now.AddMinutes(10)};Hold(p,held,blast);Require(p.EquipItem(bow),"Reload bow");Ready(p);
+        var held=saved.Flight with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};var blast=saved.Blast with{NextUtc=TimedEffects.Now.Add(FixtureSpace.Retention)};Hold(p,held,blast);Require(p.EquipItem(bow),"Reload bow");Ready(p);
         Require(ClassCombat.Perform(p,CombatAbility.ExplodingArrow,null,Aim(p),Core.TickCount),"Next paid/unemitted windup");
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{Flight=held,Blast=blast,FirstHealth=SkillHealth.Balance256(first),SecondHealth=SkillHealth.Balance256(second),Mana=NecromancerEffects.ManaBalance256(p)}));
     });
