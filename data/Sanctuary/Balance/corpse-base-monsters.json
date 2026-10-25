@@ -1,0 +1,7296 @@
+[
+  {
+    "source": "arach1",
+    "noRatio": false,
+    "minimum": [
+      155,
+      150,
+      150
+    ],
+    "maximum": [
+      192,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach2",
+    "noRatio": false,
+    "minimum": [
+      151,
+      150,
+      150
+    ],
+    "maximum": [
+      191,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach3",
+    "noRatio": false,
+    "minimum": [
+      151,
+      150,
+      150
+    ],
+    "maximum": [
+      191,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach4",
+    "noRatio": false,
+    "minimum": [
+      151,
+      150,
+      150
+    ],
+    "maximum": [
+      192,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach5",
+    "noRatio": false,
+    "minimum": [
+      151,
+      150,
+      150
+    ],
+    "maximum": [
+      190,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach6",
+    "noRatio": false,
+    "minimum": [
+      151,
+      150,
+      150
+    ],
+    "maximum": [
+      190,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "arach7",
+    "noRatio": false,
+    "minimum": [
+      151,
+      400,
+      400
+    ],
+    "maximum": [
+      190,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "baalhighpriest",
+    "noRatio": false,
+    "minimum": [
+      190,
+      220,
+      220
+    ],
+    "maximum": [
+      379,
+      270,
+      270
+    ]
+  },
+  {
+    "source": "baalminion1",
+    "noRatio": false,
+    "minimum": [
+      472,
+      430,
+      430
+    ],
+    "maximum": [
+      660,
+      480,
+      480
+    ]
+  },
+  {
+    "source": "baalminion2",
+    "noRatio": false,
+    "minimum": [
+      472,
+      430,
+      430
+    ],
+    "maximum": [
+      661,
+      480,
+      480
+    ]
+  },
+  {
+    "source": "baalminion3",
+    "noRatio": false,
+    "minimum": [
+      476,
+      430,
+      430
+    ],
+    "maximum": [
+      666,
+      480,
+      480
+    ]
+  },
+  {
+    "source": "baboon1",
+    "noRatio": false,
+    "minimum": [
+      108,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon2",
+    "noRatio": false,
+    "minimum": [
+      108,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon3",
+    "noRatio": false,
+    "minimum": [
+      107,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon4",
+    "noRatio": false,
+    "minimum": [
+      107,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon5",
+    "noRatio": false,
+    "minimum": [
+      107,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon6",
+    "noRatio": false,
+    "minimum": [
+      107,
+      80,
+      80
+    ],
+    "maximum": [
+      151,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "baboon7",
+    "noRatio": false,
+    "minimum": [
+      107,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "baboon8",
+    "noRatio": false,
+    "minimum": [
+      107,
+      90,
+      90
+    ],
+    "maximum": [
+      151,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "batdemon1",
+    "noRatio": false,
+    "minimum": [
+      44,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon2",
+    "noRatio": false,
+    "minimum": [
+      46,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon3",
+    "noRatio": false,
+    "minimum": [
+      44,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon4",
+    "noRatio": false,
+    "minimum": [
+      45,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon5",
+    "noRatio": false,
+    "minimum": [
+      43,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon6",
+    "noRatio": false,
+    "minimum": [
+      43,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "batdemon7",
+    "noRatio": false,
+    "minimum": [
+      43,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "bear",
+    "noRatio": true,
+    "minimum": [
+      12,
+      34,
+      57
+    ],
+    "maximum": [
+      19,
+      54,
+      92
+    ]
+  },
+  {
+    "source": "bighead1",
+    "noRatio": false,
+    "minimum": [
+      66,
+      65,
+      65
+    ],
+    "maximum": [
+      127,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead10",
+    "noRatio": false,
+    "minimum": [
+      80,
+      80,
+      80
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead2",
+    "noRatio": false,
+    "minimum": [
+      67,
+      65,
+      65
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead3",
+    "noRatio": false,
+    "minimum": [
+      62,
+      65,
+      65
+    ],
+    "maximum": [
+      124,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead4",
+    "noRatio": false,
+    "minimum": [
+      67,
+      65,
+      65
+    ],
+    "maximum": [
+      128,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      126,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead6",
+    "noRatio": false,
+    "minimum": [
+      80,
+      80,
+      80
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead7",
+    "noRatio": false,
+    "minimum": [
+      80,
+      80,
+      80
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead8",
+    "noRatio": false,
+    "minimum": [
+      80,
+      80,
+      80
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bighead9",
+    "noRatio": false,
+    "minimum": [
+      80,
+      80,
+      80
+    ],
+    "maximum": [
+      130,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "bloodlord1",
+    "noRatio": false,
+    "minimum": [
+      284,
+      240,
+      240
+    ],
+    "maximum": [
+      380,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord2",
+    "noRatio": false,
+    "minimum": [
+      284,
+      240,
+      240
+    ],
+    "maximum": [
+      380,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord3",
+    "noRatio": false,
+    "minimum": [
+      284,
+      240,
+      240
+    ],
+    "maximum": [
+      379,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord4",
+    "noRatio": false,
+    "minimum": [
+      285,
+      240,
+      240
+    ],
+    "maximum": [
+      379,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord5",
+    "noRatio": false,
+    "minimum": [
+      283,
+      240,
+      240
+    ],
+    "maximum": [
+      379,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord6",
+    "noRatio": false,
+    "minimum": [
+      284,
+      240,
+      240
+    ],
+    "maximum": [
+      379,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodlord7",
+    "noRatio": false,
+    "minimum": [
+      284,
+      240,
+      240
+    ],
+    "maximum": [
+      379,
+      300,
+      300
+    ]
+  },
+  {
+    "source": "bloodmage1",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "bloodmage2",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "bloodmage3",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "bloodmage4",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "bloodmage5",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "blunderbore1",
+    "noRatio": false,
+    "minimum": [
+      160,
+      180,
+      180
+    ],
+    "maximum": [
+      200,
+      220,
+      220
+    ]
+  },
+  {
+    "source": "blunderbore2",
+    "noRatio": false,
+    "minimum": [
+      160,
+      180,
+      180
+    ],
+    "maximum": [
+      200,
+      220,
+      220
+    ]
+  },
+  {
+    "source": "blunderbore3",
+    "noRatio": false,
+    "minimum": [
+      160,
+      180,
+      180
+    ],
+    "maximum": [
+      200,
+      220,
+      220
+    ]
+  },
+  {
+    "source": "blunderbore4",
+    "noRatio": false,
+    "minimum": [
+      160,
+      180,
+      180
+    ],
+    "maximum": [
+      200,
+      220,
+      220
+    ]
+  },
+  {
+    "source": "blunderbore5",
+    "noRatio": false,
+    "minimum": [
+      108,
+      200,
+      200
+    ],
+    "maximum": [
+      193,
+      260,
+      260
+    ]
+  },
+  {
+    "source": "blunderbore6",
+    "noRatio": false,
+    "minimum": [
+      108,
+      200,
+      200
+    ],
+    "maximum": [
+      193,
+      260,
+      260
+    ]
+  },
+  {
+    "source": "bonefetish1",
+    "noRatio": false,
+    "minimum": [
+      64,
+      65,
+      65
+    ],
+    "maximum": [
+      110,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish2",
+    "noRatio": false,
+    "minimum": [
+      64,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "bonefetish7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "brute1",
+    "noRatio": false,
+    "minimum": [
+      129,
+      145,
+      145
+    ],
+    "maximum": [
+      215,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "brute2",
+    "noRatio": false,
+    "minimum": [
+      139,
+      145,
+      145
+    ],
+    "maximum": [
+      224,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "brute3",
+    "noRatio": false,
+    "minimum": [
+      146,
+      145,
+      145
+    ],
+    "maximum": [
+      236,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "brute4",
+    "noRatio": false,
+    "minimum": [
+      143,
+      145,
+      145
+    ],
+    "maximum": [
+      231,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "brute5",
+    "noRatio": false,
+    "minimum": [
+      142,
+      145,
+      145
+    ],
+    "maximum": [
+      230,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "cantor1",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      172,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "cantor2",
+    "noRatio": false,
+    "minimum": [
+      130,
+      90,
+      90
+    ],
+    "maximum": [
+      171,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "cantor3",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      173,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "cantor4",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      173,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "cantor5",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      173,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "cantor6",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      173,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "clawviper1",
+    "noRatio": false,
+    "minimum": [
+      67,
+      75,
+      75
+    ],
+    "maximum": [
+      109,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "clawviper10",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      95,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "clawviper2",
+    "noRatio": false,
+    "minimum": [
+      66,
+      75,
+      75
+    ],
+    "maximum": [
+      107,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "clawviper3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      75,
+      75
+    ],
+    "maximum": [
+      108,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "clawviper4",
+    "noRatio": false,
+    "minimum": [
+      66,
+      75,
+      75
+    ],
+    "maximum": [
+      107,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "clawviper5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      75,
+      75
+    ],
+    "maximum": [
+      107,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "clawviper6",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      95,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "clawviper7",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      95,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "clawviper8",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      95,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "clawviper9",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      95,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "corruptrogue1",
+    "noRatio": false,
+    "minimum": [
+      58,
+      60,
+      60
+    ],
+    "maximum": [
+      101,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "corruptrogue2",
+    "noRatio": false,
+    "minimum": [
+      62,
+      60,
+      60
+    ],
+    "maximum": [
+      101,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "corruptrogue3",
+    "noRatio": false,
+    "minimum": [
+      67,
+      60,
+      60
+    ],
+    "maximum": [
+      112,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "corruptrogue4",
+    "noRatio": false,
+    "minimum": [
+      66,
+      60,
+      60
+    ],
+    "maximum": [
+      111,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "corruptrogue5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "corruptrogue6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      400,
+      400
+    ],
+    "maximum": [
+      107,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "councilmember1",
+    "noRatio": false,
+    "minimum": [
+      191,
+      200,
+      200
+    ],
+    "maximum": [
+      381,
+      350,
+      350
+    ]
+  },
+  {
+    "source": "councilmember2",
+    "noRatio": false,
+    "minimum": [
+      191,
+      200,
+      200
+    ],
+    "maximum": [
+      381,
+      350,
+      350
+    ]
+  },
+  {
+    "source": "councilmember3",
+    "noRatio": false,
+    "minimum": [
+      191,
+      200,
+      200
+    ],
+    "maximum": [
+      381,
+      350,
+      350
+    ]
+  },
+  {
+    "source": "cowking",
+    "noRatio": false,
+    "minimum": [
+      133,
+      220,
+      220
+    ],
+    "maximum": [
+      285,
+      270,
+      270
+    ]
+  },
+  {
+    "source": "cr_archer1",
+    "noRatio": false,
+    "minimum": [
+      91,
+      55,
+      55
+    ],
+    "maximum": [
+      128,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer2",
+    "noRatio": false,
+    "minimum": [
+      93,
+      55,
+      55
+    ],
+    "maximum": [
+      131,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer3",
+    "noRatio": false,
+    "minimum": [
+      95,
+      55,
+      55
+    ],
+    "maximum": [
+      136,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer4",
+    "noRatio": false,
+    "minimum": [
+      96,
+      55,
+      55
+    ],
+    "maximum": [
+      141,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer5",
+    "noRatio": false,
+    "minimum": [
+      97,
+      55,
+      55
+    ],
+    "maximum": [
+      137,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer6",
+    "noRatio": false,
+    "minimum": [
+      93,
+      55,
+      55
+    ],
+    "maximum": [
+      131,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer7",
+    "noRatio": false,
+    "minimum": [
+      93,
+      55,
+      55
+    ],
+    "maximum": [
+      131,
+      95,
+      95
+    ]
+  },
+  {
+    "source": "cr_archer8",
+    "noRatio": false,
+    "minimum": [
+      93,
+      400,
+      400
+    ],
+    "maximum": [
+      131,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "cr_lancer1",
+    "noRatio": false,
+    "minimum": [
+      86,
+      80,
+      80
+    ],
+    "maximum": [
+      129,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer2",
+    "noRatio": false,
+    "minimum": [
+      85,
+      80,
+      80
+    ],
+    "maximum": [
+      124,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer3",
+    "noRatio": false,
+    "minimum": [
+      89,
+      80,
+      80
+    ],
+    "maximum": [
+      134,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer4",
+    "noRatio": false,
+    "minimum": [
+      86,
+      80,
+      80
+    ],
+    "maximum": [
+      131,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer5",
+    "noRatio": false,
+    "minimum": [
+      87,
+      80,
+      80
+    ],
+    "maximum": [
+      131,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer6",
+    "noRatio": false,
+    "minimum": [
+      85,
+      80,
+      80
+    ],
+    "maximum": [
+      124,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer7",
+    "noRatio": false,
+    "minimum": [
+      85,
+      80,
+      80
+    ],
+    "maximum": [
+      124,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer8",
+    "noRatio": false,
+    "minimum": [
+      85,
+      80,
+      80
+    ],
+    "maximum": [
+      124,
+      115,
+      115
+    ]
+  },
+  {
+    "source": "cr_lancer9",
+    "noRatio": false,
+    "minimum": [
+      85,
+      400,
+      400
+    ],
+    "maximum": [
+      124,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "crownest1",
+    "noRatio": false,
+    "minimum": [
+      456,
+      450,
+      450
+    ],
+    "maximum": [
+      545,
+      575,
+      575
+    ]
+  },
+  {
+    "source": "crownest2",
+    "noRatio": false,
+    "minimum": [
+      489,
+      450,
+      450
+    ],
+    "maximum": [
+      584,
+      575,
+      575
+    ]
+  },
+  {
+    "source": "crownest3",
+    "noRatio": false,
+    "minimum": [
+      479,
+      450,
+      450
+    ],
+    "maximum": [
+      576,
+      575,
+      575
+    ]
+  },
+  {
+    "source": "crownest4",
+    "noRatio": false,
+    "minimum": [
+      477,
+      450,
+      450
+    ],
+    "maximum": [
+      572,
+      575,
+      575
+    ]
+  },
+  {
+    "source": "darkelder",
+    "noRatio": false,
+    "minimum": [
+      109,
+      105,
+      105
+    ],
+    "maximum": [
+      192,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "darkguard1",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "darkguard2",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "darkguard3",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "darkguard4",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "darkguard5",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "deathmauler1",
+    "noRatio": false,
+    "minimum": [
+      123,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "deathmauler2",
+    "noRatio": false,
+    "minimum": [
+      124,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "deathmauler3",
+    "noRatio": false,
+    "minimum": [
+      124,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "deathmauler4",
+    "noRatio": false,
+    "minimum": [
+      124,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "deathmauler5",
+    "noRatio": false,
+    "minimum": [
+      123,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "deathmauler6",
+    "noRatio": false,
+    "minimum": [
+      123,
+      115,
+      115
+    ],
+    "maximum": [
+      152,
+      145,
+      145
+    ]
+  },
+  {
+    "source": "demonspawner",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      400
+    ],
+    "maximum": [
+      107,
+      90,
+      500
+    ]
+  },
+  {
+    "source": "dkfig1",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "dkfig2",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "dkmag1",
+    "noRatio": false,
+    "minimum": [
+      130,
+      120,
+      120
+    ],
+    "maximum": [
+      171,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "dkmag2",
+    "noRatio": false,
+    "minimum": [
+      130,
+      120,
+      120
+    ],
+    "maximum": [
+      171,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "dkmag3",
+    "noRatio": false,
+    "minimum": [
+      130,
+      400,
+      400
+    ],
+    "maximum": [
+      171,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "doomknight1",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "doomknight2",
+    "noRatio": false,
+    "minimum": [
+      129,
+      120,
+      120
+    ],
+    "maximum": [
+      172,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "doomknight3",
+    "noRatio": false,
+    "minimum": [
+      130,
+      120,
+      120
+    ],
+    "maximum": [
+      171,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "eagle",
+    "noRatio": true,
+    "minimum": [
+      36,
+      115,
+      199
+    ],
+    "maximum": [
+      58,
+      184,
+      319
+    ]
+  },
+  {
+    "source": "fallen1",
+    "noRatio": false,
+    "minimum": [
+      21,
+      25,
+      25
+    ],
+    "maximum": [
+      61,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen2",
+    "noRatio": false,
+    "minimum": [
+      24,
+      25,
+      25
+    ],
+    "maximum": [
+      54,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen3",
+    "noRatio": false,
+    "minimum": [
+      18,
+      25,
+      25
+    ],
+    "maximum": [
+      53,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen4",
+    "noRatio": false,
+    "minimum": [
+      23,
+      25,
+      25
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen5",
+    "noRatio": false,
+    "minimum": [
+      21,
+      25,
+      25
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen6",
+    "noRatio": false,
+    "minimum": [
+      21,
+      25,
+      25
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen7",
+    "noRatio": false,
+    "minimum": [
+      21,
+      25,
+      25
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallen8",
+    "noRatio": false,
+    "minimum": [
+      21,
+      25,
+      25
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "fallenshaman1",
+    "noRatio": false,
+    "minimum": [
+      58,
+      55,
+      55
+    ],
+    "maximum": [
+      101,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman2",
+    "noRatio": false,
+    "minimum": [
+      61,
+      55,
+      55
+    ],
+    "maximum": [
+      101,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      55,
+      55
+    ],
+    "maximum": [
+      111,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman4",
+    "noRatio": false,
+    "minimum": [
+      67,
+      55,
+      55
+    ],
+    "maximum": [
+      109,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fallenshaman8",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "fetish1",
+    "noRatio": false,
+    "minimum": [
+      64,
+      55,
+      55
+    ],
+    "maximum": [
+      110,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish11",
+    "noRatio": false,
+    "minimum": [
+      64,
+      50,
+      50
+    ],
+    "maximum": [
+      110,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish2",
+    "noRatio": false,
+    "minimum": [
+      64,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetish8",
+    "noRatio": false,
+    "minimum": [
+      65,
+      55,
+      55
+    ],
+    "maximum": [
+      107,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "fetishblow1",
+    "noRatio": false,
+    "minimum": [
+      66,
+      45,
+      45
+    ],
+    "maximum": [
+      111,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow2",
+    "noRatio": false,
+    "minimum": [
+      64,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishblow8",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      75,
+      75
+    ]
+  },
+  {
+    "source": "fetishshaman1",
+    "noRatio": false,
+    "minimum": [
+      67,
+      65,
+      65
+    ],
+    "maximum": [
+      109,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman2",
+    "noRatio": false,
+    "minimum": [
+      66,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman3",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fetishshaman8",
+    "noRatio": false,
+    "minimum": [
+      65,
+      65,
+      65
+    ],
+    "maximum": [
+      107,
+      105,
+      105
+    ]
+  },
+  {
+    "source": "fingermage1",
+    "noRatio": false,
+    "minimum": [
+      153,
+      80,
+      80
+    ],
+    "maximum": [
+      211,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "fingermage2",
+    "noRatio": false,
+    "minimum": [
+      152,
+      80,
+      80
+    ],
+    "maximum": [
+      209,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "fingermage3",
+    "noRatio": false,
+    "minimum": [
+      152,
+      80,
+      80
+    ],
+    "maximum": [
+      209,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "fingermage4",
+    "noRatio": false,
+    "minimum": [
+      152,
+      80,
+      80
+    ],
+    "maximum": [
+      209,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "fingermage5",
+    "noRatio": false,
+    "minimum": [
+      152,
+      80,
+      80
+    ],
+    "maximum": [
+      209,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "firebeast",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "foulcrow1",
+    "noRatio": false,
+    "minimum": [
+      19,
+      20,
+      20
+    ],
+    "maximum": [
+      46,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "foulcrow2",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      41,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "foulcrow3",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      45,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "foulcrow4",
+    "noRatio": false,
+    "minimum": [
+      22,
+      20,
+      20
+    ],
+    "maximum": [
+      44,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "foulcrow5",
+    "noRatio": false,
+    "minimum": [
+      40,
+      40,
+      40
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "foulcrow6",
+    "noRatio": false,
+    "minimum": [
+      40,
+      40,
+      40
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "foulcrow7",
+    "noRatio": false,
+    "minimum": [
+      40,
+      40,
+      40
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "foulcrow8",
+    "noRatio": false,
+    "minimum": [
+      40,
+      40,
+      40
+    ],
+    "maximum": [
+      55,
+      55,
+      55
+    ]
+  },
+  {
+    "source": "frogdemon1",
+    "noRatio": false,
+    "minimum": [
+      130,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "frogdemon2",
+    "noRatio": false,
+    "minimum": [
+      131,
+      110,
+      110
+    ],
+    "maximum": [
+      172,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "frogdemon3",
+    "noRatio": false,
+    "minimum": [
+      131,
+      110,
+      110
+    ],
+    "maximum": [
+      173,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "frozenhorror1",
+    "noRatio": false,
+    "minimum": [
+      285,
+      190,
+      190
+    ],
+    "maximum": [
+      379,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "frozenhorror2",
+    "noRatio": false,
+    "minimum": [
+      284,
+      190,
+      190
+    ],
+    "maximum": [
+      379,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "frozenhorror3",
+    "noRatio": false,
+    "minimum": [
+      284,
+      190,
+      190
+    ],
+    "maximum": [
+      379,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "frozenhorror4",
+    "noRatio": false,
+    "minimum": [
+      285,
+      190,
+      190
+    ],
+    "maximum": [
+      379,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "frozenhorror5",
+    "noRatio": false,
+    "minimum": [
+      284,
+      190,
+      190
+    ],
+    "maximum": [
+      379,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "gargoyletrap",
+    "noRatio": false,
+    "minimum": [
+      132,
+      140,
+      140
+    ],
+    "maximum": [
+      172,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "goatman1",
+    "noRatio": false,
+    "minimum": [
+      110,
+      100,
+      100
+    ],
+    "maximum": [
+      137,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "goatman10",
+    "noRatio": false,
+    "minimum": [
+      115,
+      115,
+      115
+    ],
+    "maximum": [
+      140,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "goatman2",
+    "noRatio": false,
+    "minimum": [
+      114,
+      100,
+      100
+    ],
+    "maximum": [
+      141,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "goatman3",
+    "noRatio": false,
+    "minimum": [
+      112,
+      100,
+      100
+    ],
+    "maximum": [
+      136,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "goatman4",
+    "noRatio": false,
+    "minimum": [
+      116,
+      100,
+      100
+    ],
+    "maximum": [
+      143,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "goatman5",
+    "noRatio": false,
+    "minimum": [
+      119,
+      100,
+      100
+    ],
+    "maximum": [
+      146,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "goatman6",
+    "noRatio": false,
+    "minimum": [
+      115,
+      115,
+      115
+    ],
+    "maximum": [
+      140,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "goatman7",
+    "noRatio": false,
+    "minimum": [
+      115,
+      115,
+      115
+    ],
+    "maximum": [
+      140,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "goatman8",
+    "noRatio": false,
+    "minimum": [
+      115,
+      115,
+      115
+    ],
+    "maximum": [
+      140,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "goatman9",
+    "noRatio": false,
+    "minimum": [
+      115,
+      115,
+      115
+    ],
+    "maximum": [
+      140,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "hellbovine",
+    "noRatio": false,
+    "minimum": [
+      133,
+      220,
+      220
+    ],
+    "maximum": [
+      285,
+      270,
+      270
+    ]
+  },
+  {
+    "source": "iceglobe",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "imp1",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp2",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp3",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp4",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp5",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      65,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp6",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp7",
+    "noRatio": false,
+    "minimum": [
+      65,
+      45,
+      45
+    ],
+    "maximum": [
+      107,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "imp8",
+    "noRatio": false,
+    "minimum": [
+      65,
+      400,
+      400
+    ],
+    "maximum": [
+      107,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "lightningbeast",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "maggotbaby1",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      65,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "maggotbaby2",
+    "noRatio": false,
+    "minimum": [
+      23,
+      20,
+      20
+    ],
+    "maximum": [
+      64,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "maggotbaby3",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      66,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "maggotbaby4",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      64,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "maggotbaby5",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      65,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "maggotbaby6",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      65,
+      45,
+      45
+    ]
+  },
+  {
+    "source": "megademon1",
+    "noRatio": false,
+    "minimum": [
+      191,
+      210,
+      210
+    ],
+    "maximum": [
+      229,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "megademon2",
+    "noRatio": false,
+    "minimum": [
+      190,
+      210,
+      210
+    ],
+    "maximum": [
+      229,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "megademon3",
+    "noRatio": false,
+    "minimum": [
+      191,
+      210,
+      210
+    ],
+    "maximum": [
+      228,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "megademon4",
+    "noRatio": false,
+    "minimum": [
+      191,
+      210,
+      210
+    ],
+    "maximum": [
+      228,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "megademon5",
+    "noRatio": false,
+    "minimum": [
+      191,
+      210,
+      210
+    ],
+    "maximum": [
+      228,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "megademon6",
+    "noRatio": false,
+    "minimum": [
+      191,
+      400,
+      400
+    ],
+    "maximum": [
+      228,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "minion1",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      238,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion10",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion11",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion2",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion3",
+    "noRatio": false,
+    "minimum": [
+      189,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion4",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion5",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion6",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion7",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      236,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion8",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minion9",
+    "noRatio": false,
+    "minimum": [
+      190,
+      100,
+      100
+    ],
+    "maximum": [
+      237,
+      125,
+      125
+    ]
+  },
+  {
+    "source": "minionspawner1",
+    "noRatio": false,
+    "minimum": [
+      151,
+      50,
+      50
+    ],
+    "maximum": [
+      106,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner2",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner3",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner4",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner5",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner6",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner7",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "minionspawner8",
+    "noRatio": false,
+    "minimum": [
+      67,
+      50,
+      50
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "mosquito1",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      107,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "mosquito2",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      107,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "mosquito3",
+    "noRatio": false,
+    "minimum": [
+      22,
+      20,
+      20
+    ],
+    "maximum": [
+      107,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "mosquito4",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      107,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "mummy1",
+    "noRatio": false,
+    "minimum": [
+      68,
+      100,
+      100
+    ],
+    "maximum": [
+      158,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "mummy2",
+    "noRatio": false,
+    "minimum": [
+      69,
+      100,
+      100
+    ],
+    "maximum": [
+      157,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "mummy3",
+    "noRatio": false,
+    "minimum": [
+      69,
+      100,
+      100
+    ],
+    "maximum": [
+      156,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "mummy4",
+    "noRatio": false,
+    "minimum": [
+      69,
+      100,
+      100
+    ],
+    "maximum": [
+      155,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "mummy5",
+    "noRatio": false,
+    "minimum": [
+      70,
+      100,
+      100
+    ],
+    "maximum": [
+      154,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "mummy6",
+    "noRatio": false,
+    "minimum": [
+      70,
+      100,
+      100
+    ],
+    "maximum": [
+      154,
+      140,
+      140
+    ]
+  },
+  {
+    "source": "overseer1",
+    "noRatio": false,
+    "minimum": [
+      380,
+      150,
+      150
+    ],
+    "maximum": [
+      380,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "overseer2",
+    "noRatio": false,
+    "minimum": [
+      379,
+      150,
+      150
+    ],
+    "maximum": [
+      379,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "overseer3",
+    "noRatio": false,
+    "minimum": [
+      379,
+      150,
+      150
+    ],
+    "maximum": [
+      379,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "overseer4",
+    "noRatio": false,
+    "minimum": [
+      379,
+      150,
+      150
+    ],
+    "maximum": [
+      379,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "overseer5",
+    "noRatio": false,
+    "minimum": [
+      379,
+      150,
+      150
+    ],
+    "maximum": [
+      379,
+      190,
+      190
+    ]
+  },
+  {
+    "source": "overseer6",
+    "noRatio": false,
+    "minimum": [
+      379,
+      400,
+      400
+    ],
+    "maximum": [
+      379,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "painworm1",
+    "noRatio": false,
+    "minimum": [
+      65,
+      35,
+      35
+    ],
+    "maximum": [
+      106,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "painworm2",
+    "noRatio": false,
+    "minimum": [
+      64,
+      35,
+      35
+    ],
+    "maximum": [
+      106,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "painworm3",
+    "noRatio": false,
+    "minimum": [
+      65,
+      35,
+      35
+    ],
+    "maximum": [
+      106,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "painworm4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      35,
+      35
+    ],
+    "maximum": [
+      107,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "painworm5",
+    "noRatio": false,
+    "minimum": [
+      64,
+      35,
+      35
+    ],
+    "maximum": [
+      106,
+      65,
+      65
+    ]
+  },
+  {
+    "source": "pantherwoman1",
+    "noRatio": false,
+    "minimum": [
+      57,
+      60,
+      60
+    ],
+    "maximum": [
+      97,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "pantherwoman2",
+    "noRatio": false,
+    "minimum": [
+      57,
+      60,
+      60
+    ],
+    "maximum": [
+      97,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "pantherwoman3",
+    "noRatio": false,
+    "minimum": [
+      59,
+      60,
+      60
+    ],
+    "maximum": [
+      95,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "pantherwoman4",
+    "noRatio": false,
+    "minimum": [
+      58,
+      60,
+      60
+    ],
+    "maximum": [
+      96,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "pantherwoman5",
+    "noRatio": false,
+    "minimum": [
+      57,
+      60,
+      60
+    ],
+    "maximum": [
+      97,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "pantherwoman6",
+    "noRatio": false,
+    "minimum": [
+      57,
+      60,
+      60
+    ],
+    "maximum": [
+      97,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "poisonorb",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "putriddefiler1",
+    "noRatio": false,
+    "minimum": [
+      114,
+      80,
+      80
+    ],
+    "maximum": [
+      189,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "putriddefiler2",
+    "noRatio": false,
+    "minimum": [
+      114,
+      80,
+      80
+    ],
+    "maximum": [
+      190,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "putriddefiler3",
+    "noRatio": false,
+    "minimum": [
+      115,
+      80,
+      80
+    ],
+    "maximum": [
+      190,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "putriddefiler4",
+    "noRatio": false,
+    "minimum": [
+      114,
+      80,
+      80
+    ],
+    "maximum": [
+      189,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "putriddefiler5",
+    "noRatio": false,
+    "minimum": [
+      114,
+      80,
+      80
+    ],
+    "maximum": [
+      190,
+      130,
+      130
+    ]
+  },
+  {
+    "source": "quillbear1",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "quillbear2",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "quillbear3",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "quillbear4",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "quillbear5",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "quillrat1",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      81,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "quillrat2",
+    "noRatio": false,
+    "minimum": [
+      24,
+      20,
+      20
+    ],
+    "maximum": [
+      85,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "quillrat3",
+    "noRatio": false,
+    "minimum": [
+      23,
+      20,
+      20
+    ],
+    "maximum": [
+      89,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "quillrat4",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      86,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "quillrat5",
+    "noRatio": false,
+    "minimum": [
+      22,
+      20,
+      20
+    ],
+    "maximum": [
+      87,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "quillrat6",
+    "noRatio": false,
+    "minimum": [
+      90,
+      90,
+      90
+    ],
+    "maximum": [
+      120,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "quillrat7",
+    "noRatio": false,
+    "minimum": [
+      90,
+      90,
+      90
+    ],
+    "maximum": [
+      120,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "quillrat8",
+    "noRatio": false,
+    "minimum": [
+      90,
+      90,
+      90
+    ],
+    "maximum": [
+      120,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "reanimatedhorde1",
+    "noRatio": false,
+    "minimum": [
+      115,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "reanimatedhorde2",
+    "noRatio": false,
+    "minimum": [
+      114,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "reanimatedhorde3",
+    "noRatio": false,
+    "minimum": [
+      114,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "reanimatedhorde4",
+    "noRatio": false,
+    "minimum": [
+      114,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "reanimatedhorde5",
+    "noRatio": false,
+    "minimum": [
+      114,
+      110,
+      110
+    ],
+    "maximum": [
+      170,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "reanimatedhorde6",
+    "noRatio": false,
+    "minimum": [
+      114,
+      110,
+      110
+    ],
+    "maximum": [
+      170,
+      135,
+      135
+    ]
+  },
+  {
+    "source": "regurgitator1",
+    "noRatio": false,
+    "minimum": [
+      211,
+      240,
+      240
+    ],
+    "maximum": [
+      285,
+      320,
+      320
+    ]
+  },
+  {
+    "source": "regurgitator2",
+    "noRatio": false,
+    "minimum": [
+      209,
+      240,
+      240
+    ],
+    "maximum": [
+      283,
+      320,
+      320
+    ]
+  },
+  {
+    "source": "regurgitator3",
+    "noRatio": false,
+    "minimum": [
+      209,
+      240,
+      240
+    ],
+    "maximum": [
+      283,
+      320,
+      320
+    ]
+  },
+  {
+    "source": "regurgitator4",
+    "noRatio": false,
+    "minimum": [
+      209,
+      240,
+      240
+    ],
+    "maximum": [
+      283,
+      320,
+      320
+    ]
+  },
+  {
+    "source": "sandleaper1",
+    "noRatio": false,
+    "minimum": [
+      67,
+      40,
+      40
+    ],
+    "maximum": [
+      194,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper2",
+    "noRatio": false,
+    "minimum": [
+      66,
+      40,
+      40
+    ],
+    "maximum": [
+      194,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper3",
+    "noRatio": false,
+    "minimum": [
+      64,
+      40,
+      40
+    ],
+    "maximum": [
+      192,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper4",
+    "noRatio": false,
+    "minimum": [
+      66,
+      40,
+      40
+    ],
+    "maximum": [
+      192,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper5",
+    "noRatio": false,
+    "minimum": [
+      65,
+      40,
+      40
+    ],
+    "maximum": [
+      193,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper6",
+    "noRatio": false,
+    "minimum": [
+      66,
+      40,
+      40
+    ],
+    "maximum": [
+      194,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandleaper7",
+    "noRatio": false,
+    "minimum": [
+      66,
+      40,
+      40
+    ],
+    "maximum": [
+      194,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "sandmaggot1",
+    "noRatio": false,
+    "minimum": [
+      139,
+      110,
+      110
+    ],
+    "maximum": [
+      174,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot2",
+    "noRatio": false,
+    "minimum": [
+      139,
+      110,
+      110
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot3",
+    "noRatio": false,
+    "minimum": [
+      141,
+      110,
+      110
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot4",
+    "noRatio": false,
+    "minimum": [
+      139,
+      110,
+      110
+    ],
+    "maximum": [
+      171,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot5",
+    "noRatio": false,
+    "minimum": [
+      140,
+      110,
+      110
+    ],
+    "maximum": [
+      172,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot6",
+    "noRatio": false,
+    "minimum": [
+      140,
+      110,
+      110
+    ],
+    "maximum": [
+      172,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandmaggot7",
+    "noRatio": false,
+    "minimum": [
+      140,
+      400,
+      400
+    ],
+    "maximum": [
+      172,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "sandraider1",
+    "noRatio": false,
+    "minimum": [
+      136,
+      135,
+      135
+    ],
+    "maximum": [
+      211,
+      180,
+      180
+    ]
+  },
+  {
+    "source": "sandraider10",
+    "noRatio": false,
+    "minimum": [
+      120,
+      120,
+      120
+    ],
+    "maximum": [
+      150,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandraider2",
+    "noRatio": false,
+    "minimum": [
+      134,
+      135,
+      135
+    ],
+    "maximum": [
+      212,
+      180,
+      180
+    ]
+  },
+  {
+    "source": "sandraider3",
+    "noRatio": false,
+    "minimum": [
+      135,
+      135,
+      135
+    ],
+    "maximum": [
+      211,
+      180,
+      180
+    ]
+  },
+  {
+    "source": "sandraider4",
+    "noRatio": false,
+    "minimum": [
+      135,
+      135,
+      135
+    ],
+    "maximum": [
+      211,
+      180,
+      180
+    ]
+  },
+  {
+    "source": "sandraider5",
+    "noRatio": false,
+    "minimum": [
+      134,
+      135,
+      135
+    ],
+    "maximum": [
+      210,
+      180,
+      180
+    ]
+  },
+  {
+    "source": "sandraider6",
+    "noRatio": false,
+    "minimum": [
+      120,
+      120,
+      120
+    ],
+    "maximum": [
+      150,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandraider7",
+    "noRatio": false,
+    "minimum": [
+      120,
+      120,
+      120
+    ],
+    "maximum": [
+      150,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandraider8",
+    "noRatio": false,
+    "minimum": [
+      120,
+      120,
+      120
+    ],
+    "maximum": [
+      150,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "sandraider9",
+    "noRatio": false,
+    "minimum": [
+      120,
+      120,
+      120
+    ],
+    "maximum": [
+      150,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "scarab1",
+    "noRatio": false,
+    "minimum": [
+      67,
+      70,
+      70
+    ],
+    "maximum": [
+      111,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab2",
+    "noRatio": false,
+    "minimum": [
+      68,
+      70,
+      70
+    ],
+    "maximum": [
+      112,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab3",
+    "noRatio": false,
+    "minimum": [
+      67,
+      70,
+      70
+    ],
+    "maximum": [
+      112,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab4",
+    "noRatio": false,
+    "minimum": [
+      68,
+      70,
+      70
+    ],
+    "maximum": [
+      111,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab5",
+    "noRatio": false,
+    "minimum": [
+      67,
+      70,
+      70
+    ],
+    "maximum": [
+      111,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab6",
+    "noRatio": false,
+    "minimum": [
+      67,
+      70,
+      70
+    ],
+    "maximum": [
+      111,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab7",
+    "noRatio": false,
+    "minimum": [
+      67,
+      70,
+      70
+    ],
+    "maximum": [
+      111,
+      110,
+      110
+    ]
+  },
+  {
+    "source": "scarab8",
+    "noRatio": false,
+    "minimum": [
+      67,
+      400,
+      400
+    ],
+    "maximum": [
+      111,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "siegebeast1",
+    "noRatio": false,
+    "minimum": [
+      379,
+      360,
+      360
+    ],
+    "maximum": [
+      379,
+      420,
+      420
+    ]
+  },
+  {
+    "source": "siegebeast2",
+    "noRatio": false,
+    "minimum": [
+      379,
+      360,
+      360
+    ],
+    "maximum": [
+      379,
+      420,
+      420
+    ]
+  },
+  {
+    "source": "siegebeast3",
+    "noRatio": false,
+    "minimum": [
+      379,
+      360,
+      360
+    ],
+    "maximum": [
+      379,
+      420,
+      420
+    ]
+  },
+  {
+    "source": "siegebeast4",
+    "noRatio": false,
+    "minimum": [
+      379,
+      360,
+      360
+    ],
+    "maximum": [
+      379,
+      420,
+      420
+    ]
+  },
+  {
+    "source": "siegebeast5",
+    "noRatio": false,
+    "minimum": [
+      379,
+      360,
+      360
+    ],
+    "maximum": [
+      379,
+      420,
+      420
+    ]
+  },
+  {
+    "source": "sk_archer1",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      147,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer10",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer11",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      240
+    ]
+  },
+  {
+    "source": "sk_archer2",
+    "noRatio": false,
+    "minimum": [
+      78,
+      70,
+      70
+    ],
+    "maximum": [
+      156,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer3",
+    "noRatio": false,
+    "minimum": [
+      76,
+      70,
+      70
+    ],
+    "maximum": [
+      156,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer4",
+    "noRatio": false,
+    "minimum": [
+      76,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer5",
+    "noRatio": false,
+    "minimum": [
+      74,
+      70,
+      70
+    ],
+    "maximum": [
+      151,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer6",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer7",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer8",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "sk_archer9",
+    "noRatio": false,
+    "minimum": [
+      70,
+      70,
+      70
+    ],
+    "maximum": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton1",
+    "noRatio": false,
+    "minimum": [
+      86,
+      70,
+      70
+    ],
+    "maximum": [
+      129,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton2",
+    "noRatio": false,
+    "minimum": [
+      87,
+      70,
+      70
+    ],
+    "maximum": [
+      127,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton3",
+    "noRatio": false,
+    "minimum": [
+      89,
+      70,
+      70
+    ],
+    "maximum": [
+      124,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton4",
+    "noRatio": false,
+    "minimum": [
+      93,
+      70,
+      70
+    ],
+    "maximum": [
+      133,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton5",
+    "noRatio": false,
+    "minimum": [
+      94,
+      70,
+      70
+    ],
+    "maximum": [
+      131,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton6",
+    "noRatio": false,
+    "minimum": [
+      94,
+      70,
+      70
+    ],
+    "maximum": [
+      131,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton7",
+    "noRatio": false,
+    "minimum": [
+      94,
+      70,
+      70
+    ],
+    "maximum": [
+      131,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "skeleton8",
+    "noRatio": false,
+    "minimum": [
+      94,
+      70,
+      70
+    ],
+    "maximum": [
+      131,
+      100,
+      240
+    ]
+  },
+  {
+    "source": "skmage_cold1",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_cold2",
+    "noRatio": false,
+    "minimum": [
+      55,
+      55,
+      55
+    ],
+    "maximum": [
+      82,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_cold3",
+    "noRatio": false,
+    "minimum": [
+      57,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_cold4",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_cold5",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_cold6",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      200
+    ]
+  },
+  {
+    "source": "skmage_fire1",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire2",
+    "noRatio": false,
+    "minimum": [
+      55,
+      55,
+      55
+    ],
+    "maximum": [
+      82,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire3",
+    "noRatio": false,
+    "minimum": [
+      57,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire4",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire5",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire6",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_fire7",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      200
+    ]
+  },
+  {
+    "source": "skmage_ltng1",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng2",
+    "noRatio": false,
+    "minimum": [
+      55,
+      55,
+      55
+    ],
+    "maximum": [
+      82,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng3",
+    "noRatio": false,
+    "minimum": [
+      57,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng4",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng5",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng6",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_ltng7",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      200
+    ]
+  },
+  {
+    "source": "skmage_pois1",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      84,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois2",
+    "noRatio": false,
+    "minimum": [
+      55,
+      55,
+      55
+    ],
+    "maximum": [
+      82,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois3",
+    "noRatio": false,
+    "minimum": [
+      57,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois4",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois5",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois6",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      80
+    ]
+  },
+  {
+    "source": "skmage_pois7",
+    "noRatio": false,
+    "minimum": [
+      56,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      80,
+      200
+    ]
+  },
+  {
+    "source": "slinger1",
+    "noRatio": false,
+    "minimum": [
+      54,
+      55,
+      55
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger2",
+    "noRatio": false,
+    "minimum": [
+      54,
+      55,
+      55
+    ],
+    "maximum": [
+      88,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger3",
+    "noRatio": false,
+    "minimum": [
+      53,
+      55,
+      55
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger4",
+    "noRatio": false,
+    "minimum": [
+      53,
+      55,
+      55
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger5",
+    "noRatio": false,
+    "minimum": [
+      47,
+      55,
+      55
+    ],
+    "maximum": [
+      82,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger6",
+    "noRatio": false,
+    "minimum": [
+      48,
+      55,
+      55
+    ],
+    "maximum": [
+      81,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger7",
+    "noRatio": false,
+    "minimum": [
+      53,
+      55,
+      55
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger8",
+    "noRatio": false,
+    "minimum": [
+      53,
+      55,
+      55
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "slinger9",
+    "noRatio": false,
+    "minimum": [
+      53,
+      55,
+      55
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "snowyeti1",
+    "noRatio": false,
+    "minimum": [
+      190,
+      155,
+      155
+    ],
+    "maximum": [
+      227,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "snowyeti2",
+    "noRatio": false,
+    "minimum": [
+      190,
+      155,
+      155
+    ],
+    "maximum": [
+      228,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "snowyeti3",
+    "noRatio": false,
+    "minimum": [
+      190,
+      155,
+      155
+    ],
+    "maximum": [
+      227,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "snowyeti4",
+    "noRatio": false,
+    "minimum": [
+      189,
+      155,
+      155
+    ],
+    "maximum": [
+      228,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "spiritmummy",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "succubus1",
+    "noRatio": false,
+    "minimum": [
+      96,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus2",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus3",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus4",
+    "noRatio": false,
+    "minimum": [
+      96,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus5",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus6",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus7",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubus8",
+    "noRatio": false,
+    "minimum": [
+      95,
+      400,
+      400
+    ],
+    "maximum": [
+      152,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "succubuswitch1",
+    "noRatio": false,
+    "minimum": [
+      96,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch2",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch3",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch4",
+    "noRatio": false,
+    "minimum": [
+      96,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch5",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch6",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch7",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch8",
+    "noRatio": false,
+    "minimum": [
+      95,
+      60,
+      60
+    ],
+    "maximum": [
+      152,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "succubuswitch9",
+    "noRatio": false,
+    "minimum": [
+      95,
+      400,
+      400
+    ],
+    "maximum": [
+      152,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "suckernest1",
+    "noRatio": false,
+    "minimum": [
+      207,
+      400,
+      400
+    ],
+    "maximum": [
+      550,
+      550,
+      550
+    ]
+  },
+  {
+    "source": "suckernest2",
+    "noRatio": false,
+    "minimum": [
+      216,
+      400,
+      400
+    ],
+    "maximum": [
+      550,
+      550,
+      550
+    ]
+  },
+  {
+    "source": "suckernest3",
+    "noRatio": false,
+    "minimum": [
+      214,
+      400,
+      400
+    ],
+    "maximum": [
+      550,
+      550,
+      550
+    ]
+  },
+  {
+    "source": "suckernest4",
+    "noRatio": false,
+    "minimum": [
+      214,
+      400,
+      400
+    ],
+    "maximum": [
+      550,
+      550,
+      550
+    ]
+  },
+  {
+    "source": "suicideminion1",
+    "noRatio": false,
+    "minimum": [
+      38,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion10",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion11",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      58,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion2",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      58,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion3",
+    "noRatio": false,
+    "minimum": [
+      38,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion4",
+    "noRatio": false,
+    "minimum": [
+      38,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion5",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion6",
+    "noRatio": false,
+    "minimum": [
+      38,
+      20,
+      20
+    ],
+    "maximum": [
+      58,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion7",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      58,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion8",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      57,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "suicideminion9",
+    "noRatio": false,
+    "minimum": [
+      39,
+      20,
+      20
+    ],
+    "maximum": [
+      58,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "swarm1",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      45,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "swarm2",
+    "noRatio": false,
+    "minimum": [
+      23,
+      20,
+      20
+    ],
+    "maximum": [
+      45,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "swarm3",
+    "noRatio": false,
+    "minimum": [
+      21,
+      20,
+      20
+    ],
+    "maximum": [
+      44,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "swarm4",
+    "noRatio": false,
+    "minimum": [
+      22,
+      20,
+      20
+    ],
+    "maximum": [
+      44,
+      40,
+      40
+    ]
+  },
+  {
+    "source": "swarm5",
+    "noRatio": false,
+    "minimum": [
+      22,
+      400,
+      400
+    ],
+    "maximum": [
+      44,
+      500,
+      500
+    ]
+  },
+  {
+    "source": "tentacle1",
+    "noRatio": false,
+    "minimum": [
+      129,
+      70,
+      70
+    ],
+    "maximum": [
+      172,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "tentacle2",
+    "noRatio": false,
+    "minimum": [
+      129,
+      70,
+      70
+    ],
+    "maximum": [
+      172,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "tentacle3",
+    "noRatio": false,
+    "minimum": [
+      131,
+      70,
+      70
+    ],
+    "maximum": [
+      172,
+      100,
+      100
+    ]
+  },
+  {
+    "source": "tentaclehead1",
+    "noRatio": false,
+    "minimum": [
+      129,
+      90,
+      90
+    ],
+    "maximum": [
+      172,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "tentaclehead2",
+    "noRatio": false,
+    "minimum": [
+      129,
+      90,
+      90
+    ],
+    "maximum": [
+      172,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "tentaclehead3",
+    "noRatio": false,
+    "minimum": [
+      131,
+      90,
+      90
+    ],
+    "maximum": [
+      172,
+      120,
+      120
+    ]
+  },
+  {
+    "source": "thornhulk1",
+    "noRatio": false,
+    "minimum": [
+      153,
+      190,
+      190
+    ],
+    "maximum": [
+      248,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "thornhulk2",
+    "noRatio": false,
+    "minimum": [
+      153,
+      190,
+      190
+    ],
+    "maximum": [
+      248,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "thornhulk3",
+    "noRatio": false,
+    "minimum": [
+      153,
+      190,
+      190
+    ],
+    "maximum": [
+      248,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "thornhulk4",
+    "noRatio": false,
+    "minimum": [
+      152,
+      190,
+      190
+    ],
+    "maximum": [
+      247,
+      230,
+      230
+    ]
+  },
+  {
+    "source": "thornhulk5",
+    "noRatio": false,
+    "minimum": [
+      152,
+      190,
+      190
+    ],
+    "maximum": [
+      247,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "turret1",
+    "noRatio": false,
+    "minimum": [
+      291,
+      400,
+      400
+    ],
+    "maximum": [
+      387,
+      450,
+      450
+    ]
+  },
+  {
+    "source": "turret2",
+    "noRatio": false,
+    "minimum": [
+      291,
+      400,
+      400
+    ],
+    "maximum": [
+      387,
+      450,
+      450
+    ]
+  },
+  {
+    "source": "turret3",
+    "noRatio": false,
+    "minimum": [
+      291,
+      400,
+      400
+    ],
+    "maximum": [
+      387,
+      450,
+      450
+    ]
+  },
+  {
+    "source": "unraveler1",
+    "noRatio": false,
+    "minimum": [
+      194,
+      170,
+      170
+    ],
+    "maximum": [
+      238,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler2",
+    "noRatio": false,
+    "minimum": [
+      193,
+      170,
+      170
+    ],
+    "maximum": [
+      237,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler3",
+    "noRatio": false,
+    "minimum": [
+      193,
+      170,
+      170
+    ],
+    "maximum": [
+      236,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler4",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      236,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler5",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      235,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler6",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      235,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler7",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      235,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler8",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      235,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "unraveler9",
+    "noRatio": false,
+    "minimum": [
+      192,
+      170,
+      170
+    ],
+    "maximum": [
+      235,
+      210,
+      210
+    ]
+  },
+  {
+    "source": "vampire1",
+    "noRatio": false,
+    "minimum": [
+      153,
+      150,
+      150
+    ],
+    "maximum": [
+      211,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire2",
+    "noRatio": false,
+    "minimum": [
+      153,
+      150,
+      150
+    ],
+    "maximum": [
+      209,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire3",
+    "noRatio": false,
+    "minimum": [
+      153,
+      150,
+      150
+    ],
+    "maximum": [
+      211,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire4",
+    "noRatio": false,
+    "minimum": [
+      152,
+      150,
+      150
+    ],
+    "maximum": [
+      210,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire5",
+    "noRatio": false,
+    "minimum": [
+      154,
+      150,
+      150
+    ],
+    "maximum": [
+      212,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire6",
+    "noRatio": false,
+    "minimum": [
+      152,
+      150,
+      150
+    ],
+    "maximum": [
+      210,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire7",
+    "noRatio": false,
+    "minimum": [
+      152,
+      150,
+      150
+    ],
+    "maximum": [
+      210,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire8",
+    "noRatio": false,
+    "minimum": [
+      152,
+      150,
+      150
+    ],
+    "maximum": [
+      210,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "vampire9",
+    "noRatio": false,
+    "minimum": [
+      152,
+      150,
+      150
+    ],
+    "maximum": [
+      210,
+      200,
+      200
+    ]
+  },
+  {
+    "source": "venomlord",
+    "noRatio": false,
+    "minimum": [
+      190,
+      300,
+      300
+    ],
+    "maximum": [
+      379,
+      350,
+      350
+    ]
+  },
+  {
+    "source": "vilechild1",
+    "noRatio": false,
+    "minimum": [
+      57,
+      50,
+      50
+    ],
+    "maximum": [
+      85,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "vilechild2",
+    "noRatio": false,
+    "minimum": [
+      56,
+      50,
+      50
+    ],
+    "maximum": [
+      84,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "vilechild3",
+    "noRatio": false,
+    "minimum": [
+      55,
+      50,
+      50
+    ],
+    "maximum": [
+      84,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "vilechild4",
+    "noRatio": false,
+    "minimum": [
+      55,
+      50,
+      50
+    ],
+    "maximum": [
+      84,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "vilechild5",
+    "noRatio": false,
+    "minimum": [
+      55,
+      50,
+      50
+    ],
+    "maximum": [
+      84,
+      70,
+      70
+    ]
+  },
+  {
+    "source": "vilemother1",
+    "noRatio": false,
+    "minimum": [
+      229,
+      200,
+      200
+    ],
+    "maximum": [
+      295,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "vilemother2",
+    "noRatio": false,
+    "minimum": [
+      229,
+      200,
+      200
+    ],
+    "maximum": [
+      295,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "vilemother3",
+    "noRatio": false,
+    "minimum": [
+      228,
+      200,
+      200
+    ],
+    "maximum": [
+      294,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "vilemother4",
+    "noRatio": false,
+    "minimum": [
+      228,
+      200,
+      200
+    ],
+    "maximum": [
+      294,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "vilemother5",
+    "noRatio": false,
+    "minimum": [
+      228,
+      200,
+      200
+    ],
+    "maximum": [
+      294,
+      250,
+      250
+    ]
+  },
+  {
+    "source": "vulture1",
+    "noRatio": false,
+    "minimum": [
+      67,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "vulture2",
+    "noRatio": false,
+    "minimum": [
+      66,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "vulture3",
+    "noRatio": false,
+    "minimum": [
+      66,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "vulture4",
+    "noRatio": false,
+    "minimum": [
+      65,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "vulture5",
+    "noRatio": false,
+    "minimum": [
+      67,
+      60,
+      60
+    ],
+    "maximum": [
+      107,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "willowisp1",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp2",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp3",
+    "noRatio": false,
+    "minimum": [
+      45,
+      45,
+      45
+    ],
+    "maximum": [
+      86,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp4",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp5",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp6",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp7",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "willowisp8",
+    "noRatio": false,
+    "minimum": [
+      44,
+      45,
+      45
+    ],
+    "maximum": [
+      87,
+      85,
+      85
+    ]
+  },
+  {
+    "source": "wolf",
+    "noRatio": true,
+    "minimum": [
+      16,
+      46,
+      79
+    ],
+    "maximum": [
+      25,
+      74,
+      127
+    ]
+  },
+  {
+    "source": "wolfrider1",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "wolfrider2",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "wolfrider3",
+    "noRatio": false,
+    "minimum": [
+      0,
+      0,
+      0
+    ],
+    "maximum": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "wraith1",
+    "noRatio": false,
+    "minimum": [
+      83,
+      65,
+      65
+    ],
+    "maximum": [
+      165,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith2",
+    "noRatio": false,
+    "minimum": [
+      87,
+      65,
+      65
+    ],
+    "maximum": [
+      173,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith3",
+    "noRatio": false,
+    "minimum": [
+      86,
+      65,
+      65
+    ],
+    "maximum": [
+      173,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith4",
+    "noRatio": false,
+    "minimum": [
+      86,
+      65,
+      65
+    ],
+    "maximum": [
+      172,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith5",
+    "noRatio": false,
+    "minimum": [
+      85,
+      65,
+      65
+    ],
+    "maximum": [
+      172,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith6",
+    "noRatio": false,
+    "minimum": [
+      83,
+      65,
+      65
+    ],
+    "maximum": [
+      165,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith7",
+    "noRatio": false,
+    "minimum": [
+      83,
+      65,
+      65
+    ],
+    "maximum": [
+      165,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith8",
+    "noRatio": false,
+    "minimum": [
+      83,
+      65,
+      65
+    ],
+    "maximum": [
+      165,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "wraith9",
+    "noRatio": false,
+    "minimum": [
+      83,
+      65,
+      65
+    ],
+    "maximum": [
+      165,
+      90,
+      90
+    ]
+  },
+  {
+    "source": "zealot1",
+    "noRatio": false,
+    "minimum": [
+      129,
+      120,
+      120
+    ],
+    "maximum": [
+      172,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zealot2",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      172,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zealot3",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zealot4",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zealot5",
+    "noRatio": false,
+    "minimum": [
+      131,
+      120,
+      120
+    ],
+    "maximum": [
+      173,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zombie1",
+    "noRatio": false,
+    "minimum": [
+      101,
+      105,
+      105
+    ],
+    "maximum": [
+      181,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zombie2",
+    "noRatio": false,
+    "minimum": [
+      101,
+      105,
+      105
+    ],
+    "maximum": [
+      186,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zombie3",
+    "noRatio": false,
+    "minimum": [
+      108,
+      105,
+      105
+    ],
+    "maximum": [
+      197,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zombie4",
+    "noRatio": false,
+    "minimum": [
+      107,
+      105,
+      105
+    ],
+    "maximum": [
+      192,
+      150,
+      150
+    ]
+  },
+  {
+    "source": "zombie5",
+    "noRatio": false,
+    "minimum": [
+      109,
+      105,
+      105
+    ],
+    "maximum": [
+      192,
+      150,
+      150
+    ]
+  }
+]

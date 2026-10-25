@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "handlerEnabled": false,
+  "sourceCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "corpseSourceRows": 521,
+  "levelRows": 111,
+  "sourceCalculatorContexts": 52100,
+  "invertedSourceRangesPreserved": [
+    {
+      "source": "minionspawner1",
+      "difficulty": 0
+    }
+  ],
+  "inputHashes": {
+    "tools/reference/d2r-named-equipment/sources.json": "1ef57c5582c0d749f108ee6c760116fe736d68f5cf1edf9afb846b0ea2cc3f0c",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "tools/reference/d2r-named-equipment/json/monlvl.json": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "data/Sanctuary/Balance/corpse-source-rules.json": "b856f2314ad34ae615def3ee4f2779dd973a6c722f13e7920ebe6e0569441b9d",
+    "tools/reference/corpse-base-life-source-evidence.json": "593a44868cabbd13ab57b8286f54657abe69b778169a6b563aa3cbb080b80fb9",
+    ".local/class-skills/corpse-base-life-source-probe.json": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703"
+  },
+  "outputHashes": {
+    "corpse-base-monsters.json": "ef3b2f64eb25961feac8ec8ee9ea5f7345377da8e19b732e796fb52cab7e0e78",
+    "corpse-base-levels.json": "4a6878b4cc6c2c4c6c2def898e228b31df08242ca5eb3cc145447d830fbd9f97"
+  },
+  "scope": "Exact current table inputs for native corpse base-life lookup; classic and expansion columns retained.",
+  "limits": [
+    "No native source/level/difficulty capture or corpse persistence is enabled by this export.",
+    "Base life must use the source calculator, not native HitsMax or elite/player-count life bonuses.",
+    "RNG, corpse search/consumption, area damage and learned input remain separate."
+  ]
+}
