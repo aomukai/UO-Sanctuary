@@ -20,6 +20,7 @@ public sealed class BowLaunchTarget : GraveyardSkeleton
     public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
     public override void Deserialize(IGenericReader reader)
     {base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Invalid bow launch fixture version");}}
+    public override void OnHitsChange(int oldValue){base.OnHitsChange(oldValue);PlagueJavelinChecks.TraceParkedHealth(this,oldValue);}
     public override void OnThink(){}
     public override void OnSectorActivate()=>AIObject?.AITimer.Stop();
 }

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "installed": false,
-  "status": "Shared history candidate remains uninstalled; full diagnostic run active after prior second-reload mismatch",
+  "status": "Shared history candidate remains uninstalled; v4 traces health-only live fixture drift found before save",
   "fullPending": true,
   "candidateDirectory": ".local/class-skills/missile-history",
   "contentSha256": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
@@ -52,7 +52,7 @@
     ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
-  "updatedAtUtc": "2026-10-25T16:20:26.024709+00:00",
+  "updatedAtUtc": "2026-10-25T16:50:19.352297+00:00",
   "verified": {
     "focusedBoots": 3,
     "actualWorldReloads": 2,
@@ -85,10 +85,20 @@
     "No handler count/class completion, deferred item-skill delivery or new final effects/icons are claimed. Wake actor dispatch is still a fixture service and retirement a documented preparation boundary."
   ],
   "fullRegression": {
-    "status": "failed-awaiting-diagnosis",
+    "status": "failed-before-save-health-drift-confirmed",
     "log": ".local/class-skills/missile-history-full-first-failure.log",
     "nativeLog": ".local/class-skills/missile-history/native-first-failure.log",
-    "failedCheck": "plague-javelin-reload-check second reload"
+    "failedCheck": "plague-javelin-reload-check second reload",
+    "diagnosticLog": ".local/class-skills/missile-history-v3/native-checks.log",
+    "observed": {
+      "healthActual256": 12777971,
+      "healthExpected256": 12779411,
+      "mana256": 9233,
+      "quantity": 58,
+      "poisonActual": null,
+      "poisonExpected": null
+    },
+    "finding": "The mismatch exists before the world save: target health alone changed during subsequent live checks. This is not evidence of a serialization loss. Cause still being traced."
   },
   "diagnosticRegression": {
     "focusedWithNamed": {
@@ -109,11 +119,11 @@
     },
     "activeFull": {
       "status": "running",
-      "session": 89691,
-      "directory": ".local/class-skills/missile-history-v3",
-      "log": ".local/class-skills/missile-history-v3/native-checks.log",
-      "integrationSha256": "c176fc963f5f8ed8b8e0a300219ea78a6e1f990a290b1754526a924d7dac650e",
-      "scope": "Same content assembly; expanded Plague assertion output and snapshot invariants before every full-suite world save. Not a passing certificate."
+      "session": 69738,
+      "directory": ".local/class-skills/missile-history-v4",
+      "log": ".local/class-skills/missile-history-v4/native-checks.log",
+      "integrationSha256": "6e0e6b5e5f74629776ce0e80293b4014b1b4a7ca6ffd3d4580acbbd940e4abe2",
+      "scope": "Same content assembly. Test-only parked-target OnHitsChange stack tracing, exact resource assertions, per-save invariants and failure-world preservation. No passing full certificate."
     }
   }
 }
