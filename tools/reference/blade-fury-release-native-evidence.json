@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
-  "fullPending": true,
-  "status": "Source5400 and corrected focused3boots/2reloads pass; full regression pending. Installed8997941 remains unchanged.",
+  "fullPending": false,
+  "status": "Blade Fury now distinguishes the Inferno state bit from its timed stat list. The legacy stop intent clears the bit while retaining the lease, next-shot deadline and unrelated flags. An already scheduled do can emit and pay once without rewinding; retained-list reentry can renew below the fresh six-mana threshold without allocation or reactivation. Actual travelling damage and607FP owner mana pass, including two character reloads with an explicit released component fixture. Focused/full suites each pass three boots/two reloads and5400 complete source stop/state/list/resource comparisons per boot, alongside prior960 missile,7200 resource,490 animation and6912+12 channel controls. All70 Python tests, fresh547/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Save/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Learned mode/held input and exact current stop/reentry timing remain pending; Blade Shield stays latest playable.",
   "sourceEvidence": "tools/reference/blade-fury-release-source-evidence.json",
   "components": [
     "src/Sanctuary.Content/BladeFuryChannel.cs",
@@ -12,9 +12,9 @@
   "verification": {
     "sourceReleaseCasesPerBoot": 5400,
     "focusedBoots": 3,
-    "fullBoots": 0,
+    "fullBoots": 3,
     "worldReloadsPerSuite": 2,
-    "fullRegressionComplete": false,
+    "fullRegressionComplete": true,
     "learnedInput": false,
     "productionChannelPersistence": false,
     "currentClientStopTimingVerified": false,
@@ -22,7 +22,20 @@
     "actualPendingReleasedBladeDamage": true,
     "actualFractionalMana256": 607,
     "actualOwnerReloads": 2,
-    "oldComponentJsonCompatible": true
+    "oldComponentJsonCompatible": true,
+    "pythonTests": 70,
+    "releasedListRenewsWithoutFreshThreshold": true,
+    "releasedListDoesNotReactivate": true,
+    "releaseDoesNotSetExpiryFlag": true,
+    "noRewindWithoutInfernoBit": true,
+    "failedFactoryAttemptPays": true,
+    "contentAssemblySha256": "8a9385ef71f07c43db8026e30b0734b0a94ce5a6542b46a5acaa02703e06a3b8",
+    "integrationAssemblySha256": "aa9a1be65607b2cc0a42f2a03b24f2ef453b209764de7ef45ec56efb66ba9408",
+    "namedFingerprints": 547,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573,
+    "existingWorldSmoke": true,
+    "existingSaveBytesUnchanged": true
   },
   "limits": [
     "Stop packet timing and mouse-release mapping are not established for the pinned executable. This change provides the source state/list distinction before mode/input integration.",
@@ -36,9 +49,23 @@
     "focused": ".local/class-skills/blade-fury-release-focused.log",
     "focused-run": ".local/class-skills/blade-fury-release-focused-run.log",
     "regen-failure": ".local/class-skills/blade-fury-release-regen-failure.log",
-    "regen-failure-run": ".local/class-skills/blade-fury-release-regen-failure-run.log"
+    "regen-failure-run": ".local/class-skills/blade-fury-release-regen-failure-run.log",
+    "combined": ".local/class-skills/blade-fury-release-combined.log",
+    "full-suite-run": ".local/class-skills/blade-fury-release-full-suite-run.log",
+    "python-tests": ".local/class-skills/blade-fury-release-python-tests.log",
+    "named-readiness": ".local/class-skills/blade-fury-release-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-fury-release-first-loop.log",
+    "properties": ".local/class-skills/blade-fury-release-properties.log",
+    "installed-server": ".local/class-skills/blade-fury-release-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-fury-release-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-fury-release-client-check.log",
+    "reference-check": ".local/class-skills/blade-fury-release-reference-check.log",
+    "generated-check": ".local/class-skills/blade-fury-release-generated-check.log",
+    "roadmap-check": ".local/class-skills/blade-fury-release-roadmap-check.log",
+    "install-run": ".local/class-skills/blade-fury-release-install-run.log"
   },
   "resolvedDuringPreparation": {
-    "fixtureManaDrift": "Initial owner mana reload mismatch; release fixture now applies its hour-long regeneration policy before character creation, matching the existing resource fixture birth-timer isolation. Corrected rerun pending. Corrected focused three-boot/two-reload suite passes."
-  }
+    "fixtureManaDrift": "Initial reload fixture mana drift was resolved by applying the existing hour-long test regeneration policy before character creation, so its first timer is isolated as well. Corrected focused/full3boot/2reload suites retain607FP; production regeneration was unchanged. Initial failure log retained."
+  },
+  "next": "Compose Blade Fury fresh SQ23 mode entry and action/end/state-removal event dispatch using the distinct state bit and timed lease. Apply documented seqinput/cursor-retention semantics to held input without early st26 heartbeat emission or an invented release tail. Keep the optional release observation nonblocking; exact current client timing, mastery AR, slow rounding and broader property/client acceptance remain explicit. Register a learned handler only after actual input and lifecycle checks pass."
 }
