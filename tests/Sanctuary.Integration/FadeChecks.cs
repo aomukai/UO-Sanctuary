@@ -129,6 +129,11 @@ public static class FadeChecks
             Require(AssassinBuffs.State(owner)==null && AssassinBuffs.CurseResistance(owner)==0 && !NamedSetVisuals.Faded(owner) && !AssassinBuffs.Snapshot().Any(x=>x.Owner==owner.Serial.Value),"Natural expiry retained state/consumers");
             Cast(owner);active=AssassinBuffs.State(owner) with{UntilUtc=TimedEffects.Now.AddHours(1)};Replace(active); // Inspection hold after real duration and expiry assertions.
             EliteAuras.Amplify(owner,TimeSpan.FromHours(1));
+            Require(Math.Abs((EliteAuras.Curses.Expires(owner.Serial)-TimedEffects.Now).TotalSeconds-648)<1,"Rank21 actual Amplify reduction");
+            // Hold the inspected curse after verifying its real reduced duration.
+            // One input hour becomes only648seconds under Fade and can expire
+            // during the complete three-boot suite; production expiry is unchanged.
+            EliteAuras.Curses.Apply(owner.Serial,TimedEffects.Now.AddHours(1));EliteAuras.Refresh(owner);
             var pending=Fresh();Train(pending,CombatAbility.Fade,1);Ready(pending);int before=NecromancerEffects.ManaBalance256(pending);Require(ClassCombat.Perform(pending,CombatAbility.Fade,null,pending.Location,Core.TickCount),"Saved unpaid windup");ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(owner.Serial.Value,weapon.Serial.Value,helm.Serial.Value,shield.Serial.Value,active,NecromancerEffects.ManaBalance256(owner),owner.PhysicalResistance,owner.FireResistance,EliteAuras.Curses.Expires(owner.Serial),pending.Serial.Value,before)));Log.Information("fade-result: passed");
         });
@@ -138,7 +143,8 @@ public static class FadeChecks
         Goldens();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var pending=(PlayerMobile)World.FindMobile((Serial)saved.Pending);
         Require(AssassinBuffs.State(owner)==saved.State && ClassCreation.Profiles.GetRank(owner.Serial,"assassin.fade")==20 && SkillMechanics.Rank(owner,CombatAbility.Fade)==21,"Saved captured/hard/effective ranks");
         foreach(uint serial in new[]{saved.Weapon,saved.Helm,saved.Shield}){Require(World.FindItem((Serial)serial)?.Parent==owner,"Saved real gear");}
-        Require(NecromancerEffects.ManaBalance256(owner)==saved.Mana && owner.PhysicalResistance==saved.Physical && owner.FireResistance==saved.Fire && EliteAuras.Curses.Expires(owner.Serial)==saved.CurseUntil,"Saved resources/resistance/curse expiry");Consumers(owner);
+        Require(NecromancerEffects.ManaBalance256(owner)==saved.Mana && owner.PhysicalResistance==saved.Physical && owner.FireResistance==saved.Fire && EliteAuras.Curses.Expires(owner.Serial)==saved.CurseUntil,
+            $"Saved resources/resistance/curse expiry: mana={NecromancerEffects.ManaBalance256(owner)}/{saved.Mana}, physical={owner.PhysicalResistance}/{saved.Physical}, fire={owner.FireResistance}/{saved.Fire}, curse={EliteAuras.Curses.Expires(owner.Serial):O}/{saved.CurseUntil:O}, now={TimedEffects.Now:O}");Consumers(owner);
         Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None && AssassinBuffs.State(pending)==null && NecromancerEffects.ManaBalance256(pending)==saved.PendingMana,"Saved unpaid windup replayed/paid");
         Require(SkillBindings.Instance.Get(owner).Right==CombatAbility.Fade && SkillBindings.Instance.GetQuick(owner.Serial,DiabloClass.Assassin,6)==CombatAbility.Fade,"Saved bindings");
         var helm=World.FindItem((Serial)saved.Helm);owner.AddToBackpack(helm);ClassGear.Refresh(owner);Require(AssassinBuffs.State(owner)==saved.State,"Removed soft gear changed captured state");Require(owner.EquipItem(helm),"Saved helm re-equip");ClassGear.Refresh(owner);

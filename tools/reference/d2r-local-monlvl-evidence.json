@@ -1,0 +1,75 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "reader": {
+    "library": "https://github.com/ladislav-zezula/CascLib",
+    "commit": "38a34665624b8775bb875274b36191b21c38d97b",
+    "build": "Release static, Linux compatibility compiler define LPDWORD=PDWORD; no source body patch",
+    "sourcePath": ".local/class-skills/casc-reference-reader.cpp",
+    "sourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "open": "CascOpenStorage local/offline default flags0; CascOpenFile by name with CASC_STRICT_DATA_CHECK, no encrypted-zero override or downloads"
+  },
+  "file": {
+    "path": ".local/research/d2r-3.3.93847/monlvl-corpse-verified.txt",
+    "archivePath": "data:data/global/excel/monlvl.txt",
+    "size": 14707,
+    "sha256": "bda243efe1d1e9591f75b8cf97ac73f78ff691362381f35cc000233eb46c092a",
+    "rows": 111
+  },
+  "pinned": {
+    "path": "tools/reference/d2r-named-equipment/json/monlvl.json",
+    "sha256": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7"
+  },
+  "matchingFields": 3441,
+  "samples": {
+    "0": {
+      "HP": "1",
+      "HP(N)": "1",
+      "HP(H)": "1",
+      "L-HP": "1",
+      "L-HP(N)": "1",
+      "L-HP(H)": "1"
+    },
+    "1": {
+      "HP": "7",
+      "HP(N)": "107",
+      "HP(H)": "830",
+      "L-HP": "7",
+      "L-HP(N)": "107",
+      "L-HP(H)": "1107"
+    },
+    "50": {
+      "HP": "310",
+      "HP(N)": "1003",
+      "HP(H)": "1932",
+      "L-HP": "310",
+      "L-HP(N)": "1003",
+      "L-HP(H)": "2576"
+    },
+    "99": {
+      "HP": "964",
+      "HP(N)": "2675",
+      "HP(H)": "5844",
+      "L-HP": "964",
+      "L-HP(N)": "2675",
+      "L-HP(H)": "7792"
+    },
+    "110": {
+      "HP": "10000",
+      "HP(N)": "10000",
+      "HP(H)": "10000",
+      "L-HP": "10000",
+      "L-HP(N)": "10000",
+      "L-HP(H)": "10000"
+    }
+  },
+  "established": [
+    "Strict local read-only CASC text extraction while build metadata matched3.3.93847 before/after yielded14707bytes and111level rows.",
+    "All3441available nonmetadata pinned fields match exactly. No extra nonempty/nonzero local field is missing from a pinned row, including all six classic/expansion HP columns."
+  ],
+  "limits": [
+    "Text-data agreement does not certify binary table compilation/ABI, current executable behavior, source ratio arithmetic, monster initialization or corpse explosion.",
+    "No runtime catalogue or learned skill is changed. Current monster-specific min/max HP, noRatio, game/difficulty/level selection and corpse snapshot/persistence must be connected separately."
+  ]
+}

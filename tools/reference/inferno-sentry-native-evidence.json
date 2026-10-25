@@ -33,7 +33,7 @@
     "effects": "Identified body0x9C/hue0x489 and0x36D4 hue0x489 fire markers. Final E9 actor emergence/channel/idle/collapse,523/524 beams/contact/audio remain pending.",
     "icons": "Separate talent/right/quick/hotkey inventory240rows remains pending."
   },
-  "updatedAtUtc": "2026-10-25T20:05:09.183491+00:00",
+  "updatedAtUtc": "2026-10-25T20:17:45.450680+00:00",
   "nonblockingGaps": [
     "Ormus Robes remains unavailable for skill-rand. Actual gear capture uses supported Mang Song staff fire pierce/+5skills and Tarnhelm +1; inherited fire mastery remains covered by explicit source-stat provider/damage cases rather than a complete currently available Assassin-wearable fire-mastery item. Item readiness gates are unchanged."
   ],
@@ -45,7 +45,7 @@
     "clockDiagnostic": ".local/class-skills/inferno-sentry/clock-collision-diagnostic.json"
   },
   "contentSha256": "9675dfd56dab824c0a3671d9d23119232cbbfdc036c1e78ba8b26bc0bf38f725",
-  "integrationSha256": "ebf7c7e7421478688a1a12b0c45de82db3382ff4d5ae5273883b81b40726f381",
+  "integrationSha256": "c18948c5ac682e9eaa07c1a3b62871cb3243812ddfdd5d7877be8e4dd3c11118",
   "inputHashes": {
     "src/Sanctuary.Content/Sanctuary.Content.csproj": "42bdc7976aa72cd329a14937f129ccc9738411d68b37d95292e71195acc2a67a",
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
@@ -645,7 +645,7 @@
     "tests/Sanctuary.Integration/OrdinaryPropertyChecks.cs": "7910dd2a26cd177e8bf8f9924566858e78463fe44f643d8a285d2ddd5c3d43ed",
     "tests/Sanctuary.Integration/ClawMasteryChecks.cs": "1386e8a88761386ec853196607dd4d2fcc46b38cb0ba638dd82c2d62c3f276b6",
     "tests/Sanctuary.Integration/BurstSpeedChecks.cs": "8e4fae5190a309725ea507cc02d4e00f5f42f9a72f0691ad9e2b6e1a49e227fa",
-    "tests/Sanctuary.Integration/FadeChecks.cs": "bdb935689345038da0d32d649e7d3740e20d8571b433ce3b83450e1c1a670d2b",
+    "tests/Sanctuary.Integration/FadeChecks.cs": "eb1aa07f4512249ebf9392c5608efed8ac060304bf33c2d418b2a9c1033ad370",
     "tests/Sanctuary.Integration/PsychicHammerChecks.cs": "60c39b31623de8ef1b834a3339cd85f55948c73369951e33a4bad0057394fc6d",
     "tests/Sanctuary.Integration/CloakChecks.cs": "53cc14dae7b12164c1f11eb46a04a90dcf4ec472ac6a2eb0962244bc3c630998",
     "tests/Sanctuary.Integration/VenomChecks.cs": "242b67c80069c42b585fde0ea1d84d2f839ab8d8e2499ae3cba1202ae913e382",
@@ -921,11 +921,17 @@
     "sourceBurstPhases": 14400,
     "applicableDamageCasesPerBoot": 1983,
     "allRankGoldens": 255,
-    "realGear": "Mang Song staff fire pierce/+5skills and Tarnhelm+1; removal preserves birth context"
+    "realGear": "Mang Song staff fire pierce/+5skills and Tarnhelm+1; removal preserves birth context",
+    "fadeInspectionFocused": {
+      "boots": 3,
+      "reloads": 2,
+      "log": ".local/class-skills/inferno-sentry-fade-focused-run.log",
+      "scope": "Actual curse-duration reduction, natural Fade expiry and reloaded expiry pass; only the saved curse inspection deadline is extended."
+    }
   },
   "fullRegression": {
     "status": "running",
-    "session": 58949,
+    "session": 62588,
     "log": ".local/class-skills/inferno-sentry-full-run.log",
     "nativeLog": ".local/class-skills/inferno-sentry/native-checks.log",
     "priorFailure": {
@@ -933,6 +939,13 @@
       "nativeLog": ".local/class-skills/inferno-sentry/native-first-full-failure.log",
       "world": ".local/class-skills/inferno-sentry/first-full-failure-world",
       "cause": "Blade Fury socket fixture bypassed login without a verified account, leaving the connection on the4KB pre-auth budget. The fixture now supplies a disposable account through NetState.Account; content/network runtime unchanged."
+    },
+    "secondFailure": {
+      "outerLog": ".local/class-skills/inferno-sentry-second-full-failure.log",
+      "nativeLog": ".local/class-skills/inferno-sentry/native-second-full-failure.log",
+      "world": ".local/class-skills/inferno-sentry/second-full-failure-world",
+      "diagnostic": ".local/class-skills/inferno-sentry-fade-diagnostic-run.log",
+      "scope": "Third Fade reload ran near the saved648-second Amplify expiry. The preserved-world diagnostic shows correct mana/fire, expired curse and changed physical resistance. The fixture now verifies the real648-second reduction, then holds the inspected curse for a real hour; production content unchanged. Detailed scalar diagnostics remain in the assertion."
     }
   },
   "fixedEvidenceHashes": {

@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceEvidence": "tools/reference/corpse-explosion-source-evidence.json",
+  "installed": false,
+  "handlerEnabled": false,
+  "applicableComparisons": 1080,
+  "monsterComparisons": 540,
+  "nonmonsterServiceControls": 540,
+  "jsonRoundTrips": 1080,
+  "hashes": {
+    ".local/class-skills/corpse-explosion-source-probe.json": "489327d8c38d9c674f84c1fb83d155466a4ec27167916dabcea91fcd6e865626",
+    ".local/class-skills/corpse-explosion-draft-run.log": "e8e142d7baf53ecde5cf8a34b5c5d7f418dc85d08cbcd72a6331806bca838348",
+    "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
+    ".local/class-skills/corpse-explosion-draft/CorpseExplosionPackets.cs": "d8ba36248d3bfd3650144513c632f6be7e751f0efdfd1db12cc171388e9da041",
+    ".local/class-skills/corpse-explosion-draft/Program.cs": "64925e27ed02b18407078398ce2e37db3865bc189e08279bcc96ac8c10353795",
+    ".local/class-skills/corpse-explosion-draft/Probe.csproj": "8d3227f52915013feaa5d800946cf3ebaec6adce78a65c5833840ed7bd3d1cca"
+  },
+  "scope": "Uninstalled C# do55 packet draft reuses existing SourcePercentage and matches complete legacy producer/callback outputs for supported current NPC312 fire contexts, including level scaling, exclusive random bounds and physical edge clip.",
+  "limits": [
+    "Base-life lookup, corpse eligibility/consumption, seed allocation/advancement, area enumeration and defenses remain separate. Nonmonster outputs are supplied-predicate controls, not real selectable corpses.",
+    "No native actor, learned handler, current executable equivalence, saved world or retirement is certified; the draft is outside Sanctuary.Content."
+  ]
+}

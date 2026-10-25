@@ -94,6 +94,8 @@ def build(check=False):
         if source_id==276:
             e['compiledAiEvidence']='tools/reference/death-sentry-ai-source-evidence.json'
             e['compiledCorpseExplosionEvidence']='tools/reference/corpse-explosion-source-evidence.json'
+            e['packetDraftEvidence']='tools/reference/corpse-explosion-draft-evidence.json'
+            e['localMonsterLevelEvidence']='tools/reference/d2r-local-monlvl-evidence.json'
             e['inspectedLegacy']['scope']='Inspection hashes only; compiledAiEvidence separately executes complete AI104 and the shared initialization/remaining-shot helper. No modern executable certificate.'
             e['required'][0]='Complete unchanged legacy AI104/helper passes5484contexts; complete do55 producer/recipient callback/percentage helper passes8640contexts, both sanitizer-clean. Actual corpse selector, current base-life lookup, seed advancement, area enumeration/filtering and native integration remain separate. Existing Necromancer whole-percent RNG/single half-radius differ from the source producer/callback; do not copy that handler unchanged.'
             e['next']='Compose actual corpse search/eligibility and do55 explosion with the existing corpse system; implement the distinct AI104 controller and NPC324 bolt using shared sentry components. Learned placement and registered retirement remain separate gates.'
