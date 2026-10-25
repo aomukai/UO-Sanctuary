@@ -460,7 +460,8 @@
         "Param7": 25
       },
       "missileRows": "Current local seven-missile corroboration pending; cached pinned source hashes retained."
-    }
+    },
+    "localMissileCascCorroboration": "tools/reference/d2r-local-missile-data-evidence.json"
   },
   "established": [
     "Current source280uses start23/do34,mele ancestry,A1,left/right input,4mana and AttackNoMana1; reuse the single-contact Tiger/Cobra builder rather than the dual-claw do35sequence.",
@@ -473,7 +474,7 @@
     "Sorceress Meteor/fire ground,native saved projectiles,source missile packet/freeze states and shared fixed-point geometry are candidates for reuse after tracing Phoenix-specific routes."
   ],
   "required": [
-    "Retain the current local32skill-field corroboration; corroborate seven missile rows,source ancestry and relevant A1 metadata.",
+    "Current local32skill fields and all7Royal missile rows are corroborated. Data provenance does not certify current executable A1/stat/RNG/collision behavior.",
     "Retain the3456complete tier/producer/LCG cases,4096chain initializer/path cases,4225full source direction compositions,5400full elapsed curve/packing contexts,288nested meteor expiry/router/field contexts and1152four-row packet cases. Compose complete meteor center/falling/area/fire factory and clocks,chain first-direction/movement/collision/NextHit,and chaos-ice curving/velocity/damage2/freeze paths with current tables.",
     "Phoenix uses nonstacked tier selection: do not release all elemental tiers or silently copy Thunder bolts/Ice cubes. Trace distinct two-tier versus multiple charged-family interaction.",
     "Verify real weapon/gear/stored-live ranks/hard synergy/mastery,hit/block/miss/immunity,resource/fallback/lifecycle,real quick/both held/ordinary inputs,saved children/states and original-world smoke before installation.",

@@ -1,0 +1,104 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "readerEvidence": "tools/reference/d2r-local-animation-evidence.json",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "local": {
+    "archivePath": "data:data/global/excel/missiles.txt",
+    "path": ".local/research/d2r-3.3.93847/missiles.txt",
+    "sizeBytes": 231770,
+    "sha256": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27",
+    "open": "Local/offline CascOpenStorage default flags0;CASC_STRICT_DATA_CHECK;no encrypted-zero override or network downloads"
+  },
+  "cached": {
+    "path": "tools/reference/d2r-named-equipment/json/missiles.json",
+    "sha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "comparison": {
+    "namedRows": 742,
+    "comparedNumericIds": 742,
+    "comparedNonCommentFields": 22253,
+    "unexplainedDifferences": 0,
+    "quotedFormulaRepresentations": [
+      {
+        "missile": "abysscenter",
+        "field": "Radius",
+        "cached": "\"min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)\"",
+        "local": "min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)"
+      },
+      {
+        "missile": "abyssexplode",
+        "field": "Radius",
+        "cached": "\"min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)\"",
+        "local": "min((par3+(sksrc('Enhanced Entropy'.lvl)/par5)),11)"
+      },
+      {
+        "missile": "miasmaboltcloud",
+        "field": "Range",
+        "cached": "\"par4+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par5):0),100)\"",
+        "local": "par4+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par5):0),100)"
+      },
+      {
+        "missile": "miasmachainscloud",
+        "field": "Range",
+        "cached": "\"par2+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par3):0),100)\"",
+        "local": "par2+min(((skill('Enhanced Entropy'.lvl)>0)?(skill('Enhanced Entropy'.lvl)*par3):0),100)"
+      },
+      {
+        "missile": "miasmachainsmaker",
+        "field": "CltCalc1",
+        "cached": "\"min((5+lvl/4),10)\"",
+        "local": "min((5+lvl/4),10)"
+      }
+    ],
+    "omittedCelFileNullSentinels": 100
+  },
+  "selectedRows": {
+    "wake of destruction maker": {
+      "id": 517,
+      "comparedFields": 39
+    },
+    "wake of destruction": {
+      "id": 518,
+      "comparedFields": 36
+    },
+    "royalstrikemeteor": {
+      "id": 563,
+      "comparedFields": 39
+    },
+    "royalstrikemeteorcenter": {
+      "id": 564,
+      "comparedFields": 41
+    },
+    "royalstrikemeteortail": {
+      "id": 565,
+      "comparedFields": 18
+    },
+    "royalstrikemeteorexplode": {
+      "id": 566,
+      "comparedFields": 25
+    },
+    "royalstrikemeteorfire": {
+      "id": 567,
+      "comparedFields": 40
+    },
+    "royalstrikechainlightning": {
+      "id": 568,
+      "comparedFields": 51
+    },
+    "royalstrikechaosice": {
+      "id": 569,
+      "comparedFields": 55
+    }
+  },
+  "established": [
+    "All742named cached rows occur in the local pinned missile table with22,253non-comment field comparisons. No populated local non-comment field is missing except100CelFile=nullasset sentinels.",
+    "Five cached formula strings contain one surrounding quotation-mark pair that the local CSV reader removes. The inner formulas match exactly;this comparison does not rewrite runtime balance data or certify formula evaluation.",
+    "All7Royal/Phoenix missile rows and both Wake of Destruction maker/wave rows match directly without quotation or null-sentinel exceptions. Warlock missile rows are included in the whole-table comparison."
+  ],
+  "limits": [
+    "Confirms pinned data provenance and bounded representational differences,not current executable skill/AI/stat/RNG/collision/event behavior.",
+    "Extraction used the existing reader against executable/manifest hashes revalidated at read time. Raw licensed files remain local and ignored;the game process was not inspected or modified."
+  ]
+}

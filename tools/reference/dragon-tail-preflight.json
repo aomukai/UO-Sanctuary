@@ -43,6 +43,10 @@
       "EType": "fire"
     }
   },
+  "currentReference": {
+    "officialPatchNotes": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4 broad consume-one/charged always-hit rules agree with current fields;exact current block/dodge/payment behavior is not specified by those notes."
+  },
   "preparedComposition": "tools/reference/dragon-tail-source-evidence.json",
   "rateEvidence": "tools/reference/dragon-tail-rate-source-evidence.json",
   "clockEvidence": "tools/reference/dragon-tail-clock-source-evidence.json",

@@ -84,12 +84,13 @@
   },
   "limits": [
     "Handler presence and scoped source/native checks do not certify every3.3.93847 executable context. Full mode/stat/RNG/event/proc/owner/PvP/NPC/client equivalence remains acceptance work.",
-    "The seven royal missile rows are hash-pinned cached current data;32 local current skill fields corroborate the installation. Local CASC corroboration of all seven missile rows remains pending.",
+    "All seven Royal missile rows are corroborated by strict local extraction from the pinned installation;see d2r-local-missile-data-evidence.json. This closes the cached-data provenance gap,not executable behavior acceptance.",
     "Older do35 signed targetY addition carries negative X into high Y. This literal source behavior is preserved,while pinned executable parity remains uncertain. Elapsed-frame0/every3curving and freeze-only damage2are separately verified.",
     "Owner random low32draw uses the native RNG service. Private LCG/producer/path/curve transitions are exact for supplied seeds;full persistent D2player RNG-stream identity is unsupported.",
     "Native half-tile placement/collision,sector order,chain smooth stepping,cold velocity/barriers and hostile creature filtering are scoped adapters. Exact source room/collision/Slow Missiles/event order and exceptional PvP/NPC recipients remain unverified.",
     "Retained charge expiry/proportional AR and cached A1 timing remain provisional. Modern multi-contact kick/claw finishers remain deferred.",
     "Source mastery services are bounded numeric inputs. Ormus Robes remains gated by deferred skill-rand properties;actual supported Tarnhelm/Griffon cases do not certify every gear/stat path.",
     "Final Phoenix charge tiers,meteor warning/fall/impact/fire,lightning,chaos ice/trail/freeze/audio and talent/left/right/quick icons remain separately inventoried identified placeholders."
-  ]
+  ],
+  "localMissileDataEvidence": "tools/reference/d2r-local-missile-data-evidence.json"
 }

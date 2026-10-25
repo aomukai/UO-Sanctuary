@@ -50,7 +50,11 @@ public static class DragonKickPackets
         // Do50 adds skill percentage and current mastery before one source
         // percentage operation, including its large-value early division.
         int percent=checked((int)values.Eval("calc1")+mastery);
-        if(physical256<=1048576 && percent<=65536 && (long)physical256*percent is >int.MaxValue or <int.MinValue)
+        long intermediate=physical256<=1048576
+            ?percent<=65536?(long)physical256*percent
+                :100<=percent>>4?(long)physical256*(percent/100):(long)physical256*percent/100
+            :100<=physical256>>4?(long)percent*(physical256/100):(long)physical256*percent/100;
+        if(intermediate is >int.MaxValue or <int.MinValue)
         {throw new NotSupportedException("Legacy Tail percentage overflows; current executable behavior is unverified");}
         return Math.Max(0,SourcePercentage.Calculate(physical256,percent,100));
     }

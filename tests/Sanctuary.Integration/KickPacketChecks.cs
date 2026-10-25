@@ -36,7 +36,7 @@ public static class KickPacketChecks
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"dragon-tail-source-probe.json")));int count=0;
         foreach(var r in doc.RootElement.EnumerateArray()){int V(int i)=>r[i].GetInt32();if(V(8)!=0 && V(7)==0){Require(DragonKickPackets.TailFire256(V(14),Tail(V(0)),V(3))==V(18),"Complete source Tail percentage/copy");}count++;}Require(count==1920,"Tail complete source matrix");
         for(int rank=1;rank<=255;rank++){var v=Tail(rank);Require(v.Mana256==2560 && v.Formula("toht")==20+15*(rank-1) && v.Eval("calc1")==50+20*(rank-1) && v.Eval("aurarangecalc")==6,"Current Tail numeric golden");}
-        bool refused=false;try{DragonKickPackets.TailFire256(1048576,Tail(255),0);}catch(NotSupportedException){refused=true;}Require(refused,"Unverified signed-overflow context silently adopted");
+        foreach(var (physical,rank,mastery) in new[]{(1048576,255,0),(int.MaxValue,20,0),(1048576,1,1000000)}){bool refused=false;try{DragonKickPackets.TailFire256(physical,Tail(rank),mastery);}catch(NotSupportedException){refused=true;}Require(refused,"Unverified signed-overflow fast path silently adopted");}
     }
     private static void TailWorld()
     {
