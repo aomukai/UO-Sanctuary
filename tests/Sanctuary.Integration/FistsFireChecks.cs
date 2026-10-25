@@ -38,6 +38,18 @@ public static class FistsFireChecks
         var t=new CobraPassiveTarget{Name="FistsFixtureTarget",Frozen=true,CantWalk=true,NoKillAwards=true};t.AIObject?.AITimer.Stop();t.MoveToWorld(new(p.X+x,p.Y+y,p.Z),p.Map);t.SetHits(50000);t.Hits=t.HitsMax;
         foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){t.SetResistance(type,0);}return t;
     }
+    // Only this fixture's held clock moves into the future. Preserve every
+    // foreign field/maker/meteor/cooldown and its real-world deadline.
+    private static void TickOwner(PlayerMobile p,DateTime at)
+    {
+        var all=FireGround.Snapshot();var own=all.Patches.Where(x=>x.Owner==p.Serial.Value).ToArray();var after=own;
+        FireGround.Restore(new(own,[],[],[]));
+        try{FireGround.Tick(at);after=FireGround.Snapshot().Patches;}
+        finally{FireGround.Restore(all with{Patches=all.Patches.Where(x=>x.Owner!=p.Serial.Value).Concat(after).ToArray()});}
+        var foreign=FireGround.Snapshot();
+        Require(foreign.Patches.Where(x=>x.Owner!=p.Serial.Value).SequenceEqual(all.Patches.Where(x=>x.Owner!=p.Serial.Value))
+            && foreign.Makers.SequenceEqual(all.Makers) && foreign.Meteors.SequenceEqual(all.Meteors) && foreign.Cooldowns.SequenceEqual(all.Cooldowns),"Fists fixture advanced foreign fire-ground state");
+    }
     private static void Delete(BaseCreature t){t.Corpse?.Delete();t.Delete();}
     private static Item Named(PlayerMobile p,string key)
     {var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey==key).Id,99,new FixedRandom(),true);p.AddToBackpack(item);Require(p.EquipItem(item),"Equip "+key);ClassGear.Refresh(p);return item;}
@@ -112,8 +124,8 @@ public static class FistsFireChecks
         Require(AssassinCharges.Finisher(p).Length==3 && AssassinCharges.Finisher(p).All(x=>x.Count==(x.Ability==CombatAbility.TigerStrike?1:2)),"Independent modern consume-one families");
         var patches=Patches(p);Require(patches.Length==FistsFireRelease.Scatter(4,7).Length && patches.All(x=>x.Size==2 && x.DamageRate==0 && x.SkillRank==packet.Rank && x.Min256==packet.FieldMin256 && x.Max256==packet.FieldMax256 && (x.UntilUtc-x.NextUtc).TotalMilliseconds==63*40),"Three charges: source scatter/field payload/lifetime");
         Require(SkillHealth.Balance256(nearby)<hp && SkillHealth.Balance256(outside)==far,"Area recipient isolation");
-        int before=SkillHealth.Balance256(t);FireGround.Tick(patches[0].NextUtc);Require(SkillHealth.Balance256(t)<before,"Actual field first-collider tick");
-        FireGround.Tick(patches.Max(x=>x.UntilUtc));Require(Patches(p).Length==0,"Natural64frame expiration");
+        int before=SkillHealth.Balance256(t);TickOwner(p,patches[0].NextUtc);Require(SkillHealth.Balance256(t)<before,"Actual field first-collider tick");
+        TickOwner(p,patches.Max(x=>x.UntilUtc));Require(Patches(p).Length==0,"Natural64frame expiration");
         //100% conversion has zero physical leech, including captured Cobra.
         Hold(p,Charge(p,1,34),Charge(p,3,1,CombatAbility.CobraStrike));SkillHealth.SetBalance256(p,10*256);NecromancerEffects.SetMana256(p,10*256);int life=SkillHealth.Balance256(p),mana=NecromancerEffects.ManaBalance256(p);Finish(p,t);
         Require(SkillHealth.Balance256(p)==life && NecromancerEffects.ManaBalance256(p)==mana,"Converted fire produced Cobra physical leech");
@@ -129,9 +141,9 @@ public static class FistsFireChecks
     private static void FieldLifecycle(PlayerMobile p,BaseCreature t)
     {
         var at=TimedEffects.Now;FireGround.AddFists(p,1,t.X,t.Y,t.Z,256,256,at);FireGround.AddFists(p,1,t.X,t.Y,t.Z,256,256,at);var fields=Patches(p);int hp=SkillHealth.Balance256(t);
-        FireGround.Tick(at.AddMilliseconds(40));Require(SkillHealth.Balance256(t)==hp-512,"Independent overlapping first-collider fields");
-        var location=p.Location;p.Internalize();hp=SkillHealth.Balance256(t);FireGround.Tick(at.AddMilliseconds(80));Require(SkillHealth.Balance256(t)==hp,"Offline owner continued fighting");FireGround.Tick(at.AddSeconds(4));FireGround.Tick(at.AddSeconds(4.04));Require(Patches(p).Length==0,"Offline lifetime stopped");p.MoveToWorld(location,Map.Trammel);
-        FireGround.AddFists(p,1,t.X,t.Y,t.Z,256,256,TimedEffects.Now);p.MoveToWorld(location,Map.Felucca);FireGround.Tick(TimedEffects.Now.AddMilliseconds(40));Require(Patches(p).Length==0,"Owner map change retained source fire");p.MoveToWorld(location,Map.Trammel);
+        TickOwner(p,at.AddMilliseconds(40));Require(SkillHealth.Balance256(t)==hp-512,"Independent overlapping first-collider fields");
+        var location=p.Location;p.Internalize();hp=SkillHealth.Balance256(t);TickOwner(p,at.AddMilliseconds(80));Require(SkillHealth.Balance256(t)==hp,"Offline owner continued fighting");TickOwner(p,at.AddSeconds(4));TickOwner(p,at.AddSeconds(4.04));Require(Patches(p).Length==0,"Offline lifetime stopped");p.MoveToWorld(location,Map.Trammel);
+        FireGround.AddFists(p,1,t.X,t.Y,t.Z,256,256,TimedEffects.Now);p.MoveToWorld(location,Map.Felucca);TickOwner(p,TimedEffects.Now.AddMilliseconds(40));Require(Patches(p).Length==0,"Owner map change retained source fire");p.MoveToWorld(location,Map.Trammel);
         // Invalid footprint must fail closed without touching production saves.
         var save=FireGround.Snapshot();FireGround.AddFists(p,1,t.X,t.Y,t.Z,256,256,TimedEffects.Now);var invalid=Patches(p).Single() with{Size=1};bool failed=false;
         try{FireGround.Restore(save with{Patches=save.Patches.Append(invalid).ToArray()});}catch(InvalidDataException){failed=true;}finally{FireGround.Restore(save);}Require(failed,"Invalid Fists field footprint accepted");
@@ -154,7 +166,7 @@ public static class FistsFireChecks
         Require(AssassinCharges.Finisher(p).SequenceEqual(save.Charges) && Patches(p).SequenceEqual(save.Patches),"Saved independent charges/source fields");
         Require(CombatTiming.Equipped(p)?.Serial.Value==save.Primary && WeaponHands.Pair(p)?.Secondary.Serial.Value==save.Secondary,"Saved selected claw equipment");
         p.MoveToWorld(save.Origin,Map.Trammel); // Saved offline players load on Map.Internal.
-        var patches=Patches(p);var origin=p.Location;int hp=SkillHealth.Balance256(target);FireGround.Tick(patches[0].NextUtc);Require(SkillHealth.Balance256(target)<hp,"Restored source field resumed once due");
+        var patches=Patches(p);var origin=p.Location;int hp=SkillHealth.Balance256(target);TickOwner(p,patches[0].NextUtc);Require(SkillHealth.Balance256(target)<hp,"Restored source field resumed once due");
         FireGround.Cancel(p);Hold(p,save.Charges);Finish(p,target);Require(AssassinCharges.State(p,CombatAbility.FistsOfFire)?.Count==2 && Patches(p).Length>0,"Restored charges release through ordinary Attack");FireGround.Cancel(p);
         var all=FireGround.Snapshot();FireGround.Restore(all with{Patches=all.Patches.Concat(save.Patches).ToArray()});Hold(p,save.Charges);
         Require(AssassinCombat.Implemented(CombatAbility.FistsOfFire),"Reload lost learned Fists action");

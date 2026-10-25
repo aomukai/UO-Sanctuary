@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "status": "Nonblocking mechanical return list; no new class-completion claim",
+  "discoveredWhile": "Assassin Fists of Fire sequence timing validation",
+  "evidence": "tools/reference/assassin-claw-modern-rate-evidence.json",
+  "entries": [
+    {
+      "talentId": "barbarian.doublethrow",
+      "status": "needs-current-dual-rate-verification",
+      "currentPaths": [
+        "src/Sanctuary.Content/BarbarianDoubleThrow.cs",
+        "src/Sanctuary.Content/ActionTiming.cs"
+      ],
+      "finding": "Current native Double Throw schedules through WeaponSequencePoint/WeaponSequenceAdvance using selected primary WSM/IAS. The pinned current-family original calculator marks Double Throw dualOnly+sequence, selecting its separately diminished hand-IAS and mean-WSM branch. Unequal-hand source/native contexts need explicit comparison; earlier passing tests do not prove that current rate layer.",
+      "required": "Compose original Double Throw initializer/current rate functions,verify actual both-hand IAS/global IAS/WSM suppliers,then correct/test timing and two reloads without changing its separately verified quantity/damage/lifecycle rules.",
+      "sourceInference": true
+    },
+    {
+      "talentId": "assassin.dragonclaw",
+      "status": "next-source-native-integration",
+      "preflight": "tools/reference/dragon-claw-preflight.json",
+      "finding": "Current-family original Dragon Claw rate uses a different branch from Fists. Do not copy Fists primary-only policy.",
+      "required": "Verify dual-only eligibility,full source finishing contacts,current charges/guaranteed-hit/block,actual both-hand timing/input and persistence before enabling."
+    }
+  ],
+  "otherUnimplementedConsumers": [
+    "barbarian.doubleswing",
+    "barbarian.frenzy"
+  ],
+  "currentFistsPolicy": "Current-family original Fists branch uses primary WSM/IAS and sequence base256. Old dual mean/base208 is recorded as a rejected candidate/control, not silently treated as current behavior.",
+  "priority": "Finish and verify the active Assassin class work; keep this earlier-class dependency visible and return before claiming the complete all-class goal."
+}
