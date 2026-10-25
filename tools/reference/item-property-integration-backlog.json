@@ -815,7 +815,7 @@
     "src/Sanctuary.Content/NamedGear.cs": "9c1866e70c4a4cbd9b3d6506cdef5f4801a8067970d3e6772b69f01784702989",
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/valkyrie-affix-catalogue.json": "6ecd53097ebf9583ccb0a318de64d21933d1b2900e3038873ebecd2d32c80c53",
-    "tools/reference/named-item-runtime-audit.json": "f7ab53deb379872da22da5d1fcbf0e0f971591bdcc7b72af43ae5ef46f535aeb"
+    "tools/reference/named-item-runtime-audit.json": "f44feadb6414b0a74205b4fecdadb4950a41fdf4745daace10953b69135505eb"
   },
   "deferredSkillEffects": [
     {

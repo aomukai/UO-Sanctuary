@@ -24,7 +24,11 @@
     "birthRankRetainedAfterGearRemoval": true,
     "phaseClockInjuryAndManaRetained": true,
     "learnedInput": false,
-    "fullRegressionComplete": false
+    "fullRegressionComplete": false,
+    "pythonTests": 70,
+    "namedFingerprints": 540,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573
   },
   "limits": [
     "Placement supports a free native cell with existing map/LOS/town/range/height rules. The reconstructed D2GAME_SpawnNormalMonster_6FC68E30 returns null and its implementation is commented decompilation. Exact radius-1/4 search, collision/room/order and occupied-monster overlap are unsupported; no guessed nearest-cell/caster fallback is introduced.",

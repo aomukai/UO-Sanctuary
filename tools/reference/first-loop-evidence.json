@@ -4,7 +4,7 @@
   "manifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
   "affixAudit": {
     "path": "tools/reference/first-loop-affix-audit.json",
-    "sha256": "e13846c3deced16a46e11cdd8806f09f0d50e6125f0440d3eb1f6e29da0d1258"
+    "sha256": "8f9e146042a910c13c64616dc4b84ff0be26be5244dc841fa7c05931931bd9c3"
   },
   "sources": {
     "Armor": {
