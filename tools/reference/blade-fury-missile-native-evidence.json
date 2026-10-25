@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
-  "fullPending": true,
-  "status": "Prepared player packet and real saved size1 bladefragment1 flight pass focused3boots/2reloads, including960 source comparisons and natural timer hits each boot. Full regression pending. Installed03eb611 remains unchanged.",
+  "fullPending": false,
+  "status": "Blade Fury player packet capture and real saved size1 bladefragment1 flights are installed. Focused/full suites each pass three boots/two reloads, with960 complete source creator/tier/typed comparisons per boot and three natural server-timer hits per suite. Actual unarmed/claw/two-hand/bow collection, mastery critical, poison snapshot, no ammunition/durability/pierce, travelling hits/misses, captured slow and death/respec cleanup pass. Actual player/weapon/path/profile/packet/clock survive two world reloads; gear removal does not rewrite released damage, and continuation damages once without another payment. The explicit source-player-missile-plus-current-fury-v1 AR profile combines old missile mastery exclusion with current10percent-per-rank Fury AR; current mastery/slow rounding, full properties/return-fire/credit/motion/client acceptance remain scoped. All70 Python tests, fresh547/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Saves/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Learned channel mode/held input/event ordering/release remain pending; Blade Shield stays latest playable.",
   "sourceEvidence": "tools/reference/blade-fury-damage-source-evidence.json",
   "components": [
     "src/Sanctuary.Content/BladeFuryLaunch.cs",
@@ -32,11 +32,21 @@
     "currentToHitPercentPerRank": 10,
     "currentMasteryArVerified": false,
     "exactCurrentSlowRoundingVerified": false,
-    "fullRegressionComplete": false,
+    "fullRegressionComplete": true,
     "productionFlightPersistence": true,
     "heldInput": false,
     "learnedInput": false,
-    "productionChannelPersistence": false
+    "productionChannelPersistence": false,
+    "fullBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "pythonTests": 70,
+    "contentAssemblySha256": "e351a4a8f3d1f3a13363d1e32386aafc9c8c0ab81275987a0028748f50aee13e",
+    "integrationAssemblySha256": "2c77092864896102cd3d02c771a2d672327215d7c820637bbda2367d38a407a1",
+    "namedFingerprints": 547,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573,
+    "existingWorldSmoke": true,
+    "existingSaveBytesUnchanged": true
   },
   "limits": [
     "This ordinary player adapter retains source missile mastery-AR exclusion plus documented current Fury AR. Current mastery behavior remains unverified; the explicit saved profile does not claim a current executable certificate.",
@@ -57,11 +67,23 @@
     "lifecycle-failure": ".local/class-skills/blade-fury-missile-lifecycle-failure.log",
     "lifecycle-failure-run": ".local/class-skills/blade-fury-missile-lifecycle-failure-run.log",
     "shared-clock-failure": ".local/class-skills/blade-fury-missile-shared-clock-failure.log",
-    "shared-clock-failure-run": ".local/class-skills/blade-fury-missile-shared-clock-failure-run.log"
+    "shared-clock-failure-run": ".local/class-skills/blade-fury-missile-shared-clock-failure-run.log",
+    "source-check": ".local/class-skills/blade-fury-missile-source-check.log",
+    "combined": ".local/class-skills/blade-fury-missile-combined.log",
+    "full-suite-run": ".local/class-skills/blade-fury-missile-full-suite-run.log",
+    "python-tests": ".local/class-skills/blade-fury-missile-python-tests.log",
+    "named-readiness": ".local/class-skills/blade-fury-missile-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-fury-missile-first-loop.log",
+    "properties": ".local/class-skills/blade-fury-missile-properties.log",
+    "installed-server": ".local/class-skills/blade-fury-missile-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-fury-missile-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-fury-missile-client-check.log",
+    "install-run": ".local/class-skills/blade-fury-missile-install-run.log"
   },
   "resolvedDuringPreparation": {
     "fixtureStatReset": "Direct raw fixture stats were replaced with actual persistent stat allocations, allowing saved weapon re-equip. Initial failing log retained.",
     "missingLifecycleWiring": "Death/respec/wardrobe cleanup now explicitly removes this flight type; existing other missile behavior retained.",
-    "sharedFixtureClock": "Initial full regression found that the new Internal-map expiry fixture advanced the global weapon-missile clock eleven minutes, consuming an unrelated held Poison Javelin save fixture. The test now advances only its actual forty-frame flight lifetime. Production code unchanged; failed log retained; corrected focused three-boot/two-reload suite passes, full retest pending."
-  }
+    "sharedFixtureClock": "Initial full regression found that the new Internal-map expiry fixture advanced the global weapon-missile clock eleven minutes, consuming an unrelated held Poison Javelin save fixture. The test now advances only its actual forty-frame flight lifetime. Production code unchanged; failed log retained; corrected focused/full three-boot/two-reload suites pass, including original Poison Javelin persistence."
+  },
+  "next": "Connect Blade Fury mode entry and held input to the installed channel/payment/SQ planner and saved damaging flights. Use the24-case fixed sequence-rate composition; retain source deadline/lease/event ordering, aim and interruption behavior. Keep the optional press/release question nonblocking and current AR-mastery/slow/property/client limits explicit; do not count a learned handler until actual input and lifecycle acceptance pass."
 }

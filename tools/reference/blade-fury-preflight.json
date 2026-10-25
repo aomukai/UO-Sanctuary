@@ -4,7 +4,7 @@
   "sourceSkillId": 266,
   "combatAbilityId": 207,
   "handlerEnabled": false,
-  "status": "Prepared player packet and real saved size1 bladefragment1 flight pass focused3boots/2reloads, including960 source comparisons and natural timer hits each boot. Full regression pending. Installed03eb611 remains unchanged.",
+  "status": "Blade Fury player packet capture and real saved size1 bladefragment1 flights are installed. Focused/full suites each pass three boots/two reloads, with960 complete source creator/tier/typed comparisons per boot and three natural server-timer hits per suite. Actual unarmed/claw/two-hand/bow collection, mastery critical, poison snapshot, no ammunition/durability/pierce, travelling hits/misses, captured slow and death/respec cleanup pass. Actual player/weapon/path/profile/packet/clock survive two world reloads; gear removal does not rewrite released damage, and continuation damages once without another payment. The explicit source-player-missile-plus-current-fury-v1 AR profile combines old missile mastery exclusion with current10percent-per-rank Fury AR; current mastery/slow rounding, full properties/return-fire/credit/motion/client acceptance remain scoped. All70 Python tests, fresh547/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Saves/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Learned channel mode/held input/event ordering/release remain pending; Blade Shield stays latest playable.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -246,7 +246,7 @@
     "Bounded channel component installed and focused/full verified against6912 channel and12 expiry cases per boot. No production held-input or channel persistence claim.",
     "Ordinary native resource wrappers installed and7200 source cases verified per boot in focused/full3boot/2reload suites, with explicit current-table rank1 correction and actual saved character/soft-rank/fractional payments. Generic world/used-skill/charges/Blood Mana remain caller scope.",
     "Native SQ23 profile and shared event planner installed;490 initial/renewal source cases match per boot. Bind original mode entry/rate, seqinput12 held input, event dispatch/state-expiry/cancellation; planner alone is not full input.",
-    "Dedicated player collector and saved size1/no-pierce flight implemented and focused verified against960 source creator cases, actual gear, natural timer damage, lifecycle and two world reloads. Finish full regression/install. Current mastery-AR/slow rounding and broad properties/client acceptance remain scoped.",
+    "Dedicated player capture and saved size1/no-pierce flight installed;960 source creator comparisons, actual gear, natural timer damage, lifecycle and two saved-flight continuations pass focused/full3boot/2reload suites. Current mastery-AR/slow rounding and broad property/return-fire/credit/client acceptance remain scoped.",
     "Verify L/R/quick input, target death/cached aim, turning/movement/weapon-loss interruption, active resources/leases/flight reload, natural emission and installed-world smoke before enabling the handler."
   ],
   "uncertain": [
@@ -289,5 +289,29 @@
   "rateEvidence": "tools/reference/blade-fury-rate-source-evidence.json",
   "nativeArFormulaNote": "SkillValues.Formula(\"toht\") currently reads ToHit/LevToHit, not ToHitCalc. Fury has ToHitCalc=lvl*10; use a checked current formula resolver/Eval(\"ToHitCalc\") for its percentage bridge rather than accidentally capturing zero from the old convenience symbol.",
   "resourceComponentsInstalled": true,
-  "missileNativeEvidence": "tools/reference/blade-fury-missile-native-evidence.json"
+  "missileNativeEvidence": "tools/reference/blade-fury-missile-native-evidence.json",
+  "missileComponentsInstalled": true,
+  "nextIntegrationReview": {
+    "scope": "Read-only follow-on review; no learned handler or client reentry behavior is established by this note.",
+    "reentryUncertainty": "Pinned seqinput is12. Supplementary PlrModes.cpp sub_6FC81890 only checks nSeqInput as nonzero; this body does not establish the client threshold or its mapping to Sanctuary hold heartbeats. Do not silently derive that policy from the boolean test.",
+    "earlyStartHazard": "Driving active st26 on every initial heartbeat can enter do48 before the scheduled initial action. Compose the real mode/input gate with the event planner before using the existing channel wrapper.",
+    "targetRetention": "Current KeepCursorStateOnKill and ContinueCastUnselected require review against generic UpdateHeldCast, which clears repetition on missing/dead targets or changed binding.",
+    "localSourceAnchors": {
+      ".local/research/d2moo-PlrModes.cpp": [
+        "PLRMODE_StartXY_AttackCastThrowKickSpecialSequence",
+        "PLRMODE_StartID_AttackCastThrowKickSpecialSequence",
+        "sub_6FC81890",
+        "sub_6FC81600",
+        "sub_6FC81250"
+      ],
+      ".local/research/d2moo-Skills.cpp": [
+        "sub_6FD12FD0"
+      ],
+      ".local/research/d2moo-SUnit.cpp": [
+        "sub_6FCBCE70",
+        "sub_6FCBD120"
+      ]
+    },
+    "optionalReleaseObservation": "Still pending and nonblocking; do not repeat the question."
+  }
 }
