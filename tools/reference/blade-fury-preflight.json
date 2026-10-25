@@ -190,11 +190,6 @@
   },
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "reviewedNotCompiled": {
-    "sub_6FCBD120": {
-      "path": "source/D2Game/src/UNIT/SUnit.cpp",
-      "sourceSha256": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
-      "routineSha256": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8"
-    },
     "MISSMODE_SrvHit52_BladeFury": {
       "path": "source/D2Game/src/MISSILES/MissMode.cpp",
       "sourceSha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
@@ -214,31 +209,6 @@
       "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
       "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
       "routineSha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
-    },
-    "UNITS_InitializeSequence": {
-      "path": "source/D2Common/src/Units/Units.cpp",
-      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-      "routineSha256": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485"
-    },
-    "UNITS_IsSeqAnimSpeedModulatedByFCR": {
-      "path": "source/D2Common/src/Units/Units.cpp",
-      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-      "routineSha256": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028"
-    },
-    "UNITS_CanAnimModeUseAttackRate": {
-      "path": "source/D2Common/src/Units/Units.cpp",
-      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-      "routineSha256": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df"
-    },
-    "UNITS_UpdateOtherAnimRateAndVelocity": {
-      "path": "source/D2Common/src/Units/Units.cpp",
-      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-      "routineSha256": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33"
-    },
-    "UNITS_UpdateAnimRateAndVelocity": {
-      "path": "source/D2Common/src/Units/Units.cpp",
-      "sourceSha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
-      "routineSha256": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
     }
   },
   "channelEvidence": "tools/reference/blade-fury-channel-source-evidence.json",
@@ -311,8 +281,10 @@
     "instruction": "Record answer if received; do not repeat while pending. Continue independent weapon/projectile work."
   },
   "sourceRateReview": {
-    "compiledByThisReview": false,
-    "finding": "Older InitializeSequence sets dwSeqSpeed256. Pinned Fury seqtrans=A1 and absent useAttackRate do not select FCR/attack-rate modulation under the reviewed ordinary SQ route. UpdateOther writes wAnimSpeed, not dwSeqSpeed. This suggests retaining source fixed sequence rate; compose the complete route before binding it. Do not feed Fury through generic IAS/FCR timing merely because it has a weapon/cast animation.",
-    "scope": "Full named bodies reviewed, source skill/row and identity mode assumptions retained; complete native/source initialization/rate/mode-entry and current executable acceptance remain pending."
-  }
+    "compiledCompositionEvidence": "tools/reference/blade-fury-rate-source-evidence.json",
+    "cases": 24,
+    "finding": "Complete older ordinary SQ initialization, rate router/predicates, selected other-rate writer and scheduler compose with the pinned A1/useAttackRate0 context. Sequence speed stays256 across declared animation-base/other-rate controls; wAnimSpeed changes separately. Do not use generic IAS/FCR timing.",
+    "scope": "Identity ConvertMode and19-point record/metadata services declared; nonselected rate writers reject execution. Production mode entry, input/expiry/event dispatch and current executable acceptance remain pending."
+  },
+  "rateEvidence": "tools/reference/blade-fury-rate-source-evidence.json"
 }

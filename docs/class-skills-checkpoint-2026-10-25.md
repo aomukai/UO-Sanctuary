@@ -6,6 +6,8 @@ Current candidate: **Blade Fury resources and animation planning**. Native ordin
 
 Regression note: the first full run stopped on Sanctuary's saved knockback endpoint. Its fixture had stopped ordinary AI at creation but only stopped the motion target after reload; the other scene actors could wander. Named whole-scene AI restoration now passes the combined focused three-boot/two-reload suite, with endpoint/recovery assertions unchanged and new terrain/occupancy diagnostics. A repeated full run is underway; the working installation is unchanged. The failed logs are retained in `.local/class-skills/blade-fury-resource-sanctuary-reload-failure*.log`.
 
+Additional rate preparation:24 complete older SQ initialization/rate/router/scheduler controls pass with clean ASan/UBSan. The pinned A1/useAttackRate0 path retains sequence speed256 independently of ordinary animation metadata/other-rate values. Native mode/input binding and current executable timing remain pending. [Evidence](../tools/reference/blade-fury-rate-source-evidence.json).
+
 ## Implemented
 
 - Blade Fury has a bounded, unregistered start/do/expiry state component. It retains the 21-frame fresh lease, seven-frame renewal, strict shot deadline, creation attempt versus allocation distinction, explicit payment and animation services, and flag transitions. Generic wrappers, production input, SQ23 animation, damaging projectiles and production persistence remain separate.

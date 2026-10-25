@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativeVerifiedByThisSourceProbe": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "compiledRoutineHashes": {
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_IsAnimModeBlocking": "7f5c5ee26f4eddb80954f602cc76b10ed3601489d8f810b685e138cf47abc08d",
+    "UNITS_IsAnimModeGetHit": "9274bc655b13019f29363f1dae3ca8e5cf475ad7c051db167a528829e0cf5d3f",
+    "UNITS_IsAnimModeKnockBack": "5fe8df87f461353e8c90ee13b92efc689969ade300436a5123964b1897a1961b",
+    "UNITS_CanAnimModeUseVelocityModifier": "e82b95369e08773a3daab3d21e8159559107ee66785cc26664b767c326df35d2",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_AnimModeAllowsAnimSpeed": "499c5c402bdc2f5eb3dffdfc38cd5f79d790b9dc54e71db2b165299d27a19279",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
+  },
+  "reviewedUnexecutedWriterHashes": {
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_UpdateBlockAnimRateAndVelocity": "6e7042e9c69afa450addd10104fe9066f24aa476f5fe12d62cabc2a92e3dfd43",
+    "UNITS_UpdateGetHitAnimRateAndVelocity": "7151780c467620a1db1c0e76437d4cd64b0a4c39cc62af21772a676433a59fdf",
+    "UNITS_UpdateKnockbackAnimRateAndVelocity": "57bdbf7bae12017936170993d709adb200053b821aea2957549cc55f91f92bc9",
+    "UNITS_UpdateRunWalkAnimRateAndVelocity": "ef3172eab804f35cbf15e3069e1e9a7f8d1f954cffade9003b2974baf05e98c5",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd"
+  },
+  "sharedTimingEvidence": "tools/reference/blade-fury-timing-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/blade-fury-rate-source-probe.json",
+    "sha256": "4c2622de31e1a3dfefc9376565ec745b6c2c1410bda6f5d4889368b3f788fd89",
+    "cases": 24
+  },
+  "established": [
+    "Complete ordinary SQ initialization, router, all selected-route predicates, other-rate writer, speed setter and source scheduler compose. Current Fury seqtransA1/useAttackRate0 selects neither FCR nor attack-rate modulation. Faster item-stat queries assert if reached.",
+    "Initialization leaves sequence speed256 across24 declared animation-base/other-rate controls. Other-rate changes wAnimSpeed but does not rewrite dwSeqSpeed. The scheduler uses the latter, retaining source action12/end19. Do not route Fury through generic IAS/FCR timing."
+  ],
+  "limits": [
+    "Normal unmorphed ordinary learned-player SQ context; identity ConvertMode, sequence record19/23, skill lookup and animation metadata are declared services. Nonselected cast/block/recovery/movement/attack writers reject execution; their bodies are reviewed, not executed.",
+    "This composes the older rate/initial scheduler, not player mode entry or client reentry/event-queue/state-expiry dispatch. Current executable warmup/cadence/release observations remain separate. Native rate binding is still pending."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr"
+}
