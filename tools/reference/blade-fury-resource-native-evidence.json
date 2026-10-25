@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
-  "fullPending": true,
-  "status": "Native Blade Fury payment/animation components and actual fractional player payments pass combined focused3boots/2reloads. First full run failed an older Sanctuary scene reload; scoped whole-scene AI restoration now passes the combined focused suite. Repeated full regression running; installed9c93a9a unchanged.",
+  "fullPending": false,
+  "status": "Blade Fury ordinary-player payment wrappers, SQ23 profile and shared source event planner are installed. Focused/full suites each pass three boots/two reloads, comparing7200 complete resource and490 initial/renewal source cases per boot. Current-table rank1 costs256FP; fresh six-mana availability does not debit six mana, active state uses per-shot eligibility, same-frame reentry cannot double-shoot/pay and failed factory attempts still pay. Actual Tarnhelm rank changes select256/288FP payments, and real character/equipment plus607FP mana (95FP remainder) survive two world reloads. Source animation arrays are component plans; production held input/mode/rate/event dispatch/cancellation and saved channel/projectile integration remain pending. All70 Python tests, current545/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Saves/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11; Blade Shield is still latest playable. Sentry retirement remains individually deferred.",
   "sourceEvidence": [
     "tools/reference/blade-fury-resource-source-evidence.json",
     "tools/reference/blade-fury-timing-source-evidence.json"
@@ -19,7 +19,7 @@
     "sourceInitialAndRenewalCasesPerBoot": 490,
     "focusedBoots": 3,
     "focusedReloads": 2,
-    "fullRegressionComplete": false,
+    "fullRegressionComplete": true,
     "currentTableRank1Cost256": 256,
     "oldRank1ZeroDebitAdopted": false,
     "freshSixManaThresholdNotDebit": true,
@@ -37,7 +37,18 @@
     "sourceEventQueueDispatch": false,
     "nativeHeldInput": false,
     "worldMissiles": false,
-    "learnedInput": false
+    "learnedInput": false,
+    "fullBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "pythonTests": 70,
+    "contentAssemblySha256": "b479d00090034c8a322c658b863b3e61713de05e9327592fda029ea83563dba3",
+    "integrationAssemblySha256": "b8cf160957cdd403a86de01616e01ef0d3c561309dfaef1300410a7489ab33fe",
+    "namedFingerprints": 545,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573,
+    "existingWorldSmoke": true,
+    "existingSaveBytesUnchanged": true,
+    "sanctuarySceneIsolationOnWorldLoad": true
   },
   "limits": [
     "Ordinary learned-player payment composition only. Caller retains world/used-skill eligibility and current rank; charges and Blood Mana remain out of scope. The old consumer rank1 zero-debit disagreement is explicitly corrected to the current256FP table cost.",
@@ -51,7 +62,23 @@
     "integration-build": ".local/class-skills/blade-fury-resource-integration-build.log",
     "focused": ".local/class-skills/blade-fury-resource-focused.log",
     "focused-run": ".local/class-skills/blade-fury-resource-focused-run.log",
-    "full-suite-run": ".local/class-skills/blade-fury-resource-full-suite-run.log"
+    "full-suite-run": ".local/class-skills/blade-fury-resource-full-suite-run.log",
+    "combined": ".local/class-skills/blade-fury-resource-combined.log",
+    "python-tests": ".local/class-skills/blade-fury-resource-python-tests.log",
+    "named-readiness": ".local/class-skills/blade-fury-resource-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-fury-resource-first-loop.log",
+    "properties": ".local/class-skills/blade-fury-resource-properties.log",
+    "installed-server": ".local/class-skills/blade-fury-resource-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-fury-resource-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-fury-resource-client-check.log",
+    "reference-check": ".local/class-skills/blade-fury-resource-reference-check.log",
+    "generated-check": ".local/class-skills/blade-fury-resource-generated-check.log",
+    "roadmap-check": ".local/class-skills/blade-fury-resource-roadmap-check.log",
+    "install-run": ".local/class-skills/blade-fury-resource-install-run.log",
+    "sanctuary-focused": ".local/class-skills/blade-fury-resource-sanctuary-focused.log",
+    "sanctuary-focused-run": ".local/class-skills/blade-fury-resource-sanctuary-focused-run.log",
+    "sanctuary-reload-failure": ".local/class-skills/blade-fury-resource-sanctuary-reload-failure.log",
+    "sanctuary-reload-failure-run": ".local/class-skills/blade-fury-resource-sanctuary-reload-failure-run.log"
   },
   "regressionInvestigation": {
     "failedRunTerminal": true,
@@ -59,8 +86,13 @@
     "runLog": ".local/class-skills/blade-fury-resource-sanctuary-reload-failure-run.log",
     "finding": "First full run failed Sanctuary reload: target stayed at saved cell and motion state expired. Deserialization restarted all fixture AI; the old reload only stopped the target, leaving far/control actors able to wander. Actual interfering actor was not captured in that failed log.",
     "testChange": "Unique Sanctuary fixture creature names; WorldLoad restores the stopped ordinary AI used at creation for the whole scene. Added terrain/occupancy/nearby diagnostics. Actual endpoint/recovery assertions and production movement remain unchanged.",
-    "verificationPending": true,
+    "verificationPending": false,
     "combinedFocusedPassed": true,
-    "focusedLog": ".local/class-skills/blade-fury-resource-sanctuary-focused.log"
-  }
+    "focusedLog": ".local/class-skills/blade-fury-resource-sanctuary-focused.log",
+    "result": "Whole-scene stopped-AI restoration passes combined focused and repeated full3boot/2reload suites. Original failed run remains archived; the exact interfering actor was not captured. Production movement and endpoint/recovery assertions unchanged."
+  },
+  "next": "Build a dedicated Blade Fury player collector and saved missile path using the960-case complete creator evidence, shared BowLaunch.FromSource/weapon impact consumers and documented current10percent-per-rank AR. Bind mode entry/rate, seqinput12/held input, state-expiry/event dispatch and cancellation with the installed payment/animation components. Keep the optional release observation nonblocking and learned input disabled until actual combat/input/lifecycle acceptance passes.",
+  "damageSourcePreparation": "tools/reference/blade-fury-damage-source-evidence.json",
+  "rateSourcePreparation": "tools/reference/blade-fury-rate-source-evidence.json",
+  "officialCurrentArReference": "tools/reference/blade-fury-primary-notes.json"
 }
