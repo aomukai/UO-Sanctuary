@@ -136,14 +136,17 @@ public static class AssassinSentryBolts
         =>Impact(body,target,"sentrychargedbolt",s.Minimum256,s.Maximum256,s.Pierce,s.Seed).WholeLoss;
     // Both source-zero NPC lightning routes share block/resistance/recovery,
     // but each projectile owns its RNG and its own continuation policy.
-    internal static (int WholeLoss,ulong Seed) Impact(AssassinSentryBody body,BaseCreature target,string missile,int minimum256,int maximum256,int pierce,ulong seed)
+    internal static (int WholeLoss,ulong Seed) Impact(AssassinSentryBody body,BaseCreature target,string missile,int minimum256,int maximum256,int pierce,ulong seed,string element="ltng",int damageRate=0)
     {
+        string expected=missile switch{"sentrychargedbolt" or "sentrylightningbolt"=>"ltng","inferno sentry 1"=>"fire",_=>throw new NotSupportedException("Unsupported sentry impact missile")};
+        if(element!=expected || damageRate!=NecromancerSummons.Source(missile,"DamageRate"))
+        {throw new NotSupportedException("Sentry impact element/reduction rate disagrees with its current source row");}
         SorceressEffects.MissileHit(body,target,missile);
         ulong stream=seed;int raw=WeaponMissileDamage.RollValue(minimum256,maximum256,0,bound=>(int)SourceRandom.Limited(ref stream,bound));
         if(!SourceBlocking.TryBlock(target,false,out bool blocked)){throw new NotSupportedException("Sentry spell-block supplier is not mapped");}
         if(blocked){return(0,stream);}
         body.DoHarmful(target,true);
-        var result=NamedElements.Resolve256(body,target,raw,"ltng",enhance:false,pierceOverride:pierce);
+        var result=NamedElements.Resolve256(body,target,raw,element,enhance:false,damageRate:damageRate,pierceOverride:pierce);
         if(result.Absorbed256>0){SkillHealth.Heal(target,result.Absorbed256);}
         int loss=SkillHealth.Damage(body,target,result.Damage256);CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);return(loss,stream);
     }

@@ -144,11 +144,12 @@
   },
   "fixture": {
     "path": ".local/class-skills/inferno-sentry-channel-source-probe.json",
-    "sha256": "bc1b0b9210ca50840f979b2665a0870a45f44fd52d7593eb06cd12023ad0ffb9",
+    "sha256": "e5bae31f0a0cdc580caaf4eefbdd4042af067920fc402663c9fa5b2021aaab51",
     "cases": 4608
   },
   "established": [
     "Complete NPC start53 stores current frame+15+hard Wake of Fire and enables Inferno state. Complete do95 emits through flags37/absolute aim/supplied velocity, then applies the duration helper and animation fields.",
+    "Do95 leaves the zero-initialized missile skill id at0; the complete factory stores0. NPC311 remains the assigned actor skill, while the source-zero missile damage getter selects player272. The separate stored311 override damage matrix is a control, not the emitted missile identity.",
     "The complete factory initially uses50frames and velocity12*256*75/100=2304FP8. The complete updater replaces total/current frames and path distance with20+hard Wake, and missile animation speed with3840/duration. DamageRate82 remains its source reduction-scaling stat.",
     "Before the deadline and with Inferno state present, successful emission deletes end/mode events and requests another mode event after3frames. At/after the deadline or with state absent, it still emits this shot, then schedules end animation after model InfernoLen14; missing model uses11.",
     "Missing aim or allocation schedules the same model14/fallback11 end and returns0. Missing skill/used skill/missile row returns0 without emission or new end event.",

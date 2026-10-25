@@ -74,7 +74,7 @@ for(int rank:{1,20,255})for(int hard:{0,20})for(int phase:{-1,0,1})for(int activ
  formulas[0]=20+hard;formulas[1]=15+hard;formulas[2]=3;used={};haveUsed=usedSkill;haveModel=metadata;hasSkill=skillRow;hasRecord=record;allocated=alloc;coordinates=aim;inferno=false;events.clear();deletedModes=deletedEnds=0;
  int start=SKILLS_SrvSt53_MonInferno(&game,&owner,311,rank);int deadline=used.param;inferno=active;game.dwGameFrame=100+15+hard+phase;
  int result=SKILLS_SrvDo095_MonInferno(&game,&owner,311,rank);bool made=creates&&allocated;
- printf("%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",first?"":",",rank,hard,phase,active,aim,alloc,record,usedSkill,skillRow,metadata,anim,start,deadline,result,creates,made?created.total:0,made?created.path.velocity:0,made?created.wAnimSpeed:0,made?created.path.flags:0,owner.dwSeqFrame,owner.dwFrameCountPrecise,owner.nSeqCurrentFramePrecise,events.empty()?-1:events[0].type,events.empty()?0:events[0].frame-game.dwGameFrame,deletedEnds,owner.dwSeqFrameCount);first=false;
+ printf("%s[%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d]",first?"":",",rank,hard,phase,active,aim,alloc,record,usedSkill,skillRow,metadata,anim,start,deadline,result,creates,made?created.total:0,made?created.path.velocity:0,made?created.wAnimSpeed:0,made?created.path.flags:0,owner.dwSeqFrame,owner.dwFrameCountPrecise,owner.nSeqCurrentFramePrecise,events.empty()?-1:events[0].type,events.empty()?0:events[0].frame-game.dwGameFrame,deletedEnds,owner.dwSeqFrameCount,made?created.skill:-1);first=false;
 }printf("]\n");}
 '''
     path=STAGE/'inferno-sentry-channel-source-probe.cpp';path.write_text(base);binary=path.with_suffix('')
@@ -82,10 +82,10 @@ for(int rank:{1,20,255})for(int hard:{0,20})for(int phase:{-1,0,1})for(int activ
     run=subprocess.run([str(binary)],capture_output=True);(STAGE/'inferno-sentry-channel-sanitizer.log').write_bytes(run.stderr)
     assert run.returncode==0 and not run.stderr,run.stderr.decode()[-4000:]
     cases=json.loads(run.stdout);assert len(cases)==4608
-    for rank,hard,phase,active,aim,alloc,record,used,row,metadata,anim,start,deadline,result,creates,frames,velocity,speed,distance,seq,count,visual,event,delay,deleted_end,sequence_length in cases:
+    for rank,hard,phase,active,aim,alloc,record,used,row,metadata,anim,start,deadline,result,creates,frames,velocity,speed,distance,seq,count,visual,event,delay,deleted_end,sequence_length,stored_skill in cases:
         started=used and row;launch=started and record and aim;made=launch and alloc;repeat=made and active and phase<0
         assert (start,deadline,result,creates)==(int(started),115+hard if started else 0,int(made),int(launch))
-        assert sequence_length==14*256
+        assert sequence_length==14*256 and stored_skill==(0 if made else -1)
         duration=20+hard
         assert (frames,velocity,speed,distance)==((duration,2304,3840//duration,duration) if made else (0,0,0,0))
         assert (seq,count,visual)==((2085,2560,777) if made and metadata and anim==14 else (37,3840,2304) if made and metadata else (37,3840,777))
@@ -97,6 +97,7 @@ for(int rank:{1,20,255})for(int hard:{0,20})for(int phase:{-1,0,1})for(int activ
     evidence=dict(referenceVersion='3.3.93847',talentId='assassin.wakeofinferno',handlerEnabled=False,legacyCommit=tree['sha'],sourceHashes=hashes,compiledRoutineHashes=routines,pinnedInputHashes=pins,localModeEvidence='tools/reference/d2r-local-monmode-evidence.json',currentSequence=dict(path=str(sequence_path.relative_to(ROOT)),sha256=hashlib.sha256(sequence_raw).hexdigest(),points=14,actionIndex=9,records=sequence),
         fixture=dict(path=str(fixture.relative_to(ROOT)),sha256=hashlib.sha256(fixture.read_bytes()).hexdigest(),cases=len(cases)),
         established=['Complete NPC start53 stores current frame+15+hard Wake of Fire and enables Inferno state. Complete do95 emits through flags37/absolute aim/supplied velocity, then applies the duration helper and animation fields.',
+            'Do95 leaves the zero-initialized missile skill id at0; the complete factory stores0. NPC311 remains the assigned actor skill, while the source-zero missile damage getter selects player272. The separate stored311 override damage matrix is a control, not the emitted missile identity.',
             'The complete factory initially uses50frames and velocity12*256*75/100=2304FP8. The complete updater replaces total/current frames and path distance with20+hard Wake, and missile animation speed with3840/duration. DamageRate82 remains its source reduction-scaling stat.',
             'Before the deadline and with Inferno state present, successful emission deletes end/mode events and requests another mode event after3frames. At/after the deadline or with state absent, it still emits this shot, then schedules end animation after model InfernoLen14; missing model uses11.',
             'Missing aim or allocation schedules the same model14/fallback11 end and returns0. Missing skill/used skill/missile row returns0 without emission or new end event.',

@@ -16,6 +16,9 @@ internal sealed record SentryLightningState(long Id,uint Actor,uint Owner,int Ma
     int Pierce,SlowMissilePayload Slow,ulong Seed,uint LastCollision,SourceStepTrace Steps,DateTime NextUtc,string Fault=null)
 {
     public string MotionAdapter{get;init;}="native-shared-q12-sourcecells-v1";
+    // Missing in version0 saves created by the original lightning-only pool.
+    public CombatAbility Ability{get;init;}=CombatAbility.LightningSentry;
+    public int HardWake{get;init;}
 }
 internal sealed record SentryLightningSave(SentryLightningState[] Bolts,long NextId);
 public sealed class SentryLightningProfiles:GenericPersistence
@@ -28,7 +31,9 @@ public sealed class SentryLightningProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown sentry lightning version");}AssassinSentryLightning.Restore(JsonSerializer.Deserialize<SentryLightningSave>(reader.ReadString()));}
 }
 
-// Generic NPC313/absolute-aim factory, not CBS do17 or a player weapon flight.
+// Shared straight stationary-trap flights. The lightning class/profile names
+// retain their saved identity. NPC313 uses generic flags33; NPC311's custom
+// do95 uses flags37 and replaces the initial range with20+hard Wake (cap255).
 // Q12/cell/terrain geometry reuses existing native adapters; modern executable
 // room enumeration, seed allocation and final retired-owner lifetime stay open.
 public static class AssassinSentryLightning
@@ -41,7 +46,7 @@ public static class AssassinSentryLightning
     public static void Configure()=>_ = new SentryLightningProfiles();
     internal static DateTime NextFrame=>Bolts.Values.Select(x=>x.NextUtc).DefaultIfEmpty(DateTime.MaxValue).Min();
     internal static SentryLightningState State(long id)=>Bolts.GetValueOrDefault(id);
-    internal static void Dispatch(AssassinSentryBody body,uint targetSerial)
+    private static Point2D Aim(AssassinSentryBody body,uint targetSerial)
     {
         Point2D? targetPoint=null;
         if(World.FindMobile((Serial)targetSerial) is{Deleted:false} target && target!=body)
@@ -49,41 +54,59 @@ public static class AssassinSentryLightning
             if(target.Map!=body.Map){throw new NotSupportedException("Cross-map sentry pending target is not mapped");}
             targetPoint=new(target.X*2,target.Y*2);
         }
-        Create(body,AssassinSentryAim.Resolve(body.Prepared.CachedAim,targetPoint));
+        return AssassinSentryAim.Resolve(body.Prepared.CachedAim,targetPoint);
+    }
+    internal static void Dispatch(AssassinSentryBody body,uint targetSerial)=>Create(body,Aim(body,targetSerial));
+    internal static InfernoEmission DispatchInferno(AssassinSentryBody body,uint targetSerial)
+    {
+        var aim=Aim(body,targetSerial);
+        if(aim.X==0 || aim.Y==0){return InfernoEmission.NoCoordinates;}
+        return CreateInferno(body,aim)>0?InfernoEmission.Success:InfernoEmission.AllocationFailed;
     }
     internal static long Create(AssassinSentryBody body,Point2D aim)
+        =>CreateStraight(body,aim,CombatAbility.LightningSentry);
+    internal static long CreateInferno(AssassinSentryBody body,Point2D aim)
+        =>CreateStraight(body,aim,CombatAbility.WakeOfInferno);
+    private static string Missile(CombatAbility ability)=>ability switch
+    {CombatAbility.LightningSentry=>"sentrylightningbolt",CombatAbility.WakeOfInferno=>"inferno sentry 1",_=>throw new NotSupportedException("Unsupported straight sentry missile")};
+    private static long CreateStraight(AssassinSentryBody body,Point2D aim,CombatAbility ability)
     {
-        if(body is not{Alive:true,Deleted:false} || body.Prepared is not{ControllerFault:null,Creation.Ability:CombatAbility.LightningSentry} c)
-        {throw new InvalidOperationException("Invalid live Lightning Sentry supplier");}
-        int Field(string name)=>NecromancerSummons.Source("sentrylightningbolt",name);
-        if(Field("Size")!=2 || Field("CollideType")!=3 || Field("LastCollide")!=1 || Field("NextHit")!=0
+        if(body is not{Alive:true,Deleted:false} || body.Prepared is not{ControllerFault:null} c || c.Creation.Ability!=ability)
+        {throw new InvalidOperationException("Invalid live straight sentry supplier");}
+        bool inferno=ability==CombatAbility.WakeOfInferno;string missile=Missile(ability);
+        int Field(string name)=>NecromancerSummons.Source(missile,name);
+        if(Field("Size")!=(inferno?1:2) || Field("CollideType")!=3 || Field("LastCollide")!=1 || Field("NextHit")!=0
             || Field("CollideKill")!=0 || Field("Pierce")!=0 || Field("ToHit")!=0 || Field("pSrvDoFunc")!=1
             || Field("pSrvHitFunc")!=0 || Field("pSrvDmgFunc")!=0 || Field("SrcDamage")!=0 || Field("Accel")!=0
-            || Field("Vel")!=30 || Field("LevVel")!=0 || Field("ResultFlags")!=4 || Field("DamageRate")!=0)
-        {throw new NotSupportedException("Unsupported Lightning Sentry missile route");}
+            || Field("Vel")!=(inferno?12:30) || Field("LevVel")!=0 || Field("ResultFlags")!=4 || Field("DamageRate")!=(inferno?82:0))
+        {throw new NotSupportedException("Unsupported straight sentry missile route");}
         // The generic wrapper rejects either zero absolute target coordinate.
         if(aim.X==0 || aim.Y==0){return 0;}
         if(aim.X is <0 or >65535 || aim.Y is <0 or >65535){throw new NotSupportedException("Sentry target is outside uint16 source coordinates");}
         var slow=AmazonSlowMissiles.Capture(body,Field("CanSlow")!=0);
-        int velocity=SlowMissilePayload.VelocityFp8(Field("Vel"),Field("LevVel"),c.Creation.Rank,33,0,true,slow.VelocityPercent);
+        int velocity=SlowMissilePayload.VelocityFp8(Field("Vel"),Field("LevVel"),c.Creation.Rank,inferno?37:33,inferno?Field("Vel"):0,true,slow.VelocityPercent);
         if(velocity==0){throw new NotSupportedException("Zero-velocity sentry path flags are not mapped");}
         int dx=aim.X-body.X*2,dy=aim.Y-body.Y*2;
         if(velocity!=0 && (Math.Abs(dx)>=100 || Math.Abs(dy)>=100)){return 0;}
         if(velocity!=0 && dx==0 && dy==0){dx=dy=1;}
-        var v=MissileVectors.VelocityFp8(dx,dy,velocity);var ends=AssassinSentryCreation.Lightning(c.Creation);
-        int frames=NecromancerSummons.Formula("sentrylightningbolt","Range",AssassinSentryCreation.Values(c.Creation));
+        var v=MissileVectors.VelocityFp8(dx,dy,velocity);var ends=inferno?AssassinSentryCreation.Fire(c.Creation):AssassinSentryCreation.Lightning(c.Creation);
+        int hardWake=inferno?c.Creation.Skill("Wake of Fire Sentry"):0;
+        int frames=inferno?Math.Clamp(20+hardWake,1,255):NecromancerSummons.Formula(missile,"Range",AssassinSentryCreation.Values(c.Creation));
         long id=checked(++_nextId);
         var state=new SentryLightningState(id,body.Serial.Value,c.Owner,c.Map,c.Position.Z,c.Creation.Rank,
             body.X,body.Y,v.X,v.Y,velocity,0,frames,slow.Damage256(ends.Min),slow.Damage256(ends.Max),
-            c.Creation.Passive("passive_ltng_pierce"),slow,SourceRandom.InitLow(SeedLow()),0,
-            new([new(body.X*2,body.Y*2)]),c.NextFrameUtc.AddMilliseconds(40));
+            c.Creation.Passive(inferno?"passive_fire_pierce":"passive_ltng_pierce"),slow,SourceRandom.InitLow(SeedLow()),0,
+            new([new(body.X*2,body.Y*2)]),c.NextFrameUtc.AddMilliseconds(40)){Ability=ability,HardWake=hardWake};
         Validate(state);Bolts.Add(id,state);return id;
     }
     private static void Validate(SentryLightningState s)
     {
         if(s==null || s.Id<=0 || !((Serial)s.Actor).IsMobile || !((Serial)s.Owner).IsMobile || s.Rank is <1 or >255
             || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal || s.Z is <-128 or >127
-            || s.Frames!=10+2*s.Rank || s.Frame<0 || s.Frame>=s.Frames || s.VelocityFp8 is <1 or >5760
+            || s.Ability is not(CombatAbility.LightningSentry or CombatAbility.WakeOfInferno) || s.HardWake is <0 or >255
+            || s.Ability==CombatAbility.LightningSentry && (s.HardWake!=0 || s.Frames!=10+2*s.Rank || s.VelocityFp8>5760)
+            || s.Ability==CombatAbility.WakeOfInferno && (s.Frames!=Math.Clamp(20+s.HardWake,1,255) || s.VelocityFp8>2304)
+            || s.Frame<0 || s.Frame>=s.Frames || s.VelocityFp8<1
             || !double.IsFinite(s.X) || !double.IsFinite(s.Y) || !double.IsFinite(s.Vx) || !double.IsFinite(s.Vy)
             || s.X<0 || s.Y<0 || s.X>=Map.Maps[s.Map].Width || s.Y>=Map.Maps[s.Map].Height
             || Math.Abs(s.Vx)>1 || Math.Abs(s.Vy)>1 || s.Minimum256<0 || s.Maximum256<s.Minimum256
@@ -102,7 +125,7 @@ public static class AssassinSentryLightning
             {
                 if(state.Frame+1>=state.Frames){Bolts.Remove(state.Id);}
                 else{Bolts[state.Id]=state with{Fault=e.Message,Frame=state.Frame+1,NextUtc=state.NextUtc.AddMilliseconds(40)};}
-                Log.Error(e,"Sentry lightning suspended: {Id}",state.Id);
+                Log.Error(e,"Sentry straight projectile suspended: {Id}",state.Id);
             }
         }
     }
@@ -110,7 +133,7 @@ public static class AssassinSentryLightning
     {
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
-        bool live=body is{Alive:true,Deleted:false}&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map;
+        bool live=body is{Alive:true,Deleted:false}&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map&&body.Prepared.Creation.Ability==s.Ability;
         bool fighting=live&&body.Prepared.ControllerFault==null&&(actions??AssassinTrapRoster.Fighting(s.Owner));
         if(!fighting || s.Fault!=null)
         {if(frame>=s.Frames){Bolts.Remove(s.Id);}else{Bolts[s.Id]=next;}return;}
@@ -130,20 +153,21 @@ public static class AssassinSentryLightning
                     || SpellHelper.IsTown(candidate.Location,candidate)){continue;}
                 int? size=CreatureProfiles.For(candidate).Traits.Size;
                 if(size is not(>=1 and <=3)){throw new NotSupportedException("Sentry collider has no mapped source size");}
-                if(CombatHitboxes.SourceTouches(2,size.Value,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){victim=candidate;break;}
+                if(CombatHitboxes.SourceTouches(s.Ability==CombatAbility.WakeOfInferno?1:2,size.Value,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){victim=candidate;break;}
             }
             if(victim!=null)
             {
                 // Source router returns after one recipient this phase. The
                 // non-killing projectile continues with most-recent history.
-                var hit=AssassinSentryBolts.Impact(body,victim,"sentrylightningbolt",s.Minimum256,s.Maximum256,s.Pierce,s.Seed);
+                bool inferno=s.Ability==CombatAbility.WakeOfInferno;
+                var hit=AssassinSentryBolts.Impact(body,victim,Missile(s.Ability),s.Minimum256,s.Maximum256,s.Pierce,s.Seed,inferno?"fire":"ltng",inferno?82:0);
                 Bolts[s.Id]=next with{LastCollision=victim.Serial.Value,Seed=hit.Seed};return;
             }
             if(!body.Map.LineOfSight(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z+12),new((cell.X+1)/2,(cell.Y+1)/2,s.Z+12)))
             {Bolts.Remove(s.Id);return;}
         }
         Bolts[s.Id]=next;
-        if(frame%2==0){Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,0x3818,3,10,0x482,0);} // Identified placeholder.
+        if(frame%2==0){bool inferno=s.Ability==CombatAbility.WakeOfInferno;Effects.SendLocationEffect(new((int)Math.Round(next.X),(int)Math.Round(next.Y),s.Z),body.Map,inferno?0x36D4:0x3818,3,10,inferno?0x489:0x482,0);} // Identified placeholders.
     }
     internal static SentryLightningSave Snapshot()=>new(Bolts.Values.OrderBy(x=>x.Id).ToArray(),_nextId);
     internal static void Restore(SentryLightningSave saved)

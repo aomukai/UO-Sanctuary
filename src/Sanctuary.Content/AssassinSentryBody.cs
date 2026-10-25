@@ -20,6 +20,7 @@ internal sealed record SentryBodyState(uint Owner,SentryCreationStats Creation,i
     public Point2D? CachedAim{get;init;}
     // A distinct ordinary S2 clock; older CBS saves retain their sequence clock.
     public WakeFireControlState WakeControl{get;init;}
+    public InfernoControlState InfernoControl{get;init;}
 }
 
 // Saved stationary actor backend. No Constructible or learned input path exists
@@ -53,7 +54,7 @@ public partial class AssassinSentryBody:BaseCreature
     {
         if(s?.Creation is not{Rank:>=1 and <=255,CasterLevel:>=1 and <=99,Level:>=1 and <=99,Life256:25600} c
             || c.Passives is not{Length:3} || c.Skills==null || c.Passives.Select(x=>x.Name).Distinct().Count()!=3
-            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry) || c.Skills.Any(x=>x.Value is <1 or >255)
+            || c.Ability is not(CombatAbility.ChargedBoltSentry or CombatAbility.WakeOfFire or CombatAbility.LightningSentry or CombatAbility.WakeOfInferno) || c.Skills.Any(x=>x.Value is <1 or >255)
             || c.Skills.Select(x=>x.Name).Distinct().Count()!=c.Skills.Length
             || c.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
             || c.Passive("item_pierce_light_immunity")!=0 || c.Passive("item_pierce_fire_immunity")!=0 || !((Serial)s.Owner).IsMobile
@@ -63,12 +64,19 @@ public partial class AssassinSentryBody:BaseCreature
         {throw new InvalidDataException("Unsupported saved sentry body state");}
         if(c.Ability==CombatAbility.WakeOfFire)
         {
-            if(s.Control!=null){throw new InvalidDataException("Wake cannot retain a lightning sequence clock");}
+            if(s.Control!=null || s.InfernoControl!=null){throw new InvalidDataException("Wake cannot retain a lightning/Inferno sequence clock");}
             AssassinWakeFire.Validate(s.WakeControl);
+        }
+        else if(c.Ability==CombatAbility.WakeOfInferno)
+        {
+            if(s.Control!=null || s.WakeControl!=null){throw new InvalidDataException("Inferno cannot retain another sentry clock");}
+            AssassinInfernoControl.Validate(s.InfernoControl);
+            if(s.InfernoControl.Burst is{} burst && burst.HardWake!=c.Skill("Wake of Fire Sentry"))
+            {throw new InvalidDataException("Saved Inferno burst disagrees with captured hard Wake");}
         }
         else
         {
-            if(s.WakeControl!=null){throw new InvalidDataException("Lightning sentry cannot retain a Wake clock");}
+            if(s.WakeControl!=null || s.InfernoControl!=null){throw new InvalidDataException("Lightning sentry cannot retain a fire clock");}
             AssassinSentryController.Validate(s.Control);
         }
         if(s.CachedAim is{} aim && (aim.X is <0 or >65535 || aim.Y is <0 or >65535))
@@ -97,14 +105,15 @@ public partial class AssassinSentryBody:BaseCreature
         // Prepared fixtures retain their explicit neutral/+25 initial state.
         // Emerging actors retain S1 ENDANIM+15 and the original AI+25 event.
         at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
-        bool wake=ability==CombatAbility.WakeOfFire;
+        bool wake=ability==CombatAbility.WakeOfFire,inferno=ability==CombatAbility.WakeOfInferno;
         var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,
-            wake?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40))
-            {CachedAim=new(0,0),WakeControl=wake?AssassinWakeFire.Start(emerging):null};Validate(state);
+            wake||inferno?null:emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40))
+            {CachedAim=new(0,0),WakeControl=wake?AssassinWakeFire.Start(emerging):null,InfernoControl=inferno?AssassinInfernoControl.Start(emerging):null};Validate(state);
         var body=new AssassinSentryBody();
         try
         {
             body.Name=SkillMechanics.For(ability).Name+" [placeholder]";
+            if(inferno){body.Hue=0x489;}
             body.Store(state);body.SummonMaster=owner;body.SetHits(stats.Life256/256);body.MoveToWorld(position,map);body.AIObject?.AITimer.Stop();
             AssassinTrapRoster.Register(owner,body,checked((int)AssassinSentryCreation.Values(stats).Eval("petmax")));
             AssassinSentryActors.Track(body);return body;
@@ -142,6 +151,7 @@ public partial class AssassinSentryBody:BaseCreature
                 {
                     Control=before.Control==null?null:AssassinSentryController.Inactive(before.Control,checked((int)due)),
                     WakeControl=before.WakeControl==null?null:AssassinWakeFire.Inactive(before.WakeControl,checked((int)due)),
+                    InfernoControl=before.InfernoControl==null?null:AssassinInfernoControl.Inactive(before.InfernoControl,checked((int)due)),
                     NextFrameUtc=before.NextFrameUtc.AddTicks(checked(due*40*TimeSpan.TicksPerMillisecond))
                 });
                 continue;
@@ -151,6 +161,29 @@ public partial class AssassinSentryBody:BaseCreature
             // Keep the source owner-town exit while sharing a facet. Across
             // facets, approved old-facet retention uses the trap room instead.
             bool town=owner.Map==Map?SpellHelper.IsTown(owner.Location,owner):SpellHelper.IsTown(Location,this);
+            if(before.Creation.Ability==CombatAbility.WakeOfInferno)
+            {
+                var inferno=AssassinInfernoControl.Advance(before.InfernoControl,true,true,town,true,true,before.Creation.Skill("Wake of Fire Sentry"),
+                    ()=>AssassinSentryCreation.Shots(before.Creation),
+                    ()=>
+                    {
+                        var target=(AssassinSentryActors.SelectTarget??throw new NotSupportedException("Sentry source target-selection service is not connected"))(this);
+                        selected=target?.Serial??0;return target;
+                    },
+                    ()=>SourceRandom.Limited(ref seed,100)<100,
+                    ()=>
+                    {
+                        if(World.FindMobile((Serial)selected) is{Deleted:false} target)
+                        {
+                            if(target.Map!=Map){throw new NotSupportedException("Cross-map Inferno start target is not mapped");}
+                            cached=AssassinSentryAim.Begin(cached,new(target.X*2,target.Y*2));
+                        }
+                    },
+                    (target,_)=>AssassinSentryLightning.DispatchInferno(this,target));
+                Store(before with{InfernoControl=inferno,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40),
+                    ControllerFault=inferno.Mode==0?"Inferno retirement/death/GUID lifecycle is not connected":null});
+                AIObject?.AITimer.Stop();continue;
+            }
             if(before.Creation.Ability==CombatAbility.WakeOfFire)
             {
                 var wake=AssassinWakeFire.Advance(before.WakeControl,true,true,town,true,true,
