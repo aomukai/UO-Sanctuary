@@ -1,6 +1,6 @@
 {
-  "status": "Targeted red/green worker regression passed; v4 focused/full acceptance pending. Not installed.",
-  "installed": false,
+  "status": "Read-only Berserk serializer installed after targeted red/green, focused and full three-boot/two-reload checks, three actual worker controls, natural expiry/input/temporary-state/gear coverage and original-world smoke.",
+  "installed": true,
   "saveVersion": 0,
   "updatedAtUtc": "2026-10-25T18:39:15.900032+00:00",
   "finding": "BerserkProfiles.Serialize invoked Snapshot->Prune->Clear->ClassStats.Refresh on an engine serialization worker. A state expiring just before save queued PlayerMobile equipment-validation work while the world was saving.",
@@ -36,5 +36,12 @@
     ".local/class-skills/berserk-snapshot-green-run.log": "91fdd02b60cc8a6b0fd567fc8130c77c41dc2df196a09d437e3b5bb74f7b99a8",
     ".local/class-skills/lightning-sentry-v3/inner-sight-deadline-diagnostic.json": "5561693008b1e93ddef3753ac535e517cc2d976a03f535182b64eedf6294bb1d",
     ".local/class-skills/inspection-retention-migration.json": "9cf1ded548a15694df05aba7ab4622424e89107096a0a801667c09bedd3153f9"
-  }
+  },
+  "fullRegression": {
+    "log": ".local/class-skills/lightning-sentry-v4/native-checks.log",
+    "boots": 3,
+    "reloads": 2,
+    "workerControls": 3
+  },
+  "savesUnchanged": true
 }
