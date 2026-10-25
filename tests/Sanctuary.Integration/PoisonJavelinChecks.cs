@@ -75,11 +75,11 @@ public static class PoisonJavelinChecks
             var f=Cast(p);var first=f.NextUtc;WeaponMissiles.Tick(first);Require(Clouds(p).Length==0 && Own(p).Single().PathChanged,"Initial trail flag");WeaponMissiles.Tick(first.AddMilliseconds(40));Require(Clouds(p).Length==1 && Clouds(p)[0].Damage.Min256==0 && Clouds(p)[0].Damage.Elements.PoisonMin==32,"Delayed source-zero trail");
             var firstCloud=Clouds(p)[0];Train(p,CombatAbility.PlagueJavelin);WeaponMissiles.Tick(first.AddMilliseconds(80));Require(Clouds(p).Any(x=>x.Damage.Elements.PoisonMin==35) && firstCloud.Damage.Elements.PoisonMin==32,"Live child hard synergy/immutable earlier cloud");
             PoisonJavelins.Cancel(p);
-            // The first collider remains selected; LastCollide is not a search filter.
+            // Complete source finder skips the previous victim before selecting another.
             var target=Target(p);target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);var second=Target(p);second.MoveToWorld(target.Location,p.Map);
             var cloud=PoisonJavelins.Trail(p,f with{PathChanged=true,X=target.X,Y=target.Y,NextUtc=TimedEffects.Now});var selected=(BaseCreature)PoisonJavelins.Recipient(p,cloud);var other=selected==target?second:target;
             PoisonJavelins.Tick(cloud.NextUtc);Require(State(selected)?.PoisonClock?.Rate256==35 && State(other)==null,"Cloud applied multi-target area");
-            var state=State(selected);PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(40));Require(State(other)==null && State(selected).PoisonMs==state.PoisonMs,"LastCollide skipped first collider to hit another");
+            var state=State(selected);PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(40));Require(State(other)?.PoisonClock?.Rate256==35 && State(selected).PoisonMs==state.PoisonMs && Clouds(p).Single().LastCollision==other.Serial.Value,"LastCollide did not expose overlapping other victim");
             selected.MoveToWorld(new(p.X+12,p.Y,p.Z),p.Map);PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(80));Require(State(other)?.PoisonClock?.Rate256==35,"Changed first collider not poisoned");
             other.MoveToWorld(new(p.X+13,p.Y,p.Z),p.Map);selected.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(120));Require(Clouds(p).Single().LastCollision==selected.Serial.Value,"Returning victim treated as permanent hit set");
             PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(58*40));Require(Clouds(p).Single().Frame==59,"Cloud lost its59th contact pass");PoisonJavelins.Tick(cloud.NextUtc.AddMilliseconds(59*40));Require(Clouds(p).Length==0,"Cloud survived60th-frame expiry");target.Delete();second.Delete();

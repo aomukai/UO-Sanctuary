@@ -49,6 +49,7 @@ public static class PlagueJavelins
             var point=new Point3D((int)Math.Round(cell.X/2.0),(int)Math.Round(cell.Y/2.0),cloud.Z);
             foreach(var target in owner.Map.GetMobilesInRange<Mobile>(point,3))
             {
+                if(target.Serial.Value==cloud.LastCollision){continue;}
                 int size=target is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
                 if(Math.Abs(target.Z-cloud.Z)<16 && CombatHitboxes.SourceTouches(2,size,cell.X-target.X*2,cell.Y-target.Y*2)
                     && ClassCombat.IsHostile(owner,target) && !SpellHelper.IsTown(target.Location,owner)){return target;}

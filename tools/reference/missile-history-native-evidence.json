@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "status": "Focused-verified candidate; full class regression running",
+  "fullPending": true,
+  "candidateDirectory": ".local/class-skills/missile-history",
+  "contentSha256": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
+  "integrationSha256": "ac4a0e2b94bebdb6f41985a35c1c22a58e859902553ee76bedaaf5eeeaad90f7",
+  "inputHashes": {
+    "src/Sanctuary.Content/WeaponMissiles.cs": "cd7a0d08c15c0464fc99a0034841763844358520ba35998b6d8821f02ddebea0",
+    "src/Sanctuary.Content/PoisonJavelins.cs": "19be4e3bc97bb79e67e8d8124c021bc6a804cbd493ccadfd16cd127c632cef45",
+    "src/Sanctuary.Content/PlagueJavelins.cs": "30d95e7c2232bff5f22427cbc6f1c0b888a587dca198d40d3a536a3ccc38d897",
+    "src/Sanctuary.Content/AssassinSentryCreation.cs": "215946caa7b1704c00e0157b5bba5ff87cf7df57ef9556f544ce49f5abf47a54",
+    "src/Sanctuary.Content/AssassinSentryBody.cs": "6468dc376604de8f701728e84fea11d6360844997b6a87cc74c7f7beecec2ff5",
+    "src/Sanctuary.Content/AssassinWakeFire.cs": "4a93b789d916a0712e6704073aa24f3820e8eb04ac437b4280e12ad97b5ffba5",
+    "tests/Sanctuary.Integration/MissileHistoryChecks.cs": "69ba607fe63ec981a25ac4ccd728802460ba8b316cdadb3444a4bd729571add5",
+    "tests/Sanctuary.Integration/PoisonJavelinChecks.cs": "72f29112c35848680d33f886ae18bda2525ae4715948facdcf6577a7aa2d01dc",
+    "tests/Sanctuary.Integration/WakeFireActorChecks.cs": "512c02dbb6655fff76b199a103f579895cbe1546101f22efcd6edae5fdfe6164",
+    "tests/check_class_skills.py": "1a1d824146245ad596ce769422c88dca298166b6a2c71a1e81290d8dd85d210d",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "data/Sanctuary/Balance/necromancer-summons.json": "5b915d8629b6f43c4c6757dc9cc16d9a7b62ccb5644fea4e846377ee74362114",
+    "data/Sanctuary/Balance/summon-level-stats.json": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b"
+  },
+  "fixedEvidenceHashes": {
+    "tools/probe_missile_history_finder_reference.py": "267960800cf2d4ff2ecc58e7de28e74bd49ae068b43c595fb614a7b924d70a53",
+    "tools/reference/missile-history-finder-source-evidence.json": "bcd6c9b06b794b917cb1ce161b327987ff0e5ef77bbff5ea7962192327cedc0c",
+    ".local/class-skills/missile-history-finder-source-probe.cpp": "ccb51fe69ade0ea6da0efaaa9b65952c3fa84f5032089b5da957b91839a84673",
+    ".local/class-skills/missile-history-finder-source-probe.json": "919278b9c0a14d3a6c5231c036c632c078abd44d6b8b9a2e23215633cd0d3e35",
+    ".local/class-skills/missile-history-finder-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/missile-history-red.log": "72373de3d387c9b4989286ff6af003d16f86035189ef854c5c64ad85d5b53320",
+    ".local/class-skills/missile-history-red-run.log": "ca09ab5501c7b4e65772e6564da294b447361abccd9f3b2e79365b94507cd615",
+    ".local/class-skills/missile-history-red/integration/Sanctuary.Integration.dll": "a290277817d96b8bed3caad2ebd81045e875218a6cddc7cfa3996000e6e7e7b1",
+    ".local/class-skills/missile-history-red/content/Sanctuary.Content.dll": "fcd6a552ee2fb818b6f826f1950007615ce42e02b86e490f2af3a0c7905f00eb",
+    ".local/class-skills/missile-history/focused-checks.log": "0835e176324c81da0bfd78fcc2ccc6e519fdbfbb059d4beffe042670dd39f4b6",
+    ".local/class-skills/missile-history-focused-run.log": "fdbd39d0653180750c993e37b50d9430fbb549f232ac51b55e543faa1c652d6b",
+    ".local/class-skills/missile-history-focused.py": "c4684e6872519f82aad398ce0b9f9701328560f71ef2cf36e7ebb4a910e8af55",
+    ".local/class-skills/missile-history-content-build.log": "d482d29d3f5dd92a861847c82c5898ed4f10bcae12c170ee17f731b37b4c575f",
+    ".local/class-skills/missile-history-integration-build.log": "bdc17e9e417f82b0baf08e669656b009d1c5e44748637a31b336b0144af8888f"
+  },
+  "protectedInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "0d5a07a35c234f293c7f1740b95a7871a48300b6b142947ca68bbaaa02f63372",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "updatedAtUtc": "2026-10-25T16:20:26.024709+00:00",
+  "verified": {
+    "focusedBoots": 3,
+    "actualWorldReloads": 2,
+    "completeSourceFinderCases": 2048,
+    "sourceRowsLocallyCorroborated": 10,
+    "retainedChecks": [
+      "missile-history",
+      "poison-javelin",
+      "lightning-bolt",
+      "plague-javelin",
+      "lightning-fury",
+      "wake-fire-actor",
+      "sentry-bolt"
+    ],
+    "regressionReproducedOnPreviousBuild": true,
+    "zeroWarningErrorBuilds": true
+  },
+  "changed": [
+    "Stationary Poison Javelin clouds, moving Plague Javelin clouds and all four learned javelin parent paths filter the most recent collider before selecting the next overlapping victim. Lightning Fury source-zero children use the same corrected pre-selection rule. Redundant router history protection remains.",
+    "The gate remains most-recent-target history, not a permanent hit set or new cooldown. Bladefragment1 has LastCollide0 and does not inherit the lightning history filter. Existing mana/ammunition transactions, Pierce budget and damage packets are retained.",
+    "This candidate also contains the previously staged and focused-verified Wake actor/backend, with learned Wake still disabled and its real wave/retirement gates unchanged."
+  ],
+  "scope": [
+    "Actual learned parent casts hit overlapping monsters in successive contacts; exact first-target choice remains the native enumeration adapter. Tests assert one target per contact, proper Pierce debits and no extra mana/ammunition payment.",
+    "Both poison cloud forms alternate eligible overlapping victims instead of treating history as a permanent set. Actual saved stationary/moving clouds and Fury child retain history/path/clock across two world restarts and continue on the other victim without resource replay."
+  ],
+  "limits": [
+    "Full class suite, current runtime audit publication, Python readiness and original-world installation smoke are still pending for this candidate. The installed build and original saves have not been changed.",
+    "Compiled older finder routines and locally matched current flags support this correction; exact modern room/sector enumeration, geometry/first-contact/global event order and other previously recorded fidelity gaps remain unproven.",
+    "No handler count/class completion, deferred item-skill delivery or new final effects/icons are claimed. Wake actor dispatch is still a fixture service and retirement a documented preparation boundary."
+  ]
+}

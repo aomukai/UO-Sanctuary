@@ -1,3 +1,13 @@
+# Current candidate — shared missile history
+
+The shared LastCollide correction passes a red/green regression and focused three-boot/two-reload checks. Complete mode3 finder/setter/checker source composition covers2,048controls with ten locally corroborated missile rows. Poison/Plague clouds, four learned javelin parents and Fury children now expose an overlapping second victim while retaining only the most recent collider. Actual saved clouds/child continue correctly with unchanged resource transactions. The full class regression is running against frozen candidate assemblies; no full-suite/audit/install certificate yet. The installed build and saves are unchanged. This combined candidate retains the staged Wake actor; learned Wake remains deferred.156handlers/Assassin17.
+
+Finish the live full-suite handle90703, inspect every result and frozen input, refresh runtime/readiness evidence and install only after checks pass. Then continue Lightning Sentry from its pinned player271/NPC313/missile526 route; Inferno and Death have separate preflights and complete elemental packet source proofs. Death uses AI104 and corpse percentages40..80, rather than AI101 or Necromancer damage; Inferno has its own sequence/state/beam density and DamageRate82. Effects/icons stay separate.
+
+[Candidate evidence](../tools/reference/missile-history-native-evidence.json), [complete finder proof](../tools/reference/missile-history-finder-source-evidence.json).
+
+Earlier checkpoints follow.
+
 # Current staged component — Wake of Fire saved actor
 
 Wake of Fire now has a staged saved world actor, distinct from the installed prepared firing component. Zero-warning/error builds and focused checks pass three boots and two actual world reloads. The actor captures fire passives and hard synergies, uses fixed five shots and direct S2 timing, and shares mixed trap FIFO, offline cancellation, facet difficulty and fractional injury behavior. All ten focused/retained check families pass. Legacy creation JSON defaults to Charged Bolt Sentry. Wave dispatch is an explicit fixture service, and unverified retirement is held at an explicit fault boundary. No learned Wake handler, live-wave damage, installation, fresh audit/full-class regression or class completion is claimed for this candidate. The installed build, existing saves, configuration and client bytes are unchanged; server and Sanctuary client are stopped. Total handlers remain156; Assassin17.

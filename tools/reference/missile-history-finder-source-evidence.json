@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89"
+  },
+  "pinnedMissilesSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "localMissiles": {
+    "path": ".local/research/d2r-3.3.93847/missiles.txt",
+    "sha256": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27"
+  },
+  "selectedRows": -1,
+  "fixture": {
+    "path": ".local/class-skills/missile-history-finder-source-probe.json",
+    "sha256": "919278b9c0a14d3a6c5231c036c632c078abd44d6b8b9a2e23215633cd0d3e35",
+    "cases": 2048
+  },
+  "established": [
+    "Complete mode3 callback rejects the prior collider before the ordered search selects its recipient. An overlapping second eligible actor remains selectable. Complete LastCollide getter/setter preserve type+GUID history, including returning to a previously hit actor after a different contact.",
+    "All nine listed history-enabled javelin/cloud/sentry rows have CollideType3 and NextHit0 in current local data; these history gates require no invented hit delay. Bladefragment1 is a LastCollide0 control and must not inherit the gate.",
+    "Other candidate gates remain independent: valid/attackable flags, player/monster type, hostility and optional historical NextHit. A player and monster with equal numeric GUID do not share the same history identity."
+  ],
+  "correctedEvidenceScope": "Earlier router-only probes supplied a preselected actor and could not prove whether the preceding finder skipped that actor. This full finder composition supersedes post-selection-only assertions for these mode3 history rows.",
+  "services": [
+    "Ordered candidate list and native world geometry are explicit services; this does not establish modern room enumeration, collision footprints, first-contact frame or path equivalence.",
+    "Current rows do not use NextHit. Its historical controls prove callback ordering only and do not establish modern cast/caster hit-window identity.",
+    "Damage, AR/block, weapon/item effects, pierce, resource and lifetime routers are outside this focused candidate-selection proof and retain their separate evidence."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

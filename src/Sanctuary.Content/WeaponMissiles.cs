@@ -252,6 +252,9 @@ public static class WeaponMissiles
                 var point=new Point3D((int)Math.Round(cell.X/2.0),(int)Math.Round(cell.Y/2.0),flight.Z);
                 foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(point,3))
                 {
+                    // LastCollide belongs to the source candidate filter as
+                    // well as the router. Bladefragment1 has no such flag.
+                    if(candidate.Serial.Value==flight.LastCollision && flight.Ability is CombatAbility.LightningBolt or CombatAbility.LightningFury){continue;}
                     int size=candidate is BaseCreature c?CreatureProfiles.For(c).Traits.Size??2:2;
                     if(Math.Abs(candidate.Z-flight.Z)<16 && ClassCombat.IsHostile((PlayerMobile)owner,candidate)
                         && CombatHitboxes.SourceTouches(flight.Ability==CombatAbility.BladeFury?1:2,size,cell.X-candidate.X*2,cell.Y-candidate.Y*2)){selected=candidate;break;}
@@ -263,7 +266,7 @@ public static class WeaponMissiles
         {
         foreach(var candidate in owner.Map.GetMobilesInRange<Mobile>(end,query))
         {
-            if(candidate.Serial.Value==flight.LastCollision && flight.Ability is not(CombatAbility.PoisonJavelin or CombatAbility.PlagueJavelin) || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
+            if(candidate.Serial.Value==flight.LastCollision || !(flight.HostileSpell?IncomingTarget((BaseCreature)owner,candidate):ClassCombat.IsHostile((PlayerMobile)owner,candidate))
                 || !CombatHitboxes.Intersect(flight.X,flight.Y,next.X,next.Y,flight.Z,candidate.Location,out double entry)){continue;}
             if(entry<nearest || entry==nearest && (selected==null || candidate.Serial.Value<selected.Serial.Value)){selected=candidate;nearest=entry;}
         }
