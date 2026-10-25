@@ -213,6 +213,15 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    bolt='sentry-bolt-check' if boot==0 else 'sentry-bolt-reload-check'
+                    session.send(bolt)
+                    assert session.expect(bolt+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('sentry-bolt-live-check')
+                        assert session.expect(r'sentry-bolt-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        client.sendall(bytes([0x73,0])) # Real ping satisfies the normal connecting-socket first-packet gate.
+                        assert session.expect(r'sentry-bolt-live-result: (passed|failed)',timeout=9).group(1)=='passed',logpath.read_text()[-6000:]
                     target='sentry-target-check' if boot==0 else 'sentry-target-reload-check'
                     session.send(target)
                     assert session.expect(target+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

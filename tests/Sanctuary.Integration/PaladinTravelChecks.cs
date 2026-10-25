@@ -120,6 +120,8 @@ public static class PaladinTravelChecks
         snapshot=snapshot with{Emitters=snapshot.Emitters.Select(x=>ids.Contains(x.Owner)?x with{NextUtc=at}:x).ToArray(),
             Leases=snapshot.Leases.Select(x=>ids.Contains(x.Source)?x with{UntilUtc=at.AddMilliseconds(40)}:x).ToArray()};PaladinAuras.Restore(snapshot);
         var first=Body(redeemer,3);var second=Body(redeemer,4);
+        // Serialization fixtures must outlive the full three-boot suite; ordinary NPC corpse decay remains seven minutes.
+        first.BeginDecay(TimeSpan.FromHours(1));second.BeginDecay(TimeSpan.FromHours(1));
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(vigor.Serial.Value,redeemer.Serial.Value,ally.Serial.Value,[first.Serial.Value,second.Serial.Value],vigor.Location,snapshot)));
     }
     private static void Reload()

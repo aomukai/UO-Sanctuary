@@ -150,9 +150,15 @@ public static class AssassinSentryActors
     internal static Func<AssassinSentryBody,SentryTarget?> SelectTarget;
     internal static Action<AssassinSentryBody,uint> Dispatch;
     public static void Initialize()
-    {SelectTarget??=AssassinSentryWorldTargets.Select;Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));}
+    {SelectTarget??=AssassinSentryWorldTargets.Select;Dispatch??=AssassinSentryBolts.Dispatch;}
     internal static void Track(AssassinSentryBody body)=>Active[body.Serial]=body;
     internal static void Forget(AssassinSentryBody body)=>Active.Remove(body.Serial);
+    internal static AssassinSentryBody[] Actors()=>Active.Values.Where(x=>!x.Deleted).ToArray();
+    internal static void AdvanceAt(AssassinSentryBody body,DateTime at)
+    {
+        try{body.AdvanceController(at,AssassinTrapRoster.Fighting(body.Prepared.Owner));}
+        catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared sentry controller suspended: {Serial}",body.Serial);}
+    }
     internal static void Tick(DateTime at)
     {
         AssassinTrapRoster.SweepOwners();

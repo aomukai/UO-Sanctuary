@@ -1,0 +1,122 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.chargedboltsentry",
+  "installed": true,
+  "realPreparedProjectiles": true,
+  "handlerEnabled": false,
+  "totalHandlersPresent": 150,
+  "assassinHandlers": 11,
+  "status": "Charged Bolt Sentry prepared actors now fire real saved trap-owned lightning bolts through their source mode14 controller. Each release captures the source-compared path/heading/final seed, lightning endpoints, pierce, slow payload, ownership and clock. One trap conductor processes Blade/Sentry missile phases before all trap monster phases. Connected natural firing causes real damage; immediate fixture socket disposal stops actions while released bolts continue expiring. Actual Griffon birth rank/mastery/pierce survive owner gear removal, with mastery applied once. Native checks cover signed FP256 pierce, immunity protection, no weapon leech, NPC-to-player kill credit, captured slow velocity/damage, orphan suppression/expiry and real flight restoration through two world reloads. Focused/full three-boot/two-reload suites, 70 Python checks and original-world installed smoke pass; saves/config/client bytes are unchanged. Movement is explicitly saved as native-shared-chargedbolt-v1, reusing the existing ChargedBolts Advance adapter; exact current D2R movement remains unverified. Removal/corpse ownership, missing-target path fallback, low-threat unit-target path, do45 S1 emergence and learned S2/payment/input remain pending. Total handlers remain 150, Assassin 11; Blade Shield remains the latest playable addition.",
+  "verification": {
+    "fullRegressionContentAssemblySha256": "d21cd77f18b449005d3d08bddd7d192e1b5b3844b839c4022163eb6c81240977",
+    "fullRegressionIntegrationAssemblySha256": "95de2335e28ac9562a59649e40f16452912178ee5baafdf1399412dc805745d6",
+    "focusedBoots": 3,
+    "fullBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "connectedLiveRunsPerSuite": 3,
+    "actualSourceControllerVolleys": true,
+    "liveTravellingLightning": true,
+    "actualGriffonBirthStats": true,
+    "gearRemovalSnapshot": true,
+    "masteryAppliedOnce": true,
+    "capturedSignedPierce": true,
+    "ordinaryPierceCannotBreakImmunity": true,
+    "noWeaponLeech": true,
+    "npcPlayerKillCredit": true,
+    "capturedSlowPayload": true,
+    "actualFlightPersistence": true,
+    "offlineNoDamageNaturalExpiry": true,
+    "actualSocketDisposal": true,
+    "orphanNoPlayerFallback": true,
+    "sharedTrapConductor": true,
+    "movementAdapter": "native-shared-chargedbolt-v1",
+    "exactCurrentSourceMotion": false,
+    "removalCorpseOwnershipVerified": false,
+    "deletedTargetFallback": false,
+    "alternativeUnitPathBound": false,
+    "learnedInput": false,
+    "pythonTests": 70,
+    "namedFingerprints": 537,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573
+  },
+  "sourceEvidence": {
+    "target": "tools/reference/sentry-target-source-evidence.json",
+    "path": "tools/reference/charged-bolt-path-source-evidence.json",
+    "damage": "tools/reference/sentry-damage-source-evidence.json",
+    "launch": "tools/reference/sentry-launch-source-evidence.json",
+    "controller": "tools/reference/sentry-controller-source-evidence.json",
+    "geometry": "tools/reference/poison-contact-engine-evidence.json"
+  },
+  "previousTargetEvidence": "tools/reference/sentry-target-native-evidence.json",
+  "limits": [
+    "Real projectile backend is enabled for prepared actors, while learned input remains disabled. Movement/waypoint timing and native LOS/room/height/sector order use the existing native ChargedBolts geometry adapter, explicitly labelled native-shared-chargedbolt-v1 in saved states. The source-compared 2160 heading/path/seed cases do not certify movement or the unresolved D2Common10226 version conditional.",
+    "Missing/deleted/dead actual actor suppresses projectile combat while its77-frame lifetime continues; no fake player-owned damage source is substituted. Source corpse retention after trap exhaustion/replacement and its effect on already-released bolts remain unverified; this branch must be resolved before learned input. Owner death/logout/class/facet transitions and current D2R event/room/client equivalence retain their separate acceptance scopes.",
+    "Per-ordinal do17 target coordinates are re-read for a still-present target, including a dead-but-present source object. A deleted or cross-map pending target currently faults explicitly because the source saved path-target coordinate fallback is not connected. The nearby low-threat alternative unit-target path service is still unbound.",
+    "The native world collider currently supports mapped hostile NPCs, with shared source size1 footprints and actor-local harmful-region checks. Player PvP/invisibility, full missile defense/event consumers, relative ordering between missile collections, actor corpse handling and source return-fire/critical/current executable timing remain separate. Current chargeboltsentry Crit defaults0; source tables requiring another route are refused.",
+    "Pure lightning uses captured mastered endpoints and signed pierce through shared immunity/MDR/absorb/health/recovery consumers. No weapon damage, weapon critical, leech, item-hit proc or next-hit delay is invented. Existing shared reward attribution is used; full item-event/kill-effect parity remains independent from the verified NPC-to-player credit lookup.",
+    "Slow state is an explicit existing component service; factory capture and velocity/damage scaling are checked, without claiming the deferred Amazon Slow Missiles player cast is enabled or every modern rounding/event order is certified.",
+    "No independent idle expiry is invented from the tentative user report. Effects and talent/hotkey icons remain separate240-entry inventories; body0x9C/hue0x482 and0x3818 blue travel markers are identified placeholders. No final art, class certificate or new facet difficulty designation."
+  ],
+  "next": [
+    "Resolve source actor-removal/corpse ownership and cached path-target coordinates for deleted pending targets, plus the low-threat unit-target path probe. Keep each uncertain branch explicit rather than inventing a fallback.",
+    "Establish source missile movement/version behavior beyond the current saved native adapter, reusing verified direction/step/path kernels only when the unit/flag contract agrees. Preserve the working real projectile backend during that correction.",
+    "Complete do45 S1 emergence and learned right/quick S2 cast with13mana payment/cancellation, verify real player casting and final-shot/removal/target transitions through actor/missile reloads, then enable the handler when its mechanical gates are satisfied."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/sentry-bolt-focused.log",
+    "focused-run": ".local/class-skills/sentry-bolt-focused-run.log",
+    "combined": ".local/class-skills/sentry-bolt-combined.log",
+    "full-suite-run": ".local/class-skills/sentry-bolt-full-suite-run.log",
+    "content-build": ".local/class-skills/sentry-bolt-content-build.log",
+    "integration-build": ".local/class-skills/sentry-bolt-integration-build.log",
+    "python-tests": ".local/class-skills/sentry-bolt-python-tests.log",
+    "named-readiness": ".local/class-skills/sentry-bolt-named-readiness.log",
+    "first-loop": ".local/class-skills/sentry-bolt-first-loop.log",
+    "properties": ".local/class-skills/sentry-bolt-properties.log",
+    "installed-server": ".local/class-skills/sentry-bolt-installed-server.log",
+    "installed-smoke": ".local/class-skills/sentry-bolt-installed-smoke.log",
+    "client-check": ".local/class-skills/sentry-bolt-client-check.log",
+    "reference-check": ".local/class-skills/sentry-bolt-reference-check.log",
+    "generated-check": ".local/class-skills/sentry-bolt-generated-check.log",
+    "roadmap-check": ".local/class-skills/sentry-bolt-roadmap-check.log",
+    "install-run": ".local/class-skills/sentry-bolt-install-run.log",
+    "silent-client-failure": ".local/class-skills/sentry-bolt-silent-client-failure.log",
+    "silent-client-run": ".local/class-skills/sentry-bolt-silent-client-run.log",
+    "corpse-decay-failure": ".local/class-skills/sentry-bolt-corpse-decay-failure.log",
+    "corpse-decay-run": ".local/class-skills/sentry-bolt-corpse-decay-run.log",
+    "integration-before-fixture-fix": ".local/class-skills/sentry-bolt-integration-before-fixture-fix.log",
+    "graceful-disconnect-failure": ".local/class-skills/sentry-bolt-graceful-disconnect-failure.log",
+    "graceful-disconnect-run": ".local/class-skills/sentry-bolt-graceful-disconnect-run.log",
+    "disconnect-timeout-failure": ".local/class-skills/sentry-bolt-disconnect-timeout-failure.log",
+    "disconnect-timeout-run": ".local/class-skills/sentry-bolt-disconnect-timeout-run.log"
+  },
+  "fixtureCorrection": "The new no-input socket fixture initially sent no client packet and stayed detached, triggering the normal silent-connect/auto-deny path before the next Shield test. It now sends an actual ping and disconnects via the documented immediate NetState.Dispose test cleanup. Security configuration/filter behavior is unchanged. Failed full log is retained; successful full run uses the final fixture assembly.",
+  "userObservations": [
+    {
+      "topic": "Charged Bolt Sentry idle lifetime",
+      "report": "User has not waited to observe disappearance; tentatively believes it expires and recalls roughly five traps before replacement.",
+      "confidence": "tentative; no idle duration established",
+      "decision": "Do not invent an idle timeout; existing five-trap limit is independently sourced."
+    }
+  ],
+  "fixtureTimingCorrection": "The preceding full run reached PaladinTravelChecks second reload at09:34:23, after saved corpses were created at09:27:10. NPC corpse decay is seven minutes and deletes non-player corpses. Only those serialization fixture corpses now have a one-hour inspection hold; runtime corpse decay is unchanged. The failed log is retained.",
+  "gracefulDisconnectCorrection": "Graceful disconnect is queued and can await outstanding I/O; sampling at request time or assuming completion within100ms was invalid. The fixture uses the public immediate NetState.Dispose path explicitly documented for testing cleanup, confirms the owner NetState clears, then measures offline behavior. Only that intentional obsolete test call has a local warning suppression. This does not certify graceful client protocol timing or change production security/lifecycle.",
+  "followupSourceReview": {
+    "scope": "Read-only supplemental reconstruction review while the final runtime remained frozen; no current-D2R or native branch certificate.",
+    "facts": [
+      "SUNIT_GetOwner resolves stored owner type/GUID through SUNIT_GetServerUnit and has no explicit alive predicate in its own body. Current native flight requires an alive actor; retained dead-owner behavior must be audited before input is enabled.",
+      "Exhausted AssassinSentry AI requests mode0 through AITACTICS_ChangeModeAndTargetCoordinates; the generic mode0 callbacks enter death/dead state. This does not alone prove actor GUID retention, deletion scheduling, replacement semantics or released missile damage.",
+      "The target getter fallback is tTargetCoord.X/Y: the misleadingly named D2COMMON_10175/10176 PathGetFirstPoint bodies return tTargetCoord directly. The native saved controller currently lacks this cached target path state.",
+      "The low-threat probe sub_6FCF27B0 temporarily installs a unit target/PATHTYPE_TOWARD, calls D2Common_10142, restores target/type/target coordinates, then inspects resulting path count. D2Common_10142 includes PATH_UpdateTargetUnit, footprint removal/restoration and target-cell preparation. Reusing the point-path kernel alone is insufficient; reconstruct that wrapper with explicit stationary speed/flags/world services first."
+    ],
+    "localSupplementalSources": {
+      ".local/research/d2moo-SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+      ".local/research/d2moo-AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+      ".local/research/d2moo-AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+      ".local/research/d2moo-MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+      ".local/research/d2moo-Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+      ".local/research/d2moo-Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+    }
+  }
+}

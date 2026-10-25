@@ -87,9 +87,15 @@ public static class BladeSentinelActors
     private static readonly Dictionary<Serial,BladeSentinelBody> Active=new();
     internal static Func<BladeSentinelBody,AssassinTrapCreationStats> CreateFollowingMissile;
     public static void Initialize()
-    {CreateFollowingMissile??=BladeSentinelMissiles.Create;Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));}
+    {CreateFollowingMissile??=BladeSentinelMissiles.Create;}
     internal static void Track(BladeSentinelBody body)=>Active[body.Serial]=body;
     internal static void Forget(BladeSentinelBody body)=>Active.Remove(body.Serial);
+    internal static BladeSentinelBody[] Actors()=>Active.Values.Where(x=>!x.Deleted && x.Prepared.Control!=null).ToArray();
+    internal static void AdvanceAt(BladeSentinelBody body,DateTime at)
+    {
+        try{body.AdvanceController(at,AssassinTrapRoster.Fighting(body));}
+        catch(Exception e){body.SuspendController(e.Message);Log.Error(e,"Prepared blade controller suspended: {Serial}",body.Serial);}
+    }
     internal static void Tick(DateTime at)
     {
         AssassinTrapRoster.SweepOwners();
