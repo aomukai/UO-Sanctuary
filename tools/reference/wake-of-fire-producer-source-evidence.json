@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "MISSILE_SetTargetX": "311ecd01dbfef017178cb8f59d76416500d7dfa581e7edbfe786c1494642c594",
+    "MISSILE_SetTargetY": "af3d66a6221ba76a361c1397904d237c3f52fbdcacf16c0025a69e3c289f6cd3",
+    "MISSILE_GetTargetX": "6501371e1dd0fd1d986893fb2e9d0c7873d0ba6a3b530a035505778c3ed0d674",
+    "MISSILE_GetTargetY": "22953b91788c79525d62af861bfbe713521e578c58445cdd384fe94495618ee3",
+    "MISSILE_SetLevel": "950111e96c7d1041a9e5de008ec8d2d399ca6cabb300c475e6396fbcec91d37e",
+    "MISSILE_GetLevel": "354faa18d6126131e004beccdcc54f3b52cb06aa8360424bc9caa8ff1ea37674",
+    "MISSILE_SetSkill": "5afddedac4b1ad6c56c8088a8daf67fdd07492fd4a1c5dfff5dc406217f45117",
+    "MISSILE_GetSkill": "82ee75bbc6122bb81413534209b93fc235ae644e79e91ddcdbf4e6ff542f388a",
+    "D2Common_10234": "3337909227ece0cfd865281b9fd9a720aeefd75dd721b5a1c55e28dc497b8d18",
+    "SKILLS_SrvDo125_WakeOfDestruction": "fae4f0d8819966bdada6a8e6f6a9cea3526476d46d519230bf4a5e1576ee6669",
+    "MISSMODE_SrvDo31_WakeOfDestructionMaker_BaalColdMaker": "da785a2f0c1088e5d6199df9b64c52b93feb83a80085134e0593d0aeac47b60f"
+  },
+  "fixture": {
+    "path": ".local/class-skills/wake-of-fire-producer-source-probe.json",
+    "sha256": "65cd6e1e3968c4deb5c616726113b718af281894591bebe2f9ab7a68172b04d9",
+    "launchCases": 1152,
+    "composedMakerCases": 2560
+  },
+  "established": [
+    "Complete do125 checks skill, missile bounds and resolved aim before setting flag64 and calling the factory once with flags2, actor owner/origin, skill281 and effective rank. Factory failure returns0 after flag64 is already set.",
+    "Successful creation stores the perpendicular (-dy,dx) through complete guarded target setters. Wrong unit type or missing missile data makes those setters no-ops; complete getters return0. The launcher still returns1 for those declared malformed factory controls.",
+    "Complete do31 rejects missing maker/record/child before owner lookup. Missing owner calls the hit handler with null target and end0, discards its return, and returns2 without generic collision.",
+    "A present owner reaches generic collision exactly once. A dynamic path with flag8 first attempts both opposite wave children, retaining the actor owner, maker origin and stored skill/rank. Either or both factory failures do not suppress the other attempt or final collision. Null paths and other flags emit neither child.",
+    "The composed source services include negative, axis-zero and zero relative aim vectors. Producer code does not itself reject a zero vector; this is not proof that the actual factory accepts that vector."
+  ],
+  "services": [
+    "Target resolution, progressive missile lookup, table access, owner registry, missile allocation and collision/hit callbacks are explicit services. Shared complete source aim/path and factory evidence must be composed separately.",
+    "The factory service captures exact arguments and initializes skill/rank using complete setters. It does not run real missile creation, damage/stat inheritance, range, velocity, path construction or cleanup.",
+    "No current executable equivalence, live actor shot timing, wave footprint, NextHit/LastCollide/DamageRate behavior, post-retirement damage or natural-input acceptance is claimed."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

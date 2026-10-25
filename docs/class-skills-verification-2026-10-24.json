@@ -3178,6 +3178,15 @@
         "Native ordinary material/property, poison/mastery and charge expiry/AR adapters retain existing documented limits. No deferred item skill effects or NPC inherited gear were enabled.",
         "Final kick/contact, fire burst, knockback, charge/audio and talent/left/right/quick icons remain separately inventoried placeholders."
       ]
+    },
+    "wakeOfFirePreparation": {
+      "referenceVersion": "3.3.93847",
+      "current": "Wake of Fire preparation: 1,152 complete launcher and 2,560 composed maker cases, plus 7,167 complete fire creator/getter contexts including 255 rank goldens, pass ASan/UBSan. Current table and local animation evidence distinguish direct nonmoving S2 from lightning seq_chargesentry. User confirms a brief visible wiggle/drop before disappearance; damage after visual retirement remains unverified. No learned Wake handler is enabled. Installed prepared kick component and latest playable Phoenix remain unchanged: 156 handlers / Assassin 17.",
+      "next": "Continue Wake of Fire direct S2 scheduler/end/AI handoff and actual missile factory/path/collision. Trace DamageRate205, LastCollide and four-frame NextHit scope, actor retirement/owner-stat cleanup and already-moving wave damage; then implement supported native actor/waves, input and save/reload checks. Reuse shared sentry creation, five-slot limit and approved difficulty/offline/facet contracts only where matched. Keep learned Tail individually deferred for current contact/payment/rate gates; the roadmap and eight-class goal remain active.",
+      "handlerEnabled": false,
+      "installedContentUnchanged": true,
+      "serverStopped": true,
+      "updatedAtUtc": "2026-10-25T15:20:49.333162+00:00"
     }
   },
   "logs": {
@@ -5187,7 +5196,7 @@
     "Rescaled Hell state, fractional injury and immutable missile are verified through two actual reloads at held clocks; owner return to a Normal facet reapplies its current stats. Held clocks do not prove elapsed offline policy or whole factory natural expiry.",
     "Existing source reconstruction, native geometry/repair/event/NextHit supplier, full elemental/poison/drain/LifeTap/recovery/armor and current NPC drain uncertainties remain recorded. Final effects/audio and240 skill icons/effects inventories remain separate. No class completion certificate."
   ],
-  "verifiedAtUtc": "2026-10-25T15:16:10.280953+00:00",
+  "verifiedAtUtc": "2026-10-25T15:20:49.333162+00:00",
   "evidenceArtifacts": {
     "tools/reference/named-item-runtime-audit.json": "7b122ee92ea066050f8b427774b35b67ee356cec907e465092423973554f2400",
     "tools/reference/first-loop-affix-audit.json": "2492331c7bb1f2489fd51f8f8304d54748b48b900e8b8ecb5e9e798ec60260e3",
@@ -5446,7 +5455,7 @@
     ".local/class-skills/Monsters.cpp.smite-reference": "f5d0d99f237cdde550af929f6709693ca7859bb0768b72091f46a67ba23dc2d8",
     ".local/class-skills/MonsterUnique.cpp.smite-reference": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
     ".local/research/AnimData.d2": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
-    "docs/class-skills-resume-checkpoint.md": "5aec25f186545b5b4c60569f7ac18767accae4eefd9748040f465a9568d64354",
+    "docs/class-skills-resume-checkpoint.md": "1c396b1228b24e7d1491290ca719cd71d5219de32888b4a80ba80f4bde41d39d",
     ".local/class-skills/zeal-source-probe.cpp": "dbeaad8ce094510c14a991e595d32685712a349261c3e417cb3af1250193956a",
     ".local/class-skills/zeal-source-probe.json": "7a69362f8b58617cff66e42170f488c35bb2b2c555e0f1f886387b18c389c7e6",
     ".local/class-skills/zeal-focused.py": "adb0bda16b3e5a780685da3e9c51eca61ea49a2bffe41fc02c8092bdc7e95ad4",
@@ -7093,7 +7102,7 @@
     "tools/reference/claw-mastery-preflight.json": "ea4d748242e68e9a42591d00b6f2e031d5da142015d0d6471ff73c7961055425",
     "tools/reference/assassin-buff-preflight.json": "7c61e918fe2690dde99bb3d72fa2a998b66c2c58c4f92ef0c8e646dd428a3a83",
     "tools/reference/claw-mastery-native-evidence.json": "532068299ad5d062c0d1a0db090fefd25f3ffad872c2232a1e2c02336198505e",
-    ".local/class-skills/assassin-next-notes.json": "c518fffd55087d55f12f404595231a96261b20671b4d6f246be7ac6fad8c1ceb",
+    ".local/class-skills/assassin-next-notes.json": "a627df4e2e759da54e187e592dfd6d134832ba2219bbca211b43bcdf27e81616",
     ".local/class-skills/claw-mastery-focused.py": "c79f836652d86f2282d01ef146cc5a2025c08018d8e6d92d43547188953f44c3",
     ".local/class-skills/claw-mastery-content-build.log": "b925bcaad9a9ba3c954f28cb738acfc57a61cfbc63e26bd73dad51e64e82a265",
     ".local/class-skills/claw-mastery-integration-build.log": "c57d4e0bf8f9af44f4e5e4075f35eb910b9d7f68ac89d799f600dd872e7f22cf",
@@ -8806,16 +8815,29 @@
     "tests/Sanctuary.Integration/KickPacketChecks.cs": "95973ced9aa40cf9e0a20a355a1b9c07a6b1ad03939b50c34e305a1ace06e424",
     "tools/corroborate_local_missiles.py": "7d9a7a1b3c3f82e493a17f68f7b2801c081ee422ee3d446eef4c60eb4c678eb1",
     "tools/corroborate_local_sentry_animation.py": "6cc5adfd473693ebf1db189823bcd2ec5e22e10c5678ea17cc3164f47ee460e2",
-    "tools/prepare_wake_of_fire_reference.py": "1102fb837e35ce8a8bcad617e8e23822f2636aad85e2d3aab6c04975b9b2d3b3",
+    "tools/prepare_wake_of_fire_reference.py": "c1497d0342df923c14806d083ddbd5eb37d7cfec990331b3b2fd41482816cbc2",
     "tools/probe_kick_fill_reference.py": "bb5919dba308883c32b0051c21329bb175a1f9df4e4d5696c2d08f27018e41a9",
     "tools/reference/d2r-local-sentry-animation-evidence.json": "b4376a63d59a80cc4735377187e297909c9e74439492967472827c601bbd51bb",
     "tools/reference/wake-of-fire-current-observations.json": "3d319b8ddbd60aadfd6d430c68dd10b30dddd299219bc82a76be03ba1926d001",
-    "tools/reference/wake-of-fire-preflight.json": "b6d9c0b030a708e711c5f79c6043445690548476f49c8de0b857b5d6e01c3a58"
+    "tools/reference/wake-of-fire-preflight.json": "535eb403b9cb5c88d0363b8f1ff866cea8ed404cd437cd93789da4ec51ecab39",
+    "tools/probe_wake_of_fire_producer_reference.py": "401a49878d602bf58aef8127432ed97ca35a1b40b8f5a3e56e637e7062106de1",
+    "tools/reference/wake-of-fire-producer-source-evidence.json": "825faa9f2aae7be7b17ab2d4120e848a4783648d1b1004139326ed541977dd15",
+    ".local/class-skills/wake-of-fire-producer-source-probe.cpp": "04a3cd4855c04114b86e35e4a05931892507d4ccb494a06ba445dd3d55bd7749",
+    ".local/class-skills/wake-of-fire-producer-source-probe.json": "65cd6e1e3968c4deb5c616726113b718af281894591bebe2f9ab7a68172b04d9",
+    ".local/class-skills/wake-of-fire-producer-source-check.log": "c5378fb7c3879dd8d9c34d9f1d461396496d00ccb607484ebf192444f9f749df",
+    ".local/class-skills/wake-of-fire-producer-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/probe_wake_of_fire_damage_reference.py": "aeaca18d27cfa844034bb319de65b973b2dc63ac2a5530a3c8164d754bfb40a1",
+    "tools/reference/wake-of-fire-damage-source-evidence.json": "ed7497e8ba0b0f47386c91db3443c2ddc0321708188e9c906425ae3adce78914",
+    ".local/class-skills/wake-of-fire-damage-source-probe.cpp": "e14ef0faa52d74fd4ed8c1482d0b6c380ea37de19203f3cdba48e4bfa8227cf9",
+    ".local/class-skills/wake-of-fire-damage-source-probe.json": "0c82ef2f8712b98769073f60ae7ecaf9982316caa6bb8b6226fa71f89a95a32b",
+    ".local/class-skills/wake-of-fire-damage-source-check.log": "dff84ff9a7e501ef744f7ee23ace84c8950954e25584c8ed8e30e5a72523c72e",
+    ".local/class-skills/wake-of-fire-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/wake-of-fire-work-state.json": "a627df4e2e759da54e187e592dfd6d134832ba2219bbca211b43bcdf27e81616"
   },
   "totalHandlersPresent": 156,
   "goalStateAtCheckpoint": "active",
   "sessionContinuationAuthorized": true,
-  "verifiedArtifactCount": 3622,
+  "verifiedArtifactCount": 3635,
   "previousCheckpoint": "docs/class-skills-verification-2026-10-23.json",
   "deploymentScope": "Prepared kick physical component/current15-row boot data are installed; learned Dragon Talon remains disabled. Focused/full suites each pass3boots/2reloads with24576 complete source body/boot helpers,62208 physical compositions and255 Talon numeric goldens per boot. Actual Bartuc retained attributes/selected hand, normal/exceptional/elite boots,Steelrend ED, immutable packet and unchanged Tiger charge/gear captures survive actual world reloads. Retained Cobra natural charge+ordinary-Attack input passes3runs per suite. All70 Python tests,current554/21 audit fingerprints and573 unchanged named decisions pass. Matching original-world smoke loads/listens/shuts down0; saves/config/client bytes unchanged, server stopped. Handlers remain152/Assassin13; Cobra is the latest playable skill. Current local strict CASC extraction corroborates all15boot bases,selected4skill fields and32Assassin animation records; KK13frames/action4 metadata is established, while current sequence/rewind/rate/consume/hit/block/delivery/input remain separate gates. No class completion certificate.",
   "installedTestBuild": true,

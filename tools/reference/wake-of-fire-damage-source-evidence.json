@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "parentEvidence": "tools/reference/sentry-damage-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/wake-of-fire-damage-source-probe.json",
+    "sha256": "0c82ef2f8712b98769073f60ae7ecaf9982316caa6bb8b6226fa71f89a95a32b",
+    "completeDamageCases": 7167,
+    "allRankGoldens": 255
+  },
+  "established": [
+    "Complete shared creator and elemental getters select player skill262 for maker517 and wave518, despite stored actor skill281. Explicit MissileSkill override redirects to actor281 and produces no typed fire.",
+    "Both endpoints use current five-tier damage, fixed-point shift8 and 10 percent per hard Fire Blast/Inferno Sentry point. Inherited fire mastery is applied once after synergy, separately to each endpoint with source truncation.",
+    "Source damage0 excludes weapon physical, item typed/poison/drain and critical rolls. A supplied origin with noisy stats does not inject parent missile damage; nested wave creation recalculates from the actor owner rather than double applying the maker packet.",
+    "All 255 effective ranks have endpoint goldens. Representative tier boundaries, positive/negative mastery, hard synergies, owner damage noise, maker/wave selection, origin presence and override controls execute the unchanged complete routines."
+  ],
+  "services": [
+    "Owner stat reads, hard-skill/formula lookup, ratio helper, physical-zero getters and cached row access retain explicit services from the sentry probe. Source bodies are hashed unchanged against pinned parent evidence.",
+    "This does not execute the full missile factory, inherited stat-list capture, stat cleanup, target defenses, DamageRate205/NextHit/LastCollide, collision geometry, actor firing/retirement clocks or current executable behavior."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

@@ -8,7 +8,8 @@
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
-    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
   },
   "localSkills": {
     "path": ".local/research/d2r-3.3.93847/skills.txt",
@@ -21,6 +22,13 @@
   "localMissileEvidence": "tools/reference/d2r-local-missile-data-evidence.json",
   "localAnimationEvidence": "tools/reference/d2r-local-sentry-animation-evidence.json",
   "currentObservations": "tools/reference/wake-of-fire-current-observations.json",
+  "sourceProducerEvidence": "tools/reference/wake-of-fire-producer-source-evidence.json",
+  "sourceDamageEvidence": "tools/reference/wake-of-fire-damage-source-evidence.json",
+  "shotMode": {
+    "wake": "S2",
+    "lightning": "seq_chargesentry",
+    "moving": false
+  },
   "skill": {
     "skill": "Wake of Fire Sentry",
     "*Id": 262,
@@ -273,9 +281,9 @@
     "Current player passive slots inherit fire immunity pierce,fire resistance pierce and fire mastery. These are distinct from the installed lightning-specific sentry projection."
   ],
   "required": [
-    "Current local e9S2is2frameswithmarker1atframe1;lgS2is15frameswithmarker2atframe0. Reuse15frame S1only where the complete rate/mode context matches;trace the separate S2event routing rather than copying lightning shot timing.",
-    "Compose complete do125/do31/factory/target setter and path gate control flow,including missing owner/record/factory and zero-vector contexts.",
-    "Compose fire endpoint getters/mastery/synergies and nested maker/wave creators. Trace DamageRate205,LastCollide,NextHit and source owner-death/stat cleanup before adapting them.",
+    "Wake uses direct nonmoving S2, whereas lightning uses seq_chargesentry. Current local E9S2 is 2 frames with marker1 at frame1; LGS2 is 15 frames with marker2 at frame0. Trace direct-mode scheduling and end/AI handoff; do not copy the installed mode14 sequence controller. Shared 15-frame S1 still requires a matching full rate/mode context.",
+    "Complete do125/do31 and guarded coordinate/skill/rank accessors pass 1,152 launcher and 2,560 composed maker cases. Compose the actual factory and movement update before native integration; declared-service zero vectors do not establish gameplay acceptance.",
+    "Complete damage creator/getters pass 7,167 maker/wave contexts, including 255 rank goldens. Actual factory/stat capture, DamageRate205, LastCollide, NextHit, collision and owner-death/stat cleanup remain separate integration gates.",
     "Reuse shared actor creation,stat rescaling and five-trap limit without overriding the existing approved old-facet/offline behavior. Resolve any shared retirement/GUID dependency individually and continue unaffected work.",
     "Verify actual world placement,targets,shots,continuous connected damage,source clocks,gear/rank,inputs/lifecycle and two world reloads before enabling."
   ],
