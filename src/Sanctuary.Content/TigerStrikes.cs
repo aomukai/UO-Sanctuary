@@ -51,8 +51,12 @@ public static class TigerStrikes
         using var attempt=PaladinThorns.Attempt(owner,target,false);
         if(pending.Basic){BasicStrike(owner,target);CombatDamage.Finish(target,owner);return true;}
         var values=SkillMechanics.Values(owner,ability);
+        ChargeContact(owner,target,values);return true;
+    }
+    internal static bool ChargeContact(PlayerMobile owner,Mobile target,SkillValues values)
+    {
         // Unlike the ordinary finisher, charge builder uses only its own skill AR.
-        if(!Successful(owner,target,(int)values.Formula("toht"))){return true;}
+        if(!Successful(owner,target,(int)values.Formula("toht"))){return false;}
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,0,PhysicalRoll);
         var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);
         AssassinCharges.Gain(owner,values); // after allocation, before durability/health commit, even against immunity.

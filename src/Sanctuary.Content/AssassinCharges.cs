@@ -47,7 +47,7 @@ public static class AssassinCharges
         if(!Owner(owner)){return;}
         var state=Build(State(owner,values.Ability),owner.Serial.Value,values,TimedEffects.Now);States[(state.Owner,state.Ability)]=state;
         // Identified generic marker; final tigerstrike1/cobrastrike1 charge1/2/3 orbiting art/audio pending.
-        owner.FixedEffect(0x375A,5,5,values.Ability==CombatAbility.CobraStrike?0x26:0x481,0);StatNetwork.Send(owner);
+        owner.FixedEffect(0x375A,5,5,values.Ability==CombatAbility.FistsOfFire?0x489:values.Ability==CombatAbility.CobraStrike?0x26:0x481,0);StatNetwork.Send(owner);
     }
     internal static int TigerPercent(MartialCharge state,int currentRank)
     {

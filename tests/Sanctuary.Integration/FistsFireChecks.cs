@@ -143,9 +143,9 @@ public static class FistsFireChecks
         Delivery(p,t);FieldLifecycle(p,t);Hold(p,Charge(p),Charge(p,2,3,CombatAbility.TigerStrike),Charge(p,3,1,CombatAbility.CobraStrike));
         FistsFireRelease.AfterParent(p,t.Location,p.Map,FistsFireRelease.Capture(p,AssassinCharges.State(p,CombatAbility.FistsOfFire)),TimedEffects.Now);
         // Deliberately held reload payload; natural64frame duration tested above.
-        var due=TimedEffects.Now.AddMinutes(10);var patches=Patches(p).Select(x=>x with{NextUtc=due,UntilUtc=due.AddMilliseconds(64*40)}).ToArray();var save=FireGround.Snapshot();FireGround.Restore(save with{Patches=save.Patches.Where(x=>x.Owner!=p.Serial.Value).Concat(patches).ToArray()});
+        var due=TimedEffects.Now.AddHours(1);var patches=Patches(p).Select(x=>x with{NextUtc=due,UntilUtc=due.AddMilliseconds(64*40)}).ToArray();var save=FireGround.Snapshot();FireGround.Restore(save with{Patches=save.Patches.Where(x=>x.Owner!=p.Serial.Value).Concat(patches).ToArray()});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,AssassinCharges.Finisher(p),patches,p.Location,first.Serial.Value,second.Serial.Value)));
-        Require(!AssassinCombat.Implemented(CombatAbility.FistsOfFire),"Prepared release enabled unverified learned action");
+        Require(AssassinCombat.Implemented(CombatAbility.FistsOfFire) && AssassinClaws.Handles(CombatAbility.FistsOfFire),"Learned claw action missing");
         Log.Information("Fists prepared finisher:actual Sorceress/Eschuta mastery/critical/conversion/immunity,SOFTHIT,ordinary attack release,stacked area/fields,Tiger/Cobra,miss,offline/expiry/map cleanup pass; learned action stays gated");
     }
     private static void Reload()
@@ -157,6 +157,6 @@ public static class FistsFireChecks
         var patches=Patches(p);var origin=p.Location;int hp=SkillHealth.Balance256(target);FireGround.Tick(patches[0].NextUtc);Require(SkillHealth.Balance256(target)<hp,"Restored source field resumed once due");
         FireGround.Cancel(p);Hold(p,save.Charges);Finish(p,target);Require(AssassinCharges.State(p,CombatAbility.FistsOfFire)?.Count==2 && Patches(p).Length>0,"Restored charges release through ordinary Attack");FireGround.Cancel(p);
         var all=FireGround.Snapshot();FireGround.Restore(all with{Patches=all.Patches.Concat(save.Patches).ToArray()});Hold(p,save.Charges);
-        Require(!AssassinCombat.Implemented(CombatAbility.FistsOfFire),"Reload enabled unsupported Fists action");
+        Require(AssassinCombat.Implemented(CombatAbility.FistsOfFire),"Reload lost learned Fists action");
     }
 }

@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Prepared finisher/fields installed; separate learned claw action pending",
+  "status": "Learned claw candidate focused-verified; full regression and installation pending",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -137,5 +137,8 @@
     "sourceOrdinalSequence": "tools/reference/assassin-claw-sequence-source-evidence.json",
     "sourceStackedRelease": "tools/reference/martial-fire-release-source-evidence.json",
     "nativeFinisherFields": "tools/reference/fists-fire-native-evidence.json"
-  }
+  },
+  "candidateHandlerEnabled": true,
+  "clawRateEvidence": "tools/reference/assassin-claw-rate-source-evidence.json",
+  "candidateChecks": "tests/Sanctuary.Integration/FistsClawChecks.cs"
 }

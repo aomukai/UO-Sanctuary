@@ -22,6 +22,7 @@ public static class ClassMovement
         BarbarianBerserk.CancelMode(player);
         BarbarianDoubleThrow.Cancel(player);
         AmazonJab.Cancel(player);
+        AssassinClaws.Cancel(player);
         AmazonImpale.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);

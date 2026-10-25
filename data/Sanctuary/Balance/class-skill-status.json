@@ -2033,10 +2033,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 259,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared finisher component reuses independent saved martial charges, ordinary Attack, postcritical/pre-mitigation physical-to-fire conversion, inline fire/soft-hit, stacked area and source-size2 ground-fire fields. Separate skill12percent versus missile6percent hard Phoenix synergy, source LCG scatter and once-per-field first-collider clock are explicit. Learned do35 one/two-claw SQ action, selected-hand rates/payment/cancellation and input remain gated; no Fists handler or completion is claimed. Native component evidence is separate from modern full executable/geometry/seed/property/client acceptance; see fists-fire-native-evidence.json and fists-of-fire-preflight.json. Modern retained expiry/proportional AR is provisional. Final charge/release/area/ground/audio effects and talent/left/right/quick icons remain separate placeholders."
+      "remaining": "Learned h2h sequence16 uses one or two selected claw contacts at source-correlated points6/10,base208,entry primary IAS,dual intrinsic speed mean and player sequence penalty30. Pays2mana once at accepted start; both successful unblocked contacts can build independent capped charges without releasing Tiger/Cobra/Fists. Insufficient mana uses one ordinary charged Attack. Movement,weapon changes,FHR,death,respec and disconnect cancel remaining contacts; idle history clears charges while active history switching remains refused. Reuses verified fire conversion/soft-hit,parent-before-area and source-size2 fields. Native quick/right-held/left-held/ordinary-finisher,real IAS/selected-hand/rank/lifecycle and reload evidence is in fists-claw-native-evidence.json. Modern animation/stat/rate mutation,target assistance,full proc/seed/terrain/PvP/NPC/client acceptance and retained-charge expiry/proportional AR remain explicit gaps; no class completion. Final charge/claw/contact/area/ground/audio and talent/hotkey icons are separate identified placeholders."
     },
     {
       "talentId": "assassin.cobrastrike",

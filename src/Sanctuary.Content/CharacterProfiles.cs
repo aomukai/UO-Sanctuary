@@ -170,7 +170,7 @@ public sealed class CharacterProfiles : GenericPersistence
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         AssassinBuffs.Clear(player);
-        AssassinCharges.Clear(player);TigerStrikes.Cancel(player);
+        AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
@@ -340,7 +340,7 @@ public sealed class CharacterProfiles : GenericPersistence
         player.Mana = CarryPool(mana, maxMana, player.ManaMax);
         player.Stam = CarryPool(stam, maxStam, player.StamMax);
         AssassinBuffs.Clear(player);
-        AssassinCharges.Clear(player);TigerStrikes.Cancel(player);
+        AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);

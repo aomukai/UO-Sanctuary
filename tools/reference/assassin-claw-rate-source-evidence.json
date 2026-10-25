@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.fistsoffire",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutines": {
+    "D2Common_10434": "d7c543e6abf92a1314784ae1a8f0ba53a760aa3e43a98d18ae2a337d2fcc3ac7",
+    "UNITS_MergeDualWieldWeaponStatLists": "73baadce5283dd9fde1d28b52317cdfdff6c953479507a0322ebac0a1fb7a3a6",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd"
+  },
+  "fixture": {
+    "path": ".local/class-skills/assassin-claw-rate-source-probe.json",
+    "sha256": "a54b3e409406a25344cfe7757cf37c65072581a79a8797348d3446abb1607cc0",
+    "cases": 6144,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete common selector and dual merge precede complete attack-rate routine. Server ordinal0 selects primary IAS; ordinal1 selects secondary in the supplied valid pair. Missing/invalid secondary falls back to primary.",
+    "At sequence entry ordinal0, selected primary intrinsic attackrate plus source dual correction produces mean intrinsic rate, with C++ truncation toward zero. Item IAS diminishing return,skill rate,sequence penalty30,15..175 clamp and supplied208 animation base precede integer frame advance.",
+    "The phase1 legacy correction uses physical right-hand intrinsic rate even after selected-hand stat merge; recorded as a control, not adopted as a new native mid-animation speed mutation."
+  ],
+  "services": [
+    "Item stat posting/accumulation supplies only the declared selected-hand IAS/intrinsic rate plus explicit globalIAS/skill-rate. Full STATLIST_MergeStatLists/stat graph is not compiled; existing source damageRelated table/native selected-hand consumers are separate evidence.",
+    "Primary source RARM maps to the existing persisted native primary identity; inventory/component/item eligibility services expose single/valid/unequippable/nonweapon secondary.",
+    "Animation base208 is an explicit input corroborated by selected current local A1HT1/HT2 metadata. Melee-only shape override and modern executable selection/rate mutation remain separate."
+  ],
+  "limits": [
+    "This proves complete selected source numeric/selection control flow under declared stat services, not a current executable certificate.",
+    "Native learned action,real IAS/dual speed/skills/slow/hand/timing/payment/cancellation/input/persistence must still be tested."
+  ]
+}

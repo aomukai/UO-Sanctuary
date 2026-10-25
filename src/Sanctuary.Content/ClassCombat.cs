@@ -36,6 +36,7 @@ public static class ClassCombat
         internal AmazonStrafe.Series Strafe;
         internal AmazonMelee.Prepared AmazonAttack;
         internal TigerStrikes.Pending TigerAttack;
+        internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
         internal BarbarianBerserk.Temporary BerserkMode;
@@ -102,6 +103,7 @@ public static class ClassCombat
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
                 BladeFuryModes.EquipmentChanged(from);
+                AssassinClaws.EquipmentChanged(from);
             }
         };
         ClassCombatHooks.DefenseSuppressed = from => ClassMovement.IsRunning(from, Core.TickCount);
@@ -223,6 +225,7 @@ public static class ClassCombat
         AmazonFend.Cancel(from);
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
+        AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
         BladeFuryModes.Interrupt(from);
@@ -271,7 +274,7 @@ public static class ClassCombat
         {
             // Ground FoH/Psychic Hammer already acquired a primary. Held empty-ground input
             // must not erase that identity before the cast event.
-            if(ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
+            if(ability!=CombatAbility.Strafe && ability!=CombatAbility.Fend && ability!=CombatAbility.Impale && !AssassinClaws.Handles(ability) && !AmazonMelee.Handles(ability) && !BarbarianMelee.Handles(ability) && (ability is not (CombatAbility.FistOfTheHeavens or CombatAbility.PsychicHammer) || session.CastTarget!=Serial.Zero)){session.PendingTarget = session.CastTarget;}
             session.PendingPoint = point;
         }
         UpdateHeldCast(from, now);
@@ -315,7 +318,7 @@ public static class ClassCombat
         BarbarianConcentrate.Tick(from,now);
         BarbarianBerserk.Tick(from,now);
         var session = For(from);
-        if(session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null){return;}
+        if(session.ClawAttack!=null || session.DoubleThrow!=null || session.Jab!=null || session.Fend!=null || session.Strafe!=null){return;}
         if (session.HeldAbility != CombatAbility.None)
         {
             UpdateHeldCast(from, now);
@@ -467,6 +470,7 @@ public static class ClassCombat
     public static bool ResolveAction(PlayerMobile from, long now)
     {
         if(BarbarianLeap.State(from)!=null || BarbarianWhirlwind.State(from)!=null){return false;}
+        if(For(from).ClawAttack!=null){return AssassinClaws.Resolve(from,now);}
         if(For(from).Jab!=null){return AmazonJab.Resolve(from,now);}
         if(For(from).Impale!=null){return AmazonImpale.Resolve(from,now);}
         if(For(from).Strafe!=null){return AmazonStrafe.Resolve(from,now);}

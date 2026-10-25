@@ -10,6 +10,7 @@ import tempfile
 import time
 import threading
 from check_britain import ROOT, SERVER, Session
+from fists_claw_input import exercise as fists_claw_input
 
 STAGE = ROOT / '.local/class-skills'
 
@@ -61,7 +62,7 @@ def check():
         for name, rel in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['fists-fire-conversion','fists-fire-builder','dragon-kick-damage','dragon-kick-packet']:
+        for name in ['assassin-claw-rate','assassin-claw-sequence','fists-fire-conversion','fists-fire-builder','dragon-kick-damage','dragon-kick-packet']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(ROOT / 'tools/reference/dragon-kick-damage-source-evidence.json',folder / 'dragon-kick-damage-source-evidence.json')
         for name in ['cobra-strike','cobra-strike-composition','cobra-strike-builder']:
@@ -174,6 +175,12 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
+                    claws='fists-claw-check' if boot==0 else 'fists-claw-reload-check'
+                    session.send(claws)
+                    assert session.expect(claws+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        fists_claw_input(session,client,logpath)
                     fists='fists-fire-check' if boot==0 else 'fists-fire-reload-check'
                     session.send(fists)
                     assert session.expect(fists+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
