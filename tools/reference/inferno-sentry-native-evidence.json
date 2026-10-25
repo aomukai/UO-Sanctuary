@@ -954,6 +954,13 @@
     ".local/class-skills/inferno-sentry/clock-collision-diagnostic.json": "c2156ef4f7f5953e24fadd7e1a2a05fa65eb8e7f29d0d7e3c5c03e73ef82fb0d",
     ".local/class-skills/inferno-sentry/native-first-failure.log": "a80c9f8ea7efa169918fee5701096e5561d1e691d8a7a5baeed37fc79fb2993d",
     ".local/class-skills/inferno-sentry/native-second-failure.log": "83faeaaa743cb5ccc6c1b71ed1e92eb7d1cb692790c2e5dacd95e1ca3c1f18b7",
-    ".local/class-skills/inferno-sentry/native-third-failure.log": "6b41973ade8d676d1d86609043a6bbf5fce17337a338daede62d6166d2684ecd"
-  }
+    ".local/class-skills/inferno-sentry/native-third-failure.log": "6b41973ade8d676d1d86609043a6bbf5fce17337a338daede62d6166d2684ecd",
+    "tools/probe_sentry_corpse_reference.py": "1daf7c31bc51e69aaa630ed5f83e31a67f25ef5a330d238f4143ef9a3135a2b5",
+    "tools/reference/sentry-corpse-source-evidence.json": "1e32c6595a25872f73367576935672f75653f4a88ea8f3ab36e02b9803c670c5",
+    ".local/class-skills/sentry-corpse-source-probe.cpp": "c1884626c92d7a22d0ac64180537f721e3f93e68f097060a6271b9a0e55789a3",
+    ".local/class-skills/sentry-corpse-source-probe.json": "37a445c1a117d8e2ea284985e842ff15b13e0341fa826f779cc459bbd55a57aa",
+    ".local/class-skills/sentry-corpse-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/sentry-corpse-source-check.log": "2162a4df6cdd718cdb25b3aa3527004220d208cae79fe086552806dc3328d906"
+  },
+  "retirementCorpseEvidence": "tools/reference/sentry-corpse-source-evidence.json"
 }

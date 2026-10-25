@@ -1,0 +1,69 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutineHashes": {
+    "D2C_MonStats2TxtFlagIndices": "fa9d29d4d698516e3afded8fd3705c4ff4dca4d91fe8513a1bd0a811036540ea",
+    "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+    "UNITS_IsCorpseUseable": "42fcf874ea0a18cfbcd4ccc462364c77d7401eadd5e0e42497344ab1a3867cad"
+  },
+  "currentModelEvidence": "tools/reference/d2r-local-sentry-model-evidence.json",
+  "modelFileSha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+  "rows": {
+    "chargeboltsentry": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "wakeofdestruction": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "lightningsentry": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "infernosentry": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "deathsentry": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "bladecreeper": {
+      "corpseSel": "",
+      "deadCol": "",
+      "limitCorpses": "1"
+    },
+    "zombie1": {
+      "corpseSel": "1",
+      "deadCol": "",
+      "limitCorpses": ""
+    }
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-corpse-source-probe.json",
+    "sha256": "37a445c1a117d8e2ea284985e842ff15b13e0341fa826f779cc459bbd55a57aa",
+    "cases": 896,
+    "positiveZombieControls": 1
+  },
+  "established": [
+    "Both complete common predicates reject all six current trap model rows, including registered dead mode12 units: corpseSel is absent/zero. Neither death mode nor registry retention makes a trap a selectable/usable corpse.",
+    "The directly extracted current zombie1 row is a positive control only in monster/dead/model-present/not-undead-masked/nonnull context. Null/missing row, other unit types/modes and undead masks reject.",
+    "Current trap rows independently have limitCorpses1. That field is not read by these two predicates and does not establish when a GUID is removed."
+  ],
+  "limits": [
+    "Only common predicate bodies are compiled; used-state masks, row lookup, nonmetadata text fields and unit layout are declared services. This is not a modern executable trace or binary ABI certificate.",
+    "Corpse ineligibility does not prove all skill/AI/event/minion/stat/room references are absent. Full retirement timing, corpse compression/unload, final GUID retention and native retired-owner damage policy remain separate. Do not infer a new timer, immortal proxy or player-substituted source."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr required"
+}
