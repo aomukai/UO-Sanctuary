@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.tigerstrike",
-  "phase": "candidate-native-verification",
-  "installed": false,
+  "phase": "installed-bounded-native-coverage",
+  "installed": true,
   "sourceEvidence": "tools/reference/tiger-strike-source-evidence.json",
   "reuse": {
     "meleeTargetAndReach": "PaladinVengeance.ValidTarget / shared native weapon eligibility and geometry",
@@ -27,12 +27,15 @@
     "Unknown native monster block suppliers retain the existing class-combat hit path; mapped Skeleton shields are separately tested. Full PvP is outside current ClassCombat hostility rules.",
     "Shared item procs not yet implemented by the property system remain independently listed in the item-skill backlog. No claim that Tiger completes those properties.",
     "Ordinary Assassin Attack still uses existing project timing; Tiger uses the separately identified cached A1 adapter. Charge AR is a hit input, not a new global stat on all attacks.",
-    "World saves retain and age charges using existing Sanctuary timed-state conventions. This is world persistence verification, not original D2 character-file buff persistence proof."
+    "World saves retain and age charges using existing Sanctuary timed-state conventions. This is world persistence verification, not original D2 character-file buff persistence proof.",
+    "Held-cursor behavior after target death, empty-ground attack-in-place and the later approved melee auto-target/mana usability pass remain dedicated acceptance work. Tiger uses the existing selected-target action path; no new targeting leeway is invented."
   ],
   "assets": {
     "effects": "data/Sanctuary/Balance/skill-effects.json#assassin.tigerstrike",
     "placeholders": "Existing UO weapon pose,0x238 sound,0x375A hue0x481 one-shot charge marker; final orbital charge1/2/3,impact/audio pending",
     "icons": "data/Sanctuary/Balance/skill-icons.json#assassin.tigerstrike \u2014 separate talent,left/right/quick icons pending"
   },
-  "next": "Finish focused/full regression and current audits, then backup/install/smoke, update roadmap/checkpoint and push. Continue unaffected martial arts after Tiger."
+  "next": "Continue Cobra Strike using tools/reference/cobra-strike-preflight.json and cobra-strike-source-evidence.json. Reuse Tiger charge builder/action/timing and shared source player WeaponLeech; combine ordinary/Cobra drain fields before rounding and commit before health/death. Verify independent Tiger/Cobra charge coexistence/partial consumption, actual gear/difficulty/drain/lethal/resource/input/lifecycle/reload paths.6000 complete legacy Cobra drain-packet cases are source preparation only; no Cobra handler is enabled. Keep Fury input and Sentry retirement individual deferrals open. All240 skills/classes and separate effects/icons remain in scope.",
+  "handlerEnabled": true,
+  "nativeEvidence": "tools/reference/tiger-strike-native-evidence.json"
 }

@@ -2000,10 +2000,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 254,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Saved separate charge state and melee do34 reuse the shared weapon damage, source block and action/cancellation paths. Ordinary Attack consumes one charge on a successful melee hit using current table policy; charging attacks do not consume or amplify themselves. Initial rank retention, higher live rank, miss/block/cap/refresh, immunity, fractional payment/fallback, death/respec/history, actual socket input and two reloads have bounded native coverage; see tiger-strike-native-evidence.json. Modern retained-expiry/proportional charge-AR update and cached A1 timing are explicit provisional adapters. Exact modern stat/seed/geometry/dual-hand/transformed/foreign-class behavior, full15second visual expiration, ordinary-Attack timing and broader item effects remain acceptance work. Effects and talent/left/right/quick icons remain separate placeholders."
     },
     {
       "talentId": "assassin.dragontalon",

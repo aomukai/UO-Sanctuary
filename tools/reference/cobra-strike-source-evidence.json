@@ -1,0 +1,35 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.cobrastrike",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "compiledRoutines": {
+    "SKILLS_SrvSt23_AssasinChargeStrikes": "5545eadf694455e1f70de937730e53a2051ed1ee3558c6f4de5d58593c2f3da2",
+    "SKILLS_StatRemoveCallback_ProgressiveStrike": "ebe13b49d08fb643b55f3d046871108fb9c88118dc254d70a4e88d76afbe0619",
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3"
+  },
+  "currentSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "fixture": {
+    "path": ".local/class-skills/cobra-strike-source-probe.json",
+    "sha256": "a5d4e166aa99e13a769b93c713a361065d9c489fd4691a580ba702cc9d0d7e0b",
+    "cases": 6000,
+    "sanitizers": "ASan+UBSan"
+  },
+  "declaredServices": "Reuses Tiger harness stat-list/target/record/skill-level adapters. Complete Cobra consumer executes against one declared state. Unrelated elemental branches3/4 abort if reached; no subexpression is extracted or rewritten.",
+  "established": [
+    "Successful contact resolves max(initial stored,current effective rank); adds40+5per rank to life drain for1charge, life+mana for2, and double both for3. Invalid/missing/unsuccessful/zero-rank states leave existing packet fields unchanged.",
+    "Physical ED remains unchanged: Tiger and Cobra occupy separate damage stages. Source compound integer drain fields are added to existing values, not independently healed here."
+  ],
+  "reuse": {
+    "chargeBuilder": "tools/reference/tiger-strike-source-evidence.json",
+    "drainArithmetic": "tools/reference/weapon-leech-engine-evidence.json"
+  },
+  "limits": [
+    "No native Cobra handler or end-to-end leech delivery is established. Other declared progressive-state families and coexistence need their own integration; invalidcount4 is a corruption control, not a supported saved charge.",
+    "Current consume-one policy is separate from the obsolete source all-charge removal. Expiry/AR updates, current executable timing/seed/stat/event acceptance remain explicit.",
+    "Item-drain merge, prehealth/death order, current victim-mana mutation, natural input, actual gear/lifecycle and reload remain pending. Effects/icons are independent."
+  ]
+}
