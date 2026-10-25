@@ -5,15 +5,23 @@
   "handlerEnabled": false,
   "completeComparisons": 52100,
   "jsonRoundTrips": 52100,
+  "packagedLookupComparisons": 52100,
+  "rejectedMalformedCatalogues": 6,
+  "unknownSourcesRejected": true,
+  "immutableLoadedData": true,
   "hashes": {
     ".local/class-skills/corpse-base-life-source-probe.json": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703",
-    ".local/class-skills/corpse-base-life-draft-run.log": "42ce716f02bbc7f76cbf9117e41b19275186cf6fba6449ba421cc478033bc6fc",
+    ".local/class-skills/corpse-base-life-draft-run.log": "5ef51fb81b95420c05f3034f6ed8c392d9afbd6d2f198e17cab75c17900eeb08",
     "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
-    ".local/class-skills/corpse-base-life-draft/CorpseBaseLife.cs": "78af242972395c84e0ce71a9b1abde8eb3a6658c9861f0a1a40f11e1f977c07b",
-    ".local/class-skills/corpse-base-life-draft/Program.cs": "756c6c7e1764788e7bb0901b5a41aa1755ab540a843c505060863c900d543d32",
-    ".local/class-skills/corpse-base-life-draft/Probe.csproj": "6fca145439b52a0d52dc9a9626f59dd786fe849ac09affa94db47e6287899d37"
+    ".local/class-skills/corpse-base-life-draft/CorpseBaseLife.cs": "cd955dd78f589c3db7dbb70602518955cdc3524b835d40ac87c8030b7e012e4e",
+    ".local/class-skills/corpse-base-life-draft/Program.cs": "b0cfc7b6aa063cd27a76ce39743679be11207185ab6708eefc7b18ad18ea588c",
+    ".local/class-skills/corpse-base-life-draft/Probe.csproj": "6fca145439b52a0d52dc9a9626f59dd786fe849ac09affa94db47e6287899d37",
+    ".local/class-skills/corpse-base-catalogue/corpse-base-catalogue-evidence.json": "d7e77866028ac20d9323fddb79fdc233c1ae363f6a3c223b1a40183c1650cb2c",
+    ".local/class-skills/corpse-base-catalogue/corpse-base-levels.json": "4a6878b4cc6c2c4c6c2def898e228b31df08242ca5eb3cc145447d830fbd9f97",
+    ".local/class-skills/corpse-base-catalogue/corpse-base-monsters.json": "ef3b2f64eb25961feac8ec8ee9ea5f7345377da8e19b732e796fb52cab7e0e78",
+    "tools/build_corpse_base_catalogue.py": "280fc0f7bfe857802946234d1fd4c73fab412df09d04a1dba6fd8e2a82d1ee4e"
   },
-  "scope": "Uninstalled C# flags1 HP calculator reuses existing SourcePercentage and matches complete older calculator/ratio outputs across521current selectable-corpse source rows.",
+  "scope": "Uninstalled C# flags1 HP calculator and immutable packaged source/level lookup reuse SourcePercentage and match complete older calculator/ratio outputs across521current selectable-corpse source rows.",
   "limits": [
     "Current text/declared layout plus older code composition does not certify a modern executable or binary-table ABI.",
     "Actual native profile/level/difficulty mapping, corpse capture/persistence, RNG, area filtering/damage, learned input and retirement remain separate. No installed assembly is changed."

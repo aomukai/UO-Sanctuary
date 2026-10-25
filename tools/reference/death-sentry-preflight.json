@@ -365,6 +365,7 @@
   "localMonsterLevelEvidence": "tools/reference/d2r-local-monlvl-evidence.json",
   "compiledCorpseBaseEvidence": "tools/reference/corpse-base-life-source-evidence.json",
   "corpseBaseDraftEvidence": "tools/reference/corpse-base-life-draft-evidence.json",
+  "corpseBaseCatalogueBuilder": "tools/build_corpse_base_catalogue.py",
   "compiledCorpseSearchEvidence": "tools/reference/death-sentry-corpse-search-source-evidence.json",
   "corpseSearchDraftEvidence": "tools/reference/death-sentry-corpse-search-draft-evidence.json"
 }

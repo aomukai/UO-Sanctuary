@@ -98,6 +98,7 @@ def build(check=False):
             e['localMonsterLevelEvidence']='tools/reference/d2r-local-monlvl-evidence.json'
             e['compiledCorpseBaseEvidence']='tools/reference/corpse-base-life-source-evidence.json'
             e['corpseBaseDraftEvidence']='tools/reference/corpse-base-life-draft-evidence.json'
+            e['corpseBaseCatalogueBuilder']='tools/build_corpse_base_catalogue.py'
             e['compiledCorpseSearchEvidence']='tools/reference/death-sentry-corpse-search-source-evidence.json'
             e['corpseSearchDraftEvidence']='tools/reference/death-sentry-corpse-search-draft-evidence.json'
             e['inspectedLegacy']['scope']='Inspection hashes only; compiledAiEvidence separately executes complete AI104 and the shared initialization/remaining-shot helper. No modern executable certificate.'
