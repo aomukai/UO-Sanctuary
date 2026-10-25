@@ -3,7 +3,7 @@
   "talentId": "assassin.bladesofice",
   "sourceId": 274,
   "ability": 189,
-  "status": "Next unaffected Assassin builder after Thunder; source/native integration pending",
+  "status": "Complete cold inline/area/scatter/LCG/damage10composition checked; current numeric/native freeze delivery pending",
   "installed": false,
   "handlerEnabled": false,
   "source": {
@@ -90,13 +90,10 @@
     "Shared source-size contact,element mitigation,NamedControl cold/freeze and saved short-lived field/projectile lifecycles. Final melt/explosion graphics are independent from mechanics."
   ],
   "reviewedOnly": [
-    "Inline prgdam4/calc1=0 adds cold damage with no physical conversion,sets SOFTHIT,and at count3adds freeze length from cold length/Param5=1. Actual length/difficulty/cold-effect/immune/boss rules must be composed before porting.",
-    "Current count2callback38 has radius6; it drains parent before target-coordinate resolution and copies one independently rolled physical/elemental area packet per recipient using filter0x870B. Its cold length/freeze behavior is not the same as a stationary cube.",
-    "Current count3callback39 uses scatter radius3 and creates stationary561cubes at retained rank. The cube row has30frame lifetime,Size1,LastCollide1,ETypefrze,ApplyMastery1,base1..1damage,100frame elemental length and pSrvDmgFunc10. Complete damage10body copies cold length to freeze length when missile and row exist; it does not clear cold length as Ice Blast damage4does. Typed builder/impact/freeze consumers still need composition.",
-    "Full progressive stack temporarily selects earlier charge levels before restoring the final count,so count3combines area callback38 and cube callback39. Keep the ordinary modern consume-one policy separate from the old full-list source oracle."
+    "Current exact cold endpoint/length getters,typed cube creator and target freeze/chill/difficulty/boss/immune/collision consumers remain separate from the new bounded control-flow composition."
   ],
   "required": [
-    "Compile complete cold inline/getter/length/typed-writer paths plus stacked38/39/cube factory,damage10 and generic collision/target/state consumers with current numeric controls.",
+    "Compose current cold endpoint/length getters and typed cube packet creator with the compiled inline/38/39/damage10ordering,then verify actual target freeze/chill,source collision and lifecycle before native integration.",
     "Verify filter0x870B versus Fists0x583; do not copy recipient allegiance/LOS/town/size exclusions blindly.",
     "Resolve actual ordinary cold/freeze application,difficulty/cold-effect length scaling,freeze-immune/boss chill fallback,source SOFTHIT and overlapping cube refresh/hit cadence.",
     "Integrate independent charges and typed skill/cube delivery,then exact3mana builder/fallback,cancellation,real quick/held input and two reloads before installation.",
@@ -106,5 +103,11 @@
     "Current full executable/stat/target/geometry/proc/NPC/PvP/client acceptance remains explicit.",
     "Player only uses fire/lightning traps; do not repeat martial-arts playtest questions."
   ],
-  "continueIfBlocked": "Document the specific unsupported branch and proceed through unaffected Assassin skills without treating it as a global goal block."
+  "continueIfBlocked": "Document the specific unsupported branch and proceed through unaffected Assassin skills without treating it as a global goal block.",
+  "sourceEvidence": "tools/reference/martial-cold-source-evidence.json",
+  "compiledSource": {
+    "cases": 3456,
+    "sourceEvidence": "tools/reference/martial-cold-source-evidence.json",
+    "scope": "Complete shared prgdam4consumer,progressive stack,area38/scatter39,actual owner/private LCG/limited draws and damage10under declared elemental/length/world/factory services. No native Ice handler enabled."
+  }
 }

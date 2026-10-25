@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesofice",
+  "sourceId": 274,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "reusedCompleteComposition": [
+    "tools/reference/fists-fire-source-evidence.json",
+    "tools/reference/martial-fire-release-source-evidence.json",
+    "tools/reference/martial-lightning-source-evidence.json"
+  ],
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4"
+  },
+  "additionalFunctionHashes": {
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71"
+  },
+  "cubeDamage10FunctionHash": "a1edc1a6928cabc442dfbcbe8344eb27a2a1f48a47d172b0c1b60bc818bb6911",
+  "fixture": {
+    "path": ".local/class-skills/martial-cold-source-probe.json",
+    "sha256": "89e4ae42e8b8d1ba302e567ab85688a3bd3d25212e84dae0b3431ee8f4bf6f77",
+    "cppSha256": "ed4ded6af979b25b8594feefb2c6b9464bbbe464462f754b77de507fb1e96caf",
+    "cases": 3456,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete prgdam4consumer adds cold and SOFTHIT without physical conversion. At count3,full inline helper also adds freeze length equal to cold length under current Param5=1.",
+    "Complete progressive stack selects count2for callback38before restoring count3for callback39. Full area callback copies cold damage/length per accepting receiver; its copied packet has freeze0. Receiver mutation does not contaminate the next packet.",
+    "Full callback39draws one owner seed even when coordinates fail; successful coordinates consume18private LCG draws for9radius3attempts. Outside-circle positions are rejected,duplicates remain separate561/rank/flags1children,and failed factory allocations do not rewind RNG.",
+    "Full cube damage10copies cold length to freeze length only with a present missile and record. It preserves cold length; a missing missile/record preserves the prior freeze field."
+  ],
+  "services": [
+    "Elemental damage/length are declared rank*100and100+10*(rank-1)providers,not compiled current skill endpoint/length getters. Only complete consumer/control ordering is established.",
+    "Full min/max/mitigation/freeze application,difficulty/cold-effect/boss/immune/chill fallback,filter0x870B,target enumeration and actual cube factory/collision/lifetime remain separate.",
+    "Area service supplies two receivers; full callback copies its packet for each. Underlying health service only records and mutates a copy.",
+    "Missile factory records source561arguments and supplies30frame lifetime; full damage10record-existence service is declared. Actual cube damage packet and freeze target state are not executed here."
+  ],
+  "limits": [
+    "Source preparation only; no native Ice handler or freeze field is enabled.",
+    "Old full-list removal remains an oracle control; current ordinary consume-one state is separate.",
+    "Exact current executable/stat/seed/geometry/proc/PvP/NPC/client and final effects/icons remain pending."
+  ]
+}
