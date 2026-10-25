@@ -1,0 +1,109 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.clawsofthunder",
+  "sourceId": 269,
+  "ability": 188,
+  "status": "Unaffected next builder if Dragon Claw current finisher policy is individually deferred; source/native work pending",
+  "installed": false,
+  "handlerEnabled": false,
+  "source": {
+    "currentLocalSkillsSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "currentLocalCheckedFields": 31,
+    "corroboratedFields": {
+      "srvstfunc": 23,
+      "srvdofunc": 35,
+      "prgstack": 1,
+      "srvprgfunc2": 36,
+      "srvprgfunc3": 37,
+      "prgcalc3": "par1",
+      "prgdam": 4,
+      "srvmissileb": "clawsofthundernova",
+      "srvmissilec": "clawsofthunderbolt",
+      "auralencalc": "par3",
+      "aurastat1": "progressive_lightning",
+      "aurastat2": "progressive_tohit",
+      "aurastatcalc2": "par4",
+      "itypea1": "h2h",
+      "seqtrans": "A1",
+      "seqnum": 16,
+      "manashift": 8,
+      "mana": 4,
+      "calc1": 0,
+      "Param1": 4,
+      "Param3": 375,
+      "Param4": 50,
+      "Param5": 1,
+      "Param8": 8,
+      "ToHit": 25,
+      "LevToHit": 10,
+      "SrcDam": 128,
+      "EType": "ltng",
+      "EMin": 1,
+      "EMax": 80,
+      "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * par8"
+    },
+    "pinnedMissileJsonSha256": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "missileFields": {
+      "clawsofthundernova": {
+        "pSrvDoFunc": 1,
+        "Vel": 24,
+        "Range": 13,
+        "CollideType": 3,
+        "LastCollide": 1,
+        "NextHit": 1,
+        "NextDelay": 4,
+        "Size": 1,
+        "ResultFlags": 4,
+        "HitShift": 8,
+        "EType": "ltng",
+        "EMin": 1,
+        "EMax": 30,
+        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8"
+      },
+      "clawsofthunderbolt": {
+        "pSrvDoFunc": 1,
+        "Vel": 12,
+        "Range": 98,
+        "CollideType": 3,
+        "CollideKill": 1,
+        "LastCollide": 1,
+        "NextHit": 1,
+        "NextDelay": 4,
+        "Size": 1,
+        "CanSlow": 1,
+        "ResultFlags": 4,
+        "HitShift": 8,
+        "EType": "ltng",
+        "EMin": 1,
+        "EMax": 40,
+        "EDmgSymPerCalc": "(skill('Royal Strike'.blvl)) * 8"
+      }
+    }
+  },
+  "reusable": [
+    "Installed Fists do35 sequence16/contacts0,1 and primary-WSM/IAS builder,once-paid mana,cancellation,actual input and reload fixtures. Claws costs4mana; no copied Fists2mana constant. Verify the actual current original Skill initializer before sharing the rate supplier.",
+    "Shared independent Assassin charge ledger,retained initial/live rank,ordinary Attack finisher,WeaponHands scope,GearEffects typed packet,SOFTHIT and SourceRandom. prgdam4/calc1=0 means additive lightning with no physical conversion,not the Fists3*rank conversion.",
+    "ChargedBolts.Path/Advance,AssassinSentryBolts source step/collision adapters,source PRNG/health/pierce/block/SlowMissiles and saved missile infrastructure. Do not reuse trap-actor ownership requirements for player-released missiles.",
+    "Original sub6FD14170 ring and sub6FCF6600 share the64direction table. Sorceress Nova private expanding-radius approximation is not proof of64missile collision behavior."
+  ],
+  "reviewedOnly": [
+    "Full callback36 reads target,positive rank,row,progressive missile and calc1+table velocity,then emits64nova missiles centered on the struck target through sub6FD14170. Each uses flags3 plus velocityflag4 when nonzero.",
+    "Full callback37 resolves progressive missile/target coordinate,chooses step from progressive calc or aura range,draws one owner seed and invokes full sub6FCF6600. For current step4,the64direction ring emits16bolts.",
+    "Full sub6FCF6600 uses a private seed,one seed draw per emitted child,charged path initializer6C10 and a post-factory target-X value from Royal Strike Param2+1. Do not assume the Sorceress/Sentry ordinal/aim seed initializer applies.",
+    "Full6C10 caps total/current lifetime to77when initial range>=78,initializes child low seed,sets charged-bolt path and distance,then builds the path. This source body remains to be compiled with full step/distance/path suppliers."
+  ],
+  "required": [
+    "Compile the complete progressive dispatcher,36/37/ring/factory/init/path and collision/next-delay contexts before adapting the player nova/bolt release. Record owner versus child seed and event order.",
+    "Keep shared4frame NextHit/NextDelay behavior explicit across nova/bolt children and separate releases; do not silently substitute per-projectile hit-once behavior.",
+    "Prove current inline/child damage endpoints,hard Phoenix synergy8,mastery/pierce/soft-hit/block/proc/parent-death,actual selected hands/ranks and independent charges.",
+    "Implement source/native release and saved projectile lifecycle,then learned charge action/cost/fallback/real quick/held input and two reloads. Use clearly identified existing lightning/charge placeholders and keep final assets separate."
+  ],
+  "questions": [
+    "Exact modern missile next-delay scope and current mode/target/stat/proc/client acceptance remain unverified.",
+    "No request for martial-arts playtest observations from the traps-only player. Unsupported branches stay explicit and nonblocking for other skills."
+  ],
+  "assets": {
+    "effects": "Final charge orbital/claw/contact/nova/bolt travel/impact/audio pending. Existing UO lightning/charge markers may be identified placeholders during mechanics.",
+    "icons": "Talent/left/right/quick icons remain separately inventoried."
+  }
+}
