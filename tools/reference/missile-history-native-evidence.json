@@ -1,8 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
-  "status": "Eight-family focused3boots/2reloads passed after isolating cross-fixture arrow damage; fullv5 running",
-  "fullPending": true,
+  "installed": true,
+  "status": "Shared missile history fix and prepared Wake actor are installed. Overlapping javelin/cloud/Fury contacts pass red/green, focused and full native suites over three boots/two actual reloads. Parked Plague inspection targets are isolated between real damage checks, with an actual travelling Multiple Shot control and per-save resource invariants. All70 Python tests, current563/21 audit fingerprints and573 unchanged named decisions pass. Existing-world smoke loads/listens/shuts down0; saves/config/client bytes are unchanged and the server is stopped.156handlers/Assassin17; learned Wake remains disabled and no class is complete.",
+  "fullPending": false,
   "candidateDirectory": ".local/class-skills/missile-history-v5",
   "contentSha256": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
   "integrationSha256": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
@@ -16,7 +16,7 @@
     "tests/Sanctuary.Integration/MissileHistoryChecks.cs": "69ba607fe63ec981a25ac4ccd728802460ba8b316cdadb3444a4bd729571add5",
     "tests/Sanctuary.Integration/PoisonJavelinChecks.cs": "72f29112c35848680d33f886ae18bda2525ae4715948facdcf6577a7aa2d01dc",
     "tests/Sanctuary.Integration/WakeFireActorChecks.cs": "512c02dbb6655fff76b199a103f579895cbe1546101f22efcd6edae5fdfe6164",
-    "tests/check_class_skills.py": "1a1d824146245ad596ce769422c88dca298166b6a2c71a1e81290d8dd85d210d",
+    "tests/check_class_skills.py": "28ab69b6452e9ec92e99dc93d3dd46fe37963098ac5b34320ee569fc38eee1e5",
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
     "data/Sanctuary/Balance/necromancer-summons.json": "5b915d8629b6f43c4c6757dc9cc16d9a7b62ccb5644fea4e846377ee74362114",
     "data/Sanctuary/Balance/summon-level-stats.json": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b"
@@ -36,24 +36,60 @@
     ".local/class-skills/missile-history-focused.py": "c4684e6872519f82aad398ce0b9f9701328560f71ef2cf36e7ebb4a910e8af55",
     ".local/class-skills/missile-history-content-build.log": "d482d29d3f5dd92a861847c82c5898ed4f10bcae12c170ee17f731b37b4c575f",
     ".local/class-skills/missile-history-integration-build.log": "bdc17e9e417f82b0baf08e669656b009d1c5e44748637a31b336b0144af8888f",
-    ".local/class-skills/missile-history-v5/focused-checks.log": "16cbc634096b32d7f85914f7a41845836ff96f8e5955ed7ab239acd9245c7010"
+    ".local/class-skills/missile-history-v5/focused-checks.log": "16cbc634096b32d7f85914f7a41845836ff96f8e5955ed7ab239acd9245c7010",
+    "tests/Sanctuary.Integration/PlagueJavelinChecks.cs": "97c1c568e5f49565cf27a7f6bf6b75b8b13f1062cd0a7db9a134c1bd2b229ef4",
+    "tests/check_class_skills.py": "28ab69b6452e9ec92e99dc93d3dd46fe37963098ac5b34320ee569fc38eee1e5",
+    "tools/prepare_wake_of_fire_reference.py": "0d325a48e96480e8ad67b726f1ed2c725a00aea98ebf50b372ab3a4f1eebf6a7",
+    "tools/prepare_remaining_sentry_reference.py": "e073316f81c823966dade34e3c85eddb452472a716c60f1c6ea59ef995026233",
+    "tools/reference/wake-of-fire-preflight.json": "1077beb8399f8c75fd5d988a8aba6482887e027e552a288394a73de67928cf08",
+    "tools/reference/lightning-sentry-preflight.json": "875bd1e2b24078776cf35625526fe42d27458ac87cedbac5a9fe1b14b6c7ee85",
+    "tools/reference/wake-of-fire-actor-native-evidence.json": "c66ce38e63173525820a820161bb4ee80c9d65c501852e1a9845ccbb6e056f67",
+    "docs/skill-mechanical-reference.md": "e56e0405152240827a8d3cf41c162c956c64075c08b31985a84c64896c7a3256",
+    "tools/probe_lightning_sentry_launch_reference.py": "505911a8b2dcaa8bd03a18c592d09a2f277a25293d98244ee66f288c3f882618",
+    "tools/reference/lightning-sentry-launch-source-evidence.json": "7ff75332a8fa18f7eba994b0a6b8b742343ae5846f12ad27d0507adb3489ca82",
+    ".local/class-skills/lightning-sentry-launch-source-probe.cpp": "e761d3f63289bc1e1a1e57d3167310369ece3d53ff66065f2c49d890a7c8be06",
+    ".local/class-skills/lightning-sentry-launch-source-probe.json": "83117bdbd5eb70060b34748785e91f6b933cbade045047ac727368bd5a310c8f",
+    ".local/class-skills/lightning-sentry-launch-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/lightning-sentry-launch-check.log": "2a56ad49bbf2e509e13c0c2cda44a81ec5ebb3f1c4c936af9d3e24a2bb3adeb5",
+    "tools/probe_sentry_death_entry_reference.py": "72398202543bada16ac2267bbf4c41475cc1920ff166c5ea5f150be2fab9534b",
+    "tools/reference/sentry-death-entry-source-evidence.json": "ef1610e26044cca18633a4a48f159adbe86d52497776b155729f823ba4758639",
+    ".local/class-skills/sentry-death-entry-source-probe.cpp": "6bd6cc7f4bb6d899261aa589014b9a8348ed20e1c6b883d531d740ec07a64475",
+    ".local/class-skills/sentry-death-entry-source-probe.json": "9e66e7266ae2d42ade6ec7ee80a7af0ebc48c3acd54a2d839c6e6f2ce702781f",
+    ".local/class-skills/sentry-death-entry-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/sentry-death-entry-check.log": "71635602472182e00ae0a5ee08bf1773131568cf29f09be8e2eeac525af721d2",
+    ".local/class-skills/missile-history-v5-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/missile-history-v5-focused-run.log": "fdbd39d0653180750c993e37b50d9430fbb549f232ac51b55e543faa1c652d6b",
+    ".local/class-skills/missile-history-integration-v5-build.log": "ddbd179dbd0cceb150f304d9065cd22eada731ea1d5e1ec7038ff24ae2d9c46b",
+    ".local/class-skills/missile-history-python-tests.log": "1cf8c4f48452a3b85a3ae32fb4c747b7ac1dba66bb766b530724ef0426bcd4b0",
+    ".local/class-skills/missile-history-named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/missile-history-first-loop.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
+    ".local/class-skills/missile-history-properties.log": "a41f56bf8e7ed75ba5221a283fd26003435718c1839bfce18da43faf515b502f",
+    ".local/class-skills/missile-history-install-run.log": "6186639f9674e604a849cc63887e9e2af90b1d2af5cf31e37a72857c09b63b27",
+    ".local/class-skills/missile-history-installed-server.log": "b10cd80a68877f0410d9161f9d6399fad5f3c3f4547649541b3274f5bd2829ad",
+    ".local/class-skills/missile-history-installed-smoke.log": "785263e4069abb216a6a55d9e3d9b3164e01199069f193e8317f6df82d1b0688",
+    ".local/class-skills/missile-history-client-check.log": "a2bf30c7a55f12dd53563763bbae40e3f5fecf565ac64d6e367c603684e8cbbd",
+    ".local/class-skills/missile-history-v5/native-checks.log": "d1d8046c2290c390b61f207e14647ea28fa765f3ef3f46d9653a10eb8ec86fb8",
+    ".local/class-skills/missile-history-accept.py": "e771f5df83db61850cec6902a04c0a538d09dbbd00c2ce2a82495a7cb5b3bc0b",
+    ".local/class-skills/missile-history-install.py": "70bcf800dcbb6a9d28b75df722ac716c792fc3958926bcdebd8edf001ab4297b",
+    ".local/class-skills/missile-history-finalize.py": "a8c277bb3f51238c3657bbb006822ca596ee1b28940750f51cb54f1ab5584994",
+    ".local/class-skills/missile-history-verify.py": "f201565115349e6eadc4361e600df5e4674e349459c577d2536f02f73052c2d0"
   },
   "protectedInstalledArtifacts": {
-    ".local/class-skills/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
-    ".local/class-skills/integration/Sanctuary.Integration.dll": "0d5a07a35c234f293c7f1740b95a7871a48300b6b142947ca68bbaaa02f63372",
+    ".local/class-skills/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
     "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
     "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
     "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
-    ".local/server/Assemblies/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
     ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
-    ".local/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
     ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
     ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
     "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
-  "updatedAtUtc": "2026-10-25T17:12:18.683823+00:00",
+  "updatedAtUtc": "2026-10-25T17:26:53.026760+00:00",
   "verified": {
     "focusedBoots": 3,
     "actualWorldReloads": 2,
@@ -66,10 +102,16 @@
       "plague-javelin",
       "lightning-fury",
       "wake-fire-actor",
-      "sentry-bolt"
+      "sentry-bolt",
+      "named-gear"
     ],
     "regressionReproducedOnPreviousBuild": true,
-    "zeroWarningErrorBuilds": true
+    "zeroWarningErrorBuilds": true,
+    "originalWorldSmoke": true,
+    "pythonTests": 70,
+    "namedFingerprints": 563,
+    "firstLoopFingerprints": 21,
+    "unchangedNamedDecisions": 573
   },
   "changed": [
     "Stationary Poison Javelin clouds, moving Plague Javelin clouds and all four learned javelin parent paths filter the most recent collider before selecting the next overlapping victim. Lightning Fury source-zero children use the same corrected pre-selection rule. Redundant router history protection remains.",
@@ -81,25 +123,16 @@
     "Both poison cloud forms alternate eligible overlapping victims instead of treating history as a permanent set. Actual saved stationary/moving clouds and Fury child retain history/path/clock across two world restarts and continue on the other victim without resource replay."
   ],
   "limits": [
-    "Full class suite, current runtime audit publication, Python readiness and original-world installation smoke are still pending for this candidate. The installed build and original saves have not been changed.",
+    "Focused/full native suites, current runtime audits, readiness/Python checks and original-world install smoke pass for the shared history correction and prepared Wake backend. Learned Wake waves/player input remain unfinished.",
     "Compiled older finder routines and locally matched current flags support this correction; exact modern room/sector enumeration, geometry/first-contact/global event order and other previously recorded fidelity gaps remain unproven.",
     "No handler count/class completion, deferred item-skill delivery or new final effects/icons are claimed. Wake actor dispatch is still a fixture service and retirement a documented preparation boundary."
   ],
   "fullRegression": {
-    "status": "failed-before-save-health-drift-confirmed",
-    "log": ".local/class-skills/missile-history-full-first-failure.log",
-    "nativeLog": ".local/class-skills/missile-history/native-first-failure.log",
-    "failedCheck": "plague-javelin-reload-check second reload",
-    "diagnosticLog": ".local/class-skills/missile-history-v3/native-checks.log",
-    "observed": {
-      "healthActual256": 12777971,
-      "healthExpected256": 12779411,
-      "mana256": 9233,
-      "quantity": 58,
-      "poisonActual": null,
-      "poisonExpected": null
-    },
-    "finding": "Before-save target health drift was traced to another fixture\u2019s Multiple Shot arrow. Inspection target is now Blessed only between its own real damage checks. A real vulnerable overlapping control still takes travelling-arrow damage."
+    "status": "passed",
+    "boots": 3,
+    "reloads": 2,
+    "log": ".local/class-skills/missile-history-v5-full-run.log",
+    "nativeLog": ".local/class-skills/missile-history-v5/native-checks.log"
   },
   "diagnosticRegression": {
     "focusedWithNamed": {
@@ -119,8 +152,8 @@
       "log": ".local/class-skills/missile-history-v2/focused-checks.log"
     },
     "activeFull": {
-      "status": "running",
-      "session": 77836,
+      "status": "passed",
+      "session": null,
       "directory": ".local/class-skills/missile-history-v5",
       "log": ".local/class-skills/missile-history-v5/native-checks.log",
       "integrationSha256": "89ea9c353615eab19addfb9b6aa325d046ecddda0077fc075a117980f30d038f",
@@ -147,6 +180,43 @@
         "named-gear"
       ],
       "log": ".local/class-skills/missile-history-v5/focused-checks.log"
+    },
+    "priorFullFailure": {
+      "status": "failed-before-save-health-drift-confirmed",
+      "log": ".local/class-skills/missile-history-full-first-failure.log",
+      "nativeLog": ".local/class-skills/missile-history/native-first-failure.log",
+      "failedCheck": "plague-javelin-reload-check second reload",
+      "diagnosticLog": ".local/class-skills/missile-history-v3/native-checks.log",
+      "observed": {
+        "healthActual256": 12777971,
+        "healthExpected256": 12779411,
+        "mana256": 9233,
+        "quantity": 58,
+        "poisonActual": null,
+        "poisonExpected": null
+      },
+      "finding": "Before-save target health drift was traced to another fixture\u2019s Multiple Shot arrow. Inspection target is now Blessed only between its own real damage checks. A real vulnerable overlapping control still takes travelling-arrow damage."
     }
-  }
+  },
+  "previousInstalledArtifactHashes": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "0d5a07a35c234f293c7f1740b95a7871a48300b6b142947ca68bbaaa02f63372",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "backup": ".local/class-skills/pre-missile-history-install",
+  "next": "Continue Lightning Sentry from player271/NPC313/missile526 using the shared creation/sequence/AI backend and its distinct single-bolt launch. Complete generic handler/absolute-aim/factory composition passes9,216contexts; source-zero damage3711contexts/255ranks. Implement its real Size2 moving bolt and fixed10-shot capture, retaining individual retirement/learned-input gates. Wake real maker/waves, four-frame hit-window identity and retirement remain separate. Full regular death-entry composition1152contexts preserves root fire stats, assigned skills and owner/master while registered; outer scheduling/event subscribers/final GUID lifetime remain uncertain. Inferno and Death retain separate controllers; effects/icons are inventoried separately. Keep visual-lifetime taste separate from D2R evidence.",
+  "protectedExistingSavesUnchanged": true,
+  "protectedConfigurationUnchanged": true,
+  "protectedClientUnchanged": true,
+  "installedServerStopped": true
 }

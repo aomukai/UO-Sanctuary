@@ -33,7 +33,7 @@
   "nativePreparationInstalled": true,
   "nativeEvidence": "tools/reference/wake-of-fire-prepared-native-evidence.json",
   "worldActorCandidateEvidence": "tools/reference/wake-of-fire-actor-native-evidence.json",
-  "worldActorCandidateInstalled": false,
+  "worldActorCandidateInstalled": true,
   "shotMode": {
     "wake": "S2",
     "lightning": "seq_chargesentry",

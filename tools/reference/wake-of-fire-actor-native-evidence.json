@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.wakeoffire",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
-  "status": "Prepared world actor staged and focused-verified; learned skill individually deferred at wave and lifecycle gates",
+  "status": "Prepared actor installed with shared history correction; learned Wake individually deferred",
   "verifiedAtUtc": "2026-10-25T16:01:19.643632+00:00",
   "candidateDirectory": ".local/class-skills/wake-world",
   "contentSha256": "fcd6a552ee2fb818b6f826f1950007615ce42e02b86e490f2af3a0c7905f00eb",
@@ -73,7 +73,8 @@
     ],
     "zeroWarningErrorBuilds": true,
     "installedBuildAndSavesUnchanged": true,
-    "cataloguePythonTests": 6
+    "cataloguePythonTests": 6,
+    "originalWorldSmoke": true
   },
   "scope": [
     "Shared stationary sentry creation now explicitly distinguishes Charged Bolt Sentry and Wake. Wake captures its three fire passives, effective actor skill and hard Fire Blast/Inferno skills. Its fixed five shots come from player Param1, not absent calc4. Fire packet reconstruction matches3711 supported complete source cases per boot.",
@@ -85,8 +86,9 @@
     "Dispatch is an explicit orchestration fixture service, not a real maker/wave factory. No Wake wave travel, hit, damage, visual chronology, player casting or actual input is certified.",
     "Four-frame current maker/wave/caster/cast hit-window identity and full retiring actor/death/GUID lifetime remain uncertain. Common death-stat cleanup alone preserves root fire stats and does not establish lifetime.",
     "The terminal fault is a preparation boundary, not finished gameplay behavior. Learned Wake remains disabled. No new handler or class completion certificate.",
-    "This candidate has focused shared-backend regression only. Full class suite, fresh runtime audit exports and installation smoke have not been run for this candidate. Installed prepared-firing evidence remains tied to the preceding build.",
+    "The accepted combined build passes the full class suite, fresh runtime audits and original-world smoke; see currentDeploymentEvidence. This original focused actor proof retains its original assembly/input fingerprints.",
     "Final effects/audio and talent/hotkey icons remain separate identified placeholders."
   ],
-  "next": "Keep the verified actor/backend for the eventual real wave factory. Continue independent Assassin mechanics while the documented Wake lifetime/hit-window gates remain unresolved; Dragon Flight has a separate pinned finisher deferral."
+  "next": "Keep the verified actor/backend for the eventual real wave factory. Continue independent Assassin mechanics while the documented Wake lifetime/hit-window gates remain unresolved; Dragon Flight has a separate pinned finisher deferral.",
+  "currentDeploymentEvidence": "tools/reference/missile-history-native-evidence.json"
 }

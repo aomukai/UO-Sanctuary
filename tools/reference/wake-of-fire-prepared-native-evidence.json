@@ -148,5 +148,6 @@
     ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
   "backup": ".local/class-skills/pre-wake-fire-install",
-  "summary": "Wake of Fire prepared firing is installed as a reusable component. Direct S2 clocks, five-shot AI, hard-synergy/fire-mastery endpoints and relative maker/wave plans pass focused and full suites, each with three boots and two restarts. Snapshot coverage is prepared fixture JSON, not registered actor/projectile persistence. All70 Python tests,563/21 current audit fingerprints and573 unchanged named decisions pass. Existing-world smoke succeeds with saves/config/client bytes unchanged and server stopped. Learned Wake placement, real waves/damage and retirement remain unfinished.156 handlers/Assassin17;no class completion certificate."
+  "summary": "Wake of Fire prepared firing is installed as a reusable component. Direct S2 clocks, five-shot AI, hard-synergy/fire-mastery endpoints and relative maker/wave plans pass focused and full suites, each with three boots and two restarts. Snapshot coverage is prepared fixture JSON, not registered actor/projectile persistence. All70 Python tests,563/21 current audit fingerprints and573 unchanged named decisions pass. Existing-world smoke succeeds with saves/config/client bytes unchanged and server stopped. Learned Wake placement, real waves/damage and retirement remain unfinished.156 handlers/Assassin17;no class completion certificate.",
+  "currentDeploymentEvidence": "tools/reference/missile-history-native-evidence.json"
 }
