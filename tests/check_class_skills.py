@@ -68,7 +68,7 @@ def check():
             (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'corpse-base-life-source-probe.json', folder / 'corpse-base-life-source-probe.json')
-        for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock']:
+        for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock','necro-corpse-explosion']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['assassin-claw-rate','assassin-claw-sequence','fists-fire-conversion','fists-fire-builder','dragon-kick-damage','dragon-kick-packet']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
@@ -192,7 +192,7 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

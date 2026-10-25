@@ -4,14 +4,14 @@
   "handlerAlreadyPresent": true,
   "newHandler": false,
   "baseCommit": "acda820",
-  "updatedAtUtc": "2026-10-25T23:30:55.310770+00:00",
+  "updatedAtUtc": "2026-10-25T23:33:42.524480+00:00",
   "scope": "Uninstalled player74 packet/native correction with shared do55 arithmetic and existing approved spell/defense consumers.",
   "focusedBoots": 3,
   "focusedReloads": 2,
   "sourceProducerContexts": 8640,
   "applicableSourceComparisonsPerBoot": 540,
-  "contentSha256": "2a71e7958124c08c27df8eff3d56650ce928dc025acf615d9416013a40f5dfd6",
-  "integrationSha256": "2055da65a39887badbed2dd37006633dd04d2c198506bbc09e542dacc9541cd1",
+  "contentSha256": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+  "integrationSha256": "2b319d6acdd1b23ca95df484a8b08a96279a960d3ecc84cccad35f9afdfff5b3",
   "inputHashes": {
     "src/Sanctuary.Content/CorpseExplosionCasts.cs": "b0df2775118cdb88a0208c6e1f2a56b7f828a24281afc6ae3810414a0ac59bd5",
     "src/Sanctuary.Content/NecromancerCombat.cs": "4660803e6bb60ca0e9577275549cf930c8060037017f1900c7ccf87df11ec255",
@@ -31,20 +31,31 @@
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603"
   },
   "evidenceHashes": {
-    ".local/class-skills/corpse-cast-focused.py": "56ad35b18b310ca51f06ac89d74cca42e97d8a8d6382074e8fdd71cabd3b123f",
+    ".local/class-skills/corpse-cast-focused.py": "14b85897f8a34b6bcacd6ca472a2b0cbbfb3d8f5e629785d436d2d8dbf91492b",
     ".local/class-skills/corpse-cast-focused-run.log": "85d1e5e4b30e520db718a047f3b3462212b5e69c1c82b04a790a8af63e15e1ac",
-    ".local/class-skills/corpse-explosion-content-build.log": "a0e9803a43ccc26f3245ad350a8bebe399739b42c03823c18effcc425f6ee364",
-    ".local/class-skills/corpse-explosion-integration-build.log": "a603262e2bf7f22a302a72b9604ad98d500770abc5e19370bf08c434a25aa63d",
-    ".local/class-skills/corpse-explosion/corpse-cast-checks.log": "1ea809ef490c49631ef725aa38d9b637c7812ee2c8e18758947dc7bf86ba9c21",
-    ".local/class-skills/necro-corpse-explosion-source-run.log": "7097f6a3729c080d8a69e67f46c6d70f27deec70595553409ec2e7872e75aa52",
-    ".local/class-skills/necro-corpse-explosion-source-probe.cpp": "2e5e54c83165da1dc37e212fc350a2fc2a6a0564789beddfcd10de461d0524b4",
-    ".local/class-skills/necro-corpse-explosion-source-probe.json": "b1537a61ab1a22dc496e5fbc1643a7fd67dfd82b1c4ce704751c20d71cb219da",
-    ".local/class-skills/necro-corpse-explosion-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/corpse-explosion/corpse-cast-raw-stat-fixture.log": "263db00167b2a202ecc908fa726d1f1fe26780acf359d77214a50f6101e3c95c",
-    ".local/class-skills/corpse-explosion/corpse-cast-first-reload-failure.log": "bcf51e69f5108d8cb8584f37dd71bac922c72af6ec18f3b1538d08b5c5a5b81f",
-    ".local/class-skills/corpse-explosion/corpse-cast-item-key-fixture.log": "284721ec722e4c02fe0f80c0d8f942de78eb198d25adc96a4232f7da506e845e",
-    ".local/class-skills/corpse-explosion/corpse-cast-unavailable-item.log": "b353e96222f1278d08b82863b51559f97371ea2ac26d960f2b6ee66ed963c6c7",
-    ".local/class-skills/corpse-explosion/corpse-cast-overlap-fixture.log": "38551963c17f2912e6d9a3f1879a276955863ae49d3b9c7ca8da7aceb110e501"
+    ".local/class-skills/corpse-cast-content-build.log": "2c0956f1be9dfcb74f439804fa3394dfe87ac1a360d5f792520c57badd5830a0",
+    ".local/class-skills/corpse-cast-integration-build.log": "63f106fe0bdd547577346e559b818ae18bd8c0f4364b33ead2b4eaf1703aa7bc",
+    ".local/class-skills/corpse-explosion/corpse-cast-checks.log": "6800241a98eeab6842e40dec496f850a247e22c5d85a97883494f357e9a86d5d",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-explosion-content-build.log": "a0e9803a43ccc26f3245ad350a8bebe399739b42c03823c18effcc425f6ee364",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-explosion-integration-build.log": "a603262e2bf7f22a302a72b9604ad98d500770abc5e19370bf08c434a25aa63d",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-focused.py": "56ad35b18b310ca51f06ac89d74cca42e97d8a8d6382074e8fdd71cabd3b123f",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-focused-run.log": "85d1e5e4b30e520db718a047f3b3462212b5e69c1c82b04a790a8af63e15e1ac",
+    ".local/class-skills/corpse-explosion/worktree-focused/necro-corpse-explosion-source-run.log": "7097f6a3729c080d8a69e67f46c6d70f27deec70595553409ec2e7872e75aa52",
+    ".local/class-skills/corpse-explosion/worktree-focused/necro-corpse-explosion-source-probe.json": "b1537a61ab1a22dc496e5fbc1643a7fd67dfd82b1c4ce704751c20d71cb219da",
+    ".local/class-skills/corpse-explosion/worktree-focused/necro-corpse-explosion-source-probe.cpp": "2e5e54c83165da1dc37e212fc350a2fc2a6a0564789beddfcd10de461d0524b4",
+    ".local/class-skills/corpse-explosion/worktree-focused/necro-corpse-explosion-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-raw-stat-fixture.log": "263db00167b2a202ecc908fa726d1f1fe26780acf359d77214a50f6101e3c95c",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-first-reload-failure.log": "bcf51e69f5108d8cb8584f37dd71bac922c72af6ec18f3b1538d08b5c5a5b81f",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-item-key-fixture.log": "284721ec722e4c02fe0f80c0d8f942de78eb198d25adc96a4232f7da506e845e",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-unavailable-item.log": "b353e96222f1278d08b82863b51559f97371ea2ac26d960f2b6ee66ed963c6c7",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-overlap-fixture.log": "38551963c17f2912e6d9a3f1879a276955863ae49d3b9c7ca8da7aceb110e501",
+    ".local/class-skills/corpse-explosion/worktree-focused/corpse-cast-checks.log": "1ea809ef490c49631ef725aa38d9b637c7812ee2c8e18758947dc7bf86ba9c21",
+    ".local/class-skills/corpse-explosion/worktree-focused/content/Sanctuary.Content.deps.json": "d914ed14c0178fa7189c8d368d978732146bc589c80172d67961e64b0cfced9b",
+    ".local/class-skills/corpse-explosion/worktree-focused/content/Sanctuary.Content.pdb": "81da5d65fe8eb55d08229d92d99611555f6635448fd4787e84ceda58cd95e384",
+    ".local/class-skills/corpse-explosion/worktree-focused/content/Sanctuary.Content.dll": "2a71e7958124c08c27df8eff3d56650ce928dc025acf615d9416013a40f5dfd6",
+    ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
+    ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.pdb": "40a784e37d911f35ba2bb21323469437931cb9d289862a0ccfee013e1c783156",
+    ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.dll": "2055da65a39887badbed2dd37006633dd04d2c198506bbc09e542dacc9541cd1"
   },
   "protectedInstalledArtifacts": {
     "/media/aomukai/FILES/Sanctuary/.local/class-skills/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
@@ -77,5 +88,12 @@
     "Ormus unavailable due deferred skill-rand: use actual Tarnhelm for Necro rank and a separate real Sorceress/Eschuta mastery supplier.",
     "Move the Sorceress control clear of its ally before training; use exact pinned Eschuta source key.",
     "Remove temporary raw-stat inflation from the saved Necromancer: normal class restoration changes that unsupported inspection setup. Exact saved mana/metadata checks are unchanged."
-  ]
+  ],
+  "mainCandidate": {
+    "status": "Main focused3boots/2reloads passed; full regression/current named-item audits running on889frozen inputs.",
+    "fullSession": 95584,
+    "runtimeInputs": 889,
+    "installed": false,
+    "protectedInstalledArtifactsUnchanged": true
+  }
 }
