@@ -4,7 +4,7 @@
   "sourceSkillId": 266,
   "combatAbilityId": 207,
   "handlerEnabled": false,
-  "status": "Blade Fury now distinguishes the Inferno state bit from its timed stat list. The legacy stop intent clears the bit while retaining the lease, next-shot deadline and unrelated flags. An already scheduled do can emit and pay once without rewinding; retained-list reentry can renew below the fresh six-mana threshold without allocation or reactivation. Actual travelling damage and607FP owner mana pass, including two character reloads with an explicit released component fixture. Focused/full suites each pass three boots/two reloads and5400 complete source stop/state/list/resource comparisons per boot, alongside prior960 missile,7200 resource,490 animation and6912+12 channel controls. All70 Python tests, fresh547/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Save/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Learned mode/held input and exact current stop/reentry timing remain pending; Blade Shield stays latest playable.",
+  "status": "Prepared Blade Fury SQ23 server sequence and connected player mode timer are installed. Fresh entry clears flag64 before start; source action/end/stop/renewal and independent lease expiry retain FIFO ordering, including an expiry/action tie. Focused/full suites each pass three boots/two reloads against2880 complete source contexts/95040 frames per boot. Real sockets and natural mode/weapon timers produce paid damaging blades; actual Tarnhelm rank/cost, selected-hand commit, move-away/return, block versus FHR, target movement/deletion, respec and disconnect-before-warmup controls pass. Actual1663FP characters survive reload without transient mode/intent replay. All70 Python tests, fresh549/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Save/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Accepted client reentry/heartbeat/held input and graphical SQ acceptance remain pending; Blade Shield stays latest playable.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -245,7 +245,7 @@
   "required": [
     "Bounded channel and distinct release bit/timed-list components installed:5400 complete release/state/list/resource and6912+12 original channel/expiry cases pass per boot, focused/full3boots/2reloads. Pending released do damages once without rewind, retained-list reentry and actual607FP owner reload verified. No production held-input/channel persistence claim.",
     "Ordinary native resource wrappers installed and7200 source cases verified per boot in focused/full3boot/2reload suites, with explicit current-table rank1 correction and actual saved character/soft-rank/fractional payments. Generic world/used-skill/charges/Blood Mana remain caller scope.",
-    "Native SQ23 profile and shared event planner installed;490 initial/renewal source cases match per boot. Bind original mode entry/rate, seqinput12 held input, event dispatch/state-expiry/cancellation; planner alone is not full input.",
+    "SQ23 server sequence/player timer installed:2880 complete source contexts/95040 FIFO frames per boot, focused/full3boots/2reloads. Entry flag64, initial action/end, stop, callback renewal/expiry, real natural paid damage, interruptions, live rank, target fallback and offline/reload controls pass. Accepted client heartbeat/fresh-reentry/held input and graphical sequence acceptance remain separate.",
     "Dedicated player capture and saved size1/no-pierce flight installed;960 source creator comparisons, actual gear, natural timer damage, lifecycle and two saved-flight continuations pass focused/full3boot/2reload suites. Current mastery-AR/slow rounding and broad property/return-fire/credit/client acceptance remain scoped.",
     "Verify L/R/quick input, target death/cached aim, turning/movement/weapon-loss interruption, active resources/leases/flight reload, natural emission and installed-world smoke before enabling the handler."
   ],
@@ -317,11 +317,19 @@
     "releaseFinding": "Complete source stop0x12/state/list/resource composition and focused/full native suites now verify distinct cleared Inferno bit and retained timed list. The correction is installed; source timing is not a current client release certificate.",
     "modeEntryFlags": "Reviewed older XY/ID mode entry clears server-do flag64 before invoking the start wrapper. The bounded channel record defaults to64; production event dispatch must compose that caller step, rather than skipping its first action because it reused the fixture default.",
     "rewindCallerScope": "Fresh sequence initialization resets the epoch. Do not replay that initialization for an active-list reentry without proving the real caller path: immediate renewal can address a negative sequence index, which the native planner explicitly rejects. No padding or guessed client frame is approved.",
-    "serverSequence": "Prepared SQ23 mode/event component and player timer are being verified. Explicit accepted start callbacks are separate from the unresolved client heartbeat/fresh-reentry gate. Source matrices include warmup, release, neutral end, stale removal and expiry/action FIFO ties."
+    "serverSequence": "Prepared SQ23 server event component and connected player timer are installed and focused/full verified. Explicit accepted callbacks remain separate from the unresolved client heartbeat/fresh-reentry gate. Source matrices include warmup, release, neutral end, stale removal and expiry/action FIFO ties."
   },
   "releaseNativeEvidence": "tools/reference/blade-fury-release-native-evidence.json",
   "releaseSourceEvidence": "tools/reference/blade-fury-release-source-evidence.json",
   "releaseComponentInstalled": true,
   "sequenceSourceEvidence": "tools/reference/blade-fury-sequence-source-evidence.json",
-  "sequenceNativeEvidence": "tools/reference/blade-fury-sequence-native-evidence.json"
+  "sequenceNativeEvidence": "tools/reference/blade-fury-sequence-native-evidence.json",
+  "sequenceComponentsInstalled": true,
+  "deferredNonblocking": {
+    "branch": "assassin.bladefury client/held frontend",
+    "reason": "Server fresh mode/action/end/expiry and explicit start/stop callbacks are verified. Current client heartbeat/reentry and full fresh player mode entry over a surviving lease are not established; resetting the sequence and guessing the gate can produce an early shot or negative rewind.",
+    "nextUnaffectedSkill": "assassin.tigerstrike",
+    "optionalReleaseObservationPending": true,
+    "backendPreserved": true
+  }
 }

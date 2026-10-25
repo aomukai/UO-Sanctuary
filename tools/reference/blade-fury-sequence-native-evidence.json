@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
-  "fullPending": true,
-  "status": "Source2880/95040 and connected focused3boots/2reloads pass; full regression pending. Installedc78e655 remains unchanged.",
+  "fullPending": false,
+  "status": "Prepared Blade Fury SQ23 server sequence and connected player mode timer are installed. Fresh entry clears flag64 before start; source action/end/stop/renewal and independent lease expiry retain FIFO ordering, including an expiry/action tie. Focused/full suites each pass three boots/two reloads against2880 complete source contexts/95040 frames per boot. Real sockets and natural mode/weapon timers produce paid damaging blades; actual Tarnhelm rank/cost, selected-hand commit, move-away/return, block versus FHR, target movement/deletion, respec and disconnect-before-warmup controls pass. Actual1663FP characters survive reload without transient mode/intent replay. All70 Python tests, fresh549/21 audit fingerprints,573 unchanged named decisions and original-world installed smoke pass. Save/config/client bytes unchanged; server stopped. Total handlers remain150, Assassin11. Accepted client reentry/heartbeat/held input and graphical SQ acceptance remain pending; Blade Shield stays latest playable.",
   "sourceEvidence": "tools/reference/blade-fury-sequence-source-evidence.json",
   "components": [
     "src/Sanctuary.Content/BladeFurySequence.cs",
@@ -22,9 +22,9 @@
     "kernelFocusedBoots": 3,
     "kernelFocusedReloads": 2,
     "focusedBoots": 3,
-    "fullBoots": 0,
+    "fullBoots": 3,
     "worldReloadsPerSuite": 2,
-    "fullRegressionComplete": false,
+    "fullRegressionComplete": true,
     "connectedPlayerModeTimer": true,
     "naturalPaidDamage": true,
     "productionModePersistence": false,
@@ -43,7 +43,19 @@
     "actualTargetRequeryAndDeletedFallback": true,
     "actualRespecClearsMode": true,
     "disconnectBeforeWarmupNoAction": true,
-    "stopAfterNeutralClearsBit": true
+    "stopAfterNeutralClearsBit": true,
+    "pythonTests": 70,
+    "contentAssemblySha256": "05e34f3afbaf1e4884459c8dad6d65b583dc0d3a694a9538b2f85740a402cc02",
+    "integrationAssemblySha256": "656a8d5aca6cc85cb11100c7a48cbe7617e625dc41dd02e0d2aac8457c25e4a9",
+    "namedFingerprints": 549,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573,
+    "existingWorldSmoke": true,
+    "existingSaveBytesUnchanged": true,
+    "deathCleanupWired": true,
+    "wardrobeCleanupWired": true,
+    "deathWithPreparedModeDedicatedTest": false,
+    "wardrobeWithPreparedModeDedicatedTest": false
   },
   "limits": [
     "The per-owner source event container is a declared FIFO service. Full game allocator/executor, cross-owner dispatch, network packet ordering and current executable timing are not established by the source matrix.",
@@ -60,11 +72,25 @@
     "early-callback-assertion-failure": ".local/class-skills/blade-fury-sequence-early-callback-assertion-failure.log",
     "early-callback-assertion-failure-run": ".local/class-skills/blade-fury-sequence-early-callback-assertion-failure-run.log",
     "hand-commit-failure": ".local/class-skills/blade-fury-sequence-hand-commit-failure.log",
-    "hand-commit-failure-run": ".local/class-skills/blade-fury-sequence-hand-commit-failure-run.log"
+    "hand-commit-failure-run": ".local/class-skills/blade-fury-sequence-hand-commit-failure-run.log",
+    "combined": ".local/class-skills/blade-fury-sequence-combined.log",
+    "full-suite-run": ".local/class-skills/blade-fury-sequence-full-suite-run.log",
+    "python-tests": ".local/class-skills/blade-fury-sequence-python-tests.log",
+    "named-readiness": ".local/class-skills/blade-fury-sequence-named-readiness.log",
+    "first-loop": ".local/class-skills/blade-fury-sequence-first-loop.log",
+    "properties": ".local/class-skills/blade-fury-sequence-properties.log",
+    "installed-server": ".local/class-skills/blade-fury-sequence-installed-server.log",
+    "installed-smoke": ".local/class-skills/blade-fury-sequence-installed-smoke.log",
+    "client-check": ".local/class-skills/blade-fury-sequence-client-check.log",
+    "reference-check": ".local/class-skills/blade-fury-sequence-reference-check.log",
+    "generated-check": ".local/class-skills/blade-fury-sequence-generated-check.log",
+    "roadmap-check": ".local/class-skills/blade-fury-sequence-roadmap-check.log",
+    "install-run": ".local/class-skills/blade-fury-sequence-install-run.log"
   },
   "resolvedDuringPreparation": {
     "earlyCallbackAssertion": "The first tie assertion incorrectly expected zero total blades, ignoring the earlier explicit accepted callback shot. The external source trace already matched; assertion corrected to forbid an additional expired-frame blade. Initial log retained.",
-    "atomicSelectedWeaponCommit": "Deferred equip callbacks did not observe the newly committed selected weapon. Added a prepared-mode check after DualEquip refresh/commit; corrected live rerun pending. Corrected connected focused3boots/2reloads pass.",
+    "atomicSelectedWeaponCommit": "Deferred callbacks did not observe the committed selected weapon. Added prepared-mode notification after DualEquip refresh/commit; actual claw equip now interrupts while retaining the lease in focused/full3boot/2reload suites. Initial log retained.",
     "neutralStopIntent": "A stop intent can clear the bit after animation end while the independent lease remains. Prepared adapter accepts that neutral-phase stop; dedicated control added."
-  }
+  },
+  "next": "Continue unaffected Assassin martial arts, beginning with Tiger Strike and the shared charge-state/melee consumer. Blade Fury client reentry/heartbeat/held input is individually deferred: source server components accept explicit intents, but the complete current client loop and fresh player-mode reentry over a surviving lease are not established. Keep its optional release observation pending and nonblocking; return to its frontend without discarding the verified backend. Do not enable a guessed gate or release tail. All remaining class skills, Warlock/Witch and separate assets remain in scope."
 }
