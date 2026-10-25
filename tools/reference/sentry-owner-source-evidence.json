@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "nativePolicyChanged": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/AI/AiGeneral.cpp": "a18b1c75102366b930e27818205e1c42ca1a0bdb4812cd526683f626eb9bdd62",
+    "source/D2Game/src/PLAYER/PlayerPets.cpp": "42d57fa071a34dd0faa881a8194a405570b3696a1c50c377660b4fe93d4d8dd1",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "compiledRoutineHashes": {
+    "SUNIT_GetUnitList": "04a1df050a9563226f253099751db9e5ce2bebae629e7c719fc951597eba6bd7",
+    "SUNIT_GetServerUnit": "53ecb549e0e4317024483d797b104523b4954633cbd37e7d1aff8fc7d9a9591a",
+    "SUNIT_GetOwner": "3640cd8797e7b59df0d1ffb1b1822adb1141e55d330bbae228413dc54f0e6555",
+    "AIGENERAL_GetMinionOwner": "7e5de57f9123a92bb332a73f61e1e4d40d77879ee62ecc14dd90673a27aafadb",
+    "sub_6FCBD900": "3d210ccd4d501a522c16e84db9c77a5f88e564ed1ef364dfb341dc98c18cd022",
+    "sub_6FC7CF50": "ad2a6722c7e63de2c4c313b91858b824722d7e5df2a260fe4bb5335f2b32a43e",
+    "sub_6FC641D0": "8b2fbb742497a99f4b9eedcc47b9cbef42bf092fe0ddf97d6d4e263beb9ef3ad"
+  },
+  "reviewedNotCompiled": {
+    "SUNITDMG_KillMonster": "3d63619dde6812128287c249d535f24fb59749f9104298b0faee9f663e5c39ce",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e"
+  },
+  "fixture": {
+    "path": ".local/class-skills/sentry-owner-source-probe.json",
+    "sha256": "66f9cc0b209c930434e22e8c557f84561eb84dd7889a724f67aab84968152f98",
+    "cases": 1728
+  },
+  "established": [
+    "Full typed GUID list/getter and missile owner lookup do not filter actor death mode. Full minion-owner lookup/allegiance resolve a registered player owner without an alive check; player and actor mode1/0/12 controls preserve this routing.",
+    "Complete pet removal sends already-deleted actors to explicit RemoveUnit; otherwise marks NOXP and calls kill for killable row or death mode for a nonkillable control. Full death-end callback selects dead mode12 and triggers death, without itself removing a regular SplEndDeath0 unit.",
+    "Under the declared registration-preserving kill/mode service, a retained dead actor still resolves as missile owner and can pass allegiance; an actually removed registry actor cannot. This establishes why death and deletion must not be conflated, NOT how long the real actor stays registered."
+  ],
+  "limits": [
+    "KillMonster, full death-mode entry/stat cleanup, RemoveUnit unlink, event subscribers and client synchronization are explicit services. Complete KillMonster/CalculateTotalDamage/ExecuteEvents/ExecuteMissileDamage are hash-pinned reviewed bodies, not compiled here. Health damage from a dead actor, corpse/GUID retention duration, current executable behavior and native policy remain unverified.",
+    "Alignment comparison and AI-control accessor are declared services; typed registry and minion/master lookup execute fully. The unbound master control leaves declared actor alignment in force. PvP/owner cycles, all unit kinds and arbitrary registry corruption are outside scope.",
+    "Synthetic ABI flag positions isolate control flow. This is not a binary layout, whole engine or current D2R corpse certificate. Existing native living-actor damage gate is unchanged; do not infer an immortal damage proxy or replace missing actor ownership with the player."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr required",
+  "pinnedRegularTrapRow": {
+    "path": "tools/reference/d2r-named-equipment/json/monstats.json",
+    "sha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "id": "chargeboltsentry",
+    "killable": 1,
+    "SplEndDeath": 0
+  },
+  "nonblocking": true,
+  "next": "Compose the full damage flags/events/health path for a retained dead owner and establish actual corpse/GUID lifetime before changing the native living-actor gate."
+}

@@ -1,11 +1,11 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
   "unitPathBoundInCandidate": true,
-  "fullPending": true,
-  "status": "Charged Bolt Sentry has a bound stationary unit-target reachability helper, prepared and passing the focused three-boot/two-reload suite. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. Full regression and installation of this helper are pending; the installed150-handler build remains the verified internal cast-release checkpoint at96aa73e. Learned Sentry input remains disabled.",
+  "fullPending": false,
+  "status": "Charged Bolt Sentry has an installed stationary unit-target reachability helper, verified by both focused and full three-boot/two-reload suites. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
   "sourceEvidence": "tools/reference/sentry-unit-path-source-evidence.json",
   "previousCastEvidence": "tools/reference/sentry-cast-native-evidence.json",
   "installedBaselineCommit": "96aa73e",
@@ -26,7 +26,15 @@
     "restoredControllerLowThreatWindup": true,
     "shippedThreatProfilesUnchanged": true,
     "learnedInput": false,
-    "fullRegressionComplete": false
+    "fullRegressionComplete": true,
+    "pythonTests": 70,
+    "namedFingerprints": 541,
+    "firstLoopFingerprints": 21,
+    "namedDecisionsUnchanged": 573,
+    "fullBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "contentAssemblySha256": "cb8b127c4cba4309a456a88d2097342c60a1abcb5e26e9c916d179e243bff751",
+    "integrationAssemblySha256": "764d68f598e00ed71cc9adbb0196288675043eb4ae53d682bb9c593e2506eb3f"
   },
   "limits": [
     "The bounded source composition uses a reconstructed general initializer explicitly marked BROKEN upstream. Current3.3 executable paths/rooms, arbitrary moving player/door/missile targets, masks, lead, direction offsets and unrelated unit-path contexts are not certified. The native world adapter retains existing UO map/height/footprint/LOS projection rather than claiming native D2 room geometry.",
@@ -45,6 +53,31 @@
     "ownerReentryRun": ".local/class-skills/sentry-unit-path-owner-reentry-run.log",
     "sourceCheck": ".local/class-skills/sentry-unit-path-source-check.log",
     "contentBuild": ".local/class-skills/sentry-unit-path-content-build.log",
-    "integrationBuild": ".local/class-skills/sentry-unit-path-integration-build.log"
-  }
+    "integrationBuild": ".local/class-skills/sentry-unit-path-integration-build.log",
+    "source-check": ".local/class-skills/sentry-unit-path-source-check.log",
+    "focused-run": ".local/class-skills/sentry-unit-path-focused-run.log",
+    "combined": ".local/class-skills/sentry-unit-path-combined.log",
+    "full-suite-run": ".local/class-skills/sentry-unit-path-full-suite-run.log",
+    "content-build": ".local/class-skills/sentry-unit-path-content-build.log",
+    "integration-build": ".local/class-skills/sentry-unit-path-integration-build.log",
+    "python-tests": ".local/class-skills/sentry-unit-path-python-tests.log",
+    "named-readiness": ".local/class-skills/sentry-unit-path-named-readiness.log",
+    "first-loop": ".local/class-skills/sentry-unit-path-first-loop.log",
+    "properties": ".local/class-skills/sentry-unit-path-properties.log",
+    "installed-server": ".local/class-skills/sentry-unit-path-installed-server.log",
+    "installed-smoke": ".local/class-skills/sentry-unit-path-installed-smoke.log",
+    "client-check": ".local/class-skills/sentry-unit-path-client-check.log",
+    "reference-check": ".local/class-skills/sentry-unit-path-reference-check.log",
+    "generated-check": ".local/class-skills/sentry-unit-path-generated-check.log",
+    "roadmap-check": ".local/class-skills/sentry-unit-path-roadmap-check.log",
+    "install-run": ".local/class-skills/sentry-unit-path-install-run.log",
+    "owner-reentry-failure": ".local/class-skills/sentry-unit-path-owner-reentry-failure.log",
+    "owner-reentry-run": ".local/class-skills/sentry-unit-path-owner-reentry-run.log"
+  },
+  "ownerRoutingPreparation": "tools/reference/sentry-owner-source-evidence.json",
+  "next": [
+    "Resolve source corpse/GUID retention and already-released missile allegiance/damage/events after trap exhaustion or replacement before changing native living-actor ownership gates.",
+    "Resolve exact source/current charged-bolt motion differences beyond the saved native-shared-chargedbolt-v1 adapter, reusing existing missile kernels only within their verified contracts.",
+    "Keep exact spawn-search fallback/overlap, current lost-mana/rank1 edge and cached S1/S2 timing explicitly uncertain. Complete learned right/quick scheduling/cancellation/once-only payment and remaining combat/lifecycle acceptance before enabling Sentry input."
+  ]
 }

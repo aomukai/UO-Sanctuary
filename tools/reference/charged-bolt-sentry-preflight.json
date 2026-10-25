@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
   "handlerEnabled": false,
-  "status": "An unregistered Charged Bolt Sentry do45 release adapter is installed and passes both focused and full three-boot/two-reload suites. It reuses shared Assassin S2/IAS timing and the existing Decoy free-cell placement/resource contract, creates the real saved S1 trap at the resolved point, and pays current-table13mana once after successful creation. Invalid or obstructed placement and insufficient mana do not debit or alter the trap roster. A successful sixth cast replaces the oldest shared trap; no invented local delay is added. Present targets override retained aim, deleted targets retain it, and cross-map targets are refused. Actual paid actors retain cast rank after gear removal, S1 phase/clock, FP256 injury and fractional mana through two world reloads. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
+  "status": "Charged Bolt Sentry has an installed stationary unit-target reachability helper, verified by both focused and full three-boot/two-reload suites. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
   "sourceSkill": {
     "skill": "Charged Bolt Sentry",
     "*Id": 261,
@@ -252,9 +252,9 @@
     }
   ],
   "required": [
-    "Bind the low-threat unit-target path using the4032-case complete setter/initializer/alternative composition and existing toward kernel. Retain source type2 flags and aim/type consequences; keep its cleared-old-target-pointer quirk separate from current executable acceptance.",
     "Resolve source corpse/GUID retention and already-released missile allegiance/damage/events after trap exhaustion or replacement before changing native living-actor ownership gates.",
-    "Keep exact spawn-search fallback/overlap, current lost-mana/rank1 edge, cached S1/S2 timing and motion differences explicitly uncertain. Complete learned right/quick scheduling/cancellation/once-only payment and remaining combat/lifecycle acceptance before enabling Sentry input."
+    "Resolve exact source/current charged-bolt motion differences beyond the saved native-shared-chargedbolt-v1 adapter, reusing existing missile kernels only within their verified contracts.",
+    "Keep exact spawn-search fallback/overlap, current lost-mana/rank1 edge and cached S1/S2 timing explicitly uncertain. Complete learned right/quick scheduling/cancellation/once-only payment and remaining combat/lifecycle acceptance before enabling Sentry input."
   ],
   "uncertain": [
     "The source-compared timing uses cached LGS1HTH15frames/speed256/no events, whose acquisition provenance is incomplete. The saved cached-lg-s1-15-v1 marker identifies this adapter; current3.3.93847 animation/rate/client acceptance is not certified. Pinned current MonStats/MonStats2 still govern the nonmoving size0 S1 and generic mode/end context.",
@@ -269,7 +269,7 @@
   "compiledAiEvidence": "tools/reference/sentry-ai-source-evidence.json",
   "compiledAiCases": 12288,
   "componentsInstalled": true,
-  "nativeEvidence": "tools/reference/sentry-cast-native-evidence.json",
+  "nativeEvidence": "tools/reference/sentry-unit-path-native-evidence.json",
   "observations": "tools/reference/sentry-observations.json",
   "compiledSourceEvidence": {
     "ai": "tools/reference/sentry-ai-source-evidence.json",
@@ -324,9 +324,10 @@
   "castReleaseInstalled": true,
   "preparedCastStatus": "An unregistered Charged Bolt Sentry do45 release adapter is installed and passes both focused and full three-boot/two-reload suites. It reuses shared Assassin S2/IAS timing and the existing Decoy free-cell placement/resource contract, creates the real saved S1 trap at the resolved point, and pays current-table13mana once after successful creation. Invalid or obstructed placement and insufficient mana do not debit or alter the trap roster. A successful sixth cast replaces the oldest shared trap; no invented local delay is added. Present targets override retained aim, deleted targets retain it, and cross-map targets are refused. Actual paid actors retain cast rank after gear removal, S1 phase/clock, FP256 injury and fractional mana through two world reloads. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
   "unitPathSourceEvidence": "tools/reference/sentry-unit-path-source-evidence.json",
-  "unitPathNativeBound": false,
+  "unitPathNativeBound": true,
   "unitPathCandidateEvidence": "tools/reference/sentry-unit-path-native-evidence.json",
   "unitPathBoundInCandidate": true,
-  "unitPathInstalled": false,
-  "preparedUnitPathStatus": "Charged Bolt Sentry has a bound stationary unit-target reachability helper, prepared and passing the focused three-boot/two-reload suite. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. Full regression and installation of this helper are pending; the installed150-handler build remains the verified internal cast-release checkpoint at96aa73e. Learned Sentry input remains disabled."
+  "unitPathInstalled": true,
+  "preparedUnitPathStatus": "Charged Bolt Sentry has an installed stationary unit-target reachability helper, verified by both focused and full three-boot/two-reload suites. It reuses the existing toward/path and native collision adapters within the source-compared zero-lead, pattern0/mask0x3c01, temporary path2 context. All4032 complete alternative/setter/unit-initializer compositions and27200 ordered collision queries match. Either-zero unit targets are rejected before collision. Actual mapped scenes verify reachable primary retention, blocked-primary/close-low-threat choice, callback7 primary fallback, the distant-low-threat guard and owner-facet independence. Querying preserves the saved actor pose/aim/control/RNG/deadline, FP256 injury and owner mana. The actual low-threat scene survives two world reloads; the restored controller selects and winds up on the low-threat target without a path fault. All70 Python tests, current runtime/property audits and the original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Learned Sentry input remains disabled.",
+  "ownerRoutingSourceEvidence": "tools/reference/sentry-owner-source-evidence.json"
 }
