@@ -1,0 +1,92 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "installed": false,
+  "handlerEnabled": false,
+  "status": "Prepared world actor staged and focused-verified; learned skill individually deferred at wave and lifecycle gates",
+  "verifiedAtUtc": "2026-10-25T16:01:19.643632+00:00",
+  "candidateDirectory": ".local/class-skills/wake-world",
+  "contentSha256": "fcd6a552ee2fb818b6f826f1950007615ce42e02b86e490f2af3a0c7905f00eb",
+  "integrationSha256": "bc74e8d97a3d3170f5e7190efa77a5cd419bc1822a6a8f4f26960fe06114a0a6",
+  "inputHashes": {
+    "src/Sanctuary.Content/AssassinSentryCreation.cs": "215946caa7b1704c00e0157b5bba5ff87cf7df57ef9556f544ce49f5abf47a54",
+    "src/Sanctuary.Content/AssassinSentryBody.cs": "6468dc376604de8f701728e84fea11d6360844997b6a87cc74c7f7beecec2ff5",
+    "src/Sanctuary.Content/AssassinWakeFire.cs": "4a93b789d916a0712e6704073aa24f3820e8eb04ac437b4280e12ad97b5ffba5",
+    "tests/Sanctuary.Integration/WakeFireActorChecks.cs": "512c02dbb6655fff76b199a103f579895cbe1546101f22efcd6edae5fdfe6164",
+    "tests/check_class_skills.py": "3eac5fb8e5b978c1ee30cd2af71983f35c044baf4856df13a8f96470b4ad7061",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "data/Sanctuary/Balance/necromancer-summons.json": "5b915d8629b6f43c4c6757dc9cc16d9a7b62ccb5644fea4e846377ee74362114",
+    "data/Sanctuary/Balance/summon-level-stats.json": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b"
+  },
+  "fixedEvidenceHashes": {
+    ".local/class-skills/wake-world-content-build.log": "6bfb2a19e8446b8e577798ba5cfd09b630ff64e40ca7e525fba919202a3c6f83",
+    ".local/class-skills/wake-world-integration-build.log": "e29f5c35f5cedb61fd2bdc07a52332eb30ce817e8797a0d121f78f8ceddb1301",
+    ".local/class-skills/wake-world-focused.log": "8dc18821922afeb7f80107edc66a9ad5e094665c4893bff0e02167304e4307a4",
+    ".local/class-skills/wake-world-focused-run.log": "36f7a5d513f73428107a08dbe7569bf9cd60274f509b762b031828da1caa1602",
+    ".local/class-skills/wake-world-focused.py": "7dc32a806c172c0c3f366da01405e0cdc2fa12ea2eac2db92d0c4e288f1cd1d5",
+    "tools/reference/wake-of-fire-damage-source-evidence.json": "ed7497e8ba0b0f47386c91db3443c2ddc0321708188e9c906425ae3adce78914",
+    "tools/reference/wake-of-fire-clock-source-evidence.json": "c53b79e325b640f46fee7535ed98fbd69e1e0332f13ec0975ac1234f3a15044c",
+    "tools/reference/wake-of-fire-factory-source-evidence.json": "040b1388a9c4a3e9b90f30bf16f8ca607474480cc89900e59fa1878bb3dc040a",
+    "tools/reference/sentry-death-stats-source-evidence.json": "9813d4a61bbd045bd84392ef08ad504feebca8717b92320d52451b9b0d4b7bb0",
+    "tools/reference/wake-of-fire-collision-source-evidence.json": "f1d1a7153cfbf5178d3e6055a2d5cc97f048def5b6f631128fe37076498cf502",
+    ".local/class-skills/wake-world-python-tests.log": "e3146d14cede1a336a821dc59cd46c81b9daacb9fe82b7e45b887032ffd663a8"
+  },
+  "protectedInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "0d5a07a35c234f293c7f1740b95a7871a48300b6b142947ca68bbaaa02f63372",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "1c51af8f65b7826065f18e51c79b5daa45bb2e233e45a8000f6781ce8e5ceb91",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "sourceEvidence": [
+    "tools/reference/wake-of-fire-damage-source-evidence.json",
+    "tools/reference/wake-of-fire-clock-source-evidence.json",
+    "tools/reference/wake-of-fire-factory-source-evidence.json",
+    "tools/reference/sentry-death-stats-source-evidence.json",
+    "tools/reference/wake-of-fire-collision-source-evidence.json"
+  ],
+  "verified": {
+    "boots": 3,
+    "worldRestarts": 2,
+    "worldActorPersistence": true,
+    "preparedDispatchOnly": true,
+    "sourceDamageComparisonsPerBoot": 3711,
+    "retainedChecks": [
+      "wake-fire-prepared",
+      "sentry-component",
+      "sentry-actor",
+      "sentry-target",
+      "sentry-aim",
+      "sentry-unit-path",
+      "sentry-bolt",
+      "sentry-emergence",
+      "sentry-cast",
+      "wake-fire-actor"
+    ],
+    "zeroWarningErrorBuilds": true,
+    "installedBuildAndSavesUnchanged": true,
+    "cataloguePythonTests": 6
+  },
+  "scope": [
+    "Shared stationary sentry creation now explicitly distinguishes Charged Bolt Sentry and Wake. Wake captures its three fire passives, effective actor skill and hard Fire Blast/Inferno skills. Its fixed five shots come from player Param1, not absent calc4. Fire packet reconstruction matches3711 supported complete source cases per boot.",
+    "Actual world bodies preserve separate S1/direct-S2 clocks through two native world restarts. Explicit fixture dispatch occurs at26, followed by end27/next42, and final shot precedes exhausted exit111. Existing CBS sequence controller, real bolt, target/path, aim, emergence, placement/cast and source components retain focused checks.",
+    "Shared mixed Blade/CBS/Wake FIFO cap5, owner identity, stationary/no-footprint body, source bases, old-facet retention, owner-facet difficulty, fractional injury and offline no-replay/no-refund pass. Missing creation discriminator in legacy JSON defaults to CBS.",
+    "Unconnected Wake factory refuses to claim a dispatch. Prepared retirement is held with an explicit controller fault rather than inventing death/removal timing. Owner death removes the prepared actor through the shared trap roster."
+  ],
+  "limits": [
+    "Dispatch is an explicit orchestration fixture service, not a real maker/wave factory. No Wake wave travel, hit, damage, visual chronology, player casting or actual input is certified.",
+    "Four-frame current maker/wave/caster/cast hit-window identity and full retiring actor/death/GUID lifetime remain uncertain. Common death-stat cleanup alone preserves root fire stats and does not establish lifetime.",
+    "The terminal fault is a preparation boundary, not finished gameplay behavior. Learned Wake remains disabled. No new handler or class completion certificate.",
+    "This candidate has focused shared-backend regression only. Full class suite, fresh runtime audit exports and installation smoke have not been run for this candidate. Installed prepared-firing evidence remains tied to the preceding build.",
+    "Final effects/audio and talent/hotkey icons remain separate identified placeholders."
+  ],
+  "next": "Keep the verified actor/backend for the eventual real wave factory. Continue independent Assassin mechanics while the documented Wake lifetime/hit-window gates remain unresolved; Dragon Flight has a separate pinned finisher deferral."
+}

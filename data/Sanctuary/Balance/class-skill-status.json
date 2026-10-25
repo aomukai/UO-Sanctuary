@@ -2088,10 +2088,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 275,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Individually deferred finisher action.46current local fields and two pinned older bodies are inspected in dragon-flight-preflight.json; no native action is claimed. Modern charged hit/block/dodge and consume-one ordering share the other Dragon finisher gap. Distinct sequence21, teleport landing/permission, two-phase cancellation and failed-start/landing/contact mana paths require composition. Do not substitute an instantaneous teleport plus ordinary weapon attack. Continue independent skills."
     },
     {
       "talentId": "assassin.phoenixstrike",
@@ -2264,10 +2264,10 @@
       "characterClass": "Assassin",
       "tree": "Traps",
       "sourceId": 262,
-      "implementation": "pending",
+      "implementation": "blocked",
       "verification": "not-started",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared firing plans are installed; a separate saved world actor is staged and focused-verified across3boots/2actual world reloads, with fire-passive/hard-synergy capture, direct S2, mixed cap5, offline cancellation and owner-facet rescaling. See wake-of-fire-actor-native-evidence.json for exact tested hashes. Learned skill is individually deferred: real maker/wave factory, current four-frame hit-window identity and full retirement/death/GUID chronology remain unsupported or uncertain. Prepared terminal fault and explicit fixture dispatch are not completed gameplay. Continue independent skills; final effects/icons are separate."
     },
     {
       "talentId": "assassin.bladefury",

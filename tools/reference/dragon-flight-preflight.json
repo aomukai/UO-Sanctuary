@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragonflight",
+  "sourceId": 275,
+  "status": "Individually deferred; current local table corroborated, older bodies inspected only",
+  "handlerEnabled": false,
+  "installed": false,
+  "source": {
+    "cachedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "localSkills": {
+      "path": ".local/research/d2r-3.3.93847/skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "fieldsCorroborated": 46
+    },
+    "skill": {
+      "skill": "Dragon Flight",
+      "charclass": "ass",
+      "skilldesc": "dragon flight",
+      "srvstfunc": 12,
+      "srvdofunc": 52,
+      "aurarangecalc": "par7",
+      "stsuccessonly": 1,
+      "stsound": "sorceress_teleport",
+      "tgtoverlay": "dragonflight",
+      "cltstfunc": 5,
+      "warp": 1,
+      "enhanceable": 1,
+      "attackrank": 0,
+      "range": "rng",
+      "weapsel": 4,
+      "anim": "SQ",
+      "seqtrans": "A1",
+      "monanim": "xx",
+      "seqnum": 21,
+      "SearchEnemyNear": 1,
+      "AttackNoMana": 1,
+      "reqlevel": 24,
+      "maxlvl": 20,
+      "reqskill1": "Dragon Tail",
+      "leftskill": 1,
+      "rightskill": 1,
+      "minmana": 1,
+      "manashift": 8,
+      "mana": 15,
+      "lvlmana": 0,
+      "finishing": 1,
+      "prgchargestocast": 0,
+      "prgchargesconsumed": 1,
+      "calc1": "ln12",
+      "Param1": 100,
+      "Param2": 35,
+      "Param7": 38,
+      "Param8": 1,
+      "InGame": 1,
+      "ToHit": 60,
+      "LevToHit": 25,
+      "Kick": 1,
+      "HitShift": 8,
+      "aitype": 13,
+      "cost mult": 768,
+      "cost add": 32000
+    }
+  },
+  "legacyInspection": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "routines": [
+      {
+        "path": "source/D2Game/src/SKILLS/SkillSor.cpp",
+        "symbol": "SKILLS_SrvSt12_Telekinesis_DragonFlight",
+        "sourceSha256": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+        "routineSha256": "19b1c797b2abe12f37b937947f8d85720a946f464a0d76c2b801ca1b006f7d49"
+      },
+      {
+        "path": "source/D2Game/src/SKILLS/SkillAss.cpp",
+        "symbol": "SKILLS_SrvDo052_DragonFlight",
+        "sourceSha256": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+        "routineSha256": "15ec9e952aba34799e7ea01547faeecfd63323927a2825d520689673b9196aa3"
+      }
+    ],
+    "executed": false,
+    "scope": "Static full-body inspection, not a compiled differential or current executable certificate"
+  },
+  "established": [
+    "Current row275 uses start12/do52, sequence21 with A1 transition, Kick1, target leeway SearchEnemyNear1, both mouse bindings and low-mana ordinary attack fallback. It has no localdelay field in the pinned row.",
+    "Current constants are15mana,38source-unit target range, damage100+35*(rank-1), AR60+25*(rank-1), one charge consumed and charged-only always-hit Param8=1.",
+    "Inspected old start12 requires a target and row, checks squared range inclusively and rejects invalid/town player or monster targets through existing target services.",
+    "Inspected old do52 has two distinct sequence-parity branches: even parity resolves a teleport destination and level/collision permission; odd parity prepares kick AR/result/percentage, allocates combat, processes progressive effects and drains durability. Do not replace this with an instantaneous teleport plus ordinary weapon attack."
+  ],
+  "reuse": [
+    "Prepared body/boot kick packets and independent martial charge families; ordinary weapon physical and critical are excluded from the kick lane.",
+    "Existing teleport room/landing/permission and saved player sequence services are candidate reuse points. Compare their contracts before connecting them."
+  ],
+  "blockers": [
+    "Modern charged guaranteed-hit versus block/dodge and consume-one ordering share the documented Dragon Talon/Claw/Tail finisher gap. Older result/progressive bodies do not implement the current charged branch.",
+    "Sequence21 markers, attack-rate context, two-phase cancellation, mana payment on failed start/landing/contact, valid landing near the target and out-of-range retarget behavior need composed current/source/native checks.",
+    "No native Dragon Flight handler, accepted player input, damage, teleport or save/reload test is claimed. Continue skills independent of these finisher gates."
+  ],
+  "assets": {
+    "effects": "Teleport departure/arrival, kick/contact, charge release and audio; identified placeholders permitted.",
+    "icons": "Separate talent, left/right and hotkey/quick icons in the240-row inventory."
+  },
+  "next": "Continue independent Assassin trap work; retain Dragon Flight as an individual finisher deferral. No class completion certificate."
+}
