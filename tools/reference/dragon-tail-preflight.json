@@ -57,6 +57,10 @@
     "Complete older source allocation calls total-damage reduction before storing kick damage. Do50copies stored physical before progressive/durability hooks and applies additive current mastery+skill percentage to that copy. Declared physical immunity yields zero seed.",
     "Older do50suppresses its burst only if the owner died after durability;complete area wrapper uses0x8583and per-recipient packet copies. Native current death/target/hostility/filter/block acceptance remains separate."
   ],
+  "openMechanics": [
+    "Older Skills.cpp sub_6FD12950consumes mana only after a successful start when !USEMANAONDO and !a5;start27returns0on an unsuccessful result roll. Current miss/payment behavior remains uncorroborated;do not assume every accepted swing spends10mana.",
+    "Older UNITS_ChangeAnimMode invokes temporary-state cleanup on a mode change. Compose STATLIST_TEMPONLY=4posting/cleanup with start27and current mode transitions before certifying the-40rate lifetime."
+  ],
   "required": [
     "Compose current charged guaranteed-hit versus shield block/dodge and exact one-charge consumption with kick delivery;older all-state removal is not authoritative.",
     "4608original current-family rates and10local KK13frame/action4/base256records establish primary WSM/IAS and-40modifier without SQ-30. 4490complete older scheduler/frame-bonus contexts establish one action at ceil(1024/advance)and end at ceil(3328/advance). Compose start27modifier posting/lifetime,current executable and native scheduling before enabling;do not substitute Tiger A1 or Talon SQ19.",
