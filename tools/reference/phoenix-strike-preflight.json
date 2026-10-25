@@ -3,10 +3,11 @@
   "talentId": "assassin.phoenixstrike",
   "sourceId": 280,
   "ability": 191,
-  "status": "Learned Phoenix candidate builds in staging; focused/full/input/world verification and installation pending",
-  "installed": false,
-  "handlerEnabled": false,
+  "status": "Learned Phoenix installed with scoped source/native verification",
+  "installed": true,
+  "handlerEnabled": true,
   "candidateHandlerEnabled": true,
+  "nativeEvidence": "tools/reference/phoenix-native-evidence.json",
   "source": {
     "cachedPinnedHashes": {
       "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
@@ -496,5 +497,5 @@
     "effects": "Final Phoenix charge tiers,meteor warning/fall/explosion/fire,chain lightning,chaos ice/trail/freeze and audio remain pending; use identified native placeholders after implementation.",
     "icons": "Talent/left/right/quick icons remain in the separate240-row icon inventory."
   },
-  "next": "Finish focused/full learned Phoenix verification,back up and smoke-test installation,then continue unaffected Assassin skills. No class completion certificate."
+  "next": "Continue Assassin with Dragon Tail using dragon-tail-preflight.json. Preparation covers 28 local skill fields, 1,536 bounded hit/fire cases, 4,608 rate contexts, ten local KK records and 4,490 event-scheduler cases. Reuse the prepared kick packets, independent charges, selected-hand gear and area/damage infrastructure. Resolve modern charged hit/block and consumption, payment on misses, temporary rate lifetime, packet/proc ordering and native input before enabling it. Keep Dragon Talon, Dragon Claw, Blade Fury, Sentry retirement and shadow dependencies individually deferred; proceed with unaffected work. Do not ask the traps-only player for martial-arts or Fury playtests. All eight classes and 240 skills remain in scope; effects and icons stay separate."
 }

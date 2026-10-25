@@ -1,0 +1,95 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "sourceId": 280,
+  "installed": true,
+  "handlerEnabled": true,
+  "components": [
+    "src/Sanctuary.Content/MartialPhoenix.cs",
+    "src/Sanctuary.Content/MartialPhoenixPackets.cs",
+    "src/Sanctuary.Content/MartialPhoenixPaths.cs",
+    "src/Sanctuary.Content/FireGround.cs",
+    "src/Sanctuary.Content/AssassinCharges.cs",
+    "src/Sanctuary.Content/AssassinCombat.cs",
+    "src/Sanctuary.Content/TigerStrikes.cs",
+    "src/Sanctuary.Content/ClassCombat.cs",
+    "src/Sanctuary.Content/ClassMovement.cs",
+    "data/Sanctuary/Balance/necromancer-summons.json"
+  ],
+  "sourceEvidence": [
+    "tools/reference/phoenix-release-source-evidence.json",
+    "tools/reference/phoenix-chain-init-source-evidence.json",
+    "tools/reference/phoenix-damage-source-evidence.json",
+    "tools/reference/phoenix-meteor-source-evidence.json",
+    "tools/reference/phoenix-direction-source-evidence.json",
+    "tools/reference/phoenix-chaos-source-evidence.json",
+    "tools/reference/phoenix-builder-source-evidence.json"
+  ],
+  "candidate": {
+    "contentSha256": "9e33b7ecbdc7efe36e01ff724b4cd7e4c2b34c839fef4dcbb751f2e0c8dd6514",
+    "integrationSha256": "4006193d3ea1619f2cae18989c79d22f9aa460b17068542fb6b45929588cafae",
+    "sourceCommit": "7ce5eca1a42353686bcac429739d963cfb306428"
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "completeSourceCases": {
+      "builder": 512,
+      "release": 3456,
+      "chainInitializer": 4096,
+      "direction": 4225,
+      "chaos": 5400,
+      "meteor": 288,
+      "damage": 1152
+    },
+    "nativeRankControls": 255,
+    "naturalInputPathsPerBoot": [
+      "quick Cast",
+      "right HoldCast/release",
+      "left HoldAttack/release",
+      "ordinary charged Attack"
+    ],
+    "naturalReleaseTiersPerBoot": 3
+  },
+  "fullRegression": "Phoenix Strike is installed. Its single-contact A1 builder spends four mana once and stores independent charges worth 25 AR each. An ordinary successful Attack consumes one charge from each family and releases the current Phoenix tier: a 60-frame meteor warning, impact and 18 fire fields; seven lightning paths; or 16 curving, freeze-only missiles. Focused and full suites each pass three boots and two reloads, including quick cast, both held inputs, ordinary finishers, and connected damage and expiry for all three tiers. Actual gear, saved ranks, hit windows, immunity, low-mana fallback, paid cancellation, offline/facet handling and lethal frozen-corpse loot pass within the documented scope. Saved paths, seeds, vectors, clocks, leases, fields, charges, fractional mana and injury survive reloads without paid-action replay or refund. All 70 Python tests pass. Current audits cover 561/21 fingerprints with 573 unchanged named-item decisions. The installed build loads the existing world and shuts down successfully; saves, configuration and client bytes are unchanged. Total handlers: 156; Assassin: 17. No class completion certificate.",
+  "logs": {
+    "focused": ".local/class-skills/phoenix-focused.log",
+    "focused-run": ".local/class-skills/phoenix-focused-run.log",
+    "combined": ".local/class-skills/phoenix-combined.log",
+    "full-suite-run": ".local/class-skills/phoenix-full-suite-run.log",
+    "content-build": ".local/class-skills/phoenix-content-build.log",
+    "integration-build": ".local/class-skills/phoenix-integration-build.log",
+    "python-tests": ".local/class-skills/phoenix-python-tests.log",
+    "named-readiness": ".local/class-skills/phoenix-named-readiness.log",
+    "first-loop": ".local/class-skills/phoenix-first-loop.log",
+    "properties": ".local/class-skills/phoenix-properties.log",
+    "installed-server": ".local/class-skills/phoenix-installed-server.log",
+    "installed-smoke": ".local/class-skills/phoenix-installed-smoke.log",
+    "install-run": ".local/class-skills/phoenix-install-run.log",
+    "client-check": ".local/class-skills/phoenix-client-check.log"
+  },
+  "backup": ".local/class-skills/pre-phoenix-install",
+  "fixtureCorrections": [
+    "The first full run reached the third boot,but the old Holy Freeze inspection corpse crossed its normal7minute decay before final reload. Only that inspection fixture now holds1hour,with detailed missing-state diagnostics. Runtime corpse policy and content assembly are unchanged. Replacement focused/full checks use the rebuilt integration hash.",
+    "Mocked live connection sets SentFirstPacket alongside existing protocol/seeded flags and emits normal0x73pings. Production authentication/timeout/denylist guards are unchanged.",
+    "History cleanup uses an idle unequipped character;ordinary combat and equipment history gates remain intact."
+  ],
+  "runtimeInputs": {
+    "named": 561,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true
+  },
+  "limits": [
+    "Handler presence and scoped source/native checks do not certify every3.3.93847 executable context. Full mode/stat/RNG/event/proc/owner/PvP/NPC/client equivalence remains acceptance work.",
+    "The seven royal missile rows are hash-pinned cached current data;32 local current skill fields corroborate the installation. Local CASC corroboration of all seven missile rows remains pending.",
+    "Older do35 signed targetY addition carries negative X into high Y. This literal source behavior is preserved,while pinned executable parity remains uncertain. Elapsed-frame0/every3curving and freeze-only damage2are separately verified.",
+    "Owner random low32draw uses the native RNG service. Private LCG/producer/path/curve transitions are exact for supplied seeds;full persistent D2player RNG-stream identity is unsupported.",
+    "Native half-tile placement/collision,sector order,chain smooth stepping,cold velocity/barriers and hostile creature filtering are scoped adapters. Exact source room/collision/Slow Missiles/event order and exceptional PvP/NPC recipients remain unverified.",
+    "Retained charge expiry/proportional AR and cached A1 timing remain provisional. Modern multi-contact kick/claw finishers remain deferred.",
+    "Source mastery services are bounded numeric inputs. Ormus Robes remains gated by deferred skill-rand properties;actual supported Tarnhelm/Griffon cases do not certify every gear/stat path.",
+    "Final Phoenix charge tiers,meteor warning/fall/impact/fire,lightning,chaos ice/trail/freeze/audio and talent/left/right/quick icons remain separately inventoried identified placeholders."
+  ]
+}
