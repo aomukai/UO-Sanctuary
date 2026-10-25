@@ -1,0 +1,103 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Strict local CASC extraction already pinned by d2r-local-animation-evidence.json",
+  "parentEvidence": "tools/reference/d2r-local-animation-evidence.json",
+  "rawSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "monsterTableSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "monsterCodes": {
+    "wakeofdestruction": "e9",
+    "chargeboltsentry": "lg"
+  },
+  "parsedRecords": 3661,
+  "records": [
+    {
+      "code": "E9NUHTH",
+      "frames": 2,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "LGDTHTH",
+      "frames": 23,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "LGNUHTH",
+      "frames": 15,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "E9A1HTH",
+      "frames": 15,
+      "speed": 256,
+      "events": [
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "E9S1HTH",
+      "frames": 15,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "E9S2HTH",
+      "frames": 2,
+      "speed": 256,
+      "events": [
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "E9DDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "E9DTHTH",
+      "frames": 25,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "LGS1HTH",
+      "frames": 15,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "LGS2HTH",
+      "frames": 15,
+      "speed": 256,
+      "events": [
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "LGDDHTH",
+      "frames": 1,
+      "speed": 256,
+      "events": []
+    }
+  ],
+  "established": [
+    "Wake e9and lightning lgshare15frame S1metadata,but their S2metadata differs:Wake2frames/action marker1atframe1;lightning15frames/marker2atframe0.",
+    "Wake DTmetadata is25frames;lightning DT23. Both have one-frame DDrecords. The Wake neutral record has2frames,lightning15."
+  ],
+  "limits": [
+    "Animation metadata is not a complete live scheduler/mode/rate/event proof. Explicitly trace the distinct S2marker routing and actor skill before reusing any installed controller.",
+    "No learned skill is enabled and no executable/current-code behavior is inferred solely from these records. Final actor/animation/audio assets remain separately pending."
+  ]
+}

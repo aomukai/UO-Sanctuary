@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "observedAt": "2026-10-25T15:13:33.469475+00:00",
+  "observations": [
+    {
+      "source": "User firsthand test on the pinned installation",
+      "reported": "The trap disappears when its very short wiggle/drop animation finishes.",
+      "established": "Visible retirement has a short collapse animation before disappearance.",
+      "notEstablished": [
+        "Whether already-moving waves continue to damage after visual disappearance.",
+        "Internal NPC/GUID lifetime, exact frame count or inherited-stat cleanup."
+      ]
+    }
+  ],
+  "implementationEffect": "Retain a distinct retiring animation phase. Do not equate visual disappearance with internal owner deletion or missile expiry."
+}
