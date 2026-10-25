@@ -1,0 +1,21 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourceEvidence": "tools/reference/corpse-base-life-source-evidence.json",
+  "installed": false,
+  "handlerEnabled": false,
+  "completeComparisons": 52100,
+  "jsonRoundTrips": 52100,
+  "hashes": {
+    ".local/class-skills/corpse-base-life-source-probe.json": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703",
+    ".local/class-skills/corpse-base-life-draft-run.log": "42ce716f02bbc7f76cbf9117e41b19275186cf6fba6449ba421cc478033bc6fc",
+    "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
+    ".local/class-skills/corpse-base-life-draft/CorpseBaseLife.cs": "78af242972395c84e0ce71a9b1abde8eb3a6658c9861f0a1a40f11e1f977c07b",
+    ".local/class-skills/corpse-base-life-draft/Program.cs": "756c6c7e1764788e7bb0901b5a41aa1755ab540a843c505060863c900d543d32",
+    ".local/class-skills/corpse-base-life-draft/Probe.csproj": "6fca145439b52a0d52dc9a9626f59dd786fe849ac09affa94db47e6287899d37"
+  },
+  "scope": "Uninstalled C# flags1 HP calculator reuses existing SourcePercentage and matches complete older calculator/ratio outputs across521current selectable-corpse source rows.",
+  "limits": [
+    "Current text/declared layout plus older code composition does not certify a modern executable or binary-table ABI.",
+    "Actual native profile/level/difficulty mapping, corpse capture/persistence, RNG, area filtering/damage, learned input and retirement remain separate. No installed assembly is changed."
+  ]
+}

@@ -362,5 +362,7 @@
   "compiledAiEvidence": "tools/reference/death-sentry-ai-source-evidence.json",
   "compiledCorpseExplosionEvidence": "tools/reference/corpse-explosion-source-evidence.json",
   "packetDraftEvidence": "tools/reference/corpse-explosion-draft-evidence.json",
-  "localMonsterLevelEvidence": "tools/reference/d2r-local-monlvl-evidence.json"
+  "localMonsterLevelEvidence": "tools/reference/d2r-local-monlvl-evidence.json",
+  "compiledCorpseBaseEvidence": "tools/reference/corpse-base-life-source-evidence.json",
+  "corpseBaseDraftEvidence": "tools/reference/corpse-base-life-draft-evidence.json"
 }

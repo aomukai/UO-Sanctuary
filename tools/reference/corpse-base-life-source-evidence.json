@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5"
+  },
+  "routineHashes": {
+    "D2C_MonStatsTxtFlagIndices": "bc31cf57bd1d164c798de50555c07fd8b70453dba9d7cf4b50b329132782070b",
+    "DATATBLS_ApplyRatio": "04fb1db654e84a05bfe48d036510ae8f0bc36159819f940970b27ac41a76e596",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21"
+  },
+  "currentMonstatsEvidence": "tools/reference/d2r-local-sentry-model-evidence.json",
+  "currentMonlvlEvidence": "tools/reference/d2r-local-monlvl-evidence.json",
+  "currentHpFieldsCompared": 2991,
+  "corpseSourceRows": 521,
+  "inputHashes": {
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monlvl-corpse-verified.txt": "bda243efe1d1e9591f75b8cf97ac73f78ff691362381f35cc000233eb46c092a",
+    "tools/reference/d2r-named-equipment/json/monstats.json": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "data/Sanctuary/Balance/corpse-source-rules.json": "b856f2314ad34ae615def3ee4f2779dd973a6c722f13e7920ebe6e0569441b9d"
+  },
+  "fixture": {
+    "path": ".local/class-skills/corpse-base-life-source-probe.json",
+    "sha256": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703",
+    "cases": 52100
+  },
+  "established": [
+    "All2991nonmetadata active HP/noRatio fields for521currently selectable corpse source rows match the pinned JSON; omitted fields have no extra active local values.",
+    "Complete unchanged monster-stat calculator and ratio helper execute flags1 over all521rows, classic/expansion columns, five difficulty clamp contexts and ten level contexts, including negative/zero/over-limit levels.",
+    "Corpse base life is (calculated minHP+maxHP)*128. No spawned-life roll, elite/player-count bonus or native maximum-life cap is substituted. Source level above110 and difficulty outside0..2 clamp; negative level returns failure."
+  ],
+  "limits": [
+    "Current text inputs and complete older calculator bodies are composed through declared row/layout services, not a modern executable or binary-table ABI certificate.",
+    "Only flags1 HP lanes execute; other complete stat-calculator branches are retained but not claimed covered. Row lookup is an explicit service, including the synthetic row id0.",
+    "The list follows current corpse-source rules; actual world selection, native profile/facet/level mapping, corpse snapshot persistence, RNG and damage remain separate."
+  ],
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr required",
+  "handlerEnabled": false
+}
