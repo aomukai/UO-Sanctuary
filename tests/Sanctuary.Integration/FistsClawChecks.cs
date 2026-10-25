@@ -54,10 +54,10 @@ public static class FistsClawChecks
         foreach(var row in rate.RootElement.EnumerateArray())
         {
             int V(int i)=>row[i].GetInt32();if(V(1)!=0){continue;}
-            int actual=AssassinClaws.Advance(V(2),V(0)==1?V(3):null,V(4)+V(6),Math.Max(0,-V(7)),Math.Max(0,V(7)));
+            int actual=CombatTiming.FrameAdvance(new(AttackFamily.Thrust,V(0)==1?(V(2)+V(3))/2:V(2)),V(4)+V(6),Math.Max(0,-V(7)),Math.Max(0,V(7)),-30,208);
             // Existing native slow consumer caps85; the source fixture's -100
             // control is recorded separately, not silently claimed equivalent.
-            if(V(7)==-100){continue;}Require(actual==V(10),"Complete entry selector/merge/rate");rates++;
+            if(V(7)==-100){continue;}Require(actual==V(10),"Separate legacy entry selector/merge/rate control");rates++;
         }
         using var seq=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"assassin-claw-sequence-source-probe.json")));int clocks=0;
         foreach(var row in seq.RootElement.EnumerateArray())
@@ -65,7 +65,13 @@ public static class FistsClawChecks
             int speed=row[1].GetInt32();if(speed<=0){continue;}bool dual=row[0].GetInt32()!=0;var native=AssassinClaws.Schedule(dual,speed);var events=row[9].EnumerateArray().ToArray();
             Require(native.End==events[^1][1].GetInt32() && native.Events.SequenceEqual(events[..^1].Select(x=>x[1].GetInt32())),"Complete source ordinal clock");clocks++;
         }
-        Require(rates==2304 && clocks==576,"Source/native matrix counts");
+        using var modern=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"assassin-claw-modern-rate-probe.json")));int current=0;
+        foreach(var row in modern.RootElement.EnumerateArray())
+        {
+            if(row[0].GetString()!="FISTS_OF_FIRE"){continue;}int V(int i)=>row[i].GetInt32();
+            Require(AssassinClaws.Advance(V(2),V(4)+V(6),V(8),V(7))==V(12) && V(9)==256 && V(10)==(V(1)==1?16:12),"Complete current-family original Fists rate/base/sequence");current++;
+        }
+        Require(rates==2304 && current==2304 && clocks==576,"Source/native legacy/modern/clock matrix counts");
     }
     private static void Cases(PlayerMobile p,BaseCreature t)
     {
@@ -73,7 +79,7 @@ public static class FistsClawChecks
         var first=Claw(p,true);AssassinCharges.Clear(p);int mana=NecromancerEffects.ManaBalance256(p);var s=Begin(p,t);Require(!s.Basic && s.Events.Length==1 && State(p)==null && NecromancerEffects.ManaBalance256(p)==mana-512,"Single charge paid at start only");
         long at=s.Started+s.Events[0];Require(!ClassCombat.ResolveAction(p,at-1) && ClassCombat.ResolveAction(p,at) && !ClassCombat.ResolveAction(p,at) && State(p)?.Count==1,"Single exact action");Resolve(p,s);
         var second=Second(p);Require(WeaponHands.Pair(p)!=null,"Native dual claws");int primaryIas=CombatTiming.Ias(p),primaryWsm=CombatTiming.Weapon(first).Modifier,secondaryWsm=CombatTiming.Weapon(second).Modifier;
-        Require(primaryIas>0,"Source IAS affix did not enter actual native attributes");int advance=AssassinClaws.Advance(p);Require(advance==AssassinClaws.Advance(primaryWsm,secondaryWsm,primaryIas,GearEffects.AttackSlow(p),PaladinOffense.AttackRate(p)+AssassinBuffs.AttackRate(p)),"Native dual mean rate");
+        Require(primaryIas>0,"Source IAS affix did not enter actual native attributes");int advance=AssassinClaws.Advance(p);Require(advance==AssassinClaws.Advance(primaryWsm,primaryIas,GearEffects.AttackSlow(p),PaladinOffense.AttackRate(p)+AssassinBuffs.AttackRate(p)),"Native current primary-rate calculation");
         using(WeaponHands.Use(p,second)){Require(AssassinClaws.Advance(p)==advance,"Outer secondary damage scope changed sequence-entry IAS");}
         AssassinCharges.Clear(p);mana=NecromancerEffects.ManaBalance256(p);s=Begin(p,t);Require(s.Events.Length==2 && NecromancerEffects.ManaBalance256(p)==mana-512,"Dual pays once");int hits=0;
         TigerStrikes.HitRoll=()=>{Require(CombatTiming.Equipped(p)==(hits++==0?first:second),"Wrong contact hand");return 0;};NecromancerEffects.SetMana256(p,0);
@@ -112,7 +118,7 @@ public static class FistsClawChecks
         Differential();Lifecycle();var p=Fresh();var t=Target(p);Cases(p,t);var charge=State(p) with{UntilUtc=TimedEffects.Now.AddHours(1)};AssassinCharges.Restore(AssassinCharges.Snapshot().Where(x=>x.Owner!=p.Serial.Value || x.Ability!=CombatAbility.FistsOfFire).Append(charge).ToArray());
         var pending=Fresh(7020);Claw(pending);var other=Target(pending);p.Mana=p.ManaMax;var series=Begin(pending,other);ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,WeaponHands.Pair(p).Value.Primary.Serial.Value,WeaponHands.Pair(p).Value.Secondary.Serial.Value,charge,pending.Serial.Value,NecromancerEffects.ManaBalance256(pending),p.Location)));
-        Log.Information("Fists claw:2304 source entry rates,576 clocks,actual IAS affix/dual hands,single/double/cap/miss/immunity/fallback,move/equipment/FHR/Stop and actual item ranks pass");
+        Log.Information("Fists claw:2304 legacy controls,2304 current-family entry rates,576 clocks,actual IAS affix/dual hands,single/double/cap/miss/immunity/fallback,move/equipment/FHR/Stop and actual item ranks pass");
     }
     private static void Reload()
     {

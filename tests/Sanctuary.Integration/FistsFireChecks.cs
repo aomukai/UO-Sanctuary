@@ -146,7 +146,7 @@ public static class FistsFireChecks
         var due=TimedEffects.Now.AddHours(1);var patches=Patches(p).Select(x=>x with{NextUtc=due,UntilUtc=due.AddMilliseconds(64*40)}).ToArray();var save=FireGround.Snapshot();FireGround.Restore(save with{Patches=save.Patches.Where(x=>x.Owner!=p.Serial.Value).Concat(patches).ToArray()});
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,AssassinCharges.Finisher(p),patches,p.Location,first.Serial.Value,second.Serial.Value)));
         Require(AssassinCombat.Implemented(CombatAbility.FistsOfFire) && AssassinClaws.Handles(CombatAbility.FistsOfFire),"Learned claw action missing");
-        Log.Information("Fists prepared finisher:actual Sorceress/Eschuta mastery/critical/conversion/immunity,SOFTHIT,ordinary attack release,stacked area/fields,Tiger/Cobra,miss,offline/expiry/map cleanup pass; learned action stays gated");
+        Log.Information("Fists prepared finisher:actual Sorceress/Eschuta mastery/critical/conversion/immunity,SOFTHIT,ordinary attack release,stacked area/fields,Tiger/Cobra,miss,offline/expiry/map cleanup pass; learned claw action is checked separately");
     }
     private static void Reload()
     {

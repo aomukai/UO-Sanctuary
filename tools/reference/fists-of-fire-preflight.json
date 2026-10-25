@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.fistsoffire",
-  "status": "Learned claw candidate focused-verified; full regression and installation pending",
+  "status": "Learned Fists candidate: sequence base/rate corrected from current-family original code; focused rerun pending before new full regression",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -140,5 +140,7 @@
   },
   "candidateHandlerEnabled": true,
   "clawRateEvidence": "tools/reference/assassin-claw-rate-source-evidence.json",
-  "candidateChecks": "tests/Sanctuary.Integration/FistsClawChecks.cs"
+  "candidateChecks": "tests/Sanctuary.Integration/FistsClawChecks.cs",
+  "modernClawRateEvidence": "tools/reference/assassin-claw-modern-rate-evidence.json",
+  "timingCorrection": "Ordinary A1HT base208 does not select SQ base. Current original calculator gives Fists256base and primary WSM/IAS, with a distinct averaging branch for Dragon Claw. Old dual rate proof is a declared control, not current policy. First full was stopped before installation."
 }

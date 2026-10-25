@@ -19,15 +19,17 @@ public static class AssassinClaws
         int Frame(int point)=>(point*256+advance-1)/advance;
         return(Frame(dual?16:12),dual?new[]{Frame(6),Frame(10)}:new[]{Frame(6)});
     }
-    internal static int Advance(int primaryWsm,int? secondaryWsm,int ias,int slow,int skillRate)
-        =>CombatTiming.FrameAdvance(new(AttackFamily.Thrust,secondaryWsm is{} second?(primaryWsm+second)/2:primaryWsm),ias,slow,skillRate,-30,208);
+    internal static int Advance(int primaryWsm,int ias,int slow,int skillRate)
+        =>CombatTiming.FrameAdvance(new(AttackFamily.Thrust,primaryWsm),ias,slow,skillRate,-30,256);
     internal static int Advance(PlayerMobile owner)
     {
         var pair=WeaponHands.Pair(owner);var primary=pair?.Primary??CombatTiming.Equipped(owner);
-        // Source rate merge is queried at sequence entry, ordinal0. Ensure a
+        // Current-family original Fists calculator uses primary WSM/IAS and
+        // sequence base256. Old dual mean/A1 base208 is a separate control.
+        // At sequence entry ordinal0, ensure a
         // caller's temporary damage-hand scope cannot select secondary IAS.
         using var hand=pair is{} weapons?WeaponHands.Use(owner,weapons.Primary):null;
-        return Advance(CombatTiming.Weapon(primary).Modifier,pair is{} dual?CombatTiming.Weapon(dual.Secondary).Modifier:null,
+        return Advance(CombatTiming.Weapon(primary).Modifier,
             CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner));
     }
     internal static ActionTiming Timing(PlayerMobile owner)

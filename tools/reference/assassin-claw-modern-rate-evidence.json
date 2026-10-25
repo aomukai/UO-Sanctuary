@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "originalAuthor": {
+    "repository": "https://github.com/Warren1001/IAS_Calculator",
+    "commit": "b7d791031b73b0c6e56a3659e9198578aed21261",
+    "date": "2026-09-28T23:44:32Z",
+    "fileHashes": {
+      "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+      "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+      "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe"
+    },
+    "scope": "Original implementation with README credit for D2R3.3 player-sequence dump; supplementary current-family primary evidence, not a3.3.93847 executable oracle."
+  },
+  "unchangedClassHash": "72c21b3b8a1223ddb08c9fcd146c2d25d1a91ea76649843c19c8cf9c0d60378a",
+  "unchangedInitializers": {
+    "FISTS_OF_FIRE": "FISTS_OF_FIRE: addSkill(new Skill(\"Fists of Fire\", true, false, true, false))",
+    "DRAGON_CLAW": "DRAGON_CLAW: addSkill(new Skill(\"Dragon Claw\", true, true, true, false))"
+  },
+  "unchangedFunctionHashes": {
+    "calculateAnimationSpeed": "df33a9786098714d57e4548184696313e0e3cf0a9c1331a93d63ab83fa4f9a71",
+    "calculateSIAS": "b3737269b7ff67ef8dcb79a2a07bec5b1eb1a636527397706f531d4775fce30c",
+    "calculateEIAS": "17917168709c73ed7811387e0ce48641ce60de5e61007495d052dbd7aba3b3c1",
+    "getWSM": "cbdccbb859e76f6cef00297ff42715c5c6b34bd81c4cf7e4da35a77b05b06983",
+    "getWeaponIAS": "a8ed454a3a8ac3c1fe81b4f4918bccf594d969ca051826560f8d74d2337ff47a",
+    "getSequence": "22e080bfedc1052d437c1534abd60d0108e675079cc20032830e939b2c0bf757",
+    "isSecondWeaponSet": "cf7749cbca5ebb55aba58963e9ff8eb961f0c1fef994e1fdbc93b59982cb8fb0",
+    "isCharacterSelected": "332df63171009005b5da485f4ea0bfa88cd7ecea96d2b33f4adb310c814fa636",
+    "limitEIAS": "4e863a94ef512260a865cb2255935d3d16db1ef2e299b587761b6059344b17cb",
+    "trun": "cc56c98fafdfae194caf14813cca304e98c132268e05057249dfb3803a8453c4",
+    "convertIAStoEIAS": "7d38047cf89cf66548c68491a204fe3491f277f091d5737fcf714de4923a8845"
+  },
+  "unchangedSpeedStatement": "speedIncrease = trun(animationSpeed * (100 + limitEIAS(EIAS + accelerationModified)) / 100);",
+  "fixture": {
+    "path": ".local/class-skills/assassin-claw-modern-rate-probe.json",
+    "sha256": "98b155266acb4f2601c4ccfff6804253301af421e248df747315fb26e79b22bb",
+    "cases": 4608,
+    "fistsCases": 2304,
+    "dragonControls": 2304
+  },
+  "established": [
+    "Original animation-speed function explicitly excludes Fists/Thunder/Ice/Dragon finishers from the208 ordinary claw branch, retaining256. Sequence getter returns12single/16dual. Ordinary A1HT metadata208 must not be substituted for sequence base.",
+    "Original actual Fists Skill initializer has dualOnly=false; full calculateEIAS therefore uses primary WSM and primary weapon IAS plus global IAS even with a secondary equipped. This conflicts with the old engine dual intrinsic correction and supersedes that legacy candidate policy; retain the conflict explicitly.",
+    "Actual Dragon Claw initializer dualOnly=true instead uses mean WSM and mean separately diminished handIAS, with truncation after combining those terms. These are original function controls, not a Dragon Claw handler."
+  ],
+  "services": [
+    "Buff UI exposes supplied Burst skill-rate only; other buffs hidden, named checkbox slows false and supplied slow enters the original SLOWED_BY input. Global/weapon IAS and weapon identities are explicit UI services.",
+    "Primary/secondary field visibility and table-variable EIAS are declared inputs; no complete DOM table rendering or user-interface workflow certificate. The unchanged selected speed statement is executed with acceleration0.",
+    "Native source stat collection,selected hands,current executable/mode/event/seed/client behavior and eligibility remain separate. This corroborates current-family implementation, not live pinned-build testing."
+  ],
+  "limits": [
+    "Current original calculator versus old engine dual WSM/IAS discrepancy is visible; native Fists adopts the current-family original Fists branch rather than inventing a blend.",
+    "The early208 candidate was stopped before installation; its passing tests established the supplied older context, not the missing base-selection premise.",
+    "Primary-hand chance-to-hit sharing was reported firsthand in2022; applicability to3.3.93847 remains uncertain and is not silently adopted."
+  ],
+  "firsthandArReport": "https://us.forums.blizzard.com/en/d2r/t/dual-wielded-sequence-skills-only-use-primary-hands-chance-to-hit/137434"
+}

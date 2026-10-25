@@ -65,6 +65,7 @@ def check():
         for name in ['assassin-claw-rate','assassin-claw-sequence','fists-fire-conversion','fists-fire-builder','dragon-kick-damage','dragon-kick-packet']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(ROOT / 'tools/reference/dragon-kick-damage-source-evidence.json',folder / 'dragon-kick-damage-source-evidence.json')
+        shutil.copy2(STAGE / 'assassin-claw-modern-rate-probe.json',folder / 'assassin-claw-modern-rate-probe.json')
         for name in ['cobra-strike','cobra-strike-composition','cobra-strike-builder']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
