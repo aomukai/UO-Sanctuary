@@ -18,5 +18,21 @@
     "notModernCertificate": true
   },
   "nativeSourcePreparation": "tools/reference/blade-fury-damage-source-evidence.json",
-  "nonblocking": true
+  "nonblocking": true,
+  "fieldDocumentation": {
+    "author": "Blizzard Entertainment (original field descriptions, republished separately from community notes)",
+    "mirror": "https://eezstreet.github.io/d2rdoc/files/skills.html",
+    "authorshipContext": "https://eezstreet.github.io/d2rdoc/about.html",
+    "mirrorCommit": "0240295dd85e73530af1fc0df7b0fb2b5234e935",
+    "pinnedFile": "https://raw.githubusercontent.com/eezstreet/d2rdoc/0240295dd85e73530af1fc0df7b0fb2b5234e935/data/files/skills.js",
+    "sha256": "b7b710cb3aaf5d5fb6c68ed786bdd4aab93d74317734749aff54a5dd8b8aea21",
+    "paraphrases": {
+      "seqinput": "Repeat delay inside a sequence before its next do/loop opportunity; pinned Fury value12.",
+      "KeepCursorStateOnKill": "A selected target dying does not reset the held mouse state.",
+      "ContinueCastUnselected": "Holding with no target continues at the cursor position; this field does not mean changing the equipped skill binding.",
+      "AssStartBladeFuryClient": "Fresh state adds Inferno; an existing state adjusts the sequence frame.",
+      "AssDoBladeFuryClient": "The active Inferno state repeats the do frame while periodic delay controls client blades."
+    },
+    "limits": "Field meaning is documented; exact pinned executable timing/packet cadence and full native client behavior remain unverified. This mirror is supplementary documentation, not a replacement for the3.3.93847 tables."
+  }
 }

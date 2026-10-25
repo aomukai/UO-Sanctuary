@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "nativeVerifiedByThisSourceProbe": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/Fog/include/D2BitManip.h": "bbb5e735e165f41e8c299a3a03930d2b3b9f20702c52012643bd4fe387e9834a",
+    "source/D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Game/src/PLAYER/PlrMsg.cpp": "ffeff8d5a1448ed72f250fe647d3ee8ae53034cf47e6dd29cae11878d5d63056"
+  },
+  "compiledRoutineHashes": {
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo048_BladeFury": "7955cadcc3e83991969e62797b4fd03a2462ffa283ec73f85559f77d354f64ab",
+    "SKILLS_SrvSt26_BladeFury": "ead80372d972461f9786ccbd3dd9cdbafa3dad1301844ea8f607181f10102ac7",
+    "SKILLS_StatRemoveCallback_RemoveState": "93a390dff6ba7f8309a4d2c936a5f7231af89740538084175ba35ae11fc1cd2d",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "BITMANIP_SetBitsValueForMask": "1cd6d84279ee2a1e25ddfb1b5db86743648eb6b20eece6b2bd052223e411be56",
+    "D2Common_STATES_ToggleState_6FDB8900": "f5f001b4dec27c00e18c36338c97d6c30f5bad29183df302c20522fce2202f61",
+    "STATES_ToggleState": "d6c81dc9500968ca31763763962cd891e21188546b0c5a84b7582ea516e3def9",
+    "STATES_CheckState": "4fdaddb0ff2ebcad76664f33fc9cb1e1327d5daad363280c69deca24ce87b023",
+    "D2Common_GetStateFromStatListEx_6FDB8190": "fc27d4a8baa8735cdf4f2355ee8eb4d9c1fec5f1d1153105b5f0c075d71b810b",
+    "STATLIST_GetStatListFromUnitAndState": "8435bec7805ba63b7a065d4aee91a4393caf95832baa07483a65898dee939b36",
+    "D2GAME_PACKETCALLBACK_Rcv0x12_6FC84670": "f7a8d7f5fed85c068f19cbd13c897f392d1c4c30cf86551c800a33fa597eff8e"
+  },
+  "sharedAbiEvidence": "tools/reference/blade-fury-resource-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/blade-fury-release-source-probe.json",
+    "cases": 5400,
+    "sha256": "0532d18f69959a561f7a72806f55ac975e6b8568772703ec2068b214de0e4d71"
+  },
+  "established": [
+    "Complete stop0x12, state-bit helpers and list walkers compose with unchanged st26/do48 and ordinary resource wrappers. Valid one-byte stop clears only the Inferno bit; two-byte packets return3 without changing it. The existing timed list remains independently discoverable.",
+    "A released-but-retained list renews its deadline through st26 without recreating the state bit or imposing the fresh six-mana threshold. Generic per-shot eligibility still applies. Direct do48 may emit after release, but does not rewind without the state bit. Later stat removal is distinct and sets server-do flag64.",
+    "Native bridge must preserve this distinction before input/mode integration. Current-table rank1 debit overrides the separately recorded old consumer zero-payment quirk."
+  ],
+  "limits": [
+    "Extended-list ABI identity, room refresh, stat posting, animation rewind and missile allocation are explicit services; disguise states, charges, Blood Mana and a full production event queue/client are outside this fixture.",
+    "These are older server rules. Exact current client stop/reentry timing, release tail, warmup and native graphical input acceptance remain open. No learned handler is enabled by this source probe."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr"
+}

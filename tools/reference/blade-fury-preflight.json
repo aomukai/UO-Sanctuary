@@ -293,9 +293,9 @@
   "missileComponentsInstalled": true,
   "nextIntegrationReview": {
     "scope": "Read-only follow-on review; no learned handler or client reentry behavior is established by this note.",
-    "reentryUncertainty": "Pinned seqinput is12. Supplementary PlrModes.cpp sub_6FC81890 only checks nSeqInput as nonzero; this body does not establish the client threshold or its mapping to Sanctuary hold heartbeats. Do not silently derive that policy from the boolean test.",
+    "reentryUncertainty": "Republished Blizzard field descriptions identify seqinput as an in-sequence repeat delay; Fury value12 remains pinned. Server sub_6FC81890 only tests nonzero and does not alone establish the exact current client/heartbeat loop.",
     "earlyStartHazard": "Driving active st26 on every initial heartbeat can enter do48 before the scheduled initial action. Compose the real mode/input gate with the event planner before using the existing channel wrapper.",
-    "targetRetention": "Current KeepCursorStateOnKill and ContinueCastUnselected require review against generic UpdateHeldCast, which clears repetition on missing/dead targets or changed binding.",
+    "targetRetention": "Blizzard field documentation resolves ContinueCastUnselected as continuing at cursor position with no selected target; it does not authorize continuing after a skill-binding change. KeepCursorStateOnKill preserves the held click after a target dies. Dedicated native input must implement both.",
     "localSourceAnchors": {
       ".local/research/d2moo-PlrModes.cpp": [
         "PLRMODE_StartXY_AttackCastThrowKickSpecialSequence",
@@ -312,6 +312,10 @@
         "sub_6FCBD120"
       ]
     },
-    "optionalReleaseObservation": "Still pending and nonblocking; do not repeat the question."
-  }
+    "optionalReleaseObservation": "Still pending and nonblocking; do not repeat the question.",
+    "fieldDocumentation": "tools/reference/blade-fury-primary-notes.json#fieldDocumentation",
+    "releaseFinding": "Complete source stop0x12/state/list/resource composition distinguishes a cleared Inferno bit from a retained timed stat list. Native correction in preparation; refer to release evidence for verification/install status."
+  },
+  "releaseNativeEvidence": "tools/reference/blade-fury-release-native-evidence.json",
+  "releaseSourceEvidence": "tools/reference/blade-fury-release-source-evidence.json"
 }

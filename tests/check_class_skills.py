@@ -66,7 +66,7 @@ def check():
         shutil.copy2(STAGE / 'sentry-emergence-source-probe.json', folder / 'sentry-emergence-source-probe.json')
         shutil.copy2(STAGE / 'sentry-unit-path-source-probe.json', folder / 'sentry-unit-path-source-probe.json')
         shutil.copy2(STAGE / 'blade-fury-channel-source-probe.json', folder / 'blade-fury-channel-source-probe.json')
-        for fixture in ['blade-fury-resource','blade-fury-timing']:
+        for fixture in ['blade-fury-resource','blade-fury-timing','blade-fury-release']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
         shutil.copy2(STAGE / 'blade-fury-damage-source-probe.json', folder / 'blade-fury-damage-source-probe.json')
         for fixture in ['sentry-target','charged-bolt-path']:
@@ -226,6 +226,9 @@ def check():
                     session.send('blade-fury-missile-natural-check')
                     assert session.expect(r'blade-fury-missile-natural-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     assert session.expect(r'blade-fury-missile-natural-result: (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
+                    release='blade-fury-release-check' if boot==0 else 'blade-fury-release-reload-check'
+                    session.send(release)
+                    assert session.expect(release+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
                     resource='blade-fury-resource-check' if boot==0 else 'blade-fury-resource-reload-check'
                     session.send(resource)
                     assert session.expect(resource+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

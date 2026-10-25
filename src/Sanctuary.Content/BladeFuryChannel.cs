@@ -3,7 +3,13 @@ using System;
 
 namespace Sanctuary;
 
-internal sealed record BladeFuryChannelState(bool Active,int Expires,int NextShot,uint Flags=64);
+internal sealed record BladeFuryChannelState(bool Active,int Expires,int NextShot,uint Flags=64)
+{
+    // The stop packet clears the state bit, not its timed stat list. Null
+    // preserves the original component JSON's coincident bit/list contexts.
+    public bool? Lease{get;init;}
+    internal bool HasLease=>Lease??Active;
+}
 internal sealed record BladeFuryChannelStep(BladeFuryChannelState State,bool Success);
 internal sealed record BladeFuryChannelServices(Func<bool> Allocate,Func<bool> Aim,Func<bool> Emit,Action Consume,Action Rewind);
 
@@ -15,7 +21,8 @@ internal static class BladeFuryChannel
     private static void Validate(BladeFuryChannelState state,int frame,BladeFuryChannelServices services)
     {
         ArgumentNullException.ThrowIfNull(state);ArgumentNullException.ThrowIfNull(services);
-        if(frame<0||frame>int.MaxValue-21||state.NextShot<0||state.Expires<0||state.Active&&state.Expires==0)
+        if(frame<0||frame>int.MaxValue-21||state.NextShot<0||state.Expires<0
+            ||state.HasLease&&state.Expires==0||state.Active&&!state.HasLease)
         {throw new ArgumentException("Unsupported Blade Fury channel clock/state");}
         ArgumentNullException.ThrowIfNull(services.Allocate);ArgumentNullException.ThrowIfNull(services.Aim);
         ArgumentNullException.ThrowIfNull(services.Emit);ArgumentNullException.ThrowIfNull(services.Consume);ArgumentNullException.ThrowIfNull(services.Rewind);
@@ -25,7 +32,7 @@ internal static class BladeFuryChannel
     {
         Validate(state,frame,services);
         if(!record||missile<0||!learned){return new(state,false);}
-        if(state.Active)
+        if(state.HasLease)
         {
             state=state with{Expires=checked(frame+7)};
             if(state.NextShot<=frame)
@@ -39,7 +46,7 @@ internal static class BladeFuryChannel
         // This is an availability threshold, not a six-mana debit. Existing
         // state bypasses it; generic resource eligibility is a separate layer.
         if((startThreshold256>0&&mana256<startThreshold256)||!services.Allocate()){return new(state,false);}
-        return new(state with{Active=true,Expires=checked(frame+21),NextShot=0},true);
+        return new(state with{Active=true,Lease=true,Expires=checked(frame+21),NextShot=0},true);
     }
     internal static BladeFuryChannelStep Do(BladeFuryChannelState state,int frame,bool record,bool learned,int missile,
         int calculation,BladeFuryChannelServices services)
@@ -62,6 +69,14 @@ internal static class BladeFuryChannel
     internal static BladeFuryChannelState Expire(BladeFuryChannelState state)
     {
         ArgumentNullException.ThrowIfNull(state);
-        return state with{Active=false,Expires=0,Flags=state.Flags|64u};
+        return state with{Active=false,Lease=false,Expires=0,Flags=state.Flags|64u};
+    }
+    // Legacy client stop packet0x12 toggles only the Inferno bit. It does not
+    // run the removal callback, delete the lease, reset Param1 or cancel an
+    // already scheduled action. The eventual expiry remains a separate event.
+    internal static BladeFuryChannelState Release(BladeFuryChannelState state)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        return state with{Lease=state.HasLease,Active=false};
     }
 }
