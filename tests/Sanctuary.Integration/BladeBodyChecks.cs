@@ -27,18 +27,12 @@ public static class BladeBodyChecks
     internal static PlayerMobile Fresh(int column=6000,int reach=10,int firstRow=2600)
     {
         var p=ClassSkillChecks.Player(DiabloClass.Assassin);p.Name="BladeBodyFixture";p.AddItem(new Backpack());ClassCreation.Profiles.AdvanceLevel(p,99);
-        int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface && !TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight==0);
-        for(int y=firstRow;y<3800;y+=32)
+        try
         {
-            bool clear=true;
-            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++)
-            {if(!Map.Trammel.CanFit(x,y+dy,0,16,true,true,false)){clear=false;}}
-            if(!clear){continue;}
-            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
-            FixtureSpace.Place(p,new(column,y,0),Map.Trammel);
+            int floor=FixtureSpace.Corridor(p,column,reach,firstRow);
             Log.Information("Blade body controlled native floor fixture: item={Floor} origin={Point}",floor,p.Location);return p;
         }
-        p.Delete();throw new InvalidOperationException("No blade body flat-floor corridor");
+        catch{p.Delete();throw;}
     }
     internal static AssassinTrapCreationStats Creation(PlayerMobile p)
     {

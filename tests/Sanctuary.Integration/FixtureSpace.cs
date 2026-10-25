@@ -1,6 +1,11 @@
 using System;
+using System.Linq;
+using System.Net;
 using Server;
+using Server.Items;
+using Server.Logging;
 using Server.Mobiles;
+using Server.Network;
 
 namespace Sanctuary.Integration;
 
@@ -11,6 +16,22 @@ internal static class FixtureSpace
     // Natural expiry controls keep their original short deadlines.
     internal const int RetentionMilliseconds=3_600_000;
     internal static TimeSpan Retention=>TimeSpan.FromMilliseconds(RetentionMilliseconds);
+    // Reserve a flat, unoccupied corridor for actual displacement/projectile
+    // checks. Reuse the same world-fit rules across blade and spell fixtures.
+    internal static int Corridor(PlayerMobile p,int column,int reach,int firstRow=2600)
+    {
+        int floor=Enumerable.Range(0x500,0x100).First(id=>TileData.ItemTable[id].Surface && !TileData.ItemTable[id].Impassable && TileData.ItemTable[id].CalcHeight==0);
+        for(int y=firstRow;y<3800;y+=32)
+        {
+            bool clear=true;
+            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++)
+            {if(!Map.Trammel.CanFit(x,y+dy,0,16,true,true,false)){clear=false;}}
+            if(!clear){continue;}
+            for(int x=column-4;x<=column+reach;x++)for(int dy=-3;dy<=3;dy++){new Static(floor).MoveToWorld(new(x,y+dy,0),Map.Trammel);}
+            Place(p,new(column,y,0),Map.Trammel);return floor;
+        }
+        throw new InvalidOperationException("No independent fixture corridor near "+column+","+firstRow);
+    }
     internal static bool ClearOfAllies(PlayerMobile p,Point3D point,Map map)
     {
         foreach(var other in map.GetMobilesInRange<Mobile>(point,0))
@@ -32,5 +53,26 @@ internal static class FixtureSpace
             }
         }
         throw new InvalidOperationException("No independent fixture position near "+anchor);
+    }
+}
+
+internal static class FixtureNetwork
+{
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(FixtureNetwork));
+    internal static void Connected(string result,Action<NetState> setup)
+    {
+        long deadline=Core.TickCount+5000;
+        void Try()
+        {
+            try
+            {
+                var clients=NetState.Instances.Where(x=>x.Running && x.Mobile==null && IPAddress.IsLoopback(x.Address)).ToArray();
+                if(clients.Length==1){setup(clients[0]);return;}
+                if(Core.TickCount>=deadline){throw new InvalidOperationException("Expected one fixture connection; found "+clients.Length);}
+                Timer.StartTimer(TimeSpan.FromMilliseconds(20),()=>Core.LoopContext.Post(Try));
+            }
+            catch(Exception e){Log.Error(e,"{Result}: failed",result);}
+        }
+        Try();
     }
 }

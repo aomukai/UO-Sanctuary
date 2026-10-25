@@ -24,11 +24,15 @@ public static class PsychicHammerChecks
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Psychic Hammer damage, targeting, knockback and persistence",_=>Core.LoopContext.Post(()=>{try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static void Later(int ms,string name,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(ms),()=>{try{action();}catch(Exception e){Log.Error(e,"{Name}: failed",name);}});
+    // A zero-delay timer can execute during a catch-up wheel slice. Post the
+    // actual start after that slice so its deadline uses the current loop tick.
+    private static void NextLoop(string name,Action action)=>Timer.StartTimer(TimeSpan.Zero,()=>Core.LoopContext.Post(()=>
+    {try{action();}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static PlayerMobile Fresh()
     {
         PlayerMobile p;_creating=true;try{p=new PlayerMobile{Body=0x191,Name="PsychicFixture",Player=true};}finally{_creating=false;}
         p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Assassin);ClassCreation.Profiles.AdvanceLevel(p,99);
-        FixtureSpace.Place(p,new(6060,1850,0),Map.Trammel);p.Hits=p.HitsMax;p.Mana=p.ManaMax;return p;
+        FixtureSpace.Corridor(p,6060,12,2000);p.Hits=p.HitsMax;p.Mana=p.ManaMax;return p;
     }
     private static void Train(PlayerMobile p,int rank){string id=SkillMechanics.For(CombatAbility.PsychicHammer).TalentId;while(ClassCreation.Profiles.GetRank(p.Serial,id)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train Psychic Hammer");}}
     private static void Ready(PlayerMobile p){ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;p.Frozen=p.Paralyzed=false;}
@@ -92,11 +96,21 @@ public static class PsychicHammerChecks
             Train(p,20);var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Tarnhelm").Id,99,new Random(173),true);p.AddToBackpack(helm);Require(p.EquipItem(helm),"Real soft-rank helm");ClassGear.Refresh(p);Require(SkillMechanics.Rank(p,CombatAbility.PsychicHammer)==21,"Effective rank21");
             hp=SkillHealth.Balance256(t);Require(Cast(p,t)==2304 && SkillHealth.Balance256(t)==hp-15360,"Rank21 fractional cost and real direct damage");Reset(t);
             var friend=Fresh();Ready(p);Require(!ClassCombat.Perform(p,CombatAbility.PsychicHammer,friend,friend.Location,Core.TickCount),"Friendly target");friend.Delete();
-            var pending=Fresh();Train(pending,1);var unpaid=Target(pending);Ready(pending);int pendingMana=NecromancerEffects.ManaBalance256(pending);Require(ClassCombat.Perform(pending,CombatAbility.PsychicHammer,unpaid,unpaid.Location,Core.TickCount),"Saved unpaid cast");ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
+            var pending=Fresh();Train(pending,1);var unpaid=Target(pending);unpaid.Frozen=true;Ready(pending);int pendingMana=NecromancerEffects.ManaBalance256(pending);Require(ClassCombat.Perform(pending,CombatAbility.PsychicHammer,unpaid,unpaid.Location,Core.TickCount),"Saved unpaid cast");ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;
             Cast(p,t);var motion=SourceKnockbacks.Snapshot().Single(x=>x.Target==t.Serial.Value) with{NextUtc=TimedEffects.Now.AddHours(1)};Hold(motion); // Inspection hold, not production displacement timing.
             File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,t.Serial.Value,helm.Serial.Value,motion,NecromancerEffects.ManaBalance256(p),SkillHealth.Balance256(t),pending.Serial.Value,pendingMana)));
-            var natural=Fresh();Train(natural,1);var moving=Target(natural);var start=moving.Location;Cast(natural,moving);
-            Later(180,"psychic-hammer-result",()=>{try{Require(moving.X==start.X+1 && moving.Y==start.Y && SourceKnockbacks.Remaining(moving)>0,"Natural source movement and recovery");Log.Information("psychic-hammer-result: passed");}finally{moving.Delete();natural.Delete();}});
+            var natural=Fresh();Train(natural,1);var moving=Target(natural);
+            // Core.TickCount is constant within this heavy setup callback.
+            // Start the natural clock on a fresh loop tick, after setup returns.
+            NextLoop("psychic-hammer-result",()=>
+            {
+                try
+                {
+                    var start=moving.Location;Cast(natural,moving);
+                    Later(180,"psychic-hammer-result",()=>{try{Require(moving.X==start.X+1 && moving.Y==start.Y && SourceKnockbacks.Remaining(moving)>0,$"Natural source movement and recovery: start={start}, actual={moving.Location}, remaining={SourceKnockbacks.Remaining(moving)}, state={JsonSerializer.Serialize(SourceKnockbacks.Snapshot().SingleOrDefault(x=>x.Target==moving.Serial.Value))}, now={TimedEffects.Now:O}");Log.Information("psychic-hammer-result: passed");}finally{moving.Delete();natural.Delete();}});
+                }
+                catch{moving.Delete();natural.Delete();throw;}
+            });
         }finally{PsychicHammers.Roll=r;}
     }
     private static void Reload()
@@ -105,14 +119,22 @@ public static class PsychicHammerChecks
         Require(SkillMechanics.Rank(p,CombatAbility.PsychicHammer)==21 && ClassCreation.Profiles.GetRank(p.Serial,"assassin.psychichammer")==20 && World.FindItem((Serial)s.Helm)?.Parent==p,"Saved real soft/hard ranks");
         Require(NecromancerEffects.ManaBalance256(p)==s.Mana && SkillHealth.Balance256(t)==s.Health && SourceKnockbacks.Snapshot().Single(x=>x.Target==t.Serial.Value)==s.Motion,$"Saved damage/resource/motion identity: mana={NecromancerEffects.ManaBalance256(p)}/{s.Mana}, health={SkillHealth.Balance256(t)}/{s.Health}, motion={JsonSerializer.Serialize(SourceKnockbacks.Snapshot().SingleOrDefault(x=>x.Target==t.Serial.Value))}/{JsonSerializer.Serialize(s.Motion)}");
         Require(ClassCombat.For(pending).PendingAbility==CombatAbility.None && NecromancerEffects.ManaBalance256(pending)==s.PendingMana,"Unpaid windup replayed");Require(SkillBindings.Instance.Get(p).Right==CombatAbility.PsychicHammer && SkillBindings.Instance.GetQuick(p.Serial,DiabloClass.Assassin,7)==CombatAbility.PsychicHammer,"Saved bindings");
-        Hold(s.Motion with{NextUtc=TimedEffects.Now});Later(180,"psychic-hammer-reload-result",()=>{Require(t.X==s.Motion.Position.X+1 && SourceKnockbacks.Remaining(t)>0 && SkillHealth.Balance256(t)==s.Health && NecromancerEffects.ManaBalance256(p)==s.Mana,"Resumed knockback repeated damage/mana or failed movement");t.MoveToWorld(s.Motion.Position,t.Map);Hold(s.Motion);Log.Information("psychic-hammer-reload-result: passed");});
+        NextLoop("psychic-hammer-reload-result",()=>
+        {
+            Hold(s.Motion with{NextUtc=TimedEffects.Now});
+            Later(180,"psychic-hammer-reload-result",()=>{Require(t.X==s.Motion.Position.X+1 && SourceKnockbacks.Remaining(t)>0 && SkillHealth.Balance256(t)==s.Health && NecromancerEffects.ManaBalance256(p)==s.Mana,$"Resumed knockback repeated damage/mana or failed movement: position={t.Location}/{s.Motion.Position}, remaining={SourceKnockbacks.Remaining(t)}, state={JsonSerializer.Serialize(SourceKnockbacks.Snapshot().SingleOrDefault(x=>x.Target==t.Serial.Value))}");t.MoveToWorld(s.Motion.Position,t.Map);Hold(s.Motion);Log.Information("psychic-hammer-reload-result: passed");});
+        });
     }
-    private static void Input()
+    private static void Input()=>FixtureNetwork.Connected("psychic-hammer-input-result",Input);
+    private static void Input(NetState net)
     {
-        var p=Fresh();Train(p,1);var t=Target(p);Ready(p);Require(SkillBindings.Instance.Assign(p,false,CombatAbility.PsychicHammer) && SkillBindings.Instance.AssignQuick(p,7,CombatAbility.PsychicHammer),"Connected bindings");
-        var net=NetState.Instances.Single(x=>x.Mobile==null && IPAddress.IsLoopback(x.Address));net.Seeded=true;net.CompressionEnabled=false;net.Mobile=p;p.NetState=net;var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);field.SetValue(net,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));net.ResetMovementState();net.SendMobileUpdate(p);
+        var p=Fresh();Train(p,1);var t=Target(p);t.Frozen=true;Ready(p);Require(SkillBindings.Instance.Assign(p,false,CombatAbility.PsychicHammer) && SkillBindings.Instance.AssignQuick(p,7,CombatAbility.PsychicHammer),"Connected bindings");
+        // Keep the real near-click input independent from parked save targets
+        // and AI reactivation when a client joins. Release the fixture freeze
+        // as soon as windup begins so the real knockback path remains exercised.
+        net.Seeded=true;net.CompressionEnabled=false;net.Mobile=p;p.NetState=net;var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);field.SetValue(net,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));net.ResetMovementState();net.SendMobileUpdate(p);
         int mana=NecromancerEffects.ManaBalance256(p),hp=SkillHealth.Balance256(t);long deadline=Core.TickCount+5000;bool begun=false;
-        void Wait(){try{Require(Core.TickCount<deadline,$"Connected cast timeout: pending={ClassCombat.For(p).PendingAbility}, valid={PsychicHammers.Valid(p,t.Serial)}, acquired={PsychicHammers.Acquire(p,new(t.X,t.Y+1,t.Z))?.Serial}, target={t.Serial}, overlap={AlliedOverlap.Allowed(p)}, p={p.Location}, t={t.Location}, mana={NecromancerEffects.ManaBalance256(p)}, life={SkillHealth.Balance256(t)}/{hp}");if(ClassCombat.For(p).PendingAbility==CombatAbility.PsychicHammer){begun=true;Require(NecromancerEffects.ManaBalance256(p)==mana,"Premature connected payment");}if(SkillHealth.Balance256(t)==hp){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}Require(begun && NecromancerEffects.ManaBalance256(p)==mana-1024 && SourceKnockbacks.Remaining(t)>0,"Real ground-input skill/mana/knockback");t.Delete();p.Delete();Log.Information("psychic-hammer-input-result: passed");}catch(Exception e){t.Delete();p.Delete();Log.Error(e,"psychic-hammer-input-result: failed");}}
-        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("psychic-hammer-input: ready ability={Ability} x={X} y={Y} z={Z}",(int)CombatAbility.PsychicHammer,t.X,t.Y+1,t.Z);Wait();});
+        void Wait(){try{Require(Core.TickCount<deadline,$"Connected cast timeout: pending={ClassCombat.For(p).PendingAbility}, valid={PsychicHammers.Valid(p,t.Serial)}, acquired={PsychicHammers.Acquire(p,new(t.X,t.Y+1,t.Z))?.Serial}, target={t.Serial}, overlap={AlliedOverlap.Allowed(p)}, p={p.Location}, t={t.Location}, mana={NecromancerEffects.ManaBalance256(p)}, life={SkillHealth.Balance256(t)}/{hp}");if(ClassCombat.For(p).PendingAbility==CombatAbility.PsychicHammer){begun=true;t.Frozen=false;Require(NecromancerEffects.ManaBalance256(p)==mana,"Premature connected payment");}if(SkillHealth.Balance256(t)==hp){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}Require(begun && !t.Frozen && NecromancerEffects.ManaBalance256(p)==mana-1024 && SourceKnockbacks.Remaining(t)>0,"Real ground-input skill/mana/knockback");t.Delete();p.Delete();Log.Information("psychic-hammer-input-result: passed");}catch(Exception e){t.Delete();p.Delete();Log.Error(e,"psychic-hammer-input-result: failed");}}
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{try{Require(PsychicHammers.Acquire(p,new(t.X,t.Y+1,t.Z))==t,"Socket fixture has an ambiguous or invalid near-click target");Log.Information("psychic-hammer-input: ready ability={Ability} x={X} y={Y} z={Z}",(int)CombatAbility.PsychicHammer,t.X,t.Y+1,t.Z);Wait();}catch(Exception e){t.Delete();p.Delete();Log.Error(e,"psychic-hammer-input-result: failed");}});
     }
 }
