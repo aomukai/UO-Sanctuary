@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "routineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/wake-of-fire-factory-source-probe.json",
+    "sha256": "62b70a3da12b6f6755e685af58f685f3bad80b12dcef0d832690d8f1951f3896",
+    "cases": 6720
+  },
+  "established": [
+    "Complete factory flags2 starts makers at the trap and waves at the maker origin, adding the supplied relative vector to that position. Original actor remains the stored owner and skill281/rank remain attached.",
+    "A zero relative vector is changed locally to (+1,+1) for the moving path. This does not rewrite the caller params that do125 later rotates; zero stored perpendicular vectors therefore remain distinct from the factory path fallback.",
+    "With nonzero velocity, either relative coordinate with absolute value100 or greater rejects before allocation. Zero velocity bypasses this guard and the zero-aim fallback. Missing owner, record, origin or room also prevents allocation; allocation failure returns null.",
+    "Current maker lifetime is 25+2*rank and wave lifetime20. The shared source factory velocity factor75 percent gives1920/1536 FP8 respectively; declared Slow Missiles50 percent gives960/768, and the zero-percent control gives zero velocity. Both receive damage-framerate205 after creation.",
+    "Maker range is explicitly projected from the current affine Range expression into the historical base/level fields (25,2). The expression text is pinned; no claim is made that the old factory executes the modern expression language."
+  ],
+  "services": [
+    "World/room allocation, path construction, stat-list allocation, damage creation/writing, stat/seed/owner/event operations remain the checked Guided Arrow harness services. The complete factory body is unchanged.",
+    "This fixture does not execute actual missile path movement, maker emission, child damage/stat capture or collision/NextHit/LastCollide. Separate source producer and fire getter proofs must be composed with native movement and lifecycle.",
+    "Slow Missiles has declared50- and0-percent stat controls. Full live slow-state capture, actor death/stat cleanup, current executable factory and rendered graphics remain outside this proof."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

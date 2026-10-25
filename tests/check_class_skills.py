@@ -73,6 +73,8 @@ def check():
         shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
         shutil.copy2(ROOT / 'tools/reference/tiger-strike-source-evidence.json',folder / 'tiger-strike-source-evidence.json')
         shutil.copy2(STAGE / 'sentry-controller-source-probe.json', folder / 'sentry-controller-source-probe.json')
+        for part in ['clock','damage','factory']:
+            shutil.copy2(STAGE / ('wake-of-fire-'+part+'-source-probe.json'),folder / ('wake-of-fire-'+part+'-source-probe.json'))
         shutil.copy2(STAGE / 'sentry-aim-source-probe.json', folder / 'sentry-aim-source-probe.json')
         shutil.copy2(STAGE / 'sentry-emergence-source-probe.json', folder / 'sentry-emergence-source-probe.json')
         shutil.copy2(STAGE / 'sentry-unit-path-source-probe.json', folder / 'sentry-unit-path-source-probe.json')
@@ -179,7 +181,7 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['wake-fire-prepared','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

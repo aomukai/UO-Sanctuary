@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.wakeoffire",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "routineHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC645E0": "0974fabbe5032e2cf6ee285470a555aafa7575186f5ec783e32d99b28021f742",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5",
+    "D2GAME_MONSTERS_AiFunction02_6FC65150": "c2c26d3cd1f8bb72c199c212f3b0e6cc13a81b29067e0082dc73c6aa82a039e8",
+    "sub_6FC64790": "44afcbcc07adb7a65b25be726164368e266644826c1c4f3e7283f72f82dfad89",
+    "D2GAME_MONSTERS_AiFunction01_6FC65080": "41a5519fb96e3b646cf9b1e66a20075cc59160e56ed32981f00ace73ee122faf"
+  },
+  "pinnedInputHashes": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monstats2": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+  },
+  "localAnimationEvidence": "tools/reference/d2r-local-sentry-animation-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/wake-of-fire-clock-source-probe.json",
+    "sha256": "d43ba572a7cd51c5c50367835c35cc5c101db81a834f64c956963fdc5500ae22",
+    "cases": 96
+  },
+  "established": [
+    "Current Wake uses direct nonmoving S2 and generic callbacks, rather than lightning mode14/seq_chargesentry. Complete generic entry calls start but ignores its result on this route.",
+    "The complete ordinary scheduler, direct action dispatcher and generic used-skill callback issue one do at +1 frame and complete at +2 at the declared current metadata speed256. No sequence controller or third-phase release is used.",
+    "Complete ENDANIM callback, generic end and neutral handoff preserve any existing AI deadline that is still in the future, even if it precedes end+15. With no future deadline they schedule end+15, or end+45 when stunned; speed256 with no deadline next thinks at +17.",
+    "Six declared speed controls distinguish zero-speed expiry, slow repeated frame crossings and the high-speed skipped marker. Start success/failure, stun and four earlier/later AI deadlines are independently checked."
+  ],
+  "services": [
+    "Animation rate is supplied, not derived from the full live monster rate/skill graph. Mode change, callback lookup, start/do, states, registry and event-list services remain checked boundaries.",
+    "StopSequence is an explicit counted service. Only non-channelled used skills are exercised; no-used-skill and channelled branches assert through unused services. Full AI101, retirement/death, source monster event phase order and native combat are not composed here.",
+    "This is source timing with current local metadata, not a complete current executable or rendered animation certificate."
+  ],
+  "sanitizers": "ASan/UBSan: exit0 and empty runtime stderr required"
+}

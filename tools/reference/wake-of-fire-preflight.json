@@ -24,6 +24,10 @@
   "currentObservations": "tools/reference/wake-of-fire-current-observations.json",
   "sourceProducerEvidence": "tools/reference/wake-of-fire-producer-source-evidence.json",
   "sourceDamageEvidence": "tools/reference/wake-of-fire-damage-source-evidence.json",
+  "sourceClockEvidence": "tools/reference/wake-of-fire-clock-source-evidence.json",
+  "sourceFactoryEvidence": "tools/reference/wake-of-fire-factory-source-evidence.json",
+  "nativePreparation": "src/Sanctuary.Content/AssassinWakeFire.cs",
+  "nativeCandidateEvidence": "tools/reference/wake-of-fire-prepared-native-evidence.json",
   "shotMode": {
     "wake": "S2",
     "lightning": "seq_chargesentry",
@@ -281,8 +285,8 @@
     "Current player passive slots inherit fire immunity pierce,fire resistance pierce and fire mastery. These are distinct from the installed lightning-specific sentry projection."
   ],
   "required": [
-    "Wake uses direct nonmoving S2, whereas lightning uses seq_chargesentry. Current local E9S2 is 2 frames with marker1 at frame1; LGS2 is 15 frames with marker2 at frame0. Trace direct-mode scheduling and end/AI handoff; do not copy the installed mode14 sequence controller. Shared 15-frame S1 still requires a matching full rate/mode context.",
-    "Complete do125/do31 and guarded coordinate/skill/rank accessors pass 1,152 launcher and 2,560 composed maker cases. Compose the actual factory and movement update before native integration; declared-service zero vectors do not establish gameplay acceptance.",
+    "Wake uses direct nonmoving S2, whereas lightning uses seq_chargesentry. Current local E9S2 is 2 frames with marker1 at frame1; LGS2 is 15 frames with marker2 at frame0. Complete direct-mode scheduler/action/end/neutral passes 96 contexts; speed256 releases at +1 and ends at +2. Existing future AI deadlines are preserved, otherwise neutral schedules +15. Native prepared controller is separately staged; do not copy the installed mode14 sequence controller. Shared 15-frame S1 still requires a matching full rate/mode context.",
+    "Complete do125/do31 and guarded coordinate/skill/rank accessors pass 1,152 launcher and 2,560 composed maker cases. The complete factory additionally passes 6,720 current-row relative-aim/range/velocity/guard contexts, including zero velocity; actual movement update still needs native integration. Source zero-vector fallback is (+1,+1) only with nonzero velocity.",
     "Complete damage creator/getters pass 7,167 maker/wave contexts, including 255 rank goldens. Actual factory/stat capture, DamageRate205, LastCollide, NextHit, collision and owner-death/stat cleanup remain separate integration gates.",
     "Reuse shared actor creation,stat rescaling and five-trap limit without overriding the existing approved old-facet/offline behavior. Resolve any shared retirement/GUID dependency individually and continue unaffected work.",
     "Verify actual world placement,targets,shots,continuous connected damage,source clocks,gear/rank,inputs/lifecycle and two world reloads before enabling."
