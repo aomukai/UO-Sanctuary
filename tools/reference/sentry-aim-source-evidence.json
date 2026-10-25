@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routineHashes": {
+    "PATH_SetTargetUnit": "8bdd457345b1ae31f6dd074b1a894111cc24410923424deae065c8400bee43a8",
+    "PATH_GetTargetUnit": "969da071dc5222048da9a60f5d60522f10787b1f692ea44c6c234f895f6502be",
+    "PATH_GetTargetTypeAndGUID": "d54ee444cc6674c0eedda5362043dc6e183b6d6e2c7d5fe9696aadae0412561c",
+    "D2COMMON_10175_PathGetFirstPointX": "d69133d0a8fab886b0c1f31ed52cffa39be6548e7e09c73113e2e5a8e20c62ae",
+    "D2COMMON_10176_PathGetFirstPointY": "b2281f2b3ea7e43d991562f48e1a34f0099eeee808a9f9a1dbaf2305e0369c78",
+    "sub_6FCBC7E0": "aaff389cb11a4d0d0ea412779a28e3406f85bc26c00b198c428fc15b3a23fd0c",
+    "SUNIT_GetTargetUnit": "01b6790fc0508cafb9a906e8b19e9c5c22e7a08a08d99835030ef9e9cddfd4d6",
+    "D2GAME_GetXAndYFromTargetUnit_6FD14020": "bf7cb76f34f9b068913104c633a7d6fa7b71ff3c319e15ef3106fca54df04a76"
+  },
+  "initializerEvidence": "tools/reference/toward-path-engine-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/sentry-aim-source-probe.json",
+    "sha256": "c40fc8ea04de892827985ab18c0652ab8c385b0cad86b786d1d90e1538757ec9",
+    "cases": 100
+  },
+  "established": [
+    "PATH_SetTargetUnit stores unit identity without caching its coordinates. Complete D2Common_10142/PATH_UpdateTargetUnit cache a nonzero stationary unit target before geometry, retain that target coordinate for both successful and failed paths, and reject either-zero unit coordinates before updating the cache.",
+    "Complete registry refresh, SUNIT_GetTargetUnit and target-coordinate getter use current live coordinates without refreshing the path cache, accept a dead-but-present monster, clear a deleted registry target, exclude self-target and fall back to retained path coordinates. Either-zero result suppresses the individual do17 missile through the separately verified launcher."
+  ],
+  "limits": [
+    "The reconstructed initializer is marked BROKEN. This source proof is supplementary; exact current executable behavior, native room/collision/sector/coordinate projection and animation timing remain separately scoped.",
+    "The server registry lookup is a declared type/GUID service with present/absent/self controls; full hash-list iteration, replacement of a different pointer under the same GUID and native serial reuse are not exercised.",
+    "Stationary speed0, unit target, path13, zero actor footprint, source unit size1 and synthetic rooms/grid are exercised. This does not verify moving-target lead, unit footprint projection, town refusal, low-threat path probe integration or full monster mode-change execution.",
+    "A current native save without a retained path coordinate must stay explicitly unsupported when its pending target disappears; do not reconstruct it from a later position."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr required"
+}

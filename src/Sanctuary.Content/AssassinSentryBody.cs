@@ -13,10 +13,15 @@ using Server.Spells;
 namespace Sanctuary;
 
 internal sealed record SentryBodyState(uint Owner,SentryCreationStats Creation,int Map,Point3D Position,
-    SentryControlState Control,ulong Seed,DateTime NextFrameUtc,string ControllerFault=null);
+    SentryControlState Control,ulong Seed,DateTime NextFrameUtc,string ControllerFault=null)
+{
+    // Null identifies an older save whose dynamic-path aim was not retained.
+    // New actors start with the source allocation's zero-initialized field.
+    public Point2D? CachedAim{get;init;}
+}
 
 // Saved stationary actor backend. No Constructible or learned input path exists
-// until target selection, do45 emergence and real missile combat are connected.
+// until emergence, player casting and remaining mechanical acceptance are complete.
 [SerializationGenerator(0)]
 public partial class AssassinSentryBody:BaseCreature
 {
@@ -55,6 +60,8 @@ public partial class AssassinSentryBody:BaseCreature
             || s.Position.Z is <-128 or >127 || s.NextFrameUtc.Kind!=DateTimeKind.Utc)
         {throw new InvalidDataException("Unsupported saved sentry body state");}
         AssassinSentryController.Validate(s.Control);
+        if(s.CachedAim is{} aim && (aim.X is <0 or >65535 || aim.Y is <0 or >65535))
+        {throw new InvalidDataException("Invalid saved sentry target-path coordinate");}
         var expected=AssassinSentryCreation.Rescale(c,c.Difficulty);
         if(c.Level!=expected.Level || c.Defense!=expected.Defense || c.Attack!=expected.Attack
             || c.Passives.Any(x=>x.Name is not("item_pierce_light_immunity" or "passive_ltng_pierce" or "passive_ltng_mastery"))
@@ -70,7 +77,7 @@ public partial class AssassinSentryBody:BaseCreature
         // Initial neutral/+25 AI is explicit preparation. This is not a claim
         // that the player do45 S1 emergence animation has been implemented.
         at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
-        var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,AssassinSentryController.Start(),seed,at.AddMilliseconds(40));Validate(state);
+        var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,AssassinSentryController.Start(),seed,at.AddMilliseconds(40)){CachedAim=new(0,0)};Validate(state);
         var body=new AssassinSentryBody();
         try
         {
@@ -112,16 +119,32 @@ public partial class AssassinSentryBody:BaseCreature
                 continue;
             }
             ulong seed=before.Seed;
+            uint selected=0;Point2D? cached=before.CachedAim;
             // Keep the source owner-town exit while sharing a facet. Across
             // facets, approved old-facet retention uses the trap room instead.
             bool town=owner.Map==Map?SpellHelper.IsTown(owner.Location,owner):SpellHelper.IsTown(Location,this);
             var control=AssassinSentryController.Advance(before.Control,true,true,town,true,true,
                 ()=>AssassinSentryCreation.Shots(before.Creation),
-                ()=>(AssassinSentryActors.SelectTarget??throw new NotSupportedException("Sentry source target-selection service is not connected"))(this),
+                ()=>
+                {
+                    var target=(AssassinSentryActors.SelectTarget??throw new NotSupportedException("Sentry source target-selection service is not connected"))(this);
+                    selected=target?.Serial??0;return target;
+                },
                 ()=>SourceRandom.Limited(ref seed,100)<100,
-                ()=>true, // Actor306 has no start function; emergence/input remain gated.
+                ()=>
+                {
+                    // Mode14's unit-target path preparation runs before the
+                    // start service. The zero target-lead parameter keeps the
+                    // raw unit cell; it is distinct from movement velocity.
+                    if(World.FindMobile((Serial)selected) is{Deleted:false} target)
+                    {
+                        if(target.Map!=Map){throw new NotSupportedException("Cross-map sentry start target is not mapped");}
+                        cached=AssassinSentryAim.Begin(cached,new(target.X*2,target.Y*2));
+                    }
+                    return true; // Actor306 has no start function; emergence/input remain gated.
+                },
                 target=>(AssassinSentryActors.Dispatch??throw new NotSupportedException("Sentry real charged-bolt missile factory is not connected"))(this,target));
-            Store(before with{Control=control,Seed=seed,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
+            Store(before with{Control=control,Seed=seed,CachedAim=cached,NextFrameUtc=before.NextFrameUtc.AddMilliseconds(40)});
             if(control.Mode==0){Delete();return;}
             AIObject?.AITimer.Stop();
         }
@@ -145,8 +168,8 @@ public static class AssassinSentryActors
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(AssassinSentryActors));
     private static readonly Dictionary<Serial,AssassinSentryBody> Active=new();
-    // The mapped native selector is bound at Initialize. Real damaging bolts
-    // remain a separate service until their ownership/combat is verified.
+    // The mapped selector and real projectile factory are bound at Initialize.
+    // Orchestration fixtures can replace these explicitly scoped services.
     internal static Func<AssassinSentryBody,SentryTarget?> SelectTarget;
     internal static Action<AssassinSentryBody,uint> Dispatch;
     public static void Initialize()

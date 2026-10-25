@@ -49,9 +49,13 @@ public static class AssassinSentryBolts
         {
             // The source re-reads target coordinates for every ordinal. A dead
             // but still present target is not rejected by that getter.
-            if(World.FindMobile((Serial)targetSerial) is not{Deleted:false} target || target.Map!=body.Map)
-            {throw new NotSupportedException("Deleted sentry target needs the source saved path-target fallback");}
-            return new(target.X*2,target.Y*2);
+            Point2D? present=null;
+            if(World.FindMobile((Serial)targetSerial) is{Deleted:false} target && target!=body)
+            {
+                if(target.Map!=body.Map){throw new NotSupportedException("Cross-map sentry pending target is not mapped");}
+                present=new(target.X*2,target.Y*2);
+            }
+            return AssassinSentryAim.Resolve(context.CachedAim,present);
         },spawn=>{Create(body,spawn);return true;});
     }
     internal static long Create(AssassinSentryBody body,SentryBoltSpawn spawn)

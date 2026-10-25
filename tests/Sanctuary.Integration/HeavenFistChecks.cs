@@ -194,6 +194,10 @@ public static class HeavenFistChecks
         var at=TimedEffects.Now.AddMinutes(10);HeavenFists.Cast(owner,primary,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1));
         var strike=HeavenFists.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{ImpactUtc=at,Min256=2560,Max256=2560};Replace(strike);
         dead=dead with{ImpactUtc=at.AddSeconds(1)};Replace(dead);
+        // Keep the real corpse for serialization inspection beyond the full
+        // three-boot suite; production NPC corpse decay remains seven minutes.
+        Require(World.FindItem((Serial)dead.Corpse) is Corpse{Deleted:false},"Missing corpse before inspection hold");
+        ((Corpse)World.FindItem((Serial)dead.Corpse)).BeginDecay(TimeSpan.FromHours(1));
         HolyBolts.CastSecondary(owner,new(owner.X+11,owner.Y,owner.Z),demon.Location,SkillMechanics.Values(owner,CombatAbility.FistOfTheHeavens,1),at);
         var bolt=HolyBolts.Snapshot().Single(x=>x.Owner==owner.Serial.Value) with{Frame=2,Min256=2560,Max256=2560,LastCollision=undead.Serial.Value};Replace(bolt);
         var state=FireGround.Snapshot();FireGround.Restore(state with{Cooldowns=state.Cooldowns.Where(x=>x.Owner!=owner.Serial.Value || x.Ability!=CombatAbility.FistOfTheHeavens).Append(new(owner.Serial.Value,CombatAbility.FistOfTheHeavens,at)).ToArray()});
@@ -205,10 +209,11 @@ public static class HeavenFistChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         var strike=HeavenFists.Snapshot().Single(x=>x.Id==saved.Strike.Id);var bolt=HolyBolts.Snapshot().Single(x=>x.Id==saved.Bolt.Id);
-        Require(JsonSerializer.Serialize(strike)==JsonSerializer.Serialize(saved.Strike) && JsonSerializer.Serialize(bolt)==JsonSerializer.Serialize(saved.Bolt)
-            && JsonSerializer.Serialize(HeavenFists.Snapshot().Single(x=>x.Id==saved.CorpseStrike.Id))==JsonSerializer.Serialize(saved.CorpseStrike)
-            && World.FindItem((Serial)saved.CorpseStrike.Corpse) is Corpse{Deleted:false}
-            && FireGround.Snapshot().Cooldowns.Single(x=>x.Owner==saved.Owner && x.Ability==CombatAbility.FistOfTheHeavens).UntilUtc==saved.Cooldown,"Saved strike/child/cooldown changed");
+        Require(JsonSerializer.Serialize(strike)==JsonSerializer.Serialize(saved.Strike),"Saved primary strike changed");
+        Require(JsonSerializer.Serialize(bolt)==JsonSerializer.Serialize(saved.Bolt),"Saved secondary bolt changed");
+        Require(JsonSerializer.Serialize(HeavenFists.Snapshot().Single(x=>x.Id==saved.CorpseStrike.Id))==JsonSerializer.Serialize(saved.CorpseStrike),"Saved corpse strike changed");
+        Require(World.FindItem((Serial)saved.CorpseStrike.Corpse) is Corpse{Deleted:false},"Saved inspection corpse expired or disappeared");
+        Require(FireGround.Snapshot().Cooldowns.Single(x=>x.Owner==saved.Owner && x.Ability==CombatAbility.FistOfTheHeavens).UntilUtc==saved.Cooldown,"Saved independent local cooldown changed");
         owner.MoveToWorld(new(strike.X-5,strike.Y,strike.Z),Map.Maps[strike.Map]);
         var primary=(BaseCreature)World.FindMobile((Serial)saved.Primary);primary.MoveToWorld(new(owner.X+5,owner.Y,owner.Z),owner.Map);primary.SetResistance(ResistanceType.Energy,0);Freeze(primary);
         var demon=(BaseCreature)World.FindMobile((Serial)saved.Demon);demon.MoveToWorld(new(owner.X+12,owner.Y,owner.Z),owner.Map);Freeze(demon);

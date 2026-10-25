@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.chargedboltsentry",
+  "installed": false,
+  "handlerEnabled": false,
+  "totalHandlersPresent": 150,
+  "assassinHandlers": 11,
+  "status": "Development checkpoint: saved windup aim and deleted-target fallback are implemented. Source100 and focused Sentry/Fist suites pass three boots/two actual reloads. Full combined regression previously stopped on a seven-minute Fist corpse fixture; that inspection hold is corrected and full verification/install remain pending. Installed content remains the prior verified238d973 build.",
+  "sourceEvidence": "tools/reference/sentry-aim-source-evidence.json",
+  "previousBoltEvidence": "tools/reference/sentry-bolt-native-evidence.json",
+  "verification": {
+    "sourceAimCasesPerBoot": 100,
+    "focusedBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "actualWindupCache": true,
+    "presentTargetRequery": true,
+    "deletedTargetFallback": true,
+    "pendingDeletedTargetReloads": 2,
+    "zeroFallbackSuppressesMissiles": true,
+    "historicalUnknownAimRejected": true,
+    "crossMapTargetSupported": false,
+    "fullRegressionPending": true,
+    "installedSmokePending": true,
+    "learnedInput": false,
+    "contentAssemblySha256": "05dc60a91fca910963765e8958460f239f4b36c67c28ce493ea912f6d166f759",
+    "integrationAssemblySha256": "edec4dff31fcfb63c7c23d9a90e64c6d681f7bbb4ad3eb2dfbbd5e2e11f84b5d"
+  },
+  "remaining": [
+    "Complete final combined regression, audits and original-world install smoke before installing this checkpoint.",
+    "Do45 S1 emergence, player S2 input/payment, low-threat unit-target path, cross-map or historical unknown aim, source movement and corpse/removal ownership remain gated.",
+    "Effects and icons remain separate with identified placeholders; no idle timeout is inferred."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/sentry-aim-focused.log",
+    "failedFull": ".local/class-skills/sentry-aim-foh-corpse-failure.log"
+  }
+}

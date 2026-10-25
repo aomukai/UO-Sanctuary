@@ -52,8 +52,10 @@ public static class SentryActorChecks
         var target=AssassinSentryActors.SelectTarget;var dispatch=AssassinSentryActors.Dispatch;int calls=0;
         // Explicit orchestration services. This records dispatches only, and
         // makes no assertion of actual allegiance, allocation, hits or damage.
-        AssassinSentryActors.SelectTarget=_=>new(p.Serial.Value,10);
-        AssassinSentryActors.Dispatch=(_,serial)=>{Require(serial==p.Serial.Value,"Retained sequence target changed");calls++;};
+        // An actor-local synthetic identity keeps these orchestration services
+        // independent from owner-facet travel; real target/aim tests are separate.
+        AssassinSentryActors.SelectTarget=body=>new(body.Serial.Value,10);
+        AssassinSentryActors.Dispatch=(body,serial)=>{Require(serial==body.Serial.Value,"Retained sequence target changed");calls++;};
         try{run(()=>{Require(calls==1,"Expected exactly one source do dispatch");});}
         finally{AssassinSentryActors.SelectTarget=target;AssassinSentryActors.Dispatch=dispatch;}
     }
