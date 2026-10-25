@@ -82,7 +82,7 @@ for(int rank=1;rank<=255;rank++)emit(rank,20,20,25,0,0,1);printf("]\\n");}
             fixture=dict(path=str(fixture.relative_to(ROOT)),sha256=hashlib.sha256(fixture.read_bytes()).hexdigest(),completeDamageCases=len(cases),allRankGoldens=255),
             established=[
                 f'Complete source-zero creator/getters choose player skill{player} from missile{mid} despite stored actor skill{actor}; explicit MissileSkill override selects the damage-free NPC row in these controls.',
-                'Current five-tier endpoints, HitShift, hard-only synergy and inherited elemental mastery execute through complete unchanged source routines. The lightning minimum1/FP256 bypasses synergy while mastery still applies; Inferno minimum starts320/FP256 and receives synergy.',
+                'Current five-tier endpoints, HitShift, hard-only synergy and inherited elemental mastery execute through complete unchanged source routines. '+('This lightning minimum1/FP256 bypasses synergy while mastery still applies.' if element=='ltng' else 'This Inferno minimum starts320/FP256 and receives synergy before mastery.'),
                 'Weapon/item physical/typed/poison/drain/critical and a noisy origin do not enter these source-zero packets. Captured creator fields contain only the intended elemental endpoints; no critical draw is made.',
                 'All255 effective ranks plus tier boundaries, negative/positive mastery, independent hard inputs, owner noise, origin presence and override controls are covered.'],
             variant=dict(playerSkill=player,actorSkill=actor,missile=mid,element=element,synergyPercent=synergy,synergyInputs=2 if two else 1),

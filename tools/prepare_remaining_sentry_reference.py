@@ -67,6 +67,7 @@ def build(check=False):
         e=dict(referenceVersion='3.3.93847',talentId=talent,sourceId=source_id,status='Current table routes pinned; native learned skill not implemented',installed=False,handlerEnabled=False,
             pinnedHashes=pins,localSkills=dict(path=str(local.relative_to(ROOT)),sha256=hashlib.sha256(raw).hexdigest(),comparedFields=counts),
             skill=player,actorSkills=actor_rows,monster=monster,model=tables['monstats2'][player['summon']],missiles={k:tables['missiles'][k] for k in missiles},
+            compiledDamageEvidence='tools/reference/'+('death-sentry-lightning' if source_id==276 else stem)+'-damage-source-evidence.json',
             inspectedLegacy=dict(commit=tree['sha'],routines=[inspected(*x) for x in symbols],executed=False,scope='Static full-body inspection only; no compiled differential or modern executable certificate'),
             established=facts,required=required,
             reuse=['Shared trap placement/creation, owner snapshot, five-slot FIFO, no-footprint body, old-facet retention, offline suppression and owner-difficulty scaling preserve approved Sanctuary rules.',

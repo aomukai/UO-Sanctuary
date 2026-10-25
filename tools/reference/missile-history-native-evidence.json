@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "installed": false,
-  "status": "Focused-verified candidate; full class regression running",
+  "status": "Shared history candidate remains uninstalled; full diagnostic run active after prior second-reload mismatch",
   "fullPending": true,
   "candidateDirectory": ".local/class-skills/missile-history",
   "contentSha256": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",
@@ -83,5 +83,37 @@
     "Full class suite, current runtime audit publication, Python readiness and original-world installation smoke are still pending for this candidate. The installed build and original saves have not been changed.",
     "Compiled older finder routines and locally matched current flags support this correction; exact modern room/sector enumeration, geometry/first-contact/global event order and other previously recorded fidelity gaps remain unproven.",
     "No handler count/class completion, deferred item-skill delivery or new final effects/icons are claimed. Wake actor dispatch is still a fixture service and retirement a documented preparation boundary."
-  ]
+  ],
+  "fullRegression": {
+    "status": "failed-awaiting-diagnosis",
+    "log": ".local/class-skills/missile-history-full-first-failure.log",
+    "nativeLog": ".local/class-skills/missile-history/native-first-failure.log",
+    "failedCheck": "plague-javelin-reload-check second reload"
+  },
+  "diagnosticRegression": {
+    "focusedWithNamed": {
+      "status": "passed",
+      "boots": 3,
+      "reloads": 2,
+      "checks": [
+        "missile-history",
+        "poison-javelin",
+        "lightning-bolt",
+        "plague-javelin",
+        "lightning-fury",
+        "wake-fire-actor",
+        "sentry-bolt",
+        "named-gear"
+      ],
+      "log": ".local/class-skills/missile-history-v2/focused-checks.log"
+    },
+    "activeFull": {
+      "status": "running",
+      "session": 89691,
+      "directory": ".local/class-skills/missile-history-v3",
+      "log": ".local/class-skills/missile-history-v3/native-checks.log",
+      "integrationSha256": "c176fc963f5f8ed8b8e0a300219ea78a6e1f990a290b1754526a924d7dac650e",
+      "scope": "Same content assembly; expanded Plague assertion output and snapshot invariants before every full-suite world save. Not a passing certificate."
+    }
+  }
 }

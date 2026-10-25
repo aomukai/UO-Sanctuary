@@ -264,6 +264,7 @@
       "lineNumber": 526
     }
   },
+  "compiledDamageEvidence": "tools/reference/lightning-sentry-damage-source-evidence.json",
   "inspectedLegacy": {
     "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
     "routines": [
