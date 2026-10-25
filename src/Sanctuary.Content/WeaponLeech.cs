@@ -4,6 +4,8 @@ using Server.Mobiles;
 
 namespace Sanctuary;
 
+public readonly record struct PlayerWeaponDrain(int LifePercent,int ManaPercent);
+
 public readonly record struct WeaponLeechResult(int Life256,int Mana256,int VictimMana256);
 
 public static class WeaponLeech
@@ -31,13 +33,20 @@ public static class WeaponLeech
         if(mana>0){remaining-=mana;if(remaining<256){remaining=0;}}
         return new(healedLife,healedMana,(int)remaining);
     }
-    internal static void Apply(PlayerMobile owner,BaseCreature target,int physical256,MissileSourceStats saved)
+    internal static PlayerWeaponDrain Capture(PlayerMobile owner,PlayerWeaponDrain skill=default)
     {
-        if(saved.LifeDrain==0 && saved.ManaDrain==0 || owner is not{Alive:true,Deleted:false} || target is not{Alive:true,Deleted:false}){return;}
+        int Percent(string code,int extra)=>(int)Math.Clamp((long)ClassGear.Bonus(owner,code)+CombatPotions.Bonus(owner,"stealing")+extra,0,int.MaxValue);
+        return new(Percent("life-steal%",skill.LifePercent),Percent("mana-steal%",skill.ManaPercent));
+    }
+    internal static void Apply(PlayerMobile owner,BaseCreature target,int physical256,MissileSourceStats saved)
+        =>Apply(owner,target,physical256,new PlayerWeaponDrain(saved.LifeDrain,saved.ManaDrain));
+    internal static void Apply(PlayerMobile owner,BaseCreature target,int physical256,PlayerWeaponDrain saved)
+    {
+        if(saved.LifePercent==0 && saved.ManaPercent==0 || owner is not{Alive:true,Deleted:false} || target is not{Alive:true,Deleted:false}){return;}
         // Sanctuary's existing per-creature difficulty projection is shared with GemCombat.
         int divisor=MonsterVariants.Difficulty(target) switch{MonsterDifficulty.Nightmare=>2,MonsterDifficulty.Hell=>3,_=>1};
         int manaBefore=NecromancerEffects.ManaBalance256(target);
-        var result=Calculate(physical256,SkillHealth.Balance256(target),manaBefore,saved.LifeDrain,saved.ManaDrain,GemCombat.Drain(target),divisor,divisor);
+        var result=Calculate(physical256,SkillHealth.Balance256(target),manaBefore,saved.LifePercent,saved.ManaPercent,GemCombat.Drain(target),divisor,divisor);
         SkillHealth.Heal(owner,result.Life256);NecromancerEffects.AddMana(owner,result.Mana256);
         // Commit before native Damage dispatches death/corpse callbacks. The D2
         // event writes HP/mana before its later death dispatch; nonlethal values match.

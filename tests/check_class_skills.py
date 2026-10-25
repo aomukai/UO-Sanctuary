@@ -61,6 +61,8 @@ def check():
         for name, rel in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
+        for name in ['cobra-strike','cobra-strike-composition','cobra-strike-builder']:
+            shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
         shutil.copy2(ROOT / 'tools/reference/tiger-strike-source-evidence.json',folder / 'tiger-strike-source-evidence.json')
         shutil.copy2(STAGE / 'sentry-controller-source-probe.json', folder / 'sentry-controller-source-probe.json')
@@ -180,6 +182,18 @@ def check():
                         ability,target,x,y,z=map(int,ready.groups())
                         client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,target,x,y,z))
                         assert session.expect(r'tiger-strike-input-result: (passed|failed)',timeout=7).group(1)=='passed',logpath.read_text()[-6000:]
+                    cobra='cobra-strike-check' if boot==0 else 'cobra-strike-reload-check'
+                    session.send(cobra)
+                    assert session.expect(cobra+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('cobra-strike-input-check')
+                        assert session.expect(r'cobra-strike-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        for marker,seq in [('cobra-strike-input',1),('cobra-strike-input-finisher',2)]:
+                            ready=session.expect(marker+r': ready ability=(\d+) target=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                            ability,target,x,y,z=map(int,ready.groups())
+                            client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,seq,ability,target,x,y,z))
+                        assert session.expect(r'cobra-strike-input-result: (passed|failed)',timeout=9).group(1)=='passed',logpath.read_text()[-6000:]
                     quantity='throwing-quantity-check' if boot==0 else 'throwing-quantity-reload-check'
                     session.send(quantity)
                     assert session.expect(quantity+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

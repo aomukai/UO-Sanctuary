@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using System.Linq;
 using Server;
 using Server.Items;
 using Server.Mobiles;
@@ -8,7 +9,8 @@ namespace Sanctuary;
 
 public static class TigerStrikes
 {
-    internal sealed record Pending(Serial Target,bool Basic,long EffectAt);
+    internal sealed record Pending(Serial Target,bool Basic,long EffectAt,CombatAbility Ability=CombatAbility.TigerStrike);
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.TigerStrike or CombatAbility.CobraStrike;
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
@@ -27,32 +29,34 @@ public static class TigerStrikes
         return Timing(code,advance); // cached-lg-assassin-a1-v1; current timing acceptance open.
     }
     internal static bool ValidTarget(PlayerMobile owner,Serial selected)=>PaladinVengeance.ValidTarget(owner,selected);
-    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)=>Begin(owner,CombatAbility.TigerStrike,selected,point,now);
+    internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
-        if(!AssassinCombat.Available(owner,CombatAbility.TigerStrike) || !ValidTarget(owner,selected)){return false;}
-        var values=SkillMechanics.Values(owner,CombatAbility.TigerStrike);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
-        if(!SkillCombat.Begin(owner,CombatAbility.TigerStrike,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id),requireMana:!basic,timing:Timing(owner))){return false;}
+        if(!Handles(ability) || !AssassinCombat.Available(owner,ability) || !ValidTarget(owner,selected)){return false;}
+        var values=SkillMechanics.Values(owner,ability);bool basic=!NecromancerEffects.CanPay(owner,values.Mana256);
+        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id),requireMana:!basic,timing:Timing(owner))){return false;}
         var session=ClassCombat.For(owner);
         // Generic source start wrapper pays after successful start23. No hit or
         // damage snapshot is made here: do34 rolls both at the action event.
         if(!basic && !NecromancerEffects.Pay(owner,values.Mana256)){session.PendingAbility=CombatAbility.None;return false;}
-        session.TigerAttack=new(selected,basic,session.EffectAt);return true;
+        session.TigerAttack=new(selected,basic,session.EffectAt,ability);return true;
     }
-    public static bool Release(PlayerMobile owner,Serial selected,long now)
+    public static bool Release(PlayerMobile owner,Serial selected,long now)=>Release(owner,CombatAbility.TigerStrike,selected,now);
+    internal static bool Release(PlayerMobile owner,CombatAbility ability,Serial selected,long now)
     {
         var session=ClassCombat.For(owner);var pending=session.TigerAttack;
         if(pending==null || now<pending.EffectAt){return false;}session.TigerAttack=null;
-        if(pending.Target!=selected || !AssassinCombat.Available(owner,CombatAbility.TigerStrike) || !ValidTarget(owner,selected)){return false;}
+        if(pending.Ability!=ability || pending.Target!=selected || !AssassinCombat.Available(owner,ability) || !ValidTarget(owner,selected)){return false;}
         var target=World.FindMobile(selected);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified weapon pose/sound placeholder.
         using var attempt=PaladinThorns.Attempt(owner,target,false);
         if(pending.Basic){BasicStrike(owner,target);CombatDamage.Finish(target,owner);return true;}
-        var values=SkillMechanics.Values(owner,CombatAbility.TigerStrike);
+        var values=SkillMechanics.Values(owner,ability);
         // Unlike the ordinary finisher, charge builder uses only its own skill AR.
         if(!Successful(owner,target,(int)values.Formula("toht"))){return true;}
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,0,PhysicalRoll);
         var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw);
         AssassinCharges.Gain(owner,values); // after allocation, before durability/health commit, even against immunity.
-        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet);CombatDamage.Finish(target,owner);return true;
+        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner));CombatDamage.Finish(target,owner);return true;
     }
     private static bool Successful(PlayerMobile owner,Mobile target,int ar)
     {
@@ -64,16 +68,18 @@ public static class TigerStrikes
     }
     internal static bool BasicStrike(PlayerMobile owner,Mobile target)
     {
-        var state=AssassinCharges.State(owner);int attack=state?.AttackPercent??0;
+        var states=AssassinCharges.Finisher(owner);int attack=states.Sum(x=>x.AttackPercent);
         if(!Successful(owner,target,attack)){return false;}
-        int? ed=state==null?null:AssassinCharges.TigerPercent(state,SkillMechanics.Rank(owner,CombatAbility.TigerStrike));
+        var tiger=states.FirstOrDefault(x=>x.Ability==CombatAbility.TigerStrike);var cobra=states.FirstOrDefault(x=>x.Ability==CombatAbility.CobraStrike);
+        int? ed=tiger==null?null:AssassinCharges.TigerPercent(tiger,SkillMechanics.Rank(owner,CombatAbility.TigerStrike));
+        var drain=AssassinCharges.CobraDrain(cobra,SkillMechanics.Rank(owner,CombatAbility.CobraStrike));
         var policy=CommonMeleeSkills.Attack;
-        GearEffects.Strike(owner,target,ElementRoll(),Effects,skillPhysicalPercent:ed,physicalRoll:PhysicalRoll,
-            beforeCommit:state==null?null:_=>{AssassinCharges.Consume(owner,state,policy.Number("prgchargesconsumed"));return true;});
+        GearEffects.Strike(owner,target,ElementRoll(),Effects,skillPhysicalPercent:ed,physicalRoll:PhysicalRoll,sourceDrain:WeaponLeech.Capture(owner,drain),
+            beforeCommit:states.Length==0?null:_=>{foreach(var state in states){AssassinCharges.Consume(owner,state,policy.Number("prgchargesconsumed"));}return true;});
         return true;
     }
     internal static void Cancel(PlayerMobile owner)
-    {var session=ClassCombat.Existing(owner);if(session==null){return;}session.TigerAttack=null;if(session.PendingAbility==CombatAbility.TigerStrike){session.PendingAbility=CombatAbility.None;}}
+    {var session=ClassCombat.Existing(owner);if(session==null){return;}session.TigerAttack=null;if(Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;}}
 }
 
 // Common Attack is not a talent and must not take one of the240 talent identities.

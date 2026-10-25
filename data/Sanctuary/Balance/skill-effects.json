@@ -2590,7 +2590,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Staged ordinary UO weapon pose/audio0x238,0x375A hue0x26 charge flash and shared0x376A life/mana recovery marker are identified placeholders. Final cobrastrike1 charge1/2/3 orbital overlays, life/mana return and assassin_chargeup_cobra_1 audio pending. Separate talent/left/right/quick icons remain pending."
   },
   {
     "talentId": "assassin.dragontail",

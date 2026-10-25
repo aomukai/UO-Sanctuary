@@ -9,7 +9,8 @@
     "SKILLS_SrvSt23_AssasinChargeStrikes": "5545eadf694455e1f70de937730e53a2051ed1ee3558c6f4de5d58593c2f3da2",
     "SKILLS_StatRemoveCallback_ProgressiveStrike": "ebe13b49d08fb643b55f3d046871108fb9c88118dc254d70a4e88d76afbe0619",
     "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8",
-    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3"
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88"
   },
   "currentSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
   "fixture": {
@@ -18,7 +19,17 @@
     "cases": 6000,
     "sanitizers": "ASan+UBSan"
   },
-  "declaredServices": "Reuses Tiger harness stat-list/target/record/skill-level adapters. Complete Cobra consumer executes against one declared state. Unrelated elemental branches3/4 abort if reached; no subexpression is extracted or rewritten.",
+  "compositionFixture": {
+    "path": ".local/class-skills/cobra-strike-composition-source-probe.json",
+    "sha256": "2a573d28cfb3d073ed59b2cf5e08eafa48f21641a200bbf940218a14a72fe236",
+    "cases": 4608
+  },
+  "builderFixture": {
+    "path": ".local/class-skills/cobra-strike-builder-source-probe.json",
+    "sha256": "b0eef117ddcbcb8e9aadf21d2056e0e506be5181c80c3d412e0185a186c9f6df",
+    "cases": 512
+  },
+  "declaredServices": "Reuses Tiger harness stat-list/target/record/skill-level adapters. The6000-case matrix uses one declared Cobra state;4608 complete two-list compositions resolve independent Tiger and Cobra initial/current ranks. A separate512-case fixture executes the complete Cobra-shaped builder. Unrelated elemental branches3/4 abort if reached; no subexpression is extracted or rewritten.",
   "established": [
     "Successful contact resolves max(initial stored,current effective rank); adds40+5per rank to life drain for1charge, life+mana for2, and double both for3. Invalid/missing/unsuccessful/zero-rank states leave existing packet fields unchanged.",
     "Physical ED remains unchanged: Tiger and Cobra occupy separate damage stages. Source compound integer drain fields are added to existing values, not independently healed here."
@@ -28,7 +39,7 @@
     "drainArithmetic": "tools/reference/weapon-leech-engine-evidence.json"
   },
   "limits": [
-    "No native Cobra handler or end-to-end leech delivery is established. Other declared progressive-state families and coexistence need their own integration; invalidcount4 is a corruption control, not a supported saved charge.",
+    "No native Cobra handler or end-to-end leech delivery is established. Other declared progressive-state families need their own integration; native coexistence remains pending; invalidcount4 is a corruption control, not a supported saved charge.",
     "Current consume-one policy is separate from the obsolete source all-charge removal. Expiry/AR updates, current executable timing/seed/stat/event acceptance remain explicit.",
     "Item-drain merge, prehealth/death order, current victim-mana mutation, natural input, actual gear/lifecycle and reload remain pending. Effects/icons are independent."
   ]

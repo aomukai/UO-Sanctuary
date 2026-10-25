@@ -491,7 +491,7 @@ public static class ClassCombat
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
             if(BarbarianMelee.Handles(ability)){session.BarbarianAttack=null;}
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
-            if(ability==CombatAbility.TigerStrike){session.TigerAttack=null;}
+            if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}
@@ -581,7 +581,7 @@ public static class ClassCombat
                     CreatureHitRecovery.Apply(victim, from, Math.Max(0, before - target.Hits));
                 }
             }
-            else if (ability==CombatAbility.BasicAttack && AssassinCharges.State(from)!=null && PaladinVengeance.WeaponAllowed(from))
+            else if (ability==CombatAbility.BasicAttack && AssassinCharges.Any(from) && PaladinVengeance.WeaponAllowed(from))
             {
                 weaponHit=TigerStrikes.BasicStrike(from,target);
             }

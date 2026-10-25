@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.cobrastrike",
+  "updatedAtUtc": "2026-10-25T07:23:39.920430+00:00",
+  "installed": false,
+  "handlerCandidate": true,
+  "sourceEvidence": "tools/reference/cobra-strike-source-evidence.json",
+  "preflight": "tools/reference/cobra-strike-preflight.json",
+  "components": [
+    "src/Sanctuary.Content/AssassinCharges.cs",
+    "src/Sanctuary.Content/TigerStrikes.cs",
+    "src/Sanctuary.Content/WeaponLeech.cs",
+    "src/Sanctuary.Content/GearEffects.cs",
+    "src/Sanctuary.Content/AssassinCombat.cs",
+    "src/Sanctuary.Content/ClassCombat.cs",
+    "src/Sanctuary.Content/ActionTiming.cs"
+  ],
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "actualSocketChargeAndFinisherRuns": 3,
+    "sourceCasesPerBoot": {
+      "cobraDrains": 6000,
+      "tigerCobraCompositions": 4608,
+      "cobraBuilders": 512,
+      "rankGoldens": 255
+    },
+    "native": [
+      "2mana FP256 start payment; hit/charge only at action event; no skill leech from builders; independent charge count/cap/15second refresh; misses and mapped Skeleton shield blocks retain state.",
+      "Current ordinary Attack consumes one of each active charge-up. Tiger physical ED and Cobra life/mana percentages resolve independent max(initial,current) ranks. Actual Tarnhelm and offhand Bartuc4effective ranks are checked.",
+      "Source player leech merges item+skill fields once before rounding; ordinary GemCombat drain is suppressed for that hit. Normal/Nightmare/Hell, zero-drain skeleton, physical immunity, zero/low victim mana, fractional resource caps and actual predeath recovery/consumption callback pass.",
+      "Actual selected primary/offhand claw contribution and promotion pass. A Hell packet distinguishes combined-before-division recovery from separately rounded skill/item leech.",
+      "Shared FHR/range cancellation, death/respec/class-history cleanup, separate absolute saved charges, owner/victim fractional life/mana and selected hand survive two world reloads. Paid pending windup does not replay/refund.",
+      "Three actual socket sequences produce naturally timed paid charge hits then ordinary-Attack leech, with no direct release calls for those sequences. Source RNG hooks are identified controls, not executable seed equivalence."
+    ],
+    "fixtureNotes": [
+      "Difficulty fixture initially attempted to assign a custom OnThink-free subclass; project API only accepts supported exact monster types. Dedicated synchronous difficulty checks now use actual GraveyardZombie variants; saved/natural Normal targets reuse the existing non-regenerating subclass.",
+      "The asynchronous socket fixture originally passed through the synchronous control wrapper, restoring RNG hooks too soon. It now owns those controls through its final timer callback; production combat code was unchanged by this fixture correction."
+    ]
+  },
+  "candidate": {
+    "contentSha256": "27a12e65e2b07e34e2557c951e8d1e000ef43cd115463392b4a1e14a89b2e8fc",
+    "integrationSha256": "89ee0ff584c0d61c8a7c4502865fd73712a9cae11e933b85b055064e9d4a2870"
+  },
+  "fullRegression": "pending",
+  "limits": [
+    "Current per-creature difficulty projection reuses the existing source WeaponLeech adapter. Full facet/global difficulty acceptance remains separate.",
+    "Current finisher retained expiry/proportional AR and cached A1 timing retain Tiger explicitly provisional adapters; modern executable/dual-hand/transformed/foreign-class/stat/seed/geometry and held-cursor acceptance remain open.",
+    "Literal older victim-mana subtraction is retained through shared WeaponLeech and explicitly unconfirmed for current D2R. Owner recovery is tested independently of victim mana.",
+    "Source fragments underlying existing WeaponLeech numeric proof and complete Tiger/Cobra packet consumers have distinct scopes; no complete modern ExecuteEvents certificate is claimed.",
+    "Other melee skills retain their existing GemCombat leech path unless they explicitly opt into the source-drain packet. Full property/item-skill and retaliation/event acceptance remain independent.",
+    "Fixtures extend saved deadlines to1hour to outlast regression; source375frames/15seconds and expired state rejection are separate controls. Final graphical orbital/impact/audio/icon acceptance remains pending."
+  ]
+}

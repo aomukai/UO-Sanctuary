@@ -171,7 +171,7 @@ public static class GearEffects
         return new(damage,parts,absorbed256);
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
-        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null)
+        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null)
     {
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
@@ -186,6 +186,7 @@ public static class GearEffects
         NamedCombat.Crushing(player, target, ranged, effects);
         NecromancerEffects.LifeTap(player,target,NamedElements.To256(physical));
         if(beforeCommit!=null && absorbed256>0){SkillHealth.Heal(target,absorbed256);}
+        if(sourceDrain is{} drain && target is BaseCreature victim){WeaponLeech.Apply(player,victim,NamedElements.To256(physical),drain);}
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)
         {
@@ -202,7 +203,7 @@ public static class GearEffects
         int loss = Math.Max(0, before - target.Hits);
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)
         { new Blood().MoveToWorld(impact, impactMap); }
-        GemCombat.Leech(player, target, Math.Min(Math.Max(0, normalBefore - target.Hits), (int)Math.Floor(physical)));
+        if(sourceDrain==null){GemCombat.Leech(player, target, Math.Min(Math.Max(0, normalBefore - target.Hits), (int)Math.Floor(physical)));}
         NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false);
         NamedCombat.AfterStrike(player, target, ranged, effects,skipKnockback:skillKnockback);
         GemCombat.WeaponHit(player, target, loss, ranged);
