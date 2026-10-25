@@ -583,6 +583,9 @@ public static class NamedGearChecks
         p.DoHarmful(target); target.Damage(target.HitsMax + 1, p); CombatDamage.Finish(target, p);
         var corpse = target.Corpse as Corpse;
         Require(corpse is { SanctuaryRestInPeace: true }, "Actual player kill did not mark the corpse Rest in Peace");
+        // The three-boot regression can exceed ordinary seven-minute corpse decay.
+        // Hold only this inspection fixture; runtime corpse policy is unchanged.
+        corpse.BeginDecay(TimeSpan.FromHours(1));
         var gold = new Gold(17); corpse.DropItem(gold);
         Require(!SkeletonPets.Usable(p, corpse), "Rest in Peace allowed the player to consume its corpse");
         var lich = new GraveyardLich(); lich.MoveToWorld(new Point3D(p.X, p.Y + 1, p.Z), p.Map); lich.AIObject.AITimer.Stop();
@@ -597,7 +600,7 @@ public static class NamedGearChecks
         var serials = JsonSerializer.Deserialize<uint[]>(File.ReadAllText(Path.Join(Core.BaseDirectory, "named-corpse-checks.json")));
         var corpse = World.FindItem((Serial)serials[0]) as Corpse; var gold = World.FindItem((Serial)serials[1]);
         Require(corpse is { SanctuaryRestInPeace: true, Deleted: false, Animated: false } && gold?.Parent == corpse && gold.Amount == 17,
-            "Rest in Peace flag/ordinary loot changed across real restart");
+            $"Rest in Peace flag/ordinary loot changed across real restart: corpse={corpse?.Serial}, deleted={corpse?.Deleted}, flag={corpse?.SanctuaryRestInPeace}, animated={corpse?.Animated}, gold={gold?.Serial}, parent={gold?.Parent}, amount={gold?.Amount}");
     }
     private static void FireRanks()
     {
