@@ -138,7 +138,7 @@ public static class AssassinSentryBolts
     // but each projectile owns its RNG and its own continuation policy.
     internal static (int WholeLoss,ulong Seed) Impact(AssassinSentryBody body,BaseCreature target,string missile,int minimum256,int maximum256,int pierce,ulong seed,string element="ltng",int damageRate=0)
     {
-        string expected=missile switch{"sentrychargedbolt" or "sentrylightningbolt"=>"ltng","inferno sentry 1"=>"fire",_=>throw new NotSupportedException("Unsupported sentry impact missile")};
+        string expected=missile switch{"sentrychargedbolt" or "sentrylightningbolt" or "sentrylightningbolt2"=>"ltng","inferno sentry 1"=>"fire",_=>throw new NotSupportedException("Unsupported sentry impact missile")};
         if(element!=expected || damageRate!=NecromancerSummons.Source(missile,"DamageRate"))
         {throw new NotSupportedException("Sentry impact element/reduction rate disagrees with its current source row");}
         SorceressEffects.MissileHit(body,target,missile);

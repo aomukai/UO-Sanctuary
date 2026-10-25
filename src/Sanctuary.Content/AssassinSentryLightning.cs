@@ -57,6 +57,7 @@ public static class AssassinSentryLightning
         return AssassinSentryAim.Resolve(body.Prepared.CachedAim,targetPoint);
     }
     internal static void Dispatch(AssassinSentryBody body,uint targetSerial)=>Create(body,Aim(body,targetSerial));
+    internal static long DispatchDeath(AssassinSentryBody body,uint targetSerial)=>CreateStraight(body,Aim(body,targetSerial),CombatAbility.DeathSentry);
     internal static InfernoEmission DispatchInferno(AssassinSentryBody body,uint targetSerial)
     {
         var aim=Aim(body,targetSerial);
@@ -68,7 +69,7 @@ public static class AssassinSentryLightning
     internal static long CreateInferno(AssassinSentryBody body,Point2D aim)
         =>CreateStraight(body,aim,CombatAbility.WakeOfInferno);
     private static string Missile(CombatAbility ability)=>ability switch
-    {CombatAbility.LightningSentry=>"sentrylightningbolt",CombatAbility.WakeOfInferno=>"inferno sentry 1",_=>throw new NotSupportedException("Unsupported straight sentry missile")};
+    {CombatAbility.LightningSentry=>"sentrylightningbolt",CombatAbility.DeathSentry=>"sentrylightningbolt2",CombatAbility.WakeOfInferno=>"inferno sentry 1",_=>throw new NotSupportedException("Unsupported straight sentry missile")};
     private static long CreateStraight(AssassinSentryBody body,Point2D aim,CombatAbility ability)
     {
         if(body is not{Alive:true,Deleted:false} || body.Prepared is not{ControllerFault:null} c || c.Creation.Ability!=ability)
@@ -76,10 +77,14 @@ public static class AssassinSentryLightning
         bool inferno=ability==CombatAbility.WakeOfInferno;string missile=Missile(ability);
         int Field(string name)=>NecromancerSummons.Source(missile,name);
         if(Field("Size")!=(inferno?1:2) || Field("CollideType")!=3 || Field("LastCollide")!=1 || Field("NextHit")!=0
-            || Field("CollideKill")!=0 || Field("Pierce")!=0 || Field("ToHit")!=0 || Field("pSrvDoFunc")!=1
+            || Field("CollideKill")!=0 || Field("Pierce")!=(ability==CombatAbility.DeathSentry?1:0) || Field("ToHit")!=0 || Field("pSrvDoFunc")!=1
             || Field("pSrvHitFunc")!=0 || Field("pSrvDmgFunc")!=0 || Field("SrcDamage")!=0 || Field("Accel")!=0
             || Field("Vel")!=(inferno?12:30) || Field("LevVel")!=0 || Field("ResultFlags")!=4 || Field("DamageRate")!=(inferno?82:0))
         {throw new NotSupportedException("Unsupported straight sentry missile route");}
+        // Death missile641 has Pierce=1, but MISSILES_Create/MISSMODE only
+        // allocate/use a pierce budget when its NPC owner has ITEM_PIERCE or
+        // SKILL_PIERCE. The seven captured Death passives contain neither;
+        // this supplier has zero chance. Do not inherit player pierce gear.
         // The generic wrapper rejects either zero absolute target coordinate.
         if(aim.X==0 || aim.Y==0){return 0;}
         if(aim.X is <0 or >65535 || aim.Y is <0 or >65535){throw new NotSupportedException("Sentry target is outside uint16 source coordinates");}
@@ -103,8 +108,8 @@ public static class AssassinSentryLightning
     {
         if(s==null || s.Id<=0 || !((Serial)s.Actor).IsMobile || !((Serial)s.Owner).IsMobile || s.Rank is <1 or >255
             || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal || s.Z is <-128 or >127
-            || s.Ability is not(CombatAbility.LightningSentry or CombatAbility.WakeOfInferno) || s.HardWake is <0 or >255
-            || s.Ability==CombatAbility.LightningSentry && (s.HardWake!=0 || s.Frames!=10+2*s.Rank || s.VelocityFp8>5760)
+            || s.Ability is not(CombatAbility.LightningSentry or CombatAbility.WakeOfInferno or CombatAbility.DeathSentry) || s.HardWake is <0 or >255
+            || s.Ability is CombatAbility.LightningSentry or CombatAbility.DeathSentry && (s.HardWake!=0 || s.Frames!=10+2*s.Rank || s.VelocityFp8>5760)
             || s.Ability==CombatAbility.WakeOfInferno && (s.Frames!=Math.Clamp(20+s.HardWake,1,255) || s.VelocityFp8>2304)
             || s.Frame<0 || s.Frame>=s.Frames || s.VelocityFp8<1
             || !double.IsFinite(s.X) || !double.IsFinite(s.Y) || !double.IsFinite(s.Vx) || !double.IsFinite(s.Vy)
@@ -134,7 +139,11 @@ public static class AssassinSentryLightning
         int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         var body=World.FindMobile((Serial)s.Actor) as AssassinSentryBody;
         bool live=body is{Alive:true,Deleted:false}&&body.Prepared.Owner==s.Owner&&body.Map?.MapID==s.Map&&body.Prepared.Creation.Ability==s.Ability;
-        bool fighting=live&&body.Prepared.ControllerFault==null&&(actions??AssassinTrapRoster.Fighting(s.Owner));
+        // The source can still resolve released missiles from a registered
+        // retired NPC. Holding the actor at the unresolved final-removal
+        // boundary must not freeze its already-created Death Sentry bolts.
+        bool retired=s.Ability==CombatAbility.DeathSentry && body?.Prepared is{DeathControl.Mode:0,ControllerFault:AssassinDeathSentryControl.RetirementFault};
+        bool fighting=live&&(body.Prepared.ControllerFault==null||retired)&&(actions??AssassinTrapRoster.Fighting(s.Owner));
         if(!fighting || s.Fault!=null)
         {if(frame>=s.Frames){Bolts.Remove(s.Id);}else{Bolts[s.Id]=next;}return;}
         next=next with{X=s.X+s.Vx,Y=s.Y+s.Vy};

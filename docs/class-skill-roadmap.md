@@ -314,3 +314,6 @@ Current Assassin checkpoint:17 handlers through [Phoenix Strike](../tools/refere
 | Enhanced Entropy | 397 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Apocalypse | 401 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Abyss | 402 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+
+
+Death Sentry automatic-controller candidate (26 October): the prepared seven-passive actor now uses AI104 to share corpse explosions and travelling lightning shots. Separate-checkout focused3boots/2reloads pass; main rebuild/full regression and installation remain required. Learned do45/payment/input and final retirement/GUID removal are still individual gaps. Handler coverage remains156/240. [Evidence and limits](../tools/reference/death-sentry-corpse-native-evidence.json).

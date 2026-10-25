@@ -30,7 +30,7 @@ public sealed class CorpseSkillProfiles : GenericPersistence
         if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown corpse skill metadata version");}
         _rows.Clear();foreach(var row in JsonSerializer.Deserialize<CorpseSkillRecord[]>(reader.ReadString()) ?? throw new InvalidDataException("Missing corpse skill metadata"))
         {if(row.Treasure is{} treasure && (string.IsNullOrWhiteSpace(treasure.Source) || string.IsNullOrWhiteSpace(treasure.TreasureClass) || treasure.Level is <1 or >99 || !Enum.IsDefined(treasure.Difficulty))
-            || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
+            || row.BaseLife is{} life && (string.IsNullOrWhiteSpace(row.Source) || life.OriginalMonsterSerial==0 || !((Serial)life.OriginalMonsterSerial).IsMobile || life.Level<1 || life.Base256<0 || !Enum.IsDefined(life.Difficulty))
             || !_rows.TryAdd(row.Corpse,row)){throw new InvalidDataException("Invalid corpse skill metadata");}}
     }
 }
@@ -103,14 +103,19 @@ public static class CorpseSkillRules
     }
     public static bool Shattered(Corpse corpse)=>Profiles.Find(corpse)?.Shattered ?? false;
     public static bool Usable(PlayerMobile owner,Corpse corpse,double radius)
+        =>UsableAt(owner,corpse,owner,radius);
+    // Stationary traps remain in their old facet when the owner travels.
+    // Keep the same corpse/loot restrictions while using the actor's map,
+    // height and visibility instead of the owner's new location.
+    internal static bool UsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius)
     {
-        if(owner is not {Alive:true,Deleted:false} || corpse is not {Deleted:false,Parent:null,OwnerWasBaseCreature:true,OwnerWasSummoned:false,
+        if(owner is not {Alive:true,Deleted:false} || actor is not{Alive:true,Deleted:false} || corpse is not {Deleted:false,Parent:null,OwnerWasBaseCreature:true,OwnerWasSummoned:false,
             Carved:false,Animated:false,SanctuaryHarvested:false,SanctuaryConsumed:false,SanctuaryRestInPeace:false,IsBones:false}
-            || corpse.Map!=owner.Map || Math.Abs(corpse.Z-owner.Z)>=16){return false;}
+            || corpse.Map!=actor.Map || Math.Abs(corpse.Z-actor.Z)>=16){return false;}
         var row=Profiles.Find(corpse);
         if(row==null && corpse.Owner is BaseCreature {Alive:false} creature){Capture(creature,corpse);row=Profiles.Find(corpse);}
-        double dx=owner.X-corpse.X,dy=owner.Y-corpse.Y;
+        double dx=actor.X-corpse.X,dy=actor.Y-corpse.Y;
         return row is{Selectable:true,Owned:false,Shattered:false,NoSelect:false} && dx*dx+dy*dy<=radius*radius
-            && owner.CanSee(corpse) && owner.InLOS(corpse) && corpse.CanLoot(owner,null) && !corpse.IsCriminalAction(owner);
+            && actor.CanSee(corpse) && actor.InLOS(corpse) && corpse.CanLoot(owner,null) && !corpse.IsCriminalAction(owner);
     }
 }
