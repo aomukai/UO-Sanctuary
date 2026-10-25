@@ -12,8 +12,8 @@
     "packet": 1080,
     "directS2Clocks": 96
   },
-  "contentSha256": "f45b784a3332bce99cf3c3e1bf1544ad30dbe38c95f33def1690dfaaacd9b35d",
-  "integrationSha256": "45d852f5e193372fcb2bf212120d11c07f159cb6fba56369b6695b8650d40bb4",
+  "contentSha256": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+  "integrationSha256": "efd711b48f21770e88602199892f4c8d122ba076efd91b0b68cb0ad100a4ba58",
   "inputHashes": {
     "src/Sanctuary.Content/CorpseBaseSnapshots.cs": "914319aab2c8671640cbf0e9adf7ca824dd7d0bd42f2450721fcd1262f718d57",
     "src/Sanctuary.Content/CorpseSkillRules.cs": "2375300196e3b7ddba62835ee6572668bca9ab1c51774fce27d699a2df403ffb",
@@ -49,14 +49,30 @@
     "tools/reference/death-sentry-clock-source-evidence.json": "e312bc532de175a253db74b2e2824c31d3b4dc81ee48678995553e964e877c7b"
   },
   "evidenceHashes": {
-    ".local/class-skills/death-sentry/death-control-checks.log": "e2090dd248474dda1b3c2fc568c294a9a3684c705eb474dabedb659293b79dda",
-    ".local/class-skills/death-control-focused-run.log": "b22623752f973c0c30a4f83a608b61644f8b0e7d26ee963c3da332a79cc44d19",
-    ".local/class-skills/death-sentry-content-build.log": "02766c89e59c6684782b54a11eebb2a60923203052188a28787e4d099003fdd7",
-    ".local/class-skills/death-sentry-integration-build.log": "4ce821cc202cd4269e04297cbd664d4a075dfda492e1e7e2571ff8f1362c3f1f",
-    ".local/class-skills/death-control-focused.py": "bcac339b8193ccebf801f78cff85e8bd60c4a6e23626e8f8ec0dc80054090925",
-    ".local/class-skills/death-sentry-clock-source-probe.json": "bca67dd50ec82bb72ea3685c689c44d8d1b4df4db0f813034036aee91140e385",
-    ".local/class-skills/death-sentry-clock-source-probe.cpp": "78b1bd26efd46524be0aa766298f599d18e7f47ece1ee2b8fc42314c9e2733df",
-    ".local/class-skills/death-clock-source-run.log": "944dcf35129f76dbae6fcc1a1bf72eb05061683d892853944530d975e4fda5f6"
+    ".local/class-skills/death-sentry/death-control-checks.log": "95a193ea4d951dd412b25882d1a7eafff1bbd3b3963a1f075455eea7c4f95b45",
+    ".local/class-skills/death-sentry/named-audit-checks.log": "24a9573a008acad04f95268033301a73d21507d0c2caced6c79a25a9bd4575cc",
+    ".local/class-skills/death-sentry-focused-run.log": "b22623752f973c0c30a4f83a608b61644f8b0e7d26ee963c3da332a79cc44d19",
+    ".local/class-skills/death-sentry-focused.py": "74b0f5a5b27cb318766af4db3f4e8446eb2e428348fd3083804a52adcccc9c47",
+    ".local/class-skills/death-sentry-content-build.log": "cf6d55bfb7d2b2abb1a0e85bd7aff7996136edf8094bb0e25d0880f745773046",
+    ".local/class-skills/death-sentry-integration-build.log": "90433c2a23374f159dee3ca9f35a95a689a72cd4fec1d7c8afed00566d467347",
+    ".local/class-skills/death-sentry-audits.py": "275478d8f248c0d6c696a048c83d9574a68def3c06f40d53fe1e84c0abab6471",
+    ".local/class-skills/death-sentry-audits-run.log": "b25c1dc1a989a2cf95aa6b71397ae743988ae659487e2e43333e12252d9c6988",
+    ".local/class-skills/death-sentry/named-item-runtime-audit.json": "2d6fe1e7ee9a6076c3e6191287e3f0e9ea224fef04519ad37c3d13849b4a3bd4",
+    ".local/class-skills/death-sentry/first-loop-affix-audit.json": "f5e002fcedafb2fcfb69718ac0365332f239e605f3d92f7a39cd29c0d37a6471",
+    ".local/class-skills/death-sentry/worktree-focused/death-sentry-content-build.log": "02766c89e59c6684782b54a11eebb2a60923203052188a28787e4d099003fdd7",
+    ".local/class-skills/death-sentry/worktree-focused/death-sentry-integration-build.log": "4ce821cc202cd4269e04297cbd664d4a075dfda492e1e7e2571ff8f1362c3f1f",
+    ".local/class-skills/death-sentry/worktree-focused/death-control-focused-run.log": "b22623752f973c0c30a4f83a608b61644f8b0e7d26ee963c3da332a79cc44d19",
+    ".local/class-skills/death-sentry/worktree-focused/death-control-focused.py": "bcac339b8193ccebf801f78cff85e8bd60c4a6e23626e8f8ec0dc80054090925",
+    ".local/class-skills/death-sentry/worktree-focused/death-clock-source-run.log": "944dcf35129f76dbae6fcc1a1bf72eb05061683d892853944530d975e4fda5f6",
+    ".local/class-skills/death-sentry/worktree-focused/death-sentry-clock-source-probe.json": "bca67dd50ec82bb72ea3685c689c44d8d1b4df4db0f813034036aee91140e385",
+    ".local/class-skills/death-sentry/worktree-focused/death-sentry-clock-source-probe.cpp": "78b1bd26efd46524be0aa766298f599d18e7f47ece1ee2b8fc42314c9e2733df",
+    ".local/class-skills/death-sentry/worktree-focused/death-control-checks.log": "e2090dd248474dda1b3c2fc568c294a9a3684c705eb474dabedb659293b79dda",
+    ".local/class-skills/death-sentry/worktree-focused/content/Sanctuary.Content.deps.json": "d914ed14c0178fa7189c8d368d978732146bc589c80172d67961e64b0cfced9b",
+    ".local/class-skills/death-sentry/worktree-focused/content/Sanctuary.Content.pdb": "ab0bd43a03f3dca904729bc827d5cba27b2b0b2d70a586a8539f785b96741cf4",
+    ".local/class-skills/death-sentry/worktree-focused/content/Sanctuary.Content.dll": "f45b784a3332bce99cf3c3e1bf1544ad30dbe38c95f33def1690dfaaacd9b35d",
+    ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
+    ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.pdb": "025f5e611998150d38577ce9e1c254df8da556c8363bd58afdcd0c1af8112e22",
+    ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.dll": "45d852f5e193372fcb2bf212120d11c07f159cb6fba56369b6695b8650d40bb4"
   },
   "fireWriterInspection": {
     "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
@@ -77,7 +93,7 @@
     "Actual five-shot actor reaches explicit registered retirement boundary; released Death lightning still damages while the NPC remains registered. No owner mana spent."
   ],
   "limits": [
-    "Full regression/audits/original-world install are not claimed for this separate checkout.",
+    "Main and separate-checkout focused suites pass; full regression/current audit promotion/Python acceptance and original-world installation remain pending.",
     "Older complete direct S2 bodies and current LG S2 animation support the connected mode9 clock at supplied speed256; source/native adapters do not certify the modern executable or full live animation-rate graph.",
     "Native source frame uses floor(Core.TickCount/40); native corpse seed allocation is explicit Random.Shared32bit/SourceRandom.InitLow, not the D2R monster spawn stream. Seedless old metadata remains unsupported.",
     "Native sector/item-list order, tile2/source-cell mapping, center-distance/height/visibility and approved corpse access/loot filters are declared adapters, not current room/geometry equivalence.",
@@ -105,5 +121,15 @@
       "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
       "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
     }
-  }
+  },
+  "mainCandidate": {
+    "status": "Main focused3boots/2reloads and separate named-item3boots/2reloads/first-loop audit passed; full regression running, not installed.",
+    "fullSession": 42681,
+    "frozenInputs": 884,
+    "namedFingerprints": 577,
+    "firstLoopFingerprints": 21,
+    "pythonTests": "Await fresh audit promotion; an early run correctly rejected stale audit inputs.",
+    "protectedInstalledArtifactsUnchanged": true
+  },
+  "updatedAtUtc": "2026-10-25T23:12:28.864521+00:00"
 }
