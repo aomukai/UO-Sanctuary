@@ -50,8 +50,8 @@
     "tests/check_class_skills.py": "7551480c71b1f8cdc14ffb42e459761bf23c87d7f3a7d797611b5dd9adc9400c",
     "tools/probe_inferno_sentry_controller_reference.py": "9f12cec9bf972a4a6748f5831ca4145e5d98f6958aa7b9b27baaa279b7060d2a",
     "tools/reference/inferno-sentry-controller-source-evidence.json": "ae6665bbb9db7521002e73c1fdbb33f52ddc13f97357bf7d5f24b185a2b4e441",
-    "tools/prepare_remaining_sentry_reference.py": "5fd084245ef70f4c56b481ef98c04fe2ccb6554f16a2b6d1c3fa03dfc7472ef9",
-    "tools/reference/wake-of-inferno-preflight.json": "07d0503bf4cc382665ecc1bd706bce7f50e15a54989ed3e51858cfa7b9f1d3e3",
+    "tools/prepare_remaining_sentry_reference.py": "1be64406695e6edc660733044862155ab53471c7ca2a9d13da4b9d775faf9fb5",
+    "tools/reference/wake-of-inferno-preflight.json": "33dbc91824d9941908847c6666d7ec3935bf0bd82d6333e32a97e21d6810b2db",
     ".local/class-skills/lightning-sentry-content-v4-build.log": "a3bc7eaa76b19bece79a16d03d645943915222283834d203d8daf03d4caa55fb",
     ".local/class-skills/lightning-sentry-integration-v4-build.log": "0758260732ce1d3330da1aa1049b1f1320804c80ec98a4a3b967c882e7c7c5d2",
     ".local/class-skills/lightning-sentry-v3-full-failure.log": "42662956b966ff5bbbbef0d6d1a2512d59409e14ceb0e6448125d24da3a651cc",
@@ -67,7 +67,13 @@
     ".local/class-skills/berserk-snapshot-green-run.log": "91fdd02b60cc8a6b0fd567fc8130c77c41dc2df196a09d437e3b5bb74f7b99a8",
     ".local/class-skills/berserk-snapshot-regression.py": "4e0deacd4e8068a3f2092bc32eb619964f25521935da93666fc3668c7de4a7f8",
     ".local/class-skills/lightning-sentry-v4-focused.py": "6260b674ca564b492877119d38002d289c7f62066700972aa58834bdc570e0e1",
-    ".local/class-skills/lightning-sentry-v4-full.py": "2c8bfde9740ce268bf8184e8725d400dd28d351caaa82ff5c4d0f7a74b0423a1"
+    ".local/class-skills/lightning-sentry-v4-full.py": "2c8bfde9740ce268bf8184e8725d400dd28d351caaa82ff5c4d0f7a74b0423a1",
+    "tools/corroborate_local_sentry_models.py": "7cf91985c19c4dc9d0931086cf9cb64006f0ed71cb56a98f0a1070f4c24656d5",
+    "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
+    ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+    ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+    "tools/reference/lightning-sentry-preflight.json": "c954b3800cfb58ff64651443a0bb966409f07f100648913cc5e503ca73b43690",
+    "tools/reference/death-sentry-preflight.json": "e1b1218b40e9288160dd3dbe9b1bbe5c11c091c81ee1812bd310f711283a610e"
   },
   "protectedInstalledArtifacts": {
     ".local/class-skills/content/Sanctuary.Content.dll": "ac531c42ae21a67f36ee194c2fb578d497561b7248ee03326a8b1d2b3d963956",

@@ -17,6 +17,8 @@ def build(check=False):
         assert pins[name]==manifest['files'][f'json/{name}.json']['sha256'];tables[name]=json.loads(raw)
     local=ROOT/'.local/research/d2r-3.3.93847/skills.txt';raw=local.read_bytes()
     skills={r['skill']:r for r in csv.DictReader(raw.decode('utf-8-sig').splitlines(),delimiter='\t') if r.get('skill')}
+    model_evidence='tools/reference/d2r-local-sentry-model-evidence.json'
+    models=json.loads((ROOT/model_evidence).read_text());assert models['referenceVersion']=='3.3.93847' and models['totalMatchingFields']==601
     tree=json.loads((STAGE/'d2moo-source-tree.json').read_text())
     def inspected(relative,name):
         raw=(STAGE/'d2moo-pinned-source'/relative).read_bytes()
@@ -67,13 +69,14 @@ def build(check=False):
         e=dict(referenceVersion='3.3.93847',talentId=talent,sourceId=source_id,status='Current table routes pinned; native learned skill not implemented',installed=False,handlerEnabled=False,
             pinnedHashes=pins,localSkills=dict(path=str(local.relative_to(ROOT)),sha256=hashlib.sha256(raw).hexdigest(),comparedFields=counts),
             skill=player,actorSkills=actor_rows,monster=monster,model=tables['monstats2'][player['summon']],missiles={k:tables['missiles'][k] for k in missiles},
+            localMonsterModelEvidence=model_evidence,
             compiledDamageEvidence='tools/reference/'+('death-sentry-lightning' if source_id==276 else stem)+'-damage-source-evidence.json',
             inspectedLegacy=dict(commit=tree['sha'],routines=[inspected(*x) for x in symbols],executed=False,scope='Static full-body inspection only; no compiled differential or modern executable certificate'),
             established=facts,required=required,
             reuse=['Shared trap placement/creation, owner snapshot, five-slot FIFO, no-footprint body, old-facet retention, offline suppression and owner-difficulty scaling preserve approved Sanctuary rules.',
                    'Shared source-zero elemental packet and source missile history filtering are candidate reuse points; retain signed pierce and source NPC attribution. Nonzero inherited sunder remains explicitly unsupported.'],
             assets=dict(effects='Final trap emergence/firing/idle/collapse, projectile or beam/impact/explosion and audio remain separate; identified placeholders do not block mechanics.',icons='Separate talent/right/quick/hotkey icons remain in the240-row inventory.'),
-            limits=['Current local skills are directly compared; monster/model rows are hash-pinned cached reference data and are not newly corroborated against local archives by this script.',
+            limits=['Current local skills are directly compared. The linked strict local monstats/monstats2 text comparison separately corroborates601 fields across six trap pairs, including this monster/model. No extra nonzero local fields are missing from those pinned rows. Text agreement does not certify animations, binary ABI or modern executable behavior.',
                     'No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit.'],
             next='Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers.')
         if source_id==271:

@@ -321,6 +321,7 @@
       "lineNumber": 641
     }
   },
+  "localMonsterModelEvidence": "tools/reference/d2r-local-sentry-model-evidence.json",
   "compiledDamageEvidence": "tools/reference/death-sentry-lightning-damage-source-evidence.json",
   "inspectedLegacy": {
     "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
@@ -354,7 +355,7 @@
     "icons": "Separate talent/right/quick/hotkey icons remain in the240-row inventory."
   },
   "limits": [
-    "Current local skills are directly compared; monster/model rows are hash-pinned cached reference data and are not newly corroborated against local archives by this script.",
+    "Current local skills are directly compared. The linked strict local monstats/monstats2 text comparison separately corroborates601 fields across six trap pairs, including this monster/model. No extra nonzero local fields are missing from those pinned rows. Text agreement does not certify animations, binary ABI or modern executable behavior.",
     "No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit."
   ],
   "next": "Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers."
