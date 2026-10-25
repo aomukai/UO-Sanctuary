@@ -145,8 +145,10 @@ public static class BladeFuryMissileChecks
                 WeaponMissiles.Cancel(p);
             }
             finally{AmazonSlowMissiles.Restore(states);}
-            f=Launch(p);Hold(p,f with{NextUtc=TimedEffects.Now.AddMinutes(10)});int health=SkillHealth.Balance256(first);p.MoveToWorld(p.Location,Map.Internal);
-            WeaponMissiles.Tick(TimedEffects.Now.AddMinutes(11));Require(Own(p).Length==0&&SkillHealth.Balance256(first)==health,"Internal-map offline flight damaged or failed expiry");
+            // Tick is shared by every flight. Advance only this short flight's
+            // remaining lifetime, preserving other fixtures' held save clocks.
+            f=Launch(p);int health=SkillHealth.Balance256(first);p.MoveToWorld(p.Location,Map.Internal);
+            WeaponMissiles.Tick(f.NextUtc.AddMilliseconds((f.Frames-f.Frame)*40L));Require(Own(p).Length==0&&SkillHealth.Balance256(first)==health,"Internal-map offline flight damaged or failed expiry");
             p.MoveToWorld(first.Location,first.Map);first.Delete();second.Delete();
             Require(!AssassinCombat.Implemented(CombatAbility.BladeFury)&&!ClassCombat.Available(p,CombatAbility.BladeFury),"Prepared flight exposed learned input");
         }

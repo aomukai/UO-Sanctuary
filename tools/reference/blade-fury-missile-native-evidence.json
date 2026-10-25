@@ -55,10 +55,13 @@
     "stat-fixture-failure": ".local/class-skills/blade-fury-missile-stat-fixture-failure.log",
     "stat-fixture-failure-run": ".local/class-skills/blade-fury-missile-stat-fixture-failure-run.log",
     "lifecycle-failure": ".local/class-skills/blade-fury-missile-lifecycle-failure.log",
-    "lifecycle-failure-run": ".local/class-skills/blade-fury-missile-lifecycle-failure-run.log"
+    "lifecycle-failure-run": ".local/class-skills/blade-fury-missile-lifecycle-failure-run.log",
+    "shared-clock-failure": ".local/class-skills/blade-fury-missile-shared-clock-failure.log",
+    "shared-clock-failure-run": ".local/class-skills/blade-fury-missile-shared-clock-failure-run.log"
   },
   "resolvedDuringPreparation": {
     "fixtureStatReset": "Direct raw fixture stats were replaced with actual persistent stat allocations, allowing saved weapon re-equip. Initial failing log retained.",
-    "missingLifecycleWiring": "Death/respec/wardrobe cleanup now explicitly removes this flight type; existing other missile behavior retained."
+    "missingLifecycleWiring": "Death/respec/wardrobe cleanup now explicitly removes this flight type; existing other missile behavior retained.",
+    "sharedFixtureClock": "Initial full regression found that the new Internal-map expiry fixture advanced the global weapon-missile clock eleven minutes, consuming an unrelated held Poison Javelin save fixture. The test now advances only its actual forty-frame flight lifetime. Production code unchanged; failed log retained; corrected focused three-boot/two-reload suite passes, full retest pending."
   }
 }
