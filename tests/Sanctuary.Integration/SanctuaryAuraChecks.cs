@@ -29,8 +29,20 @@ public static class SanctuaryAuraChecks
                 if(actor.Name?.StartsWith("SanctuaryAuraFixture",StringComparison.Ordinal)!=true){continue;}
                 actor.Combatant=null;actor.FocusMob=null;actor.AIObject?.AITimer.Stop();count++;
             }
+            if(File.Exists(Manifest)){FreezeControls(JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest)));}
             if(count>0){_log.Information("Sanctuary scene reload: restored stopped ordinary AI for {Count} fixture creatures",count);}
         };
+    }
+    private static void FreezeControls(Saved saved)
+    {
+        foreach(var actor in World.Mobiles.Values.OfType<BaseCreature>())
+        {
+            if(actor.Serial.Value==saved.Target || actor.Name?.StartsWith("SanctuaryAuraFixture",StringComparison.Ordinal)!=true){continue;}
+            // Stopping AI alone does not prevent sector/client activation
+            // from restarting it. Only the accepted-motion target may move.
+            actor.Frozen=true;actor.Combatant=null;actor.FocusMob=null;actor.AIObject?.AITimer.Stop();
+
+        }
     }
     private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Sanctuary undead supplier, pulse, native knockback and persistence",
         _=>Core.LoopContext.Post(()=>{try{action();_log.Information("{Name}: passed",name);}catch(Exception e){_log.Error(e,"{Name}: failed",name);}}));
@@ -63,11 +75,11 @@ public static class SanctuaryAuraChecks
             && twenty.Damage256(false)==54067 && twenty.Damage256(true)==66355,"Pinned Sanctuary goldens");
         Require(SourceKnockbacks.Offset(1,0,5)==(1,0,98304) && SourceKnockbacks.Offset(-1,0,5)==(-1,0,98304)
             && SourceKnockbacks.Offset(1,1,5)==(1,1,139022),"Explicit source-subtile/native endpoint projection");
-        var target=Enemy(owner,1);var far=Enemy(owner,5);var beast=new Ogre{Name="SanctuaryAuraFixtureBeast",Frozen=true};beast.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);beast.AIObject.AITimer.Stop();
+        var target=Enemy(owner,1);var far=Enemy(owner,5);far.Frozen=true;var beast=new Ogre{Name="SanctuaryAuraFixtureBeast",Frozen=true};beast.MoveToWorld(new(owner.X,owner.Y+1,owner.Z),owner.Map);beast.AIObject.AITimer.Stop();
         var immune=new LichLord{Name="SanctuaryAuraFixtureImmune",Frozen=true};MonsterVariants.Assign(immune,MonsterDifficulty.Hell);immune.MoveToWorld(new(owner.X-1,owner.Y,owner.Z),owner.Map);immune.AIObject.AITimer.Stop();immune.Poison=Poison.Lesser;
         Require(GemCombat.Undead(immune) && NamedElements.MagicResistance(immune)==100 && SourceKnockbacks.Rule(immune)==null,"Magic-immune/unmapped control fixture");
         var ally=ClassSkillChecks.Player(DiabloClass.Necromancer);ally.MoveToWorld(new(owner.X,owner.Y-1,owner.Z),owner.Map);
-        var pet=Enemy(owner,0,-2);Require(pet.SetControlMaster(ally),"Sanctuary pet ownership");
+        var pet=Enemy(owner,0,-2);Require(pet.SetControlMaster(ally),"Sanctuary pet ownership");pet.Frozen=true;
         int hp=target.Hits,ihp=immune.Hits,bhp=beast.Hits,fhp=far.Hits,ph=pet.Hits;var start=target.Location;
         var roll=PaladinSanctuary.Roll;PaladinSanctuary.Roll=_=>0;
         Require(!SkillBindings.Instance.Assign(owner,true,CombatAbility.Sanctuary) && SkillBindings.Instance.Assign(owner,false,CombatAbility.Sanctuary),"Sanctuary right-only authority");
@@ -158,6 +170,7 @@ public static class SanctuaryAuraChecks
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var owner=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
         var target=(BaseCreature)World.FindMobile((Serial)saved.Target);owner.MoveToWorld(saved.Origin,Map.Trammel);
+        FreezeControls(saved);
         // Enemy() stops this fixture's ordinary AI on creation; deserialization
         // starts native AI again. Keep that same isolation while inspecting motion.
         target.Combatant=null;target.FocusMob=null;target.AIObject?.AITimer.Stop();

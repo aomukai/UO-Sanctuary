@@ -23,7 +23,14 @@
     "mainFocusedBoots": 3,
     "mainFocusedReloads": 2,
     "worktreeFocusedBoots": 3,
-    "worktreeFocusedReloads": 2
+    "worktreeFocusedReloads": 2,
+    "sanctuaryFixture": {
+      "freshBoots": 3,
+      "freshReloads": 2,
+      "preservedBoots": 3,
+      "preservedReloads": 2,
+      "scope": "Freeze only non-motion Sanctuary scene controls at construction/reload. Sector activation can no longer move them into the target path. Exact source pulse/blocked terrain, saved impulse/destination and GH-release assertions remain unchanged; no production code change."
+    }
   },
   "inputHashes": {
     "src/Sanctuary.Content/Sanctuary.Content.csproj": "42bdc7976aa72cd329a14937f129ccc9738411d68b37d95292e71195acc2a67a",
@@ -552,7 +559,7 @@
     "tests/Sanctuary.Integration/ChargeChecks.cs": "5cf91e461946d645dd9202cf99acc159374bec157d24e6787a48557b0c2e2e0b",
     "tests/Sanctuary.Integration/ConversionChecks.cs": "7d1d9534b4bd316cb7930cbc0f5f52211efef1400273259a961b14c39ec43f29",
     "tests/Sanctuary.Integration/HolyFreezeChecks.cs": "b234a6d33ecfd5c70064a2b9d6c89e7837f8b9173615fa9c6da384b13fca916c",
-    "tests/Sanctuary.Integration/SanctuaryAuraChecks.cs": "0f2dd38659a5199f6cdd229b417995ec65fe19ac0f0cc484b84b4167508a55c4",
+    "tests/Sanctuary.Integration/SanctuaryAuraChecks.cs": "26e0d62ef4ffb4900cc153f27232430fa6a396075425d78c7de29483c7a79c7a",
     "tests/Sanctuary.Integration/BarbarianPassiveChecks.cs": "cdc8ea3bb40c2ca3ce4e56d73c95c56ee307c181fb5021df7f3acf2ba5db069c",
     "tests/Sanctuary.Integration/BarbarianMasteryChecks.cs": "90992829147130723389f280349605af2a54e42aa1357008b423691d2012f374",
     "tests/Sanctuary.Integration/BarbarianAttackChecks.cs": "7ee84257bd5aeba25ed0cbdfffb58efa4cc66080f745fd49a633c4d0a3d0314c",
@@ -895,12 +902,12 @@
     "tests/Sanctuary.Integration/CorpseBaseChecks.cs": "3cbb663411497b5d518520cc4e5072b820b974d9860c670d6b2787d8618c4401"
   },
   "contentSha256": "db15b986d35af9c83ef4b1b2fca71dc12195ca93137f346a64f4dd249721da48",
-  "integrationSha256": "a1a6f2af4059881de66cf5d46988bab6daba5e41b9c4e467448598af94edd6dd",
+  "integrationSha256": "8ce9a385eed365d11656916b061c42dbe74555663eafb8a0a885ab8dc82bf722",
   "evidenceHashes": {
     ".local/class-skills/corpse-bridge/corpse-base-checks.log": "90c73d9b36fc6349ccea4fffbce4247764ccbccab44ac0941e11207e846ccabd",
     ".local/class-skills/corpse-bridge-focused-run.log": "03af157461c8fa3effaf3bc43d59ac81efeee3f9e84040f0d95e03c434bea9bc",
     ".local/class-skills/corpse-bridge-content-build.log": "2498ce777ce1346216284b82af852b0d250e9fcd175fc736f46dbbf23fccd0a3",
-    ".local/class-skills/corpse-bridge-integration-build.log": "a036c070a96c60b4027a254c287e27214c9a58ec87abe948bab7dc61af196441",
+    ".local/class-skills/corpse-bridge-integration-build.log": "fed41761bf58ee86e1b59595b4d26676abdaa9d117ecca6f784a930ac0c536b7",
     ".local/class-skills/corpse-bridge-focused.py": "079cdcfab539160bb86f284134f4c0996c32bc66d74f89ac906db7d7316c835a",
     ".local/class-skills/corpse-bridge-full.py": "ae3f53fd54fa78f910e63bb8693cd70dcc6e6dc92dc626e9c2bcbf629e3021eb",
     ".local/class-skills/corpse-bridge/corpse-base-life-source-probe.json": "9d07507d26fd419910ceedc6aa4df66bd4eb3c92d1cbdc691313435baf9f5703",
@@ -911,7 +918,15 @@
     ".local/class-skills/corpse-bridge/worktree-focused/corpse-bridge-integration-build.log": "971d81f14e6ea316d1bdc7c95aec03f354b6e9043e2575cfe0a0513f2e89f0d9",
     ".local/class-skills/corpse-bridge/worktree-focused/corpse-bridge-focused.py": "3e40cd9297ea289bf9d5541cc6d223d10097ee5446d06ad36386e596c9346963",
     ".local/class-skills/corpse-bridge/worktree-focused/Sanctuary.Content.dll": "a665ea4800debb383910d077f4e376269e19bee169a218530b12437fee2b3dca",
-    ".local/class-skills/corpse-bridge/worktree-focused/Sanctuary.Integration.dll": "2ee6f7cfbef65ba0653368163c93d16cff43f01b4c515091c4a4b84950edcb37"
+    ".local/class-skills/corpse-bridge/worktree-focused/Sanctuary.Integration.dll": "2ee6f7cfbef65ba0653368163c93d16cff43f01b4c515091c4a4b84950edcb37",
+    ".local/class-skills/corpse-bridge/sanctuary-focused-checks.log": "ed2fcaa9575e82a77eef6d4b802d0905cee62afdf08cb22db8bef4423c1f718b",
+    ".local/class-skills/corpse-bridge/sanctuary-preserved-checks.log": "cd393b9fe224232f41e3c09d900dc7183f9f0bc5944443f27b125b84f3bbf036",
+    ".local/class-skills/corpse-bridge-sanctuary-focused-run.log": "6ec5146b750e6be609d9fd95cfc7fe8af2e8221a16653e7852c71dce194a1b51",
+    ".local/class-skills/corpse-bridge-sanctuary-preserved-run.log": "cebe1d8955d29727738e71962abfd6c8d9af420204cd2795e4d894cd6e5bc134",
+    ".local/class-skills/corpse-bridge-sanctuary-focused.py": "16f099b03f4d7f3bb82fbe7af8c05abdd62dc5f8b6513e1f567380d590378eb1",
+    ".local/class-skills/corpse-bridge-sanctuary-preserved.py": "8c76e9a5ed76694e5a110b97c52834fd90cd5fa6693dcb76aac31fda16a8cf01",
+    ".local/class-skills/corpse-bridge-first-full-failure.log": "3e0cc8df7fb5a46b6c90ad304f64d0f5f068353d5382a15bace5b63466dff3a2",
+    ".local/class-skills/corpse-bridge/native-first-full-failure.log": "8b0a125b8689a5f018d40f69a06b2aae0421d8992ec9e09adc08b61c435255cc"
   },
   "limits": [
     "Focused native checks only; full regression, fresh item audits and existing-world smoke are required before installation.",
@@ -937,9 +952,16 @@
   },
   "fullRegression": {
     "status": "running",
-    "session": 84442,
+    "session": 67161,
     "log": ".local/class-skills/corpse-bridge-full-run.log",
-    "nativeLog": ".local/class-skills/corpse-bridge/native-checks.log"
+    "nativeLog": ".local/class-skills/corpse-bridge/native-checks.log",
+    "firstFailure": {
+      "outerLog": ".local/class-skills/corpse-bridge-first-full-failure.log",
+      "nativeLog": ".local/class-skills/corpse-bridge/native-first-full-failure.log",
+      "world": ".local/class-skills/corpse-bridge/first-full-failure-world",
+      "finding": "On first reload, Sanctuary target2403,1052,5 could not reach its accepted2404,1052,5 destination: a saved SanctuaryAuraFixtureEnemy occupies that cell. Corpse-base checks passed initial/reload. Scene diagnosis pending; do not weaken the destination assertion.",
+      "resolution": "Unrelated far scene enemy resumed AI after stopped timers were reactivated by sector/client movement. Freeze the non-motion scene controls, leaving the actual knockback target unfrozen. Fresh and original saved failure world each pass three boots/two reloads with the original endpoint assertion; no relocation or movement-runtime change."
+    }
   },
-  "updatedAtUtc": "2026-10-25T21:50:20.864257+00:00"
+  "updatedAtUtc": "2026-10-25T22:11:48.540150+00:00"
 }
