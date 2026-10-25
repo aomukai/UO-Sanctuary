@@ -1,0 +1,171 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.tigerstrike",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "compiledRoutines": {
+    "SKILLS_SrvSt23_AssasinChargeStrikes": "5545eadf694455e1f70de937730e53a2051ed1ee3558c6f4de5d58593c2f3da2",
+    "SKILLS_StatRemoveCallback_ProgressiveStrike": "ebe13b49d08fb643b55f3d046871108fb9c88118dc254d70a4e88d76afbe0619",
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8",
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "reviewedRoutines": {
+    "SKILLS_SrvDo001_Attack_LeftHandSwing": "c20364bdd0433c0990308bba34248cecffb6a5d34439c13067c9fd724ec06528",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "modernTableHash": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "probe": {
+    "path": ".local/class-skills/tiger-strike-source-probe.json",
+    "sha256": "7abf3cdf6b16b9679a3150efe296b55b29dd6024b9fd20fd1f47a793e7065bf0",
+    "cases": {
+      "build": 512,
+      "finish": 4800,
+      "start": 4,
+      "timing": 72
+    },
+    "sanitizers": "ASan+UBSan"
+  },
+  "cachedAnimation": {
+    "sha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+    "records": [
+      {
+        "code": "AIA11HS",
+        "frames": 15,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA11HT",
+        "frames": 15,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA12HS",
+        "frames": 23,
+        "speed": 256,
+        "events": [
+          [
+            11,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA1HT1",
+        "frames": 11,
+        "speed": 208,
+        "events": [
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA12HT",
+        "frames": 23,
+        "speed": 256,
+        "events": [
+          [
+            10,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA1HT2",
+        "frames": 11,
+        "speed": 208,
+        "events": [
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA1HTH",
+        "frames": 11,
+        "speed": 256,
+        "events": [
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA1BOW",
+        "frames": 16,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "AIA1STF",
+        "frames": 19,
+        "speed": 256,
+        "events": [
+          [
+            9,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "AIA1XBW",
+        "frames": 21,
+        "speed": 256,
+        "events": [
+          [
+            10,
+            2
+          ]
+        ]
+      }
+    ],
+    "provenanceComplete": false
+  },
+  "modernPolicy": {
+    "source": "Pinned skills.json Attack row and Blizzard field descriptions",
+    "finishing": 1,
+    "chargesToCast": 0,
+    "chargesConsumed": 1,
+    "releasedNotes": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "meaning": "Successful melee Attack consumes one charge per active charge-up. Miss/block retains charges. Ordinary Attack has no finisher Param8 always-hit grant. Obsolete full-list removal is not ported."
+  },
+  "established": [
+    "Start23 validates selected melee reach only. Do34 resolves the hit at release, allocates ordinary weapon damage first, then increments charges before durability/commit. Successful zero-damage contacts still count. Misses do not refresh; successful hits at cap3 refresh the375-frame expiry without adding further AR. Initial level is retained on refresh.",
+    "Tiger physical finisher ED equals charge count times calc1(max(initial stored rank,current effective rank)). Charging attacks do not execute this finisher consumer. Ordinary Attack explicitly supplies progressive_tohit; charging do34 supplies only its own skill AR.",
+    "Declared target, hit-result, allocation, stat-list and formula services isolate the complete unchanged routines. They do not prove source RNG, mitigation, weapon event ordering or current executable equivalence."
+  ],
+  "uncertain": [
+    "Exact current consumption expiry/AR-list update implementation is not in the supplementary pre2.4 source. Retaining the deadline and proportional50percent AR per remaining charge is an explicit adapter requiring modern acceptance.",
+    "Cached legacy A1 timing has incomplete acquisition provenance. Modern attack-mode/alternate-hand/transformed timing and modern executable acceptance remain open.",
+    "Native melee, actual packet input, lifecycle, real gear and save/reload integration require separate verification. No class completion or final effects/icons certificate."
+  ]
+}

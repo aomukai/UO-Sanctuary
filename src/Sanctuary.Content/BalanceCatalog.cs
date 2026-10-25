@@ -15,6 +15,7 @@ public static class BalanceCatalog
     public static void Configure()
     {
         SkillMechanics.Load();
+        CommonMeleeSkills.Load();
         ClassItemTypes.Load();
         WeaponHands.Load();
         NecromancerSummons.Load();

@@ -145,6 +145,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'assassin.tigerstrike':'Staged ordinary UO weapon pose/audio0x238 and0x375A hue0x481 charge marker are identified placeholders. Final tigerstrike1 charge1/2/3 orbiting overlays, assassinfootimpact and assassin_chargeup_tiger_1 audio pending. Separate talent/left/right/quick icons remain pending.',
         'assassin.bladefury':'Prepared bladefragment1 travel uses shared UO0xF42 marker, explicitly a placeholder. Prepared server SQ23 timer has no final player sequence/channel rendering. Final SQ/channel/cast, Expansion bladefury bladefragment1/2/3 travel/impact and assassin_bladefury_throw_1/hit audio remain pending. Separate talent/left/right/quick icons pending; learned input remains gated.',
         'assassin.chargedboltsentry':'Prepared stationary body0x9C/hue0x482 and0x3818 hue0x482 travelling markers are identified placeholders. The saved mechanical S1 phase uses labelled cached-lg-s1-15-v1 timing; its visible animation remains pending. Unregistered free-cell do45 release uses0x23B as an identified assassin_summon audio placeholder; final S2 cast/audio remains pending. Final chargeboltsentry S1/S2/NU/DT actor, sentrychargedbolt travel/impact and audio pending. Separate talent/right/quick icons pending; learned input remains gated.',
         'assassin.shockweb':'Staged throw animation9/audio0x23B,0x36E4 caltrop lobs and0x374A hue0x481 electric fields. Final caltrops/ShockField animations and assassin_staticfield sound pending. Separate talent/left/right/quick icons pending.',
@@ -222,7 +223,10 @@ def products():
     freeze_rules=[dict(source=r['Id'],primeEvil=bool(r.get('primeevil')),normal=r.get('coldeffect',0),nightmare=r.get('coldeffect(N)',0),hell=r.get('coldeffect(H)',0)) for r in monsters.values() if r.get('Id')]
     knockback_rules=[dict(source=r['Id'],knockback=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mKB')),getHit=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mGH')),distance=10 if r.get('BaseId',r['Id'])=='sandleaper1' else 5) for r in monsters.values() if r.get('Id')]
     item_types=[dict(code=r['Code'],parents=[r[k] for k in ('Equiv1','Equiv2') if r.get(k)]) for r in json.loads((SOURCE/'json/itemtypes.json').read_text()).values() if r.get('Code')]
-    out = {ROOT/'data/Sanctuary/Balance/source-block-rules.json':json.dumps(blocking_rules,indent=2)+'\n',
+    attack_source=next(r for r in json.loads((SOURCE/'json/skills.json').read_text()).values() if r.get('skill')=='Attack')
+    attack=dict(sourceId=0,sourceKey='Attack',ability=1,sourceFields=attack_source,sourceParameters={})
+    out = {ROOT/'data/Sanctuary/Balance/common-melee-skills.json':json.dumps([attack],indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/source-block-rules.json':json.dumps(blocking_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-item-types.json':json.dumps(item_types,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/knockback-source-rules.json':json.dumps(knockback_rules,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/holy-freeze-source-rules.json':json.dumps(freeze_rules,indent=2)+'\n',

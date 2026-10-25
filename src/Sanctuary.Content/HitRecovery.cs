@@ -61,6 +61,7 @@ public static class HitRecovery
         AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
+        TigerStrikes.Cancel(player);
         session.Animation = 20; session.Timing = new ActionTiming(frames, 1);
         ClassCombat.SendState(player, session);
         ClassCombat.SendAnimation(player, 20, frames * ActionTiming.FrameMs);
@@ -116,6 +117,7 @@ public static class HitRecovery
         AmazonStrafe.Cancel(player);
         AmazonFend.Cancel(player);
         AmazonMelee.Cancel(player);
+        TigerStrikes.Cancel(player);
         BarbarianBerserk.CancelMode(player);
         session.PendingTeleport = null;
         session.Animation = 20;

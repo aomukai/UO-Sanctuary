@@ -61,6 +61,8 @@ def check():
         for name, rel in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
+        shutil.copy2(STAGE / 'tiger-strike-source-probe.json',folder / 'tiger-strike-source-probe.json')
+        shutil.copy2(ROOT / 'tools/reference/tiger-strike-source-evidence.json',folder / 'tiger-strike-source-evidence.json')
         shutil.copy2(STAGE / 'sentry-controller-source-probe.json', folder / 'sentry-controller-source-probe.json')
         shutil.copy2(STAGE / 'sentry-aim-source-probe.json', folder / 'sentry-aim-source-probe.json')
         shutil.copy2(STAGE / 'sentry-emergence-source-probe.json', folder / 'sentry-emergence-source-probe.json')
@@ -167,6 +169,17 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
+                    tiger='tiger-strike-check' if boot==0 else 'tiger-strike-reload-check'
+                    session.send(tiger)
+                    assert session.expect(tiger+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('tiger-strike-input-check')
+                        assert session.expect(r'tiger-strike-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'tiger-strike-input: ready ability=(\d+) target=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                        ability,target,x,y,z=map(int,ready.groups())
+                        client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,target,x,y,z))
+                        assert session.expect(r'tiger-strike-input-result: (passed|failed)',timeout=7).group(1)=='passed',logpath.read_text()[-6000:]
                     quantity='throwing-quantity-check' if boot==0 else 'throwing-quantity-reload-check'
                     session.send(quantity)
                     assert session.expect(quantity+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

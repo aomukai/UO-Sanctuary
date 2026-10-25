@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.tigerstrike",
+  "phase": "candidate-native-verification",
+  "installed": false,
+  "sourceEvidence": "tools/reference/tiger-strike-source-evidence.json",
+  "reuse": {
+    "meleeTargetAndReach": "PaladinVengeance.ValidTarget / shared native weapon eligibility and geometry",
+    "startAndCancellation": "SkillCombat.Begin / ClassCombat pending action / HitRecovery / death and class-history/respec cleanup",
+    "damage": "GearEffects.Damage / PrepareWeaponImpact / Strike, existing FP256 physical ED/critical/mitigation/drain/poison/event consumers",
+    "block": "ClassStats.CheckHit plus existing mapped SourceBlocking for monster shields",
+    "timing": "Existing source weapon-class selection and IAS/WSM/Fanaticism/Burst/chill layer, cached-lg-assassin-a1-v1 metadata and complete source scheduler",
+    "persistence": "Version0 optional SanctuaryMartialCharges generic world ledger159, absolute UTC aging and no pending-hit replay",
+    "chargeFamilies": "Separate ability-keyed state slots prepared for other martial arts; only Tiger is supported now"
+  },
+  "modernBridge": {
+    "source": "Pinned common Attack row, released2.4 notes and Blizzard field documentation",
+    "fieldDocumentation": "https://eezstreet.github.io/d2rdoc/files/skills.html",
+    "mirrorCommit": "0240295dd85e73530af1fc0df7b0fb2b5234e935",
+    "chargesConsumed": 1,
+    "consumeOn": "successful ordinary melee Attack; misses/blocks retain charges; ranged attacks neither benefit nor consume",
+    "noAlwaysHit": "Ordinary Attack lacks the Dragon finishers Param8 grant",
+    "provisional": "Retain original expiry and reduce AR in proportion to remaining charges. Modern executable/list update acceptance remains open."
+  },
+  "limits": [
+    "Exact modern executable timing, weapon range/geometry, dual-hand stat/seed ordering and transformed/foreign-class modes remain unverified; cached A1 metadata acquisition provenance is incomplete.",
+    "Unknown native monster block suppliers retain the existing class-combat hit path; mapped Skeleton shields are separately tested. Full PvP is outside current ClassCombat hostility rules.",
+    "Shared item procs not yet implemented by the property system remain independently listed in the item-skill backlog. No claim that Tiger completes those properties.",
+    "Ordinary Assassin Attack still uses existing project timing; Tiger uses the separately identified cached A1 adapter. Charge AR is a hit input, not a new global stat on all attacks.",
+    "World saves retain and age charges using existing Sanctuary timed-state conventions. This is world persistence verification, not original D2 character-file buff persistence proof."
+  ],
+  "assets": {
+    "effects": "data/Sanctuary/Balance/skill-effects.json#assassin.tigerstrike",
+    "placeholders": "Existing UO weapon pose,0x238 sound,0x375A hue0x481 one-shot charge marker; final orbital charge1/2/3,impact/audio pending",
+    "icons": "data/Sanctuary/Balance/skill-icons.json#assassin.tigerstrike \u2014 separate talent,left/right/quick icons pending"
+  },
+  "next": "Finish focused/full regression and current audits, then backup/install/smoke, update roadmap/checkpoint and push. Continue unaffected martial arts after Tiger."
+}

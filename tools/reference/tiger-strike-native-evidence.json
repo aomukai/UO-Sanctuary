@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.tigerstrike",
+  "updatedAtUtc": "2026-10-25T06:47:55.467037+00:00",
+  "installed": false,
+  "handlerCandidate": true,
+  "sourceEvidence": "tools/reference/tiger-strike-source-evidence.json",
+  "preflight": "tools/reference/tiger-strike-preflight.json",
+  "native": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "actualSocketInputRuns": 3,
+    "sourceComparisonsPerBoot": {
+      "chargeBuilders": 512,
+      "physicalFinishers": 4800,
+      "a1Schedules": 72,
+      "rankGoldens": 255
+    },
+    "verified": [
+      "Pay256FP only at accepted start; no early hit/charge; one release; unlearned/unavailable targeting follows shared availability.",
+      "Successful charging hit deals ordinary weapon damage before adding state; subsequent builders are not Tiger enhanced. Cap3 and duration15seconds refresh without AR overflow. Miss and actual mapped Skeleton shield block neither gain nor refresh.",
+      "Ordinary Attack uses current progressive AR and physical Tiger ED, consumes exactly1 on hit and retains charges on miss/block. The native ED packet matches the shared weapon/critical/mitigation pipeline. Immunity still builds; ordinary Attack at insufficient mana consumes one with no mana charge.",
+      "Initial source rank survives refresh and gear removal; current higher effective rank is used at finisher time. Actual Tarnhelm addition/removal distinguishes stored/current ranks.",
+      "Pending action cancellation on stop, movement/range loss, selected weapon change and FHR retains existing charges and paid mana. Death, class history and respec clear charges; FHR now clears the pending-hit record explicitly.",
+      "Absolute saved state, fractional mana and target injury survive two world reloads. Login placement restores offline fixture owners to the world; pending paid hits do not replay or refund.",
+      "Three actual socket packets produce naturally timed paid unarmed hits/charge gain. No direct release is called for these checks."
+    ],
+    "fixtureControls": [
+      "The long-lived saved charge fixture has a clearly artificial1hour deadline to outlast unrelated regression work.15second source duration and expiration rejection are separate controls; no full15second client visual acceptance is claimed.",
+      "Initial reload fixture failed because offline characters load on the internal map; adding the normal login placement adapter fixed the actual replay test.",
+      "The oversized50000life normal Zombie test regenerated away small unarmed hits through its custom OnThink recovery. Reuse of existing BladeMissileTarget OnThink-free fixture isolates natural damage; this was a fixture calibration, not a source damage change."
+    ],
+    "log": ".local/class-skills/tiger-strike-only-focused.log"
+  },
+  "candidate": {
+    "contentSha256": "9e2612eaff2f932fca2c3314c9d95d59a16694e58f0fc0e13baf248e7819e4a3",
+    "integrationSha256": "9b4472e0e0920e60573850c0c4f13911bd3b7675b78332b7fdce1f3a6321a5b3"
+  },
+  "fullRegression": "running; isolated focused evidence only at this checkpoint",
+  "limits": [
+    "Exact modern executable timing, weapon range/geometry, dual-hand stat/seed ordering and transformed/foreign-class modes remain unverified; cached A1 metadata acquisition provenance is incomplete.",
+    "Unknown native monster block suppliers retain the existing class-combat hit path; mapped Skeleton shields are separately tested. Full PvP is outside current ClassCombat hostility rules.",
+    "Shared item procs not yet implemented by the property system remain independently listed in the item-skill backlog. No claim that Tiger completes those properties.",
+    "Ordinary Assassin Attack still uses existing project timing; Tiger uses the separately identified cached A1 adapter. Charge AR is a hit input, not a new global stat on all attacks.",
+    "World saves retain and age charges using existing Sanctuary timed-state conventions. This is world persistence verification, not original D2 character-file buff persistence proof."
+  ]
+}
