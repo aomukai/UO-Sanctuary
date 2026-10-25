@@ -79,15 +79,17 @@ public static class TigerStrikes
         var drain=AssassinCharges.CobraDrain(cobra,SkillMechanics.Rank(owner,CombatAbility.CobraStrike));
         var fire=FistsFireRelease.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.FistsOfFire));
         var lightning=MartialLightning.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.ClawsOfThunder));
+        var ice=MartialCold.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.BladesOfIce));
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,ed,PhysicalRoll,Utility.Random);
         var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,
-            skillElements:fire==null && lightning==null?null:new GearDamage(0,(fire?.Inline256??0)/256.0,0,(lightning?.Inline256??0)/256.0,0,ColdMs:0),physicalToFirePercent:fire?.ConversionPercent??0);
+            skillElements:fire==null && lightning==null && ice==null?null:new GearDamage(0,(fire?.Inline256??0)/256.0,(ice?.Inline256??0)/256.0,(lightning?.Inline256??0)/256.0,0,ColdMs:0),physicalToFirePercent:fire?.ConversionPercent??0);
         var center=target.Location;var map=target.Map;
         var policy=CommonMeleeSkills.Attack;
-        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner,drain),softHit:fire!=null || lightning!=null,
+        GearEffects.Strike(owner,target,roll,Effects,preparedImpact:packet,sourceDrain:WeaponLeech.Capture(owner,drain),softHit:fire!=null || lightning!=null || ice!=null,sourceColdFrames:ice?.Frames,sourceFreezeFrames:ice?.Count==3?ice.Frames:0,
             beforeCommit:states.Length==0?null:_=>{foreach(var state in states){AssassinCharges.Consume(owner,state,policy.Number("prgchargesconsumed"));}return true;});
         FistsFireRelease.AfterParent(owner,center,map,fire,TimedEffects.Now);
         MartialLightning.AfterParent(owner,center,map,lightning,TimedEffects.Now);
+        MartialCold.AfterParent(owner,target,center,map,ice,TimedEffects.Now);
         return true;
     }
     internal static void Cancel(PlayerMobile owner)

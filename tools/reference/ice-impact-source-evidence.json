@@ -1,0 +1,27 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesofice",
+  "reusedCompleteComposition": "tools/reference/magic-arrow-engine-evidence.json",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "cubeDamage10FunctionHash": "a1edc1a6928cabc442dfbcbe8344eb27a2a1f48a47d172b0c1b60bc818bb6911",
+  "fixture": {
+    "path": ".local/class-skills/ice-impact-source-probe.json",
+    "sha256": "b0e2f4c829403716bbd25bf7bb35163d1ee31231fa7e8b75f274969bc058eeba",
+    "cppSha256": "cdece3a08c889d2d83e3a7353d224a258388c0cae664358df0f2a847515f15cd",
+    "cases": 192,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete generic fill/roll reads the saved cold endpoints and cold length. Full cube damage10copies that length into the freeze lane without clearing the cold lane.",
+    "A cube therefore has both ordinary chill and freeze lengths after this route; source state consumers must run in cold-then-freeze order. The complete creator/setter separately proves no stored mastery,avoiding the positive-control second enhancement."
+  ],
+  "services": [
+    "Prepared missile stat endpoints/length/mastery and target species are explicit inputs. Same min/max means no damage RNG variation; complete generic roll/fill executes.",
+    "This composes fill and damage10; outer collision/SetDamageFlags/health/event services remain separate shared evidence."
+  ],
+  "limits": [
+    "No native Ice handler or full current executable certificate. Preserve the separate cold/freeze duration,eligibility,corpse and lifecycle acceptance gaps."
+  ]
+}

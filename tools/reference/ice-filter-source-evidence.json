@@ -1,0 +1,25 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesofice",
+  "reusedSourceComposition": "tools/reference/lightning-fury-engine-evidence.json",
+  "sourceHash": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+  "filterFunctionHash": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+  "fixture": {
+    "path": ".local/class-skills/ice-filter-source-probe.json",
+    "sha256": "9099ce9dc1dcceb0e1b03d515f7724558c59a8271dce983184b4ae87bddb0863",
+    "cppSha256": "ec9b8c1ae5763ad246115c1bc7ceaf73e4860e6f4b91b72c5ff46a0723ac6eb5",
+    "cases": 2560,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete0x870Bfilter selects living valid players/monsters and separately eligible missiles,excludes town/nonhostiles,and tests caster-to-recipient LOS.",
+    "Unlike Fists0x583,it does not require CANBEATTACKED. Its missile branch still requires ISVALIDTARGET; the reviewed generic factory clears that flag,so ordinary player missiles are not automatically area targets."
+  ],
+  "services": [
+    "Types/modes/flags,town,hostility,monster metadata and raytrace are explicit supplied services; complete filter executes unchanged.",
+    "Fists control0x583does not have hostile0x8000or LOS0x200; native shared allegiance remains an existing Sanctuary projection."
+  ],
+  "limits": [
+    "NOAURA does not enter this filter; callback38supplies bCheckMonAuraFlag0to the outer enumeration. Native hostile creature adapter and actual wall LOS are tested separately; full PvP/NPC and exceptional flagged missile recipients remain unsupported acceptance contexts."
+  ]
+}

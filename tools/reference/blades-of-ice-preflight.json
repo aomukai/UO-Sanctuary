@@ -3,7 +3,7 @@
   "talentId": "assassin.bladesofice",
   "sourceId": 274,
   "ability": 189,
-  "status": "Complete cold inline/area/scatter/LCG/damage10composition checked; current numeric/native freeze delivery pending",
+  "status": "Blades of Ice candidate builds; native focused/full verification and installation pending",
   "installed": false,
   "handlerEnabled": false,
   "source": {
@@ -109,5 +109,20 @@
     "cases": 3456,
     "sourceEvidence": "tools/reference/martial-cold-source-evidence.json",
     "scope": "Complete shared prgdam4consumer,progressive stack,area38/scatter39,actual owner/private LCG/limited draws and damage10under declared elemental/length/world/factory services. No native Ice handler enabled."
-  }
+  },
+  "candidateHandlerEnabled": true,
+  "nativeComponentInstalled": false,
+  "newSourceEvidence": [
+    "tools/reference/ice-damage-source-evidence.json",
+    "tools/reference/ice-impact-source-evidence.json",
+    "tools/reference/ice-filter-source-evidence.json",
+    "tools/reference/ice-rate-source-evidence.json"
+  ],
+  "candidateLimits": [
+    "The installed runtime remains154handlers through Claws of Thunder until focused/full/native reload/input/audit/smoke gates pass.",
+    "Full0x870Bfilter accepts independently flagged missile contexts and no CANBEATTACKED requirement; current native hostile creature adapter does not certify PvP/NPC/exceptional missile targets.",
+    "Full generic missile factory clears ISVALIDTARGET; ordinary missiles are therefore not automatically area targets. Callback38uses bCheckMonAuraFlag0.",
+    "Ordinary cold random corpse destruction remains individually unsupported; guaranteed frozen-corpse eligibility/loot uses existing source freeze states.",
+    "Current source seed/stat/event/proc/scheduler/geometry/client equivalence remains bounded; no class completion certificate."
+  ]
 }

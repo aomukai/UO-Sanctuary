@@ -45,11 +45,11 @@ public static class ColdStates
         return rule==null?-50:MonsterVariants.Difficulty((BaseCreature)target) switch
         {MonsterDifficulty.Nightmare=>rule.Nightmare,MonsterDifficulty.Hell=>rule.Hell,_=>rule.Normal};
     }
-    public static bool Apply(Mobile source,Mobile target,int frames,long tick)
+    public static bool Apply(Mobile source,Mobile target,int frames,long tick,int? pierceOverride=null)
     {
         if(target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet){return false;}
         bool monster=target is BaseCreature;int effect=Effect(target);
-        int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance);
+        int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance,pierceOverride);
         bool cannot=target is PlayerMobile p && ClassGear.Bonus(p,"nofreeze")>0,half=target is PlayerMobile q && ClassGear.Bonus(q,"half-freeze")>0;
         frames=LengthFrames(frames,resistance,cannot,half);
         if(!Commit(source,target,frames,monster,effect,NecromancerEffects.DifficultyDivisor(target),tick)){return false;}

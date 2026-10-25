@@ -177,7 +177,7 @@ public static class GearEffects
         return new(damage,parts,absorbed256);
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
-        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null,bool softHit=false)
+        int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null,bool softHit=false,int? sourceColdFrames=null,int sourceFreezeFrames=0)
     {
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
@@ -193,6 +193,7 @@ public static class GearEffects
         NecromancerEffects.LifeTap(player,target,NamedElements.To256(physical));
         if(beforeCommit!=null && absorbed256>0){SkillHealth.Heal(target,absorbed256);}
         if(sourceDrain is{} drain && target is BaseCreature victim){WeaponLeech.Apply(player,victim,NamedElements.To256(physical),drain);}
+        if(sourceColdFrames is{} coldFrames){ColdStates.Apply(player,target,coldFrames,Core.TickCount);FreezeStates.Apply(player,target,sourceFreezeFrames,Core.TickCount);}
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)
         {
@@ -209,7 +210,7 @@ public static class GearEffects
         }
         if (target.Alive && !target.Deleted)
         {
-            if (damage.Cold > 0) { ApplyChill(target, Core.TickCount, damage.ColdMs, player); }
+            if (damage.Cold > 0 && sourceColdFrames==null) { ApplyChill(target, Core.TickCount, damage.ColdMs, player); }
             if(damage.Poison>0){if(damage.SourcePoison is{} poison){poison.Commit(player,target,TimedEffects.Now);}else{ApplyPoison(player,target,damage.Poison,Core.TickCount,damage.PoisonMs);}}
         }
         int loss = Math.Max(0, before - target.Hits);

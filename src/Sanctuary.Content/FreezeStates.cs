@@ -67,7 +67,7 @@ public static class FreezeStates
     }
     internal static bool Shattered(Mobile target)=>target!=null && TimedEffects.TryActor(target,out var actor)
         && actor.Control is{Freeze:{Removed:false}} state && state.FreezeUntil>TimedEffects.Now;
-    public static bool Apply(Mobile source,Mobile target,int frames,long tick)
+    public static bool Apply(Mobile source,Mobile target,int frames,long tick,int? pierceOverride=null)
     {
         if(frames<=0 || target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet){return false;}
         bool monster=target is BaseCreature;var rule=PaladinHolyFreeze.SourceRule(target);
@@ -77,8 +77,8 @@ public static class FreezeStates
         // their distinct source branches remain explicit component coverage.
         int mode=Mode(target is PlayerMobile?0:monster?1:2,false,monster && CreatureProfiles.For((BaseCreature)target).Traits.Boss==true,
             monster && NamedCombat.Elite(target),false,effect);
-        if(mode==0){return false;}if(mode==1){return ColdStates.Apply(source,target,frames,tick);}
-        int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance);
+        if(mode==0){return false;}if(mode==1){return ColdStates.Apply(source,target,frames,tick,pierceOverride);}
+        int resistance=NamedElements.Resistance(source,target,"cold",target.ColdResistance,pierceOverride);
         bool cannot=target is PlayerMobile p && ClassGear.Bonus(p,"nofreeze")>0,half=target is PlayerMobile q && ClassGear.Bonus(q,"half-freeze")>0;
         frames=ColdStates.LengthFrames(frames,resistance,cannot,half);
         if(!Commit(source,target,frames,monster,NecromancerEffects.DifficultyDivisor(target),tick)){return false;}

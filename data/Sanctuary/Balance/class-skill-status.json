@@ -2077,10 +2077,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 274,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Shared primary-rate sequence16 builds independent Ice charges with one/two claw contacts and once-paid3mana; low mana uses ordinary charged Attack. Ordinary finisher adds separately mastered cold without physical conversion; its skill cold duration replaces weapon cold duration. Count2 adds target-centered cold area with caster LOS; count3 freezes the parent and scatters saved stationary Size1 ice cubes with both cold/freeze lengths. Cubes retain their most recent collider,30frame lifetime,captured endpoints/pierce and clocks. Scoped source/native verification and installation state are in blades-of-ice-preflight.json. Current executable/stat/RNG/geometry/proc/PvP/NPC/exceptional missile/client contexts and ordinary chill corpse destruction remain explicit acceptance gaps. Final effects/audio and talent/left/right/quick icons remain separate identified placeholders."
     },
     {
       "talentId": "assassin.dragonflight",

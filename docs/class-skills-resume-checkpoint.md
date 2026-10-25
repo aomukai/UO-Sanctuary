@@ -1,5 +1,7 @@
 # Current class-skill resume checkpoint
 
+**Current candidate — Blades of Ice.** Shared three-mana claw action and independent Ice charges build. Source checks cover216 complete skill/cube getter/creator/writer cases,192 generic fill/damage10cases,2560 complete Ice/Fists filter controls and2304 current-family rates, alongside the earlier3456 progressive/LCG cases. Native tests cover real gear,cold-duration replacement,independent5families,freeze/chill/difficulty/immunity/LOS,alternating cube colliders,offline/facet and frozen corpse loot. Focused verification is running; full regression and installation are pending. **Installed runtime remains154handlers/Assassin15 through Claws of Thunder.** No class completion is claimed.
+
 **Latest playable skill — Claws of Thunder.** The skill is installed: charging pays four mana once and uses one or two claws. An ordinary finisher releases lightning, a nova at two charges, and seeded bolts at three. Charges remain independent from Tiger Strike, Cobra Strike, and Fists of Fire.
 
 **Verified:** focused and full suites each pass three boots and two reloads, including quick cast, both held inputs, ordinary finishers, and sustained live connections. Saved missile clocks, hit windows, resources, injury, and nova deceleration survive reloads. All 70 Python tests, current item audits, and the original-world smoke test pass. Saves, configuration, and client bytes are unchanged; the server is stopped. **154 handlers are installed, including 15 Assassin skills. No class completion is claimed.**

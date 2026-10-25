@@ -12,7 +12,7 @@ public static class AssassinClaws
 {
     internal sealed record Series(CombatAbility Ability,Serial Primary,Serial Secondary,Serial Target,Map Map,Point3D Origin,
         long Started,long Until,int Released,bool Basic,int[] Events);
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.FistsOfFire or CombatAbility.ClawsOfThunder or CombatAbility.BladesOfIce;
     internal static (int End,int[] Events) Schedule(bool dual,int advance)
     {
         if(advance<=0){throw new NotSupportedException("Claw sequence requires a positive source frame advance");}

@@ -2637,7 +2637,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Shared native claw animation/sound, charge0x375A and cold area/freeze/stationary cube0x374A hue0x480 are identified placeholders. Final charge tiers, cold hand/contact, bladesoficeexplode/bladesoficecubes/bladesoficemelt and audio remain pending; talent/left/right/quick-hotkey icons are separately inventoried"
   },
   {
     "talentId": "assassin.dragonflight",

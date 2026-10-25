@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesofice",
+  "sourceComposition": "tools/reference/poison-javelin-damage-engine-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "blockHashes": {
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693",
+    "MISSILE_GetElementalLength": "a902ea2870ea544ae872b408f532d6af74f9008fd94b125d0af45a30b630cc8d",
+    "MISSILE_CalculateMasteryBonus": "5859689eb6bab8817cda79e2b23b6c66d1377095258f35ba39bb2482c785dc72",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a"
+  },
+  "reusedCompiledRoutines": [
+    "SKILLS_CalculateDamageBonusByLevel",
+    "SKILLS_CalculateMasteryBonus",
+    "SKILLS_GetMinElemDamage",
+    "SKILLS_GetMaxElemDamage",
+    "SKILLS_GetElementalLength",
+    "MISSILE_SetDamageStats",
+    "MISSILE_CalculateDamageData",
+    "MISSILE_AddStatsToDamage",
+    "MISSILE_CalculateFinalDamage"
+  ],
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/ice-damage-source-probe.json",
+    "sha256": "5d2334128fedd4fba7b9944a9f7ff3be7bc4b73a448647d40d1649774b27ac06",
+    "cppSha256": "7632e633ad7246943b57dc350552fa9bf281e96144365c5f6dbd9b031ffaa83c",
+    "cases": 216,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete current inline skill endpoint/length getters establish hard Phoenix8percent after HitShift8,mastery once afterward,and100+10*(rank-1)raw frames with no length synergy.",
+    "The complete elemental writer adds cold damage but replaces an existing777frame cold length with the skill length. Inline count3freeze therefore uses the final skill length,not added item duration.",
+    "Complete current cube creator/getters/mastery/stat writer establish source0,constant1..1cold damage before mastery and100raw cold frames at every retained rank. Item damage/leech/critical and hard Phoenix damage synergy do not enter that cube packet."
+  ],
+  "services": [
+    "Prepared owner/weapon stats,hard-point formula,ratio helper and empty monster-type stat copying reuse the bounded parent composition. RAND service aborts because only cold writer is selected.",
+    "This composes numeric packet creation/writing; complete fill/damage10router and native freeze/chill/target/geometry/seed/health/client remain separate."
+  ],
+  "limits": [
+    "Scoped older-source/current-table proof; no current executable certificate or native Ice handler.",
+    "Nonnegative supplied mastery and selected ranks through255 are tested. Other item/state/proc/PvP/NPC contexts remain explicit acceptance work."
+  ]
+}
