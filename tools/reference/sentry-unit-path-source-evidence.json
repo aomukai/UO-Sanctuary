@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "nativeUnitPathImplemented": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/AI/AiUtil.cpp": "414c7e06d7e50f3833203311d1d1f45fe76a9fc491e8722df0dd14eea503a00b"
+  },
+  "routineHashes": {
+    "PATH_SetType": "9fde1be9597c09a1533a9fd87b7a93c25db764e1aa3350f64d5d3461cb1e0bb7",
+    "PATH_GetType": "db920603e49849c7a2e6b00ce83d1b658a4d87e50d5198cc24ade59392b48424",
+    "D2COMMON_10170_PathSetTargetPos": "ecd886bb2ce2c08cec98153fa0fa0d5411baabd0e39d4b76248716335b1ed220",
+    "PATH_GetNumberOfPathPoints": "caa8b372701b5bf992fd3211b31cc47881ac6d5fcb10260a3716d7f895d2be9b",
+    "sub_6FCF27B0": "b8d3519ca0d74ab457fe6477ed09667e219e4a84067a5a00b476f74f8fd2ac2a"
+  },
+  "reusedAimEvidence": "tools/reference/sentry-aim-source-evidence.json",
+  "reusedTowardEvidence": "tools/reference/toward-path-engine-evidence.json",
+  "selectorEvidence": "tools/reference/sentry-target-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/sentry-unit-path-source-probe.json",
+    "sha256": "1ba3b576978fe5ce41f2f73f76d2b1bc8d43f73b7a8c19b45be8b98ee5a67321",
+    "cases": 4032
+  },
+  "established": [
+    "Complete alternative chooser now composes with full PATH_SetType tables/setter, target/getter/coordinate setters, general unit initializer, toward kernel and registry refresh. Path2 flags are0, so temporary0x800 target-footprint removal and0x1000 target adjustment are cleared even from stale initial flags. Do not replace PATH_SetType by merely assigning dwPathType.",
+    "For declared stationary zero-lead pattern0/mask0x3c01 monster context, the full unit-target probe matches point-control count, every waypoint and ordered collision query across4032 cases. The unit active target is not rewritten to the last waypoint; only the control uses point semantics. This bounds legitimate reuse instead of claiming all unit paths equal point paths.",
+    "Restoring coordinates with the complete source setter clears the raw target pointer after restoring old type/GUID. A subsequent full SUNIT_GetTargetUnit returns null: its registry validation does not recreate a missing pointer. Old target type/GUID survive when old target was present; with no old target, the temporary primary identity fields remain stale. The wrapper restores path type and coordinates, not the old target pointer, low moving flags, point count or all path state. Current behavior remains unverified.",
+    "Six obstacle grids, offsets, fractions, budgets5/14, old path13/15, old target present/absent and declared callback7 fallback/no-fallback branches execute under clean ASan/UBSan. Callback7 only runs if no path points; fallback distance10 keeps primary replacement, no fallback permits the close alternative."
+  ],
+  "limits": [
+    "Supplementary reconstructed source; D2Common_10142 is marked BROKEN, and current3.3 executable/path/room equivalence is not asserted. Native integration remains pending.",
+    "Town/room/grid and zero-footprint services retain the existing synthetic contracts. Target size service returns1, but temporary type2 disables target-footprint removal and target adjustment. Actor lead/speed0, pattern0/mask0x3c01 and monster targets are declared; arbitrary moving players, doors, offsets, masks, room crossing, target death/registry reuse and other path types are not covered.",
+    "Callback7 scanning here is a declared checked fallback service (none or third target at10); its full eligibility/nearest selection remains separately covered by4096 selector cases. Native collision adapters and saved actor state consequences require their own tests before binding.",
+    "The reused translation unit retains unrelated unexecuted reconstructed motion helpers whose integer-to-pointer casts produce64-bit compiler warnings. The executed probe requires clean ASan/UBSan runtime stderr; this is not a certificate for those unrelated ABI paths."
+  ],
+  "restorationDiagnostic": ".local/class-skills/sentry-unit-path-restoration-diagnostic.log",
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr"
+}
