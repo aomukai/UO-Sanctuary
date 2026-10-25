@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "classHandlers": 0,
+  "updatedAtUtc": "2026-10-25T23:59:06.649240+00:00",
+  "sourceEvidence": "tools/reference/cyclone-armor-source-evidence.json",
+  "packetEvidence": "tools/reference/cyclone-armor-packets-evidence.json",
+  "sourceInspectionHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "inspectedRoutineHashes": {
+    "sub_6FD10EC0": "ae98ac75e013c07d04b096f557c768ecb22bfa579307912822e7341c945f9f2c",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "SKILLS_SrvDo018_DefensiveBuff": "14356a01a90b9150a1333683ab2e7538f77168c54dc13e71de891ebee9fc1fbc",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FCFE200": "60beaf1e03ddfed66af7cf4d2f504d523a504c4210dffc1b02a1d155a1a88126"
+  },
+  "nativeInspectionHashes": {
+    "src/Sanctuary.Content/SkillCombat.cs": "062ab7ecea6fe0b196c6e4b11d13350b1ced6d01e70307851bf9017ad21ffbaf",
+    "src/Sanctuary.Content/SorceressEffects.cs": "2ab16af90d35a2343bf3b137b8dd58be19292dbae77ee799250fcceba9c163a6",
+    "src/Sanctuary.Content/EliteCombat.cs": "092fbb55f89ab3948b93989fe26e10b90de7a408f3d04cfce2dd5c90e496f871",
+    "src/Sanctuary.Content/WeaponMissiles.cs": "cd7a0d08c15c0464fc99a0034841763844358520ba35998b6d8821f02ddebea0",
+    "src/Sanctuary.Content/ClassCombat.cs": "f93aeacaac91fd3a50694328fe0796f49f702deddca25ba38d954861173f160b",
+    "src/Sanctuary.Content/CharacterProfiles.cs": "fd69e21afda1dd77403acf3af05a1d64ce70e26acdaaf8b0679d553ec7fcb3a7",
+    "src/Sanctuary.Content/ClassDeath.cs": "0251e1289ffd081e9cd898a644c89ea9abfc2c05a77f9d75743b843c9b471884",
+    "src/Sanctuary.Content/WardrobeTransaction.cs": "48527ad7d42f596a6744d94324e410af232462a1d0e75a4299c489f576f01b55",
+    "shared/ClassAbilities.cs": "841b406af969cc8b830c2e26e8e399b351693c050c1d6361ba40b7189ab36760",
+    "patches/ModernUO/0049-class-skill-typed-damage.patch": "59684e23c59fbb2e7c17a9b5f7878a55b0d6d8f0ed98b0298386efdffcf9d494"
+  },
+  "inspectedSourceInferences": [
+    "Current Cyclone Armor has group0. The complete group helper does not clear an existing group0 state; the common factory rejects a lower rank for the same skill/state, reuses equal rank, and replaces higher rank. Shared do18 rewrites current/max after successful factory return, so equal-rank recasts refill. This cross-body inference is not a composed current-build cast test.",
+    "Blank aura duration evaluates to0. The inspected complete common factory schedules no remove-state event and uses expiry0 for a new zero-duration state. Actual native lifecycle/casting still needs connection."
+  ],
+  "plannedReuse": {
+    "casting": "Reuse shared do18 defensive buff semantics and SkillCombat.Begin/SC timing, existing mana payment and source row235. Add Druid class dispatch and client/server SelfTarget; there is currently no DruidCombat handler.",
+    "damage": "Reuse existing pre-resistance shield stage around SorceressEffects.Absorb, already called by SkillCombat.MitigatePrepared and typed impacts/hostile firebolt flights. EliteCombat.Damage separately reduces components directly and needs an explicit raw-packet hook. Keep NamedElements.Resolve256 pure.",
+    "lifecycle": "Save captured rank and FP256 current/maximum pool. Clear on death/respec/successful class/wardrobe switch and deletion. Preserve wardrobe rollback and avoid worker-time mutation. Verify actual world reload before enabling.",
+    "assets": "Existing separate240row effect/icon registers apply. Current state overlays cyclonearmor1front/2front/3front and cast/clear art remain pending; use an identified cast placeholder only when connected. Talent/right/quick icons remain independent."
+  },
+  "nonblockingQuestions": [
+    "Optional pinned-build lower-effective-rank recast after removing +skill gear: source inference predicts refusal/no replacement; current observation is pending. Continue damage-path work without treating this as goal-wide blockage."
+  ],
+  "limits": [
+    "No native incoming-damage hook, state persistence, player input, client build or learned Druid handler is implemented by this preparation.",
+    "Shield priority with other absorb-event subscribers and exact current gfx/overlay behavior remain unverified. Co-op targeting and approved Sanctuary combat rules retain precedence."
+  ]
+}

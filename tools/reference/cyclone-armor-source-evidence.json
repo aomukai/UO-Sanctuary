@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "D2GAME_EventFunc25_6FD00140": "1eab18d32cf2b558eb3a85054c1d8af7f282f09b0cd57af7b3bd4d508a22b996"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+  },
+  "skill": {
+    "skill": "Cyclone Armor",
+    "*Id": 235,
+    "srvdofunc": 18,
+    "aurastate": "cyclonearmor",
+    "aurastat1": "bonearmor",
+    "aurastatcalc1": "(ln12*(100+(skill('Twister'.blvl)+skill('Tornado'.blvl)+skill('Hurricane'.blvl))*par8)/100)*256",
+    "aurastat2": "bonearmormax",
+    "aurastatcalc2": "(ln12*(100+(skill('Twister'.blvl)+skill('Tornado'.blvl)+skill('Hurricane'.blvl))*par8)/100)*256",
+    "auraevent1": "absorbdamage",
+    "auraeventfunc1": 25,
+    "auralencalc": null,
+    "anim": "SC",
+    "manashift": 8,
+    "mana": 5,
+    "lvlmana": 1,
+    "Param1": 40,
+    "Param2": 12,
+    "Param8": 7
+  },
+  "state": {
+    "state": "cyclonearmor",
+    "*ID": 151,
+    "nooverlays": 1,
+    "noclear": 1,
+    "overlay1": "cyclonearmor1front",
+    "overlay2": "cyclonearmor2front",
+    "overlay3": "cyclonearmor3front",
+    "setfunc": 8,
+    "remfunc": 5,
+    "lineNumber": 151
+  },
+  "fixture": {
+    "path": ".local/class-skills/cyclone-armor-source-probe.json",
+    "sha256": "f2577a854cea2e9431a8b9ea24c164965bd9bda1ea385db655153c83ddb76ca2",
+    "cases": 9082
+  },
+  "established": [
+    "Complete event25 and source percentage helper execute9072positive/nonpositive-maximum contexts and10distinct missing/invalid actor/damage/row/state/list/stat guards.",
+    "A shared FP256 pool consumes fire, then cold, then lightning; physical/poison/magic remain untouched. Zero remaining with positive maximum removes/unlinks/frees once.",
+    "Current player235 uses shared defensive-buff do18, blank auralencalc and equal current/maximum formula with hard Twister/Tornado/Hurricane7percent synergies; lifetime/creation still need composition.",
+    "Inspected complete damage reducer dispatches ABSORBDAMAGE before resistances/MDR; this ordering inspection is separate from compiled event scope."
+  ],
+  "limits": [
+    "Stat/state storage, row lookup, layout and unlink/free/gfx services are declared fixtures, not the modern executable or complete defensive-buff caster.",
+    "The older gfx percentage update tests new-old>=5, so decreasing values do not refresh that parameter. Do not silently reinterpret it as absolute difference or infer modern display behavior.",
+    "Native incoming weapon/spell/area producer coverage, shield priority, persistence, casting/payment/cancellation and client self-targeting remain to implement/verify. Missing final effects/icons stay separate."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty stderr required"
+}

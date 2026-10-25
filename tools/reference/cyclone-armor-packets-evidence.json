@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "scope": "Portable numeric event25 consumer; native buff/casting/producer integration remains separate.",
+  "sourceEvidence": "tools/reference/cyclone-armor-source-evidence.json",
+  "comparisons": 9072,
+  "jsonRoundTrips": 9072,
+  "fractionalOrderControls": 1,
+  "negativeControls": 5,
+  "inputHashes": {
+    "src/Sanctuary.Content/CycloneArmorPackets.cs": "103f5b3f093a3843aad32c59900f0ee0a14dafd8be327f98ec49378fcfccb5eb",
+    "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439"
+  },
+  "fixtureSha256": "f2577a854cea2e9431a8b9ea24c164965bd9bda1ea385db655153c83ddb76ca2",
+  "limits": [
+    "This check compiles the actual portable C# files but not the complete content assembly or a native incoming damage event.",
+    "Source/native state lifetime/recast rank priority, actor persistence, client self input, payment and complete incoming producer routing remain to connect.",
+    "The older directed gfx-percentage comparison is kept as source context; modern display behavior remains uncertain."
+  ]
+}
