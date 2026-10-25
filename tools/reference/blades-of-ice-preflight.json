@@ -3,9 +3,9 @@
   "talentId": "assassin.bladesofice",
   "sourceId": 274,
   "ability": 189,
-  "status": "Blades of Ice candidate builds; native focused/full verification and installation pending",
-  "installed": false,
-  "handlerEnabled": false,
+  "status": "Learned Blades of Ice installed with scoped source/native verification",
+  "installed": true,
+  "handlerEnabled": true,
   "source": {
     "currentLocalSkillsSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
     "currentLocalCheckedFields": 37,
@@ -93,11 +93,13 @@
     "Current exact cold endpoint/length getters,typed cube creator and target freeze/chill/difficulty/boss/immune/collision consumers remain separate from the new bounded control-flow composition."
   ],
   "required": [
-    "Compose current cold endpoint/length getters and typed cube packet creator with the compiled inline/38/39/damage10ordering,then verify actual target freeze/chill,source collision and lifecycle before native integration.",
-    "Verify filter0x870B versus Fists0x583; do not copy recipient allegiance/LOS/town/size exclusions blindly.",
-    "Resolve actual ordinary cold/freeze application,difficulty/cold-effect length scaling,freeze-immune/boss chill fallback,source SOFTHIT and overlapping cube refresh/hit cadence.",
-    "Integrate independent charges and typed skill/cube delivery,then exact3mana builder/fallback,cancellation,real quick/held input and two reloads before installation.",
-    "Track source561cubes/562melt/560explode plus orbital/claw/contact/audio art separately from talent/left/right/quick icons; existing labelled placeholders must not block mechanics."
+    "Handler presence and scoped source/native checks do not certify every3.3.93847 executable context. Full mode/stat/RNG/event/proc/owner/PvP/NPC/client and source-to-native geometry equivalence remain acceptance work.",
+    "Shared native hostile creature enumeration/LOS maps source0x870B; full ISVALIDTARGET-without-CANBEATTACKED,PvP/NPC and exceptional flagged missile recipients are not certified. Generic source factory clears ISVALIDTARGET,so ordinary missiles are not automatically valid targets.",
+    "Owner RNG supplies a native low32draw; source private LCG/scatter is exact for supplied seeds. Full persistent D2player seed and current random stream identity remain unimplemented.",
+    "Cube placement/collision projects source subtiles onto half-tile native geometry/sector order and existing barriers. Continuous exact source collision-room order,Slow Missiles expiry/order,all lifecycle/control/proc branches require acceptance.",
+    "Retained expiry/proportional charge AR and ordinary Attack timing are existing provisional adapters;modern multi-contact kick/claw finishers remain deferred.",
+    "Ordinary chill random corpse destruction remains unsupported; guaranteed frozen-corpse skill eligibility preserves ordinary loot through existing states.",
+    "Final charge/claw/cold/area/cube/melt/audio effects and talent/left/right/quick icons remain separate identified placeholders."
   ],
   "questions": [
     "Current full executable/stat/target/geometry/proc/NPC/PvP/client acceptance remains explicit.",
@@ -111,18 +113,13 @@
     "scope": "Complete shared prgdam4consumer,progressive stack,area38/scatter39,actual owner/private LCG/limited draws and damage10under declared elemental/length/world/factory services. No native Ice handler enabled."
   },
   "candidateHandlerEnabled": true,
-  "nativeComponentInstalled": false,
+  "nativeComponentInstalled": true,
   "newSourceEvidence": [
     "tools/reference/ice-damage-source-evidence.json",
     "tools/reference/ice-impact-source-evidence.json",
     "tools/reference/ice-filter-source-evidence.json",
     "tools/reference/ice-rate-source-evidence.json"
   ],
-  "candidateLimits": [
-    "The installed runtime remains154handlers through Claws of Thunder until focused/full/native reload/input/audit/smoke gates pass.",
-    "Full0x870Bfilter accepts independently flagged missile contexts and no CANBEATTACKED requirement; current native hostile creature adapter does not certify PvP/NPC/exceptional missile targets.",
-    "Full generic missile factory clears ISVALIDTARGET; ordinary missiles are therefore not automatically area targets. Callback38uses bCheckMonAuraFlag0.",
-    "Ordinary cold random corpse destruction remains individually unsupported; guaranteed frozen-corpse eligibility/loot uses existing source freeze states.",
-    "Current source seed/stat/event/proc/scheduler/geometry/client equivalence remains bounded; no class completion certificate."
-  ]
+  "nativeEvidence": "tools/reference/ice-native-evidence.json",
+  "next": "Continue Assassin with Phoenix Strike (source280/Royal Strike) using phoenix-strike-preflight.json. Reuse shared do34single-contact melee builder/saved charge families; unlike the three claw elemental skills,prgstack0selects only the current tier. Current32local fields,3456complete selected tier/producer/LCG/target-setter contexts,4096chain initializer/path cases and1152four-row packet cases are prepared. Compose complete meteor,chain and chaos-ice initializer/damage/factory/movement/lifecycle paths before enabling a handler. Keep Dragon Talon/Dragon Claw modern multi-contact consumption/hit/block,Blade Fury input,Sentry retirement and NPC shadow dependencies individually deferred. Do not ask the traps-only player for martial-arts/Fury tests. All eight classes/240skills and separate effects/icons remain in scope."
 }

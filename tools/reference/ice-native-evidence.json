@@ -1,0 +1,87 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.bladesofice",
+  "sourceId": 274,
+  "installed": true,
+  "handlerEnabled": true,
+  "components": [
+    "src/Sanctuary.Content/MartialCold.cs",
+    "src/Sanctuary.Content/AssassinClaws.cs",
+    "src/Sanctuary.Content/AssassinCharges.cs",
+    "src/Sanctuary.Content/AssassinCombat.cs",
+    "src/Sanctuary.Content/TigerStrikes.cs",
+    "src/Sanctuary.Content/ActionTiming.cs",
+    "src/Sanctuary.Content/GearEffects.cs",
+    "src/Sanctuary.Content/ColdStates.cs",
+    "src/Sanctuary.Content/FreezeStates.cs",
+    "data/Sanctuary/Balance/necromancer-summons.json"
+  ],
+  "sourceEvidence": [
+    "tools/reference/martial-cold-source-evidence.json",
+    "tools/reference/ice-damage-source-evidence.json",
+    "tools/reference/ice-impact-source-evidence.json",
+    "tools/reference/ice-filter-source-evidence.json",
+    "tools/reference/ice-rate-source-evidence.json",
+    "tools/reference/assassin-claw-sequence-source-evidence.json",
+    "tools/reference/cold-state-engine-evidence.json",
+    "tools/reference/freeze-state-engine-evidence.json"
+  ],
+  "candidate": {
+    "contentSha256": "8731fe290ac455fbc9efd6ce7e6dcb53d617ef4c176d6480a09050b24d295d67",
+    "integrationSha256": "335276da8300d3d38c3afe814a8986ae3008ef1a1ab349c20b1c180b938dc89a",
+    "sourceCommit": "bba8798"
+  },
+  "verification": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "compiledAndNativePacketCasesPerBoot": 216,
+    "compiledFillDamage10Cases": 192,
+    "compiledFilterCases": 2560,
+    "currentOriginalAndNativeRatesPerBoot": 2304,
+    "nativeSequenceClocksPerBoot": 576,
+    "compiledProgressiveScatterCases": 3456,
+    "naturalInputPathsPerBoot": [
+      "quick Cast",
+      "right HoldCast/release",
+      "left HoldAttack/release",
+      "ordinary charged Attack"
+    ],
+    "naturalCubeDamageAndExpiryPerSuite": 3
+  },
+  "fullRegression": "Blades of Ice is installed. Its shared primary-rate sequence16 builds independent Ice charges with one/two claw contacts and once-paid3mana; ordinary low-mana fallback remains approved. Ordinary Attack adds separately mastered cold with no physical conversion,replaces weapon cold duration with skill length,chills the parent at1/2charges and freezes it at3. Count2/3add independent cold-only target-centered area with caster LOS. Count3scatters saved stationary Size1cubes with source1..1cold/100frame chill+freeze lengths,30frame lifetime and most-recent-collider suppression. Source checks cover216 complete skill/cube getter/creator/writer cases,192 fill/damage10cases,2560 full Ice/Fists filter controls,2304 current-family rates and the earlier3456 progressive/scatter/LCG cases. Focused/full suites each pass3boots/2reloads,including real quick/right-held/left-held/ordinary-finisher input and continuously connected live cubes damaging a target then expiring. Native actual Nightwing/Raven,cold length replacement,late rank/mastery reads,independent5families,zero-damage status lanes,immunity,difficulty,wall LOS,alternating colliders,offline/facet/corrupt-save and lethal frozen-corpse loot checks pass. Exact saved cubes/LastCollision/clock/endpoints/pierce,charges,removed gear,fractional mana/injury,both state lanes and frozen corpse loot survive reloads. Retained Thunder/Fists/Tiger/Cobra/kick and all70 Python checks pass; current audits cover558/21 fingerprints with573 unchanged named decisions. Original-world smoke passes;saves/config/client bytes unchanged and server stopped. Total handlers155;Assassin16. No class completion certificate.",
+  "logs": {
+    "focused": ".local/class-skills/ice-focused.log",
+    "focused-run": ".local/class-skills/ice-focused-run.log",
+    "combined": ".local/class-skills/ice-combined.log",
+    "full-suite-run": ".local/class-skills/ice-full-suite-run.log",
+    "content-build": ".local/class-skills/ice-content-build.log",
+    "integration-build": ".local/class-skills/ice-integration-build.log",
+    "python-tests": ".local/class-skills/ice-python-tests.log",
+    "named-readiness": ".local/class-skills/ice-named-readiness.log",
+    "first-loop": ".local/class-skills/ice-first-loop.log",
+    "properties": ".local/class-skills/ice-properties.log",
+    "installed-server": ".local/class-skills/ice-installed-server.log",
+    "installed-smoke": ".local/class-skills/ice-installed-smoke.log",
+    "install-run": ".local/class-skills/ice-install-run.log",
+    "client-check": ".local/class-skills/ice-client-check.log"
+  },
+  "backup": ".local/class-skills/pre-ice-install",
+  "fixtureCorrection": "First full run reached third reload but the old Rest in Peace inspection corpse hit normal seven-minute decay at7minutes7seconds. The test alone now holds that corpse for1hour and reports detailed missing-state diagnostics; runtime content and corpse policy are unchanged. Replacement focused/full suites must pass against the rebuilt integration hash.",
+  "runtimeInputs": {
+    "named": 558,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true
+  },
+  "limits": [
+    "Handler presence and scoped source/native checks do not certify every3.3.93847 executable context. Full mode/stat/RNG/event/proc/owner/PvP/NPC/client and source-to-native geometry equivalence remain acceptance work.",
+    "Shared native hostile creature enumeration/LOS maps source0x870B; full ISVALIDTARGET-without-CANBEATTACKED,PvP/NPC and exceptional flagged missile recipients are not certified. Generic source factory clears ISVALIDTARGET,so ordinary missiles are not automatically valid targets.",
+    "Owner RNG supplies a native low32draw; source private LCG/scatter is exact for supplied seeds. Full persistent D2player seed and current random stream identity remain unimplemented.",
+    "Cube placement/collision projects source subtiles onto half-tile native geometry/sector order and existing barriers. Continuous exact source collision-room order,Slow Missiles expiry/order,all lifecycle/control/proc branches require acceptance.",
+    "Retained expiry/proportional charge AR and ordinary Attack timing are existing provisional adapters;modern multi-contact kick/claw finishers remain deferred.",
+    "Ordinary chill random corpse destruction remains unsupported; guaranteed frozen-corpse skill eligibility preserves ordinary loot through existing states.",
+    "Final charge/claw/cold/area/cube/melt/audio effects and talent/left/right/quick icons remain separate identified placeholders."
+  ]
+}

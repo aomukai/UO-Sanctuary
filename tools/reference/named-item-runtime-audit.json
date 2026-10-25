@@ -558,7 +558,7 @@
     "src/Sanctuary.Content/WeaponMasteries.cs": "14affc0c87c3d901722c79447f31dafe89dc5b5a9ba3d1f838a4d00825eaab43",
     "src/Sanctuary.Content/WeaponMissiles.cs": "089b5d0e137f4385e2cf74a78ce87a651138474f3708c4ced2d8ab38298f5f35",
     "src/Sanctuary.Content/WeaponPoisonPackets.cs": "9a8fe82b319ff4953543283b8257d67007c3d1d111fb48949163d0dfb6ed19eb",
-    "tests/Sanctuary.Integration/NamedGearChecks.cs": "b0285c05a807f010ad80a1371715a22bd12f8dcb7ab20a9a758a6dfa71de5c66",
+    "tests/Sanctuary.Integration/NamedGearChecks.cs": "5d4edd339cc75b17a5c1c71f8e1d441e97d4d248e5872a67374aa5869b253656",
     "tests/Sanctuary.Integration/NamedLifecycleChecks.cs": "6035f0d49c8d8842f604a23d21264df8445d9393b36a362a400b00bcb10b9d69",
     "tests/Sanctuary.Integration/NamedVisualUiChecks.cs": "eed97c27e0d200c66845e7f329560d2374e14ea05ed54b22cec1d1d6451220e9"
   },
