@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "handlerEnabled": false,
+  "baseCommit": "e012568",
+  "scope": "Native corpse source base-life capture/persistence component in isolated worktree; no Death Sentry handler or explosion is enabled.",
+  "verified": {
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "sourceComparisonsPerBoot": 52100,
+    "realDeathDifficulties": [
+      "Normal",
+      "Nightmare",
+      "Hell"
+    ],
+    "legacyMissingField": true,
+    "noSpawnedHitsMaxFallback": true,
+    "originalMonsterIdentity": true,
+    "captureOnce": true,
+    "workerSerialization": true,
+    "rejectedMalformedSnapshotsPerBoot": 5,
+    "deletionCleanup": true
+  },
+  "inputHashes": {
+    "src/Sanctuary.Content/CorpseBaseLife.cs": "cd955dd78f589c3db7dbb70602518955cdc3524b835d40ac87c8030b7e012e4e",
+    "src/Sanctuary.Content/CorpseBaseSnapshots.cs": "c86e0c975c74295257423b401e160a7a6c515f56b94d7f346d250619abe301bb",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "1efb1f35a3c50a1b3f006f51e00bbd8740e42afc3516f1b4aa79abda1fc3af8e",
+    "data/Sanctuary/Balance/corpse-base-monsters.json": "ef3b2f64eb25961feac8ec8ee9ea5f7345377da8e19b732e796fb52cab7e0e78",
+    "data/Sanctuary/Balance/corpse-base-levels.json": "4a6878b4cc6c2c4c6c2def898e228b31df08242ca5eb3cc145447d830fbd9f97",
+    "tests/Sanctuary.Integration/CorpseBaseChecks.cs": "3cbb663411497b5d518520cc4e5072b820b974d9860c670d6b2787d8618c4401",
+    "tests/check_class_skills.py": "6c5d7e1966ba830cfaf410cd1120dca7ee4b03b2665ad6597050a7841d048f29",
+    "tools/build_corpse_base_catalogue.py": "280fc0f7bfe857802946234d1fd4c73fab412df09d04a1dba6fd8e2a82d1ee4e",
+    "tools/reference/corpse-base-life-source-evidence.json": "593a44868cabbd13ab57b8286f54657abe69b778169a6b563aa3cbb080b80fb9",
+    "tools/reference/corpse-base-life-draft-evidence.json": "80e3ce3bb9420ab4e1e65c01cc4e69750b78312a5108cbfeb226936a198dd15c",
+    "tools/reference/corpse-base-catalogue-evidence.json": "d7e77866028ac20d9323fddb79fdc233c1ae363f6a3c223b1a40183c1650cb2c"
+  },
+  "contentSha256": "a665ea4800debb383910d077f4e376269e19bee169a218530b12437fee2b3dca",
+  "integrationSha256": "2ee6f7cfbef65ba0653368163c93d16cff43f01b4c515091c4a4b84950edcb37",
+  "evidenceHashes": {
+    ".local/class-skills/corpse-bridge/corpse-base-checks.log": "5dc1029a5a98ac4454ac022d480a6006445c57888e2bf7ebb2c7c9401a582203",
+    ".local/class-skills/corpse-bridge-focused-run.log": "03af157461c8fa3effaf3bc43d59ac81efeee3f9e84040f0d95e03c434bea9bc",
+    ".local/class-skills/corpse-bridge-content-build.log": "e9d9efd62c89e42bbdb446ea790893275041d276e795a866f815b46fe24eb55b",
+    ".local/class-skills/corpse-bridge-integration-build.log": "971d81f14e6ea316d1bdc7c95aec03f354b6e9043e2575cfe0a0513f2e89f0d9",
+    ".local/class-skills/corpse-bridge-focused.py": "3e40cd9297ea289bf9d5541cc6d223d10097ee5446d06ad36386e596c9346963",
+    ".local/class-skills/corpse-bridge/corpse-base-placement-failure.log": "b10058c4913d0f3e3880751621b2a1edd00ea082d29c58f8585ffce71a5a2231"
+  },
+  "limits": [
+    "Focused native checks only; full regression, fresh item audits and existing-world smoke are required before installation.",
+    "D2R expansion HP columns are the explicit Sanctuary mapping; current data plus older source does not establish a modern executable trace.",
+    "Legacy corpses without a historical snapshot and unmapped source profiles remain unsupported; no native HitsMax inference or snapshot retrofit.",
+    "Corpse RNG allocation/advancement, native room ordering/search, reservation/consumption, area defenses/damage, learned Death Sentry placement and retirement remain separate."
+  ]
+}
