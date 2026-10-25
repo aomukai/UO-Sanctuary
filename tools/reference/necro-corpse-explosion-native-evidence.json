@@ -1,10 +1,10 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerAlreadyPresent": true,
   "newHandler": false,
   "baseCommit": "acda820",
-  "updatedAtUtc": "2026-10-25T23:33:42.524480+00:00",
+  "updatedAtUtc": "2026-10-25T23:54:09.032203+00:00",
   "scope": "Uninstalled player74 packet/native correction with shared do55 arithmetic and existing approved spell/defense consumers.",
   "focusedBoots": 3,
   "focusedReloads": 2,
@@ -26,8 +26,8 @@
     "tests/Sanctuary.Integration/DeathSentryExplosionChecks.cs": "903d97d9802bba0075449d966f44aa34e5145ab118df61aa7f482c43ff2dd701",
     "tools/probe_necro_corpse_explosion_reference.py": "7413cc83d7b367ba9fa92d3f74330cb8ff58804ee474ab3e668178ab9eeb749b",
     "tools/reference/necro-corpse-explosion-source-evidence.json": "ea6a15af4c351c996bb34f2bffcec1c3fc90cab1c696466324e4381c2f1178c0",
-    "tools/build_skill_roadmap.py": "f2b56be669d11f6b7620aad7a19a1d68176bbf05b8b588d246858a596b6f43be",
-    "data/Sanctuary/Balance/class-skill-status.json": "36c994d4ca1da2b0fd3233190b16716a5d79c51d8edeccf1b1dbf4f0c5e7f1f7",
+    "tools/build_skill_roadmap.py": "7811b1dea0146d259ca40ad937f982ac7a92bdced8c84ba2034ce18ad2dc7139",
+    "data/Sanctuary/Balance/class-skill-status.json": "30fca5bd812508722666e5b4b5fb8fbd2df89cd50aa00d7d90d91d5ff2f50b63",
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603"
   },
   "evidenceHashes": {
@@ -55,22 +55,44 @@
     ".local/class-skills/corpse-explosion/worktree-focused/content/Sanctuary.Content.dll": "2a71e7958124c08c27df8eff3d56650ce928dc025acf615d9416013a40f5dfd6",
     ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
     ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.pdb": "40a784e37d911f35ba2bb21323469437931cb9d289862a0ccfee013e1c783156",
-    ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.dll": "2055da65a39887badbed2dd37006633dd04d2c198506bbc09e542dacc9541cd1"
+    ".local/class-skills/corpse-explosion/worktree-focused/integration/Sanctuary.Integration.dll": "2055da65a39887badbed2dd37006633dd04d2c198506bbc09e542dacc9541cd1",
+    ".local/class-skills/corpse-cast-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/corpse-cast-accept-run.log": "692de82aea81b405b1d91a65b8020077fe52f3f6bdf55c9c2856e314b983ce3c",
+    ".local/class-skills/corpse-cast-python-tests.log": "eb3845e0c20a4bf6cbf1df5b099d604df8a18610732f50d65602c700cfff51cc",
+    ".local/class-skills/corpse-cast-named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/corpse-cast-first-loop.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
+    ".local/class-skills/corpse-cast-properties.log": "a41f56bf8e7ed75ba5221a283fd26003435718c1839bfce18da43faf515b502f",
+    ".local/class-skills/corpse-cast-install-run.log": "1371949b69286a14261c16ba8e7dcbad9913de42d3281b824f730ea52378a6b7",
+    ".local/class-skills/corpse-cast-installed-server.log": "46e56537a95ba05311f7dfd7bd6a0183c22ca2ecf8d13af4436e195ba70e7464",
+    ".local/class-skills/corpse-cast-installed-smoke.log": "97af3a91363b4af25627f5238bbc797e5ec113f7e3f7dd157d976e3ecb7048bf",
+    ".local/class-skills/corpse-cast-client-check.log": "535a9f71642f23192f5213bcfdeaaabf9bf970512979b7784908ea3cb2f8376b",
+    ".local/class-skills/corpse-explosion/native-checks.log": "e47983a9a67e5275c7d5d8b6225c0772818385c7e1face403e028982fb3ebfd6",
+    ".local/class-skills/corpse-cast-audits.py": "2cd29f4cf21ca57e0f1db9b77838527470b7169b4432121e85a567eb3b47e187",
+    ".local/class-skills/corpse-cast-audits-run.log": "b25c1dc1a989a2cf95aa6b71397ae743988ae659487e2e43333e12252d9c6988",
+    ".local/class-skills/corpse-cast-accept-frozen-run.log": "692de82aea81b405b1d91a65b8020077fe52f3f6bdf55c9c2856e314b983ce3c",
+    ".local/class-skills/corpse-explosion/annotation-audit-checks.log": "8d8b7d80ba2bb39347d55aa00310c0e941c155134df39283afa28c1b9ba4a55a",
+    ".local/class-skills/corpse-explosion/named-item-runtime-audit-full-baseline.json": "4ec12d2b6a9c4b4911587e06e3b335ec116b44fd9feb2a9e6985ae0e703f9bc4",
+    ".local/class-skills/corpse-explosion/first-loop-affix-audit-full-baseline.json": "4452ba6d902a7c2c96fa5a569cb1dbd826372d34cf193b67d0de524f1288297f",
+    ".local/class-skills/corpse-cast-accept.py": "95ffe82a14fb9d51f5a2a0cfa2b2ca380226a31f5ff2fbd2c8f56e8015ac97cf",
+    ".local/class-skills/corpse-cast-install.py": "f44b813526d25df985aca11258f3d6aed6ade06e1eb35a36ef0255eb2bd41a57",
+    ".local/class-skills/corpse-cast-finalize.py": "1662f12fe00da28d82cf59c114987c73c95c13e24b8e4ac718c27d2c247b85b1",
+    ".local/class-skills/corpse-cast-verify.py": "686e7caeb24e680483692b750e990562d53739ab164646d4656430478a5dcea3",
+    ".local/class-skills/corpse-cast-full.py": "0154c5eb046c54d6249c2a912077fed8e3a997c350458c43b98838832e1f697c"
   },
   "protectedInstalledArtifacts": {
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/integration/Sanctuary.Integration.dll": "efd711b48f21770e88602199892f4c8d122ba076efd91b0b68cb0ad100a4ba58",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
-    "/media/aomukai/FILES/Sanctuary/upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
-    "/media/aomukai/FILES/Sanctuary/.local/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
-    "/media/aomukai/FILES/Sanctuary/.local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
-    "/media/aomukai/FILES/Sanctuary/.local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+    ".local/class-skills/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "2b319d6acdd1b23ca95df484a8b08a96279a960d3ecc84cccad35f9afdfff5b3",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
   "verified": [
     "Native learned release with real Tarnhelm soft rank2; one exclusive corpse-seeded FP256 roll shared by all recipients, independent fractional halves, physical-only edge clipping and mixed immunities.",
@@ -80,7 +102,7 @@
     "Retained Death explosion/controller checks pass all3boots/2reloads. Main installed artifacts remain byte-identical."
   ],
   "limits": [
-    "Separate-checkout focused proof only; main full regression/current audits/Python acceptance and original-world install remain required.",
+    "Main focused/full suites, fresh audit/Python acceptance and original-world smoke pass for this player74 correction; exact modern event/client/native geometry acceptance and class completion remain open.",
     "Source uses declared corpse RNG allocation, two-source-cells/native-tile geometry, existing native LOS/allegiance/loot rules and shared defenses/potions. Current executable/client/input/event parity is not certified.",
     "Legacy missing historical base life/seed is explicitly unsupported rather than regenerated. No final asset generation or new completed class."
   ],
@@ -90,10 +112,46 @@
     "Remove temporary raw-stat inflation from the saved Necromancer: normal class restoration changes that unsupported inspection setup. Exact saved mana/metadata checks are unchanged."
   ],
   "mainCandidate": {
-    "status": "Main focused3boots/2reloads passed; full regression/current named-item audits running on889frozen inputs.",
-    "fullSession": 95584,
+    "status": "Installed after focused/full regression, fresh audits/Python acceptance and original-world smoke.",
+    "fullSession": null,
     "runtimeInputs": 889,
     "installed": false,
-    "protectedInstalledArtifactsUnchanged": true
+    "protectedInstalledArtifactsUnchanged": true,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "pythonTests": 70,
+    "originalWorldSmoke": true,
+    "savesConfigClientUnchanged": true
+  },
+  "status": "Necromancer Corpse Explosion packet and saved-corpse correction is installed. Main focused/full suites each pass three boots/two actual reloads, including540applicable player74 source comparisons per boot. Player74 reuses the shared do55 exclusive corpse-seeded FP256 roll, captured base life/level/difficulty, independent physical/fire rounding and physical edge clipping. Mixed immunities, exact once-only mana, consumed-repeat rejection, retained loot, missing snapshot/seed refusal and saved orphan-corpse RNG pass. Historical ownership/selectability/shatter/noselect remain enforced after original monster deletion. Actual Tarnhelm soft ranks and separate real Sorceress/Eschuta mastery/default-spell controls pass; approved mastered spell-potion additions and defense consumers remain connected. Source producer/callback/percentage executes8640current-player-parameter contexts with clean sanitizers. Full regression retains Death Sentry and prior class/input checks. All70Python tests, current578/21audit fingerprints and573unchanged named decisions pass. Existing-world smoke loads/listens2593/UDP12000/shuts down0; saves/config/client bytes unchanged, server stopped. Final effects/icons and declared source/native geometry/RNG/modern-executable limits remain separate. No new handler or completed class:156handlers/Necromancer28/Assassin17.",
+  "backup": ".local/class-skills/pre-corpse-cast-install",
+  "next": "Continue the independent Druid Cyclone Armor preparation in codex/druid-cyclone-armor: complete event25/percentage source proof is ready; defensive-buff creation, incoming damage ordering, native persistence and player/client casting still need implementation. Retain individual Assassin finisher, sentry learned placement/payment/retirement and NPC-equipment deferrals; return to unaffected work rather than stalling the roadmap. All240skills/eight classes remain in scope.",
+  "previousInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "efd711b48f21770e88602199892f4c8d122ba076efd91b0b68cb0ad100a4ba58",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "annotationAmendment": {
+    "scope": "After full terminal acceptance, only the player74 remaining-work prose and its generator literal changed. Parsed JSON is identical after normalizing that one remaining field; no code/gameplay table/assembly changed. Fresh named audits and Python acceptance are rerun for current fingerprints.",
+    "files": {
+      "data/Sanctuary/Balance/class-skill-status.json": {
+        "before": "36c994d4ca1da2b0fd3233190b16716a5d79c51d8edeccf1b1dbf4f0c5e7f1f7",
+        "after": "30fca5bd812508722666e5b4b5fb8fbd2df89cd50aa00d7d90d91d5ff2f50b63"
+      },
+      "tools/build_skill_roadmap.py": {
+        "before": "f2b56be669d11f6b7620aad7a19a1d68176bbf05b8b588d246858a596b6f43be",
+        "after": "7811b1dea0146d259ca40ad937f982ac7a92bdced8c84ba2034ce18ad2dc7139"
+      }
+    }
   }
 }

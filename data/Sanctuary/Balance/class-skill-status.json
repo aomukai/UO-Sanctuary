@@ -826,7 +826,7 @@
       "implementation": "handler-present",
       "verification": "build-only",
       "complete": false,
-      "remaining": "Separate candidate corrects player74 to shared do55 fractional corpse-seeded packets, captured base life/level/difficulty and separate physical edge clipping. Focused3boots/2reloads pass including orphaned original monsters, exact saved RNG/mana, retained loot, missing metadata rejection, recorded ownership/shatter/noselect gates, mixed immunities and once-only payment. Actual Tarnhelm soft rank and separate real Sorceress/Eschuta mastery/default-spell/potion controls pass. Preserve approved spell-potion and defense consumers; base corpse fire receives no mastery multiplier. Main full regression/audits/install remain required for this candidate; source/native geometry, exact current event/client acceptance and a class certificate remain open."
+      "remaining": "Player74 uses shared do55 fractional corpse-seeded packets, captured base life/level/difficulty and separate physical edge clipping. Dedicated3boots/2reloads pass including orphaned original monsters, exact saved RNG/mana, retained loot, missing metadata rejection, recorded ownership/shatter/noselect gates, mixed immunities and once-only payment. Actual Tarnhelm soft rank and separate real Sorceress/Eschuta mastery/default-spell/potion controls pass. Preserve approved spell-potion and defense consumers; base corpse fire receives no mastery multiplier. Current full-regression/deployment status is recorded in necro-corpse-explosion-native-evidence.json and the resume checkpoint. Source/native geometry, exact current event/client acceptance and a class certificate remain open."
     },
     {
       "talentId": "necromancer.bonewall",
