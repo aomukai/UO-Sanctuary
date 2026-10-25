@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Prepared kick source fill and typed damage",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "compiledRoutines": {
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020"
+  },
+  "fixture": {
+    "path": ".local/class-skills/kick-fill-source-probe.json",
+    "sha256": "9e89591eadd22ad700653f77a4420b0c08dfa6f733aa0879e6b6d9ee4379dccb",
+    "cppSha256": "9b551f89576d975e35882b1002ff385d0cd03511fbcc74a10e125c9779b67176",
+    "cases": 576,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete kick flags3skip physical recomputation and mastery/passive Critical Strike/Deadly Strike;ordinary flags2positive controls double physical with a critical draw. Typed fire/lightning/cold/magic/poison,drains,lengths and attacked-in-melee dispatch remain active.",
+    "Source0defaults to128and retains full typed stats. Poison length averages contributors unless an explicit override is present;cold duration is collected only when positive cold damage exists.",
+    "Complete typed roll helper applies mastery before exclusive-end range draw. Missing attacker/defender returns without any damage/stat/hand/event work."
+  ],
+  "services": [
+    "Player Assassin/ordinary non-demon/non-undead target and explicit stat endpoints/mastery/poison contributors/drains are supplied services. Hand-context calls are counters;full selected-hand stat posting is separate evidence.",
+    "Ordinary physical recomputation is an identity service for the positive control;monster critical/event dispatches are counters. No full target mitigation,proc,health,charge or learned finisher acceptance is claimed.",
+    "Conversion fields stay0;Fists progressive conversion/inline and Tiger/Cobra helpers remain separately compiled source evidence. Native material/gear/stat graph and current executable parity remain acceptance work."
+  ],
+  "limits": [
+    "Source composition only;does not enable a learned Dragon skill or prove modern charged hit/block/consumption/payment.",
+    "Final effects and icons remain separate placeholders."
+  ]
+}

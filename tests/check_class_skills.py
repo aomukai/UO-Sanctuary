@@ -155,6 +155,7 @@ def check():
         shutil.copy2(STAGE / 'blade-shield-damage-source-probe.json',folder / 'blade-shield-damage-source-probe.json')
         for fixture in ['sentry-ai','sentry-sequence','sentry-damage','sentry-launch']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
+        shutil.copy2(STAGE / 'dragon-tail-source-probe.json',folder / 'dragon-tail-source-probe.json')
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll'):
             if name not in assemblies:
@@ -178,7 +179,7 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

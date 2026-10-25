@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BALANCE = ROOT/'data/Sanctuary/Balance'
 ORDER = ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid','Warlock']
 BLOCKERS = {
+    'assassin.dragontail':'Prepared body/boot typed packets and the distinct physical-dependent fire burst are staged; complete source fill576, Tail flow/percentage1920, rate4608 and scheduler4490 contexts support this component. Learned action is individually deferred while current charged hit/block, miss/payment and temporary-rate lifecycle remain unverified. Old signed percentage overflow is explicitly rejected. See dragon-tail-preflight.json. Continue unaffected Assassin traps; this does not block the overall class roadmap.',
     'assassin.dragonclaw':'Individually deferred while current per-contact versus per-sequence consume-one and charged hit/block behavior remain unverified. Complete1,152-case/2,304-contact legacy start/packet/do46/progressive source composition and distinct current dual-only speed controls are prepared; see dragon-claw-preflight.json. Do not port old full-list removal or guess multi-contact policy. Continue Claws of Thunder and unaffected skills.',
     'assassin.shadowwarrior':'Generated NPC equipment/stat consumers and NPC forms of selected Assassin skills/AI are pending; see shadow-summons-preflight.json. Continue unaffected skills.',
     'assassin.shadowmaster':'Complete generated NPC equipment/property and distinct skill/AI selection consumers are pending; see shadow-summons-preflight.json. Continue unaffected skills.',

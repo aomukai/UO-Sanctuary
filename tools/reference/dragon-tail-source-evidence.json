@@ -8,26 +8,28 @@
   "sourceHashes": {
     "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
-    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
   },
   "compiledRoutines": {
     "SKILLS_SrvSt27_DragonTail": "7cf295dfcb449dc27543f35dec2779f76a8f4a0e567dbe6670efd9d3e4a167ce",
     "SKILLS_SrvDo050_DragonTail": "acf70f84a0a650c7249833a53d1d0df90c79e2c0fec07ff03deac77a05b9c45b",
     "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
     "sub_6FD10200": "1c9a3f3aee7a9730e17f3ba1371eb7764a7a026944c6129adae11d8af8029327",
-    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a"
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
   },
   "fixture": {
     "path": ".local/class-skills/dragon-tail-source-probe.json",
-    "sha256": "82beaac9922a6bddab73c401fc1b923406978aeaf578ec5ddd10e2ac1b675847",
-    "cppSha256": "6a98f2b7fdca79d27a6acbd74c7b3c9118a7c13094e63f0a294af2ff23f926cd",
-    "cases": 1536,
+    "sha256": "ba1413b1c957ffacc16cf480d8482c594f7f18b72e4b6b1f05a5062b2ad72817",
+    "cppSha256": "11ffd83e3b9d8247ef64a1f7d7fa5968296940284955c8db8abae56b958e2e0d",
+    "cases": 1920,
     "sanitizers": "ASan+UBSan"
   },
   "established": [
     "Start27posts Param4=-40attack rate before target/hit validation,adds progressive AR to skill AR,and allocates a successful kick with source128fallback.",
     "Complete allocation skips duplicate fill for kick flags3,invokes total-damage reduction before storing the packet. Do50copies that stored physical before progressive/durability work. Under the declared resistance service,a physically immune target seeds zero fire.",
-    "Do50surviving owner uses copied physical times (current fire mastery+current skill calc1)/100. Physical mutations by progressive/durability services do not alter that copy. Owner death after durability suppresses burst.",
+    "Do50surviving owner uses copied physical times (current fire mastery+current skill calc1)/100. Physical mutations by progressive/durability services do not alter that copy. Complete source percentage preserves large-value early division. Owner death after durability suppresses burst.",
     "Complete area wrapper defaults to0x8583and the complete callback copies the fire-only flags9packet independently for each recipient."
   ],
   "declaredServices": [
@@ -42,6 +44,7 @@
     "tools/reference/phoenix-native-evidence.json"
   ],
   "limits": [
+    "Large inputs whose old signed multiplication overflows remain unsupported;the ASan/UBSan diagnostic was retained locally. No current executable overflow behavior is inferred.",
     "Source preparation only;no native Dragon Tail handler,modern executable or graphical parity certificate.",
     "Resolve current charged hit/block,one-charge consumption,full packet/mitigation/proc ordering,knockback and KK/action scheduling before learned integration.",
     "Final kick/explosion/charge/audio effects and talent/left/right/quick icons remain separately inventoried placeholders."

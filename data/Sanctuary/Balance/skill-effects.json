@@ -2604,7 +2604,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared fire-burst component uses native explosion 0x36BD, hue 0x489 as an identified placeholder. Learned KK kick/contact, charge release, knockback and assassin_kick_1 audio remain pending. Final fire burst needs its own effect; talent/left/right/quick icons remain in the separate inventory."
   },
   {
     "talentId": "assassin.clawsofthunder",
