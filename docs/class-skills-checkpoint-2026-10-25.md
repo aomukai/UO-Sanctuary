@@ -11,6 +11,7 @@ Goal active. Reference: D2R **3.3.93847, Reign of the Warlock**; approved Sanctu
 
 - Blade Fury: 6,912 complete older-engine selector/start/do cases plus 12 actual expiry callback cases pass with clean ASan/UBSan. Native matches all cases on three boots/two reloads, with existing Sentry/Fist/Blade regressions. Full regression underway; component JSON round-trip is not production channel persistence.
 - Blade Fury resource preparation: 7,200 complete generic wrappers/channel/actual ordinary-player mana-body compositions pass with clean sanitizers. The old rank1 consumer deducts zero despite eligibility requiring one mana; current table rank1 cost remains authoritative. Native wrappers and held-input are not implemented.
+- Blade Fury timing preparation: 476 complete source SQ23 event/rewind cases pass with clean sanitizers. Renewal rewrites future event deadlines; native held-input/event scheduling remains pending.
 - Sentry: 23,040 complete retained-dead-owner missile/resistance/event/HP cases pass with clean ASan/UBSan. They prove HP subtraction while registration and stats are retained, not actual corpse/GUID retention or death-entry cleanup. Native living-actor policy is unchanged.
 - Installed `61ef01c`: focused/full suites each passed three boots/two reloads, 70 Python tests, fresh runtime/property audits and existing-world smoke. Saves/config/client preserved; installed server stopped.
 

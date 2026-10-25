@@ -223,7 +223,7 @@
   "required": [
     "Bounded channel component implemented and focused verified against6912 channel and12 expiry rows. Finish full regression and installation; no production held-input or channel persistence claim.",
     "Port the complete generic/channel/payment composition using7200 source controls. Current table rank1 cost256FP overrides the actual legacy consumer zero-debit discrepancy; no invented6mana start debit.",
-    "Source/port SQ23/seqinput12, complete sub_6FCBD120 renewal, held input/release/cancellation and timestamp order; isolated per-frame do48 is not full channel input.",
+    "Compose source SQ23/seqinput12 held input with the complete476-case sub_6FCBD120 renewal and19-point/action12 sequence. Source rewind/event preparation is verified; native timing, original mode entry and actual event dispatch/cancellation remain pending.",
     "Connect factory flags32, current SrcDam96/Half2HSrc player weapon capture and ToHitCalc consumer, generic hit router and saved flight/owner/slow/property/credit. Pinned server rows bind no hit52; no radial children.",
     "Verify L/R/quick input, target death/cached aim, turning/movement/weapon-loss interruption, active resources/leases/flight reload, natural emission and installed-world smoke before enabling the handler."
   ],
@@ -244,5 +244,6 @@
   },
   "component": "src/Sanctuary.Content/BladeFuryChannel.cs",
   "nativeEvidence": "tools/reference/blade-fury-channel-native-evidence.json",
-  "resourceEvidence": "tools/reference/blade-fury-resource-source-evidence.json"
+  "resourceEvidence": "tools/reference/blade-fury-resource-source-evidence.json",
+  "timingEvidence": "tools/reference/blade-fury-timing-source-evidence.json"
 }

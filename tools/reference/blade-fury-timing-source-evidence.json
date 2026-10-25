@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "nativeVerifiedByThisSourceProbe": false,
+  "sourceHashes": {
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledRoutineHashes": {
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "sub_6FCBD120": "81fc71dd01d80ea8700a239227e6a42c9f9265fadfb757cb00fc663a9ad94ac8"
+  },
+  "sequenceDataSha256": "df641e70c0b6b8652c595b087d3735d27533c38a9a60191f613d80d772c70dc2",
+  "playerSequence": 23,
+  "sequencePoints": 19,
+  "actionPoint": 12,
+  "fixture": {
+    "path": ".local/class-skills/blade-fury-timing-source-probe.json",
+    "cases": {
+      "initial": 14,
+      "rewind": 476
+    },
+    "total": 490,
+    "sha256": "8d4a911ec67f04d9946883f7b853a50f2433b1ec6e10b808df4a10cd18c86a80"
+  },
+  "established": [
+    "Source sequence table index23 binds Blade Fury:19 points, cast frames0..9, two extra frame9 points, sole attack event at point12, ending at cast frame16. All14 weapon records reference that19-point sequence.",
+    "Complete initial scheduler and ordinary SQ-mode frame-bonus function execute14 cases. SQ mode has zero starting-frame bonus. At speed256 the action event is at frame12 and end at frame19. Zero speed schedules end+1 without rewriting the old sequence epoch.",
+    "Complete sub_6FCBD120 and sequence event getter execute476 cases, including zero-speed and no-op controls. Positive renewal deletes mode/end events, advances the stored sequence epoch by one frame for the actual argument1 and schedules remaining events/end; removal-state events are preserved.",
+    "An existing channel is not a new fixed19-frame cast each shot. Its rewind changes future event timestamps; start/do re-entry, strict shot deadline and mana callers must be composed with that event stream."
+  ],
+  "limits": [
+    "Sequence and mirrored nonsequence branches are bounded controls with elapsed2..18 and speeds0/64/128/256/341/448/512. This does not establish all valid caller epochs, source event-queue dispatch order, original mode entry, attack-rate calculation or current executable timings.",
+    "The complete older rewind is not yet bound into native Blade Fury or Inferno. Held input, seqinput12, release/re-entry/cancellation, per-shot resource/weapon/missile and production persistence remain pending."
+  ],
+  "sanitizers": "ASan/UBSan; exit0 and empty runtime stderr"
+}
