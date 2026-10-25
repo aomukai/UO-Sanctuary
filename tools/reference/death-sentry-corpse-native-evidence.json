@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
   "scope": "Prepared automatic Death Sentry AI104/direct mode9 corpse explosions/mode14 travelling lightning with seven captured passives and one shared shot pool; learned placement/payment and final retirement remain disabled.",
   "focusedBoots": 3,
@@ -72,7 +72,23 @@
     ".local/class-skills/death-sentry/worktree-focused/content/Sanctuary.Content.dll": "f45b784a3332bce99cf3c3e1bf1544ad30dbe38c95f33def1690dfaaacd9b35d",
     ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
     ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.pdb": "025f5e611998150d38577ce9e1c254df8da556c8363bd58afdcd0c1af8112e22",
-    ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.dll": "45d852f5e193372fcb2bf212120d11c07f159cb6fba56369b6695b8650d40bb4"
+    ".local/class-skills/death-sentry/worktree-focused/integration/Sanctuary.Integration.dll": "45d852f5e193372fcb2bf212120d11c07f159cb6fba56369b6695b8650d40bb4",
+    ".local/class-skills/death-sentry-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/death-sentry-accept-run.log": "1fd64a16890632229d10da4e896d313ad66ae375b5adbdfa777c71aafdfa507f",
+    ".local/class-skills/death-sentry-python-tests.log": "734a53b9d4792cd9ec34c18312357ca487062d3e539a3b9b9e279392f53b502b",
+    ".local/class-skills/death-sentry-named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/death-sentry-first-loop.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
+    ".local/class-skills/death-sentry-properties.log": "a41f56bf8e7ed75ba5221a283fd26003435718c1839bfce18da43faf515b502f",
+    ".local/class-skills/death-sentry-install-run.log": "c59d3f5e919a790f662c86d50071db2c43fbd4463cfdb87d631d1adc8f2549ca",
+    ".local/class-skills/death-sentry-installed-server.log": "3acf8abdf7047d871da08d0d410275112e05e13eefd300a4778dd3d1098dc089",
+    ".local/class-skills/death-sentry-installed-smoke.log": "cdd9d8b889c545165be3f476a6ef27b3459ac81a69586d61e4ad1b761fda9a18",
+    ".local/class-skills/death-sentry-client-check.log": "377ed821dc4958d09882d5bf9ec31b5363f9de3e0b319b3422c5b61b27184efb",
+    ".local/class-skills/death-sentry/native-checks.log": "0a06e57eab2e89945ec20cbb91306c6a12af76ca69b520f702605ea6000f8aad",
+    ".local/class-skills/death-sentry-accept.py": "799922258a99e7c1b9ce3c7779cf964b97089c74c4f7a90b2e82910200078fd7",
+    ".local/class-skills/death-sentry-install.py": "da20f67f089f0dad545277bc0a0258f3c30bfb27d27ceb503f0cf38026382835",
+    ".local/class-skills/death-sentry-finalize.py": "29e06457b3bca94c154aa0686456d523023ca6b15eb64fd415ecab52bce7c45b",
+    ".local/class-skills/death-sentry-verify.py": "f611ec58e2e45e08792958d7ef82ebed758f0ae68cc2daf88ef85d0c5b9c82ed",
+    ".local/class-skills/death-sentry-full.py": "f31550fe971b64e7c1e423e3a890e5bd08b5f6a57fe01cb9feee48ebb8e82664"
   },
   "fireWriterInspection": {
     "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
@@ -93,7 +109,7 @@
     "Actual five-shot actor reaches explicit registered retirement boundary; released Death lightning still damages while the NPC remains registered. No owner mana spent."
   ],
   "limits": [
-    "Main and separate-checkout focused suites pass; full regression/current audit promotion/Python acceptance and original-world installation remain pending.",
+    "Main focused/full suites, separate current audits/Python acceptance and original-world smoke pass for the prepared automatic actor. Learned placement/payment and final retirement remain unfinished.",
     "Older complete direct S2 bodies and current LG S2 animation support the connected mode9 clock at supplied speed256; source/native adapters do not certify the modern executable or full live animation-rate graph.",
     "Native source frame uses floor(Core.TickCount/40); native corpse seed allocation is explicit Random.Shared32bit/SourceRandom.InitLow, not the D2R monster spawn stream. Seedless old metadata remains unsupported.",
     "Native sector/item-list order, tile2/source-cell mapping, center-distance/height/visibility and approved corpse access/loot filters are declared adapters, not current room/geometry equivalence.",
@@ -123,13 +139,50 @@
     }
   },
   "mainCandidate": {
-    "status": "Main focused3boots/2reloads and separate named-item3boots/2reloads/first-loop audit passed; full regression running, not installed.",
-    "fullSession": 42681,
+    "status": "Installed after focused/full regression,current audit/Python acceptance and original-world smoke.",
+    "fullSession": null,
     "frozenInputs": 884,
     "namedFingerprints": 577,
     "firstLoopFingerprints": 21,
-    "pythonTests": "Await fresh audit promotion; an early run correctly rejected stale audit inputs.",
-    "protectedInstalledArtifactsUnchanged": true
+    "pythonTests": 70,
+    "protectedInstalledArtifactsUnchanged": true,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "originalWorldSmoke": true,
+    "savesConfigClientUnchanged": true
   },
-  "updatedAtUtc": "2026-10-25T23:12:28.864521+00:00"
+  "updatedAtUtc": "2026-10-25T23:23:33.983490+00:00",
+  "status": "Prepared automatic Death Sentry attacks are installed. Main focused and full suites each pass three boots/two actual reloads; the separate named-item suite also passes three boots/two reloads. AI104 chooses direct mode9 corpse explosions or mode14 travelling lightning from one pre-cast shot pool. Native pre-action reload, shared corpse-seeded physical/fire packets, captured gear, mixed immunities, physical-only edge clipping, old-facet policy, retained loot, no duplicate consumption and released lightning at the registered retirement boundary pass. Each boot retains5484AI/46080search/1080packet/96direct-clock vectors,86mixed phases with JSON and zero-idle/failed-start/offline controls. Full regression retains earlier source/native/player-input checks. All70Python tests, current577/21audit fingerprints and573unchanged named decisions pass. Existing-world smoke loads/listens2593/UDP12000/shuts down0; saves/config/client bytes unchanged, server stopped. Learned do45 placement/payment and final death/GUID removal remain gated. No new handler or completed class:156handlers/Assassin17. Final effects/icons and declared source/native geometry/seed/modern-executable limits remain separate.",
+  "backup": ".local/class-skills/pre-death-sentry-install",
+  "next": "Continue shared learned do45 placement/payment/input and full sentry retirement, preserving released-projectile ownership. Native mid-flight/mode14 Death-specific reload and natural connected-controller coverage remain additional acceptance work. Wake maker/wave integration, remaining Assassin finishers/shadows and later classes remain in scope; do not let an individual unresolved mechanic stop unaffected skills.",
+  "previousInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "db15b986d35af9c83ef4b1b2fca71dc12195ca93137f346a64f4dd249721da48",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "8ce9a385eed365d11656916b061c42dbe74555663eafb8a0a885ab8dc82bf722",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "db15b986d35af9c83ef4b1b2fca71dc12195ca93137f346a64f4dd249721da48",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "db15b986d35af9c83ef4b1b2fca71dc12195ca93137f346a64f4dd249721da48",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "protectedInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "efd711b48f21770e88602199892f4c8d122ba076efd91b0b68cb0ad100a4ba58",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  }
 }
