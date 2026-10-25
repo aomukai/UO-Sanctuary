@@ -1,0 +1,22 @@
+{
+  "referenceVersion": "3.3.93847",
+  "reviewedAtUtc": "2026-10-25T03:50:01.108808+00:00",
+  "currentNumericalAuthority": "tools/reference/d2r-named-equipment/json/skills.json",
+  "releasedChange": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "section": "Assassin / Traps / Blade Fury",
+    "excerpt": "Attack rating increased by 10% per level",
+    "releaseContext": "Released2.4 notes (page states4/14 patch live); PTR pages are not the authority.",
+    "corroboration": "Pinned3.3.93847 skill266 ToHitCalc=lvl*10; hard Sentinel/Shield synergy10percent each also matches released notes.",
+    "meaning": "Add10percent attack rating per effective rank in the native player missile AR lane. Old engine has no equivalent injection because it predates this change. Native bridge/hit tests remain pending; this is not modern executable implementation proof."
+  },
+  "supplementaryLegacyGuide": {
+    "url": "https://classic.battle.net/diablo2exp/skills/assassin-traps.shtml",
+    "section": "Blade Fury",
+    "summary": "Guide describes no weapon durability consumption; no passive Pierce/exploding-arrow substitution; on-striking effects without on-attack effects; skill physical unscaled by weapon fraction. It also reports six-frame cadence, no attack-speed changes, minimum3mana and no displayed skill AR.",
+    "precedence": "Current pin/official modern change override obsolete AR and conflicting numerical timing/threshold claims. Keep cadence, warmup and input/state-expiry ordering uncertain pending composition/current observation. The current native resource component follows pinned startmana6 and per-shot mana, not the legacy minimum3 display.",
+    "notModernCertificate": true
+  },
+  "nativeSourcePreparation": "tools/reference/blade-fury-damage-source-evidence.json",
+  "nonblocking": true
+}

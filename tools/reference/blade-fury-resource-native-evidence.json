@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "handlerEnabled": false,
+  "fullPending": true,
+  "status": "Blade Fury ordinary-player payment wrappers and SQ23 event planning pass focused three boots/two reloads, with real fractional mana/soft-rank payments and saved-owner reloads. Full regression underway; installed9c93a9a unchanged.",
+  "sourceEvidence": [
+    "tools/reference/blade-fury-resource-source-evidence.json",
+    "tools/reference/blade-fury-timing-source-evidence.json"
+  ],
+  "components": [
+    "src/Sanctuary.Content/BladeFuryResources.cs",
+    "src/Sanctuary.Content/SourceAnimationEvents.cs",
+    "src/Sanctuary.Content/BladeFuryAnimation.cs"
+  ],
+  "checks": "tests/Sanctuary.Integration/BladeFuryResourceChecks.cs",
+  "verification": {
+    "sourceResourceCasesPerBoot": 7200,
+    "sourceInitialAndRenewalCasesPerBoot": 490,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "fullRegressionComplete": false,
+    "currentTableRank1Cost256": 256,
+    "oldRank1ZeroDebitAdopted": false,
+    "freshSixManaThresholdNotDebit": true,
+    "activeStateBypassesFreshThreshold": true,
+    "sameFrameNoDoubleShotOrPayment": true,
+    "failedFactoryAttemptPays": true,
+    "actualTarnhelmSoftRankPayments": true,
+    "actualManaRemainder256": 95,
+    "actualSavedMana256": 607,
+    "actualPlayerReloads": 2,
+    "componentJsonRoundTrip": true,
+    "productionChannelPersistence": false,
+    "nativeOrdinaryResourceWrappers": true,
+    "nativeSourceAnimationPlanner": true,
+    "sourceEventQueueDispatch": false,
+    "nativeHeldInput": false,
+    "worldMissiles": false,
+    "learnedInput": false
+  },
+  "limits": [
+    "Ordinary learned-player payment composition only. Caller retains world/used-skill eligibility and current rank; charges and Blood Mana remain out of scope. The old consumer rank1 zero-debit disagreement is explicitly corrected to the current256FP table cost.",
+    "Native source event planner implements the supplied row and source renewal epoch; production mode entry/rate/input/event dispatch/state-expiry ordering/cancellation remain separate. Direct late-frame invocations in resource controls are not a complete production animation trace.",
+    "Actual saved owner/equipment/mana persist through two world reloads. Channel/animation snapshots in the fixture manifest are test data; there is no production saved channel or learned handler."
+  ],
+  "logs": {
+    "source-check": ".local/class-skills/blade-fury-resource-source-check.log",
+    "timing-source-check": ".local/class-skills/blade-fury-resource-timing-source-check.log",
+    "content-build": ".local/class-skills/blade-fury-resource-content-build.log",
+    "integration-build": ".local/class-skills/blade-fury-resource-integration-build.log",
+    "focused": ".local/class-skills/blade-fury-resource-focused.log",
+    "focused-run": ".local/class-skills/blade-fury-resource-focused-run.log",
+    "full-suite-run": ".local/class-skills/blade-fury-resource-full-suite-run.log"
+  }
+}

@@ -2,6 +2,8 @@
 
 Goal active. Reference: D2R **3.3.93847, Reign of the Warlock**; approved Sanctuary deviations take precedence. Installed build: bounded Blade Fury channel component, 150 handlers (Assassin 11); previous build `61ef01c` backed up in `.local/class-skills/pre-blade-fury-channel-install`. Latest playable addition: Blade Shield. No class completion certificate.
 
+Current candidate: **Blade Fury resources and animation planning**. Native ordinary-player wrappers and SQ23 profile match7,200 complete source resource and490 initial/renewal controls on focused three boots/two reloads. Real character payments follow live effective rank, preserve fractional mana and charge failed factory attempts. Tarnhelm removal and607FP saved mana (95FP remainder) survive two actual world reloads. Full regression underway; installed9c93a9a remains unchanged. [Candidate evidence](../tools/reference/blade-fury-resource-native-evidence.json). Further projectile preparation:960 complete player creator/physical/typed source controls pass with clean sanitizers, reusing the existing Blade Sentinel/Bow creator contract. Released official2.4 notes corroborate the current10percent-per-rank AR bonus; its absence in the old engine is not a reason to omit it. Actual native weapon/AR/flight integration remains pending.
+
 ## Implemented
 
 - Blade Fury has a bounded, unregistered start/do/expiry state component. It retains the 21-frame fresh lease, seven-frame renewal, strict shot deadline, creation attempt versus allocation distinction, explicit payment and animation services, and flag transitions. Generic wrappers, production input, SQ23 animation, damaging projectiles and production persistence remain separate.

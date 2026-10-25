@@ -4,7 +4,7 @@
   "sourceSkillId": 266,
   "combatAbilityId": 207,
   "handlerEnabled": false,
-  "status": "The unregistered Blade Fury start/do/expiry component is installed and verified by focused and full suites, each with three boots/two reloads. All6912 complete source channel and12 expiry cases match per boot. Fresh21-frame and renewal7-frame leases, strict shot deadline, creation attempt versus allocation, explicit payment/rewind services and component JSON round-trip pass. This is not production held input or channel persistence. All70 Python tests, current542/21 runtime/property fingerprints,573 unchanged named decisions and existing-world installed smoke pass. Saves/config/client bytes are unchanged; server stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Sentry retirement is individually deferred; its native living-actor gate remains unchanged.",
+  "status": "Native ordinary-player resource wrappers and SQ23 source event planner pass focused3boots/2reloads; full regression underway. Actual saved character/Tarnhelm fractional mana persists. Production input/event dispatch/weapon/missile remain pending;150 handlers unchanged.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -243,16 +243,16 @@
   ],
   "required": [
     "Bounded channel component installed and focused/full verified against6912 channel and12 expiry cases per boot. No production held-input or channel persistence claim.",
-    "Port the complete generic/channel/payment composition using7200 source controls. Current table rank1 cost256FP overrides the actual legacy consumer zero-debit discrepancy; no invented6mana start debit.",
-    "Compose source SQ23/seqinput12 held input with the complete476-case sub_6FCBD120 renewal and19-point/action12 sequence. Source rewind/event preparation is verified; native timing, original mode entry and actual event dispatch/cancellation remain pending.",
-    "Connect factory flags32, current SrcDam96/Half2HSrc player weapon capture and ToHitCalc consumer, generic hit router and saved flight/owner/slow/property/credit. Pinned server rows bind no hit52; no radial children.",
+    "Ordinary native resource wrappers implemented and7200 source cases compared with explicit current-table rank1 correction. Focused real character/soft-rank/fractional-mana reloads pass; finish full regression/install.",
+    "Native SQ23 profile and shared event planner match490 initial/renewal source cases. Bind original mode entry/rate, seqinput12 held input, event dispatch/state-expiry/cancellation; planner alone is not full input.",
+    "Connect factory flags32 and the960-case complete player creator evidence to a dedicated Fury collector using shared BowLaunch.FromSource arithmetic. Preserve current SrcDam96/Half2HSrc, separate unscaled skill physical, typed/poison/drain and documented10percent-per-rank AR. Complete saved flight/owner/slow/property/credit. Pinned server rows bind no hit52; no radial children.",
     "Verify L/R/quick input, target death/cached aim, turning/movement/weapon-loss interruption, active resources/leases/flight reload, natural emission and installed-world smoke before enabling the handler."
   ],
   "uncertain": [
     "Current cadence/warmup/state-renewal/rank1 debit and input scheduling are unobserved. Param4=5 gives bounded source strict-deadline opportunities at frame+5, not a current animation certificate.",
     "Complete owner/death/offline/motion, unarmed/two-handed/dual-claw behavior, live gear/procs/durability, AR interpretation and full source seed/world ordering remain acceptance work.",
     "Do48 reports a creation attempt even after factory failure; resource behavior must follow composed callers, not a guessed refund.",
-    "AR routing: source do48 supplies factory flags32 with no explicit nAttBonus. The reviewed old factory writes missile STAT_TOHIT for flags0x1000; the reviewed generic hit router reads that stored stat and the player hit routine treats it as percentage. Complete nested/current ToHitCalc=lvl*10 producer routing still needs composition; do not infer its injection from the formula field alone. These full bodies are reviewed, not newly compiled by this preflight."
+    "Current AR semantics are corroborated: released official2.4 notes add10percent per effective rank, matching pinned ToHitCalc=lvl*10. Old do48/factory lacks its injection because it predates that change. Add a documented native bridge to the existing missile skill-AR percentage lane; do not gate progress on finding that newer producer in old source. Native current AR/hit/item/class acceptance remains pending."
   ],
   "assets": {
     "effectsInventory": "data/Sanctuary/Balance/skill-effects.json",
@@ -268,5 +268,8 @@
   "nativeEvidence": "tools/reference/blade-fury-channel-native-evidence.json",
   "resourceEvidence": "tools/reference/blade-fury-resource-source-evidence.json",
   "timingEvidence": "tools/reference/blade-fury-timing-source-evidence.json",
-  "componentInstalled": true
+  "componentInstalled": true,
+  "resourceNativeEvidence": "tools/reference/blade-fury-resource-native-evidence.json",
+  "primaryNotes": "tools/reference/blade-fury-primary-notes.json",
+  "damageEvidence": "tools/reference/blade-fury-damage-source-evidence.json"
 }
