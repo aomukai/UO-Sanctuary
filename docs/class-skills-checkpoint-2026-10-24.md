@@ -1,5 +1,7 @@
 # Class skill checkpoint — 24 October 2026
 
+Continued in the [25 October checkpoint](class-skills-checkpoint-2026-10-25.md): Sentry retirement is individually deferred; current work is Blade Fury.
+
 Goal active. Reference: **D2R3.3.93847 — Reign of the Warlock**. Approved Sanctuary deviations take precedence.
 
 - **Installed: 150 handlers.** Necromancer 28, Sorceress 29, Paladin 30, Barbarian 25, Amazon 27, Assassin 11; Druid/Warlock mechanics pending. No class completion certificate.

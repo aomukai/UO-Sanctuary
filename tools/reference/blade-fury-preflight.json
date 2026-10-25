@@ -4,7 +4,7 @@
   "sourceSkillId": 266,
   "combatAbilityId": 207,
   "handlerEnabled": false,
-  "status": "Bounded st26/do48/expiry component passes focused native three boots/two reloads; full regression underway. Complete generic/channel/mana source composition also passes7200 cases; learned handler remains disabled.",
+  "status": "The unregistered Blade Fury start/do/expiry component is installed and verified by focused and full suites, each with three boots/two reloads. All6912 complete source channel and12 expiry cases match per boot. Fresh21-frame and renewal7-frame leases, strict shot deadline, creation attempt versus allocation, explicit payment/rewind services and component JSON round-trip pass. This is not production held input or channel persistence. All70 Python tests, current542/21 runtime/property fingerprints,573 unchanged named decisions and existing-world installed smoke pass. Saves/config/client bytes are unchanged; server stopped. Total handlers remain150, Assassin11; Blade Shield remains the latest playable addition. Sentry retirement is individually deferred; its native living-actor gate remains unchanged.",
   "pinnedHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -199,6 +199,21 @@
       "path": "source/D2Game/src/MISSILES/MissMode.cpp",
       "sourceSha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
       "routineSha256": "94b3d11c038d2b926b25a7d374a2486a113fc14ddb8c3cf6f6e29940f5ff9706"
+    },
+    "MISSILES_CreateMissileFromParams": {
+      "path": "source/D2Game/src/MISSILES/Missiles.cpp",
+      "sourceSha256": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+      "routineSha256": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+    },
+    "MISSMODE_SrvDmgHitHandler": {
+      "path": "source/D2Game/src/MISSILES/MissMode.cpp",
+      "sourceSha256": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+      "routineSha256": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+    },
+    "SUNITDMG_IsHitSuccessful": {
+      "path": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+      "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+      "routineSha256": "26a6da2610750e203fb8bad4fdc9287a75209905e5633c4b50a374424b84a758"
     }
   },
   "channelEvidence": "tools/reference/blade-fury-channel-source-evidence.json",
@@ -218,10 +233,16 @@
       "component": "Generic start/do and fractional resources",
       "path": "tools/reference/sentry-cast-source-evidence.json",
       "contract": "Compose st26/do48/usemanaondo and re-entry. Rank1 current table is256FP per invocation; startmana1536 is a fresh-state threshold, not an invented start debit. Legacy rank1/payment edge stays explicit."
+    },
+    {
+      "component": "BowLaunch.FromSource and BladeSentinelPackets guard",
+      "path": "src/Sanctuary.Content/BowLaunch.cs",
+      "additionalPath": "src/Sanctuary.Content/BladeSentinelPackets.cs",
+      "contract": "Reuse FromSource arithmetic after a Blade Fury player collector is checked. BowLaunch.Capture explicitly restricts supported Amazon skills/weapons, BladeSentinelPackets explicitly restricts Blade Sentinel, and BladeShieldDamage rolls melee damage. Do not erase those guards or route Fury through an NPC/melee collector."
     }
   ],
   "required": [
-    "Bounded channel component implemented and focused verified against6912 channel and12 expiry rows. Finish full regression and installation; no production held-input or channel persistence claim.",
+    "Bounded channel component installed and focused/full verified against6912 channel and12 expiry cases per boot. No production held-input or channel persistence claim.",
     "Port the complete generic/channel/payment composition using7200 source controls. Current table rank1 cost256FP overrides the actual legacy consumer zero-debit discrepancy; no invented6mana start debit.",
     "Compose source SQ23/seqinput12 held input with the complete476-case sub_6FCBD120 renewal and19-point/action12 sequence. Source rewind/event preparation is verified; native timing, original mode entry and actual event dispatch/cancellation remain pending.",
     "Connect factory flags32, current SrcDam96/Half2HSrc player weapon capture and ToHitCalc consumer, generic hit router and saved flight/owner/slow/property/credit. Pinned server rows bind no hit52; no radial children.",
@@ -230,7 +251,8 @@
   "uncertain": [
     "Current cadence/warmup/state-renewal/rank1 debit and input scheduling are unobserved. Param4=5 gives bounded source strict-deadline opportunities at frame+5, not a current animation certificate.",
     "Complete owner/death/offline/motion, unarmed/two-handed/dual-claw behavior, live gear/procs/durability, AR interpretation and full source seed/world ordering remain acceptance work.",
-    "Do48 reports a creation attempt even after factory failure; resource behavior must follow composed callers, not a guessed refund."
+    "Do48 reports a creation attempt even after factory failure; resource behavior must follow composed callers, not a guessed refund.",
+    "AR routing: source do48 supplies factory flags32 with no explicit nAttBonus. The reviewed old factory writes missile STAT_TOHIT for flags0x1000; the reviewed generic hit router reads that stored stat and the player hit routine treats it as percentage. Complete nested/current ToHitCalc=lvl*10 producer routing still needs composition; do not infer its injection from the formula field alone. These full bodies are reviewed, not newly compiled by this preflight."
   ],
   "assets": {
     "effectsInventory": "data/Sanctuary/Balance/skill-effects.json",
@@ -245,5 +267,6 @@
   "component": "src/Sanctuary.Content/BladeFuryChannel.cs",
   "nativeEvidence": "tools/reference/blade-fury-channel-native-evidence.json",
   "resourceEvidence": "tools/reference/blade-fury-resource-source-evidence.json",
-  "timingEvidence": "tools/reference/blade-fury-timing-source-evidence.json"
+  "timingEvidence": "tools/reference/blade-fury-timing-source-evidence.json",
+  "componentInstalled": true
 }

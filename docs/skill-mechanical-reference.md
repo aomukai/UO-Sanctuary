@@ -4,6 +4,8 @@ The class-skill pass uses **Diablo II: Resurrected 3.3.93847 — Reign of the Wa
 
 The running local installation was identified read-only on 23 October 2026. Both executable version strings and the active `.build.info` report **3.3.93847**; the executable hash and build/CDN keys are recorded in [local installation evidence](../tools/reference/d2r-local-installation-evidence.json). This confirms the build identity; unresolved individual mechanics still require verification. No process memory, inputs or game files were changed.
 
+Current progress: [25 October checkpoint](class-skills-checkpoint-2026-10-25.md). The bounded Blade Fury channel component is installed, with learned input still disabled. Its current-table rank1 mana cost takes precedence over the supplementary old consumer’s zero-debit discrepancy. Sentry corpse/GUID retention remains an individual nonblocking deferral.
+
 ## Reproducible source
 
 - Primary tables: [blizzhackers/d2data, `fa1286949266498b294c40c2942521a7c0d7207a`](https://github.com/blizzhackers/d2data/tree/fa1286949266498b294c40c2942521a7c0d7207a). Unmodified JSON and individual SHA-256 hashes live under [the source manifest](../tools/reference/d2r-named-equipment/sources.json). Its MIT notice is retained.
