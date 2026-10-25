@@ -15,6 +15,19 @@ Current progress: [25 October checkpoint](class-skills-checkpoint-2026-10-25.md)
 
 Warlock is D2R's class code `war`, source skill IDs **373–402**, tabs **21–23**: Demon, Eldritch and Chaos. The same pinned Skills/CharStats/Missiles/monster tables contain its source data. Sanctuary adds wire identity **108**, with male **Warlock** and female **Witch** sharing one progression identity. The roster and trees do not mean the Warlock mechanics are implemented. The [official class introduction](https://news.blizzard.com/en-us/article/24243863/rain-annihilation-in-reign-of-the-warlock) describes this D2R class.
 
+User-supplied supplementary references, recorded 26 October 2026:
+
+- [Warlock Google document](https://docs.google.com/document/d/1gtM3sQ1gzo8kpmTmiJ8CQAiqp7LLu0SeaWE6fUdVg6Y/edit?tab=t.0): queued for later review. The initial web reader could not retrieve its contents; its authorship, revision/build and mechanical claims remain unverified.
+- [Diablo For Fans skill reference](https://diabloforfans.com/skills), including its [Warlock tree](https://diabloforfans.com/skills?cls=war) and undocumented-mechanics pages: initial inspection confirms the site labels its game version **3.3.93847**, extracted **2026-09-01**, and describes its data as extracted from the client. This is the site's provenance claim, not an independent extraction certificate. Its tables and explanatory claims are useful leads for comparison against our pinned data and executable/source evidence. Individual mechanics have not yet been accepted from it. Sanctuary's approved deviations retain precedence; discrepancies must be recorded rather than silently replacing existing evidence.
+
+Initial exploration queue (26 October; supplementary claims, not implementation acceptance):
+
+- [Assassin mechanics](https://diabloforfans.com/skills/undocumented?cls=ass): compare trap-specific inherited sunder/pierce channels and martial charge handling with existing proofs. This overview does not resolve our final trap retirement/GUID lifetime question. Its Dragon Talon description says multiple kicks resolve simultaneously; retain this as a timing claim requiring verification, not a reason to replace the sequence implementation.
+- [Warlock mechanics](https://diabloforfans.com/skills/undocumented?cls=war): prioritize Bind Demon's quality/life gates, per-Defiler link ownership, Echoing Strike versus Mirrored Blades event handling, shared sigil limits, and Apocalypse resistance handling. These identify useful consumer checks beyond skill-table numbers. Repeated retrieval returned revised wording/counts at the same URL, so capture a dated version/hash when accepting a specific claim; the URL alone is not immutable evidence.
+- [General mechanics](https://diabloforfans.com/mechanics): covers defenses, damage, minions, difficulty, item events and monster modifiers across classes. Check the poison recipient distinction carefully: the inspected text first groups mercenaries with players, then elsewhere groups them with monsters. Record this discrepancy and verify the actual consumer rather than choosing either paragraph silently.
+
+The [Bind Demon detail page](https://diabloforfans.com/skill/bind-demon) explicitly identifies its interpretations, file reading and descriptions as AI-generated and potentially erroneous. Therefore distinguish extracted cells from generated explanations throughout this site. No site explanation by itself closes an engine-behavior uncertainty. Its [Death Sentry page](https://diabloforfans.com/skill/death-sentry) provides an additional comparison lead for inherited defensive bypass channels, but no evidence for final actor removal or outstanding projectile lifetime.
+
 Run offline verification with:
 
 ```sh
