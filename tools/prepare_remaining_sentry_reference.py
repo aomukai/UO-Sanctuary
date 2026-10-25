@@ -91,6 +91,12 @@ def build(check=False):
             e['inspectedLegacy']['scope']='These are inspection hashes; compiledChannelEvidence and compiledControllerEvidence separately record complete executed source bodies. No modern executable certificate.'
             e['localModeEvidence']='tools/reference/d2r-local-monmode-evidence.json'
             e['required'][0]='Complete NPC53/95/frame/factory proof executes4608contexts. Complete mode14/sequence/generic dispatcher/event-list composition passes240contexts/28800frames with actual server-do0x40. Entry25 emits first35; hardWake0 emits35/38/41 then end55, hardWake20 emits35..62 every3frames then end76. Successful final/state-removed callbacks still emit; coordinate/allocation failure ends without rewinding. The sequence pauses between callbacks and custom do95 leaves server-do clear. End/neutral bridge and AI101 remain declared boundaries. Compose those and native beam movement/contact/damage, saved phases and reloads before enabling.'
+        if source_id==276:
+            e['compiledAiEvidence']='tools/reference/death-sentry-ai-source-evidence.json'
+            e['compiledCorpseExplosionEvidence']='tools/reference/corpse-explosion-source-evidence.json'
+            e['inspectedLegacy']['scope']='Inspection hashes only; compiledAiEvidence separately executes complete AI104 and the shared initialization/remaining-shot helper. No modern executable certificate.'
+            e['required'][0]='Complete unchanged legacy AI104/helper passes5484contexts; complete do55 producer/recipient callback/percentage helper passes8640contexts, both sanitizer-clean. Actual corpse selector, current base-life lookup, seed advancement, area enumeration/filtering and native integration remain separate. Existing Necromancer whole-percent RNG/single half-radius differ from the source producer/callback; do not copy that handler unchanged.'
+            e['next']='Compose actual corpse search/eligibility and do55 explosion with the existing corpse system; implement the distinct AI104 controller and NPC324 bolt using shared sentry components. Learned placement and registered retirement remain separate gates.'
         out=ROOT/'tools/reference'/f'{stem}-preflight.json';encoded=json.dumps(e,indent=2)+'\n'
         if check:assert out.read_text()==encoded,stem+' preflight stale'
         else:out.write_text(encoded)

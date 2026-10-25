@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "routineHashes": {
+    "D2GAME_AI_Unk101_104_6FCE9CE0": "f23768c7f852ba4cd5953d30d19fafe9d6be672a61d3ef6a9c42ebfce22fb8e8",
+    "AITHINK_AssasinSentryHasLostTarget": "f6ec14e6af27109e798048662a8f9898c491de8b181c78a4a1a456d6fb4a7d0e",
+    "AITHINK_Fn104_DeathSentry": "8aa5124f668b80808e16df87f6e1d9b2f2392081a9d4ed0c0c1a00f857163c28"
+  },
+  "fixture": {
+    "path": ".local/class-skills/death-sentry-ai-source-probe.json",
+    "sha256": "8184202e856a6a51b86853099109737e4810b8fe9b928d71c1b56aad204295b9"
+  },
+  "verification": {
+    "initializationCases": 1,
+    "validityCases": 3072,
+    "thresholdCases": 2400,
+    "skillLevelCases": 12,
+    "completeCases": 5484
+  },
+  "scope": "Complete unchanged legacy AI104, shared initialization and remaining-shot helper; ASan/UBSan clean. Explicit owner/room, skill/formula, enemy selector, corpse selector/distance, chance and mode consumers.",
+  "established": [
+    "Corpse explosion takes priority before lightning range/chance; corpse-to-enemy distance is strictly below integer (10+rank-1)/2, and remembered corpse GUID is excluded.",
+    "Shot debit precedes either UseSkill; selected corpse GUID is remembered before the void UseSkill service, including the last shot. The owner/room helper is rechecked before debit.",
+    "Fallback lightning uses skill324/mode14 and strict enemy distance16 with the separate chance service; corpse explosion uses skill312/mode9. Source idle duration is the current row value0.",
+    "Missing skill/nonpositive rank after initialization returns without a replacement mode or idle. Invalid owner/room/town or exhausted shots take the common mode0 route."
+  ],
+  "limits": [
+    "No current executable equivalence, gameplay actor, learned input, actual corpse search/eligibility/consumption, explosion area damage or retirement/GUID lifetime is established.",
+    "Shot formula values are supplied services; the current NPC312 row independently defines5+floor(hardFireBlast/3). Chance is Boolean here; this does not certify RNG distribution.",
+    "The second-owner-loss cases are service-boundary controls, not evidence that an owner changes during a synchronous gameplay AI call."
+  ],
+  "handlerEnabled": false
+}

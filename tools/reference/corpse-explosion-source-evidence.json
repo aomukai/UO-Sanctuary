@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "sub_6FD0D000": "7e6cbacb7c151956e7cba18de9be5eec5abd1888888329406221bbda6e1deab4",
+    "SKILLS_SrvDo055_CorpseExplosion": "ccd5ab16918a785e78c56f15ed590bc6e3ff76fc9f1104221137e2e55ef795ab"
+  },
+  "fixture": {
+    "path": ".local/class-skills/corpse-explosion-source-probe.json",
+    "sha256": "489327d8c38d9c674f84c1fb83d155466a4ec27167916dabcea91fcd6e865626",
+    "cases": 8640
+  },
+  "established": [
+    "Complete do55 marks the corpse no-draw and refreshes it before skill-row validation; a missing row can consume/hide a valid corpse without producing damage.",
+    "Monster base life uses (minHP+maxHP)<<7 from a level/difficulty base-stat service. Caster level below a nonzero corpse level scales the random damage down. The nonmonster base-stat branch is a service control: the real common corpse predicate rejects nonmonsters.",
+    "One exclusive upper-bound random roll uses the corpse seed, before elemental/physical splitting. NPC312 supplies40/80percent and50percent fire; these percentages differ from Necromancer skill74.",
+    "The complete recipient callback clears physical damage outside floor(auraRange/2) squared, while retaining elemental damage. The area producer separately requests ceil(auraRange/2); enumeration/filter eligibility is an explicit service."
+  ],
+  "limits": [
+    "This compiles the complete older producer, recipient callback and integer percentage helper, not modern executable behavior. Current NPC312 data is linked separately in death-sentry-preflight.json.",
+    "Target eligibility, current base-stat lookup, RNG/seed advancement, fire writer, area enumeration/filtering, event/proc processing and defenses remain declared services. Selected recipient positions include deliberate callback controls outside the requested outer radius.",
+    "No native Death Sentry, learned input, retirement, corpse persistence or class completion is claimed. Existing Necromancer uses inclusive random whole percentages and a single half-radius for both elements; reuse requires resolving these source differences rather than copying that handler unchanged."
+  ],
+  "sanitizers": "ASan/UBSan exit0 with empty stderr required",
+  "handlerEnabled": false
+}

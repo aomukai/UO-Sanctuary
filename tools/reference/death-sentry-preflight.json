@@ -334,7 +334,7 @@
       }
     ],
     "executed": false,
-    "scope": "Static full-body inspection only; no compiled differential or modern executable certificate"
+    "scope": "Inspection hashes only; compiledAiEvidence separately executes complete AI104 and the shared initialization/remaining-shot helper. No modern executable certificate."
   },
   "established": [
     "Current player276 costs20mana and captures lightning passives, effective NPC312/324 and hard Fire Blast/Lightning Sentry context. NPC312calc4 gives5+floor(hard Fire Blast/3); the player Param8=12 is lightning synergy, not the NPC shot base.",
@@ -343,7 +343,7 @@
     "Lightning NPC324 uses missile641 with player276 lightning damage: minimum1, max50 plus8/14/22/28/34 increments and hard Lightning Sentry synergy12percent. Its Size2/LastCollide1/noNextHit path can reuse the corrected candidate filter; Pierce1 and no CollideKill remain distinct flags."
   ],
   "required": [
-    "Compile AI104 including initial exhaustion check, corpse selection/range/remembered identity, shot debit and fallback lightning chance. Inspect/compose source do55 corpse eligibility, base-life snapshot, consumption and area damage with shared corpse rules.",
+    "Complete unchanged legacy AI104/helper passes5484contexts; complete do55 producer/recipient callback/percentage helper passes8640contexts, both sanitizer-clean. Actual corpse selector, current base-life lookup, seed advancement, area enumeration/filtering and native integration remain separate. Existing Necromancer whole-percent RNG/single half-radius differ from the source producer/callback; do not copy that handler unchanged.",
     "Resolve full owned NPC retirement/death/GUID lifetime and test real corpse/lightning priorities, rank/gear, fractional resources, owner offline/facet changes, and saved actors/projectiles/corpses before enabling."
   ],
   "reuse": [
@@ -358,5 +358,7 @@
     "Current local skills are directly compared. The linked strict local monstats/monstats2 text comparison separately corroborates601 fields across six trap pairs, including this monster/model. No extra nonzero local fields are missing from those pinned rows. Text agreement does not certify animations, binary ABI or modern executable behavior.",
     "No native actor, world projectile, learned input, mechanical completion or class certificate is claimed by this preflight. Keep unsupported/uncertain branches explicit."
   ],
-  "next": "Begin Lightning Sentry with shared sequence/creation and generic NPC missile dispatch; handle Inferno and Death variants with their distinct controllers."
+  "next": "Compose actual corpse search/eligibility and do55 explosion with the existing corpse system; implement the distinct AI104 controller and NPC324 bolt using shared sentry components. Learned placement and registered retirement remain separate gates.",
+  "compiledAiEvidence": "tools/reference/death-sentry-ai-source-evidence.json",
+  "compiledCorpseExplosionEvidence": "tools/reference/corpse-explosion-source-evidence.json"
 }

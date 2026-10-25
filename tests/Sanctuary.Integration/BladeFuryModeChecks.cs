@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using Server;
+using Server.Accounting;
 using Server.Items;
 using Server.Logging;
 using Server.Mobiles;
@@ -97,7 +98,11 @@ public static class BladeFuryModeChecks
         while(p.RawStr<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Mode strength allocation");}
         while(p.RawDex<200){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Dexterity),"Mode dexterity allocation");}ClassGear.Refresh(p);
         var net=NetState.Instances.Single(x=>x.Mobile==null&&IPAddress.IsLoopback(x.Address));net.Seeded=true;net.CompressionEnabled=false;net.Mobile=p;p.NetState=net;
-        var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);field.SetValue(net,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));net.ResetMovementState();
+        var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);field.SetValue(net,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
+        // The fixture bypasses login packets. Supply the verified account too:
+        // protocol state alone leaves the connection on its pre-auth 4 KiB budget.
+        var account=new Account("fury-mode-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;net.Account=account;
+        net.ResetMovementState();
         var hit=WeaponMissiles.HitRoll;var damage=WeaponMissiles.DamageRoll;var block=SourceBlocking.BlockRoll;
         void Restore(){WeaponMissiles.HitRoll=hit;WeaponMissiles.DamageRoll=damage;SourceBlocking.BlockRoll=block;}
         Mobile enemy=null;
