@@ -1,0 +1,141 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "compiledRoutines": {
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_CalculateKickDamage": "5d135d473ce68448ad968e7f43858f7dab229846386e500f12d6f861bd460487"
+  },
+  "currentArmorSha256": "ad8d490abd48b336ac22f605904202fe5132460f91e3b307d9006753b9cb0271",
+  "boots": [
+    {
+      "code": "hbt",
+      "min": 10,
+      "max": 20,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "lbt",
+      "min": 3,
+      "max": 8,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "mbt",
+      "min": 6,
+      "max": 12,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "tbt",
+      "min": 8,
+      "max": 16,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "uhb",
+      "min": 83,
+      "max": 149,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "ulb",
+      "min": 65,
+      "max": 100,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "umb",
+      "min": 69,
+      "max": 118,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "utb",
+      "min": 50,
+      "max": 145,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "uvb",
+      "min": 60,
+      "max": 110,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "vbt",
+      "min": 4,
+      "max": 10,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "xhb",
+      "min": 39,
+      "max": 80,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "xlb",
+      "min": 26,
+      "max": 46,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "xmb",
+      "min": 23,
+      "max": 52,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "xtb",
+      "min": 37,
+      "max": 64,
+      "strength": 120,
+      "dexterity": 0
+    },
+    {
+      "code": "xvb",
+      "min": 28,
+      "max": 50,
+      "strength": 120,
+      "dexterity": 0
+    }
+  ],
+  "fixture": {
+    "path": ".local/class-skills/dragon-kick-damage-source-probe.json",
+    "sha256": "71a07742bbe95dcd1063b84582f7e5c137d5eff1aa058f45502b11fc0b4933b5",
+    "cases": 24576,
+    "sanitizers": "ASan+UBSan"
+  },
+  "declaredServices": [
+    "Reuses hand-context probe declarations, including observed damage-mask merge services. Nondamage weapon strength/dexterity remain present while weapon DamageRelated ED is temporarily removed. Full stat propagation is not compiled here.",
+    "Current armor supplies15 boot base endpoint/stat-coefficient records. Nonkick getter branches abort; skill row always has kick flag. NPC level13 and explicit strength/dexterity/flat-kick/ED/maxdamage-stat inputs are fixture services.",
+    "Full three unchanged routine bodies compile; current skill formula interpreter, target mitigation/RNG/packet fill, critical/procs and current executable are outside this probe."
+  ],
+  "established": [
+    "Player body endpoints are floor(max(1,str+dex-20)/4) and /3, then FP256 shift. NPC body endpoints use3*level before division. Low body stats can produce zero endpoints in this source.",
+    "Boot contribution uses both flat kick additions plus real boot min/max, stat coefficients, nonweapon ED clamped to minimum-90 and separate maxdamage-percent addition. Without boots only the initial flat kick addition remains.",
+    "Primary weapon damage list is restored after the boot helper; secondary damage list remains disabled. Nondamage weapon stat contributions are preserved by the declared DamageRelated service context."
+  ],
+  "limits": [
+    "Flat kick stat is literally added twice when a valid boot record exists in this old source; current D2R behavior remains uncorroborated and must be flagged.",
+    "These are complete source getters/boot arithmetic under explicit services, not full sub_6FCF7CE0, FillDamageValues, modern kick damage/hand/property integration or a native handler certificate.",
+    "No guaranteed-hit/block/charge-consumption/timing/payment/input parity. Final effects/icons remain separate."
+  ]
+}

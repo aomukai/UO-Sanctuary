@@ -76,7 +76,9 @@
     "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
     "files": {
       "D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
-      "D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+      "D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+      "D2Common/src/D2StatList.cpp": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+      "D2Game/src/PLAYER/Player.cpp": "d22428034a002b53f4694512d9d87c91e857fbebf55ee553452a6e246e9ab147"
     },
     "routines": [
       "SKILLS_SrvSt24_DragonTalon",
@@ -100,7 +102,10 @@
     "Boot base min/max and StrBonus/DexBonus are present in pinned armor source; use real catalogue base identities including exceptional/elite boots. EquipmentBalance currently has raw named source access but no dedicated kick consumer.",
     "Kick damage helper temporarily unmerges both owned/equippable weapon stat lists, restores main selection, and applies nonweapon fill before Cobra percentages. Ordinary weapon damage must not be substituted. Full weapon property eligibility/event ordering must be traced.",
     "Last-kick knockback is source-calculated with ordinary/unique/boss/player contexts; single initial kick uses a separate immediate path. do42 includes a suspicious level expression subtracting the same target level twice; retain source observation without silently correcting or asserting modern behavior.",
-    "Old charge consumer removes all active lists after successful in-range packets. Current consume-one and guaranteed-hit behavior need an explicitly identified modern adapter and verification; existing Tiger/Cobra expiry/AR policy remains provisional."
+    "Old charge consumer removes all active lists after successful in-range packets. Current consume-one and guaranteed-hit behavior need an explicitly identified modern adapter and verification; existing Tiger/Cobra expiry/AR policy remains provisional.",
+    "Deeper stat-list review: MergeStatLists(type0) on already-owned active item dispatches D2Common_11275; its shared implementation subtracts ONLY itemstatcost DamageRelated fields and toggles STATLIST_DYNAMIC. Strength/dexterity and other nondamage fields are not blanket removed. Reuse existing class-weapon-properties/current WeaponHands stat classification; do not interpret the earlier unmerge shorthand as removing every weapon stat. Current kick property eligibility must still be individually verified.",
+    "Further call-flow qualification: FillDamageValues begins sub_6FC7C900(attacker,a5=1), which first disables both weapon damage lists, then on dual-wield-capable units resolves the selected weapon and re-enables its damage stats (falling back to inventory primary when selector returns null). Thus a kick-only scope cannot blanket suppress weapon leech/elements/events during the whole impact. Boot ED calculation and later damage-fill use distinct contexts. Compile this surrounding path before deciding property eligibility. Existing WeaponHands selector/merge proof is reusable but not a whole kick pipeline certificate.",
+    "Kick packet sets dwHitFlags|=3 before FillDamageValues. The physical ApplyDamageBonuses/mastery/passive-critical/deadly block there is gated by absence of bit1, so a generic ordinary weapon critical roll must not be inherited blindly. Full composition and item-event eligibility remain to be verified."
   ],
   "reusable": [
     "Independent saved Tiger/Cobra states and rank selection; consume-one API, cancellation/death/history lifecycle and source player drain packet",
@@ -119,5 +124,15 @@
     "icons": "Talent tree and left/right/quick bindings remain separately inventoried."
   },
   "sourceEvidence": "tools/reference/dragon-talon-sequence-source-evidence.json",
-  "preparedProof": "4080 complete older start and3000 complete sequence controls execute unchanged routines under ASan/UBSan, with explicit call-boundary services. Damage/payment/timing/modern consumption remain unproved."
+  "preparedProof": "4080 complete older start and3000 complete sequence controls execute unchanged routines under ASan/UBSan, with explicit call-boundary services. Damage/payment/timing/modern consumption remain unproved.",
+  "optionalConsumptionObservation": {
+    "status": "answered-unobserved",
+    "blocking": false,
+    "answer": "Player has only played fire/lightning trapsin builds and has no martial-arts observation to provide.",
+    "instruction": "Do not repeat Dragon Talon/martial-arts playtest questions to this player. Continue source/current-build evidence or document individual gaps. Build-balance revisit is deferred until mechanics are implemented."
+  },
+  "handContextEvidence": "tools/reference/dragon-talon-hands-source-evidence.json",
+  "preparedHandProof": "12288 complete legacy CanDualWield/player weapon-selector/fill-context cases pass with declared inventory/ownership/damage-mask services; existing complete DamageRelated toggle proof is reused. This resolves a source context boundary, not full kick damage/property parity.",
+  "kickDamageEvidence": "tools/reference/dragon-kick-damage-source-evidence.json",
+  "preparedKickDamageProof": "24576 complete old kick body getters/boot-helper cases with15 current armor bases pass under declared stat/inventory/merge services. Does not prove full packet fill, procs or modern executable; source flat-kick stat adds twice with boots and remains a corroboration gap."
 }

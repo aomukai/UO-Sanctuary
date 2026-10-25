@@ -2044,10 +2044,10 @@
       "characterClass": "Assassin",
       "tree": "Martial Arts",
       "sourceId": 265,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Independent saved Tiger/Cobra charges share the paid melee builder/action/cancellation path. Ordinary successful melee Attack consumes one of each family; Cobra adds source life/mana drain from the higher stored/live rank. Item and skill drain combine before division and commit before health/death, with no duplicate ordinary leech. Complete older6000 consumer/4608 composition/512 builder cases and native rank/gear/selected-hand/miss/block/immunity/difficulty/drain0/cap/lethal/input/two-reload checks pass; see cobra-strike-native-evidence.json. Current retained expiry/proportional AR, cached A1 timing and old victim-mana subtraction remain explicitly uncertain; full modern stat/seed/property/event/geometry/client acceptance remains open. Final effects/audio and talent/left/right/quick icons are separate placeholders."
     },
     {
       "talentId": "assassin.dragontail",

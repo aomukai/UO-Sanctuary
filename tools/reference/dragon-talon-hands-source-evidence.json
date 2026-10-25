@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragontalon",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/PLAYER/Player.cpp": "d22428034a002b53f4694512d9d87c91e857fbebf55ee553452a6e246e9ab147"
+  },
+  "compiledRoutines": {
+    "UNITS_CanDualWield": "9d9306186bd0ab0e81ce205d1395f1b231a78844e13eba8f6d11d832d3d00845",
+    "sub_6FC7C7B0": "96b028a7beb4e66590500ceb302ea00f0df8bb4b5fa95cb16b2d3c031c0d71a8",
+    "sub_6FC7C900": "4dc2c5c3cc92b6d8f835bc976bc1258dad0afa632a88b012c411f52eb5fdbf2f"
+  },
+  "fixture": {
+    "path": ".local/class-skills/dragon-talon-hands-source-probe.json",
+    "sha256": "1eb8c8b44a3e70a479f73f91b41d222db293ebdb265d26d9544338a427962cdd",
+    "cases": 12288,
+    "sanitizers": "ASan+UBSan"
+  },
+  "declaredServices": [
+    "Inventory maps logical hand1/2 and primary identity. Item pointers are declared equippable weapons; used-skill and row exist. Missing hands, bound stat-list ownership and starting damage-stat merge mask vary explicitly.",
+    "MergeStatLists is an observed damage-stat mask/call-trace service. Its full propagation is not compiled here; existing weapon-hands-engine-evidence separately compiles its shared DamageRelated toggle. Non-damage stats are outside this mask and must not be removed.",
+    "Shadow class constants are distinct symbolic fixture tags, not a source monster-ID catalogue. Source CanDualWield branch logic executes unchanged; current Warlock and other modern classes are outside that old routine."
+  ],
+  "established": [
+    "For an Assassin using weapsel4, the full player weapon selector returns null. FillDamageValues calls sub_6FC7C900(a5=1): this disables owned hand damage stats, then its null-selected fallback re-enables inventory primary damage stats for source dual-wield-capable classes.",
+    "Therefore earlier temporary weapon damage-stat suppression during boot arithmetic does not prove blanket exclusion from later kick elemental/leech fill. Selected primary, not both weapon damage lists, is restored in this context.",
+    "Nondual contexts retain a distinct path; native kick use for foreign classes/shadows is not established."
+  ],
+  "limits": [
+    "No complete FillDamageValues or kick boot/body arithmetic or item proc/event pipeline is compiled by this probe. Hand services and class tags are explicit boundaries.",
+    "No modern guaranteed-hit/block/consume-one, timing/payment/input/native handler or class completion certificate. Effects/icons remain separate."
+  ]
+}

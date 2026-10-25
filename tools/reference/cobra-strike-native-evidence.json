@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.cobrastrike",
-  "updatedAtUtc": "2026-10-25T07:23:39.920430+00:00",
-  "installed": false,
-  "handlerCandidate": true,
+  "updatedAtUtc": "2026-10-25T07:56:10.321458+00:00",
+  "installed": true,
+  "handlerCandidate": false,
   "sourceEvidence": "tools/reference/cobra-strike-source-evidence.json",
   "preflight": "tools/reference/cobra-strike-preflight.json",
   "components": [
@@ -36,14 +36,17 @@
     "fixtureNotes": [
       "Difficulty fixture initially attempted to assign a custom OnThink-free subclass; project API only accepts supported exact monster types. Dedicated synchronous difficulty checks now use actual GraveyardZombie variants; saved/natural Normal targets use an explicit non-regenerating, nonretaliating serialized normal-Zombie fixture.",
       "The asynchronous socket fixture originally passed through the synchronous control wrapper, restoring RNG hooks too soon. It now owns those controls through its final timer callback; production combat code was unchanged by this fixture correction.",
-      "First full suite failed on second reload: owner life lost256FP256. A delayed focused reproduction isolated life loss; an idle observation showed the damaged saved monster retained a combatant. Temporary Frozen does not provide persistent nonretaliation. Saved/natural Normal targets now use an explicitly passive serialized GraveyardZombie fixture with CanBeHarmful=false and no regeneration/OnThink. Production runtime content is unchanged by this fixture correction. Corrected focused3boots/2reloads pass with an8second idle resource assertion before second save; full rerun pending."
-    ]
+      "First full suite failed on second reload: owner life lost256FP256. A delayed focused reproduction isolated life loss; an idle observation showed the damaged saved monster retained a combatant. Temporary Frozen does not provide persistent nonretaliation. Saved/natural Normal targets now use an explicitly passive serialized GraveyardZombie fixture with CanBeHarmful=false and no regeneration/OnThink. Production runtime content is unchanged by this fixture correction. Corrected focused3boots/2reloads pass with an8second idle resource assertion before second save; Final full rerun passes3boots/2reloads."
+    ],
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "fullActualSocketChargeAndFinisherRuns": 3
   },
   "candidate": {
     "contentSha256": "27a12e65e2b07e34e2557c951e8d1e000ef43cd115463392b4a1e14a89b2e8fc",
     "integrationSha256": "1b2f4db548ed64303bd807a3b363274cfe55a15defd22399de2a0c62e43905e6"
   },
-  "fullRegression": "First full run failed at second reload due outgoing-damage fixture allowing retaliation; final integration fixture rerun pending, runtime content unchanged.",
+  "fullRegression": "Cobra Strike is installed with shared saved martial charges and source player drain for martial builders/ordinary charge finishers. Focused/full suites each pass3boots/2reloads with6000 complete Cobra drain consumers,4608 Tiger/Cobra compositions,512 builders and255 rank goldens per boot; each suite has3 real connected naturally timed paid charge+ordinary-Attack finisher sequences. Native independent states/cap/refresh/rank/item/selected-hand/miss/block/immunity, merged item+skill drain before division, Normal/Nightmare/Hell/drain0/victim mana/resource caps/predeath callback, FHR/range/death/respec/history and saved paid resources/charges pass. All70 Python tests, current552/21 audit fingerprints and573 unchanged named decisions pass. Matching original-world smoke succeeds; saves/config/client bytes unchanged and server stopped. Total handlers152, Assassin13. Modern retained charge expiry/proportional AR, cached A1 timing, victim-mana subtraction and full executable/property/client acceptance remain explicitly uncertain; no class completion certificate.",
   "limits": [
     "Current per-creature difficulty projection reuses the existing source WeaponLeech adapter. Full facet/global difficulty acceptance remains separate.",
     "Current finisher retained expiry/proportional AR and cached A1 timing retain Tiger explicitly provisional adapters; modern executable/dual-hand/transformed/foreign-class/stat/seed/geometry and held-cursor acceptance remain open.",
@@ -51,5 +54,37 @@
     "Source fragments underlying existing WeaponLeech numeric proof and complete Tiger/Cobra packet consumers have distinct scopes; no complete modern ExecuteEvents certificate is claimed.",
     "Other melee skills retain their existing GemCombat leech path unless they explicitly opt into the source-drain packet. Full property/item-skill and retaliation/event acceptance remain independent.",
     "Fixtures extend saved deadlines to1hour to outlast regression; source375frames/15seconds and expired state rejection are separate controls. Final graphical orbital/impact/audio/icon acceptance remains pending."
-  ]
+  ],
+  "handlerEnabled": true,
+  "logs": {
+    "only-focused": ".local/class-skills/cobra-strike-only-focused.log",
+    "only-focused-run": ".local/class-skills/cobra-strike-only-focused-run.log",
+    "combined": ".local/class-skills/cobra-strike-combined.log",
+    "full-suite-run": ".local/class-skills/cobra-strike-full-suite-run.log",
+    "content-build": ".local/class-skills/cobra-strike-content-build.log",
+    "integration-build": ".local/class-skills/cobra-strike-integration-build.log",
+    "source-check": ".local/class-skills/cobra-strike-source-check.log",
+    "python-tests": ".local/class-skills/cobra-strike-python-tests.log",
+    "named-readiness": ".local/class-skills/cobra-strike-named-readiness.log",
+    "first-loop": ".local/class-skills/cobra-strike-first-loop.log",
+    "properties": ".local/class-skills/cobra-strike-properties.log",
+    "audit-native": ".local/class-skills/cobra-strike-audit-native.log",
+    "audit-run": ".local/class-skills/cobra-strike-audit-run.log",
+    "installed-server": ".local/class-skills/cobra-strike-installed-server.log",
+    "installed-smoke": ".local/class-skills/cobra-strike-installed-smoke.log",
+    "client-check": ".local/class-skills/cobra-strike-client-check.log",
+    "install-run": ".local/class-skills/cobra-strike-install-run.log",
+    "failed-full-native": ".local/class-skills/cobra-strike-failed-full-native.log",
+    "failed-full-run": ".local/class-skills/cobra-strike-failed-full-run.log",
+    "first-delayed-failure": ".local/class-skills/cobra-strike-first-delayed-failure.log"
+  },
+  "backup": ".local/class-skills/pre-cobra-strike-install",
+  "runtimeInputs": {
+    "named": 552,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true,
+    "metadataRefresh": "Roadmap status/caveats updated after frozen mechanical regression, followed by actual current-data native named/first-loop exports. No runtime source/assembly or mechanical balance changed after the full run."
+  },
+  "next": "Continue Dragon Talon using tools/reference/dragon-talon-preflight.json. Reuse saved independent charges and source player drain, but trace kick-specific boot/nonweapon damage, prepared start packet, KK/sequence19 scheduling, modern charge consumption and guaranteed-hit/block semantics before enabling its handler. Keep unsupported contexts explicit and move on from individual blockers. Fury input and Sentry retirement remain separate deferrals. All240 skills/classes and separate effects/icons remain in scope."
 }
