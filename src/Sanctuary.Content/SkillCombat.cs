@@ -131,9 +131,19 @@ public static class SkillCombat
         return new ClassSkillDamage((int)Math.Max(0, parts.Total), (int)Math.Max(0, parts.Physical))
             {Total256=NamedElements.To256(parts.Total),Physical256=NamedElements.To256(parts.Physical)};
     }
-    private static GearDamage Mitigate(Mobile source, Mobile target, GearDamage damage, bool spell)
+    private static GearDamage Mitigate(Mobile source, Mobile target, GearDamage damage, bool spell,bool enhanceBase=true)
     {
         double added = spell && source is PlayerMobile caster ? damage.Total * CombatPotions.Bonus(caster, "magical-penetration") / 100.0 : 0;
+        if(!enhanceBase)
+        {
+            return MitigatePrepared(source,target,damage with
+            {
+                Fire=damage.Fire+NamedElements.Enhance(source,added,"fire"),
+                Cold=damage.Cold+NamedElements.Enhance(source,added,"cold"),
+                Lightning=damage.Lightning+NamedElements.Enhance(source,added,"ltng"),
+                Poison=damage.Poison+NamedElements.Enhance(source,added,"pois")
+            });
+        }
         var raw = damage with
         {
             Physical = NamedElements.Enhance(source, damage.Physical, "physical"),
@@ -181,15 +191,15 @@ public static class SkillCombat
             _ => new(0, 0, 0, 0, 0, Magic: damage)
         }, recover, spell: recover && element != "physical");
     }
-    public static int HitParts(Mobile source, Mobile target, GearDamage damage, bool recover, bool weapon = false, bool ranged = false, bool spell = false)
-        => ResolveHitParts(source, target, damage, recover, weapon, ranged, spell).LifeLost;
+    public static int HitParts(Mobile source, Mobile target, GearDamage damage, bool recover, bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true)
+        => ResolveHitParts(source, target, damage, recover, weapon, ranged, spell,enhanceBase).LifeLost;
     public static SkillHitResult ResolveHitParts(Mobile source, Mobile target, GearDamage damage, bool recover,
-        bool weapon = false, bool ranged = false, bool spell = false)
+        bool weapon = false, bool ranged = false, bool spell = false,bool enhanceBase=true)
     {
         if (source == null || target is not { Alive: true, Deleted: false } || ClassCombat.Friendly(source, target)) { return default; }
         if (ranged) { SorceressEffects.MissileHit(source, target, "arrow"); }
         if (weapon) { damage = damage with { Physical = damage.Physical * PaladinAuras.NativeWeaponMultiplier(source,true), Fire = damage.Fire + SorceressEffects.EnchantFire(source, Utility.RandomDouble()) + PaladinElements.WeaponForHit(source,"fire",Utility.RandomDouble(),ranged), Cold=damage.Cold+PaladinElements.WeaponForHit(source,"cold",Utility.RandomDouble(),ranged), Lightning=damage.Lightning+PaladinElements.WeaponForHit(source,"ltng",Utility.RandomDouble(),ranged) }; }
-        var parts = Mitigate(source, target, damage with { Poison = 0 }, spell);
+        var parts = Mitigate(source, target, damage with { Poison = 0 }, spell,enhanceBase);
         double physical = parts.Physical, total = parts.Total;
         int before = target.Hits;
         source.DoHarmful(target, true);

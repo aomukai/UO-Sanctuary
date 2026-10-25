@@ -30,8 +30,13 @@ public static class NecromancerCombat
         if (owner.Map == null || owner.Map == Map.Internal || !owner.InRange(point, CombatProtocol.TeethRange)
             || point.X < 0 || point.Y < 0 || point.X >= owner.Map.Width || point.Y >= owner.Map.Height
             || !owner.InLOS(point)) { return false; }
-        if (CorpseTarget(ability)) { return SkeletonPets.Usable(owner, World.FindItem(selected) as Corpse)
-            && (ability != CombatAbility.CorpseExplosion || (World.FindItem(selected) as Corpse)?.Owner is BaseCreature); }
+        if (CorpseTarget(ability))
+        {
+            var corpse=World.FindItem(selected) as Corpse;
+            return ability==CombatAbility.CorpseExplosion
+                ?CorpseExplosionCasts.Supported(corpse) && CorpseSkillRules.Usable(owner,corpse,SkeletonPets.Range)
+                :SkeletonPets.Usable(owner,corpse);
+        }
         if (ability == CombatAbility.Attract && selected == Serial.Zero) { return false; }
         if (ability == CombatAbility.BoneWall) { return BoneBarriers.Space(owner, point); }
         if (ability == CombatAbility.BonePrison)
@@ -90,15 +95,7 @@ public static class NecromancerCombat
         if (ability == CombatAbility.BoneArmor) { NecromancerEffects.BoneArmor(owner, values); return true; }
         if (ability == CombatAbility.CorpseExplosion)
         {
-            var corpse = (Corpse)World.FindItem(selected);
-            if (corpse.Owner is not BaseCreature source) { return false; }
-            int baseLife = CreatureProfiles.For(source).Life ?? source.HitsMax;
-            double damage = baseLife * Utility.RandomMinMax(values.Param(1), values.Param(2)) / 100.0;
-            damage *= Math.Min(1.0, ClassStats.Level(owner) / (double)Math.Max(1, ClassStats.Level(source)));
-            Consume(corpse);
-            foreach (var target in SkillCombat.Targets(owner, point, SkillGeometry.CorpseExplosionRadius(values.Eval("aurarangecalc"))))
-            { SkillCombat.HitParts(owner, target, new(damage / 2, damage / 2, 0, 0, 0), true, spell: true); }
-            Effects.SendLocationEffect(point, owner.Map, 0x36BD, 15); return true;
+            return CorpseExplosionCasts.Release(owner,(Corpse)World.FindItem(selected),values);
         }
         if (ability == CombatAbility.PoisonExplosion)
         {

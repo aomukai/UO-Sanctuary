@@ -1,0 +1,81 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "handlerAlreadyPresent": true,
+  "newHandler": false,
+  "baseCommit": "acda820",
+  "updatedAtUtc": "2026-10-25T23:30:55.310770+00:00",
+  "scope": "Uninstalled player74 packet/native correction with shared do55 arithmetic and existing approved spell/defense consumers.",
+  "focusedBoots": 3,
+  "focusedReloads": 2,
+  "sourceProducerContexts": 8640,
+  "applicableSourceComparisonsPerBoot": 540,
+  "contentSha256": "2a71e7958124c08c27df8eff3d56650ce928dc025acf615d9416013a40f5dfd6",
+  "integrationSha256": "2055da65a39887badbed2dd37006633dd04d2c198506bbc09e542dacc9541cd1",
+  "inputHashes": {
+    "src/Sanctuary.Content/CorpseExplosionCasts.cs": "b0df2775118cdb88a0208c6e1f2a56b7f828a24281afc6ae3810414a0ac59bd5",
+    "src/Sanctuary.Content/NecromancerCombat.cs": "4660803e6bb60ca0e9577275549cf930c8060037017f1900c7ccf87df11ec255",
+    "src/Sanctuary.Content/SkillCombat.cs": "062ab7ecea6fe0b196c6e4b11d13350b1ced6d01e70307851bf9017ad21ffbaf",
+    "src/Sanctuary.Content/CorpseExplosionPackets.cs": "d8ba36248d3bfd3650144513c632f6be7e751f0efdfd1db12cc171388e9da041",
+    "src/Sanctuary.Content/CorpseBaseSnapshots.cs": "914319aab2c8671640cbf0e9adf7ca824dd7d0bd42f2450721fcd1262f718d57",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "2375300196e3b7ddba62835ee6572668bca9ab1c51774fce27d699a2df403ffb",
+    "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
+    "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
+    "src/Sanctuary.Content/CombatPotions.cs": "05436c9243be26d540bad24ba9d5a5163687f3d1234cb828da4829ad414440b8",
+    "tests/Sanctuary.Integration/CorpseExplosionCastChecks.cs": "ad11f2ed5a41a1d89bee15eb0b3bf26aab25af662b4f68c5354966ea19fcfd43",
+    "tests/Sanctuary.Integration/DeathSentryExplosionChecks.cs": "903d97d9802bba0075449d966f44aa34e5145ab118df61aa7f482c43ff2dd701",
+    "tools/probe_necro_corpse_explosion_reference.py": "7413cc83d7b367ba9fa92d3f74330cb8ff58804ee474ab3e668178ab9eeb749b",
+    "tools/reference/necro-corpse-explosion-source-evidence.json": "ea6a15af4c351c996bb34f2bffcec1c3fc90cab1c696466324e4381c2f1178c0",
+    "tools/build_skill_roadmap.py": "f2b56be669d11f6b7620aad7a19a1d68176bbf05b8b588d246858a596b6f43be",
+    "data/Sanctuary/Balance/class-skill-status.json": "36c994d4ca1da2b0fd3233190b16716a5d79c51d8edeccf1b1dbf4f0c5e7f1f7",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603"
+  },
+  "evidenceHashes": {
+    ".local/class-skills/corpse-cast-focused.py": "56ad35b18b310ca51f06ac89d74cca42e97d8a8d6382074e8fdd71cabd3b123f",
+    ".local/class-skills/corpse-cast-focused-run.log": "85d1e5e4b30e520db718a047f3b3462212b5e69c1c82b04a790a8af63e15e1ac",
+    ".local/class-skills/corpse-explosion-content-build.log": "a0e9803a43ccc26f3245ad350a8bebe399739b42c03823c18effcc425f6ee364",
+    ".local/class-skills/corpse-explosion-integration-build.log": "a603262e2bf7f22a302a72b9604ad98d500770abc5e19370bf08c434a25aa63d",
+    ".local/class-skills/corpse-explosion/corpse-cast-checks.log": "1ea809ef490c49631ef725aa38d9b637c7812ee2c8e18758947dc7bf86ba9c21",
+    ".local/class-skills/necro-corpse-explosion-source-run.log": "7097f6a3729c080d8a69e67f46c6d70f27deec70595553409ec2e7872e75aa52",
+    ".local/class-skills/necro-corpse-explosion-source-probe.cpp": "2e5e54c83165da1dc37e212fc350a2fc2a6a0564789beddfcd10de461d0524b4",
+    ".local/class-skills/necro-corpse-explosion-source-probe.json": "b1537a61ab1a22dc496e5fbc1643a7fd67dfd82b1c4ce704751c20d71cb219da",
+    ".local/class-skills/necro-corpse-explosion-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/corpse-explosion/corpse-cast-raw-stat-fixture.log": "263db00167b2a202ecc908fa726d1f1fe26780acf359d77214a50f6101e3c95c",
+    ".local/class-skills/corpse-explosion/corpse-cast-first-reload-failure.log": "bcf51e69f5108d8cb8584f37dd71bac922c72af6ec18f3b1538d08b5c5a5b81f",
+    ".local/class-skills/corpse-explosion/corpse-cast-item-key-fixture.log": "284721ec722e4c02fe0f80c0d8f942de78eb198d25adc96a4232f7da506e845e",
+    ".local/class-skills/corpse-explosion/corpse-cast-unavailable-item.log": "b353e96222f1278d08b82863b51559f97371ea2ac26d960f2b6ee66ed963c6c7",
+    ".local/class-skills/corpse-explosion/corpse-cast-overlap-fixture.log": "38551963c17f2912e6d9a3f1879a276955863ae49d3b9c7ca8da7aceb110e501"
+  },
+  "protectedInstalledArtifacts": {
+    "/media/aomukai/FILES/Sanctuary/.local/class-skills/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    "/media/aomukai/FILES/Sanctuary/.local/class-skills/integration/Sanctuary.Integration.dll": "efd711b48f21770e88602199892f4c8d122ba076efd91b0b68cb0ad100a4ba58",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "/media/aomukai/FILES/Sanctuary/upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "/media/aomukai/FILES/Sanctuary/.local/content/Sanctuary.Content.dll": "3ecd140cb4f67fa4bab645c6603916534a6c0f19c5c39039118927be1d4e339e",
+    "/media/aomukai/FILES/Sanctuary/.local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    "/media/aomukai/FILES/Sanctuary/.local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "/media/aomukai/FILES/Sanctuary/.local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "/media/aomukai/FILES/Sanctuary/.local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "verified": [
+    "Native learned release with real Tarnhelm soft rank2; one exclusive corpse-seeded FP256 roll shared by all recipients, independent fractional halves, physical-only edge clipping and mixed immunities.",
+    "Original monster deleted before cast/save; captured source base life/level/difficulty and seed remain exact through two reloads. Consumed corpse cannot repeat; original gold retained.",
+    "Missing snapshot/seed and recorded ownership/selectability/shattering/noselect refuse before mana, including orphaned original monsters.",
+    "Real Sorceress hard Fire Mastery and available Eschuta item mastery distinguish unenhanced base payload from the unchanged default spell control. Approved potion additions keep their elemental masteries.",
+    "Retained Death explosion/controller checks pass all3boots/2reloads. Main installed artifacts remain byte-identical."
+  ],
+  "limits": [
+    "Separate-checkout focused proof only; main full regression/current audits/Python acceptance and original-world install remain required.",
+    "Source uses declared corpse RNG allocation, two-source-cells/native-tile geometry, existing native LOS/allegiance/loot rules and shared defenses/potions. Current executable/client/input/event parity is not certified.",
+    "Legacy missing historical base life/seed is explicitly unsupported rather than regenerated. No final asset generation or new completed class."
+  ],
+  "fixtureCorrections": [
+    "Ormus unavailable due deferred skill-rand: use actual Tarnhelm for Necro rank and a separate real Sorceress/Eschuta mastery supplier.",
+    "Move the Sorceress control clear of its ally before training; use exact pinned Eschuta source key.",
+    "Remove temporary raw-stat inflation from the saved Necromancer: normal class restoration changes that unsupported inspection setup. Exact saved mana/metadata checks are unchanged."
+  ]
+}

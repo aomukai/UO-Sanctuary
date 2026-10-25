@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "routineHashes": {
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "sub_6FD0D000": "7e6cbacb7c151956e7cba18de9be5eec5abd1888888329406221bbda6e1deab4",
+    "SKILLS_SrvDo055_CorpseExplosion": "ccd5ab16918a785e78c56f15ed590bc6e3ff76fc9f1104221137e2e55ef795ab"
+  },
+  "parentEvidence": "tools/reference/corpse-explosion-source-evidence.json",
+  "pinnedSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "playerFields": {
+    "srvdofunc": 55,
+    "Param1": 70,
+    "Param2": 120,
+    "Param3": 8,
+    "Param4": 1,
+    "Param5": 50,
+    "EType": "fire",
+    "aurarangecalc": "ln34",
+    "calc1": "par1",
+    "calc2": "par2",
+    "calc3": "par5"
+  },
+  "fixture": {
+    "path": ".local/class-skills/necro-corpse-explosion-source-probe.json",
+    "sha256": "b1537a61ab1a22dc496e5fbc1643a7fd67dfd82b1c4ce704751c20d71cb219da",
+    "cases": 8640
+  },
+  "established": [
+    "Complete older producer, callback and percentage bodies execute with pinned player74 damage70..120, range8+rank-1 and50percent fire. Exclusive fractional roll, caster-level ratio and separate physical clipping remain shared with NPC312."
+  ],
+  "limits": [
+    "This compiles the complete older producer, recipient callback and integer percentage helper, not modern executable behavior. Current NPC312 data is linked separately in death-sentry-preflight.json.",
+    "Target eligibility, current base-stat lookup, RNG/seed advancement, fire writer, area enumeration/filtering, event/proc processing and defenses remain declared services. Selected recipient positions include deliberate callback controls outside the requested outer radius.",
+    "Declared base-life/random/fire-writer/area/event services remain inherited from the parent probe. This does not certify player input, native defenses/potions, actual corpse persistence or the modern executable."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty stderr required"
+}
