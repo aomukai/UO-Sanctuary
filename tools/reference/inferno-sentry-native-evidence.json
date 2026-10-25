@@ -3,7 +3,7 @@
   "talentId": "assassin.wakeofinferno",
   "handlerEnabled": false,
   "installed": false,
-  "status": "Focused17retained families plus native expiry/worker controls and both real sentry conductors pass3boots/2reloads; full Inferno candidate starting, not installed.",
+  "status": "Inferno candidate remains uninstalled; current integration fixtures pass fresh and preserved Evade controls across six boots/four reloads. Replacement full regression starting.",
   "previousInstalledContentSha256": "83890a06cd2ad1a2d72e241e830b526f5375c6d3dc4de874c2ecccef29759675",
   "protectedInstalledArtifacts": {
     ".local/class-skills/content/Sanctuary.Content.dll": "83890a06cd2ad1a2d72e241e830b526f5375c6d3dc4de874c2ecccef29759675",
@@ -33,7 +33,7 @@
     "effects": "Identified body0x9C/hue0x489 and0x36D4 hue0x489 fire markers. Final E9 actor emergence/channel/idle/collapse,523/524 beams/contact/audio remain pending.",
     "icons": "Separate talent/right/quick/hotkey inventory240rows remains pending."
   },
-  "updatedAtUtc": "2026-10-25T20:54:21.773955+00:00",
+  "updatedAtUtc": "2026-10-25T21:28:12.837851+00:00",
   "nonblockingGaps": [
     "Ormus Robes remains unavailable for skill-rand. Actual gear capture uses supported Mang Song staff fire pierce/+5skills and Tarnhelm +1; inherited fire mastery remains covered by explicit source-stat provider/damage cases rather than a complete currently available Assassin-wearable fire-mastery item. Item readiness gates are unchanged."
   ],
@@ -45,7 +45,7 @@
     "clockDiagnostic": ".local/class-skills/inferno-sentry/clock-collision-diagnostic.json"
   },
   "contentSha256": "9675dfd56dab824c0a3671d9d23119232cbbfdc036c1e78ba8b26bc0bf38f725",
-  "integrationSha256": "78863220fa271f6e08e1b14fba3b3c3c3fce76ab47f07dda55a0b10b8fe43897",
+  "integrationSha256": "5a114b643ef33dc0299473b03e07694e62ffaaace40fef0e98faa93e995790e5",
   "inputHashes": {
     "src/Sanctuary.Content/Sanctuary.Content.csproj": "42bdc7976aa72cd329a14937f129ccc9738411d68b37d95292e71195acc2a67a",
     "src/Sanctuary.Content/BritainBaseline.cs": "b89f0511bc447a28bef383a3acde07facde23c2ede78beaa282657bd65d57f62",
@@ -505,7 +505,7 @@
     "tests/Sanctuary.Integration/CarpentryUiChecks.cs": "3932b9d0c0b2ac395823aabefc7f98735cd49c2afed9694a5a464958c2ec3e45",
     "tests/Sanctuary.Integration/InscriptionChecks.cs": "3c6de5640b117159d63ca8683f6e7edb729f277b66915e05ccabd92ae9ae16ff",
     "tests/Sanctuary.Integration/TeleportUiChecks.cs": "a3c666ad098822c44f5f9b65a7fb9db1336fcf7b4c7fb4806f98d481068b0719",
-    "tests/Sanctuary.Integration/FixtureSpace.cs": "734fe3bcc169f106957f69cab78919ac78a84e7ada6cedca234a6eaf369e76e0",
+    "tests/Sanctuary.Integration/FixtureSpace.cs": "55f8d7fae9d5013d2a8b6811ab2e154f288789cdbf4e8f1a7b5616ee4c9bb66d",
     "tests/Sanctuary.Integration/TeleportChecks.cs": "dd32f7030f0593abbc0127c3e6c54fa15cb1a4fa3b8d959613ab60cfb7262a97",
     "tests/Sanctuary.Integration/AlliedOverlapChecks.cs": "34a8d5737f53d3a09ecde4e04b81e14f7865cc54613286870b2037a55bfa3983",
     "tests/Sanctuary.Integration/InscriptionUiChecks.cs": "b6de7a4d54cb852f5cf2e631db1b731e6007dc2235f32942b5efa6bcf5e8723d",
@@ -614,7 +614,7 @@
     "tests/Sanctuary.Integration/FendChecks.cs": "45e5e5d9b43c362ad689d99c81a2249036a03911bd4f6817d12d56cc4681c198",
     "tests/Sanctuary.Integration/AmazonDodgeChecks.cs": "59f7e62b8fa6463fe3f6408a5f7960d4c7996523b82f1f93883a713555dbca64",
     "tests/Sanctuary.Integration/AmazonAvoidChecks.cs": "b5334507cf906296737d2ed22ede1cd705cd24c81f2eb43018a25f38568d4325",
-    "tests/Sanctuary.Integration/AmazonEvadeChecks.cs": "f625b0a5e9599f6e5b3659a7472b670202cb07dc8d0b09692603da51fad584f8",
+    "tests/Sanctuary.Integration/AmazonEvadeChecks.cs": "c1d2f9cdd3f4e3e111d95ead44df8988dc57a90676f1830ac848e4834671ee43",
     "tests/Sanctuary.Integration/SlowMissilesComponentChecks.cs": "c6bb4f24097854fa100956cb0399024893bcc4d7d22c44ebe76fc83910ab4666",
     "tests/Sanctuary.Integration/SlowMissilesBoltChecks.cs": "55b46f86dfdca7dd5d09f5f29914fc85da0e7eb5e770fc943a6e47c8233da6fd",
     "tests/Sanctuary.Integration/HostileFireboltChecks.cs": "14ce4e0ca29a84fd4ae775e3ebc0bfb0795529ef6c5d92488be55cc29a0da4f1",
@@ -646,7 +646,7 @@
     "tests/Sanctuary.Integration/ClawMasteryChecks.cs": "1386e8a88761386ec853196607dd4d2fcc46b38cb0ba638dd82c2d62c3f276b6",
     "tests/Sanctuary.Integration/BurstSpeedChecks.cs": "8e4fae5190a309725ea507cc02d4e00f5f42f9a72f0691ad9e2b6e1a49e227fa",
     "tests/Sanctuary.Integration/FadeChecks.cs": "eb1aa07f4512249ebf9392c5608efed8ac060304bf33c2d418b2a9c1033ad370",
-    "tests/Sanctuary.Integration/PsychicHammerChecks.cs": "05dffd4cc14b4563b11347b8531ba9f52df8ac72ce3c0191d4be14faf03e915c",
+    "tests/Sanctuary.Integration/PsychicHammerChecks.cs": "be47451113f37a7d7421a57bef282ce59c8e53b78db4383023c68fc39f33b052",
     "tests/Sanctuary.Integration/CloakChecks.cs": "53cc14dae7b12164c1f11eb46a04a90dcf4ec472ac6a2eb0962244bc3c630998",
     "tests/Sanctuary.Integration/VenomChecks.cs": "242b67c80069c42b585fde0ea1d84d2f839ab8d8e2499ae3cba1202ae913e382",
     "tests/Sanctuary.Integration/WeaponBlockChecks.cs": "7f891e951810884bf0026b336d349c2be4067997ac29b45787102b75f227660d",
@@ -943,11 +943,23 @@
         ".local/class-skills/inferno-sentry-psychic-replay-diagnostic-run.log"
       ],
       "scope": "Fresh saved-state/natural180ms assertions and48actual input/payment/damage/knockback casts pass. The preserved original replay also passes. Separate corridors, target fixture freeze until windup, native connection readiness, and starting timed controls after the wheel slice address fixture interference; content/network runtime unchanged."
+    },
+    "evadeFixtureFocused": {
+      "freshBoots": 3,
+      "freshReloads": 2,
+      "preservedBoots": 3,
+      "preservedReloads": 2,
+      "integrationSha256": "5a114b643ef33dc0299473b03e07694e62ffaaace40fef0e98faa93e995790e5",
+      "logs": [
+        ".local/class-skills/inferno-sentry/evade-focused-checks.log",
+        ".local/class-skills/inferno-sentry/evade-preserved-checks.log"
+      ],
+      "scope": "Exact one-roll walking success/failure, running suppression, actual firebolt/lightning, natural lease expiry, saved ranks/gear/resources retained. Freeze unrelated saved NPC voluntary combat only during global deterministic-hook control; restore original states in Cleanup. No content mechanics changed."
     }
   },
   "fullRegression": {
     "status": "running",
-    "session": 78664,
+    "session": 26976,
     "log": ".local/class-skills/inferno-sentry-full-run.log",
     "nativeLog": ".local/class-skills/inferno-sentry/native-checks.log",
     "priorFailure": {
@@ -969,6 +981,13 @@
       "world": ".local/class-skills/inferno-sentry/third-full-failure-world",
       "finding": "Psychic Hammer ground-input timed out before windup. The announced click was6064,1851 and the target had moved to6061,1850 at failure; saved NPC fixtures also shared this corridor. Source targeting code unchanged. Independent corridors and a fixture-only freeze through input acquisition now stabilize the input/knockback scene; focused and replacement full checks are required.",
       "resolution": "Controlled corridors reuse the existing blade fixture algorithm; the unpaid control remains frozen. Input bootstrap waits for one actual running loopback connection. Timed movement controls start in a loop task after timer-wheel catch-up, preserving the180ms assertions.48socket casts across fresh/preserved worlds and the original preserved knockback replay pass."
+    },
+    "fourthFailure": {
+      "outerLog": ".local/class-skills/inferno-sentry-fourth-full-failure.log",
+      "nativeLog": ".local/class-skills/inferno-sentry/native-fourth-full-failure.log",
+      "world": ".local/class-skills/inferno-sentry/fourth-full-failure-world",
+      "finding": "On the final Evade reload, phase1 had the intended walking defensive roll at222896238 (lease until222896526), followed by an extra roll at222896782 after expiry. The explicit lightning NPC could resume voluntary AI. The fixture now freezes that source, and shares the verified after-wheel/connection bootstrap; gameplay code unchanged. Fresh three-boot/two-reload focused checks pass; preserved-world checks are in progress.",
+      "resolution": "Preserved replay traced the extra roll to GraveyardUndead.ResolveMelee during the global deterministic hook. Park unrelated saved NPC combat for this disposable control and restore afterward; freeze the explicitly emitted lightning source. Fresh and preserved three-boot/two-reload checks now pass without extra rolls. Timing bootstrap reuses the existing after-wheel and connection-readiness helpers."
     }
   },
   "fixedEvidenceHashes": {
@@ -990,7 +1009,7 @@
     "tools/reference/wake-of-inferno-damage-source-evidence.json": "9f858970e5122424c66f26cba1c8bf6c4c03739e90e66efa5971d15931ad65a9",
     "tools/reference/d2r-local-sentry-model-evidence.json": "3e3f8576cf58e33b9270d5769eafd85aec39d899626b2010031a9763ae3ffe2d",
     ".local/class-skills/inferno-sentry-content-build.log": "80a45ab7e3d6173307a6cc5adc1a5f8c302cba7ea54dada34d8da24a6d99eca4",
-    ".local/class-skills/inferno-sentry-integration-build.log": "8640162fb7e53dfeabae69ccc053953cfad8249e46364e039d12ccd031d064cf",
+    ".local/class-skills/inferno-sentry-integration-build.log": "3c40d57ba7053460954c071633e85580f159ac80cdfc3b783f4ce7830f60c3c4",
     ".local/class-skills/inferno-sentry-focused-run.log": "e9e299d0bc1c20f9cd8c5ffb94450def8a2c7429eb958128c07aca1ce1531272",
     ".local/class-skills/inferno-sentry/focused-checks.log": "b5879279a9a63b5f526d9b12985489f18412269543ab856d5688e66bce6c86b4",
     ".local/class-skills/inferno-sentry/clock-collision-diagnostic.json": "c2156ef4f7f5953e24fadd7e1a2a05fa65eb8e7f29d0d7e3c5c03e73ef82fb0d",
@@ -1002,7 +1021,13 @@
     ".local/class-skills/sentry-corpse-source-probe.cpp": "c1884626c92d7a22d0ac64180537f721e3f93e68f097060a6271b9a0e55789a3",
     ".local/class-skills/sentry-corpse-source-probe.json": "37a445c1a117d8e2ea284985e842ff15b13e0341fa826f779cc459bbd55a57aa",
     ".local/class-skills/sentry-corpse-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/sentry-corpse-source-check.log": "2162a4df6cdd718cdb25b3aa3527004220d208cae79fe086552806dc3328d906"
+    ".local/class-skills/sentry-corpse-source-check.log": "2162a4df6cdd718cdb25b3aa3527004220d208cae79fe086552806dc3328d906",
+    ".local/class-skills/inferno-sentry/evade-preserved-melee-failure.log": "01b2fe5bfa2d83f77e362925d1c3b310af951b96ab90b0d78908497f90a8de2c",
+    ".local/class-skills/inferno-sentry/evade-focused-checks.log": "e0d6fb3eff4965e52298f880aadd38d2ffcb0bcb584de5c7283c4e393ab84ad8",
+    ".local/class-skills/inferno-sentry/evade-preserved-checks.log": "72e58f0a33705791b486df6b61a091e582f1c7fbdbd6398bfbb258e06724a612",
+    ".local/class-skills/inferno-sentry-evade-focused-run.log": "e13cf2d24f36c2abe938f2eb232ef5ddedaafc7bd0a4c113bc8a3b455e07c67b",
+    ".local/class-skills/inferno-sentry-evade-preserved-run.log": "e30435bf437136b17bb9766a7ad130a723e67efed148cc4081886da8eae37415",
+    "docs/skill-mechanical-reference.md": "8d7bbae2f9de448d1ba218510426d6342eef56d3428157dab9fdc9ca7fcedcf6"
   },
   "retirementCorpseEvidence": "tools/reference/sentry-corpse-source-evidence.json",
   "focusedIntegrationSha256": "b4ae9d8059e4ea14d756ece8543173f75bdba424894fefba11e22a87f0a2c56d"

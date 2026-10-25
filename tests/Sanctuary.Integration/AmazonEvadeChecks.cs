@@ -21,6 +21,7 @@ public static class AmazonEvadeChecks
     private static Item[] _items;
     private static Point3D _origin;
     private static BaseCreature _source;
+    private static BaseCreature[] _parked=Array.Empty<BaseCreature>();
     private static NetState _network;
     private static Func<int,int> _original;
     private static int _phase,_calls,_draw,_before,_mana;
@@ -42,6 +43,8 @@ public static class AmazonEvadeChecks
     {
         if(_source is EncounterCreature encounter){EliteBolts.Cancel(encounter);}
         _source?.Delete();_source=null;
+        foreach(var creature in _parked){if(!creature.Deleted){creature.Frozen=false;}}
+        _parked=Array.Empty<BaseCreature>();
         if(_network!=null){_network.Mobile=null;if(_owner!=null){_owner.NetState=null;}_network=null;}
         if(_original!=null){AmazonAvoidance.Roll=_original;_original=null;}
     }
@@ -175,14 +178,22 @@ public static class AmazonEvadeChecks
         ClassCreation.Profiles.TryGet(other.Serial,out var profile);ClassCreation.Profiles.ResetAllocatedPoints(other,profile);Require(AmazonAvoidance.EvadeChance(other)==0,"Respec Evade");other.Delete();
         Natural(owner,items);
     }
-    private static void Natural(PlayerMobile owner,Item[] items)
+    private static void Natural(PlayerMobile owner,Item[] items)=>FixtureClock.NextLoop("amazon-evade-result",()=>
+        FixtureNetwork.Connected("amazon-evade-result",network=>Natural(owner,items,network)));
+    private static void Natural(PlayerMobile owner,Item[] items,NetState network)
     {
         _owner=owner;_items=items;_origin=owner.Location;_phase=0;_original=AmazonAvoidance.Roll;
-        _network=NetState.Instances.Single(x=>x.Mobile==null && IPAddress.IsLoopback(x.Address));
+        // The deterministic avoidance hook is global. Saved fixtures elsewhere
+        // in this disposable world can reactivate on sector/client movement
+        // and add unrelated melee rolls. Park their voluntary combat only for
+        // this control, restoring every original unfrozen state in Cleanup.
+        _parked=World.Mobiles.Values.OfType<BaseCreature>().Where(x=>!x.Deleted && !x.Frozen).ToArray();
+        foreach(var creature in _parked){creature.Frozen=true;}
+        _network=network;
         _network.Seeded=true;_network.CompressionEnabled=false;_network.Mobile=owner;owner.NetState=_network;
         var protocol=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
         Require(protocol!=null,"Connected fixture protocol");protocol.SetValue(_network,Enum.Parse(protocol.FieldType,"GameServer_LoggedIn"));_network.ResetMovementState();_network.SendMobileUpdate(owner);
-        AmazonAvoidance.Roll=max=>{Require(max==100,"Natural Evade RNG bound");_calls++;_walkingAtDraw=ClassMovement.IsMoving(owner,Core.TickCount) && !ClassMovement.IsRunning(owner,Core.TickCount);Log.Information("Evade natural draw phase={Phase} now={Now} until={Until} location={Location} step={Step} run={Run}",_phase,Core.TickCount,ClassCombat.For(owner).RunningUntil,owner.Location,ClassCombat.For(owner).StepPosition,ClassCombat.For(owner).RunningStep);return _draw;};Next();
+        AmazonAvoidance.Roll=max=>{Require(max==100,"Natural Evade RNG bound");_calls++;_walkingAtDraw=ClassMovement.IsMoving(owner,Core.TickCount) && !ClassMovement.IsRunning(owner,Core.TickCount);Log.Information("Evade natural draw phase={Phase} now={Now} until={Until} location={Location} step={Step} run={Run}",_phase,Core.TickCount,ClassCombat.For(owner).RunningUntil,owner.Location,ClassCombat.For(owner).StepPosition,ClassCombat.For(owner).RunningStep);if(_calls>1){Log.Information("Extra Evade draw: source={Source} frozen={Frozen}, stack={Stack}",_source?.Serial,_source?.Frozen,new System.Diagnostics.StackTrace());}return _draw;};Next();
     }
     private static void Step(bool run)
     {
@@ -211,7 +222,9 @@ public static class AmazonEvadeChecks
         }
         else
         {
-            var source=new EncounterCreature{CantWalk=true,NoKillAwards=true};source.AIObject.AITimer.Stop();source.MoveToWorld(point,owner.Map);_source=source;
+            // Lightning is explicitly emitted below. Freeze voluntary AI so
+            // client/sector activation cannot add a later melee/avoidance roll.
+            var source=new EncounterCreature{Frozen=true,CantWalk=true,NoKillAwards=true};source.MoveToWorld(point,owner.Map);source.AIObject.AITimer.Stop();_source=source;
             Require(EliteCombat.Enemy(source,owner,18),"Natural lightning enemy");EliteBolts.Lightning(source);Step(_phase==2);
         }
         Later(TimeSpan.FromSeconds(1.1),Observe);

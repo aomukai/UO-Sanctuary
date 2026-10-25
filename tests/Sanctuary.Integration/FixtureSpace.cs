@@ -76,3 +76,12 @@ internal static class FixtureNetwork
         Try();
     }
 }
+
+internal static class FixtureClock
+{
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(FixtureClock));
+    // A timer may fire during catch-up while Core.TickCount is already ahead
+    // of the wheel. Start timed controls after that slice, on the loop queue.
+    internal static void NextLoop(string result,Action action)=>Timer.StartTimer(TimeSpan.Zero,()=>Core.LoopContext.Post(()=>
+    {try{action();}catch(Exception e){Log.Error(e,"{Result}: failed",result);}}));
+}

@@ -26,8 +26,7 @@ public static class PsychicHammerChecks
     private static void Later(int ms,string name,Action action)=>Timer.StartTimer(TimeSpan.FromMilliseconds(ms),()=>{try{action();}catch(Exception e){Log.Error(e,"{Name}: failed",name);}});
     // A zero-delay timer can execute during a catch-up wheel slice. Post the
     // actual start after that slice so its deadline uses the current loop tick.
-    private static void NextLoop(string name,Action action)=>Timer.StartTimer(TimeSpan.Zero,()=>Core.LoopContext.Post(()=>
-    {try{action();}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+    private static void NextLoop(string name,Action action)=>FixtureClock.NextLoop(name,action);
     private static PlayerMobile Fresh()
     {
         PlayerMobile p;_creating=true;try{p=new PlayerMobile{Body=0x191,Name="PsychicFixture",Player=true};}finally{_creating=false;}
