@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.chargedboltsentry",
   "handlerEnabled": false,
-  "status": "Charged Bolt Sentry now retains its attack-start target-path coordinate in the actual saved actor. Present targets supply their current coordinates at each bolt release without rewriting that cache; deleted targets use the retained aim, and either-zero fallback suppresses individual missiles. New actors start with zero cache, while older saves without this field retain an explicit unknown state instead of inventing a position.100 compiled complete stationary source initializer/registry/getter cases match the native aim component. Actual actor windups verify moving versus deleted targets, real bolt factory paths and zero-fallback suppression; deleted-target pending casts retain their exact aim through two actual world reloads and emit one continued volley. Existing Sentry damage/gear/slow/credit/live/offline and Blade/shared-trap regressions pass. Focused/full suites each pass three boots/two reloads;70 Python tests and original-world installed smoke pass with save/config/client bytes unchanged. Total handlers remain150, Assassin11; learned Sentry input is still disabled. Exact movement, removal/corpse ownership, cross-map or historical unknown aim, low-threat path probe, emergence and player casting remain separately documented gaps.",
+  "status": "Charged Bolt Sentry has a saved S1 actor-phase entry through CreateEmerging. It retains the explicitly labelled cached-lg-s1-15-v1 profile, reaches neutral on frame15, preserves initial AI25 and emits its first volley on frame28. The prepared neutral factory remains available for component fixtures. Partial offline advancement preserves both the unfinished phase and the original birth deadline; elapsed AI opportunities are skipped without actions, shot debit or RNG replay. Mid-S1 actual actors retain phase/profile/clock/stats/injury through two world reloads, resume once into real damaging bolts, share FIFO cap5 and retain their cast facet while owner-facet stat scaling preserves their phase and life percentage. Connected natural timing proves the first volley without an extra emergence delay; socket-null actors age the phase without combat.40 complete source scheduler/end/neutral cases, focused/full three-boot/two-reload suites,70 Python tests and original-world installed smoke pass. Saves/config/client bytes are unchanged and the installed server is stopped. Total handlers remain150, Assassin11; learned Sentry input remains disabled. Player do45 placement/fallback, S2 casting/payment/cancellation, low-threat unit-target path, source/current movement and corpse/removal ownership remain separate gates. Cached animation acquisition provenance and current executable timing remain unverified; final S1/S2/NU/DT art/audio and talent/hotkey icons remain separate labelled placeholders.",
   "sourceSkill": {
     "skill": "Charged Bolt Sentry",
     "*Id": 261,
@@ -252,23 +252,25 @@
     }
   ],
   "required": [
-    "Implement the S1 emergence phase using the40-case source scheduler/end/neutral preparation: declared cached15-frame emergence preserves AI+25. Retain incomplete animation provenance and verify native phase/save/offline behavior before enabling player input.",
-    "Connect the low-threat unit-target path probe with its target/footprint/coordinate restoration contract, reusing the verified general/toward kernels within their actual unit contract.",
-    "Resolve trap removal/corpse ownership for already-released bolts and source/current missile movement; preserve the working prepared backend and document individual unsupported branches.",
-    "Complete learned right/quick S2 casting with13mana payment/cancellation, shot exhaustion and player-target transitions, then enable the handler when its mechanical requirements are verified."
+    "Connect player do45 placement and S2 cast preparation using the existing shared trap factory, source spawn/fallback contracts and the now available S1 actor entry; keep learned input gated while remaining combat/lifecycle branches are unresolved.",
+    "Resolve trap replacement/exhaustion corpse/GUID retention and compose the downstream allegiance/ExecuteEvents/ExecuteMissileDamage path before changing the live actor ownership gate for already-released bolts.",
+    "Connect the low-threat unit-target path probe with its target/footprint/cache restoration contract, reusing the existing verified path kernels within their supported unit context.",
+    "Resolve current/source missile movement/version differences beyond the saved native adapter and finish learned right/quick input,13mana payment/cancellation and final-shot/lifecycle acceptance before enabling the handler."
   ],
   "uncertain": [
-    "Source proof uses the unchanged reconstructed D2Common_10142/PATH_UpdateTargetUnit plus registry refresh/target getter, with declared type/GUID registry lookup and the existing synthetic room/grid and zero-footprint services. Reused identity/pointer replacement is not certified. D2MOO marks its general initializer BROKEN. This is supplementary source evidence, not exact current3.3.93847 executable acceptance.",
-    "The native implementation retains the stationary unit-target cache consequence; it does not claim a complete native mode-change or unit-target path engine. The source zero target-lead parameter dwSpeed is distinct from movement velocity. Source mode14 preparation invokes path13; collision/room/order/current animation remain native adapter scopes.",
-    "Cross-map pending targets remain explicitly unsupported. An older saved pending cast with no CachedAim may use its still-present target, but faults explicitly if that target disappears. A new successful valid-target windup establishes known aim. No arbitrary zero, current target position, player position or projectile origin is substituted for unknown historical cache.",
-    "The real bolts retain native-shared-chargedbolt-v1 movement. Exact source/current movement, relative missile collection ordering, source corpse/GUID retention after shot exhaustion or replacement, dead actor damage ownership, complete item/kill-event behavior and full client/executable acceptance remain separate.",
-    "Low-threat target selection still has an unbound unit-target path probe; do45 S1 emergence and learned S2 right/quick input with13mana payment/cancellation remain unfinished. This checkpoint enables no new learned skill and certifies no completed class.",
-    "Effects and talent/hotkey icons remain separate240-row inventories with identified actor/travel placeholders. No final art or independent idle timeout is invented. Existing saves/client/configuration are preserved and the installed server is stopped."
+    "The source-compared timing uses cached LGS1HTH15frames/speed256/no events, whose acquisition provenance is incomplete. The saved cached-lg-s1-15-v1 marker identifies this adapter; current3.3.93847 animation/rate/client acceptance is not certified. Pinned current MonStats/MonStats2 still govern the nonmoving size0 S1 and generic mode/end context.",
+    "CreateEmerging enters the actor phase at a supplied valid point. This is not complete player do45 target/room/placement/radius-1-then4 fallback or S2 learned casting/payment/cancellation. The existing prepared neutral entry remains a separate explicit fixture condition.",
+    "Native active S1 uses the declared cached rate only. The40 source cases also test zero/control rates and neutral deadline/stun controls; they do not enable arbitrary rate modifiers or prove full moving/transformed NPC mode changes. Old saves default the new optional emergence fields to0/null without replaying a new S1 phase.",
+    "Approved offline policy suppresses actions/RNG and keeps clocks advancing. Pending emergence retains its original AI deadline until elapsed; other unfinished attack windups retain the established discard/no-refund policy. Exact current D2R offline/global event chronology is not asserted.",
+    "Reload contact testing moves a receiver onto a released seeded zigzag waypoint; no homing/guaranteed hit or trajectory change is introduced. Controlled day-ahead fixture ticks temporarily scope flight snapshots to the inspected actor so they do not mutate other saved fixtures. Connected checks exercise the unmodified global conductor and actual live/offline policies.",
+    "The real projectile backend retains native-shared-chargedbolt-v1 motion. Low-threat unit-target path, source corpse/GUID retention and dead-owner damage/events after exhaustion/replacement, current movement/version, native room/geometry/order and full current-executable/client acceptance remain separate. Cross-map targets and historical unknown aim remain explicit unsupported branches.",
+    "Effects and talent/hotkey icons retain separate240-row inventories. Stationary body0x9C/hue0x482 and blue0x3818 travel are identified placeholders; no final art, independent idle timeout, new facet difficulty assignment, learned handler or class completion certificate is claimed.",
+    "The 192-case complete legacy start/do45 wrapper probe establishes deferred post-placement payment with declared rank3 thirteen-mana services. Full debit/rank1, current lost-mana behavior and player input remain unverified. The user has not observed idle expiry and only tentatively expects it; this does not establish a timeout."
   ],
   "compiledAiEvidence": "tools/reference/sentry-ai-source-evidence.json",
   "compiledAiCases": 12288,
   "componentsInstalled": true,
-  "nativeEvidence": "tools/reference/sentry-aim-native-evidence.json",
+  "nativeEvidence": "tools/reference/sentry-emergence-native-evidence.json",
   "observations": "tools/reference/sentry-observations.json",
   "compiledSourceEvidence": {
     "ai": "tools/reference/sentry-ai-source-evidence.json",
@@ -315,5 +317,7 @@
   "realPreparedProjectiles": true,
   "aimEvidence": "tools/reference/sentry-aim-native-evidence.json",
   "boltEvidence": "tools/reference/sentry-bolt-native-evidence.json",
-  "deletedTargetFallback": true
+  "deletedTargetFallback": true,
+  "emergenceEvidence": "tools/reference/sentry-emergence-native-evidence.json",
+  "actorEmergenceImplemented": true
 }
