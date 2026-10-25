@@ -70,14 +70,20 @@ public partial class AssassinSentryBody:BaseCreature
     }
     private void Store(SentryBodyState s){Validate(s);_prepared=s;_saved=JsonSerializer.Serialize(s);}
     internal static AssassinSentryBody CreatePrepared(PlayerMobile owner,Point3D position,DateTime at,ulong seed)
+        =>Create(owner,position,at,seed,false);
+    // Actor-phase entry at a supplied valid point. Player do45 placement,
+    // payment/cancellation and the learned handler remain separate gates.
+    internal static AssassinSentryBody CreateEmerging(PlayerMobile owner,Point3D position,DateTime at,ulong seed)
+        =>Create(owner,position,at,seed,true);
+    private static AssassinSentryBody Create(PlayerMobile owner,Point3D position,DateTime at,ulong seed,bool emerging)
     {
         var stats=AssassinSentryCreation.Capture(owner);var map=owner.Map;
         if(at.Kind!=DateTimeKind.Utc || SpellHelper.IsTown(owner.Location,owner) || SpellHelper.IsTown(position,owner))
         {throw new InvalidOperationException("Prepared sentry needs a UTC clock and non-town owner/destination");}
-        // Initial neutral/+25 AI is explicit preparation. This is not a claim
-        // that the player do45 S1 emergence animation has been implemented.
+        // Prepared fixtures retain their explicit neutral/+25 initial state.
+        // Emerging actors retain S1 ENDANIM+15 and the original AI+25 event.
         at=new DateTime(at.Ticks-at.Ticks%(40*TimeSpan.TicksPerMillisecond),DateTimeKind.Utc);
-        var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,AssassinSentryController.Start(),seed,at.AddMilliseconds(40)){CachedAim=new(0,0)};Validate(state);
+        var state=new SentryBodyState(owner.Serial.Value,stats,map.MapID,position,emerging?AssassinSentryController.StartEmerging():AssassinSentryController.Start(),seed,at.AddMilliseconds(40)){CachedAim=new(0,0)};Validate(state);
         var body=new AssassinSentryBody();
         try
         {
@@ -114,8 +120,7 @@ public partial class AssassinSentryBody:BaseCreature
                 // Offline time advances, but no AI/RNG/shot/action is replayed.
                 // Discard an unfinished windup without refunding its shot.
                 long due=(at.Ticks-before.NextFrameUtc.Ticks)/(40*TimeSpan.TicksPerMillisecond)+1;
-                int frame=checked(before.Control.Frame+(int)due);
-                Store(before with{Control=before.Control with{Frame=frame,Mode=1,Sequence=null,Target=0,NextThink=checked(frame+1)},NextFrameUtc=before.NextFrameUtc.AddTicks(checked(due*40*TimeSpan.TicksPerMillisecond))});
+                Store(before with{Control=AssassinSentryController.Inactive(before.Control,checked((int)due)),NextFrameUtc=before.NextFrameUtc.AddTicks(checked(due*40*TimeSpan.TicksPerMillisecond))});
                 continue;
             }
             ulong seed=before.Seed;

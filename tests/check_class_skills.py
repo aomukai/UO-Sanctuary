@@ -63,6 +63,7 @@ def check():
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'sentry-controller-source-probe.json', folder / 'sentry-controller-source-probe.json')
         shutil.copy2(STAGE / 'sentry-aim-source-probe.json', folder / 'sentry-aim-source-probe.json')
+        shutil.copy2(STAGE / 'sentry-emergence-source-probe.json', folder / 'sentry-emergence-source-probe.json')
         for fixture in ['sentry-target','charged-bolt-path']:
             shutil.copy2(STAGE / (fixture+'-source-probe.json'),folder / (fixture+'-source-probe.json'))
         shutil.copy2(STAGE / 'blade-spawn-source-probe.json', folder / 'blade-spawn-source-probe.json')
@@ -214,6 +215,15 @@ def check():
                         ability,x,y,z=map(int,ready.groups())
                         fire_client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
                         assert session.expect(r'plague-javelin-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    emergence='sentry-emergence-check' if boot==0 else 'sentry-emergence-reload-check'
+                    session.send(emergence)
+                    assert session.expect(emergence+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start();time.sleep(.15)
+                        session.send('sentry-emergence-live-check')
+                        assert session.expect(r'sentry-emergence-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        client.sendall(bytes([0x73,0]))
+                        assert session.expect(r'sentry-emergence-live-result: (passed|failed)',timeout=5).group(1)=='passed',logpath.read_text()[-6000:]
                     aim='sentry-aim-check' if boot==0 else 'sentry-aim-reload-check'
                     session.send(aim)
                     assert session.expect(aim+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

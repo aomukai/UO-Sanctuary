@@ -1,7 +1,8 @@
 {
   "referenceVersion": "3.3.93847",
   "handlerEnabled": false,
-  "nativeEmergenceImplemented": false,
+  "nativeVerifiedByThisProbe": false,
+  "nativeEvidence": "tools/reference/sentry-emergence-native-evidence.json",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
     "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",

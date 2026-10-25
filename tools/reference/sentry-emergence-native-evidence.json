@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.chargedboltsentry",
+  "installed": false,
+  "handlerEnabled": false,
+  "totalHandlersPresent": 150,
+  "assassinHandlers": 11,
+  "status": "Development checkpoint: saved S1 actor emergence is implemented with retained cached-lg-s1-15-v1 profile, end15, initial AI25 and first release28. Partial and long offline aging preserve the birth deadline without actions/RNG replay. Source40 and focused Fist/Sentry suites pass three boots/two actual reloads, including pending S1 restoration, actual contact damage, cap5, owner-facet scaling and natural connected/offline clocks. Full combined regression/audits/install remain pending; the installed baseline is3d4c9b7.",
+  "sourceEvidence": "tools/reference/sentry-emergence-source-evidence.json",
+  "previousAimEvidence": "tools/reference/sentry-aim-native-evidence.json",
+  "verification": {
+    "focusedBoots": 3,
+    "worldReloadsPerSuite": 2,
+    "sourceEmergenceCasesPerBoot": 40,
+    "savedProfile": true,
+    "actualS1Phase": true,
+    "sourceEnd15Ai25Release28": true,
+    "partialOfflineBirthDeadline": true,
+    "longOfflineNoReplay": true,
+    "actualS1Reloads": 2,
+    "liveNaturalRuns": 3,
+    "sharedCap5": true,
+    "oldFacetRescalePreservesPhase": true,
+    "fullRegressionPending": true,
+    "installedSmokePending": true,
+    "learnedInput": false,
+    "contentAssemblySha256": "6809be51f4b1f1866d88faaf4eb3c47599fff1369fb15008919f922877560031",
+    "integrationAssemblySha256": "34f2a7446ba71dda3243543155cb86bdf03c0d00183c7aa95c518d5aad687514"
+  },
+  "limits": [
+    "Cached animation acquisition provenance is incomplete; this timing profile is explicitly saved rather than certified as the current executable.",
+    "CreateEmerging is an actor-phase entry at a supplied valid point. Player do45 spawn placement/fallback, S2 casting/payment/cancellation, source movement, corpse/removal ownership and low-threat unit-target path remain gated.",
+    "The reload contact fixture intercepts a released zigzag bolt and scopes manually advanced future clocks; connected tests use the unmodified shared natural clock. No homing or guaranteed hit is invented.",
+    "Effects and icons remain separate240-row inventories, with final S1/S2/NU/DT actor art, travel/impact/audio and talent/hotkey icons pending."
+  ],
+  "logs": {
+    "focused": ".local/class-skills/sentry-emergence-focused.log",
+    "zigzagMiss": ".local/class-skills/sentry-emergence-zigzag-miss.log",
+    "fixtureClockFailure": ".local/class-skills/sentry-emergence-fixture-clock-failure.log"
+  }
+}
