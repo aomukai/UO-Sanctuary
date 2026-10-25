@@ -1,7 +1,7 @@
 {
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.dragontalon",
-  "status": "Prepared native physical component passes focused3boots/2reloads; no learned Dragon Talon handler",
+  "status": "Physical component installed; action/delivery individually deferred",
   "installed": false,
   "nonblocking": true,
   "source": {
@@ -106,7 +106,8 @@
     "Deeper stat-list review: MergeStatLists(type0) on already-owned active item dispatches D2Common_11275; its shared implementation subtracts ONLY itemstatcost DamageRelated fields and toggles STATLIST_DYNAMIC. Strength/dexterity and other nondamage fields are not blanket removed. Reuse existing class-weapon-properties/current WeaponHands stat classification; do not interpret the earlier unmerge shorthand as removing every weapon stat. Current kick property eligibility must still be individually verified.",
     "Further call-flow qualification: FillDamageValues begins sub_6FC7C900(attacker,a5=1), which first disables both weapon damage lists, then on dual-wield-capable units resolves the selected weapon and re-enables its damage stats (falling back to inventory primary when selector returns null). Thus a kick-only scope cannot blanket suppress weapon leech/elements/events during the whole impact. Boot ED calculation and later damage-fill use distinct contexts. Compile this surrounding path before deciding property eligibility. Existing WeaponHands selector/merge proof is reusable but not a whole kick pipeline certificate.",
     "Kick packet sets dwHitFlags|=3 before FillDamageValues. The physical ApplyDamageBonuses/mastery/passive-critical/deadly block there is gated by absence of bit1, so a generic ordinary weapon critical roll must not be inherited blindly. Full composition and item-event eligibility remain to be verified.",
-    "Native differential exposed legacy normal/equipment-tier boot MinDamage/MaxDamage projections at0. As with Smite, current pinned kick endpoints now have a separate15-row source-verified kick-boots catalogue; existing generic equipment projections and named availability decisions remain independent. Native capture uses actual active source boot identity."
+    "Native differential exposed legacy normal/equipment-tier boot MinDamage/MaxDamage projections at0. As with Smite, current pinned kick endpoints now have a separate15-row source-verified kick-boots catalogue; existing generic equipment projections and named availability decisions remain independent. Native capture uses actual active source boot identity.",
+    "Read-only strict CASC extraction from the unchanged pinned3.3.93847 installation corroborates all15 current boot endpoint/coefficient rows and selected Dragon Talon/Tiger/Cobra/Fists fields. Current Assassin KK metadata is13frames/speed256/action event4; selected32 Assassin animation records match cached numeric metadata, although the full files differ. Mode/weapon selection, player sequence/rewind/rates and modern per-kick charge/hit behavior remain separate gates."
   ],
   "reusable": [
     "Independent saved Tiger/Cobra states and rank selection; consume-one API, cancellation/death/history lifecycle and source player drain packet",
@@ -143,5 +144,12 @@
     "Exact current KK/sequence19 event cadence/repeated-kick rewinds",
     "Modern consume-one trigger per-kick versus per-sequence and guaranteed-hit versus shield/avoidance semantics",
     "Full typed/leech/poison/item-event kick composition and pending windup/series/lifecycle/input behavior"
-  ]
+  ],
+  "currentAnimationEvidence": "tools/reference/d2r-local-animation-evidence.json",
+  "currentTableCorroboration": "tools/reference/d2r-local-kick-data-evidence.json",
+  "phase": "individually-deferred-action-layer",
+  "physicalComponentInstalled": true,
+  "handlerEnabled": false,
+  "nativeEvidence": "tools/reference/dragon-kick-native-evidence.json",
+  "next": "Continue Fists of Fire using tools/reference/fists-of-fire-preflight.json. Compile complete do35/sequence16/charge/conversion/progressive143/38/39 paths before enabling a handler. Reuse shared charge, selected-hand, weapon/fire/field and mitigation infrastructure. Dragon Talon is individually deferred behind action/delivery gates; return to its prepared physical component when those are supported. Player only uses fire/lightning traps; do not repeat martial-arts/Fury playtest questions. All240 skills/classes and separate effects/icons remain in scope."
 }

@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.dragontalon",
   "component": "Prepared kick physical packet/current boot capture",
-  "installed": false,
+  "installed": true,
   "handlerEnabled": false,
   "components": [
     "src/Sanctuary.Content/DragonKickDamage.cs",
@@ -12,7 +12,9 @@
     "tools/reference/dragon-kick-damage-source-evidence.json",
     "tools/reference/dragon-kick-packet-source-evidence.json",
     "tools/reference/dragon-talon-hands-source-evidence.json",
-    "tools/reference/kick-data-source.json"
+    "tools/reference/kick-data-source.json",
+    "tools/reference/d2r-local-animation-evidence.json",
+    "tools/reference/d2r-local-kick-data-evidence.json"
   ],
   "verification": {
     "focusedBoots": 3,
@@ -28,18 +30,50 @@
       "Saved selected weapons, all three boot entities, active elite boots,Steelrend and independent initial Tiger state survive two actual world reloads; recomputed physical capture is unchanged.",
       "Capture is immutable and does not consume charges, spend mana, create an action or wear gear. No kick input or damage delivery is claimed."
     ],
-    "failureCorrection": "First focused comparison found the legacy normal/equipment-tier boot projection uses0damage while current armor supplies real kick endpoints. Added separate pinned current15-row kick-boots table, following existing Smite architecture; general equipment projections unchanged."
+    "failureCorrection": "First focused comparison found the legacy normal/equipment-tier boot projection uses0damage while current armor supplies real kick endpoints. Added separate pinned current15-row kick-boots table, following existing Smite architecture; general equipment projections unchanged.",
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "fullRetainedCobraNaturalRuns": 3
   },
   "candidate": {
     "contentSha256": "7c16ffec7a3ef6124d1bbd912123ba71ef04d51b26d4f6ae83aa2b10422f6c1c",
     "integrationSha256": "6c6afd369ab32b166082c84095f5b6eb719b95bccc88727efeba40bd95d80a75"
   },
-  "fullRegression": "pending",
+  "fullRegression": "Prepared kick physical component/current15-row boot data are installed; learned Dragon Talon remains disabled. Focused/full suites each pass3boots/2reloads with24576 complete source body/boot helpers,62208 physical compositions and255 Talon numeric goldens per boot. Actual Bartuc retained attributes/selected hand, normal/exceptional/elite boots,Steelrend ED, immutable packet and unchanged Tiger charge/gear captures survive actual world reloads. Retained Cobra natural charge+ordinary-Attack input passes3runs per suite. All70 Python tests,current554/21 audit fingerprints and573 unchanged named decisions pass. Matching original-world smoke loads/listens/shuts down0; saves/config/client bytes unchanged, server stopped. Handlers remain152/Assassin13; Cobra is the latest playable skill. Current local strict CASC extraction corroborates all15boot bases,selected4skill fields and32Assassin animation records; KK13frames/action4 metadata is established, while current sequence/rewind/rate/consume/hit/block/delivery/input remain separate gates. No class completion certificate.",
   "limits": [
     "No learned Dragon Talon handler. Current timing/modern consumption/guaranteed-hit/block/target/typed/leech/proc/cancellation/input remain explicit separate gates.",
     "Source packet proof declares downstream fill and charge callback services; complete physical composition is not a full modern ExecuteEvents certificate.",
     "Flat kick stat is an explicit caller input; no new flat-kick item producer is claimed. Old double-add with boots remains uncorroborated for current D2R.",
     "Capture reuses existing native stat/equip/active-base and aura/curse mappings. Full modern property/stat/seed/executable/client acceptance remains separate.",
     "Final kick poses/impact/knockback/audio/charge visuals and talent/left/right/quick icons remain separately inventoried; no image generation."
-  ]
+  ],
+  "updatedAtUtc": "2026-10-25T08:35:26.182834+00:00",
+  "logs": {
+    "focused": ".local/class-skills/dragon-kick-focused.log",
+    "focused-run": ".local/class-skills/dragon-kick-focused-run.log",
+    "combined": ".local/class-skills/dragon-kick-combined.log",
+    "full-suite-run": ".local/class-skills/dragon-kick-full-suite-run.log",
+    "content-build": ".local/class-skills/dragon-kick-content-build.log",
+    "integration-build": ".local/class-skills/dragon-kick-integration-build.log",
+    "python-tests": ".local/class-skills/dragon-kick-python-tests.log",
+    "named-readiness": ".local/class-skills/dragon-kick-named-readiness.log",
+    "first-loop": ".local/class-skills/dragon-kick-first-loop.log",
+    "properties": ".local/class-skills/dragon-kick-properties.log",
+    "audit-native": ".local/class-skills/dragon-kick-audit-native.log",
+    "audit-run": ".local/class-skills/dragon-kick-audit-run.log",
+    "installed-server": ".local/class-skills/dragon-kick-installed-server.log",
+    "installed-smoke": ".local/class-skills/dragon-kick-installed-smoke.log",
+    "client-check": ".local/class-skills/dragon-kick-client-check.log",
+    "install-run": ".local/class-skills/dragon-kick-install-run.log",
+    "first-focused-failure": ".local/class-skills/dragon-kick-first-focused-failure.log"
+  },
+  "backup": ".local/class-skills/pre-dragon-kick-install",
+  "runtimeInputs": {
+    "named": 554,
+    "firstLoop": 21,
+    "namedDecisions": 573,
+    "unchangedNamedDecisions": true,
+    "metadataRefresh": "Roadmap caveats updated after frozen regression, followed by actual current-data named/first-loop native exports. Runtime/meaningful balance unchanged after full regression."
+  },
+  "next": "Continue Fists of Fire using tools/reference/fists-of-fire-preflight.json. Compile complete do35/sequence16/charge/conversion/progressive143/38/39 paths before enabling a handler. Reuse shared charge, selected-hand, weapon/fire/field and mitigation infrastructure. Dragon Talon is individually deferred behind action/delivery gates; return to its prepared physical component when those are supported. Player only uses fire/lightning traps; do not repeat martial-arts/Fury playtest questions. All240 skills/classes and separate effects/icons remain in scope."
 }

@@ -1,0 +1,239 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "readerEvidence": "tools/reference/d2r-local-animation-evidence.json",
+  "localTables": {
+    "skills": {
+      "archivePath": "data:data/global/excel/skills.txt",
+      "path": ".local/research/d2r-3.3.93847/skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f"
+    },
+    "armor": {
+      "archivePath": "data:data/global/excel/armor.txt",
+      "path": ".local/research/d2r-3.3.93847/armor.txt",
+      "sha256": "734872b6dde85073c6ebaf4199ec4bd2b30efcbf9f0e60e381af2e22662a1b4f"
+    },
+    "monseq": {
+      "archivePath": "data:data/global/excel/monseq.txt",
+      "path": ".local/research/d2r-3.3.93847/monseq.txt",
+      "sha256": "a48a884a654cab7cafe0be2764fa8a77f428a9b48855d27461d133a1f553898c"
+    },
+    "charstats": {
+      "archivePath": "data:data/global/excel/charstats.txt",
+      "path": ".local/research/d2r-3.3.93847/charstats.txt",
+      "sha256": "4f9e9b670727634298ae562753966baab7eae701ceeb4edd159ba10e18e899c2"
+    }
+  },
+  "bootRowsMatch": [
+    {
+      "code": "hbt",
+      "min": 10,
+      "max": 20,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "lbt",
+      "min": 3,
+      "max": 8,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "mbt",
+      "min": 6,
+      "max": 12,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "tbt",
+      "min": 8,
+      "max": 16,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "uhb",
+      "min": 83,
+      "max": 149,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "ulb",
+      "min": 65,
+      "max": 100,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "umb",
+      "min": 69,
+      "max": 118,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "utb",
+      "min": 50,
+      "max": 145,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "uvb",
+      "min": 60,
+      "max": 110,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "vbt",
+      "min": 4,
+      "max": 10,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "xhb",
+      "min": 39,
+      "max": 80,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "xlb",
+      "min": 26,
+      "max": 46,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "xmb",
+      "min": 23,
+      "max": 52,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "xtb",
+      "min": 37,
+      "max": 64,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    },
+    {
+      "code": "xvb",
+      "min": 28,
+      "max": 50,
+      "strengthPercent": 120,
+      "dexterityPercent": 0
+    }
+  ],
+  "selectedSkillFieldsMatch": [
+    {
+      "skillId": 255,
+      "skill": "Dragon Talon",
+      "fields": {
+        "srvstfunc": 24,
+        "srvdofunc": 42,
+        "mana": 6,
+        "lvlmana": 0,
+        "manashift": 8,
+        "seqnum": 19,
+        "anim": "KK",
+        "seqtrans": "KK",
+        "weapsel": 4,
+        "finishing": 1,
+        "prgchargestocast": 0,
+        "prgchargesconsumed": 1,
+        "Param8": 1,
+        "calc1": "lvl/6+1",
+        "Param1": 5,
+        "Param2": 7,
+        "ToHit": 20,
+        "LevToHit": 35,
+        "Param3": 50,
+        "Param4": 100
+      }
+    },
+    {
+      "skillId": 254,
+      "skill": "Tiger Strike",
+      "fields": {
+        "srvstfunc": 23,
+        "srvdofunc": 34,
+        "prgdam": 1,
+        "mana": 1,
+        "lvlmana": 0,
+        "manashift": 8,
+        "anim": "A1",
+        "seqtrans": "A1",
+        "calc1": "ln12",
+        "Param1": 100,
+        "Param2": 20,
+        "ToHit": 25,
+        "LevToHit": 10,
+        "auralencalc": "par3",
+        "aurastatcalc2": "par4",
+        "Param3": 375,
+        "Param4": 50
+      }
+    },
+    {
+      "skillId": 265,
+      "skill": "Cobra Strike",
+      "fields": {
+        "srvstfunc": 23,
+        "srvdofunc": 34,
+        "prgdam": 2,
+        "mana": 2,
+        "lvlmana": 0,
+        "manashift": 8,
+        "anim": "A1",
+        "seqtrans": "A1",
+        "calc1": "ln12",
+        "Param1": 40,
+        "Param2": 5,
+        "ToHit": 25,
+        "LevToHit": 10,
+        "auralencalc": "par3",
+        "aurastatcalc2": "par4",
+        "Param3": 375,
+        "Param4": 50
+      }
+    },
+    {
+      "skillId": 259,
+      "skill": "Fists of Fire",
+      "fields": {
+        "srvstfunc": 23,
+        "srvdofunc": 35,
+        "prgdam": 4,
+        "mana": 2,
+        "lvlmana": 0,
+        "manashift": 8,
+        "seqnum": 16,
+        "anim": "SQ",
+        "seqtrans": "A1",
+        "weapsel": 3,
+        "Param8": 12,
+        "calc1": "lvl*3",
+        "Param1": 4,
+        "Param2": 4,
+        "ToHit": 25,
+        "LevToHit": 10,
+        "auralencalc": "par3",
+        "aurastatcalc2": "par4",
+        "Param3": 375,
+        "Param4": 50
+      }
+    }
+  ],
+  "limits": [
+    "Strict read-only actual pinned installation data corroborates these selected numeric/structural fields; not full table equivalence or executable behavior.",
+    "Current animation metadata is separately recorded. Static player sequence code, modern per-kick charge consumption and hit/block behavior remain unverified.",
+    "Raw game data stays local/ignored; bounded mechanical facts and hashes only."
+  ]
+}

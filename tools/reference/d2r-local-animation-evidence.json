@@ -1,0 +1,385 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Read-only strict local CASC extraction from the installation recorded in d2r-local-installation-evidence.json",
+  "installationEvidence": "tools/reference/d2r-local-installation-evidence.json",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "archivePath": "data:data/global/animdata.d2",
+  "localRawPath": ".local/research/d2r-3.3.93847/AnimData.d2",
+  "size": 586784,
+  "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "reader": {
+    "library": "https://github.com/ladislav-zezula/CascLib",
+    "commit": "38a34665624b8775bb875274b36191b21c38d97b",
+    "build": "Release static, Linux compatibility compiler define LPDWORD=PDWORD; no source body patch",
+    "sourcePath": ".local/class-skills/casc-reference-reader.cpp",
+    "sourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "open": "CascOpenStorage local/offline default flags0; CascOpenFile by name with CASC_STRICT_DATA_CHECK, no encrypted-zero override or downloads"
+  },
+  "records": [
+    {
+      "code": "AISCHTH",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKHTH",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISCBOW",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKBOW",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISCSTF",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKSTF",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISCXBW",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKXBW",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA11HS",
+      "frames": 15,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA1HT1",
+      "frames": 11,
+      "speed": 208,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA12HS",
+      "frames": 23,
+      "speed": 256,
+      "events": [
+        [
+          11,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA11HT",
+      "frames": 15,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA1HT2",
+      "frames": 11,
+      "speed": 208,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA12HT",
+      "frames": 23,
+      "speed": 256,
+      "events": [
+        [
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA1HTH",
+      "frames": 11,
+      "speed": 256,
+      "events": [
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA1BOW",
+      "frames": 16,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "AIA1STF",
+      "frames": 19,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISC1HS",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKK1HS",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISCHT1",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISC2HS",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISC1HT",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKHT1",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKK2HS",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKK1HT",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIA1XBW",
+      "frames": 21,
+      "speed": 256,
+      "events": [
+        [
+          10,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "AISCHT2",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AISC2HT",
+      "frames": 17,
+      "speed": 256,
+      "events": [
+        [
+          9,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKKHT2",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AIKK2HT",
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "AITH1HS",
+      "frames": 16,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "AITH1HT",
+      "frames": 16,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          2
+        ]
+      ]
+    }
+  ],
+  "cacheComparison": {
+    "cachedSha256": "e3a54b9ab71df7ccdf3655bbba5868c9d53cd8716b0aad25e8c3d5621579cecb",
+    "sameFullFile": false,
+    "selectedRecordsMatch": true,
+    "currentRecordCount": 3631,
+    "cachedRecordCount": 3529,
+    "selectedRecordCount": 32
+  },
+  "limits": [
+    "Current build animation metadata provenance is established; this does not prove the modern executable follows the older scheduler, selected mode/weapon, rate, sequence rewind or player input behavior.",
+    "Raw licensed game files remain ignored/local; only hashes and bounded numeric animation metadata are recorded. No game process memory/input/restart or game file writes were used."
+  ]
+}
