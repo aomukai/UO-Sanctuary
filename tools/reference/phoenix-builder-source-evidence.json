@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.phoenixstrike",
+  "installed": false,
+  "handlerEnabled": false,
+  "reusedCompleteComposition": "tools/reference/cobra-strike-source-evidence.json",
+  "parentSourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "parentCompiledRoutines": {
+    "SKILLS_SrvSt23_AssasinChargeStrikes": "5545eadf694455e1f70de937730e53a2051ed1ee3558c6f4de5d58593c2f3da2",
+    "SKILLS_StatRemoveCallback_ProgressiveStrike": "ebe13b49d08fb643b55f3d046871108fb9c88118dc254d70a4e88d76afbe0619",
+    "SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike": "e9c3a12adee2ad48a9fed56679eb1feb22c622e7b8eedbcb4917824117711fa8",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88"
+  },
+  "fixture": {
+    "path": ".local/class-skills/phoenix-builder-source-probe.json",
+    "sha256": "7328da23b0f6572d3ab4c1a454f6026bc0d3f688cc8b22defd0b77941405e37d",
+    "cppSha256": "f3efe4e2b810f0dd20347d1f4d28c209dc301e91a86bed76a76cd094ab93a458",
+    "cases": 512,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete shared do34executes Phoenix280with current25charge AR and375frame duration. Success adds one independent state charge up to3,preserves initial rank,refreshes expiry and invokes the existing physical allocation/drain/event services.",
+    "Invalid target/record,miss and declared failed new-state allocation do not gain/refesh a charge. No progressive release executes during the charging attack."
+  ],
+  "services": [
+    "Current Param7=25is supplied through the inherited formula50service identifier;synthetic formula IDs are not current binary formula indices.",
+    "Target/stat-list/allocation/physical/durability/events use bounded parent services;4mana belongs to the generic accepted-start caller and is verified natively.",
+    "Current retained-expiry/proportional AR after consuming one and cached A1 timing remain separate existing adapter gaps;no native or current executable skill certificate."
+  ]
+}

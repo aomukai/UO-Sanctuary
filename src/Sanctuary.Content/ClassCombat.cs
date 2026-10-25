@@ -103,6 +103,7 @@ public static class ClassCombat
                 AmazonBow.EquipmentChanged(from);
                 AmazonJavelins.EquipmentChanged(from);
                 BladeFuryModes.EquipmentChanged(from);
+                TigerStrikes.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
         };

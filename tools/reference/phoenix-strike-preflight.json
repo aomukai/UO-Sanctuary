@@ -3,9 +3,10 @@
   "talentId": "assassin.phoenixstrike",
   "sourceId": 280,
   "ability": 191,
-  "status": "Phoenix native trajectory/packet kernels pass initial focused source comparisons; saved release candidate builds but learned handler remains disabled",
+  "status": "Learned Phoenix candidate builds in staging; focused/full/input/world verification and installation pending",
   "installed": false,
   "handlerEnabled": false,
+  "candidateHandlerEnabled": true,
   "source": {
     "cachedPinnedHashes": {
       "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
@@ -483,9 +484,11 @@
     "tools/reference/phoenix-damage-source-evidence.json",
     "tools/reference/phoenix-meteor-source-evidence.json",
     "tools/reference/phoenix-direction-source-evidence.json",
-    "tools/reference/phoenix-chaos-source-evidence.json"
+    "tools/reference/phoenix-chaos-source-evidence.json",
+    "tools/reference/phoenix-builder-source-evidence.json"
   ],
   "openMechanics": [
+    "Ormus Robes remains gated by the existing deferred skill-rand item-effect boundary. Skill mechanics use supported reference gear and scoped numeric mastery providers;do not enable that item to bypass the boundary.",
     "Chaos-ice do35rebuilds its target on elapsed frame0and every third elapsed frame,using saved low seed and signed packed vector. The older signed targetY addition may carry a negative X into the high Y half;current executable behavior remains unverified. Do not silently normalize it into a clean pair or invent homing.",
     "Chaos-ice damage2with current dParam1=100copies stored cold length to freeze and clears ordinary cold length. Reuse compiled freeze-state component evidence;this differs from Ice cubes damage10which retains both lanes."
   ],
@@ -493,5 +496,5 @@
     "effects": "Final Phoenix charge tiers,meteor warning/fall/explosion/fire,chain lightning,chaos ice/trail/freeze and audio remain pending; use identified native placeholders after implementation.",
     "icons": "Talent/left/right/quick icons remain in the separate240-row icon inventory."
   },
-  "next": "Compose current Phoenix source callbacks and numeric/factory/event routes before enabling its learned handler. No class completion certificate."
+  "next": "Finish focused/full learned Phoenix verification,back up and smoke-test installation,then continue unaffected Assassin skills. No class completion certificate."
 }

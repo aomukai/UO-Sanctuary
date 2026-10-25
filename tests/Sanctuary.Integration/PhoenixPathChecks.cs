@@ -40,6 +40,6 @@ public static class PhoenixPathChecks
         {int V(int i)=>r[i].GetInt32();if(V(0)!=1 || V(1)<=0 || V(2)!=1 || V(3)!=0 || V(4)!=1){continue;}var calls=r[12].EnumerateArray().ToArray();Require(calls.Length==19 && V(9)==6 && V(10)==0x8583 && V(11)==0,"Complete source meteor area/field count/filter");var offsets=MartialPhoenixPackets.MeteorOffsets();for(int i=0;i<offsets.Length;i++){var call=calls[i+1];Require(call[1].GetInt32()==40+offsets[i].X && call[2].GetInt32()==70+offsets[i].Y && call[3].GetInt32()==0x8001 && call[4].GetInt32()==MartialPhoenixPackets.MeteorFieldFrames(V(1)),"Complete source18field placement/rank lifetime");}count++;}
         Require(count==5,"Meteor source rank controls");
         bool refused=false;try{MartialPhoenixPaths.Direction(259,0);}catch(NotSupportedException){refused=true;}Require(refused,"Unverified source FP16 overflow domain accepted");
-        Log.Information("Phoenix prepared kernels:4096 full chain paths/seeds,4225 full angle/vector/path compositions,5400 full elapsed curve/packing controls,1152 full packet cases and5 meteor rank layouts pass; learned skill remains disabled");
+        Log.Information("Phoenix prepared kernels:4096 full chain paths/seeds,4225 full angle/vector/path compositions,5400 full elapsed curve/packing controls,1152 full packet cases and5 meteor rank layouts pass; learned action/input verified separately");
     }
 }

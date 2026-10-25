@@ -55,7 +55,7 @@ public static class AssassinCharges
         var row=SkillMechanics.For(CombatAbility.TigerStrike);var values=new SkillValues(row,_=>rank,_=>0,1);
         return checked(state.Count*(int)values.Eval("calc1"));
     }
-    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike),State(owner,CombatAbility.FistsOfFire),State(owner,CombatAbility.ClawsOfThunder),State(owner,CombatAbility.BladesOfIce)}.Where(x=>x!=null).ToArray();
+    internal static MartialCharge[] Finisher(Mobile owner)=>new[]{State(owner,CombatAbility.TigerStrike),State(owner,CombatAbility.CobraStrike),State(owner,CombatAbility.FistsOfFire),State(owner,CombatAbility.ClawsOfThunder),State(owner,CombatAbility.BladesOfIce),State(owner,CombatAbility.PhoenixStrike)}.Where(x=>x!=null).ToArray();
     internal static bool Any(Mobile owner)=>Finisher(owner).Length!=0;
     internal static PlayerWeaponDrain CobraDrain(MartialCharge state,int currentRank)
     {
@@ -90,7 +90,7 @@ public static class AssassinCharges
         foreach(var s in saved)
         {
             if(s==null || s.Owner==0 || !((Serial)s.Owner).IsMobile || !Supports(s.Ability) || s.Count is <1 or >3
-                || s.InitialRank is <1 or >255 || s.AttackPercent!=s.Count*SkillMechanics.For(s.Ability).Parameter(4)
+                || s.InitialRank is <1 or >255 || s.AttackPercent!=s.Count*new SkillValues(SkillMechanics.For(s.Ability),_=>s.InitialRank,_=>0,1).Eval("aurastatcalc2")
                 || !restored.TryAdd((s.Owner,s.Ability),s)){throw new InvalidDataException("Invalid martial charge state");}
         }
         States.Clear();foreach(var p in restored){States.Add(p.Key,p.Value);}

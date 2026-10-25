@@ -41,6 +41,9 @@ public static class MartialPhoenix
     private static void Tables()
     {
         int F(string key,string field)=>NecromancerSummons.Source(key,field);
+        var skill=SkillMechanics.For(CombatAbility.PhoenixStrike);
+        if(skill.Number("prgstack")!=0 || skill.Number("prgdam")!=0 || skill.Parameter(2)!=6 || skill.Parameter(5)!=16 || skill.Parameter(6)!=10)
+        {throw new NotSupportedException("Unmapped Phoenix progressive skill route");}
         if(F("royalstrikemeteorcenter","Range")!=60 || F("royalstrikemeteorcenter","pSrvHitFunc")!=4 || F("royalstrikemeteorcenter","AlwaysExplode")!=1
             || F("royalstrikemeteor","pSrvHitFunc")!=14 || F("royalstrikemeteor","sHitPar1")!=6 || F("royalstrikemeteor","sHitPar2")!=1
             || F("royalstrikemeteorfire","pSrvDoFunc")!=1 || F("royalstrikemeteorfire","pSrvDmgFunc")!=0 || F("royalstrikemeteorfire","CollideType")!=8 || F("royalstrikemeteorfire","Size")!=2)
@@ -50,7 +53,7 @@ public static class MartialPhoenix
             bool cold=key=="royalstrikechaosice";
             if(F(key,"pSrvDoFunc")!=(cold?35:1) || F(key,"pSrvDmgFunc")!=(cold?2:0) || F(key,"pSrvHitFunc")!=0 || F(key,"Range")!=(cold?40:60)
                 || F(key,"Size")!=(cold?1:2) || F(key,"Vel")!=(cold?16:30) || F(key,"CollideKill")!=(cold?1:0) || F(key,"LastCollide")!=(cold?1:0)
-                || F(key,"NextHit")!=1 || F(key,"NextDelay")!=4 || F(key,"ApplyMastery")!=1 || F(key,"SrcDamage")!=0 || F(key,"ToHit")!=0 || F(key,"CanSlow")!=1
+                || F(key,"NextHit")!=1 || F(key,"NextDelay")!=4 || F(key,"ApplyMastery")!=1 || F(key,"SrcDamage")!=0 || F(key,"ToHit")!=0 || F(key,"CanSlow")!=1 || F(key,"VelLev")!=0 || F(key,"Accel")!=0 || F(key,"MaxVel")!=(cold?16:30) || F(key,"ResultFlags")!=4
                 || cold && (F(key,"Param1")!=3 || F(key,"dParam1")!=100))
             {throw new NotSupportedException("Unmapped Phoenix child table route");}
         }
@@ -107,7 +110,7 @@ public static class MartialPhoenix
         }
         return null;
     }
-    private static PhoenixFlight Impact(PlayerMobile owner,BaseCreature target,PhoenixFlight f)
+    internal static PhoenixFlight Impact(PlayerMobile owner,BaseCreature target,PhoenixFlight f)
     {
         Leases[(f.Cast,target.Serial.Value)]=new(f.Cast,target.Serial.Value,f.NextUtc.AddMilliseconds(160));
         if(ClassAvoidance.Missile(target)){return f;}ulong seed=f.Seed;int damage=WeaponMissileDamage.RollValue(f.Minimum256,f.Maximum256,0,n=>(int)SourceRandom.Limited(ref seed,n));

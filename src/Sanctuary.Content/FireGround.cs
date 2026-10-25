@@ -272,7 +272,7 @@ public static class FireGround
             if (patch.Id <= 0 || patch.Min256 < 0 || patch.Max256 < patch.Min256 || patch.Size is < 1 or > 8
                 || patch.Ability is not (CombatAbility.Blaze or CombatAbility.FireWall or CombatAbility.Meteor or CombatAbility.ImmolationArrow or CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike)
                 || patch.Ability==CombatAbility.ImmolationArrow && (patch.SkillRank<1 || patch.Size!=1 || patch.DamageRate!=41 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
-                || patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
+                || (patch.Ability is CombatAbility.FistsOfFire or CombatAbility.PhoenixStrike) && (patch.Owner==0 || !((Serial)patch.Owner).IsMobile || patch.SkillRank is <1 or >255 || patch.Size!=2 || patch.DamageRate!=0 || patch.X*2!=Math.Floor(patch.X*2) || patch.Y*2!=Math.Floor(patch.Y*2))
                 || !double.IsFinite(patch.X + patch.Y) || !_patches.TryAdd(patch.Id, patch)) { throw new InvalidDataException("Invalid fire patch"); }
             _nextId = Math.Max(_nextId, patch.Id);
         }

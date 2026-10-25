@@ -10,7 +10,7 @@ namespace Sanctuary;
 public static class TigerStrikes
 {
     internal sealed record Pending(Serial Target,bool Basic,long EffectAt,CombatAbility Ability=CombatAbility.TigerStrike);
-    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.TigerStrike or CombatAbility.CobraStrike;
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.TigerStrike or CombatAbility.CobraStrike or CombatAbility.PhoenixStrike;
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
@@ -80,6 +80,7 @@ public static class TigerStrikes
         var fire=FistsFireRelease.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.FistsOfFire));
         var lightning=MartialLightning.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.ClawsOfThunder));
         var ice=MartialCold.Capture(owner,states.FirstOrDefault(x=>x.Ability==CombatAbility.BladesOfIce));
+        var phoenix=states.FirstOrDefault(x=>x.Ability==CombatAbility.PhoenixStrike);
         double roll=ElementRoll();var raw=GearEffects.Damage(owner,roll,target,ed,PhysicalRoll,Utility.Random);
         var packet=GearEffects.PrepareWeaponImpact(owner,target,roll,Effects,raw,
             skillElements:fire==null && lightning==null && ice==null?null:new GearDamage(0,(fire?.Inline256??0)/256.0,(ice?.Inline256??0)/256.0,(lightning?.Inline256??0)/256.0,0,ColdMs:0),physicalToFirePercent:fire?.ConversionPercent??0);
@@ -90,10 +91,16 @@ public static class TigerStrikes
         FistsFireRelease.AfterParent(owner,center,map,fire,TimedEffects.Now);
         MartialLightning.AfterParent(owner,center,map,lightning,TimedEffects.Now);
         MartialCold.AfterParent(owner,target,center,map,ice,TimedEffects.Now);
+        MartialPhoenix.AfterParent(owner,target,center,map,phoenix,TimedEffects.Now);
         return true;
     }
     internal static void Cancel(PlayerMobile owner)
     {var session=ClassCombat.Existing(owner);if(session==null){return;}session.TigerAttack=null;if(Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;}}
+    internal static void EquipmentChanged(PlayerMobile owner)
+    {
+        var session=ClassCombat.Existing(owner);
+        if(session?.TigerAttack!=null && (CombatTiming.Equipped(owner)?.Serial??Serial.Zero)!=session.PendingWeapon){Cancel(owner);}
+    }
 }
 
 // Common Attack is not a talent and must not take one of the240 talent identities.
