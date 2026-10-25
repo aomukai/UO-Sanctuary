@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847",
   "talentId": "assassin.dragonclaw",
   "sourceId": 260,
-  "status": "Next Assassin finisher; source/native integration pending",
+  "status": "Complete legacy start/packet/do46/progressive composition checked; current policy/native integration pending",
   "installed": false,
   "handlerEnabled": false,
   "nonblocking": true,
@@ -37,9 +37,7 @@
     }
   },
   "reviewedOnly": [
-    "Complete start25 body in SkillMonst.cpp only requires a target. It does not precompute an attack packet; generic start/payment wrapper remains separate.",
-    "Complete do46 in SkillAss.cpp calls full sub6FCF8C70 separately per contact, invokes progressive release on its resulting packet, drains/commits durability, then clears/sets the sequence flag by contact ordinal. These bodies are reviewed, not newly compiled by this preflight.",
-    "sub6FCF8C70 adds progressive AR and skill AR, Tiger ED and own calc1, fills the weapon packet before shared progressive elemental conversion, and allocates combat even for unsuccessful result. Exact nested services need composition."
+    "Generic start/payment wrappers, actual hand stat posting and exact current hit/block behavior remain outside the new bounded source composition."
   ],
   "reusable": [
     "Installed Fists sequence16 contacts0/1 and saved primary/secondary hand contexts, input,once-paid mana,cancellation and actual world reload tests. Do not reuse builder ChargeContact semantics for a finisher.",
@@ -47,18 +45,26 @@
     "Original current-family calculator has a distinct dualOnly Dragon Claw rate branch: separately diminished hand IAS and WSM average,base256. Fists primary-only rate must not be copied. See assassin-claw-modern-rate-evidence.json."
   ],
   "required": [
-    "Compile full start25/do46/sub6FCF8C70/progressive-release and scheduler/selector/packet ordering under explicit real service contexts.",
+    "Compose compiled source ordering with actual native selected-hand packets, lifetime and source damage services; preserve the distinct current Dragon speed branch and resolve the unsupported modern charged-contact policy before enabling.",
     "Use both-claw eligibility fromitypea/itypeb; confirm allocation/miss/block/lethal/target-loss/rank/synergy/item contexts.",
     "Resolve current per-contact versus per-sequence consumption and charged guaranteed-hit/block semantics; legacy full-list removal does not prove modern consume-one behavior.",
     "Integrate actual current Dragon rate/stat suppliers, once-paid2mana, ordinary low-mana fallback,cancellation and real quick/held input; test two world reloads before enabling."
   ],
   "questions": [
-    "Current charged finisher guarantee/block and per-contact consumption need current primary evidence or direct observations. Player only plays traps: do not repeat martial-arts playtest requests.",
+    "Released Blizzard2.4 notes establish broad guaranteed-hit and consume-one rules, corroborated by the current table. They do not settle exact per-contact consumption/block behavior in3.3.93847. Player only plays traps: do not repeat martial-arts playtest requests.",
     "Firsthand2022 primary-hand chance-to-hit sharing report is not current3.3.93847 proof; retain it as an acceptance question, not an invented behavior."
   ],
   "assets": {
     "effects": "Final dual-claw sequence/contact/charge-release/audio remain pending; identified ordinary weapon/charge/fire markers can be reused during mechanics.",
     "icons": "Talent/left/right/quick icons are separately inventoried."
   },
-  "continueIfBlocked": "Document any specific unsupported branch and continue Claws of Thunder; keep the all-class goal active."
+  "continueIfBlocked": "Document any specific unsupported branch and continue Claws of Thunder; keep the all-class goal active.",
+  "sourceEvidence": "tools/reference/dragon-claw-source-evidence.json",
+  "compiledSource": {
+    "cases": 1152,
+    "contacts": 2304,
+    "completeFunctions": 13,
+    "sourceEvidence": "tools/reference/dragon-claw-source-evidence.json",
+    "scope": "Complete start25, per-contact packet and do46 wrappers plus full Tiger/Cobra/Fists progressive helpers/release callbacks under declared combat/formula/world services. Old full-list removal is an oracle control, not the modern charge policy."
+  }
 }

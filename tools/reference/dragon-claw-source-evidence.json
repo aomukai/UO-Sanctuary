@@ -1,0 +1,64 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "assassin.dragonclaw",
+  "sourceId": 260,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974",
+    "source/D2Game/src/SKILLS/SkillMonst.cpp": "2f5e399e347540b916b5390a308b2ffe40218f4b771267a6059fbfd394097d4d"
+  },
+  "compiledRoutines": {
+    "sub_6FCF5680": "791fe308e4b601013714b27640c3a1e6ada877c3912915b2bdf6882ed0a7bd88",
+    "SKILLS_SrvSt25_64_DragonClaw_MonFrenzy": "6db553e03765c40ec5cace3e1757f6054bf460df77aa4f8d728818572472c512",
+    "sub_6FCF8C70": "b74a34f75bac11977b773f1cbcdc15a98fa9bf2a990da99dffb2ccfe90da54aa",
+    "SKILLS_SrvDo046_DragonClaw": "4103b7552d64e1e65f78eeaa8d1fd75f01dce13606b09a3c0578e523ee17cfa4",
+    "sub_6FCF5870": "dea4aa805fc66d81e82a40546d42c4812b9f77cdad6a9eef819ec680c44476c3",
+    "sub_6FCF5BC0": "e740b401d198473cff5ce134603f63c196e37a3bc70994994d2ee7e1bd35bad4",
+    "sub_6FCF77E0": "cd4ba67549315fcf490e0576e2d401e958528e3aa4fbf481a2951e3897e865fb",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d",
+    "SKILLS_GetProgressiveSkillMissileId": "cac2f813ee2c5d35d758df7938f352f98b338d6247b9114b114b80f6bccb10b4",
+    "SKILLS_EvaluateProgressiveSkillCalc": "b6afb9a919e7458c52338d200a3b9ca80db9a12526f3b6752d65ed6d2783d419",
+    "SKILLS_SrvDo038_FistsOfFire_BladesOfIce_ProgressiveFn2": "71259c405fee7b5db27bc1c59c13c0ee84f5ae24c2a6df8ac38cfc9e2eb109fc",
+    "SKILLS_SrvDo039_FistsOfFire_BladesOfIce_ProgressiveFn3": "003f8acdc1a884265a76c47cc27bf0c582c5280832a86fe8b0c6976ff11d93f3",
+    "SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn": "226af98db59cda0eb4798b616f4e1cb709f21bcc0cefafce2d924a0dc5042928"
+  },
+  "reusedComposition": "tools/reference/martial-fire-release-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/dragon-claw-source-probe.json",
+    "sha256": "432541c4398b3dd33bacccf9daeb554811b886fca18494ab86535dce657498a8",
+    "cppSha256": "a64974254a9e41900fdb30d3521e030c00d80e74e535002a70f5149737840c78",
+    "cases": 1152,
+    "contacts": 2304,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete start25 checks target existence only; record/range/charge state is not a start25 condition. Generic eligibility/payment wrappers are separate.",
+    "Complete do46 invokes its complete packet builder on each contact, then queries combat, invokes full progressive release when a packet is returned, drains durability and sets the do-function flag from the saved contact ordinal. Missing target returns before all of that.",
+    "Complete packet builder adds posted progressive AR to skill AR. Successful packets add full progressive Tiger ED and skill calc1 before FillDamageValues, then apply full progressive Cobra/Fists conversion helpers before AllocCombat. Misses still allocate combat.",
+    "Under legacy full-list removal, a first successful in-range contact with returned combat removes the state before the next contact. A miss or failed lookup/range leaves it for the second. This does not select the current consume-one or guarantee/block policy.",
+    "Fists secondary area callback can drain the parent before the outer do46 drain. This ordering is visible in the composed trace rather than silently deduplicated."
+  ],
+  "declaredServices": [
+    "One progressive family at a time: Tiger/Cobra/Fists with count0/1/3, stored/live rank1/20. Full stacked ledger/state selection is not supplied by this bounded fixture.",
+    "Result flags are injected success/miss per contact; current hit/defense/block rules are not compiled. Posted progressive AR is a declared stat, including after list removal, not a proven modern stat-removal lifetime.",
+    "FillDamageValues asserts source128/flag0, captures pre-fill ED and supplies exactly100 physical in FP256 units. Weapon/stat/critical damage and native health/procs are separate; this proves ordering, not real full weapon damage.",
+    "Formula service supplies current selected Dragon calc1 and declared Tiger50-per-charge/Cobra4-per-rank/Fists rank*100 elemental values. Exact current numeric getters remain separately pinned data/native work.",
+    "Complete existing Fists progressive dispatcher and area/ground callbacks reuse their declared RNG/world/factory/health boundaries. Missing-row tests reset old combat; real stale combat allocation/lookup behavior is not inferred.",
+    "Calls explicitly supply contact ordinals0/1; complete scheduler/selector composition is separate assassin-claw-sequence-source-evidence.json. Hand eligibility and actual both-hand stat posting are not certified."
+  ],
+  "currentReference": {
+    "officialPatchNotes": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "established": "Released2.4 notes specify one charge per family and guaranteed hit with martial charges, and Dragon damage+15 per level. Current extracted table corroborates consumed1 and calc1. Exact multiple-contact consumption and block bypass are not settled by that wording.",
+    "stillUncertain": [
+      "Per-contact versus per-cast consumption in3.3.93847.",
+      "Whether charged guaranteed hit skips defense only or also dodge/block and which contact receives the guarantee."
+    ]
+  },
+  "handlerEnabled": false,
+  "installed": false,
+  "limits": [
+    "Source preparation only; no native Dragon Claw skill is enabled.",
+    "Old full-list removal is deliberately retained in this oracle and must not be ported as the modern consume-one behavior.",
+    "Current executable/stat/rate/mode/seed/target/geometry/item/client acceptance and final effects/icons remain pending."
+  ]
+}
