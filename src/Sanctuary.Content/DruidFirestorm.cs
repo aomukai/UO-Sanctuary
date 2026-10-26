@@ -40,7 +40,7 @@ public static class DruidFirestorm
     private static PlayerMobile Owner(uint serial)=>World.FindMobile((Serial)serial) is PlayerMobile{Alive:true,Deleted:false} p
         && ClassCreation.Profiles.TryGet(p.Serial,out var profile) && profile.Class==DiabloClass.Druid?p:null;
     private static bool Fighting(PlayerMobile p,int map,bool? actions)=>p!=null && p.Map!=null && p.Map!=Map.Internal && p.Map.MapID==map
-        && !SpellHelper.IsTown(p.Location,p) && (actions??p.NetState is{Running:true});
+        && (actions??p.NetState is{Running:true});
     internal static FirestormSave Snapshot()
     {var pool=_pool;return new(pool.Emitters.Values.OrderBy(x=>x.Id).ToArray(),pool.Patches.Values.OrderBy(x=>x.Id).ToArray(),pool.NextId);}
     internal static void Cancel(Mobile owner)
@@ -101,7 +101,7 @@ public static class DruidFirestorm
         {throw new NotSupportedException("Unsupported Firestorm supplier");}
         int Field(string key)=>NecromancerSummons.Source("firestormmaker",key);
         if(Field("pSrvDoFunc")!=23 || Field("Range")!=40 || Field("Vel")!=8 || Field("VelLev")!=0 || Field("Param1")!=0
-            || Field("CollideType")!=8 || Field("Size")!=2 || Field("Accel")!=0 || values.Eval("calc1")!=3)
+            || Field("CollideType")!=8 || Field("Size")!=2 || Field("Accel")!=0 || Field("Town")!=0 || Field("SrcTown")!=0 || values.Eval("calc1")!=3)
         {throw new NotSupportedException("Unsupported Firestorm maker route");}
         int ax=aim.X*2,ay=aim.Y*2,dx=ax-owner.X*2,dy=ay-owner.Y*2;
         if(ax<=0 || ay<=0 || ax>65535 || ay>65535 || Math.Abs(dx)>=100 || Math.Abs(dy)>=100){return [];}
@@ -140,7 +140,7 @@ public static class DruidFirestorm
     {
         int Field(string key)=>NecromancerSummons.Source("firestorm",key);
         if(Field("pSrvDoFunc")!=1 || Field("pSrvDmgFunc")!=0 || Field("pSrvHitFunc")!=0 || Field("Range")!=15 || Field("Size")!=2
-            || Field("Vel")!=0 || Field("NextHit")!=0 || Field("NextDelay")!=0 || Field("CollideType")!=3 || Field("DamageRate")!=41 || Field("SoftHit")!=1)
+            || Field("Vel")!=0 || Field("NextHit")!=0 || Field("NextDelay")!=0 || Field("CollideType")!=3 || Field("DamageRate")!=41 || Field("SoftHit")!=1 || Field("Town")!=0 || Field("SrcTown")!=0)
         {throw new NotSupportedException("Unsupported Firestorm field route");}
     }
     private static void AddPatch(PlayerMobile owner,FirestormEmitter maker,int x,int y,DateTime at)
@@ -171,6 +171,10 @@ public static class DruidFirestorm
     {
         var owner=Owner(s.Owner);int frame=s.Frame+1;var next=s with{Frame=frame,NextUtc=s.NextUtc.AddMilliseconds(40)};
         if(owner==null || owner.Map!=Map.Internal && owner.Map?.MapID!=s.Map){_pool=_pool with{Emitters=_pool.Emitters.Remove(s.Id)};return;}
+        // Both current rows have Town=0/SrcTown=0. Their own location
+        // ends the missile in town; the caster entering town does not.
+        if(owner.Map!=Map.Internal && SpellHelper.IsTown(new Point3D((int)Math.Round(s.X),(int)Math.Round(s.Y),s.Z),owner))
+        {_pool=_pool with{Emitters=_pool.Emitters.Remove(s.Id)};return;}
         if(!Fighting(owner,s.Map,actions))
         { _pool=_pool with{Emitters=frame>=40?_pool.Emitters.Remove(s.Id):_pool.Emitters.SetItem(s.Id,next)};return;}
         // do23 sees the flag left by the preceding generic movement. Its
@@ -192,6 +196,8 @@ public static class DruidFirestorm
     {
         var owner=Owner(s.Owner);
         if(owner==null || s.NextUtc>=s.UntilUtc || owner.Map!=Map.Internal && owner.Map?.MapID!=s.Map)
+        {_pool=_pool with{Patches=_pool.Patches.Remove(s.Id)};return;}
+        if(owner.Map!=Map.Internal && SpellHelper.IsTown(new Point3D((s.X+1)/2,(s.Y+1)/2,s.Z),owner))
         {_pool=_pool with{Patches=_pool.Patches.Remove(s.Id)};return;}
         var next=s with{NextUtc=s.NextUtc.AddMilliseconds(40)};_pool=_pool with{Patches=_pool.Patches.SetItem(s.Id,next)};
         if(!Fighting(owner,s.Map,actions)){return;}

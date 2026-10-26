@@ -8,6 +8,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Server;
 using Server.Items;
+using Server.Regions;
+using Server.Spells;
 using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary.Integration;
@@ -158,6 +160,20 @@ public static class FirestormChecks
         }
         Timer.StartTimer(TimeSpan.FromMilliseconds(20),Inspect);
     }
+    private static void TownFlags()
+    {
+        var p=Fresh();Train(p,CombatAbility.Firestorm);Mana(p);var origin=p.Location;var target=Target(p);var at=TimedEffects.Now.AddDays(1);
+        var town=new GuardedRegion("FirestormFixtureTown",p.Map,1000,new Rectangle2D(p.X-4,p.Y-2,2,5));town.Register();
+        try
+        {
+            int life=SkillHealth.Balance256(target);Launch(p,at);p.MoveToWorld(new(origin.X-3,origin.Y,origin.Z),p.Map);Require(SpellHelper.IsTown(p.Location,p),"Native owner-town fixture");
+            DruidFirestorm.Tick(at.AddSeconds(3),true);Require(SkillHealth.Balance256(target)<life,"SrcTown0 suppressed released fire outside town");
+            Ready(p);Require(!Start(p,ground:origin),"Firestorm cast from town");
+            p.MoveToWorld(origin,p.Map);DruidFirestorm.Create(p,new(origin.X-10,origin.Y,origin.Z),SkillMechanics.Values(p,CombatAbility.Firestorm),at);var direct=DruidFirestorm.Snapshot().Emitters.Single(x=>!x.Charged);DruidFirestorm.Restore(new([direct],[],direct.Id));
+            DruidFirestorm.Tick(at.AddSeconds(3),true);Require(DruidFirestorm.Snapshot() is{Emitters.Length:0,Patches.Length:0},"Town0 emitter continued through town");
+        }
+        finally{DruidFirestorm.Cancel(p);town.Unregister();target.Delete();p.Delete();}
+    }
     private static void OfflineAndLifecycle()
     {
         var p=Fresh();var a=Target(p);var at=TimedEffects.Now.AddDays(1);Launch(p,at);DruidFirestorm.Tick(at.AddMilliseconds(120),true);int life=SkillHealth.Balance256(a);DruidFirestorm.Tick(at.AddSeconds(3),false);
@@ -203,7 +219,7 @@ public static class FirestormChecks
     {File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,target.Serial.Value,SkillHealth.Balance256(target),DruidFirestorm.Snapshot(),_pending,_pendingMana)));}
     private static void Check()
     {
-        Require(DruidFirestorm.Snapshot() is{Emitters.Length:0,Patches.Length:0},"Unexpected existing Firestorm fixtures");Formula();Casting();MotionAndCapture();FieldsAndDefense();WallsAndReductions();OfflineAndLifecycle();
+        Require(DruidFirestorm.Snapshot() is{Emitters.Length:0,Patches.Length:0},"Unexpected existing Firestorm fixtures");Formula();Casting();MotionAndCapture();FieldsAndDefense();WallsAndReductions();TownFlags();OfflineAndLifecycle();
         var p=Fresh();Train(p,CombatAbility.Firestorm);var target=Target(p);var at=TimedEffects.Now.AddDays(2);Launch(p,at);DruidFirestorm.Tick(at.AddMilliseconds(6*40),true);Require(DruidFirestorm.Snapshot() is{Emitters.Length:3,Patches.Length:>0},"Saved active emitter/patch setup");WorkerAndMalformed();Require(SkillBindings.Instance.Assign(p,true,CombatAbility.Firestorm) && SkillBindings.Instance.Assign(p,false,CombatAbility.Firestorm) && SkillBindings.Instance.AssignQuick(p,4,CombatAbility.Firestorm),"Saved Firestorm bindings");
         var pending=Fresh();Train(pending,CombatAbility.Firestorm);Mana(pending);Ready(pending);_pending=pending.Serial.Value;_pendingMana=NecromancerEffects.ManaBalance256(pending);Require(Start(pending),"Saved unpaid Firestorm windup");ClassCombat.For(pending).EffectAt=Core.TickCount+3600000;ClassCombat.For(pending).NextAction=Core.TickCount+3601000;Save(p,target);
     }
