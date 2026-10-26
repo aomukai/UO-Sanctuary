@@ -63,14 +63,7 @@ internal static class DruidSpiritWolfWorld
     internal static SpiritWolfWorldState Park(SpiritWolfWorldState s)=>Neutral(s,1) with{PathOverride=0,VelocityBonus=0,PathBudget=0};
     private static void Store(DruidSpiritWolfBody body,SpiritWolfWorldState s)
     {body.RestorePrepared(body.Prepared with{Controller=s,NextRecoveryUtc=s.NextUtc});}
-    private static bool Point(DruidSpiritWolfBody body,Point2D cell,out Point3D point)
-    {
-        point=new((cell.X+1)/2,(cell.Y+1)/2,body.Z);var map=body.Map;
-        if(map==null || map==Map.Internal || cell.X<=0 || cell.Y<=0 || cell.X>=map.Width*2 || cell.Y>=map.Height*2){return false;}
-        if(Teleportation.Space(map,point,body,true)){return true;}
-        int z=map.GetAverageZ(point.X,point.Y);if(Math.Abs(z-body.Z)>=16){return false;}
-        point=new(point.X,point.Y,z);return Teleportation.Space(map,point,body,true);
-    }
+    private static bool Point(DruidSpiritWolfBody body,Point2D cell,out Point3D point)=>PetGroundWorld.Point(body,cell,out point);
     private static int Collision(DruidSpiritWolfBody body,int x,int y)=>Point(body,new(x,y),out _)?0:0x3c01;
     internal static bool Eligible(DruidSpiritWolfBody body,PlayerMobile owner,Mobile target)=>target is BaseCreature creature
         && target is{Alive:true,Deleted:false} && target.Map==body.Map && !target.Blessed && target.CanBeDamaged()
@@ -135,7 +128,7 @@ internal static class DruidSpiritWolfWorld
         if((Draw(ref s)&1)!=0){x=-x;}if((Draw(ref s)&1)!=0){y=-y;}
         return new(target.X+x,target.Y+y);
     }
-    private static int Room(DruidSpiritWolfBody body,Point2D p)=>p.X>0&&p.Y>0&&p.X<body.Map.Width*2&&p.Y<body.Map.Height*2?body.Map.MapID+1:0;
+    private static int Room(DruidSpiritWolfBody body,Point2D p)=>PetGroundWorld.Room(body,p);
     private static SpiritWolfWorldState Think(DruidSpiritWolfBody body,PlayerMobile owner,SpiritWolfWorldState initial,DateTime at)
     {
         var s=initial with{NextThink=0};var primary=Primary(body,owner,s);Mobile potential=owner.Combatant;

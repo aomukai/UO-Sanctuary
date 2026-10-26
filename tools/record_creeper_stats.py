@@ -121,7 +121,7 @@ def record(check=False):
                     sourceAndNativeContactCases=864, sourceAndNativeSequentialCases=6,
                     uniqueSourceAiContexts=1873, difficultyAiReplays=3, nativeAiComparisons=5619, pythonTests=70,
                     namedAuditFingerprints=len(audits[0]['InputHashes']), firstLoopFingerprints=len(audits[1]['InputHashes']), unchangedNamedDefinitions=573,
-                    savedLifeOnlyBody=True, automaticWorldClock=False, learnedHandler=False, noGeneratedEquipmentUnderPinnedDispatch=True,
+                    savedLifeOnlyBody=True, lifeOnlyFixtureAutomaticClock=False, learnedHandler=False, noGeneratedEquipmentUnderPinnedDispatch=True,
                     scope='Prepared numeric/outer-AI components and saved vulnerable life/owner body; no world AI, VINE_BEAST state, learned cast, trail or combat acceptance.',
                     hashes={str(p.relative_to(ROOT)): sha(p) for p in paths},
                     established=[

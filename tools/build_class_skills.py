@@ -165,6 +165,10 @@ def products():
         if actions:wolf_fields[mode+'Action']=actions[0]
     assert [wolf_fields[k] for k in ['S1Frames','S1Speed','S1Action','A1Frames','A1Speed','A1Action','GHFrames','GHSpeed']] == [13,72,3,13,176,9,7,256]
     summons += [{'key':'spiritwolf-animation','fields':wolf_fields}]
+    creeper_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/creeper-preflight.json').read_text())['animation']['records']}
+    assert [creeper_animations['K9S1HTH'][k] for k in ['frames','speed','events']] == [2,256,[[1,2]]]
+    summons += [{'key':'plaguepoppy-animation','fields':{'S1Frames':2,'S1Speed':256,'S1SkillAction':1,
+        'WLFrames':creeper_animations['K9WLHTH']['frames'],'WLSpeed':creeper_animations['K9WLHTH']['speed']}}]
     vine = source_skills['294']
     summons += [{'key':'Vine Attack','fields':{k:v for k,v in vine.items() if isinstance(v,(int,str)) and not k.startswith('*') and k != 'lineNumber'}}]
     models = json.loads((SOURCE / 'json/monstats2.json').read_text())

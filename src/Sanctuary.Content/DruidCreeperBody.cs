@@ -12,6 +12,7 @@ namespace Sanctuary;
 internal sealed record CreeperBodyState(uint Owner,CreeperSnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
 {
     public string Profile{get;init;}="prepared-noRatio-life-and-owner-v1";
+    public CreeperWorldState Controller{get;init;}
 }
 
 // Internal saved vulnerable life/owner backend. No live VINE_BEAST state,
@@ -21,7 +22,15 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private CreeperBodyState _prepared;
-    internal CreeperBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<CreeperBodyState>(_saved));
+    internal bool ControllerLoaded{get;set;}
+    internal CreeperBodyState Prepared
+    {
+        get
+        {
+            var s=_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<CreeperBodyState>(_saved));
+            return s?.Controller is{} c?s with{Controller=DruidCreeperWorld.Copy(c)}:s;
+        }
+    }
     internal string SavedText=>_saved;
     public override DiabloClass SummonClass=>DiabloClass.Druid;
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
@@ -64,12 +73,13 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
                 || state.Profile!="prepared-noRatio-life-and-owner-v1"
                 || DruidCreeperStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Creeper life/ownership state");}
+            if(state.Controller!=null){DruidCreeperWorld.Validate(state.Controller);}
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Creeper snapshot",e);}
     }
     internal void RestorePrepared(CreeperBodyState state)
-    {Validate(state);string json=JsonSerializer.Serialize(state);_prepared=state;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidCreeperWorld.Copy(c)}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidCreeperBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         // Prepared body only uses an ordinary native legal ground point. Its
@@ -104,6 +114,7 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
     // offline/inactive-history frames are discarded without healing or replay.
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){throw new InvalidOperationException("Creeper recovery belongs to its world controller");}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Creeper clock must be UTC");}
         if(Deleted || Prepared is not{} state || state.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner || owner.Serial.Value!=state.Owner){Delete();return;}
@@ -119,5 +130,10 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterCreeperLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<CreeperBodyState>(_saved);Validate(_prepared);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<CreeperBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){RestorePrepared(_prepared);ControllerLoaded=true;DruidCreepers.Track(this);}}
+    public override void SuspendActions()
+    {
+        base.SuspendActions();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidCreeperWorld.Park(c)});}
+    }
+    public override void OnAfterDelete(){DruidCreepers.Forget(this);base.OnAfterDelete();}
 }

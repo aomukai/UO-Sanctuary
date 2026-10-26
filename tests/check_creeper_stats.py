@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import threading
+from check_raven_stats import drain
 import tempfile
 from check_britain import ROOT, SERVER, Session
 
@@ -72,16 +74,27 @@ def check():
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
                     commands = ['creeper-ai-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands.append('spirit-wolf-world-check' if boot == 0 else 'spirit-wolf-world-reload-check')
                     commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
+                    commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')
                     if audit and boot == 0:
                         commands.append('first-loop-catalogue-check')
                     for command in commands:
                         session.send(command)
                         assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
+                    with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                        threading.Thread(target=drain, args=(client,), daemon=True).start()
+                        session.send('creeper-world-live-check')
+                        assert session.expect(r'creeper-world-live-check: (passed|failed)').group(1) == 'passed'
+                        session.expect('creeper-world-live: ready')
+                        client.sendall(b'\x73\x00')
+                        assert session.expect(r'creeper-world-live-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
                     session.close()
+        shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'wolf-world-fixtures.json')
+        shutil.copy2(folder / 'creeper-world-fixtures.json', STAGE / 'world-fixtures.json')
         shutil.copy2(folder / 'creeper-body-fixtures.json', STAGE / 'body-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
     print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass3boots/2actual reloads; saved life-only Creeper body checked, world AI/mats and learned handler pending; installed world untouched.')
