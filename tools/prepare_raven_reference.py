@@ -90,8 +90,16 @@ def build(local_root, installation, check=False):
             'Implement and verify the actual saved Raven actor, capped replacement, casting/resource/input, owner/facet/offline/death/class transitions, natural attacks/exhaustion and two real world reloads. Native movement/flight/geometry/timer/client projections must be identified.',
             'Exact generated monster equipment/property consumers remain a separate earlier gap; Raven only needs its identified property route, not arbitrary item support.',
             'Final summon/bird/flight/attack/blind/retire/audio effects and separate talent/right/quick icons remain in the existing placeholder inventories.'
-        ], questions=[
-            'Optional current-build Raven attack-dive budget at an observed effective rank; user question is pending and nonblocking. Until observed, modern AI consumption remains unverified; current table formulas and legacy AI expectations are separate evidence.'
+        ], userObservation=dict(
+            date='2026-10-26', referenceVersion='3.3.93847', hardRank=20, approximateItemBonus=9,
+            report='User has not counted attack dives. At20hard points and approximately9from items, Ravens last noticeably longer than at a lower skill level.',
+            scope='Qualitative rank-dependent persistence observation only; exact effective rank, dive count, attempt-versus-hit consumption and modern AI timing are not measured.'),
+        secondaryReference=dict(url='https://diablo.fandom.com/wiki/Raven', suppliedByUser=True,
+            accessedDate='2026-10-26', access='Direct fetch restricted; search-indexed page text was available.',
+            corroboration='Lists12attacks per Raven at rank1 and31at rank20, increasing by1per rank, and a maximum5Ravens. This agrees with the pinned table formulas.',
+            limits='Community page is not pinned to build3.3.93847. Its other claims, including guaranteed blind chance, do not override local data or establish modern event behavior; the inspected legacy blind event clamps chance to99.'),
+        questions=[
+            'Exact current-build Raven attack-dive budget remains unmeasured and nonblocking. The user confirms noticeably longer persistence at high rank; current table formulas and legacy AI expectations remain separate evidence.'
         ], next='Finish Armageddon full regression and exact-package installation first, then Raven source/native implementation; keep each uncertain branch explicit.')
     out = ROOT / 'tools/reference/raven-preflight.json'
     text = json.dumps(evidence, indent=2) + '\n'

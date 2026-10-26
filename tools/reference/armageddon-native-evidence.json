@@ -12,8 +12,8 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
-  "fullClassPassedMarkers": 0,
+  "fullClassRegression": true,
+  "fullClassPassedMarkers": 1154,
   "pythonTests": 70,
   "nativeEndpointComparisons": 55080,
   "nativeEmitterComparisons": 720,
@@ -90,7 +90,10 @@
     ".local/class-skills/armageddon/native-fixtures.json": "9b2f8d80b0c124c454a832b11fdc8db5ff0776222f23f4385af969bf3ec2e1e3",
     ".local/class-skills/armageddon/python-tests.log": "7d5b8afc7814de7c0f88b4cf7123def4354af3431eee83d16f5f6691e376ec25",
     ".local/class-skills/armageddon/native-audits.log": "6ef19635e5e1f2cd6d48d735b39b1248fbb1792222776fa90a57d29ac826b026",
-    ".local/class-skills/armageddon-focused-run.log": "922ad1bd567a6576b1f57f484cbef565bfb7eaa0a45414e4c51f7b4bcfab4bed"
+    ".local/class-skills/armageddon-focused-run.log": "922ad1bd567a6576b1f57f484cbef565bfb7eaa0a45414e4c51f7b4bcfab4bed",
+    ".local/class-skills/armageddon/class-inputs.json": "1ec8cb3475b8e148ecfcbb8972dc5f87c2c96259a6f6bd3c09757a9f2b2a08ce",
+    ".local/class-skills/armageddon/class-native-checks.log": "66304b1c3fba225d795a2262076c29d1b2598ed85ced6f69f80e9a84b29944fd",
+    ".local/class-skills/armageddon-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC self/right/quick cast pays35mana once at release. Low/lost mana, stop/out-and-back/recovery cancellation, duplicate release, no localdelay, real Tarnhelm and lower-rank recast replacement pass. Hurricane remains independent.",
