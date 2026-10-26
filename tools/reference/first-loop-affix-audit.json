@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
-  "ContentAssemblyPath": ".local/class-skills/corpse-explosion/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
+  "ContentAssemblyPath": ".local/class-skills/cyclone-armor/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",

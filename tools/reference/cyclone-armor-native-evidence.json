@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "handlerEnabledInCandidate": true,
   "baseCommit": "e757bbf",
   "classHandlers": 1,
@@ -10,7 +10,7 @@
   "connectedCasts": 3,
   "formulaCasesPerBoot": 6885,
   "sourceComparisonsPerBoot": 9072,
-  "updatedAtUtc": "2026-10-26T00:33:05.639512+00:00",
+  "updatedAtUtc": "2026-10-26T00:44:06.845108+00:00",
   "contentSha256": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
   "integrationSha256": "4b00f39f6aa3e6fc3d04a42208e2d6888016a1cc9e5afd7f11afecf1fdb7695f",
   "inputHashes": {
@@ -44,7 +44,7 @@
     ".local/class-skills/cyclone-armor-content-build.log": "69f123901cf8939dfa22bb9a4c77edb163b63d26146aac92f765c17d24524214",
     ".local/class-skills/cyclone-armor-integration-build.log": "fa317ece0eec5f37a369fae51196a13a0a5ef553172e12dae4e868a3b230ff66",
     ".local/class-skills/cyclone-armor/cyclone-armor-checks.log": "87452be62fbda013cd5d07d89182d04cd2600b77aa9462047d47cef29ce5e015",
-    "tools/reference/cyclone-armor-client-evidence.json": "0bddb04d1e55e3f7d2697fd0ae5342c1464501b26e1d1df1f2c89a95965cd265",
+    "tools/reference/cyclone-armor-client-evidence.json": "3e55426715012969cb78fd592e9dd11ab99ca19e12fa94beff1da9d4f1c1754a",
     ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-focused.py": "64434d2cca66153e50054cc9373ce61b63e18c7aac7f33326faf6aed5891c43d",
     ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-focused-run.log": "ee7fc3152f49821cf417cd8d8f9e30964fdb71e450742247cbd7a0dbb870e76d",
     ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-content-build.log": "d1a8bedb19c2d5d7f9e5acabe54a3f9769adbc944e0b7d169d7a158d2a756c8b",
@@ -70,22 +70,39 @@
     ".local/class-skills/cyclone-armor-client-proof.log": "8ecaa2faf89146666648bcc8c4614b5a64f574edfb641edceba3990a19061de3",
     ".local/class-skills/cyclone-armor-client-proof/Program.cs": "21194a0cd1b6f05c4396319fa644dbf2e9b447508672d2fbb8a65d84a8423bed",
     ".local/class-skills/cyclone-armor-client-proof/check.csproj": "83f4a7fcb79a4d14c3efe178e1d3921495991b5f2b7a89b677ab81815183ca3a",
-    ".local/class-skills/cyclone-armor/client/cuo.deps.json": "0d03a7b8b8755180fd0e55a0ebe416f4c25a5fba051ff02b63bcac1846c0223a"
+    ".local/class-skills/cyclone-armor/client/cuo.deps.json": "0d03a7b8b8755180fd0e55a0ebe416f4c25a5fba051ff02b63bcac1846c0223a",
+    ".local/class-skills/cyclone-armor-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/cyclone-armor-accept-run.log": "7a147a7bd3797f30df23c12eaf2d9ff6c50b053d297be23abd1b4dbb129ede86",
+    ".local/class-skills/cyclone-armor-python-tests.log": "163bd9f838beb8b95cd9563bb6353f1711736a58c4ae87306f1a002920c33ad3",
+    ".local/class-skills/cyclone-armor-named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/cyclone-armor-first-loop.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
+    ".local/class-skills/cyclone-armor-properties.log": "a41f56bf8e7ed75ba5221a283fd26003435718c1839bfce18da43faf515b502f",
+    ".local/class-skills/cyclone-armor-install-run.log": "c71a6fc0ab525e052fe54b9dc353669ecafdfc633e8aa3ca8d864d0fd6e411ce",
+    ".local/class-skills/cyclone-armor-installed-server.log": "80c239dad595434f8fe8ade2820677c3a5499dd317e854f0c96abc0332969f65",
+    ".local/class-skills/cyclone-armor-installed-smoke.log": "e0ac046f2008d5ee4d4c59fb56746e9796b03260560cc2498a1e00a6a8cbf9e7",
+    ".local/class-skills/cyclone-armor-client-check.log": "f5d02601b3da82f246f3cb314709b73c2920c5ce0f6cf0e615b6fa061b357123",
+    ".local/class-skills/cyclone-armor/native-checks.log": "35edf0ec71f1938268bfe245e9bae1bccf33f3dfa3ac61d45e171135ad88ed77",
+    ".local/class-skills/cyclone-armor-client-preservation.json": "0d9f67225f1c7202c220cec75f98e813aa79d577873161d7874bfa68a78fb94b",
+    ".local/class-skills/cyclone-armor-accept.py": "eacabd6f55b014183bfe3591f6bac0048c005360a05d0ce47d72954ab3cbe145",
+    ".local/class-skills/cyclone-armor-install.py": "4319684a54c3202142018c346739f4eccd4027ff89ed31dbeea68a1e11c64bbe",
+    ".local/class-skills/cyclone-armor-finalize.py": "9fc5e9fe7b1a5a55449efb829934685e73c2e567002d962f925d27415837e1d6",
+    ".local/class-skills/cyclone-armor-verify.py": "b51542ba3a57ec412fcd49040dd2865d375902fcc0cfc4b1ea93bc697957c1c0",
+    ".local/class-skills/cyclone-armor-full.py": "5e4b849ef337cdbf06d852f1c19abbe66a8b18f531a66f7699e7364f7ca6edb5"
   },
   "protectedInstalledArtifacts": {
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/integration/Sanctuary.Integration.dll": "2b319d6acdd1b23ca95df484a8b08a96279a960d3ecc84cccad35f9afdfff5b3",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
-    "/media/aomukai/FILES/Sanctuary/upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
-    "/media/aomukai/FILES/Sanctuary/.local/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
-    "/media/aomukai/FILES/Sanctuary/.local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
-    "/media/aomukai/FILES/Sanctuary/.local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
-    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
-    "/media/aomukai/FILES/Sanctuary/.local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
-    "/media/aomukai/FILES/Sanctuary/.local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+    ".local/class-skills/content/Sanctuary.Content.dll": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "4b00f39f6aa3e6fc3d04a42208e2d6888016a1cc9e5afd7f11afecf1fdb7695f",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
+    ".local/client/cuo.dll": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   },
   "verified": [
     "Actual self/right/quick casts with current SC timing and once-only release payment; low/lost mana and movement/recovery interruptions do not apply/pay.",
@@ -95,7 +112,7 @@
     "Death/respec/direct history/successful wardrobe transition clear state. Main working content/client/save artifacts remain unchanged."
   ],
   "limits": [
-    "Main and separate-checkout focused3boots/2reloads/3connected casts and staged client proof pass. Full regression/current audits/Python acceptance and original-world matching content/client install remain pending.",
+    "Main focused/full regression,current audit/Python acceptance and matching-client existing-world smoke pass for this handler. Modern lower-rank recast, cross-subscriber ordering and final visual/client parity remain explicit limits.",
     "Lower-effective-rank recast follows inspected older do18/group0/factory behavior; optional current3.3.93847 observation remains pending. Modern executable equivalence is not claimed.",
     "The source helper retains the older directed gfx-percent comparison, but native overlays/audio are identified placeholders. Exact modern display and ordering with foreign/cross-class absorb subscribers remain unverified.",
     "Native engine creature/weapon/spell paths use existing approved damage consumers; complete modern item/proc/PvP/special-event parity and class completion remain open."
@@ -103,20 +120,45 @@
   "assetStatus": "Existing separate240row effect/icon registers; identified0x375A/hue0x481 and0x1E5 cast/audio placeholders. Final cyclonearmor1front/2front/3front/depletion/cast audio and talent/right/quick icons remain pending.",
   "clientSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
   "mainCandidate": {
-    "status": "Main focused3boots/2reloads/3connected casts and staged client old/new self-target proof pass; full regression/current audits running on897frozen inputs.",
-    "fullSession": 87330,
+    "status": "Installed after full/focused native regression,current audits/Python acceptance and existing-world matching-client smoke.",
+    "fullSession": null,
     "frozenInputs": 897,
     "mainFocusedBoots": 3,
     "mainFocusedReloads": 2,
     "mainConnectedCasts": 3,
     "clientEvidence": "tools/reference/cyclone-armor-client-evidence.json",
-    "installed": false,
-    "protectedInstalledArtifactsUnchanged": true
+    "installed": true,
+    "protectedInstalledArtifactsUnchanged": true,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "connectedFullCasts": 3,
+    "pythonTests": 70,
+    "originalWorldSmoke": true,
+    "savesConfigClientProfilesSettingsUnchanged": true
   },
   "checkpointRepair": {
     "scope": "Restored an accidentally overwritten archived evidence file from the original worktree; actual candidate/installed binaries were unaffected.",
     "files": [
       ".local/class-skills/cyclone-armor/worktree-focused/integration/Sanctuary.Integration.dll"
     ]
+  },
+  "handlerEnabled": true,
+  "status": "Druid Cyclone Armor is installed with matching self-targeting client. Main focused/full suites each pass three boots/two actual reloads/three connected casts. Each boot retains6885current capacity/mana formula cases and9072complete source packet comparisons. Captured FP256 fire/cold/lightning pool, hard-only synergies, self/right/quick input, once-only payment, low/lost mana, accepted-step/recovery cancellation, equal refill and real Tarnhelm effective/captured rank pass. Older-source lower-rank refusal remains identified pending current observation. Native mixed fractional overflow, real Nokozan pre-resistance behavior, AOS fire, travelling hostile firebolts and the distinct elite damage path pass; non-elemental channels and mana remain unaffected by absorption. Exact saved depleted capacity/rank/mana/gear/bindings, unpaid windup, read-only worker serialization, atomic invalid restore and death/respec/class/wardrobe cleanup pass. Full regression retains prior class/input checks. All70Python tests, current581/21audit fingerprints and573unchanged named decisions pass. Client builds with62upstream/dependency warnings/0errors; old/new compiled-client reflection verifies stable ability156/right-only Druid identity and newly true self-targeting. Existing-world smoke loads/listens2593/UDP12000/shuts down0; saves/config/client profiles/settings bytes unchanged, matching client installed and server stopped. Final overlays/audio/icons and exact modern event/client/cross-subscriber acceptance remain separate. Total157handlers/Druid1; no completed class.",
+  "backup": ".local/class-skills/pre-cyclone-armor-install",
+  "next": "Continue Druid with Firestorm, reusing existing projectile/fan/field/damage infrastructure only where the source agrees. Keep Arctic Blast tied to the separately deferred Inferno/channel work. Preserve earlier individual class deferrals, especially finisher/trap retirement and NPC equipment; retain optional current Cyclone Armor lower-rank recast uncertainty without stalling unaffected skills. All240skills/eight classes remain in scope.",
+  "previousInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "2b319d6acdd1b23ca95df484a8b08a96279a960d3ecc84cccad35f9afdfff5b3",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
+    ".local/client/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
   }
 }

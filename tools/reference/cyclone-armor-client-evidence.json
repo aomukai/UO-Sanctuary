@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "installed": false,
+  "installed": true,
   "ability": 156,
   "totalHandlersInCandidate": 157,
   "clientWarnings": 62,
@@ -46,7 +46,7 @@
   },
   "limits": [
     "Client build has62warnings from upstream client/dependency code, including current NU1902 advisory reporting; dependencies were not changed in this skill task.",
-    "Final client animation/overlays/icons remain placeholders/pending. Matching content/client installation and existing-world smoke are still required."
+    "Matching content/client are installed and existing-world smoke passes. Final graphical animation/overlay/icon acceptance remains pending."
   ],
   "changedRuntimeFiles": [
     "cuo.dll"
@@ -66,5 +66,8 @@
     "ClassicUO.Renderer.dll": "7797cb7216b6b32d310758002e5d162b8ae5e8943c83372c931e79359bd941a3",
     "SixLabors.ImageSharp.dll": "27ef3f04651914be319d3c75a890e985f7e77f9c340ad9bc7bb0b337a9730588",
     "cuoapi.dll": "fd61b0f5fa22082d87ef37726d75c72a864a62aedd47061b1eac9c02c77e3b00"
-  }
+  },
+  "installedClientSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+  "backup": ".local/class-skills/pre-cyclone-armor-install",
+  "profilesSettingsUnchanged": true
 }
