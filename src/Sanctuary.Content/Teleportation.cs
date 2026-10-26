@@ -103,6 +103,7 @@ public static class Teleportation
         if (q.Scroll == Serial.Zero) { p.Mana -= ManaCost(q.Rank); }
         else { World.FindItem(q.Scroll).Consume(); if (q.Cell >= 0) { PotionBelts.Compact(p, q.Cell % 4); } }
         p.Location = q.Destination; p.ProcessDelta();
+        PetOwnerRoutes.Teleported(p,TimedEffects.Now);
         Effects.SendLocationParticles(EffectItem.Create(q.Origin, q.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
         Effects.SendLocationParticles(EffectItem.Create(p.Location, p.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
         p.PlaySound(0x1FE);

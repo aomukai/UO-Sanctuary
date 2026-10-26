@@ -1,0 +1,179 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Server;
+using Server.Accounting;
+using Server.Items;
+using Server.Logging;
+using Server.Mobiles;
+using Server.Network;
+namespace Sanctuary.Integration;
+
+public static class SpiritWolfWorldChecks
+{
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(SpiritWolfWorldChecks));
+    private sealed record Saved(uint Owner,uint Wolf,SpiritWolfBodyState State,int Life,PetOwnerRoute Route,int Map,Point3D Point);
+    private static string Manifest=>Path.Join(Core.BaseDirectory,"spirit-wolf-world-fixtures.json");
+    private static int _scene;
+    private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
+    public static void Configure()
+    {
+        Register("spirit-wolf-world-check",Check);Register("spirit-wolf-world-reload-check",Reload);
+        Register("spirit-wolf-world-live-check",()=>FixtureNetwork.Connected("spirit-wolf-world-live-result",Live));
+    }
+    private static void Register(string command,Action action)=>ConsoleInputHandler.RegisterCommand(command,"Prepared live wolf movement; ordinary hit and learned cast pending",_=>Core.LoopContext.Post(()=>
+    {try{action();Log.Information("{Command}: passed",command);}catch(Exception e){Log.Error(e,"{Command}: failed",command);}}));
+    private static void Train(PlayerMobile p,string id)
+    {
+        Require(TalentCatalog.TryGet(DiabloClass.Druid,id,out var talent),"Wolf talent");
+        foreach(string prior in talent.Prerequisites){Train(p,prior);}
+        if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
+    }
+    private static PlayerMobile Fresh()
+    {
+        var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
+        ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
+        int y=1800+64*_scene++;int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
+        for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,0),Map.Trammel);}
+        p.MoveToWorld(new(7100,y,0),Map.Trammel);return p;
+    }
+    private static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
+    private static void Through(DruidSpiritWolfBody body,int frame,bool actions=true)
+    {var s=body.Prepared.Controller;Require(frame>s.Frame,"Reverse/equal wolf fixture clock");DruidSpiritWolfWorld.Advance(body,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);}
+    private static void Routes()
+    {
+        var p=Fresh();var at=TimedEffects.Now.AddHours(1);var s=PetOwnerRoutes.For(p,at);var start=p.Location;
+        try
+        {
+            Require(s.Cursor==0 && s.Trail.All(x=>x==new Point2D(0,0)),"New owner route was fabricated");
+            PetOwnerRoutes.Moved(p,at.AddMilliseconds(25));Require(PetOwnerRoutes.For(p,at).Cursor==0,"Strict25ms gate");
+            PetOwnerRoutes.Moved(p,at.AddMilliseconds(26));s=PetOwnerRoutes.For(p,at.AddMilliseconds(26));Require(s.Cursor==1 && s.Trail[0]==PetOwnerRoutes.Cell(p),"First accepted history sample");
+            p.Location=new(start.X+3,start.Y,start.Z);PetOwnerRoutes.Moved(p,at.AddMilliseconds(60));Require(PetOwnerRoutes.For(p,at).Cursor==1,"Displacement36accepted below45");
+            p.Location=new(start.X+4,start.Y,start.Z);PetOwnerRoutes.Moved(p,at.AddMilliseconds(90));Require(PetOwnerRoutes.For(p,at).Cursor==2,"Displacement64did not append");
+            for(int i=0;i<22;i++)
+            {p.Location=new(start.X+(i%2==0?8:4),start.Y,start.Z);PetOwnerRoutes.Moved(p,at.AddMilliseconds(120+30*i));}
+            s=PetOwnerRoutes.For(p,at.AddMilliseconds(800));Require(s.Cursor==4 && s.Trail[3]==PetOwnerRoutes.Cell(p),"20entry route wrap");
+            PetOwnerRoutes.Teleported(p,at.AddSeconds(1));s=PetOwnerRoutes.For(p,at.AddSeconds(1));
+            Require(s.LastTeleport==PetOwnerRoutes.Cell(p) && s.Cursor==5,"Teleport must append unconditionally");
+            Require(PetOwnerRoutes.For(p,at.AddMilliseconds(2999)).LastTeleport==s.LastTeleport
+                && PetOwnerRoutes.For(p,at.AddMilliseconds(3000)).LastTeleport==new Point2D(0,0),"50frame teleport marker expiration");
+            var snapshot=PetOwnerRoutes.Snapshot();var original=JsonSerializer.Serialize(snapshot);var bad=snapshot.Select(x=>x.Owner==p.Serial.Value?x with{Cursor=20}:x).ToArray();
+            bool refused=false;try{PetOwnerRoutes.Restore(bad);}catch(InvalidDataException){refused=true;}Require(refused && JsonSerializer.Serialize(PetOwnerRoutes.Snapshot())==original,"Malformed route restore mutated live history");
+            PetOwnerRoutes.Restore(snapshot);snapshot.Single(x=>x.Owner==p.Serial.Value).Trail[0]=new(1,2);
+            Require(JsonSerializer.Serialize(PetOwnerRoutes.Snapshot())==original,"Route restore aliases caller arrays");
+        }
+        finally{End(p);}
+    }
+    private static void Movement()
+    {
+        var p=Fresh();var at=TimedEffects.Now.AddHours(1);var body=DruidSpiritWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),at,71);
+        try
+        {
+            var origin=body.Location;Through(body,24);Require(body.Location==origin && body.Prepared.Controller.Mode==8,"Wolf acted before initial AI event");
+            Through(body,25);Require(body.Prepared.Controller is{Mode:15,NextThink:0},"Far owner follow did not enter run: "+JsonSerializer.Serialize(body.Prepared.Controller));
+            Through(body,60);Require(body.Location!=origin && body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin),"Actual source movement did not approach owner");
+            var saved=body.Prepared;string text=body.SavedText;var input=body.Prepared;
+            body.RestorePrepared(input);if(input.Controller.Motion.Points.Length>0){input.Controller.Motion.Points[0]=new(1,2);}
+            var output=body.Prepared;if(output.Controller.Motion.Points.Length>0){output.Controller.Motion.Points[0]=new(3,4);}
+            Require(body.SavedText==text,"World pose snapshot array alias");
+            bool refused=false;try{body.RestorePrepared(saved with{Controller=saved.Controller with{NextThink=saved.Controller.Frame}});}catch(InvalidDataException){refused=true;}
+            Require(refused && body.SavedText==text,"Invalid source clock restore was not atomic");
+            SkillHealth.SetBalance256(body,100*256+7);var before=body.Prepared.Controller;int life=SkillHealth.Balance256(body);
+            PersistentMinions.Suspend(p);DruidSpiritWolfWorld.Advance(body,at.AddMinutes(5),false);
+            Require(body.Map==Map.Internal && body.Prepared.Controller.Seed==before.Seed && body.Prepared.Controller.StrikeRequests==before.StrikeRequests
+                && SkillHealth.Balance256(body)==life && body.Prepared.Controller.Motion.Points.Length==0,"Offline movement/RNG/heal/strike replay");
+            DruidSpiritWolfWorld.Advance(body,body.Prepared.Controller.NextUtc,true);
+            Require(body.Map==p.Map && SkillHealth.Balance256(body)==life+32,"Resume one source recovery frame");
+            Require(WardrobeTransaction.ChangeClass(p,DiabloClass.Paladin,out _,out _),"World wolf wardrobe park");
+            before=body.Prepared.Controller;DruidSpiritWolfWorld.Advance(body,before.NextUtc.AddMinutes(1),true);
+            Require(body.Map==Map.Internal && body.Prepared.Controller.Seed==before.Seed,"Parked class consumed world RNG");
+            Require(WardrobeTransaction.ChangeClass(p,DiabloClass.Druid,out _,out _),"World wolf wardrobe return");
+            DruidSpiritWolfWorld.Advance(body,body.Prepared.Controller.NextUtc,true);Require(body.Map==p.Map,"World wolf return placement");
+        }
+        finally{End(p);}
+    }
+    private static GraveyardZombie Enemy(PlayerMobile p,int dx,int dy=0)
+    {var t=new GraveyardZombie{CantWalk=true,NoKillAwards=true};t.SetHits(10000);t.MoveToWorld(new(p.X+dx,p.Y+dy,p.Z),p.Map);t.AIObject.AITimer.Stop();return t;}
+    private static void TargetsAndTeleport()
+    {
+        var p=Fresh();var at=TimedEffects.Now.AddHours(1);var a=Enemy(p,3);var b=Enemy(p,3,3);
+        var wolf=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,812);
+        try
+        {
+            var s=wolf.Prepared;wolf.RestorePrepared(s with{Controller=s.Controller with{Target=a.Serial.Value}});
+            Through(wolf,25);Require(wolf.Prepared.Controller is{Mode:4} && wolf.Prepared.Controller.Target==a.Serial.Value,"Existing individual target was lost");
+            int action=wolf.Prepared.Controller.ActionAt;int life=SkillHealth.Balance256(a);
+            Through(wolf,action-1);Require(wolf.Prepared.Controller.StrikeRequests==0,"Pending hit requested before A1action event");
+            Through(wolf,action);Require(wolf.Prepared.Controller.StrikeRequests==1 && wolf.Prepared.Controller.PendingStrikeTarget==a.Serial.Value
+                && SkillHealth.Balance256(a)==life,"Pending ordinary hit was silently treated as finished damage");
+            var attack=wolf.Prepared.Controller;
+            wolf.RestorePrepared(wolf.Prepared with{Controller=attack with{ActionAt=attack.Frame+2,EndAt=attack.Frame+7}});
+            CreatureHitRecovery.Apply(wolf,p,wolf.HitsMax);
+            Require(CreatureHitRecovery.Remaining(wolf)>0 && wolf.Prepared.Controller is{Mode:1,ActionAt:0,Teleport:false}
+                && wolf.Prepared.Controller.StrikeRequests==1 && wolf.Prepared.Controller.Seed==attack.Seed,"Shared hit recovery did not cancel queued wolf action");
+            Through(wolf,attack.Frame+2);Require(wolf.Prepared.Controller.StrikeRequests==1,"Interrupted A1 action survived recovery");
+            var second=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y+3,p.Z),at,813);s=second.Prepared;
+            second.RestorePrepared(s with{Controller=s.Controller with{Target=b.Serial.Value}});Through(second,25);
+            Require(second.Prepared.Controller.Target==b.Serial.Value && wolf.Prepared.Controller.Target==a.Serial.Value,"New wolf retargeted existing wolves");second.Delete();
+            a.Delete();b.Delete();wolf.Delete();
+            var chased=Enemy(p,9);var chaser=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,815);
+            Through(chaser,25);Require(chaser.Prepared.Controller is{Mode:15} && chaser.Prepared.Controller.Target==chased.Serial.Value,"Out-of-melee target did not select corrected chase");
+            var start=chaser.Location;Through(chaser,55);
+            Require(chaser.GetDistanceToSqrt(chased)<chased.GetDistanceToSqrt(start) && chaser.Prepared.Controller.Target==chased.Serial.Value,"Actual wolf did not chase toward an occupied target footprint");chaser.Delete();chased.Delete();
+            var far=DruidSpiritWolfWorld.Create(p,new(p.X+30,p.Y,p.Z),at,814);var original=far.Location;
+            Through(far,25);Require(far.Prepared.Controller is{Mode:8,Teleport:true,ActionAt:29,NextThink:35},"Distinct teleport request/event4/idle10");
+            Through(far,28);Require(far.Location==original,"Teleport moved before its requested event");
+            Through(far,29);Require(far.Location==p.Location && far.Prepared.Controller is{Teleport:false,ActionAt:0},"Actual delayed Teleport2placement");far.Delete();
+        }
+        finally{a.Delete();b.Delete();End(p);}
+    }
+    private static void Check()
+    {
+        Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared world actor enabled learned cast");Routes();Movement();TargetsAndTeleport();
+        var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),at,9001);
+        PetOwnerRoutes.Teleported(p,at);Through(body,35);SkillHealth.SetBalance256(body,100*256+17);PersistentMinions.Suspend(p);
+        var route=PetOwnerRoutes.Snapshot().Single(x=>x.Owner==p.Serial.Value);
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),route,p.Map.MapID,p.Location)));
+        Log.Information("Prepared Spirit Wolf world: actual run/follow, individual target retention, pending A1event, delayed teleport, owner history, offline/wardrobe and atomic pose controls pass; ordinary hit/cast and full geometry pending");
+    }
+    private static void Reload()
+    {
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=World.FindMobile((Serial)saved.Owner) as PlayerMobile;
+        var body=World.FindMobile((Serial)saved.Wolf) as DruidSpiritWolfBody;
+        Require(body is{Deleted:false,Alive:true} && body.ControlMaster==p && body.Map==Map.Internal && body.SavedText==JsonSerializer.Serialize(saved.State)
+            && SkillHealth.Balance256(body)==saved.Life,"Saved wolf actor pose/clock/ownership/injury changed");
+        Require(JsonSerializer.Serialize(PetOwnerRoutes.Snapshot().Single(x=>x.Owner==saved.Owner))==JsonSerializer.Serialize(saved.Route),"Saved owner trail/teleport marker changed");
+        if(p.Map==Map.Internal){p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);}
+        var prior=body.Prepared.Controller;DruidSpiritWolfWorld.Advance(body,prior.NextUtc,false);
+        Require(body.Prepared.Controller.Seed==prior.Seed && body.Prepared.Controller.StrikeRequests==prior.StrikeRequests && SkillHealth.Balance256(body)==saved.Life,"Loaded source frames replayed offline effects");
+        DruidSpiritWolfWorld.Advance(body,body.Prepared.Controller.NextUtc,true);
+        Require(body.Map==p.Map && SkillHealth.Balance256(body)==saved.Life+32,"Actual world reload resume/recovery");
+        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
+    }
+    private static void Live(NetState network)
+    {
+        var p=Fresh();network.Seeded=true;network.SentFirstPacket=true;network.CompressionEnabled=false;
+        var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+        Require(field!=null,"World wolf protocol bootstrap");field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
+        // The synthetic session must cross the same authenticated buffer
+        // promotion gate as a real login before streaming the test floor.
+        var account=new Account("wolf-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;
+        network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
+        var body=DruidSpiritWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+10000;
+        void Inspect()
+        {
+            try
+            {
+                Require(network.Running && !body.Deleted && body.Prepared.Controller.Fault==null,"Natural world actor disconnected/deleted/faulted: "+JsonSerializer.Serialize(body.Prepared.Controller));
+                Require(Core.TickCount<deadline,"Natural world follow timeout");
+                if(body.GetDistanceToSqrt(origin)<2){Timer.StartTimer(TimeSpan.FromMilliseconds(50),Inspect);return;}
+                Require(body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin) && body.Prepared.Controller.Frame>=25,"Natural source frames moved away from owner");
+                End(p);account.Delete();Log.Information("spirit-wolf-world-live-result: passed");
+            }
+            catch(Exception e){End(p);account.Delete();Log.Error(e,"spirit-wolf-world-live-result: failed");}
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40),()=>{Log.Information("spirit-wolf-world-live: ready");Inspect();});
+    }
+}

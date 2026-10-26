@@ -12,6 +12,7 @@ namespace Sanctuary;
 internal sealed record SpiritWolfBodyState(uint Owner,SpiritWolfSnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
 {
     public string Profile{get;init;}="prepared-life-and-ownership-v1";
+    public SpiritWolfWorldState Controller{get;init;}
 }
 
 // Saved, vulnerable summon backend. Internal preparation only: native AI/swing
@@ -22,7 +23,15 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private SpiritWolfBodyState _prepared;
-    internal SpiritWolfBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved));
+    internal bool ControllerLoaded{get;set;}
+    internal SpiritWolfBodyState Prepared
+    {
+        get
+        {
+            var s=_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved));
+            return s?.Controller is{} c?s with{Controller=DruidSpiritWolfWorld.Copy(c)}:s;
+        }
+    }
     internal string SavedText=>_saved;
     public override DiabloClass SummonClass=>DiabloClass.Druid;
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
@@ -66,12 +75,13 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
                 || state.Profile!="prepared-life-and-ownership-v1"
                 || DruidSpiritWolfStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Spirit Wolf life/ownership state");}
+            if(state.Controller!=null){DruidSpiritWolfWorld.Validate(state.Controller);}
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Spirit Wolf snapshot",e);}
     }
     internal void RestorePrepared(SpiritWolfBodyState state)
-    {Validate(state);string json=JsonSerializer.Serialize(state);_prepared=state;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidSpiritWolfWorld.Copy(c)}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidSpiritWolfBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || at> DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal
@@ -106,6 +116,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
     // advances only at explicit actor frames; offline frames are discarded.
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){throw new InvalidOperationException("Actor recovery belongs to its source-frame controller");}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Spirit Wolf clock must be UTC");}
         if(Deleted || Prepared is not{} state || state.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner || owner.Serial.Value!=state.Owner){Delete();return;}
@@ -121,5 +132,16 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterWolfLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved);Validate(_prepared);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<SpiritWolfBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){ControllerLoaded=true;DruidSpiritWolves.Track(this);}}
+    public override void SuspendActions()
+    {
+        base.SuspendActions();
+        if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidSpiritWolfWorld.Park(c)});}
+    }
+    internal override void InterruptForRecovery()
+    {
+        base.InterruptForRecovery();
+        if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidSpiritWolfWorld.Park(c)});}
+    }
+    public override void OnAfterDelete(){DruidSpiritWolves.Forget(this);base.OnAfterDelete();}
 }

@@ -315,7 +315,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         SkillCombat.HitParts(this, target,
             new(Utility.RandomMinMax(SkillWeaponDamage.Min, SkillWeaponDamage.Max), 0, 0, 0, 0), true, true);
     }
-    internal void InterruptForRecovery()
+    internal virtual void InterruptForRecovery()
     {
         _attackTimer.Cancel();
         _target = null;

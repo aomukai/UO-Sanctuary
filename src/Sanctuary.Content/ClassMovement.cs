@@ -12,6 +12,7 @@ public static class ClassMovement
         {
             return;
         }
+        if(player.Map!=null && player.Map!=Map.Internal){PetOwnerRoutes.Moved(player,TimedEffects.Now);}
         PersistentMinions.Resume(player);
         FireGround.Moved(player);
         var session = ClassCombat.For(player);

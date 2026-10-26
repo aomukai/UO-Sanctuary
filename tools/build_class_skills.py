@@ -155,6 +155,16 @@ def products():
     raven_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/raven-preflight.json').read_text())['animation']['records']}
     assert (raven_animations['HKS1HTH']['frames'],raven_animations['HKS1HTH']['speed'],raven_animations['HKA1HTH']['frames'],raven_animations['HKA1HTH']['speed'],raven_animations['HKA1HTH']['events']) == (11,208,23,240,[[10,1]])
     summons += [{'key':'druidhawk-animation','fields':{'S1Frames':11,'S1Speed':208,'A1Frames':23,'A1Speed':240,'A1Action':10}}]
+    wolf_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/druid-beasts-preflight.json').read_text())['animation']['records']}
+    wolf_fields = {}
+    for mode in ['S1','A1','GH','WL','RN']:
+        row=wolf_animations['WF'+mode+'HTH']
+        wolf_fields[mode+'Frames']=row['frames'];wolf_fields[mode+'Speed']=row['speed']
+        actions=[i for i,kind in row['events'] if kind==1]
+        assert len(actions)<=1
+        if actions:wolf_fields[mode+'Action']=actions[0]
+    assert [wolf_fields[k] for k in ['S1Frames','S1Speed','S1Action','A1Frames','A1Speed','A1Action','GHFrames','GHSpeed']] == [13,72,3,13,176,9,7,256]
+    summons += [{'key':'spiritwolf-animation','fields':wolf_fields}]
     vine = source_skills['294']
     summons += [{'key':'Vine Attack','fields':{k:v for k,v in vine.items() if isinstance(v,(int,str)) and not k.startswith('*') and k != 'lineNumber'}}]
     models = json.loads((SOURCE / 'json/monstats2.json').read_text())

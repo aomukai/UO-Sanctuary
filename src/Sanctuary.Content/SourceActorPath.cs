@@ -36,6 +36,18 @@ internal static class SourceActorPath
         bool Blocked(int x,int y)=>(collision(x,y)&0x3c01)!=0;
         Point2D[] points;
         if(motion.PathType==15){points=distance==0?[]:SourceWallFollow.Find(origin,state.Target,distance,false,Blocked);}
+        else if(motion.PathType==7)
+        {
+            var toward=SourceTowardPath.Find(motion with{PathType=2},state.Target,distance,Blocked);
+            motion=toward.Motion with{PathType=7};points=toward.Points;
+            // Complete PATH_Straight first tries Toward. Its close obstacle
+            // branch requires AStar; do not replace it with another solver.
+            int Heuristic(Point2D p)
+            {int x=Math.Abs(p.X-state.Target.X),y=Math.Abs(p.Y-state.Target.Y);return x>=8||y>=8?Math.Min(x,y)+2*Math.Max(x,y):Math.Max(0,SourceTowardPath.ShortDistance(x,y)+1);}
+            bool reached=points.Length>0 && points[^1]!=origin && Heuristic(points[^1])<=1;
+            long dx=origin.X-state.Target.X,dy=origin.Y-state.Target.Y;
+            if(!reached && dx*dx+dy*dy<=18*18){throw new NotSupportedException("Source straight path requires unimplemented AStar obstacle repair");}
+        }
         else{(motion,points)=SourceTowardPath.Find(motion,state.Target,distance,Blocked);}
         if(points.Length==0){return Fail();}
         motion=SourceActorMotion.DirectionToNext(motion with{Points=points,Index=0});

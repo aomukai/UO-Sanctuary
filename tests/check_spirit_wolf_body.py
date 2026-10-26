@@ -77,7 +77,7 @@ def check():
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
                     commands = ['pet-movement-check', 'skill-linear-check', 'spirit-wolf-stats-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
-                    commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['spirit-wolf-body', 'battle-orders', 'shout', 'summon-difficulty', 'class-history', 'full-wardrobe', 'inner-sight']]
+                    commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['spirit-wolf-world', 'spirit-wolf-body', 'battle-orders', 'shout', 'summon-difficulty', 'class-history', 'full-wardrobe', 'inner-sight']]
                     for command in commands:
                         session.send(command)
                         assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
@@ -101,13 +101,21 @@ def check():
                     if boot == 0 and audit:
                         session.send('first-loop-catalogue-check')
                         assert session.expect(r'first-loop-catalogue-check: (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
+                    with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                        threading.Thread(target=drain, args=(client,), daemon=True).start()
+                        session.send('spirit-wolf-world-live-check')
+                        assert session.expect(r'spirit-wolf-world-live-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
+                        session.expect('spirit-wolf-world-live: ready')
+                        client.sendall(b'\x73\x00')
+                        assert session.expect(r'spirit-wolf-world-live-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
                     session.close()
         shutil.copy2(folder / 'spirit-wolf-body-fixtures.json', STAGE / 'body-fixtures.json')
+        shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'world-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Spirit Wolf life/ownership and retained numeric/health/defense/wardrobe/summon consumers pass3boots/2actual reloads; AI/attack/casting remain pending; installed world untouched.')
+    print('Prepared Spirit Wolf life/ownership/world movement and retained consumers pass3boots/2actual reloads/3natural follows; ordinary hit/casting remain pending; installed world untouched.')
 
 
 if __name__ == '__main__':

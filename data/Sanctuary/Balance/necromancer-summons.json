@@ -1113,6 +1113,23 @@
     }
   },
   {
+    "key": "spiritwolf-animation",
+    "fields": {
+      "S1Frames": 13,
+      "S1Speed": 72,
+      "S1Action": 3,
+      "A1Frames": 13,
+      "A1Speed": 176,
+      "A1Action": 9,
+      "GHFrames": 7,
+      "GHSpeed": 256,
+      "WLFrames": 8,
+      "WLSpeed": 120,
+      "RNFrames": 8,
+      "RNSpeed": 80
+    }
+  },
+  {
     "key": "Vine Attack",
     "fields": {
       "skill": "Vine Attack",

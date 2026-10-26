@@ -63,7 +63,8 @@ def record(check=False):
         'tools/reference/first-loop-affix-audit.json', 'tools/reference/battle-orders-engine-evidence.json',
         'tools/reference/druid-beasts-preflight.json', 'tools/reference/spirit-wolf-creation-source-evidence.json']]
     evidence = dict(referenceVersion='3.3.93847', installed=False, savedPreparedBody=True, learnedHandler=False,
-        ordinaryAttack=False, individualAi=False, automaticActorClock=False, fullClassRegression=False,
+        scope='Life-only factory acceptance; the separately recorded world-controller factory connects individual AI and automatic movement.',
+        ordinaryAttack=False, lifeOnlyFactoryHasIndividualAi=False, lifeOnlyFactoryHasAutomaticClock=False, fullClassRegression=False,
         boots=3, actualReloads=2, passedMarkers=len(re.findall(r': passed', log)), pythonTests=70,
         buildWarnings=0, buildErrors=0, handlers=166, druidHandlers=10, completedClasses=[], goalComplete=False,
         namedAuditFingerprints=len(audits[0]['InputHashes']), firstLoopFingerprints=len(audits[1]['InputHashes']), unchangedNamedDefinitions=573,
@@ -75,7 +76,7 @@ def record(check=False):
             'Actual Tarnhelm changes fresh capture without rewriting an existing birth. Atomic malformed-state/JSON controls, offline no-heal, wardrobe parking/resume, owner-facet rescale with proportional life and orphan deletion pass. Two real world reloads retain saved owner/birth/clock, fractional injury, Battle Orders and regeneration, then resume one explicit active recovery frame without replaying offline recovery.',
             'Prepared numeric Spirit Wolf and Creeper, shared rank/curse fixes, Raven stats/flight/path, toward paths,Valkyrie and named-item components pass. Retained Battle Orders/Shout/difficulty/history/wardrobe/Inner Sight and Decoy checks survive two actual reloads; three real loopback Decoy casts, natural expiries and disconnect cleanup pass. Fresh audits retain all573 named decisions and all70Python tests pass.'
         ], remaining=[
-            'No automatic wolf AI or combat clock, ordinary attack/cold hit/chill delivery, individual target/path/teleport, learned placement/payment/FIFO-cap/coexistence, connected wolf input or complete world lifecycle acceptance is claimed. Prepared AdvanceRecovery is an explicit bounded life-frame operation; poison/heal-inhibition transition chronology and natural wolf recovery still need actor-clock acceptance.',
+            'This record tests the life-only CreatePrepared factory and explicit AdvanceRecovery operation. The separate world-controller factory, individual movement/target/teleport and natural-clock acceptance are recorded in spirit-wolf-world-native-evidence.json. Ordinary attack/cold hit/chill, learned placement/payment/FIFO-cap/coexistence, connected wolf input and complete world lifecycle acceptance remain pending.',
             'The user expects100% cold damage. Their prior observation was inconclusive for a tiny physical floor; old ordinary melee supplies one, so the modern branch remains uncertain rather than either result being asserted. Nonzero cold sunder is rejected by prepared actor creation/restore, while numeric source data remains retained separately.',
             'Exact modern AI fallback polarity, room/geometry/global RNG/event ordering, equipment request consumers, graphical client parity and full-class regression/installation remain pending. Main installed build and saves are untouched.',
             'Named wolf body0xE1 with explicit placeholder name and silent sound is temporary. Final emergence/body/movement/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain in separate effect/icon registers. No new handler or class completion is claimed.'
@@ -86,7 +87,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Prepared saved Spirit Wolf life/ownership:3boots/2reloads, retained health/defense consumers and70Python tests; learned AI/combat/casting pending.')
+    print('Prepared saved Spirit Wolf life/ownership:3boots/2reloads, retained health/defense consumers and70Python tests; separate world-controller acceptance; combat/casting pending.')
 
 
 if __name__ == '__main__':

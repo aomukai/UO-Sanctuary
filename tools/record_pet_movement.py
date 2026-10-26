@@ -59,8 +59,9 @@ def record(check=False):
         'tools/reference/spirit-wolf-ai-source-evidence.json', 'tools/reference/spirit-wolf-corrected-ai-source-evidence.json', 'tools/reference/spirit-wolf-body-native-evidence.json']]
     paths += [STAGE / name for name in ['stats-inputs.json', 'stats-native-checks.log', 'stats-run.log',
         'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
-    evidence = dict(referenceVersion='3.3.93847', installed=False, preparedPolicies=True, actorConnected=False,
-        learnedHandler=False, fullClassRegression=False, automaticWolfClock=False,
+    evidence = dict(referenceVersion='3.3.93847', installed=False, preparedPolicies=True,
+        scope='Pure policy comparisons with declared services; world-controller composition is recorded separately in spirit-wolf-world-native-evidence.json.',
+        learnedHandler=False, fullClassRegression=False,
         completeDirectMovementCases=8312, completeCommonMovementCases=39936, orderedMovementServiceRequests=367734,
         completeLegacySpiritWolfCases=1802, completeCorrectedSpiritWolfCases=6366, sourceAndNativeCases=56416,
         boots=3, actualReloads=2, pythonTests=70, buildWarnings=0, buildErrors=0,
@@ -74,7 +75,7 @@ def record(check=False):
             'The retained actual saved wolf life/ownership slice passes3boots/2reloads along with prior numeric and shared health/defense/wardrobe/Decoy consumers. All70Python tests and fresh native audits pass; no additional handler or installation is claimed.'
         ], remaining=[
             'The old pointer-versus-combat reconstruction defect has a separately pinned source correction; do not wire LegacyThink into a live controller. The corrected older source still does not certify current D2R executable behavior. Its opposite potential-target LOS polarity remains an independent uncertainty.',
-            'Actual actor still needs source owner-route/history/last-teleport sampling, heading/room/size/collision and tactics/mode-entry adapters, ordinary attack/cold/chill/critical delivery and natural source-clock/teleport/recovery acceptance. The newer source crowd callback uses the current pet rather than the old null prior-target pointer; actual crowd enumeration, full path repair and modern event/global-RNG equivalence remain separate.',
+            'Actual saved owner history/teleport markers, movement/individual targets, natural clock and world services now have separate bounded acceptance in spirit-wolf-world-native-evidence.json. Ordinary attack/cold/chill/critical delivery, complete path repair and modern event/global-RNG/geometry equivalence remain pending. The newer source crowd callback uses the current pet rather than the old null prior-target pointer.',
             'The skeleton-template placement request in shared mode3 is retained as a declared source service; it is separate from Spirit Wolf Teleport2/do98. No generic teleport-to-owner shortcut or whole-flock retargeting is inferred.',
             'Learned do119 cast/payment/placement/FIFO/coexistence/input, full regression/installation and final effects/audio/talent/hotkey icons remain pending. Current installed build, saves and client stay preserved.'
         ])
@@ -83,7 +84,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Pet policies:48248shared movement/367734ordered requests,1802legacy and6366corrected Spirit contexts; live AI/actor integration pending.')
+    print('Pet policies:48248shared movement/367734ordered requests,1802legacy and6366corrected Spirit contexts; world-controller composition recorded separately.')
 
 
 if __name__ == '__main__':
