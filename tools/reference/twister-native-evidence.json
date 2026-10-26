@@ -12,7 +12,7 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
+  "fullClassRegression": true,
   "sourceEndpointComparisons": 9180,
   "reactionAndStunFrameComparisons": 11200,
   "completePathComparisons": 600,
@@ -49,7 +49,10 @@
     ".local/class-skills/twister/audit-refresh-native.log": "1ce9d07a1082809c6140d5b455a8aacc91e12ece5423fddf9b8ddb63bf0a66b4",
     ".local/class-skills/twister-focused-run.log": "5a989c0a2436d2edde4f23a8c905f303cd183147b9064fa353183537ddf07159",
     ".local/class-skills/twister-python-tests.log": "359ee564cb9887ed56fc18911aeb949d1c5da84b29a98e9a583e5bd3d429a4cf",
-    ".local/class-skills/twister-damage-run.log": "e9913c0082f1c2d4e052279c3cc6523edbf7b71ee9b43c193fc2f930078dbf79"
+    ".local/class-skills/twister-damage-run.log": "e9913c0082f1c2d4e052279c3cc6523edbf7b71ee9b43c193fc2f930078dbf79",
+    ".local/class-skills/twister/class-inputs.json": "aeb618cfc6086cfcb6bfff8a0b963fd7fa35fcae27e67b53f7de4f173abf112b",
+    ".local/class-skills/twister/class-native-checks.log": "71721cd4bef5d85cf52565dbdb940057a67d39c5d70131989e665ca9b271097f",
+    ".local/class-skills/twister-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC ground/live/deleted/self aim, L/R/quick binding, once-only7mana release, no added local delay, stop/movement/recovery/lost-mana cancellation and discarded unpaid windup pass.",
