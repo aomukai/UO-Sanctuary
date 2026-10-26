@@ -165,9 +165,13 @@
     "The complete reconstructed do117 rejects nParam>=0, including current table count3, while its shared helper correctly produces three emitters for count3. The executable modern do117 guard is not established. Do not use this older guard to disable positive current table counts or silently patch the extracted body."
   ],
   "remaining": [
-    "Main focused/full regression, current matching audits and Python acceptance, original-world smoke and safe installation.",
-    "Retain the documented reconstructed do117 positive-count conflict and source/native geometry, initial path flags, room/order, seed, event/avoidance and final client parity limits.",
-    "Final cast/emitter/field/contact/expiry/audio effects and talent/left/right/quick icons remain pending."
+    "The older reconstructed do117 rejects current positive count3. Current pinned count3 and shared launch bodies govern this prepared route; exact modern guard remains unverified and is not silently copied/patched.",
+    "Straight Q12/charged Advance, two source cells per native tile, native LOS/fit/height and sector enumeration retain the existing declared adapters. Exact modern path rebuild/initial flag/room/footprint/order and seed allocation are not certified.",
+    "Player source225 skill endpoints/mastery reuse existing consumers; new children read live hard synergies/mastery at retained emitter rank. Complete modern property/event/block/avoidance/FHR/client comparisons remain open.",
+    "SkillCombat.MitigatePrepared now accepts an optional damageRate, default0. The new prepared field supplies41, including approved potion channels. Full retained class regression/current audits remain required before installation.",
+    "Final fire emitter, burning patch, cast/impact/expiry/audio and separate talent/hotkey icons remain pending; UO0x398C hue0x489 is an identified placeholder.",
+    "Known shared-event gap: maker458 has WALLKILL8/LastCollide1 but zero source damage. Its native controller currently maps terrain/motion and fire children; the zero-damage unit/LastCollide/HITBYMISSILE callback path is not implemented. Keep it on the missile-event/item-trigger acceptance backlog; full event parity is not claimed.",
+    "Final main focused/full native regression, fresh audits, all70Python checks and existing-world smoke pass. The earlier isolated worktree broad run with stale audits/missing upstream files is retained as history, not current acceptance evidence."
   ],
   "assets": {
     "effects": "No live Firestorm renderer is enabled yet. Planned existing UO fire/cast art must remain explicitly labelled placeholders. Final druid_fire_cast_1 overlay, one direct and two winding expansion/FirestormEmitter trails, groundFireSmall burning patches, contact/expiry presentation and druid_firecast_b/object_fire_loop_house audio remain pending. Separate talent/left/right/quick icons remain pending.",
@@ -175,11 +179,11 @@
     "generation": "pending"
   },
   "checkpoint": {
-    "installedHandlers": 157,
-    "druidHandlers": 1,
+    "installedHandlers": 158,
+    "druidHandlers": 2,
     "allClassesComplete": false,
     "installedCommit": "e5185cf",
-    "candidate": "Learned Firestorm on isolated branch; focused casting passes; main acceptance pending.",
+    "candidate": "Installed after final main acceptance and original-world smoke.",
     "candidateHandlers": 158,
     "candidateDruidHandlers": 2
   },
@@ -198,6 +202,8 @@
   "nextAcceptance": "When Firestorm actor/cast is ready, run the matching native audit exports and full suite from the complete main checkout. Do not rewrite old audit hashes to make the broad tests pass.",
   "nativeEvidence": "tools/reference/firestorm-native-evidence.json",
   "preparedNativeActor": "Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate. Actual fire-immunity and tier3 spell-potion nonfire controls also pass.",
-  "learnedCastCandidate": "Learned Firestorm candidate: focused three boots/two actual reloads, three natural emitter clocks and three connected quick casts pass. Main build/full regression/current audit/Python acceptance and original-world smoke remain required; not installed.",
-  "clientImpact": "No shared/client source changed relative to accepted e5185cf. Stable ability152, ground targeting and left/right metadata already exist; installed client bytes remain the baseline."
+  "learnedCastCandidate": "Druid Firestorm is installed. Final main focused/full suites each pass three boots/two actual reloads, three connected quick casts and three natural emitter runs. SC ground/target casting pays four mana once at release, uses a distinct15-frame local delay and supports left/right/quick bindings. Low/lost mana, early/duplicate resolution, stop/movement/recovery cancellation, live/deleted target aim, self aim, local-not-global delay, saved bindings and discarded unpaid windup pass. One ordinary/two seeded emitters preserve previous-movement cell timing; independent15-frame fields read live hard synergies/mastery at retained rank and keep exact saved damage/RNG/deadlines. Single colliders, independent overlap, walls, fire immunity/actual tier3 potion, Tarnhelm, Dwarf Star MDR/default controls and worker-safe atomic persistence pass. Town0/SrcTown0 follow source dispatch with actual guarded-region checks. Full regression retains prior class/input checks. All70Python tests, current583/21audit fingerprints and573unchanged named decisions pass. Existing-world smoke loads/listens2593/UDP12000/shuts down0; saves/config/client profiles/settings and existing matching client bytes remain unchanged, server stopped. Total158handlers/Druid2; no class complete. Reconstructed do117 positive-count, native geometry/seed/full event/client and final effect/icon limits remain explicit; maker zero-damage unit/LastCollide/HITBYMISSILE callbacks remain unimplemented.",
+  "clientImpact": "No shared/client source changed relative to accepted e5185cf. Stable ability152, ground targeting and left/right metadata already exist; installed client bytes remain the baseline.",
+  "installed": true,
+  "deploymentEvidence": "tools/reference/firestorm-native-evidence.json"
 }
