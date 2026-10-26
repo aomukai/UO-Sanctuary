@@ -235,6 +235,10 @@
     "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
     "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
     "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
     "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696"
   },
   "reviewedRoutineHashes": {
@@ -244,14 +248,71 @@
     "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
     "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
     "sub_6FD0B9F0": "ca935214e93bd68fc7e1d9e7b5d13454a71ec9bcda11a0273a65eec3631e0c31",
+    "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e",
+    "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
+    "ITEMMODS_PropertyFunc01": "1485f7206c6d4642b85feed5adfdce95ae0bd0c5e9106636131571ca9a097efe",
+    "ITEMMODS_AddPropertyToItemStatList": "f93256c6d6c1e2b9f3ee50720f87de66762870b448720a2350b4c8d0fa688f48",
+    "D2COMMON_11292_ItemAssignProperty": "0e17ebcaf0d7c2eedbaa64c8516f50847e29d2db29123e2f5eff5e55ce943238",
     "SKILLITEM_EventFunc09_Stupidity": "8d4ed519b9324455d72ecec8c5250bcbf3fef5f1161373bff6cb97a492d143f4"
+  },
+  "animation": {
+    "archivePath": "data:data/global/animdata.d2",
+    "localFilename": "AnimData.d2",
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "records": [
+      {
+        "code": "HKDTHTH",
+        "frames": 11,
+        "speed": 208,
+        "events": []
+      },
+      {
+        "code": "HKWLHTH",
+        "frames": 12,
+        "speed": 208,
+        "events": []
+      },
+      {
+        "code": "HKNUHTH",
+        "frames": 12,
+        "speed": 208,
+        "events": []
+      },
+      {
+        "code": "HKA1HTH",
+        "frames": 23,
+        "speed": 240,
+        "events": [
+          [
+            10,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "HKS1HTH",
+        "frames": 11,
+        "speed": 208,
+        "events": []
+      },
+      {
+        "code": "HKDDHTH",
+        "frames": 1,
+        "speed": 256,
+        "events": []
+      }
+    ],
+    "scope": "Current raw metadata only: action scheduling/rate conversion/native pose and modern AI event ordering remain to verify."
   },
   "established": [
     "Strict read-only local CASC monprop extraction supplies the previously absent druidhawk property row. All three difficulties supply stupidity=-1. Current local skills/monstats/monstats2 corroborate the selected cached Raven fields; licensed raw files remain local and ignored.",
     "Current rows request6mana, right-only SC, town casting, Raven/druidhawk/S1, maximum min(effective rank,5), level max(1,owner level-2+effective rank),12+(rank-1) hit formula and12percent physical synergy per hard Spirit Wolf/Dire Wolf/Grizzly point. These table formulas do not prove how the modern AI consumes them.",
     "Legacy do114 calls the shared summon factory, clears CANBEATTACKED0x4, zeros HP regeneration, evaluates/clamps pet level, then calls shared base/passive stat suppliers. The generic BaseCreature attackability and regeneration defaults must not silently override those flags.",
     "Legacy AI initializes hit budget on first think from the owner highest Raven skill, not from an explicit cast-rank snapshot. It decrements the budget when requesting an attack animation rather than after confirmed health loss. Owner follow/warp, attack delay/chance/distance and orbit have separate branches; modern equivalence remains unverified.",
-    "The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper."
+    "Legacy monster mode stats call sub14D20 with the live owner highest Raven rank: physical min/max are shifted back to whole life and the toht result is added as flat AR. Do not freeze every attack endpoint at birth or treat the wiki AR percentage label as authoritative for this route. The source base helper retains explicit pet level above99 and clamps only its111-row monlvl lookup.",
+    "The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper.",
+    "Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance."
   ],
   "reuse": [
     "Shared learned casting, payment/cancellation/right/quick bindings, source formulas and saved summon FIFO/cap infrastructure where routes agree.",

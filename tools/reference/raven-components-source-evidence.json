@@ -1,0 +1,50 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLITEM_EventFunc09_Stupidity": "8d4ed519b9324455d72ecec8c5250bcbf3fef5f1161373bff6cb97a492d143f4",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7"
+  },
+  "pinnedTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "monlvl": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "properties": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "generatedSourceHashes": {
+    ".local/class-skills/raven-components-source-probe.cpp": "b2501e4b3984c3ec7a1fc804d7aba4243aeaf1e34ccb8c2869f73643d0bffd8c",
+    ".local/class-skills/raven-base-source-probe.cpp": "30ce4cbaed091dd86996c40d83eb697425c022355ed7fc7cf53f980b6aae30aa"
+  },
+  "fixture": {
+    "path": ".local/class-skills/raven-components-source-probe.json",
+    "sha256": "dab6df03d50369c2dec00995fedb3d196d28a1e91f8dd7df42d60cc84086e617",
+    "damage": 13770,
+    "blind": 12800,
+    "birth": 4590
+  },
+  "sanitizers": "Both ASan/UBSan binaries exit0 with empty runtime stderr.",
+  "established": [
+    "Complete source physical tier/min/max getters and to-hit getter run all255ranks, independent hard Spirit/Dire/Grizzly0/1/20 and unrelated99999item stats. Raven source-zero physical damage excludes weapon stats; mode AR is the flat100+30*(rank-1) result.",
+    "Complete event09 accepts signed nonzero blindness, including-1, and consumes one RNG draw even when no curse level results. Zero stat consumes none. Melee/missile chance branches, level gaps and all100rolls are captured; successful curse callback is declared, not executed.",
+    "Complete summon base helper receives explicit max(1,ownerLevel-2+rank), retains that level up to352 and clamps only the lookup to111current monlvl rows. All three difficulties and expansion/classic columns run separately."
+  ],
+  "services": [
+    "Formula VM, stat/record access and weapon context remain declared bounded services inherited from the existing physical getter harness. Current Raven synergy expression and source-zero row are asserted before supplying those services.",
+    "Blind RNG is a forced draw service with a counted call; the callback records requested curse rank and does not prove eligibility, duration, event subscription or health delivery. Native signed blind consumer acceptance remains separate.",
+    "Explicit pet level is supplied by the asserted current calc2 expression; full spawn, pet ownership/FIFO and AI are not executed by these component captures."
+  ],
+  "remaining": [
+    "Actual native component comparisons, Raven actor/casting/AI/damage/lifecycle/persistence/input and installation remain pending; no learned handler or whole-skill parity is enabled."
+  ]
+}

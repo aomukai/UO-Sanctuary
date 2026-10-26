@@ -29,7 +29,15 @@ public static class ValkyrieCreation
     {
         if(casterLevel is <1 or >99 || rank is <1 or >255 || difficulty is <0 or >2 || spawn is not{Life256:>0,Defense:>=0,Attack:>=0})
         {throw new ArgumentOutOfRangeException();}
-        int level=AmazonDecoys.Level(casterLevel,rank);var row=_levels[Math.Min(level,_levels.Length-1)];
+        return BaseAtLevel(AmazonDecoys.Level(casterLevel,rank),difficulty,expansion,spawn);
+    }
+    // Raven supplies calc2 explicitly; the source retains that level on the
+    // pet while clamping only the monlvl lookup, unlike the default pet level.
+    internal static (int Level,int Defense,int Attack) BaseAtLevel(int level,int difficulty,bool expansion,SummonSpawnStats spawn)
+    {
+        if(level<1 || difficulty is <0 or >2 || spawn is not{Life256:>0,Defense:>=0,Attack:>=0})
+        {throw new ArgumentOutOfRangeException();}
+        var row=_levels[Math.Min(level,_levels.Length-1)];
         return (level,checked(spawn.Defense+(expansion?row.ExpansionDefense:row.Defense)[difficulty]),
             checked(spawn.Attack+(expansion?row.ExpansionAttack:row.Attack)[difficulty]));
     }

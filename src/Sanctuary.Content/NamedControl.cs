@@ -82,6 +82,22 @@ public static class NamedControl
     {
         if (bonus <= 0 || !AiTarget(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Attract or CombatAbility.Confuse) { return false; }
         int level = BlindLevel(ClassStats.Level(source), ClassStats.Level(target), bonus, ranged, random.Next(100));
+        return ApplyBlindLevel(target, level);
+    }
+    // Raven's monprop supplies a signed -1. Event09 accepts any nonzero value
+    // and draws before the downstream curse eligibility check. Keep the
+    // existing player/item positive-bonus entry point unchanged.
+    internal static bool ApplySummonBlind(BaseCreature source, Mobile target, int bonus, bool ranged, Func<int> roll)
+    {
+        if(source is not{Alive:true,Deleted:false,Controlled:true,ControlMaster:PlayerMobile}
+            || target is not BaseCreature{Alive:true,Deleted:false} || bonus==0){return false;}
+        int draw=roll();if(draw is <0 or >=100){throw new ArgumentOutOfRangeException(nameof(roll));}
+        int level=BlindLevel(ClassStats.Level(source),ClassStats.Level(target),bonus,ranged,draw);
+        if(!AiTarget(target) || NecromancerEffects.Curse(target)?.Ability is CombatAbility.Attract or CombatAbility.Confuse){return false;}
+        return ApplyBlindLevel(target,level);
+    }
+    private static bool ApplyBlindLevel(Mobile target,int level)
+    {
         if (level == 0) { return false; }
         var creature = (BaseCreature)target; var now = TimedEffects.Now; TimedEffects.Settle(target, now);
         if (!target.Alive || target.Deleted) { return false; }

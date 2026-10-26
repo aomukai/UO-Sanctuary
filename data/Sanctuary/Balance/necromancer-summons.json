@@ -382,6 +382,64 @@
     }
   },
   {
+    "key": "druidhawk",
+    "fields": {
+      "*hcIdx": 419,
+      "TransLvl": 0,
+      "enabled": 1,
+      "MinGrp": 1,
+      "MaxGrp": 1,
+      "Velocity": 10,
+      "Run": 20,
+      "Rarity": 0,
+      "aidel": 15,
+      "aidel(N)": 15,
+      "aidel(H)": 15,
+      "aip1": 10,
+      "aip1(N)": 10,
+      "aip1(H)": 10,
+      "aip2": 6,
+      "aip2(N)": 6,
+      "aip2(H)": 6,
+      "aip3": 2,
+      "aip3(N)": 2,
+      "aip3(H)": 2,
+      "aip4": 95,
+      "aip4(N)": 95,
+      "aip4(H)": 95,
+      "aip5": 35,
+      "aip5(N)": 35,
+      "aip5(H)": 35,
+      "Align": 1,
+      "isSpawn": 1,
+      "inTown": 1,
+      "flying": 1,
+      "opendoors": 1,
+      "killable": 1,
+      "switchai": 1,
+      "neverCount": 1,
+      "CannotHerald": 1,
+      "Sk1lvl": 0,
+      "coldeffect": -50,
+      "coldeffect(N)": -50,
+      "coldeffect(H)": -50,
+      "DamageRegen": 2,
+      "noRatio": 1,
+      "Crit": 5,
+      "minHP": 26,
+      "maxHP": 26,
+      "AC": 25,
+      "MinHP(N)": 26,
+      "MaxHP(N)": 26,
+      "AC(N)": 25,
+      "MinHP(H)": 26,
+      "MaxHP(H)": 26,
+      "AC(H)": 25,
+      "expansion": 1,
+      "lineNumber": 420
+    }
+  },
+  {
     "key": "firegolem",
     "fields": {
       "*hcIdx": 292,
@@ -916,6 +974,12 @@
       "El1MaxD": 10,
       "expansion": 1,
       "lineNumber": 411
+    }
+  },
+  {
+    "key": "druidhawk-properties",
+    "fields": {
+      "item_stupidity": -1
     }
   },
   {

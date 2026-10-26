@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -48,6 +49,21 @@ def build(local_root, installation, check=False):
         ('monstats2', ['SizeX', 'SizeY', 'Height', 'MeleeRng', 'BaseW'])]:
         for field in fields:
             assert str(tables[name].get(field, 0)) == str(local[name].get(field, 0)), (name, field)
+    animation_path=local_root/'AnimData.d2'
+    animation_provenance=json.loads((ROOT/'tools/reference/d2r-local-animation-evidence.json').read_text())
+    assert sha(animation_path)==animation_provenance['sha256']
+    raw_animation=animation_path.read_bytes();at=0;animations=[]
+    for _ in range(256):
+        count=struct.unpack_from('<I',raw_animation,at)[0];at+=4
+        for _ in range(count):
+            code=raw_animation[at:at+8].split(b'\0')[0].decode('ascii')
+            frames,speed=struct.unpack_from('<II',raw_animation,at+8)
+            if code.startswith('HK'):
+                animations.append(dict(code=code,frames=frames,speed=speed,events=[[i,v] for i,v in enumerate(raw_animation[at+16:at+160]) if v]))
+            at+=160
+    assert at==len(raw_animation) and len(animations)==6
+    attack=next(x for x in animations if x['code']=='HKA1HTH')
+    assert [attack[k] for k in ['frames','speed','events']]==[23,240,[[10,1]]]
     stage = ROOT / '.local/class-skills'
     tree = json.loads((stage / 'd2moo-source-tree.json').read_text())
     assert tree['sha'] == '0c0bbd1e6bef9181a3da1c046523af622a925416'
@@ -56,6 +72,10 @@ def build(local_root, installation, check=False):
         ('source/D2Game/src/SKILLS/SkillDruid.cpp', ['SKILLS_SrvDo114_Raven']),
         ('source/D2Game/src/AI/AiThink.cpp', ['D2GAME_AI_Unk107_6FCED140', 'AITHINK_Fn107_Raven']),
         ('source/D2Game/src/SKILLS/SkillNec.cpp', ['D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10', 'D2GAME_SetSummonPassiveStats_6FD0C530', 'sub_6FD0B9F0']),
+        ('source/D2Game/src/SKILLS/Skills.cpp', ['sub_6FD14D20']),
+        ('source/D2Game/src/MONSTER/MonsterMode.cpp', ['sub_6FC627B0']),
+        ('source/D2Game/src/MONSTER/Monster.cpp', ['MONSTER_InitializeStatsAndSkills']),
+        ('source/D2Common/src/Items/ItemMods.cpp', ['ITEMMODS_PropertyFunc01', 'ITEMMODS_AddPropertyToItemStatList', 'D2COMMON_11292_ItemAssignProperty']),
         ('source/D2Game/src/SKILLS/SkillItem.cpp', ['SKILLITEM_EventFunc09_Stupidity'])]:
         raw = (stage / 'd2moo-pinned-source' / relative).read_bytes()
         assert hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == next(x['sha'] for x in tree['tree'] if x['path'] == relative)
@@ -76,12 +96,16 @@ def build(local_root, installation, check=False):
         executableSha256=prior['executable']['sha256'], buildInfoSha256=prior['buildInfo']['sha256'],
         primaryDataCommit=manifest['commit'], legacyCommit=tree['sha'], localTables=pins,
         currentRows=local, sourceHashes=hashes, reviewedRoutineHashes=routines,
+        animation=dict(archivePath='data:data/global/animdata.d2',localFilename='AnimData.d2',sha256=sha(animation_path),records=animations,
+            scope='Current raw metadata only: action scheduling/rate conversion/native pose and modern AI event ordering remain to verify.'),
         established=[
             'Strict read-only local CASC monprop extraction supplies the previously absent druidhawk property row. All three difficulties supply stupidity=-1. Current local skills/monstats/monstats2 corroborate the selected cached Raven fields; licensed raw files remain local and ignored.',
             'Current rows request6mana, right-only SC, town casting, Raven/druidhawk/S1, maximum min(effective rank,5), level max(1,owner level-2+effective rank),12+(rank-1) hit formula and12percent physical synergy per hard Spirit Wolf/Dire Wolf/Grizzly point. These table formulas do not prove how the modern AI consumes them.',
             'Legacy do114 calls the shared summon factory, clears CANBEATTACKED0x4, zeros HP regeneration, evaluates/clamps pet level, then calls shared base/passive stat suppliers. The generic BaseCreature attackability and regeneration defaults must not silently override those flags.',
             'Legacy AI initializes hit budget on first think from the owner highest Raven skill, not from an explicit cast-rank snapshot. It decrements the budget when requesting an attack animation rather than after confirmed health loss. Owner follow/warp, attack delay/chance/distance and orbit have separate branches; modern equivalence remains unverified.',
-            'The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper.'
+            'Legacy monster mode stats call sub14D20 with the live owner highest Raven rank: physical min/max are shifted back to whole life and the toht result is added as flat AR. Do not freeze every attack endpoint at birth or treat the wiki AR percentage label as authoritative for this route. The source base helper retains explicit pet level above99 and clamps only its111-row monlvl lookup.',
+            'The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper.',
+            'Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance.'
         ], reuse=[
             'Shared learned casting, payment/cancellation/right/quick bindings, source formulas and saved summon FIFO/cap infrastructure where routes agree.',
             'Existing native summon ownership, facet difficulty rescaling with preserved life percentage, hostile targeting, damage/mitigation/kill credit and independent blind state consumers; Raven needs its explicit cannot-be-attacked flag, zero-size flight and hit-budget behavior.'
@@ -107,7 +131,7 @@ def build(local_root, installation, check=False):
         assert out.read_text() == text
     else:
         out.write_text(text)
-    print('Raven preflight: current pinned local tables and7legacy routines; signed blind/pet delivery and modern AI remain explicit gates.')
+    print('Raven preflight: current pinned local tables and13legacy routines; signed blind/pet delivery and modern AI remain explicit gates.')
 
 
 if __name__ == '__main__':
