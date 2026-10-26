@@ -70,7 +70,9 @@ def record(check=False, full_class=False):
         row = client[key]
         assert row['Ability'] == 172 and not row['SelfTarget'] and not row['Left'] and row['Right']
         assert row['Label'] == 'Raven' and row['Class'] == 'Druid'
-        assert sha(Path(row['Path'])) == sha(STAGE / 'client/cuo.dll')
+        assert row['Sha256'] == sha(STAGE / 'client/cuo.dll')
+    installed_client = json.loads((ROOT / 'tools/reference/armageddon-installation-evidence.json').read_text())
+    assert installed_client['clientAfterSha256'] == sha(STAGE / 'client/cuo.dll')
     # The full existing client already contains Raven's stable identity and
     # flags. Reuse its exact DLL rather than claiming an unnecessary rebuild.
     old_shared = subprocess.check_output(['git', 'show', 'cb23dd6:shared/ClassAbilities.cs'], cwd=ROOT)

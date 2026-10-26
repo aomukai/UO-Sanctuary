@@ -13,8 +13,8 @@
   "connectedNaturalActors": 3,
   "connectedHeldRightCasts": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
-  "fullClassPassedMarkers": null,
+  "fullClassRegression": true,
+  "fullClassPassedMarkers": 1184,
   "pythonTests": 70,
   "unchangedNamedDefinitions": 573,
   "namedAuditFingerprints": 600,
@@ -26,14 +26,14 @@
   "timingProfile": "legacy-npc-clock-current-hk-metadata-v1",
   "scope": "Exact candidate release checks supplement the focused evidence. Handler coverage is not a whole-skill/class parity certificate; installation requires a separate preservation receipt.",
   "remaining": [
-    "Complete full regression before installation.",
+    "Prepare exact-package installation, preservation rollback and original-world load/listen/shutdown smoke.",
     "Exact modern Raven AI scheduling/attempt-versus-hit/first-think semantics and mid-dive focus interruption remain uncertain; historical2.4changed attack frequency.",
     "Source room/vision/target order/global seed/event/geometry/native tile projection and warp/dead-target fallback remain bounded adapters or unverified.",
     "Moving-unit path repair, PvP/unmapped-size targets and nonzero inherited physical sunder remain unsupported.",
     "Ordinary graphical client comparison, final Raven/emergence/flight/dive/blind/retirement/audio and separate talent/right/quick icons remain open."
   ],
   "hashes": {
-    "tools/record_raven_candidate.py": "786b3f4e7dc7f75ee6b33eb38b4d1221dbf8db048d8a798ee14f3304ec82959f",
+    "tools/record_raven_candidate.py": "62ad534d66cf3364427d7276376949f2b90a988682bed3c9dda45696627e1cb8",
     "tools/record_raven_stats.py": "5269e1760a44f8f5c9d9e93c5ccbae4e01ef3d01b06bec80b50394da64889aa3",
     "tools/reference/raven-stats-native-evidence.json": "899c2322c5d867db7c0614cc99046e81ba1c463860f97842835feee6df8c3cc7",
     "tests/check_class_skills.py": "f65be91eab044053a7c45f0092ad40a8be1fa65676c9e766523b4c1f032233e1",
@@ -50,9 +50,12 @@
     ".local/class-skills/raven/python-tests.log": "708ed009e0615e74d420f0dd14f991e58342295ec5d7ab23ae062b639fe56167",
     ".local/class-skills/raven/native-audits.log": "c6cd27140def6612498f8198f5d7603bfa43e98c18cc8d38757e174bfdbdd47f",
     ".local/class-skills/raven/client/cuo.dll": "5aab95cb0924b199f655ca104bedc46a7e1674c514e009ef0f15ec5b35da3a18",
-    ".local/class-skills/raven/client-proof.log": "cbe749917efae2b72323df756a006acb6d3cc56c311ea39c857273533e9c7d35",
-    ".local/class-skills/raven/client-proof/Program.cs": "ae908abcfdc811c194fca47d678046db24ed284a19364d0a005a156bbc958594",
+    ".local/class-skills/raven/client-proof.log": "f0b31b912bf4e5a8326947c1291cd67e454e4862044e32bfc27fdc023950b587",
+    ".local/class-skills/raven/client-proof/Program.cs": "8c8e40f05f994b802ed1f2b782919416c054afb2c0cde85fd8c875252f931feb",
     ".local/class-skills/raven/client-proof/check.csproj": "83f4a7fcb79a4d14c3efe178e1d3921495991b5f2b7a89b677ab81815183ca3a",
-    ".local/class-skills/raven/client-proof-build.log": "d7f06e321d8179dd779db7e0dfbf587d371dacd4bf66eefb4b535537db6b5a51"
+    ".local/class-skills/raven/client-proof-build.log": "23babf9e38b1c331e7ff30524977fbfc0622fb69845350690daaee6c0101ee40",
+    ".local/class-skills/raven/class-inputs.json": "e151dc1526e6d23d75f2ab067ac18e1195b73e5ed7bdde464e5e443526386723",
+    ".local/class-skills/raven/class-native-checks.log": "d8ddca480bee002ba61ed31fcb6ef9f7b06ed186cc52b078d33b21fc652650fc",
+    ".local/class-skills/raven-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   }
 }

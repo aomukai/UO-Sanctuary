@@ -1,0 +1,522 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "scope": "Current local table/animation and supplementary legacy source preflight. No Creeper actor or behavioral/native acceptance is claimed.",
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "localTables": {
+    "skills": {
+      "archivePath": "data:data/global/excel/skills.txt",
+      "localFilename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f"
+    },
+    "monstats": {
+      "archivePath": "data:data/global/excel/monstats.txt",
+      "localFilename": "monstats-sentries-verified.txt",
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e"
+    },
+    "monstats2": {
+      "archivePath": "data:data/global/excel/monstats2.txt",
+      "localFilename": "monstats2-sentries-verified.txt",
+      "sha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92"
+    },
+    "missiles": {
+      "archivePath": "data:data/global/excel/missiles.txt",
+      "localFilename": "missiles.txt",
+      "sha256": "d1d561538d08a9d59842482a82d890a80b83fe3ef460939efe985ec4e4904a27"
+    },
+    "states": {
+      "archivePath": "data:data/global/excel/states.txt",
+      "localFilename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7"
+    }
+  },
+  "currentRows": {
+    "skills": {
+      "Plague Poppy": {
+        "skill": "Plague Poppy",
+        "*Id": "222",
+        "charclass": "dru",
+        "skilldesc": "plague poppy",
+        "srvdofunc": "115",
+        "aurastate": "vine_beast",
+        "passivestat1": "item_pierce_poison_immunity",
+        "passivecalc1": "stat('item_pierce_poison_immunity'.accr)",
+        "summon": "plaguepoppy",
+        "pettype": "vine",
+        "petmax": "1",
+        "summode": "S1",
+        "sumskill1": "Vine Attack",
+        "sumsk1calc": "lvl",
+        "stsound": "druid_summon",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "monanim": "xx",
+        "UseAttackRate": "1",
+        "LineOfSight": "4",
+        "reqlevel": "1",
+        "maxlvl": "20",
+        "restrict": "1",
+        "leftskill": "0",
+        "rightskill": "1",
+        "minmana": "1",
+        "manashift": "8",
+        "mana": "8",
+        "lvlmana": "0",
+        "interrupt": "1",
+        "InTown": "1",
+        "calc1": "par3 * (lvl-1)",
+        "*calc1 desc": "HP %",
+        "calc2": "ulvl * 3 / 4 + lvl",
+        "*calc2 desc": "Summon Pet Level (Min=1)",
+        "Param3": "50",
+        "*Param3 Description": "HP % per level",
+        "Param8": "10",
+        "*Param8 Description": "Damage synergy",
+        "InGame": "1",
+        "HitShift": "1",
+        "EType": "pois",
+        "EMin": "16",
+        "EMinLev1": "16",
+        "EMinLev2": "16",
+        "EMinLev3": "32",
+        "EMinLev4": "64",
+        "EMinLev5": "80",
+        "EMax": "24",
+        "EMaxLev1": "16",
+        "EMaxLev2": "18",
+        "EMaxLev3": "36",
+        "EMaxLev4": "68",
+        "EMaxLev5": "84",
+        "EDmgSymPerCalc": "skill('Rabies'.blvl)*par8",
+        "ELen": "100",
+        "cost mult": "256",
+        "cost add": "1000",
+        "*eol": "0"
+      },
+      "Vine Attack": {
+        "skill": "Vine Attack",
+        "*Id": "294",
+        "srvdofunc": "130",
+        "srvmissilea": "plague vines",
+        "auratargetstate": "slowed",
+        "aurastat1": "velocitypercent",
+        "aurastatcalc1": "-100",
+        "dosound": "druidpod_attack_1",
+        "dosound a": "druidpod_walk1_1",
+        "dosound b": "druidpod_neutral_1",
+        "cltstfunc": "49",
+        "cltmissilea": "vine beast attack",
+        "cltmissileb": "vines",
+        "cltmissilec": "vine beast walk 1",
+        "cltmissiled": "vine beast neutral",
+        "cltcalc1": "min(ln12,12)",
+        "*cltcalc1 desc": "# of vine Missiles created",
+        "cltcalc2": "35",
+        "*cltcalc2 desc": "Missile Delay",
+        "cltcalc3": "6",
+        "*cltcalc3 desc": "Min Distance between Missiles",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SQ",
+        "seqtrans": "SQ",
+        "monanim": "S1",
+        "UseAttackRate": "1",
+        "reqlevel": "1",
+        "leftskill": "0",
+        "rightskill": "0",
+        "interrupt": "1",
+        "calc1": "min(ln12,24)",
+        "*calc1 desc": "# of Missiles created",
+        "calc4": "20",
+        "*calc4 desc": "Frames to apply aura to target (Min=5)",
+        "Param1": "3",
+        "*Param1 Description": "# of Missiles created baseline",
+        "Param2": "1",
+        "*Param2 Description": "# of Missiles created per level",
+        "InGame": "1",
+        "HitShift": "8",
+        "cost add": "0",
+        "*eol": "0"
+      }
+    },
+    "monstats": {
+      "plaguepoppy": {
+        "Id": "plaguepoppy",
+        "*hcIdx": "425",
+        "BaseId": "plaguepoppy",
+        "TransLvl": "0",
+        "NameStr": "Druid Plague Poppy",
+        "MonStatsEx": "plaguepoppy",
+        "AI": "Vines",
+        "Code": "k9",
+        "enabled": "1",
+        "MinGrp": "1",
+        "MaxGrp": "1",
+        "Velocity": "7",
+        "Run": "7",
+        "Rarity": "0",
+        "aidel": "15",
+        "aidel(N)": "15",
+        "aidel(H)": "15",
+        "aip1": "100",
+        "aip1(N)": "100",
+        "aip1(H)": "100",
+        "aip2": "20",
+        "aip2(N)": "20",
+        "aip2(H)": "20",
+        "aip3": "25",
+        "aip3(N)": "25",
+        "aip3(H)": "25",
+        "aip4": "10",
+        "aip4(N)": "10",
+        "aip4(H)": "10",
+        "aip5": "35",
+        "aip5(N)": "35",
+        "aip5(H)": "35",
+        "Align": "1",
+        "isSpawn": "1",
+        "isMelee": "1",
+        "inTown": "1",
+        "killable": "1",
+        "neverCount": "1",
+        "CannotHerald": "1",
+        "Skill1": "Vine Attack",
+        "Sk1mode": "S1",
+        "Sk1lvl": "1",
+        "coldeffect": "-50",
+        "coldeffect(N)": "-50",
+        "coldeffect(H)": "-50",
+        "DamageRegen": "3",
+        "noRatio": "1",
+        "minHP": "50",
+        "maxHP": "50",
+        "AC": "25",
+        "MinHP(N)": "50",
+        "MaxHP(N)": "50",
+        "AC(N)": "25",
+        "MinHP(H)": "50",
+        "MaxHP(H)": "50",
+        "AC(H)": "25",
+        "*eol": "0"
+      }
+    },
+    "monstats2": {
+      "plaguepoppy": {
+        "Id": "plaguepoppy",
+        "*hcIdx": "425",
+        "Height": "1",
+        "OverlayHeight": "1",
+        "pixHeight": "96",
+        "SizeX": "0",
+        "SizeY": "0",
+        "MeleeRng": "2",
+        "BaseW": "hth",
+        "HitClass": "3",
+        "TRv": "lit",
+        "TR": "1",
+        "TotalPieces": "1",
+        "mDT": "1",
+        "mNU": "1",
+        "mWL": "1",
+        "mA1": "1",
+        "mS1": "1",
+        "mDD": "1",
+        "dDT": "16",
+        "dNU": "16",
+        "dWL": "16",
+        "dGH": "8",
+        "dA1": "16",
+        "dA2": "8",
+        "dBL": "8",
+        "dSC": "8",
+        "dS1": "16",
+        "dS2": "16",
+        "dS3": "8",
+        "dS4": "8",
+        "dDD": "16",
+        "dKB": "8",
+        "dSQ": "8",
+        "dRN": "8",
+        "restore": "0",
+        "noOvly": "1",
+        "limitCorpses": "1",
+        "small": "1",
+        "Shadow": "1",
+        "light-r": "255",
+        "light-g": "255",
+        "light-b": "255",
+        "InfernoLen": "1",
+        "ResurrectMode": "NU",
+        "*eol": "0"
+      }
+    },
+    "missiles": {
+      "plague vines": {
+        "Missile": "plague vines",
+        "*ID": "474",
+        "pCltDoFunc": "49",
+        "pSrvDoFunc": "26",
+        "Param1": "9",
+        "*param1 desc": "Periodic Spawn Delay for SubMissile1 (Min=1)",
+        "CltParam1": "9",
+        "*client param1 desc": "Periodic Spawn Delay for CltSubMissile1 (Min=1)",
+        "Vel": "7",
+        "MaxVel": "7",
+        "Range": "20",
+        "Red": "255",
+        "Green": "255",
+        "Blue": "255",
+        "InitSteps": "0",
+        "Activate": "0",
+        "LoopAnim": "1",
+        "CelFile": "null",
+        "animrate": "1024",
+        "AnimLen": "1",
+        "AnimSpeed": "16",
+        "CanSlow": "1",
+        "NumDirections": "1",
+        "SubMissile1": "plague vines trail",
+        "CltSubMissile1": "plague vines trail",
+        "*eol": "0"
+      },
+      "plague vines trail": {
+        "Missile": "plague vines trail",
+        "*ID": "475",
+        "pCltDoFunc": "1",
+        "pCltHitFunc": "54",
+        "pSrvDoFunc": "1",
+        "pSrvHitFunc": "50",
+        "sHitPar1": "15",
+        "*server hit param1 desc": "Hit Delay (Frames)",
+        "Range": "100 +  (lvl *  25)",
+        "Red": "255",
+        "Green": "255",
+        "Blue": "255",
+        "InitSteps": "0",
+        "Activate": "0",
+        "LoopAnim": "0",
+        "CelFile": "Expansion\\vines",
+        "animrate": "128",
+        "AnimLen": "12",
+        "AnimSpeed": "16",
+        "CollideType": "3",
+        "LastCollide": "1",
+        "ClientCol": "1",
+        "ClientSend": "1",
+        "Size": "3",
+        "AlwaysExplode": "1",
+        "CanSlow": "1",
+        "Skill": "Plague Poppy",
+        "NumDirections": "8",
+        "CltHitSubMissile1": "plague vines wither",
+        "*eol": "0"
+      }
+    },
+    "states": {
+      "vine_beast": {
+        "state": "vine_beast",
+        "*ID": "150",
+        "active": "1",
+        "setfunc": "11",
+        "cltactivefunc": "89",
+        "*eol": "0"
+      }
+    }
+  },
+  "corroboratedFields": 261,
+  "cachedQuotingNormalizations": [
+    {
+      "table": "skills",
+      "identity": "Vine Attack",
+      "field": "cltcalc1",
+      "cached": "\"min(ln12,12)\"",
+      "local": "min(ln12,12)",
+      "rule": "Strip one cached outer TSV-quoting pair for formula comparison only."
+    },
+    {
+      "table": "skills",
+      "identity": "Vine Attack",
+      "field": "calc1",
+      "cached": "\"min(ln12,24)\"",
+      "local": "min(ln12,24)",
+      "rule": "Strip one cached outer TSV-quoting pair for formula comparison only."
+    }
+  ],
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "reviewedRoutineHashes": {
+    "SKILLS_SrvDo115_Vines": "39a197e7a0e46248937205573921d503e8c6d6956bc40a35bca512be9cf66401",
+    "SKILLS_SrvDo130_VineAttack": "16c087ddf59af598e661e39d8b3aa2b27b7e4f41e8f0c876aefe0b4f5b0b31ec",
+    "D2GAME_AI_Unk_110_111_6FCECC40": "d56331ed3d285f62ec8402a196f24196881ecd56513fb3b906750cebcedf7423",
+    "AITHINK_Fn110_Vines": "c1f0785061787f390ff03d387d71ec0fe4f835602f06202d55f3d0e811baa03f",
+    "MISSMODE_SrvDo26_Vines_PlagueVines": "9e8a9ac4c2be6730bd528f4afa3c17620649cffa551ca8bb5c01f88c1ddb88a4",
+    "MISSMODE_SrvHit50_PlagueVinesTrail": "af8bbaf7333748e0acdf016ccb24391b3b436b0bae629efd55bd693c79edc641",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1"
+  },
+  "animation": {
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "records": [
+      {
+        "code": "K9DTHTH",
+        "frames": 3,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9RNHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9WLHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9NUHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9A1HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9A2HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9S1HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9S2HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9S3HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9S4HTH",
+        "frames": 2,
+        "speed": 256,
+        "events": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "K9DDHTH",
+        "frames": 3,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9BLHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9GHHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "K9SCHTH",
+        "frames": 2,
+        "speed": 256,
+        "events": []
+      }
+    ],
+    "scope": "Raw K9 metadata only; actor/skill scheduling and modern rate remain to verify."
+  },
+  "userObservation": {
+    "date": "2026-10-27",
+    "referenceVersion": "3.3.93847",
+    "effectiveRank": 1,
+    "mana": 8,
+    "life": 50,
+    "minimum": 12,
+    "maximum": 18,
+    "poisonSeconds": 4,
+    "scope": "User has no allocated point and reports the rank-one tooltip preview. This corroborates display values, not a spawned pet or combat behavior."
+  },
+  "established": [
+    "Current player222/do115 is right-only SC,8mana,InTown1,one shared vine pet and inherited Vine Attack rank equal to effective summon rank. Life formula is50percent per rank above1; explicit level formula is ownerLevel*3/4+rank.",
+    "Legacy do115 uses the shared summon factory with mode8, updates summon AI, toggles VINE_BEAST, sets explicit level and invokes shared passives. It does not call the explicit-level base-stat helper used by Raven; do not silently copy that birth-stat path.",
+    "Current rank-one poison endpoints32/48FP256 per frame times100frames display12/18whole damage over4seconds, matching the user preview. Hard Rabies adds10percent per point in the row; pet/owner damage and synergy transfer still need composition.",
+    "Legacy Vines AI has distinct owner-distance35warp, town handling, sight cutoff20,100frame strict skill delay and25frame stall. Already-poisoned targets or exactly100poison resistance trigger escape; movement/follow services and modern equivalence remain unverified.",
+    "Legacy Vine Attack emits min(3+rank-1,24)heads with four cardinal offsets and the existing Charged Bolt initializer. Head do26 requests a fresh trail when remainingFrames modulo max(Param1,1) is0; current Param1is9. Trail has its own Plague Poppy skill field, Size3, LastCollide and hit50 early-window return path.",
+    "The actual local trail Range is the expression100+(lvl*25), not an integer constant. It must not be silently fed to the old constructor integer wRange/LevRange route. Current parser/rank/lifetime and factory ownership/damage composition require dedicated proof.",
+    "Current K9S1HTH is2raw frames at256speed, with kind2at index1. This differs from Raven A1kind1; raw metadata does not establish skill dispatch order or current animation scheduling.",
+    "Current vine_beast state150 has active1,setfunc11 and client activefunc89. It has no directly declared ordinary invulnerability flag. Do not infer permanent Raven-like invulnerability from zero source footprint or underground appearance."
+  ],
+  "reuse": [
+    "Saved minion ownership/history permission, facet rescale with preserved life percentage, FIFO/category caps, shared town-capable SC casting/payment/cancellation and right/quick input.",
+    "Source arithmetic, shared summon passives, poison state/mitigation/kill-credit, source movement/Charged Bolt initialization and missile lifecycle components only where the complete route matches."
+  ],
+  "remaining": [
+    "Resolve actual spawn/base defense/AR/life regeneration before and after explicit level/passive HP changes; do not use Raven birth stats by analogy.",
+    "Compose current VINE_BEAST state visibility/attackability/skill-mode/target slow, owner follow/escape/warp/AI ordering and observed modern timing.",
+    "Trace actual head/trail creation, row skill override versus supplied Vine Attack294, inherited Plague Poppy/Rabies/pierce stats, Range expression evaluation and collision/hit50 meaning before implementing damage.",
+    "Implement and verify the actual saved pet/mats, shared vine replacement, resource/cancellation/input, death/offline/facet/class transitions and two actual reloads. Individual uncertain branches remain nonblocking for unaffected work.",
+    "Final Creeper body/underground/surface/attack/plague-vines/mat/wither/audio effects and independent talent/right/quick icons remain in the existing inventories."
+  ]
+}
