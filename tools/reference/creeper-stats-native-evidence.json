@@ -1,0 +1,47 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "handlers": 166,
+  "druidHandlers": 10,
+  "completedClasses": [],
+  "goalComplete": false,
+  "boots": 1,
+  "actualReloads": 0,
+  "fullClassRegression": false,
+  "buildWarnings": {
+    "content": 0,
+    "integration": 0
+  },
+  "sourceAndNativePoisonCases": 3636,
+  "sourceAndNativeBirthCases": 9180,
+  "scope": "Prepared numeric components only; no Poison Creeper actor, learned cast, trail or combat acceptance.",
+  "hashes": {
+    "src/Sanctuary.Content/DruidCreeperStats.cs": "2bf9dc827401aac3a1c43f921f5b9675e1b20352479b6896fdd4223031e89b88",
+    "tests/Sanctuary.Integration/CreeperStatsChecks.cs": "7fb527ddbb4ee3cdcfa90c27bf04ccbf1ebb9a51e41a12fad87ca529e4743e87",
+    "tests/check_creeper_stats.py": "7971806a1cf8b01c7a3a101128a3452b3a8fd058e49d3d9126e1bc8fd4e912b3",
+    "tools/build_class_skills.py": "9249ee29927dc3163fb33d9bdf1e7bf215c5a3f36c8e43761c87b63d3f55f554",
+    "tools/probe_creeper_components_reference.py": "f480972a6a00cac8c13789fd8c6cebb5f4c1309e94400666d9fd31093b904b84",
+    "tools/record_creeper_stats.py": "430646bc96ba1aaa07b89add1fc09479a3359f73edce492e91d5a5f1966b8550",
+    "tools/reference/creeper-components-source-evidence.json": "f095840c19d8b1f119116821c8e308ca375515805d92bedfa9ee9de633b4742d",
+    "data/Sanctuary/Balance/necromancer-summons.json": "1789a8539e965d68973410db519c3f7c12d1ef8f62ade31cab615a59a8043489",
+    ".local/class-skills/creeper/content/Sanctuary.Content.dll": "ed71f793195712af0b167b39b672b1cacf04b95e60e5bf5a193733009b26766c",
+    ".local/class-skills/creeper/integration/Sanctuary.Integration.dll": "9585b3ca3a16b928f1048bc3a55509b73c9e04a54d82647f59bb10fea5a3cbfc",
+    ".local/class-skills/creeper/stats-inputs.json": "b07b6b10decf345878740b5dc20b72023f5fc2075387473693eb49d519b16f77",
+    ".local/class-skills/creeper/stats-native-checks.log": "d3d26997949a08b9ab14e75310c6be0b168e0d47e0a97765d04b303a555d376f",
+    ".local/class-skills/creeper/stats-run.log": "e1011f85d2373f72b5e1a731c7e9f6fa0f69941a661132d7d9b15d0f563532a2",
+    ".local/class-skills/creeper/content-build.log": "b30a223e33e1c467f1dcab4b437a82bea869a09cbf7667e99946b2c9b745718a",
+    ".local/class-skills/creeper/integration-build.log": "c2ed2543687ea7b1ca5d3bf738b3d6c57ac603e5542849ee5806e6b6bc321718"
+  },
+  "established": [
+    "Native source-zero Creeper poison endpoints, hard-only Rabies synergy, signed mastery, length and count match3636 complete creator/getter/writer source cases. Source captures also retain3636 explicit MissileSkill override controls which are not this trail route.",
+    "Native supplied-spawn percentage/explicit-level/passive components match9180 complete do115/passive source cases over all255ranks, three owner levels, all difficulties, inherited poison-sunder controls and fractional fixed-point base-life controls. Level329 is retained without using Raven monster-level lookup. Actual noRatio spawn initialization is a separate composition.",
+    "Actual trained Druid and Tarnhelm exercise effective rank, immutable earlier stats,50-to75life, retained9FP regeneration and explicit75-to76level. Rank-one32/48FP poison over100frames matches the user unallocated tooltip preview12\u201318over4seconds; no spawned-pet observation is inferred.",
+    "Retained Raven stats/blind/flight, toward paths, Valkyrie creation and named-item checks pass in one disposable server boot. Builds have zero warnings/errors. Existing installed build, saves, configuration and client are not changed."
+  ],
+  "limits": [
+    "No actor or handler enabled. AI, state attackability, summon factory/full spawn initialization, actual pet-to-owner Rabies/mastery/pierce transport and capture timing remain pending.",
+    "Trail Range expression is preserved and evaluated as data only; current executable lifetime, head/trail motion/factory/collision/hit-window and poison delivery are not verified.",
+    "No world reload, connected input, full-class regression, audit refresh, candidate release or installation is claimed. Separate final effects/audio and talent/hotkey icon inventories remain placeholders."
+  ]
+}
