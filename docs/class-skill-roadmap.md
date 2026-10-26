@@ -251,7 +251,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
-| Firestorm | 225 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Firestorm | 225 | pending | Prepared shared Druid emitter requests match 256 complete source launcher cases, 45 charged initializers and 160 maker cases, with three explicit unsupported-context controls. Firestorm uses one ordinary emitter plus two aim-seeded Charged Bolt paths; changed-cell fire creation precedes terminal collision. The older reconstructed do117 guard rejects the current positive count3; this conflict is documented rather than patched in the extracted source. See firestorm-source-evidence.json, firestorm-patterns-evidence.json and firestorm-preflight.json. Real emitter motion, child damage/field lifecycle, SC/payment/local delay/input and world persistence remain pending. No learned handler enabled; final effects/audio and icons remain separately inventoried. |
 | Molten Boulder | 229 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Arctic Blast | 230 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fissure | 234 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

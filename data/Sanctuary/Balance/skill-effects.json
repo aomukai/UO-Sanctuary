@@ -2118,7 +2118,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "No live Firestorm renderer is enabled yet. Planned existing UO fire/cast art must remain explicitly labelled placeholders. Final druid_fire_cast_1 overlay, one direct and two winding expansion/FirestormEmitter trails, groundFireSmall burning patches, contact/expiry presentation and druid_firecast_b/object_fire_loop_house audio remain pending. Separate talent/left/right/quick icons remain pending."
   },
   {
     "talentId": "druid.moltenboulder",
