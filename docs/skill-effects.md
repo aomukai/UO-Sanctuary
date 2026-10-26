@@ -159,7 +159,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Barbarian | Whirlwind | needed | whirlwind |
 | Barbarian | Berserk | needed | berserk |
 | Druid | Firestorm | needed | firestormmaker, druid_fire_cast_1, firestormmaker, druid_fire_cast_1 |
-| Druid | Molten Boulder | needed | Final 453 emergence, 452 roll, 454 blast, 456 flying rocks, 455 ground flames, druid_fire_cast_1 and audio. Prepared UO 0x36D4 travel, 0x398C flames and 0x36BD contact/blast, hue 0x489, and cast sound 0x1E5 are identified placeholders. Learned casting is verified in the worktree; installation acceptance is pending. |
+| Druid | Molten Boulder | needed | moltenboulderemerge, druid_fire_cast_1, moltenboulderemerge, druid_fire_cast_1 |
 | Druid | Arctic Blast | needed | arcticblast1, arctic_blast_cast, arcticblast1, arcticblast2 |
 | Druid | Fissure | needed | erruption center, druid_fire_cast_2, erruption center, druid_fire_cast_2 |
 | Druid | Cyclone Armor | needed | cyclonearmor |
@@ -254,6 +254,8 @@ Smite currently uses ordinary UO weapon animation/sound and native get-hit anima
 Blade Shield uses native cast/attachment flash0x373A, hue0x481, contact0x37B9 and sound0x1E5 as identified placeholders. Its persistent blade ring, motion, impact/audio and separate talent/hotkey icons remain pending; these assets do not own its gameplay damage.
 
 Shared weapon leech: life/mana overlays151/152 still need final recovery effects. Native0x376A with life hue0x26 or mana hue0x489 is an identified placeholder. No separate talent/hotkey icon is required for this shared item effect; each actual skill retains its own icon row.
+
+Molten Boulder: native travel0x36D4, ground fire0x398C and contact/blast0x36BD hue0x489, shared SC pose and cast sound0x1E5 are identified placeholders. Final source453emergence/452roll/454blast/456flyingrocks/455fire, druid_fire_cast_1 and audio remain pending. Talent/left/right/quick icons stay in the separate register. Current installation status is in molten-boulder-native-evidence.json.
 
 Shared Crushing Blow: overlay147 still needs its final impact effect. Native0x376A with hue0x21 is an identified placeholder. This item effect has no separate talent/hotkey icon.
 

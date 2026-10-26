@@ -1681,10 +1681,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 229,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC ground/target casting pays10+0.5*(rank-1)mana once at release with a25frame local delay. Focused/full3boots/2reloads/3connected natural quick casts retain cancellation, live/deleted aim, self fallback, L/R/quick bindings and discarded unpaid windup. Native emergence5/rolling50/trail37/disc7 lifetimes, repeated non-LARGE direct hits, area/disc, blocked-hit knockback, offline expiry, immutable saved steps/RNG/endpoints and atomic restore pass. Actual content matches12,240complete source damage captures/all255ranks and3,024impact/event-health/mode contexts. Actual Tarnhelm, guarded town/wall, immunity and tier3 potion controls pass; Ormus live mastery equip is deferred by skill-rand. Current deployment status is in molten-boulder-native-evidence.json. Native geometry/seed/owner/event/state/animation-producer/current executable limits remain explicit; no class certificate. Effects/audio/icons remain identified placeholders."
     },
     {
       "talentId": "druid.arcticblast",

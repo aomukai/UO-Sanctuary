@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": true,
   "installed": false,
-  "sourceStatus": "Learned worktree candidate153: focused3boots/2actual reloads/3natural connected quick casts pass; full regression running, installation not accepted.",
+  "sourceStatus": "Learned candidate153 passes focused/full3boots/2reloads/3connected casts. Fresh metadata audit refresh passes; main acceptance/Python/existing-world installation pending.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -322,7 +322,7 @@
     }
   ],
   "remaining": [
-    "Full class regression is running on frozen candidate inputs. Fresh audits/Python checks, existing-world smoke and safe installation still required; installed count remains158.",
+    "Full focused/regression and metadata-only native audit refresh pass. Main Python/readiness acceptance, existing-world smoke and safe installation remain; installed count stays158.",
     "Field do5sequence mutations and persisted state start at the source allocator/factory default0. No guessed animation increment is introduced. Full modern server/client animation producer equivalence remains unverified.",
     "Native spatial/room/list/step order, exact modern seed/event/item-subscriber/PvP/hireling/special mode behavior and unmapped rolling species remain explicit acceptance limits. The represented native uninterruptible player adapter is the existing Leap controller; other engine states are not certified.",
     "Optional current-build wall/expiry damage observation remains pending. Reconstructed terminal null-victim routing produces no area/disc. Complete factory does not read InitSteps.",
@@ -416,6 +416,8 @@
       "tools/check_molten_boulder_native.py": "fe767c4279f523bae26661a894cda771ad646d35d9eafe870d9b0e84942746bf",
       "tools/probe_molten_boulder_damage_reference.py": "5ded9e5ac4da00c55a8dc7aa9c4f0aecf127c67b911cea9e62e15d0b30436273",
       "tools/probe_molten_boulder_impact_reference.py": "a880900ffa49d4060b8b75fdabdfa387b03b88f1b412929eb11cb7daade24ebf",
+      "data/Sanctuary/Balance/class-skill-status.json": "febb093eb353bb3a5b5351007019d5bb018083052479932090f8fdd87eb2aed9",
+      "tools/build_skill_roadmap.py": "62b93740f409ae57f26ebb223632a0f45a127a61237762b8b2bae19583d015e8",
       ".local/class-skills/molten-boulder-Ormus-unavailable.log": "e5de81d2bcf5c773d0758b4af292f535b4585b88f8007da0e08cd5f0d2d8d629",
       ".local/class-skills/molten-boulder-content-build.log": "0f12fadbd32897edff358bf861238b3c4eb8c45f04ee0ad0acd02fbdd53ab61d",
       ".local/class-skills/molten-boulder-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -431,7 +433,14 @@
       ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "3b6cea4184385fc813362b0c504da5a50aced30f7a1daa6059994e2ff097fe89",
       ".local/class-skills/molten-boulder/integration/Sanctuary.Integration.dll": "37cf92ee55f3c517783a8249cc6f13278778575b61633f63f8535e0d9d54cd03",
       ".local/class-skills/molten-boulder/molten-boulder-checks.log": "39b01503bc9db981a369753b36d170a1c86bd11221240eef1e98ad0949f61e61",
-      ".local/class-skills/molten-boulder/native-fixtures.json": "376066a16677473c67153c7cdb961d8fd21bb5fc2a6a29c3052377904b963d7d"
+      ".local/class-skills/molten-boulder/native-fixtures.json": "376066a16677473c67153c7cdb961d8fd21bb5fc2a6a29c3052377904b963d7d",
+      ".local/class-skills/native-checks.log": "6f0d0e270cd59a4ae78a02091cbad4b16cd46369e663b9e57c93399605fe59a2",
+      ".local/class-skills/molten-boulder-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+      ".local/class-skills/molten-boulder-audit-refresh.py": "9e329410e98bde1981fbfc787cb31f9310b0d6b06faf9197fb662fead5c108dc",
+      ".local/class-skills/molten-boulder-audit-refresh.log": "bf969e4fa9f70f81e013f3d28ed250376778f7fff6d9091c9c9c3e41c6762055",
+      ".local/class-skills/molten-boulder/audit-refresh-native.log": "e6a6d59bf72af8a057a27c77407dde3a8b4e2c7c31c4fc479097882694b994e2",
+      ".local/class-skills/named-item-runtime-audit.json": "a0065d9f3d27334bd0ce36d29d3b1dccff103fd35e335c5d9ed2920d5759b1c2",
+      ".local/class-skills/first-loop-affix-audit.json": "23bd1c8ff621ee1bcfbf0f35f32fd65b3a4de5e3eafdb486bceadd467ffc8899"
     }
   },
   "nativeEvidence": "tools/reference/molten-boulder-native-evidence.json"
