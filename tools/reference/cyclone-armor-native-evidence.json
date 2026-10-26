@@ -10,9 +10,9 @@
   "connectedCasts": 3,
   "formulaCasesPerBoot": 6885,
   "sourceComparisonsPerBoot": 9072,
-  "updatedAtUtc": "2026-10-26T00:21:20.303550+00:00",
-  "contentSha256": "56dca6db2385b2af7717f0537a563a6dd9f5a843e006b88e313223bf0a0ce202",
-  "integrationSha256": "101a47f7a939abccffc4dc83f367fc19a4173c1e2004fa61d0812bbd480becc3",
+  "updatedAtUtc": "2026-10-26T00:33:05.639512+00:00",
+  "contentSha256": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
+  "integrationSha256": "4b00f39f6aa3e6fc3d04a42208e2d6888016a1cc9e5afd7f11afecf1fdb7695f",
   "inputHashes": {
     "src/Sanctuary.Content/DruidCombat.cs": "f91e5a202ce818390d4b9ad3543ce87d7302a9b4fb9275c2f0f24993e4adf3d0",
     "src/Sanctuary.Content/DruidCycloneArmor.cs": "93cb1caba7c5dc11e514955c49a4c9ddfea162aa360ff9393897c7ceaa9cbbc6",
@@ -39,19 +39,37 @@
     "tools/reference/cyclone-armor-packets-evidence.json": "6a1d9bba7f869e2efe21a70e9ebd1cc81d27fd22236df233e18845b0acdde1f3"
   },
   "evidenceHashes": {
-    ".local/class-skills/cyclone-armor-focused.py": "64434d2cca66153e50054cc9373ce61b63e18c7aac7f33326faf6aed5891c43d",
+    ".local/class-skills/cyclone-armor-focused.py": "664112918e497f207bdc2ebfbb9476bc96b0b4b912db7cbc88ec030bcccc1b6a",
     ".local/class-skills/cyclone-armor-focused-run.log": "ee7fc3152f49821cf417cd8d8f9e30964fdb71e450742247cbd7a0dbb870e76d",
-    ".local/class-skills/cyclone-armor-content-build.log": "d1a8bedb19c2d5d7f9e5acabe54a3f9769adbc944e0b7d169d7a158d2a756c8b",
-    ".local/class-skills/cyclone-armor-integration-build.log": "e0a8974bd79feb5498b2b112131a2434c3b9ecf6e8dd9824365c07af81f95f40",
-    ".local/class-skills/cyclone-armor-source-run.log": "b489c40b1251f2988f940b65a052379f77e30a451e2a8bf831521550839a61b9",
-    ".local/class-skills/cyclone-armor-packets-run.log": "9b8cc336566e47718e6da04208a4e4940113cea5805a27bed57b87cd37eb2ef5",
-    ".local/class-skills/cyclone-armor-source-probe.json": "f2577a854cea2e9431a8b9ea24c164965bd9bda1ea385db655153c83ddb76ca2",
-    ".local/class-skills/cyclone-armor-source-probe.cpp": "be076618e3b78bab697cb96920221695932e6c65dc2794ae7e06449642dbe34f",
-    ".local/class-skills/cyclone-armor-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/cyclone-armor/cyclone-armor-first-movement-failure.log": "cd1d25808a58d26e5d996f939d470b87d5a998d1e3b1e2eccc7906bbbb3c857f",
-    ".local/class-skills/cyclone-armor/cyclone-armor-first-binding-failure.log": "0a1e65452a30c11f3041a54eb72bce7c92157c3679ff73c5d4c0070c4562024c",
-    ".local/class-skills/cyclone-armor/cyclone-armor-checks.log": "fd18670599f2a00c53a9d414b4434935e33101c060bf67c7ff9b967254908b19",
-    ".local/class-skills/cyclone-armor/cyclone-armor-first-network-fixture-failure.log": "003a39743cd3ba7af5e1bcd6569af279fc218fcd49dbab84f66bb3b397a3e206"
+    ".local/class-skills/cyclone-armor-content-build.log": "69f123901cf8939dfa22bb9a4c77edb163b63d26146aac92f765c17d24524214",
+    ".local/class-skills/cyclone-armor-integration-build.log": "fa317ece0eec5f37a369fae51196a13a0a5ef553172e12dae4e868a3b230ff66",
+    ".local/class-skills/cyclone-armor/cyclone-armor-checks.log": "87452be62fbda013cd5d07d89182d04cd2600b77aa9462047d47cef29ce5e015",
+    "tools/reference/cyclone-armor-client-evidence.json": "3187de79c33c169c856d622ba2607001241dac33178276a59f5f6eb70236c247",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-focused.py": "64434d2cca66153e50054cc9373ce61b63e18c7aac7f33326faf6aed5891c43d",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-focused-run.log": "ee7fc3152f49821cf417cd8d8f9e30964fdb71e450742247cbd7a0dbb870e76d",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-content-build.log": "d1a8bedb19c2d5d7f9e5acabe54a3f9769adbc944e0b7d169d7a158d2a756c8b",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-integration-build.log": "e0a8974bd79feb5498b2b112131a2434c3b9ecf6e8dd9824365c07af81f95f40",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-source-run.log": "b489c40b1251f2988f940b65a052379f77e30a451e2a8bf831521550839a61b9",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-source-probe.cpp": "be076618e3b78bab697cb96920221695932e6c65dc2794ae7e06449642dbe34f",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-source-probe.json": "f2577a854cea2e9431a8b9ea24c164965bd9bda1ea385db655153c83ddb76ca2",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-packets-run.log": "9b8cc336566e47718e6da04208a4e4940113cea5805a27bed57b87cd37eb2ef5",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-packets-check.log": "9b8cc336566e47718e6da04208a4e4940113cea5805a27bed57b87cd37eb2ef5",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-first-movement-failure.log": "cd1d25808a58d26e5d996f939d470b87d5a998d1e3b1e2eccc7906bbbb3c857f",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-first-binding-failure.log": "0a1e65452a30c11f3041a54eb72bce7c92157c3679ff73c5d4c0070c4562024c",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-checks.log": "fd18670599f2a00c53a9d414b4434935e33101c060bf67c7ff9b967254908b19",
+    ".local/class-skills/cyclone-armor/worktree-focused/cyclone-armor-first-network-fixture-failure.log": "003a39743cd3ba7af5e1bcd6569af279fc218fcd49dbab84f66bb3b397a3e206",
+    ".local/class-skills/cyclone-armor/worktree-focused/content/Sanctuary.Content.deps.json": "d914ed14c0178fa7189c8d368d978732146bc589c80172d67961e64b0cfced9b",
+    ".local/class-skills/cyclone-armor/worktree-focused/content/Sanctuary.Content.pdb": "6bc6120705d2cf91bd9df774dd057378659ade7dbbafad38ef38922879f11959",
+    ".local/class-skills/cyclone-armor/worktree-focused/content/Sanctuary.Content.dll": "56dca6db2385b2af7717f0537a563a6dd9f5a843e006b88e313223bf0a0ce202",
+    ".local/class-skills/cyclone-armor/worktree-focused/integration/Sanctuary.Integration.deps.json": "ccc6ffa3ebebc0d42acec94ab237b26349da283a263e2f53a08bea21396d16f9",
+    ".local/class-skills/cyclone-armor/worktree-focused/integration/Sanctuary.Integration.pdb": "d1b7269d7ad717a7e22f0915cdd733d4a0b0bc9ee230735950ad8525719bd2a0",
+    ".local/class-skills/cyclone-armor/worktree-focused/integration/Sanctuary.Integration.dll": "101a47f7a939abccffc4dc83f367fc19a4173c1e2004fa61d0812bbd480becc3",
+    ".local/class-skills/cyclone-armor-client-build.log": "c1dbe5178e224d2cb8d6ae8582180a9b03213077db815a630f3cc82411f4c596",
+    ".local/class-skills/cyclone-armor-client-proof-build.log": "9ead8b0a2a7c03505517fbf007e56abc91399b8c7a52b86052c5d538efc47d1e",
+    ".local/class-skills/cyclone-armor-client-proof.log": "8ecaa2faf89146666648bcc8c4614b5a64f574edfb641edceba3990a19061de3",
+    ".local/class-skills/cyclone-armor-client-proof/Program.cs": "21194a0cd1b6f05c4396319fa644dbf2e9b447508672d2fbb8a65d84a8423bed",
+    ".local/class-skills/cyclone-armor-client-proof/check.csproj": "83f4a7fcb79a4d14c3efe178e1d3921495991b5f2b7a89b677ab81815183ca3a"
   },
   "protectedInstalledArtifacts": {
     "/media/aomukai/FILES/Sanctuary/.local/class-skills/content/Sanctuary.Content.dll": "2cc3ce254ced773ed92defdea0df47092369c533f7005becea7eaf11c6d079f9",
@@ -76,10 +94,28 @@
     "Death/respec/direct history/successful wardrobe transition clear state. Main working content/client/save artifacts remain unchanged."
   ],
   "limits": [
-    "Separate-checkout focused proof only; main full regression/current audits/Python and matching client/existing-world installation are pending.",
+    "Main and separate-checkout focused3boots/2reloads/3connected casts and staged client proof pass. Full regression/current audits/Python acceptance and original-world matching content/client install remain pending.",
     "Lower-effective-rank recast follows inspected older do18/group0/factory behavior; optional current3.3.93847 observation remains pending. Modern executable equivalence is not claimed.",
     "The source helper retains the older directed gfx-percent comparison, but native overlays/audio are identified placeholders. Exact modern display and ordering with foreign/cross-class absorb subscribers remain unverified.",
     "Native engine creature/weapon/spell paths use existing approved damage consumers; complete modern item/proc/PvP/special-event parity and class completion remain open."
   ],
-  "assetStatus": "Existing separate240row effect/icon registers; identified0x375A/hue0x481 and0x1E5 cast/audio placeholders. Final cyclonearmor1front/2front/3front/depletion/cast audio and talent/right/quick icons remain pending."
+  "assetStatus": "Existing separate240row effect/icon registers; identified0x375A/hue0x481 and0x1E5 cast/audio placeholders. Final cyclonearmor1front/2front/3front/depletion/cast audio and talent/right/quick icons remain pending.",
+  "clientSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+  "mainCandidate": {
+    "status": "Main focused3boots/2reloads/3connected casts and staged client old/new self-target proof pass; full regression/current audits running on897frozen inputs.",
+    "fullSession": 87330,
+    "frozenInputs": 897,
+    "mainFocusedBoots": 3,
+    "mainFocusedReloads": 2,
+    "mainConnectedCasts": 3,
+    "clientEvidence": "tools/reference/cyclone-armor-client-evidence.json",
+    "installed": false,
+    "protectedInstalledArtifactsUnchanged": true
+  },
+  "checkpointRepair": {
+    "scope": "Restored an accidentally overwritten archived evidence file from the original worktree; actual candidate/installed binaries were unaffected.",
+    "files": [
+      ".local/class-skills/cyclone-armor/worktree-focused/integration/Sanctuary.Integration.dll"
+    ]
+  }
 }
