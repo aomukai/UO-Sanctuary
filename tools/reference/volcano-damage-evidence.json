@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEndpointSets": 82620,
+  "actualContentEndpointSets": 55080,
+  "sourceOnlyAirCases": 27540,
+  "contentAssemblySha256": "d0525ad44f943ebfafed28cd0a81a5bfa039dc9c95222e0532eefca34bcc825f",
+  "nativeAssemblyHashes": {
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "hashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidFirestorm.cs": "5f0ff4f43c840c7f3b76cb96f9dd1d8df92f346d11311291dbe51fadb1e3050a",
+    "src/Sanctuary.Content/DruidCombat.cs": "221c5c780e2a0e0a5f7de478b010b8671922066ff3d998748fb49a59d57afa39",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/check_volcano_damage.py": "5e866b9721fe5116149cdd5ef8707e8f8b2c2811ed64db49b478577751c2a701",
+    "tools/probe_volcano_damage_reference.py": "2b0297ef310f3b3a09398557f0ba7ce19a2a83d1a00edffb71b966d6a34a8f1a",
+    "tools/reference/volcano-damage-source-evidence.json": "86a5ab86f884442a05d1a4e9f54c189ad1c720164f1b300f61a2b44f7aea1887",
+    ".local/class-skills/volcano-damage-source-probe.json": "7f1d3dfc391e979ad246b5502886a0289b3b5ef504ade6bab2b8d0bb3d109a57",
+    ".local/class-skills/volcano-damage-run.log": "7ded8e21595c4e9af9ce1965ad8149ba4a1e4ba2cac5e600fe07339153b53fdb",
+    ".local/class-skills/volcano-damage-proof/Program.cs": "1b840cf6615fcbff836ddf406cb093e350489062fb2f30a616d3862ae45b9874",
+    ".local/class-skills/volcano-damage-proof/check.csproj": "2c513621734dd7a91ae8d51cffb81867777565033b502c0b09f390c0ef6bd818",
+    ".local/class-skills/volcano-damage-proof/out/check.dll": "6e4d1645cb587f457eb995bdb481c41be2f91cf40c79d17338bbf73fd5927eae"
+  },
+  "established": [
+    "Existing actual content PhysicalDamage256 and DruidFirestorm.Endpoints match all55080root/lava source endpoint sets/all255ranks. Independent hard Boulder/Fissure/Armageddon inputs remain separate from deliberately255effective synergy ranks.",
+    "Pre-HitShift physical truncation, post-HitShift fire synergy and one fire-mastery application match. Mana25, range12 and emission interval2 evaluate through the actual existing formula interpreter. No new duplicate formula or endpoint supplier is needed."
+  ],
+  "remaining": [
+    "Air debris has27540source-only zero packet controls; no native air actor is claimed by this supplier check.",
+    "Saved vent/debris/lava actors, actual damage/collision, modern NHD grouping, learned input/payment/local delay, current executable/client and final effects/icons remain separate."
+  ]
+}

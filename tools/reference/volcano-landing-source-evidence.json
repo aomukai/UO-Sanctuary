@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSMODE_SrvHit51_VolcanoDebris": "ad9e6d7ee15ec60a49d4f83b983dde2a2083cc6b55097bd2b13b85367d797c4c",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSMODE_SrvDo01_BasicMissile": "ff5486ee6b938a7c4aeb165a35c519cd2276360c34d259ce285f60180dc4da19"
+  },
+  "fixture": {
+    "path": ".local/class-skills/volcano-landing-source-probe.json",
+    "sha256": "17e1e9ed9b972a8c14669920dc29f4648803416c7ee51a7709e69275d64a1e58",
+    "caseCounts": {
+      "updates": 480,
+      "routes": 16,
+      "lifetimes": 27
+    }
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete do1, generic collision, hit router, hit51 and movement bridge compose. Moving NOCOLLIDE mode advances before decrement, returns before room/path-flag/unit-finder checks, and creates its terminal child at the advanced position. CurrentFrame1 still advances once before expiry. Movement-end return2 invokes the terminal route before any frame decrement.",
+    "Each complete movement bridge first validates tracked targets, calls the motion primitive with1024, and then repairs an invalid current room. Its returned1/2 follows motion success; room repair itself does not independently change the returned value.",
+    "Mode0 actor-victim controls cannot damage, invoke hit51 or create lava. Null-victim expiry/AlwaysExplode routes do create child483. Child uses flags0 and debris origin with retained skill244/rank20; missing-owner request reaches the declared factory but the independently proven full factory rejects it.",
+    "Natural lifetime1..27 terminates after exactly that many moving body calls, creating exactly one child at the actual last moved position. No native target snap, extra16-frame timer or barrier/actor explosion follows from these paths."
+  ],
+  "services": [
+    "Source target validation and FP16 movement/room repair are declared recording services. The supplied step advances(+2,-1), allowing actual-origin versus old-position assertions; it does not prove that velocity or modern trajectory. Existing source path/velocity kernels supply separate evidence.",
+    "Factory, room/row/owner/state/stat/defense/event services are declared. Complete factory is covered separately; source allocator/path initialization/room geometry, damage creator and modern executable remain separate. Unrelated callback table entries remain unselected stubs.",
+    "No native handler, final effects/audio or icons are installed. Root/lava actor-contact and modern NHD grouping require their own native acceptance."
+  ],
+  "next": "Capture complete root/debris/lava damage, then implement saved actors using existing verified FP16 velocity/step consumers with explicit mode0 movement."
+}

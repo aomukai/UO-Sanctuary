@@ -1,0 +1,56 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "compiledUnchangedRoutines": {
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "SEED_GetLowSeed": "1e24a1efadca878d97ee2b06d1ec562ecb3e0d2ac8bd800f51ad976f38ed5a85",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "D2GAME_GetXAndYFromTargetUnit_6FD14020": "bf7cb76f34f9b068913104c633a7d6fa7b71ff3c319e15ef3106fca54df04a76",
+    "sub_6FD15340": "fcc11156066751615d8f2476c2ab213fb83242c05fab39e4218d1fbe02cb146a",
+    "SKILLS_SrvDo123_Volcano": "41938134a869ddee31efb319ff68f91771256d5fb5aba355ed753750674cc27e",
+    "MISSMODE_SrvDo28_Volcano": "979d1619368f11a1196fc38ca2c05660c28bbb70c61f90b249fb0aba2453b35a",
+    "MISSMODE_SrvHit51_VolcanoDebris": "ad9e6d7ee15ec60a49d4f83b983dde2a2083cc6b55097bd2b13b85367d797c4c"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "skilldesc": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+  },
+  "fixture": {
+    "path": ".local/class-skills/volcano-source-probe.json",
+    "sha256": "14c28d9ab6be6dc62a5715b9b416dbcf5926e976ccc203346a755da13054403f",
+    "caseCounts": {
+      "launch": 96,
+      "emitter": 5436,
+      "terminal": 48,
+      "sequence": 150
+    }
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete do123, target resolver and Size3 placement gate use selected target before path aim, require both nonzero coordinates and test mask5. Mask0x40 control does not reject this initial gate. Skill flag and one caster RNG draw follow placement; failed allocation still consumes that draw. Successful root request flags1 stores the draw in TargetX and notifies the client.",
+    "Complete do28 with elapsed getter, seed setters/getters and actual random/item wrappers emits62 opportunities at elapsed4,6,...126. Fallback formulas clamp nonpositive values to1; positive row overrides avoid the formula calls. Missing owner skips emission but still delegates collision, while missing row/skill/child or missile returns2.",
+    "Each emission resets high666 and low from saved TargetX, draws inclusive square offsets[-12,+12], saves the second low and requests flags1312, original owner, root origin, child481, skill244/rank and graphics30. Allocation failure does not roll back that memory. Deliberate between-frame collision-seed perturbations cannot alter the62-emission pattern.",
+    "Complete hit51 makes one current child483 request with default flags0 and inherited owner/origin/skill/rank. Null victim still creates it; victim presence does not change it. Controls exercise missing owner and all three optional children; owner-null rejection belongs to the separate factory."
+  ],
+  "services": [
+    "Declared row/formula/room/target-coordinate/collision and allocation services record boundaries; complete factory, collision/update router, damage creator, movement and native input do not execute here.",
+    "Generic collision is a recording service; this sequence proves emitter frame inputs, not clock decrement or room termination. Modern executable, modern delay grouping, source RNG/room geometry and final assets remain separate acceptance limits."
+  ],
+  "next": "Compose complete factory and generic movement/terminal router before implementing saved native vent/debris/lava mechanics."
+}

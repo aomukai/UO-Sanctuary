@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "scope": "Prepared actual-assembly endpoint suppliers and immutable emission/flight plans; no Volcano world actor, learned handler or class completion.",
+  "installedHandlerCount": 161,
+  "installedDruidHandlers": 5,
+  "classComplete": false,
+  "baselineCommit": "cfbce5b",
+  "proofHashes": {
+    "tools/reference/volcano-engine-evidence.json": "e0845c2f981a25dc30a16331b91319910d00f2e3ce88955e7541ce05545c1989",
+    "tools/reference/volcano-factory-source-evidence.json": "4f85266f90db17d597b29d61e87b38ed59a2c6eb5002832654f449551f367bc7",
+    "tools/reference/volcano-landing-source-evidence.json": "ecfecd1ebac1ca12ef2a6a0b1844d1369bfc33fc1dfe376d84bc08a43b41443d",
+    "tools/reference/volcano-damage-source-evidence.json": "86a5ab86f884442a05d1a4e9f54c189ad1c720164f1b300f61a2b44f7aea1887",
+    "tools/reference/volcano-damage-evidence.json": "c6f250b4ecb0c1e85be19b0e0b3031662240fe10caa20f508b5bc4192b67b392",
+    "tools/reference/volcano-pattern-evidence.json": "16f9ae94d61cb4086c8ab0792df38a64fa355228876aa23f2965751747c8292a"
+  },
+  "inputHashes": {
+    "tools/record_volcano_preparation.py": "06d583496645e1391ef71efecf174d8a3822ebd60e3b26bf885236366d64e595",
+    "tools/check_volcano_damage.py": "5e866b9721fe5116149cdd5ef8707e8f8b2c2811ed64db49b478577751c2a701",
+    "tools/check_volcano_patterns.py": "d647d15e30ca9022af6f2bf16f9b25a33a18cbb9cb5686482161dde69e71609d",
+    "tools/probe_volcano_reference.py": "87beea7606c7c3f43f96afac549083a6e9fa5fb45c11bc9d6dba9544f13bc6d3",
+    "tools/probe_volcano_factory_reference.py": "03a4d88db17feea3a295beceb812bc42025230b1de0cf97df15e758d81f64aa5",
+    "tools/probe_volcano_landing_reference.py": "d6fb71455563594a96bc4e1386338e272a7ed5de0d4c2cc81a2da4f05499ecd5",
+    "tools/probe_volcano_damage_reference.py": "2b0297ef310f3b3a09398557f0ba7ce19a2a83d1a00edffb71b966d6a34a8f1a",
+    "tools/reference/named-item-runtime-audit.json": "636b53488c6ec660b33d61a2dcaefcfd9aade0640ae8a595033a991f30dd911e",
+    "tools/reference/first-loop-affix-audit.json": "f19604ec8ca7286561b1c10d6dd6b200acfdc2573ce4db1580dcefcef50aef44",
+    ".local/class-skills/volcano/content/Sanctuary.Content.dll": "d0525ad44f943ebfafed28cd0a81a5bfa039dc9c95222e0532eefca34bcc825f",
+    ".local/class-skills/volcano/integration/Sanctuary.Integration.dll": "2834da226c460d196641034a60f85d60a8fac26ba9bfb6efaf3f0d90d8653142",
+    ".local/class-skills/volcano/python-tests.log": "025919fe528208f13e353e71c7efd36ad6517d6c2fb3f8be8f2ba68edf4447ce",
+    ".local/class-skills/volcano/audit-refresh-native.log": "4c25983824a7498913002d793c297c1d5dd83f626eb7c3b4e5efcdacee20a133"
+  },
+  "validation": {
+    "sourceLaunchEmitterChild": 5730,
+    "sourceFactory": 4536,
+    "sourceTerminalUpdate": 523,
+    "sourceDamage": 82620,
+    "actualContentEndpointSets": 55080,
+    "actualPlanEmitter": 906,
+    "actualPlanSequentialFrames": 150,
+    "actualPlanFactory": 216,
+    "priorFireBlastLifetime": 39601,
+    "pythonTests": 70,
+    "namedAuditInputs": 591,
+    "firstLoopAuditInputs": 21,
+    "unchangedNamedDecisions": 573,
+    "nativeFamilies": [
+      "first-loop-catalogue-check",
+      "named-gear-check"
+    ],
+    "fullClassRegression": false,
+    "savedVolcanoActor": false,
+    "actualVolcanoReloads": 0
+  },
+  "remaining": [
+    "Implement saved vent, mode0 debris and independent lava actors. Add root Collision1 projection before exporting the missile row.",
+    "Compose actual motion/room/terminal landing, physical/fire contact/defense/knockback and explicit modern NHD grouping; source proofs retain declared services.",
+    "Connect SC/right/quick learned casts,25mana once at release and100-frame local delay. Verify cancellation, natural timers, offline/old-facet aging and two actual reloads.",
+    "Run focused/full native regression and fresh audits before any installation; preserve saves/configuration and retain rollback.",
+    "Keep current-executable/client/event/geometry limits and final effects/audio/icons separate. Boulder terminal burning crater correction and Arctic Blast/channel remain individual follow-ups."
+  ]
+}

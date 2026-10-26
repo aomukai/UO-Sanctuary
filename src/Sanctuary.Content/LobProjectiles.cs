@@ -33,10 +33,12 @@ internal static class LobProjectiles
         {if(World.FindMobile(selected) is not BaseCreature target || !ClassCombat.IsHostile(owner,target)){return false;}point=target.Location;}
         return Valid(owner,point);
     }
-    internal static int Lifetime(int dx,int dy)
+    internal static int Lifetime(int dx,int dy)=>Lifetime(dx,dy,Velocity);
+    internal static int Lifetime(int dx,int dy,int velocity)
     {
+        if(velocity<=0){throw new ArgumentOutOfRangeException(nameof(velocity));}
         int x=Math.Abs(dx),y=Math.Abs(dy),distance=Math.Max(1,Math.Max(x,y)+Math.Min(x,y)/2);
-        return distance*65536/(16*Velocity);
+        return distance*65536/(16*velocity);
     }
     internal static bool Barrier(Map map,Point3D point)
     {

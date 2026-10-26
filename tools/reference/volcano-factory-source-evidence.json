@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9",
+    "UNITS_GetDistanceToCoordinates": "98a852994c20a1ae3bab493c7f0c3f6f7b2635677a659d4661b0d1362df963f0"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/volcano-factory-source-probe.json",
+    "sha256": "cf5b10f22fdcb93edbd9954f2c33e7f42fdc0c7278d0139b897b3fc694aab242",
+    "cases": 4536
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete factory gives root479 flags1 explicit coordinates, total/current150, collision mode3 and Collision1 footprint. Small-fire483 flags0 requires origin, uses its coordinates, total/current18, mode3 and no footprint.",
+    "Debris481 flags1312 requires origin, keeps absolute target coordinates and has velocity2688=(14<<8)*75/100. TotalFrames remains16; CurrentFrames is floor(max(1,octile distance)*65536/(16*2688)), ranging1..27 for the current square offsets. Exact-self aim nudges both target axes by1. It passes collision mode0 and zero footprint/move-test mask.",
+    "Graphics argument0 versus30 has no effect on factory output. This factory does not establish client height or arc. Rank, original owner and skill244 survive all three routes; supplied damage/stat services remain separate.",
+    "Slow Missiles does not change debris speed because its current row lacks CanSlow; stationary vent/lava rows retain zero speed. Per-axis100 moving-target rejection and missing owner/type/row/room/origin/allocation controls retain distinct attempt boundaries."
+  ],
+  "services": [
+    "Complete generic factory and distance helper execute. Existing Guided Arrow room/allocation/path/stat/damage/seed/event services are supplied, with explicitly recorded mode/footprint/move masks. Actual path movement and damage creator are not executed.",
+    "The mode0 zero move mask is supplied from the separately reviewed mode table. Other mode3 mask here is a boundary sentinel and is not a complete geometry certificate. No modern executable, native handler or final assets are installed."
+  ],
+  "next": "Compose complete moving NOCOLLIDE update/terminal route and capture source damage for all three rows; use actual landing coordinates rather than snapping to sampled aim."
+}
