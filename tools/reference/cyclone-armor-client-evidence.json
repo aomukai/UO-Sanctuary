@@ -1,0 +1,49 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "ability": 156,
+  "totalHandlersInCandidate": 157,
+  "clientWarnings": 62,
+  "clientErrors": 0,
+  "scope": "Actual built old/new client reflection proves unchanged ability/class/label/right-only identity and newly true self-target classification. This is not a graphical playtest.",
+  "baselineSha256": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+  "candidateSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+  "proof": {
+    "Baseline": {
+      "Path": "/media/aomukai/FILES/Sanctuary/.local/class-skills/cyclone-armor/client-baseline/cuo.dll",
+      "Ability": 156,
+      "SelfTarget": false,
+      "Left": false,
+      "Right": true,
+      "Label": "Cyclone Armor",
+      "Class": "Druid"
+    },
+    "Candidate": {
+      "Path": "/media/aomukai/FILES/Sanctuary/.local/class-skills/cyclone-armor/client/cuo.dll",
+      "Ability": 156,
+      "SelfTarget": true,
+      "Left": false,
+      "Right": true,
+      "Label": "Cyclone Armor",
+      "Class": "Druid"
+    },
+    "Result": "passed"
+  },
+  "inputHashes": {
+    "shared/ClassAbilities.cs": "efd73934c3c0f21a092d6b743eacb08ab5c1e42a13d44daab89a89878e32a469",
+    "shared/SkillBindingProtocol.cs": "e9ee7568083e94a14de110d82396c0ee49d25d467c76a6190b6b7ec16b773e2c",
+    "upstream/ClassicUO/src/ClassicUO.Client/ClassicUO.Client.csproj": "a4de16be1e2872c66533cc9398669efc0202c5d8ca0e44b943537b20841dbde1",
+    "upstream/ClassicUO/src/ClassicUO.Client/Game/ClassCombatClient.cs": "1b7555151de4f0d137858530b208e6d295f3ae61866cf237ffe9353dfb7b186d"
+  },
+  "evidenceHashes": {
+    ".local/class-skills/cyclone-armor-client-build.log": "c1dbe5178e224d2cb8d6ae8582180a9b03213077db815a630f3cc82411f4c596",
+    ".local/class-skills/cyclone-armor-client-proof-build.log": "9ead8b0a2a7c03505517fbf007e56abc91399b8c7a52b86052c5d538efc47d1e",
+    ".local/class-skills/cyclone-armor-client-proof.log": "8ecaa2faf89146666648bcc8c4614b5a64f574edfb641edceba3990a19061de3",
+    ".local/class-skills/cyclone-armor-client-proof/Program.cs": "21194a0cd1b6f05c4396319fa644dbf2e9b447508672d2fbb8a65d84a8423bed",
+    ".local/class-skills/cyclone-armor-client-proof/check.csproj": "83f4a7fcb79a4d14c3efe178e1d3921495991b5f2b7a89b677ab81815183ca3a"
+  },
+  "limits": [
+    "Client build has62warnings from upstream client/dependency code, including current NU1902 advisory reporting; dependencies were not changed in this skill task.",
+    "Final client animation/overlays/icons remain placeholders/pending. Matching content/client installation and existing-world smoke are still required."
+  ]
+}
