@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "scope": "Four complete unchanged switch arms of SKILLS_GetSpecialParamValue, not the full formula VM or callback function.",
+  "armHashes": {
+    "0": "846e52c0919152e0d6faa6ff792c4086e0b7a69296bd05357ea6ed1a1693c30b",
+    "2": "40ba369e45013af09ba66a47d43d7f96200e7db953cacb0793e5a28c99b9677d",
+    "4": "0487da9164d48d5756fe457cc0a1c3dcfb5690b01480bf70d88f117237d956cc",
+    "6": "82f7cc1e300114838c65827733eca6e48a7b6ae321c3cc445f178e659f1f6ce8"
+  },
+  "generatedSourceSha256": "b39ce48fb22510cd61b4033c8dd2c09fa9e965c307d162f391655f78883d18f0",
+  "fixture": {
+    "path": ".local/class-skills/skill-linear-source-probe.json",
+    "sha256": "8572646215d410a1fbd096561bd0daf80d5bf65c67ebe8bb541011b6cac09f44",
+    "cases": 9252
+  },
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr.",
+  "established": [
+    "Linear callback selectors0/2/4/6 return0 at nonpositive rank. Positive rank computes parameter baseline plus(rank-1)*increment. All ranks-1through255 and independent parameter-channel sentinels are captured.",
+    "This is relevant to cross-skill .ln references: an absent Grizzly must not contribute its positive baseline-minus-increment as a damage synergy. The same rank-zero rule applies to golem mastery references."
+  ],
+  "limits": [
+    "Function-table/formula symbol compilation, nested skill lookup, current executable equivalence and modern extra parameter slots are outside this four-arm proof. No native or installed-build acceptance is inferred here."
+  ]
+}

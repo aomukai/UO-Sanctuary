@@ -77,11 +77,12 @@ public static class NecromancerEffects
     { MonsterDifficulty.Nightmare => 2, MonsterDifficulty.Hell => 4, _ => 1 } : 1;
     public static bool Apply(PlayerMobile owner, Mobile target, CombatAbility ability, int rank)
     {
-        if (!IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
+        if (rank is <1 or >255 || !IsCurse(ability) || !ClassCombat.IsHostile(owner, target) || Curse(target)?.Ability == CombatAbility.Attract
             || ability == CombatAbility.DimVision && Curse(target)?.Ability == CombatAbility.Confuse) { return false; }
         bool ai = ability is CombatAbility.DimVision or CombatAbility.Terror or CombatAbility.Confuse or CombatAbility.Attract;
         if (ai && !AiCurse(target)) { return false; }
-        var values = SkillMechanics.Values(owner, ability);
+        // Duration and the stored effect must use the same supplied rank.
+        var values = SkillMechanics.Values(owner, ability, rank);
         int frames = (int)values.Eval("auralencalc");
         if (ai) { frames /= DifficultyDivisor(target); }
         if(!SourceCurseDuration.Incoming(target,SkillMechanics.For(ability).Text("auratargetstate"),frames,out frames)){return false;}

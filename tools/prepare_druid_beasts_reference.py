@@ -93,6 +93,13 @@ def build(local_root, installation, check=False):
                     corroboratedFields=corroborated, cachedQuotingNormalizations=quoting,
                     animation=dict(sha256=sha(animation_path), records=animations, scope='Raw metadata only; animation/mode/skill/current timing must be composed.'),
                     sourceHashes=hashes, reviewedRoutineHashes=routines,
+                    userObservation=dict(date='2026-10-27', referenceVersion='3.3.93847',
+                                         spiritEffectiveRank=28, spiritHardRank=20, direEffectiveRank=28, direHardRank=20,
+                                         grizzlyEffectiveRank=28, grizzlyHardRank=20, mana=15, life=1040,
+                                         coldMinimum=343, coldMaximum=359, maximumWolves=5,
+                                         tooltipAttackRatingPercent=725, tooltipDefensePercent=320,
+                                         reportedSynergyLabels=dict(direLifePercentPerRank=15, grizzlyDamagePercentPerRank=10),
+                                         scope='User existing-character tooltip and confirmation of item-bonus wolf/bear synergies. Per-rank labels do not replace formula baseline terms or establish runtime stat consumers. Raven remains the explicit .blvl exception in the pinned row.'),
                     established=[
                         'All three use do119/right-only SC/town-enabled casting, explicit owner-level calc2, shared summon allocation, explicit-level base helper and shared passives. Spirit/Dire caps are5/3; bear cap1. Mana is15/20/40. Unlike Creeper, the explicit base helper is called and can reuse the verified Valkyrie numeric route.',
                         'Spirit Wolf is current cold damage, not a copied physical skeleton packet. Its six current passives include cold endpoints, cold duration and cold sunder; the older five-slot passive body cannot establish slot6. Wolf/bear synergy expressions use effective .lvl and must not be silently converted to hard-only synergies.',

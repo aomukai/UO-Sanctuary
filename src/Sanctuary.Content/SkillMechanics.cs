@@ -67,7 +67,9 @@ public sealed class SkillValues
     public SkillValues(SkillDefinition skill, Func<string, int> rank, Func<string, int> baseRank, int level, int depth = 0)
     { _skill = skill; _rank = rank; _baseRank = baseRank; _level = level; _depth = depth; }
     public int Param(int index) => _skill.Parameter(index);
-    public int Linear(int first, int second) => Param(first) + (Rank - 1) * Param(second);
+    // The source linear callbacks return zero for an absent skill; a nested
+    // .ln synergy must not donate baseline-minus-increment at rank zero.
+    public int Linear(int first, int second) => Rank <= 0 ? 0 : Param(first) + (Rank - 1) * Param(second);
     public int Diminishing(int first, int second) => Rank <= 0 ? 0
         : Param(first) + (Param(second) - Param(first)) * Math.Min(100, 110 * Rank / (Rank + 6)) / 100;
     public long Eval(string field)

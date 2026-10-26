@@ -1,0 +1,68 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvDo119_DruidSummon": "7ae4129af2551c6669d90cf920388326ecd88660aa546bbae30255f4a5925123"
+  },
+  "pinnedTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "monlvl": "2c02b13416f8334605c6a9fed32e823880652e3c6846954671fa6a040177dab7",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "generatedSourceHashes": {
+    ".local/class-skills/spirit-wolf-cold-source-probe.cpp": "25e5b86b502dce9423abb3147e52cb060ac9091cfeb5a900926380201c074a81",
+    ".local/class-skills/spirit-wolf-birth-source-probe.cpp": "dfcb67c3fa52dc6ed4e65bf39c4deaa6f6f7073920f06dd1892ca01909642415"
+  },
+  "fixture": {
+    "path": ".local/class-skills/spirit-wolf-creation-source-probe.json",
+    "sha256": "ad0944caa598dc2233898ca9221f6b7373c6549e13abb9068f7953a55b849d45",
+    "cold": 7650,
+    "birth": 45906
+  },
+  "userObservation": {
+    "date": "2026-10-27",
+    "referenceVersion": "3.3.93847",
+    "spiritEffectiveRank": 28,
+    "spiritHardRank": 20,
+    "direEffectiveRank": 28,
+    "direHardRank": 20,
+    "grizzlyEffectiveRank": 28,
+    "grizzlyHardRank": 20,
+    "mana": 15,
+    "life": 1040,
+    "coldMinimum": 343,
+    "coldMaximum": 359,
+    "maximumWolves": 5,
+    "tooltipAttackRatingPercent": 725,
+    "tooltipDefensePercent": 320,
+    "scope": "User tooltip observation matches life, cold, mana, cap and displayed linear bonus formulas. It does not establish runtime AR/defense consumers. The copied armor passive also contains the separate7*rank term."
+  },
+  "sanitizers": "Both ASan/UBSan binaries exit0 with empty runtime stderr.",
+  "established": [
+    "Complete cold getters use effective Grizzly ln12, zero when absent, and return unmastered edmn/edmx whole-life values for the passive copy. Independent applied-mastery controls distinguish a4=0 from1. Current25percent ELenSym produces31frames at rank1. Getter round-down before passive storage is retained.",
+    "Complete do119/base/passive composition uses explicit owner level, difficulty/game-context monlvl additions, current effective Dire life bonus, first five additive passives and four capped resistance auras. HP starts from supplied130base plus optional fractional control, is scaled and filled; supplied pre-passive regen32 is preserved. All255ranks and independent owner/difficulty/game/synergy contexts execute.",
+    "Missing row/summon, invalid category, missing target and failed allocation have distinct return/owner-flag/allocation boundaries. Successful calls request source S1mode8, capmin(rank,5), AI owner node and clamped3*rank equipment dispatch. No actual equipment is inferred."
+  ],
+  "limits": [
+    "Formula/table/stat/target/AI/allocation services are declared. Cold formula service uses the separately executed full getter capture, not a full VM. Spawn HP130/defense67/AR0/regen32 are supplied noRatio initialization controls, not proof of actual current monster initialization.",
+    "The old passive helper covers only five slots. Current slot6 cold sunder is data only and requires a separate native/consumer policy. Raw defense plus armor-percent and raw AR plus additive tohit are captured, not the complete downstream defense/attack/damage consumers.",
+    "Native Spirit Wolf actor, movement/AI/teleport, captured/live stat timing, current executable equivalence, ordinary attack/cold delivery, input/payment/cap/lifecycle/persistence and final effects/icons remain pending. No learned handler is enabled."
+  ]
+}
