@@ -5,7 +5,8 @@ using Server;
 
 namespace Sanctuary;
 
-// Source path2/13, point target, collision pattern0 and direction offset0.
+// Source path2/5/6/13, point target and collision pattern0. Circle paths5/6
+// use the source direction offsets+2/-2 in the same three-direction kernel.
 // Keep ray ordering, repeated waypoints and failure-side motion changes: these
 // routines do not share wall-follow's line/budget rejection or simplification.
 internal static class SourceTowardPath
@@ -48,10 +49,11 @@ internal static class SourceTowardPath
         if(x>=8 || y>=8){return Math.Min(x,y)+2*Math.Max(x,y);}
         return Math.Max(0,Distances[x+8*y]+1);
     }
-    private static bool FreeDirection(Point2D point,Point2D target,Func<int,int,bool> blocked,out int direction)
+    private static bool FreeDirection(Point2D point,Point2D target,Func<int,int,bool> blocked,out int direction,int directionOffset=0)
     {
-        foreach(int d in Directions[DirectionIndex(point,target)])
+        foreach(int raw in Directions[DirectionIndex(point,target)])
         {
+            int d=(raw+directionOffset+256)%8;
             var offset=Offsets[d];
             // The source passes promoted coordinates to collision, then stores
             // successful movement in the uint16 path record.
@@ -119,9 +121,10 @@ internal static class SourceTowardPath
     internal static (ActorMotionState Motion,Point2D[] Points) Find(ActorMotionState state,Point2D target,int budget,Func<int,int,bool> blocked)
     {
         ArgumentNullException.ThrowIfNull(blocked);
-        if(state.PathType is not(2 or 13) || budget is <0 or >77 || target.X is <1 or >65535 || target.Y is <1 or >65535)
+        if(state.PathType is not(2 or 5 or 6 or 13) || budget is <0 or >77 || target.X is <1 or >65535 || target.Y is <1 or >65535)
         {throw new NotSupportedException("Unsupported source toward-path context");}
         var origin=new Point2D((int)(state.X>>16),(int)(state.Y>>16));var motion=state with{Index=0,Points=[]};
+        if(state.PathType is 5 or 6){return(motion,Circle(origin,target,budget,state.PathType==5?2:-2,blocked));}
         Point2D next=origin;bool clear=false;
         if(motion.Velocity!=0)
         {
@@ -150,5 +153,19 @@ internal static class SourceTowardPath
         }
         else{Add(next);}
         return (motion,points.ToArray());
+    }
+    private static Point2D[] Circle(Point2D origin,Point2D target,int budget,int offset,Func<int,int,bool> blocked)
+    {
+        var points=new List<Point2D>();var last=origin;var current=origin;int previous=255,traveled=0;bool added=false;
+        for(;traveled<budget;traveled++)
+        {
+            if(current==target){break;}added=false;
+            if(!FreeDirection(last,target,blocked,out int direction,offset) || (direction+4)%8==previous){break;}
+            current=Cell(current.X+Offsets[direction].X,current.Y+Offsets[direction].Y);
+            if(direction!=previous){points.Add(last);added=true;}
+            last=current;previous=direction;
+        }
+        if(!added && traveled!=0){points.Add(last);}
+        return points.ToArray();
     }
 }

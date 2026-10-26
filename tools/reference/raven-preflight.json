@@ -237,6 +237,7 @@
     "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
     "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
     "source/D2Common/src/Items/ItemMods.cpp": "29c697fc2f86b649df25d4d2355dd3e197191690be375d1e85d2fcf88e82244f",
     "source/D2Game/src/SKILLS/SkillItem.cpp": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696"
@@ -249,7 +250,12 @@
     "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
     "sub_6FD0B9F0": "ca935214e93bd68fc7e1d9e7b5d13454a71ec9bcda11a0273a65eec3631e0c31",
     "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "D2GAME_SummonPet_6FD14430": "8151e7b1e99edbcaa4b06bf797809351531572eb091cb80647c3b62e3f10f6f1",
     "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e",
+    "sub_6FC64310": "7f5cb193fc3426eab6dad4c3d5ee5425ca8bed0f9ea9482c9ee2c9c3a9ebdad2",
+    "sub_6FC63680": "8496dc74e4162d915e77e9b9ab53be043d9a8b7b7c12e329202e8f84522462c5",
+    "AITACTICS_SetVelocity": "d6b48af4872fb002be442f68d010ba119136c3259972cc40997f3d0a6fb3703b",
+    "AITACTICS_WalkAroundTargetWithScaledDistance": "724de117079339053fe3f1a65840ccbd4f5ef0ac4ea6f3ae033c6939d6415fb7",
     "MONSTER_InitializeStatsAndSkills": "2a845534c9637a8a6d05cf17d98ff4b06cc73baf9e8fcc08bc4c05d905e85519",
     "ITEMMODS_PropertyFunc01": "1485f7206c6d4642b85feed5adfdce95ae0bd0c5e9106636131571ca9a097efe",
     "ITEMMODS_AddPropertyToItemStatList": "f93256c6d6c1e2b9f3ee50720f87de66762870b448720a2350b4c8d0fa688f48",
@@ -312,7 +318,9 @@
     "Legacy AI initializes hit budget on first think from the owner highest Raven skill, not from an explicit cast-rank snapshot. It decrements the budget when requesting an attack animation rather than after confirmed health loss. Owner follow/warp, attack delay/chance/distance and orbit have separate branches; modern equivalence remains unverified.",
     "Legacy monster mode stats call sub14D20 with the live owner highest Raven rank: physical min/max are shifted back to whole life and the toht result is added as flat AR. Do not freeze every attack endpoint at birth or treat the wiki AR percentage label as authoritative for this route. The source base helper retains explicit pet level above99 and clamps only its111-row monlvl lookup.",
     "The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper.",
-    "Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance."
+    "Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance.",
+    "Complete shared summon factory initializes owner/AI and replaces its AI event with now+25. Raw HK S1 metadata and the shared animation planner remain separate from that first-think deadline. Neutral mode preserves a future AI event, otherwise schedules current difficulty aidel (Raven15frames); walk completion invokes AI immediately, whereas ordinary attack completion enters neutral. These legacy scheduling contracts are not current-build timing certification.",
+    "Raven orbit requests path6when its direction bit is0 and path5when1, using velocity-param path override and distance4. Both map to the toward kernel with direction offset-2/+2; native source path comparisons are recorded separately in raven-circle-source-evidence.json. The scaled radial walk request uses owner coordinates plus average radius8times the actor-owner displacement divided by source unit distance."
   ],
   "reuse": [
     "Shared learned casting, payment/cancellation/right/quick bindings, source formulas and saved summon FIFO/cap infrastructure where routes agree.",
@@ -339,6 +347,19 @@
     "access": "Direct fetch restricted; search-indexed page text was available.",
     "corroboration": "Lists12attacks per Raven at rank1 and31at rank20, increasing by1per rank, and a maximum5Ravens. This agrees with the pinned table formulas.",
     "limits": "Community page is not pinned to build3.3.93847. Its other claims, including guaranteed blind chance, do not override local data or establish modern event behavior; the inspected legacy blind event clamps chance to99."
+  },
+  "targetingObservation": {
+    "date": "2026-10-26",
+    "referenceVersion": "3.3.93847",
+    "report": "User confirms that casting Raven directly on a different monster redirects all existing Ravens to that monster.",
+    "scope": "Explicit-monster focus for the whole existing flock is confirmed. Mid-dive interruption, empty-ground casts, range/visibility rejection and failed-cast behavior were not separately measured."
+  },
+  "historicalOfficialReference": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "version": "2.4",
+    "accessedDate": "2026-10-26",
+    "corroboration": "Final release notes report more frequent Raven AI attacks,30percent AR growth per rank and12percent hard damage synergies from Spirit Wolf/Dire Wolf/Grizzly.",
+    "limits": "Historical change notice is not build3.3.93847 timing evidence. It does not quantify the current attack schedule or establish whether the AI change was code or data; do not certify the legacy NPC schedule as current solely from matching tables."
   },
   "questions": [
     "Exact current-build Raven attack-dive budget remains unmeasured and nonblocking. The user confirms noticeably longer persistence at high rank; current table formulas and legacy AI expectations remain separate evidence."

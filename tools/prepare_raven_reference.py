@@ -72,8 +72,9 @@ def build(local_root, installation, check=False):
         ('source/D2Game/src/SKILLS/SkillDruid.cpp', ['SKILLS_SrvDo114_Raven']),
         ('source/D2Game/src/AI/AiThink.cpp', ['D2GAME_AI_Unk107_6FCED140', 'AITHINK_Fn107_Raven']),
         ('source/D2Game/src/SKILLS/SkillNec.cpp', ['D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10', 'D2GAME_SetSummonPassiveStats_6FD0C530', 'sub_6FD0B9F0']),
-        ('source/D2Game/src/SKILLS/Skills.cpp', ['sub_6FD14D20']),
-        ('source/D2Game/src/MONSTER/MonsterMode.cpp', ['sub_6FC627B0']),
+        ('source/D2Game/src/SKILLS/Skills.cpp', ['sub_6FD14D20', 'D2GAME_SummonPet_6FD14430']),
+        ('source/D2Game/src/MONSTER/MonsterMode.cpp', ['sub_6FC627B0', 'sub_6FC64310', 'sub_6FC63680']),
+        ('source/D2Game/src/AI/AiTactics.cpp', ['AITACTICS_SetVelocity', 'AITACTICS_WalkAroundTargetWithScaledDistance']),
         ('source/D2Game/src/MONSTER/Monster.cpp', ['MONSTER_InitializeStatsAndSkills']),
         ('source/D2Common/src/Items/ItemMods.cpp', ['ITEMMODS_PropertyFunc01', 'ITEMMODS_AddPropertyToItemStatList', 'D2COMMON_11292_ItemAssignProperty']),
         ('source/D2Game/src/SKILLS/SkillItem.cpp', ['SKILLITEM_EventFunc09_Stupidity'])]:
@@ -105,7 +106,9 @@ def build(local_root, installation, check=False):
             'Legacy AI initializes hit budget on first think from the owner highest Raven skill, not from an explicit cast-rank snapshot. It decrements the budget when requesting an attack animation rather than after confirmed health loss. Owner follow/warp, attack delay/chance/distance and orbit have separate branches; modern equivalence remains unverified.',
             'Legacy monster mode stats call sub14D20 with the live owner highest Raven rank: physical min/max are shifted back to whole life and the toht result is added as flat AR. Do not freeze every attack endpoint at birth or treat the wiki AR percentage label as authoritative for this route. The source base helper retains explicit pet level above99 and clamps only its111-row monlvl lookup.',
             'The signed -1 blind property cannot pass unchanged through NamedControl.ApplyBlind, which currently rejects bonus<=0 and requires a PlayerMobile source. The legacy item event instead accepts any nonzero signed value, uses attacker level/RNG and calls the existing blind curse route. Trace the property/stat/event and pet delivery before reusing the player helper.',
-            'Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance.'
+            'Reviewed monster initialization dispatches its monprop through ItemAssignProperty in mode0/list0x40. The property func1 row chooses the fixed equal min/max=-1 without a random range, then AddProperty rejects zero rather than negatives and passes the signed value to additive stat storage. Statlist allocation/aggregation/event subscription and the actual Raven handoff still need integrated acceptance.',
+            'Complete shared summon factory initializes owner/AI and replaces its AI event with now+25. Raw HK S1 metadata and the shared animation planner remain separate from that first-think deadline. Neutral mode preserves a future AI event, otherwise schedules current difficulty aidel (Raven15frames); walk completion invokes AI immediately, whereas ordinary attack completion enters neutral. These legacy scheduling contracts are not current-build timing certification.',
+            'Raven orbit requests path6when its direction bit is0 and path5when1, using velocity-param path override and distance4. Both map to the toward kernel with direction offset-2/+2; native source path comparisons are recorded separately in raven-circle-source-evidence.json. The scaled radial walk request uses owner coordinates plus average radius8times the actor-owner displacement divided by source unit distance.'
         ], reuse=[
             'Shared learned casting, payment/cancellation/right/quick bindings, source formulas and saved summon FIFO/cap infrastructure where routes agree.',
             'Existing native summon ownership, facet difficulty rescaling with preserved life percentage, hostile targeting, damage/mitigation/kill credit and independent blind state consumers; Raven needs its explicit cannot-be-attacked flag, zero-size flight and hit-budget behavior.'
@@ -122,6 +125,14 @@ def build(local_root, installation, check=False):
             accessedDate='2026-10-26', access='Direct fetch restricted; search-indexed page text was available.',
             corroboration='Lists12attacks per Raven at rank1 and31at rank20, increasing by1per rank, and a maximum5Ravens. This agrees with the pinned table formulas.',
             limits='Community page is not pinned to build3.3.93847. Its other claims, including guaranteed blind chance, do not override local data or establish modern event behavior; the inspected legacy blind event clamps chance to99.'),
+        targetingObservation=dict(date='2026-10-26',referenceVersion='3.3.93847',
+            report='User confirms that casting Raven directly on a different monster redirects all existing Ravens to that monster.',
+            scope='Explicit-monster focus for the whole existing flock is confirmed. Mid-dive interruption, empty-ground casts, range/visibility rejection and failed-cast behavior were not separately measured.'),
+        historicalOfficialReference=dict(
+            url='https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
+            version='2.4',accessedDate='2026-10-26',
+            corroboration='Final release notes report more frequent Raven AI attacks,30percent AR growth per rank and12percent hard damage synergies from Spirit Wolf/Dire Wolf/Grizzly.',
+            limits='Historical change notice is not build3.3.93847 timing evidence. It does not quantify the current attack schedule or establish whether the AI change was code or data; do not certify the legacy NPC schedule as current solely from matching tables.'),
         questions=[
             'Exact current-build Raven attack-dive budget remains unmeasured and nonblocking. The user confirms noticeably longer persistence at high rank; current table formulas and legacy AI expectations remain separate evidence.'
         ], next='Finish Armageddon full regression and exact-package installation first, then Raven source/native implementation; keep each uncertain branch explicit.')
@@ -131,7 +142,7 @@ def build(local_root, installation, check=False):
         assert out.read_text() == text
     else:
         out.write_text(text)
-    print('Raven preflight: current pinned local tables and13legacy routines; signed blind/pet delivery and modern AI remain explicit gates.')
+    print(f'Raven preflight: current pinned local tables and{len(routines)}legacy routines; signed blind/pet delivery and modern AI remain explicit gates.')
 
 
 if __name__ == '__main__':

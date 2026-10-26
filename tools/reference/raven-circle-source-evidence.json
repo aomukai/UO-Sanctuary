@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4"
+  },
+  "compiledRoutineHashes": {
+    "sub_6FDAA720": "65e6163d63a1275c305d7679ef479e734bcd7b1d16c26a383e417f27cf592676",
+    "sub_6FDAA880": "6a9d9cecfbc9895fd5012b50926e50e64e0de33fe86a2e94e5eb6e4580924bdf",
+    "PATH_Toward_6FDAA9F0": "0492229af23eab0f244e8b6331264072ce42067a6a69f6857b40ea50fd928823",
+    "PATH_GetDirections_6FDAB790": "4ef38e44993927f39c0b2a4331fb0d1d86cae6ba9d5145f59f37983724e1c5f8"
+  },
+  "parentHarnessEvidence": "tools/reference/toward-path-engine-evidence.json",
+  "parentCppSha256": "da2a477c1735f456e72721498e8fc5e89b5f1695b8880fa5f2e35d41a7721f60",
+  "fixture": {
+    "path": ".local/class-skills/raven-circle-source-probe.json",
+    "sha256": "89bdde60d96cf4cc9431f2367bc892e981a7c18879fc5b39d6fc6eb332d791c5",
+    "contexts": 6480
+  },
+  "generatedSourceSha256": "7e166469960c6538b44ae11c86dfff40df07857976e059a8f2818f6d18c84cc4",
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete direction-offset helper, direction-index/table choice, ordered collision probes and toward dispatcher execute inside the existing full general initializer. Path5uses+2 and path6uses-2, matching source type-offset table; both retain type flags0.",
+    "Eight obstacle grids, nine horizontal/five vertical offsets, three fractional origins and budgets1/5/20 capture exact point arrays, failures, direction/velocity/flags, active/final/previous target state and collision query order.",
+    "Circle segments intentionally retain repeated origin/end waypoints and the source turn/180-degree/blocked/budget termination rules. No trigonometric orbit or wall-follow simplification is substituted."
+  ],
+  "limits": [
+    "The inherited general initializer is marked BROKEN in D2MOO. Monster point target, zero collision footprint, supplied room/grid and explicit path-type flags/offset are bounded caller services.",
+    "Native motion/actor/AI unit-target repathing, room recache, mode/event ordering and current D2R executable/client behavior remain separate acceptance. No learned Raven or other handler is enabled."
+  ]
+}

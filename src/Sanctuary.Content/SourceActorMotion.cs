@@ -9,7 +9,7 @@ internal sealed record ActorMotionState(uint X,uint Y,Point2D[] Points,Point2D F
     int Acceleration,int AccelerationCounter,Point2D Direction,Point2D Vector,int Distance,int Flags,int StepsCount,Point2D[] SavedSteps,int CollidedMask,int PathType=15);
 internal sealed record ActorMotionResult(ActorMotionState State,bool Moving,bool RepathRequired);
 
-// Server monster / point target / path2,13,15 component. The caller supplies source
+// Server monster / point target / path2,5,6,13,15 component. The caller supplies source
 // collision-mask cells. No live actor, facing animation, AI clock or path-repair
 // policy is selected here; a failed declared repath is reported explicitly.
 internal static class SourceActorMotion
@@ -29,7 +29,7 @@ internal static class SourceActorMotion
     {
         if(s?.Points==null || s.SavedSteps==null || s.Points.Length>77 || s.Index<0 || s.Index>s.Points.Length
             || s.Distance is <0 or >77 || s.StepsCount is <0 or >10 || s.SavedSteps.Length>10
-            || s.PathType is not(2 or 13 or 15) || (s.Flags&~0x20928)!=0
+            || s.PathType is not(2 or 5 or 6 or 13 or 15) || (s.Flags&~0x20928)!=0
             || (s.Flags&0x900)!=(s.PathType==15?0x800:s.PathType==13?0x100:0)
             || s.AccelerationCounter is <0 or >4 || s.Velocity<0 || s.MaximumVelocity<0)
         {throw new ArgumentException("Unsupported source actor path state");}
@@ -56,7 +56,7 @@ internal static class SourceActorMotion
         if((s.Flags&0x20)==0 || s.Points.Length==0 || s.Velocity==0){return new(Reset(s),false,false);}
         if(s.Index>=s.Points.Length)
         {
-            repath=Cell(s)!=s.FinalTarget;
+            repath=s.PathType is not(5 or 6) && Cell(s)!=s.FinalTarget;
             // The declared source repath service fails. An actor controller
             // must consume this request and supply the complete repair path.
             return new(Reset(s),false,repath);

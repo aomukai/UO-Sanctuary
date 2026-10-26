@@ -11,7 +11,7 @@ internal readonly record struct ActorPathRoom(int X,int Y,int Width,int Height)
     internal bool Contains(Point2D p)=>p.X>=X && p.Y>=Y && (long)p.X<(long)X+Width && (long)p.Y<(long)Y+Height;
 }
 
-// Server monster / point target / path2,13,15 / pattern0 component. The complete
+// Server monster / point target / path2,5,6,13,15 / pattern0 component. The complete
 // reconstructed initializer is marked BROKEN upstream: its bounded execution
 // is supplementary evidence, not modern executable equivalence. Successful
 // repair uses other path types and is deliberately not substituted here.
