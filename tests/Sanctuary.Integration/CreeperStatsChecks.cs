@@ -51,10 +51,46 @@ public static class CreeperStatsChecks
         Refused(()=>DruidCreeperStats.Poison(new SkillValues(SkillMechanics.For(CombatAbility.Raven),_=>1,_=>0,99),0));
         bool malformed=false;try{DruidCreeperStats.Apply(Values(99,1),new(new(0,25,0),9),_=>0);}catch(ArgumentException){malformed=true;}
         Require(malformed,"Invalid spawn accepted");
-        Actual();Log.Information("Creeper numeric preparation:3636 complete poison creator and9180 do115/passive source comparisons pass; actor, AI, trail and owner-stat transport pending");
+        Vines();Actual();Log.Information("Creeper numeric preparation:3636 complete poison creator and9180 do115/passive source comparisons pass; actor, AI, trail and owner-stat transport pending");
     }
     private static void Refused(Action action)
     {bool rejected=false;try{action();}catch(NotSupportedException){rejected=true;}Require(rejected,"Unsupported route accepted");}
+    private static void Vines()
+    {
+        using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"creeper-vines-source-probe.json")));int heads=0,emissions=0,contacts=0;
+        foreach(var row in data.RootElement.GetProperty("launch").EnumerateArray())
+        {
+            int N(int i)=>row[i].GetInt32();if(N(1)!=0){continue;}
+            var actual=DruidCreeperVines.Heads(N(0),40,70);var requests=row[4];Require(actual.Length==requests.GetArrayLength(),"Vine Attack count");
+            for(int i=0;i<actual.Length;i++)
+            {var expected=requests[i];var at=actual[i];Require(at.X==expected[0].GetInt32() && at.Y==expected[1].GetInt32()
+                && at.OffsetX==expected[2].GetInt32() && at.OffsetY==expected[3].GetInt32() && at.InitializerIndex==expected[8].GetInt32(),"Vine Attack cardinal initializer request");}
+            heads++;
+        }
+        foreach(var row in data.RootElement.GetProperty("head").EnumerateArray())
+        {
+            int N(int i)=>row[i].GetInt32();if(N(2)!=5){continue;}
+            Require(DruidCreeperVines.EmitsTrail(N(0),N(1))==(N(4)!=0),"Head remaining-frame modulo source comparison");
+            if(N(1)==9){Require(DruidCreeperVines.EmitsTrail(N(0))==(N(4)!=0),"Pinned head parameter");}emissions++;
+        }
+        foreach(var row in data.RootElement.GetProperty("trail").EnumerateArray())
+        {
+            int N(int i)=>row[i].GetInt32();uint last=N(4)!=0?10u:0u;
+            var actual=DruidCreeperVines.Contact(N(0),N(0)-N(1),last,N(2)!=0?10u:0u,N(5)!=0,N(6)!=0,N(3)!=0);
+            Require(actual.Damage==(N(8)!=0) && actual.Remove==(N(7)==2) && actual.HitEvent==(N(11)!=0)
+                && actual.LastCollision==(N(10)<0?0u:(uint)N(10)),"Complete hit50/router/history comparison");contacts++;
+        }
+        uint previous=0;
+        foreach(var row in data.RootElement.GetProperty("sequence").EnumerateArray())
+        {
+            int N(int i)=>row[i].GetInt32();var actual=DruidCreeperVines.Contact(125,125-N(0),previous,(uint)N(1),true,true,false);
+            Require(actual.Damage==(N(3)!=0) && !actual.Remove && actual.LastCollision==(uint)N(4),"Sequential early/alternating/repeated LastCollide");previous=actual.LastCollision;
+        }
+        Require(heads==255 && emissions==75 && contacts==864,"Incomplete prepared vine callback coverage");
+        var first=DruidCreeperVines.Heads(1,-5,9);first[0]=default;
+        Require(DruidCreeperVines.Heads(1,-5,9)[0] is{X:-5,Y:9,OffsetX:0,OffsetY:1},"Request array leaked state");
+        Log.Information("Creeper prepared vines:255 launch,75 emission,864 complete router and6 sequential history source comparisons pass; factory/actor/current engine remain unverified");
+    }
     private static void Actual()
     {
         var owner=new PlayerMobile{Body=0x190,Player=true,Name="CreeperComponentFixture"};owner.AddItem(new Backpack());

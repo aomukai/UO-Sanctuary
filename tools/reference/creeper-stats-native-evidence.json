@@ -15,33 +15,41 @@
   },
   "sourceAndNativePoisonCases": 3636,
   "sourceAndNativeBirthCases": 9180,
+  "sourceAndNativeLaunchCases": 255,
+  "sourceAndNativeEmissionCases": 75,
+  "sourceAndNativeContactCases": 864,
+  "sourceAndNativeSequentialCases": 6,
   "scope": "Prepared numeric components only; no Poison Creeper actor, learned cast, trail or combat acceptance.",
   "hashes": {
     "src/Sanctuary.Content/DruidCreeperStats.cs": "2bf9dc827401aac3a1c43f921f5b9675e1b20352479b6896fdd4223031e89b88",
-    "tests/Sanctuary.Integration/CreeperStatsChecks.cs": "7fb527ddbb4ee3cdcfa90c27bf04ccbf1ebb9a51e41a12fad87ca529e4743e87",
-    "tests/check_creeper_stats.py": "7971806a1cf8b01c7a3a101128a3452b3a8fd058e49d3d9126e1bc8fd4e912b3",
+    "src/Sanctuary.Content/DruidCreeperVines.cs": "a776b5abfa14cff0b6bae1cb73dc362702be3369d5d4d443b0f72c168239324d",
+    "tests/Sanctuary.Integration/CreeperStatsChecks.cs": "73d54ffa7700c292e8ac0824a291e5c4f9fbe79aadd93873694e2f5bd883c8fa",
+    "tests/check_creeper_stats.py": "6fd8ff690b4b04f7dd1261a31b3f5ebae326d94bb2b587efee81462f08162f37",
     "tools/build_class_skills.py": "9249ee29927dc3163fb33d9bdf1e7bf215c5a3f36c8e43761c87b63d3f55f554",
     "tools/probe_creeper_components_reference.py": "f480972a6a00cac8c13789fd8c6cebb5f4c1309e94400666d9fd31093b904b84",
-    "tools/record_creeper_stats.py": "430646bc96ba1aaa07b89add1fc09479a3359f73edce492e91d5a5f1966b8550",
+    "tools/record_creeper_stats.py": "440f0076bf08a910166f01fdc72382d6980795f1a3dfcb159643482be893a19f",
     "tools/reference/creeper-components-source-evidence.json": "f095840c19d8b1f119116821c8e308ca375515805d92bedfa9ee9de633b4742d",
+    "tools/probe_creeper_vines_reference.py": "b92232f75031a276a813417f5a7eb1f719dd0047729c02aeafead311456f9c58",
+    "tools/reference/creeper-vines-source-evidence.json": "854bbae54f8980b0ee49ee7c75b223ad7138a47a708d5ae458cf401ad878bdb1",
     "data/Sanctuary/Balance/necromancer-summons.json": "1789a8539e965d68973410db519c3f7c12d1ef8f62ade31cab615a59a8043489",
-    ".local/class-skills/creeper/content/Sanctuary.Content.dll": "ed71f793195712af0b167b39b672b1cacf04b95e60e5bf5a193733009b26766c",
-    ".local/class-skills/creeper/integration/Sanctuary.Integration.dll": "9585b3ca3a16b928f1048bc3a55509b73c9e04a54d82647f59bb10fea5a3cbfc",
-    ".local/class-skills/creeper/stats-inputs.json": "b07b6b10decf345878740b5dc20b72023f5fc2075387473693eb49d519b16f77",
-    ".local/class-skills/creeper/stats-native-checks.log": "d3d26997949a08b9ab14e75310c6be0b168e0d47e0a97765d04b303a555d376f",
+    ".local/class-skills/creeper/content/Sanctuary.Content.dll": "74acb78552e110eefa4cee986ae94b7524bb44d41e2da2ff9f500ebb2e618b27",
+    ".local/class-skills/creeper/integration/Sanctuary.Integration.dll": "e03792b6554736e17ae8fba8daec04b130c4801fa78750d8431b7ef738023268",
+    ".local/class-skills/creeper/stats-inputs.json": "0d4f61c0d8baf94de2105554e9dfccd0f99d7e92300aa8e3bb7ae6382b303d8e",
+    ".local/class-skills/creeper/stats-native-checks.log": "0738970ed9da41b3f836225bf541df47b99f62ed79b462d113028d4f31c1a112",
     ".local/class-skills/creeper/stats-run.log": "e1011f85d2373f72b5e1a731c7e9f6fa0f69941a661132d7d9b15d0f563532a2",
-    ".local/class-skills/creeper/content-build.log": "b30a223e33e1c467f1dcab4b437a82bea869a09cbf7667e99946b2c9b745718a",
-    ".local/class-skills/creeper/integration-build.log": "c2ed2543687ea7b1ca5d3bf738b3d6c57ac603e5542849ee5806e6b6bc321718"
+    ".local/class-skills/creeper/content-build.log": "12916c7c43e11700bdd8ed1d68770d40bc05d53033f3a04382a7075cf92d0e4d",
+    ".local/class-skills/creeper/integration-build.log": "0f6b4a1974a09fdf2a58b143d8a6bbbb94cdf6455e3f715470f26e9a7cf2aa39"
   },
   "established": [
     "Native source-zero Creeper poison endpoints, hard-only Rabies synergy, signed mastery, length and count match3636 complete creator/getter/writer source cases. Source captures also retain3636 explicit MissileSkill override controls which are not this trail route.",
     "Native supplied-spawn percentage/explicit-level/passive components match9180 complete do115/passive source cases over all255ranks, three owner levels, all difficulties, inherited poison-sunder controls and fractional fixed-point base-life controls. Level329 is retained without using Raven monster-level lookup. Actual noRatio spawn initialization is a separate composition.",
     "Actual trained Druid and Tarnhelm exercise effective rank, immutable earlier stats,50-to75life, retained9FP regeneration and explicit75-to76level. Rank-one32/48FP poison over100frames matches the user unallocated tooltip preview12\u201318over4seconds; no spawned-pet observation is inferred.",
+    "Prepared Vine Attack head-count/cardinal/index requests match255source cases. Remaining-frame emission gates match75cases, full hit50/router/history matches864cases plus6sequential early/alternating/repeated contacts. Modern equivalence is not established; these helpers are not a live field.",
     "Retained Raven stats/blind/flight, toward paths, Valkyrie creation and named-item checks pass in one disposable server boot. Builds have zero warnings/errors. Existing installed build, saves, configuration and client are not changed."
   ],
   "limits": [
     "No actor or handler enabled. AI, state attackability, summon factory/full spawn initialization, actual pet-to-owner Rabies/mastery/pierce transport and capture timing remain pending.",
-    "Trail Range expression is preserved and evaluated as data only; current executable lifetime, head/trail motion/factory/collision/hit-window and poison delivery are not verified.",
+    "Trail Range expression is preserved and evaluated as data only; current executable lifetime, head/trail motion/factory/world collision, modern hit-window equivalence and poison delivery are not verified.",
     "No world reload, connected input, full-class regression, audit refresh, candidate release or installation is claimed. Separate final effects/audio and talent/hotkey icon inventories remain placeholders."
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "pinnedTableHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "unchangedRoutineHashes": {
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_SrvHit50_PlagueVinesTrail": "af8bbaf7333748e0acdf016ccb24391b3b436b0bae629efd55bd693c79edc641",
+    "MISSMODE_SrvDo26_Vines_PlagueVines": "9e8a9ac4c2be6730bd528f4afa3c17620649cffa551ca8bb5c01f88c1ddb88a4",
+    "SKILLS_SrvDo130_VineAttack": "16c087ddf59af598e661e39d8b3aa2b27b7e4f41e8f0c876aefe0b4f5b0b31ec"
+  },
+  "generatedSourceSha256": "40b59e7ecf8acb7a6d982913bd06694b4f6fc028c6701506d2b2a238afd337a6",
+  "fixture": {
+    "path": ".local/class-skills/creeper-vines-source-probe.json",
+    "sha256": "49454517d2b305b099be2734b2cbacf4f5ea2e138ffcbffe662d8b462ea7b20e",
+    "launch": 1785,
+    "head": 450,
+    "trail": 864,
+    "sequence": 6
+  },
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr.",
+  "established": [
+    "Complete do130 uses target coordinates and cyclic cardinal offsets, flags3, stored skill294/rank, charged initializer and index initarg for min(rank+2,24) heads. Missing target returns1 with no requests; failed allocations do not stop the loop or change return1. Invalid skill/missile/formula controls retain distinct owner-flag boundaries.",
+    "Complete head do26 requests a fresh trail before generic collision when remainingFrames modulo max(Param1,1) equals0. Missing owner still makes a coordinate-factory request with null owner; allocation acceptance is separate. Current Param1=9 is not a poison damage interval.",
+    "Complete hit50 plus full hit router suppress damage through age15inclusive and permit damage after that threshold. The surviving trail has no AR or CollideKill. Null-unit terminal dispatch causes removal; a supplied-unit ordinary contact remains alive. Total-frame values are supplied boundary controls, not proof current Range formula creates those lifetimes.",
+    "Full LastCollide records a victim before the hit50 age gate and before hostility refusal. A same-most-recent victim is then ignored even after age16; alternating recipients replace that record. The sequential control captures early contact0, repeated15/16, different victim17, original18 and repeated19. Do not replace this with a permanent per-mat set or an invented periodic damage lease."
+  ],
+  "limits": [
+    "Legacy bodies plus current table values are not proof the modern executable retains this age-gate/LastCollide combination. Full fill/flags/damage, world finder/collision, hostility, events, allocation, target/formula and charged initializer are bounded services here.",
+    "Head movement, factory Range expression evaluation, current poison owner/Rabies/mastery/pierce transport and capture time, actor state/AI/targetability, actual poison application, saved world and learned casting remain separate. No Creeper handler is enabled."
+  ]
+}
