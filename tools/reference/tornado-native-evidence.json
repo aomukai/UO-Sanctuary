@@ -12,8 +12,8 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
-  "fullClassPassedMarkers": 0,
+  "fullClassRegression": true,
+  "fullClassPassedMarkers": 1128,
   "sourceEndpointComparisons": 27540,
   "completePathComparisons": 200,
   "sourceAreaCases": 17496,
@@ -50,7 +50,10 @@
     ".local/class-skills/tornado/native-checks.log": "678e4f89c9192ed41ae62b652bfd3808aa50a62a7ab9a8928742a0cc33fd9331",
     ".local/class-skills/tornado/native-fixtures.json": "63a3a181908c059c09adfe46803ef461600c28a107e037a32dae196e5d3b44d3",
     ".local/class-skills/tornado/python-tests.log": "f27436a0bca3443b4ff78fb4c8d5ef7865645a4cc945b5ab29d3dca0ad3520f6",
-    ".local/class-skills/tornado-focused-run.log": "486bccf4d33102d461ae706705855c0ac5f05f328d3e9aa0bb0e1765bfb661d9"
+    ".local/class-skills/tornado-focused-run.log": "486bccf4d33102d461ae706705855c0ac5f05f328d3e9aa0bb0e1765bfb661d9",
+    ".local/class-skills/tornado/class-inputs.json": "7081cb2866e62b343d867428b2153ef3c6f232fd8e51cd7162e60c53b777b4f8",
+    ".local/class-skills/tornado/class-native-checks.log": "90b26a6733166eecb81ee42b139a3708010cd33506bcc513f2c069a7e818629d",
+    ".local/class-skills/tornado-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC ground/live/deleted/self aim, L/R/quick bindings, once-only10mana release and no local delay pass. Early/duplicate release, stop/out-and-back/recovery/lost-mana cancellation and discarded unpaid windup pass.",
