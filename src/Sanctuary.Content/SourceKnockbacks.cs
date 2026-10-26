@@ -11,7 +11,8 @@ using Server.Spells;
 
 namespace Sanctuary;
 
-public sealed record KnockbackSourceRule(string Source,bool Knockback,bool GetHit,int Distance);
+public sealed record KnockbackSourceRule(string Source,bool Knockback,bool GetHit,int Distance,
+    bool? Small=null,bool? Large=null);
 public sealed record SourceKnockbackState(uint Target,int Map,Point3D Position,Point3D End,long Length16,long Travel16,long Budget16,DateTime NextUtc,bool Recovering,DateTime UntilUtc);
 public sealed class SourceKnockbackProfiles:GenericPersistence
 {

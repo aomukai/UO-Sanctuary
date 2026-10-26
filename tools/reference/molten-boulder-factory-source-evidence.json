@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "routineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/molten-boulder-factory-source-probe.json",
+    "sha256": "a46c56a4a952e4deff072e85d353d845cb942bb0cae28e7c314bbe4228f4291a",
+    "cases": 3456
+  },
+  "established": [
+    "Unchanged complete shared factory executes current emergence453, rolling452, ground455 and disc455 request shapes; copied skill229/rank and declared original owner remain attached.",
+    "Current default lifetimes are5/50/37frames. Disc flags0x8001 overrides the child lifetime to7frames. Current factory velocity factor75percent gives576/1536/0FP8; declared Slow Missiles50percent gives288/768/0.",
+    "InitSteps is a declared schema field varied between0and5. The complete factory does not read it: every paired result is unchanged. Do not introduce five additional server updates from that field. Client/path behavior outside this body is not established.",
+    "The separate flags0x200/frame3 control reduces lifetime by3and sets sequence frame768; ordinary Boulder request shapes do not set that flag and leave the allocator-supplied frame at0.",
+    "Absolute flags33 aim, direct flags0x8001 ground children, same-position moving fallback, coordinate100 rejection, zero-velocity bypass and missing owner/invalid owner/row/room/allocation controls execute in the shared body."
+  ],
+  "services": [
+    "Uses the existing Guided Arrow harness with declared room/path/allocation/stat/damage/owner/seed/event services. Allocation starts animation at0; this probe does not establish the complete production animation clock producer.",
+    "Initial learned skill dispatch, actual movement, hit dispatcher, area/direct damage and knockback eligibility, field collision cadence, modern executable and rendered client remain separate acceptance work.",
+    "Final effects/audio and talent/left/right/quick icons remain pending; no installed handler is enabled by this probe."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr required"
+}

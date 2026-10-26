@@ -3,4506 +3,6008 @@
     "source": "act2child",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2female",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2guard1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2guard2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2guard3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2guard4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2guard5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2hire",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2male",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2vendor1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act2vendor2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act3female",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act3hire",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act3male",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5barb1",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5barb2",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5barb3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5barb4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5hire1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5hire2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "act5pow",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "akara",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "alkor",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "ancientbarb1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "ancientbarb2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "ancientbarb3",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "ancientstatue1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "ancientstatue2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "ancientstatue3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "andariel",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "arach1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "arach7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "asheara",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "atma",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baalclone",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baalcrab",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baalcrabstairs",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baalhighpriest",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baalminion1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baalminion2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baalminion3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baaltaunt",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baaltentacle1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baaltentacle2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baaltentacle3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baaltentacle4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baaltentacle5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baalthrone",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "baboon1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "baboon8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "barricadedoor1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "barricadedoor2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "barricadetower",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "barricadewall1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "barricadewall2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bat",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "batdemon7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bear",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bighead9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bird1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bird2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bladecreeper",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bloodgolem",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bloodlord1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodlord7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodmage1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodmage2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodmage3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodmage4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodmage5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bloodraven",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "blunderbore6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bonefetish1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "bonefetish7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "boneprison1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "boneprison2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "boneprison3",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "boneprison4",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bonewall",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "brute1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "brute2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "brute3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "brute4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "brute5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "bug",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "bunny",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cain6",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "camel",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cantor6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "catapult1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "catapult2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "catapult3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "catapult4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "catapultspotter1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "catapultspotter2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "catapultspotter3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "catapultspotter4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chaoshorde1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chaoshorde2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chaoshorde3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chaoshorde4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chargeboltsentry",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "charsi",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "chicken",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "clawviper9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "claygolem",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "colbarbfrenzy",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "colbarbthrow",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "colbarbwhirl",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "colossal1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "colossal2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "colossal3",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "compellingorb",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "corruptrogue6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "councilmember1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "councilmember2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "councilmember3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cow",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cowking",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_archer8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "cr_lancer9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "crownest1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "crownest2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "crownest3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "crownest4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "cycleoflife",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "darkelder",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "darkguard1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "darkguard2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "darkguard3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "darkguard4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "darkguard5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "darkwanderer",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathmauler6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "deathsentry",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "demonhole",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "demonspawner",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "diablo",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "diabloclone",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "dkfig1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "dkfig2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "dkmag1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "dkmag2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "dkmag3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "doomknight1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "doomknight2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "doomknight3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "dopplezon",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "drehya",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "drehyaiced",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "drognan",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "druidbear",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "druidhawk",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "duriel",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "eagle",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "elzix",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "evilhole1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "evilhole2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "evilhole3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "evilhole4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "evilhole5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "evilhut",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "fallen1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallen8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fallenshaman8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "familiar",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "fara",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "fenris",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "fetish1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish11",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetish8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishblow8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fetishshaman8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "fingermage1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "fingermage2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "fingermage3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "fingermage4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "fingermage5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "firebeast",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "firegolem",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "firetower",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "fish",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "flyingscimitar",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "foulcrow1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "foulcrow8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "frogdemon1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frogdemon2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frogdemon3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frozenhorror1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frozenhorror2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frozenhorror3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frozenhorror4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "frozenhorror5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "gargoyletrap",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "geglash",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "gheed",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "goatman9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "gorgon1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "gorgon2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "gorgon3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "gorgon4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "greiz",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "griswold",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "halbu",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "heartofwolverine",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hellbovine",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hellmeteor",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hephasto",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "horse",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hratli",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hydra1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hydra2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "hydra3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "iceglobe",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "imp1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "imp8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "infernosentry",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "injuredbarb1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "injuredbarb2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "injuredbarb3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "invisopet",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "invisospawner",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "irongolem",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "izual",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "izualghost",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "jamella",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "jerhyn",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "kashya",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "larva",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "larzuk",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "lightningbeast",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "lightningsentry",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "lightningspire",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "lysander",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "maggot",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "maggotbaby1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotbaby2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotbaby3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotbaby4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotbaby5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotbaby6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotegg6",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "maggotqueen1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "maggotqueen2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "maggotqueen3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "maggotqueen4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "maggotqueen5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "malachai",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "malah",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "megademon6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mephisto",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "mephistospirit",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "meshif1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "meshif2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "minion1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion11",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minion9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner6",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner7",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minionspawner8",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "minispider",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mosquito1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mosquito2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mosquito3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mosquito4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "mummy6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "natalya",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "navi",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "necromage",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "necroskeleton",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "nihlathak",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "nihlathakboss",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "oaksage",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "ormus",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "overseer1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "overseer2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "overseer3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "overseer4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "overseer5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "overseer6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "painworm1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "painworm2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "painworm3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "painworm4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "painworm5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "pantherwoman1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pantherwoman2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pantherwoman3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pantherwoman4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pantherwoman5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pantherwoman6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "parrot",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "pig",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "plaguepoppy",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "poisonorb",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "prisondoor",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "putriddefiler1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "putriddefiler2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "putriddefiler3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "putriddefiler4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "putriddefiler5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "qual-kehk",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillbear1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillbear2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillbear3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillbear4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillbear5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "quillrat1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "quillrat8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "radament",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "rat",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "reanimatedhorde6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "regurgitator1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "regurgitator2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "regurgitator3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "regurgitator4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "rogue1",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "rogue2",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "rogue3",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "roguehire",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper1",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper2",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper3",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper4",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper5",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper6",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandleaper7",
     "knockback": true,
     "getHit": true,
-    "distance": 10
+    "distance": 10,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandmaggot1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandmaggot7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sandraider1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sandraider9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sarcophagus",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "scarab1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scarab8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "scorpion",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "seagull",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "seventombs",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "shadowmaster",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "shadowwarrior",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "siegebeast1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "siegebeast2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "siegebeast3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "siegebeast4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "siegebeast5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "sk_archer1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer10",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer11",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "sk_archer9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skeleton8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_cold6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_fire7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_ltng7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "skmage_pois7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "slinger9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "smith",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "snake",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "snowyeti1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "snowyeti2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "snowyeti3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "snowyeti4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "spiritmummy",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "spiritofbarbs",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "spiritwolf",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubus8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "succubuswitch9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "suckernest1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suckernest2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suckernest3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suckernest4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion10",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion11",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion4",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion5",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion6",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion7",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion8",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "suicideminion9",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "summoner",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "swarm1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "swarm2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "swarm3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "swarm4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "swarm5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "tentacle1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "tentacle2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "tentacle3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "tentaclehead1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "tentaclehead2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "tentaclehead3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "thornhulk1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "thornhulk2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "thornhulk3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "thornhulk4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "thornhulk5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "trap-firebolt",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-horzmissile",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-lightning",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-melee",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-nova",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-poisoncloud",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trap-vertmissile",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trappedsoul1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "trappedsoul2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "turret1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "turret2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "turret3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "tyrael1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "tyrael2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "tyrael3",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "uberandariel",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "uberbaal",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "uberdiablo",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "uberduriel",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "uberizual",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "ubermephisto",
     "knockback": false,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "unraveler1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "unraveler9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "valkyrie",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vampire9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "venomlord",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vilechild1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vilechild2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vilechild3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vilechild4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vilechild5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vilemother1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vilemother2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vilemother3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vilemother4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vilemother5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "vinecreature",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "vulture1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vulture2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vulture3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vulture4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "vulture5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wakeofdestruction",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": true,
+    "large": false
   },
   {
     "source": "warbighead",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "wargoatman",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "warputriddefiler",
     "knockback": true,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "warriv1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "warriv2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "willowisp8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "window1",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "window2",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wolf",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": true
   },
   {
     "source": "wolfrider1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wolfrider2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wolfrider3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "worldstoneeffect",
     "knockback": false,
     "getHit": false,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith6",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith7",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith8",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "wraith9",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zealot1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zealot2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zealot3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zealot4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zealot5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zombie1",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zombie2",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zombie3",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zombie4",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   },
   {
     "source": "zombie5",
     "knockback": true,
     "getHit": true,
-    "distance": 5
+    "distance": 5,
+    "small": false,
+    "large": false
   }
 ]

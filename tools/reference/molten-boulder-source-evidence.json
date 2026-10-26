@@ -1,0 +1,58 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_CreateMeteor_MoltenBoulderSubmissiles": "b60345be1230f9d5f9bc44e9f84ab6dd8321d2d31a93634073043271ce25dfb6",
+    "MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulderFirePath": "268c29a3489bac97845ea63fac10efd077d48822fde5f6ae823c592110666647",
+    "MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker": "97fcb19b132c5457233da401473234e63cec18bee9a00352102b7fe9dafd7701",
+    "MISSMODE_SrvHit47_MoltenBoulder": "fb5e9ee6349e274b293b54eb88153bc894879ccee2b9457a4859d85b6c129dce",
+    "MISSMODE_SrvHit48_MoltenBoulderEmerge": "4a74b60cc2bc475d1559b063476b61b88179939563086ee344833eb056960f72",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "caseCounts": {
+    "emerge": 24,
+    "maker": 42,
+    "disc": 60,
+    "contact": 512,
+    "knockback": 293,
+    "field": 150
+  },
+  "fixture": {
+    "path": ".local/class-skills/molten-boulder-source-probe.json",
+    "sha256": "5f5712bc0a52a4d32cd5bbe96d7111f3debce0dbbd57aad7605082ffcf7a358b"
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty stderr",
+  "portableSubstitutions": [
+    "Explicit minimal ABI/service fixtures; SMALL/LARGE are named logical flag inputs, not inferred from Size.",
+    "MSVC hexadecimal i64 suffix changed to ULL without changing uint64 arithmetic. Complete source RNG and item wrappers execute with each selected callback."
+  ],
+  "established": [
+    "Complete emergence hit48 preserves coordinates/aim/rank and attempts rolling452 creation; missing owner is delegated to the factory, not invented as an early callback guard.",
+    "Complete do6 emits a flags33 same-position trail child on the previous movement flag, before generic collision/lifetime service. Zero child ID differs from negative ID.",
+    "Complete hit47 handles actual LARGE flags, captures one controlled packet for its area request, adds row hit/result flags and builds the18-offset disc. Source return1/3 versus2 is retained without claiming the whole generic dispatcher was compiled.",
+    "Positive disc range is also a factory lifetime override. Trail455 default37frames and explosion children override7frames are distinct current routes.",
+    "Damage14 runs complete named SMALL/LARGE/player branches and actual RNG. Generic row KnockBack/event/eligibility composition remains separate.",
+    "Server do5 animation branches mutate the same seed before generic collision. The input animation clock is supplied explicitly; no guessed server sequence increment is introduced."
+  ],
+  "limits": [
+    "Creation, owner/species/row lookup, packet filling, area damage and generic collision are declared recording services. No native world movement, damage, knockback or learned handler is enabled by these fixtures.",
+    "The complete generic collision/hit dispatcher, factory InitSteps, rolling/explosion damage getter composition, field animation clock producer and native eligibility/room/control paths remain to compose.",
+    "Current data is pinned; these are older reconstructed bodies, not a modern executable certificate. Missing/uncertain modern mechanics must remain explicit.",
+    "Final effects/audio and separate talent/left/right/quick icons remain pending."
+  ],
+  "next": "Compare reusable C# Boulder request/contact/knockback/field-animation kernels to these source outputs, then connect native creation/motion/damage/control and casting."
+}

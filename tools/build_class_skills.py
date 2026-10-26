@@ -243,7 +243,10 @@ def products():
             innate=r.get('ShieldBlockOverride',0)==1,blockMode=bool(model.get('mBL')),
             shieldCodes=choices,shieldItems=[armor.get(code,{}).get('type')=='shie' for code in choices]))
     freeze_rules=[dict(source=r['Id'],primeEvil=bool(r.get('primeevil')),normal=r.get('coldeffect',0),nightmare=r.get('coldeffect(N)',0),hell=r.get('coldeffect(H)',0)) for r in monsters.values() if r.get('Id')]
-    knockback_rules=[dict(source=r['Id'],knockback=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mKB')),getHit=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mGH')),distance=10 if r.get('BaseId',r['Id'])=='sandleaper1' else 5) for r in monsters.values() if r.get('Id')]
+    knockback_rules=[dict(source=r['Id'],knockback=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mKB')),getHit=bool(monstats2.get(r.get('MonStatsEx'),{}).get('mGH')),distance=10 if r.get('BaseId',r['Id'])=='sandleaper1' else 5,
+        small=bool(monstats2[r['MonStatsEx']].get('small')) if r.get('MonStatsEx') in monstats2 else None,
+        large=bool(monstats2[r['MonStatsEx']].get('large')) if r.get('MonStatsEx') in monstats2 else None)
+        for r in monsters.values() if r.get('Id')]
     item_types=[dict(code=r['Code'],parents=[r[k] for k in ('Equiv1','Equiv2') if r.get(k)]) for r in json.loads((SOURCE/'json/itemtypes.json').read_text()).values() if r.get('Code')]
     attack_source=next(r for r in json.loads((SOURCE/'json/skills.json').read_text()).values() if r.get('skill')=='Attack')
     attack=dict(sourceId=0,sourceKey='Attack',ability=1,sourceFields=attack_source,sourceParameters={})

@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": false,
   "installed": false,
-  "sourceStatus": "Inspected complete bodies only; no compiled Boulder proof, native controller or learned handler yet.",
+  "sourceStatus": "Complete callback/RNG1081, complete shared factory3456 and complete generic hit-router1536 contexts pass; production C# callback/routing kernels match2617contexts. No native controller or learned handler yet.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -291,12 +291,13 @@
   },
   "established": [
     "Player229 uses the generic srvmissile453 emergence route, SC,25frame local delay and10+0.5*(rank-1)mana. Do not invent a custom Druid do function or start directly with rolling452.",
-    "Emergence453 has Range5/InitSteps5/velocity3 and hit48 creates rolling452 at its current coordinates with copied aim/rank. Factory initial stepping and terminal/wall creation order require composition.",
+    "Emergence453 has Range5/InitSteps5/velocity3 and hit48 creates rolling452 at its current coordinates with copied aim/rank. The complete factory does not read InitSteps; varying0/5 has no effect. Default factory velocity is576FP8. Do not invent five extra server updates from this field.",
     "Rolling452 uses do6, hit47 and damage14. Changed-cell child creation precedes generic motion/decrement, as in the now-established shared missile callback order.",
-    "Hit47 distinguishes the actual monstats2 LARGE flag, not native size or elite grade. SMALL/LARGE are also distinct inputs to the damage14 knockback chance. The callback result bits must be interpreted with the complete generic hit dispatcher before implementing continuation/explosion.",
+    "Hit47 distinguishes actual monstats2 LARGE, not native Size/elite grade. Complete generic routing proves non-LARGE direct hits continue despite CollideKill1; LARGE area/disc success removes, failure also requests direct damage. Terminal null-victim wall/expiry removes without area/disc in the older source; modern confirmation remains open.",
     "The ground455 route uses missile-owned fire endpoints and hard Firestorm synergy, HitShift2/DamageRate41; its absent ApplyMastery/Skill flags must remain distinct from rolling452 skill-owned physical/fire damage.",
     "Ground455 uses do5, unlike Firestorm457 do1. Its server animation branch can advance the same missile RNG stream; do not transplant a field that only rolls on damage.",
-    "The shared18-offset explosion child factory uses flags0x8001 when its supplied range is positive. Hit47 passes the same aura range to area radius and child lifetime override; explosion patches therefore need not use the trail row default37frames. Preserve the override rather than treating every455 child alike."
+    "The shared18-offset explosion child factory uses flags0x8001 when its supplied range is positive. Hit47 passes the same aura range to area radius and child lifetime override; explosion patches therefore need not use the trail row default37frames. Preserve the override rather than treating every455 child alike.",
+    "Current LastCollide is1only on emergence453,0on rolling452/ground455; do not add repeated-target suppression to rolling. Ground455 AlwaysExplode0 skips events on empty nonterminal router calls."
   ],
   "reuse": [
     {
@@ -305,7 +306,7 @@
     },
     {
       "component": "MissileVectors, SourceMissileSteps and explicit native geometry adapters",
-      "scope": "Straight emergence/rolling movement; preserve factory InitSteps and previous-movement child timing."
+      "scope": "Straight emergence/rolling movement; factory does not implement InitSteps. Preserve previous-movement child timing and prove actual path/terminal ordering."
     },
     {
       "component": "FireGround.MissileDamage256 / skill physical and elemental endpoint helpers",
@@ -321,23 +322,76 @@
     }
   ],
   "remaining": [
-    "Compile/compare complete emergence/rolling/hit/damage/field/disc source bodies with declared engine services.",
-    "Establish generic srvmissile creation, InitSteps, range/activation, collision mode8 WALLKILL and hit result bits; do not confuse it with mode6 BARRIERCOLLIDE.",
-    "Load exact species SMALL/LARGE/no-knockback flags from pinned monstats2; native Size alone is insufficient.",
-    "Compose rolling direct physical/fire hits, conditional explosion/area/disc, repeated contacts, knockback and independent field lifetime.",
-    "Retain exact source skill/missile damage, synergy/mastery, actual equipment and approved potion/defense behavior.",
-    "Verify cast/payment/cancellation/left/right/quick and saved motion/fields/seed/lifetime; full acceptance before installation.",
-    "Compose the additional generic row KnockBack draw with damage14 and target control eligibility; do not treat SMALL/LARGE chances alone as the entire knockback/event path."
+    "Compose learned generic srvmissile creation with native motion, activation and mode8 WALLKILL saved-step collider order; complete source callbacks/factory/hit-router are now independently executed.",
+    "Consume nullable source SMALL/LARGE metadata through the existing knockback-rule catalog. Unknown species must remain explicitly unsupported, never inferred from native Size or elite grade.",
+    "Implement rolling direct physical/fire hits, conditional area/disc, repeated contacts, source knockback and independent field lifetime in the native world.",
+    "Compose damage factory/getters, hard synergies/mastery, actual equipment and approved potion/defense behavior; callback packet readers are still recording services.",
+    "Establish field server animation producer/collision cadence without inventing an animation increment; the complete do5 kernel takes an explicit frame input.",
+    "Compose generic row KnockBack1 draw and target eligibility with damage14; damage14 alone is not the whole knockback/event path.",
+    "Verify learned casting/payment/cancellation/left/right/quick, saved movement/fields/seed/lifetime, connected timers, focused/full regression and existing-world smoke before installation."
   ],
   "assets": {
     "effects": "Pending: druid cast/audio, moltenboulderemerge453, rolling452, explosion454, flyingrocks456, ground455 and contact/knockback/expiry. Identify UO placeholders when chosen; no new art generated.",
     "icons": "Talent/left/right/quick icons remain in the separate skill-icons register."
   },
-  "next": "Compose complete emergence/rolling/hit/damage/field/disc source paths. Preserve the accepted158-handler build and existing saves while staging Molten Boulder independently.",
+  "next": "Connect the verified request/routing kernels and source species flags to saved native emergence/rolling/fire-field actors, then learned casting and acceptance. Keep installed158-handler build and saves intact.",
   "preparationContext": {
     "installedCommit": "2f49b18",
     "installedHandlers": 158,
     "installedDruidHandlers": 2,
-    "scope": "Firestorm acceptance/deployment completed; Boulder remains source preparation only."
+    "scope": "Firestorm acceptance/deployment completed; Boulder is source/kernel/data preparation with no native actor or learned handler enabled."
+  },
+  "compiledEvidence": {
+    "callbacks": "tools/reference/molten-boulder-source-evidence.json",
+    "productionCallbacks": "tools/reference/molten-boulder-packets-evidence.json",
+    "factory": "tools/reference/molten-boulder-factory-source-evidence.json",
+    "routing": "tools/reference/molten-boulder-routing-source-evidence.json",
+    "productionRouting": "tools/reference/molten-boulder-routing-evidence.json"
+  },
+  "speciesPreparation": {
+    "catalog": "data/Sanctuary/Balance/knockback-source-rules.json",
+    "rows": 751,
+    "unknownModelRows": 0,
+    "policy": "Nullable Small/Large extend existing KnockbackSourceRule; missing model remains null. Existing Knockback/GetHit/Distance consumers are unchanged. Native Boulder species/damage consumers remain to connect.",
+    "examples": [
+      {
+        "source": "brute1",
+        "knockback": true,
+        "getHit": true,
+        "distance": 5,
+        "small": false,
+        "large": true
+      },
+      {
+        "source": "fallen1",
+        "knockback": true,
+        "getHit": true,
+        "distance": 5,
+        "small": true,
+        "large": false
+      },
+      {
+        "source": "skeleton1",
+        "knockback": true,
+        "getHit": true,
+        "distance": 5,
+        "small": false,
+        "large": false
+      }
+    ]
+  },
+  "preparationChecks": {
+    "contentBuild": "Release: zero warnings/errors; worktree output only, not installed",
+    "generatedCatalog": "tools/build_class_skills.py --check passed, eight classes/240skills/stable IDs",
+    "retainedRules": "All751previous Knockback/GetHit/Distance/Source entries remain exactly unchanged; new nullable flags only",
+    "inputAndBuildHashes": {
+      "src/Sanctuary.Content/MoltenBoulderPackets.cs": "701a270d5c23b93e1c873bb5b564c6c24995d2430a925deacaf9340d6098d091",
+      "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
+      "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
+      "tools/build_class_skills.py": "d083ae4316a0969e72a7916bcd5c0052b34737d85c0b3c56ce9a5a6ea727040e",
+      "data/Sanctuary/Balance/knockback-source-rules.json": "c25cd474660ede733b6a5cc72a2cf018a4e8652f05d450c6b8181de05f63a86a",
+      ".local/class-skills/molten-boulder-content-build.log": "c6ec3b413824838a8267652e777033814c77f8b82037cacf4cb0c7f0ab455ddd",
+      ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "def28aabd836a2bf9c1ddd9bf855928d05abe3c46d04d0d13dde9ac8d93fb0ea"
+    }
   }
 }

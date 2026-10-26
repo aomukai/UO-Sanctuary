@@ -9,7 +9,7 @@
     "unsupported": 3
   },
   "inputHashes": {
-    "src/Sanctuary.Content/DruidEmitterPatterns.cs": "8f73ce2d651b2a5611d9ad195e9190a63dfd030bd11b746703c572de11cb7525",
+    "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "tools/probe_firestorm_reference.py": "d27a3a153221bf3a16e647cfcabe2e4781d5df837b491c6ea223d7adebf77ccd",
     "tools/reference/firestorm-source-evidence.json": "96f6cc3de113f4205517d14b3b90d39d1ee7f911a1db2e5588dcccc4568a30ee",
     "tools/check_druid_emitter_patterns.py": "04cbae71ce0d5e4a6c3975602361953cdf99fa24847c827992bc5430ea9b7c9f"
@@ -19,11 +19,11 @@
     ".local/class-skills/firestorm-source-probe.cpp": "f8e899eacc0f51b7be03fb00f3edaf69972f6a13a984d1d37953091fd4b6f7cf",
     ".local/class-skills/firestorm-source-probe": "c7e9b13ae264d0e5721ad5a7ee4d455ae7f2fbdfd866b74aceb574ef989d4842",
     ".local/class-skills/firestorm-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/firestorm-patterns-build.log": "ac8e98372c2245500472f05e2b7aae25eeaa49ccf068c4099072c38fa0023f0d",
+    ".local/class-skills/firestorm-patterns-build.log": "004794841c567de2f36ba27927c954272d880d269235dc8c41a7e7f1f4dc83f4",
     ".local/class-skills/firestorm-patterns-run.log": "03f8124c3e0d5361ff7e817923b3ff974d893f9b3c460331c5adc45e6ec16228",
     ".local/class-skills/firestorm-patterns-proof/check.csproj": "1c63e869023fee01eb2546ca1c111c7d611704547b53498ab9b1ea641e6f8c78",
     ".local/class-skills/firestorm-patterns-proof/Program.cs": "be5778db81522fbee292bd84ff7a3a4ad5066b98474ef16ec068f8e024d09a1f",
-    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "55df32d1ab6da51ec7cad981b1747b402d383e1ee63d63c5f7565439bebb5668"
+    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "c3cec7b3a4f020b29d841929385e82f4a6639eb9a7ffd2d1b35f66bc489a16b7"
   },
   "established": [
     "Actual production C# shared emitter requests, charged initializer and changed-cell child requests match every applicable complete older source fixture. Direct/fan target queries and child-before-terminal-collision order remain distinct.",

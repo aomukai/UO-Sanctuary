@@ -10,7 +10,8 @@ namespace Sanctuary;
 internal sealed record DruidEmitterAim(int OriginX,int OriginY,int GroundX,int GroundY,
     bool FanTargetAvailable,int? TargetX=null,int? TargetY=null);
 internal sealed record DruidEmitterRequest(int Flags,int Missile,int X,int Y,int AimX,int AimY,
-    bool Charged,int Ordinal,int Loops,int Rank);
+    bool Charged,int Ordinal,int Loops,int Rank)
+{public int? RangeOverride{get;init;}}
 internal sealed record DruidChargedInitialization(int Frames,int? SetCurrentFrame,uint Seed,int Distance);
 internal sealed record DruidMakerStep(int Result,bool ProcessCollision,DruidEmitterRequest Child);
 internal static class DruidEmitterPatterns

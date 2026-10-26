@@ -1,0 +1,46 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329"
+  },
+  "callbackEvidence": "tools/reference/molten-boulder-source-evidence.json",
+  "callbackHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_CreateMeteor_MoltenBoulderSubmissiles": "b60345be1230f9d5f9bc44e9f84ab6dd8321d2d31a93634073043271ce25dfb6",
+    "MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulderFirePath": "268c29a3489bac97845ea63fac10efd077d48822fde5f6ae823c592110666647",
+    "MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker": "97fcb19b132c5457233da401473234e63cec18bee9a00352102b7fe9dafd7701",
+    "MISSMODE_SrvHit47_MoltenBoulder": "fb5e9ee6349e274b293b54eb88153bc894879ccee2b9457a4859d85b6c129dce",
+    "MISSMODE_SrvHit48_MoltenBoulderEmerge": "4a74b60cc2bc475d1559b063476b61b88179939563086ee344833eb056960f72",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e"
+  },
+  "fixture": {
+    "path": ".local/class-skills/molten-boulder-routing-source-probe.json",
+    "sha256": "81071aca809934c747c9d38cd5aec2657f6b0468292016f719902b9898d0ed89",
+    "cases": 1536
+  },
+  "established": [
+    "Complete generic hit router executes actual emergence48, rolling47/damage14 and no-hit-function ground routes; actual LastCollide identity read/write helpers execute. Other table entries assert if selected.",
+    "Emergence hit creates rolling452 and removes the emergence missile, including a terminal null-victim call. Missing owner still records a failed child-factory attempt.",
+    "Rolling hits on non-LARGE monsters request direct damage and continue despite CollideKill1, because hit47 replaces the generic result. LARGE monsters request area damage and18ground children; successful area request removes without direct damage, while failed area request also requests direct damage.",
+    "Rolling terminal null-victim calls remove without an area explosion or flame disc in this reconstructed source. Wall/expiry animation does not establish blast damage; modern differences remain explicitly unverified.",
+    "Only emergence453 has LastCollide. It rejects the immediately recorded same target before event or damage; hostility rejection follows LastCollide write. Rolling452 and ground455 have no LastCollide and can request direct damage on repeated updates. Ground455 also has AlwaysExplode0: an empty nonterminal call returns before the hit event. Terminal removal clears the collision mask."
+  ],
+  "limits": [
+    "Hit events, packet filling, area search/commit, generic SetDamageFlags, child factory and world room services are recording fixtures. Full damage mitigation/knockback eligibility and modern event/item behavior are not established.",
+    "This probe calls the hit router directly; actual path movement, saved-step collider order, generic update lifetime and field animation producer remain separate.",
+    "Current pinned data and older reconstructed code are distinguished. Native actor, learned casting, persistence, final effects/audio/icons remain unfinished."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr required"
+}
