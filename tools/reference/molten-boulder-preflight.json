@@ -333,5 +333,11 @@
     "effects": "Pending: druid cast/audio, moltenboulderemerge453, rolling452, explosion454, flyingrocks456, ground455 and contact/knockback/expiry. Identify UO placeholders when chosen; no new art generated.",
     "icons": "Talent/left/right/quick icons remain in the separate skill-icons register."
   },
-  "next": "Begin complete source composition while the frozen main Firestorm regression runs. Main runtime inputs and installed157-handler build remain untouched."
+  "next": "Compose complete emergence/rolling/hit/damage/field/disc source paths. Preserve the accepted158-handler build and existing saves while staging Molten Boulder independently.",
+  "preparationContext": {
+    "installedCommit": "2f49b18",
+    "installedHandlers": 158,
+    "installedDruidHandlers": 2,
+    "scope": "Firestorm acceptance/deployment completed; Boulder remains source preparation only."
+  }
 }
