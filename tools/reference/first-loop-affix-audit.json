@@ -1,7 +1,7 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "92d5bd22eb89b9659947a6048f65cd81229614c8724b737571b7d25779d802a6",
+  "ContentAssemblySha256": "e623732895f44483680d94b58fbeb67dd4e7808c6544320c4a3f06cfa54acef3",
   "ContentAssemblyPath": ".local/class-skills/fissure/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",

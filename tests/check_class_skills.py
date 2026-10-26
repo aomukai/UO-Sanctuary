@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Native class-skill checks in a disposable world; never writes the installed runtime/saves."""
 import json
+import hashlib
 import os
 from pathlib import Path
 import shutil
@@ -13,6 +14,8 @@ from check_britain import ROOT, SERVER, Session
 from fists_claw_input import exercise as fists_claw_input
 
 STAGE = ROOT / '.local/class-skills'
+# Keep reference fixtures in STAGE while selecting an isolated candidate package.
+PACKAGE = Path(os.environ.get('SANCTUARY_CLASS_SKILL_PACKAGE', str(STAGE)))
 
 
 def drain_fixture_client(client):
@@ -47,7 +50,7 @@ def check():
     # The unconditional Vengeance probe and socketed-weapon fixtures need these
     # even when the optional complete named-item audit is not requested.
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
-    logpath = STAGE / 'native-checks.log'
+    logpath = PACKAGE / 'class-native-checks.log'
     with tempfile.TemporaryDirectory(prefix='sanctuary-class-skills-', dir='/dev/shm') as temp:
         folder = Path(temp)
         for entry in SERVER.iterdir():
@@ -65,10 +68,10 @@ def check():
         shutil.copy2(native / 'Server.dll', folder / 'Server.dll')
         shutil.copy2(native / 'Assemblies/UOContent.dll', folder / 'Assemblies/UOContent.dll')
         for name, rel in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
-            (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
+            (folder / 'Assemblies' / name).symlink_to(PACKAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'corpse-base-life-source-probe.json', folder / 'corpse-base-life-source-probe.json')
-        for name in ['molten-boulder-damage','molten-boulder-impact']:
+        for name in ['fissure-damage','missile-footprints','molten-boulder-damage','molten-boulder-impact']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock','necro-corpse-explosion','cyclone-armor']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
@@ -187,6 +190,16 @@ def check():
             'sanctuary.graveyard.enabled':'False','world.savePath':'Saves','crashGuard.restartServer':'False',
             'sanctuary.professions.enabled':'True'})
         configpath.write_text(json.dumps(config))
+        # Bind the run to exact runtime data, source and candidate assemblies.
+        def digest(path):
+            return hashlib.sha256(path.read_bytes()).hexdigest()
+        sources = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration']
+                   for p in (ROOT / directory).glob('*.cs')] + [Path(__file__).resolve()]
+        inventory = dict(sourceInputs={str(p.relative_to(ROOT)): digest(p) for p in sorted(sources)},
+                         copiedData={str(p.relative_to(folder)): digest(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
+                         artifacts={str(p.relative_to(folder)): digest(p) for p in [folder / 'ModernUO.dll', folder / 'Server.dll',
+                                    folder / 'Assemblies/UOContent.dll', folder / 'Assemblies/Sanctuary.Content.dll', folder / 'Assemblies/Sanctuary.Integration.dll']})
+        (PACKAGE / 'class-inputs.json').write_text(json.dumps(inventory, indent=2) + '\n')
         with logpath.open('w') as log:
             for boot in range(3):
                 session = Session(folder, log)
@@ -194,10 +207,21 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['fissure','molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+                        session.send('fissure-live-check');assert session.expect(r'fissure-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        session.expect('fissure-live: ready');client.sendall(b'\x73\x00')
+                        assert session.expect(r'fissure-live-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+                        session.send('fissure-input-check');assert session.expect(r'fissure-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'fissure-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)');ability,x,y,z=map(int,ready.groups())
+                        client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'fissure-input-result: (passed|failed)',timeout=15).group(1)=='passed',logpath.read_text()[-6000:]
                     with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
                         threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
                         session.send('molten-boulder-input-check');assert session.expect(r'molten-boulder-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

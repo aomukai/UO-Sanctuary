@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import struct
 import tempfile
 import threading
 from check_britain import ROOT, SERVER, Session
@@ -43,6 +44,7 @@ def check():
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(ROOT / '.local/class-skills/fissure-damage-source-probe.json', folder / 'fissure-damage-source-probe.json')
+        shutil.copy2(ROOT / '.local/class-skills/missile-footprints-source-probe.json', folder / 'missile-footprints-source-probe.json')
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
             if name not in assemblies:
@@ -67,7 +69,7 @@ def check():
             return hashlib.sha256(path.read_bytes()).hexdigest()
         sources = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration']
                    for p in (ROOT / directory).glob('*.cs')]
-        sources += [Path(__file__).resolve(), ROOT / '.local/class-skills/fissure-damage-source-probe.json']
+        sources += [Path(__file__).resolve(), ROOT / '.local/class-skills/fissure-damage-source-probe.json', ROOT / '.local/class-skills/missile-footprints-source-probe.json']
         inventory = dict(
             sourceInputs={str(p.relative_to(ROOT)): digest(p) for p in sorted(sources)},
             copiedData={str(p.relative_to(folder)): digest(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
@@ -95,7 +97,16 @@ def check():
                             threading.Thread(target=drain, args=(client,), daemon=True).start()
                             session.send('fissure-live-check')
                             assert session.expect(r'fissure-live-check: (passed|failed)').group(1) == 'passed'
+                            session.expect('fissure-live: ready'); client.sendall(b'\x73\x00')
                             assert session.expect(r'fissure-live-result: (passed|failed)', timeout=12).group(1) == 'passed', logpath.read_text()[-6000:]
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send('fissure-input-check')
+                            assert session.expect(r'fissure-input-check: (passed|failed)').group(1) == 'passed'
+                            ready = session.expect(r'fissure-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                            ability, x, y, z = map(int, ready.groups())
+                            client.sendall(struct.pack('>BHHBBIBIHHb', 0xBF, 21, 0xF2, 7, 3, 1, ability, 0, x, y, z))
+                            assert session.expect(r'fissure-input-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-6000:]
                         session.send('save')
                         session.expect('Writing world save snapshot done')
                         session.send('shutdown')
@@ -105,7 +116,7 @@ def check():
             text = logpath.read_text()
             assert ' ERR]' not in text and ': failed' not in text
             shutil.copy2(folder / 'fissure-fixtures.json', STAGE / 'native-fixtures.json')
-            print('Prepared Fissure and retained Blizzard pass3boots/2actual reloads/3connected natural actors; installed build untouched.')
+            print('Learned Fissure and retained Blizzard pass3boots/2actual reloads/3connected natural actors/3quick casts; installed build untouched.')
         except BaseException:
             destination = STAGE / 'failed-world'
             destination.mkdir(exist_ok=True)

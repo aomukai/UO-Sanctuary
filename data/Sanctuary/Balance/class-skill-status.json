@@ -1703,10 +1703,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 234,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared saved native center/cracks pass three boots/two actual reloads and three connected natural timer runs, retaining actual Blizzard damage/lifetime/reload controls. Source placement, retained-rank fresh endpoints, own Size3 missile footprints, single collider, LastCollide alternation, cast/target leases, fire immunity, approved potion channels, get-hit, offline/facet expiry, worker serialization and atomic invalid restore are covered. Learned SC/payment/local delay/right/quick input is not enabled; other missile producers have not supplied their footprints to the landing adapter. Modern hit-delay grouping, full source/native event/seed/terrain/mode/client acceptance and final effects/audio/icons remain explicit. See fissure-native-evidence.json and the current checkpoint; no handler count increase or class completion is claimed."
+      "remaining": "Learned SC casting pays15mana once at release with a50-frame local delay and right/quick bindings. Saved native center/cracks and shared Collision1 footprint projections are staged for verification; installed build remains at159handlers/Druid3 until a separately recorded installation. Source placement, retained-rank fresh endpoints, single collider, LastCollide alternation and explicitly provisional cast/target hit-delay leases reuse the prepared controller. Exact modern hit-delay grouping, source/native event/seed/terrain/room order, producer lifecycle and actual-client acceptance remain open. Other-producer projections expose existing native actors; they do not certify their complete source geometry or timer ordering. Final effects/audio/icons remain separate. See fissure-native-evidence.json and the current checkpoint; no class completion is claimed."
     },
     {
       "talentId": "druid.cyclonearmor",

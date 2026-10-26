@@ -219,6 +219,9 @@ public abstract class SkillField(PlayerMobile owner, int frames, DiabloClass cha
         protected readonly Map Map = owner.Map;
         private readonly long _deadline = Core.TickCount + frames * 40;
         private TimerExecutionToken _timer;
+        internal bool Active => !Owner.Deleted && Owner.Alive && Owner.Map == Map && Map != Map.Internal
+            && ClassCreation.Profiles.TryGet(Owner.Serial, out var profile) && profile.Class == characterClass
+            && Core.TickCount - _deadline < 0;
         protected abstract void Step();
         public void Start() => Timer.StartTimer(TimeSpan.Zero, TimeSpan.FromMilliseconds(40), Tick, out _timer);
         private void Tick()

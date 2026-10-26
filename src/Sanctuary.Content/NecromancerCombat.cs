@@ -101,7 +101,10 @@ public static class NecromancerCombat
         {
             Consume((Corpse)World.FindItem(selected));
             // A persistent local cloud re-applies poison to enemies entering its footprint.
-            new PoisonCloud(owner, point, values).Start(); return true;
+            var cloud = new PoisonCloud(owner, point, values);
+            MissileFootprints.RegisterTransient(new("poisonexplosioncloud", owner.Map.MapID, point.X * 2, point.Y * 2, point.Z,
+                TimedEffects.Now.AddMilliseconds(NecromancerSummons.Source("poisonexplosioncloud", "Range") * 40L)), () => cloud.Active);
+            cloud.Start(); return true;
         }
         if (ability == CombatAbility.PoisonDagger)
         {

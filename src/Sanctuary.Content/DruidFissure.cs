@@ -32,10 +32,10 @@ public sealed class FissureProfiles : GenericPersistence
     }
 }
 
-// Prepared source234 center/cracks. No learned handler is enabled here.
+// Source234 SC cast, center and independently captured crack actors.
 // Positive-range placement, fresh endpoints, lifetime and LastCollide follow
 // the pinned source proofs. Modern delay grouping and cross-producer missile
-// footprints remain explicit integration limits before learned installation.
+// footprint timing remain explicit current-executable acceptance limits.
 public static class DruidFissure
 {
     private sealed record Pool(ImmutableDictionary<long, FissureCenter> Centers,
@@ -45,10 +45,9 @@ public static class DruidFissure
         ImmutableDictionary<long, FissureCrack>.Empty,
         ImmutableDictionary<(long, uint), WeaponFlightLease>.Empty, 0);
     internal static Func<int> SeedLow = () => unchecked((int)Random.Shared.NextInt64(1L << 32));
-    // Explicit adapter boundary: own crack footprints are implemented below.
-    // Other producers must supply their Collision1 footprints before this
-    // component is represented as a complete shared missile-mask consumer.
-    internal static Func<int, int, int, int, DateTime, bool> OtherMissileFootprint = (_, _, _, _, _) => false;
+    // Own cracks are tested directly; all other currently mapped Collision1
+    // producers contribute through the shared read-only projection.
+    internal static Func<int, int, int, int, DateTime, bool> OtherMissileFootprint = MissileFootprints.OtherBlocked;
     public static FissureProfiles Profiles { get; private set; }
     public static void Configure() => Profiles = new();
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), () => Tick(TimedEffects.Now));
@@ -74,6 +73,7 @@ public static class DruidFissure
     private static Point3D Location(int x, int y, int z) => new((x + 1) / 2, (y + 1) / 2, z);
     private static void Routes()
     {
+        MissileFootprints.ValidateSources();
         foreach (string key in new[] { "erruption center", "erruption crack 1" })
         {
             bool center = key == "erruption center";
@@ -88,6 +88,31 @@ public static class DruidFissure
         }
     }
     internal static long Create(PlayerMobile owner, Point3D aim, int rank, DateTime at)
+        => Commit(Prepare(owner, aim, rank, at));
+    public static bool Begin(PlayerMobile owner, Serial selected, Point3D point, long now)
+    {
+        if (!DruidGroundCasting.Aim(owner, selected, ref point, false)) { return false; }
+        return SkillCombat.Begin(owner, CombatAbility.Fissure, selected, point, now, (p, _, _, aim) => DruidGroundCasting.Ground(p, aim));
+    }
+    public static bool Release(PlayerMobile owner)
+    {
+        var session = ClassCombat.For(owner); var point = session.PendingPoint;
+        if (!DruidCombat.Available(owner, CombatAbility.Fissure) || !FireGround.Ready(owner, CombatAbility.Fissure)
+            || !DruidGroundCasting.Aim(owner, session.PendingTarget, ref point, true)) { return false; }
+        var values = SkillMechanics.Values(owner, CombatAbility.Fissure); FissureCenter prepared;
+        try { prepared = Prepare(owner, point, values.Rank, TimedEffects.Now); }
+        catch (NotSupportedException) { owner.SendMessage(0x22, "Fissure cannot be used in this context yet."); return false; }
+        if (!NecromancerEffects.Pay(owner, values.Mana256)) { return false; }
+        Commit(prepared); FireGround.Delay(owner, CombatAbility.Fissure);
+        owner.PlaySound(0x1E5); // Identified SC cast-audio placeholder.
+        return true;
+    }
+    private static long Commit(FissureCenter center)
+    {
+        _pool = _pool with { NextId = center.Id, Centers = _pool.Centers.Add(center.Id, center) };
+        return center.Id;
+    }
+    private static FissureCenter Prepare(PlayerMobile owner, Point3D aim, int rank, DateTime at)
     {
         Routes();
         if (owner == null || Owner(owner.Serial.Value) != owner || owner.Map == null || owner.Map == Map.Internal
@@ -102,8 +127,7 @@ public static class DruidFissure
         var center = new FissureCenter(id, owner.Serial.Value, owner.Map.MapID, rank, x, y, aim.Z,
             0, SourceRandom.InitLow(SeedLow()), at.AddMilliseconds(40), at.AddMilliseconds(80 * 40));
         Validate(center);
-        _pool = _pool with { NextId = id, Centers = _pool.Centers.Add(id, center) };
-        return id;
+        return center;
     }
     private static bool Terrain(Map map, int x, int y, int z) => map != null && map != Map.Internal
         && x > 0 && y > 0 && x < map.Width * 2 && y < map.Height * 2
