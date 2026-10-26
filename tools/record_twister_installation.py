@@ -32,6 +32,7 @@ def record(check=False):
     before = receipt['protected']
     assert hashes(ROOT / '.local/server/Saves') == before['saves'] == hashes(ROOT / receipt['backup'] / 'Saves')
     assert hashes(ROOT / '.local/client/Profiles') == before['profiles']
+    assert hashes(ROOT / '.local/server/Configuration') == before['configuration'] == hashes(ROOT / receipt['backup'] / 'Configuration')
     for name, field in [('.local/server/Configuration/modernuo.json', 'configSha256'),
                         ('.local/client/cuo.dll', 'clientSha256'), ('.local/client/settings.json', 'settingsSha256')]:
         assert sha(ROOT / name) == before[field], name

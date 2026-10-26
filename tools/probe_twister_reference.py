@@ -158,10 +158,11 @@ int main(){bool first=true;printf("[");
     else:
         output.write_text(text)
     preflight = dict(referenceVersion='3.3.93847 — Reign of the Warlock', primaryDataCommit=manifest['commit'],
-                     legacyCommit=LEGACY, handlerEnabled='CombatAbility.Twister' in re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);', (ROOT / 'src/Sanctuary.Content/DruidCombat.cs').read_text(), re.S).group(1), installed=False, pinnedInputHashes=pins,
+                     legacyCommit=LEGACY, handlerEnabled='CombatAbility.Twister' in re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);', (ROOT / 'src/Sanctuary.Content/DruidCombat.cs').read_text(), re.S).group(1), installed=(ROOT / 'tools/reference/twister-installation-evidence.json').exists(), pinnedInputHashes=pins,
                      skill=skill_row, missile=missile_row, skillDescription=desc_row,
                      sourceEvidence='tools/reference/twister-source-evidence.json',
                      nativeCandidateEvidence='tools/reference/twister-native-evidence.json',
+                     installationEvidence='tools/reference/twister-installation-evidence.json',
                      damageEvidence=['tools/reference/twister-damage-source-evidence.json', 'tools/reference/twister-damage-evidence.json'],
                      officialModernChange=dict(url='https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
                                                release='2.4 released notes, Twister',
@@ -173,10 +174,10 @@ int main(){bool first=true;printf("[");
                             dict(component='SkillValues.PhysicalDamage256', reason='Complete source creator/getter/writer captures and the actual content helper match9180contexts/all255ranks; preserve physical synergy truncation before HitShift7. Formula controls for modern stun are separate from stun delivery.'),
                             dict(component='SourceMissileSteps / missile collision / CombatStuns', reason='Reuse only after preserving Size2,50frames, source0 physical packet, damage9 stun/class, GetHit/ReturnFire/KnockBack flags and explicit modern NHD policy. No new correctness is inherited merely by naming these consumers.')],
                      remaining=['Full factory/lifecycle composition, native physical damage commitment, modern stun delivery, missile path/movement/collision/contact/defense handling and current NHD grouping.',
-                                'Focused learned SC/payment/bindings/input/lifecycle/actual reload acceptance is recorded in the separate native candidate evidence. Remaining actual-item/potion, obstacles, full class regression and installation still require dedicated acceptance.',
+                                'Focused learned SC/payment/bindings/input/lifecycle/actual reload acceptance is recorded in the separate native candidate evidence. Actual-item/potion/obstacle/full regression and exact-package installation acceptance are separately recorded; those certificates retain explicit limits and do not imply whole-skill parity.',
                                 'Native geometry/room/timer/seed/event/current-executable and ordinary-client limits remain explicit. Do not port the older stun fallback or invent an exact modern grouping.',
                                 'Final twister/cast/contact/expiry/audio and talent/left/right/quick icons remain in the existing separate240-row inventories; identified placeholders may unblock mechanics.'],
-                     next='Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Continue the staged Twister candidate from its separately recorded native checkpoint; finish actual-item/potion/obstacle and full regression/installation acceptance while retaining source/current-executable limits. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
+                     next='Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Twister has separate native candidate and exact-package installation certificates. Continue Volcano from its reviewed preflight; preserve the explicitly provisional modern hit-delay grouping and remaining source/current-executable/client limits. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
     output = ROOT / 'tools/reference/twister-preflight.json'
     text = json.dumps(preflight, indent=2) + '\n'
     if check:

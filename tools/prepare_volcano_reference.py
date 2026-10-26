@@ -75,7 +75,7 @@ def build(check=False):
                       'Implement saved root/debris/fields, correct collision/history/modern NHD boundaries, damage/defense/knockback, source timing, once-only25mana payment and100-frame local delay with actual input/reload/owner/facet acceptance.',
                       'Native source-size placement/search/room order, current emitter/cast grouping/RNG/event/client behavior and ordinary-client acceptance remain open; no unsupported rule is silently chosen.',
                       'Final volcano_base/volcano_Fire/volcano_rock/lava_pool/explosion, cast/contact/expiry/audio and separate talent/right/quick icons remain in their existing inventories. Identified placeholders may unblock mechanics; source leftskill0.'
-                  ], next='Finish the frozen Twister full regression and exact-package installation first. Then compile Volcano source composition and implement its independent vent/debris/lava consumers; keep Arctic Blast/channel and Boulder terminal-current-build gaps individual.')
+                  ], next='Twister exact-package installation is recorded separately. Compile Volcano source composition and implement its independent vent/debris/lava consumers; keep Arctic Blast/channel and Boulder terminal-current-build gaps individual.')
     text = json.dumps(output, indent=2) + '\n'
     path = ROOT / 'tools/reference/volcano-preflight.json'
     if check:

@@ -3,7 +3,7 @@
   "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": true,
-  "installed": false,
+  "installed": true,
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
@@ -154,6 +154,7 @@
   },
   "sourceEvidence": "tools/reference/twister-source-evidence.json",
   "nativeCandidateEvidence": "tools/reference/twister-native-evidence.json",
+  "installationEvidence": "tools/reference/twister-installation-evidence.json",
   "damageEvidence": [
     "tools/reference/twister-damage-source-evidence.json",
     "tools/reference/twister-damage-evidence.json"
@@ -188,9 +189,9 @@
   ],
   "remaining": [
     "Full factory/lifecycle composition, native physical damage commitment, modern stun delivery, missile path/movement/collision/contact/defense handling and current NHD grouping.",
-    "Focused learned SC/payment/bindings/input/lifecycle/actual reload acceptance is recorded in the separate native candidate evidence. Remaining actual-item/potion, obstacles, full class regression and installation still require dedicated acceptance.",
+    "Focused learned SC/payment/bindings/input/lifecycle/actual reload acceptance is recorded in the separate native candidate evidence. Actual-item/potion/obstacle/full regression and exact-package installation acceptance are separately recorded; those certificates retain explicit limits and do not imply whole-skill parity.",
     "Native geometry/room/timer/seed/event/current-executable and ordinary-client limits remain explicit. Do not port the older stun fallback or invent an exact modern grouping.",
     "Final twister/cast/contact/expiry/audio and talent/left/right/quick icons remain in the existing separate240-row inventories; identified placeholders may unblock mechanics."
   ],
-  "next": "Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Continue the staged Twister candidate from its separately recorded native checkpoint; finish actual-item/potion/obstacle and full regression/installation acceptance while retaining source/current-executable limits. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap."
+  "next": "Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Twister has separate native candidate and exact-package installation certificates. Continue Volcano from its reviewed preflight; preserve the explicitly provisional modern hit-delay grouping and remaining source/current-executable/client limits. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap."
 }
