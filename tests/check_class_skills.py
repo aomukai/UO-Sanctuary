@@ -61,7 +61,7 @@ def check():
         for name in ('Assemblies', 'Data'):
             (folder / name).mkdir()
             for entry in (SERVER / name).iterdir():
-                if entry.name not in ('Sanctuary.Content.dll', 'UOContent.dll', 'Sanctuary', 'assemblies.json'):
+                if entry.name not in ('Sanctuary.Content.dll', 'Sanctuary.Integration.dll', 'UOContent.dll', 'Sanctuary', 'assemblies.json'):
                     (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
         native = Path(os.environ.get('SANCTUARY_NATIVE_ROOT', str(ROOT))) / 'upstream/ModernUO/Distribution'
         shutil.copy2(native / 'ModernUO.dll', folder / 'ModernUO.dll')
@@ -71,6 +71,8 @@ def check():
             (folder / 'Assemblies' / name).symlink_to(PACKAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'corpse-base-life-source-probe.json', folder / 'corpse-base-life-source-probe.json')
+        for name in ['raven-components','raven-circle']:
+            shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['armageddon-damage','armageddon-emitter','hurricane-damage','tornado-damage','tornado-path','tornado-area','volcano','volcano-damage','twister-damage','twister-impact','twister-path','fissure-damage','missile-footprints','molten-boulder-damage','molten-boulder-impact']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock','necro-corpse-explosion','cyclone-armor']:
@@ -207,6 +209,35 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
+                    if boot == 0:
+                        for command in ['raven-stats-check', 'raven-flight-check']:
+                            session.send(command)
+                            assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-6000:]
+                    for family in ['raven-body', 'raven-casting']:
+                        command = family + ('-check' if boot == 0 else '-reload-check')
+                        session.send(command)
+                        assert session.expect(command + r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client, args=(client,), daemon=True).start()
+                        session.send('raven-body-live-check')
+                        assert session.expect(r'raven-body-live-check: (passed|failed)').group(1) == 'passed'
+                        session.expect('raven-body-live: ready'); client.sendall(b'\x73\x00')
+                        assert session.expect(r'raven-body-live-result: (passed|failed)', timeout=35).group(1) == 'passed', logpath.read_text()[-6000:]
+                    for family in ['raven-right', 'raven-quick']:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain_fixture_client, args=(client,), daemon=True).start()
+                            session.send(family + '-check')
+                            assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed'
+                            ready = session.expect(family + r': ready ability=(\d+) class=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                            ability, character, x, y, z = map(int, ready.groups())
+                            if family == 'raven-right':
+                                client.sendall(struct.pack('>BHHBBIBIHHb', 0xBF, 21, 0xF2, 7, 4, 1, ability, 0, x, y, z))
+                            else:
+                                client.sendall(struct.pack('>BHHBBIBBBIHHb', 0xBF, 23, 0xF7, 2, 4, 1, character, 7, ability, 0, x, y, z))
+                            session.expect(family + ': windup')
+                            if family == 'raven-right':
+                                client.sendall(struct.pack('>BHHBBI', 0xBF, 11, 0xF2, 7, 5, 2))
+                            assert session.expect(family + r'-result: (passed|failed)', timeout=10).group(1) == 'passed', logpath.read_text()[-6000:]
                     for name in ['armageddon','hurricane','tornado','volcano','twister','fissure','molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
