@@ -13,15 +13,17 @@ internal sealed record CreeperWorldState(int Map,ActorMotionState Motion,ulong S
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=3,uint Target=0,int PathOverride=0,int PathBudget=0,
     int VelocityBonus=0,int MovingBonus=0,int SkillEvents=0,string Fault=null)
 {
-    public string Profile{get;init;}="source-ai-native-ground-vine-launch-capture-v1";
+    public string Profile{get;init;}="source-ai-native-ground-vine-contact-capture-v2";
     public CreeperHeadRequest[] LastHeads{get;init;}=[];
+    public CreeperFields Fields{get;init;}=DruidCreeperFields.Empty();
 }
 
-// Internal world controller. Skill action captures source head requests only;
-// live head/trail factories, poison and VINE_BEAST targeting remain separate.
+// Internal world controller. Heads now move and create finite stationary mats;
+// contacts are captured only. Poison and VINE_BEAST targeting remain separate.
 internal static class DruidCreeperWorld
 {
-    internal static CreeperWorldState Copy(CreeperWorldState s)=>s with{Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]},LastHeads=[..s.LastHeads]};
+    internal static CreeperWorldState Copy(CreeperWorldState s)=>s with{Profile="source-ai-native-ground-vine-contact-capture-v2",
+        Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]},LastHeads=[..s.LastHeads],Fields=DruidCreeperFields.Copy(s.Fields)};
     internal static Point2D Cell(CreeperWorldState s)=>DruidRavenMotion.Cell(s.Motion);
     internal static void Validate(CreeperWorldState s)
     {
@@ -35,8 +37,9 @@ internal static class DruidCreeperWorld
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0) || s.Mode==2&&((s.Motion.Flags&0x20)==0 || s.ActionAt!=0 || s.EndAt!=0)
             || s.Mode==8&&s.EndAt==0 || s.PathOverride is not(0 or 1 or 7 or 13 or 15) || s.PathBudget is <0 or >77
             || s.VelocityBonus is <-126 or >126 || s.MovingBonus is <-126 or >126 || s.SkillEvents<0 || s.SkillEvents>s.Frame
-            || s.LastHeads.Length>24 || s.Profile!="source-ai-native-ground-vine-launch-capture-v1")
+            || s.LastHeads.Length>24 || s.Profile is not("source-ai-native-ground-vine-launch-capture-v1" or "source-ai-native-ground-vine-contact-capture-v2"))
         {throw new InvalidDataException("Invalid saved Creeper world state");}
+        DruidCreeperFields.Validate(s.Fields);
         var cell=Cell(s);var map=Map.Maps[s.Map];
         if(cell.X<=0 || cell.Y<=0 || cell.X>=map.Width*2 || cell.Y>=map.Height*2){throw new InvalidDataException("Creeper pose outside facet");}
         SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
@@ -67,9 +70,9 @@ internal static class DruidCreeperWorld
     private static int Collision(DruidCreeperBody body,int x,int y)=>PetGroundWorld.Collision(body,x,y,true);
     private static CreeperWorldState Relocate(DruidCreeperBody body,CreeperWorldState s,Point3D point,Map map)
     {body.MoveToWorld(point,map);body.AIObject?.AITimer.Stop();return s with{Map=map.MapID,Motion=DruidRavenMotion.Center(point.X*2,point.Y*2)};}
-    internal static bool Eligible(DruidCreeperBody body,PlayerMobile owner,Mobile target)=>target is BaseCreature c
+    internal static bool Eligible(DruidCreeperBody body,PlayerMobile owner,Mobile target,int? height=null)=>target is BaseCreature c
         && c is{Alive:true,Deleted:false} && c.Map==body.Map && !c.Blessed && c.CanBeDamaged() && c is not BaseVendor
-        && CreatureProfiles.For(c).Traits.Size is >=0 and <=3 && Math.Abs(c.Z-body.Z)<16 && ClassCombat.IsHostile(owner,c)
+        && CreatureProfiles.For(c).Traits.Size is >=0 and <=3 && Math.Abs(c.Z-(height??body.Z))<16 && ClassCombat.IsHostile(owner,c)
         && !SpellHelper.IsTown(c.Location,owner) && body.CanBeHarmful(c,false)
         && (c is EncounterCreature || SourceAuraTargets.Rule(CreatureProfiles.Definition(c).Reference) is{Attackable:true});
     private static Mobile Target(DruidCreeperBody body,PlayerMobile owner,CreeperWorldState s)
@@ -84,6 +87,26 @@ internal static class DruidCreeperWorld
             if(distance<best || distance==best&&result!=null&&candidate.Serial.Value<result.Serial.Value){result=candidate;best=distance;}
         }
         return result;
+    }
+    private static CreeperFields Fields(DruidCreeperBody body,PlayerMobile owner,CreeperFields state)
+    {
+        uint Recipient(CreeperMat mat)
+        {
+            var point=new Point3D((mat.X+1)/2,(mat.Y+1)/2,mat.Z);
+            // Native sector list order/height stand in for source room lists.
+            // Finder excludes the previous collider before invoking hit50.
+            foreach(var target in body.Map.GetMobilesInRange<BaseCreature>(point,3))
+            {
+                int size=CreatureProfiles.For(target).Traits.Size??2;
+                if(target.Serial.Value!=mat.LastCollision && Eligible(body,owner,target,mat.Z)
+                    && CombatHitboxes.SourceTouches(3,size,mat.X-target.X*2,mat.Y-target.Y*2))
+                {return target.Serial.Value;}
+            }
+            return 0;
+        }
+        return DruidCreeperFields.Step(state,true,(x,y,z)=>x<=0||y<=0||x>=body.Map.Width||y>=body.Map.Height
+            || !body.Map.CanFit(new Point3D((int)Math.Round(x),(int)Math.Round(y),z),1,false,false,false),
+            Recipient,_=>true); // Recipient already checks allegiance at mat height.
     }
     private static void Velocity(ref CreeperWorldState s,int type,int speed,int budget)
     {s=s with{PathOverride=type==0?s.PathOverride:type,VelocityBonus=speed==0?s.VelocityBonus:speed,PathBudget=budget==0?s.PathBudget:Math.Min(77,budget)};}
@@ -190,16 +213,21 @@ internal static class DruidCreeperWorld
             body.ControllerLoaded=false;
             if(!PersistentMinions.Active(owner,body)||!body.Permitted(owner)){PersistentMinions.ParkClass(owner,DiabloClass.Druid);}else{PersistentMinions.Suspend(owner);}
             s=body.Prepared.Controller;long count=(at-s.NextUtc).Ticks/TimeSpan.FromMilliseconds(40).Ticks+1;
-            Store(body,Park(s with{Frame=checked(s.Frame+(int)count),NextUtc=s.NextUtc.AddMilliseconds(count*40)}));return;
+            Store(body,Park(s with{Frame=checked(s.Frame+(int)count),NextUtc=s.NextUtc.AddMilliseconds(count*40),Fields=DruidCreeperFields.Inactive(s.Fields,count)}));return;
         }
         if(body.Map==Map.Internal){PersistentMinions.Resume(owner);if(body.Map==Map.Internal){return;}}
         if(body.Map!=owner.Map)
-        {body.MoveToWorld(owner.Location,owner.Map);s=Neutral(Relocate(body,s,owner.Location,owner.Map),1);}
+        {
+            if(s.Fields.Heads.Length!=0 || s.Fields.Mats.Length!=0)
+            {throw new NotSupportedException("Creeper fields require independent old-facet ownership before live facet transfer");}
+            body.MoveToWorld(owner.Location,owner.Map);s=Neutral(Relocate(body,s,owner.Location,owner.Map),1);
+        }
         if(s.Map!=body.Map.MapID || body.X!=(Cell(s).X+1)/2 || body.Y!=(Cell(s).Y+1)/2)
         {s=Neutral(s with{Map=body.Map.MapID,Motion=DruidRavenMotion.Center(body.X*2,body.Y*2)},1);}
         while(!body.Deleted && s.NextUtc<=at)
         {
             var frameAt=s.NextUtc;s=s with{Frame=checked(s.Frame+1),NextUtc=s.NextUtc.AddMilliseconds(40)};
+            s=s with{Fields=Fields(body,owner,s.Fields)};
             if(!body.Poisoned && TimedEffects.CanRegenerateHits(body) && !SkillHealth.Full(body)){SkillHealth.Heal(body,BattleOrders.Regeneration256(body));}
             if(body.Frozen || body.Paralyzed){s=Park(s);Store(body,s);continue;}
             if(s.Mode==2)
@@ -212,7 +240,8 @@ internal static class DruidCreeperWorld
             {
                 var target=World.FindMobile((Serial)s.Target);var heads=target is{Deleted:false}&&target.Map==body.Map
                     ?DruidCreeperVines.Heads(prepared.Snapshot.Birth.VineAttackRank,target.X*2,target.Y*2):[];
-                s=s with{ActionAt=0,SkillEvents=checked(s.SkillEvents+1),LastHeads=heads};
+                s=s with{ActionAt=0,SkillEvents=checked(s.SkillEvents+1),LastHeads=heads,
+                    Fields=DruidCreeperFields.Launch(s.Fields,prepared.Snapshot.Birth.VineAttackRank,heads,AmazonSlowMissiles.Capture(body,true).VelocityPercent,body.Z)};
             }
             if(s.Mode==8 && s.EndAt==s.Frame){int next=s.NextThink>s.Frame?s.NextThink:s.Frame+15;s=Neutral(s) with{NextThink=next};}
             if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}Store(body,s);body.AIObject?.AITimer.Stop();

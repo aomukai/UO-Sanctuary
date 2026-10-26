@@ -97,6 +97,8 @@ Fire Wall's pinned `EDmgSymPerCalc` has an unmatched outer group. The unmodified
 
 ## Source gaps and nonblocking questions
 
+Poison Creeper's current trail overrides its damage skill to Plague Poppy (222), whose formula includes hard Rabies. The older Vine Attack (294) passes the Creeper NPC as missile owner; the reviewed `SKILLS_EvaluateSkillFormula` and `SKILLS_GetHighestLevelSkillFromSkillId` wrappers preserve/search that supplied unit. They do not establish modern NPC-to-Druid synergy/mastery transport. The prepared field controller therefore captures contacts without delivering poison. Current Range `100 + (lvl * 25)` is evaluated by the existing expression evaluator, explicitly pending executable-parser equivalence. [World evidence](../tools/reference/creeper-world-native-evidence.json) pins reviewed source bodies and separates motion/contact tests from missing damage, independent field ownership, VINE_BEAST and learned-cast acceptance. This gap does not block unrelated talents.
+
 1. Preserve every original formula cell. Fire Wall has a scoped legacy-compiler-backed adapter; Inferno's synergy is balanced and verified. Any other malformed expression still needs compiler evidence before enabling a corrected interpretation.
 2. Confirm tile-space footprints, source next-hit delays and moving-target collision behavior through controlled reference comparisons. Do not treat a placeholder effect as collision evidence.
 3. Confirm pet difficulty scaling in Sanctuary's shared world. The new summon pass currently uses the source **Normal** pet bases; a shared-world rule for pets entering Nightmare/Hell areas is not yet settled.

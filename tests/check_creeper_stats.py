@@ -73,7 +73,7 @@ def check():
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                    commands = ['creeper-ai-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands = ['creeper-ai-check', 'creeper-stats-check', 'creeper-fields-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
                     commands.append('spirit-wolf-world-check' if boot == 0 else 'spirit-wolf-world-reload-check')
                     commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
                     commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')

@@ -52,6 +52,10 @@ public static class CreeperWorldChecks
             string saved=body.SavedText;var valid=body.Prepared;bool refused=false;
             try{body.RestorePrepared(valid with{Controller=valid.Controller with{GameBase=-1}});}catch(InvalidDataException){refused=true;}
             Require(refused && body.SavedText==saved,"Malformed world restore changed Creeper");
+            body.RestorePrepared(valid with{Controller=valid.Controller with{Profile="source-ai-native-ground-vine-launch-capture-v1"}});
+            Require(body.Prepared.Controller.Profile=="source-ai-native-ground-vine-contact-capture-v2"
+                && body.Prepared.Controller.SkillEvents==valid.Controller.SkillEvents&&body.Prepared.Controller.Fields.Heads.Length==0,
+                "Old capture profile did not migrate without replay");
         }
         finally{End(p);}
     }
@@ -79,15 +83,18 @@ public static class CreeperWorldChecks
     {
         Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Capture-only world enabled learned skill");Movement();SkillAndEscape();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var e=Enemy(p,3);var body=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,739,1000);
-        Through(body,25+DruidCreeperWorld.SkillClock().Action);e.Delete();SkillHealth.SetBalance256(body,6007);PersistentMinions.Suspend(p);
+        Through(body,25+DruidCreeperWorld.SkillClock().Action+12);
+        Require(body.Prepared.Controller.Fields.Heads.Length==3 && body.Prepared.Controller.Fields.Mats.Length==6,"World attack did not create moving heads and two mats per head");
+        e.Delete();SkillHealth.SetBalance256(body,6007);PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location)));
-        Log.Information("Creeper world: common-pet follow, mature/early game-frame distinction, kind2head request capture without damage, exact100resistance escape, offline/restore controls pass; live mats and VINE_BEAST remain pending");
+        Log.Information("Creeper world: common-pet follow, mature/early game-frame distinction, kind2moving heads and finite mats without damage, exact100resistance escape, offline/restore controls pass; poison and VINE_BEAST remain pending");
     }
     private static void Reload()
     {
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var body=World.FindMobile((Serial)saved.Body) as DruidCreeperBody;
         Require(body is{Alive:true,Deleted:false} && body.ControlMaster==p && body.Map==Map.Internal && body.SavedText==JsonSerializer.Serialize(saved.State)
-            && SkillHealth.Balance256(body)==saved.Life && body.Prepared.Controller.SkillEvents==1,"Saved Creeper controller/birth/life/heads changed");
+            && SkillHealth.Balance256(body)==saved.Life && body.Prepared.Controller.SkillEvents==1
+            && body.Prepared.Controller.Fields.Mats.Length==6,"Saved Creeper controller/birth/life/heads/mats changed");
         if(p.Map==Map.Internal){p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);}
         ulong seed=body.Prepared.Controller.Seed;DruidCreeperWorld.Advance(body,body.Prepared.Controller.NextUtc,false);
         Require(SkillHealth.Balance256(body)==saved.Life && body.Prepared.Controller.Seed==seed && body.Prepared.Controller.SkillEvents==1,"Loaded Creeper replayed actions/RNG/healing");
