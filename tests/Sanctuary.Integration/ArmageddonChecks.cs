@@ -42,7 +42,10 @@ public static class ArmageddonChecks
     {
         PlayerMobile p; _creating = true; try { p = new PlayerMobile { Body = 0x190, Player = true, Name = "ArmageddonFixture" }; } finally { _creating = false; }
         p.AddItem(new Backpack()); ClassCreation.Profiles.Assign(p, DiabloClass.Druid); ClassCreation.Profiles.AdvanceLevel(p, 99);
-        FixtureSpace.Corridor(p, 7000, 24, 250 + 32 * _scene++); return p;
+        // Heartwood occupies x6911..7168/y255..512. Keep weather fixtures
+        // outside that guarded town and separate from the retained suites.
+        FixtureSpace.Corridor(p, 7000, 24, 800 + 32 * _scene++);
+        Require(DruidWeather.Outdoors(p), $"Outdoor fixture refused at {p.Location} on {p.Map}: {p.Region}"); return p;
     }
     private static void Train(PlayerMobile p, CombatAbility ability, int rank = 1)
     {
@@ -197,6 +200,15 @@ public static class ArmageddonChecks
         var field = DruidArmageddon.Snapshot().Actors.First(x => x.Missile == 623); DruidArmageddon.Tick(field.NextUtc, true); Require(SkillHealth.Balance256(target) < saved.Life256 && DruidArmageddon.Snapshot().Actors.Any(x => x.Missile == 577), "Reload actual ground damage/delayed control preserved");
         File.WriteAllText(Manifest, JsonSerializer.Serialize(saved with { State = DruidArmageddon.Snapshot(), Life256 = SkillHealth.Balance256(target) }));
     }
+    private static void CheckpointAfterLive()
+    {
+        // Natural casts allocate actor IDs after the held inspection state
+        // was recorded. Preserve exact weather/actors and record the actual
+        // allocator watermark that the subsequent world save must restore.
+        var saved = JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest)); var current = DruidArmageddon.Snapshot();
+        Require(current.NextId >= saved.State.NextId && Text(current) == Text(saved.State with { NextId = current.NextId }), "Live cast altered held weather/actors");
+        File.WriteAllText(Manifest, JsonSerializer.Serialize(saved with { State = current }));
+    }
     private static void Live(NetState network, bool input)
     {
         string label = input ? "armageddon-input" : "armageddon-live"; var p = Fresh(); Train(p, CombatAbility.Armageddon); Ready(p); Mana(p); var target = Enemy(p); int life = SkillHealth.Balance256(target), mana = NecromancerEffects.ManaBalance256(p);
@@ -214,7 +226,7 @@ public static class ArmageddonChecks
                 if (!released && state != null) { released = true; Require(began && NecromancerEffects.ManaBalance256(p) == mana - 8960, "Quick release/payment"); }
                 controls |= actors.Any(x => x.Missile == 577); fields |= actors.Any(x => x.Missile == 623); damaged |= SkillHealth.Balance256(target) < life;
                 if (!released || state != null || actors.Length != 0) { Timer.StartTimer(TimeSpan.FromMilliseconds(30), Inspect); return; }
-                Require(controls && fields && damaged && NecromancerEffects.ManaBalance256(p) == mana - (input ? 8960 : 0), "Natural emit/delay/terminal/ground/expiry/one payment"); Drop(p); target.Delete(); p.Delete(); Log.Information("{Label}-result: passed", label);
+                Require(controls && fields && damaged && NecromancerEffects.ManaBalance256(p) == mana - (input ? 8960 : 0), "Natural emit/delay/terminal/ground/expiry/one payment"); Drop(p); target.Delete(); p.Delete(); CheckpointAfterLive(); Log.Information("{Label}-result: passed", label);
             }
             catch (Exception e) { Drop(p); target.Delete(); p.Delete(); Log.Error(e, "{Label}-result: failed", label); }
         }
