@@ -1,0 +1,20 @@
+{
+  "referenceVersion": "3.3.93847 \u2014 Reign of the Warlock",
+  "source": "User's firsthand gameplay report in this task",
+  "recorded": "2026-10-26",
+  "question": "When the boulder hits a wall or disappears at the end of its travel, does it leave damaging flames on the ground, or only show the breaking-rock animation?",
+  "answer": "it leaves burning ground",
+  "established": "The user reports a terminal explosion and a distinct crater-like burning-ground patch, beyond the existing trail. The appearance resembles the Sorceress Meteor crater. This is firsthand current gameplay evidence, not an instrumented damage or missile trace.",
+  "unresolved": [
+    "Exact terminal damage channels, endpoints, radius/density and burning-ground duration are not established by the appearance report.",
+    "The original question combined wall collision and travel expiry; the replies do not isolate those two conditions.",
+    "The older reconstructed terminal null-target path removes without area damage or a flame disc. The native implementation follows that older branch and already emits trail fields, so the distinct modern terminal route requires correction/verification separately.",
+    "A Meteor-like crater appearance does not establish Meteor skill damage, radius or duration; do not copy those mechanics."
+  ],
+  "action": "Revisit the Boulder terminal route using the existing explosion/fire-field code and current row data. Preserve the working build, distinguish empirical terminal presentation from unmeasured damage/footprint/lifetime, and do not silently invent those values.",
+  "status": "Follow-up answered: terminal explosion and crater-like patch recorded. Mechanical terminal correction/acceptance remains open; no added parity claim.",
+  "followUp": {
+    "question": "Did a new patch appear where the boulder hit the wall or broke apart, beyond its existing trail?",
+    "answer": "it explodes at the end, and the patch it's leaving behind looks like the crater the sorc's meteor produces"
+  }
+}

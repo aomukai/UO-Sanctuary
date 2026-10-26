@@ -1704,9 +1704,9 @@
       "tree": "Elemental",
       "sourceId": 234,
       "implementation": "pending",
-      "verification": "not-started",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared saved native center/cracks pass three boots/two actual reloads and three connected natural timer runs, retaining actual Blizzard damage/lifetime/reload controls. Source placement, retained-rank fresh endpoints, own Size3 missile footprints, single collider, LastCollide alternation, cast/target leases, fire immunity, approved potion channels, get-hit, offline/facet expiry, worker serialization and atomic invalid restore are covered. Learned SC/payment/local delay/right/quick input is not enabled; other missile producers have not supplied their footprints to the landing adapter. Modern hit-delay grouping, full source/native event/seed/terrain/mode/client acceptance and final effects/audio/icons remain explicit. See fissure-native-evidence.json and the current checkpoint; no handler count increase or class completion is claimed."
     },
     {
       "talentId": "druid.cyclonearmor",

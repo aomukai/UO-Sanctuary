@@ -24,7 +24,7 @@
     "tools/reference/fissure-source-evidence.json": "1c2cc5661a7ee7acf5fd476e357da80c0187426bf08a7173ca02ddc59a36910e"
   },
   "artifactHashes": {
-    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/fissure-preparation/content/Sanctuary.Content.dll": "f9ace29fa5d25a3e12903352d92f95356edaf2326d3f5a6d73945faba31a8249",
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/fissure/content/Sanctuary.Content.dll": "92d5bd22eb89b9659947a6048f65cd81229614c8724b737571b7d25779d802a6",
     "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
     "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
     "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
@@ -36,9 +36,9 @@
     ".local/class-skills/fissure-damage-source-probe": "7b835ec5c94e9200545929a320bbad28712d4a83d59bf19a684cd4dc3f47f34d",
     ".local/class-skills/fissure-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/fissure-damage-run.log": "fb87912d51ea40cddc0b99bf5c8782df19c3e6e89f32db94767b4e15d636dcac",
-    ".local/class-skills/fissure-damage-proof/check.csproj": "03716b3d8b3bb5220b5bf6c4fc52b433e60436990a3adaa603a8204d0a1fd9f1",
+    ".local/class-skills/fissure-damage-proof/check.csproj": "17f6de103a631d2032954e36c487fed5d41c9fd7f70a244273bbaa7ff1c83061",
     ".local/class-skills/fissure-damage-proof/Program.cs": "1ac4c8ff9dc48d55a0cd8966db0e44a25c435e39b173c0261062a8463db840de",
-    ".local/class-skills/fissure-damage-proof/out/check.dll": "9151e5e22f9940ad989a0f3ce23ff40ff37da78fddb52ae9d5a598a760c2b289"
+    ".local/class-skills/fissure-damage-proof/out/check.dll": "3da18b58e0158f1a6c6a2e597d28df344d91ec48f3da4e5125559b750b46b575"
   },
   "established": [
     "Actual built Sanctuary.Content SkillValues, formula interpreter, existing DruidFirestorm.Endpoints and SlowMissilePayload.Normal match every18360current crack462/463 complete source capture across255ranks, independent hard points and mastery.",

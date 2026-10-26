@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": false,
   "installed": false,
-  "sourceStatus": "Launch/placement/lifetime/overlay12732contexts and full current-row factory432contexts pass. Complete fresh damage creator/getter/writer27540contexts, actual content crack endpoints18360contexts, actual complete-assembly Blizzard samples3840contexts and legacy hit routing453contexts pass. Candidate content builds0warnings/0errors; no Fissure native actor or learned handler yet.",
+  "sourceStatus": "Prepared native center/cracks pass3boots/2reloads/3connected natural timers plus retained Blizzard controls,18360native source endpoint comparisons,70Python tests and588/21fresh audit fingerprints. Learned Fissure remains disabled; cross-producer missile footprints, exact modern next-hit grouping and full class regression remain open.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -262,14 +262,13 @@
     }
   ],
   "remaining": [
-    "Connect verified launch/placement/factory routes to saved native center/crack actors; use verified existing fire endpoint supplier with fresh owner stats at retained cast rank.",
-    "Compose native field lifecycle/activation, single collider selection and LastCollide; source legacy route/eligibility/history453contexts are ready, but modern next-hit identity remains explicit.",
-    "Current next-hit delay identity across cracks/casts/owners/skills remains unverified. Older global STATE_JUSTHIT alone is insufficient modern evidence; retain this as an explicit acceptance question.",
-    "Implement saved native center/holes, terrain/missile footprint checks, target defenses/health/owner and offline/facet behavior without replacing it with flat area DPS.",
-    "Verify SC/payment/cancellation/50frame local delay/right/quick/gear/synergy and real natural connected timers/persistence before installation."
+    "Connect other Collision1 missile producers to the explicit landing-footprint adapter; current actor implements own Size3 crack footprints and terrain only.",
+    "Implement and verify SC ground/live/deleted-target input, mana15 once at release, cancellation, local50-frame cooldown, right/quick bindings and connected natural casting.",
+    "Current next-hit grouping across cracks/casts/owners/skills remains unverified. Prepared saved cast-target-provisional-2.7 scope reuses existing weapon leases and is explicitly distinct from legacy global STATE_JUSTHIT.",
+    "Complete full class regression and installation acceptance after learned casting. Source/native room/path/order/geometry/seed/event/return-fire/mode/client/current-executable limits and final effects/audio/icons remain separate."
   ],
   "assets": {
-    "effects": "Final eruption center/cast,462/463 cracks,464/465 smoke,fire_hit contact,expiry and druid_firecast_a/sorceress_inferno audio pending. No new placeholder or final art installed by this preflight.",
+    "effects": "Prepared native cracks use identified UO0x398C hue0x489 markers and0x3709 hue0x489 contact placeholders. Final center/cast,462/463 cracks,464/465 smoke,fire_hit contact,expiry and druid_firecast_a/sorceress_inferno audio remain pending. Learned casting remains disabled.",
     "icons": "Talent/right/quick icons remain in separate240-row icon register; source leftskill0."
   },
   "preparationContext": {
@@ -278,7 +277,7 @@
     "installedDruidHandlers": 3,
     "scope": "Boulder is installed/verified; Fissure source preparation only."
   },
-  "next": "Implement saved native emitter/cracks using the existing sampler, fire endpoints and missile/lease/health consumers where source agrees. Keep modern next-hit grouping explicit; then verify player casting and full regression before installation.",
+  "next": "Connect cross-producer missile footprints and learned Fissure SC/payment/local-delay/input, then full regression and installation acceptance. Prepared native mechanics are tested;159handlers/Druid3 remain installed.",
   "compiledSourceEvidence": "tools/reference/fissure-source-evidence.json",
   "factoryEvidence": "tools/reference/fissure-factory-source-evidence.json",
   "sharedSamplerEvidence": "tools/reference/ground-missile-scatter-evidence.json",
@@ -291,5 +290,6 @@
   },
   "damageSourceEvidence": "tools/reference/fissure-damage-source-evidence.json",
   "damageConsumerEvidence": "tools/reference/fissure-damage-evidence.json",
-  "legacyRoutingEvidence": "tools/reference/fissure-routing-source-evidence.json"
+  "legacyRoutingEvidence": "tools/reference/fissure-routing-source-evidence.json",
+  "nativePreparationEvidence": "tools/reference/fissure-native-evidence.json"
 }
