@@ -12,7 +12,7 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
+  "fullClassRegression": true,
   "sourceEndpointComparisons": 18360,
   "footprintCellComparisons": 441,
   "pythonTests": 70,
@@ -51,7 +51,10 @@
     ".local/class-skills/fissure/audit-refresh-native.log": "9c2c5836ba222358794cc5e93103fc652734d1cd59856fb93ffe46b329a8d8d7",
     ".local/class-skills/fissure-focused-run.log": "3c814cf8dd05d553dde5172c4a294181ecb30a45049241bef6cd458d810e027b",
     ".local/class-skills/fissure-python-tests.log": "b981148f5906b75668ab69319116e592124bf277336eef01c24630327e363b30",
-    ".local/class-skills/fissure-damage-run.log": "fb87912d51ea40cddc0b99bf5c8782df19c3e6e89f32db94767b4e15d636dcac"
+    ".local/class-skills/fissure-damage-run.log": "fb87912d51ea40cddc0b99bf5c8782df19c3e6e89f32db94767b4e15d636dcac",
+    ".local/class-skills/fissure/class-native-checks.log": "3c3712bfdb23d8a63181497926d612633b244665da21175c9e3c45a9fed3ae34",
+    ".local/class-skills/fissure/class-inputs.json": "9ca8f01456cf084bc1d69ea258114221e53fc79acc1d0a7798c930e7950c445d",
+    ".local/class-skills/fissure-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned source234 center/cracks retain separate80/84-frame lifetimes, emission-before-decrement, seeded square placement and shared Collision1 missile-mask projections, including own Size3 crack exclusion. Fresh hard synergies/mastery at retained cast rank reuse the verified fire endpoint supplier.",

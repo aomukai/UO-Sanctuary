@@ -153,6 +153,10 @@
     "dsc3calca4": "par8"
   },
   "sourceEvidence": "tools/reference/twister-source-evidence.json",
+  "damageEvidence": [
+    "tools/reference/twister-damage-source-evidence.json",
+    "tools/reference/twister-damage-evidence.json"
+  ],
   "officialModernChange": {
     "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
     "release": "2.4 released notes, Twister",
@@ -173,12 +177,16 @@
       "reason": "SC ground/live/deleted target aim, cancellation and once-only release payment can share the existing casting adapter, subject to dedicated acceptance."
     },
     {
+      "component": "SkillValues.PhysicalDamage256",
+      "reason": "Complete source creator/getter/writer captures and the actual content helper match9180contexts/all255ranks; preserve physical synergy truncation before HitShift7. Formula controls for modern stun are separate from stun delivery."
+    },
+    {
       "component": "SourceMissileSteps / missile collision / CombatStuns",
       "reason": "Reuse only after preserving Size2,50frames, source0 physical packet, damage9 stun/class, GetHit/ReturnFire/KnockBack flags and explicit modern NHD policy. No new correctness is inherited merely by naming these consumers."
     }
   ],
   "remaining": [
-    "Complete factory/source-zero physical damage endpoint proof, modern stun delivery, missile path/movement/collision/contact/defense handling and current NHD grouping.",
+    "Full factory/lifecycle composition, native physical damage commitment, modern stun delivery, missile path/movement/collision/contact/defense handling and current NHD grouping.",
     "Learned SC start/release/7mana payment, bindings, real input, item/synergy/rank controls, saved actors and actual reload/lifetime/owner/facet acceptance.",
     "Native geometry/room/timer/seed/event/current-executable and ordinary-client limits remain explicit. Do not port the older stun fallback or invent an exact modern grouping.",
     "Final twister/cast/contact/expiry/audio and talent/left/right/quick icons remain in the existing separate240-row inventories; identified placeholders may unblock mechanics."

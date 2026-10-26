@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": true,
   "installed": false,
-  "sourceStatus": "Staged learned Fissure passes3boots/2actual reloads/3connected natural actors/3quick packets,18360source endpoint comparisons,441source footprint cell comparisons and retained Blizzard controls. All70Python tests and589/21fresh audit fingerprints pass with573unchanged named definitions. The installed build remains159handlers/Druid3; full class regression is running separately. See fissure-native-evidence.json for exact scope and hashes.",
+  "sourceStatus": "Staged learned Fissure passes3boots/2actual reloads/3connected natural actors/3quick packets,18360source endpoint comparisons,441source footprint cell comparisons and retained Blizzard controls. All70Python tests and589/21fresh audit fingerprints pass with573unchanged named definitions. The installed build remains159handlers/Druid3; full class regression also passes3boots/2actual reloads/3natural actors/3quick packets with exact matching assemblies and runtime data. See fissure-native-evidence.json for exact scope and hashes.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"

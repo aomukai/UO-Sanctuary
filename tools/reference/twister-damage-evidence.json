@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEndpointComparisons": 9180,
+  "modernDurationFormulaControls": 765,
+  "contentAssemblySha256": "e623732895f44483680d94b58fbeb67dd4e7808c6544320c4a3f06cfa54acef3",
+  "nativeAssemblyHashes": {
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "hashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidCombat.cs": "34146e0b77e77e285bf34be59bfdcc2a4468158dd0e1f784233b468241f80993",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/check_twister_damage.py": "9e4d4729dfa2bb67b0f05ddf6bc0ed8b28e9609b165efcd8a815967ed205c619",
+    "tools/probe_twister_damage_reference.py": "94df104c0523d045d9731417e28636735a113e6d65a1432d250b8f7d7e100043",
+    "tools/reference/twister-damage-source-evidence.json": "b90f76cfc159c36f203cf60a78174f0179fb6b4b5f6f459c89ea4bd95cb98ec0",
+    ".local/class-skills/twister-damage-source-probe.json": "96ba489e3eae3d40660f62a16dee178eed1a416effffed9d5b1eb04b0304f452",
+    ".local/class-skills/twister-damage-run.log": "bc97fd4e8e9c0c39d3f74f140fd53b0c360c7194486cb9e15b273cb588a40c06",
+    ".local/class-skills/twister-damage-proof/Program.cs": "3894213fa6ebfe5e679dabc4e3362d91247b302a0bb0c3bda1c480a289f312e7",
+    ".local/class-skills/twister-damage-proof/check.csproj": "17f6de103a631d2032954e36c487fed5d41c9fd7f70a244273bbaa7ff1c83061",
+    ".local/class-skills/twister-damage-proof/out/check.dll": "37c86c08a7ce70222aa87b6f3e45b0b78eec20357ef4f83d78032796245b42b9"
+  },
+  "established": [
+    "The actual existing PhysicalDamage256 supplier matches all9180complete source captures/all255ranks, preserving pre-HitShift physical synergy truncation and independent hard Tornado/Hurricane points.",
+    "The actual formula interpreter yields10+2*hard Arctic Blast frames for all255effective Twister ranks with0/1/20hard points despite255soft Arctic Blast rank. This is a formula check, not modern stun application acceptance."
+  ],
+  "remaining": [
+    "Native saved charged flight, collision, physical damage commitment and modern stun delivery are not implemented by this proof.",
+    "Learned SC/payment/bindings/input, exact modern NHD grouping, source/native/current-executable/client acceptance and final effects/icons remain separate."
+  ]
+}
