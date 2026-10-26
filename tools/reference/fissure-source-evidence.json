@@ -1,0 +1,61 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "D2GAME_CreateMissile_6FD115E0": "0bfc42e76f340ab44d81e9d1d21763d5cabb4e9af9bca3259a6821050dd9038a",
+    "sub_6FD15340": "fcc11156066751615d8f2476c2ab213fb83242c05fab39e4218d1fbe02cb146a",
+    "SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult": "19668608a1478c3af83f89a5fe636b0ffb5d98bff390621fb4107ad0eb335de8",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "MISSMODE_CreateMissileWithCollisionCheck": "be1d542e6b521f82d3cc9be1be830ed80bdcb77b1ed1eb7fa793295cfc86091a",
+    "MISSMODE_SrvDo25_EruptionCenter": "f6d64808b09561d7e6a4b2b0174777f660176fd8c21824b04384cade91d65eed",
+    "MISSMODE_SrvDmg08_EruptionCrack": "cc8d4601221019f0e9383c77fb182c09df8e9a6b12557931e512962d57c7beba"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "caseCounts": {
+    "launch": 224,
+    "coordinate": 32,
+    "scatter": 7200,
+    "center": 5184,
+    "overlay": 12,
+    "lifecycle": 80
+  },
+  "fixture": {
+    "path": ".local/class-skills/fissure-source-probe.json",
+    "sha256": "1660571d534d2c9902f45d550b96e93cd11e35064c7195c1aa166e7db7dece15"
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete do28, initial size gate and coordinate launcher compose: selected-target coordinates precede path aim; initial mask5 requires both nonzero coordinates, distance100 is allowed and101 is rejected. A direct coordinate creator permits a single zero axis, unlike the do28 gate.",
+    "Complete do25 and shared placement helper execute with complete elapsed-frame getter and RNG/seed/item wrapper bodies. Fresh high666 seed is sourceX+elapsed, each eligible attempt consumes two positive-bound draws even if landing mask or allocation rejects it.",
+    "Current range7 samples independent square offsets[-6,+5]. Mask0x45 includes0x40 unlike Blizzard mask5; there is no radial LOS query in the shared body.",
+    "Child requests use flags3, child462, original owner and skill234/rank20. Negative child IDs reach the declared factory; zero child IDs stop do25 before formulas and lifetime.",
+    "Complete generic collision body runs in the declared stationary NOCOLLIDE center mode. Child emission precedes decrement:80body calls create14requests at elapsed0,6,...78 and terminate on call79. Generic terminal hit callback is an explicit recording service.",
+    "Complete damage8 only requests a positive fire_hit overlay on a nonnull target; the supplied physical/fire damage structure remains unchanged."
+  ],
+  "services": [
+    "Room/row/target/formula/distance/landing collision and allocation are explicit controlled services. Formula inputs are the pinned range7/interval6 plus declared boundary controls; source evaluator and generic factory do not execute here.",
+    "Stationary NOCOLLIDE mode is supplied, pending complete current-row factory composition. Other generic collision branches deliberately assert if reached. Terminal hit behavior, crack collider/LastCollide/NHD/damage/health and native learned input remain separate.",
+    "Legacy source reconstruction plus pinned modern rows does not certify current executable behavior. Modern next-hit identity across cracks/casts/owners/skills remains unresolved.",
+    "No native Fissure handler or final effects/audio/talent/right/quick icons are installed by this source proof."
+  ],
+  "next": "Compare the existing production Blizzard sampler to every applicable complete-helper output, then reuse it for Fissure. Compose current-row factory, fresh damage endpoints and crack hit identity separately."
+}

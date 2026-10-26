@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEvidence": "tools/reference/fissure-source-evidence.json",
+  "caseCounts": {
+    "sharedHelper": 7200,
+    "composedCenter": 5184,
+    "priorBlizzard": 420
+  },
+  "build": {
+    "returnCode": 0,
+    "log": ".local/class-skills/ground-missile-scatter-build.log",
+    "logHashOmitted": "Contains variable restore and elapsed-time text; compiled artifact and executed result remain hashed."
+  },
+  "priorBlizzardCommit": "d482b76",
+  "priorMethodHash": "ad3173ec3f612013c2f1b5eec1c73b21ae4cb8f79511ccefdb92211ed8176efe",
+  "currentMethodHash": "bcd6736b38a9d3d4a63e1a2911f1c45be9fd949ce229be2211b9402eee4a1e84",
+  "inputHashes": {
+    "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
+    "src/Sanctuary.Content/GroundMissileScatter.cs": "102701077f35d2214e2cd9fc96aeb458b7d33035aa8c12b95fc2303d65beb746",
+    "src/Sanctuary.Content/Blizzards.cs": "e85b46cc6adf3f3aeca09c3ddb6472c2e853d4fdaf81c070c69e4d16c99060dd",
+    "tools/probe_fissure_reference.py": "ed037154f14e87c2165a9fb57ce9de94086236a0c874d6fc1ddb78edc0b436f1",
+    "tools/reference/fissure-source-evidence.json": "1c2cc5661a7ee7acf5fd476e357da80c0187426bf08a7173ca02ddc59a36910e",
+    "tools/check_ground_missile_scatter.py": "0283464a6977c0b3b4a6a4345dbcfc8a05a34a10f7fef6e3605acbf869aead05"
+  },
+  "evidenceHashes": {
+    ".local/class-skills/fissure-source-probe.json": "1660571d534d2c9902f45d550b96e93cd11e35064c7195c1aa166e7db7dece15",
+    ".local/class-skills/fissure-source-probe.cpp": "013bedd7bf5f1df4f8ec9c76d1da6c101cc81e6aeb75e0182916cdbfb85e048c",
+    ".local/class-skills/fissure-source-probe": "6b1b77b307f30705d5b306f472d7278dcd48e23100712d22666818c23350ab1a",
+    ".local/class-skills/fissure-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/ground-missile-scatter-run.log": "b68cace46d68cacae47b64c6403b389047c2aa3d7c6715ff325e9e948b0d960e",
+    ".local/class-skills/ground-missile-scatter-proof/check.csproj": "f29a96c5de6d8f0e025b40d89d45224d0560d0acca0e3e29f7b553afff558b06",
+    ".local/class-skills/ground-missile-scatter-proof/BlizzardMethods.cs": "b3eeb1fb3ab1650c96d952e953ef55908afa6e93c8a04cdcead3f1c8ecb6c192",
+    ".local/class-skills/ground-missile-scatter-proof/Program.cs": "67665d78a583987c6e78bb019b1061290256bf5adfb158365e11f88b31f38726",
+    ".local/class-skills/ground-missile-scatter-proof/out/check.dll": "b4f51cec69cdc1635d6e26bc5233d0f7a9de0638c1183179498e6c6829d94f63"
+  },
+  "established": [
+    "Actual production GroundMissileScatter and SourceRandom execute against complete source helper/do25 samples, including post-draw collision/allocation failures and exact64-bit seed.",
+    "Blizzards.Sample now delegates to that shared kernel. Both complete prior/current method bodies are extracted byte-for-byte and compiled with only a Point2D value fixture.420overflow/invalid-range/ordinary controls preserve the prior result.",
+    "Current positive range7 Fissure and positive Blizzard bounds share placement arithmetic only; masks, lifetimes, damage, identity and timing remain separate."
+  ],
+  "limits": [
+    "Room/row/target/formula/distance/landing collision and allocation are explicit controlled services. Formula inputs are the pinned range7/interval6 plus declared boundary controls; source evaluator and generic factory do not execute here.",
+    "Stationary NOCOLLIDE mode is supplied, pending complete current-row factory composition. Other generic collision branches deliberately assert if reached. Terminal hit behavior, crack collider/LastCollide/NHD/damage/health and native learned input remain separate.",
+    "Legacy source reconstruction plus pinned modern rows does not certify current executable behavior. Modern next-hit identity across cracks/casts/owners/skills remains unresolved.",
+    "No native Fissure handler or final effects/audio/talent/right/quick icons are installed by this source proof.",
+    "The extracted Blizzard consumer method is compiled here, not the complete native world. Full content build/native Blizzard regression is required before installation.",
+    "Prior clamped zero/negative/overflow-bound behavior is preserved as compatibility evidence; it is not claimed to equal the source helper outside supported positive range controls."
+  ],
+  "next": "Compose current Fissure factory rows, damage and crack LastCollide/modern next-hit identity, then connect native actors and learned casting."
+}

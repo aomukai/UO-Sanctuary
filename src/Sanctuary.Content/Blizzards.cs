@@ -37,15 +37,8 @@ public static class Blizzards
     {
         // The legacy GetRemainingFrames helper returns total - current: elapsed frames.
         // InitLowSeed resets BOTH halves; do not retain carry between separate falls.
-        ulong seed = ((ulong)666 << 32) | unchecked((uint)(sourceX + elapsedFrame));
-        int radius = Math.Max(0, range - 1), bound = radius * 2;
-        return new(Next() - radius, Next() - radius);
-        int Next()
-        {
-            if (bound <= 0) { return 0; }
-            seed = 0x6AC690C5UL * (seed & uint.MaxValue) + (seed >> 32);
-            return (int)((uint)seed % (uint)bound);
-        }
+        var sample = GroundMissileScatter.Sample(sourceX, elapsedFrame, range);
+        return new(sample.X, sample.Y);
     }
     public static void Cast(PlayerMobile owner, Point3D point, SkillValues values)
     {

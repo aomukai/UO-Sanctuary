@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "routineHashes": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/fissure-factory-source-probe.json",
+    "sha256": "5c360f2ac101f015c5b6377a921c13a50dcc6051ac049712ea4c953bb2559ce6",
+    "cases": 432
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Unchanged complete shared factory uses stationary80-frame center461 and84-frame crack462/463 rows. Center flags1 and emitted flags3 keep original owner and skill234/rank; no damage-frame-rate stat or Slow Missiles speed change is introduced.",
+    "Center passes collision mode0 to allocation; cracks pass mode3. The allocation service records that argument, making its supplied field-mode boundary explicit.",
+    "Flags3 treats target components as relative. Emitted requests have default zero target components; the deliberately nonzero control confirms the factory adds rather than replaces coordinates. Zero velocity avoids moving-missile coordinate100 rejection.",
+    "Ordinary requests leave allocator animation0. Separate flags0x200/frame3 and0x8000/range7 controls establish frame subtraction and explicit lifetime override, without attributing either flag to ordinary Fissure requests.",
+    "Missing owner, invalid missile owner type, missing row/room and allocation failure retain their separate early-return and attempt boundaries."
+  ],
+  "services": [
+    "Existing Guided Arrow harness supplies allocation, room/path, owner/seed/stat/damage/event services. Actual allocator, full damage creator and native collision do not execute in this probe.",
+    "Current-row data and older reconstructed factory do not certify modern executable behavior or the crack hit/LastCollide/next-hit identity. No learned Fissure handler or assets are installed."
+  ],
+  "next": "Connect fresh skill damage/endpoints and crack collision identity; compose the saved native emitter and cracks before learned casting acceptance."
+}
