@@ -8,6 +8,8 @@ The user confirms Molten Boulder explodes at the end and leaves crater-like burn
 
 Next: finish full regression, then install only the exact tested package with rollback and existing-world preservation checks. Continue Twister's source work while tests run; Arctic Blast shares the deferred player Inferno channel. Keep individual gaps explicit and continue the eight-class, 240-talent roadmap.
 
+Twister preparation: the complete pinned do118/shared launcher/Charged Bolt initializer composition passes 7,680 contexts; the complete legacy damage9 stun callback passes 48 contexts with ASan/UBSan clean. Current rows and the [released 2.4 notes](https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live) establish the Arctic Blast duration synergy, which the older raw Param2 fallback omits. Keep that version difference explicit. This is source-only preparation; no Twister handler, native flight/damage/stun or installation is claimed. [Preflight](../tools/reference/twister-preflight.json), [source proof](../tools/reference/twister-source-evidence.json).
+
 Earlier checkpoints follow.
 
 # Latest installed component — prepared Lightning Sentry actor and real bolt

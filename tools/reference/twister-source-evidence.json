@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "skilldesc": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
+    "sub_6FCFE4C0": "416ab459f2ee2a8b67516e040ce45640321762a59ae0cdb49b5f3ee03cf378f7",
+    "SKILLS_SrvDo118_Twister_Tornado": "7eaf9f48c82cfadcf9b7aff3456d605303da9ff5f420755ed64281adc13298d2",
+    "MISSMODE_SrvDmg09_Twister": "d96fb3cc69fd455729f4df0e2fd7129f34c5595a1fc50cb4e5b3b05357dd3c67"
+  },
+  "launchInitializerCases": 7680,
+  "legacyStunCases": 48,
+  "sanitizers": "ASan/UBSan clean",
+  "fixture": {
+    "path": ".local/class-skills/twister-source-probe.json",
+    "sha256": "93338b6fe6d8deb45e76f71659cb8fcd89505538c9dbea313ebf7767c0739634"
+  },
+  "services": [
+    "Current row/progressive missile/formula selection and aim lookup are explicit inputs.",
+    "Factory allocation records a request and invokes the complete initializer; full factory, damage capture, rooms and global scheduling are not executed.",
+    "Path target-X, seed-low write, path type/distance and rebuild calls are recording services; actual charged-bolt path generation has separate source/native evidence."
+  ],
+  "established": [
+    "Complete do118/shared launcher/Charged Bolt initializer compose for both Twister and Tornado; successful rows request calc1 missiles with flags33 and independent ordinals.",
+    "Null owner or unavailable aim yields no requests but the valid positive-count source path returns success. Allocation failure does not stop later requests.",
+    "Initializer seeds from target-X plus ordinal, sets the charged-bolt path and caps total/current frames at77 only when initial frames are at least78.",
+    "Legacy damage9 selects positive dParam1 or raw skill Param2, then sets hit class0x60. It does not evaluate the modern Arctic Blast stun synergy."
+  ],
+  "remaining": [
+    "No learned Twister/Tornado handler, native flight/collision/damage/stun/input/save acceptance or installation is claimed.",
+    "Use pinned current Twister calc2 and released2.4 Arctic Blast duration synergy instead of silently porting the older callback fallback. Exact modern callback/stun delivery and NHD grouping remain separate."
+  ]
+}
