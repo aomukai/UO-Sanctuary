@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "8f8a4028a6ce36a863725c407ba3f7ce05a2598407cc691af024a1d025e3a839",
+  "ContentAssemblySha256": "7ab695d33439b7b52faedaff6f42bacc29841a583d059630256685fcf45c6138",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -350,6 +350,7 @@
     "src/Sanctuary.Content/DragonKickPackets.cs": "b931a5828a9524cc900d6e41206a084edfba7cf491601468230c5a1577c90c6d",
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
     "src/Sanctuary.Content/DruidCombat.cs": "2e012fe4a45f412f9367fbcea20ed425eb1bb6e211466fad8d5bc3634f62af4a",
+    "src/Sanctuary.Content/DruidCreeperAi.cs": "385e4931a2251b0151fbcd33fb40acea04fdba1a11d61a25fc3d9b499e46cbba",
     "src/Sanctuary.Content/DruidCreeperStats.cs": "2bf9dc827401aac3a1c43f921f5b9675e1b20352479b6896fdd4223031e89b88",
     "src/Sanctuary.Content/DruidCreeperVines.cs": "a776b5abfa14cff0b6bae1cb73dc362702be3369d5d4d443b0f72c168239324d",
     "src/Sanctuary.Content/DruidCycloneArmor.cs": "93cb1caba7c5dc11e514955c49a4c9ddfea162aa360ff9393897c7ceaa9cbbc6",
