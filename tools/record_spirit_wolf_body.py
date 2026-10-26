@@ -56,29 +56,29 @@ def record(check=False):
     assert fixture['State']['Profile'] == 'prepared-life-and-ownership-v1'
     assert fixture['Maximum256'] == 56159 and fixture['Regeneration256'] == 54
     status = json.loads((ROOT / 'data/Sanctuary/Balance/class-skill-status.json').read_text())
-    assert len([s for s in status['skills'] if s['implementation'] == 'handler-present']) == 166 and status['completedClasses'] == []
+    assert len([s for s in status['skills'] if s['implementation'] == 'handler-present']) == 167 and status['completedClasses'] == []
     paths = [STAGE / name for name in ['stats-inputs.json', 'stats-native-checks.log', 'stats-run.log', 'body-fixtures.json', 'python-tests.log',
         'content-build.log', 'integration-build.log', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     paths += [ROOT / name for name in ['tools/record_spirit_wolf_body.py', 'tools/reference/named-item-runtime-audit.json',
         'tools/reference/first-loop-affix-audit.json', 'tools/reference/battle-orders-engine-evidence.json',
         'tools/reference/druid-beasts-preflight.json', 'tools/reference/spirit-wolf-creation-source-evidence.json']]
-    evidence = dict(referenceVersion='3.3.93847', installed=False, savedPreparedBody=True, learnedHandler=False,
+    evidence = dict(referenceVersion='3.3.93847', installed=False, savedPreparedBody=True, learnedHandler=True,
         scope='Life-only factory acceptance; the separately recorded world-controller factory connects individual AI and automatic movement.',
         ordinaryAttack=False, lifeOnlyFactoryHasIndividualAi=False, lifeOnlyFactoryHasAutomaticClock=False, fullClassRegression=False,
         boots=3, actualReloads=2, passedMarkers=len(re.findall(r': passed', log)), pythonTests=70,
-        buildWarnings=0, buildErrors=0, handlers=166, druidHandlers=10, completedClasses=[], goalComplete=False,
+        buildWarnings=0, buildErrors=0, handlers=167, druidHandlers=11, completedClasses=[], goalComplete=False,
         namedAuditFingerprints=len(audits[0]['InputHashes']), firstLoopFingerprints=len(audits[1]['InputHashes']), unchangedNamedDefinitions=573,
         hashes={str(p.relative_to(ROOT)): sha(p) for p in paths},
         established=[
-            'Actual saved vulnerable Spirit Wolf body retains immutable effective-rank wolf/Dire/Grizzly birth context, owner/history permission and the shared persistent-minion relationship. Explicit preparation alone can construct it; learned skill remains unavailable.',
+            'Actual saved vulnerable Spirit Wolf body retains immutable effective-rank wolf/Dire/Grizzly birth context, owner/history permission and the shared persistent-minion relationship. The same backend serves the learned route; payment/input/FIFO acceptance is recorded separately in spirit-wolf-casting-native-evidence.json.',
             'Source162.5 life projects to native163 while health/healing caps remain41600FP. Two individual recovery frames add32FP each and clamp at the fractional maximum. Battle Orders35% uses the existing source floating-percentage rule:56159FP/native220, preserving fractional current life proportionally. A changed maximum recomputes regeneration from the wolf DamageRegen4 row and the truncated whole source maximum:54FP on application,40 on removal.',
             'Copied wolf armor joins Shout in one percent pool, with Inner Sight reducing the raw basis first. Explicit wolf identity prevents inherited undead/zero-drain classification; size2,100drain,50chill magnitude,zero block and7frame/256speed recovery metadata are retained. Full recovery-mode/current-executable scheduling is not inferred from metadata.',
             'Actual Tarnhelm changes fresh capture without rewriting an existing birth. Atomic malformed-state/JSON controls, offline no-heal, wardrobe parking/resume, owner-facet rescale with proportional life and orphan deletion pass. Two real world reloads retain saved owner/birth/clock, fractional injury, Battle Orders and regeneration, then resume one explicit active recovery frame without replaying offline recovery.',
             'Prepared numeric Spirit Wolf and Creeper, shared rank/curse fixes, Raven stats/flight/path, toward paths,Valkyrie and named-item components pass. Retained Battle Orders/Shout/difficulty/history/wardrobe/Inner Sight and Decoy checks survive two actual reloads; three real loopback Decoy casts, natural expiries and disconnect cleanup pass. Fresh audits retain all573 named decisions and all70Python tests pass.'
         ], remaining=[
-            'This record tests the life-only CreatePrepared factory and explicit AdvanceRecovery operation. Separate world-controller and bounded cold-melee acceptance are recorded in spirit-wolf-world-native-evidence.json. Learned placement/payment/FIFO-cap/coexistence, connected wolf casting input and complete current world lifecycle/parity acceptance remain pending.',
+            'This record tests the life-only CreatePrepared factory and explicit AdvanceRecovery operation. Separate world-controller and bounded cold-melee acceptance are recorded in spirit-wolf-world-native-evidence.json. Learned payment/FIFO-cap/coexistence/right/quick acceptance is recorded separately. Complete current world lifecycle/parity acceptance remains open.',
             'The user expects100% cold damage. Their prior observation was inconclusive for a tiny physical floor; old ordinary melee supplies one, so the modern branch remains uncertain rather than either result being asserted. Nonzero cold sunder is rejected by prepared actor creation/restore, while numeric source data remains retained separately.',
-            'Exact modern AI fallback polarity, room/geometry/global RNG/event ordering, equipment request consumers, graphical client parity and full-class regression/installation remain pending. Main installed build and saves are untouched.',
+            'Exact modern AI fallback polarity, room/geometry/global RNG/event ordering, graphical client parity and full-class regression/installation remain pending. Main installed build and saves are untouched.',
             'Named wolf body0xE1 with explicit placeholder name and silent sound is temporary. Final emergence/body/movement/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain in separate effect/icon registers. No new handler or class completion is claimed.'
         ])
     path = ROOT / 'tools/reference/spirit-wolf-body-native-evidence.json'
@@ -87,7 +87,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Prepared saved Spirit Wolf life/ownership:3boots/2reloads, retained health/defense consumers and70Python tests; separate world-controller acceptance; combat/casting pending.')
+    print('Prepared saved Spirit Wolf life/ownership:3boots/2reloads, retained health/defense consumers and70Python tests; separate world-controller acceptance; separate world/casting acceptance.')
 
 
 if __name__ == '__main__':

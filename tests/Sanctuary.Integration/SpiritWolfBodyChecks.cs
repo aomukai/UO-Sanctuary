@@ -123,7 +123,7 @@ public static class SpiritWolfBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared body enabled incomplete learned summon");LifeAndStats();Lifecycle();
+        Require(DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Learned summon route missing");LifeAndStats();Lifecycle();
         var p=Fresh();var wolf=DruidSpiritWolfBody.CreatePrepared(p,Point(p),TimedEffects.Now.AddDays(2));
         var supplier=Supplier();SkillHealth.SetBalance256(wolf,20007);BattleOrders.Apply(supplier,wolf,1,TimedEffects.Now.AddHours(1));supplier.Delete();PersistentMinions.Suspend(p);Snapshots(wolf);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,wolf.Serial.Value,wolf.Prepared,SkillHealth.Balance256(wolf),wolf.MaximumLife256,BattleOrders.Regeneration256(wolf),p.Map.MapID,p.Location)));

@@ -83,5 +83,5 @@ public static class PetMovementChecks
         else{Log.Information("Spirit Wolf legacy policy:1802complete source contexts/ordered requests match; literal fallback visibility, duplicate failed follow and delayed teleport requests retained; suspect nonnull-monstats attack/chase branch is not approved live AI");}
     }
     private static void Check()
-    {Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Unfinished learned wolf enabled");Movement();Spirit();Spirit(true);}
+    {Require(DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Learned wolf route missing");Movement();Spirit();Spirit(true);}
 }

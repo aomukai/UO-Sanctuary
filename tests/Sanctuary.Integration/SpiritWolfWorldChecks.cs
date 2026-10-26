@@ -139,7 +139,7 @@ public static class SpiritWolfWorldChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared world actor enabled learned cast");Routes();Movement();TargetsAndTeleport();
+        Require(DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Learned wolf route missing");Routes();Movement();TargetsAndTeleport();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,9001);var target=Enemy(p,2);
         PetOwnerRoutes.Teleported(p,at);Through(body,45);Require(body.Prepared.Controller.StrikeRequests>0 && body.Prepared.Controller.LastHit!=null,"No resolved ordinary hit saved");
         NecromancerEffects.Profiles.Store(body,new(Curse:new(CombatAbility.Decrepify,p.Serial.Value,1,at.AddDays(1),body.X,body.Y)));

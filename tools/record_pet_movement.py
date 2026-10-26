@@ -61,11 +61,11 @@ def record(check=False):
         'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     evidence = dict(referenceVersion='3.3.93847', installed=False, preparedPolicies=True,
         scope='Pure policy comparisons with declared services; world-controller composition is recorded separately in spirit-wolf-world-native-evidence.json.',
-        learnedHandler=False, fullClassRegression=False,
+        learnedHandler=True, fullClassRegression=False,
         completeDirectMovementCases=8312, completeCommonMovementCases=39936, orderedMovementServiceRequests=367734,
         completeLegacySpiritWolfCases=1802, completeCorrectedSpiritWolfCases=6366, sourceAndNativeCases=56416,
         boots=3, actualReloads=2, pythonTests=70, buildWarnings=0, buildErrors=0,
-        retainedHandlers=166, druidHandlers=10, completedClasses=[], goalComplete=False,
+        retainedHandlers=167, druidHandlers=11, completedClasses=[], goalComplete=False,
         hashes={str(p.relative_to(ROOT)): sha(p) for p in paths},
         established=[
             'Native shared policy matches complete unchanged PetMove modes0..5 and complete common-pet composition in48248source contexts, including367734ordered action/query/random/placement service requests, return values, movement-attempt counts and teleported flag writes.',
@@ -77,7 +77,7 @@ def record(check=False):
             'The old pointer-versus-combat reconstruction defect has a separately pinned source correction; do not wire LegacyThink into a live controller. The corrected older source still does not certify current D2R executable behavior. Its opposite potential-target LOS polarity remains an independent uncertainty.',
             'Actual saved owner history/teleport markers, movement/individual targets, natural clock and bounded cold melee now have separate acceptance in spirit-wolf-world-native-evidence.json. Complete path repair and modern event/global-RNG/geometry/physical-floor equivalence remain pending. The newer source crowd callback uses the current pet rather than the old null prior-target pointer.',
             'The skeleton-template placement request in shared mode3 is retained as a declared source service; it is separate from Spirit Wolf Teleport2/do98. No generic teleport-to-owner shortcut or whole-flock retargeting is inferred.',
-            'Learned do119 cast/payment/placement/FIFO/coexistence/input, full regression/installation and final effects/audio/talent/hotkey icons remain pending. Current installed build, saves and client stay preserved.'
+            'Learned do119payment/FIFO/coexistence/input has separate acceptance in spirit-wolf-casting-native-evidence.json. Exact placement, full regression/installation and final effects/audio/talent/hotkey icons remain pending. Current installed build, saves and client stay preserved.'
         ])
     path = ROOT / 'tools/reference/pet-movement-native-evidence.json'; encoded = json.dumps(evidence, indent=2) + '\n'
     if check:

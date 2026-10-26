@@ -1,0 +1,52 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": true,
+  "installed": false,
+  "boots": 3,
+  "actualReloads": 2,
+  "connectedRightCasts": 3,
+  "connectedQuickCasts": 3,
+  "passedMarkers": 91,
+  "handlers": 167,
+  "druidHandlers": 11,
+  "fullClassRegression": false,
+  "fullClassBoots": 0,
+  "fullClassPassedMarkers": null,
+  "currentExecutableParity": false,
+  "completedClasses": [],
+  "goalComplete": false,
+  "hashes": {
+    "src/Sanctuary.Content/DruidSpiritWolfCasting.cs": "94a08af65732db69bc967838641f25b32be68f0f9c8e01a592fca840fa291c41",
+    "src/Sanctuary.Content/DruidSpiritWolfBody.cs": "e56fc66efad0b734ce2e884544422846dff5928217b84dbee642a539d58634a1",
+    "src/Sanctuary.Content/DruidSpiritWolfWorld.cs": "ca341911e3b418f1cb5cb35c15f1449c55e808684b67c5b7b81e5b92c421ae3d",
+    "src/Sanctuary.Content/DruidCombat.cs": "2e012fe4a45f412f9367fbcea20ed425eb1bb6e211466fad8d5bc3634f62af4a",
+    "src/Sanctuary.Content/ClassCombat.cs": "8b97a65356a171891ecf349257198544e5eec49180885a47325f2aeddcfa7c3b",
+    "src/Sanctuary.Content/SkillBindings.cs": "66e7883461bca2684879b0398093a5d35467ecdad2382792ab423d63f26f6085",
+    "src/Sanctuary.Content/BattleCommand.cs": "c6c47e668e85aae855f7e30cf978e4b5b6ce25984ba4f735b404a72cdb83031b",
+    "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",
+    "tests/Sanctuary.Integration/SpiritWolfCastingChecks.cs": "2423bb989831eb4e7fd3cd675c4ed35939fe00fab38ec7ad4315de8d1c0e9fff",
+    "tests/check_spirit_wolf_body.py": "76b58e9caeebdc205e2d6ac482a4d2cb74fac4aa7042b80c5f292b9e3c0c73ad",
+    "tools/record_spirit_wolf_casting.py": "d48a8e3d10240235cff79d81967c819981f5a1eada307362d685850a0a8dbe4d",
+    "tools/reference/spirit-wolf-world-native-evidence.json": "33c471bc1107d3d054e582fc6555635194beb506197e05dad0c70281c3689a6e",
+    "tools/reference/spirit-wolf-equipment-scope.json": "788b2b8d3c9386ea932c8f3da04cd1539fc518d9d2534398729deb4919fd3d3f",
+    "data/Sanctuary/Balance/class-skill-status.json": "23b850b71689945e2a0e8204e16e9f619294c6fbb4a466a348828c2ce77ae677",
+    ".local/class-skills/spirit-wolf/stats-inputs.json": "a926e6459ce7310fa36d57056ddce4f1ca91e327184a11287dc2f93daf83c311",
+    ".local/class-skills/spirit-wolf/stats-native-checks.log": "1301f2ecc55aa7d7155b3457f4e02e6006b45c3d4782c64c00dc16e13a18c18c",
+    ".local/class-skills/spirit-wolf/stats-run.log": "8a9b22abea97810e52c80dcc2434746d809968eccb378a430a2664d4f69bf06b",
+    ".local/class-skills/spirit-wolf/casting-fixtures.json": "bc49066d48b5277cc4635b9aa3b6e9ee9c9238f06346fe1f47d326727336e528",
+    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "8f8a4028a6ce36a863725c407ba3f7ce05a2598407cc691af024a1d025e3a839",
+    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "374b59cee712e312158430608697bff27213c69fa2cb92b89b18adde67d7e739"
+  },
+  "established": [
+    "Learned Summon Spirit Wolf routes through shared SC windup/release. The native row requires15mana; fractional insufficiency refuses, early release does nothing, and one successful action pays once after allocation, before per-type replacement. Stop, move-out-and-back, facet roundtrip, recovery, freeze, lost mana and newly blocked ground do not pay or create a wolf.",
+    "Live target coordinates are re-read at release; a deleted target falls back to its cached point. Ground actors cannot be placed on occupied enemy footprints; deterministic native adjacent retry is explicitly an adapter. Town casting follows the pinned intown flag. Existing wolves retain individual targets when another is cast.",
+    "Only learned wolves participate in the learned per-type cap; internal component factories deliberately bypass it. Effective-rank cap uses the existing source formula min(rank,5). Actual Tarnhelm and Battle Command changes add slots, remove oldest wolves after rank loss, and retain immutable birth stats. Raven survives wolf replacement and cap changes. Owner death removes learned wolves.",
+    "Successful creation uses the existing saved Battle Command order ledger. Two real world reloads retain two parked learned wolves, complete saved controller/birth state and FIFO orders; casting after each reload replaces the actual oldest. Right/quick bindings persist and an unpaid saved windup is discarded without mana charge or summon replay.",
+    "Three authenticated loopback right-hold casts and three quick-key casts exercise actual protocol packets, unpaid animation windup, release,15mana payment and ground placement under the natural server clock. The unsupported left slot is refused by SkillBindings."
+  ],
+  "remaining": [
+    "The source spawn retry parameter4 is projected to a deterministic two-native-tile perimeter. Source room/collision search order, complete ground footprint geometry and current-client cached/dead target fallback remain unverified.",
+    "The cold-only physical-floor omission and observed-bite-continuation-neutral-delay-v1 remain explicitly provisional. Exact modern busy/mid-swing cadence, path repair/AStar branches, global event/RNG order, cold sunder, recipient passive avoidance and graphical client acceptance are not certified by casting tests.",
+    "Full retained class regression and installation are not claimed by this focused run. Installed main remains at166handlers/Druid10. Missing wolf model/emergence/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain separate identified placeholders."
+  ]
+}

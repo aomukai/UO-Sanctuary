@@ -3,7 +3,7 @@
   "installed": false,
   "preparedPolicies": true,
   "scope": "Pure policy comparisons with declared services; world-controller composition is recorded separately in spirit-wolf-world-native-evidence.json.",
-  "learnedHandler": false,
+  "learnedHandler": true,
   "fullClassRegression": false,
   "completeDirectMovementCases": 8312,
   "completeCommonMovementCases": 39936,
@@ -16,28 +16,28 @@
   "pythonTests": 70,
   "buildWarnings": 0,
   "buildErrors": 0,
-  "retainedHandlers": 166,
-  "druidHandlers": 10,
+  "retainedHandlers": 167,
+  "druidHandlers": 11,
   "completedClasses": [],
   "goalComplete": false,
   "hashes": {
     "src/Sanctuary.Content/SourcePetMovement.cs": "ec04d085af274d7ae8642beb89743efb526c6ac64def59957106d1d09f6d4297",
     "src/Sanctuary.Content/DruidSpiritWolfAi.cs": "b0f41b6f4d6965eca1133ef24ff983b7f35ae08d664aa2a83648a40990725d9b",
-    "tests/Sanctuary.Integration/PetMovementChecks.cs": "1de4dd8f759d6aa2b4f5279056bd9f2a3a9b3e2844103327d6252cc96d939543",
-    "tests/check_spirit_wolf_body.py": "ee26feb3670dc818115119944f608b7b79cc776c09570763dfb6d09180d76aea",
+    "tests/Sanctuary.Integration/PetMovementChecks.cs": "86aed0574eea87341f5009d737904a2f587a05be03b0c04fcb3edd994bf753c9",
+    "tests/check_spirit_wolf_body.py": "76b58e9caeebdc205e2d6ac482a4d2cb74fac4aa7042b80c5f292b9e3c0c73ad",
     "tools/probe_pet_movement_reference.py": "4598867af02a53fe59468c179559b4263a90bde3bdd6800aa39e940e5bd8d4e5",
     "tools/probe_spirit_wolf_ai_reference.py": "94fab8713509b596bb08e5e4427984bd6d2bbdde9e2e581a6ff30665596297cc",
     "tools/probe_spirit_wolf_corrected_ai_reference.py": "fa5c847b1698bf0acc5c55828abe351dbbcc0fdd60189b2b28f2f28103ba479a",
-    "tools/record_pet_movement.py": "d3692d05b9b22845bd7702006403b6fd485a4360d09fa05e02fe4003f6f44517",
+    "tools/record_pet_movement.py": "9e7cdb7935c271b6f05662246d76a725f8a2d51472bf7bc26d813163a3efcb42",
     "tools/reference/pet-movement-source-evidence.json": "392e571ed905d7edc441264d2bdf57044b97d3ad76c47f9e9ef9498072fc8985",
     "tools/reference/spirit-wolf-ai-source-evidence.json": "b3413785a2eddcb8b0f478e05ec97507c3d83536495d25d3269887b51ed30b12",
     "tools/reference/spirit-wolf-corrected-ai-source-evidence.json": "b38e101b9e3e43df8cf55e3211946926eb16b699297fa86e4116d8e7478c2cf3",
-    "tools/reference/spirit-wolf-body-native-evidence.json": "1fc22cce0216fd2e889fd4f028e5719d843044a19695030840d39b98421a8dfb",
-    ".local/class-skills/spirit-wolf/stats-inputs.json": "2f54e31b45a415245732a97e8313c633cc8eac374374a455e2c155f4a9016d10",
-    ".local/class-skills/spirit-wolf/stats-native-checks.log": "eecd9b4ced96975b13e74e832afbf2bc202aaf80bce7ec70cd8fe1a1e800dbb6",
-    ".local/class-skills/spirit-wolf/stats-run.log": "f94e550300dbe2a1eec2c0b6a9c4b416c6e5e67479c0186f2a54761804959f95",
-    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "a441cb351c65ec24399e4e7ead7326c4199a1180e45a99b040697a67056a5911",
-    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "8753e9e0bc73a531795945ec6dfc914754eca62febe01df124a7d90ad1d53a4a"
+    "tools/reference/spirit-wolf-body-native-evidence.json": "423519b3f4c738059206d158118881f8f5ed0fe0eb1fd5aadb181d7ebe42f4b1",
+    ".local/class-skills/spirit-wolf/stats-inputs.json": "a926e6459ce7310fa36d57056ddce4f1ca91e327184a11287dc2f93daf83c311",
+    ".local/class-skills/spirit-wolf/stats-native-checks.log": "1301f2ecc55aa7d7155b3457f4e02e6006b45c3d4782c64c00dc16e13a18c18c",
+    ".local/class-skills/spirit-wolf/stats-run.log": "8a9b22abea97810e52c80dcc2434746d809968eccb378a430a2664d4f69bf06b",
+    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "8f8a4028a6ce36a863725c407ba3f7ce05a2598407cc691af024a1d025e3a839",
+    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "374b59cee712e312158430608697bff27213c69fa2cb92b89b18adde67d7e739"
   },
   "established": [
     "Native shared policy matches complete unchanged PetMove modes0..5 and complete common-pet composition in48248source contexts, including367734ordered action/query/random/placement service requests, return values, movement-attempt counts and teleported flag writes.",
@@ -50,6 +50,6 @@
     "The old pointer-versus-combat reconstruction defect has a separately pinned source correction; do not wire LegacyThink into a live controller. The corrected older source still does not certify current D2R executable behavior. Its opposite potential-target LOS polarity remains an independent uncertainty.",
     "Actual saved owner history/teleport markers, movement/individual targets, natural clock and bounded cold melee now have separate acceptance in spirit-wolf-world-native-evidence.json. Complete path repair and modern event/global-RNG/geometry/physical-floor equivalence remain pending. The newer source crowd callback uses the current pet rather than the old null prior-target pointer.",
     "The skeleton-template placement request in shared mode3 is retained as a declared source service; it is separate from Spirit Wolf Teleport2/do98. No generic teleport-to-owner shortcut or whole-flock retargeting is inferred.",
-    "Learned do119 cast/payment/placement/FIFO/coexistence/input, full regression/installation and final effects/audio/talent/hotkey icons remain pending. Current installed build, saves and client stay preserved."
+    "Learned do119payment/FIFO/coexistence/input has separate acceptance in spirit-wolf-casting-native-evidence.json. Exact placement, full regression/installation and final effects/audio/talent/hotkey icons remain pending. Current installed build, saves and client stay preserved."
   ]
 }

@@ -20,7 +20,7 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
 }
 
 // Live saved movement/AI and bounded cold-melee backend. This prepared factory
-// is not a learned cast route; its remaining physical-floor uncertainty is explicit.
+// also serves learned casting; remaining physical-floor uncertainty is explicit.
 // Native fit/LOS and facet-wide room projection remain geometry adapters.
 internal static class DruidSpiritWolfWorld
 {
@@ -297,15 +297,24 @@ internal static class DruidSpiritWolves
     internal static void Track(DruidSpiritWolfBody body)=>Bodies.Add(body);
     internal static void Forget(DruidSpiritWolfBody body)=>Bodies.Remove(body);
     internal static DruidSpiritWolfBody[] For(PlayerMobile p)=>(p.AllFollowers??[]).OfType<DruidSpiritWolfBody>().Where(x=>x is{Alive:true,Deleted:false}&&x.ControlMaster==p).ToArray();
+    internal static void Enforce(PlayerMobile owner)
+    {
+        var bodies=For(owner).Where(b=>b.Prepared.LearnedCast).OrderBy(BattleCommand.PetOrder).ThenBy(b=>b.Serial.Value).ToArray();
+        int limit=DruidSpiritWolfStats.Limit(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf));
+        foreach(var body in bodies.Take(Math.Max(0,bodies.Length-limit))){body.Delete();}
+    }
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static void Tick(DateTime at,bool? actions=null)
     {
-        var active=new List<DruidSpiritWolfBody>();
+        var active=new List<DruidSpiritWolfBody>();var owners=new HashSet<PlayerMobile>();
         foreach(var body in Bodies.ToArray())
         {
             if(body.Deleted){Forget(body);continue;}
             try
             {
+                if(body.Prepared.LearnedCast && body.ControlMaster is PlayerMobile owner && owners.Add(owner)
+                    && PersistentMinions.Active(owner,body) && body.Permitted(owner)){Enforce(owner);}
+                if(body.Deleted){continue;}
                 bool allowed=actions??body.ControlMaster?.NetState is{Running:true};
                 if(allowed){active.Add(body);}else{DruidSpiritWolfWorld.Advance(body,at,false);}
             }

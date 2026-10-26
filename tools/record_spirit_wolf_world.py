@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind bounded saved wolf movement/cold-melee acceptance; learned casting remains pending."""
+"""Bind bounded saved wolf movement/cold-melee acceptance; learned casting acceptance is separate."""
 import argparse
 import hashlib
 import json
@@ -72,12 +72,12 @@ def record(check=False):
         'python-tests.log', 'content-build.log', 'integration-build.log',
         'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     evidence = dict(referenceVersion='3.3.93847', supplementaryAiCommit='7f6d773f31060e97124241e6bd30d606bcab6d4e',
-        scope='Prepared world-controller/cold-melee factory and retained life/policy consumers, with declared native terrain/input services. Learned casting remains unavailable; the omitted legacy physical floor remains provisional.',
+        scope='Prepared world-controller/cold-melee factory and retained life/policy consumers, with declared native terrain/input services. Learned casting acceptance is recorded separately; the omitted legacy physical floor remains provisional.',
         profile=controller['Profile'], installed=False, actorConnected=True, automaticWolfClock=True,
-        boundedColdMelee=True, ordinaryAttackFullParity=False, learnedHandler=False, fullClassRegression=False, currentExecutableParity=False,
+        boundedColdMelee=True, ordinaryAttackFullParity=False, learnedHandler=True, fullClassRegression=False, currentExecutableParity=False,
         sourceColdPacketComparisons=384, sourceAttackRateComparisons=576, boots=3, actualReloads=2,
         connectedNaturalFollows=3, connectedNaturalAttacks=3, connectedNaturalHasteAttacks=3, connectedNaturalRepeatedSlowAttacks=3, attackThinkPolicy=controller['AttackThinkPolicy'], passedMarkers=len(re.findall(r': passed', log)),
-        pythonTests=70, buildWarnings=0, buildErrors=0, handlers=166, druidHandlers=10,
+        pythonTests=70, buildWarnings=0, buildErrors=0, handlers=167, druidHandlers=11,
         completedClasses=[], goalComplete=False,
         hashes={str(path.relative_to(ROOT)): sha(path) for path in paths},
         established=[
@@ -95,7 +95,7 @@ def record(check=False):
         ], remaining=[
             'The busy-A1continuation policy is an explicit inference from observed continuing bites plus the existing neutral-delay path. The user establishes no Fanaticism and continued attacks, not the exact mode-end/AI cadence. Modern mid-swing cancellation/re-entry, post-contact overlapping AI decisions, owner-movement/target-loss priorities and exact current dispatch still need corroboration; do not label the inferred policy exact D2R parity. Mid-swing current-executable rescheduling and generic melee-only morph/dual-wield transport remain unverified; the pinned Spirit Wolf equipment path creates no items. Recipient HTH-defense additions/passive avoidance and exact block-mode timing need broader acceptance.',
             'The cold-only ordinary hit is a clearly provisional current-data profile: the user expects100percent cold damage, but the tiny physical floor in older source remains unverified in3.3.93847. Item events beyond the pinned no-equipment scope, passive target avoidance, PvP/unmapped targets, exact retaliation/event order and nonzero cold sunder remain unsupported or unverified. Holy elemental-aura channel composition is wired but not separately established by the Enchant checks. Actor Dexterity0is an explicit default projection pending complete current monster initialization acceptance.',
-            'Learned do119placement/payment/FIFO-cap/coexistence, right/quick input, full-class regression, matching graphical client acceptance and installation remain pending. No additional handler or class completion is claimed.',
+            'Learned do119payment/FIFO-cap/coexistence/right/quick input has separate acceptance in spirit-wolf-casting-native-evidence.json. Exact placement/search, full-class regression, matching graphical client acceptance and installation remain pending. One candidate handler is added; no class completion is claimed.',
             'Ground fit/LOS, accepted native tile steps and one-step owner route, facet-wide room projection, nearest mapped-NPC scan, size/grid conversions and scoped per-actor RNG are explicit adapters. Complete source skeleton placement, AStar/type1and straight/type7close-obstacle fallback, moving-unit path repair and exact modern crowd/room/geometry/global ordering are unfinished. Unsupported AStar requests fault the prepared controller explicitly.',
             'The corrected source resolves the old pointer-versus-combat defect but does not certify current D2R. Negated potential-target visibility remains uncertain. S1initial think/end composition, Teleport2mode-change versus animation callbacks, exact recovery/repath chronology and current-executable event equivalence still need reference work.',
             'The named silent0xE1wolf is a placeholder. Final body/emergence/movement/bite/cold/teleport/hurt/death/audio and separate talent/right/quick icons remain in their independent asset inventories.'
@@ -106,7 +106,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Prepared world wolf:3boots/2reloads/3natural follows/3natural cold attacks/3natural haste attacks/3natural repeated slow attacks,384packet and576rate comparisons; exact busy cadence provisional, learned casting pending.')
+    print('Prepared world wolf:3boots/2reloads/3natural follows/3natural cold attacks/3natural haste attacks/3natural repeated slow attacks,384packet and576rate comparisons; exact busy cadence provisional, separate learned-casting acceptance.')
 
 
 if __name__ == '__main__':

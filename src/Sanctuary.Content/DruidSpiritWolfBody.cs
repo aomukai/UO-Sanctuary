@@ -13,11 +13,12 @@ internal sealed record SpiritWolfBodyState(uint Owner,SpiritWolfSnapshot Snapsho
 {
     public string Profile{get;init;}="prepared-life-and-ownership-v1";
     public SpiritWolfWorldState Controller{get;init;}
+    public bool LearnedCast{get;init;}
 }
 
-// Saved, vulnerable summon backend. Internal preparation only: native AI/swing
-// are deliberately suppressed until individual source AI/attack composition is
-// connected. This does not make the learned skill available.
+// Saved, vulnerable summon backend. Native AI/swing are suppressed; the
+// explicit source-frame controller owns movement and attacks. Internal
+// preparation can still create life-only bodies without learned casting.
 [SerializationGenerator(0)]
 public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
 {
@@ -78,6 +79,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
                 || state.Profile!="prepared-life-and-ownership-v1"
                 || DruidSpiritWolfStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Spirit Wolf life/ownership state");}
+            if(state.LearnedCast && state.Controller==null){throw new InvalidDataException("Learned wolf requires its world controller");}
             if(state.Controller!=null){DruidSpiritWolfWorld.Validate(state.Controller);}
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)

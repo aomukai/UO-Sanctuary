@@ -1923,10 +1923,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 227,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick route uses15mana after successful allocation, with independent targets and saved per-type FIFO. Prepared cold-only damage and busy-A1continuation remain explicitly provisional; exact modern physical floor, busy cadence, room/path/collision search, passive avoidance, cold sunder and graphical client acceptance remain open. Ground spawn retry is a named deterministic native adapter. Final wolf/body/bite/teleport/hurt/death/audio and separate talent/hotkey icons remain placeholders. No class complete."
     },
     {
       "talentId": "druid.carrionvine",

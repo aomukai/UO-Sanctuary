@@ -19,7 +19,7 @@ public static class SpiritWolfStatsChecks
         key=>key=="Summon Spirit Wolf"?rank:key=="Summon Fenris"?dire:key=="Summon Grizzly"?bear:255,_=>hard,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared stats enabled incomplete learned actor");
+        Require(DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Learned wolf route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"spirit-wolf-creation-source-probe.json")));int cold=0,birth=0;
         foreach(var row in data.RootElement.GetProperty("cold").EnumerateArray())
         {
@@ -72,6 +72,6 @@ public static class SpiritWolfStatsChecks
             && captured is{Rank:1,Life256:36608,ColdMinimum:2},"Soft rank and immutable prior birth");
         Train(owner,"druid.summongrizzly");var next=DruidSpiritWolfStats.Birth(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),MonsterDifficulty.Normal,true,_=>0);
         Require(next.ColdMinimum==4 && next.ColdMaximum==9 && changed.ColdMinimum==3,"Effective Grizzly synergy / retained snapshot");
-        Require(!ClassCombat.Available(owner,CombatAbility.SummonSpiritWolf),"Component enabled learned summon");owner.Delete();
+        Require(ClassCombat.Available(owner,CombatAbility.SummonSpiritWolf),"Learned summon unavailable");owner.Delete();
     }
 }
