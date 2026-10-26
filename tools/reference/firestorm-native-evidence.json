@@ -100,7 +100,8 @@
     "SkillCombat.MitigatePrepared now accepts an optional damageRate, default0. The new prepared field supplies41, including approved potion channels. Full retained class regression/current audits remain required before installation.",
     "The prior broad Python worktree run remains unaccepted because installed-build audits are stale and two upstream files are absent there. It is not replaced by the focused native suite.",
     "Final fire emitter, burning patch, cast/impact/expiry/audio and separate talent/hotkey icons remain pending; UO0x398C hue0x489 is an identified placeholder.",
-    "Matching final main content/integration builds and focused tests pass. Full retained class regression/current audit/Python acceptance and existing-world smoke remain required; no158-handler deployment certificate is claimed."
+    "Matching final main content/integration builds and focused tests pass. Full retained class regression/current audit/Python acceptance and existing-world smoke remain required; no158-handler deployment certificate is claimed.",
+    "Known shared-event gap: maker458 has WALLKILL8/LastCollide1 but zero source damage. Its native controller currently maps terrain/motion and fire children; the zero-damage unit/LastCollide/HITBYMISSILE callback path is not implemented. Keep it on the missile-event/item-trigger acceptance backlog; full event parity is not claimed."
   ],
   "next": "Build and verify the matching main candidate, run full class regression/current native audits/Python acceptance and original-world smoke, then install the158th handler. Continue Druid with Molten Boulder afterwards.",
   "preparedActorCheckpoint": {
