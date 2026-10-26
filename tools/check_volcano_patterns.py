@@ -94,7 +94,7 @@ foreach(var row in factory.RootElement.EnumerateArray())
 for(int dx=-99;dx<=99;dx++)for(int dy=-99;dy<=99;dy++)
 {Require((int)lob.Invoke(null,new object[]{dx,dy})==PriorLob.Lifetime(dx,dy),"Complete prior Fire Blast lifetime body");prior++;}
 Require(emissions==906&&sequences==150&&flights==216&&prior==39601,"Complete comparison scope");
-Console.WriteLine($"{emissions} emission contexts/{sequences} sequential frames/{flights} factory plans and JSON resumptions pass; {prior} complete-prior Fire Blast lifetime controls preserved. No learned Volcano enabled.");
+Console.WriteLine($"{emissions} emission contexts/{sequences} sequential frames/{flights} factory plans and JSON resumptions pass; {prior} complete-prior Fire Blast lifetime controls preserved. Plan comparisons only; world acceptance is recorded separately.");
 ''')
     with (STAGE / 'volcano-pattern-build.log').open('w') as log:
         subprocess.run([str(ROOT / '.tools/dotnet/dotnet'), 'build', str(OUT / 'check.csproj'), '-c', 'Release', '--nologo', '-o', str(OUT / 'out')], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -106,8 +106,8 @@ Console.WriteLine($"{emissions} emission contexts/{sequences} sequential frames/
     inputs += [ROOT / 'tools/check_volcano_patterns.py', ROOT / 'data/Sanctuary/Balance/necromancer-summons.json', *evidence_paths, *fixtures]
     outputs = [OUT / name for name in ['check.csproj', 'PriorLob.cs', 'Program.cs', 'out/check.dll']]
     outputs += [STAGE / 'volcano-pattern-run.log']
-    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False,
-                    status='Prepared request/flight plans only; no saved Volcano actor or learned handler.',
+    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False,
+                    status='This check covers request/flight plans only; saved actors and learned input have separate native acceptance.',
                     caseCounts=dict(emitter=906, sequentialFrames=150, factory=216, priorFireBlastLifetime=39601),
                     contentAssemblySha256=sha(content), nativeAssemblyHashes={str(p.relative_to(native)): sha(p) for _, p in references[1:]},
                     inputHashes={str(p.relative_to(ROOT)): sha(p) for p in inputs}, evidenceHashes={str(p.relative_to(ROOT)): sha(p) for p in outputs},

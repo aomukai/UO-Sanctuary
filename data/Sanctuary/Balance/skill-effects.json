@@ -2210,7 +2210,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native vent/lava use identified UO0x398C hue0x489 markers; noncolliding debris uses0x36D4 and contact0x3709. SC cast sound0x1E5 is an identified placeholder. Final volcano_base,volcano_Fire,volcano_rock,lava_pool/explosion, cast/expiry/audio and talent/right/quick icons remain separate; source leftskill0. Mechanical damage and lifetime do not depend on marker animations."
   },
   {
     "talentId": "druid.tornado",

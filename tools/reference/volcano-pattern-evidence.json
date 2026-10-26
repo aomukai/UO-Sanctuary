@@ -1,15 +1,15 @@
 {
   "referenceVersion": "3.3.93847",
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "installed": false,
-  "status": "Prepared request/flight plans only; no saved Volcano actor or learned handler.",
+  "status": "This check covers request/flight plans only; saved actors and learned input have separate native acceptance.",
   "caseCounts": {
     "emitter": 906,
     "sequentialFrames": 150,
     "factory": 216,
     "priorFireBlastLifetime": 39601
   },
-  "contentAssemblySha256": "d0525ad44f943ebfafed28cd0a81a5bfa039dc9c95222e0532eefca34bcc825f",
+  "contentAssemblySha256": "803592238025991bf485ea8fcbd176c42b020c6e8bbd67677b611ad2c8a8c76d",
   "nativeAssemblyHashes": {
     "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
     "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
@@ -21,8 +21,8 @@
     "src/Sanctuary.Content/LobProjectiles.cs": "f653b3258e6861a471ad86332faa06be4b651e055ed581a6fe2d713542a0846b",
     "src/Sanctuary.Content/MissileVectors.cs": "febe41a0b8ec9712120978418321239d5abc0862c9ed14336042f12213871c1b",
     "src/Sanctuary.Content/AmazonSlowMissiles.cs": "866ed162ec878a68806af6d7e7edc627551d742f03e3557ac8b6eeb3418d243f",
-    "tools/check_volcano_patterns.py": "d647d15e30ca9022af6f2bf16f9b25a33a18cbb9cb5686482161dde69e71609d",
-    "data/Sanctuary/Balance/necromancer-summons.json": "def54e7341ed46a7fa8443954928d5416d7edc5d06996c5b786c33f5d6d26572",
+    "tools/check_volcano_patterns.py": "92831f3c03da1ffc0b0a418f2349db8f543cf3836269edc4d7f6fff59a8b308b",
+    "data/Sanctuary/Balance/necromancer-summons.json": "a04154f32adc8e29218b1393057954fc5cd38a5ec338f139c6bad2230e52fc26",
     "tools/reference/volcano-engine-evidence.json": "e0845c2f981a25dc30a16331b91319910d00f2e3ce88955e7541ce05545c1989",
     "tools/reference/volcano-factory-source-evidence.json": "4f85266f90db17d597b29d61e87b38ed59a2c6eb5002832654f449551f367bc7",
     ".local/class-skills/volcano-source-probe.json": "14c28d9ab6be6dc62a5715b9b416dbcf5926e976ccc203346a755da13054403f",
@@ -31,9 +31,9 @@
   "evidenceHashes": {
     ".local/class-skills/volcano-pattern-proof/check.csproj": "2c513621734dd7a91ae8d51cffb81867777565033b502c0b09f390c0ef6bd818",
     ".local/class-skills/volcano-pattern-proof/PriorLob.cs": "8cdfca833242958884d7594eb72ed1614199a0155a42c1c11fe9fd970d76dba9",
-    ".local/class-skills/volcano-pattern-proof/Program.cs": "a8c0c92f3bfba3b30390054bb34c49a40419902df17dddecf3e8584a6b3795e4",
-    ".local/class-skills/volcano-pattern-proof/out/check.dll": "0b5f54f029e367af1f8a9a56c6b68e3d544437aa6845a6b35e395680fe69a9f6",
-    ".local/class-skills/volcano-pattern-run.log": "2310a5acd12ed7f6bbb1799dbf2f2c288e024818e36b0df48ddcf8638b2338dd"
+    ".local/class-skills/volcano-pattern-proof/Program.cs": "adf25cfa1dcf3f2bedd0e08acefb55cca5dffc9bdd28faa02e7b8572120adeb6",
+    ".local/class-skills/volcano-pattern-proof/out/check.dll": "6f27844ffa9b4e86193fa8aa72f2a53196c832a16e250bd93e4f8e68da6f6c67",
+    ".local/class-skills/volcano-pattern-run.log": "f0a428b05fe45999434e3c08a840aa4d40bf491836ae31175074ecae57d03a4c"
   },
   "priorLobCommit": "cfbce5b",
   "priorLobMethodSha256": "98c9c17d23b49f24559650589aa0d7923b47f2534a69a0ca1ed0f99fc14feae2",

@@ -44,7 +44,7 @@ var definitions=JsonSerializer.Deserialize<SkillDefinition[]>(File.ReadAllText(a
 var source=(Dictionary<string,SkillDefinition>)typeof(SkillMechanics).GetField("_source",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
 source.Clear();foreach(var definition in definitions)source.Add(definition.SourceKey,definition);
 var volcano=definitions.Single(x=>x.SourceId==244);
-Require(volcano.SourceKey=="Volcano"&&!DruidCombat.Implemented(CombatAbility.Volcano),"Volcano remains unimplemented during supplier preparation");
+Require(volcano.SourceKey=="Volcano"&&DruidCombat.Implemented(CombatAbility.Volcano),"Volcano candidate identity");
 var physical=typeof(SkillValues).GetMethod("PhysicalDamage256",BindingFlags.Instance|BindingFlags.NonPublic);
 var fire=typeof(DruidFirestorm).GetMethod("Endpoints",BindingFlags.Static|BindingFlags.NonPublic);
 Require(physical!=null&&fire!=null,"Existing physical and fire endpoint suppliers");
@@ -60,7 +60,7 @@ foreach(var row in json.RootElement.EnumerateArray())
  Require(values.Mana256==25*256&&values.Eval("calc4")==2&&values.Eval("aurarangecalc")==12,"Current mana/emission/range formulas");packets++;
 }
 Require(packets==55080&&air==27540,"Complete source capture selection");
-Console.WriteLine($"{packets} actual-content Volcano root/lava endpoint sets/all255ranks match complete source captures; {air} source-only air cases remain outside native scope. No handler enabled.");
+Console.WriteLine($"{packets} actual-content Volcano root/lava endpoint sets/all255ranks match complete source captures; {air} source-only air cases remain outside native scope. Supplier comparison only; world acceptance is recorded separately.");
 ''')
     with (STAGE / 'volcano-damage-build.log').open('w') as log:
         subprocess.run([str(ROOT / '.tools/dotnet/dotnet'), 'build', str(OUT / 'check.csproj'), '-c', 'Release', '--nologo', '-o', str(OUT / 'out')], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -73,7 +73,7 @@ Console.WriteLine($"{packets} actual-content Volcano root/lava endpoint sets/all
                                  'tools/check_volcano_damage.py', 'tools/probe_volcano_damage_reference.py',
                                  'tools/reference/volcano-damage-source-evidence.json']]
     inputs += [fixture, STAGE / 'volcano-damage-run.log', OUT / 'Program.cs', OUT / 'check.csproj', OUT / 'out/check.dll']
-    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False,
+    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False,
                     sourceEndpointSets=82620, actualContentEndpointSets=55080, sourceOnlyAirCases=27540,
                     contentAssemblySha256=sha(content), nativeAssemblyHashes={str(p.relative_to(native)): sha(p) for _, p in references[1:]},
                     hashes={str(p.relative_to(ROOT)): sha(p) for p in inputs},
