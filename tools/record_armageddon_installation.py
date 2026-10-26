@@ -54,7 +54,7 @@ def record(check=False):
                   savesConfigProfilesSettingsUnchanged=True, rollback=receipt['backup'],
                   hashes={'.local/class-skills/armageddon-installation.json': sha(BASE / 'armageddon-installation.json'), **receipt['artifacts']},
                   scope='The native candidate certificate retains its pre-install scope. This separate receipt verifies the later exact-package installation and existing-world preservation; it is not a whole-skill or class parity certificate.',
-                  remaining=[item for item in native['remaining'] if not item.startswith('Complete full class regression')],
+                  remaining=[item for item in native['remaining'] if not item.startswith('Complete full regression')],
                   next='Continue remaining Druid summons and shapeshifting. Preserve explicit modern NHD/current-executable/client limits, Boulder terminal-current-build and Arctic Blast/channel follow-ups; final effects/icons remain separately inventoried.')
     out = ROOT / 'tools/reference/armageddon-installation-evidence.json'
     text = json.dumps(output, indent=2) + '\n'
