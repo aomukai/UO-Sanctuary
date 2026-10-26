@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEndpointComparisons": 27540,
+  "contentAssemblySha256": "803592238025991bf485ea8fcbd176c42b020c6e8bbd67677b611ad2c8a8c76d",
+  "nativeAssemblyHashes": {
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "hashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidCombat.cs": "98c713d6afe1eb2a7dde54ff36a5a141e86f1f1fcf27a8c04baf2e505c300599",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/check_tornado_damage.py": "490388516eb7dfbeea2756a4f593c91c6f384d10984a60ea7604180533b55e4a",
+    "tools/probe_tornado_damage_reference.py": "a44e1aed4f8c34c171952ed2329e7b007280b6ca479f8e9d8da621040fafefdd",
+    "tools/reference/tornado-damage-source-evidence.json": "58efe5f1d29b6ca35a0d92b8f4a00c94cf976073ce81603f44f22bea579429ec",
+    ".local/class-skills/tornado-damage-source-probe.json": "20824577694c5ca7c5177b83f41d8294bb5dcef56712d073a987dfcfd099fb7f",
+    ".local/class-skills/tornado-damage-run.log": "5459006b0c9dda10997f227ed73c3838cd2e3e22d60b5e6c5305c778a5c05150",
+    ".local/class-skills/tornado-damage-proof/Program.cs": "d4724d0570c0d904aadff902597fbc646968883dd7316a970d8d4cfce1ae9cd5",
+    ".local/class-skills/tornado-damage-proof/check.csproj": "2c513621734dd7a91ae8d51cffb81867777565033b502c0b09f390c0ef6bd818",
+    ".local/class-skills/tornado-damage-proof/out/check.dll": "447a1a8a3a08933a1ae3d47be691d48a4b8d5639f9681ef8cfb7c78b2d107653"
+  },
+  "established": [
+    "The actual existing PhysicalDamage256 supplier matches27540complete source captures/all255ranks. Independent hard Cyclone Armor/Twister/Hurricane inputs retain pre-HitShift8 truncation; deliberately255effective synergy ranks do not replace hard points.",
+    "Actual formula interpreter verifies10mana, one missile,15-frame periodic interval and radius3. No new physical formula implementation is needed."
+  ],
+  "remaining": [
+    "This supplier check does not establish actual periodic/direct damage commitment, charged path or modern hit-delay overlap.",
+    "Native saved actor, learned input/payment/timing, natural timers/lifecycle/reloads, full current-executable/client and final effects/icons remain separate."
+  ]
+}
