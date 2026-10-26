@@ -1758,10 +1758,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 250,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned self SC cast pays30mana once and replaces one saved weather state without local delay. Periodic20-frame copied cold packet reads live hard Twister/Tornado synergies and gear at retained cast rank; duration captures250+50frames per hard Cyclone Armor point. Source0xA783 LOS/center-radius and separate area defense/cold-state consumers are connected. Source/native verification, installation and explicit modern equal-deadline/global seed/event/geometry/PvP/item/client limits are recorded in the checkpoint. Final wind/debris/cast/pulse/end/audio and talent/right/quick icons remain identified placeholders; no class complete."
     },
     {
       "talentId": "druid.armageddon",

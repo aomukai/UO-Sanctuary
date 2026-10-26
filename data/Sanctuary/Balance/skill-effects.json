@@ -2240,7 +2240,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native self wind/cold aura uses identified UO0x37CC hue0x480 cast/pulse markers and0x655 cast-audio placeholder. Final hurricane wind/debris, druid_windcast/druid_hurricane pulse/expiry/audio and separate talent/right/quick icons remain pending. Marker animations do not control mechanical20-frame pulse or weather lifetime."
   },
   {
     "talentId": "druid.armageddon",

@@ -61,6 +61,11 @@ public static class TimedEffects
     private static readonly DateTime _anchorUtc = DateTime.UtcNow;
     public static TimedEffectProfiles Profiles { get; private set; }
     public static DateTime TimeAt(long tick) => _anchorUtc.AddMilliseconds(tick - _anchorTick);
+    internal static long TickAt(DateTime utc)
+    {
+        if(utc.Kind!=DateTimeKind.Utc){throw new ArgumentException("Effect clock must be UTC");}
+        return checked(_anchorTick+(utc.Ticks-_anchorUtc.Ticks)/TimeSpan.TicksPerMillisecond);
+    }
     public static DateTime Now => TimeAt(Core.TickCount);
     internal static DateTime? DamageTime { get; private set; }
     public static void Configure()

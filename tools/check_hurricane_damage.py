@@ -44,7 +44,7 @@ var definitions=JsonSerializer.Deserialize<SkillDefinition[]>(File.ReadAllText(a
 var source=(Dictionary<string,SkillDefinition>)typeof(SkillMechanics).GetField("_source",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
 source.Clear();foreach(var definition in definitions)source.Add(definition.SourceKey,definition);
 var hurricane=definitions.Single(x=>x.SourceId==250);
-Require(hurricane.SourceKey=="Hurricane"&&!DruidCombat.Implemented(CombatAbility.Hurricane),"Prepared Hurricane remains disabled");
+Require(hurricane.SourceKey=="Hurricane"&&DruidCombat.Implemented(CombatAbility.Hurricane),"Candidate Hurricane identity");
 using var json=JsonDocument.Parse(File.ReadAllText(args[0]));int count=0;
 foreach(var row in json.RootElement.EnumerateArray())
 {
@@ -73,13 +73,13 @@ Console.WriteLine($"{count} actual-content Hurricane pre-mastery endpoint/length
               'data/Sanctuary/Balance/class-skills.json', 'tools/check_hurricane_damage.py', 'tools/probe_hurricane_damage_reference.py',
               'tools/reference/hurricane-damage-source-evidence.json']]
     inputs += [fixture, STAGE / 'hurricane-damage-run.log', OUT / 'Program.cs', OUT / 'check.csproj', OUT / 'out/check.dll']
-    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False, sourceEndpointComparisons=9180, durationFormulaComparisons=27540,
+    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False, sourceEndpointComparisons=9180, durationFormulaComparisons=27540,
                     contentAssemblySha256=sha(content), nativeAssemblyHashes={str(path.relative_to(native)): sha(path) for _, path in references[1:]},
                     hashes={str(path.relative_to(ROOT)): sha(path) for path in inputs},
                     established=['Actual existing Damage256 and DurationFrames match9180complete source pre-mastery endpoint/cold-length captures across all255ranks. Effective255synergy ranks do not replace hard Twister/Tornado0/1/20 points.',
                                  'Each retained capture tests hard Cyclone Armor0/1/20:27540actual interpreter duration controls preserve250+50frames per hard point. Mana30, radius9, periodic interval20 and cold length50 pass without adding a formula implementation.'],
                     remaining=['Declared nonzero outgoing cold mastery/source roll/packet composition remains in source evidence; this native supplier check deliberately selects mastery0. Real gear/pierce/health/cold-state consumers remain separate.',
-                               'No Hurricane handler is enabled. Saved weather, learned casting/payment/input/natural timers/reloads, current-executable/client parity and final effects/icons remain unimplemented or unverified.'])
+                               'Native Hurricane handler is staged; saved weather, learned casting/payment/input/natural timers/reloads, current-executable/client parity and final effects/icons remain unimplemented or unverified.'])
     out = ROOT / 'tools/reference/hurricane-damage-evidence.json'
     text = json.dumps(evidence, indent=2) + '\n'
     if check:

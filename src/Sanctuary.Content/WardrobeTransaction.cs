@@ -136,6 +136,7 @@ public static class WardrobeTransaction
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
         DruidCycloneArmor.Clear(player);
+        DruidHurricane.Clear(player);
         AssassinBuffs.Clear(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);

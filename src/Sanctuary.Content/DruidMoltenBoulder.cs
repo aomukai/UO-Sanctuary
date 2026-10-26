@@ -233,8 +233,8 @@ public static class DruidMoltenBoulder
     {
         double added=raw.Total*mods.Potion/100;
         return raw with{Fire=raw.Fire+added*Math.Max(0,100+mods.FireMastery)/100,
-            Cold=added*Math.Max(0,100+mods.ColdMastery)/100,Lightning=added*Math.Max(0,100+mods.LightningMastery)/100,
-            Poison=added*Math.Max(0,100+mods.PoisonMastery)/100};
+            Cold=raw.Cold+added*Math.Max(0,100+mods.ColdMastery)/100,Lightning=raw.Lightning+added*Math.Max(0,100+mods.LightningMastery)/100,
+            Poison=raw.Poison+added*Math.Max(0,100+mods.PoisonMastery)/100};
     }
     private static void Impact(PlayerMobile owner,Mobile target,BoulderMissile s,GearDamage raw,bool knockback,ref ulong seed)
     {
