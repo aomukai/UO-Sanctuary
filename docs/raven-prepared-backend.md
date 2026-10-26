@@ -1,6 +1,6 @@
 # Raven mechanical backend
 
-Raven is being implemented against D2R Reign of the Warlock **3.3.93847**. The learned right/quick casting route is present in candidate166/Druid10, with focused native acceptance. It is isolated in the Raven worktree; the installed Armageddon package remains unchanged. See the [reference preflight](../tools/reference/raven-preflight.json) and [native evidence](../tools/reference/raven-stats-native-evidence.json) for exact inputs and accepted verification scope.
+Raven is being implemented against D2R Reign of the Warlock **3.3.93847**. The learned right/quick casting route is installed as handler166/Druid10, with focused/full native acceptance and a separate original-world preservation receipt. See [installation evidence](../tools/reference/raven-installation-evidence.json). See the [reference preflight](../tools/reference/raven-preflight.json) and [native evidence](../tools/reference/raven-stats-native-evidence.json) for exact inputs and accepted verification scope.
 
 Casting is allowed in town, as the current row specifies. It allocates successfully before paying six mana, then enforces cap/FIFO replacement and issues the flock command. Failed casts preserve existing birds. Shared native range/LOS and registered-dead/deleted target fallback are explicitly bounded adapters. A pending Raven cast cancels immediately on a location or map change, even if the owner returns before its effect event.
 
@@ -22,6 +22,6 @@ Other explicit boundaries remain:
 - Native map/LOS and nearest eligible NPC enumeration adapt the world services. The older owner-vision scan's side effects and modern target ordering are not yet composed. Unmapped source-size targets and PvP are refused.
 - Warp placement, native tile/subtile projection, scoped RNG interleaving, million-step hit rolls, whole-life physical rolls, full native aura/item/event interactions and current executable equivalence remain bounded or unverified.
 - Nonzero inherited physical sunder is refused pending its missing consumer.
-- Six-mana SC release payment, right-only bindings, held-right release, quick input, cancellation/resource edges and saved unpaid-windup discard pass focused checks. Current audits, the Python suite, full regression and matching-client acceptance remain to refresh before installation.
+- Six-mana SC release payment, right-only bindings, held-right release, quick input, cancellation/resource edges and saved unpaid-windup discard pass focused checks. Current audits, all70Python tests, full regression and matching-client identity/reflection pass; the existing client DLL is reused unchanged. Ordinary graphical comparison and complete current-executable equivalence remain open.
 
 Final summon, emergence, flight, dive, blind, retirement and audio assets remain in the independent [effects inventory](skill-effects.md). Talent-tree and hotkey icons remain in the separate [icon inventory](skill-icons.md). Assets do not block the mechanical work.
