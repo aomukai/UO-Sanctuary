@@ -12,8 +12,8 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
-  "fullClassPassedMarkers": 0,
+  "fullClassRegression": true,
+  "fullClassPassedMarkers": 1113,
   "sourceDamageContexts": 82620,
   "actualContentEndpointSets": 55080,
   "sourceLaunchEmitterChild": 5730,
@@ -53,7 +53,10 @@
     ".local/class-skills/volcano/native-checks.log": "05491c02cf218ed295e682d4978a9b1626d9b8fc95814bb59b44a3b561ce8b03",
     ".local/class-skills/volcano/native-fixtures.json": "74163098236a49da2b371854a8b4be743559cbeaa30bd8ed77e5ee58d12a888c",
     ".local/class-skills/volcano/python-tests.log": "3998754829b2f5715c90a74b5ab68dfaf66279b43ae1574df7f556542f3f1759",
-    ".local/class-skills/volcano-focused-run.log": "d22b3495d313bd2abd95661e6e6b2fb5ee106ea34d0d5e5fd619189f7fbb22b3"
+    ".local/class-skills/volcano-focused-run.log": "d22b3495d313bd2abd95661e6e6b2fb5ee106ea34d0d5e5fd619189f7fbb22b3",
+    ".local/class-skills/volcano/class-inputs.json": "dd18a40088d30c71eb341578748e465064b09d3835361bf7855774dfcee47f97",
+    ".local/class-skills/volcano/class-native-checks.log": "ccee07cb9b27b842b158ad113bc6a65f4ce39f767548e4627986917ceebbb464",
+    ".local/class-skills/volcano-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC ground/live/deleted/self aim, right-only/quick bindings, once-only25mana release and100-frame local delay pass. Stop/out-and-back/recovery/lost-mana cancellation, early/duplicate release, separate skill cooldown and discarded unpaid windup pass.",
