@@ -44,7 +44,7 @@ def check():
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['pet-movement', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', 'inner-sight']:
+        for name in ['pet-movement', 'spirit-wolf-hit', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', 'inner-sight']:
             shutil.copy2(ROOT / '.local/class-skills' / (name + '-source-probe.json'), folder / (name + '-source-probe.json'))
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
@@ -63,7 +63,7 @@ def check():
         configpath.write_text(json.dumps(config))
         paths = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration'] for p in (ROOT / directory).glob('*.cs')]
         paths += [Path(__file__).resolve(), ROOT / 'tests/check_raven_stats.py', ROOT / '.local/class-skills/raven-components-source-probe.json', ROOT / '.local/class-skills/valkyrie-creation-source-probe.json']
-        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['pet-movement', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path', 'inner-sight', 'battle-orders']]
+        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['pet-movement', 'spirit-wolf-hit', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path', 'inner-sight', 'battle-orders']]
         inventory = dict(sourceInputs={str(p.relative_to(ROOT)): sha(p) for p in sorted(paths)},
                          copiedData={str(p.relative_to(folder)): sha(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
                          artifacts={str(p.relative_to(folder)): sha(p) for p in [folder / 'ModernUO.dll', folder / 'Server.dll', folder / 'Assemblies/UOContent.dll', folder / 'Assemblies/Sanctuary.Content.dll', folder / 'Assemblies/Sanctuary.Integration.dll']})
@@ -76,7 +76,7 @@ def check():
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                    commands = ['pet-movement-check', 'skill-linear-check', 'spirit-wolf-stats-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands = ['pet-movement-check', 'skill-linear-check', 'spirit-wolf-stats-check', 'spirit-wolf-hit-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
                     commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['spirit-wolf-world', 'spirit-wolf-body', 'battle-orders', 'shout', 'summon-difficulty', 'class-history', 'full-wardrobe', 'inner-sight']]
                     for command in commands:
                         session.send(command)
@@ -101,13 +101,14 @@ def check():
                     if boot == 0 and audit:
                         session.send('first-loop-catalogue-check')
                         assert session.expect(r'first-loop-catalogue-check: (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
-                    with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
-                        threading.Thread(target=drain, args=(client,), daemon=True).start()
-                        session.send('spirit-wolf-world-live-check')
-                        assert session.expect(r'spirit-wolf-world-live-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
-                        session.expect('spirit-wolf-world-live: ready')
-                        client.sendall(b'\x73\x00')
-                        assert session.expect(r'spirit-wolf-world-live-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                    for family in ['spirit-wolf-world-live', 'spirit-wolf-hit-live']:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(family + '-check')
+                            assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
+                            session.expect(family + ': ready')
+                            client.sendall(b'\x73\x00')
+                            assert session.expect(family + r'-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
@@ -115,7 +116,7 @@ def check():
         shutil.copy2(folder / 'spirit-wolf-body-fixtures.json', STAGE / 'body-fixtures.json')
         shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'world-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Spirit Wolf life/ownership/world movement and retained consumers pass3boots/2actual reloads/3natural follows; ordinary hit/casting remain pending; installed world untouched.')
+    print('Prepared Spirit Wolf life/ownership/world movement/cold melee and retained consumers pass3boots/2actual reloads/3natural follows/3natural attacks; physical floor provisional, learned casting pending; installed world untouched.')
 
 
 if __name__ == '__main__':

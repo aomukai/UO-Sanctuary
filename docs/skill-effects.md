@@ -265,6 +265,8 @@ Shared incoming Graveyard firebolt uses the existing firebolt family: native0x36
 
 Raven uses native bird body0x6, identified placeholder name and attack animation, shared SC pose and sound0x1E5. Final druidhawk model/emergence/flight/dive/retirement, blind presentation and druid_summon audio remain pending. Talent-tree and right/quick icons stay in their independent icon row.
 
+Spirit Wolf: prepared silent UO body0xE1 is named Spirit Wolf [placeholder]; cold state uses temporary0x374A/hue0x480. Final wolf model/emergence, walk/run, bite/cold contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent-tree/right/quick icons stay in the separate icon row. Learned casting remains unavailable while its mechanical work continues.
+
 Decoy entity: static UO sex silhouette/hue0x481 and0x376A appear marker are identified placeholders. Final model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio remain pending. Talent and right-hotkey icons remain separate. Free-ground casting is enabled; blocked-cell fallback remains individually unsupported.
 
 Slow Missiles: logical slowed encounter-bolt positions use identified UO0xF42/0x36D4/0x3818 markers; final missile presentation remains pending. Cast_slowmissiles, the innersight target overlay and amazon_handofathena audio still need final assets and a cast/target consumer. Talent and right-hotkey icons are tracked separately. Full skill availability is pending the remaining mechanics.

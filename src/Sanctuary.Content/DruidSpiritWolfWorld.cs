@@ -12,13 +12,14 @@ namespace Sanctuary;
 internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulong Seed,DateTime NextUtc,
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=47,uint Target=0,
     bool Teleport=false,Point2D TeleportPoint=default,int PathOverride=0,int VelocityBonus=0,int PathBudget=0,
-    int StrikeRequests=0,uint PendingStrikeTarget=0,int PendingStrikeFrame=0,int PendingStrikeRank=0,string Fault=null,int MovingBonus=0)
+    int StrikeRequests=0,uint PendingStrikeTarget=0,int PendingStrikeFrame=0,int PendingStrikeRank=0,string Fault=null,int MovingBonus=0,
+    SpiritWolfHitResult LastHit=null,int Hits=0)
 {
-    public string Profile{get;init;}="source-ai-native-ground-fit-pending-hit-v1";
+    public string Profile{get;init;}="source-ai-native-ground-fit-cold-hit-v2";
 }
 
-// Live saved movement/AI backend. Its explicitly pending ordinary-hit request
-// is not a zero-damage skill implementation and is never a learned cast route.
+// Live saved movement/AI and bounded cold-melee backend. This prepared factory
+// is not a learned cast route; its remaining physical-floor uncertainty is explicit.
 // Native fit/LOS and facet-wide room projection remain geometry adapters.
 internal static class DruidSpiritWolfWorld
 {
@@ -30,7 +31,9 @@ internal static class DruidSpiritWolfWorld
             || s.NextThink<0 || s.NextThink!=0&&s.NextThink<=s.Frame || s.ActionAt<0 || s.ActionAt!=0&&s.ActionAt<=s.Frame
             || s.EndAt<0 || s.EndAt!=0&&s.EndAt<=s.Frame || s.PathOverride is not(0 or 1 or 7 or 13 or 15)
             || s.VelocityBonus is <-126 or >126 || s.MovingBonus is <-126 or >126 || s.PathBudget is <0 or >77 || s.StrikeRequests<0 || s.PendingStrikeRank is <0 or >255
-            || s.Profile!="source-ai-native-ground-fit-pending-hit-v1"
+            || s.Profile is not("source-ai-native-ground-fit-pending-hit-v1" or "source-ai-native-ground-fit-cold-hit-v2")
+            || s.Hits<0 || s.Hits>s.StrikeRequests
+            || s.LastHit is{} hit && (!Enum.IsDefined(hit.Outcome) || hit.Chance is <0 or >95 || hit.Cold256<0 || hit.Fire256<0 || hit.Lightning256<0 || hit.ColdFrames<0 || hit.LifeLost<0)
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0 || s.Teleport)
             || s.Mode is 2 or 15 && ((s.Motion.Flags&0x20)==0 || s.ActionAt!=0 || s.EndAt!=0)
             || s.Mode==4&&(s.EndAt==0 || s.Target==0) || s.Teleport&&s.Mode!=8)
@@ -253,11 +256,11 @@ internal static class DruidSpiritWolfWorld
                 {if(Point(body,s.TeleportPoint,out var destination)){s=Relocate(body,s,destination,body.Map);}s=s with{ActionAt=0,Teleport=false};}
                 else if(s.Mode==4)
                 {
-                    // A source action exists here, but its ordinary typed hit,
-                    // block and unresolved physical floor are not implemented
-                    // by movement. Retain the request explicitly for that pass.
+                    ulong seed=s.Seed;
+                    var hit=DruidSpiritWolfHit.Resolve(body,owner,s,World.FindMobile((Serial)s.Target) as BaseCreature,ref seed);
+                    if(body.Deleted){return;}
                     s=s with{ActionAt=0,StrikeRequests=checked(s.StrikeRequests+1),PendingStrikeTarget=s.Target,PendingStrikeFrame=s.Frame,
-                        PendingStrikeRank=SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf)};
+                        PendingStrikeRank=SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf),Seed=seed,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==SpiritWolfHitOutcome.Hit?1:0))};
                 }
             }
             if(s.Mode is 4 or 8 && s.EndAt==s.Frame)

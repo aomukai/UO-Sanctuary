@@ -172,7 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
-        if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Prepared saved life/ownership; AI and attack consumers pending");}
+        if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Prepared saved life/movement/cold hit; learned casting and modern full parity pending");}
         if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
         for (var type = creature.GetType(); type != null; type = type.BaseType)
         {

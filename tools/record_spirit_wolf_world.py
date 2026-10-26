@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind bounded saved wolf movement acceptance; ordinary hit/casting remain pending."""
+"""Bind bounded saved wolf movement/cold-melee acceptance; learned casting remains pending."""
 import argparse
 import hashlib
 import json
@@ -26,13 +26,17 @@ def record(check=False):
     assert log.count('spirit-wolf-world-reload-check: passed') == 2
     assert log.count('spirit-wolf-world-live-check: passed') == 3
     assert log.count('spirit-wolf-world-live-result: passed') == 3
+    assert log.count('spirit-wolf-hit-check: passed') == 1
+    assert log.count('spirit-wolf-hit-live-check: passed') == 3
+    assert log.count('spirit-wolf-hit-live-result: passed') == 3
+    assert '384complete source cold packet/RNG comparisons' in log
     assert log.count('Writing world save snapshot done') == 3
     assert log.count('Shutting down') == 3
     fixture = json.loads((STAGE / 'world-fixtures.json').read_text())
     controller = fixture['State']['Controller']
-    assert controller['Profile'] == 'source-ai-native-ground-fit-pending-hit-v1'
+    assert controller['Profile'] == 'source-ai-native-ground-fit-cold-hit-v2'
     assert controller['Mode'] == 1 and controller['Motion']['Points'] == []
-    assert controller['Fault'] is None and controller['StrikeRequests'] == 0
+    assert controller['Fault'] is None and controller['StrikeRequests'] > 0 and controller['LastHit'] is not None
     assert fixture['Route']['Owner'] == fixture['Owner']
     assert len(fixture['Route']['Trail']) == 20
     assert fixture['Life'] == 100 * 256 + 17 + 2 * 32
@@ -42,32 +46,38 @@ def record(check=False):
         'src/Sanctuary.Content/SourcePetMovement.cs', 'src/Sanctuary.Content/DruidSpiritWolfAi.cs',
         'src/Sanctuary.Content/SourceActorMotion.cs', 'src/Sanctuary.Content/SourceActorPath.cs',
         'src/Sanctuary.Content/ClassMovement.cs', 'src/Sanctuary.Content/Teleportation.cs',
-        'src/Sanctuary.Content/SkeletonPets.cs', 'tools/build_class_skills.py',
+        'src/Sanctuary.Content/SkeletonPets.cs', 'src/Sanctuary.Content/DruidSpiritWolfHit.cs',
+        'src/Sanctuary.Content/AssassinTrapAttack.cs', 'src/Sanctuary.Content/SourceBlocking.cs',
+        'src/Sanctuary.Content/ColdStates.cs', 'src/Sanctuary.Content/SkillHealth.cs', 'src/Sanctuary.Content/SkillCombat.cs', 'tools/build_class_skills.py',
         'data/Sanctuary/Balance/necromancer-summons.json', 'tests/check_spirit_wolf_body.py',
-        'tests/Sanctuary.Integration/SpiritWolfWorldChecks.cs', 'tools/record_spirit_wolf_world.py',
+        'tests/Sanctuary.Integration/SpiritWolfWorldChecks.cs', 'tests/Sanctuary.Integration/SpiritWolfHitChecks.cs', 'tools/record_spirit_wolf_world.py',
         'tools/reference/spirit-wolf-body-native-evidence.json', 'tools/reference/pet-movement-native-evidence.json',
-        'tools/reference/druid-beasts-preflight.json', 'tools/reference/spirit-wolf-corrected-ai-source-evidence.json']]
+        'tools/reference/druid-beasts-preflight.json', 'tools/reference/spirit-wolf-corrected-ai-source-evidence.json',
+        'tools/reference/spirit-wolf-hit-source-evidence.json', 'tools/probe_spirit_wolf_hit_reference.py']]
     paths += [STAGE / name for name in [
         'stats-inputs.json', 'stats-native-checks.log', 'stats-run.log', 'world-fixtures.json',
         'python-tests.log', 'content-build.log', 'integration-build.log',
         'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     evidence = dict(referenceVersion='3.3.93847', supplementaryAiCommit='7f6d773f31060e97124241e6bd30d606bcab6d4e',
-        scope='Prepared world-controller factory and retained life/policy consumers, with declared native terrain/input services. Learned cast and ordinary hit delivery remain unavailable.',
+        scope='Prepared world-controller/cold-melee factory and retained life/policy consumers, with declared native terrain/input services. Learned casting remains unavailable; the omitted legacy physical floor remains provisional.',
         profile=controller['Profile'], installed=False, actorConnected=True, automaticWolfClock=True,
-        ordinaryAttack=False, learnedHandler=False, fullClassRegression=False, currentExecutableParity=False,
-        boots=3, actualReloads=2, connectedNaturalFollows=3, passedMarkers=len(re.findall(r': passed', log)),
+        boundedColdMelee=True, ordinaryAttackFullParity=False, learnedHandler=False, fullClassRegression=False, currentExecutableParity=False,
+        sourceColdPacketComparisons=384, boots=3, actualReloads=2, connectedNaturalFollows=3, connectedNaturalAttacks=3, passedMarkers=len(re.findall(r': passed', log)),
         pythonTests=70, buildWarnings=0, buildErrors=0, handlers=166, druidHandlers=10,
         completedClasses=[], goalComplete=False,
         hashes={str(path.relative_to(ROOT)): sha(path) for path in paths},
         established=[
             'A saved world controller now calls CorrectedThink and SourcePetMovement through real actor services. Three authenticated loopback sessions exercise the natural40ms timer: initial25-frame think, source paths and position updates bring a distant wolf toward its owner. This tests server movement, not graphical client animation or a learned cast.',
-            'Explicit world frames retain individual targets when another wolf is created, approach an occupied target footprint and request A1only in melee. A1action records a pending strike without silently applying invented damage. The shared hit-recovery route cancels its queued action, stops movement and preserves RNG/strike count.',
+            'Explicit world frames retain individual targets when another wolf is created, approach an occupied target footprint and request A1only in melee. A1action now resolves a recorded outcome and saved seed/hit count. Shared hit recovery cancels queued actions. Three additional connected natural clocks commit actual cold damage and chill.',
+            'The cold-only packet matches384complete older-source skip-physical contexts, retaining FP256/exclusive upper bounds, copied whole endpoints, actor mastery controls, equal-endpoint draw suppression and raw Crit5all-channel doubling without length change. Fire/lightning/cold order is retained. The shared integer nonplayer hit helper uses copied flat AR plus live actor percent; native skeleton Dexterity and player-only owner modifiers do not leak.',
+            'Actual mapped-NPC checks cover misses, shield blocking before cold fill, fractional cold damage/chill,100percent cold immunity without guessed physical damage, intrinsic critical, live actor Enchant fire/AR, ordinary release reach distinct from AI melee, invalid-range no-RNG and lethal killer identity. Older movement-only profiles migrate without replaying a pending strike. Saved LastHit/outcome/counters survive two actual reloads.',
             'Delayed Teleport2request is distinct from common-pet placement: event+4moves to its captured legal destination; +3does not. Source S1/A1/WL/RN/GH metadata and animation event plans are exported separately from current-executable timing claims.',
             'Saved owner history has20points, strict25ms/displacement45gates, wrap, unconditional successful teleport append and50-frame last-teleport expiration. Snapshots do not alias caller arrays; malformed owner history/world state restoration is atomic.',
             'Offline and wardrobe states stop actions, RNG and healing while discarding elapsed frames. Two actual world reloads retain the parked actor owner/birth/pose/seed/clock/fractional injury and owner history; one subsequent active frame resumes placement and adds32FP recovery. Body-only health, buffs, facet and other retained consumers remain separately checked.',
             'Three boots/two reloads retain policy, numeric, Raven/path/Valkyrie, named gear, buffs, histories, wardrobe, Inner Sight and three actual Decoy casts/expiries/disconnect checks. Fresh audits retain573named definitions and all70Python checks pass. The installed main build and original saves/configuration/client are unchanged.'
         ], remaining=[
-            'Ordinary hit accuracy/block/critical/cold/chill and supported equipment delivery are next. The user expects100percent cold damage; the tiny physical floor in the older ordinary-hit source remains unverified in3.3.93847. No physical damage branch is inferred from that uncertainty. Nonzero cold sunder remains explicitly unsupported by this prepared factory.',
+            'A1animation events currently use the raw176speed row. Live attack-speed modifiers from haste/Fanaticism, Decrepify/chill and source speed clamps are not yet composed; this remains mechanical implementation work, not just a graphical asset gap. Recipient HTH-defense additions/passive avoidance and exact block-mode timing also need broader acceptance.',
+            'The cold-only ordinary hit is a clearly provisional current-data profile: the user expects100percent cold damage, but the tiny physical floor in older source remains unverified in3.3.93847. Complete summon equipment creation/stat transport, item events, passive target avoidance, PvP/unmapped targets, exact retaliation/event order and nonzero cold sunder remain unsupported or unverified. Holy elemental-aura channel composition is wired but not separately established by the Enchant checks. Actor Dexterity0is an explicit default projection pending complete current monster initialization acceptance.',
             'Learned do119placement/payment/FIFO-cap/coexistence, right/quick input, full-class regression, matching graphical client acceptance and installation remain pending. No additional handler or class completion is claimed.',
             'Ground fit/LOS, accepted native tile steps and one-step owner route, facet-wide room projection, nearest mapped-NPC scan, size/grid conversions and scoped per-actor RNG are explicit adapters. Complete source skeleton placement, AStar/type1and straight/type7close-obstacle fallback, moving-unit path repair and exact modern crowd/room/geometry/global ordering are unfinished. Unsupported AStar requests fault the prepared controller explicitly.',
             'The corrected source resolves the old pointer-versus-combat defect but does not certify current D2R. Negated potential-target visibility remains uncertain. S1initial think/end composition, Teleport2mode-change versus animation callbacks, exact recovery/repath chronology and current-executable event equivalence still need reference work.',
@@ -79,7 +89,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Prepared world wolf:3boots/2reloads/3natural follows, saved individual movement/history/teleport and recovery cancellation; ordinary hit and learned casting pending.')
+    print('Prepared world wolf:3boots/2reloads/3natural follows/3natural cold attacks,384source packet comparisons; physical floor provisional and learned casting pending.')
 
 
 if __name__ == '__main__':

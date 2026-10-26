@@ -2443,7 +2443,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared actor is named Spirit Wolf [placeholder], uses UO body0xE1 and silent sound. Cold-state marker0x374A/hue0x480 is temporary. Final wolf body/emergence, walk/run, bite/contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent/right/quick icons stay in the separate icon register."
   },
   {
     "talentId": "druid.carrionvine",

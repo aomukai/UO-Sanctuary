@@ -22,6 +22,7 @@ public static class SpiritWolfWorldChecks
     {
         Register("spirit-wolf-world-check",Check);Register("spirit-wolf-world-reload-check",Reload);
         Register("spirit-wolf-world-live-check",()=>FixtureNetwork.Connected("spirit-wolf-world-live-result",Live));
+        Register("spirit-wolf-hit-live-check",()=>FixtureNetwork.Connected("spirit-wolf-hit-live-result",n=>Live(n,true)));
     }
     private static void Register(string command,Action action)=>ConsoleInputHandler.RegisterCommand(command,"Prepared live wolf movement; ordinary hit and learned cast pending",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Command}: passed",command);}catch(Exception e){Log.Error(e,"{Command}: failed",command);}}));
@@ -31,7 +32,7 @@ public static class SpiritWolfWorldChecks
         foreach(string prior in talent.Prerequisites){Train(p,prior);}
         if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
-    private static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh()
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
@@ -39,7 +40,7 @@ public static class SpiritWolfWorldChecks
         for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,0),Map.Trammel);}
         p.MoveToWorld(new(7100,y,0),Map.Trammel);return p;
     }
-    private static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
+    internal static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
     private static void Through(DruidSpiritWolfBody body,int frame,bool actions=true)
     {var s=body.Prepared.Controller;Require(frame>s.Frame,"Reverse/equal wolf fixture clock");DruidSpiritWolfWorld.Advance(body,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);}
     private static void Routes()
@@ -107,7 +108,8 @@ public static class SpiritWolfWorldChecks
             int action=wolf.Prepared.Controller.ActionAt;int life=SkillHealth.Balance256(a);
             Through(wolf,action-1);Require(wolf.Prepared.Controller.StrikeRequests==0,"Pending hit requested before A1action event");
             Through(wolf,action);Require(wolf.Prepared.Controller.StrikeRequests==1 && wolf.Prepared.Controller.PendingStrikeTarget==a.Serial.Value
-                && SkillHealth.Balance256(a)==life,"Pending ordinary hit was silently treated as finished damage");
+                && wolf.Prepared.Controller.LastHit is{Outcome:not SpiritWolfHitOutcome.Unsupported}
+                && (wolf.Prepared.Controller.LastHit.Outcome==SpiritWolfHitOutcome.Hit?SkillHealth.Balance256(a)<life:SkillHealth.Balance256(a)==life),"Ordinary action did not resolve its recorded hit outcome");
             var attack=wolf.Prepared.Controller;
             wolf.RestorePrepared(wolf.Prepared with{Controller=attack with{ActionAt=attack.Frame+2,EndAt=attack.Frame+7}});
             CreatureHitRecovery.Apply(wolf,p,wolf.HitsMax);
@@ -132,11 +134,12 @@ public static class SpiritWolfWorldChecks
     private static void Check()
     {
         Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared world actor enabled learned cast");Routes();Movement();TargetsAndTeleport();
-        var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),at,9001);
-        PetOwnerRoutes.Teleported(p,at);Through(body,35);SkillHealth.SetBalance256(body,100*256+17);PersistentMinions.Suspend(p);
+        var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,9001);var target=Enemy(p,2);
+        PetOwnerRoutes.Teleported(p,at);Through(body,45);Require(body.Prepared.Controller.StrikeRequests>0 && body.Prepared.Controller.LastHit!=null,"No resolved ordinary hit saved");
+        target.Delete();SkillHealth.SetBalance256(body,100*256+17);PersistentMinions.Suspend(p);
         var route=PetOwnerRoutes.Snapshot().Single(x=>x.Owner==p.Serial.Value);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),route,p.Map.MapID,p.Location)));
-        Log.Information("Prepared Spirit Wolf world: actual run/follow, individual target retention, pending A1event, delayed teleport, owner history, offline/wardrobe and atomic pose controls pass; ordinary hit/cast and full geometry pending");
+        Log.Information("Prepared Spirit Wolf world: actual run/follow, individual target retention, resolved A1event, delayed teleport, owner history, offline/wardrobe and atomic pose controls pass; learned cast and full geometry pending");
     }
     private static void Reload()
     {
@@ -152,7 +155,8 @@ public static class SpiritWolfWorldChecks
         Require(body.Map==p.Map && SkillHealth.Balance256(body)==saved.Life+32,"Actual world reload resume/recovery");
         PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
     }
-    private static void Live(NetState network)
+    private static void Live(NetState network)=>Live(network,false);
+    private static void Live(NetState network,bool attacking)
     {
         var p=Fresh();network.Seeded=true;network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
@@ -161,19 +165,24 @@ public static class SpiritWolfWorldChecks
         // promotion gate as a real login before streaming the test floor.
         var account=new Account("wolf-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;
         network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        var body=DruidSpiritWolfWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+10000;
+        var target=attacking?Enemy(p,3):null;if(target!=null){TimedEffects.PreventHealing(target,TimedEffects.Now);target.SetResistance(ResistanceType.Cold,0);}
+        int life=target==null?0:SkillHealth.Balance256(target);
+        string result=attacking?"spirit-wolf-hit-live":"spirit-wolf-world-live";
+        var body=DruidSpiritWolfWorld.Create(p,new(p.X+(attacking?1:16),p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+10000;
         void Inspect()
         {
             try
             {
                 Require(network.Running && !body.Deleted && body.Prepared.Controller.Fault==null,"Natural world actor disconnected/deleted/faulted: "+JsonSerializer.Serialize(body.Prepared.Controller));
                 Require(Core.TickCount<deadline,"Natural world follow timeout");
-                if(body.GetDistanceToSqrt(origin)<2){Timer.StartTimer(TimeSpan.FromMilliseconds(50),Inspect);return;}
-                Require(body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin) && body.Prepared.Controller.Frame>=25,"Natural source frames moved away from owner");
-                End(p);account.Delete();Log.Information("spirit-wolf-world-live-result: passed");
+                if(attacking?body.Prepared.Controller.Hits==0:body.GetDistanceToSqrt(origin)<2){Timer.StartTimer(TimeSpan.FromMilliseconds(50),Inspect);return;}
+                if(attacking){Require(SkillHealth.Balance256(target)<life && body.Prepared.Controller.LastHit is{Outcome:SpiritWolfHitOutcome.Hit,Cold256:>0,Fire256:0,Lightning256:0}
+                    && GearEffects.ChillPercent(target)>0,"Natural wolf ordinary cold hit/state did not commit");}
+                else{Require(body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin) && body.Prepared.Controller.Frame>=25,"Natural source frames moved away from owner");}
+                target?.Delete();End(p);account.Delete();Log.Information("{Result}-result: passed",result);
             }
-            catch(Exception e){End(p);account.Delete();Log.Error(e,"spirit-wolf-world-live-result: failed");}
+            catch(Exception e){target?.Delete();End(p);account.Delete();Log.Error(e,"{Result}-result: failed",result);}
         }
-        Timer.StartTimer(TimeSpan.FromMilliseconds(40),()=>{Log.Information("spirit-wolf-world-live: ready");Inspect();});
+        Timer.StartTimer(TimeSpan.FromMilliseconds(40),()=>{Log.Information("{Result}: ready",result);Inspect();});
     }
 }
