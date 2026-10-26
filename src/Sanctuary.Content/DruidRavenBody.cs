@@ -20,8 +20,8 @@ internal sealed record RavenBodyState(uint Owner,RavenBirth Birth,MonsterDifficu
     public string TimingProfile{get;init;}="legacy-npc-clock-current-hk-metadata-v1";
 }
 
-// Prepared actual minion backend. Learned Raven casting remains disabled until
-// owner/input/lifecycle/natural attack and saved-actor acceptance is complete.
+// Actual minion backend. The explicit legacy timing profile is not a claim
+// of complete current-executable AI/event/geometry equivalence.
 [SerializationGenerator(0)]
 public partial class DruidRavenBody:SkeletonGuardian
 {
@@ -89,7 +89,7 @@ public partial class DruidRavenBody:SkeletonGuardian
         SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
     }
     internal void RestorePrepared(RavenBodyState state){Validate(state);var copy=Copy(state);string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
-    internal static DruidRavenBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at,ulong seed)
+    internal static DruidRavenBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at,ulong seed,bool enforce=true)
     {
         if(at.Kind!=DateTimeKind.Utc || owner.Map==null || owner.Map==Map.Internal || point.X<=0 || point.Y<=0
             || point.X>=owner.Map.Width || point.Y>=owner.Map.Height || Math.Abs(point.Z-owner.Z)>=16)
@@ -105,7 +105,7 @@ public partial class DruidRavenBody:SkeletonGuardian
             foreach(var kind in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy}){body.SetResistance(kind,0);}
             if(!body.SetControlMaster(owner)){throw new InvalidOperationException("Raven control master refused");}
             BattleCommand.Track(body);PersistentMinions.Profiles.Track(body);body.MoveToWorld(point,owner.Map);body.AIObject?.AITimer.Stop();
-            DruidRavens.Track(body);DruidRavens.Enforce(owner);return body;
+            DruidRavens.Track(body);if(enforce){DruidRavens.Enforce(owner);}return body;
         }
         catch{body.Delete();throw;}
     }

@@ -10,7 +10,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
-| 7 | Druid | 9 / 30 | 0 | 21 | Open |
+| 7 | Druid | 10 / 30 | 0 | 20 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
 Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
@@ -271,7 +271,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Shock Wave | 243 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Hunger | 242 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fury | 248 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Raven | 221 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Raven | 221 | handler-present | Learned right/quick SC casting pays six mana once after successful allocation, before FIFO replacement and whole-flock explicit focus. Actual saved Raven bodies retain birth stats, first-think finite attempt budget, live per-attack owner stats, physical damage and signed blind. Current verification is recorded in raven-stats-native-evidence.json and the checkpoint. The named legacy NPC timing profile with current HK metadata is not certified current D2R AI scheduling; moving-unit path repair, source room/vision/order/global RNG, PvP/unmapped-size targets and inherited physical sunder remain explicit unsupported or uncertain branches. Final bird/emergence/flight/dive/blind/retirement/audio and separate talent/right/quick icons remain placeholders; no class complete. |
 | Poison Creeper | 222 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Oak Sage | 226 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Summon Spirit Wolf | 227 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

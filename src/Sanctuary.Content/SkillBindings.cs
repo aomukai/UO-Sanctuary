@@ -44,7 +44,7 @@ public sealed class SkillBindings : GenericPersistence
     public bool Assign(PlayerMobile player, bool left, CombatAbility ability)
     {
         if (player == null || !player.Alive || !ClassCombat.Enabled(player) || left && ability is CombatAbility.Fissure or CombatAbility.Volcano
-            || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.BladeShield or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.Venom or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.MindBlast or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem or CombatAbility.InnerSight or CombatAbility.Decoy or CombatAbility.CycloneArmor or CombatAbility.Hurricane or CombatAbility.Armageddon)
+            || left && (PaladinCombat.IsAura(ability) || ability is CombatAbility.BladeShield or CombatAbility.BurstOfSpeed or CombatAbility.Fade or CombatAbility.Venom or CombatAbility.PsychicHammer or CombatAbility.CloakOfShadows or CombatAbility.MindBlast or CombatAbility.HolyShield or CombatAbility.Shout or CombatAbility.BattleOrders or CombatAbility.BattleCommand or CombatAbility.Howl or CombatAbility.BattleCry or CombatAbility.Taunt or CombatAbility.WarCry or CombatAbility.FindItem or CombatAbility.InnerSight or CombatAbility.Decoy or CombatAbility.CycloneArmor or CombatAbility.Hurricane or CombatAbility.Armageddon or CombatAbility.Raven)
             || ability != CombatAbility.None && !ClassCombat.Available(player, ability))
         {
             return false;

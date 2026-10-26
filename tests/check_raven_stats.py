@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import struct
 import tempfile
 import threading
 from check_britain import ROOT, SERVER, Session
@@ -84,7 +85,7 @@ def check():
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
                     commands = ['raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
-                    commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['raven-body', 'summon-difficulty', 'class-history', 'full-wardrobe']]
+                    commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['raven-body', 'raven-casting', 'summon-difficulty', 'class-history', 'full-wardrobe']]
                     for command in commands:
                         session.send(command)
                         assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
@@ -95,13 +96,29 @@ def check():
                         session.expect('raven-body-live: ready')
                         client.sendall(b'\x73\x00')
                         assert session.expect(r'raven-body-live-result: (passed|failed)', timeout=35).group(1) == 'passed', logpath.read_text()[-5000:]
+                    for family in ['raven-right', 'raven-quick']:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(family + '-check')
+                            assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed'
+                            ready = session.expect(family + r': ready ability=(\d+) class=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                            ability, character, x, y, z = map(int, ready.groups())
+                            if family == 'raven-right':
+                                client.sendall(struct.pack('>BHHBBIBIHHb', 0xBF, 21, 0xF2, 7, 4, 1, ability, 0, x, y, z))
+                            else:
+                                client.sendall(struct.pack('>BHHBBIBBBIHHb', 0xBF, 23, 0xF7, 2, 4, 1, character, 7, ability, 0, x, y, z))
+                            session.expect(family + ': windup')
+                            if family == 'raven-right':
+                                client.sendall(struct.pack('>BHHBBI', 0xBF, 11, 0xF2, 7, 5, 2))
+                            assert session.expect(family + r'-result: (passed|failed)' , timeout=10).group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
                     session.close()
         shutil.copy2(folder / 'raven-body-fixtures.json', STAGE / 'body-fixtures.json')
+        shutil.copy2(folder / 'raven-casting-fixtures.json', STAGE / 'casting-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Raven body/stats/flight/signed blind and retained summon difficulty/class history/Valkyrie/named-item consumers pass three boots/two reloads/three connected natural lifetimes; learned Raven remains disabled, installed Armageddon untouched.')
+    print('Learned Raven casting/body/stats/flight/blind and retained summon/wardrobe/history/item consumers pass three boots/two reloads/three natural lifetimes/three right casts/three quick casts; installed Armageddon untouched.')
 
 
 if __name__ == '__main__':

@@ -12,14 +12,14 @@ namespace Sanctuary.Integration;
 public static class RavenStatsChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(RavenStatsChecks));
-    public static void Configure()=>ConsoleInputHandler.RegisterCommand("raven-stats-check","Prepared Raven stats and signed summon blind; no learned actor",_=>Core.LoopContext.Post(()=>
+    public static void Configure()=>ConsoleInputHandler.RegisterCommand("raven-stats-check","Raven stats and signed summon blind components",_=>Core.LoopContext.Post(()=>
     {try{Check();Log.Information("raven-stats-check: passed");}catch(Exception e){Log.Error(e,"raven-stats-check: failed");}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static SkillValues Values(int level,int rank,int spirit=0,int dire=0,int grizzly=0)=>new(SkillMechanics.For(CombatAbility.Raven),
         key=>key=="Raven"?rank:255,key=>key=="Summon Spirit Wolf"?spirit:key=="Summon Fenris"?dire:key=="Summon Grizzly"?grizzly:0,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.Raven),"Prepared component enabled unfinished learned Raven");
+        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"raven-components-source-probe.json")));int damage=0,birth=0,blind=0;
         foreach(var row in data.RootElement.GetProperty("damage").EnumerateArray())
         {
@@ -41,7 +41,7 @@ public static class RavenStatsChecks
         Require(damage==13770 && birth==4590 && blind==12800,"Incomplete Raven component source capture");
         bool refused=false;try{DruidRavenStats.Birth(Values(99,29),MonsterDifficulty.Hell,true,_=>17);}catch(NotSupportedException){refused=true;}
         Require(refused,"Unsupported inherited physical sunder accepted");
-        Actual();Log.Information("Raven prepared stats:13770source damage/flatAR,4590explicit-level births,12800signed blind cases and actual NPC blind controls pass; learned actor remains disabled");
+        Actual();Log.Information("Raven stats:13770source damage/flatAR,4590explicit-level births,12800signed blind cases and actual NPC blind controls pass; learned casting checked separately");
     }
     private static void Actual()
     {

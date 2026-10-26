@@ -1890,10 +1890,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 221,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned right/quick SC casting pays six mana once after successful allocation, before FIFO replacement and whole-flock explicit focus. Actual saved Raven bodies retain birth stats, first-think finite attempt budget, live per-attack owner stats, physical damage and signed blind. Current verification is recorded in raven-stats-native-evidence.json and the checkpoint. The named legacy NPC timing profile with current HK metadata is not certified current D2R AI scheduling; moving-unit path repair, source room/vision/order/global RNG, PvP/unmapped-size targets and inherited physical sunder remain explicit unsupported or uncertain branches. Final bird/emergence/flight/dive/blind/retirement/audio and separate talent/right/quick icons remain placeholders; no class complete."
     },
     {
       "talentId": "druid.poisoncreeper",

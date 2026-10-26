@@ -6,8 +6,8 @@ namespace Sanctuary;
 internal sealed record RavenBirth(int Rank,int Level,int Life256,int Defense,int Attack,int Pierce,int Blind);
 internal readonly record struct RavenAttack(int Rank,int Minimum256,int Maximum256,int AttackBonus);
 
-// Components for do114 and monster SkillDamage only. No learned Raven handler
-// or autonomous actor is enabled until its casting/AI/lifecycle acceptance.
+// Numeric components shared by learned do114 casting and the Raven actor.
+// Current-executable scheduling and other declared acceptance gaps stay separate.
 internal static class DruidRavenStats
 {
     private static void Route(SkillValues values)

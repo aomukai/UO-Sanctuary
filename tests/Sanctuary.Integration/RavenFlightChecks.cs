@@ -11,7 +11,7 @@ namespace Sanctuary.Integration;
 public static class RavenFlightChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(RavenFlightChecks));
-    public static void Configure()=>ConsoleInputHandler.RegisterCommand("raven-flight-check","Circle-offset path component; no learned Raven actor",_=>Core.LoopContext.Post(()=>
+    public static void Configure()=>ConsoleInputHandler.RegisterCommand("raven-flight-check","Circle-offset Raven path component",_=>Core.LoopContext.Post(()=>
     {try{Check();Log.Information("raven-flight-check: passed");}catch(Exception e){Log.Error(e,"raven-flight-check: failed");}}));
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static Point2D Point(JsonElement row)=>new(row[0].GetInt32(),row[1].GetInt32());
@@ -38,7 +38,7 @@ public static class RavenFlightChecks
             var stopped=SourceActorMotion.Advance(end,(_,_)=>throw new InvalidOperationException("Completed circle queried collision"));
             Require(!stopped.Moving && !stopped.RepathRequired && stopped.State.Points.Length==0,"Completed circle attempted target repath");
         }
-        Require(!DruidCombat.Implemented(CombatAbility.Raven),"Circle component enabled unfinished Raven");
+        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven route missing");
         Log.Information("Raven circle paths:6480complete source contexts and{Queries}ordered collision queries match; circle-end/no-repath and saved path identity pass",queryCount);
     }
 }

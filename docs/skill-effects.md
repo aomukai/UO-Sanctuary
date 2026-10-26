@@ -263,6 +263,8 @@ Life Tap recovery: native0x376A hue0x26 identifies the temporary steallife effec
 
 Shared incoming Graveyard firebolt uses the existing firebolt family: native0x36D4 logical flight,0x3709 impact and0x15E/0x208 sounds are identified placeholders. Final projectile/cast/impact assets remain pending with Sorceress Fire Bolt; this NPC consumer needs no extra talent/hotkey icon.
 
+Raven uses native bird body0x6, identified placeholder name and attack animation, shared SC pose and sound0x1E5. Final druidhawk model/emergence/flight/dive/retirement, blind presentation and druid_summon audio remain pending. Talent-tree and right/quick icons stay in their independent icon row.
+
 Decoy entity: static UO sex silhouette/hue0x481 and0x376A appear marker are identified placeholders. Final model/owner resemblance, dopllezon_appear/overlay171 and amazon_valkyrie_cast audio remain pending. Talent and right-hotkey icons remain separate. Free-ground casting is enabled; blocked-cell fallback remains individually unsupported.
 
 Slow Missiles: logical slowed encounter-bolt positions use identified UO0xF42/0x36D4/0x3818 markers; final missile presentation remains pending. Cast_slowmissiles, the innersight target overlay and amazon_handofathena audio still need final assets and a cast/target consumer. Talent and right-hotkey icons are tracked separately. Full skill availability is pending the remaining mechanics.

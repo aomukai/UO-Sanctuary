@@ -144,7 +144,7 @@ public static class RavenBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.Raven),"Prepared body enabled learned handler");Attacks();ModeCapture();FlockAndLifecycle();Flight();
+        Require(DruidCombat.Implemented(CombatAbility.Raven),"Learned Raven route missing");Attacks();ModeCapture();FlockAndLifecycle();Flight();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidRavenBody.CreatePrepared(p,p.Location,at,442);
         Through(body,14);Snapshots(body);PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,p.Map.MapID,p.Location)));
