@@ -9,9 +9,12 @@
   "passedMarkers": 91,
   "handlers": 167,
   "druidHandlers": 11,
-  "fullClassRegression": false,
-  "fullClassBoots": 0,
-  "fullClassPassedMarkers": null,
+  "clientReusedByteIdentical": true,
+  "clientMetadataReflection": true,
+  "graphicalClientAcceptance": false,
+  "fullClassRegression": true,
+  "fullClassBoots": 3,
+  "fullClassPassedMarkers": 1181,
   "currentExecutableParity": false,
   "completedClasses": [],
   "goalComplete": false,
@@ -26,7 +29,7 @@
     "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",
     "tests/Sanctuary.Integration/SpiritWolfCastingChecks.cs": "2423bb989831eb4e7fd3cd675c4ed35939fe00fab38ec7ad4315de8d1c0e9fff",
     "tests/check_spirit_wolf_body.py": "76b58e9caeebdc205e2d6ac482a4d2cb74fac4aa7042b80c5f292b9e3c0c73ad",
-    "tools/record_spirit_wolf_casting.py": "d48a8e3d10240235cff79d81967c819981f5a1eada307362d685850a0a8dbe4d",
+    "tools/record_spirit_wolf_casting.py": "2da8445eb257e41fb96f6a55725412c6292b6c8ab5262df77ef284ffee54643a",
     "tools/reference/spirit-wolf-world-native-evidence.json": "33c471bc1107d3d054e582fc6555635194beb506197e05dad0c70281c3689a6e",
     "tools/reference/spirit-wolf-equipment-scope.json": "788b2b8d3c9386ea932c8f3da04cd1539fc518d9d2534398729deb4919fd3d3f",
     "data/Sanctuary/Balance/class-skill-status.json": "23b850b71689945e2a0e8204e16e9f619294c6fbb4a466a348828c2ce77ae677",
@@ -35,7 +38,15 @@
     ".local/class-skills/spirit-wolf/stats-run.log": "8a9b22abea97810e52c80dcc2434746d809968eccb378a430a2664d4f69bf06b",
     ".local/class-skills/spirit-wolf/casting-fixtures.json": "bc49066d48b5277cc4635b9aa3b6e9ee9c9238f06346fe1f47d326727336e528",
     ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "8f8a4028a6ce36a863725c407ba3f7ce05a2598407cc691af024a1d025e3a839",
-    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "374b59cee712e312158430608697bff27213c69fa2cb92b89b18adde67d7e739"
+    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "374b59cee712e312158430608697bff27213c69fa2cb92b89b18adde67d7e739",
+    ".local/class-skills/spirit-wolf/client-proof.log": "3d9319f35a54835c2ca6b902d9169c3bee5cf93bdaa822f0dabd9abce2f9daf9",
+    ".local/class-skills/spirit-wolf/client-proof/Program.cs": "71659169975eb3fdfe1cedcc848b67a56b131852efce3d77e8d73e0fec092d20",
+    ".local/class-skills/spirit-wolf/client-proof/check.csproj": "83f4a7fcb79a4d14c3efe178e1d3921495991b5f2b7a89b677ab81815183ca3a",
+    ".local/class-skills/spirit-wolf/client-proof-build.log": "8bd918312227be1295f2821d894136cd482cbb21c992fc0edf7ff672b973ddb7",
+    ".local/class-skills/spirit-wolf/client/cuo.dll": "5aab95cb0924b199f655ca104bedc46a7e1674c514e009ef0f15ec5b35da3a18",
+    ".local/class-skills/spirit-wolf/class-inputs.json": "5514a13552b84cab4a4a7ec5bf742d470f18723b5b596accf764cab52a1f73e0",
+    ".local/class-skills/spirit-wolf/class-native-checks.log": "569347020b0175356005503bdef57757213a35fe9a94f87e9c7cd7bc5c2bf51a",
+    ".local/class-skills/spirit-wolf/class-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned Summon Spirit Wolf routes through shared SC windup/release. The native row requires15mana; fractional insufficiency refuses, early release does nothing, and one successful action pays once after allocation, before per-type replacement. Stop, move-out-and-back, facet roundtrip, recovery, freeze, lost mana and newly blocked ground do not pay or create a wolf.",
@@ -47,6 +58,6 @@
   "remaining": [
     "The source spawn retry parameter4 is projected to a deterministic two-native-tile perimeter. Source room/collision search order, complete ground footprint geometry and current-client cached/dead target fallback remain unverified.",
     "The cold-only physical-floor omission and observed-bite-continuation-neutral-delay-v1 remain explicitly provisional. Exact modern busy/mid-swing cadence, path repair/AStar branches, global event/RNG order, cold sunder, recipient passive avoidance and graphical client acceptance are not certified by casting tests.",
-    "Full retained class regression and installation are not claimed by this focused run. Installed main remains at166handlers/Druid10. Missing wolf model/emergence/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain separate identified placeholders."
+    "Exact-package full retained class regression passes three boots/two reloads; installation remains separate. Installed main remains at166handlers/Druid10. Missing wolf model/emergence/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain separate identified placeholders."
   ]
 }

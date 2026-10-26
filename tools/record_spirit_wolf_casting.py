@@ -36,6 +36,15 @@ def record(check=False, full_class=False):
     status = json.loads((ROOT / 'data/Sanctuary/Balance/class-skill-status.json').read_text())
     assert len([x for x in status['skills'] if x['implementation'] == 'handler-present']) == 167
     assert status['completedClasses'] == []
+    client = json.loads((STAGE / 'client-proof.log').read_text())
+    assert client['Result'] == 'passed'
+    assert '0 Warning(s)' in (STAGE / 'client-proof-build.log').read_text()
+    assert '0 Error(s)' in (STAGE / 'client-proof-build.log').read_text()
+    for name in ['Baseline', 'Candidate']:
+        row = client[name]
+        assert row['Ability'] == 175 and row['Label'] == 'Summon Spirit Wolf' and row['Class'] == 'Druid'
+        assert not row['SelfTarget'] and not row['Left'] and row['Right']
+        assert row['Sha256'] == sha(STAGE / 'client/cuo.dll')
     paths = [ROOT / name for name in [
         'src/Sanctuary.Content/DruidSpiritWolfCasting.cs', 'src/Sanctuary.Content/DruidSpiritWolfBody.cs',
         'src/Sanctuary.Content/DruidSpiritWolfWorld.cs', 'src/Sanctuary.Content/DruidCombat.cs',
@@ -45,7 +54,8 @@ def record(check=False, full_class=False):
         'tools/record_spirit_wolf_casting.py', 'tools/reference/spirit-wolf-world-native-evidence.json',
         'tools/reference/spirit-wolf-equipment-scope.json', 'data/Sanctuary/Balance/class-skill-status.json']]
     paths += [STAGE / name for name in ['stats-inputs.json', 'stats-native-checks.log', 'stats-run.log',
-        'casting-fixtures.json', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
+        'casting-fixtures.json', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll',
+        'client-proof.log', 'client-proof/Program.cs', 'client-proof/check.csproj', 'client-proof-build.log', 'client/cuo.dll']]
     full_markers = None
     if full_class:
         full = json.loads((STAGE / 'class-inputs.json').read_text())
@@ -63,6 +73,7 @@ def record(check=False, full_class=False):
     evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False,
         boots=3, actualReloads=2, connectedRightCasts=3, connectedQuickCasts=3,
         passedMarkers=len(re.findall(r': passed', log)), handlers=167, druidHandlers=11,
+        clientReusedByteIdentical=True, clientMetadataReflection=True, graphicalClientAcceptance=False,
         fullClassRegression=full_class, fullClassBoots=3 if full_class else 0, fullClassPassedMarkers=full_markers,
         currentExecutableParity=False, completedClasses=[], goalComplete=False,
         hashes={str(path.relative_to(ROOT)): sha(path) for path in paths},

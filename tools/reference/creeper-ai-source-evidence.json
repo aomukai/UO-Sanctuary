@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "unchangedRoutineHashes": {
+    "D2GAME_AI_Unk_110_111_6FCECC40": "d56331ed3d285f62ec8402a196f24196881ecd56513fb3b906750cebcedf7423",
+    "AITHINK_Fn110_Vines": "c1f0785061787f390ff03d387d71ec0fe4f835602f06202d55f3d0e811baa03f"
+  },
+  "pinnedMonsterHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "generatedSourceSha256": "2862eb08728f8c354d38adb97bb6e697d1a4ad1493c3f5334971109fb830f2da",
+  "fixture": {
+    "path": ".local/class-skills/creeper-ai-source-probe.json",
+    "sha256": "676a676c358a26b795fd7d23868431c5093478e14f42a4c1b6884d9176b0d85d",
+    "cases": 1873
+  },
+  "contextFields": [
+    "owner",
+    "ownerDistance",
+    "warpResult",
+    "town",
+    "commonMoveResult",
+    "targetKind0none1distance19_2distance20",
+    "combat",
+    "alreadyPoisoned",
+    "poisonResistance",
+    "skill",
+    "elapsed",
+    "previousSkillFrame",
+    "useSkillResult"
+  ],
+  "actionFields": [
+    "kind0idle1petmove2common3escape4walk5skill",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+  ],
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr.",
+  "established": [
+    "The complete initializer resets AiParam0only. The complete Vines AI retains ownerless idle25, owner-distance>=35 mode3pet-move priority, town common movement with null target/combat0and idle25on refusal, and sight cutoff>=20.",
+    "After common movement declines, already-poisoned or exactly100poison-resist targets request escape10. Resistance101does not match that literal guard; mitigation/immunity behavior is not inferred from this test.",
+    "A non-combat target requests walk flag7. A valid skill ID includes0. Only elapsed>100requests S1skill, and the remembered skill frame updates even if the declared UseSkill service returns0. Exact elapsed100idles25without moving the remembered frame.",
+    "All three current difficulty rows share100/20/25/10/35AI parameters. Fixtures preserve complete ordered requests and final remembered skill frame, ready for a native policy comparison."
+  ],
+  "limits": [
+    "Owner/target lookup, distances, town/poison/resistance, common pet movement, escape/path/mode dispatch and skill success are supplied services. This is not actual NPC movement, visibility/attackability, poison-field damage, timer integration or modern executable parity.",
+    "Some boundary contexts deliberately vary combat and supplied scan distance independently. They validate literal outer dispatch, not physical reachability of every service combination. Frame arithmetic is bounded/nonnegative and does not prove signed overflow or game-frame wrap.",
+    "Current VINE_BEAST state behavior, actual saved actor, formula-driven trail lifetime/ownership, shared vine cap/casting/payment/input and native client acceptance remain pending. Final effects and icons remain separate placeholders."
+  ]
+}
