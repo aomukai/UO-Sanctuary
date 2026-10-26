@@ -169,7 +169,7 @@ int main(){bool first=true;printf("[");
                                 'Learned SC start/release/7mana payment, bindings, real input, item/synergy/rank controls, saved actors and actual reload/lifetime/owner/facet acceptance.',
                                 'Native geometry/room/timer/seed/event/current-executable and ordinary-client limits remain explicit. Do not port the older stun fallback or invent an exact modern grouping.',
                                 'Final twister/cast/contact/expiry/audio and talent/left/right/quick icons remain in the existing separate240-row inventories; identified placeholders may unblock mechanics.'],
-                     next='Finish and install the separately tested Fissure candidate first. Continue Twister from this source-only composition, reusing charged paths and independently checking physical/stun consumers. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
+                     next='Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Continue Twister from this source-only composition, reusing charged paths and independently checking physical/stun consumers. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
     output = ROOT / 'tools/reference/twister-preflight.json'
     text = json.dumps(preflight, indent=2) + '\n'
     if check:

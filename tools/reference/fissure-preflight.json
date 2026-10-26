@@ -3,8 +3,8 @@
   "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": true,
-  "installed": false,
-  "sourceStatus": "Staged learned Fissure passes3boots/2actual reloads/3connected natural actors/3quick packets,18360source endpoint comparisons,441source footprint cell comparisons and retained Blizzard controls. All70Python tests and589/21fresh audit fingerprints pass with573unchanged named definitions. The installed build remains159handlers/Druid3; full class regression also passes3boots/2actual reloads/3natural actors/3quick packets with exact matching assemblies and runtime data. See fissure-native-evidence.json for exact scope and hashes.",
+  "installed": true,
+  "sourceStatus": "Learned Fissure is installed from its exact tested package:160handlers/Druid4. Focused/full3boots/2actual reloads/3natural actors/3quick packets,70Python tests and589/21audit fingerprints pass with573unchanged named decisions. Original-world smoke passes with saves/config/client/profiles/settings unchanged and server stopped. The separate immutable fissure-native-evidence.json records pre-install scope; fissure-installation-evidence.json establishes installation. No class complete.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -264,7 +264,7 @@
   "remaining": [
     "Shared footprint projections are connected for currently exported Collision1 producers. Exact cross-producer allocation/mask timing, moving rounding, native terrain/size projection and room-list/collider order remain open; the legacy Poison Explosion representative does not establish exact source child fields.",
     "Current next-hit grouping across cracks/casts/owners/skills remains unverified. Saved cast-target-provisional-2.7 scope reuses existing weapon leases and remains explicitly distinct from legacy global STATE_JUSTHIT.",
-    "Complete full class regression and installation acceptance. Source/native room/path/order/geometry/seed/event/return-fire/mode/client/current-executable limits and final effects/audio/icons remain separate."
+    "Ordinary-client acceptance, source/native room/path/order/geometry/seed/event/return-fire/mode/current-executable limits and final effects/audio/icons remain separate."
   ],
   "assets": {
     "effects": "Native cracks use identified UO0x398C hue0x489 markers and0x3709 hue0x489 contact placeholders. Final center/cast,462/463 cracks,464/465 smoke,fire_hit contact,expiry and druid_firecast_a/sorceress_inferno audio remain pending. Learned SC cast sound0x1E5 remains an identified placeholder.",
@@ -276,7 +276,7 @@
     "installedDruidHandlers": 3,
     "scope": "Boulder is installed/verified; Fissure source preparation only."
   },
-  "next": "Finish full regression and installation acceptance for learned Fissure. Candidate160handlers/Druid4;159handlers/Druid3 remain installed. Keep exact modern hit-delay grouping and Boulder terminal explosion/ground correction individually open; Arctic Blast shares the deferred player Inferno channel, so continue Twister independently.",
+  "next": "Continue Twister saved charged-flight/native physical contact/modern stun preparation from its separate source and actual-content endpoint proofs. Keep provisional modern Fissure grouping, Arctic Blast/player channel work and Boulder terminal explosion/ground correction individually open. Installed160handlers/Druid4; no class complete.",
   "compiledSourceEvidence": "tools/reference/fissure-source-evidence.json",
   "factoryEvidence": "tools/reference/fissure-factory-source-evidence.json",
   "sharedSamplerEvidence": "tools/reference/ground-missile-scatter-evidence.json",
@@ -290,5 +290,6 @@
   "damageSourceEvidence": "tools/reference/fissure-damage-source-evidence.json",
   "damageConsumerEvidence": "tools/reference/fissure-damage-evidence.json",
   "legacyRoutingEvidence": "tools/reference/fissure-routing-source-evidence.json",
-  "nativePreparationEvidence": "tools/reference/fissure-native-evidence.json"
+  "nativePreparationEvidence": "tools/reference/fissure-native-evidence.json",
+  "installationEvidence": "tools/reference/fissure-installation-evidence.json"
 }
