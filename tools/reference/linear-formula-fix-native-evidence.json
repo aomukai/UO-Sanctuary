@@ -7,20 +7,20 @@
   "goalComplete": false,
   "newHandlers": 0,
   "focusedBoots": 1,
-  "fullClassRegression": false,
-  "fullBoots": 0,
-  "actualReloads": 0,
-  "fullClassPassedMarkers": null,
+  "fullClassRegression": true,
+  "fullBoots": 3,
+  "actualReloads": 2,
+  "fullClassPassedMarkers": 1184,
   "sourceAndNativeLinearCases": 9252,
   "retainedCreeperComparisons": 14016,
   "buildWarnings": {
     "content": 0,
     "integration": 0
   },
-  "pythonTests": null,
-  "unchangedNamedDefinitions": null,
-  "namedAuditFingerprints": null,
-  "firstLoopFingerprints": null,
+  "pythonTests": 70,
+  "unchangedNamedDefinitions": 573,
+  "namedAuditFingerprints": 603,
+  "firstLoopFingerprints": 21,
   "hashes": {
     "src/Sanctuary.Content/SkillMechanics.cs": "1598c747a49686178398c3d87c8d91d4602ac8b4ea10f34baee26e1099ee33d2",
     "src/Sanctuary.Content/NecromancerEffects.cs": "8a9676bc2a7d47a5e7673b59c5a36ecad79413a87a494b82956d03759b07cb37",
@@ -38,7 +38,13 @@
     ".local/class-skills/beasts/integration-build.log": "eeb5ccf12c1af3c0741d07a336afd8f000d1f4a0a658a42f47348b865ab635ac",
     ".local/class-skills/beasts/linear-before/receipt.json": "aaeacf7a9fde2ac6d603180d1471692200c460dceb9a8747fc276697a85c6da5",
     ".local/class-skills/beasts/linear-before/stats-native-checks.log": "18b955e9d86fec9abaf762a60ca57a49566d93a42f9fde6fbaf7f9aff25f7214",
-    ".local/class-skills/beasts/linear-only-full-failure/class-native-checks.log": "d978169f77845ee49ef27383780bbc3609eeae45d7043ef60004f6fe38d2a472"
+    ".local/class-skills/beasts/linear-only-full-failure/class-native-checks.log": "d978169f77845ee49ef27383780bbc3609eeae45d7043ef60004f6fe38d2a472",
+    ".local/class-skills/beasts/class-inputs.json": "ea767bc5f9bc20e778cd7b2fc1b395e1b05276dea52fd543ff2c322eaa9cfedf",
+    ".local/class-skills/beasts/class-native-checks.log": "350edc5bfd92fad28f087492686e0bcf9d6d5abc6c9818e98d3e3297db0c8745",
+    ".local/class-skills/beasts/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/beasts/python-tests.log": "1c1d529fb4db2fe420bd434c49fff0d7df277afa81fb675d169f5caa8d46523e",
+    "tools/reference/named-item-runtime-audit.json": "a394e5046ae72b301bf73abfb4411da45401bc232dd7eee308ad2feaddb41963",
+    "tools/reference/first-loop-affix-audit.json": "7959644bf5375a8d3b1d3905d569b0c886b05530f264504089a93af7034c6af1"
   },
   "scope": "Shared formula/curse corrections and retained prepared/learned consumers. No new learned summon, actor or whole-class parity claim.",
   "established": [
@@ -47,7 +53,7 @@
     "Prepared Creeper numeric/vine callbacks and retained Raven stats/blind/flight/path, toward paths, Valkyrie creation and named items pass the focused boot. The installed world/client are untouched by these isolated runs."
   ],
   "remaining": [
-    "Complete broad regression, fresh native audits and Python acceptance before installation.",
+    "Prepare preserved exact-package installation and original-world smoke if promoting this shared correction.",
     "Spirit Wolf source creation/cold proof is separate; its actual saved actor, learned casting and six-slot/sunder consumer acceptance remain pending.",
     "Creeper actor/current Range/state/owner-stat gaps and final effects/icons remain separate. Handler coverage remains166/Druid10 and no class is complete."
   ]
