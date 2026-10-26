@@ -28,14 +28,14 @@ internal static class DruidWolfGeometry
         if(firstSize==3 || secondSize==3){d=Math.Max(0,d-1);}
         return d+(firstSize<=1 || secondSize<=1?1:0);
     }
-    internal static (int Action,int End) Clock(string mode)
+    internal static (int Action,int End) Clock(string mode,int? suppliedSpeed=null)
     {
-        int frames=NecromancerSummons.Source("spiritwolf-animation",mode+"Frames"),speed=NecromancerSummons.Source("spiritwolf-animation",mode+"Speed");
-        if(frames is <1 or >144 || speed is <1 or >32767){throw new NotSupportedException("Unsupported wolf animation metadata");}
+        int frames=NecromancerSummons.Source("spiritwolf-animation",mode+"Frames"),speed=suppliedSpeed??NecromancerSummons.Source("spiritwolf-animation",mode+"Speed");
+        if(frames is <1 or >144 || speed is <0 or >32767){throw new NotSupportedException("Unsupported wolf animation metadata");}
         var flags=new int[144];int action=NecromancerSummons.Source("spiritwolf-animation",mode+"Action",-1);
         if(action>=0){if(action>=frames){throw new NotSupportedException("Invalid wolf action flag");}flags[action]=1;}
         var plan=SourceAnimationEvents.Initial(new(0,speed,frames*256,flags,[]),0);
-        return (action<0?0:plan.Events.Single(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1).Frame,
+        return (action<0?0:plan.Events.FirstOrDefault(e=>e.Type==SourceAnimationEvents.ModeChange&&e.Kind==1)?.Frame??0,
             plan.Events.Single(e=>e.Type==SourceAnimationEvents.EndAnimation).Frame);
     }
     internal static ActorMotionState Stop(ActorMotionState s)=>s with{Points=[],Index=0,Flags=s.Flags&~0x28,Vector=new(0,0)};

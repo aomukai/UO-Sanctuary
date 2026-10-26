@@ -26,7 +26,7 @@ public static class ColdStates
     public static int OtherRate(Mobile target)=>TimedEffects.TryActor(target,out var actor) && actor.Cold!=null && actor.ChillUntil>TimedEffects.Now?-actor.ChillPercent:0;
     internal static bool Commit(Mobile source,Mobile target,int mitigatedFrames,bool monster,int effect,int divisor,long tick)
     {
-        if(target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet){return false;}
+        if(target is not{Alive:true,Deleted:false} || target.IsDeadBondedPet || DruidSpiritWolfBody.ObservedChillImmune(target)){return false;}
         int frames=StateFrames(mitigatedFrames,monster,effect,divisor);if(frames==0){return false;}
         var now=TimedEffects.TimeAt(tick);
         bool existing=TimedEffects.TryActor(target,out var old) && old.ChillUntil>now && old.ChillPercent!=0;

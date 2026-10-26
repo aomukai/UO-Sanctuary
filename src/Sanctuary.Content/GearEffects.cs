@@ -59,7 +59,7 @@ public static class GearEffects
         + TimedEffects.Slow(mobile, TimedEffects.Now) + NecromancerEffects.Slow(mobile) + PaladinHolyFreeze.AttackSlow(mobile) + ImpaleSlow.Attack(mobile), -100, 85);
     public static bool ApplyChill(Mobile target, long now, int durationMs = 2000, Mobile attacker = null)
     {
-        if (target.Deleted || !target.Alive || NamedElements.Resistance(attacker, target, "cold", target.ColdResistance) >= 100) { return false; }
+        if (target.Deleted || !target.Alive || DruidSpiritWolfBody.ObservedChillImmune(target) || NamedElements.Resistance(attacker, target, "cold", target.ColdResistance) >= 100) { return false; }
         if (target is PlayerMobile player)
         {
             if (ClassGear.Bonus(player, "nofreeze") > 0) { return false; }

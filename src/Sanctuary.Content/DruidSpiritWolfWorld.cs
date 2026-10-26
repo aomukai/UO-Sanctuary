@@ -13,7 +13,7 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=47,uint Target=0,
     bool Teleport=false,Point2D TeleportPoint=default,int PathOverride=0,int VelocityBonus=0,int PathBudget=0,
     int StrikeRequests=0,uint PendingStrikeTarget=0,int PendingStrikeFrame=0,int PendingStrikeRank=0,string Fault=null,int MovingBonus=0,
-    SpiritWolfHitResult LastHit=null,int Hits=0)
+    SpiritWolfHitResult LastHit=null,int Hits=0,int AttackSpeed=0)
 {
     public string Profile{get;init;}="source-ai-native-ground-fit-cold-hit-v2";
 }
@@ -33,6 +33,7 @@ internal static class DruidSpiritWolfWorld
             || s.VelocityBonus is <-126 or >126 || s.MovingBonus is <-126 or >126 || s.PathBudget is <0 or >77 || s.StrikeRequests<0 || s.PendingStrikeRank is <0 or >255
             || s.Profile is not("source-ai-native-ground-fit-pending-hit-v1" or "source-ai-native-ground-fit-cold-hit-v2")
             || s.Hits<0 || s.Hits>s.StrikeRequests
+            || s.AttackSpeed is <0 or >32767
             || s.LastHit is{} hit && (!Enum.IsDefined(hit.Outcome) || hit.Chance is <0 or >95 || hit.Cold256<0 || hit.Fire256<0 || hit.Lightning256<0 || hit.ColdFrames<0 || hit.LifeLost<0)
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0 || s.Teleport)
             || s.Mode is 2 or 15 && ((s.Motion.Flags&0x20)==0 || s.ActionAt!=0 || s.EndAt!=0)
@@ -186,7 +187,8 @@ internal static class DruidSpiritWolfWorld
                 case 4:s=s with{NextThink=s.Frame+Math.Max(1,request.A)};break;
                 case 6:
                     var enemy=World.FindMobile((Serial)(uint)request.B);if(enemy!=null){body.Direction=body.GetDirectionTo(enemy);}
-                    var attack=DruidWolfGeometry.Clock("A1");s=s with{Mode=4,ActionAt=s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,
+                    int attackSpeed=SourceAttackRate.WolfSpeed(body);var attack=DruidWolfGeometry.Clock("A1",attackSpeed);
+                    s=s with{Mode=4,ActionAt=attack.Action==0?0:s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,AttackSpeed=attackSpeed,
                         Target=(uint)request.B,Teleport=false,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 7:
                     var cell=Cell(s);int distance=DruidWolfGeometry.Full(cell,ownerCell),sign=Math.Sign(distance-request.B),amount=Math.Min(Math.Abs(distance-request.B),request.A);
@@ -265,7 +267,15 @@ internal static class DruidSpiritWolfWorld
             }
             if(s.Mode is 4 or 8 && s.EndAt==s.Frame)
             {int next=s.NextThink>s.Frame?s.NextThink:s.Frame+15;s=Neutral(s) with{NextThink=next};}
-            if(s.NextThink==s.Frame){s=Think(body,owner,s,frameAt);}
+            if(s.NextThink==s.Frame)
+            {
+                if(s.Mode==4 && s.EndAt>s.Frame)
+                {
+                    const string reason="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified";
+                    Store(body,Park(s) with{Fault=reason});throw new NotSupportedException(reason);
+                }
+                s=Think(body,owner,s,frameAt);
+            }
             Store(body,s);body.AIObject?.AITimer.Stop();
         }
     }

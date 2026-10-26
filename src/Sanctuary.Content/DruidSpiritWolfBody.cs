@@ -24,6 +24,9 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private SpiritWolfBodyState _prepared;
     internal bool ControllerLoaded{get;set;}
+    // User-observed3.3.93847eligibility. Keep the old coldeffect metadata;
+    // this gate does not assert cold-damage immunity or freeze eligibility.
+    internal static bool ObservedChillImmune(Mobile actor)=>actor is DruidSpiritWolfBody{SourceMonsterId:"spiritwolf"};
     internal SpiritWolfBodyState Prepared
     {
         get

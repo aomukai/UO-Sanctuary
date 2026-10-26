@@ -23,6 +23,7 @@ public static class SpiritWolfWorldChecks
         Register("spirit-wolf-world-check",Check);Register("spirit-wolf-world-reload-check",Reload);
         Register("spirit-wolf-world-live-check",()=>FixtureNetwork.Connected("spirit-wolf-world-live-result",Live));
         Register("spirit-wolf-hit-live-check",()=>FixtureNetwork.Connected("spirit-wolf-hit-live-result",n=>Live(n,true)));
+        Register("spirit-wolf-rate-live-check",()=>FixtureNetwork.Connected("spirit-wolf-rate-live-result",n=>Live(n,true,50)));
     }
     private static void Register(string command,Action action)=>ConsoleInputHandler.RegisterCommand(command,"Prepared live wolf movement; ordinary hit and learned cast pending",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Command}: passed",command);}catch(Exception e){Log.Error(e,"{Command}: failed",command);}}));
@@ -37,8 +38,12 @@ public static class SpiritWolfWorldChecks
         var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
         int y=1800+64*_scene++;int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
-        for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,0),Map.Trammel);}
-        p.MoveToWorld(new(7100,y,0),Map.Trammel);return p;
+        // Isolate a flat native terrain adapter above shipped dungeon geometry.
+        // Adding live scenes must not accidentally select an underlying wall.
+        const int z=100;
+        for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,z),Map.Trammel);}
+        Require(new[]{0,1,2,3,8,16,30}.All(dx=>Map.Trammel.CanSpawnMobile(new Point3D(7100+dx,y,z))),"World fixture floor is not free");
+        p.MoveToWorld(new(7100,y,z),Map.Trammel);return p;
     }
     internal static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
     private static void Through(DruidSpiritWolfBody body,int frame,bool actions=true)
@@ -156,7 +161,7 @@ public static class SpiritWolfWorldChecks
         PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
     }
     private static void Live(NetState network)=>Live(network,false);
-    private static void Live(NetState network,bool attacking)
+    private static void Live(NetState network,bool attacking,int haste=0)
     {
         var p=Fresh();network.Seeded=true;network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
@@ -167,8 +172,13 @@ public static class SpiritWolfWorldChecks
         network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
         var target=attacking?Enemy(p,3):null;if(target!=null){TimedEffects.PreventHealing(target,TimedEffects.Now);target.SetResistance(ResistanceType.Cold,0);}
         int life=target==null?0:SkillHealth.Balance256(target);
-        string result=attacking?"spirit-wolf-hit-live":"spirit-wolf-world-live";
+        string result=haste>0?"spirit-wolf-rate-live":attacking?"spirit-wolf-hit-live":"spirit-wolf-world-live";
         var body=DruidSpiritWolfWorld.Create(p,new(p.X+(attacking?1:16),p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+10000;
+        if(haste>0)
+        {
+            var auras=PaladinAuras.Snapshot();PaladinAuras.Restore(auras with{Leases=auras.Leases.Append(new PaladinAuraLease(body.Serial.Value,p.Serial.Value,
+                CombatAbility.Fanaticism,1,haste,TimedEffects.Now.AddSeconds(30))).ToArray()});
+        }
         void Inspect()
         {
             try
@@ -179,6 +189,7 @@ public static class SpiritWolfWorldChecks
                 if(attacking){Require(SkillHealth.Balance256(target)<life && body.Prepared.Controller.LastHit is{Outcome:SpiritWolfHitOutcome.Hit,Cold256:>0,Fire256:0,Lightning256:0}
                     && GearEffects.ChillPercent(target)>0,"Natural wolf ordinary cold hit/state did not commit");}
                 else{Require(body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin) && body.Prepared.Controller.Frame>=25,"Natural source frames moved away from owner");}
+                if(haste>0){Require(body.Prepared.Controller is{AttackSpeed:264,PendingStrikeFrame:34},"Natural haste clock did not deliver at captured source event");}
                 target?.Delete();End(p);account.Delete();Log.Information("{Result}-result: passed",result);
             }
             catch(Exception e){target?.Delete();End(p);account.Delete();Log.Error(e,"{Result}-result: failed",result);}

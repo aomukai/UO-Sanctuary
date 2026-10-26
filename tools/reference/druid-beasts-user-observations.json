@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "observedDate": "2026-10-27",
+  "source": "Direct user reports from their pinned running D2R installation; cached local tables checked read-only.",
+  "observed": {
+    "spiritWolf": {
+      "canBeChilled": false,
+      "decrepifySlowsAttacks": true,
+      "stillBitesUnderDecrepify": true,
+      "canBeFrozen": "not established by this report"
+    },
+    "direWolf": {
+      "canBeChilled": true,
+      "canBeFrozen": true
+    },
+    "grizzly": {
+      "canBeChilled": true,
+      "canBeFrozen": true
+    }
+  },
+  "quotedReports": [
+    "spirit wolves don't get chilled. when decrepify l;ands, they slow down, but they still bite",
+    "dire wolf and grizzly do get chilled tho, and frozen"
+  ],
+  "localTableChecks": {
+    "files": {
+      ".local/research/d2r-3.3.93847/monstats-sentries-verified.txt": {
+        "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+        "bytes": 494490
+      },
+      ".local/research/d2r-3.3.93847/monstats2-sentries-verified.txt": {
+        "sha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+        "bytes": 140282
+      },
+      ".local/research/d2r-3.3.93847/skills.txt": {
+        "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+        "bytes": 270115
+      }
+    },
+    "facts": [
+      "Cached local monstats has Spirit Wolf AI DruidWolf/aip1=22/coldeffect=-50in all three difficulties. Dire Wolf and Grizzly also have coldeffect=-50.",
+      "Cached local Summon Spirit Wolf skill grants cold resistance min(5*rank,85). Neither fact alone explains the reported Spirit Wolf chill exclusion."
+    ]
+  },
+  "implementation": [
+    "Add a Spirit-Wolf-only incoming chill eligibility gate to both existing cold-state consumer paths. Preserve source cold resistance and coldeffect metadata. This does not assert100percent cold damage resistance, Holy Freeze immunity or Spirit Wolf freeze immunity.",
+    "The prepared rate adapter reads actor haste/slow at A1entry. Its fixed22-frame AI overlap remains explicitly refused pending correct current busy/end dispatch; the user report rules out silent repeated windup cancellation as faithful behavior. Learned casting remains unavailable."
+  ],
+  "remaining": [
+    "Resolve the actual current AI busy/end scheduling so slowed Spirit Wolves continue biting with the correct cadence. Do not treat the protective refusal as finished gameplay.",
+    "Confirm exact cause of Spirit Wolf chill exclusion and separate Spirit Wolf freeze eligibility if needed; retain observed Dire/Grizzly susceptibility in their future implementations.",
+    "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf."
+  ],
+  "reviewedNewerSource": {
+    "commit": "7f6d773f31060e97124241e6bd30d606bcab6d4e",
+    "path": "source/D2Game/src/MONSTER/MonsterMode.cpp",
+    "blob": "1aab514d807f8a81b7746262231886f5b0a38afc",
+    "sha256": "595be425119a8ff33cb38a049ceeaa8ffb72959039fbb9d79eb6e4e75de7b986",
+    "bytes": 68032,
+    "scope": "Complete D2GAME_ModeChange_6FC65220, A1start sub_6FC645E0 and mode-end sub_6FC63680 show symbol renames only against the older pin. No busy-overlap correction was established in these three routines. This is review, not executable equivalence."
+  }
+}

@@ -24,7 +24,7 @@
     "src/Sanctuary.Content/SourcePetMovement.cs": "ec04d085af274d7ae8642beb89743efb526c6ac64def59957106d1d09f6d4297",
     "src/Sanctuary.Content/DruidSpiritWolfAi.cs": "b0f41b6f4d6965eca1133ef24ff983b7f35ae08d664aa2a83648a40990725d9b",
     "tests/Sanctuary.Integration/PetMovementChecks.cs": "1de4dd8f759d6aa2b4f5279056bd9f2a3a9b3e2844103327d6252cc96d939543",
-    "tests/check_spirit_wolf_body.py": "4202b595fbf1c349c226ba4dda66dc14e433e548fb0bf958587847fbf6fe427d",
+    "tests/check_spirit_wolf_body.py": "0c5dcce06c3a23fb5fc3ec7388b2812a34ef21c2774943c8c258b8ce929b8e3e",
     "tools/probe_pet_movement_reference.py": "4598867af02a53fe59468c179559b4263a90bde3bdd6800aa39e940e5bd8d4e5",
     "tools/probe_spirit_wolf_ai_reference.py": "94fab8713509b596bb08e5e4427984bd6d2bbdde9e2e581a6ff30665596297cc",
     "tools/probe_spirit_wolf_corrected_ai_reference.py": "fa5c847b1698bf0acc5c55828abe351dbbcc0fdd60189b2b28f2f28103ba479a",
@@ -32,12 +32,12 @@
     "tools/reference/pet-movement-source-evidence.json": "392e571ed905d7edc441264d2bdf57044b97d3ad76c47f9e9ef9498072fc8985",
     "tools/reference/spirit-wolf-ai-source-evidence.json": "b3413785a2eddcb8b0f478e05ec97507c3d83536495d25d3269887b51ed30b12",
     "tools/reference/spirit-wolf-corrected-ai-source-evidence.json": "b38e101b9e3e43df8cf55e3211946926eb16b699297fa86e4116d8e7478c2cf3",
-    "tools/reference/spirit-wolf-body-native-evidence.json": "5cb03541fe31070381b196eaf2303a3ea190d1e67b35b2148282df3b3647613d",
-    ".local/class-skills/spirit-wolf/stats-inputs.json": "762288fa53cc26e6ec0d33edb2df8690b317249efaf8ed321a33343c112f9da4",
-    ".local/class-skills/spirit-wolf/stats-native-checks.log": "648e15012c5da024932ff2693836921ffbd6ca7ba56b19476b81f320d29ef667",
-    ".local/class-skills/spirit-wolf/stats-run.log": "918a6d152d996b5c5827e6a9832044d9f24ead3c0a4a4b1f343d06b61a81bdb4",
-    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "0bbba60ab108a51c5e15a9e552d16ff35ef7dcc227f37aa80a7030a5fad04991",
-    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "6c23556ec72176e118f6d8eb35a59e8f0666528cbb85386ee2ee23fcd6e2ee4e"
+    "tools/reference/spirit-wolf-body-native-evidence.json": "ac127f681e1c1cf8f1f709f95dd01beb8ad428f99783092486ecbeb7d208a400",
+    ".local/class-skills/spirit-wolf/stats-inputs.json": "1df748195520c866ff3fc3be7c1220eafd361d2c2b82f7f23533b818f8e2f2cb",
+    ".local/class-skills/spirit-wolf/stats-native-checks.log": "5cdfc7cebeef0053db1e41240110fbd5b8988ea9468a7348ae8aa98292a8361f",
+    ".local/class-skills/spirit-wolf/stats-run.log": "3318b52591cc2b0fa3223b72c8384adc69ef3a70667a9e67ebf2c6d29dd69545",
+    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "b85dafd3b466737b155410c1d253f98dd04666934e2d01ef23c86c6bc2f95f86",
+    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "d04196e1749d9feab212808173ee7f04a4e036c194e4074b4112e8913387b3da"
   },
   "established": [
     "Native shared policy matches complete unchanged PetMove modes0..5 and complete common-pet composition in48248source contexts, including367734ordered action/query/random/placement service requests, return values, movement-attempt counts and teleported flag writes.",

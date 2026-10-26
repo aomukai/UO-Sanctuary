@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "installed": false,
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a"
+  },
+  "unchangedRoutineHashes": {
+    "gaPlayerModesAnimModulators": "506250c49e302d860e7152286215c3387f80898f103f327177d38ebf4c073346",
+    "gaMonModesAnimModulators": "d2c272e5589c6fff17185713b136325fde2a313fd7ac3014e7bb6776db2b9dc8",
+    "gaMonModesAnimModulatorsExpansion": "7afde9675eabb2d75b6d5e535b137ad1ac2ba32329d251aff95c1fdf9d82e0a6",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "generatedSourceSha256": "6b0d06a4e583f9dd3d0cf5733b524fcf7b7ea2d720e4dda2970bd12cdfe015c9",
+  "fixture": {
+    "path": ".local/class-skills/spirit-wolf-rate-source-probe.json",
+    "sha256": "6670a3fe6af7e2304eed4a37100cfb3e008afaa8fdc488483ab85cb6a1b910e4",
+    "cases": 576
+  },
+  "sanitizers": "ASan/UBSan exit0; empty runtime stderr.",
+  "established": [
+    "Complete A1attack-rate predicate, non-dual-wield writer and complete initial event scheduler execute with current wolf13frames/action9. Source monster initialization writes base attackrate100. Item IAS uses signed120*x/(x+120), then adds total attackrate and clamps15..175; resulting animation/sequence speed clamps0..32767.",
+    "Both mode tables choose the A1attack-rate route. Complete writer covers signed IAS-119/-10/0/20/100/10000, total rates-100/0/14/15/50/100/175/250, bases176/256/32767and melee-only alternate-base0/128. Zero alternate falls back to ordinary animation metadata.",
+    "Initial scheduler preserves complete ordered action/end requests and high-speed skipped action cases. It creates queued events at attack entry. The rate writer itself does not modify those events."
+  ],
+  "limits": [
+    "Unit identity, supplied stats, inventory/non-dual-wield/melee-only state and point animation row are declared services. Mode conversion, full monster initialization, summon equipment/IAS stat transport, global RNG/event queue and exact current D2R timing remain separate.",
+    "The native actor should capture live rate at attack entry. Mid-swing stat changes do not by themselves establish a reschedule operation; current-executable mid-swing behavior and other animation-mode rates remain uncertain.",
+    "Negative IAS singularity-120and values below it are not supported by the native helper. Weapon dual-wield and player sequence penalties are not wolf inheritance rules.",
+    "The zero-speed scheduler branch is reviewed but not executed in this positive-base matrix."
+  ]
+}
