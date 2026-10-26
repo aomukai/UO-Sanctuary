@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": false,
   "installed": false,
-  "sourceStatus": "Complete callback/RNG1081, complete shared factory3456 and complete generic hit-router1536 contexts pass; production C# callback/routing kernels match2617contexts. No native controller or learned handler yet.",
+  "sourceStatus": "Prepared native actors pass3boots/2actual reloads with retained Firestorm; actual content compares12240complete source damage outputs/all255ranks. Earlier callback1081/factory3456/router1536 evidence retained; learned handler disabled.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -322,31 +322,32 @@
     }
   ],
   "remaining": [
-    "Compose learned generic srvmissile creation with native motion, activation and mode8 WALLKILL saved-step collider order; complete source callbacks/factory/hit-router are now independently executed.",
-    "Consume nullable source SMALL/LARGE metadata through the existing knockback-rule catalog. Unknown species must remain explicitly unsupported, never inferred from native Size or elite grade.",
-    "Implement rolling direct physical/fire hits, conditional area/disc, repeated contacts, source knockback and independent field lifetime in the native world.",
-    "Compose damage factory/getters, hard synergies/mastery, actual equipment and approved potion/defense behavior; callback packet readers are still recording services.",
-    "Establish field server animation producer/collision cadence without inventing an animation increment; the complete do5 kernel takes an explicit frame input.",
-    "Compose generic row KnockBack1 draw and target eligibility with damage14; damage14 alone is not the whole knockback/event path.",
-    "Verify learned casting/payment/cancellation/left/right/quick, saved movement/fields/seed/lifetime, connected timers, focused/full regression and existing-world smoke before installation."
+    "Learned SC start/release, once-only mana,25frame local delay, cancellation/recovery, target/ground selection, left/right/quick bindings and connected input/timers are not wired or verified.",
+    "Complete generic SetDamageFlags/events and uninterruptible/knockback eligibility composition, live forced motion, defensive outcomes, immunity/potion/named gear and unsupported targets remain.",
+    "Complete do5sequence mutations use an explicit persisted frame; full server animation-clock producer/collision-mask behavior remains unresolved. No guessed animation increment is introduced.",
+    "Native Q12/retained-step/terrain/first-collider/area projections are declared adapters. Exact modern room/list/seed ordering, wall clipping, activation, size and event equivalence remain open. Unknown rolling species get an identified unsupported-context refusal.",
+    "Optional modern wall/expiry observation remains pending: older terminal null-victim routing creates no area/disc. InitSteps is not read by the complete older factory.",
+    "Full regression/audit/working-world smoke and acceptance must precede installation. No class completion or new handler count is claimed.",
+    "Final453emergence/452roll/454blast/456flyingrocks/455fire/cast/audio and separate talent/left/right/quick icons remain pending. UO0x36D4travel/0x398Cfire/0x36BDcontact hue0x489 are identified placeholders."
   ],
   "assets": {
     "effects": "Pending: druid cast/audio, moltenboulderemerge453, rolling452, explosion454, flyingrocks456, ground455 and contact/knockback/expiry. Identify UO placeholders when chosen; no new art generated.",
     "icons": "Talent/left/right/quick icons remain in the separate skill-icons register."
   },
-  "next": "Connect the verified request/routing kernels and source species flags to saved native emergence/rolling/fire-field actors, then learned casting and acceptance. Keep installed158-handler build and saves intact.",
+  "next": "Compose generic knockback/uninterruptible/events, field clock and remaining native controls, then learned casting/payment/connected input and full acceptance before installation.",
   "preparationContext": {
     "installedCommit": "2f49b18",
     "installedHandlers": 158,
     "installedDruidHandlers": 2,
-    "scope": "Firestorm acceptance/deployment completed; Boulder is source/kernel/data preparation with no native actor or learned handler enabled."
+    "scope": "Prepared native actor/damage/persistence only. Accepted installed Firestorm158handlers/main2f49b18 and existing saves remain untouched."
   },
   "compiledEvidence": {
     "callbacks": "tools/reference/molten-boulder-source-evidence.json",
     "productionCallbacks": "tools/reference/molten-boulder-packets-evidence.json",
     "factory": "tools/reference/molten-boulder-factory-source-evidence.json",
     "routing": "tools/reference/molten-boulder-routing-source-evidence.json",
-    "productionRouting": "tools/reference/molten-boulder-routing-evidence.json"
+    "productionRouting": "tools/reference/molten-boulder-routing-evidence.json",
+    "damage": "tools/reference/molten-boulder-damage-source-evidence.json"
   },
   "speciesPreparation": {
     "catalog": "data/Sanctuary/Balance/knockback-source-rules.json",
@@ -388,10 +389,40 @@
       "src/Sanctuary.Content/MoltenBoulderPackets.cs": "701a270d5c23b93e1c873bb5b564c6c24995d2430a925deacaf9340d6098d091",
       "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
       "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
-      "tools/build_class_skills.py": "d083ae4316a0969e72a7916bcd5c0052b34737d85c0b3c56ce9a5a6ea727040e",
+      "tools/build_class_skills.py": "f88f65094b37ffcd8077563a4922ce4a5e2159e1d07c5d447413998df110dbd5",
       "data/Sanctuary/Balance/knockback-source-rules.json": "c25cd474660ede733b6a5cc72a2cf018a4e8652f05d450c6b8181de05f63a86a",
-      ".local/class-skills/molten-boulder-content-build.log": "c6ec3b413824838a8267652e777033814c77f8b82037cacf4cb0c7f0ab455ddd",
-      ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "def28aabd836a2bf9c1ddd9bf855928d05abe3c46d04d0d13dde9ac8d93fb0ea"
+      ".local/class-skills/molten-boulder-content-build.log": "1c3435c349feb57fb0a1de0a13937efeafff33532331d90af4ecbec423fcdbbd",
+      ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "f0245d2a2e27c95766e6c9f9557cf6eecbdaf86ab8f476edbeb40ad93b3342a3",
+      "src/Sanctuary.Content/DruidMoltenBoulder.cs": "8bdd99903bb635a429ca87c34f8a27c7ddb650d6572f97e61eb03b7751ab36c2",
+      "src/Sanctuary.Content/DruidFirestorm.cs": "8cbd66149128489da084fe49efb1a0aad8a85b1c1e9da4e17a1b9f3cd7b00d5e",
+      "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+      "src/Sanctuary.Content/FireGround.cs": "be7db4dde662558cb07bfe242bd8d7753d2cae8f22f5799681fd39d1ce533335",
+      "src/Sanctuary.Content/SourceBlocking.cs": "3264e796c12f84fdc060569e51eb326e2fb5e9f79e9647f209e9f7cd3b539344",
+      "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
+      "src/Sanctuary.Content/MissileVectors.cs": "febe41a0b8ec9712120978418321239d5abc0862c9ed14336042f12213871c1b",
+      "src/Sanctuary.Content/CombatHitboxes.cs": "962ac908a007b482542e75a9b22ce21bd60acd69561ebd515b192c6e4f35eaac",
+      "src/Sanctuary.Content/SkillCombat.cs": "4eceabcf4b31533c2c2259e145af03e193750a991fe467e4a373331e24847073",
+      "src/Sanctuary.Content/SkillHealth.cs": "919cf4364b52d2c3d8f15acd4689e6e91493e3f5f34d43802f111b0b4a350d1d",
+      "src/Sanctuary.Content/AmazonSlowMissiles.cs": "866ed162ec878a68806af6d7e7edc627551d742f03e3557ac8b6eeb3418d243f",
+      "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
+      "src/Sanctuary.Content/WeaponMissiles.cs": "cd7a0d08c15c0464fc99a0034841763844358520ba35998b6d8821f02ddebea0",
+      "tests/Sanctuary.Integration/MoltenBoulderChecks.cs": "480a9530f9074ebf33e628d97c96b96dc21a9490d7cccf429502e6a68b97a9cd",
+      "tests/Sanctuary.Integration/FirestormChecks.cs": "5aaa84d7ba3669d73d24c74d62022bf9abaf41dc5ef794113599b5c468f3b179",
+      "tools/check_molten_boulder_native.py": "8a153e7aef45e8cae3ce180bfe00abe7fd9e6abb46fe0fdda6697bac9b461a57",
+      "tools/probe_molten_boulder_damage_reference.py": "5ded9e5ac4da00c55a8dc7aa9c4f0aecf127c67b911cea9e62e15d0b30436273",
+      "data/Sanctuary/Balance/necromancer-summons.json": "565cb030a34f9ca4a9d9d29d7b623f94b1edfdb375541d31d5d624540c0a9324",
+      "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+      "data/Sanctuary/Balance/skill-effects.json": "4862ae7f5d199c1549524ccdf85e68a74708546e7674bbfce8121e36de51de4f",
+      ".local/class-skills/molten-boulder-native-run.log": "920f6a4d7bff0d2045e8f52d05c3f7cfbcb975c104c72c0734b179342026ac6c",
+      ".local/class-skills/molten-boulder/molten-boulder-checks.log": "bf83c98dc29776c777a4f85d83f1838495c6026dde4049f7ce781c0c032c7dfd",
+      ".local/class-skills/molten-boulder-integration-build.log": "de0aa45a54b53dbf39bdd070b9c869fbc880d0e99538df5d5518b27076f563a9",
+      ".local/class-skills/molten-boulder/integration/Sanctuary.Integration.dll": "c593bb8f34092d077b2f8cd4a5915a52c2f1b86d95e77718628af9e6003ba09f",
+      ".local/class-skills/molten-boulder/native-fixtures.json": "ae1d38f2eacc5bb2a546f0ea5cda8d018dccd5b4bb697ec491ee59a7b5868b79",
+      ".local/class-skills/molten-boulder-damage-source-probe.json": "c9ee3e99cd28f83c5e4c78df3f38df304e6d0b2a8e2d760de90e68b424cde5ae",
+      ".local/class-skills/molten-boulder-damage-source-probe.cpp": "7bf979729851ec1cad0616be87689e7bc0890eba21ab1565d760dcfdf62495e1",
+      ".local/class-skills/molten-boulder-damage-source-probe": "d07f30b3579f52e4442c643491c2b7a67271833eeb96bb24af074f3e580dda59",
+      ".local/class-skills/molten-boulder-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
-  }
+  },
+  "nativeEvidence": "tools/reference/molten-boulder-native-evidence.json"
 }

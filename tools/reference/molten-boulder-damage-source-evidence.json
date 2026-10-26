@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693"
+  },
+  "reusedCreatorEvidence": "tools/reference/poison-javelin-damage-engine-evidence.json",
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/molten-boulder-damage-source-probe.json",
+    "sha256": "c9ee3e99cd28f83c5e4c78df3f38df304e6d0b2a8e2d760de90e68b424cde5ae",
+    "cases": 12240
+  },
+  "established": [
+    "All255ranks execute complete physical/elemental skill getters, missile elemental getters, creator/add/scale and setter across separate hard Firestorm/Volcano, owner mastery and unrelated owner/origin item controls.",
+    "Emergence453 has no damage despite retained skill229. Rolling452 uses source0 skill229 physical hard-Volcano12percent before HitShift8, fire hard-Firestorm8percent after HitShift8 and then fire mastery once.",
+    "Ground455 uses missile endpoints, hard-Firestorm8percent before HitShift2 and no owner mastery. Source0 prevents item weapon/element damage and critical inheritance; no owner passive mastery stat is copied."
+  ],
+  "limits": [
+    "Hard skill formula lookup, prepared owner/item stats, ratio, weapon metadata and empty monster-type stat copying are declared parent services. KICK/weapon endpoint services abort if selected.",
+    "This establishes numeric capture, not the modern executable, damage roll/mitigation/event timing, Slow Missiles producer, native spatial geometry or rendered client."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr required"
+}

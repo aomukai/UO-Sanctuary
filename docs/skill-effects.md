@@ -159,7 +159,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Barbarian | Whirlwind | needed | whirlwind |
 | Barbarian | Berserk | needed | berserk |
 | Druid | Firestorm | needed | firestormmaker, druid_fire_cast_1, firestormmaker, druid_fire_cast_1 |
-| Druid | Molten Boulder | needed | moltenboulderemerge, druid_fire_cast_1, moltenboulderemerge, druid_fire_cast_1 |
+| Druid | Molten Boulder | needed | Final 453 emergence, 452 roll, 454 blast, 456 flying rocks, 455 ground flames, druid_fire_cast_1 and audio. Prepared UO 0x36D4 travel, 0x398C flames and 0x36BD contact/blast, hue 0x489, are identified placeholders; learned casting remains gated. |
 | Druid | Arctic Blast | needed | arcticblast1, arctic_blast_cast, arcticblast1, arcticblast2 |
 | Druid | Fissure | needed | erruption center, druid_fire_cast_2, erruption center, druid_fire_cast_2 |
 | Druid | Cyclone Armor | needed | cyclonearmor |
