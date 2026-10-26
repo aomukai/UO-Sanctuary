@@ -10,7 +10,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
-| 7 | Druid | 0 / 30 | 0 | 30 | Open |
+| 7 | Druid | 1 / 30 | 0 | 29 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
 Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
@@ -255,7 +255,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 | Molten Boulder | 229 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Arctic Blast | 230 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fissure | 234 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
-| Cyclone Armor | 235 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
+| Cyclone Armor | 235 | handler-present | Self SC cast stores effective rank and shared FP256 fire/cold/lightning pool; hard-only7% Twister/Tornado/Hurricane synergies and current/max capacity match6885formula cases. Focused3boots/2reloads/3connected casts verify one release payment, low/lost mana, movement/recovery cancellation, equal refill/captured gear and older-source lower-rank refusal. Shared pre-resistance shields cover typed hits/native AOS/travelling hostile firebolts; the distinct elite path is connected. Physical/poison/magic remain unaffected; damage does not spend mana. Exact pool/mana/bindings and unpaid windup survive reload; read-only worker serialization/malformed restore and death/respec/class/wardrobe cleanup pass. Current full-regression/client/deployment status is in cyclone-armor-native-evidence.json and the checkpoint. Modern lower-rank recast and cross-subscriber priority remain uncertain; final overlays/audio/icons and complete native event/client parity remain acceptance work. |
 | Twister | 240 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Volcano | 244 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Tornado | 245 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

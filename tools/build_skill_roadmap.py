@@ -25,6 +25,7 @@ BLOCKERS = {
     'necromancer.revive':'Requires saved corpse species/combat reconstruction, original special abilities, excluded-species rules and the source 180-second lifetime; do not substitute a generic skeleton.'
 }
 CAVEATS = {
+    'druid.cyclonearmor':'Self SC cast stores effective rank and shared FP256 fire/cold/lightning pool; hard-only7% Twister/Tornado/Hurricane synergies and current/max capacity match6885formula cases. Focused3boots/2reloads/3connected casts verify one release payment, low/lost mana, movement/recovery cancellation, equal refill/captured gear and older-source lower-rank refusal. Shared pre-resistance shields cover typed hits/native AOS/travelling hostile firebolts; the distinct elite path is connected. Physical/poison/magic remain unaffected; damage does not spend mana. Exact pool/mana/bindings and unpaid windup survive reload; read-only worker serialization/malformed restore and death/respec/class/wardrobe cleanup pass. Current full-regression/client/deployment status is in cyclone-armor-native-evidence.json and the checkpoint. Modern lower-rank recast and cross-subscriber priority remain uncertain; final overlays/audio/icons and complete native event/client parity remain acceptance work.',
     'assassin.phoenixstrike':'Single-contact do34/A1 builder pays4mana once and stores independent25AR charges. Ordinary successful Attack consumes one per family and releases only the selected tier:60frame meteor warning/impact/18fire fields,7source-directed lightning paths,or16elapsed0curving freeze-only missiles. Saved warnings/paths/seeds/target vectors/leases/fields reuse source packet/collision/cold and native world consumers. Current installation/verification scope is in phoenix-strike-preflight.json. Literal older signed vector packing,current executable/stat/RNG/geometry/proc/PvP/NPC/client and cached A1 timing remain explicit acceptance gaps. Effects/audio and talent/left/right/quick icons remain separate identified placeholders.',
     'assassin.bladesofice':'Shared primary-rate sequence16 builds independent Ice charges with one/two claw contacts and once-paid3mana; low mana uses ordinary charged Attack. Ordinary finisher adds separately mastered cold without physical conversion; its skill cold duration replaces weapon cold duration. Count2 adds target-centered cold area with caster LOS; count3 freezes the parent and scatters saved stationary Size1 ice cubes with both cold/freeze lengths. Cubes retain their most recent collider,30frame lifetime,captured endpoints/pierce and clocks. Scoped source/native verification and installation state are in blades-of-ice-preflight.json. Current executable/stat/RNG/geometry/proc/PvP/NPC/exceptional missile/client contexts and ordinary chill corpse destruction remain explicit acceptance gaps. Final effects/audio and talent/left/right/quick icons remain separate identified placeholders.',
     'assassin.clawsofthunder':'Learned skill uses shared primary-rate sequence16,one/two claw charge contacts and once-paid4mana with ordinary low-mana fallback. Ordinary Attack combines separate lightning charges with Tiger/Cobra/Fists and emits64nova rays plus16seeded bolts for the stacked3charge trigger. Saved missiles retain source-derived five-update nova deceleration,child path/RNG/clock/damage/pierce/slow and trigger-scoped4frame hit leases. Current installation/verification scope is in claws-of-thunder-preflight.json. Shared native charged motion/geometry and full pinned executable/stat/proc/PvP/NPC/client acceptance remain explicit gaps. Final effects/audio and talent/hotkey icons remain separately inventoried identified placeholders.',
@@ -172,6 +173,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'druid.cyclonearmor',
     'assassin.phoenixstrike','assassin.bladesofice',
     'assassin.clawsofthunder',
     'assassin.fistsoffire',
@@ -267,7 +269,7 @@ def build():
     protocol=(ROOT/'shared/ClassAbilities.cs').read_text()
     symbols=dict(re.findall(r'new\(CombatAbility\.(\w+), "([^"]+)"',protocol))
     implemented=set()
-    for character in ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin']:
+    for character in ['Necromancer','Sorceress','Paladin','Barbarian','Amazon','Assassin','Druid']:
         text=(ROOT/f'src/Sanctuary.Content/{character}Combat.cs').read_text()
         expression=re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);',text,re.S).group(1)
         if 'NecromancerEffects.IsCurse' in expression:

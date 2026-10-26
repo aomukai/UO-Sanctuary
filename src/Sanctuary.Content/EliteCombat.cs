@@ -24,6 +24,8 @@ public static class EliteCombat
         double cold = 0, double lightning = 0, double magic = 0, bool weapon = false, bool ranged = false, bool death = false)
     {
         if (!Enemy(source, target, 18, death)) { return 0; }
+        var armored=DruidCycloneArmor.Absorb(target,new(physical,fire,cold,lightning,0,Magic:magic));
+        physical=armored.Physical;fire=armored.Fire;cold=armored.Cold;lightning=armored.Lightning;magic=armored.Magic;
         double preparedPhysical=GemCombat.Component(target,physical,target.PhysicalResistance,false);
         double total = preparedPhysical
             + NamedElements.Damage(source, target, fire, "fire")

@@ -157,7 +157,7 @@ public static class ClassCombat
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
-        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability) || AssassinCombat.Available(from,ability)
+        _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability) || AssassinCombat.Available(from,ability) || DruidCombat.Available(from,ability)
     };
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
@@ -371,6 +371,7 @@ public static class ClassCombat
         if (PaladinCombat.Handles(ability)) { return PaladinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (SorceressCombat.Handles(ability)) { return SorceressCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now); }
         if (AssassinCombat.Handles(ability)) { return AssassinCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
+        if (DruidCombat.Handles(ability)) { return DruidCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
         if (NecromancerCombat.Handles(ability))
         {
             return NecromancerCombat.Begin(from, ability, target?.Serial ?? Serial.Zero, point, now);
@@ -514,6 +515,7 @@ public static class ClassCombat
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
         if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability,session.PendingTarget,now); }
+        if (DruidCombat.Handles(ability)) { return DruidCombat.Release(from,ability); }
         if (SorceressCombat.Handles(ability))
         {
             var aimed = World.FindEntity(session.PendingTarget);

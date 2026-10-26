@@ -102,6 +102,7 @@ public static class SorceressEffects
     }
     public static GearDamage Absorb(Mobile target, GearDamage damage)
     {
+        damage=DruidCycloneArmor.Absorb(target,damage);
         if (target is not PlayerMobile owner || Shield(owner) is not { } shield) { return damage; }
         int divisor = Math.Max(1, SkillMechanics.For(CombatAbility.EnergyShield).Parameter(5)
             - ClassCreation.Profiles.GetRank(owner.Serial, "sorceress.telekinesis"));

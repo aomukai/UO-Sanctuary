@@ -169,6 +169,7 @@ public sealed class CharacterProfiles : GenericPersistence
         AmazonDecoys.Cancel(player);
         PaladinAuras.Clear(player);
         HolyShields.Clear(player);
+        DruidCycloneArmor.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
@@ -339,6 +340,7 @@ public sealed class CharacterProfiles : GenericPersistence
         player.Hits = life;
         player.Mana = CarryPool(mana, maxMana, player.ManaMax);
         player.Stam = CarryPool(stam, maxStam, player.StamMax);
+        DruidCycloneArmor.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
