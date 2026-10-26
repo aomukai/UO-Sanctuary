@@ -1,9 +1,9 @@
 {
   "referenceVersion": "3.3.93847",
-  "updatedAtUtc": "2026-10-26T01:55:39.940302+00:00",
-  "installed": false,
+  "updatedAtUtc": "2026-10-26T02:23:04.489565+00:00",
+  "installed": true,
   "handlerEnabled": true,
-  "status": "Final main focused3boots/2reloads/3connected quick casts/3natural emitter clocks pass; full regression and fresh named/first-loop audits are running in session2429 against904frozen inputs.",
+  "status": "Druid Firestorm is installed. Final main focused/full suites each pass three boots/two actual reloads, three connected quick casts and three natural emitter runs. SC ground/target casting pays four mana once at release, uses a distinct15-frame local delay and supports left/right/quick bindings. Low/lost mana, early/duplicate resolution, stop/movement/recovery cancellation, live/deleted target aim, self aim, local-not-global delay, saved bindings and discarded unpaid windup pass. One ordinary/two seeded emitters preserve previous-movement cell timing; independent15-frame fields read live hard synergies/mastery at retained rank and keep exact saved damage/RNG/deadlines. Single colliders, independent overlap, walls, fire immunity/actual tier3 potion, Tarnhelm, Dwarf Star MDR/default controls and worker-safe atomic persistence pass. Town0/SrcTown0 follow source dispatch with actual guarded-region checks. Full regression retains prior class/input checks. All70Python tests, current583/21audit fingerprints and573unchanged named decisions pass. Existing-world smoke loads/listens2593/UDP12000/shuts down0; saves/config/client profiles/settings and existing matching client bytes remain unchanged, server stopped. Total158handlers/Druid2; no class complete. Reconstructed do117 positive-count, native geometry/seed/full event/client and final effect/icon limits remain explicit; maker zero-damage unit/LastCollide/HITBYMISSILE callbacks remain unimplemented.",
   "sourceEvidence": "tools/reference/firestorm-source-evidence.json",
   "patternsEvidence": "tools/reference/firestorm-patterns-evidence.json",
   "contentSha256": "67adb6521c7baa6e4e8aed955dac933d0c791fbc4a928c815d1ca7115128673b",
@@ -62,7 +62,23 @@
     ".local/class-skills/firestorm-main-integration-build.log": "8a659ad9f7ceb9b32c0a5ceece91fdd3a2fe236f8f51562a58088dadaf5e4525",
     ".local/class-skills/firestorm-main-focused-run.log": "76fd50e2a53347fb31d4e6a561179810710de5d2deada2a8186300a2dc30a161",
     ".local/class-skills/firestorm-main-checkpoint.py": "89a549cdef6609cd2b1a7e50ab05a7fc4f3f85399124034b947f35c2aa709979",
-    ".local/class-skills/firestorm-full.py": "ba3f33c1bcdefac718e1faaa863288a9c6e74615e2a5bd3e03100cc42ba2daf3"
+    ".local/class-skills/firestorm-full.py": "ba3f33c1bcdefac718e1faaa863288a9c6e74615e2a5bd3e03100cc42ba2daf3",
+    ".local/class-skills/firestorm-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/firestorm-accept-run.log": "dc0ba311ca61d840cae44c91de41d1172448d75ce93aaaac3a6f598d188f8b97",
+    ".local/class-skills/firestorm-python-tests.log": "528226f09ebb3154ca0c2c569cdb9e593ae55e491d42faa7ce7eefd5c8819674",
+    ".local/class-skills/firestorm-named-readiness.log": "1c9be87e94c92d895ce24227296a2a057352cd50a76d4ec8fa1091d9c2275fd0",
+    ".local/class-skills/firestorm-first-loop.log": "5e15c69ff4b661a65a6910fc110d5bb61e5cd82a64155626fe8d6701965d97a1",
+    ".local/class-skills/firestorm-properties.log": "a41f56bf8e7ed75ba5221a283fd26003435718c1839bfce18da43faf515b502f",
+    ".local/class-skills/firestorm-install-run.log": "ec37759e82d3256cef1079ef8cdbf1e100859b45a2aec500ac29b28720996a4c",
+    ".local/class-skills/firestorm-installed-server.log": "bb29fe72bedcc8a4e2d18389738599151f0b333cd5482a2aafeed36be7c3bf70",
+    ".local/class-skills/firestorm-installed-smoke.log": "e380c16dc073399658ff5112ee0fb20ea52b2c50cebc58cd510ac2637124defc",
+    ".local/class-skills/firestorm-client-check.log": "2fef3afb24021fc7bf2eb80ae2fe1101b88d2a848c252c3d581dde9831221cc8",
+    ".local/class-skills/firestorm/native-checks.log": "2a3852c50ca35da46cbe45e78787c30af49fde953dd637ba860c737860385198",
+    ".local/class-skills/firestorm-client-preservation.json": "a885181da36dd6ca0900b10d953da36c3d8f192474d19bd91b3f3a7a8fb27fe9",
+    ".local/class-skills/firestorm-accept.py": "f15bd983485451ee9f647ea5dcb2aeddb13422ad447ad8fc66ab19cbff1bcd42",
+    ".local/class-skills/firestorm-install.py": "476eb9c974544a23f400c48e0b9eda99d3f61dc3820008596cccf39ae0439241",
+    ".local/class-skills/firestorm-finalize.py": "50fa07ac63b89dfd5ec02dde88c9027d71dc6e1a21e374fd89f661140dba2f12",
+    ".local/class-skills/firestorm-verify.py": "a5deeb16e1db5e7d67cb86b1ae333526b212922b042a6902e0c0d39504eba5ba"
   },
   "focused": {
     "boots": 3,
@@ -98,17 +114,52 @@
     "Straight Q12/charged Advance, two source cells per native tile, native LOS/fit/height and sector enumeration retain the existing declared adapters. Exact modern path rebuild/initial flag/room/footprint/order and seed allocation are not certified.",
     "Player source225 skill endpoints/mastery reuse existing consumers; new children read live hard synergies/mastery at retained emitter rank. Complete modern property/event/block/avoidance/FHR/client comparisons remain open.",
     "SkillCombat.MitigatePrepared now accepts an optional damageRate, default0. The new prepared field supplies41, including approved potion channels. Full retained class regression/current audits remain required before installation.",
-    "The prior broad Python worktree run remains unaccepted because installed-build audits are stale and two upstream files are absent there. It is not replaced by the focused native suite.",
     "Final fire emitter, burning patch, cast/impact/expiry/audio and separate talent/hotkey icons remain pending; UO0x398C hue0x489 is an identified placeholder.",
-    "Matching final main content/integration builds and focused tests pass. Full retained class regression/current audit/Python acceptance and existing-world smoke remain required; no158-handler deployment certificate is claimed.",
-    "Known shared-event gap: maker458 has WALLKILL8/LastCollide1 but zero source damage. Its native controller currently maps terrain/motion and fire children; the zero-damage unit/LastCollide/HITBYMISSILE callback path is not implemented. Keep it on the missile-event/item-trigger acceptance backlog; full event parity is not claimed."
+    "Known shared-event gap: maker458 has WALLKILL8/LastCollide1 but zero source damage. Its native controller currently maps terrain/motion and fire children; the zero-damage unit/LastCollide/HITBYMISSILE callback path is not implemented. Keep it on the missile-event/item-trigger acceptance backlog; full event parity is not claimed.",
+    "Final main focused/full native regression, fresh audits, all70Python checks and existing-world smoke pass. The earlier isolated worktree broad run with stale audits/missing upstream files is retained as history, not current acceptance evidence."
   ],
-  "next": "Build and verify the matching main candidate, run full class regression/current native audits/Python acceptance and original-world smoke, then install the158th handler. Continue Druid with Molten Boulder afterwards.",
+  "next": "Continue Druid Molten Boulder in codex/druid-molten-boulder; its pinned229preflight and seven inspected source bodies are pushed. Compose emergence/rolling/hit/damage/field/disc source paths before enabling another handler. Keep Arctic Blast tied to the separately deferred Inferno/channel gap. Preserve earlier class/finisher/trap/NPC-equipment deferrals, including the shared missile event/item-trigger backlog. All240talents/eight classes and separate effects/icons remain in scope.",
   "preparedActorCheckpoint": {
     "commit": "a25e832",
     "scope": "Historical actor-only evidence is retained at this Git commit; it predates learned casting."
   },
   "protectedInstalledArtifacts": {
+    ".local/class-skills/content/Sanctuary.Content.dll": "67adb6521c7baa6e4e8aed955dac933d0c791fbc4a928c815d1ca7115128673b",
+    ".local/class-skills/integration/Sanctuary.Integration.dll": "19ce0d5c06aeb3e45a9698788426de0c8baf3e4984d3120ad75fa7f57a5d32d8",
+    "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "upstream/ClassicUO/bin/Debug/net10.0/cuo.dll": "3daeb13c5397f0647b852c11f3e2af2efb74ee3e8e4bec709e0b70f770b88f88",
+    ".local/server/Assemblies/Sanctuary.Content.dll": "67adb6521c7baa6e4e8aed955dac933d0c791fbc4a928c815d1ca7115128673b",
+    ".local/server/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/content/Sanctuary.Content.dll": "67adb6521c7baa6e4e8aed955dac933d0c791fbc4a928c815d1ca7115128673b",
+    ".local/client/cuo.dll": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+    ".local/class-skills/decoy-combined-integration.dll": "bba9eb1b93ecaad244a98b80609d82b4c80d4911c548f5e89b7da097fc22aeed",
+    "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
+  },
+  "mainCandidate": {
+    "installed": true,
+    "focusedBoots": 3,
+    "focusedReloads": 2,
+    "connectedQuickCasts": 3,
+    "naturalEmitterRuns": 3,
+    "runtimeInputCount": 904,
+    "fullPending": false,
+    "fullSession": null,
+    "matchingClientUnchanged": true,
+    "clientSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82",
+    "fullReturnCode": 0,
+    "fullBoots": 3,
+    "fullReloads": 2,
+    "connectedFullQuickCasts": 3,
+    "naturalFullEmitterRuns": 3,
+    "pythonTests": 70,
+    "originalWorldSmoke": true,
+    "savesConfigClientProfilesSettingsUnchanged": true
+  },
+  "backup": ".local/class-skills/pre-firestorm-install",
+  "previousInstalledArtifacts": {
     ".local/class-skills/content/Sanctuary.Content.dll": "46cd96f6ca761f77c141aa96481b1894a00bb2d79b9dc296954cd5ce69d1dd37",
     ".local/class-skills/integration/Sanctuary.Integration.dll": "4b00f39f6aa3e6fc3d04a42208e2d6888016a1cc9e5afd7f11afecf1fdb7695f",
     "upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
@@ -122,17 +173,5 @@
     "upstream/ModernUO/Distribution/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
     ".local/server/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7"
-  },
-  "mainCandidate": {
-    "installed": false,
-    "focusedBoots": 3,
-    "focusedReloads": 2,
-    "connectedQuickCasts": 3,
-    "naturalEmitterRuns": 3,
-    "runtimeInputCount": 904,
-    "fullPending": true,
-    "fullSession": 2429,
-    "matchingClientUnchanged": true,
-    "clientSha256": "63f90efbfc465e00a49710e8eb44166ecffc6e8b6e592203f66c5040ea1f8d82"
   }
 }
