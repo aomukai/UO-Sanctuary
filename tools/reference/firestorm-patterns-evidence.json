@@ -10,8 +10,8 @@
   },
   "inputHashes": {
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "8f73ce2d651b2a5611d9ad195e9190a63dfd030bd11b746703c572de11cb7525",
-    "tools/probe_firestorm_reference.py": "d8f715b06bf60fdb1178724c0d587b713f97c70f4eb7940e39a5f74474877984",
-    "tools/reference/firestorm-source-evidence.json": "c12ac5299b40e5adcf0cb1300fcb3608758ecad189dc1412285bca6f3fcfff70",
+    "tools/probe_firestorm_reference.py": "d27a3a153221bf3a16e647cfcabe2e4781d5df837b491c6ea223d7adebf77ccd",
+    "tools/reference/firestorm-source-evidence.json": "96f6cc3de113f4205517d14b3b90d39d1ee7f911a1db2e5588dcccc4568a30ee",
     "tools/check_druid_emitter_patterns.py": "04cbae71ce0d5e4a6c3975602361953cdf99fa24847c827992bc5430ea9b7c9f"
   },
   "evidenceHashes": {
@@ -19,11 +19,11 @@
     ".local/class-skills/firestorm-source-probe.cpp": "f8e899eacc0f51b7be03fb00f3edaf69972f6a13a984d1d37953091fd4b6f7cf",
     ".local/class-skills/firestorm-source-probe": "c7e9b13ae264d0e5721ad5a7ee4d455ae7f2fbdfd866b74aceb574ef989d4842",
     ".local/class-skills/firestorm-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/firestorm-patterns-build.log": "ccd755b08256cb8f6f2c3eb9d2db10658537c07479a2efe653309db44b61bdc6",
+    ".local/class-skills/firestorm-patterns-build.log": "ac8e98372c2245500472f05e2b7aae25eeaa49ccf068c4099072c38fa0023f0d",
     ".local/class-skills/firestorm-patterns-run.log": "03f8124c3e0d5361ff7e817923b3ff974d893f9b3c460331c5adc45e6ec16228",
     ".local/class-skills/firestorm-patterns-proof/check.csproj": "1c63e869023fee01eb2546ca1c111c7d611704547b53498ab9b1ea641e6f8c78",
     ".local/class-skills/firestorm-patterns-proof/Program.cs": "be5778db81522fbee292bd84ff7a3a4ad5066b98474ef16ec068f8e024d09a1f",
-    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "649d452ddffc24d67dff4c3091496554a9d8b2b0c0c49fe788570fb0ebd6564b"
+    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "55df32d1ab6da51ec7cad981b1747b402d383e1ee63d63c5f7565439bebb5668"
   },
   "established": [
     "Actual production C# shared emitter requests, charged initializer and changed-cell child requests match every applicable complete older source fixture. Direct/fan target queries and child-before-terminal-collision order remain distinct.",
@@ -33,7 +33,8 @@
     "The complete reconstructed do117 rejects nParam>=0, including current table count3, while its shared helper correctly produces three emitters for count3. The executable modern do117 guard is not established. Do not use this older guard to disable positive current table counts or silently patch the extracted body.",
     "Declared engine services record creation requests/target queries and collision return values; no actual world actor, source complete factory, collision footprint, damage callback or modern executable is executed here.",
     "Ordinary emitter path, per-emitter frame stepping, new fire damage capture, unit-search order, SoftHit, saved patch lifetime, payment/cooldown/input and native persistence require independent integration.",
-    "Final effects/audio and talent/left/right/quick icons remain in separate registers."
+    "Final effects/audio and talent/left/right/quick icons remain in separate registers.",
+    "Separate call-order inspection of complete HandleMissileCollision, sub_6FCBC930 and D2Common_10226 establishes that do23 observes the previous generic movement flag/cell, creates any child, then moves again and decrements. The movement bridge/body are inspected, not compiled by this request probe."
   ],
   "next": "Compose actual Firestorm emitters and source damage/field lifecycle, then player SC/payment/cooldown/input. This pure plan does not claim these consumers are implemented."
 }

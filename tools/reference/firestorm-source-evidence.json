@@ -7,7 +7,9 @@
     "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
     "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
     "source/D2Common/src/Path/Step.cpp": "2627bfccce5b55bbfef983b255856ac37265c56625922cf18e56e3474ddd64d0",
-    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079"
   },
   "routineHashes": {
     "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d",
@@ -15,7 +17,10 @@
     "sub_6FCFE4C0": "416ab459f2ee2a8b67516e040ce45640321762a59ae0cdb49b5f3ee03cf378f7",
     "SKILLS_SrvDo117_Firestorm": "7b6e43e7ebf339509b6b04ce86bf07044df504171a30aa0928e86f83c3c7980c",
     "D2Common_10234": "3337909227ece0cfd865281b9fd9a720aeefd75dd721b5a1c55e28dc497b8d18",
-    "MISSMODE_SrvDo23_24_SuccFireBall_FirestormMaker": "e8672a85bdcf9d5e38396e44e88be77f22a293feb006c76343e70122a39314b1"
+    "MISSMODE_SrvDo23_24_SuccFireBall_FirestormMaker": "e8672a85bdcf9d5e38396e44e88be77f22a293feb006c76343e70122a39314b1",
+    "MISSMODE_HandleMissileCollision": "450f3fa4275c6f143c8cc45bf4269054923d5ffa67d34d21a2fccb085ab9ff9d",
+    "sub_6FCBC930": "332f5438fe2398bc6a0c4afc0413168d2143501ce9a74f5e3a535edeae39dfad",
+    "D2Common_10226": "e13a09c4ac8732bda661afe6da7fab20dce71c0b97628f6dcaab2574d1e18675"
   },
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
@@ -44,7 +49,8 @@
   "limits": [
     "Declared engine services record creation requests/target queries and collision return values; no actual world actor, source complete factory, collision footprint, damage callback or modern executable is executed here.",
     "Ordinary emitter path, per-emitter frame stepping, new fire damage capture, unit-search order, SoftHit, saved patch lifetime, payment/cooldown/input and native persistence require independent integration.",
-    "Final effects/audio and talent/left/right/quick icons remain in separate registers."
+    "Final effects/audio and talent/left/right/quick icons remain in separate registers.",
+    "Separate call-order inspection of complete HandleMissileCollision, sub_6FCBC930 and D2Common_10226 establishes that do23 observes the previous generic movement flag/cell, creates any child, then moves again and decrements. The movement bridge/body are inspected, not compiled by this request probe."
   ],
   "next": "Compose source-backed launch and changed-cell child plans using existing path/field consumers; retain the do117 guard conflict explicitly and establish modern behavior before claiming complete parity."
 }

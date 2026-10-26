@@ -155,19 +155,19 @@ public static class SkillCombat
         };
         return MitigatePrepared(source,target,raw);
     }
-    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage)
+    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,int damageRate=0)
     {
-        var parts=MitigatePrepared(source,target,damage,out int healing256);
+        var parts=MitigatePrepared(source,target,damage,out int healing256,damageRate);
         if(healing256>0){SkillHealth.Heal(target,healing256);}
         return parts;
     }
-    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256)
+    internal static GearDamage MitigatePrepared(Mobile source,Mobile target,GearDamage damage,out int absorbed256,int damageRate=0)
     {
         var raw = SorceressEffects.Absorb(target, damage);
         long healing256=0;
         double Channel(double value,string element)
         {
-            var result=NamedElements.Resolve256(source,target,NamedElements.To256(value),element,enhance:false);
+            var result=NamedElements.Resolve256(source,target,NamedElements.To256(value),element,enhance:false,damageRate:damageRate);
             healing256+=result.Absorbed256;return result.Damage256/256.0;
         }
         var parts=raw with

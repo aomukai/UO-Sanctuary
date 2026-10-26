@@ -173,6 +173,7 @@ CAVEATS = {
 }
 
 NATIVE_PARTIAL = {
+    'druid.firestorm',
     'druid.cyclonearmor',
     'assassin.phoenixstrike','assassin.bladesofice',
     'assassin.clawsofthunder',
@@ -259,7 +260,7 @@ NATIVE_PARTIAL = {
 }
 LEGACY = {'necromancer.raiseskeleton','necromancer.skeletonmastery','sorceress.teleport'}
 PENDING = {
-    'druid.firestorm':'Prepared shared Druid emitter requests match 256 complete source launcher cases, 45 charged initializers and 160 maker cases, with three explicit unsupported-context controls. Firestorm uses one ordinary emitter plus two aim-seeded Charged Bolt paths; changed-cell fire creation precedes terminal collision. The older reconstructed do117 guard rejects the current positive count3; this conflict is documented rather than patched in the extracted source. See firestorm-source-evidence.json, firestorm-patterns-evidence.json and firestorm-preflight.json. Real emitter motion, child damage/field lifecycle, SC/payment/local delay/input and world persistence remain pending. No learned handler enabled; final effects/audio and icons remain separately inventoried.',
+    'druid.firestorm':'Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate.',
     'amazon.valkyrie':'Creation and source equipment-selection components retain source stats, seven current passive fields, hard-only inherited skills, exact MonEquip requests and current affix pools/weights/seed transitions without a player supported-property filter. Dedicated source/native comparisons are bounded separately. Actual item property rolling/stat application and NPC combat/cast/placement/lifecycle/persistence remain pending. Ordinary scalar/range/parameter properties now reuse the named resolver; current-catalogue NPC property creation/stat consumers remain pending. Skill-based item procs/charges/grants/auras are recorded for the user-requested later pass. No summon handler enabled.',
     'sorceress.inferno':'Pinned synergy expression is balanced and verified. Still needs its distinct SQ channelling sequence, starting/interval mana and flame collision/damage.',
 }
