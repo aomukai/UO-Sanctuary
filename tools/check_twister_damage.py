@@ -44,7 +44,7 @@ var definitions=JsonSerializer.Deserialize<SkillDefinition[]>(File.ReadAllText(a
 var source=(Dictionary<string,SkillDefinition>)typeof(SkillMechanics).GetField("_source",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
 source.Clear();foreach(var definition in definitions)source.Add(definition.SourceKey,definition);
 var twister=definitions.Single(x=>x.SourceId==240);
-Require(twister.SourceKey=="Twister"&&!DruidCombat.Implemented(CombatAbility.Twister),"Twister source-only scope");
+Require(twister.SourceKey=="Twister"&&DruidCombat.Implemented(CombatAbility.Twister),"Twister learned candidate identity");
 var physical=typeof(SkillValues).GetMethod("PhysicalDamage256",BindingFlags.Instance|BindingFlags.NonPublic);
 Require(physical!=null,"Existing physical endpoint supplier");
 using var json=JsonDocument.Parse(File.ReadAllText(args[0]));int count=0;
@@ -63,7 +63,7 @@ for(int rank=1;rank<=255;rank++)foreach(int hard in new[]{0,1,20})
  var values=new SkillValues(twister,key=>key=="Twister"?rank:255,key=>key=="Arctic Blast"?hard:0,99);
  Require(values.Eval("calc2")==10+2*hard,"Modern hard-only Arctic Blast duration formula");stun++;
 }
-Console.WriteLine($"{count} actual-content Twister source endpoint comparisons/all255ranks and {stun} modern duration formula controls pass; no learned handler enabled.");
+Console.WriteLine($"{count} actual-content Twister source endpoint comparisons/all255ranks and {stun} modern duration formula controls pass; learned casting has separate native acceptance.");
 ''')
     with (STAGE / 'twister-damage-build.log').open('w') as log:
         subprocess.run([str(ROOT / '.tools/dotnet/dotnet'), 'build', str(OUT / 'check.csproj'), '-c', 'Release',
@@ -76,7 +76,7 @@ Console.WriteLine($"{count} actual-content Twister source endpoint comparisons/a
                                   'data/Sanctuary/Balance/class-skills.json', 'tools/check_twister_damage.py',
                                   'tools/probe_twister_damage_reference.py', 'tools/reference/twister-damage-source-evidence.json']]
     inputs += [fixture, STAGE / 'twister-damage-run.log', OUT / 'Program.cs', OUT / 'check.csproj', OUT / 'out/check.dll']
-    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False,
+    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False,
                     sourceEndpointComparisons=9180, modernDurationFormulaControls=765,
                     contentAssemblySha256=sha(content), nativeAssemblyHashes={str(p.relative_to(native)): sha(p) for _, p in references[1:]},
                     hashes={str(p.relative_to(ROOT)): sha(p) for p in inputs},

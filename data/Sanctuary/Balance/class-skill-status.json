@@ -1725,10 +1725,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 240,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC ground/target casts use once-only7mana release and three saved charged paths. Physical endpoints capture effective rank and hard Tornado/Hurricane synergies before HitShift7; live hard Arctic Blast points supply modern calc2 stun duration. Shared source-block, stun and knockback consumers are reused. Current cast/target25-frame hit-delay grouping remains explicitly provisional. Native movement/terrain/room/RNG, source/current-executable events, DAMAGE_VS_MONTYPE layers, PvP/unmapped/passive-defense targets and ordinary-client acceptance remain open. See the current checkpoint for verification scope. Final wind/cast/contact/stun/expiry/audio and separate talent/L/R/quick icons remain identified placeholders; no class complete."
     },
     {
       "talentId": "druid.volcano",

@@ -51,13 +51,19 @@ def build(check=False):
         bodies[name] = hashlib.sha256(body.encode()).hexdigest()
         return body + '\n'
 
+    enum_path = 'source/D2Common/include/Path/Path.h'
+    enum_raw = (STAGE / 'd2moo-pinned-source' / enum_path).read_bytes()
+    assert hashlib.sha1(b'blob ' + str(len(enum_raw)).encode() + b'\0' + enum_raw).hexdigest() == next(x['sha'] for x in tree['tree'] if x['path'] == enum_path)
+    assert re.search(r'PATHTYPE_CHARGEDBOLT\s*=\s*10\b', enum_raw.decode())
+    hashes[enum_path] = hashlib.sha256(enum_raw).hexdigest()
+
     cpp = r'''
 #include <cassert>
 #include <cstdint>
 #include <cstdio>
 #include <vector>
 #define __fastcall
-constexpr int UNITFLAG_SKSRVDOFUNC=0x100,PATHTYPE_CHARGEDBOLT=9;
+constexpr int UNITFLAG_SKSRVDOFUNC=0x100,PATHTYPE_CHARGEDBOLT=10;
 struct D2GameStrc{}game;
 struct D2DynamicPathStrc{int x=0,type=0,distance=0,builds=0;};
 struct D2SeedStrc{uint32_t low=0;};
@@ -110,7 +116,7 @@ int main(){bool first=true;printf("[");
  assert(requests.size()==(size_t)(valid&&n>0&&unit&&aim?n:0));
  printf("%s[0,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,[",first?"":",",sid,unit,sk,mid,n,aim,f,x,length,result,owner.dwFlags);first=false;
  for(size_t i=0;i<requests.size();i++){auto&r=requests[i];auto&p=r.p;assert(p.dwFlags==33&&p.pOwner==&owner&&p.nX==100&&p.nY==200&&p.nSkill==sid&&p.nSkillLevel==20&&p.nMissile==mid&&p.nTargetX==x&&p.nTargetY==400&&p.pInitArgs==(int)i);
-  if(r.allocated){assert(r.total==(length>=78?77:length)&&r.current==r.total&&r.seed==x+(int)i&&r.type==9&&r.distance==r.total&&r.builds==1);}
+  if(r.allocated){assert(r.total==(length>=78?77:length)&&r.current==r.total&&r.seed==x+(int)i&&r.type==10&&r.distance==r.total&&r.builds==1);}
   printf("%s[%d,%d,%d,%d,%d,%d,%d,%d]",i?",":"",p.pInitArgs,r.allocated,r.total,r.current,r.seed,r.type,r.distance,r.builds);}
  printf("]]");}
  for(bool exists:{false,true})for(bool mr:{false,true})for(bool sk:{false,true})for(int param:{-5,0,6})for(int base:{10,20}){
@@ -152,9 +158,10 @@ int main(){bool first=true;printf("[");
     else:
         output.write_text(text)
     preflight = dict(referenceVersion='3.3.93847 — Reign of the Warlock', primaryDataCommit=manifest['commit'],
-                     legacyCommit=LEGACY, handlerEnabled=False, installed=False, pinnedInputHashes=pins,
+                     legacyCommit=LEGACY, handlerEnabled='CombatAbility.Twister' in re.search(r'public static bool Implemented\(CombatAbility \w+\) => (.*?);', (ROOT / 'src/Sanctuary.Content/DruidCombat.cs').read_text(), re.S).group(1), installed=False, pinnedInputHashes=pins,
                      skill=skill_row, missile=missile_row, skillDescription=desc_row,
                      sourceEvidence='tools/reference/twister-source-evidence.json',
+                     nativeCandidateEvidence='tools/reference/twister-native-evidence.json',
                      damageEvidence=['tools/reference/twister-damage-source-evidence.json', 'tools/reference/twister-damage-evidence.json'],
                      officialModernChange=dict(url='https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
                                                release='2.4 released notes, Twister',
@@ -166,10 +173,10 @@ int main(){bool first=true;printf("[");
                             dict(component='SkillValues.PhysicalDamage256', reason='Complete source creator/getter/writer captures and the actual content helper match9180contexts/all255ranks; preserve physical synergy truncation before HitShift7. Formula controls for modern stun are separate from stun delivery.'),
                             dict(component='SourceMissileSteps / missile collision / CombatStuns', reason='Reuse only after preserving Size2,50frames, source0 physical packet, damage9 stun/class, GetHit/ReturnFire/KnockBack flags and explicit modern NHD policy. No new correctness is inherited merely by naming these consumers.')],
                      remaining=['Full factory/lifecycle composition, native physical damage commitment, modern stun delivery, missile path/movement/collision/contact/defense handling and current NHD grouping.',
-                                'Learned SC start/release/7mana payment, bindings, real input, item/synergy/rank controls, saved actors and actual reload/lifetime/owner/facet acceptance.',
+                                'Focused learned SC/payment/bindings/input/lifecycle/actual reload acceptance is recorded in the separate native candidate evidence. Remaining actual-item/potion, obstacles, full class regression and installation still require dedicated acceptance.',
                                 'Native geometry/room/timer/seed/event/current-executable and ordinary-client limits remain explicit. Do not port the older stun fallback or invent an exact modern grouping.',
                                 'Final twister/cast/contact/expiry/audio and talent/left/right/quick icons remain in the existing separate240-row inventories; identified placeholders may unblock mechanics.'],
-                     next='Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Continue Twister from this source-only composition, reusing charged paths and independently checking physical/stun consumers. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
+                     next='Fissure is installed from its exact tested package; see fissure-installation-evidence.json. Continue the staged Twister candidate from its separately recorded native checkpoint; finish actual-item/potion/obstacle and full regression/installation acceptance while retaining source/current-executable limits. Arctic Blast remains tied to the deferred player Inferno/channel work; Boulder terminal blast/ground is a separate current-build observation gap.')
     output = ROOT / 'tools/reference/twister-preflight.json'
     text = json.dumps(preflight, indent=2) + '\n'
     if check:

@@ -1,10 +1,10 @@
 {
   "referenceVersion": "3.3.93847",
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "installed": false,
   "sourceEndpointComparisons": 9180,
   "modernDurationFormulaControls": 765,
-  "contentAssemblySha256": "e623732895f44483680d94b58fbeb67dd4e7808c6544320c4a3f06cfa54acef3",
+  "contentAssemblySha256": "65e531af33a3f2bab9f6b236366b469c1183fcb33591a665e78158bc739ef70c",
   "nativeAssemblyHashes": {
     "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
     "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
@@ -12,16 +12,16 @@
   },
   "hashes": {
     "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
-    "src/Sanctuary.Content/DruidCombat.cs": "34146e0b77e77e285bf34be59bfdcc2a4468158dd0e1f784233b468241f80993",
+    "src/Sanctuary.Content/DruidCombat.cs": "221c5c780e2a0e0a5f7de478b010b8671922066ff3d998748fb49a59d57afa39",
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
-    "tools/check_twister_damage.py": "9e4d4729dfa2bb67b0f05ddf6bc0ed8b28e9609b165efcd8a815967ed205c619",
+    "tools/check_twister_damage.py": "0937971de4fd4828e1aa09a5b4c0d408baaa5658ce7ee13495180c6853b49a6f",
     "tools/probe_twister_damage_reference.py": "94df104c0523d045d9731417e28636735a113e6d65a1432d250b8f7d7e100043",
     "tools/reference/twister-damage-source-evidence.json": "b90f76cfc159c36f203cf60a78174f0179fb6b4b5f6f459c89ea4bd95cb98ec0",
     ".local/class-skills/twister-damage-source-probe.json": "96ba489e3eae3d40660f62a16dee178eed1a416effffed9d5b1eb04b0304f452",
-    ".local/class-skills/twister-damage-run.log": "bc97fd4e8e9c0c39d3f74f140fd53b0c360c7194486cb9e15b273cb588a40c06",
-    ".local/class-skills/twister-damage-proof/Program.cs": "3894213fa6ebfe5e679dabc4e3362d91247b302a0bb0c3bda1c480a289f312e7",
-    ".local/class-skills/twister-damage-proof/check.csproj": "17f6de103a631d2032954e36c487fed5d41c9fd7f70a244273bbaa7ff1c83061",
-    ".local/class-skills/twister-damage-proof/out/check.dll": "37c86c08a7ce70222aa87b6f3e45b0b78eec20357ef4f83d78032796245b42b9"
+    ".local/class-skills/twister-damage-run.log": "e9913c0082f1c2d4e052279c3cc6523edbf7b71ee9b43c193fc2f930078dbf79",
+    ".local/class-skills/twister-damage-proof/Program.cs": "008810034420993077bd717e0463144186ff550d7997655dfc7c027db2e1fe60",
+    ".local/class-skills/twister-damage-proof/check.csproj": "17e6b329e0f8c12d3c3b4bf0d651d8cc36e5e6982c5328fdb0b1615915f506c6",
+    ".local/class-skills/twister-damage-proof/out/check.dll": "f77f62e0d759a6de7f01a7a959043f50f3e63170356d9e77af364c0ebd115f28"
   },
   "established": [
     "The actual existing PhysicalDamage256 supplier matches all9180complete source captures/all255ranks, preserving pre-HitShift physical synergy truncation and independent hard Tornado/Hurricane points.",

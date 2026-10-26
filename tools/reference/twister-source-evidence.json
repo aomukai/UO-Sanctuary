@@ -8,6 +8,7 @@
   },
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
     "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c",
     "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
     "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
@@ -23,7 +24,7 @@
   "sanitizers": "ASan/UBSan clean",
   "fixture": {
     "path": ".local/class-skills/twister-source-probe.json",
-    "sha256": "93338b6fe6d8deb45e76f71659cb8fcd89505538c9dbea313ebf7767c0739634"
+    "sha256": "d3aade55f2dd1e55f9c2da2a7ffd2b1fdf81961197271ee74bc53573e6fb7404"
   },
   "services": [
     "Current row/progressive missile/formula selection and aim lookup are explicit inputs.",

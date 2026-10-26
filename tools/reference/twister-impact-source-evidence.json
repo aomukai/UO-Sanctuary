@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "reusedComposition": "tools/reference/molten-boulder-impact-source-evidence.json",
+  "sourceHashes": {
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "fixture": {
+    "path": ".local/class-skills/twister-impact-source-probe.json",
+    "sha256": "3432a2c15391b89e57de7d5696ceb98475675f79bf1c322bcb57a2c6e413f105",
+    "cases": 11200
+  },
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr",
+  "established": [
+    "Complete shared missile flags, typed resistance/health event body, stun allocation/refresh/cap and final mode dispatcher compose with player ownership.",
+    "Twister GetHit1/KnockBack1 consumes its independent missile RNG draw unless uninterruptible. Defense suppresses hit events and stun; an existing knockback flag can still request movement on a blocked hit.",
+    "Normal, unique10percent, boss, stationary and hireling13-frame cases record separate attacker/missile RNG, new versus existing stun state, physical immunity, uninterruptible health/event versus mode behavior."
+  ],
+  "limits": [
+    "The modern stun length is an explicit input packet. The earlier raw-Param2 callback is not passed off as current formula execution; modern duration formula has separate current-data/actual-content evidence.",
+    "State allocation/storage/events, declared monster flags/modes, empty event subscribers, damage stats and mode/kill calls are recording services; no complete modern executable, native skill or ordinary-client certificate follows."
+  ]
+}

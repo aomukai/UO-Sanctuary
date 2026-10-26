@@ -229,7 +229,7 @@ public static class DruidMoltenBoulder
         int fire=WeaponMissileDamage.RollValue(s.FireMin256,s.FireMax256,0,bound=>(int)SourceRandom.Limited(ref state,bound));seed=state;
         return new(physical/256.0,fire/256.0,0,0,0);
     }
-    private static GearDamage Potion(FirestormModifiers mods,GearDamage raw)
+    internal static GearDamage Potion(FirestormModifiers mods,GearDamage raw)
     {
         double added=raw.Total*mods.Potion/100;
         return raw with{Fire=raw.Fire+added*Math.Max(0,100+mods.FireMastery)/100,

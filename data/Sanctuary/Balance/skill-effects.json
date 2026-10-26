@@ -2193,7 +2193,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Native wind casts use identified UO0x37CC hue0x481 travelling/contact markers and0x655 cast-audio placeholders. Final expansion/twister projectile, cast/contact/stun/expiry presentation, druid_windcast/druid_twister/sorceress_blizzard_impact_1 audio and talent/left/right/quick icons remain separate. Mechanical damage and lifetime do not depend on the marker animation."
   },
   {
     "talentId": "druid.volcano",

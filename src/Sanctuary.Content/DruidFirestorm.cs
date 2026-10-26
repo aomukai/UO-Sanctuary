@@ -132,7 +132,7 @@ public static class DruidFirestorm
             SourceRandom.InitLow(SeedLow()),at.AddMilliseconds(15*40),at.AddMilliseconds(40));Validate(patch);
         _pool=_pool with{NextId=id,Patches=_pool.Patches.Add(id,patch)};
     }
-    private static bool CellBlocked(Map map,int z,double x,double y,int cx,int cy)
+    internal static bool CellBlocked(Map map,int z,double x,double y,int cx,int cy)
     {
         if(cx<=0 || cy<=0 || cx>=map.Width*2 || cy>=map.Height*2){return true;}
         return !map.LineOfSight(new Point3D((int)Math.Round(x),(int)Math.Round(y),z+12),new Point3D((cx+1)/2,(cy+1)/2,z+12));
