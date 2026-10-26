@@ -43,7 +43,7 @@ def check():
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['twister-damage', 'twister-impact', 'fissure-damage', 'missile-footprints', 'molten-boulder-damage', 'molten-boulder-impact']:
+        for name in ['twister-damage', 'twister-impact', 'twister-path', 'fissure-damage', 'missile-footprints', 'molten-boulder-damage', 'molten-boulder-impact']:
             shutil.copy2(ROOT / ('.local/class-skills/' + name + '-source-probe.json'), folder / (name + '-source-probe.json'))
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
@@ -69,7 +69,7 @@ def check():
             return hashlib.sha256(path.read_bytes()).hexdigest()
         sources = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration']
                    for p in (ROOT / directory).glob('*.cs')]
-        sources += [Path(__file__).resolve(), ROOT / '.local/class-skills/twister-damage-source-probe.json', ROOT / '.local/class-skills/twister-impact-source-probe.json', ROOT / '.local/class-skills/fissure-damage-source-probe.json', ROOT / '.local/class-skills/missile-footprints-source-probe.json']
+        sources += [Path(__file__).resolve(), ROOT / '.local/class-skills/twister-damage-source-probe.json', ROOT / '.local/class-skills/twister-impact-source-probe.json', ROOT / '.local/class-skills/twister-path-source-probe.json', ROOT / '.local/class-skills/fissure-damage-source-probe.json', ROOT / '.local/class-skills/missile-footprints-source-probe.json']
         inventory = dict(
             sourceInputs={str(p.relative_to(ROOT)): digest(p) for p in sorted(sources)},
             copiedData={str(p.relative_to(folder)): digest(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},

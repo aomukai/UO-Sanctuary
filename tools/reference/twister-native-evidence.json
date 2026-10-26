@@ -15,6 +15,7 @@
   "fullClassRegression": false,
   "sourceEndpointComparisons": 9180,
   "reactionAndStunFrameComparisons": 11200,
+  "completePathComparisons": 600,
   "pythonTests": 70,
   "namedAuditFingerprints": 590,
   "firstLoopFingerprints": 21,
@@ -27,43 +28,47 @@
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
     "src/Sanctuary.Content/CombatStuns.cs": "9138999d4c86db7398f8b53e0a782698161234ef59daff9700f11c9262d56cc3",
-    "tests/Sanctuary.Integration/TwisterChecks.cs": "e56a6da3ea9d1e49933ae70ff5f2d3f538ae9220d559f87e4217db8876029958",
-    "tests/check_twister.py": "b53dedbc8235e45f21d72da87e7822583408696567dc6aa9ebfe8c75df05f08f",
-    "tools/record_twister_candidate.py": "bb06a419947b632abddd7f3339a379116431eb968357ca9328c971c4f5699634",
+    "tests/Sanctuary.Integration/TwisterChecks.cs": "2b4250cccf41d1e84be4674cbe5b6c6e6c786e63e776a0ffec245ad7d40eaa9c",
+    "tests/check_twister.py": "4140d91c414fc0b1f34e66cc12555733cee975612e6d96b918e25280a918bace",
+    "tools/record_twister_candidate.py": "e4abb7f624e5f7a0131725812bbeba720dd37ba45d1f39de65bc945c740b21a0",
     "tools/reference/twister-source-evidence.json": "403e0010e20e76d60f1459d6689f77b9d190fd8fe54965f4714332ccb1d528ca",
     "tools/reference/twister-damage-source-evidence.json": "b90f76cfc159c36f203cf60a78174f0179fb6b4b5f6f459c89ea4bd95cb98ec0",
     "tools/reference/twister-damage-evidence.json": "641aaa5ab5bf819de5b26781eaef7a8647e9d3e7ef32220ca479759e584529e3",
     "tools/reference/twister-impact-source-evidence.json": "518e37ce125c8d231fe4edc7f3cb8ceb79f0c4b5014e9e31cf6542c103b021e5",
-    "tools/reference/named-item-runtime-audit.json": "12b263864ff31348eb0a14bf2d0fc892ede72b7cff0cb2de182536202a940bd1",
+    "tools/probe_twister_path_reference.py": "a65dfa867aed629c7a14464029eca2a08675ed3402690a6226a9b68ea24fee73",
+    "tools/reference/twister-path-source-evidence.json": "4777c9f6455730c289224ce6b26cb6664a36f8792810719107288b5983a71b9b",
+    "tests/check_class_skills.py": "3be3e8843d4e3b91e71fd8747bb5f5ff1001e787e901d9868d221ae155f256e1",
+    "tools/reference/named-item-runtime-audit.json": "7737513a9735a05aa73e530b9ebe13303e96a9657193c74d367a90c39c344b86",
     "tools/reference/first-loop-affix-audit.json": "f9a958169faa25b87bedf0e08ddbdd3c2b661669e9a05155dc1c3a791ac519cb",
     ".local/class-skills/twister/content/Sanctuary.Content.dll": "6a98d8e92599ea8f1ec6117b8e23627e7780975f58a38a8f3aa4b49f23fb6b83",
-    ".local/class-skills/twister/integration/Sanctuary.Integration.dll": "f3ec9db5515095de2ec3111cec2816f612f5657d963228727b15f7409eff3ca3",
-    ".local/class-skills/twister/focused-inputs.json": "649650f8bffbd79e966f5019a9cf522d41d9bae35efd5500c8574b9e0e9ccd6b",
-    ".local/class-skills/twister/native-checks.log": "7a44bffb86205b5229ccff494872d390e142641d4be527bd623e575fcaa853b0",
-    ".local/class-skills/twister/native-fixtures.json": "ac282fcde4b1b93ab6547b12edd768ba937ca0a54d368ef92ffee4e75b32f0d9",
+    ".local/class-skills/twister/integration/Sanctuary.Integration.dll": "d8c945df826efc626d1d14a78bd1099e8ab24be059397fb6bcf8784ed4ceb805",
+    ".local/class-skills/twister/focused-inputs.json": "20f0e3f926f1af64df152e65d6b51d98f06391e23620d6273dffd7a0205920a8",
+    ".local/class-skills/twister/native-checks.log": "97365a8c1545659805fa20fb2386e7b6e7cd2490fbcb8564abb04af3be524e6b",
+    ".local/class-skills/twister/native-fixtures.json": "3194e92e8c855729e440153bc2c30dd186b6e891a513691c9dbfd3212673ba96",
     ".local/class-skills/twister/pre-native-named-audit.json": "6bba0bd4a37b022b66c2d92ebf0f590462d70ba14666b5394d0fe3681e74f3fe",
-    ".local/class-skills/twister/audit-refresh-native.log": "50c1bf00553f19e2a320f27877f85221e906aaad162a5687f11505cb247fa9ef",
+    ".local/class-skills/twister/audit-refresh-native.log": "1ce9d07a1082809c6140d5b455a8aacc91e12ece5423fddf9b8ddb63bf0a66b4",
     ".local/class-skills/twister-focused-run.log": "5a989c0a2436d2edde4f23a8c905f303cd183147b9064fa353183537ddf07159",
-    ".local/class-skills/twister-python-tests.log": "8f8f620a00355e51c9f4763c58ce0e34030f326b12ca1eb9429f5f26c33c4c26",
+    ".local/class-skills/twister-python-tests.log": "359ee564cb9887ed56fc18911aeb949d1c5da84b29a98e9a583e5bd3d429a4cf",
     ".local/class-skills/twister-damage-run.log": "e9913c0082f1c2d4e052279c3cc6523edbf7b71ee9b43c193fc2f930078dbf79"
   },
   "established": [
     "Learned SC ground/live/deleted/self aim, L/R/quick binding, once-only7mana release, no added local delay, stop/movement/recovery/lost-mana cancellation and discarded unpaid windup pass.",
     "Three seeded50-frame charged flights retain captured physical endpoints and the path-building RNG advances before contact. Retained source steps preserve collision during subcell movement. Source flag/knockback and stun-duration kernels are compared separately from native health/stun cases.",
     "Native ordinary-monster physical damage, shield block, physical immunity with stun, live hard Arctic Blast duration, independent captured damage versus later hard-point changes and explicit25-frame lease boundary pass.",
+    "Actual Tarnhelm effective rank/captured physical endpoints, Slow Missiles velocity with preserved physical endpoints, real tier3 approved potion channels through physical immunity, blocked-hit one-percent knockback and an actual wall barrier pass. Complete50-frame source initialization/path/final seed compares600cases; full source mode priority compares11200contexts.",
     "Worker serialization is read-only; path snapshots do not alias live state and malformed restores are atomic. Offline/old-facet expiry, class-history cleanup and exact saved path/step/seed/clock/lease/stun/fractional injury/bindings pass.",
     "Three connected prepared flight runs and three real quick packets move, damage, stun and expire naturally. Retained Fissure/Boulder/Firestorm and actual Blizzard damage/lifetime/reload controls pass."
   ],
   "fixtureControls": [
     "The held state has a two-day test epoch and real existing prevent-heal state only after ordinary natural lifetime/damage checks. Offline held ownership is not used to claim natural damage.",
     "Deterministic native direct-hit cases supply fixed1536 endpoints. Source matrix health includes an explicit hireling resistance branch; there is no native hireling actor certificate.",
-    "Shared terrain and approved potion helpers are reused through accessibility-only changes; full class regression is still required before installation."
+    "Shared terrain and approved potion helpers are reused through accessibility-only changes; full class regression status is recorded above; installation acceptance remains separate."
   ],
   "remaining": [
     "Modern cast/target25-frame NHD grouping is explicitly provisional; precise current cross-cast/owner grouping is unverified.",
-    "Dedicated actual-item/potion, obstacle/mode and full class regression/installation acceptance remain ahead. Fifty-frame path composition should additionally compare complete source initialization with actual generated waypoints/final RNG.",
+    "Complete full class regression if not recorded above, then exact-package installation and existing-world preservation acceptance.",
     "PvP, unmapped/hireling/passive-defense targets, DAMAGE_VS_MONTYPE layers, full event/ReturnFire/owner/current-executable and ordinary-client acceptance remain unsupported or unverified. Native geometry/rounding/room/timer order remains an adapter.",
     "Final wind/cast/contact/stun/expiry/audio and separate talent/left/right/quick icons remain identified placeholders. No skill/class parity certificate is claimed."
   ],
-  "next": "Add the remaining gear/potion/wall and complete50-frame path controls, then full regression and exact-package installation. Preserve the installed Fissure world and continue the full eight-class240-talent roadmap."
+  "next": "Finish full regression if not recorded above, then exact-package installation with preservation/rollback. Preserve the installed Fissure world and continue the full eight-class240-talent roadmap."
 }

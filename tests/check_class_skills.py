@@ -71,7 +71,7 @@ def check():
             (folder / 'Assemblies' / name).symlink_to(PACKAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'corpse-base-life-source-probe.json', folder / 'corpse-base-life-source-probe.json')
-        for name in ['fissure-damage','missile-footprints','molten-boulder-damage','molten-boulder-impact']:
+        for name in ['twister-damage','twister-impact','twister-path','fissure-damage','missile-footprints','molten-boulder-damage','molten-boulder-impact']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock','necro-corpse-explosion','cyclone-armor']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
@@ -207,10 +207,21 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['fissure','molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['twister','fissure','molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+                        session.send('twister-live-check');assert session.expect(r'twister-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        session.expect(r'twister-live: ready ability=\d+ x=\d+ y=\d+ z=-?\d+');client.sendall(b'\x73\x00')
+                        assert session.expect(r'twister-live-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+                        session.send('twister-input-check');assert session.expect(r'twister-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'twister-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)');ability,x,y,z=map(int,ready.groups())
+                        client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'twister-input-result: (passed|failed)',timeout=8).group(1)=='passed',logpath.read_text()[-6000:]
                     with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
                         threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
                         session.send('fissure-live-check');assert session.expect(r'fissure-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

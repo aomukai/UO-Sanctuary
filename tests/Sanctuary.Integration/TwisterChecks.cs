@@ -84,6 +84,23 @@ public static class TwisterChecks
                 && values.Mana256 == 1792 && values.Eval("calc1") == 3, "Twister source endpoints/count/mana"); count++;
         }
         Require(count == 9180, "Incomplete source endpoints");
+        using var paths = JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory, "twister-path-source-probe.json"))); int pathCount = 0;
+        foreach (var row in paths.RootElement.EnumerateArray())
+        {
+            int origin = row[0].GetInt32(), dx = row[1].GetInt32(), dy = row[2].GetInt32(), ordinal = row[3].GetInt32();
+            var init = DruidEmitterPatterns.InitializeCharged(50, origin + dx, ordinal); int heading = ChargedBolts.Heading(dx, dy);
+            Require(init.Frames == row[4].GetInt32() && row[5].GetInt32() == 50 && heading == row[6].GetInt32(), "Complete source charged initializer/heading");
+            var actual = ChargedBolts.Path(init.Seed, heading, init.Distance); var expected = row[8].EnumerateArray().ToArray();
+            Require(actual.Length == expected.Length && actual.Length == 26, "Complete source path length");
+            for (int i = 0; i < actual.Length; i++)
+            {
+                int x = unchecked((short)(ushort)(expected[i][0].GetInt32() - origin)), y = unchecked((short)(ushort)(expected[i][1].GetInt32() - origin));
+                Require(actual[i].X * 2 == x && actual[i].Y * 2 == y, "Complete source path coordinates/wrap");
+            }
+            ulong seed = SourceRandom.InitLow(unchecked((int)init.Seed)); for (int i = 1; i < actual.Length; i++) { SourceRandom.Roll(ref seed); }
+            Require(seed == row[7].GetUInt64(), "Complete source initializer/path/final RNG"); pathCount++;
+        }
+        Require(pathCount == 600, "Incomplete source charged path scope");
         using var impact = JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory, "twister-impact-source-probe.json"))); count = 0;
         foreach (var row in impact.RootElement.EnumerateArray())
         {
@@ -102,9 +119,11 @@ public static class TwisterChecks
             bool applied = plan.Damage && frames > 0;
             Require(ownerSeed == row[11].GetUInt64() && (applied || existing) == (row[13].GetInt32() != 0)
                 && (applied ? 1000 + frames : existing ? 1999 : 0) == row[14].GetInt32()
-                && (applied && !existing ? 1 : 0) == row[15].GetInt32() && (applied ? 1 : 0) == row[16].GetInt32(), "Complete source stun/refresh/cap/RNG"); count++;
+                && (applied && !existing ? 1 : 0) == row[15].GetInt32() && (applied ? 1 : 0) == row[16].GetInt32(), "Complete source stun/refresh/cap/RNG");
+            int mode = guard ? -1 : plan.Push ? 13 : (plan.Flags & 0x10) != 0 ? 6 : (plan.Flags & 4) != 0 && (existing || applied) ? 3 : -1;
+            Require(mode == row[9].GetInt32(), "Complete source mode priority"); count++;
         }
-        Require(count == 11200, "Incomplete source impact scope"); Log.Information("Twister:9180complete source endpoints/11200flag-health-stun-mode controls pass");
+        Require(count == 11200, "Incomplete source impact scope"); Log.Information("Twister:9180source endpoints/600complete paths/11200flag-health-stun-mode controls pass");
     }
     private static void Casting()
     {
@@ -162,6 +181,47 @@ public static class TwisterChecks
         finally { SourceBlocking.BlockRoll = block; }
         DruidTwister.Cancel(p); CombatStuns.Clear(target); target.Delete(); p.Delete();
     }
+    private static void GearPotionAndObstacles()
+    {
+        var p = Fresh(); Train(p, CombatAbility.Twister); var at = TimedEffects.Now.AddDays(1);
+        var helm = NamedGear.Create(NamedGear.Catalog.Items.Single(x => x.Name == "Tarnhelm").Id, 99, new Random(173), true);
+        Require(p.EquipItem(helm), "Actual Tarnhelm"); ClassGear.Refresh(p);
+        Require(SkillMechanics.Rank(p, CombatAbility.Twister) == 2, "Actual Twister soft rank");
+        var values = SkillMechanics.Values(p, CombatAbility.Twister); DruidTwister.Create(p, new(p.X + 6, p.Y, p.Z), values, at);
+        Require(DruidTwister.Snapshot().Missiles.All(x => x.Rank == 2 && x.Min256 == values.PhysicalDamage256(false) && x.Max256 == values.PhysicalDamage256(true)), "Actual gear capture"); DruidTwister.Cancel(p);
+        var slow = AmazonSlowMissiles.Snapshot();
+        try
+        {
+            AmazonSlowMissiles.Restore(slow.Append(new SlowMissilesState(p.Serial.Value, p.Serial.Value, 1, 50, 50, TimedEffects.Now.AddDays(2))).ToArray());
+            DruidTwister.Create(p, new(p.X + 6, p.Y, p.Z), values, at);
+            Require(DruidTwister.Snapshot().Missiles.All(x => x.Velocity256 == 960 && x.Min256 == values.PhysicalDamage256(false) && x.Max256 == values.PhysicalDamage256(true)), "Slow capture/physical endpoints");
+        }
+        finally { AmazonSlowMissiles.Restore(slow); DruidTwister.Cancel(p); }
+        var target = Enemy(p); target.SetResistance(ResistanceType.Physical, 100); int hp = SkillHealth.Balance256(target);
+        Require(CombatPotions.Apply(p, 3), "Actual spell potion"); var fixedHit = One(p, at.AddSeconds(3), 2560) with { Modifiers = DruidFirestorm.Modifiers(p) };
+        Require(fixedHit.Modifiers.Potion == 10, "Tier3 potion magnitude"); DruidTwister.Restore(new([fixedHit], [], fixedHit.Id)); DruidTwister.Tick(fixedHit.NextUtc, true);
+        int extra = new[] { fixedHit.Modifiers.FireMastery, fixedHit.Modifiers.ColdMastery, fixedHit.Modifiers.LightningMastery, fixedHit.Modifiers.PoisonMastery }.Sum(x => (int)(256L * Math.Max(0, 100 + x) / 100));
+        Require(hp - SkillHealth.Balance256(target) == extra && CombatStuns.Remaining(target) > 0, "Approved potion channels/physical immunity/stun");
+        DruidTwister.Cancel(p); CombatStuns.Clear(target); target.Delete(); p.Delete();
+        p = Fresh(); Train(p, CombatAbility.Twister); target = Enemy(p); Shield(target, 1); target.CantWalk = target.Frozen = false;
+        var block = SourceBlocking.BlockRoll;
+        try
+        {
+            SourceBlocking.BlockRoll = _ => 0; ulong seed = 0;
+            for (int low = 0; low < 10000; low++) { var candidate = SourceRandom.InitLow(low); var probe = candidate; if (SourceRandom.Roll(ref probe) % 100 == 0) { seed = candidate; break; } }
+            Require(seed != 0, "Source one-percent seed"); fixedHit = One(p, at.AddSeconds(8)) with { Seed = seed };
+            DruidTwister.Restore(new([fixedHit], [], fixedHit.Id)); hp = SkillHealth.Balance256(target); DruidTwister.Tick(fixedHit.NextUtc, true);
+            Require(SkillHealth.Balance256(target) == hp && !CombatStuns.Snapshot().Any(x => x.Target == target.Serial.Value)
+                && SourceKnockbacks.Snapshot().Any(x => x.Target == target.Serial.Value), "One-percent blocked-hit knockback mode");
+        }
+        finally { SourceBlocking.BlockRoll = block; SourceKnockbacks.Clear(target); DruidTwister.Cancel(p); target.Delete(); p.Delete(); }
+        p = Fresh(); Train(p, CombatAbility.Twister); target = Enemy(p, 6); hp = SkillHealth.Balance256(target);
+        DruidTwister.Create(p, new(p.X + 8, p.Y, p.Z), SkillMechanics.Values(p, CombatAbility.Twister), at.AddSeconds(12));
+        var walls = Enumerable.Range(-16, 33).Select(y => { var wall = new Static(0x80); wall.MoveToWorld(new(p.X + 2, p.Y + y, p.Z), p.Map); return wall; }).ToArray();
+        try { DruidTwister.Tick(at.AddSeconds(14), true); Require(DruidTwister.Snapshot().Missiles.Length == 0 && SkillHealth.Balance256(target) == hp, "Flight crossed actual wall barrier"); }
+        finally { foreach (var wall in walls) { wall.Delete(); } DruidTwister.Cancel(p); target.Delete(); p.Delete(); }
+        Log.Information("Twister:actualTarnhelm/SlowCapture/potion/blocked-knockback/wall controls pass");
+    }
     private static void LifecycleAndWorker()
     {
         var p = Fresh(); Train(p, CombatAbility.Twister); var at = TimedEffects.Now.AddDays(1); One(p, at); var saved = DruidTwister.Snapshot(); string before = Text();
@@ -181,7 +241,7 @@ public static class TwisterChecks
     private static void Check()
     {
         Require(DruidCombat.Implemented(CombatAbility.Twister) && DruidTwister.Snapshot().Missiles.Length == 0, "Twister handler/initial pool");
-        Source(); Casting(); Prepared(); LifecycleAndWorker();
+        Source(); Casting(); Prepared(); GearPotionAndObstacles(); LifecycleAndWorker();
         var p = Fresh(); Train(p, CombatAbility.Twister); var target = Enemy(p); target.Frozen = true; TimedEffects.PreventHealing(target, TimedEffects.Now); var at = TimedEffects.Now.AddDays(2);
         DruidTwister.Create(p, new(p.X + 6, p.Y, p.Z), SkillMechanics.Values(p, CombatAbility.Twister), at); DruidTwister.Tick(at.AddMilliseconds(40), true);
         Require(DruidTwister.Snapshot().Missiles.Length == 3 && DruidTwister.Snapshot().Leases.Length == 1 && !SkillHealth.Full(target), "Held damage/active cast lease");
