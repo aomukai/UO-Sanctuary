@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEndpointComparisons": 9180,
+  "durationFormulaComparisons": 27540,
+  "contentAssemblySha256": "596c289043ba6d40f3c11c5aa5e97b668ee887b71c7d0f7a4ed8b168701abc2c",
+  "nativeAssemblyHashes": {
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "hashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidCombat.cs": "82c715fe596970abd640387f21d7b213b2023025a98c5d1a87dad8b5934f1a93",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/check_hurricane_damage.py": "811e5c883a81a391fccc91ab60629b1261e034189075b4f014ba901c6bf6b249",
+    "tools/probe_hurricane_damage_reference.py": "f3cb3a570c6b5f1e2e6e4231887b6973f8ba175fd99c7a7f46143b7b335c479e",
+    "tools/reference/hurricane-damage-source-evidence.json": "1386c21901333e73290b280013d0132b84d54ac84cf02d2953868dc4eb2e0182",
+    ".local/class-skills/hurricane-damage-source-probe.json": "ca5b53a082ef0501d574f48eb0d9aa3101fb2148640553481315d0cc1e7a4ea1",
+    ".local/class-skills/hurricane-damage-run.log": "481f892a8b5d61a8a0c988d641d7d41b80d25a7d15313eb0c83fb0017c8b99a5",
+    ".local/class-skills/hurricane-damage-proof/Program.cs": "c94500df85b6ce23f951a34b2729c048c59b9f9c06eb76471731ef5c3f0f4aff",
+    ".local/class-skills/hurricane-damage-proof/check.csproj": "da20c25fc3cfa2eb96777b9c567a452d4e3937a6762c8d6602e2a7f484eaba99",
+    ".local/class-skills/hurricane-damage-proof/out/check.dll": "7772985f1e2d50ff9a5d29b81c01619ff812c09ceb5fd8a62cdec0d2e8da5396"
+  },
+  "established": [
+    "Actual existing Damage256 and DurationFrames match9180complete source pre-mastery endpoint/cold-length captures across all255ranks. Effective255synergy ranks do not replace hard Twister/Tornado0/1/20 points.",
+    "Each retained capture tests hard Cyclone Armor0/1/20:27540actual interpreter duration controls preserve250+50frames per hard point. Mana30, radius9, periodic interval20 and cold length50 pass without adding a formula implementation."
+  ],
+  "remaining": [
+    "Declared nonzero outgoing cold mastery/source roll/packet composition remains in source evidence; this native supplier check deliberately selects mastery0. Real gear/pierce/health/cold-state consumers remain separate.",
+    "No Hurricane handler is enabled. Saved weather, learned casting/payment/input/natural timers/reloads, current-executable/client parity and final effects/icons remain unimplemented or unverified."
+  ]
+}

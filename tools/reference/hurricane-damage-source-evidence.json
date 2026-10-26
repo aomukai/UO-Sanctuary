@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "skilldesc": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+  },
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "compiledUnchangedRoutines": {
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "D2GAME_RollPhysicalDamage_6FD14EC0": "2bb96a9a36a4ff8a9d3ad5f3a1c090803b6d6e3f71ea281edc1d04da60e766aa"
+  },
+  "inheritedDamageEvidence": "tools/reference/molten-boulder-damage-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/hurricane-damage-source-probe.json",
+    "sha256": "ca5b53a082ef0501d574f48eb0d9aa3101fb2148640553481315d0cc1e7a4ea1",
+    "cases": 27540
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete elemental/physical getters, mastery, elemental length, both roll wrappers and elemental packet mapper execute all255ranks with independent hard Twister/Tornado0/1/20, declared mastery0/50/200 and unrelated item-stat controls.",
+    "Cold endpoints apply9percent per hard synergy after HitShift8, then declared outgoing cold mastery once. The roll is max-exclusive; both endpoint RNG controls execute. Each packet writes cold damage, length50 and hitclass0x30; physical and other elemental channels remain zero.",
+    "Source roll APIs read current owner stat/formula services at event time; nothing here introduces item weapon damage, captured cast-time endpoints or per-target rerolls. A missing skill record makes no elemental RNG call."
+  ],
+  "services": [
+    "Hard-skill formula lookup, prepared stats/item metadata and ratio services are inherited bounded source-fixture services. Declared outgoing cold mastery controls do not certify real gear or the distinct cold resistance pierce producer.",
+    "RNG is an explicit first/last-valid-output service, not the full source seed stream. Per-target packet copies, resistance/MDR/absorb/length difficulty/cold state and health are separate consumers.",
+    "Actual native SkillValues/interpreter/endpoints, weather lifecycle/casting/input/timers/reloads, modern executable/client and final effects/icons remain unimplemented or unverified; no handler or class certificate is enabled."
+  ],
+  "next": "Compare current SkillValues elemental endpoints/duration against these source vectors, then implement saved Hurricane and live-stat periodic area after Tornado installation."
+}

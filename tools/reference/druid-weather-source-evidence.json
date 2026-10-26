@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "skilldesc": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "SKILLS_SrvDo124_Armageddon_Hurricane": "8beda0d88cd1976967b0e2e19bdf6bc8ed4065b18b5c308227fddd28def1c017",
+    "SKILLS_SrvDo145_Unused": "d3b85aff5043cbafb00db221a81e675a3b3e1a6fde01f9d29b15a72ca014f125",
+    "SKILLS_SrvDo146_Unused": "d9084106cf77135c5b03fc6b0c0c3998e7dd9c09cfffaef8bb84842a13703c02"
+  },
+  "fixture": {
+    "path": ".local/class-skills/druid-weather-source-probe.json",
+    "sha256": "97655d14ca3af31a81ed01f7b92e0176ca93d5faf144921530fa623889ba4a83",
+    "caseCounts": {
+      "setup": 420,
+      "hurricane": 384,
+      "armageddon": 324
+    }
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete do124 and aura-stat helper preserve duration clamp, create-versus-refresh, uint16 seed capture before allocation, exactly one replaced active-state event and stored skill/rank. Allocation failure draws seed/marks doflag but creates no state or events.",
+    "Complete145 checks state/rank/town/range, removes forbidden-town state, schedules before no-room/allowed-town exit and rolls one fresh physical/cold packet per event. Copied-area request carries current radius/filter and skill flags; per-target area internals are separately proved by Tornado.",
+    "Complete146 preserves gate order, rescheduling, low-seed reset/stored draw, at most5 two-coordinate attempts and early exit after barrier/room/mask acceptance. A declared null missile allocation still notifies/returns success at an accepted site."
+  ],
+  "services": [
+    "Row lookup, formula results, state/stat storage, allocation, event queue, unit/room/town/barrier/collision and seed/random services are declared bounded fixtures. No complete modern state/event dispatcher or source RNG stream is claimed.",
+    "Hurricane raw damage uses rank-scaled sentinels; complete cold damage/length/mastery/defense/health and Armageddon factory/impact/field require separate composition.",
+    "Native learned timing/resources/input, saved state/live-stat captures/natural timers/owner/facet/town/class cleanup and reloads remain unimplemented. No weather handler, class certificate or final asset is enabled."
+  ],
+  "next": "After Tornado installation, compose Hurricane source cold endpoints/length and current native area route, then implement saved self weather with dedicated input/timer/reload acceptance."
+}
