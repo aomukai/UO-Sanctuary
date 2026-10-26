@@ -1747,10 +1747,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 245,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Candidate source245/478 SC casts use10mana release and one75-frame charged flight. Periodic copied-area damage at elapsed0/15/30/45/60 precedes movement; radius3 uses filter0xA583 with no optional NOAURA/caster-LOS/direct-history gate. Direct Size3 contacts retain LastCollide1 and a separately provisional25-frame cast/target lease. Existing physical, potion, block, recovery, knockback and charged path consumers are reused; current modern overlap and geometry/room/RNG/event/client parity remain explicit. Focused3boots/2actual reloads/3natural/3quick casts pass casting/payment/cancellation, shared pulse versus shielded direct damage, histories, NOAURA eligibility, immunity/potion/gear/slow/walls, lifecycle and exact saved state. Full regression/installation and remaining acceptance scope are recorded separately; see the current checkpoint. Effects/audio and talent/L/R/quick icons are identified placeholders; no class complete."
     },
     {
       "talentId": "druid.hurricane",

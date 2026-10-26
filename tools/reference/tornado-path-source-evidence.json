@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/Path/PathMisc.cpp": "70ca530b88cdf65b9591b9fd559b82996469034e55501da768876b37d6aa7079",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/include/Path/Path.h": "e356c61d491908d81b98b8ab5c2e3891f0b360d23d57091050c4b5548f09c6b8",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Common/src/Path/Path.cpp": "19bdbfbf13b7528828aa4b8d3755882b81775a07dd77505fbec37041be577bb4",
+    "source/D2Game/src/SKILLS/SkillSor.cpp": "5ba1d2219cc2ddf266b4b095e98f17d3f3966bacb8afe1ae365f6b334aeaec3c"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "sub_6FDAB610": "203272bd5eadaac8aec11e9576d3e617a17c937fae9cd9ee6892a06965faade4",
+    "sub_6FDAB6A0": "97b099bf3dcc5a821c8e10b0a98887f4a1239c7f492a4ddbf5d68330b2c699e0",
+    "PATH_GetDirections_6FDAB790": "4ef38e44993927f39c0b2a4331fb0d1d86cae6ba9d5145f59f37983724e1c5f8",
+    "getChargedBoltDirOffset": "b4b0bef4443f831feccd1262e81cdd299da9e5549d4774f6789f7a8b18d18dd9",
+    "PATH_ComputePathChargedBolt_6FDAB4A0": "468b40cb15cdf9a04a4c02226ada957fd4d04f640414b2e5f5f5dead526b5b3a",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "D2COMMON_10175_PathGetFirstPointX": "d69133d0a8fab886b0c1f31ed52cffa39be6548e7e09c73113e2e5a8e20c62ae",
+    "SKILLS_MissileInit_ChargedBolt": "8dd87886775f5508d0e52152f56c162a658bb61850a97cb0a12a79dbb853c30d"
+  },
+  "reusedPathEvidence": "tools/reference/charged-bolt-path-source-evidence.json",
+  "fixture": {
+    "path": ".local/class-skills/tornado-path-source-probe.json",
+    "sha256": "ac907328be6fe715b0fd86de123ceefa70f0b0f03c0a394068193852a4f652ef",
+    "cases": 200
+  },
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr",
+  "established": [
+    "Complete source seed initializer, target-X accessor, Charged Bolt initializer and charged-path/direction bodies compose for75frames and the single Tornado ordinal0.",
+    "Each case records38 actual source waypoints, final missile RNG,75total/current frames and actual charged path enum10. Paths include uint16 coordinate wrap and the source zero-direction branch.",
+    "Path generation advances the same missile seed used by later hit damage and knockback; resetting it at contact would discard37source draws."
+  ],
+  "limits": [
+    "The generic path-dispatch wrapper is a service that asserts charged type10 and invokes the complete charged-path body; full dispatcher, room/collision, factory and world timing are not executed.",
+    "Raw initialization inputs are supplied directly. Exact-self aim adjustment belongs to the separately proven generic factory, not this initializer.",
+    "Native UO motion/rounding, generic movement, collision order, current executable acceptance and ordinary-client presentation remain separate. No handler or installation is enabled by this source-only probe."
+  ]
+}

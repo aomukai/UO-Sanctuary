@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "compiledUnchangedRoutines": {
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+    "sub_6FD0FE80": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2"
+  },
+  "fixture": {
+    "path": ".local/class-skills/tornado-area-source-probe.json",
+    "sha256": "56766ad49eab54bb3eded47a95b2a9bdb2a74c4d7fbfb37bf112732674daf016",
+    "cases": 17496
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete shared search and filter execute with exact Tornado filter42371/radius3 and current bCheckMonAuraFlag0. Either missing coordinate resets both to the missile position; a fully explicit control uses its supplied center. Euclidean center distance is inclusive, with no target footprint expansion.",
+    "Dead, friendly, unattackable, invalid-target, town-room and missing missile-owner controls refuse. Source hostility resolves the missile owner before querying the target. Candidate room/list and monster flags remain declared services.",
+    "Current bCheck0 deliberately permits a hostile/attackable/valid NOAURA monster; bCheck1 control rejects it. NPC metadata alone is not an extra gate in this filter when the declared hostility service permits the actor. Reusing SourceAuraTargets.Eligible would incorrectly add a NOAURA restriction.",
+    "Wall controls never call the optional ray trace because0xA583 has no0x200 bit. The periodic pulse does not require caster LOS, generic NextHit or LastCollide eligibility."
+  ],
+  "remaining": [
+    "Declared room adjacency/list/coordinates, monster metadata, hostility/owner and geometric scalar services do not certify native sector order or current room/geometry behavior.",
+    "This source search proof does not establish native periodic/direct damage, path movement, current overlap or learned input. No Tornado handler or final assets are enabled."
+  ],
+  "next": "Use an explicit attackable/hostile/radius pulse predicate without optional NOAURA/LOS/history gates; keep direct contact eligibility separate."
+}

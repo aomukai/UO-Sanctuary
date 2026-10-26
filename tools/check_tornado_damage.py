@@ -44,7 +44,7 @@ var definitions=JsonSerializer.Deserialize<SkillDefinition[]>(File.ReadAllText(a
 var source=(Dictionary<string,SkillDefinition>)typeof(SkillMechanics).GetField("_source",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
 source.Clear();foreach(var definition in definitions)source.Add(definition.SourceKey,definition);
 var tornado=definitions.Single(x=>x.SourceId==245);
-Require(tornado.SourceKey=="Tornado"&&!DruidCombat.Implemented(CombatAbility.Tornado),"Tornado remains a supplier preparation");
+Require(tornado.SourceKey=="Tornado"&&DruidCombat.Implemented(CombatAbility.Tornado),"Tornado candidate identity");
 var physical=typeof(SkillValues).GetMethod("PhysicalDamage256",BindingFlags.Instance|BindingFlags.NonPublic);
 Require(physical!=null,"Existing physical endpoint supplier");
 using var json=JsonDocument.Parse(File.ReadAllText(args[0]));int count=0;
@@ -57,7 +57,7 @@ foreach(var row in json.RootElement.EnumerateArray())
  Require(values.Mana256==10*256&&values.Eval("calc1")==1&&values.Eval("calc4")==15&&values.Eval("aurarangecalc")==3,"Current mana/count/pulse/radius formulas");count++;
 }
 Require(count==27540,"Complete source packet scope");
-Console.WriteLine($"{count} actual-content Tornado physical endpoint comparisons/all255ranks pass; no Tornado handler enabled.");
+Console.WriteLine($"{count} actual-content Tornado physical endpoint comparisons/all255ranks pass; supplier scope only; native actor acceptance is separate.");
 ''')
     with (STAGE / 'tornado-damage-build.log').open('w') as log:
         subprocess.run([str(ROOT / '.tools/dotnet/dotnet'), 'build', str(OUT / 'check.csproj'), '-c', 'Release', '--nologo', '-o', str(OUT / 'out')], cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -69,7 +69,7 @@ Console.WriteLine($"{count} actual-content Tornado physical endpoint comparisons
               'data/Sanctuary/Balance/class-skills.json', 'tools/check_tornado_damage.py', 'tools/probe_tornado_damage_reference.py',
               'tools/reference/tornado-damage-source-evidence.json']]
     inputs += [fixture, STAGE / 'tornado-damage-run.log', OUT / 'Program.cs', OUT / 'check.csproj', OUT / 'out/check.dll']
-    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False, sourceEndpointComparisons=27540,
+    evidence = dict(referenceVersion='3.3.93847', handlerEnabled=True, installed=False, sourceEndpointComparisons=27540,
                     contentAssemblySha256=sha(content), nativeAssemblyHashes={str(path.relative_to(native)): sha(path) for _, path in references[1:]},
                     hashes={str(path.relative_to(ROOT)): sha(path) for path in inputs},
                     established=['The actual existing PhysicalDamage256 supplier matches27540complete source captures/all255ranks. Independent hard Cyclone Armor/Twister/Hurricane inputs retain pre-HitShift8 truncation; deliberately255effective synergy ranks do not replace hard points.',
