@@ -14,6 +14,8 @@ internal readonly record struct BoulderKnockbackPlan(int ResultFlags,ulong Seed)
 internal readonly record struct BoulderAnimationPlan(int Result,bool Collision,bool SetMask,int Animation256,ulong Seed);
 internal sealed record BoulderRoutePlan(int Result,bool WriteLastTarget,bool HitEvent,bool DirectDamage,
     bool ResetMask,BoulderContactPlan Contact,DruidEmitterRequest[] Requests);
+internal enum BoulderImpactKind{Rolling,Ground,Area}
+internal readonly record struct BoulderImpactPlan(int Flags,bool Damage,bool Push,ulong Seed);
 
 // Complete source callback request/packet kernels. Native factories, movement,
 // damage commitment, species mapping, generic hit dispatch and learned casting
@@ -21,6 +23,48 @@ internal sealed record BoulderRoutePlan(int Result,bool WriteLastTarget,bool Hit
 internal static class MoltenBoulderPackets
 {
     internal const int Skill=229;
+    internal static BoulderKnockbackPlan ImpactFlags(BoulderImpactKind kind,bool small,bool large,bool uninterruptible,ulong seed)
+    {
+        if(kind==BoulderImpactKind.Area){return new(5,seed);}
+        if(kind==BoulderImpactKind.Ground){return new(1,seed);}
+        if(kind!=BoulderImpactKind.Rolling){throw new NotSupportedException("Unmapped Boulder impact");}
+        var custom=Knockback(true,3,true,1,true,true,small,large,1,50,0,seed);
+        int flags=custom.ResultFlags|1;seed=custom.Seed;
+        if(!uninterruptible)
+        {
+            flags|=4;
+            // The independent KnockBack1 row draw is not skipped merely
+            // because damage14 already set the knockback flag.
+            if(SourceRandom.Roll(ref seed)%100<1){flags|=8;}
+        }
+        return new(flags,seed);
+    }
+    internal static BoulderImpactPlan ResolveImpact(BoulderImpactKind kind,BoulderKnockbackPlan initial,int defense,
+        bool knockbackMode,bool uninterruptible)
+    {
+        int flags=initial.ResultFlags;
+        if(kind==BoulderImpactKind.Area)
+        {
+            if((defense&2)!=0){flags|=100;}
+            if((defense&4)!=0){flags|=0x80;}
+            if((defense&16)!=0){flags|=0x8000;}
+            if((defense&1)!=0){flags|=0x10;}
+            if(defense!=0){flags&=0xFE;}
+        }
+        else
+        {
+            if(kind==BoulderImpactKind.Ground && (defense&0x1F)!=0)
+            {flags=flags&~1|0x4000;defense&=~0x1F;}
+            if((defense&8)!=0){flags|=0x200;}
+            if((defense&2)!=0){flags|=0x100;}
+            if((defense&0x11)!=0){flags|=0x10;}
+            if(defense!=0){flags&=~1;}
+        }
+        // Full ExecuteMissileDamage changes an unsupported KB mode to GH.
+        // Health events happen before this mode stage, even when uninterruptible.
+        if(!uninterruptible && (flags&8)!=0 && !knockbackMode){flags=flags&~8|4;}
+        return new(flags,(flags&1)!=0,!uninterruptible && (flags&8)!=0,initial.Seed);
+    }
     internal static BoulderPhasePlan Emerge(bool hasMissile,bool hasRow,int child,int x,int y,int aimX,int aimY,int rank)
     {
         if(!hasMissile || !hasRow || child<0){return new(1,false,[]);}

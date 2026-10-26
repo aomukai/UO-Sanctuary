@@ -60,7 +60,7 @@ def check():
             for entry in (SERVER / name).iterdir():
                 if entry.name not in ('Sanctuary.Content.dll', 'UOContent.dll', 'Sanctuary', 'assemblies.json'):
                     (folder / name / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
-        native = ROOT / 'upstream/ModernUO/Distribution'
+        native = Path(os.environ.get('SANCTUARY_NATIVE_ROOT', str(ROOT))) / 'upstream/ModernUO/Distribution'
         shutil.copy2(native / 'ModernUO.dll', folder / 'ModernUO.dll')
         shutil.copy2(native / 'Server.dll', folder / 'Server.dll')
         shutil.copy2(native / 'Assemblies/UOContent.dll', folder / 'Assemblies/UOContent.dll')
@@ -68,6 +68,8 @@ def check():
             (folder / 'Assemblies' / name).symlink_to(STAGE / rel / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         shutil.copy2(STAGE / 'corpse-base-life-source-probe.json', folder / 'corpse-base-life-source-probe.json')
+        for name in ['molten-boulder-damage','molten-boulder-impact']:
+            shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['death-sentry-ai','death-sentry-corpse-search','corpse-explosion','death-sentry-clock','necro-corpse-explosion','cyclone-armor']:
             shutil.copy2(STAGE / (name+'-source-probe.json'),folder / (name+'-source-probe.json'))
         for name in ['assassin-claw-rate','assassin-claw-sequence','fists-fire-conversion','fists-fire-builder','dragon-kick-damage','dragon-kick-packet']:
@@ -192,10 +194,16 @@ def check():
                     if boot == 0:
                         session.expect(r'create the owner account now\? \(y/n\):'); session.send('n')
                     session.expect(f'Listening: 127.0.0.1:{port}')
-                    for name in ['firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
+                    for name in ['molten-boulder','firestorm','cyclone-armor','corpse-cast','death-explosion','death-control','corpse-base','inferno-sentry','lightning-sentry','missile-history','wake-fire-prepared','wake-fire-actor','kick-packet','phoenix-path','phoenix-builder','phoenix-release','ice-claw','ice-release','thunder-claw','thunder-release']:
                         command=name+('-check' if boot==0 else '-reload-check')
                         session.send(command)
                         assert session.expect(command+r': (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                    with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
+                        threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
+                        session.send('molten-boulder-input-check');assert session.expect(r'molten-boulder-input-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]
+                        ready=session.expect(r'molten-boulder-input: ready ability=(\d+) x=(\d+) y=(\d+) z=(-?\d+)');ability,x,y,z=map(int,ready.groups())
+                        client.sendall(struct.pack('>BHHBBIBIHHb',0xBF,21,0xF2,7,3,1,ability,0,x,y,z))
+                        assert session.expect(r'molten-boulder-input-result: (passed|failed)',timeout=12).group(1)=='passed',logpath.read_text()[-6000:]
                     with socket.create_connection(('127.0.0.1',port),timeout=5) as client:
                         threading.Thread(target=drain_fixture_client,args=(client,),daemon=True).start()
                         session.send('firestorm-live-check');assert session.expect(r'firestorm-live-check: (passed|failed)').group(1)=='passed',logpath.read_text()[-6000:]

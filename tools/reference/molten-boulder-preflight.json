@@ -2,9 +2,9 @@
   "referenceVersion": "3.3.93847 \u2014 Reign of the Warlock",
   "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "installed": false,
-  "sourceStatus": "Prepared native actors pass3boots/2actual reloads with retained Firestorm; actual content compares12240complete source damage outputs/all255ranks. Earlier callback1081/factory3456/router1536 evidence retained; learned handler disabled.",
+  "sourceStatus": "Learned worktree candidate153: focused3boots/2actual reloads/3natural connected quick casts pass; full regression running, installation not accepted.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -322,24 +322,24 @@
     }
   ],
   "remaining": [
-    "Learned SC start/release, once-only mana,25frame local delay, cancellation/recovery, target/ground selection, left/right/quick bindings and connected input/timers are not wired or verified.",
-    "Complete generic SetDamageFlags/events and uninterruptible/knockback eligibility composition, live forced motion, defensive outcomes, immunity/potion/named gear and unsupported targets remain.",
-    "Complete do5sequence mutations use an explicit persisted frame; full server animation-clock producer/collision-mask behavior remains unresolved. No guessed animation increment is introduced.",
-    "Native Q12/retained-step/terrain/first-collider/area projections are declared adapters. Exact modern room/list/seed ordering, wall clipping, activation, size and event equivalence remain open. Unknown rolling species get an identified unsupported-context refusal.",
-    "Optional modern wall/expiry observation remains pending: older terminal null-victim routing creates no area/disc. InitSteps is not read by the complete older factory.",
-    "Full regression/audit/working-world smoke and acceptance must precede installation. No class completion or new handler count is claimed.",
-    "Final453emergence/452roll/454blast/456flyingrocks/455fire/cast/audio and separate talent/left/right/quick icons remain pending. UO0x36D4travel/0x398Cfire/0x36BDcontact hue0x489 are identified placeholders."
+    "Full class regression is running on frozen candidate inputs. Fresh audits/Python checks, existing-world smoke and safe installation still required; installed count remains158.",
+    "Field do5sequence mutations and persisted state start at the source allocator/factory default0. No guessed animation increment is introduced. Full modern server/client animation producer equivalence remains unverified.",
+    "Native spatial/room/list/step order, exact modern seed/event/item-subscriber/PvP/hireling/special mode behavior and unmapped rolling species remain explicit acceptance limits. The represented native uninterruptible player adapter is the existing Leap controller; other engine states are not certified.",
+    "Optional current-build wall/expiry damage observation remains pending. Reconstructed terminal null-victim routing produces no area/disc. Complete factory does not read InitSteps.",
+    "Actual Druid percent-fire named gear is limited by the deferred Ormus skill-rand item property. Declared mastery inputs pass complete source/C# comparison; no named-item availability decision is changed.",
+    "Final453emergence/452roll/454blast/456flyingrocks/455fire/cast/audio and separate talent/left/right/quick icons remain pending. Native0x36D4/0x398C/0x36BDhue0x489 and cast0x1E5are identified placeholders.",
+    "No class completion or full modern executable parity certificate is claimed."
   ],
   "assets": {
     "effects": "Pending: druid cast/audio, moltenboulderemerge453, rolling452, explosion454, flyingrocks456, ground455 and contact/knockback/expiry. Identify UO placeholders when chosen; no new art generated.",
     "icons": "Talent/left/right/quick icons remain in the separate skill-icons register."
   },
-  "next": "Compose generic knockback/uninterruptible/events, field clock and remaining native controls, then learned casting/payment/connected input and full acceptance before installation.",
+  "next": "Finish frozen full regression, fresh audit/Python acceptance and existing-world smoke; install only after acceptance. Then continue Druid roadmap with individually recorded limits.",
   "preparationContext": {
     "installedCommit": "2f49b18",
     "installedHandlers": 158,
     "installedDruidHandlers": 2,
-    "scope": "Prepared native actor/damage/persistence only. Accepted installed Firestorm158handlers/main2f49b18 and existing saves remain untouched."
+    "scope": "Learned worktree candidate159handlers/Druid3. Installed main2f49b18 remains158handlers/Druid2; existing saves untouched."
   },
   "compiledEvidence": {
     "callbacks": "tools/reference/molten-boulder-source-evidence.json",
@@ -347,7 +347,8 @@
     "factory": "tools/reference/molten-boulder-factory-source-evidence.json",
     "routing": "tools/reference/molten-boulder-routing-source-evidence.json",
     "productionRouting": "tools/reference/molten-boulder-routing-evidence.json",
-    "damage": "tools/reference/molten-boulder-damage-source-evidence.json"
+    "damage": "tools/reference/molten-boulder-damage-source-evidence.json",
+    "impact": "tools/reference/molten-boulder-impact-source-evidence.json"
   },
   "speciesPreparation": {
     "catalog": "data/Sanctuary/Balance/knockback-source-rules.json",
@@ -386,15 +387,15 @@
     "generatedCatalog": "tools/build_class_skills.py --check passed, eight classes/240skills/stable IDs",
     "retainedRules": "All751previous Knockback/GetHit/Distance/Source entries remain exactly unchanged; new nullable flags only",
     "inputAndBuildHashes": {
-      "src/Sanctuary.Content/MoltenBoulderPackets.cs": "701a270d5c23b93e1c873bb5b564c6c24995d2430a925deacaf9340d6098d091",
+      "src/Sanctuary.Content/MoltenBoulderPackets.cs": "256915c50c944d6a0e1afedc06393b0911f28ddca408bb554bf6bd5577c1a58d",
       "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
       "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
-      "tools/build_class_skills.py": "f88f65094b37ffcd8077563a4922ce4a5e2159e1d07c5d447413998df110dbd5",
+      "tools/build_class_skills.py": "55b0f7dfa23f9cb90c3d8e4cb421a6e26fabbf128463dcf4be255d9102c43454",
       "data/Sanctuary/Balance/knockback-source-rules.json": "c25cd474660ede733b6a5cc72a2cf018a4e8652f05d450c6b8181de05f63a86a",
-      ".local/class-skills/molten-boulder-content-build.log": "1c3435c349feb57fb0a1de0a13937efeafff33532331d90af4ecbec423fcdbbd",
-      ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "f0245d2a2e27c95766e6c9f9557cf6eecbdaf86ab8f476edbeb40ad93b3342a3",
-      "src/Sanctuary.Content/DruidMoltenBoulder.cs": "8bdd99903bb635a429ca87c34f8a27c7ddb650d6572f97e61eb03b7751ab36c2",
-      "src/Sanctuary.Content/DruidFirestorm.cs": "8cbd66149128489da084fe49efb1a0aad8a85b1c1e9da4e17a1b9f3cd7b00d5e",
+      ".local/class-skills/molten-boulder-content-build.log": "0f12fadbd32897edff358bf861238b3c4eb8c45f04ee0ad0acd02fbdd53ab61d",
+      ".local/class-skills/molten-boulder/content/Sanctuary.Content.dll": "3b6cea4184385fc813362b0c504da5a50aced30f7a1daa6059994e2ff097fe89",
+      "src/Sanctuary.Content/DruidMoltenBoulder.cs": "e26b7ef59e42c8c261a403b0aeeb5100823279ea0556b18462125542b196f817",
+      "src/Sanctuary.Content/DruidFirestorm.cs": "dbe8b5213cad72f18ce5abf281da12d0369d05247a074b8d7e65960a72837732",
       "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
       "src/Sanctuary.Content/FireGround.cs": "be7db4dde662558cb07bfe242bd8d7753d2cae8f22f5799681fd39d1ce533335",
       "src/Sanctuary.Content/SourceBlocking.cs": "3264e796c12f84fdc060569e51eb326e2fb5e9f79e9647f209e9f7cd3b539344",
@@ -406,22 +407,32 @@
       "src/Sanctuary.Content/AmazonSlowMissiles.cs": "866ed162ec878a68806af6d7e7edc627551d742f03e3557ac8b6eeb3418d243f",
       "src/Sanctuary.Content/SkillGeometry.cs": "2528bbb1dccfc512248e0f78d751e15869e682d0b9dd1118711e7297e4457b1f",
       "src/Sanctuary.Content/WeaponMissiles.cs": "cd7a0d08c15c0464fc99a0034841763844358520ba35998b6d8821f02ddebea0",
-      "tests/Sanctuary.Integration/MoltenBoulderChecks.cs": "480a9530f9074ebf33e628d97c96b96dc21a9490d7cccf429502e6a68b97a9cd",
+      "tests/Sanctuary.Integration/MoltenBoulderChecks.cs": "c940fbce6cfcf1304fd457cbd5989a034938bdadbdc6fd94df0176c3a0ca4123",
       "tests/Sanctuary.Integration/FirestormChecks.cs": "5aaa84d7ba3669d73d24c74d62022bf9abaf41dc5ef794113599b5c468f3b179",
-      "tools/check_molten_boulder_native.py": "8a153e7aef45e8cae3ce180bfe00abe7fd9e6abb46fe0fdda6697bac9b461a57",
+      "tools/check_molten_boulder_native.py": "fe767c4279f523bae26661a894cda771ad646d35d9eafe870d9b0e84942746bf",
       "tools/probe_molten_boulder_damage_reference.py": "5ded9e5ac4da00c55a8dc7aa9c4f0aecf127c67b911cea9e62e15d0b30436273",
       "data/Sanctuary/Balance/necromancer-summons.json": "565cb030a34f9ca4a9d9d29d7b623f94b1edfdb375541d31d5d624540c0a9324",
       "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
-      "data/Sanctuary/Balance/skill-effects.json": "4862ae7f5d199c1549524ccdf85e68a74708546e7674bbfce8121e36de51de4f",
+      "data/Sanctuary/Balance/skill-effects.json": "8907624517bfd74274ce13037e74cb7c8ae8d2f5e93c357295dbfb949082e5a9",
       ".local/class-skills/molten-boulder-native-run.log": "920f6a4d7bff0d2045e8f52d05c3f7cfbcb975c104c72c0734b179342026ac6c",
-      ".local/class-skills/molten-boulder/molten-boulder-checks.log": "bf83c98dc29776c777a4f85d83f1838495c6026dde4049f7ce781c0c032c7dfd",
-      ".local/class-skills/molten-boulder-integration-build.log": "de0aa45a54b53dbf39bdd070b9c869fbc880d0e99538df5d5518b27076f563a9",
-      ".local/class-skills/molten-boulder/integration/Sanctuary.Integration.dll": "c593bb8f34092d077b2f8cd4a5915a52c2f1b86d95e77718628af9e6003ba09f",
-      ".local/class-skills/molten-boulder/native-fixtures.json": "ae1d38f2eacc5bb2a546f0ea5cda8d018dccd5b4bb697ec491ee59a7b5868b79",
+      ".local/class-skills/molten-boulder/molten-boulder-checks.log": "39b01503bc9db981a369753b36d170a1c86bd11221240eef1e98ad0949f61e61",
+      ".local/class-skills/molten-boulder-integration-build.log": "9e8077df025485a435ea56e60baa40b937ed0721e8bb8b46a22d516f77578e3b",
+      ".local/class-skills/molten-boulder/integration/Sanctuary.Integration.dll": "37cf92ee55f3c517783a8249cc6f13278778575b61633f63f8535e0d9d54cd03",
+      ".local/class-skills/molten-boulder/native-fixtures.json": "376066a16677473c67153c7cdb961d8fd21bb5fc2a6a29c3052377904b963d7d",
       ".local/class-skills/molten-boulder-damage-source-probe.json": "c9ee3e99cd28f83c5e4c78df3f38df304e6d0b2a8e2d760de90e68b424cde5ae",
       ".local/class-skills/molten-boulder-damage-source-probe.cpp": "7bf979729851ec1cad0616be87689e7bc0890eba21ab1565d760dcfdf62495e1",
       ".local/class-skills/molten-boulder-damage-source-probe": "d07f30b3579f52e4442c643491c2b7a67271833eeb96bb24af074f3e580dda59",
-      ".local/class-skills/molten-boulder-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ".local/class-skills/molten-boulder-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/Sanctuary.Content/DruidCombat.cs": "8d0ef001b442c66742cc79f3f736d3ca09904184bd43a8425cbf7bb2280b308c",
+      "src/Sanctuary.Content/DruidGroundCasting.cs": "c6a4a005d6ba7af2d4b7e6798b29c9baae899a6d5728c1595110ce3197acd1f2",
+      "tests/check_class_skills.py": "6a2f82b5ea58493ace3eceba2b15f5ccc81d57505e4827c13189b9b405765cee",
+      "tools/probe_molten_boulder_impact_reference.py": "a880900ffa49d4060b8b75fdabdfa387b03b88f1b412929eb11cb7daade24ebf",
+      ".local/class-skills/molten-boulder-Ormus-unavailable.log": "e5de81d2bcf5c773d0758b4af292f535b4585b88f8007da0e08cd5f0d2d8d629",
+      ".local/class-skills/molten-boulder-focused-final.log": "47e03f9b44cad697b0656c3b50825cb7b00e75afd4adc742f987dfcc6c8a42a4",
+      ".local/class-skills/molten-boulder-impact-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      ".local/class-skills/molten-boulder-impact-source-probe": "f7fbe9c3a465cd0f1a0be62d1d430c938881436bd7b9740a6664dd9d41c9afb8",
+      ".local/class-skills/molten-boulder-impact-source-probe.cpp": "34ed63e79ad9afe4a2aceded41ba17a31f32ff84b2d73f496055375e489a5e1c",
+      ".local/class-skills/molten-boulder-impact-source-probe.json": "3939a7a98de79649abba130978b647e8d647fd777456ee7375fb5c2be374f595"
     }
   },
   "nativeEvidence": "tools/reference/molten-boulder-native-evidence.json"

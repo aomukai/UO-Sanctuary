@@ -31,14 +31,18 @@ public sealed class MoltenBoulderProfiles:GenericPersistence
     }
 }
 
-// Prepared native source229 actors. Learned dispatch is deliberately separate
-// until damage/event, animation-clock and connected casting acceptance pass.
+// Source229 native SC cast, emergence, rolling and independently captured fire.
+// Native geometry/state adapters and current executable limits remain explicit.
 public static class DruidMoltenBoulder
 {
     private sealed record Pool(ImmutableDictionary<long,BoulderMissile> Missiles,long NextId);
     private static Pool _pool=new(ImmutableDictionary<long,BoulderMissile>.Empty,0);
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     internal static Func<BaseCreature,KnockbackSourceRule> Model=SourceKnockbacks.Rule;
+    // The shared native Leap controller is the currently represented
+    // uninterruptible player mode. Additional engine states remain explicit
+    // source/native acceptance work rather than inferred from Frozen.
+    internal static Func<Mobile,bool> Uninterruptible=BarbarianLeap.Uninterruptible;
     public static MoltenBoulderProfiles Profiles{get;private set;}
     public static void Configure()=>Profiles=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
@@ -85,15 +89,44 @@ public static class DruidMoltenBoulder
         var request=new DruidEmitterRequest(33,453,owner.X*2,owner.Y*2,aim.X*2,aim.Y*2,false,0,0,rank);
         return Add(owner,request,owner.Z,at);
     }
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+    {
+        if(!DruidGroundCasting.Aim(owner,selected,ref point,false)){return false;}
+        return SkillCombat.Begin(owner,CombatAbility.MoltenBoulder,selected,point,now,(p,_,_,aim)=>DruidGroundCasting.Ground(p,aim));
+    }
+    public static bool Release(PlayerMobile owner)
+    {
+        var session=ClassCombat.For(owner);var point=session.PendingPoint;
+        if(!DruidCombat.Available(owner,CombatAbility.MoltenBoulder) || !FireGround.Ready(owner,CombatAbility.MoltenBoulder)
+            || !DruidGroundCasting.Aim(owner,session.PendingTarget,ref point,true)){return false;}
+        var values=SkillMechanics.Values(owner,CombatAbility.MoltenBoulder);BoulderMissile prepared;
+        try
+        {
+            Routes();
+            prepared=Prepare(owner,new(33,453,owner.X*2,owner.Y*2,point.X*2,point.Y*2,false,0,0,values.Rank),owner.Z,TimedEffects.Now);
+        }
+        catch(NotSupportedException){owner.SendMessage(0x22,"Molten Boulder cannot be used in this context yet.");return false;}
+        if(prepared==null || !NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        Commit(prepared);FireGround.Delay(owner,CombatAbility.MoltenBoulder);owner.PlaySound(0x1E5); // Identified cast-audio placeholder.
+        return true;
+    }
     private static long Add(PlayerMobile owner,DruidEmitterRequest request,int z,DateTime at)
+    {
+        var prepared=Prepare(owner,request,z,at);return prepared==null?0:Commit(prepared);
+    }
+    private static long Commit(BoulderMissile state)
+    {
+        _pool=_pool with{Missiles=_pool.Missiles.Add(state.Id,state),NextId=state.Id};return state.Id;
+    }
+    private static BoulderMissile Prepare(PlayerMobile owner,DruidEmitterRequest request,int z,DateTime at)
     {
         string key=Key(request.Missile);int missile=request.Missile;
         int velocity=SlowMissilePayload.VelocityFp8(NecromancerSummons.Source(key,"Vel"),0,request.Rank,request.Flags,0,true,AmazonSlowMissiles.Capture(owner,true).VelocityPercent);
         int dx=(request.Flags&32)!=0?request.AimX-request.X:0,dy=(request.Flags&32)!=0?request.AimY-request.Y:0;
-        if(velocity!=0 && (Math.Abs(dx)>=100 || Math.Abs(dy)>=100)){return 0;}
-        if(request.X<=0 || request.Y<=0 || request.X>=owner.Map.Width*2 || request.Y>=owner.Map.Height*2){return 0;}
+        if(velocity!=0 && (Math.Abs(dx)>=100 || Math.Abs(dy)>=100)){return null;}
+        if(request.X<=0 || request.Y<=0 || request.X>=owner.Map.Width*2 || request.Y>=owner.Map.Height*2){return null;}
         var point=new Point3D((request.X+1)/2,(request.Y+1)/2,z);
-        if(SpellHelper.IsTown(point,owner)){return 0;}
+        if(SpellHelper.IsTown(point,owner)){return null;}
         if(velocity!=0 && dx==0 && dy==0){dx=dy=1;}
         var vector=velocity==0?(X:0.0,Y:0.0):MissileVectors.VelocityFp8(dx,dy,velocity);
         var values=SkillMechanics.Values(owner,CombatAbility.MoltenBoulder,request.Rank);var mods=DruidFirestorm.Modifiers(owner);
@@ -106,7 +139,7 @@ public static class DruidMoltenBoulder
             vector.X,vector.Y,request.X,request.Y,false,request.RangeOverride??NecromancerSummons.Source(key,"Range"),
             request.X+dx,request.Y+dy,velocity,ends.PhysicalMin,ends.PhysicalMax,ends.FireMin,ends.FireMax,mods,SourceRandom.InitLow(SeedLow()),0,at.AddMilliseconds(40))
             {Steps=new([new(request.X,request.Y)])};
-        Validate(state);_pool=_pool with{Missiles=_pool.Missiles.Add(id,state),NextId=id};return id;
+        Validate(state);return state;
     }
     private static void Remove(long id)=>_pool=_pool with{Missiles=_pool.Missiles.Remove(id)};
     internal static void Tick(DateTime at,bool? actions=null)
@@ -205,24 +238,30 @@ public static class DruidMoltenBoulder
     }
     private static void Impact(PlayerMobile owner,Mobile target,BoulderMissile s,GearDamage raw,bool knockback,ref ulong seed)
     {
-        bool push=false;
-        if(knockback)
+        var kind=knockback?BoulderImpactKind.Rolling:s.Missile==455?BoulderImpactKind.Ground:BoulderImpactKind.Area;
+        var model=target is BaseCreature creature?Model(creature):null;bool uninterruptible=Uninterruptible(target);
+        var initial=MoltenBoulderPackets.ImpactFlags(kind,model?.Small==true,model?.Large==true,uninterruptible,seed);seed=initial.Seed;
+        int defense=ClassAvoidance.Missile(target,knockback)?2:0;
+        if(defense==0 && kind==BoulderImpactKind.Rolling && raw.Physical>0 && target is BaseCreature c)
         {
-            var model=target is BaseCreature creature?Model(creature):null;
-            var custom=MoltenBoulderPackets.Knockback(true,3,true,target is BaseCreature?1:0,true,model!=null,model?.Small==true,model?.Large==true,1,50,0,seed);
-            seed=custom.Seed;push=(custom.ResultFlags&8)!=0;
-            // Row KnockBack1 remains a separate draw even if damage14 already
-            // set knockback. Uninterruptible mode mapping is still unsupported.
-            push|=SourceRandom.Roll(ref seed)%100<1;
+            // Copied area wrapper passes block-check0 even with physical
+            // damage. Only direct rolling hits check a monster's shield.
+            if(!SourceBlocking.TryBlock(c,true,out bool blocked)){return;}
+            if(blocked){defense=1;}
         }
-        if(ClassAvoidance.Missile(target,knockback)){return;}
-        if(target is BaseCreature c && (!SourceBlocking.TryBlock(c,raw.Physical>0,out bool blocked) || blocked)){return;}
+        var plan=MoltenBoulderPackets.ResolveImpact(kind,initial,defense,model?.Knockback==true,uninterruptible);
         owner.DoHarmful(target,true);
-        var parts=SkillCombat.MitigatePrepared(owner,target,Potion(s.Modifiers,raw),damageRate:s.Missile==455?41:0);
-        int loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
-        if(target is BaseCreature survivor && s.Missile!=455)
+        int loss=0;
+        if(plan.Damage)
         {
-            if(!(push && SourceKnockbacks.Begin(owner,survivor))){CreatureHitRecovery.Apply(survivor,owner,loss);}
+            var parts=SkillCombat.MitigatePrepared(owner,target,Potion(s.Modifiers,raw),damageRate:s.Missile==455?41:0);
+            loss=SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));
+        }
+        if(!uninterruptible && target is BaseCreature survivor && s.Missile!=455)
+        {
+            // A blocked hit may still request KB. The source mode handler
+            // chooses knockback before its block reaction, after health events.
+            if(!(plan.Push && SourceKnockbacks.Begin(owner,survivor)) && plan.Damage){CreatureHitRecovery.Apply(survivor,owner,loss);}
         }
     }
     private static void Validate(BoulderMissile s)

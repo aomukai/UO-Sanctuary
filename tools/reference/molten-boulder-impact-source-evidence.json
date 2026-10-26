@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "routineHashes": {
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "reusedSourceEvidence": "tools/reference/sentry-dead-damage-source-evidence.json",
+  "reusedRoutineHashes": {
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d",
+    "SUNITDMG_GetMonStatsTxtRecordFromUnit": "edaccc054119f98ec088b2e966c91834aab614cf0fac223ae65c83fa6d0e12b6",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280"
+  },
+  "fixture": {
+    "path": ".local/class-skills/molten-boulder-impact-source-probe.json",
+    "sha256": "3939a7a98de79649abba130978b647e8d647fd777456ee7375fb5c2be374f595",
+    "cases": 3024
+  },
+  "established": [
+    "Complete damage14 and SetDamageFlags compose with unchanged mitigation, ExecuteEvents health and ExecuteMissileDamage mode dispatch for player-owned rolling, unskilled fire and copied-area packets.",
+    "The separate row KnockBack1 draw still occurs after damage14 unless uninterruptible. Uninterruptible permits event health loss but suppresses mode changes.",
+    "A blocked direct hit can still request knockback when the target has that mode. Missing knockback mode replaces its flag with get-hit before block/mode processing. Area wrapper supplies block-check0 and has no damage14 or missile RNG draw.",
+    "Copied-area wrapper retains the original packet unchanged per victim; owner/event/health/mode paths are executed, rather than recorded as a damage-commit sentinel."
+  ],
+  "limits": [
+    "Declared block/dodge masks, species/mode records, resistance/owner stats, native mode callback and empty event subscriber services reuse the parent fixture; no live path movement or item subscriber is simulated.",
+    "Monster mode numeric constants GH3/BL6/KB13 follow the pinned source header; SMALL/LARGE remain named logical fixture flags. Current executable and all live native actor/state/proc contexts remain separate."
+  ],
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr required"
+}

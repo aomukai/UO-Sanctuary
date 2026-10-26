@@ -49,36 +49,16 @@ public static class DruidFirestorm
         _pool=_pool with{Emitters=_pool.Emitters.RemoveRange(_pool.Emitters.Where(x=>x.Value.Owner==owner.Serial.Value).Select(x=>x.Key)),
             Patches=_pool.Patches.RemoveRange(_pool.Patches.Where(x=>x.Value.Owner==owner.Serial.Value).Select(x=>x.Key))};
     }
-    private static bool Ground(PlayerMobile owner,Point3D point)=>owner?.Map!=null && owner.Map!=Map.Internal
-        && point.X>0 && point.Y>0 && point.X<owner.Map.Width && point.Y<owner.Map.Height
-        && owner.InRange(point,CombatProtocol.TeethRange) && owner.InLOS(point)
-        && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
-    private static bool Aim(PlayerMobile owner,Serial selected,ref Point3D point,bool release)
-    {
-        if(selected!=Serial.Zero)
-        {
-            var target=World.FindMobile(selected);
-            if(target is{Deleted:false})
-            {
-                if(target.Map!=owner.Map || !release && !ClassCombat.IsHostile(owner,target)){return false;}
-                // Ground-capable fire retains a still-registered dead target's
-                // coordinates. Deleted targets fall back to the cached aim.
-                point=target.Location;
-            }
-            else if(!release){return false;}
-        }
-        return Ground(owner,point);
-    }
     public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
     {
-        if(!Aim(owner,selected,ref point,false)){return false;}
-        return SkillCombat.Begin(owner,CombatAbility.Firestorm,selected,point,now,(p,_,_,aim)=>Ground(p,aim));
+        if(!DruidGroundCasting.Aim(owner,selected,ref point,false)){return false;}
+        return SkillCombat.Begin(owner,CombatAbility.Firestorm,selected,point,now,(p,_,_,aim)=>DruidGroundCasting.Ground(p,aim));
     }
     public static bool Release(PlayerMobile owner)
     {
         var session=ClassCombat.For(owner);var point=session.PendingPoint;
         if(!DruidCombat.Available(owner,CombatAbility.Firestorm) || !FireGround.Ready(owner,CombatAbility.Firestorm)
-            || !Aim(owner,session.PendingTarget,ref point,true)){return false;}
+            || !DruidGroundCasting.Aim(owner,session.PendingTarget,ref point,true)){return false;}
         var values=SkillMechanics.Values(owner,CombatAbility.Firestorm);FirestormEmitter[] prepared;
         try{prepared=Prepare(owner,point,values,TimedEffects.Now);}
         catch(NotSupportedException){owner.SendMessage(0x22,"Firestorm cannot be used in this context yet.");return false;}

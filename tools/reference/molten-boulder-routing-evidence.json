@@ -6,7 +6,7 @@
   "inputHashes": {
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
-    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "701a270d5c23b93e1c873bb5b564c6c24995d2430a925deacaf9340d6098d091",
+    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "256915c50c944d6a0e1afedc06393b0911f28ddca408bb554bf6bd5577c1a58d",
     "tools/check_molten_boulder_routing.py": "5f4539366dbb63beb8a8af70a7aba53c93aa20859ca2e311035c81bc593f7a26",
     "tools/reference/molten-boulder-routing-source-evidence.json": "6e35efd7f2a62872c5ba730a8a8d5b3bfbf5bdb845c1bfb5f14f1fd66a12b480"
   },

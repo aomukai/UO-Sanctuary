@@ -15,7 +15,7 @@
   "inputHashes": {
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
-    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "701a270d5c23b93e1c873bb5b564c6c24995d2430a925deacaf9340d6098d091",
+    "src/Sanctuary.Content/MoltenBoulderPackets.cs": "256915c50c944d6a0e1afedc06393b0911f28ddca408bb554bf6bd5577c1a58d",
     "tools/probe_molten_boulder_reference.py": "bb0573f6d3b5c2582904bf2adc6933c0c5f9043dd1d81044da227e2279523752",
     "tools/reference/molten-boulder-source-evidence.json": "710876d3d30029c6757955a0dfc3b576bbc8e559d3cb52e14da62369fce4a243",
     "tools/check_molten_boulder_packets.py": "77a36efabd3d257f4ebad62654d17798164273d3d84dac8c0313e61f619c627b"
@@ -25,11 +25,11 @@
     ".local/class-skills/molten-boulder-source-probe.cpp": "6f4a16a707b71bc02d5189f84e0713affd94a3590c1552f0a812e1a74fe8a334",
     ".local/class-skills/molten-boulder-source-probe": "e3fa0c5683779b2369e9e9d2e6c0a5bbd638456c84f23a208c814e16bd87c1ad",
     ".local/class-skills/molten-boulder-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/molten-boulder-packets-build.log": "a8d278f505b233a90f2bd9129c972cf21fe62d9b9eafc3e591e794b93bea1075",
+    ".local/class-skills/molten-boulder-packets-build.log": "a19e820277b8ab1c1962228612bb85a6f1d4ac28cb58278ef2ec373eeccba347",
     ".local/class-skills/molten-boulder-packets-run.log": "539dbae346604ae9d736516f056bca81e222348cc981e08b4ccab75ed7604979",
     ".local/class-skills/molten-boulder-packets-proof/check.csproj": "1faa39c82182d50dcbeade941c878a4f7f4fed44467699c02b392960db371160",
     ".local/class-skills/molten-boulder-packets-proof/Program.cs": "f23bc3b81a29e963617dc951717eba9d2442e59cfaf8ca48ff0290b46d977365",
-    ".local/class-skills/molten-boulder-packets-proof/out/check.dll": "da2a0edfe9bedfcaa8d0b1833c802edb41236e832499aa7bf08c6d005ef40f0b"
+    ".local/class-skills/molten-boulder-packets-proof/out/check.dll": "f2be9430f6bd6a6a22fcbf84c00ac7f68d5b432f135dc753599960f60d411f51"
   },
   "established": [
     "Actual production request/contact/knockback/server-field animation kernels match1081complete source callback contexts. Missing services, zero versus negative IDs, supplied range overrides, captured packet flags, selected species flags and exact RNG mutations remain distinct.",

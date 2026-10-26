@@ -19,11 +19,11 @@
     ".local/class-skills/firestorm-source-probe.cpp": "f8e899eacc0f51b7be03fb00f3edaf69972f6a13a984d1d37953091fd4b6f7cf",
     ".local/class-skills/firestorm-source-probe": "c7e9b13ae264d0e5721ad5a7ee4d455ae7f2fbdfd866b74aceb574ef989d4842",
     ".local/class-skills/firestorm-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".local/class-skills/firestorm-patterns-build.log": "004794841c567de2f36ba27927c954272d880d269235dc8c41a7e7f1f4dc83f4",
+    ".local/class-skills/firestorm-patterns-build.log": "395179fd3721e994b7b2bc2795ac6576ac488a914fd1c42ad012657e65255005",
     ".local/class-skills/firestorm-patterns-run.log": "03f8124c3e0d5361ff7e817923b3ff974d893f9b3c460331c5adc45e6ec16228",
     ".local/class-skills/firestorm-patterns-proof/check.csproj": "1c63e869023fee01eb2546ca1c111c7d611704547b53498ab9b1ea641e6f8c78",
     ".local/class-skills/firestorm-patterns-proof/Program.cs": "be5778db81522fbee292bd84ff7a3a4ad5066b98474ef16ec068f8e024d09a1f",
-    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "c3cec7b3a4f020b29d841929385e82f4a6639eb9a7ffd2d1b35f66bc489a16b7"
+    ".local/class-skills/firestorm-patterns-proof/out/check.dll": "1d85592b339e2c12f7f52778b0a753b23487b85b80c4657e55c1911ac382558f"
   },
   "established": [
     "Actual production C# shared emitter requests, charged initializer and changed-cell child requests match every applicable complete older source fixture. Direct/fan target queries and child-before-terminal-collision order remain distinct.",
