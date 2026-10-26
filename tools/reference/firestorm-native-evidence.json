@@ -2,16 +2,16 @@
   "referenceVersion": "3.3.93847",
   "updatedAtUtc": "2026-10-26T01:17:16.916621+00:00",
   "installed": false,
-  "handlerEnabled": false,
-  "status": "Prepared Firestorm travelling emitters and independent burning fields pass focused three boots/two actual reloads/three connected natural timer runs. No learned handler or deployment is claimed.",
+  "handlerEnabled": true,
+  "status": "Learned Firestorm candidate: focused three boots/two actual reloads, three natural emitter clocks and three connected quick casts pass. Main build/full regression/current audit/Python acceptance and original-world smoke remain required; not installed.",
   "sourceEvidence": "tools/reference/firestorm-source-evidence.json",
   "patternsEvidence": "tools/reference/firestorm-patterns-evidence.json",
-  "contentSha256": "e29d47a5fa0d0fca1c709a462cec8ebe6748a82afa173be034c4d30653dd6977",
-  "integrationSha256": "e16a951503a7618f156483845ca8014b12450d7fe7d899c9e405977058d5f908",
+  "contentSha256": "a386029d06315039e7353c1e6c6ba60753cfe65cd6fd942c504556248d37a329",
+  "integrationSha256": "f8cee7fbe66d5ec8f04f39f18427a0309ad73cb97200561212d12588cccfc72e",
   "inputHashes": {
-    "src/Sanctuary.Content/DruidFirestorm.cs": "ed0126914af54eb059e6c59a79dc31e2c0342f3f57d200f45fb6bb3541dbd3fd",
+    "src/Sanctuary.Content/DruidFirestorm.cs": "850ef00342540c8975525b6fb0e2cf501c47ff246b971e3c2e8d41b98fa8db54",
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "8f73ce2d651b2a5611d9ad195e9190a63dfd030bd11b746703c572de11cb7525",
-    "src/Sanctuary.Content/DruidCombat.cs": "f91e5a202ce818390d4b9ad3543ce87d7302a9b4fb9275c2f0f24993e4adf3d0",
+    "src/Sanctuary.Content/DruidCombat.cs": "b772103cccb478a8c70aa06597951e219ab1e9f60d9b45802fccb43774364b9b",
     "src/Sanctuary.Content/SkillCombat.cs": "4eceabcf4b31533c2c2259e145af03e193750a991fe467e4a373331e24847073",
     "src/Sanctuary.Content/SkillHealth.cs": "919cf4364b52d2c3d8f15acd4689e6e91493e3f5f34d43802f111b0b4a350d1d",
     "src/Sanctuary.Content/ImmolationArrows.cs": "572015fabe70d9ae738cea6f709e2f7f98ec3a4615dad715bb6443c59e113ee3",
@@ -28,7 +28,7 @@
     "src/Sanctuary.Content/CombatHitboxes.cs": "962ac908a007b482542e75a9b22ce21bd60acd69561ebd515b192c6e4f35eaac",
     "src/Sanctuary.Content/WeaponBlocks.cs": "832df328f28f20f2688557c0d0ccd748aa4e9ccbf0b1e4e8d0c42a5790794864",
     "src/Sanctuary.Content/CombatPotions.cs": "05436c9243be26d540bad24ba9d5a5163687f3d1234cb828da4829ad414440b8",
-    "tests/Sanctuary.Integration/FirestormChecks.cs": "544551d23c1c036cd1a12753feb299fb1626225e39799200cda2b78ac2cf969b",
+    "tests/Sanctuary.Integration/FirestormChecks.cs": "ff703bb8138ca13f216debdfa8c0a8f85bb822a00cc43a94c1bf13f24decda21",
     "src/Sanctuary.Content/Sanctuary.Content.csproj": "42bdc7976aa72cd329a14937f129ccc9738411d68b37d95292e71195acc2a67a",
     "tests/Sanctuary.Integration/Sanctuary.Integration.csproj": "4cc42b979d6d0ada8d9234893c882b344311a7986d2668f1343f814b16d136c8",
     "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
@@ -36,21 +36,28 @@
     "tools/probe_firestorm_reference.py": "d27a3a153221bf3a16e647cfcabe2e4781d5df837b491c6ea223d7adebf77ccd",
     "tools/check_druid_emitter_patterns.py": "04cbae71ce0d5e4a6c3975602361953cdf99fa24847c827992bc5430ea9b7c9f",
     "tools/reference/firestorm-source-evidence.json": "96f6cc3de113f4205517d14b3b90d39d1ee7f911a1db2e5588dcccc4568a30ee",
-    "tools/reference/firestorm-patterns-evidence.json": "6980d76f909c4c6ed164892d88a495256db6eb68eb58073c900999a8ab12dcae"
+    "tools/reference/firestorm-patterns-evidence.json": "6980d76f909c4c6ed164892d88a495256db6eb68eb58073c900999a8ab12dcae",
+    "tests/check_class_skills.py": "df5e92a359435496a38fa053c6134eb4b38214fa09ac7a7dc0b366aee2e4ebed",
+    "src/Sanctuary.Content/ClassMovement.cs": "d51988d37dc8628a92ac163e4835f7d47d833e6992c38780ccba585d756c396e",
+    "shared/ClassAbilities.cs": "efd73934c3c0f21a092d6b743eacb08ab5c1e42a13d44daab89a89878e32a469",
+    "src/Sanctuary.Content/SkillBindings.cs": "9aabe988944e7eda264e13db1a527074bcfc8a750cc5fc593e3596f10fb9b20c"
   },
   "evidenceHashes": {
-    ".local/class-skills/firestorm-focused.py": "2ae9900daaa1e279a6ffd6e31a078e41748d325d494c4ca8b7e96be7fd78f93f",
-    ".local/class-skills/firestorm-record-actor.py": "51a2cccd8df2d9eb3d0953380c3f585bbf4ea2c586e933c33e6c34184539da54",
+    ".local/class-skills/firestorm-focused.py": "2c6fc31ef1946dc844affe1c98e6b2ceee9078c4730626c784ec020688473891",
     ".local/class-skills/firestorm-actor-content-build.log": "e53d84d3043749f32a0c0ddc1ae8333703752fcf3589bf7b986820cae75d87c1",
     ".local/class-skills/firestorm-actor-integration-build.log": "cdbf754e145cc0d10e6d97ab3b1d57a631b3e4cb7e7c67ac771d03e40fe1354d",
-    ".local/class-skills/firestorm/firestorm-checks.log": "26a2e8e6e1e1b31e28ad00855fdc122ac2d94ee2b085900c1eb010c4af92079c",
+    ".local/class-skills/firestorm/firestorm-checks.log": "97f70bbe0a0bfd1a769edab5be28d8957112823c27c72a5be84b07efa0de802b",
     ".local/class-skills/firestorm-actor-focused-run.log": "5a8aaa99d84c04dc77aff89392812ffef13f7b23b382a321f66ce7ad93f2d27a",
     ".local/class-skills/firestorm/first-missing-source-failed.log": "23ec51d6a0390756fba93acc9f12f0349be1296510d800113ed567d2634a37d2",
     ".local/class-skills/firestorm/first-live-counter-checkpoint-failed.log": "5098841af3e851631534170dfa5971c0c64574c5fe791ec3d9224c5db93587bf",
     ".local/class-skills/firestorm-actor-integration-first-failed.log": "a183516bf573e0970c6e37aec22d7db9c1e7f7225e369bfe77c180728e980323",
     ".local/class-skills/firestorm-source-probe.cpp": "f8e899eacc0f51b7be03fb00f3edaf69972f6a13a984d1d37953091fd4b6f7cf",
     ".local/class-skills/firestorm-source-probe.json": "03b1efaecd0579fd74ac0f59b55c66440a98027be09b401b2f71cae31599cf45",
-    ".local/class-skills/firestorm-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ".local/class-skills/firestorm-source-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/firestorm-cast-content-build.log": "1dc09e10a61b7a532b994f42421ada1c0e1c022337a060615b1c3a88bb4536ed",
+    ".local/class-skills/firestorm-cast-integration-build.log": "30bf0c5a91e609ed3fac8608e4089591343625aef59fd563ab580ff81d4c59bb",
+    ".local/class-skills/firestorm-cast-focused-run.log": "76fd50e2a53347fb31d4e6a561179810710de5d2deada2a8186300a2dc30a161",
+    ".local/class-skills/firestorm/first-learned-input-accept-race-failed.log": "b982bd33805577e17100f4713c0c8a8e3e3d9eb6c80a1dc4e1848f7801628a57"
   },
   "focused": {
     "boots": 3,
@@ -68,22 +75,29 @@
       "Offline stops damage/motion and ages finite lifetimes; owner facet change removes these player projectiles under existing Sanctuary field policy.",
       "Worker serialization reads one immutable pool without changes; invalid path/rank/frame/cell restores fail atomically."
     ],
-    "reloadScope": "Exact emitter/field/path/cell-changed/captured-damage/seed/deadline/life state survives each real world reload and resumes a frame. Natural connected scopes independently move, create fields, damage and expire through the unmodified production timer on all three boots."
+    "reloadScope": "Exact emitter/field/path/cell-changed/captured-damage/seed/deadline/life state survives each real world reload and resumes a frame. Natural connected scopes independently move, create fields, damage and expire through the unmodified production timer on all three boots.",
+    "connectedQuickCasts": 3,
+    "learnedCastScope": "SC ground/target/held start; four-mana release exactly once; low/lost mana, early/duplicate/stop/movement/recovery, live/deleted target and self aim, left/right/quick bindings, local15-frame delay with other spells unaffected, saved bindings and discarded unpaid windup."
   },
   "corrections": [
     "Initial absent firestormmaker source row exposed a missing runtime export. Added the two exact current Firestorm missile rows to the existing shared source catalogue/generator.",
     "Inspected complete collision\u2192sub_6FCBC930\u2192D2Common_10226 chain exposed that do23 sees the preceding movement flag/cell. Corrected the draft to retain CellChanged before movement; source inspection is distinct from compiled request vectors.",
     "Initial natural fixture legitimately advanced the shared ID counter after the held checkpoint was recorded. It now first proves held owner state/life unchanged, then records the actual counter after its independent cast. Exact reload assertions remain intact.",
-    "A C# test declaration compile error was corrected; the failed build log is retained."
+    "A C# test declaration compile error was corrected; the failed build log is retained.",
+    "First learned quick-input fixture raced the new socket acceptance. It now uses existing FixtureNetwork.Connected; exact start/payment/damage assertions remain intact and3natural quick casts pass."
   ],
   "limits": [
     "The older reconstructed do117 rejects current positive count3. Current pinned count3 and shared launch bodies govern this prepared route; exact modern guard remains unverified and is not silently copied/patched.",
     "Straight Q12/charged Advance, two source cells per native tile, native LOS/fit/height and sector enumeration retain the existing declared adapters. Exact modern path rebuild/initial flag/room/footprint/order and seed allocation are not certified.",
     "Player source225 skill endpoints/mastery reuse existing consumers; new children read live hard synergies/mastery at retained emitter rank. Complete modern property/event/block/avoidance/FHR/client comparisons remain open.",
     "SkillCombat.MitigatePrepared now accepts an optional damageRate, default0. The new prepared field supplies41, including approved potion channels. Full retained class regression/current audits remain required before installation.",
-    "Learned SC, once-only4mana payment, localdelay15, cancellation and left/right/quick input are not connected. No handler-count increase follows from these components.",
     "The prior broad Python worktree run remains unaccepted because installed-build audits are stale and two upstream files are absent there. It is not replaced by the focused native suite.",
-    "Final fire emitter, burning patch, cast/impact/expiry/audio and separate talent/hotkey icons remain pending; UO0x398C hue0x489 is an identified placeholder."
+    "Final fire emitter, burning patch, cast/impact/expiry/audio and separate talent/hotkey icons remain pending; UO0x398C hue0x489 is an identified placeholder.",
+    "Focused worktree casting passed before a wording-only unsupported-context message edit. The matching main build/focused run and full acceptance remain required; this checkpoint is not an installed158-handler certificate."
   ],
-  "next": "Connect and verify the learned Firestorm cast/payment/delay/input, then run complete matching native regression/audits/Python acceptance and original-world smoke. Preserve the installed157-handler build and existing saves until then."
+  "next": "Build and verify the matching main candidate, run full class regression/current native audits/Python acceptance and original-world smoke, then install the158th handler. Continue Druid with Molten Boulder afterwards.",
+  "preparedActorCheckpoint": {
+    "commit": "a25e832",
+    "scope": "Historical actor-only evidence is retained at this Git commit; it predates learned casting."
+  }
 }

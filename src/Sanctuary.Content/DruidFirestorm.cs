@@ -26,8 +26,8 @@ public sealed class FirestormProfiles:GenericPersistence
     {if(reader.ReadInt()!=0){throw new InvalidDataException("Unknown Firestorm version");}DruidFirestorm.Restore(JsonSerializer.Deserialize<FirestormSave>(reader.ReadString()));}
 }
 
-// Prepared player225 emitter/field consumer. Learned SC/payment/local-delay
-// routing is deliberately separate. Motion/room order retain the declared
+// Player225 ground/target SC cast and independent emitter/field consumers.
+// Motion/room order retain the declared
 // shared Sanctuary adapters; the older do117 positive-count guard is not ported.
 public static class DruidFirestorm
 {
@@ -49,7 +49,52 @@ public static class DruidFirestorm
         _pool=_pool with{Emitters=_pool.Emitters.RemoveRange(_pool.Emitters.Where(x=>x.Value.Owner==owner.Serial.Value).Select(x=>x.Key)),
             Patches=_pool.Patches.RemoveRange(_pool.Patches.Where(x=>x.Value.Owner==owner.Serial.Value).Select(x=>x.Key))};
     }
-    internal static long[] Create(PlayerMobile owner,Point3D aim,SkillValues values,DateTime at)
+    private static bool Ground(PlayerMobile owner,Point3D point)=>owner?.Map!=null && owner.Map!=Map.Internal
+        && point.X>0 && point.Y>0 && point.X<owner.Map.Width && point.Y<owner.Map.Height
+        && owner.InRange(point,CombatProtocol.TeethRange) && owner.InLOS(point)
+        && !SpellHelper.IsTown(owner.Location,owner) && !SpellHelper.IsTown(point,owner);
+    private static bool Aim(PlayerMobile owner,Serial selected,ref Point3D point,bool release)
+    {
+        if(selected!=Serial.Zero)
+        {
+            var target=World.FindMobile(selected);
+            if(target is{Deleted:false})
+            {
+                if(target.Map!=owner.Map || !release && !ClassCombat.IsHostile(owner,target)){return false;}
+                // Ground-capable fire retains a still-registered dead target's
+                // coordinates. Deleted targets fall back to the cached aim.
+                point=target.Location;
+            }
+            else if(!release){return false;}
+        }
+        return Ground(owner,point);
+    }
+    public static bool Begin(PlayerMobile owner,Serial selected,Point3D point,long now)
+    {
+        if(!Aim(owner,selected,ref point,false)){return false;}
+        return SkillCombat.Begin(owner,CombatAbility.Firestorm,selected,point,now,(p,_,_,aim)=>Ground(p,aim));
+    }
+    public static bool Release(PlayerMobile owner)
+    {
+        var session=ClassCombat.For(owner);var point=session.PendingPoint;
+        if(!DruidCombat.Available(owner,CombatAbility.Firestorm) || !FireGround.Ready(owner,CombatAbility.Firestorm)
+            || !Aim(owner,session.PendingTarget,ref point,true)){return false;}
+        var values=SkillMechanics.Values(owner,CombatAbility.Firestorm);FirestormEmitter[] prepared;
+        try{prepared=Prepare(owner,point,values,TimedEffects.Now);}
+        catch(NotSupportedException){owner.SendMessage(0x22,"Firestorm cannot be used in this context yet.");return false;}
+        if(prepared.Length==0 || !NecromancerEffects.Pay(owner,values.Mana256)){return false;}
+        Commit(prepared);FireGround.Delay(owner,CombatAbility.Firestorm);
+        owner.PlaySound(0x1E5); // Identified cast-audio placeholder.
+        return true;
+    }
+    private static long[] Commit(FirestormEmitter[] prepared)
+    {
+        if(prepared.Length==0){return [];}
+        var emitters=_pool.Emitters;foreach(var state in prepared){emitters=emitters.Add(state.Id,state);}
+        _pool=_pool with{NextId=prepared[^1].Id,Emitters=emitters};return prepared.Select(x=>x.Id).ToArray();
+    }
+    internal static long[] Create(PlayerMobile owner,Point3D aim,SkillValues values,DateTime at)=>Commit(Prepare(owner,aim,values,at));
+    private static FirestormEmitter[] Prepare(PlayerMobile owner,Point3D aim,SkillValues values,DateTime at)
     {
         if(owner==null || Owner(owner.Serial.Value)!=owner || owner.Map==null || owner.Map==Map.Internal || at.Kind!=DateTimeKind.Utc
             || values.Ability!=CombatAbility.Firestorm || values.Rank is <1 or >255)
@@ -66,17 +111,17 @@ public static class DruidFirestorm
         int velocity=SlowMissilePayload.VelocityFp8(8,0,values.Rank,33,0,true,slow.VelocityPercent);
         if(velocity==0){throw new NotSupportedException("Zero-velocity Firestorm path flags are not established");}
         var plans=DruidEmitterPatterns.Launch(3,true,new(owner.X*2,owner.Y*2,ax,ay,true),458,values.Rank);
-        var ids=new long[plans.Length];int index=0;
+        var prepared=new FirestormEmitter[plans.Length];int index=0;
         foreach(var plan in plans)
         {
             var init=DruidEmitterPatterns.InitializeCharged(40,plan.AimX,plan.Ordinal);
             var path=plan.Charged?ChargedBolts.Path(init.Seed,ChargedBolts.Heading(dx,dy),init.Distance):[];
-            var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(_pool.NextId+1);
+            var vector=MissileVectors.VelocityFp8(dx,dy,velocity);long id=checked(_pool.NextId+index+1);
             var state=new FirestormEmitter(id,owner.Serial.Value,owner.Map.MapID,values.Rank,owner.Z,owner.X,owner.Y,
                 owner.X,owner.Y,vector.X,vector.Y,velocity,plan.Charged,plan.Ordinal,path,1,owner.X*2,owner.Y*2,0,at.AddMilliseconds(40));
-            Validate(state);_pool=_pool with{NextId=id,Emitters=_pool.Emitters.Add(id,state)};ids[index++]=id;
+            Validate(state);prepared[index++]=state;
         }
-        return ids;
+        ValidateFieldRoute();return prepared;
     }
     internal static FirestormModifiers Modifiers(PlayerMobile owner)=>new(CombatPotions.Bonus(owner,"magical-penetration"),
         NamedElements.MasteryPercent(owner,"fire"),NamedElements.MasteryPercent(owner,"cold"),NamedElements.MasteryPercent(owner,"ltng"),NamedElements.MasteryPercent(owner,"pois"));
@@ -91,12 +136,16 @@ public static class DruidFirestorm
         return new(0,fire+added*Math.Max(0,100+mods.FireMastery)/100,added*Math.Max(0,100+mods.ColdMastery)/100,
             added*Math.Max(0,100+mods.LightningMastery)/100,added*Math.Max(0,100+mods.PoisonMastery)/100);
     }
-    private static void AddPatch(PlayerMobile owner,FirestormEmitter maker,int x,int y,DateTime at)
+    private static void ValidateFieldRoute()
     {
         int Field(string key)=>NecromancerSummons.Source("firestorm",key);
         if(Field("pSrvDoFunc")!=1 || Field("pSrvDmgFunc")!=0 || Field("pSrvHitFunc")!=0 || Field("Range")!=15 || Field("Size")!=2
             || Field("Vel")!=0 || Field("NextHit")!=0 || Field("NextDelay")!=0 || Field("CollideType")!=3 || Field("DamageRate")!=41 || Field("SoftHit")!=1)
         {throw new NotSupportedException("Unsupported Firestorm field route");}
+    }
+    private static void AddPatch(PlayerMobile owner,FirestormEmitter maker,int x,int y,DateTime at)
+    {
+        ValidateFieldRoute();
         var values=SkillMechanics.Values(owner,CombatAbility.Firestorm,maker.Rank);var mods=Modifiers(owner);
         var ends=Endpoints(values,mods.FireMastery,AmazonSlowMissiles.Capture(owner,true));long id=checked(_pool.NextId+1);
         var patch=new FirestormPatch(id,maker.Owner,maker.Map,maker.Rank,x,y,maker.Z,ends.Min,ends.Max,mods,

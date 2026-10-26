@@ -2,7 +2,7 @@
   "referenceVersion": "3.3.93847 \u2014 Reign of the Warlock",
   "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
   "primaryManifest": "tools/reference/d2r-named-equipment/sources.json",
-  "handlerEnabled": false,
+  "handlerEnabled": true,
   "skill": {
     "skill": "Firestorm",
     "*Id": 225,
@@ -165,10 +165,9 @@
     "The complete reconstructed do117 rejects nParam>=0, including current table count3, while its shared helper correctly produces three emitters for count3. The executable modern do117 guard is not established. Do not use this older guard to disable positive current table counts or silently patch the extracted body."
   ],
   "remaining": [
-    "Connect learned Firestorm SC/ground/target/left/right/quick cast, source cost4mana, localdelay15, natural input and cancellation.",
-    "Retain the reconstructed do117 positive-count conflict and source/native Q12/charged movement, initial path flag, room/geometry/order, seed allocation and complete modern event/client limits explicitly.",
-    "Run full class regression/current native audits, Python acceptance and original-world smoke before changing the installed build.",
-    "Final emitter/burning patch/cast/contact/expiry/audio effects and separate talent/hotkey icons remain pending."
+    "Main focused/full regression, current matching audits and Python acceptance, original-world smoke and safe installation.",
+    "Retain the documented reconstructed do117 positive-count conflict and source/native geometry, initial path flags, room/order, seed, event/avoidance and final client parity limits.",
+    "Final cast/emitter/field/contact/expiry/audio effects and talent/left/right/quick icons remain pending."
   ],
   "assets": {
     "effects": "No live Firestorm renderer is enabled yet. Planned existing UO fire/cast art must remain explicitly labelled placeholders. Final druid_fire_cast_1 overlay, one direct and two winding expansion/FirestormEmitter trails, groundFireSmall burning patches, contact/expiry presentation and druid_firecast_b/object_fire_loop_house audio remain pending. Separate talent/left/right/quick icons remain pending.",
@@ -180,7 +179,9 @@
     "druidHandlers": 1,
     "allClassesComplete": false,
     "installedCommit": "e5185cf",
-    "candidate": "Druid emitter planning only; Firestorm pending"
+    "candidate": "Learned Firestorm on isolated branch; focused casting passes; main acceptance pending.",
+    "candidateHandlers": 158,
+    "candidateDruidHandlers": 2
   },
   "candidateBuildAndChecks": {
     ".local/class-skills/firestorm/content/Sanctuary.Content.dll": "e29d47a5fa0d0fca1c709a462cec8ebe6748a82afa173be034c4d30653dd6977",
@@ -196,5 +197,7 @@
   "candidateBuildStatus": "Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate.",
   "nextAcceptance": "When Firestorm actor/cast is ready, run the matching native audit exports and full suite from the complete main checkout. Do not rewrite old audit hashes to make the broad tests pass.",
   "nativeEvidence": "tools/reference/firestorm-native-evidence.json",
-  "preparedNativeActor": "Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate. Actual fire-immunity and tier3 spell-potion nonfire controls also pass."
+  "preparedNativeActor": "Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate. Actual fire-immunity and tier3 spell-potion nonfire controls also pass.",
+  "learnedCastCandidate": "Learned Firestorm candidate: focused three boots/two actual reloads, three natural emitter clocks and three connected quick casts pass. Main build/full regression/current audit/Python acceptance and original-world smoke remain required; not installed.",
+  "clientImpact": "No shared/client source changed relative to accepted e5185cf. Stable ability152, ground targeting and left/right metadata already exist; installed client bytes remain the baseline."
 }

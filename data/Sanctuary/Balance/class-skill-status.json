@@ -1670,10 +1670,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 225,
-      "implementation": "pending",
+      "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate."
+      "remaining": "Learned Firestorm SC ground/target casts use once-only four-mana release payment, a distinct15-frame local delay and left/right/quick bindings. Focused three boots/two actual reloads and three connected quick casts verify insufficient/lost mana, early/duplicate resolution, stop/movement/recovery cancellation, live/deleted target aim, self aim, local-not-global delay, saved bindings and discarded unpaid windup. One straight/two seeded emitters and independent15-frame fields retain previous-movement cell chronology, fresh hard synergies/mastery at captured rank, exclusive saved RNG, source-size single-collider contacts, overlap, walls, actual fire immunity/tier3 potion, Tarnhelm and Dwarf Star controls. Worker-safe atomic persistence and natural connected emitter timers pass. Current main/full regression/audits/deployment status is in firestorm-native-evidence.json and the checkpoint. The reconstructed do117/current positive-count conflict and source/native geometry/order/seed/event/client limits remain explicit; final effects/audio/icons stay separate."
     },
     {
       "talentId": "druid.moltenboulder",

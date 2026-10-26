@@ -10,7 +10,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 | 4 | Barbarian | 25 / 30 | 0 | 5 | Open |
 | 5 | Amazon | 27 / 30 | 3 | 0 | Open |
 | 6 | Assassin | 17 / 30 | 8 | 5 | Open |
-| 7 | Druid | 1 / 30 | 0 | 29 | Open |
+| 7 | Druid | 2 / 30 | 0 | 28 | Open |
 | 8 | Warlock | 0 / 30 | 0 | 30 | Open |
 
 Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
@@ -251,7 +251,7 @@ Prepared Death Sentry now connects AI104 corpse-priority mode9 explosions and mo
 
 | Skill | Source ID | Implementation | Remaining acceptance work or blocker |
 | --- | ---: | --- | --- |
-| Firestorm | 225 | pending | Prepared Firestorm emitter/field controller passes three boots, two actual reloads and three connected natural timers. One direct/two seeded paths retain the previous-movement changed-cell flag before generic motion/decrement; children retain independent 15-frame lifetimes. Fresh child damage uses retained rank/current hard synergies/mastery; exact seeded exclusive rolls, single colliders, overlapping fields, walls, offline expiry, actual Tarnhelm soft rank, Dwarf Star per-frame MDR/default controls and worker-safe atomic persistence pass. Source plans remain separately compared against complete older bodies; the reconstructed do117/current positive-count conflict remains explicit. Learned SC, four-mana payment, 15-frame local delay and left/right/quick input remain pending. No handler enabled; full regression/current audits and installation remain required. Final effects/audio/icons are separate. |
+| Firestorm | 225 | handler-present | Learned Firestorm SC ground/target casts use once-only four-mana release payment, a distinct15-frame local delay and left/right/quick bindings. Focused three boots/two actual reloads and three connected quick casts verify insufficient/lost mana, early/duplicate resolution, stop/movement/recovery cancellation, live/deleted target aim, self aim, local-not-global delay, saved bindings and discarded unpaid windup. One straight/two seeded emitters and independent15-frame fields retain previous-movement cell chronology, fresh hard synergies/mastery at captured rank, exclusive saved RNG, source-size single-collider contacts, overlap, walls, actual fire immunity/tier3 potion, Tarnhelm and Dwarf Star controls. Worker-safe atomic persistence and natural connected emitter timers pass. Current main/full regression/audits/deployment status is in firestorm-native-evidence.json and the checkpoint. The reconstructed do117/current positive-count conflict and source/native geometry/order/seed/event/client limits remain explicit; final effects/audio/icons stay separate. |
 | Molten Boulder | 229 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Arctic Blast | 230 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |
 | Fissure | 234 | pending | Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks. |

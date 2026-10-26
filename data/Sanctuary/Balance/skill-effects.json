@@ -2118,7 +2118,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared Firestorm emitters and burning fields use identified UO0x398C hue0x489 markers; learned cast/audio remains disabled. Final druid_fire_cast_1 overlay, one direct and two winding expansion/FirestormEmitter trails, groundFireSmall burning patches, contact/expiry presentation and druid_firecast_b/object_fire_loop_house audio remain pending. Separate talent/left/right/quick icons remain pending."
+    "placeholder": "Firestorm emitters and burning fields use identified UO0x398C hue0x489 markers; SC uses the shared native pose and0x1E5 cast-audio placeholder. Final druid_fire_cast_1 overlay, one direct and two winding expansion/FirestormEmitter trails, groundFireSmall burning patches, contact/expiry presentation and druid_firecast_b/object_fire_loop_house audio remain pending. Separate talent/left/right/quick icons remain pending."
   },
   {
     "talentId": "druid.moltenboulder",
