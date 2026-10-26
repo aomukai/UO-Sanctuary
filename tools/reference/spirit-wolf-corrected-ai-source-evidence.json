@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "supplementaryCommit": "7f6d773f31060e97124241e6bd30d606bcab6d4e",
+  "sourceBlob": "89e229d5b21550edcaf03bb9c22166e8548e9850",
+  "sourceUrl": "https://github.com/ThePhrozenKeep/D2MOO/blob/7f6d773f31060e97124241e6bd30d606bcab6d4e/source/D2Game/src/AI/AiThink.cpp",
+  "sourcePath": ".local/class-skills/d2moo-corrections/source/D2Game/src/AI/AiThink.cpp",
+  "sourceSha256": "caab602d68b17e8638821ac84c159f61293d0bf9e2b2a284913f060cf84b0e29",
+  "routineSha256": "9dca4aca5144f6987725fcb8f7193caa3c904de0edb6b33f13ff1ffdb0afe256",
+  "sourceChanges": {
+    "symbolRenames": {
+      "sub_6FCE34E0": "AITHINK_TryPetFollowOwner",
+      "sub_6FCCFD40": "AITACTICS_FindTargetInRange",
+      "sub_6FCF2110": "AIUTIL_FindAiTarget",
+      "sub_6FCF14D0": "AIUTIL_HasClearApproachToTarget"
+    },
+    "behavior": "Only nonnull-monstats versus bCombat attack/chase condition differs in this complete routine after normalizing the listed symbol renames."
+  },
+  "generatedSourceSha256": "7a8bd1e0442e70c99cfc098e9ce2c3bbee161a50df9b29f11d106431e113e65b",
+  "reusedServiceSourceSha256": "5c7651a9a2144261af68ee7e22ab4f1dc5a90bc0020d6b159f84d852878007f0",
+  "fixture": {
+    "path": ".local/class-skills/spirit-wolf-corrected-ai-source-probe.json",
+    "sha256": "b4c56ad7059b0fed5a93d02ff59483187371a6a2dc2a7c139712dd17daa4eb6f",
+    "cases": 6366
+  },
+  "sanitizers": "ASan/UBSan clean",
+  "installed": false,
+  "learnedHandler": false,
+  "established": [
+    "The separate pinned reconstruction corrects the exact suspect SpiritWolf attack/chase branch to bCombat. This is a source-backed correction; the older pinned routine and its1802literal contexts remain intact for comparison. D2R mechanical reference remains3.3.93847.",
+    "Complete corrected routine executes6366contexts: three owner-target distances over the prior1802contexts plus960owner-distance9/10/11/14, target/combat, velocity0/5, run0/5/9/10/100 and chance controls. Request ordering, remembered owner and random-draw count are captured.",
+    "In combat it requests A1/stall22. Otherwise an owner-target distance>=20selects idle15within owner distance10or walk-radius8/6outside it; a closer owner-target selects velocity then run-to-target. Run bonus caps at100, keeps negative raw ratios and returns100when base velocity<=0. Existing fallback LOS polarity and follow/teleport branches are unchanged."
+  ],
+  "limits": [
+    "This pins a corrected older-engine reconstruction, not live D2R code. Target/visibility/distance/room/tactics/AI/event/RNG services remain declared as in the earlier probe. Exact current executable, global scheduling and geometric behavior remain unverified.",
+    "Common movement outputs are stubbed for this outer-routine proof; complete common/six-mode movement has independent source/native evidence. No actual saved actor follow/chase/teleport/damage/learned cast is inferred.",
+    "The source fallback still requires the negated potential-target clear-approach helper. Current semantics remain uncertain; the corrected combat condition does not establish that separate branch."
+  ]
+}

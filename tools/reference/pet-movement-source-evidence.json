@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "bodyHashes": {
+    "D2GAME_AI_PetMove_6FCE2BA0": "22944aa394f4a4d9d37ac1ff8a2e2eb25597b6d60a51344e9eba2210a2ebbf7b",
+    "sub_6FCE34E0": "88d5c476f9d16886e64681775ab6c39bd751608787c524349047b72194130656"
+  },
+  "generatedSourceSha256": "182915416dfd2f9dc64c09ca130071e8c199d9bbae659c506258605603f267bc",
+  "fixture": {
+    "path": ".local/class-skills/pet-movement-source-probe.json",
+    "sha256": "dc656bbf59070c2e59ee6357675862d5f20d8b6cba6365b1dc1d073cc56c5c45",
+    "direct": 8312,
+    "common": 39936
+  },
+  "sanitizer": "ASan/UBSan clean",
+  "established": [
+    "Complete unchanged PetMove modes0..5 and common pet decision body execute together, preserving ordered velocity/path/event/idle/placement requests, return values and teleported flag writes.",
+    "Mode0 tries seven opposing owner-route offsets, each eligible-room full and midpoint path, then wander/run-midpoint/walk-midpoint/direct-owner fallbacks. Mode1 scans all20 prior owner history entries in reverse wrapping order, skips zero/near points, retains random40..79speed and one velocity-parameter fallback, then distance/4minimum4wander.",
+    "Modes2/4/5 retain10percent wander and idle paths, declared crowd/escape behavior, owner-walk and exact event deletion ordering. Mode3 uses the source skeleton-placement request, room/commit failures and refresh/teleported/idle5only on success.",
+    "Common pet policy incorporates half total-pet count plus leash capped36, owner mode/path/room and distances1/30/50/80. The owner first/final coordinate test is literal AND. Existing target outside town suppresses common movement through the80boundary; a nonzero flag suppresses mode2only. Player-data words40/41use a strict28boundary; the separately pinned corrected source names them the owner last-teleport point."
+  ],
+  "services": [
+    "Owner/player/monster data and dynamic-path fields, initial heading/octant and offset lookup, distance/full-size and room services are declared. Coordinate-distance service uses a supplied Manhattan test metric; it does not certify D2 geometry.",
+    "Each tactics/path/escape/owner-walk request has a controlled first-success ordinal. Random raw and percentage values, placement/room/commit outcomes and nearby-pet count are supplied, with exact call ordering recorded. No world mode/path initialization is executed.",
+    "Crowd enumeration supplies its output count without executing sub_6FCE34B0. Its old reconstructed prior-target pointer is defective; separately pinned7f6d773uses the current pet instead. Actual callback enumeration still needs its own consumer acceptance. Null monster AI parameter is delivered to a declared setter boundary rather than dereferenced."
+  ],
+  "limits": [
+    "Legacy source evidence does not establish exact current D2R policy, owner history sampling/ordering, crowd callback interpretation, heading/geometry, RNG stream or NPC mode/path/animation/event execution.",
+    "No actual wolf follow, teleport, AI clock or ordinary attack/learned cast is inferred from these bounded services. Native policy comparison and actual actor composition have separate acceptance."
+  ]
+}

@@ -44,7 +44,7 @@ def check():
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', 'inner-sight']:
+        for name in ['pet-movement', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', 'inner-sight']:
             shutil.copy2(ROOT / '.local/class-skills' / (name + '-source-probe.json'), folder / (name + '-source-probe.json'))
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
@@ -63,7 +63,7 @@ def check():
         configpath.write_text(json.dumps(config))
         paths = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration'] for p in (ROOT / directory).glob('*.cs')]
         paths += [Path(__file__).resolve(), ROOT / 'tests/check_raven_stats.py', ROOT / '.local/class-skills/raven-components-source-probe.json', ROOT / '.local/class-skills/valkyrie-creation-source-probe.json']
-        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path', 'inner-sight', 'battle-orders']]
+        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['pet-movement', 'spirit-wolf-corrected-ai', 'spirit-wolf-ai', 'spirit-wolf-creation', 'skill-linear', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path', 'inner-sight', 'battle-orders']]
         inventory = dict(sourceInputs={str(p.relative_to(ROOT)): sha(p) for p in sorted(paths)},
                          copiedData={str(p.relative_to(folder)): sha(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
                          artifacts={str(p.relative_to(folder)): sha(p) for p in [folder / 'ModernUO.dll', folder / 'Server.dll', folder / 'Assemblies/UOContent.dll', folder / 'Assemblies/Sanctuary.Content.dll', folder / 'Assemblies/Sanctuary.Integration.dll']})
@@ -76,7 +76,7 @@ def check():
                     ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                    commands = ['skill-linear-check', 'spirit-wolf-stats-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands = ['pet-movement-check', 'skill-linear-check', 'spirit-wolf-stats-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
                     commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['spirit-wolf-body', 'battle-orders', 'shout', 'summon-difficulty', 'class-history', 'full-wardrobe', 'inner-sight']]
                     for command in commands:
                         session.send(command)

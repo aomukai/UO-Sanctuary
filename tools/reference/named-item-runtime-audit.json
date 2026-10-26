@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "9d447b3799e9b737ef69bee608bb559fa2e13082f325647979f5033f52f054ca",
+  "ContentAssemblySha256": "0f8e053f870e60414ec4215aa351ded35f9825ac3c6acf8e0c7005dce8873c37",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -363,6 +363,7 @@
     "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",
     "src/Sanctuary.Content/DruidRavenMotion.cs": "9bc5a129c5b3ad1dc4f0fc787a01ea260434c2ec00112c19f75bbfbb94cb9865",
     "src/Sanctuary.Content/DruidRavenStats.cs": "1392061116327514708ac45d5cfdb7ac42b906b41a02baa713eae5c06077ca3d",
+    "src/Sanctuary.Content/DruidSpiritWolfAi.cs": "b0f41b6f4d6965eca1133ef24ff983b7f35ae08d664aa2a83648a40990725d9b",
     "src/Sanctuary.Content/DruidSpiritWolfBody.cs": "6c32d01ead6396baf9757b050b746903cbbeed6a58546a14cb003b2f75803b91",
     "src/Sanctuary.Content/DruidSpiritWolfStats.cs": "a59eb9b19b8d94f29962d6a55a70e7d61b6a7b20ffae9bb30857a93f42b9380b",
     "src/Sanctuary.Content/DruidTornado.cs": "52ed2e12f3791a35d70bbb1a462693365b7bbdc100356ced8bca9cd001f53880",
@@ -561,6 +562,7 @@
     "src/Sanctuary.Content/SourceKnockbacks.cs": "ebe237f1af44ec94b3096bab81c35512710c10f3851d98a16dfbd7e23dd53c2d",
     "src/Sanctuary.Content/SourceMissileSteps.cs": "34cbbd2c014c63e91626d8e38a8ab0eb6a1ff5bdf7f746686be3f53e7d385bdb",
     "src/Sanctuary.Content/SourcePercentage.cs": "e597a6dab2f3f0fc14b05afdc5837d4501822f4f15b52464e184d86c8df6b439",
+    "src/Sanctuary.Content/SourcePetMovement.cs": "ec04d085af274d7ae8642beb89743efb526c6ac64def59957106d1d09f6d4297",
     "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
     "src/Sanctuary.Content/SourceTerror.cs": "05dc8172cd8a3d864799a592d5a12fcf2a65a1f9e93256ea3f53dc0182d659b4",
     "src/Sanctuary.Content/SourceTowardPath.cs": "ab03a60ee716fccc76eb09a5a2a0708a28c91824782a5887b3e5296c88454dfa",
