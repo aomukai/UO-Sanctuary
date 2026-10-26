@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import socket
 import tempfile
+import threading
 from check_britain import ROOT, SERVER, Session
 
 STAGE = ROOT / '.local/class-skills/raven'
@@ -14,6 +15,20 @@ STAGE = ROOT / '.local/class-skills/raven'
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def drain(client):
+    while True:
+        try:
+            if not client.recv(65536):
+                return
+        except socket.timeout:
+            try:
+                client.sendall(b'\x73\x00')
+            except OSError:
+                return
+        except OSError:
+            return
 
 
 def check():
@@ -62,19 +77,31 @@ def check():
         (STAGE / 'stats-inputs.json').write_text(json.dumps(inventory, indent=2) + '\n')
         logpath = STAGE / 'stats-native-checks.log'
         with logpath.open('w') as log:
-            session = Session(folder, log)
-            try:
-                ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
-                if ready.group(0).startswith('create'):
-                    session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                for command in ['raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check']:
-                    session.send(command)
-                    assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
-                session.send('shutdown'); assert session.process.wait(timeout=20) == 0
-            finally:
-                session.close()
+            for boot in range(3):
+                session = Session(folder, log)
+                try:
+                    ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
+                    if ready.group(0).startswith('create'):
+                        session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
+                    commands = ['raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands += [name + ('-check' if boot == 0 else '-reload-check') for name in ['raven-body', 'summon-difficulty', 'class-history', 'full-wardrobe']]
+                    for command in commands:
+                        session.send(command)
+                        assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
+                    with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                        threading.Thread(target=drain, args=(client,), daemon=True).start()
+                        session.send('raven-body-live-check')
+                        assert session.expect(r'raven-body-live-check: (passed|failed)').group(1) == 'passed'
+                        session.expect('raven-body-live: ready')
+                        client.sendall(b'\x73\x00')
+                        assert session.expect(r'raven-body-live-result: (passed|failed)', timeout=35).group(1) == 'passed', logpath.read_text()[-5000:]
+                    session.send('save'); session.expect('Writing world save snapshot done')
+                    session.send('shutdown'); assert session.process.wait(timeout=20) == 0
+                finally:
+                    session.close()
+        shutil.copy2(folder / 'raven-body-fixtures.json', STAGE / 'body-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Raven stats/signed blind and retained Valkyrie creation/named-item consumers pass; learned Raven actor remains disabled, installed Armageddon build untouched.')
+    print('Prepared Raven body/stats/flight/signed blind and retained summon difficulty/class history/Valkyrie/named-item consumers pass three boots/two reloads/three connected natural lifetimes; learned Raven remains disabled, installed Armageddon untouched.')
 
 
 if __name__ == '__main__':

@@ -146,6 +146,12 @@ public static class SkeletonPets
 public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
 {
     public virtual DiabloClass SummonClass => DiabloClass.Necromancer;
+    public virtual bool Permitted(PlayerMobile owner)
+    {
+        foreach(var history in ClassCreation.Profiles.Histories(owner.Serial))
+        {if(history.Profile.Class==SummonClass){return history.Ranks.TryGetValue("necromancer.raiseskeleton",out var rank) && rank>0;}}
+        return false;
+    }
     public MonsterDifficulty SummonDifficulty => SummonDifficulties.For(this);
     [SerializableField(0, setter: "private")]
     private int _level = 1;
@@ -271,7 +277,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     }
     protected virtual bool CanHit(Mobile target) => Alive && !Deleted && AlliedOverlap.Allowed(this) && !Frozen && !Paralyzed && Map != Map.Internal && CreatureHitRecovery.Remaining(this) == 0
         && IsEnemy(target) && target.Map == Map && InRange(target, RangeFight) && Math.Abs(target.Z - Z) < 16 && InLOS(target);
-    public TimeSpan BeginMelee(Mobile target)
+    public virtual TimeSpan BeginMelee(Mobile target)
     {
         int milliseconds=PaladinOffense.CreatureCycle(this,CombatProfile.AttackMs);
         var cycle = TimeSpan.FromMilliseconds(milliseconds);
@@ -336,7 +342,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
         _restoreTimer.Cancel();
         base.OnDelete();
     }
-    public void SuspendActions()
+    public virtual void SuspendActions()
     {
         _lastRecovery = _recoveryFraction = 0;
         _attackTimer.Cancel();

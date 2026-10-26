@@ -104,7 +104,7 @@ public partial class NecromancerMinion : SkeletonGuardian
         }
     }
     [Constructible] public NecromancerMinion() { }
-    public bool Permitted(PlayerMobile owner)
+    public override bool Permitted(PlayerMobile owner)
     {
         foreach (var history in ClassCreation.Profiles.Histories(owner.Serial))
         {

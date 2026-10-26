@@ -11,6 +11,7 @@ public interface IPersistentMinion
 {
     DiabloClass SummonClass { get; }
     DateTime? ExpiresUtc => null;
+    bool Permitted(PlayerMobile owner)=>true;
     void SuspendActions();
 }
 
@@ -31,15 +32,7 @@ public static class PersistentMinions
         && ClassCreation.Profiles.TryGet(owner.Serial, out var profile) && profile.Class == minion.SummonClass;
     internal static bool Permitted(PlayerMobile owner, BaseCreature pet, DiabloClass characterClass)
     {
-        if (pet is not IPersistentMinion minion || minion.SummonClass != characterClass) { return false; }
-        if (pet is NecromancerMinion summon) { return summon.Permitted(owner); }
-        if (pet is not SkeletonGuardian) { return true; }
-        foreach (var history in ClassCreation.Profiles.Histories(owner.Serial))
-        {
-            if (history.Profile.Class == characterClass)
-            { return history.Ranks.TryGetValue("necromancer.raiseskeleton", out var rank) && rank > 0; }
-        }
-        return false;
+        return pet is IPersistentMinion minion && minion.SummonClass==characterClass && minion.Permitted(owner);
     }
     internal static void ParkClass(PlayerMobile owner, DiabloClass characterClass)
     {

@@ -45,6 +45,14 @@ internal static class DruidRavenStats
             name=>name=="item_pierce_damage_immunity"?ClassGear.Bonus(owner,"pierce-immunity-damage")
                 :throw new NotSupportedException("Unmapped inherited Raven stat: "+name));
     }
+    internal static RavenBirth Rescale(RavenBirth birth,MonsterDifficulty difficulty)
+    {
+        ArgumentNullException.ThrowIfNull(birth);
+        int Field(string key)=>NecromancerSummons.Source("druidhawk",key,difficulty);
+        var spawn=new SummonSpawnStats(checked(Field("minHP")*256),Field("AC"),Field("A1TH"));
+        var basis=ValkyrieCreation.BaseAtLevel(birth.Level,(int)difficulty,true,spawn);
+        return birth with{Life256=spawn.Life256,Defense=basis.Defense,Attack=basis.Attack};
+    }
     internal static RavenAttack Attack(SkillValues liveValues)
     {
         Route(liveValues);

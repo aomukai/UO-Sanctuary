@@ -91,7 +91,7 @@ public static class ClassHistoryChecks
         for (int bad = 0; bad < 11; bad++)
         {
             var w = new BufferWriter(new byte[4096], true); w.Write(bad == 0 ? 4 : 3); w.Write(1); w.Write(123U);
-            w.Write((byte)(bad == 1 ? 0 : bad == 2 ? 102 : 103)); w.Write(bad == 3 ? 8 : bad == 4 ? 2 : 1);
+            w.Write((byte)(bad == 1 ? 0 : bad == 2 ? 102 : 103)); w.Write(bad == 3 ? Enum.GetValues<DiabloClass>().Length + 1 : bad == 4 ? 2 : 1);
             void Row()
             {
                 w.Write((byte)103); w.Write(bad == 5 ? 100 : 20); w.Write(bad == 6 ? -1L : 5000L);

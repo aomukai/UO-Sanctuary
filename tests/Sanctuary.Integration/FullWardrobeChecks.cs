@@ -195,7 +195,7 @@ public static class FullWardrobeChecks
         var robe = World.FindItem((Serial)saved.Robe); var pet = (SkeletonGuardian)World.FindMobile((Serial)saved.Pet);
         var ordinary = (BaseCreature)World.FindMobile((Serial)saved.Ordinary);
         var set = WardrobeEquipment.Instance.Find(p.Serial, DiabloClass.Necromancer);
-        Require(Profile(p).Class == DiabloClass.Sorceress && ClassCreation.Profiles.Histories(p.Serial).Length == 7
+        Require(Profile(p).Class == DiabloClass.Sorceress && ClassCreation.Profiles.Histories(p.Serial).Length == Enum.GetValues<DiabloClass>().Length
             && dagger.Parent == set && robe.Parent == set && pet is { Deleted: false, ControlSlots: 0 }
             && pet.Map == Map.Internal && pet.Hits == saved.PetLife && pet.ControlMaster == p
             && PersistentMinions.Profiles.Find(pet) is { Parked: true, Slots: 2 }

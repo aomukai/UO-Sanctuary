@@ -49,6 +49,8 @@ internal static class SourceTowardPath
         if(x>=8 || y>=8){return Math.Min(x,y)+2*Math.Max(x,y);}
         return Math.Max(0,Distances[x+8*y]+1);
     }
+    internal static int ShortDistance(int x,int y)=>x is >=0 and <8 && y is >=0 and <8
+        ?Distances[x+8*y]:throw new ArgumentOutOfRangeException();
     private static bool FreeDirection(Point2D point,Point2D target,Func<int,int,bool> blocked,out int direction,int directionOffset=0)
     {
         foreach(int raw in Directions[DirectionIndex(point,target)])
