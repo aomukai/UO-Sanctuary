@@ -101,14 +101,14 @@ def check():
                     if boot == 0 and audit:
                         session.send('first-loop-catalogue-check')
                         assert session.expect(r'first-loop-catalogue-check: (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
-                    for family in ['spirit-wolf-world-live', 'spirit-wolf-hit-live', 'spirit-wolf-rate-live']:
+                    for family in ['spirit-wolf-world-live', 'spirit-wolf-hit-live', 'spirit-wolf-rate-live', 'spirit-wolf-slow-live']:
                         with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
                             threading.Thread(target=drain, args=(client,), daemon=True).start()
                             session.send(family + '-check')
                             assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
                             session.expect(family + ': ready')
                             client.sendall(b'\x73\x00')
-                            assert session.expect(family + r'-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                            assert session.expect(family + r'-result: (passed|failed)', timeout=25 if family=='spirit-wolf-slow-live' else 15).group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
@@ -116,7 +116,7 @@ def check():
         shutil.copy2(folder / 'spirit-wolf-body-fixtures.json', STAGE / 'body-fixtures.json')
         shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'world-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Spirit Wolf life/ownership/world movement/cold melee/rate and retained consumers pass3boots/2actual reloads/3natural follows/3natural attacks/3natural haste attacks; physical floor provisional, learned casting pending; installed world untouched.')
+    print('Prepared Spirit Wolf life/ownership/world movement/cold melee/rate and retained consumers pass3boots/2actual reloads/3natural follows/3natural attacks/3natural haste attacks/3natural repeated slow attacks; exact busy cadence and physical floor provisional, learned casting pending; installed world untouched.')
 
 
 if __name__ == '__main__':

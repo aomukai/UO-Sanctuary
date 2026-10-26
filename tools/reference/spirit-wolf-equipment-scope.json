@@ -1,0 +1,41 @@
+{
+  "referenceVersion": "3.3.93847",
+  "tableCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "monster": "spiritwolf",
+  "equipmentRows": 45,
+  "matchingRows": [],
+  "sourceHashes": {
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/SKILLS/SkillAss.cpp": "1934bd201f0068215a927f5abb19fbd2ef1004aebefb84aa81bd60ade6bf9974"
+  },
+  "tableHashes": {
+    "monequip": "973c9cdb62cbcc0b6d05043dfbdb07eef39a7dc788b18a9fe05e68b103848772",
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+  },
+  "routineHashes": {
+    "DATATBLS_LoadMonEquipTxt": "655061bc99e8499750ebf0d41a11a544d4a165ca81e0d3e65868a0b2d49f1832",
+    "sub_6FCF9580": "cda07c611231de65ac8a6e6a7d0ccf5d5f2586365f14c885cbaf57814a1036c9"
+  },
+  "reusedCompiledGuard": {
+    "evidence": "tools/reference/valkyrie-equipment-engine-evidence.json",
+    "sha256": "305c298cbf9b4434c07ae307bdd60fa14ec42d099941850293c9ba09304cc7fb",
+    "probe": ".local/class-skills/valkyrie-equipment-source-probe.json",
+    "probeSha256": "1aa77defc3f9e533aac8c97cb12ebdd6afedaf84d025572ef84ff58c06d5791b",
+    "case": [
+      2,
+      0,
+      0
+    ]
+  },
+  "established": [
+    "The pinned45-row equipment table contains no Spirit Wolf entry. Its monstats identity and base identity are both spiritwolf.",
+    "The complete legacy loader initializes every monster equipment index to-1 and sets it only for the monster resolved from an equipment row. Absence leaves the wolf index negative.",
+    "The complete legacy equipment dispatcher returns before any row selection/item creation when that index is negative. The previously compiled unchanged dispatcher guard2 records zero created and zero removed items.",
+    "Under this pinned table/dispatch model, generated NPC equipment, equipment IAS and equipment affix/stat consumers are not dependencies of Spirit Wolf. Keep its requested item-level snapshot without inventing equipped items."
+  ],
+  "remaining": [
+    "This is a current-table plus legacy-dispatch inference, not a current-executable equipment trace. A future changed table or dispatcher requires review.",
+    "Do not clear Valkyrie, Shadow or other equipped-summon generation/stat-consumer gaps. Actor buffs, inherited passive fields, cold sunder and attack scheduling retain their separate acceptance requirements."
+  ]
+}

@@ -57,15 +57,21 @@ public static class SpiritWolfRateChecks
             Require(wolf.Prepared.Controller.Mode==4 && wolf.Prepared.Controller.AttackSpeed==176,"Next attack ignored live cold and haste");
             NecromancerEffects.Profiles.Store(wolf,new(Curse:new(CombatAbility.Decrepify,p.Serial.Value,1,at.AddHours(1),wolf.X,wolf.Y)));
             Enter();Require(SourceAttackRate.WolfRate(wolf)==50 && wolf.Prepared.Controller is{AttackSpeed:88,ActionAt:52,EndAt:63},"Combined slows were clamped before haste");
-            bool overlap=false;try{Through(47);}catch(NotSupportedException e){overlap=e.Message.Contains("overlaps unfinished A1");}
-            Require(overlap && wolf.Prepared.Controller.Fault!=null && wolf.Prepared.Controller.StrikeRequests==0,"Unverified AI overlap silently restarted an unfinished swing");
+            TimedEffects.Clear(wolf);PaladinAuras.Restore(auras);Enter();int life=SkillHealth.Balance256(target);
+            Require(SourceAttackRate.WolfRate(wolf)==50,"Decrepify-only actor context retained synthetic cold or haste");
+            Through(47);Require(wolf.Prepared.Controller is{Mode:4,ActionAt:52,EndAt:63,DeferredThinks:1,NextThink:0,Fault:null,StrikeRequests:0},"Busy AI cancelled or restarted a slowed bite");
+            Through(52);Require(wolf.Prepared.Controller.StrikeRequests==1 && SkillHealth.Balance256(target)<life,"Decrepify-only bite failed to land");
+            Through(63);Require(wolf.Prepared.Controller is{Mode:1,NextThink:78},"Provisional busy continuation lost source neutral delay");
+            Through(105);Require(wolf.Prepared.Controller is{DeferredThinks:2,StrikeRequests:2,AttackSpeed:88,Fault:null} && SkillHealth.Balance256(target)<life,"Repeated slowed bites stopped");
             TimedEffects.Slow(wolf,50,TimedEffects.Now);Enter();Require(wolf.Prepared.Controller is{AttackSpeed:26,ActionAt:114,EndAt:153},"Final15percent source clamp");
             TimedEffects.Clear(wolf);NecromancerEffects.Profiles.Clear(wolf);PaladinAuras.Restore(auras);
             Enter();Require(wolf.Prepared.Controller.AttackSpeed==176,"Expired/removed effects left stale source rate");
             var saved=wolf.Prepared;string text=wolf.SavedText;bool refused=false;
             try{wolf.RestorePrepared(saved with{Controller=saved.Controller with{AttackSpeed=-1}});}catch(InvalidDataException){refused=true;}
             Require(refused && wolf.SavedText==text,"Malformed attack speed mutated saved state");
-            Log.Information("Spirit Wolf rate:576complete source attack writer/event compositions, live Fanaticism/Decrepify/item slow and supplied cold fields, observed incoming-chill refusal, queued swing retention/next-entry refresh, final clamp, explicit unfinished-A1overlap refusal and atomic saved speed controls pass; modern mid-swing/busy-mode parity remains unverified");
+            wolf.RestorePrepared(saved with{Controller=saved.Controller with{Fault="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified"}});
+            Require(wolf.Prepared.Controller is{Mode:1,ActionAt:0,Fault:null},"Old prepared overlap refusal did not migrate safely");
+            Log.Information("Spirit Wolf rate:576complete source attack writer/event compositions, live Fanaticism/Decrepify/item slow and supplied cold fields, observed incoming-chill refusal, queued swing retention/next-entry refresh, final clamp, repeated Decrepify-only bites and old-refusal migration pass; exact modern busy cadence remains provisional");
         }
         finally{PaladinAuras.Restore(auras);target.Delete();SpiritWolfWorldChecks.End(p);}
     }

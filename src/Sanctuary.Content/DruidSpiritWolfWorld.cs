@@ -13,9 +13,10 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=47,uint Target=0,
     bool Teleport=false,Point2D TeleportPoint=default,int PathOverride=0,int VelocityBonus=0,int PathBudget=0,
     int StrikeRequests=0,uint PendingStrikeTarget=0,int PendingStrikeFrame=0,int PendingStrikeRank=0,string Fault=null,int MovingBonus=0,
-    SpiritWolfHitResult LastHit=null,int Hits=0,int AttackSpeed=0)
+    SpiritWolfHitResult LastHit=null,int Hits=0,int AttackSpeed=0,int DeferredThinks=0)
 {
     public string Profile{get;init;}="source-ai-native-ground-fit-cold-hit-v2";
+    public string AttackThinkPolicy{get;init;}="observed-bite-continuation-neutral-delay-v1";
 }
 
 // Live saved movement/AI and bounded cold-melee backend. This prepared factory
@@ -24,6 +25,8 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
 internal static class DruidSpiritWolfWorld
 {
     internal static SpiritWolfWorldState Copy(SpiritWolfWorldState s)=>s with{Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]}};
+    internal static SpiritWolfWorldState Upgrade(SpiritWolfWorldState s)=>s.Fault=="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified"
+        ?Park(s with{Fault=null}):s;
     internal static void Validate(SpiritWolfWorldState s)
     {
         if(s?.Motion?.Points==null || s.Motion.SavedSteps==null || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
@@ -34,6 +37,7 @@ internal static class DruidSpiritWolfWorld
             || s.Profile is not("source-ai-native-ground-fit-pending-hit-v1" or "source-ai-native-ground-fit-cold-hit-v2")
             || s.Hits<0 || s.Hits>s.StrikeRequests
             || s.AttackSpeed is <0 or >32767
+            || s.DeferredThinks<0 || s.DeferredThinks>s.Frame || s.AttackThinkPolicy!="observed-bite-continuation-neutral-delay-v1"
             || s.LastHit is{} hit && (!Enum.IsDefined(hit.Outcome) || hit.Chance is <0 or >95 || hit.Cold256<0 || hit.Fire256<0 || hit.Lightning256<0 || hit.ColdFrames<0 || hit.LifeLost<0)
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0 || s.Teleport)
             || s.Mode is 2 or 15 && ((s.Motion.Flags&0x20)==0 || s.ActionAt!=0 || s.EndAt!=0)
@@ -271,10 +275,13 @@ internal static class DruidSpiritWolfWorld
             {
                 if(s.Mode==4 && s.EndAt>s.Frame)
                 {
-                    const string reason="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified";
-                    Store(body,Park(s) with{Fault=reason});throw new NotSupportedException(reason);
+                    // Observed3.3.93847wolves keep biting under Decrepify
+                    // without Fanaticism. Consume this busy decision without
+                    // restarting A1; mode-end's existing neutral callback owns
+                    // the next think. Exact modern cadence remains provisional.
+                    s=s with{NextThink=0,DeferredThinks=checked(s.DeferredThinks+1)};
                 }
-                s=Think(body,owner,s,frameAt);
+                else{s=Think(body,owner,s,frameAt);}
             }
             Store(body,s);body.AIObject?.AITimer.Stop();
         }

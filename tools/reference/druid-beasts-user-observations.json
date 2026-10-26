@@ -7,7 +7,9 @@
       "canBeChilled": false,
       "decrepifySlowsAttacks": true,
       "stillBitesUnderDecrepify": true,
-      "canBeFrozen": "not established by this report"
+      "canBeFrozen": "not established by this report",
+      "fanaticismDuringDecrepify": false,
+      "reportedSupport": "Wolverine Spirit; Vigor from Harmony bow or Thorns from Edge bow."
     },
     "direWolf": {
       "canBeChilled": true,
@@ -20,7 +22,8 @@
   },
   "quotedReports": [
     "spirit wolves don't get chilled. when decrepify l;ands, they slow down, but they still bite",
-    "dire wolf and grizzly do get chilled tho, and frozen"
+    "dire wolf and grizzly do get chilled tho, and frozen",
+    "no, the effects were usually wolverine spirit and vigor aura from a harmony bow (or thorns from an edge bow)"
   ],
   "localTableChecks": {
     "files": {
@@ -44,10 +47,10 @@
   },
   "implementation": [
     "Add a Spirit-Wolf-only incoming chill eligibility gate to both existing cold-state consumer paths. Preserve source cold resistance and coldeffect metadata. This does not assert100percent cold damage resistance, Holy Freeze immunity or Spirit Wolf freeze immunity.",
-    "The prepared rate adapter reads actor haste/slow at A1entry. Its fixed22-frame AI overlap remains explicitly refused pending correct current busy/end dispatch; the user report rules out silent repeated windup cancellation as faithful behavior. Learned casting remains unavailable."
+    "The prepared rate adapter reads actor haste/slow at A1entry. Named provisional policy observed-bite-continuation-neutral-delay-v1 consumes a busy AI decision without cancelling A1and lets existing mode-end neutral scheduling request the next decision. This follows the observed continuing bites without Fanaticism; exact current dispatch/cadence is not established. Learned casting remains unavailable."
   ],
   "remaining": [
-    "Resolve the actual current AI busy/end scheduling so slowed Spirit Wolves continue biting with the correct cadence. Do not treat the protective refusal as finished gameplay.",
+    "Verify the exact current busy/mode-end dispatch and slowed cadence. Continuing bites are now implemented under an explicitly inferred policy, not a current-executable timing certificate.",
     "Confirm exact cause of Spirit Wolf chill exclusion and separate Spirit Wolf freeze eligibility if needed; retain observed Dire/Grizzly susceptibility in their future implementations.",
     "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf."
   ],
@@ -58,5 +61,9 @@
     "sha256": "595be425119a8ff33cb38a049ceeaa8ffb72959039fbb9d79eb6e4e75de7b986",
     "bytes": 68032,
     "scope": "Complete D2GAME_ModeChange_6FC65220, A1start sub_6FC645E0 and mode-end sub_6FC63680 show symbol renames only against the older pin. No busy-overlap correction was established in these three routines. This is review, not executable equivalence."
+  },
+  "supplementaryOfficialNotes": {
+    "url": "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4notes corroborate Spirit Wolf cold attacks and simultaneous wolf/bear types; this is not used to derive the missing3.3.93847busy-A1dispatch or exact cadence."
   }
 }

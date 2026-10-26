@@ -84,7 +84,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         {throw new InvalidDataException("Unsupported prepared Spirit Wolf snapshot",e);}
     }
     internal void RestorePrepared(SpiritWolfBodyState state)
-    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidSpiritWolfWorld.Copy(c) with{Profile="source-ai-native-ground-fit-cold-hit-v2"}}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidSpiritWolfWorld.Copy(DruidSpiritWolfWorld.Upgrade(c)) with{Profile="source-ai-native-ground-fit-cold-hit-v2"}}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidSpiritWolfBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || at> DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal

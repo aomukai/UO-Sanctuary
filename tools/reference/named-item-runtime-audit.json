@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "b85dafd3b466737b155410c1d253f98dd04666934e2d01ef23c86c6bc2f95f86",
+  "ContentAssemblySha256": "a441cb351c65ec24399e4e7ead7326c4199a1180e45a99b040697a67056a5911",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -364,10 +364,10 @@
     "src/Sanctuary.Content/DruidRavenMotion.cs": "9bc5a129c5b3ad1dc4f0fc787a01ea260434c2ec00112c19f75bbfbb94cb9865",
     "src/Sanctuary.Content/DruidRavenStats.cs": "1392061116327514708ac45d5cfdb7ac42b906b41a02baa713eae5c06077ca3d",
     "src/Sanctuary.Content/DruidSpiritWolfAi.cs": "b0f41b6f4d6965eca1133ef24ff983b7f35ae08d664aa2a83648a40990725d9b",
-    "src/Sanctuary.Content/DruidSpiritWolfBody.cs": "c26a39803231cf0f7f3a8f3b7c6dde7ecf22d319cebe57cbe3c614c59b3f7ec9",
+    "src/Sanctuary.Content/DruidSpiritWolfBody.cs": "1d57dcccf85c1079a8f506da2e5e9326293b6c546719cfacc18113f482d89b41",
     "src/Sanctuary.Content/DruidSpiritWolfHit.cs": "b958dae6cecb5facdd72aa574eb70db67f9e0edd3875ec55a1ca5ec173873d40",
     "src/Sanctuary.Content/DruidSpiritWolfStats.cs": "a59eb9b19b8d94f29962d6a55a70e7d61b6a7b20ffae9bb30857a93f42b9380b",
-    "src/Sanctuary.Content/DruidSpiritWolfWorld.cs": "3a7c2fbcc4f3fce754cb4d0ea4b9fd5ba7a4c8fe6cee6ad93b50b256622bfefb",
+    "src/Sanctuary.Content/DruidSpiritWolfWorld.cs": "8c6f4d876bd1def05ed4b453531744f2ea14f82643334455fc3e54c933981ac7",
     "src/Sanctuary.Content/DruidTornado.cs": "52ed2e12f3791a35d70bbb1a462693365b7bbdc100356ced8bca9cd001f53880",
     "src/Sanctuary.Content/DruidTwister.cs": "615bb958ff0f6b1ce0721c24678876ff3624dc303211d456dec87adaf322c289",
     "src/Sanctuary.Content/DruidVolcano.cs": "7bd34f9a9f267a40a9c2d0f29862c08ebb675f570f4ba2f5fd69a1ad8093515e",

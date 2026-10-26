@@ -24,6 +24,7 @@ public static class SpiritWolfWorldChecks
         Register("spirit-wolf-world-live-check",()=>FixtureNetwork.Connected("spirit-wolf-world-live-result",Live));
         Register("spirit-wolf-hit-live-check",()=>FixtureNetwork.Connected("spirit-wolf-hit-live-result",n=>Live(n,true)));
         Register("spirit-wolf-rate-live-check",()=>FixtureNetwork.Connected("spirit-wolf-rate-live-result",n=>Live(n,true,50)));
+        Register("spirit-wolf-slow-live-check",()=>FixtureNetwork.Connected("spirit-wolf-slow-live-result",n=>Live(n,true,slowed:true)));
     }
     private static void Register(string command,Action action)=>ConsoleInputHandler.RegisterCommand(command,"Prepared live wolf movement; ordinary hit and learned cast pending",_=>Core.LoopContext.Post(()=>
     {try{action();Log.Information("{Command}: passed",command);}catch(Exception e){Log.Error(e,"{Command}: failed",command);}}));
@@ -141,6 +142,9 @@ public static class SpiritWolfWorldChecks
         Require(!DruidCombat.Implemented(CombatAbility.SummonSpiritWolf),"Prepared world actor enabled learned cast");Routes();Movement();TargetsAndTeleport();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,9001);var target=Enemy(p,2);
         PetOwnerRoutes.Teleported(p,at);Through(body,45);Require(body.Prepared.Controller.StrikeRequests>0 && body.Prepared.Controller.LastHit!=null,"No resolved ordinary hit saved");
+        NecromancerEffects.Profiles.Store(body,new(Curse:new(CombatAbility.Decrepify,p.Serial.Value,1,at.AddDays(1),body.X,body.Y)));
+        body.RestorePrepared(body.Prepared with{Controller=DruidSpiritWolfWorld.Park(body.Prepared.Controller)});
+        Through(body,70);Require(body.Prepared.Controller is{AttackSpeed:88,DeferredThinks:>0,Fault:null},"No continuing slow policy saved");
         target.Delete();SkillHealth.SetBalance256(body,100*256+17);PersistentMinions.Suspend(p);
         var route=PetOwnerRoutes.Snapshot().Single(x=>x.Owner==p.Serial.Value);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),route,p.Map.MapID,p.Location)));
@@ -158,10 +162,12 @@ public static class SpiritWolfWorldChecks
         Require(body.Prepared.Controller.Seed==prior.Seed && body.Prepared.Controller.StrikeRequests==prior.StrikeRequests && SkillHealth.Balance256(body)==saved.Life,"Loaded source frames replayed offline effects");
         DruidSpiritWolfWorld.Advance(body,body.Prepared.Controller.NextUtc,true);
         Require(body.Map==p.Map && SkillHealth.Balance256(body)==saved.Life+32,"Actual world reload resume/recovery");
-        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
+        var route=PetOwnerRoutes.Snapshot().Single(x=>x.Owner==saved.Owner);
+        Require(route.LastTeleport==new Point2D(0,0),"Resumed owner lookup did not expire the50-frame teleport marker");
+        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body),Route=route}));
     }
     private static void Live(NetState network)=>Live(network,false);
-    private static void Live(NetState network,bool attacking,int haste=0)
+    private static void Live(NetState network,bool attacking,int haste=0,bool slowed=false)
     {
         var p=Fresh();network.Seeded=true;network.SentFirstPacket=true;network.CompressionEnabled=false;
         var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
@@ -172,24 +178,26 @@ public static class SpiritWolfWorldChecks
         network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
         var target=attacking?Enemy(p,3):null;if(target!=null){TimedEffects.PreventHealing(target,TimedEffects.Now);target.SetResistance(ResistanceType.Cold,0);}
         int life=target==null?0:SkillHealth.Balance256(target);
-        string result=haste>0?"spirit-wolf-rate-live":attacking?"spirit-wolf-hit-live":"spirit-wolf-world-live";
-        var body=DruidSpiritWolfWorld.Create(p,new(p.X+(attacking?1:16),p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+10000;
+        string result=slowed?"spirit-wolf-slow-live":haste>0?"spirit-wolf-rate-live":attacking?"spirit-wolf-hit-live":"spirit-wolf-world-live";
+        var body=DruidSpiritWolfWorld.Create(p,new(p.X+(attacking?1:16),p.Y,p.Z),TimedEffects.Now,9821);var origin=body.Location;long deadline=Core.TickCount+(slowed?20000:10000);
         if(haste>0)
         {
             var auras=PaladinAuras.Snapshot();PaladinAuras.Restore(auras with{Leases=auras.Leases.Append(new PaladinAuraLease(body.Serial.Value,p.Serial.Value,
                 CombatAbility.Fanaticism,1,haste,TimedEffects.Now.AddSeconds(30))).ToArray()});
         }
+        if(slowed){NecromancerEffects.Profiles.Store(body,new(Curse:new(CombatAbility.Decrepify,p.Serial.Value,1,TimedEffects.Now.AddMinutes(1),body.X,body.Y)));}
         void Inspect()
         {
             try
             {
                 Require(network.Running && !body.Deleted && body.Prepared.Controller.Fault==null,"Natural world actor disconnected/deleted/faulted: "+JsonSerializer.Serialize(body.Prepared.Controller));
                 Require(Core.TickCount<deadline,"Natural world follow timeout");
-                if(attacking?body.Prepared.Controller.Hits==0:body.GetDistanceToSqrt(origin)<2){Timer.StartTimer(TimeSpan.FromMilliseconds(50),Inspect);return;}
+                if(attacking?body.Prepared.Controller.Hits<(slowed?2:1):body.GetDistanceToSqrt(origin)<2){Timer.StartTimer(TimeSpan.FromMilliseconds(50),Inspect);return;}
                 if(attacking){Require(SkillHealth.Balance256(target)<life && body.Prepared.Controller.LastHit is{Outcome:SpiritWolfHitOutcome.Hit,Cold256:>0,Fire256:0,Lightning256:0}
                     && GearEffects.ChillPercent(target)>0,"Natural wolf ordinary cold hit/state did not commit");}
                 else{Require(body.GetDistanceToSqrt(p)<p.GetDistanceToSqrt(origin) && body.Prepared.Controller.Frame>=25,"Natural source frames moved away from owner");}
                 if(haste>0){Require(body.Prepared.Controller is{AttackSpeed:264,PendingStrikeFrame:34},"Natural haste clock did not deliver at captured source event");}
+                if(slowed){Require(body.Prepared.Controller is{AttackSpeed:88,DeferredThinks:>=2,StrikeRequests:>=2} && PaladinOffense.AttackRate(body)==0,"Natural Decrepify-only bites stopped or acquired hidden haste");}
                 target?.Delete();End(p);account.Delete();Log.Information("{Result}-result: passed",result);
             }
             catch(Exception e){target?.Delete();End(p);account.Delete();Log.Error(e,"{Result}-result: failed",result);}
