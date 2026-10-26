@@ -12,8 +12,8 @@
   "actualReloads": 2,
   "connectedNaturalActors": 3,
   "connectedQuickCasts": 3,
-  "fullClassRegression": false,
-  "fullClassPassedMarkers": 0,
+  "fullClassRegression": true,
+  "fullClassPassedMarkers": 1143,
   "pythonTests": 70,
   "sourceWeatherCases": 1128,
   "sourceDamageCases": 27540,
@@ -87,7 +87,10 @@
     ".local/class-skills/hurricane/native-fixtures.json": "982df27e23e3cbbecdba369f0094947806813806c47d2245ec3cccdb8252ab92",
     ".local/class-skills/hurricane/python-tests.log": "afbf977a205f1ea7a83fc948b36497d46fd2abee0cac703a5dcc810563b7c587",
     ".local/class-skills/hurricane/native-audits.log": "63d2bc3dca53b5a26981c539d7a75199c304193adfccc28a4537bdc1c1d50fea",
-    ".local/class-skills/hurricane-focused-run.log": "e9c1e88b4af836d5031a06ba3e3158a596a85dff6e613d8f5e5c014021d1b6d4"
+    ".local/class-skills/hurricane-focused-run.log": "e9c1e88b4af836d5031a06ba3e3158a596a85dff6e613d8f5e5c014021d1b6d4",
+    ".local/class-skills/hurricane/class-inputs.json": "44ffdcbfbb42d3ed622311575c1ecef2f7cda2d29cf7f6ce29bcdafe3bcc53a3",
+    ".local/class-skills/hurricane/class-native-checks.log": "69506db2647ad14239e3cf62fa7627e815fb49a3f7f14e05a8130f09a492f20c",
+    ".local/class-skills/hurricane-full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC self cast, right/quick bindings and one30mana release pass. Low/lost mana, stop/out-and-back/recovery cancellation, duplicate release, no localdelay, lower-rank recast replacement and real Tarnhelm captured rank pass.",

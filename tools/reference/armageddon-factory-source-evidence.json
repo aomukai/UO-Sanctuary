@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "sourceHashes": {
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697",
+    "source/D2Game/src/MISSILES/Missiles.cpp": "d9298e6d685c9d00323fa982c26d2dbfcb7289e266d642bb92f45f4d851141d5"
+  },
+  "compiledUnchangedRoutines": {
+    "MISSILES_CreateMissileFromParams": "e6233f075331a0ac515577834ae2abbb234ee71cf68989ac002d34bd6d69a4e9"
+  },
+  "fixture": {
+    "path": ".local/class-skills/armageddon-factory-source-probe.json",
+    "sha256": "b1ea4f7592c0028a7cdd7a3cb925da80b7038f0e91c0fed137e64107e9498310",
+    "cases": 576
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete factory uses current stationary control577/25frames/mode0/no footprint/no damage-frame-rate stat and ground623/37frames/mode8/Collision1/DamageRate41. Both keep owner, skill249 and requested rank1/20/255 through explicit flags1 coordinates.",
+    "Real pinned collision constants replace inherited opaque sentinels: ground footprint mask0x40 and mode8 move-test mask0x185 (monster/player/missile barrier/wall); control mode0 passes zero. This records requested masks, not actual room collision.",
+    "Current SubLoop1/12..36 does not extend ordinary flags1 field lifetime. Separate hypothetical flags8/loops2, range override7 and frame3 controls exercise loop extension/override/subtraction without attributing those flags to ordinary Armageddon requests.",
+    "Slow Missiles on/off does not move either zero-velocity row or change lifetime. Missing owner/invalid missile owner/missing row/room and allocation failure preserve distinct attempt boundaries."
+  ],
+  "services": [
+    "Inherited Guided Arrow allocation/room/path/owner/seed/stat/damage/event services remain supplied fixtures. Actual allocation, footprint registration, current collision and complete damage capture do not execute; separate source damage evidence covers getters/creator/writer.",
+    "This current-row/older factory composition does not certify modern seed/timing/owner/room/client behavior or native masks. Field ground delivery/expiry/history/defenses/DamageRate41/MDR and player weather/lifecycle/input/reloads remain separate.",
+    "No Armageddon handler, class completion or final effects/icons are enabled."
+  ],
+  "next": "Compose field623 basic collision/damage flags and DamageRate41 with existing Boulder ground consumers, preserving differences from its do5 animation and Firestorm SoftHit mode3."
+}
