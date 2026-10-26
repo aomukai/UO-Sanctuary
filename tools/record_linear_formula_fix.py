@@ -18,6 +18,8 @@ def sha(path):
 
 def inventory(path):
     data = json.loads(path.read_text())
+    expected = {str(p.relative_to(ROOT)) for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration'] for p in (ROOT / directory).glob('*.cs')}
+    assert {name for name in data['sourceInputs'] if name.endswith('.cs')} == expected, 'Candidate source inventory changed'
     for name, digest in data['sourceInputs'].items():
         assert sha(ROOT / name) == digest, name
     for name, digest in data['copiedData'].items():

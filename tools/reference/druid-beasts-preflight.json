@@ -966,6 +966,7 @@
       "direLifePercentPerRank": 15,
       "grizzlyDamagePercentPerRank": 10
     },
+    "recastTargeting": "Existing wolves keep their current targets when another Spirit Wolf is cast on a different monster; wolves act individually.",
     "scope": "User existing-character tooltip and confirmation of item-bonus wolf/bear synergies. Per-rank labels do not replace formula baseline terms or establish runtime stat consumers. Raven remains the explicit .blvl exception in the pinned row."
   },
   "established": [

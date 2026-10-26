@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "unchangedRoutineHashes": {
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "pinnedMonsterHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "generatedSourceSha256": "206911e445746f082b602db1f2d4b293cb2ddbec524bc976f438d6fe0ef1c44d",
+  "fixture": {
+    "path": ".local/class-skills/spirit-wolf-hit-source-probe.json",
+    "sha256": "c2447d3f00bdb6d6698e71a9c9c27e540c2eec78d9abf46264d66eac3c90a144",
+    "cases": 1536
+  },
+  "sanitizers": "ASan/UBSan exit0 with empty runtime stderr.",
+  "established": [
+    "Complete supplied ordinary monster melee fill rolls physical before cold in FP256, with exclusive upper bounds, then invokes the complete monster critical helper. Current Crit5 accepts rolls0..4 and doubles both physical and cold, leaving cold duration unchanged. Equal cold endpoints consume no cold roll.",
+    "In the inspected older body, unarmed raw physical0/0 is floored to1/2whole life before rolling. Explicit skip-physical flag1 controls remove that lane while retaining cold. This is a source distinction, not evidence the current executable retains the hidden physical floor.",
+    "Physical percentage controls affect the physical lane; actor cold mastery controls affect the cold lane. Source cold endpoints2/6/31 and user-correlated343/359/875 are supplied whole copied stats. No owner weapon/item stats, player melee event or hireling behavior is injected.",
+    "Source intrinsic critical requests hit class0x10 and optionally overlay54. Hit-class return/overlay services are declared and do not certify native effect rendering or all result-flag semantics."
+  ],
+  "limits": [
+    "No native wolf packet/ordinary attack exists yet. Full result/block/mode/mitigation/HP/kill-credit/event consumers, current executable floor/critical timing and real owner stat transport remain separate.",
+    "Current physical-floor observation is inconclusive: the user cannot distinguish tiny physical damage from Hell monster health/regeneration. Do not record this as either proven cold-only damage or proven modern physical damage. Per-monster resistances remain authoritative; no blanket Hell physical multiplier is inferred.",
+    "The selected inventory/stat/classification/roll/critical metadata services are bounded. Good-aligned non-hireling NPCs with valid source row and supplied stats are covered; PvP, item events, nonzero physical/elemental conversion, extra typed stats and modern global RNG are not established."
+  ],
+  "userExpectation": "User believes Spirit Wolves deal100percent cold damage; the attempted physical-floor observation remains inconclusive."
+}

@@ -99,6 +99,7 @@ def build(local_root, installation, check=False):
                                          coldMinimum=343, coldMaximum=359, maximumWolves=5,
                                          tooltipAttackRatingPercent=725, tooltipDefensePercent=320,
                                          reportedSynergyLabels=dict(direLifePercentPerRank=15, grizzlyDamagePercentPerRank=10),
+                                         recastTargeting='Existing wolves keep their current targets when another Spirit Wolf is cast on a different monster; wolves act individually.',
                                          scope='User existing-character tooltip and confirmation of item-bonus wolf/bear synergies. Per-rank labels do not replace formula baseline terms or establish runtime stat consumers. Raven remains the explicit .blvl exception in the pinned row.'),
                     established=[
                         'All three use do119/right-only SC/town-enabled casting, explicit owner-level calc2, shared summon allocation, explicit-level base helper and shared passives. Spirit/Dire caps are5/3; bear cap1. Mana is15/20/40. Unlike Creeper, the explicit base helper is called and can reuse the verified Valkyrie numeric route.',

@@ -1,0 +1,55 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "actorEnabled": false,
+  "installed": false,
+  "handlers": 166,
+  "druidHandlers": 10,
+  "completedClasses": [],
+  "goalComplete": false,
+  "boots": 1,
+  "actualReloads": 0,
+  "fullClassRegression": false,
+  "buildWarnings": {
+    "content": 0,
+    "integration": 0
+  },
+  "sourceAndNativeColdCases": 3825,
+  "sourceAndNativeBirthCases": 45900,
+  "sourceAndNativeComparisons": 49725,
+  "sourceOnlyCreationFailures": 6,
+  "hashes": {
+    "src/Sanctuary.Content/DruidSpiritWolfStats.cs": "ec0ca7cc941b9930ee62151d08faaa577a6938e892fd48d0b057097d4bc8ee46",
+    "src/Sanctuary.Content/ValkyrieCreation.cs": "9f189ae28d7803ce88d9d9734902b7b537d4d61d81f995be3b618f76a493f31d",
+    "src/Sanctuary.Content/SkillMechanics.cs": "1598c747a49686178398c3d87c8d91d4602ac8b4ea10f34baee26e1099ee33d2",
+    "tests/Sanctuary.Integration/SpiritWolfStatsChecks.cs": "ab2cd5a2bdcd8e9d6a6581fe93b94fefab06d9e87b2dd6137f5d1b12a38dddc2",
+    "tests/check_druid_beasts.py": "7d6fd6827e0f54e0ee632bdf6cd3c1cd4d4e7981819682c66fa3e229b429abe7",
+    "tools/build_class_skills.py": "435176e753e0bfd93abca7bf8819830cc0a294c8a7e440ebf91d58bb3c3cb338",
+    "tools/probe_spirit_wolf_creation_reference.py": "a0373ad16e7c5919d00466d01b18f3e8d1c299023bd569e435aa9fc653de0bf8",
+    "tools/record_spirit_wolf_stats.py": "9c8b6308778c283f4e5e3aade358302b4854ed36d93052a1f281695a476f9693",
+    "tools/reference/spirit-wolf-creation-source-evidence.json": "3f4edc4b6d683e44deb2d1877b2c45d60ef5806c8fc99dbd3cdbcb699b91086d",
+    "data/Sanctuary/Balance/necromancer-summons.json": "d0db86bae5e4502227ce4b6009311be0d8bc728c2d83c6738ac0f1e1ec624093",
+    "data/Sanctuary/Balance/summon-level-stats.json": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b",
+    ".local/class-skills/beasts/stats-inputs.json": "8dedbe6382902f501e746fc579e4439b492a7da3f19dd40f144499d7f1659515",
+    ".local/class-skills/beasts/stats-native-checks.log": "8d81c2457c69d5486de6367773a43bc30576a285d52fb398bdfa80964c1929f7",
+    ".local/class-skills/beasts/stats-run.log": "f8f85f21a583527084610b0557d2629e68eccd71b3624c611bf9fcff13f44d23",
+    ".local/class-skills/beasts/content/Sanctuary.Content.dll": "4b61c59f9587fcd7e5574f523e944d9427a334b4ad9d85229f2f7d4e1cbd733d",
+    ".local/class-skills/beasts/integration/Sanctuary.Integration.dll": "133e084687b7d61cb48086f6d535660f9cc0e4d17c5b8bf6d3bead32ee4fdcd4",
+    ".local/class-skills/beasts/content-build.log": "93862adfc6f7b449cc144350555ccab44ca8ee36734ff5cbcff1c9b0cedb6471",
+    ".local/class-skills/beasts/integration-build.log": "eeb5ccf12c1af3c0741d07a336afd8f000d1f4a0a658a42f47348b865ab635ac"
+  },
+  "scope": "Prepared numeric do119/cold components only. The broader shared-rank candidate regression and any installation have separate evidence.",
+  "established": [
+    "Native unmastered cold endpoints/length and whole-life passive truncation match3825 complete source getter cases across all255ranks, five effective Grizzly ranks and three deliberately ignored owner-mastery contexts. Nonzero applied-mastery source controls are retained separately.",
+    "Native supplied-spawn do119/base/passive components match45900 successful source contexts across three owner levels,255ranks,three difficulties,two game contexts,five paired effective Dire/Grizzly ranks and fractional fixed-point base-life controls. Explicit owner level, base monlvl additions, separate armor/tohit passives, four capped resistance values, captured cold and equipment request are preserved.",
+    "Actual learned Druid and Tarnhelm snapshots check rank1-to2,143-to156life, unchanged pre-passive32FP regeneration,2\u20136to3\u20137cold without Grizzly, immutable prior snapshots and fresh effective Grizzly synergy. No pet actor or ordinary attack is inferred from these owner snapshots.",
+    "Effective28/hard20 wolf/Dire/Grizzly inputs match the user1040life and343\u2013359cold observations. Changing supplied hard ranks alone leaves those effective-rank results unchanged. Copied armor-percent516 is distinguished from the tooltip linear bonus320. The source sixth cold-sunder value17 is retained as data only.",
+    "Shared linear/curse corrections and existing prepared Creeper, learned Raven stats/flight/blind/path, toward path,Valkyrie creation and named-item consumers pass the same disposable boot. Builds have zero warnings/errors."
+  ],
+  "limits": [
+    "Source-reviewed130HP/67defense/0initialAR/32regen bases are supplied to the complete creation oracle; full actual modern spawn initialization is not executed by it. Source formula/stat/allocation/world services remain bounded. Birth source contexts pair Dire/Grizzly ranks; getter contexts separately vary Grizzly.",
+    "Current slot6 and nonzero cold sunder are not covered by the older five-slot helper or a live consumer. Raw base stats/passives do not prove complete runtime AR/defense/resistance/attack delivery or stat capture/update timing.",
+    "No learned casting or saved wolf exists yet. Individual target/follow/teleport/AI/animation/cold-hit/regen/health-rescale/lifecycle/input/two-reload acceptance, exact modern fallback polarity/global RNG/geometry/client and final effects/audio/icons remain pending.",
+    "No full-class parity or installation is claimed by these numeric checks; coverage stays166/Druid10. Existing wolves retaining their own targets is separately recorded from the user and must not be replaced by Raven flock focus."
+  ]
+}

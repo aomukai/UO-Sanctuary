@@ -50,6 +50,9 @@ def check():
     # The unconditional Vengeance probe and socketed-weapon fixtures need these
     # even when the optional complete named-item audit is not requested.
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
+    if os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'):
+        os.environ.setdefault('SANCTUARY_FIRST_LOOP_ROOT', str(ROOT))
+        assert (Path(os.environ['SANCTUARY_FIRST_LOOP_ROOT']) / 'tools/reference/first-loop-cohort.json').is_file(), 'First-loop authoring cohort missing'
     logpath = PACKAGE / 'class-native-checks.log'
     with tempfile.TemporaryDirectory(prefix='sanctuary-class-skills-', dir='/dev/shm') as temp:
         folder = Path(temp)
