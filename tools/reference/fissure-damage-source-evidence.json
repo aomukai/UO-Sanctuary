@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693"
+  },
+  "reusedCreatorEvidence": "tools/reference/molten-boulder-damage-source-evidence.json",
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fissure-damage-source-probe.json",
+    "sha256": "51e6ec956562000a8a77267a1a8dbfd3ff1b250c7710a59ede523167efda8564",
+    "cases": 27540
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "All255ranks use complete physical/elemental getters, missile elemental getters, creator/add/scale and setter bodies with current center461/crack462/463 rows.",
+    "Center461 has zero endpoints even while carrying skill234. Both crack variants use skill234 fire endpoints, HitShift8, then hard Firestorm+Volcano12percent synergy, then owner fire mastery once. Physical endpoints remain zero.",
+    "Zero/one/twenty independent hard points, separate owner mastery and unrelated99999owner/origin item-stat controls preserve no weapon/elemental item inheritance or critical calls, and no copied owner mastery stat."
+  ],
+  "limits": [
+    "Hard skill formula lookup, prepared owner/item stats, ratio, weapon metadata and empty monster-type stat copying are declared parent services. KICK/weapon endpoint services abort if selected.",
+    "This establishes numeric capture, not the modern executable, damage roll/mitigation/event timing, Slow Missiles producer, native spatial geometry or rendered client.",
+    "Missile-owned physical getters and elemental length are declared zero services for the pinned center zero-damage row. Complete skill-owned physical getters and missile/skill elemental getters execute; no nonzero center endpoint is inferred.",
+    "Formula evaluation is the explicit current(hardFirestorm+hardVolcano)*12service; current formula interpreter is checked separately against these captures.",
+    "These are fresh creation endpoints. Native crack creation must supply current hard/mastery stats at retained cast rank; hit rolls, immunity, damage commitment and modern overlap identity are not established here."
+  ],
+  "next": "Compare actual content SkillValues and the reusable fire endpoint supplier; connect current crack damage/collision/lifetime to the saved native emitter."
+}

@@ -4,7 +4,7 @@
   "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "handlerEnabled": false,
   "installed": false,
-  "sourceStatus": "Complete source launch/gate/coordinate creator/placement/elapsed/RNG/center lifetime/overlay composition passes12732contexts; full generic factory passes432current-row contexts. Shared production sampler/source comparisons and420prior-Blizzard controls pass. Candidate content builds0warnings/0errors; no Fissure native actor or learned handler yet.",
+  "sourceStatus": "Launch/placement/lifetime/overlay12732contexts and full current-row factory432contexts pass. Complete fresh damage creator/getter/writer27540contexts, actual content crack endpoints18360contexts, actual complete-assembly Blizzard samples3840contexts and legacy hit routing453contexts pass. Candidate content builds0warnings/0errors; no Fissure native actor or learned handler yet.",
   "pinnedInputHashes": {
     "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
     "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
@@ -250,16 +250,20 @@
     },
     {
       "component": "Druid field packets / SourceRandom / immutable worker-safe persistence",
-      "scope": "Fresh skill endpoints at retained rank and exact center/child/seed/clock identities; keep LastCollide and modern next-hit identity separate."
+      "scope": "Actual compiled SkillValues/formula interpreter and existing DruidFirestorm.Endpoints match18360complete source crack captures; no duplicate formula/mastery code is needed. Fresh endpoints at retained rank, immutable persistence and seed/deadline identity remain native integration work."
     },
     {
       "component": "Source missile generic hit/flag/health/mode consumers",
       "scope": "Reuse source-backed single-collider damage/get-hit/defense; no unsupported event or modern NHD identity may be inferred from the older global JUSTHIT state."
+    },
+    {
+      "component": "ShockWebs / WeaponFlightLease",
+      "scope": "Existing cast/target lease model may supply native state plumbing; exact modern Fissure grouping is not established by its existence. Do not confuse LastCollide last-victim identity with the separate five-frame hit-delay lease."
     }
   ],
   "remaining": [
-    "Connect verified launch/placement/factory routes to saved native actors; complete fresh skill damage factory/getter capture before crack damage.",
-    "Establish fresh skill damage endpoints, field lifecycle/activation, LastCollide repeats/alternation and source collider selection before a native damage actor.",
+    "Connect verified launch/placement/factory routes to saved native center/crack actors; use verified existing fire endpoint supplier with fresh owner stats at retained cast rank.",
+    "Compose native field lifecycle/activation, single collider selection and LastCollide; source legacy route/eligibility/history453contexts are ready, but modern next-hit identity remains explicit.",
     "Current next-hit delay identity across cracks/casts/owners/skills remains unverified. Older global STATE_JUSTHIT alone is insufficient modern evidence; retain this as an explicit acceptance question.",
     "Implement saved native center/holes, terrain/missile footprint checks, target defenses/health/owner and offline/facet behavior without replacing it with flat area DPS.",
     "Verify SC/payment/cancellation/50frame local delay/right/quick/gear/synergy and real natural connected timers/persistence before installation."
@@ -274,7 +278,7 @@
     "installedDruidHandlers": 3,
     "scope": "Boulder is installed/verified; Fissure source preparation only."
   },
-  "next": "Compose fresh skill damage and crack collision/LastCollide/modern next-hit identity, then connect native emitter/cracks and learned casting. Source-proved sampler reuse is prepared, not installed.",
+  "next": "Implement saved native emitter/cracks using the existing sampler, fire endpoints and missile/lease/health consumers where source agrees. Keep modern next-hit grouping explicit; then verify player casting and full regression before installation.",
   "compiledSourceEvidence": "tools/reference/fissure-source-evidence.json",
   "factoryEvidence": "tools/reference/fissure-factory-source-evidence.json",
   "sharedSamplerEvidence": "tools/reference/ground-missile-scatter-evidence.json",
@@ -284,5 +288,8 @@
     "checked": "2026-10-26",
     "evidence": "Official patch2.7 changes Next Hit Delay from a shared global exclusion to missiles created by casting the same skill; Assassin charge-up triggers are separately treated casts.",
     "limits": "Announcement wording alone does not resolve precise Fissure crack/cast/owner key construction or modern terminal-boundary timing. Do not infer those from the older STATE_JUSTHIT body."
-  }
+  },
+  "damageSourceEvidence": "tools/reference/fissure-damage-source-evidence.json",
+  "damageConsumerEvidence": "tools/reference/fissure-damage-evidence.json",
+  "legacyRoutingEvidence": "tools/reference/fissure-routing-source-evidence.json"
 }

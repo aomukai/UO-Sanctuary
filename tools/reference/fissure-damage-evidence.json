@@ -1,0 +1,59 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEvidence": "tools/reference/fissure-damage-source-evidence.json",
+  "comparedCases": 18360,
+  "actualBlizzardSamples": 3840,
+  "build": {
+    "returnCode": 0,
+    "log": ".local/class-skills/fissure-damage-build.log",
+    "logHashOmitted": "Variable restore/elapsed-time text; executed result and artifacts are hashed."
+  },
+  "inputHashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidFirestorm.cs": "dbe8b5213cad72f18ce5abf281da12d0369d05247a074b8d7e65960a72837732",
+    "src/Sanctuary.Content/AmazonSlowMissiles.cs": "866ed162ec878a68806af6d7e7edc627551d742f03e3557ac8b6eeb3418d243f",
+    "src/Sanctuary.Content/Blizzards.cs": "e85b46cc6adf3f3aeca09c3ddb6472c2e853d4fdaf81c070c69e4d16c99060dd",
+    "src/Sanctuary.Content/GroundMissileScatter.cs": "102701077f35d2214e2cd9fc96aeb458b7d33035aa8c12b95fc2303d65beb746",
+    "src/Sanctuary.Content/SourceRandom.cs": "4b9ecb3514234193e04376cbc14b2f0031b30e7a3e91cd08dd18516867079520",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "tools/probe_fissure_damage_reference.py": "3f829b729db4c8bd711e778000a464f0f49720073e282cc03898b2d992385ac5",
+    "tools/check_fissure_damage.py": "6540ab3f91a96aee71669395226d4365a936cfb2f703345882763d5556e78a07",
+    "tools/reference/fissure-damage-source-evidence.json": "b7d427896a23d396c5401c66c1bd1310a01ad7ac5cf8334bb0805e6bd0650cb3",
+    "tools/reference/fissure-source-evidence.json": "1c2cc5661a7ee7acf5fd476e357da80c0187426bf08a7173ca02ddc59a36910e"
+  },
+  "artifactHashes": {
+    "/home/aomukai/.codex/worktrees/death-sentry-damage/Sanctuary/.local/class-skills/fissure-preparation/content/Sanctuary.Content.dll": "f9ace29fa5d25a3e12903352d92f95356edaf2326d3f5a6d73945faba31a8249",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "evidenceHashes": {
+    ".local/class-skills/fissure-damage-source-probe.json": "51e6ec956562000a8a77267a1a8dbfd3ff1b250c7710a59ede523167efda8564",
+    ".local/class-skills/fissure-source-probe.json": "1660571d534d2c9902f45d550b96e93cd11e35064c7195c1aa166e7db7dece15",
+    ".local/class-skills/fissure-damage-source-probe.cpp": "6f21626b0a041263cdcb8ce5a76576427998ff525eac4d848139f5bae57dabb9",
+    ".local/class-skills/fissure-damage-source-probe": "7b835ec5c94e9200545929a320bbad28712d4a83d59bf19a684cd4dc3f47f34d",
+    ".local/class-skills/fissure-damage-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/fissure-damage-run.log": "fb87912d51ea40cddc0b99bf5c8782df19c3e6e89f32db94767b4e15d636dcac",
+    ".local/class-skills/fissure-damage-proof/check.csproj": "03716b3d8b3bb5220b5bf6c4fc52b433e60436990a3adaa603a8204d0a1fd9f1",
+    ".local/class-skills/fissure-damage-proof/Program.cs": "1ac4c8ff9dc48d55a0cd8966db0e44a25c435e39b173c0261062a8463db840de",
+    ".local/class-skills/fissure-damage-proof/out/check.dll": "9151e5e22f9940ad989a0f3ce23ff40ff37da78fddb52ae9d5a598a760c2b289"
+  },
+  "established": [
+    "Actual built Sanctuary.Content SkillValues, formula interpreter, existing DruidFirestorm.Endpoints and SlowMissilePayload.Normal match every18360current crack462/463 complete source capture across255ranks, independent hard points and mastery.",
+    "Actual current class definitions are supplied to SkillMechanics lookup; cross-skill soft ranks255do not inflate Firestorm/Volcano hard-only synergy. Actual Fissure mana15, range7 and interval6 formulas pass in each context.",
+    "Actual complete-assembly Blizzards.Sample also matches all3840eligible complete-source placement samples; the shared production math executes without a source-method extraction.",
+    "No new duplicate elemental formula or fire-mastery implementation is needed for Fissure."
+  ],
+  "limits": [
+    "Hard skill formula lookup, prepared owner/item stats, ratio, weapon metadata and empty monster-type stat copying are declared parent services. KICK/weapon endpoint services abort if selected.",
+    "This establishes numeric capture, not the modern executable, damage roll/mitigation/event timing, Slow Missiles producer, native spatial geometry or rendered client.",
+    "Missile-owned physical getters and elemental length are declared zero services for the pinned center zero-damage row. Complete skill-owned physical getters and missile/skill elemental getters execute; no nonzero center endpoint is inferred.",
+    "Formula evaluation is the explicit current(hardFirestorm+hardVolcano)*12service; current formula interpreter is checked separately against these captures.",
+    "These are fresh creation endpoints. Native crack creation must supply current hard/mastery stats at retained cast rank; hit rolls, immunity, damage commitment and modern overlap identity are not established here.",
+    "Standalone fixture populates actual definition lookup via reflection and invokes the existing internal endpoint supplier. It does not initialize a server, equip gear or enable a learned skill.",
+    "Center zero endpoints are covered by the source fixture only; no native Fissure center/crack creation or modern hit-delay consumer is claimed."
+  ],
+  "next": "Connect verified fresh endpoint supplier to native crack creation, preserving cast rank and separate impact/LastCollide/modern next-hit lifecycles."
+}

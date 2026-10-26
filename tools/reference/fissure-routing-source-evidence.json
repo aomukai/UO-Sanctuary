@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "routineHashes": {
+    "MISSILE_SetOwner": "963da66e83fdf52f45b71225a0447408e4292c6cd3ca2efae7aaf3fe2a41180f",
+    "MISSILE_CheckUnitIfOwner": "979c4f4065963f583d2b9580a8f28e55b4cbaa309b365cd3d9f08f9e7ed07b20",
+    "MISSMODE_SrvDmgHitHandler": "ea4d1c52db64fe810d2404b578ab7aa3ba4a375e9fc6f0bb20b559ccb308f329",
+    "MISSMODE_SrvDmg08_EruptionCrack": "cc8d4601221019f0e9383c77fb182c09df8e9a6b12557931e512962d57c7beba",
+    "MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster": "9d454232d97d940ce6d3460be8df27b6aa514e5c7ec90ef4c76c5e788d0aff89"
+  },
+  "reusedRouterEvidence": "tools/reference/molten-boulder-routing-source-evidence.json",
+  "pinnedMissileHash": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+  "fixture": {
+    "path": ".local/class-skills/fissure-routing-source-probe.json",
+    "sha256": "dd2413bde90f15adeb8e2c49a4217c11a4db973389ac2fe5ee3f3082e6aba15e",
+    "cases": 453
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Full generic legacy router runs current crack no-hit-function/damage8, LastCollide1, ToHit0, CollideKill0, NextHit1/NextDelay5 routes, with complete LastCollide getter/setter and unit eligibility callback.",
+    "Immediate same-last-target and externally supplied next-hit exclusion return before last-target writes/events/damage. Hostility rejection follows the LastCollide write. Alternating valid victims can replace the last target, allowing the earlier victim again when external NHD permits.",
+    "Eligible hits attempt a legacy removal-state allocation at gameFrame+5 before hit event, overlay and recorded damage commitment. Allocation failure skips state installation but does not cancel that hit. This is legacy order evidence, not a modern key implementation.",
+    "No AR roll is selected; no child missile is created. Eligible direct hits persist, while a terminal update clears the field footprint and removes the missile. Empty nonterminal calls do not emit hit events."
+  ],
+  "limits": [
+    "Legacy STATE_JUSTHIT is a controlled eligibility service. The known official2.7revision means this global legacy state must not be ported as the modern Fissure identity. Exact modern crack/cast/owner/skill grouping and timing remain open.",
+    "Packet fill, damage flags/mitigation/health, state/event allocation, room/collision and owner lookup are explicit services. Spatial collider order, actual generic update/path, modern event/proc and native learned casting do not execute here.",
+    "Current crack routing values are supplied from the pinned preflight; current data and older reconstruction are distinct. No native handler or final effects/icons are enabled."
+  ],
+  "next": "Connect source-backed crack last-victim/eligibility and damage consumers while preserving modern next-hit uncertainty; finish native placement/lifetimes/persistence and casting acceptance."
+}
