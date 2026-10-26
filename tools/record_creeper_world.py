@@ -25,6 +25,9 @@ def record(check=False):
     assert log.count('creeper-ground-check: passed') == 1
     assert log.count('creeper-ground-reload-check: passed') == 2
     assert log.count('creeper-fields-live-result: passed') == 3
+    assert log.count('creeper-poison-check: passed') == 1
+    assert log.count('creeper-poison-reload-check: passed') == 2
+    assert log.count('creeper-poison-live-result: passed') == 3
     assert log.count('creeper-world-reload-check: passed') == 2
     assert log.count('creeper-world-live-check: passed') == 3
     assert log.count('creeper-world-live-result: passed') == 3
@@ -33,7 +36,7 @@ def record(check=False):
     assert log.count('Shutting down') == 3
     fixture = json.loads((STAGE / 'world-fixtures.json').read_text())
     state = fixture['State']['Controller']
-    assert state['Profile'] == 'source-ai-independent-field-contact-capture-v3'
+    assert state['Profile'] == 'source-ai-independent-vine-poison-provisional-v4'
     assert state['Mode'] == 1 and state['Fault'] is None and state['SkillEvents'] == 1
     assert state['GameBase'] == 1000 and state['Ai']['LastSkillFrame'] == 1025
     assert len(state['LastHeads']) == 3 and fixture['Life'] == 6007 + 2 * 9
@@ -45,6 +48,12 @@ def record(check=False):
     assert all(m['Total'] == 125 and m['Z'] == 100 for m in fields['Mats'])
     assert all(h['Velocity256'] == 1344 and h['Z'] == 100 for h in fields['Heads'])
     assert any(m['LastCollision'] != 0 for m in fields['Mats']) and fields['Contacts'] == 0
+    context = fixture['Ground']['PoisonContext']
+    assert context['Profile'] == 'birth-owner-rabies-no-player-gear-provisional-v1'
+    assert context['OwnerLevel'] == 99 and context['RabiesHardRank'] == 0
+    for mat in fields['Mats']:
+        assert mat['Poison']['Damage'] == dict(Minimum256=32, Maximum256=48, Frames=100, Count=0)
+        assert mat['Poison']['SlowDamagePercent'] == 100
     orphan = json.loads((STAGE / 'ground-fixtures.json').read_text())
     ground = orphan['Ground']
     assert orphan['RemovedActor'] == ground['Actor'] and orphan['Owner'] == ground['Owner']
@@ -52,6 +61,12 @@ def record(check=False):
     assert len(ground['Fields']['Heads']) == 3 and len(ground['Fields']['Mats']) == 6
     assert all(h['Remaining'] == 4 for h in ground['Fields']['Heads'])
     assert any(m['LastCollision'] != 0 for m in ground['Fields']['Mats']) and ground['Fields']['Contacts'] == 0
+    assert all(m['Poison'] is not None for m in ground['Fields']['Mats'])
+    poison = json.loads((STAGE / 'poison-fixtures.json').read_text())
+    assert poison['Context']['RabiesHardRank'] == 20
+    assert poison['Mat']['Poison']['Damage'] == dict(Minimum256=96, Maximum256=144, Frames=100, Count=0)
+    assert poison['Poison']['PoisonSource'] == poison['Owner'] and poison['Poison']['Owner'] == poison['Target']
+    assert poison['Poison']['PoisonMs'] == 3920 and 96 <= poison['Poison']['PoisonClock']['Rate256'] < 144
     wolf = json.loads((STAGE / 'wolf-world-fixtures.json').read_text())
     assert wolf['State']['Controller']['Fault'] is None
     assert wolf['State']['Controller']['AttackSpeed'] == 88 and wolf['State']['Controller']['DeferredThinks'] > 0
@@ -86,6 +101,8 @@ def record(check=False):
         'src/Sanctuary.Content/DruidCreeperAi.cs', 'src/Sanctuary.Content/DruidCreeperVines.cs',
         'src/Sanctuary.Content/DruidCreeperFields.cs', 'src/Sanctuary.Content/DruidEmitterPatterns.cs',
         'src/Sanctuary.Content/DruidCreeperGround.cs',
+        'src/Sanctuary.Content/DruidCreeperPoison.cs', 'src/Sanctuary.Content/PoisonPackets.cs',
+        'src/Sanctuary.Content/PoisonStates.cs', 'src/Sanctuary.Content/TimedEffects.cs',
         'src/Sanctuary.Content/ChargedBolts.cs', 'src/Sanctuary.Content/SourceMissileSteps.cs',
         'src/Sanctuary.Content/AmazonSlowMissiles.cs', 'src/Sanctuary.Content/CombatHitboxes.cs',
         'src/Sanctuary.Content/PetGroundWorld.cs', 'src/Sanctuary.Content/DruidSpiritWolfWorld.cs',
@@ -95,16 +112,18 @@ def record(check=False):
         'tests/Sanctuary.Integration/CreeperWorldChecks.cs', 'tests/Sanctuary.Integration/SpiritWolfWorldChecks.cs',
         'tests/Sanctuary.Integration/CreeperFieldsChecks.cs',
         'tests/Sanctuary.Integration/CreeperGroundChecks.cs',
+        'tests/Sanctuary.Integration/CreeperPoisonChecks.cs', 'tests/Sanctuary.Integration/CreeperStatsChecks.cs',
         'tests/check_creeper_stats.py', 'tools/record_creeper_world.py',
         'tools/reference/creeper-stats-native-evidence.json', 'tools/reference/creeper-ai-source-evidence.json',
         'tools/reference/creeper-preflight.json', 'data/Sanctuary/Balance/necromancer-summons.json']]
     paths += [STAGE / name for name in ['stats-inputs.json', 'stats-native-checks.log', 'stats-run.log',
-        'world-fixtures.json', 'ground-fixtures.json', 'wolf-world-fixtures.json', 'python-tests.log', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
+        'world-fixtures.json', 'ground-fixtures.json', 'poison-fixtures.json', 'wolf-world-fixtures.json', 'python-tests.log', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], installed=False, learnedHandler=False,
-        profile=state['Profile'], automaticWorldClock=True, actorConnected=True, liveVineDamage=False,
-        headRequestsCapturedOnly=False, movingHeads=True, finiteMats=True, poisonContactsCapturedOnly=True,
+        profile=state['Profile'], automaticWorldClock=True, actorConnected=True, liveVineDamage=True,
+        headRequestsCapturedOnly=False, movingHeads=True, finiteMats=True, poisonContactsCapturedOnly=False,
+        provisionalPoisonCapture=True, poisonCaptureProfile=context['Profile'],
         independentFieldPersistence=True, removedActorFieldsReloaded=True, embeddedFieldsMigrated=True,
-        boots=3, actualReloads=2, connectedNaturalFollows=3, connectedNaturalFieldExpiries=3,
+        boots=3, actualReloads=2, connectedNaturalFollows=3, connectedNaturalFieldExpiries=3, connectedNaturalPoisonRuns=3,
         passedMarkers=len(re.findall(': passed', log)), pythonTests=70, handlers=167, druidHandlers=11,
         fullClassRegression=False, currentExecutableParity=False, completedClasses=[], goalComplete=False,
         officialSynergyReference=dict(url='https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
@@ -116,14 +135,16 @@ def record(check=False):
             'Explicit world tests retain first think25, shared follow/warp service routing, scalar source escape away from an exact100poison-resist target, lazy mapped-NPC target scan and source melee-range2plus1threshold. Source reach/escape bodies are reviewed/hash-pinned; full room/target helpers are not represented as complete current-executable services.',
             'A mature supplied game base1000allows the initial melee skill attempt at actor frame25/remembered global1025. A supplied fresh base0retains strict early-game delay and attempts at a later AI decision. The default clock uses server-initialization elapsed age; actor base/remembered frame persist while inactive intervals discard actions/healing.',
             'Current K9S1kind2event launches actual prepared moving heads from the target coordinates. Flags3cardinal delta becomes absolute aim before charged initialization, whose seed uses aimXplus ordinal. Shared charged path, velocity and crossing helpers are reused. Head20frame life and remaining18/9trail emission produce six finite mats from three rank1heads. Mat creation precedes movement/decrement; new mats first advance next local tick. Stored paths, original Z, remaining lives and collider history are deep-copied and survive two real world reloads without replay. The missing-target branch remains without a separate native transition check.',
-            'Current trail Range is evaluated by the existing formula evaluator: rank1/20/21/255give125/600/625/6475frames. Native controls cover20frame expiry, two emissions per unobstructed head, age15inactive/16active, early LastCollide update, alternating recent victim rather than a permanent hit set, refused allegiance contact, inactive age without movement/emission/contact, slow33percent producing443speed, terrain-service refusal and malformed/JSON roundtrip state. Damage-eligible contacts are counted only; poison is deliberately not delivered.',
+            'Current trail Range is evaluated by the existing formula evaluator: rank1/20/21/255give125/600/625/6475frames. Native controls cover20frame expiry, two emissions per unobstructed head, age15inactive/16active, early LastCollide update, alternating recent victim rather than a permanent hit set, refused allegiance contact, inactive age without movement/emission/contact, slow33percent producing443speed, terrain-service refusal and malformed/JSON roundtrip state. New fields now deliver raw poison packets at damage-eligible contacts; old capture-only groups retain null packets and remain harmless.',
             'Fields now have independent actor/player/facet identities, absolute next-frame UTC and deep-copied state in priority173persistence. Actor deletion preserves existing fields, missing actors refuse fresh child creation, and original-player death removes fields. A different owner facet does not relocate mats or prevent their hostile-NPC contact captures. Inactive intervals discard motion/emission/contact while lifetime runs. Original-player allegiance, coordinate-distance child limits and sector/terrain services remain explicit projections.',
             'A removed-actor group and a separate live-actor group survive two actual world reloads with exact saved paths, heights, remaining life and nonzero early collision history. First loaded advancement discards actions; later active steps resume without reconstructing the missing actor. Native embedded-state migration transfers fields exactly once without replaying launch or losing age/history. Duplicate and invalid-facet restores leave the existing pool unchanged.',
-            'Three authenticated natural sessions now create fields after the initial follow, observe both emission batches, delete the actor and wait for the independent timer to expire the remaining mats. The always-running conductor continues advancing fields with no actor in its tracked set. The internal direct factory is exercised, not a learned cast or animation.',
+            'Three authenticated natural sessions create fields after the initial follow, observe both emission batches, delete the actor and introduce two stationary hostile monsters after the inactive contact window. Actual monster life falls from poison and the independent timer expires remaining mats. The always-running conductor continues with no actor in its tracked set. The internal direct factory is exercised, not a learned cast or animation.',
+            'New mats capture raw rates,100frame poison length, slow damage scalar and per-mat RNG. Rank1/no-synergy gives32/48rates and hard20Rabies gives96/144; slow33percent gives10/15without shortening poison. The mapped creator helper also matches all zero-mastery cases in the retained complete source endpoint fixture. Ground pools preserve packet/rank/context/seed across two reloads; missing packets and packet/context disagreement are atomically refused.',
+            'The bridge reuses recipient resistance/curse/aura pools, independent poison rate/length mitigation, exclusive-maximum rolls and the source40msnegative-regeneration clock. Native controls check no immediate damage,39/40msboundary,50percent and negative resistance, immunity, weaker/stronger replacement, four-second expiry, lethal NPC poison and original-player damage attribution. Landed poison survives two actual reloads and resumes one exact frame with unchanged source/rate. Its inspection UpdatedUtc is held two days; ordinary four-second expiry is checked separately.',
             'Shared native terrain helper preserves the existing Wolf ground projection. Wolf world/cold-hit/slow-state controls and two actual reloads pass alongside Creeper. Retained Creeper life/buff/history/facet and numeric/policy controls remain checked. Main installed runtime/saves/config/client are unchanged.'],
         remaining=[
-            'This is an internal moving-head/finite-mat/contact-capture profile, not a functioning learned Poison Creeper attack. Poison owner/Rabies/mastery/pierce transport, raw packet creation, resistance/duration delivery and kill credit must be connected next. No poison damage is claimed.',
-            'The reviewed legacy formula wrapper preserves its supplied unit; the highest-skill lookup searches that unit only. Vine Attack supplies the Creeper as missile owner, while the current trail overrides damage skill to player222whose formula asks Rabies hard rank. These reviewed bodies do not establish modern pet-to-player synergy transport. Do not silently inherit all owner gear/mastery or assert a zero-synergy current-game result.',
+            'This is an internal functional-poison profile with explicitly provisional capture timing, not a learned or current-executable parity certificate. Modern pet/owner stat transport, full mastery/pierce/sunder, current credit/event ordering and graphical acceptance remain open.',
+            'The named birth-owner-rabies-no-player-gear-provisional-v1model uses the already-captured summon-birth hard Rabies context and inherited head rank, then creates the raw packet/slow scalar at each mat birth. It honors the current intended synergy and does not copy player weapon/gear mastery or pierce into the NPC. Released notes/tables establish the synergy, not this timing. Modern live-versus-birth Rabies and equipment transport must still be corroborated; this is not an approved Sanctuary deviation. Original-player poison attribution is an explicit durable source-credit adapter after NPC removal.',
             'Current Range expression evaluation is a declared adapter, not executable-parser equivalence. Local head/mat tick ordering, charged floating projection, native terrain-fit/sector-order/height and size3collision services are not exact D2R room/path/collision certificates. The declared original-player allegiance adapter preserves hostile-NPC filtering after actor removal; exact modern ownerless collision/friendly selection, child distance/room checks after source relocation and shared global event order remain unverified.',
             'VINE_BEAST surface/underground visibility and general melee/projectile targeting remain unverified. isAtt0offensive aura exclusion remains intact, while the named silent0x8actor is visibly vulnerable preparation only.',
             'Server-start age and saved per-actor source-frame offset are explicit clock adapters. Exact modern NPC skill-rate/mode-end/AI scheduling, game epoch, shared actor ordering, source scan alternatives/list/ties/LOS, special target reach and global RNG equivalence are not certified.',
@@ -135,7 +156,7 @@ def record(check=False):
         assert target.read_text() == encoded
     else:
         target.write_text(encoded)
-    print('Creeper world:3boots/2reloads/3connected follows+field expiries; independent removed-actor fields/migration/contact capture pass; poison/learned casting remain pending.')
+    print('Creeper world:3boots/2reloads/3connected poison runs; raw packets and actual damage/expiry/credit persist; capture timing provisional and learned casting pending.')
 
 
 if __name__ == '__main__':

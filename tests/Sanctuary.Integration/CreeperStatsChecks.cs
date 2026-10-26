@@ -31,6 +31,8 @@ public static class CreeperStatsChecks
             Require(actual.Minimum256==Field("nPoisonMinDamage") && actual.Maximum256==Field("nPoisonMaxDamage")
                 && actual.Frames==Field("nPoisonLength") && actual.Count==N(9) && N(12)==222,
                 "Explicit Creeper skill/source-zero poison creator comparison");damage++;
+            if(N(2)==0)
+            {Require(DruidCreeperPoison.Damage(N(0),new(99,N(1)),100)==actual,"Live Creeper packet disagrees with compiled source endpoints");}
         }
         foreach(var row in data.RootElement.GetProperty("birth").EnumerateArray())
         {

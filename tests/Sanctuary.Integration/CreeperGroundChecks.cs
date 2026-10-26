@@ -50,7 +50,8 @@ public static class CreeperGroundChecks
                 Through(p,at.AddMilliseconds(30*40));s=DruidCreeperGround.Get(id);
                 Require(s is{Map:1} && s.Map==map.MapID && s.Fields.Mats.Length==6 && s.Fields.Heads.Length==0&&s.Fields.Contacts>0,
                     "Old-facet mats stopped/relocated/disappeared with their removed actor");
-                Require(SkillHealth.Balance256(e)==enemyLife&&SkillHealth.Balance256(other)==otherLife,"Contact-capture fields delivered invented poison");
+                TimedEffects.Settle(e,at.AddMilliseconds(30*40));TimedEffects.Settle(other,at.AddMilliseconds(30*40));
+                Require(SkillHealth.Balance256(e)<enemyLife||SkillHealth.Balance256(other)<otherLife,"Independent old-facet fields did not deliver poison after actor removal");
                 int contacts=s.Fields.Contacts;Through(p,at.AddMilliseconds(35*40),false);
                 Require(DruidCreeperGround.Get(id).Fields.Contacts==contacts,"Inactive field contacted a target");
                 Through(p,at.AddSeconds(6),false);Require(DruidCreeperGround.Get(id)==null,"Inactive mat lifetime did not run to expiry");
@@ -83,6 +84,12 @@ public static class CreeperGroundChecks
             Require(refused&&JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Duplicate restore was not atomic");
             refused=false;try{DruidCreeperGround.Restore(valid with{Flights=[valid.Flights.Single(s=>s.Id==id) with{Map=-1}]});}catch(InvalidDataException){refused=true;}
             Require(refused&&JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Invalid facet restore was not atomic");
+            var legacy=valid.Flights.Single(s=>s.Id==id);var context=new CreeperPoisonContext(99,0);
+            refused=false;try{DruidCreeperGround.Restore(valid with{Flights=[legacy with{PoisonContext=context}]});}catch(InvalidDataException){refused=true;}
+            Require(refused&&JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Missing new poison packet restore was not atomic");
+            var bad=legacy.Fields.Mats[0] with{Poison=new(new(32,33,100),100,1)};
+            refused=false;try{DruidCreeperGround.Restore(valid with{Flights=[legacy with{PoisonContext=context,Fields=legacy.Fields with{Mats=[bad]}}]});}catch(InvalidDataException){refused=true;}
+            Require(refused&&JsonSerializer.Serialize(DruidCreeperGround.Snapshot())==before,"Packet/context disagreement restore was not atomic");
             p.Kill();Through(p,at.AddMilliseconds(40));Require(DruidCreeperGround.Get(id)==null,"Owner death retained damaging field preparation");
         }
         finally{End(p);}
@@ -94,7 +101,7 @@ public static class CreeperGroundChecks
         var e=Enemy(new(p.X+3,p.Y,p.Z),p.Map);long id=Create(p,body,at);Through(p,at.AddMilliseconds(12*40));uint removed=body.Serial.Value;body.Delete();e.Delete();
         var saved=new Saved(p.Serial.Value,removed,DruidCreeperGround.Get(id),p.Map.MapID,point);p.Internalize();
         File.WriteAllText(Manifest,JsonSerializer.Serialize(saved));
-        Log.Information("Creeper independent fields: actor deletion, old-facet contacts, original allegiance, no invented poison, inactive expiry, missing-owner child refusal, copied state, legacy migration, atomic invalid restore and owner death pass; removed-actor fields saved");
+        Log.Information("Creeper independent fields: actor deletion, old-facet poison, original allegiance, inactive expiry, missing-owner child refusal, copied state, legacy migration, atomic invalid restore and owner death pass; removed-actor packet fields saved");
     }
     private static void Reload()
     {

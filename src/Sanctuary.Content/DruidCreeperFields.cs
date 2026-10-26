@@ -8,14 +8,15 @@ namespace Sanctuary;
 
 internal sealed record CreeperHead(long Id,int Rank,double OriginX,double OriginY,double X,double Y,
     int Velocity256,Point2D[] Path,int Next,int Remaining){public int Z{get;init;}}
-internal sealed record CreeperMat(long Id,int Rank,int X,int Y,int Total,int Remaining,uint LastCollision=0){public int Z{get;init;}}
+internal sealed record CreeperMat(long Id,int Rank,int X,int Y,int Total,int Remaining,uint LastCollision=0)
+{public int Z{get;init;}public CreeperMatPoison Poison{get;init;}}
 internal sealed record CreeperFields(CreeperHead[] Heads,CreeperMat[] Mats,long NextId=0,int Contacts=0,uint LastVictim=0)
 {
     public string Profile{get;init;}="charged-motion-current-range-contact-capture-v1";
 }
 
-// Internal motion/contact preparation. Contacts are counted, NOT delivered as
-// poison. NPC skill/mastery/pierce transport must be resolved before release.
+// Internal motion/contact engine. A supplied packet initializer/delivery pair
+// adds poison; old capture-only fields keep their null packets without replay.
 // Tick ordering, geometry and selection are explicit world adapter services.
 internal static class DruidCreeperFields
 {
@@ -68,7 +69,8 @@ internal static class DruidCreeperFields
             Mats=state.Mats.Where(m=>m.Remaining>frames).Select(m=>m with{Remaining=m.Remaining-(int)frames}).ToArray()};
     }
     internal static CreeperFields Step(CreeperFields state,bool actions,Func<double,double,int,bool> blocked,
-        Func<CreeperMat,uint> recipient,Func<uint,bool> hostile,Func<CreeperHead,bool> createMat=null,bool hasOwner=true)
+        Func<CreeperMat,uint> recipient,Func<uint,bool> hostile,Func<CreeperHead,bool> createMat=null,bool hasOwner=true,
+        Func<CreeperMat,CreeperMat> initializeMat=null,Func<CreeperMat,uint,CreeperMat> deliver=null)
     {
         Validate(state);Route();ArgumentNullException.ThrowIfNull(blocked);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(hostile);
         var heads=new List<CreeperHead>();var mats=new List<CreeperMat>();var created=new List<CreeperMat>();
@@ -84,7 +86,7 @@ internal static class DruidCreeperFields
                 uint target=recipient(next);
                 var contact=DruidCreeperVines.Contact(mat.Total,remaining,mat.LastCollision,target,hasOwner,target!=0&&hostile(target),false);
                 next=next with{LastCollision=contact.LastCollision};
-                if(contact.Damage){contacts=checked(contacts+1);victim=target;}
+                if(contact.Damage){contacts=checked(contacts+1);victim=target;next=deliver?.Invoke(next,target)??next;}
             }
             mats.Add(next);
         }
@@ -96,7 +98,8 @@ internal static class DruidCreeperFields
             if(DruidCreeperVines.EmitsTrail(head.Remaining) && (createMat?.Invoke(head)??true))
             {
                 int total=Lifetime(head.Rank);
-                created.Add(new(checked(++id),head.Rank,(int)Math.Floor(head.X*2+.5),(int)Math.Floor(head.Y*2+.5),total,total){Z=head.Z});
+                var mat=new CreeperMat(checked(++id),head.Rank,(int)Math.Floor(head.X*2+.5),(int)Math.Floor(head.Y*2+.5),total,total){Z=head.Z};
+                created.Add(initializeMat?.Invoke(mat)??mat);
             }
             var moved=ChargedBolts.Advance(head.Path,0,0,head.X-head.OriginX,head.Y-head.OriginY,head.Next,
                 SkillGeometry.Tiles(head.Velocity256/4096.0));
@@ -125,7 +128,10 @@ internal static class DruidCreeperFields
             {throw new InvalidDataException("Invalid Creeper head");}
         }
         foreach(var m in s.Mats)
-        {if(m==null || !Id(m.Id) || m.Rank is <1 or >255 || m.Total!=Lifetime(m.Rank) || m.Remaining<1 || m.Remaining>m.Total
-            || m.X<=0 || m.Y<=0 || m.X>=65535 || m.Y>=65535 || m.Z is <-128 or >127){throw new InvalidDataException("Invalid Creeper mat");}}
+        {
+            if(m==null || !Id(m.Id) || m.Rank is <1 or >255 || m.Total!=Lifetime(m.Rank) || m.Remaining<1 || m.Remaining>m.Total
+                || m.X<=0 || m.Y<=0 || m.X>=65535 || m.Y>=65535 || m.Z is <-128 or >127){throw new InvalidDataException("Invalid Creeper mat");}
+            if(m.Poison!=null){DruidCreeperPoison.Validate(m.Poison);}
+        }
     }
 }

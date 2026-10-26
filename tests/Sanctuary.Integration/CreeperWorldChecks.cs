@@ -53,7 +53,7 @@ public static class CreeperWorldChecks
             try{body.RestorePrepared(valid with{Controller=valid.Controller with{GameBase=-1}});}catch(InvalidDataException){refused=true;}
             Require(refused && body.SavedText==saved,"Malformed world restore changed Creeper");
             body.RestorePrepared(valid with{Controller=valid.Controller with{Profile="source-ai-native-ground-vine-launch-capture-v1"}});
-            Require(body.Prepared.Controller.Profile=="source-ai-independent-field-contact-capture-v3"
+            Require(body.Prepared.Controller.Profile=="source-ai-independent-vine-poison-provisional-v4"
                 && body.Prepared.Controller.SkillEvents==valid.Controller.SkillEvents&&body.Prepared.Controller.Fields.Heads.Length==0,
                 "Old capture profile did not migrate without replay");
         }
@@ -109,7 +109,8 @@ public static class CreeperWorldChecks
         Require(field!=null,"Creeper protocol bootstrap");field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
         var account=new Account("creeper-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;
         network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        var body=DruidCreeperWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,740,1000);var origin=body.Location;long deadline=Core.TickCount+12000,flight=0;bool removed=false;
+        var body=DruidCreeperWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,740,1000);var origin=body.Location;long deadline=Core.TickCount+12000,flight=0;bool removed=false,damaged=false;
+        GraveyardZombie first=null,second=null;int initialLife=0;
         void Inspect()
         {
             try
@@ -123,11 +124,22 @@ public static class CreeperWorldChecks
                 }
                 var ground=DruidCreeperGround.Get(flight);
                 if(!removed&&ground?.Fields.Mats.Length==6){body.Delete();removed=true;}
+                if(removed&&first==null&&ground?.Fields.Mats.FirstOrDefault(m=>m.Total-m.Remaining>16) is{} mat)
+                {
+                    var point=new Point3D((mat.X+1)/2,(mat.Y+1)/2,mat.Z);
+                    first=new GraveyardZombie{CantWalk=true,NoKillAwards=true};second=new GraveyardZombie{CantWalk=true,NoKillAwards=true};
+                    foreach(var target in new[]{first,second}){target.SetHits(500);target.MoveToWorld(point,p.Map);target.AIObject.AITimer.Stop();target.SetResistance(ResistanceType.Poison,0);}
+                    initialLife=SkillHealth.Balance256(first);
+                }
+                if(first!=null){damaged|=SkillHealth.Balance256(first)<initialLife||SkillHealth.Balance256(second)<initialLife;}
                 if(removed&&ground==null)
-                {End(p);account.Delete();Log.Information("creeper-fields-live-result: passed");Log.Information("creeper-world-live-result: passed");return;}
+                {
+                    Require(damaged,"Natural independent fields never lowered monster life with poison");first.Delete();second.Delete();
+                    End(p);account.Delete();Log.Information("creeper-poison-live-result: passed");Log.Information("creeper-fields-live-result: passed");Log.Information("creeper-world-live-result: passed");return;
+                }
                 Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);
             }
-            catch(Exception e){End(p);account.Delete();Log.Error(e,"creeper-world-live-result: failed");}
+            catch(Exception e){first?.Delete();second?.Delete();End(p);account.Delete();Log.Error(e,"creeper-world-live-result: failed");}
         }
         Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("creeper-world-live: ready");Inspect();});
     }

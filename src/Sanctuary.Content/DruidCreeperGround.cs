@@ -11,7 +11,8 @@ using Server.Mobiles;
 using Server.Spells;
 namespace Sanctuary;
 
-internal sealed record CreeperGround(long Id,uint Actor,uint Owner,int Map,int Rank,CreeperFields Fields,DateTime NextUtc,string Fault=null);
+internal sealed record CreeperGround(long Id,uint Actor,uint Owner,int Map,int Rank,CreeperFields Fields,DateTime NextUtc,string Fault=null)
+{public CreeperPoisonContext PoisonContext{get;init;}}
 internal sealed record CreeperGroundSave(CreeperGround[] Flights,long NextId);
 
 public sealed class CreeperGroundProfiles:GenericPersistence
@@ -27,8 +28,8 @@ public sealed class CreeperGroundProfiles:GenericPersistence
 }
 
 // Independent fields outlive their NPC. Original-player allegiance is retained
-// as a declared adapter; poison packets and ownerless modern collision remain
-// unverified. No actual poison is delivered by this preparation.
+// as a declared adapter. New groups carry provisional birth-Rabies contexts and
+// actual poison packets; legacy capture-only groups remain nondamaging.
 public static class DruidCreeperGround
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidCreeperGround));
@@ -49,11 +50,11 @@ public static class DruidCreeperGround
         {throw new NotSupportedException("Invalid Creeper field supplier");}
         if(heads?.Length==0){return 0;}
         var fields=DruidCreeperFields.Launch(DruidCreeperFields.Empty(),rank,heads,AmazonSlowMissiles.Capture(body,true).VelocityPercent,body.Z);
-        return Add(body.Serial.Value,owner.Serial.Value,body.Map.MapID,rank,fields,at.AddMilliseconds(40));
+        return Add(body.Serial.Value,owner.Serial.Value,body.Map.MapID,rank,fields,at.AddMilliseconds(40),DruidCreeperPoison.Capture(body.Prepared.Snapshot));
     }
-    private static long Add(uint actor,uint owner,int map,int rank,CreeperFields fields,DateTime next)
+    private static long Add(uint actor,uint owner,int map,int rank,CreeperFields fields,DateTime next,CreeperPoisonContext poison=null)
     {
-        long id=checked(_nextId+1);var flight=new CreeperGround(id,actor,owner,map,rank,fields,next);Validate(flight,id);
+        long id=checked(_nextId+1);var flight=new CreeperGround(id,actor,owner,map,rank,fields,next){PoisonContext=poison};Validate(flight,id);
         _flights=_flights.Add(id,Copy(flight));_nextId=id;return id;
     }
     internal static void Migrate(DruidCreeperBody body)
@@ -97,7 +98,9 @@ public static class DruidCreeperGround
             return SkillGeometry.SourceDistance(cell.X-(int)Math.Floor(head.X*2+.5),cell.Y-(int)Math.Floor(head.Y*2+.5))<=100;
         }
         return DruidCreeperFields.Step(s.Fields,true,(x,y,z)=>x<=0||y<=0||x>=map.Width||y>=map.Height
-            || !map.CanFit(new Point3D((int)Math.Round(x),(int)Math.Round(y),z),1,false,false,false),Recipient,_=>true,Child,hasOwner);
+            || !map.CanFit(new Point3D((int)Math.Round(x),(int)Math.Round(y),z),1,false,false,false),Recipient,_=>true,Child,hasOwner,
+            mat=>s.PoisonContext==null?mat:DruidCreeperPoison.Initialize(mat,s.PoisonContext,AmazonSlowMissiles.Capture(actor,true).DamagePercent),
+            (mat,id)=>DruidCreeperPoison.Deliver(owner,World.FindMobile((Serial)id) as BaseCreature,mat,s.NextUtc));
     }
     // Optional owner scope isolates injected fixture clocks. The ordinary
     // always-running conductor advances every owner without supplying it.
@@ -134,6 +137,16 @@ public static class DruidCreeperGround
             || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal || s.NextUtc.Kind!=DateTimeKind.Utc)
         {throw new InvalidDataException("Invalid Creeper ground identity");}
         DruidCreeperFields.Validate(s.Fields);
+        if(s.PoisonContext!=null)
+        {
+            DruidCreeperPoison.Validate(s.PoisonContext);
+            if(s.Fields.Mats.Any(m=>m.Poison==null)){throw new InvalidDataException("New Creeper poison context has a missing mat packet");}
+        }
+        foreach(var mat in s.Fields.Mats.Where(m=>m.Poison!=null))
+        {
+            if(s.PoisonContext==null || mat.Poison.Damage!=DruidCreeperPoison.Damage(mat.Rank,s.PoisonContext,mat.Poison.SlowDamagePercent))
+            {throw new InvalidDataException("Creeper mat poison disagrees with its captured context");}
+        }
         var map=Map.Maps[s.Map];
         if(s.Fields.Heads.Any(h=>h.Rank!=s.Rank || h.X<0 || h.Y<0 || h.X>=map.Width || h.Y>=map.Height)
             || s.Fields.Mats.Any(m=>m.Rank!=s.Rank || m.X>=map.Width*2 || m.Y>=map.Height*2))

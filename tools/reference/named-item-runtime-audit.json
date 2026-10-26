@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "166f827448e9ce6932bb3563eed45e6a5d87498cc8e4a92c2c9b95d2637fbfc9",
+  "ContentAssemblySha256": "e7b8803b6b33e03fdd603477e1b62b02c9ca4ac0c70d71eff578975c6c60f2a0",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -352,11 +352,12 @@
     "src/Sanctuary.Content/DruidCombat.cs": "2e012fe4a45f412f9367fbcea20ed425eb1bb6e211466fad8d5bc3634f62af4a",
     "src/Sanctuary.Content/DruidCreeperAi.cs": "385e4931a2251b0151fbcd33fb40acea04fdba1a11d61a25fc3d9b499e46cbba",
     "src/Sanctuary.Content/DruidCreeperBody.cs": "6f35df30ec6dd614c93b22c938ac34f7a36aed05a2fd3a964b4d21fdfec6d86b",
-    "src/Sanctuary.Content/DruidCreeperFields.cs": "250a58ee5e465b65788a8b2f06f2c3804d722be1f01807423c30a1140fa8d607",
-    "src/Sanctuary.Content/DruidCreeperGround.cs": "df5247d1ea24fea25e9974c8643843bd654a85ab517a332276dc651b5bb9b7f9",
+    "src/Sanctuary.Content/DruidCreeperFields.cs": "74fb705af98c61376bbdd74a2b3e1957e98e70a5e7937b00b06a2e09a2858518",
+    "src/Sanctuary.Content/DruidCreeperGround.cs": "0928ecb311b976757c85441e7cda010ecacde8c2a102372f48109450474a21aa",
+    "src/Sanctuary.Content/DruidCreeperPoison.cs": "9f4c31dc1af9900cfbafa4c9b53de4961758e31f98349dbd41ed151563ed109a",
     "src/Sanctuary.Content/DruidCreeperStats.cs": "33db3fd34b3a266d40d9f620ae75b0d099014fe16c9b0f074ae9d1be51547b39",
     "src/Sanctuary.Content/DruidCreeperVines.cs": "a776b5abfa14cff0b6bae1cb73dc362702be3369d5d4d443b0f72c168239324d",
-    "src/Sanctuary.Content/DruidCreeperWorld.cs": "e63f9cb7d0d483e2813f813c3f64747aabfd5e0e3273b62f1ac24663c004dd51",
+    "src/Sanctuary.Content/DruidCreeperWorld.cs": "6a17b30b36266320a41d8f8d6b51748f4e29f7de2d664b239ccb471b2665a160",
     "src/Sanctuary.Content/DruidCycloneArmor.cs": "93cb1caba7c5dc11e514955c49a4c9ddfea162aa360ff9393897c7ceaa9cbbc6",
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/DruidFirestorm.cs": "5f0ff4f43c840c7f3b76cb96f9dd1d8df92f346d11311291dbe51fadb1e3050a",

@@ -13,17 +13,18 @@ internal sealed record CreeperWorldState(int Map,ActorMotionState Motion,ulong S
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=3,uint Target=0,int PathOverride=0,int PathBudget=0,
     int VelocityBonus=0,int MovingBonus=0,int SkillEvents=0,string Fault=null)
 {
-    public string Profile{get;init;}="source-ai-independent-field-contact-capture-v3";
+    public string Profile{get;init;}="source-ai-independent-vine-poison-provisional-v4";
     public CreeperHeadRequest[] LastHeads{get;init;}=[];
     public CreeperFields Fields{get;init;}=DruidCreeperFields.Empty();
     public long LastFieldId{get;init;}
 }
 
 // Internal world controller. Heads now move and create finite stationary mats;
-// contacts are captured only. Poison and VINE_BEAST targeting remain separate.
+// new fields deliver poison under a named provisional capture context.
+// VINE_BEAST and complete modern transport remain separate.
 internal static class DruidCreeperWorld
 {
-    internal static CreeperWorldState Copy(CreeperWorldState s)=>s with{Profile="source-ai-independent-field-contact-capture-v3",
+    internal static CreeperWorldState Copy(CreeperWorldState s)=>s with{Profile="source-ai-independent-vine-poison-provisional-v4",
         Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]},LastHeads=[..s.LastHeads],Fields=DruidCreeperFields.Copy(s.Fields)};
     internal static Point2D Cell(CreeperWorldState s)=>DruidRavenMotion.Cell(s.Motion);
     internal static void Validate(CreeperWorldState s)
@@ -38,7 +39,7 @@ internal static class DruidCreeperWorld
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0) || s.Mode==2&&((s.Motion.Flags&0x20)==0 || s.ActionAt!=0 || s.EndAt!=0)
             || s.Mode==8&&s.EndAt==0 || s.PathOverride is not(0 or 1 or 7 or 13 or 15) || s.PathBudget is <0 or >77
             || s.VelocityBonus is <-126 or >126 || s.MovingBonus is <-126 or >126 || s.SkillEvents<0 || s.SkillEvents>s.Frame
-            || s.LastFieldId<0 || s.LastHeads.Length>24 || s.Profile is not("source-ai-native-ground-vine-launch-capture-v1" or "source-ai-native-ground-vine-contact-capture-v2" or "source-ai-independent-field-contact-capture-v3"))
+            || s.LastFieldId<0 || s.LastHeads.Length>24 || s.Profile is not("source-ai-native-ground-vine-launch-capture-v1" or "source-ai-native-ground-vine-contact-capture-v2" or "source-ai-independent-field-contact-capture-v3" or "source-ai-independent-vine-poison-provisional-v4"))
         {throw new InvalidDataException("Invalid saved Creeper world state");}
         DruidCreeperFields.Validate(s.Fields);
         var cell=Cell(s);var map=Map.Maps[s.Map];
