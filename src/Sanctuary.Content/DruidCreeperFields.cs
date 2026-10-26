@@ -45,6 +45,7 @@ internal static class DruidCreeperFields
         Route();Validate(state);ArgumentNullException.ThrowIfNull(requests);
         if(rank is <1 or >255){throw new ArgumentOutOfRangeException(nameof(rank));}
         if(requests.Length>24){throw new NotSupportedException("Too many Creeper heads");}
+        if(requests.Length==0){return Copy(state);}
         int velocity=SlowMissilePayload.VelocityFp8(7,0,rank,3,0,true,velocityPercent);
         if(velocity==0){throw new NotSupportedException("Zero-speed Creeper charged path is not established");}
         var heads=new List<CreeperHead>(state.Heads);long id=state.NextId;
@@ -67,7 +68,7 @@ internal static class DruidCreeperFields
             Mats=state.Mats.Where(m=>m.Remaining>frames).Select(m=>m with{Remaining=m.Remaining-(int)frames}).ToArray()};
     }
     internal static CreeperFields Step(CreeperFields state,bool actions,Func<double,double,int,bool> blocked,
-        Func<CreeperMat,uint> recipient,Func<uint,bool> hostile)
+        Func<CreeperMat,uint> recipient,Func<uint,bool> hostile,Func<CreeperHead,bool> createMat=null,bool hasOwner=true)
     {
         Validate(state);Route();ArgumentNullException.ThrowIfNull(blocked);ArgumentNullException.ThrowIfNull(recipient);ArgumentNullException.ThrowIfNull(hostile);
         var heads=new List<CreeperHead>();var mats=new List<CreeperMat>();var created=new List<CreeperMat>();
@@ -81,7 +82,7 @@ internal static class DruidCreeperFields
             if(actions)
             {
                 uint target=recipient(next);
-                var contact=DruidCreeperVines.Contact(mat.Total,remaining,mat.LastCollision,target,true,target!=0&&hostile(target),false);
+                var contact=DruidCreeperVines.Contact(mat.Total,remaining,mat.LastCollision,target,hasOwner,target!=0&&hostile(target),false);
                 next=next with{LastCollision=contact.LastCollision};
                 if(contact.Damage){contacts=checked(contacts+1);victim=target;}
             }
@@ -92,7 +93,7 @@ internal static class DruidCreeperFields
             int remaining=head.Remaining-1;
             if(!actions){if(remaining>0){heads.Add(head with{Remaining=remaining});}continue;}
             // Complete do26 emits before generic movement/decrement/removal.
-            if(DruidCreeperVines.EmitsTrail(head.Remaining))
+            if(DruidCreeperVines.EmitsTrail(head.Remaining) && (createMat?.Invoke(head)??true))
             {
                 int total=Lifetime(head.Rank);
                 created.Add(new(checked(++id),head.Rank,(int)Math.Floor(head.X*2+.5),(int)Math.Floor(head.Y*2+.5),total,total){Z=head.Z});

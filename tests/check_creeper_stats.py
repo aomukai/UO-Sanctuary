@@ -77,6 +77,7 @@ def check():
                     commands.append('spirit-wolf-world-check' if boot == 0 else 'spirit-wolf-world-reload-check')
                     commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
                     commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')
+                    commands.append('creeper-ground-check' if boot == 0 else 'creeper-ground-reload-check')
                     if audit and boot == 0:
                         commands.append('first-loop-catalogue-check')
                     for command in commands:
@@ -95,6 +96,7 @@ def check():
                     session.close()
         shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'wolf-world-fixtures.json')
         shutil.copy2(folder / 'creeper-world-fixtures.json', STAGE / 'world-fixtures.json')
+        shutil.copy2(folder / 'creeper-ground-fixtures.json', STAGE / 'ground-fixtures.json')
         shutil.copy2(folder / 'creeper-body-fixtures.json', STAGE / 'body-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
     print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass3boots/2actual reloads; saved life-only Creeper body checked, world AI/mats and learned handler pending; installed world untouched.')

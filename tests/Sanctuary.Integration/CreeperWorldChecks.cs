@@ -14,7 +14,7 @@ namespace Sanctuary.Integration;
 public static class CreeperWorldChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(CreeperWorldChecks));
-    private sealed record Saved(uint Owner,uint Body,CreeperBodyState State,int Life,int Map,Point3D Point);
+    private sealed record Saved(uint Owner,uint Body,CreeperBodyState State,int Life,int Map,Point3D Point,CreeperGround Ground);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"creeper-world-fixtures.json");
     private static int _scene;
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
@@ -33,11 +33,11 @@ public static class CreeperWorldChecks
         for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,100),Map.Trammel);}
         p.MoveToWorld(new(7100,y,100),Map.Trammel);return p;
     }
-    private static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
+    private static void End(PlayerMobile p){DruidCreeperGround.Cancel(p);PersistentMinions.Dismiss(p);p.Delete();}
     private static GraveyardZombie Enemy(PlayerMobile p,int offset)
     {var e=new GraveyardZombie{CantWalk=true,NoKillAwards=true};e.MoveToWorld(new(p.X+offset,p.Y,p.Z),p.Map);e.AIObject.AITimer.Stop();return e;}
     private static void Through(DruidCreeperBody body,int frame,bool actions=true)
-    {var s=body.Prepared.Controller;Require(frame>s.Frame,"Reverse Creeper test frame");DruidCreeperWorld.Advance(body,s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);}
+    {var s=body.Prepared.Controller;Require(frame>s.Frame,"Reverse Creeper test frame");var at=s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L);DruidCreeperWorld.Advance(body,at,actions);DruidCreeperGround.Tick(at,actions,body.Prepared.Owner);}
     private static void Movement()
     {
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidCreeperWorld.Create(p,new(p.X+16,p.Y,p.Z),at,735,1000);
@@ -53,7 +53,7 @@ public static class CreeperWorldChecks
             try{body.RestorePrepared(valid with{Controller=valid.Controller with{GameBase=-1}});}catch(InvalidDataException){refused=true;}
             Require(refused && body.SavedText==saved,"Malformed world restore changed Creeper");
             body.RestorePrepared(valid with{Controller=valid.Controller with{Profile="source-ai-native-ground-vine-launch-capture-v1"}});
-            Require(body.Prepared.Controller.Profile=="source-ai-native-ground-vine-contact-capture-v2"
+            Require(body.Prepared.Controller.Profile=="source-ai-independent-field-contact-capture-v3"
                 && body.Prepared.Controller.SkillEvents==valid.Controller.SkillEvents&&body.Prepared.Controller.Fields.Heads.Length==0,
                 "Old capture profile did not migrate without replay");
         }
@@ -84,9 +84,10 @@ public static class CreeperWorldChecks
         Require(!DruidCombat.Implemented(CombatAbility.PoisonCreeper),"Capture-only world enabled learned skill");Movement();SkillAndEscape();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var e=Enemy(p,3);var body=DruidCreeperWorld.Create(p,new(p.X+2,p.Y,p.Z),at,739,1000);
         Through(body,25+DruidCreeperWorld.SkillClock().Action+12);
-        Require(body.Prepared.Controller.Fields.Heads.Length==3 && body.Prepared.Controller.Fields.Mats.Length==6,"World attack did not create moving heads and two mats per head");
+        var ground=DruidCreeperGround.Get(body.Prepared.Controller.LastFieldId);
+        Require(ground.Fields.Heads.Length==3 && ground.Fields.Mats.Length==6 && body.Prepared.Controller.Fields.Heads.Length==0,"World attack did not create independent heads/mats");
         e.Delete();SkillHealth.SetBalance256(body,6007);PersistentMinions.Suspend(p);
-        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location)));
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location,ground)));
         Log.Information("Creeper world: common-pet follow, mature/early game-frame distinction, kind2moving heads and finite mats without damage, exact100resistance escape, offline/restore controls pass; poison and VINE_BEAST remain pending");
     }
     private static void Reload()
@@ -94,12 +95,12 @@ public static class CreeperWorldChecks
         var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var body=World.FindMobile((Serial)saved.Body) as DruidCreeperBody;
         Require(body is{Alive:true,Deleted:false} && body.ControlMaster==p && body.Map==Map.Internal && body.SavedText==JsonSerializer.Serialize(saved.State)
             && SkillHealth.Balance256(body)==saved.Life && body.Prepared.Controller.SkillEvents==1
-            && body.Prepared.Controller.Fields.Mats.Length==6,"Saved Creeper controller/birth/life/heads/mats changed");
+            && JsonSerializer.Serialize(DruidCreeperGround.Get(body.Prepared.Controller.LastFieldId))==JsonSerializer.Serialize(saved.Ground),"Saved Creeper controller/birth/life/independent fields changed");
         if(p.Map==Map.Internal){p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);}
-        ulong seed=body.Prepared.Controller.Seed;DruidCreeperWorld.Advance(body,body.Prepared.Controller.NextUtc,false);
+        ulong seed=body.Prepared.Controller.Seed;var at=body.Prepared.Controller.NextUtc;DruidCreeperWorld.Advance(body,at,false);DruidCreeperGround.Tick(at,false,p.Serial.Value);
         Require(SkillHealth.Balance256(body)==saved.Life && body.Prepared.Controller.Seed==seed && body.Prepared.Controller.SkillEvents==1,"Loaded Creeper replayed actions/RNG/healing");
-        DruidCreeperWorld.Advance(body,body.Prepared.Controller.NextUtc,true);Require(body.Map==p.Map && SkillHealth.Balance256(body)==saved.Life+9,"Creeper world did not resume one active frame");
-        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
+        at=body.Prepared.Controller.NextUtc;DruidCreeperWorld.Advance(body,at,true);DruidCreeperGround.Tick(at,true,p.Serial.Value);Require(body.Map==p.Map && SkillHealth.Balance256(body)==saved.Life+9,"Creeper world did not resume one active frame");
+        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body),Ground=DruidCreeperGround.Get(body.Prepared.Controller.LastFieldId)}));
     }
     private static void Live(NetState network)
     {
@@ -108,14 +109,23 @@ public static class CreeperWorldChecks
         Require(field!=null,"Creeper protocol bootstrap");field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
         var account=new Account("creeper-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;
         network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
-        var body=DruidCreeperWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,740,1000);var origin=body.Location;long deadline=Core.TickCount+10000;
+        var body=DruidCreeperWorld.Create(p,new(p.X+16,p.Y,p.Z),TimedEffects.Now,740,1000);var origin=body.Location;long deadline=Core.TickCount+12000,flight=0;bool removed=false;
         void Inspect()
         {
             try
             {
-                Require(network.Running && Core.TickCount<deadline && !body.Deleted && body.Prepared.Controller.Fault==null,"Natural Creeper follow timed out/refused");
-                if(body.Location==origin){Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);return;}
-                Require(Math.Abs(body.X-p.X)<16 && body.Prepared.Controller.Frame>=25,"Natural clock did not move Creeper toward owner");End(p);account.Delete();Log.Information("creeper-world-live-result: passed");
+                Require(network.Running && Core.TickCount<deadline && (removed||!body.Deleted&&body.Prepared.Controller.Fault==null),"Natural Creeper follow/field clock timed out/refused");
+                if(flight==0)
+                {
+                    if(body.Location==origin){Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);return;}
+                    Require(Math.Abs(body.X-p.X)<16 && body.Prepared.Controller.Frame>=25,"Natural clock did not move Creeper toward owner");
+                    flight=DruidCreeperGround.Create(body,1,DruidCreeperVines.Heads(1,(p.X+3)*2,p.Y*2),TimedEffects.Now);
+                }
+                var ground=DruidCreeperGround.Get(flight);
+                if(!removed&&ground?.Fields.Mats.Length==6){body.Delete();removed=true;}
+                if(removed&&ground==null)
+                {End(p);account.Delete();Log.Information("creeper-fields-live-result: passed");Log.Information("creeper-world-live-result: passed");return;}
+                Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);
             }
             catch(Exception e){End(p);account.Delete();Log.Error(e,"creeper-world-live-result: failed");}
         }
