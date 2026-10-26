@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record CreeperSpawn(SummonSpawnStats Stats,int Regeneration256);
 internal sealed record CreeperBirth(int Rank,int Level,int Life256,int Defense,int Attack,int Regeneration256,
     int Pierce,int VineAttackRank,int RequestedEquipmentLevel);
 internal readonly record struct CreeperPoison(int Minimum256,int Maximum256,int Frames,int Count=0);
+internal sealed record CreeperSnapshot(CreeperBirth Birth,int OwnerLevel,int RabiesHardRank);
 
 // Prepared numeric components. No Creeper actor or learned handler is enabled.
 // In particular, supplied SkillValues/mastery are not proof of actual NPC-to-
@@ -54,5 +56,25 @@ internal static class DruidCreeperStats
         // No slow or owner-stat transport policy is selected by this component.
         var ends=DruidFirestorm.Endpoints(values,mastery,SlowMissilePayload.Normal);
         return new(ends.Min,ends.Max,values.DurationFrames);
+    }
+    internal static CreeperSnapshot Capture(PlayerMobile owner)
+    {
+        if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
+            || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,CombatAbility.PoisonCreeper)<1)
+        {throw new InvalidOperationException("Creeper needs a live learned Druid owner");}
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.PoisonCreeper),SummonDifficulties.For(owner.Map),
+            name=>name=="item_pierce_poison_immunity"?ClassGear.Bonus(owner,"pierce-immunity-poison")
+                :throw new NotSupportedException("Unmapped inherited Creeper stat: "+name)),
+            ClassStats.Level(owner),ClassCreation.Profiles.GetRank(owner.Serial,"druid.rabies"));
+    }
+    internal static CreeperSnapshot Rescale(CreeperSnapshot snapshot,MonsterDifficulty difficulty)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);
+        var birth=snapshot.Birth??throw new ArgumentException("Missing Creeper birth");
+        if(snapshot.OwnerLevel is <1 or >99 || snapshot.RabiesHardRank is <0 or >20)
+        {throw new ArgumentException("Invalid captured Creeper owner/rank context");}
+        var values=new SkillValues(SkillMechanics.For(CombatAbility.PoisonCreeper),
+            key=>key=="Plague Poppy"?birth.Rank:0,key=>key=="Rabies"?snapshot.RabiesHardRank:0,snapshot.OwnerLevel);
+        return snapshot with{Birth=Birth(values,difficulty,_=>birth.Pierce)};
     }
 }

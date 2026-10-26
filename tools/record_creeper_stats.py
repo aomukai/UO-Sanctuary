@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bind prepared Creeper arithmetic acceptance to its exact inputs; no actor claim."""
+"""Bind prepared Creeper arithmetic/AI and saved life-only body acceptance."""
 import argparse
 import hashlib
 import json
@@ -35,8 +35,16 @@ def record(check=False):
     assert '3636 complete poison creator and9180 do115/passive source comparisons pass' in log
     assert '255 launch,75 emission,864 complete router and6 sequential history source comparisons pass' in log
     assert '1873complete source contexts replayed across3current difficulty parameter rows,5619native comparisons' in log
-    assert log.count('Shutting down') == 1
-    assert 'one disposable boot; no Creeper actor or handler enabled' in (STAGE / 'stats-run.log').read_text()
+    assert log.count('creeper-body-check: passed') == 1
+    assert log.count('creeper-body-reload-check: passed') == 2
+    assert log.count('Writing world save snapshot done') == 3
+    assert log.count('Shutting down') == 3
+    assert 'pass3boots/2actual reloads; saved life-only Creeper body checked' in (STAGE / 'stats-run.log').read_text()
+    fixture = json.loads((STAGE / 'body-fixtures.json').read_text())
+    assert fixture['State']['Profile'] == 'prepared-noRatio-life-and-owner-v1'
+    assert fixture['State']['Snapshot']['OwnerLevel'] == 99 and fixture['State']['Snapshot']['RabiesHardRank'] == 1
+    assert fixture['State']['Snapshot']['Birth']['Life256'] == 12800
+    assert fixture['Maximum'] == 17280 and fixture['Regeneration'] == 12 and fixture['Life'] == 8133
     source = json.loads((ROOT / 'tools/reference/creeper-components-source-evidence.json').read_text())
     assert source['fixture']['damage'] == 7272 and source['fixture']['birth'] == 9185
     assert sha(ROOT / source['fixture']['path']) == source['fixture']['sha256']
@@ -67,6 +75,20 @@ def record(check=False):
         audits.append(audit)
     baseline = json.loads(subprocess.check_output(['git', 'show', '8cf01d9:tools/reference/named-item-runtime-audit.json'], cwd=ROOT))
     assert len(audits[0]['Definitions']) == 573 and audits[0]['Definitions'] == baseline['Definitions']
+    reference = ROOT / 'tools/reference/d2r-named-equipment'
+    manifest = json.loads((reference / 'sources.json').read_text())['files']
+    for table in ['monstats', 'monequip']:
+        assert sha(reference / ('json/' + table + '.json')) == manifest['json/' + table + '.json']['sha256']
+    monsters = json.loads((reference / 'json/monstats.json').read_text())
+    equipment = list(json.loads((reference / 'json/monequip.json').read_text()).values())
+    assert monsters['plaguepoppy']['Id'] == monsters['plaguepoppy']['BaseId'] == 'plaguepoppy'
+    assert len(equipment) == 45 and not any(row.get('monster') == 'plaguepoppy' for row in equipment)
+    equipment_scope = json.loads((ROOT / 'tools/reference/spirit-wolf-equipment-scope.json').read_text())
+    for name, digest in equipment_scope['sourceHashes'].items():
+        assert sha(BASE / 'd2moo-pinned-source' / name) == digest, name
+    guard = equipment_scope['reusedCompiledGuard']
+    assert sha(ROOT / guard['probe']) == guard['probeSha256']
+    assert json.loads((ROOT / guard['probe']).read_text())['guards'][2] == [2, 0, 0]
     builds = {}
     for name in ['content', 'integration']:
         text = (STAGE / (name + '-build.log')).read_text()
@@ -86,15 +108,21 @@ def record(check=False):
     paths += [ROOT / p for p in ['src/Sanctuary.Content/DruidCreeperAi.cs', 'tests/Sanctuary.Integration/CreeperAiChecks.cs',
         'tools/probe_creeper_ai_reference.py', 'tools/reference/creeper-ai-source-evidence.json',
         'tools/reference/named-item-runtime-audit.json', 'tools/reference/first-loop-affix-audit.json']]
+    paths += [ROOT / p for p in ['src/Sanctuary.Content/DruidCreeperBody.cs', 'src/Sanctuary.Content/CreatureProfiles.cs',
+        'tests/Sanctuary.Integration/CreeperBodyChecks.cs', 'src/Sanctuary.Content/BattleOrders.cs',
+        'src/Sanctuary.Content/SummonDifficulties.cs', 'src/Sanctuary.Content/SkeletonPets.cs',
+        'data/Sanctuary/Balance/skill-effects.json', 'tools/reference/spirit-wolf-equipment-scope.json',
+        'tools/reference/d2r-named-equipment/json/monstats.json', 'tools/reference/d2r-named-equipment/json/monequip.json']]
     paths += [STAGE / p for p in ['content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll',
-                                  'stats-inputs.json', 'stats-native-checks.log', 'stats-run.log', 'content-build.log', 'integration-build.log', 'python-tests.log']]
+                                  'stats-inputs.json', 'stats-native-checks.log', 'stats-run.log', 'content-build.log', 'integration-build.log', 'python-tests.log', 'body-fixtures.json']]
     evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False, handlers=167, druidHandlers=11,
-                    completedClasses=[], goalComplete=False, boots=1, actualReloads=0, fullClassRegression=False,
+                    completedClasses=[], goalComplete=False, boots=3, actualReloads=2, fullClassRegression=False,
                     buildWarnings=builds, sourceAndNativePoisonCases=3636, sourceAndNativeBirthCases=9180, sourceAndNativeLaunchCases=255, sourceAndNativeEmissionCases=75,
                     sourceAndNativeContactCases=864, sourceAndNativeSequentialCases=6,
                     uniqueSourceAiContexts=1873, difficultyAiReplays=3, nativeAiComparisons=5619, pythonTests=70,
                     namedAuditFingerprints=len(audits[0]['InputHashes']), firstLoopFingerprints=len(audits[1]['InputHashes']), unchangedNamedDefinitions=573,
-                    scope='Prepared numeric and outer-AI components through declared services; no Poison Creeper actor, learned cast, trail or combat acceptance.',
+                    savedLifeOnlyBody=True, automaticWorldClock=False, learnedHandler=False, noGeneratedEquipmentUnderPinnedDispatch=True,
+                    scope='Prepared numeric/outer-AI components and saved vulnerable life/owner body; no world AI, VINE_BEAST state, learned cast, trail or combat acceptance.',
                     hashes={str(p.relative_to(ROOT)): sha(p) for p in paths},
                     established=[
                         'Native source-zero Creeper poison endpoints, hard-only Rabies synergy, signed mastery, length and count match3636 complete creator/getter/writer source cases. Source captures also retain3636 explicit MissileSkill override controls which are not this trail route.',
@@ -102,11 +130,14 @@ def record(check=False):
                         'Actual trained Druid and Tarnhelm exercise effective rank, immutable earlier stats,50-to75life, retained9FP regeneration and explicit75-to76level. Rank-one32/48FP poison over100frames matches the user unallocated tooltip preview12–18over4seconds; no spawned-pet observation is inferred.',
                         'Prepared Vine Attack head-count/cardinal/index requests match255source cases. Remaining-frame emission gates match75cases, full hit50/router/history matches864cases plus6sequential early/alternating/repeated contacts. Modern equivalence is not established; these helpers are not a live field.',
                         'Native Vines outer policy matches1873complete source contexts across three identical current difficulty parameter rows,5619comparisons. Complete ordered requests and remembered attempt frame retain ownerless/town/warp/scan priorities, exact poison-resist100guard, strict elapsed>100and ignored skill-service failure. Target lookup stays lazy and poisoned-state success short-circuits the resistance query. Game-frame reversal and unverified cooldown-sum overflow are refused explicitly.',
-                        'Retained Raven stats/blind/flight, toward paths, Valkyrie creation and named-item checks pass in one disposable server boot. Builds have zero warnings/errors. Existing installed build, saves, configuration and client are not changed.'
+                        'Pinned45-row equipment table has no plaguepoppy entry; its identity/base identity match. The already-verified complete loader/negative-index dispatcher and compiled guard imply no generated gear for this species under the current-table/legacy-dispatch model. Other equipped summons retain their separate gaps.',
+                        'Saved noRatio body retains50base life,25defense,0base AR,9FP per-frame regeneration, explicit level75at owner99, copied Rabies hard context and immutable effective rank. Actual Tarnhelm fresh capture gives75life/level76without rewriting the old pet. Creature identity is plaguepoppy with footprint0,drain0,chill50,noGH; the existing offensive aura filter excludes isAtt0vines. Direct Orders/Shout and injected Inner Sight are stat-consumer controls, not proof of every cast/target rule.',
+                        'Fractional recovery/cap, Orders67.5maximum/12FPregen, offline no-heal, wardrobe/history, unchanged noRatio bases on Hell facet, orphan/owner death and atomic malformed restore pass. Two actual world reloads retain the parked owner/birth/fractional injury/Orders/regen; one active frame adds12FP after each reload, with no offline replay.',
+                        'Retained Raven stats/blind/flight, toward paths, Valkyrie creation and named-item checks pass with three body boots/two actual reloads. Builds have zero warnings/errors. Existing installed build, saves, configuration and client are not changed.'
                     ], limits=[
-                        'No actor or handler enabled. Actual AI/world services, state attackability, summon factory/full spawn initialization, actual pet-to-owner Rabies/mastery/pierce transport and capture timing remain pending. Source skill delay compares against the global game frame; a future actor must not silently restart a100frame initial cooldown at every summon.',
+                        'Only an internal saved life/owner body is created. The visible vulnerable silent0x8placeholder does not establish underground VINE_BEAST visibility or general attackability; isAtt0offensive aura exclusion remains intact. Its ordinary native ground-fit factory is a declared preparation adapter, not source zero-size placement. Actual AI/world services, learned summon factory, pet-to-owner Rabies/mastery/pierce transport and poison capture timing remain pending. Source skill delay compares against the global game frame; a future actor must not silently restart a100frame initial cooldown at every summon.',
                         'Trail Range expression is preserved and evaluated as data only; current executable lifetime, head/trail motion/factory/world collision, modern hit-window equivalence and poison delivery are not verified.',
-                        'No world reload, connected input, full-class regression, candidate release or installation is claimed. Fresh item audits preserve573named definitions and all70Python checks pass. Separate final effects/audio and talent/hotkey icon inventories remain placeholders.'
+                        'Body-only world reloads are verified; connected skill input, full-class regression, candidate release and installation are not claimed. Fresh item audits preserve573named definitions and all70Python checks pass. Separate final effects/audio and talent/hotkey icon inventories remain placeholders.'
                     ])
     path = ROOT / 'tools/reference/creeper-stats-native-evidence.json'
     encoded = json.dumps(evidence, indent=2) + '\n'
@@ -114,7 +145,7 @@ def record(check=False):
         assert path.read_text() == encoded
     else:
         path.write_text(encoded)
-    print('Prepared Creeper components:14016numeric/vine and5619outer-AI comparisons; no actor, handler or installation claim.')
+    print('Prepared Creeper:3boots/2reloads saved life/owner body,14016numeric/vine and5619outer-AI comparisons; world AI/mats/learned casting and installation pending.')
 
 
 if __name__ == '__main__':

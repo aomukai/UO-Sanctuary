@@ -65,22 +65,26 @@ def check():
         (STAGE / 'stats-inputs.json').write_text(json.dumps(inventory, indent=2) + '\n')
         logpath = STAGE / 'stats-native-checks.log'
         with logpath.open('w') as log:
-            session = Session(folder, log)
-            try:
-                ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
-                if ready.group(0).startswith('create'):
-                    session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
-                commands = ['creeper-ai-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check']
-                if audit:
-                    commands.append('first-loop-catalogue-check')
-                for command in commands:
-                    session.send(command)
-                    assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
-                session.send('shutdown'); assert session.process.wait(timeout=20) == 0
-            finally:
-                session.close()
+            for boot in range(3):
+                session = Session(folder, log)
+                try:
+                    ready = session.expect(r'create the owner account now\? \(y/n\):|Listening: 127.0.0.1:' + str(port))
+                    if ready.group(0).startswith('create'):
+                        session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
+                    commands = ['creeper-ai-check', 'creeper-stats-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
+                    if audit and boot == 0:
+                        commands.append('first-loop-catalogue-check')
+                    for command in commands:
+                        session.send(command)
+                        assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
+                    session.send('save'); session.expect('Writing world save snapshot done')
+                    session.send('shutdown'); assert session.process.wait(timeout=20) == 0
+                finally:
+                    session.close()
+        shutil.copy2(folder / 'creeper-body-fixtures.json', STAGE / 'body-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
-    print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass one disposable boot; no Creeper actor or handler enabled; installed world untouched.')
+    print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass3boots/2actual reloads; saved life-only Creeper body checked, world AI/mats and learned handler pending; installed world untouched.')
 
 
 if __name__ == '__main__':

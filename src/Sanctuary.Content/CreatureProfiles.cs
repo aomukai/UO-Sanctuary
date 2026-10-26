@@ -172,7 +172,8 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
-        if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Prepared saved life/movement/cold hit; learned casting and modern full parity pending");}
+        if(creature is DruidCreeperBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned plaguepoppy entity","native","plaguepoppy","Prepared saved noRatio life/ownership only; world state, mats and learned casting pending");}
+        if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Saved life/movement/cold hit and learned casting; modern full parity pending");}
         if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
         for (var type = creature.GetType(); type != null; type = type.BaseType)
         {
@@ -185,7 +186,13 @@ public static class CreatureProfiles
             "native", null, "Unmapped custom type; native values retained");
     }
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is DruidSpiritWolfBody wolf ? _native with{Enabled=true,ApplyStats=false,
+        => creature is DruidCreeperBody creeper ? _native with{Enabled=true,ApplyStats=false,
+            Resistances=new(0,0,0,0,0,0),
+            Traits=new("Vine",false,false,false,false,false,0,3,
+                NecromancerSummons.Source("plaguepoppy","Drain",difficulty??creeper.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source("plaguepoppy","coldeffect",difficulty??creeper.SummonDifficulty)),0),
+            HitRecovery=new(false)}
+            : creature is DruidSpiritWolfBody wolf ? _native with{Enabled=true,ApplyStats=false,
             Traits=new("Wolf",false,false,false,false,false,2,4,
                 NecromancerSummons.Source("spiritwolf","Drain",difficulty??wolf.SummonDifficulty),
                 Math.Abs(NecromancerSummons.Source("spiritwolf","coldeffect",difficulty??wolf.SummonDifficulty)),0),
