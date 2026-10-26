@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/include/D2Collision.h": "7a2f8d220a5ead4a3dad69c073b1cef6ac98cbfb1906e0ac6980e4ba65c5aac5",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/src/D2Seed.cpp": "c6172f34388f30948bae5331606bffab16149d3ea016e4b0920899ddc07e5b91",
+    "source/D2Game/src/ITEMS/Items.cpp": "3355722a346046252d30bda74c413c6e5b8d67004a606437d60c1cb22a0ca7c4"
+  },
+  "compiledUnchangedRoutines": {
+    "SKILLS_SrvDo146_Unused": "d9084106cf77135c5b03fc6b0c0c3998e7dd9c09cfffaef8bb84842a13703c02",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "SEED_InitLowSeed": "f7874e2973b0d9d702a171456414056062949077a0d4cdaa010c789dea5095b8",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71"
+  },
+  "radialBarrierMask": 2053,
+  "fixture": {
+    "path": ".local/class-skills/armageddon-emitter-source-probe.json",
+    "sha256": "04608e0e740fec4cb109468990c520bd57f4dae6205880f332b2f8c2c963f5d1",
+    "cases": 720
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "Complete state146 callback composes actual source low-seed reset, seed generator and Items random wrappers across720five-event-chain contexts with six initial memories, three placement gate families, first/third/fifth/failure-sixth acceptance and ranks1/21.",
+    "Each event resets the caster stream from saved memory with high666, stores its first draw modulo1000000 before coordinate draws, then consumes two inclusive17-way offsets per attempted site. Five-event chains preserve exact memory, coordinates and final seed.",
+    "At most5attempts occur; any accepted site triggers one declared null-return allocation and still returns success. Completely rejected placements create nothing while advancing saved memory and coordinate RNG."
+  ],
+  "services": [
+    "Rows, state/highest-skill presence, radius, room/town/barrier/mask, missile allocation/client/event services remain declared parent fixtures. Pinned radial barrier0x805 includes doors/missile barrier/walls, not the missile-footprint0x40 layer. Global allocation/owner RNG interleaving and modern executable/geometry are not certified.",
+    "Native emitter comparisons, placement/natural actors/damage/input/resources/lifecycle/reloads and class acceptance remain separate. No native handler or final asset is certified by this source probe."
+  ],
+  "next": "Compare actual Armageddon emitter memory/coordinates/seed with these vectors using controlled placement gates, alongside separate real native terrain/emission acceptance."
+}

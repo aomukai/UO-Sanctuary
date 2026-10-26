@@ -75,12 +75,11 @@ public static class DruidHurricane
             || row.Number("intown") != 0 || values.Mana256 != 30 * 256 || values.Eval("aurarangecalc") != 9 || values.DurationFrames != 50)
         { throw new NotSupportedException("Unsupported Hurricane route"); }
     }
-    private static bool Outdoors(PlayerMobile p) => p is { Alive: true, Deleted: false } && p.Map != null && p.Map != Map.Internal && !SpellHelper.IsTown(p.Location, p);
     public static bool Begin(PlayerMobile owner, Serial selected, Point3D point, long now)
-        => SkillCombat.Begin(owner, CombatAbility.Hurricane, selected, point, now, (p, _, _, _) => Outdoors(p));
+        => SkillCombat.Begin(owner, CombatAbility.Hurricane, selected, point, now, (p, _, _, _) => DruidWeather.Outdoors(p));
     public static bool Cast(PlayerMobile owner, SkillValues values)
     {
-        if (!DruidCombat.Available(owner, CombatAbility.Hurricane) || !Outdoors(owner)) { return false; }
+        if (!DruidCombat.Available(owner, CombatAbility.Hurricane) || !DruidWeather.Outdoors(owner)) { return false; }
         HurricaneState state;
         try { state = Prepare(owner, values, TimedEffects.Now); }
         catch (NotSupportedException) { owner.SendMessage(0x22, "Hurricane cannot be used in this context yet."); return false; }
@@ -94,26 +93,14 @@ public static class DruidHurricane
         Routes(values);
         if (owner == null || Owner(owner.Serial.Value) != owner || values.Rank is < 1 or > 255 || at.Kind != DateTimeKind.Utc)
         { throw new NotSupportedException("Unsupported Hurricane supplier/clock"); }
-        // Native scoped seed adapter: source do124 stores the low16bits of
-        // one draw; Hurricane145 itself continues using the caster stream.
-        // Other native actions do not yet interleave with this saved stream.
-        ulong seed = SourceRandom.InitLow(SeedLow()); ushort init = unchecked((ushort)SourceRandom.Roll(ref seed));
-        var state = new HurricaneState(owner.Serial.Value, values.Rank, seed, init, at,
-            at.AddMilliseconds(800), at.AddMilliseconds(Math.Max(1, values.Eval("auralencalc")) * 40));
+        var start = DruidWeather.Prepare(owner, values, at, SeedLow);
+        var state = new HurricaneState(owner.Serial.Value, values.Rank, start.Seed, start.Param, at, start.NextUtc, start.UntilUtc);
         Validate(state); return state;
     }
     internal static void Create(PlayerMobile owner, SkillValues values, DateTime at)
     { var state = Prepare(owner, values, at); _states = _states.SetItem(state.Owner, state); }
     internal static bool Recipient(PlayerMobile owner, BaseCreature target, int radius)
-    {
-        bool attackable = target is EncounterCreature ? target.CanBeDamaged() : SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable == true;
-        // Dispatcher uses bCheckMonAuraFlag0. Filter0xA783 does add the LOS
-        // gate that Tornado0xA583 omits; radius tests source center positions.
-        return attackable && target.Map == owner.Map && ClassCombat.IsHostile(owner, target) && Math.Abs(target.Z - owner.Z) < 16
-            && DruidTornado.InPulse(owner.X * 2, owner.Y * 2, target.X * 2, target.Y * 2, radius)
-            && !SpellHelper.IsTown(target.Location, owner)
-            && owner.Map.LineOfSight(new Point3D(owner.X, owner.Y, owner.Z + 12), new Point3D(target.X, target.Y, target.Z + 12));
-    }
+        => SourceDamageAreas.Recipient(owner,target,owner.Map.MapID,owner.X*2,owner.Y*2,owner.Z,radius,true);
     private static HurricaneState Pulse(PlayerMobile owner, HurricaneState state)
     {
         var values = SkillMechanics.Values(owner, CombatAbility.Hurricane, state.Rank); Routes(values);
@@ -158,7 +145,7 @@ public static class DruidHurricane
                 _states = _states.SetItem(state.Owner, state with { NextUtc = state.NextUtc.AddTicks(missed * TimeSpan.FromMilliseconds(800).Ticks) });
                 continue;
             }
-            if (!Outdoors(owner)) { _states = _states.Remove(state.Owner); continue; }
+            if (!DruidWeather.Outdoors(owner)) { _states = _states.Remove(state.Owner); continue; }
             while (state.NextUtc <= at && state.NextUtc < state.UntilUtc)
             { state = Pulse(owner, state); state = state with { NextUtc = state.NextUtc.AddMilliseconds(800) }; }
             _states = _states.SetItem(state.Owner, state);

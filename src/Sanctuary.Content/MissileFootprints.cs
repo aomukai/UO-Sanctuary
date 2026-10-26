@@ -18,7 +18,7 @@ internal static class MissileFootprints
     private sealed record Transient(MissileFootprint Footprint, Func<bool> Active);
     private static readonly List<Transient> Transients = new();
     private static readonly Dictionary<string, int> Sizes = new(StringComparer.Ordinal);
-    private static readonly string[] Sources = ["blaze", "erruption crack 1", "erruption crack 2", "firewall",
+    private static readonly string[] Sources = ["armageddonfire", "blaze", "erruption crack 1", "erruption crack 2", "firewall",
         "fistsoffirefirewall", "hydra", "immolationfire", "meteorfire", "moltenboulderfirepath", "plaguejavcloud",
         "poisonexplosioncloud", "royalstrikemeteorfire", "shock field on ground", "volcano"];
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1), Prune);
@@ -77,6 +77,8 @@ internal static class MissileFootprints
         { result.Add(new("shock field on ground", p.Map, Cell(p.X), Cell(p.Y), p.Z, p.NextUtc.AddMilliseconds((p.Remaining - 1) * 40L))); }
         foreach (var p in Hydras.Snapshot().Bolts)
         { result.Add(new("hydra", p.Map, Cell(p.X), Cell(p.Y), p.Z, p.UntilUtc)); }
+        foreach(var p in DruidArmageddon.Snapshot().Actors.Where(x=>x.Missile==623))
+        { result.Add(new("armageddonfire",p.Map,p.X,p.Y,p.Z,p.UntilUtc)); }
         foreach(var p in DruidVolcano.Snapshot().Actors.Where(x=>x.Missile==479))
         { result.Add(new("volcano",p.Map,Cell(p.X),Cell(p.Y),p.Z,p.UntilUtc)); }
         foreach (var p in Transients.Where(x => x.Active())) { result.Add(p.Footprint); }

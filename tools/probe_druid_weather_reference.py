@@ -42,7 +42,7 @@ def build(check=False):
 #define __fastcall
 constexpr int UNITFLAG_SKSRVDOFUNC=128,EVENTTYPE_REMOVESTATE=1,EVENTTYPE_ACTIVESTATE=2;
 constexpr int STAT_MODIFIERLIST_SKILL=0,STAT_MODIFIERLIST_LEVEL=1,STAT_ATTACKRATE=2,STAT_OTHER_ANIMRATE=3;
-constexpr int SKILLSFLAGINDEX_INTOWN=8,COLLIDE_MASK_RADIAL_BARRIER=0x45;
+constexpr int SKILLSFLAGINDEX_INTOWN=8,COLLIDE_MASK_RADIAL_BARRIER=0x805;
 uint32_t gdwBitMasks[32];
 struct D2GameStrc{void* pMemoryPool=nullptr;int dwGameFrame=1000;}game;
 struct D2SkillStrc{int id=250,param=41;}used;

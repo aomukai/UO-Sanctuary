@@ -171,6 +171,7 @@ public sealed class CharacterProfiles : GenericPersistence
         HolyShields.Clear(player);
         DruidCycloneArmor.Clear(player);
         DruidHurricane.Clear(player);
+        DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
@@ -343,6 +344,7 @@ public sealed class CharacterProfiles : GenericPersistence
         player.Stam = CarryPool(stam, maxStam, player.StamMax);
         DruidCycloneArmor.Clear(player);
         DruidHurricane.Clear(player);
+        DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);

@@ -38,6 +38,7 @@ public static class ClassDeath
         HolyShields.Clear(player);
         DruidCycloneArmor.Clear(player);
         DruidHurricane.Clear(player);
+        DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);

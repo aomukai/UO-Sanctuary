@@ -1769,10 +1769,10 @@
       "characterClass": "Druid",
       "tree": "Elemental",
       "sourceId": 249,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned self SC cast pays35mana once and captures weather duration/rank. Every6frames attempts up to5source-seeded positions, creating a stationary25-frame control with captured physical/fire endpoints. Its terminal radius4 copied area creates a fresh37-frame Collision1 ground field at retained rank; ground uses own endpoints and DamageRate41 MDR scaling, no get-hit/knockback. Saved weather/actors reuse shared casting, RNG, endpoints, copied-area and ground consumers; verification/installation and explicit modern ordering/global RNG/native geometry/item/event/client limits are recorded in the checkpoint. Final effects/audio/icons are identified placeholders; no class complete."
     },
     {
       "talentId": "druid.werewolf",

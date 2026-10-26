@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": true,
+  "installed": false,
+  "sourceEndpointSets": 55080,
+  "actualContentEndpointSets": 55080,
+  "durationControls": 9,
+  "contentAssemblySha256": "f7fa8e1bcc32056858e694c2629dc0a081f0ec6591237c993e246d365890bd4a",
+  "nativeAssemblyHashes": {
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0"
+  },
+  "hashes": {
+    "src/Sanctuary.Content/SkillMechanics.cs": "4eeaa9b25cfc30350d1892e4309fd583e3ef6c0bfeb7497d44cde8ab17ab81c9",
+    "src/Sanctuary.Content/DruidFirestorm.cs": "5f0ff4f43c840c7f3b76cb96f9dd1d8df92f346d11311291dbe51fadb1e3050a",
+    "src/Sanctuary.Content/DruidCombat.cs": "d434894c7cd27764cfb841c827dc92d1be34ad901ef7c6d630dbbd4f3fe5a7d4",
+    "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
+    "data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    "data/Sanctuary/Balance/necromancer-summons.json": "40163287f5e8aa190b206a4103afaa166ee2636d604bb28e95d61b38219fd52a",
+    "tools/check_armageddon_damage.py": "5b49d6201e8db9d135878137b68d119510c3df5ed8302f4b8077ef1b89d1b00e",
+    "tools/probe_armageddon_damage_reference.py": "ffdd8a742295fa31b5cc749975b7354faaa350ea00f3e10d85ce99e2c1df3a14",
+    "tools/reference/armageddon-damage-source-evidence.json": "3453455703011920afe7f1f06cdc3376788646f9b8bd763796d203065118443f",
+    ".local/class-skills/armageddon-damage-source-probe.json": "944c0e0652c3d9323ababd5b1b7e0b658a3c542f3dd4e205b7d37c9162594ae9",
+    ".local/class-skills/armageddon-damage-run.log": "767489c639c86ce329cdeea83d20f14024746c8655f76a2cef75f1901d1145aa",
+    ".local/class-skills/armageddon-damage-proof/Program.cs": "922760bc90a511761b01acaa1ee55c4131d03363579b076fa09030360ee80fdd",
+    ".local/class-skills/armageddon-damage-proof/check.csproj": "c5c4bcba3e2962d92ac4acef1c57ba38a4f20a542747c91e69c0a26b8c52a610",
+    ".local/class-skills/armageddon-damage-proof/out/check.dll": "5225d90a25ce8bc7c45eac185684e4f7c0bdab7bbde031afa040a591c0a79876"
+  },
+  "established": [
+    "Actual Armageddon Endpoints composes existing PhysicalDamage256, DruidFirestorm.Endpoints, NecromancerSummons.Formula and FireGround.MissileDamage256. All55080control/ground source captures/all255ranks match, including independent hard Firestorm/Boulder/Volcano inputs, mastery controls and unrelated item-stat source controls.",
+    "Control physical synergy truncates before HitShift8; control fire after HitShift8/mastery once; own ground fire uses7percent hard synergies before HitShift2 without base mastery. Existing interpreter preserves35mana,6-frame interval, radius8 and hard-only Fissure duration250+50points across9controls."
+  ],
+  "remaining": [
+    "This endpoint-only candidate check uses declared numeric mastery/hard-point services and an unslowed payload. It is separate from real gear, Slow Missiles, actual emission/terminal/ground health and defense acceptance.",
+    "Native saved actors/weather/casting/payment/input/natural timers/lifecycle/reloads, full class regression, matching client/installation and modern executable/client limits remain pending. No class certificate or final assets are enabled."
+  ]
+}

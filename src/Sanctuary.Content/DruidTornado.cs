@@ -141,14 +141,7 @@ public static class DruidTornado
     internal static bool InPulse(int x,int y,int targetX,int targetY,int radius)
     {long dx=(long)x-targetX,dy=(long)y-targetY;return radius>0 && dx*dx+dy*dy<=(long)radius*radius;}
     internal static bool PulseRecipient(PlayerMobile owner,TornadoMissile missile,BaseCreature target,int radius)
-    {
-        bool attackable=target is EncounterCreature?target.CanBeDamaged():SourceAuraTargets.Rule(CreatureProfiles.Definition(target).Reference)?.Attackable==true;
-        // Current sub_6FD10200 passes bCheckMonAuraFlag0. Neither NOAURA,
-        // caster LOS nor the direct-contact history/delay is an area gate.
-        return attackable && ClassCombat.IsHostile(owner,target) && Math.Abs(target.Z-missile.Z)<16
-            && InPulse((int)Math.Floor(missile.X*2+.5),(int)Math.Floor(missile.Y*2+.5),target.X*2,target.Y*2,radius)
-            && !SpellHelper.IsTown(target.Location,owner);
-    }
+        => SourceDamageAreas.Recipient(owner,target,missile.Map,(int)Math.Floor(missile.X*2+.5),(int)Math.Floor(missile.Y*2+.5),missile.Z,radius);
     private static TornadoMissile Pulse(PlayerMobile owner,TornadoMissile missile,int radius)
     {
         ulong seed=missile.Seed;
