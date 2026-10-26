@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37"
+  },
+  "routineHashes": {
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "MISSILE_GetMinElemDamage": "3f97bfdbf134f8ce2ea4640e0a153faa4b0b9f934f219fed5f37891f46279d96",
+    "MISSILE_GetMaxElemDamage": "0eef831566c998568161cb5217dc397d5dd95ddd489674737dbba820555a6693"
+  },
+  "creatorBlockHashes": {
+    "MISSILE_CalculateDamageData": "00f6fe786fa4b47cbdb2aa0f7e426f16d27c2a3cc1c25ccd2dac2bec00533a0f",
+    "MISSILE_AddStatsToDamage": "174ed5f102dd8cbbd15d59ffa22362194a24b787ec274923f541369dfe503b77",
+    "MISSILE_CalculateFinalDamage": "ab758d2797eebe4b5ef29076387e9a4a538550296e73616cd3396087c70cbbc1"
+  },
+  "reusedCreatorEvidence": "tools/reference/molten-boulder-damage-source-evidence.json",
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/armageddon-damage-source-probe.json",
+    "sha256": "944c0e0652c3d9323ababd5b1b7e0b658a3c542f3dd4e205b7d37c9162594ae9",
+    "cases": 55080
+  },
+  "sanitizers": "ASan/UBSan exit0 and empty runtime stderr",
+  "established": [
+    "All255ranks execute complete source physical/elemental getters, damage creator/add/scale and stat writer across control577 and field623, three independent hard synergy inputs0/1/20, fire mastery0/50 and unrelated99999item-stat controls.",
+    "Control577 captures source-zero skill249 physical and fire endpoints. Physical hard Volcano18percent truncates before HitShift8; fire hard Boulder+Firestorm14percent applies after HitShift8, followed by owner fire mastery once.",
+    "Ground fire623 uses its own missile endpoints, hard Firestorm+Boulder7percent before HitShift2 and no owner mastery. No item weapon/elemental damage, critical inheritance or passive mastery-stat copying is introduced by these source-zero rows."
+  ],
+  "remaining": [
+    "Hard formula/stat/owner/item/ratio and empty monster-type layer copying remain declared inherited services; missile own physical endpoints are declared zero for these blank physical rows. Current executable and complete event/owner/RNG conventions are not certified.",
+    "Actual native endpoint/terminal packet/ground DamageRate41/collision/defense/health/lifecycle/casting/input/timer/reload acceptance remains unimplemented. No Armageddon handler or final asset is enabled."
+  ],
+  "next": "Reuse current physical/fire endpoint suppliers only after actual-content comparisons. Compose control25-frame expiry/hit56 area and37-frame Collision1 ground-fire623 with DamageRate41 before native actors."
+}
