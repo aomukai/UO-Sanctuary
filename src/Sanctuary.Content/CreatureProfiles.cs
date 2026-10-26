@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Prepared saved life/ownership; AI and attack consumers pending");}
         if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
         for (var type = creature.GetType(); type != null; type = type.BaseType)
         {
@@ -184,7 +185,12 @@ public static class CreatureProfiles
             "native", null, "Unmapped custom type; native values retained");
     }
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is EncounterCreature encounter ? encounter.EncounterProfile
+        => creature is DruidSpiritWolfBody wolf ? _native with{Enabled=true,ApplyStats=false,
+            Traits=new("Wolf",false,false,false,false,false,2,4,
+                NecromancerSummons.Source("spiritwolf","Drain",difficulty??wolf.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source("spiritwolf","coldeffect",difficulty??wolf.SummonDifficulty)),0),
+            HitRecovery=new(true,7,256)}
+            : creature is EncounterCreature encounter ? encounter.EncounterProfile
             : _variants.TryGetValue((Definition(creature).Type, difficulty ?? MonsterVariants.Difficulty(creature)), out var row) ? row : _native;
     internal static bool ActiveVariant(Type type, MonsterDifficulty difficulty) =>
         _variants.TryGetValue((type.FullName, difficulty), out var row) && row is { Enabled: true, ApplyStats: true };

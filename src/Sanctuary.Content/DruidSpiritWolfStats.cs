@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
+using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record SpiritWolfSpawn(SummonSpawnStats Stats,int Regeneration256);
@@ -7,6 +8,7 @@ internal sealed record SpiritWolfBirth(int Rank,int Level,int Life256,int BaseDe
     int ArmorPercent,int AttackBonus,int ColdMinimum,int ColdMaximum,int ColdFrames,int FireResistance,int ColdResistance,
     int LightningResistance,int PoisonResistance,int ColdSunder,int RequestedEquipmentLevel);
 internal readonly record struct SpiritWolfCold(int Minimum,int Maximum,int Frames);
+internal sealed record SpiritWolfSnapshot(SpiritWolfBirth Birth,int DireRank,int GrizzlyRank,bool Expansion);
 
 // Prepared do119 numeric composition only. Raw base stats and copied passives
 // stay distinct until the actual monster defense/attack consumers are composed.
@@ -60,4 +62,23 @@ internal static class DruidSpiritWolfStats
     }
     internal static int Limit(SkillValues values)
     {Route(values);return checked((int)values.Eval("petmax"));}
+    internal static SpiritWolfSnapshot Capture(PlayerMobile owner)
+    {
+        if(owner is not{Alive:true,Deleted:false} || !ClassCreation.Profiles.TryGet(owner.Serial,out var profile)
+            || profile.Class!=DiabloClass.Druid || SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf)<1)
+        {throw new InvalidOperationException("Spirit Wolf needs a live learned Druid owner");}
+        return new(Birth(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),SummonDifficulties.For(owner.Map),true,
+            name=>name=="item_pierce_cold_immunity"?ClassGear.Bonus(owner,"pierce-immunity-cold")
+                :throw new NotSupportedException("Unmapped inherited Spirit Wolf stat: "+name)),
+            SkillMechanics.Rank(owner,CombatAbility.SummonDireWolf),SkillMechanics.Rank(owner,CombatAbility.SummonGrizzly),true);
+    }
+    internal static SpiritWolfSnapshot Rescale(SpiritWolfSnapshot snapshot,MonsterDifficulty difficulty)
+    {
+        ArgumentNullException.ThrowIfNull(snapshot);
+        var birth=snapshot.Birth??throw new ArgumentException("Missing Spirit Wolf birth");
+        if(snapshot.DireRank is <0 or >255 || snapshot.GrizzlyRank is <0 or >255){throw new ArgumentException("Invalid captured wolf/bear ranks");}
+        var values=new SkillValues(SkillMechanics.For(CombatAbility.SummonSpiritWolf),
+            key=>key=="Summon Spirit Wolf"?birth.Rank:key=="Summon Fenris"?snapshot.DireRank:key=="Summon Grizzly"?snapshot.GrizzlyRank:0,_=>0,birth.Level);
+        return snapshot with{Birth=Birth(values,difficulty,snapshot.Expansion,_=>birth.ColdSunder)};
+    }
 }

@@ -55,7 +55,7 @@ public static class CorpseSkillRules
         {
             BoneBarrierSegment barrier=>barrier.Ability==CombatAbility.BonePrison?"boneprison1":"bonewall",
             NecromancerMinion minion when minion.Kind!=CombatAbility.None=>SkillMechanics.For(minion.Kind).Text("summon"),
-            SkeletonGuardian=>"necroskeleton",
+            SkeletonGuardian summon=>summon.SourceMonsterId,
             BaseCreature creature=>CreatureProfiles.Definition(creature).Reference,
             _=>null
         };

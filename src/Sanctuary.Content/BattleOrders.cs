@@ -39,6 +39,7 @@ public static class BattleOrders
     {
         if(World.Loading){return 65000;}
         if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
+        if(resource==0 && actor is ISourceLifeMaximum exact){return (exact.MaximumLife256+255)/256;}
         int percent=Percent(actor);if(percent<=0){return null;}
         long base256=(long)basis*256;
         if(resource==0 && actor is SkeletonGuardian summon && actor.HitsMaxSeed==summon.CombatProfile.Life)
@@ -57,7 +58,7 @@ public static class BattleOrders
         amount256=Math.Clamp(amount256,0,actor.StamMax*256);actor.Stam=amount256/256;
         Remember(actor,amount256%256,_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256);
     }
-    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=actor is AmazonDecoy || PaladinConversion.Life(actor)!=null?SkillHealth.Maximum256(actor):0};
+    internal static Pools Capture(Mobile actor)=>new(actor.HitsMax,actor.ManaMax,actor.StamMax,SkillHealth.Balance256(actor),NecromancerEffects.ManaBalance256(actor),Stamina256(actor)){ExactLifeMaximum256=SkillHealth.Maximum256(actor)};
     internal static int Rescale256(int current,int previousMaximum,int nextMaximum)
     {
         if(current<=0 || previousMaximum<=0 || previousMaximum==nextMaximum){return current;}
@@ -67,18 +68,19 @@ public static class BattleOrders
     private static int? Regen(Mobile actor,int maximum,int? old)
     {
         if(actor is not SkeletonGuardian guardian){return old;}
-        string source=guardian is NecromancerMinion{Kind:not CombatAbility.None} minion?SkillMechanics.For(minion.Kind).Text("summon"):"necroskeleton";
+        string source=guardian.SourceMonsterId;
         int rate=NecromancerSummons.Source(source,"DamageRegen",-1);
+        if(actor is ISourceLifeMaximum){maximum=SkillHealth.Maximum256(actor)>>8;}
         return rate<0?old:(int)((long)rate*maximum>>4);
     }
-    internal static int Regeneration256(SkeletonGuardian actor)=>_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??5;
+    internal static int Regeneration256(SkeletonGuardian actor)=>_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256??actor.SourceRegeneration256;
     private static void Remember(Mobile actor,int staminaFraction,int? regeneration)=>_resources[actor.Serial.Value]=new(actor.Serial.Value,actor.HitsMax,actor.ManaMax,actor.StamMax,staminaFraction,regeneration);
     internal static void Change(Mobile actor,Pools before,bool preserveSummonLifeRatio=false)
     {
         int life=actor.HitsMax,mana=actor.ManaMax,stamina=actor.StamMax;
         int? regen=_resources.GetValueOrDefault(actor.Serial.Value)?.Regeneration256;
         int priorLifeMaximum256=before.ExactLifeMaximum256>0?before.ExactLifeMaximum256:before.LifeMax*256;
-        int nextLifeMaximum256=actor is AmazonDecoy || PaladinConversion.Life(actor)!=null?SkillHealth.Maximum256(actor):life*256;
+        int nextLifeMaximum256=SkillHealth.Maximum256(actor);
         if(nextLifeMaximum256!=priorLifeMaximum256 || preserveSummonLifeRatio)
         {
             SkillHealth.SetBalance256(actor,preserveSummonLifeRatio

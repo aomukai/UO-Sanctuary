@@ -318,6 +318,7 @@ def render(data):
               'Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.','',
               'Use [the current checkpoint](class-skills-resume-checkpoint.md) for verification evidence, unanswered questions and the next executable work. '
               'Use the independent [effect](skill-effects.md) and [icon](skill-icons.md) registers for the asset phase.','',
+              'Prepared Spirit Wolf now has a saved vulnerable body with fractional life, wolf regeneration, shared armor-percent stacking and owner/history/parking/facet consumers. Its isolated three-boot/two-reload evidence is in [the checkpoint](class-skills-resume-checkpoint.md) and [saved-backend evidence](../tools/reference/spirit-wolf-body-native-evidence.json). Individual AI, ordinary cold attack, automatic clock and learned casting remain pending; handler coverage and class completion are unchanged. The installed build is preserved.','',
               'Shared direct-damage checkpoint: integer FP256 channel reduction/absorb, fractional native damage commitment and '
               'the source less-than-one-life lethal boundary pass native checks and two save/reload cycles. '
               'See [numeric evidence](../tools/reference/damage-rounding-engine-evidence.json). '

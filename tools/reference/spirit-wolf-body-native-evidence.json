@@ -1,0 +1,53 @@
+{
+  "referenceVersion": "3.3.93847",
+  "installed": false,
+  "savedPreparedBody": true,
+  "learnedHandler": false,
+  "ordinaryAttack": false,
+  "individualAi": false,
+  "automaticActorClock": false,
+  "fullClassRegression": false,
+  "boots": 3,
+  "actualReloads": 2,
+  "passedMarkers": 46,
+  "pythonTests": 70,
+  "buildWarnings": 0,
+  "buildErrors": 0,
+  "handlers": 166,
+  "druidHandlers": 10,
+  "completedClasses": [],
+  "goalComplete": false,
+  "namedAuditFingerprints": 604,
+  "firstLoopFingerprints": 21,
+  "unchangedNamedDefinitions": 573,
+  "hashes": {
+    ".local/class-skills/spirit-wolf/stats-inputs.json": "3f25eb2340cd26b6193f8f79ddf2b067919a776c945b0bce203d8be75d20a121",
+    ".local/class-skills/spirit-wolf/stats-native-checks.log": "22984bb81ac41293f8e2cab71bcda3ecf2a1ab3ac62b4a06bcca0c1f8090f102",
+    ".local/class-skills/spirit-wolf/stats-run.log": "1512f348b82faa093337825223b7cebdfc95c5547e540edb4777134613990943",
+    ".local/class-skills/spirit-wolf/body-fixtures.json": "58c46d6d841c4eadaeb30985f7b95360bbee632b5c4c0e2f16771d3c768dc625",
+    ".local/class-skills/spirit-wolf/python-tests.log": "8d2abf4c501d4d698f29108ddb94050ac5d42a4db8f1fc0efcc3476cd76abf0e",
+    ".local/class-skills/spirit-wolf/content-build.log": "6752e1adbe20b3e5a3c54fc6fe6066b1863595f9174004b4d62d13a2f311c5bd",
+    ".local/class-skills/spirit-wolf/integration-build.log": "f14c67c6261626160922b5fd45941754d1b7ee1d9b08d3c41249b5fa7dac21b8",
+    ".local/class-skills/spirit-wolf/content/Sanctuary.Content.dll": "9d447b3799e9b737ef69bee608bb559fa2e13082f325647979f5033f52f054ca",
+    ".local/class-skills/spirit-wolf/integration/Sanctuary.Integration.dll": "c2d1b3dc8c1d91f156e7e270864b5177a8d95f5bdac9ea1630f3a8d634134615",
+    "tools/record_spirit_wolf_body.py": "023fde7f556bea9aafbae2630168c3dd153ebbf9a1a8ff261c186a0a8d8ba4b1",
+    "tools/reference/named-item-runtime-audit.json": "954d8c15d611f291aa336c9a1b80b62865d2c296df8977c5b55dcf91fdc11614",
+    "tools/reference/first-loop-affix-audit.json": "7117955997f1ee4adf76aee26d757ae478967a5c152fae303385efd446c4ad34",
+    "tools/reference/battle-orders-engine-evidence.json": "7b9267e04cc3d94c254aad4354f2c5584ba81d04ab62dba6e1036c718614a07c",
+    "tools/reference/druid-beasts-preflight.json": "af8782b4762f2a95660c964619c4a7fc21079db2313596ce7a082da0b9c89cfe",
+    "tools/reference/spirit-wolf-creation-source-evidence.json": "3f4edc4b6d683e44deb2d1877b2c45d60ef5806c8fc99dbd3cdbcb699b91086d"
+  },
+  "established": [
+    "Actual saved vulnerable Spirit Wolf body retains immutable effective-rank wolf/Dire/Grizzly birth context, owner/history permission and the shared persistent-minion relationship. Explicit preparation alone can construct it; learned skill remains unavailable.",
+    "Source162.5 life projects to native163 while health/healing caps remain41600FP. Two individual recovery frames add32FP each and clamp at the fractional maximum. Battle Orders35% uses the existing source floating-percentage rule:56159FP/native220, preserving fractional current life proportionally. A changed maximum recomputes regeneration from the wolf DamageRegen4 row and the truncated whole source maximum:54FP on application,40 on removal.",
+    "Copied wolf armor joins Shout in one percent pool, with Inner Sight reducing the raw basis first. Explicit wolf identity prevents inherited undead/zero-drain classification; size2,100drain,50chill magnitude,zero block and7frame/256speed recovery metadata are retained. Full recovery-mode/current-executable scheduling is not inferred from metadata.",
+    "Actual Tarnhelm changes fresh capture without rewriting an existing birth. Atomic malformed-state/JSON controls, offline no-heal, wardrobe parking/resume, owner-facet rescale with proportional life and orphan deletion pass. Two real world reloads retain saved owner/birth/clock, fractional injury, Battle Orders and regeneration, then resume one explicit active recovery frame without replaying offline recovery.",
+    "Prepared numeric Spirit Wolf and Creeper, shared rank/curse fixes, Raven stats/flight/path, toward paths,Valkyrie and named-item components pass. Retained Battle Orders/Shout/difficulty/history/wardrobe/Inner Sight and Decoy checks survive two actual reloads; three real loopback Decoy casts, natural expiries and disconnect cleanup pass. Fresh audits retain all573 named decisions and all70Python tests pass."
+  ],
+  "remaining": [
+    "No automatic wolf AI or combat clock, ordinary attack/cold hit/chill delivery, individual target/path/teleport, learned placement/payment/FIFO-cap/coexistence, connected wolf input or complete world lifecycle acceptance is claimed. Prepared AdvanceRecovery is an explicit bounded life-frame operation; poison/heal-inhibition transition chronology and natural wolf recovery still need actor-clock acceptance.",
+    "The user expects100% cold damage. Their prior observation was inconclusive for a tiny physical floor; old ordinary melee supplies one, so the modern branch remains uncertain rather than either result being asserted. Nonzero cold sunder is rejected by prepared actor creation/restore, while numeric source data remains retained separately.",
+    "Exact modern AI fallback polarity, room/geometry/global RNG/event ordering, equipment request consumers, graphical client parity and full-class regression/installation remain pending. Main installed build and saves are untouched.",
+    "Named wolf body0xE1 with explicit placeholder name and silent sound is temporary. Final emergence/body/movement/bite/cold/teleport/hurt/death/audio and talent/right/quick icons remain in separate effect/icon registers. No new handler or class completion is claimed."
+  ]
+}

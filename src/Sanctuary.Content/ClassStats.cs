@@ -131,7 +131,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            return AmazonInnerSight.Defense(creature,CreatureProfiles.Defense(creature),PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature));
+            return AmazonInnerSight.Defense(creature,CreatureProfiles.Defense(creature),(creature is SkeletonGuardian summon?summon.SourceDefensePercent:0)+PaladinAuras.DefensePercent(creature)+BarbarianShout.Defense(creature)+NecromancerEffects.DefenseStatPercent(creature));
         }
         if (mobile is PlayerMobile player && ClassCombat.Enabled(player))
         {

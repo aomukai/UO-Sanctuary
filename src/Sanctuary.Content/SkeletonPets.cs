@@ -175,6 +175,9 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery, difficulty: SummonDifficulty);
     // Summon creation writes this FP256 result into its base life before BO.
     public virtual long SourceLife256=>((long)NecromancerSummons.Source("necroskeleton","minHP",SummonDifficulty)+8*Math.Clamp(Mastery,0,255))*256*(2+Math.Max(0,Math.Clamp(Rank,1,255)-3))/2;
+    internal virtual string SourceMonsterId=>this is NecromancerMinion{Kind:not CombatAbility.None} minion?SkillMechanics.For(minion.Kind).Text("summon"):"necroskeleton";
+    internal virtual int SourceRegeneration256=>5;
+    internal virtual int SourceDefensePercent=>0;
     [Constructible]
     public SkeletonGuardian() : base(AIType.AI_Melee, FightMode.Closest, 14)
     {
