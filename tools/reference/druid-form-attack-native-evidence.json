@@ -20,10 +20,10 @@
       660,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "9ee3cad",
@@ -1024,6 +1024,11 @@
     "tools/reference/named-item-runtime-audit.json": "2556feb679c52213a068c59d8a0094338c4861508744ed5e3951f7e5a792b4fd",
     ".local/class-skills/druid-form-attack/first-loop-affix-audit.json": "ebfad9a46adbaf592273f408eb46aacf9941f4af89653d85417f847eae740a1c",
     "tools/reference/first-loop-affix-audit.json": "ebfad9a46adbaf592273f408eb46aacf9941f4af89653d85417f847eae740a1c",
+    ".local/class-skills/druid-form-attack/full-named-item-runtime-audit.json": "2556feb679c52213a068c59d8a0094338c4861508744ed5e3951f7e5a792b4fd",
+    ".local/class-skills/druid-form-attack/full-first-loop-affix-audit.json": "ebfad9a46adbaf592273f408eb46aacf9941f4af89653d85417f847eae740a1c",
+    ".local/class-skills/druid-form-attack/class-inputs.json": "e7004223b5e76a8317ebee313e766aa669626b6336e1d4f8a6e10cc80f1bf371",
+    ".local/class-skills/druid-form-attack/class-native-checks.log": "998f1b41ccb3d5ffe47273b7dad1963edd76ddd78cee38cf91e1f9819b350881",
+    ".local/class-skills/druid-form-attack/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "data/Sanctuary/Balance/weapon-animation-classes.json": "7f33f3d721eab9870373f040336fdb14929f285d5b6b0f196628af17c9701eb7",
     "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
     "tools/record_druid_form_attack.py": "89c2e61a1af10724eaebcb8319f2457f17c33712f5814cdba6bd17a4e9b881a0",
