@@ -18,9 +18,9 @@
     "namedInputFingerprints": 635,
     "firstLoopInputFingerprints": 21
   },
-  "fullClassRegression": false,
-  "fullClassBoots": 0,
-  "fullClassPassMarkers": null,
+  "fullClassRegression": true,
+  "fullClassBoots": 3,
+  "fullClassPassMarkers": 1184,
   "frozenCoreRevision": "a3d02de1edeab0d6c8720fdf02dc1fb7ed1be1fb",
   "clientReusedByteIdentical": true,
   "graphicalClientAcceptance": false,
@@ -959,7 +959,12 @@
     "tests/check_creeper_stats.py": "98066e656b8e16e8cf1c3cbb7c42031728bb88f691d5c0194f6c327a13905da5",
     "tools/record_barbs_casting.py": "df947f9edbdd2424132de7375eae1e20d56a95d2d75b281550b55c9f30d62f31",
     "tools/reference/barbs-core-native-evidence.json": "d89ec8ddbeeb3b207953d644c689e3b4b8703da3b4b320ec245f167d564546ec",
-    "tools/reference/weapon-event-order-review.json": "83a7754c5bcd972733c2e63b6f92b544bc9342d78249ee0d6146a3d714be8af1"
+    "tools/reference/weapon-event-order-review.json": "83a7754c5bcd972733c2e63b6f92b544bc9342d78249ee0d6146a3d714be8af1",
+    ".local/class-skills/barbs-casting/full-named-item-runtime-audit.json": "07a147144a61d249d3d1b38e5464be63c1b04f203fddbdfda45cacd0bda49a5a",
+    ".local/class-skills/barbs-casting/full-first-loop-affix-audit.json": "eb1263de1f8d84f166f65d1ffa0520bee5d362b8efc926799eaee2907f9cea58",
+    ".local/class-skills/barbs-casting/class-inputs.json": "07f29e1f4828386847f83d87d92d67a387cf9e890362043838904e5af7b7ec84",
+    ".local/class-skills/barbs-casting/class-native-checks.log": "444e360439e87e5141e661179e1e5863f871f15d4e141cb5e03c86c12b04384f",
+    ".local/class-skills/barbs-casting/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned SC/right/quick Barbs uses the shared spirit transaction:24+effective rank mana after allocation and before category replacement. Fractional/changed mana,cancel/stop/move/map/recovery/freeze,early/duplicate release,failed/wrong-identity allocation and post-allocation payment controls pass.",
