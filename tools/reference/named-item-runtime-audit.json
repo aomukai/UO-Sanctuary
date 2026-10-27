@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "4f2936f6c45e63a1a76998f16437c53ed8daabf9f7f4820dc65f2ecbf29be32e",
+  "ContentAssemblySha256": "feb5700c027d46d71646b9aea69c10a811de7bad713c1ae10d42a73c91d8e83c",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -318,10 +318,10 @@
     "src/Sanctuary.Content/ClassLoot.cs": "48815a22ac5734f32eaadbc4401a0f35016727e33de102ef8d5aa84e8c4395af",
     "src/Sanctuary.Content/ClassMovement.cs": "e2a6719ee5e773e6e1034bb39a5b272250916b9d8949f1b43bb7cd3d06346dae",
     "src/Sanctuary.Content/ClassProfessions.cs": "5be91c2344d318992aa1d71bda9b1a8863fcf50d3424512619b0bc0c370e4b11",
-    "src/Sanctuary.Content/ClassResources.cs": "5f1ec5c0effcb8ffba6a2b0bcea7b823455a39072c34c03239741f4c9f0d305d",
+    "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
     "src/Sanctuary.Content/ClassRespec.cs": "fd93aed61e2b3a7b592cdd44c57ac39edf910361b623f1cdbafc5013a445a3ad",
     "src/Sanctuary.Content/ClassSkills.cs": "c92bedaf77d7bd19a5e4a502e918b170b61b2c34c277dac9f8c3a52a789850a6",
-    "src/Sanctuary.Content/ClassStats.cs": "57395f11f9d34324acc910b87cf4d19642f216d375de15a7f2f8292b6f6fdc67",
+    "src/Sanctuary.Content/ClassStats.cs": "13574ff7aac6925504df2b43362056cce734c533ce8d6a6b8f1a79e7baad6964",
     "src/Sanctuary.Content/CloakShadows.cs": "fcfa7ce498e2c3f8fe91f06026e689d77e5dd732946b769b22a7f11ebc972b86",
     "src/Sanctuary.Content/ColdStates.cs": "fecb9a71894a14686c2f26c1107700da0aef083134260770bb002e6977a5202d",
     "src/Sanctuary.Content/CombatAuras.cs": "90e92984e05bda3f15c9b2a11ff620ada5eca927fa72b636c8c7ef4092d452f2",
@@ -394,6 +394,7 @@
     "src/Sanctuary.Content/DruidOakCasting.cs": "89adddac93c5519dee3f8025c21e4b0221df297065fc6330905cf4758361478f",
     "src/Sanctuary.Content/DruidOakStats.cs": "3cd9a6f4c3cb600d7ff045124b314692c2939e7d6e41591bd32206bd03f2f982",
     "src/Sanctuary.Content/DruidOakWorld.cs": "d56a4db1f79325cbb6a08badbb558bbdbf590b410309aa881e2d718593e99dd9",
+    "src/Sanctuary.Content/DruidPlayerForms.cs": "114bfbe00e4135f94c72aae5954c263423d7566a246b269b26bded706537a7a1",
     "src/Sanctuary.Content/DruidRavenBody.cs": "f34e4016a289f4e12dadd2bc65fbe7d5bacb389af17a17d7136d37f16b5b539c",
     "src/Sanctuary.Content/DruidRavenCasting.cs": "f6eea3ad0cab281e374bac35b134a6148dbce93b8f013d81dbeafdc5c973e6d3",
     "src/Sanctuary.Content/DruidRavenMotion.cs": "9bc5a129c5b3ad1dc4f0fc787a01ea260434c2ec00112c19f75bbfbb94cb9865",

@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "4f2936f6c45e63a1a76998f16437c53ed8daabf9f7f4820dc65f2ecbf29be32e",
-  "ContentAssemblyPath": ".local/class-skills/druid-form-model/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "feb5700c027d46d71646b9aea69c10a811de7bad713c1ae10d42a73c91d8e83c",
+  "ContentAssemblyPath": ".local/class-skills/druid-form-world/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -11,8 +11,8 @@
     "src/Sanctuary.Content/ActionTiming.cs": "642f1c566222acb32f41f0a39ccf832a1a7900578d5f97040131d4d893c0227b",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "e5caf9f2ab07da6a6231ba9ca50b43e332badd3b3f121648abda79f059a58b51",
-    "src/Sanctuary.Content/ClassResources.cs": "5f1ec5c0effcb8ffba6a2b0bcea7b823455a39072c34c03239741f4c9f0d305d",
-    "src/Sanctuary.Content/ClassStats.cs": "57395f11f9d34324acc910b87cf4d19642f216d375de15a7f2f8292b6f6fdc67",
+    "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
+    "src/Sanctuary.Content/ClassStats.cs": "13574ff7aac6925504df2b43362056cce734c533ce8d6a6b8f1a79e7baad6964",
     "src/Sanctuary.Content/CreatureGold.cs": "8fa128ddc61d11b2bb696eb012e0d13ff6dad6978cfc8ba0cf32a9d80a25081a",
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",

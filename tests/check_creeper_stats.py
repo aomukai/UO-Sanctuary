@@ -8,6 +8,7 @@ import shutil
 import socket
 import struct
 import threading
+import time
 from check_raven_stats import drain
 import tempfile
 from check_britain import ROOT, SERVER, Session
@@ -19,7 +20,8 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=(), extra_probe_files=()):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=(), extra_probe_files=(), extra_wait_results=None, between_boot_delay=0):
+    assert 0 <= between_boot_delay <= 60
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -94,6 +96,9 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                     for command in commands:
                         session.send(command)
                         assert session.expect(command + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
+                        if extra_wait_results and command in extra_wait_results:
+                            result = extra_wait_results[command]
+                            assert session.expect(result + r': (passed|failed)', timeout=120).group(1) == 'passed', logpath.read_text()[-5000:]
                     with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
                         threading.Thread(target=drain, args=(client,), daemon=True).start()
                         session.send('creeper-world-live-check')
@@ -132,6 +137,8 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
                     session.close()
+                if boot < 2 and between_boot_delay:
+                    time.sleep(between_boot_delay)
         shutil.copy2(folder / 'spirit-wolf-world-fixtures.json', STAGE / 'wolf-world-fixtures.json')
         shutil.copy2(folder / 'creeper-world-fixtures.json', STAGE / 'world-fixtures.json')
         shutil.copy2(folder / 'creeper-ground-fixtures.json', STAGE / 'ground-fixtures.json')

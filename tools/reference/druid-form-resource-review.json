@@ -1,0 +1,140 @@
+{
+  "referenceVersion": "3.3.93847",
+  "reviewOnly": true,
+  "precisionGapResolved": false,
+  "table": {
+    "path": ".local/research/d2r-3.3.93847/itemstatcost-barbs-verified.txt",
+    "sha256": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8",
+    "publicSha256": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+    "corroboratedFields": 81,
+    "rows": {
+      "hitpoints": {
+        "Stat": "hitpoints",
+        "*ID": "6",
+        "Send Bits": "32",
+        "Saved": "1",
+        "CSvSigned": "0",
+        "CSvBits": "21",
+        "ValShift": "8",
+        "direct": "1",
+        "maxstat": "maxhp",
+        "*eol": "0"
+      },
+      "maxhp": {
+        "Stat": "maxhp",
+        "*ID": "7",
+        "Send Bits": "32",
+        "Saved": "1",
+        "CSvSigned": "0",
+        "CSvBits": "21",
+        "fCallback": "1",
+        "fMin": "1",
+        "MinAccr": "1",
+        "Add": "56",
+        "Multiply": "20",
+        "ValShift": "8",
+        "1.09-Save Bits": "8",
+        "1.09-Save Add": "32",
+        "Save Bits": "9",
+        "Save Add": "32",
+        "descpriority": "59",
+        "descfunc": "19",
+        "descstrpos": "ModStr1u",
+        "descstrneg": "ModStr1u",
+        "*eol": "0"
+      },
+      "stamina": {
+        "Stat": "stamina",
+        "*ID": "10",
+        "Send Bits": "32",
+        "Saved": "1",
+        "CSvSigned": "0",
+        "CSvBits": "21",
+        "ValShift": "8",
+        "keepzero": "1",
+        "direct": "1",
+        "maxstat": "maxstamina",
+        "*eol": "0"
+      },
+      "maxstamina": {
+        "Stat": "maxstamina",
+        "*ID": "11",
+        "Send Bits": "32",
+        "Saved": "1",
+        "CSvSigned": "0",
+        "CSvBits": "21",
+        "fCallback": "1",
+        "fMin": "1",
+        "MinAccr": "0",
+        "Add": "75",
+        "Multiply": "20",
+        "ValShift": "8",
+        "1.09-Save Bits": "8",
+        "1.09-Save Add": "32",
+        "Save Bits": "8",
+        "Save Add": "32",
+        "descpriority": "51",
+        "descfunc": "19",
+        "descstrpos": "ModStr5d",
+        "descstrneg": "ModStr5d",
+        "*eol": "0"
+      },
+      "item_maxhp_percent": {
+        "Stat": "item_maxhp_percent",
+        "*ID": "76",
+        "Signed": "1",
+        "Send Bits": "16",
+        "Add": "32093",
+        "Multiply": "204",
+        "1.09-Save Bits": "6",
+        "1.09-Save Add": "10",
+        "Save Bits": "6",
+        "Save Add": "10",
+        "op": "11",
+        "op stat1": "maxhp",
+        "descpriority": "58",
+        "descfunc": "19",
+        "descstrpos": "ModStr2g",
+        "descstrneg": "ModStr2g",
+        "*eol": "0"
+      },
+      "skill_staminapercent": {
+        "Stat": "skill_staminapercent",
+        "*ID": "162",
+        "Signed": "1",
+        "Send Bits": "13",
+        "op": "1",
+        "op stat1": "maxstamina",
+        "*eol": "0"
+      }
+    }
+  },
+  "legacySource": {
+    "commit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+    "path": "source/D2Common/src/D2StatList.cpp",
+    "sha256": "8c1710c5cd14295f67aaadf905f827e01475197137f9af2cc191d23a85a613d4",
+    "routineHashes": {
+      "D2Common_11248": "85ddbb36a584ad37e2a4ef6d10642784f4e24c0695a447031b88f560b6edc3d4",
+      "STATLIST_GetMaxLifeFromUnit": "be5bd3a91b82c3feebef396d44d29fa0a75a8696de2f302638b7578195319974",
+      "STATLIST_GetMaxStaminaFromUnit": "5171404f6050cf47e351a50ff53345f9fb45c44f614122c8c0c8f19f8a1cea4b"
+    }
+  },
+  "nativeInputs": {
+    "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",
+    "src/Sanctuary.Content/SkillHealth.cs": "af33a6e6a92ed69241292ae0929d1080fea2006404590c02cc91a7d18262d257",
+    "src/Sanctuary.Content/ClassStats.cs": "13574ff7aac6925504df2b43362056cce734c533ce8d6a6b8f1a79e7baad6964"
+  },
+  "removalObservationSha256": "cb75544f593b1168f69aaa38a8fc67f046c48519c1637c33676d7c22ed23d8db",
+  "established": [
+    "Current hitpoints/maxhp and stamina/maxstamina use ValShift8. Form life belongs to item_maxhp_percent op11/maxhp; wolf stamina belongs to skill_staminapercent op1/maxstamina. These are existing resource-percentage channels,not independent multiplicative maxima.",
+    "The complete legacy max-life/stamina getters return the total raw stat through D2Common_11248without an integer-life shift. The current table precision agrees with retaining FP256 maxima.",
+    "Current ClassResourceParts retains FP256 while calculating maximums,but NativeMaximum truncates before the native player getter. SkillHealth.Maximum256then reconstructs a managed player maximum from native integer HitsMax. Therefore native form ratio checks on those projected maxima do not establish full source precision.",
+    "User observations corroborate proportional life entering and voluntarily leaving forms. Prepared saved form tests can establish correct percentage pools,proportional projected transitions and unchanged saved fractional injuries independently of this still-open maximum precision gap."
+  ],
+  "next": [
+    "Before certifying or enabling complete learned player forms,provide a consistent exact player-resource maximum contract with compatible native storage/display projection. Cover clamping,regeneration,damage/healing,BO/aura/gear changes and fraction persistence; do not patch only a form getter while another ledger still assumes integer maxima.",
+    "Retain the current prepared-world scope and immutable packages while a later candidate fixes precision. This is an existing shared player-resource limitation,not an approved Sanctuary deviation or proof of complete Druid mechanics.",
+    "Compose transformed basic-attack additional AR/SrcDam and modern animation/attack rates separately from the generic stat-pool hooks. Final body/effects/audio/icons remain independent."
+  ]
+}

@@ -48,7 +48,7 @@ public static class ClassResources
         var scaled=PerLevel(owner,code);
         int flat=AosAttributes.GetValue(owner,resource==0?AosAttribute.BonusHits:resource==1?AosAttribute.BonusStam:AosAttribute.BonusMana)-scaled.Projected;
         long base256=(long)(initial+flat)*256+((long)(profile.Level-1)*growth+(long)attribute*coefficient)*64;
-        int skill=extraSkillPercent+BattleOrders.Percent(owner)+(resource==0?ClassGear.Bonus(owner,"hp%")+DruidOakAuras.Percent(owner):resource==2?ClassGear.Bonus(owner,"mana%"):PaladinVigor.StaminaPercent(owner));
+        int skill=extraSkillPercent+BattleOrders.Percent(owner)+(resource==0?ClassGear.Bonus(owner,"hp%")+DruidOakAuras.Percent(owner)+DruidPlayerForms.LifePercent(owner):resource==2?ClassGear.Bonus(owner,"mana%"):PaladinVigor.StaminaPercent(owner)+DruidPlayerForms.StaminaPercent(owner));
         int passive=resource==1?BarbarianCombat.Passive(owner,CombatAbility.IncreasedStamina):0;
         return new(base256,(long)bonusAttribute*coefficient*64,scaled.Exact256,skill,passive);
     }

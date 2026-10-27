@@ -112,7 +112,7 @@ public static class ClassStats
         return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
     }
     internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
-        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player);
+        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {
@@ -147,7 +147,7 @@ public static class ClassStats
                     armor += ClassGear.Defense(item);
                 }
             }
-            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player));
+            return AmazonInnerSight.Defense(player,player.Dex / 4 + armor + NamedGear.SetBonus(player,"ac"),SorceressEffects.Defense(player)+PaladinAuras.DefensePercent(player)+HolyShields.DefensePercent(player)+BarbarianCombat.Passive(player,CombatAbility.IronSkin)+BarbarianConcentrate.Defense(player)+BarbarianShout.Defense(player)+CloakShadows.Defense(player)+NecromancerEffects.DefenseStatPercent(player)+DruidPlayerForms.ArmorPercent(player));
         }
         return Math.Max(0, mobile.Dex / 4 + (int)mobile.ArmorRating);
     }
@@ -194,7 +194,7 @@ public static class ClassStats
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
         }
-        return statBonus + NamedGear.SetBonus(player, "dmg%") + CombatAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2);
+        return statBonus + NamedGear.SetBonus(player, "dmg%") + CombatAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2)+DruidPlayerForms.DamagePercent(player);
     }
     internal static int WeaponStatPercent(int strength,int dexterity,int strengthBonus,int dexterityBonus)
         =>(int)((long)strengthBonus*strength/100+(long)dexterityBonus*dexterity/100);

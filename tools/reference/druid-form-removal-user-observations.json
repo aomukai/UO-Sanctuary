@@ -1,0 +1,13 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user reply in this task,2026-10-28",
+  "questionContext": "When leaving Werewolf/Werebear while injured, whether life percentage is retained in human form too",
+  "observed": {
+    "relativeLifeOnRemoval": true,
+    "verbatim": "yep, relative health stays"
+  },
+  "interpretation": [
+    "Corroborates proportional current life on voluntary return to human as well as the separately reported form-entry behavior.",
+    "Using the same proportional removal transaction for expiry follows the shared state-removal path; expiry itself was not separately observed. Exact FP256 rounding, minimum-life forced unshift and modern stat refresh remain separate acceptance scopes."
+  ]
+}
