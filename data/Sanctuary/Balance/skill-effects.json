@@ -2510,7 +2510,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared spirit uses silent UO wisp0x3A/violet hue0x48D and the explicit Spirit of Barbs [placeholder] name. Final X4 body/emergence/walk/hurt/death, spirit_of_barbs recipient/control overlays, retaliation contact and spirit/summon audio remain pending. Shared retaliation flash0x374A/hue0x481 is a placeholder. Talent/right/quick icons stay separate text labels; learned casting remains disabled."
+    "placeholder": "Prepared spirit uses silent UO wisp0x3A/violet hue0x48D and the explicit Spirit of Barbs [placeholder] name. Final X4 body/emergence/walk/hurt/death, spirit_of_barbs recipient/control overlays, retaliation contact and spirit/summon audio remain pending. Shared retaliation flash0x374A/hue0x481 is a placeholder. Talent/right/quick icons stay separate text labels. Learned SC/right/quick casting uses the shared identified pose and0x1E5 summon-sound placeholders."
   },
   {
     "talentId": "druid.summongrizzly",

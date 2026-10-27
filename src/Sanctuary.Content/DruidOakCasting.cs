@@ -10,11 +10,12 @@ public static class DruidOakCasting
     internal static Func<int> SeedLow=()=>unchecked((int)Random.Shared.NextInt64(1L<<32));
     internal static Func<PlayerMobile,Point3D,DateTime,ulong,DruidOakBody> Spawn=(p,point,at,seed)=>DruidOakWorld.Create(p,point,at,seed);
     internal static Func<PlayerMobile,Point3D,DateTime,ulong,DruidOakBody> WolverineSpawn=(p,point,at,seed)=>DruidOakWorld.Create(p,point,at,seed,CombatAbility.HeartOfWolverine);
+    internal static Func<PlayerMobile,Point3D,DateTime,ulong,DruidOakBody> BarbsSpawn=(p,point,at,seed)=>DruidOakWorld.Create(p,point,at,seed,CombatAbility.SpiritOfBarbs);
     public static void Initialize()=>ClassMapHooks.LocationChanged+=Moved;
     private static void Moved(Mobile mobile)
     {
         if(World.Loading||mobile is not PlayerMobile owner){return;}var action=ClassCombat.For(owner);
-        if((action.PendingAbility is CombatAbility.OakSage or CombatAbility.HeartOfWolverine)&&(owner.Map!=action.ActionMap||owner.Location!=action.ActionOrigin)){ClassCombat.Stop(owner);}
+        if((action.PendingAbility is CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs)&&(owner.Map!=action.ActionMap||owner.Location!=action.ActionOrigin)){ClassCombat.Stop(owner);}
     }
     internal static bool Destination(PlayerMobile owner,Serial selected,Point3D point,bool release,out Point3D result)
         =>DruidSpiritWolfCasting.Destination(owner,selected,point,release,out result);
@@ -30,10 +31,10 @@ public static class DruidOakCasting
             ||!Destination(owner,selected,cached,true,out var point)){return false;}
         var values=SkillMechanics.Values(owner,ability);
         if(row.Number("srvdofunc")!=119||row.Number("InTown")!=1||row.Text("anim")!="SC"||row.Text("pettype")!="totem"
-            ||values.Mana256!=((ability==CombatAbility.OakSage?14:19)+values.Rank)*256||values.Eval("petmax")!=1){throw new NotSupportedException("Unsupported shared spirit casting route");}
+            ||values.Mana256!=((ability switch{CombatAbility.OakSage=>14,CombatAbility.HeartOfWolverine=>19,CombatAbility.SpiritOfBarbs=>24,_=>throw new NotSupportedException()})+values.Rank)*256||values.Eval("petmax")!=1){throw new NotSupportedException("Unsupported shared spirit casting route");}
         if(!NecromancerEffects.CanPay(owner,values.Mana256)){return false;}
         DruidOakBody created;
-        try{created=(ability==CombatAbility.OakSage?Spawn:WolverineSpawn)(owner,point,at,SourceRandom.InitLow(SeedLow()));}
+        try{created=(ability switch{CombatAbility.OakSage=>Spawn,CombatAbility.HeartOfWolverine=>WolverineSpawn,CombatAbility.SpiritOfBarbs=>BarbsSpawn,_=>throw new NotSupportedException()})(owner,point,at,SourceRandom.InitLow(SeedLow()));}
         catch(Exception e) when(e is ArgumentException or NotSupportedException){return false;}
         if(created==null){return false;}
         if(created.SpiritAbility!=ability||created.ControlMaster!=owner){created.Delete();return false;}
@@ -64,6 +65,8 @@ internal static class DruidSpirits
     internal static DruidOakBody[] Oaks(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<DruidOakBody>()
         .Where(p=>p is{Alive:true,Deleted:false}&&p.SpiritAbility==CombatAbility.OakSage&&p.ControlMaster==owner).OrderBy(BattleCommand.PetOrder).ToArray();
     internal static DruidWolverineBody[] Hearts(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<DruidWolverineBody>()
+        .Where(p=>p is{Alive:true,Deleted:false}&&p.ControlMaster==owner).OrderBy(BattleCommand.PetOrder).ToArray();
+    internal static DruidBarbsBody[] Barbs(PlayerMobile owner)=>(owner.AllFollowers??[]).OfType<DruidBarbsBody>()
         .Where(p=>p is{Alive:true,Deleted:false}&&p.ControlMaster==owner).OrderBy(BattleCommand.PetOrder).ToArray();
     internal static void Replace(PlayerMobile owner,SkeletonGuardian replacement)
     {

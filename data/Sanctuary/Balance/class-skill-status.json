@@ -1978,10 +1978,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 246,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick route uses24+effective rank mana after allocation and shared Oak/Heart/Barbs replacement. Saved vulnerable body,Totem movement and flat-ATD leases reuse the verified spirit core with213life/196defense,25percent birth scaling,39FP regeneration and X4walking248. Item/gem/flat Thorns values join Barbs before one mitigation packet; percentage Thorns remains separate. Native acceptance and installation status are in the current checkpoint. Full HP/death/event chronology,item-only/exceptional NPC/PvP/producer,current timing/room/geometry/path/AStar and graphical limits remain explicit. Final effects/audio and talent/right/quick icons are separate placeholders; no class completion."
     },
     {
       "talentId": "druid.summongrizzly",

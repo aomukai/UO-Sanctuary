@@ -186,7 +186,7 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 | Druid | Heart of Wolverine | needed | heartofwolverine |
 | Druid | Summon Dire Wolf | needed | fenris |
 | Druid | Solar Creeper | needed | vine_beast, vinecreature |
-| Druid | Spirit of Barbs | needed | Final X4 spirit body/emergence/walk/hurt/death, spirit_of_barbs recipient/control overlays, retaliation contact and summon/spirit audio; no final assets enabled. Mechanics use explicitly named placeholders when the actor is added. |
+| Druid | Spirit of Barbs | needed | spiritofbarbs |
 | Druid | Summon Grizzly | needed | druidbear |
 | Assassin | Tiger Strike | needed | progressive_damage, assassinfootimpact, tigerstrike1 |
 | Assassin | Dragon Talon | needed | No source effect cue; final presentation pending |
