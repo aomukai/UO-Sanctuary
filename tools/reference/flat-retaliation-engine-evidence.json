@@ -1,0 +1,28 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "sourceFile": "source/D2Game/src/SKILLS/SkillItem.cpp",
+  "sourceSha256": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696",
+  "unchangedRoutineSha256": "36ac7f6677137cf300e8790aaeb14e871a6b741c4201e56cf1f7588ad3b0ae10",
+  "primaryDataHashes": {
+    "properties": "49fa7e80b7c889bb4fec0a4d75a165200b3812f77806e4f66c14e5ee4b8b6c34",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237"
+  },
+  "fixture": {
+    "path": ".local/class-skills/flat-retaliation-source-probe.json",
+    "sha256": "7ff1d70a94f7dd9dd58149dc9472495d313d8419c1815c5f917fbd75338cc649",
+    "cases": 40,
+    "generatedSourceSha256": "47b4d08281996cc96b2baee5958114f87bca6a82beebde2caf4c9032fb8f4c6b",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Current property thorns maps to item_attackertakesdamage/stat78, whose callback is attackedinmelee/function6. Compatible item/gem/ordinary-affix values therefore belong in the same flat stat as Barbs and the flat part of Thorns.",
+    "Complete callback executes40 contexts. It reads one supplied aggregate, ignores nonpositive values and invalid/null endpoints, and dispatches one physical aggregate<<8 packet with bearer credit, hitclass0x8D and result0x4021. Rank does not independently multiply that supplied aggregate."
+  ],
+  "boundedServices": [
+    "Stat aggregation and full ExecuteEvents/ExecuteMissileDamage mitigation/callback/death behavior are recording services. This probe does not implement native aggregation or prove the current executable.",
+    "A null incoming damage pointer is accepted by this callback. Whether miss/block/no-damage attempts dispatch it is a separate caller/event-registration contract, not established by these calls.",
+    "Lightning retaliation/function10 is a separate stat/packet; Iron Maiden/function4 is an earlier attacker damage event. Neither should be silently folded into this physical flat stat."
+  ]
+}
