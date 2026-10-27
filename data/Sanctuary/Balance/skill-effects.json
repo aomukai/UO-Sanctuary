@@ -2430,7 +2430,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Numeric preparation only; no Oak actor or aura visuals enabled. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders."
   },
   {
     "talentId": "druid.summonspiritwolf",

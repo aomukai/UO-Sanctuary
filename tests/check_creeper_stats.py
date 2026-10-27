@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check():
+def check(extra_commands=(), extra_probes=()):
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -41,7 +41,7 @@ def check():
         for name, kind in [('Sanctuary.Content.dll', 'content'), ('Sanctuary.Integration.dll', 'integration')]:
             (folder / 'Assemblies' / name).symlink_to(STAGE / kind / name)
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
-        for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation']:
+        for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', *extra_probes]:
             shutil.copy2(ROOT / '.local/class-skills' / (name + '-source-probe.json'), folder / (name + '-source-probe.json'))
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
@@ -61,6 +61,7 @@ def check():
         paths = [p for directory in ['src/Sanctuary.Content', 'shared', 'tests/Sanctuary.Integration'] for p in (ROOT / directory).glob('*.cs')]
         paths += [Path(__file__).resolve(), ROOT / '.local/class-skills/raven-components-source-probe.json', ROOT / '.local/class-skills/valkyrie-creation-source-probe.json']
         paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path']]
+        paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in extra_probes]
         inventory = dict(sourceInputs={str(p.relative_to(ROOT)): sha(p) for p in sorted(paths)},
                          copiedData={str(p.relative_to(folder)): sha(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
                          artifacts={str(p.relative_to(folder)): sha(p) for p in [folder / 'ModernUO.dll', folder / 'Server.dll', folder / 'Assemblies/UOContent.dll', folder / 'Assemblies/Sanctuary.Content.dll', folder / 'Assemblies/Sanctuary.Integration.dll']})
@@ -74,6 +75,8 @@ def check():
                     if ready.group(0).startswith('create'):
                         session.send('n'); session.expect('Listening: 127.0.0.1:' + str(port))
                     commands = ['creeper-ai-check', 'creeper-stats-check', 'creeper-fields-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
+                    if boot == 0:
+                        commands[:0] = extra_commands
                     commands.append('spirit-wolf-world-check' if boot == 0 else 'spirit-wolf-world-reload-check')
                     commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
                     commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')

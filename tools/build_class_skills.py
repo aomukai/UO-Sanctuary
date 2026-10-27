@@ -136,6 +136,13 @@ public static class ClassAbilities
 def products():
     talents, rows, assets = compile_skills()
     source_skills = json.loads((SOURCE / 'json/skills.json').read_text())
+    oak = next(row for row in rows if row['talentId'] == 'druid.oaksage')
+    oak_aura = source_skills['298']
+    assert oak_aura['skill'] == 'Oak Sage Aura' and oak_aura['aurastat1'] == 'item_maxhp_percent'
+    spirit_auras = [{**oak, 'name':oak_aura['skill'], 'sourceId':298, 'sourceKey':oak_aura['skill'],
+        'left':False, 'right':False,
+        'sourceFields':{k:v for k,v in oak_aura.items() if not k.startswith('*') and k != 'lineNumber'},
+        'sourceParameters':{str(i):oak_aura.get('Param'+str(i),0) for i in range(1,13)}}]
     death = next(row for row in rows if row['talentId'] == 'assassin.deathsentry')
     sentry_npc = []
     for source_id in (312, 324):
@@ -148,7 +155,7 @@ def products():
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
+               if r.get('Id','').lower() in ['oaksage','spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
     raven_properties = json.loads((ROOT/'tools/reference/raven-preflight.json').read_text())['currentRows']['monprop']
     assert [raven_properties[k] for k in ['Id','prop1','min1','max1','prop1 (N)','min1 (N)','max1 (N)','prop1 (H)','min1 (H)','max1 (H)']] == ['druidhawk'] + ['stupidity','-1','-1']*3
     summons += [{'key':'druidhawk-properties','fields':{'item_stupidity':int(raven_properties['min1'])}}]
@@ -179,6 +186,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'druid.oaksage':'Numeric preparation only; no Oak actor or aura visuals enabled. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders.',
         'druid.poisoncreeper':'Prepared saved body is named Poison Creeper [placeholder], uses UO corpser body0x8 and is silent. This visible vulnerable preparation does not implement underground VINE_BEAST visibility. Final K9 body, underground/surface/attack, plague-vines/head/mat/wither and vine/summon audio remain pending; talent/right/quick icons are separate.',
         'druid.summonspiritwolf':'Prepared actor is named Spirit Wolf [placeholder], uses UO body0xE1 and silent sound. Cold-state marker0x374A/hue0x480 is temporary. Final wolf body/emergence, walk/run, bite/contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent/right/quick icons stay in the separate icon register.',
         'druid.armageddon':'Native self weather, delayed fall and ground fire use identified UO0x36D4/0x3709/0x398C hue0x489 markers and0x1E5 cast-audio placeholder. Final falling rock/tail, terminal explosion/crater, persistent fire, cast/weather/expiry/audio and separate talent/right/quick icons remain pending. Marker animations do not control6/25/37-frame mechanics.',
@@ -294,6 +302,7 @@ def products():
            ROOT/'data/Sanctuary/talents.json':json.dumps(talents,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-skills.json':json.dumps(rows,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/sentry-npc-skills.json':json.dumps(sentry_npc,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/druid-spirit-auras.json':json.dumps(spirit_auras,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-states.json':json.dumps([dict(state=r['state'],curse=bool(r.get('curse')),curable=bool(r.get('curable'))) for r in json.loads((SOURCE/'json/states.json').read_text()).values() if r.get('state')],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-icons.json':json.dumps(icons,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-effects.json':json.dumps(effects,indent=2)+'\n',

@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "unchangedRoutineHashes": {
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvDo119_DruidSummon": "7ae4129af2551c6669d90cf920388326ecd88660aa546bbae30255f4a5925123"
+  },
+  "fixture": {
+    "path": ".local/class-skills/oak-sage-source-probe.json",
+    "sha256": "42857eb2dbb8ecd3958df166623d2bd841a79aad0c188dbc06402307a6aee7d7",
+    "cases": 186
+  },
+  "generatedSourceSha256": "7f78306ec11a076d56b2d188671fc885e3aa317602fcb47cd152f41bf8ef1f5d",
+  "levelDataSha256": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b",
+  "established": [
+    "180complete do119/base/passive/percentage compositions and6failure branches execute unchanged older routines with ASan/UBSan. Explicit owner level, difficulty/game-context monlvl addition, fractional birth life, two poison passives, aura grant/right assignment and equipment request are compared.",
+    "Do119fails for missing row,negative summon,invalid pet category,missing target coordinates or failed allocation. The latter two paths set the server-do flag before failure. This is an internal route comparison, not a tested learned release or resource rollback."
+  ],
+  "boundedServices": [
+    "Spawn supplies current noRatio60life/49defense/zero AR and11FP regeneration; this probe does not compile the full monster initializer. Fractional+17FP is an independent percentage control.",
+    "Formula callbacks use the pinned current row; stat and level-table layout is bounded; equipment creation,node/AI binding,target coordinates and aura grant dispatch are recorded services. No aura recipient, stat lease or world entity is instantiated.",
+    "The complete older passive loop has five slots; current Oak has two, both covered. Current executable event/RNG/geometry/timing equivalence is unverified."
+  ]
+}
