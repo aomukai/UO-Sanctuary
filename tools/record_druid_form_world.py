@@ -97,7 +97,7 @@ def record(check=False, full_class=False):
         assert next(row for row in status['skills'] if row['talentId'] == talent)['implementation'] != 'handler-present'
     artifacts += [ROOT / name for name in ['tools/record_druid_form_world.py', 'tests/check_druid_form_world.py', 'tests/check_creeper_stats.py',
         'tools/review_druid_form_resources.py', 'tools/reference/druid-form-resource-review.json', 'tools/reference/druid-form-removal-user-observations.json',
-        'tools/reference/druid-forms-compatibility-review.json']]
+        'tools/reference/druid-forms-compatibility-review.json', 'docs/balance-foundations.md']]
     result = dict(referenceVersion='3.3.93847', installed=False, playerFormHandlersEnabled=False, handlers=172, druidHandlers=16, completedClasses=[], goalComplete=False,
         verified=dict(passMarkers=58, boots=3, actualReloads=2, strictSnapshotGuards=2, naturalTimerExpiry=1, offlineExpiredReloads=2,
             nativePlayerContexts=350, pythonTests=70, namedDefinitions=573, inputFingerprints=[len(audit['InputHashes']) for audit in audits],
@@ -112,7 +112,7 @@ def record(check=False, full_class=False):
             'The prepared factory requires a live trained Druid and entering from human. It refuses replacement rather than guessing current Param12cross-form semantics. No learned casting/mana transaction,input,body/rate/restriction or oskill handler is enabled. Coverage remains172/Druid16and zero completed classes.',
             'Retained source/model,summon,BO,named and affix consumers pass. The first failure was a test assuming BO removal cannot rescale mana; the second exposed an asynchronous BO result running behind heavy commands. The shared harness now optionally waits for explicit results,with unchanged defaults for other callers. All70Python tests pass and655/21fingerprints preserve573named decisions.',
         ], remaining=[
-            'Current managed-player NativeMaximum truncates FP256maxima before SkillHealth reconstructs them from integer HitsMax. The pinned statcost/source review proves this shared precision gap; resolve a consistent exact player-resource/storage/display contract before certifying or enabling complete forms. Projected ratio/injury tests do not certify full source maxima or rounding.',
+            'Current managed-player NativeMaximum truncates FP256maxima before SkillHealth reconstructs them from integer HitsMax. The authoritative foundation explicitly approves whole native maxima/65000projection,which takes precedence. Keep this documented source divergence; no global precision rewrite is required. Current-pool rounding beyond the verified source/projected cases remains separate.',
             'Current direct cross-form Param12eligibility/payment/timing,post-2.4attack rates,transformed basic extraAR/SrcDam,skill/weapon restrictions and form-specific cast/block/hurt/movement clocks remain unfinished. Captured attackrate/concentration need real consumers; low-life forced removal and modern stat-refresh transport remain separate.',
             'Learned15mana/right+quick/free-same-form-unshift/cancellation/global25frame delay and casting rollback remain pending. Final models40/TGbody/motion/transformation/contact/audio and separate tree/right/quick/passive icons remain placeholders. Main stays on the preserved Grizzly installation; this component is not a finished class or current-executable certificate.',
         ])

@@ -20,10 +20,10 @@
       655,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenModelAcceptance": {
     "commit": "76727ed",
@@ -999,13 +999,19 @@
     "tools/reference/named-item-runtime-audit.json": "7dbc75b3a9c2d529816af6524f4ebd70bb0591bdefdf07ebfe4fdebf985f3f30",
     ".local/class-skills/druid-form-world/first-loop-affix-audit.json": "13b056cec6543ab725de30c6e09773440453e8501e9d94384078ddb0bba83beb",
     "tools/reference/first-loop-affix-audit.json": "13b056cec6543ab725de30c6e09773440453e8501e9d94384078ddb0bba83beb",
-    "tools/record_druid_form_world.py": "925aa2eafb8b54f09613bd4c811301e6f2c2632b78ed5537a9aa2a52d7a47a9d",
+    ".local/class-skills/druid-form-world/full-named-item-runtime-audit.json": "7dbc75b3a9c2d529816af6524f4ebd70bb0591bdefdf07ebfe4fdebf985f3f30",
+    ".local/class-skills/druid-form-world/full-first-loop-affix-audit.json": "13b056cec6543ab725de30c6e09773440453e8501e9d94384078ddb0bba83beb",
+    ".local/class-skills/druid-form-world/class-inputs.json": "00e3db31c9dd5afcf72ae070a4b7fc180d594c4a66ff4470eac256d78b7cb5f4",
+    ".local/class-skills/druid-form-world/class-native-checks.log": "22bbd1b28797ebae57003e6f6d1513007b23d0d21852e9e61c5655fbe896a363",
+    ".local/class-skills/druid-form-world/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    "tools/record_druid_form_world.py": "0566506488534464ed35937c14bc54bc33d0d13f2ee5e2a70ac053be672fe883",
     "tests/check_druid_form_world.py": "7a15fb1cf21e503440c936ca15376713d779fe55820b15ff5dbc2ed882abeda9",
     "tests/check_creeper_stats.py": "6341cf1ca5258c8a543dc907d726685b39bdf5887e27651ca83d6ee3cb8a06ce",
-    "tools/review_druid_form_resources.py": "cf05cf6ec26ef7037548244044ab0d3a6f38d462ff9c0706142895851145d2c1",
-    "tools/reference/druid-form-resource-review.json": "bab4d44ebad8783bd385a3db7ba02cfb12c3fe18a9bdd11159e7dd82afffb83f",
+    "tools/review_druid_form_resources.py": "3bc8df39b90d736403a759442cbc0f2cc11671b4c0bb2a2892e4163e76645e3a",
+    "tools/reference/druid-form-resource-review.json": "2f65564a6132b7c3b688324ae0629eaf0e6d6204cdb52b17d95c282375661e30",
     "tools/reference/druid-form-removal-user-observations.json": "cb75544f593b1168f69aaa38a8fc67f046c48519c1637c33676d7c22ed23d8db",
-    "tools/reference/druid-forms-compatibility-review.json": "1949cb16fa290a38824d6a16efd3950d9eb8a50edf7efb74cae0f64d8f2a23b6"
+    "tools/reference/druid-forms-compatibility-review.json": "1949cb16fa290a38824d6a16efd3950d9eb8a50edf7efb74cae0f64d8f2a23b6",
+    "docs/balance-foundations.md": "8723a7e5df2276e6c92ddf063bd03691e4af86348028169e682ca9862b46b8de"
   },
   "established": [
     "Prepared saved player form uses an immutable validated owner/rank/Lycan/modifier/UTC ledger and separate profile. Form life/stamina join existing ClassResources percentage pools,AR joins the player item-percent pool,bear physical damage joins shared weapon percent and armor joins existing skill defense. Attackrate/concentration remain captured but unconsumed.",
@@ -1016,7 +1022,7 @@
     "Retained source/model,summon,BO,named and affix consumers pass. The first failure was a test assuming BO removal cannot rescale mana; the second exposed an asynchronous BO result running behind heavy commands. The shared harness now optionally waits for explicit results,with unchanged defaults for other callers. All70Python tests pass and655/21fingerprints preserve573named decisions."
   ],
   "remaining": [
-    "Current managed-player NativeMaximum truncates FP256maxima before SkillHealth reconstructs them from integer HitsMax. The pinned statcost/source review proves this shared precision gap; resolve a consistent exact player-resource/storage/display contract before certifying or enabling complete forms. Projected ratio/injury tests do not certify full source maxima or rounding.",
+    "Current managed-player NativeMaximum truncates FP256maxima before SkillHealth reconstructs them from integer HitsMax. The authoritative foundation explicitly approves whole native maxima/65000projection,which takes precedence. Keep this documented source divergence; no global precision rewrite is required. Current-pool rounding beyond the verified source/projected cases remains separate.",
     "Current direct cross-form Param12eligibility/payment/timing,post-2.4attack rates,transformed basic extraAR/SrcDam,skill/weapon restrictions and form-specific cast/block/hurt/movement clocks remain unfinished. Captured attackrate/concentration need real consumers; low-life forced removal and modern stat-refresh transport remain separate.",
     "Learned15mana/right+quick/free-same-form-unshift/cancellation/global25frame delay and casting rollback remain pending. Final models40/TGbody/motion/transformation/contact/audio and separate tree/right/quick/passive icons remain placeholders. Main stays on the preserved Grizzly installation; this component is not a finished class or current-executable certificate."
   ]

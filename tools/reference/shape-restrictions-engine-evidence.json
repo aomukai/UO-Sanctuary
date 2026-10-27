@@ -1,0 +1,2459 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentTables": {
+    "skills": {
+      "filename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "publicSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "states": {
+      "filename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+      "publicSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    }
+  },
+  "corroboratedFields": 1192,
+  "statesCount": 232,
+  "currentSkills": [
+    {
+      "sourceId": 10,
+      "talentId": "amazon.jab",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 14,
+      "talentId": "amazon.powerstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 15,
+      "talentId": "amazon.poisonjavelin",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 19,
+      "talentId": "amazon.impale",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 20,
+      "talentId": "amazon.lightningbolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 24,
+      "talentId": "amazon.chargedstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 25,
+      "talentId": "amazon.plaguejavelin",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 30,
+      "talentId": "amazon.fend",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 34,
+      "talentId": "amazon.lightningstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 35,
+      "talentId": "amazon.lightningfury",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 8,
+      "talentId": "amazon.innersight",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 9,
+      "talentId": "amazon.criticalstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 13,
+      "talentId": "amazon.dodge",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 17,
+      "talentId": "amazon.slowmissiles",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 18,
+      "talentId": "amazon.avoid",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 23,
+      "talentId": "amazon.penetrate",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 28,
+      "talentId": "amazon.decoy",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 29,
+      "talentId": "amazon.evade",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 32,
+      "talentId": "amazon.valkyrie",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 33,
+      "talentId": "amazon.pierce",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 6,
+      "talentId": "amazon.magicarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 7,
+      "talentId": "amazon.firearrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 11,
+      "talentId": "amazon.coldarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 12,
+      "talentId": "amazon.multipleshot",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 16,
+      "talentId": "amazon.explodingarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 21,
+      "talentId": "amazon.icearrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 22,
+      "talentId": "amazon.guidedarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 27,
+      "talentId": "amazon.immolationarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 26,
+      "talentId": "amazon.strafe",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 31,
+      "talentId": "amazon.freezingarrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 39,
+      "talentId": "sorceress.icebolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 40,
+      "talentId": "sorceress.frozenarmor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 44,
+      "talentId": "sorceress.frostnova",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 45,
+      "talentId": "sorceress.iceblast",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 50,
+      "talentId": "sorceress.shiverarmor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 55,
+      "talentId": "sorceress.glacialspike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 59,
+      "talentId": "sorceress.blizzard",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 60,
+      "talentId": "sorceress.chillingarmor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 64,
+      "talentId": "sorceress.frozenorb",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 65,
+      "talentId": "sorceress.coldmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 38,
+      "talentId": "sorceress.chargedbolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 43,
+      "talentId": "sorceress.telekinesis",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 42,
+      "talentId": "sorceress.staticfield",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 49,
+      "talentId": "sorceress.lightning",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 48,
+      "talentId": "sorceress.nova",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 53,
+      "talentId": "sorceress.chainlightning",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 54,
+      "talentId": "sorceress.teleport",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 57,
+      "talentId": "sorceress.thunderstorm",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 58,
+      "talentId": "sorceress.energyshield",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 63,
+      "talentId": "sorceress.lightningmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 36,
+      "talentId": "sorceress.firebolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 37,
+      "talentId": "sorceress.warmth",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 41,
+      "talentId": "sorceress.inferno",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 46,
+      "talentId": "sorceress.blaze",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 47,
+      "talentId": "sorceress.fireball",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 51,
+      "talentId": "sorceress.firewall",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 52,
+      "talentId": "sorceress.enchant",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 56,
+      "talentId": "sorceress.meteor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 61,
+      "talentId": "sorceress.firemastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 62,
+      "talentId": "sorceress.hydra",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 70,
+      "talentId": "necromancer.raiseskeleton",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 69,
+      "talentId": "necromancer.skeletonmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 75,
+      "talentId": "necromancer.claygolem",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 79,
+      "talentId": "necromancer.golemmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 80,
+      "talentId": "necromancer.skeletalmage",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 85,
+      "talentId": "necromancer.bloodgolem",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 89,
+      "talentId": "necromancer.summonresist",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 90,
+      "talentId": "necromancer.irongolem",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 94,
+      "talentId": "necromancer.firegolem",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 95,
+      "talentId": "necromancer.revive",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 67,
+      "talentId": "necromancer.teeth",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 68,
+      "talentId": "necromancer.bonearmor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 73,
+      "talentId": "necromancer.poisondagger",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 74,
+      "talentId": "necromancer.corpseexplosion",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 78,
+      "talentId": "necromancer.bonewall",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 83,
+      "talentId": "necromancer.poisonexplosion",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 84,
+      "talentId": "necromancer.bonespear",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 88,
+      "talentId": "necromancer.boneprison",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 92,
+      "talentId": "necromancer.poisonnova",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 93,
+      "talentId": "necromancer.bonespirit",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 66,
+      "talentId": "necromancer.amplifydamage",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 71,
+      "talentId": "necromancer.dimvision",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 72,
+      "talentId": "necromancer.weaken",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 76,
+      "talentId": "necromancer.ironmaiden",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 77,
+      "talentId": "necromancer.terror",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 81,
+      "talentId": "necromancer.confuse",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 82,
+      "talentId": "necromancer.lifetap",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 86,
+      "talentId": "necromancer.attract",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 87,
+      "talentId": "necromancer.decrepify",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 91,
+      "talentId": "necromancer.lowerresist",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 99,
+      "talentId": "paladin.prayer",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 100,
+      "talentId": "paladin.resistfire",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 105,
+      "talentId": "paladin.resistcold",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 110,
+      "talentId": "paladin.resistlightning",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 104,
+      "talentId": "paladin.defiance",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 109,
+      "talentId": "paladin.cleansing",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 115,
+      "talentId": "paladin.vigor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 120,
+      "talentId": "paladin.meditation",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 124,
+      "talentId": "paladin.redemption",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 125,
+      "talentId": "paladin.salvation",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 98,
+      "talentId": "paladin.might",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 102,
+      "talentId": "paladin.holyfire",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 103,
+      "talentId": "paladin.thorns",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 108,
+      "talentId": "paladin.blessedaim",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 113,
+      "talentId": "paladin.concentration",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 114,
+      "talentId": "paladin.holyfreeze",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 118,
+      "talentId": "paladin.holyshock",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 119,
+      "talentId": "paladin.sanctuary",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 122,
+      "talentId": "paladin.fanaticism",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 123,
+      "talentId": "paladin.conviction",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 96,
+      "talentId": "paladin.sacrifice",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 97,
+      "talentId": "paladin.smite",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 101,
+      "talentId": "paladin.holybolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 106,
+      "talentId": "paladin.zeal",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 107,
+      "talentId": "paladin.charge",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 111,
+      "talentId": "paladin.vengeance",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 112,
+      "talentId": "paladin.blessedhammer",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 116,
+      "talentId": "paladin.conversion",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 117,
+      "talentId": "paladin.holyshield",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 121,
+      "talentId": "paladin.fistoftheheavens",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 130,
+      "talentId": "barbarian.howl",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 131,
+      "talentId": "barbarian.findpotion",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 138,
+      "talentId": "barbarian.shout",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 137,
+      "talentId": "barbarian.taunt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 146,
+      "talentId": "barbarian.battlecry",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 142,
+      "talentId": "barbarian.finditem",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 149,
+      "talentId": "barbarian.battleorders",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 150,
+      "talentId": "barbarian.grimward",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 154,
+      "talentId": "barbarian.warcry",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 155,
+      "talentId": "barbarian.battlecommand",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 127,
+      "talentId": "barbarian.swordmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 128,
+      "talentId": "barbarian.axemastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 129,
+      "talentId": "barbarian.macemastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 134,
+      "talentId": "barbarian.polearmmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 135,
+      "talentId": "barbarian.throwingmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 136,
+      "talentId": "barbarian.spearmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 141,
+      "talentId": "barbarian.increasedstamina",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 145,
+      "talentId": "barbarian.ironskin",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 148,
+      "talentId": "barbarian.increasedspeed",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 153,
+      "talentId": "barbarian.naturalresistance",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 126,
+      "talentId": "barbarian.bash",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 133,
+      "talentId": "barbarian.doubleswing",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 132,
+      "talentId": "barbarian.leap",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 140,
+      "talentId": "barbarian.doublethrow",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 139,
+      "talentId": "barbarian.stun",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 143,
+      "talentId": "barbarian.leapattack",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 144,
+      "talentId": "barbarian.concentrate",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 147,
+      "talentId": "barbarian.frenzy",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 151,
+      "talentId": "barbarian.whirlwind",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 152,
+      "talentId": "barbarian.berserk",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 225,
+      "talentId": "druid.firestorm",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 229,
+      "talentId": "druid.moltenboulder",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 230,
+      "talentId": "druid.arcticblast",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 234,
+      "talentId": "druid.fissure",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 235,
+      "talentId": "druid.cyclonearmor",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 240,
+      "talentId": "druid.twister",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 244,
+      "talentId": "druid.volcano",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 245,
+      "talentId": "druid.tornado",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 250,
+      "talentId": "druid.hurricane",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 249,
+      "talentId": "druid.armageddon",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 223,
+      "talentId": "druid.werewolf",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 224,
+      "talentId": "druid.lycanthropy",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 228,
+      "talentId": "druid.werebear",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 233,
+      "talentId": "druid.maul",
+      "restrict": 2,
+      "states": [
+        140,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 232,
+      "talentId": "druid.feralrage",
+      "restrict": 2,
+      "states": [
+        139,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 239,
+      "talentId": "druid.fireclaws",
+      "restrict": 2,
+      "states": [
+        139,
+        140,
+        -1
+      ]
+    },
+    {
+      "sourceId": 238,
+      "talentId": "druid.rabies",
+      "restrict": 2,
+      "states": [
+        139,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 243,
+      "talentId": "druid.shockwave",
+      "restrict": 2,
+      "states": [
+        140,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 242,
+      "talentId": "druid.hunger",
+      "restrict": 2,
+      "states": [
+        139,
+        140,
+        -1
+      ]
+    },
+    {
+      "sourceId": 248,
+      "talentId": "druid.fury",
+      "restrict": 2,
+      "states": [
+        139,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 221,
+      "talentId": "druid.raven",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 222,
+      "talentId": "druid.poisoncreeper",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 226,
+      "talentId": "druid.oaksage",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 227,
+      "talentId": "druid.summonspiritwolf",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 231,
+      "talentId": "druid.carrionvine",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 236,
+      "talentId": "druid.heartofwolverine",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 237,
+      "talentId": "druid.summondirewolf",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 241,
+      "talentId": "druid.solarcreeper",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 246,
+      "talentId": "druid.spiritofbarbs",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 247,
+      "talentId": "druid.summongrizzly",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 254,
+      "talentId": "assassin.tigerstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 255,
+      "talentId": "assassin.dragontalon",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 260,
+      "talentId": "assassin.dragonclaw",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 259,
+      "talentId": "assassin.fistsoffire",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 265,
+      "talentId": "assassin.cobrastrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 270,
+      "talentId": "assassin.dragontail",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 269,
+      "talentId": "assassin.clawsofthunder",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 274,
+      "talentId": "assassin.bladesofice",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 275,
+      "talentId": "assassin.dragonflight",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 280,
+      "talentId": "assassin.phoenixstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 252,
+      "talentId": "assassin.clawmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 253,
+      "talentId": "assassin.psychichammer",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 258,
+      "talentId": "assassin.burstofspeed",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 264,
+      "talentId": "assassin.cloakofshadows",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 263,
+      "talentId": "assassin.weaponblock",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 267,
+      "talentId": "assassin.fade",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 268,
+      "talentId": "assassin.shadowwarrior",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 273,
+      "talentId": "assassin.mindblast",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 278,
+      "talentId": "assassin.venom",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 279,
+      "talentId": "assassin.shadowmaster",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 251,
+      "talentId": "assassin.fireblast",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 256,
+      "talentId": "assassin.shockweb",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 257,
+      "talentId": "assassin.bladesentinel",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 261,
+      "talentId": "assassin.chargedboltsentry",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 262,
+      "talentId": "assassin.wakeoffire",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 266,
+      "talentId": "assassin.bladefury",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 271,
+      "talentId": "assassin.lightningsentry",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 272,
+      "talentId": "assassin.wakeofinferno",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 276,
+      "talentId": "assassin.deathsentry",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 277,
+      "talentId": "assassin.bladeshield",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 374,
+      "talentId": "warlock.demonicmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 373,
+      "talentId": "warlock.summongoatman",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 378,
+      "talentId": "warlock.bloodoath",
+      "restrict": 1,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 375,
+      "talentId": "warlock.deathmark",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 376,
+      "talentId": "warlock.summontainted",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 380,
+      "talentId": "warlock.bloodboil",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 377,
+      "talentId": "warlock.summondefiler",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 379,
+      "talentId": "warlock.engorge",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 381,
+      "talentId": "warlock.consume",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 382,
+      "talentId": "warlock.binddemon",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 383,
+      "talentId": "warlock.levitationmastery",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 385,
+      "talentId": "warlock.hexbane",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 391,
+      "talentId": "warlock.cleave",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 388,
+      "talentId": "warlock.echoingstrike",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 389,
+      "talentId": "warlock.hexpurge",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 390,
+      "talentId": "warlock.bladewarp",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 387,
+      "talentId": "warlock.psychicward",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 384,
+      "talentId": "warlock.eldritchblast",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 386,
+      "talentId": "warlock.hexsiphon",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 392,
+      "talentId": "warlock.mirroredblades",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 395,
+      "talentId": "warlock.miasmabolt",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 394,
+      "talentId": "warlock.ringoffire",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 393,
+      "talentId": "warlock.sigillethargy",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 396,
+      "talentId": "warlock.sigilrancor",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 399,
+      "talentId": "warlock.miasmachain",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 398,
+      "talentId": "warlock.flamewave",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 400,
+      "talentId": "warlock.sigildeath",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 397,
+      "talentId": "warlock.enhancedentropy",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 401,
+      "talentId": "warlock.apocalypse",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "sourceId": 402,
+      "talentId": "warlock.abyss",
+      "restrict": 0,
+      "states": [
+        -1,
+        -1,
+        -1
+      ]
+    }
+  ],
+  "commonAttack": {
+    "skill": "Attack",
+    "*Id": "0",
+    "restrict": "1",
+    "srvdofunc": "1",
+    "anim": "A1",
+    "SrcDam": "128"
+  },
+  "contexts": 2400,
+  "guards": 9,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/D2States.cpp": "0df430381b0c7af1ce270c0584d5cbec496d227f92740c8dc3a3a2a8f37dce80",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e"
+  },
+  "routineHashes": {
+    "D2Common_SKILLS_CheckShapeRestriction_6FDB1380": "6ed15db4c02d9603011bb2e579900b11280f15b2ee2045f1c0eb9949e2395bfe",
+    "STATES_CheckStateMaskOnUnit": "5a62c86709431a9a128594a5c631960f7cd606fe20eda630e3a998476fd9807c",
+    "STATES_CheckStateMaskRestrictOnUnit": "954451e5c7fa9451465bc8f9e81f54080d9483050dc70982d49cef12a3b6f8f7"
+  },
+  "fixture": {
+    "path": ".local/class-skills/shape-restrictions-source-probe.json",
+    "sha256": "61e9144f00ae4d43eb6d0acf350f166179264145de513a15d72f00f9446b6c56"
+  },
+  "generatedSourceSha256": "fe67a67ad5e69d7df27788646e8d96f9ad8887acb0c416a1c9a040b17cc8950c",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "established": [
+    "Three complete legacy functions execute2400current playable-skill/state-context/flag-presence cases under ASan/UBSan,plus9null/mask/early-state/common-Attack guards. Header-backed nState[3]and restrict-mask17are explicit; current full state mask words are built from the licensed table.",
+    "Restrict0requires no active restrict-mask state; restrict1allows either form or human; restrict2requires the restrict mask and a listed state,stopping on the first negative state. Wolf139/bear140are restrictive; frozen alone is not. The mask helper ignores its skill argument.",
+    "Current Druid summons,Cyclone Armor,Hurricane and Armageddon use restrict1; Firestorm/Boulder/Arctic Blast/Fissure/Twister/Volcano/Tornado default0. Maul/Shock Wave require bear,Feral Rage/Rabies/Fury wolf,and Fire Claws/Hunger permit both.",
+    "Current common Attack0uses restrict1,do1,A1and SrcDam128; the three human/wolf/bear allowance guards are separate from the240talent rows. This allowance does not establish transformed weapon range,projectile suppression,damage or attack timing."
+  ],
+  "remaining": [
+    "No native ClassCombat availability/start/release consumer is added by this preparation. Overall skill usability still separately checks rank,mana,items,town and equipment; this restriction result cannot replace those guards.",
+    "Current Param12cross-form timing/payment,modern form rates,forced removal and exact current engine/client behavior remain separate. Frozen is only a mask control here,not a claim that a frozen unit can act."
+  ]
+}

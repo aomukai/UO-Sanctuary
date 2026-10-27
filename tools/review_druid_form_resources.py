@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pin player-form resource channels and expose the existing native precision gap."""
+"""Pin form resource channels and retain Sanctuary's approved whole maxima."""
 import argparse
 import csv
 import hashlib
@@ -51,7 +51,11 @@ def review(check=False):
     assert 'return ClassResources.Parts(player,resource).NativeMaximum;' in stats.read_text()
     observations = ROOT / 'tools/reference/druid-form-removal-user-observations.json'
     assert json.loads(observations.read_text())['observed']['relativeLifeOnRemoval']
-    result = dict(referenceVersion='3.3.93847', reviewOnly=True, precisionGapResolved=False,
+    foundation = ROOT / 'docs/balance-foundations.md'
+    assert 'Approved native whole maxima remain a documented projection.' in foundation.read_text()
+    result = dict(referenceVersion='3.3.93847', reviewOnly=True, exactD2RMaximaImplemented=False,
+        wholeNativeMaximumProjectionApproved=True, requiresPlayerPrecisionRewrite=False,
+        precedence=dict(path='docs/balance-foundations.md', section='Resource percentage operation correction', sha256=sha(foundation)),
         table=dict(path=str(path.relative_to(ROOT)), sha256=sha(path), publicSha256=sha(cached_path), publicCommit=manifest['commit'], corroboratedFields=compared, rows=rows),
         legacySource=dict(commit=tree['sha'], path=source_path, sha256=hashlib.sha256(raw).hexdigest(), routineHashes={name:hashlib.sha256(body.encode()).hexdigest() for name,body in routines.items()}),
         nativeInputs={str(path.relative_to(ROOT)):sha(path) for path in [resources, health, stats]},
@@ -59,11 +63,11 @@ def review(check=False):
         established=[
             'Current hitpoints/maxhp and stamina/maxstamina use ValShift8. Form life belongs to item_maxhp_percent op11/maxhp; wolf stamina belongs to skill_staminapercent op1/maxstamina. These are existing resource-percentage channels,not independent multiplicative maxima.',
             'The complete legacy max-life/stamina getters return the total raw stat through D2Common_11248without an integer-life shift. The current table precision agrees with retaining FP256 maxima.',
-            'Current ClassResourceParts retains FP256 while calculating maximums,but NativeMaximum truncates before the native player getter. SkillHealth.Maximum256then reconstructs a managed player maximum from native integer HitsMax. Therefore native form ratio checks on those projected maxima do not establish full source precision.',
+            'Current ClassResourceParts retains FP256 while calculating maximums,but NativeMaximum truncates before the native player getter. SkillHealth.Maximum256then reconstructs a managed player maximum from native integer HitsMax. This differs from exact D2Rmaxima,but the authoritative foundation explicitly approves whole native maxima and the1..65000bound.',
             'User observations corroborate proportional life entering and voluntarily leaving forms. Prepared saved form tests can establish correct percentage pools,proportional projected transitions and unchanged saved fractional injuries independently of this still-open maximum precision gap.',
         ], next=[
-            'Before certifying or enabling complete learned player forms,provide a consistent exact player-resource maximum contract with compatible native storage/display projection. Cover clamping,regeneration,damage/healing,BO/aura/gear changes and fraction persistence; do not patch only a form getter while another ledger still assumes integer maxima.',
-            'Retain the current prepared-world scope and immutable packages while a later candidate fixes precision. This is an existing shared player-resource limitation,not an approved Sanctuary deviation or proof of complete Druid mechanics.',
+            'Retain the approved whole maximum projection and its existing storage/display contract. Source FP256calculation and saved fractional current pools still require verification,while exact D2Rmaxima are a documented divergence rather than a mandatory global rewrite.',
+            'The initial a0837efreview wrongly classified this approved projection as an unapproved blocking precision gap. This correction follows the authoritative foundation and user precedence instruction; no runtime behavior or accepted assembly changes.',
             'Compose transformed basic-attack additional AR/SrcDam and modern animation/attack rates separately from the generic stat-pool hooks. Final body/effects/audio/icons remain independent.',
         ])
     target = ROOT / 'tools/reference/druid-form-resource-review.json'
@@ -72,7 +76,7 @@ def review(check=False):
         assert target.read_text() == rendered
     else:
         target.write_text(rendered)
-    print(f'Druid resource review:{compared}current statcost fields,FP256 life/stamina and op11/op1channels; existing player maximum precision gap remains explicit.')
+    print(f'Druid resource review:{compared}current statcost fields,FP256 parts/op11/op1;approved whole native maxima retained,no global precision rewrite required.')
 
 
 if __name__ == '__main__':

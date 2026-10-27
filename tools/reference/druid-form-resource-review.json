@@ -1,7 +1,14 @@
 {
   "referenceVersion": "3.3.93847",
   "reviewOnly": true,
-  "precisionGapResolved": false,
+  "exactD2RMaximaImplemented": false,
+  "wholeNativeMaximumProjectionApproved": true,
+  "requiresPlayerPrecisionRewrite": false,
+  "precedence": {
+    "path": "docs/balance-foundations.md",
+    "section": "Resource percentage operation correction",
+    "sha256": "8723a7e5df2276e6c92ddf063bd03691e4af86348028169e682ca9862b46b8de"
+  },
   "table": {
     "path": ".local/research/d2r-3.3.93847/itemstatcost-barbs-verified.txt",
     "sha256": "99960b46e1963b20fa120bd4d1f77e4b28138330ccec65c7fab0bfd3db6fd8e8",
@@ -129,12 +136,12 @@
   "established": [
     "Current hitpoints/maxhp and stamina/maxstamina use ValShift8. Form life belongs to item_maxhp_percent op11/maxhp; wolf stamina belongs to skill_staminapercent op1/maxstamina. These are existing resource-percentage channels,not independent multiplicative maxima.",
     "The complete legacy max-life/stamina getters return the total raw stat through D2Common_11248without an integer-life shift. The current table precision agrees with retaining FP256 maxima.",
-    "Current ClassResourceParts retains FP256 while calculating maximums,but NativeMaximum truncates before the native player getter. SkillHealth.Maximum256then reconstructs a managed player maximum from native integer HitsMax. Therefore native form ratio checks on those projected maxima do not establish full source precision.",
+    "Current ClassResourceParts retains FP256 while calculating maximums,but NativeMaximum truncates before the native player getter. SkillHealth.Maximum256then reconstructs a managed player maximum from native integer HitsMax. This differs from exact D2Rmaxima,but the authoritative foundation explicitly approves whole native maxima and the1..65000bound.",
     "User observations corroborate proportional life entering and voluntarily leaving forms. Prepared saved form tests can establish correct percentage pools,proportional projected transitions and unchanged saved fractional injuries independently of this still-open maximum precision gap."
   ],
   "next": [
-    "Before certifying or enabling complete learned player forms,provide a consistent exact player-resource maximum contract with compatible native storage/display projection. Cover clamping,regeneration,damage/healing,BO/aura/gear changes and fraction persistence; do not patch only a form getter while another ledger still assumes integer maxima.",
-    "Retain the current prepared-world scope and immutable packages while a later candidate fixes precision. This is an existing shared player-resource limitation,not an approved Sanctuary deviation or proof of complete Druid mechanics.",
+    "Retain the approved whole maximum projection and its existing storage/display contract. Source FP256calculation and saved fractional current pools still require verification,while exact D2Rmaxima are a documented divergence rather than a mandatory global rewrite.",
+    "The initial a0837efreview wrongly classified this approved projection as an unapproved blocking precision gap. This correction follows the authoritative foundation and user precedence instruction; no runtime behavior or accepted assembly changes.",
     "Compose transformed basic-attack additional AR/SrcDam and modern animation/attack rates separately from the generic stat-pool hooks. Final body/effects/audio/icons remain independent."
   ]
 }
