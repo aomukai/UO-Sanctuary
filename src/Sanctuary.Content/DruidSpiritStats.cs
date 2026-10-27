@@ -3,17 +3,17 @@ using System;
 using Server.Mobiles;
 namespace Sanctuary;
 
-// Both mapped spirits use complete do119/base/passive composition. Preserve
+// All mapped spirits use complete do119/base/passive composition. Preserve
 // the existing OakBirth saved field shape and immutable summon-birth values.
 internal static class DruidSpiritStats
 {
     internal static string Key(CombatAbility ability)=>ability switch
-    {CombatAbility.OakSage=>"oaksage",CombatAbility.HeartOfWolverine=>"heartofwolverine",_=>throw new NotSupportedException("Unmapped spirit birth")};
+    {CombatAbility.OakSage=>"oaksage",CombatAbility.HeartOfWolverine=>"heartofwolverine",CombatAbility.SpiritOfBarbs=>"spiritofbarbs",_=>throw new NotSupportedException("Unmapped spirit birth")};
     private static void Route(SkillValues values)
     {
         string key=Key(values.Ability);var row=SkillMechanics.For(values.Ability);
-        int id=values.Ability==CombatAbility.OakSage?226:236;
-        string aura=values.Ability==CombatAbility.OakSage?"Oak Sage Aura":"Wolverine Aura";
+        int id=values.Ability switch{CombatAbility.OakSage=>226,CombatAbility.HeartOfWolverine=>236,CombatAbility.SpiritOfBarbs=>246,_=>throw new NotSupportedException()};
+        string aura=values.Ability switch{CombatAbility.OakSage=>"Oak Sage Aura",CombatAbility.HeartOfWolverine=>"Wolverine Aura",CombatAbility.SpiritOfBarbs=>"Barbs Aura",_=>throw new NotSupportedException()};
         if(values.Rank is <1 or >255 || row.SourceId!=id || row.Number("srvdofunc")!=119 || row.Text("summon")!=key
             || row.Text("pettype")!="totem" || row.Text("summode")!="NU" || values.Eval("petmax")!=1 || row.Text("sumskill1")!=aura
             || row.Text("passivestat1")!="poisonresist" || row.Text("passivestat2")!="maxpoisonresist")

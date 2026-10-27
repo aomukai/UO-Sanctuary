@@ -95,9 +95,9 @@ public static class GemCombat
         if (ranged || loss <= 0 || attacker == null || attacker == target || attacker.Deleted || !attacker.Alive
             || target is not PlayerMobile p || !ClassCombat.Enabled(p) || attacker.Blessed
             || ClassCombatHooks.Friendly?.Invoke(attacker, target) == true) { return; }
-        int thorns = Math.Max(0, ClassGear.Bonus(p, "thorns"));
-        int damage = (int)Math.Floor(Component(attacker, thorns, attacker.PhysicalResistance, false)
-            + Component(attacker, Math.Max(0, ClassGear.Bonus(p, "light-thorns")), attacker.EnergyResistance, true));
+        // Physical ATD now joins aura/item stat78 in PaladinThorns before its
+        // single mitigation packet. Lightning reflection remains independent.
+        int damage = (int)Math.Floor(Component(attacker, Math.Max(0, ClassGear.Bonus(p, "light-thorns")), attacker.EnergyResistance, true));
         if (damage > 0)
         {
             // Reflection is not another weapon strike: no recursive thorns, leech or on-hit effects.

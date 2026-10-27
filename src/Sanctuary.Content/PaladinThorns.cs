@@ -13,12 +13,22 @@ public static class PaladinThorns
         ClassCombatHooks.MeleeAttempt=Attempt;
         ClassCombatHooks.PreparedWeaponDamage=NecromancerEffects.PreparedNativeWeaponHit;
     }
-    public static bool Active(Mobile actor)=>actor!=null && PaladinAuras.Effect(actor,CombatAbility.Thorns)!=null;
+    // Legacy public entry point now consumes the shared physical ATD stat.
+    private readonly record struct ReturnStats(int Flat,int Percent);
+    private static ReturnStats Values(Mobile actor)
+    {
+        if(actor==null){return default;}var thorns=PaladinAuras.Effect(actor,CombatAbility.Thorns);
+        long flat=(thorns?.Percent??0)+(long)DruidWolverineAuras.FlatDamage(actor);
+        if(actor is PlayerMobile p && ClassCombat.Enabled(p)){flat+=ClassGear.Bonus(p,"thorns");}
+        return new((int)Math.Clamp(flat,0,int.MaxValue),Math.Max(0,thorns?.DamagePercent??0));
+    }
+    internal static int FlatDamage(Mobile actor)=>Values(actor).Flat;
+    public static bool Active(Mobile actor)=>Values(actor) is{Flat:>0} or{Percent:>0};
     public static int ReturnedPercent(Mobile attacker,int percent)=>attacker is PlayerMobile or BaseHire ? (percent+4)/8 : percent;
     public static IDisposable Attempt(Mobile attacker,Mobile defender,bool ranged)
     {
-        if(ranged || !Eligible(attacker,defender) || PaladinAuras.Effect(defender,CombatAbility.Thorns) is not {} lease){return null;}
-        return _current=new(attacker,defender,lease,_current);
+        if(ranged || !Eligible(attacker,defender)){return null;}var stats=Values(defender);
+        if(stats==default){return null;}return _current=new(attacker,defender,stats,_current);
     }
     private static bool Eligible(Mobile attacker,Mobile defender)=>attacker is{Alive:true,Deleted:false,Blessed:false}
         && defender is{Deleted:false} && attacker!=defender && attacker.Map==defender.Map && attacker.Map is not null
@@ -27,17 +37,17 @@ public static class PaladinThorns
     {
         if(ranged || !Eligible(attacker,defender)){return;}
         var scope=_current!=null && _current.Attacker==attacker && _current.Defender==defender ? _current : null;
-        var lease=PaladinAuras.Effect(defender,CombatAbility.Thorns) ?? (defender.Alive?null:scope?.Lease);
-        if(lease==null){return;}
+        var stats=defender.Alive?Values(defender):scope?.Stats??Values(defender);
+        if(stats==default){return;}
         // ExecuteEvents caps the copied physical component before the attacked-in-melee events and Thorns call.
         long eligiblePhysical=clippedPhysical256 is{} clipped?Math.Clamp(clipped,0,Math.Max(0,physical256)):Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
         if(scope==null || !scope.FlatApplied)
         {
             if(scope!=null){scope.FlatApplied=true;}
-            Retaliate(defender,attacker,(long)Math.Max(0,lease.Percent)*256);
+            Retaliate(defender,attacker,(long)stats.Flat*256);
         }
         if(eligiblePhysical>0 && attacker is{Alive:true,Deleted:false})
-        {Retaliate(defender,attacker,eligiblePhysical*Math.Max(0,ReturnedPercent(attacker,lease.DamagePercent))/100);}
+        {Retaliate(defender,attacker,eligiblePhysical*Math.Max(0,ReturnedPercent(attacker,stats.Percent))/100);}
     }
     private static void Retaliate(Mobile defender,Mobile attacker,long physical256)
     {
@@ -54,12 +64,12 @@ public static class PaladinThorns
     {
         public Mobile Attacker{get;private set;}
         public Mobile Defender{get;private set;}
-        public PaladinAuraLease Lease{get;private set;}
+        public ReturnStats Stats{get;private set;}
         public bool FlatApplied{get;set;}
         private AttemptScope _previous;
         private bool _disposed;
-        public AttemptScope(Mobile attacker,Mobile defender,PaladinAuraLease lease,AttemptScope previous)
-        {Attacker=attacker;Defender=defender;Lease=lease;_previous=previous;}
+        public AttemptScope(Mobile attacker,Mobile defender,ReturnStats stats,AttemptScope previous)
+        {Attacker=attacker;Defender=defender;Stats=stats;_previous=previous;}
         public void Dispose()
         {
             if(_disposed){return;}
@@ -68,11 +78,11 @@ public static class PaladinThorns
                 if(!FlatApplied)
                 {
                     FlatApplied=true;
-                    var lease=PaladinAuras.Effect(Defender,CombatAbility.Thorns) ?? (Defender.Alive?null:Lease);
-                    if(lease!=null){Retaliate(Defender,Attacker,(long)Math.Max(0,lease.Percent)*256);}
+                    var stats=Defender.Alive?Values(Defender):Stats;
+                    Retaliate(Defender,Attacker,(long)stats.Flat*256);
                 }
             }
-            finally{_disposed=true;_current=_previous;_previous=null;Attacker=Defender=null;Lease=null;}
+            finally{_disposed=true;_current=_previous;_previous=null;Attacker=Defender=null;Stats=default;}
         }
     }
 }

@@ -146,10 +146,13 @@ public static class GemActivationChecks
         int drain = GemCombat.Drain(target);
         Require(p.Hits == hp + 4 * drain / 100 && p.Mana == mana + 3 * drain / 100, "Leech actual pools wrong");
         p.Hits = p.HitsMax - 50; p.Mana = p.ManaMax - 50; hp = p.Hits; mana = p.Mana;
-        int physical = (int)Math.Floor(GearEffects.Damage(p, 0, target).Physical * Math.Clamp(100 - target.PhysicalResistance, 0, 200) / 100);
-        int loss = GearEffects.Strike(p, target, 0);
-        Require(p.Hits == hp + Math.Min(loss, physical) * 4 * drain / 10000 && p.Mana == mana + Math.Min(loss, physical) * 3 * drain / 10000,
-            "Actual weapon strike did not leech once from physical loss");
+        int hp256=SkillHealth.Balance256(p),mp256=NecromancerEffects.ManaBalance256(p);
+        var packet=GearEffects.PrepareWeaponImpact(p,target,0,new Random(173),GearEffects.Damage(p,0,target),projectileCritical:false);
+        int physical256=Math.Min(NamedElements.To256(packet.Parts.Physical),SkillHealth.Balance256(target));
+        GearEffects.Strike(p,target,0,preparedImpact:packet);
+        int leech(int percent)=>(int)((long)physical256*(percent*64)/100*drain/100/64);
+        Require(SkillHealth.Balance256(p)==hp256+leech(4)&&NecromancerEffects.ManaBalance256(p)==mp256+leech(3),
+            "Actual weapon strike did not leech once from clipped fractional physical damage");
         foreach (var difficulty in Enum.GetValues<MonsterDifficulty>())
         {
             var zombie = new Zombie(); MonsterVariants.Assign(zombie, difficulty);
@@ -163,8 +166,10 @@ public static class GemActivationChecks
         host = RuneSocketChecks.Host(p, typeof(PlateHelm)); Install(p, Gem(p, "StarSapphire"), host); Install(p, Gem(p, "Amber"), host); p.AddItem(host); ClassGear.Refresh(p);
         p.Hits = p.HitsMax; hp = p.Hits; AOS.Damage(p, target, 20, 0, 100, 0, 0, 0);
         Require(hp - p.Hits == 15, "Native spell did not apply flat MDR");
-        before = target.Hits; p.Hits = p.HitsMax; AOS.Damage(p, target, 10, false, 100, 0, 0, 0, 0, weaponDamage: true);
-        Require(before - target.Hits == 20 * (100 - target.PhysicalResistance) / 100, "Native melee thorns missing");
+        int returnBefore=SkillHealth.Balance256(target);p.Hits=p.HitsMax;AOS.Damage(p,target,10,false,100,0,0,0,0,weaponDamage:true);
+        int returned256=20*256*(100-target.PhysicalResistance)/100;
+        Require(returnBefore-SkillHealth.Balance256(target)==returned256,
+            $"Native melee flat ATD:actual={returnBefore-SkillHealth.Balance256(target)} expected={returned256} resistance={target.PhysicalResistance}");
         before = target.Hits; AOS.Damage(p, target, 10, false, 100, 0, 0, 0, 0, archer: true, weaponDamage: true);
         Require(target.Hits == before, "Ranged attack triggered thorns");
         Require(GemCombat.Component(p, 5, 0, true) == 0 && GemCombat.Component(p, 100, 50, true) == 47.5

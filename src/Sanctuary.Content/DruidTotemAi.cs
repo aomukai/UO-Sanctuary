@@ -16,7 +16,7 @@ internal static class DruidTotemAi
     {
         ArgumentNullException.ThrowIfNull(c);ArgumentNullException.ThrowIfNull(s);
         if(c.OwnerMode is <0 or >19 || c.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
-            || c.Source is not("oaksage" or "heartofwolverine") || s.Idle==null || s.Target==null || s.Percentage==null || s.Escape==null || s.OwnerDistance==null
+            || c.Source is not("oaksage" or "heartofwolverine" or "spiritofbarbs") || s.Idle==null || s.Target==null || s.Percentage==null || s.Escape==null || s.OwnerDistance==null
             || s.Teleport==null || s.PetMove==null || s.CommonMove==null)
         {throw new ArgumentException("Unsupported Totem AI context/services");}
         int P(int index)=>NecromancerSummons.Source(c.Source,"aip"+index,c.Difficulty);

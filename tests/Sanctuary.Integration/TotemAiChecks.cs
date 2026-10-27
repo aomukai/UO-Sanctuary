@@ -18,7 +18,7 @@ public static class TotemAiChecks
     private static void Check()
     {
         using var document=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"totem-ai-source-probe.json")));int count=0;
-        foreach(string species in new[]{"oaksage","heartofwolverine"})
+        foreach(string species in new[]{"oaksage","heartofwolverine","spiritofbarbs"})
         foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
         foreach(var row in document.RootElement.EnumerateArray())
         {
@@ -35,9 +35,9 @@ public static class TotemAiChecks
             var expected=row[1].EnumerateArray().Select(x=>new Request(x[0].GetInt32(),x[1].GetInt32(),x[2].GetInt32(),x[3].GetInt32(),x[4].GetInt32()));
             Require(calls.SequenceEqual(expected),"Totem source decision/order: "+input);count++;
         }
-        Require(count==30726,"Incomplete source/difficulty matrix");
+        Require(count==46089,"Incomplete source/difficulty matrix");
         bool refused=false;try{DruidTotemAi.Think(new(true,1),new(_=>{},_=>new(0,false),_=>100,(_,_,_)=>false,()=>0,()=>false,(_,_,_,_)=>false,(_,_,_,_)=>false));}
         catch(ArgumentException){refused=true;}Require(refused,"Invalid percentage silently accepted");
-        Log.Information("Totem AI:5121complete source contexts across3current difficulty rows,30726native ordered decision comparisons pass for two mapped spirit rows; geometry and actual controller acceptance remain separate");
+        Log.Information("Totem AI:5121complete source contexts across3current difficulty rows,46089native ordered decision comparisons pass for three mapped spirit rows; geometry and actual controller acceptance remain separate");
     }
 }
