@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "predecessor": {
+    "path": "tools/reference/druid-form-modes-engine-evidence.json",
+    "sha256": "49e43f91c12368b607dfad8a6d158c2240b7135b8653d30d46db18e5bc68bbe5"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    "source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/PLAYER/PlrModes.cpp": "50ec9bbde8a1783c092382792023c36457b64ed7896d7bff87659b19446f4865"
+  },
+  "licensedSkills": {
+    "filename": "skills.txt",
+    "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    "bearConcentration": 100
+  },
+  "completeRoutineHashes": {
+    "SKILLS_SrvDo116_Wearwolf_Wearbear": "0503cce496346eed7d26ee87d1f6c17c95f6fd1c473395f952829ba832e02acc",
+    "sub_6FCFE030": "c7045fbc3c73e28d86afa00b0243d3395f1b16c8715fd2fe05e63d362d228911",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD11BA0": "1618f5aa7de1a0590f8e46762b1fbf5078c57c66536313c97ab7d66a8d05ac25",
+    "D2GAME_SKILLS_SetDelay_6FD11C00": "e061f357df8019c69e72c7f43ce96f60205e44bf5ddba70c5dc25872ec904f95",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "SKILLS_RemoveTransformStatesFromShapeshiftedUnit": "bbe39374e3ece9b08ac60f6b9a3b9d08bb4cc23b03e9468d9677d758c6c259b7",
+    "D2GAME_PLRMODES_First_6FC7F340": "f03ac114e6a1e8fe1cba6390a6092bde5c5d7000a585741d18f88d3e46447ef7",
+    "PLRMODE_StartID_Death": "d32c7960001bb037bff413fc9364e00cb2af9c3d5b530cdb92a46ca0beb04af1"
+  },
+  "generatedSourceSha256": "cb3fe7a368102ea70acdd4ec75a3680f787bb274fdf1b81da1cba8b3e6c329b1",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "verified": {
+    "deathCases": 60,
+    "interruptCases": 4800
+  },
+  "releasedModernReference": {
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "scope": "Released2.4 Werebear explicitly cannot be interrupted while performing attacks or skills; current licensed bear aurastat4 skill_concentration calculates100. This source gate predates that modern bear-specific change."
+  },
+  "established": [
+    "Complete older player death entry first calls the complete transform-state removal helper. A shifted player removes all declared transform states/lists through the original group/removal callbacks and returns through a forced neutral-mode service before any death penalty,dead-client flag,dead collision or ordinary death event cleanup. Missing trained skill/list does not prevent transform flags being cleared. Human control follows the ordinary death branch.",
+    "Interruption gate executes4800 supported contexts for ordinary interruptible used skills across neutral/attack/cast/dead modes,requested gethit/block/death/neutral/attack,used-skill presence,bypass,concentration0/20/100,Concentrate and Uninterruptable. Death/bypass/absent used skill differ from concentration. Concentration resists an action transition while an interruptible skill is active; neutral mode remains permitted.",
+    "The older gate reads the Concentration state list and Concentrate/Uninterruptable flags; it does not read the bear stat from a bear list. Porting that older gate unchanged would omit the released modern Werebear guarantee."
+  ],
+  "declaredServices": [
+    "Inherited stat allocation/free/formula/conversion services preserve the predecessor scope. Stat detach/free executes the original form/group callbacks but does not implement numeric maximum/current-life recomputation. The life sentinel is deliberately unchanged on the shifted branch; this is a service boundary,not a claim that D2R leaves zero life.",
+    "Forced-neutral dispatch,death penalties/client/path/event side effects are ordered recording services. Attacker-specific player-ear/arena branches are guarded unexecuted. Null unit is not a supported gate input because the source dereferences it in the first state query."
+  ],
+  "remaining": [
+    "Establish the numeric forced-unshift life floor and complete stat recomputation before implementing survival. This trace proves early death diversion,not a current-executable1life result. Current foreign-class/item-only forms remain unsupported.",
+    "Native bear concentration should protect actual pending attack/skill action intervals only; do not turn it into permanent stun/knockback/death immunity or prevent deliberate Stop/movement. Other form hurt/block/movement clocks and actual modern client acceptance remain separate."
+  ]
+}
