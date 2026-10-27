@@ -1,0 +1,89 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "predecessor": {
+    "path": "tools/reference/druid-form-modes-engine-evidence.json",
+    "sha256": "49e43f91c12368b607dfad8a6d158c2240b7135b8653d30d46db18e5bc68bbe5"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    "source/D2Common/include/DataTbls/SkillsTbls.h": "06e42375e565b8588887d672f2af194778b0e6db1d630cc3faf94f051b73b2ce",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "currentSkillsSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+  "currentFormFields": {
+    "Wearwolf": {
+      "srvstfunc": "",
+      "srvdofunc": "116",
+      "usemanaondo": "",
+      "mana": "15",
+      "lvlmana": "0",
+      "minmana": "1",
+      "manashift": "8",
+      "globaldelay": "25",
+      "localdelay": "",
+      "InTown": "1",
+      "anim": "SC"
+    },
+    "Wearbear": {
+      "srvstfunc": "",
+      "srvdofunc": "116",
+      "usemanaondo": "",
+      "mana": "15",
+      "lvlmana": "0",
+      "minmana": "1",
+      "manashift": "8",
+      "globaldelay": "25",
+      "localdelay": "",
+      "InTown": "1",
+      "anim": "SC"
+    }
+  },
+  "currentGlobalDelayRows": [
+    [
+      "Wearwolf",
+      "25"
+    ],
+    [
+      "Wearbear",
+      "25"
+    ]
+  ],
+  "unchangedLifecycleRoutineHashes": {
+    "SKILLS_SrvDo116_Wearwolf_Wearbear": "0503cce496346eed7d26ee87d1f6c17c95f6fd1c473395f952829ba832e02acc",
+    "sub_6FCFE030": "c7045fbc3c73e28d86afa00b0243d3395f1b16c8715fd2fe05e63d362d228911",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD11BA0": "1618f5aa7de1a0590f8e46762b1fbf5078c57c66536313c97ab7d66a8d05ac25",
+    "D2GAME_SKILLS_SetDelay_6FD11C00": "e061f357df8019c69e72c7f43ce96f60205e44bf5ddba70c5dc25872ec904f95",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705"
+  },
+  "completeOuterRoutineHashes": {
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD12950": "a4f97c7f48c27503c3e89380561d8fd19c6962401371ca84a5dd72c3a4f0f06e",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3",
+    "SKILLS_CheckSkillDelay": "2de78229edd7cfc08c52e5800bdb7ea7b11a44883620b2fde341c01998756a3d"
+  },
+  "contexts": 1296,
+  "generatedSourceSha256": "ce35b9040cd56260938264d0bf4b0a4e4e6dfa00d39f6ac5883adfc6d2efe5e5",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-payment-source-probe.json",
+    "sha256": "6e56879e29068f67905eaaafeb63248d0cf31c46a5bb7e782cb12acf3745fbad"
+  },
+  "established": [
+    "Complete start handler,do dispatcher and mana consumer compose with the seven unchanged header-corrected form lifecycle routines.1296contexts vary form,rank,start/release mana,human/same/cross-group state and allocation failure under ASan/UBSan.",
+    "Human entry start requires15mana but the null start routine consumes nothing. Successful do116allocates/applies the form before outer payment and global25frame delay. Failed form allocation leaves mana/state/delay unchanged. Existing form removal returns0,spends nothing and explicitly requests25frame delay; delay-allocation failure does not restore the removed form.",
+    "The legacy consumer charges only minmana1at rank1despite the15mana entry threshold/current table; higher tested ranks charge15. With release mana below that legacy debit it returns0,but the dispatcher ignores that result: the applied form and25frame delay remain. These are bounded old-engine findings,not current D2Racceptance.",
+    "The complete skill-delay eligibility function also executes per case: an active delay excludes positive-delay skills but permits a zero-delay control. Only Werewolf/Werebear have nonzero globaldelay in the pinned current table; both are25. This supports one shared form cooldown scope without blocking ordinary zero-delay actions."
+  ],
+  "remaining": [
+    "Prefer pinned current15mana for native ordinary form entry; do not port the known generic legacy rank1debit quirk. Modern lost-mana/payment-failure behavior remains unverified. Current Param12direct switching is not established by the legacy cross-group removal cases.",
+    "Room,formula,stat-list allocation,resource stores,skill lookup and unused missile/item/charged/BloodMana services retain explicit fixture boundaries. Accepted network input,timer queue/current executable/client presentation and native learned form casting remain separate. This preparation changes no live handler or candidate assembly."
+  ]
+}
