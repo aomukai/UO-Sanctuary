@@ -1,0 +1,159 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "sourceHashes": {
+    "source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_GetSkillModeFromUnit": "f9c0894bd3315b436c1860b06dd602093f69bdbf8d6a3dc54f8ebdd7b3d80d15",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "reviewedRoutineHashes": {
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
+  },
+  "preflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+  "animationSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "animations": [
+    {
+      "code": "40SCHTH",
+      "frames": 11,
+      "speed": 168,
+      "events": [
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    {
+      "code": "DZSC1HS",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSC1HT",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSC2HS",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSC2HT",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSCBOW",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSCHTH",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSCSTF",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "DZSCXBW",
+      "frames": 15,
+      "speed": 208,
+      "events": [
+        [
+          8,
+          1
+        ]
+      ]
+    },
+    {
+      "code": "TGSCHTH",
+      "frames": 10,
+      "speed": 152,
+      "events": [
+        [
+          5,
+          2
+        ]
+      ]
+    }
+  ],
+  "contexts": 2590,
+  "generatedSourceSha256": "ef602f207800a0a5c32a6eff32de7437dbc7ba86c89256afd6aacab8b5ff632e",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-cast-clock-source-probe.json",
+    "sha256": "586220e57ab46ded171771281530112971e32388192520a480dce9220a41ea42"
+  },
+  "established": [
+    "Seven complete source routines execute mode getter,FCR-selection predicate,cast-speed writer,setter,frame-bonus lookup,initializer and scheduler. Current form anim/seqtransSCand retained skill modeCAST10do not independently select SQ18from seqnum22. The sequence branch is guarded unreachable for these actual SCcontexts; separate predicate controls cover explicit SQinput.",
+    "All eight licensed human Druid SCweapon variants have15frames,speed208,event1at8. Wolf SCis11/168/event2at5;bear SCis10/152/event2at5.2590source contexts cover each record and FCR0..255,500,1000,10000,comparing ordered action/end events and truncated FCR speed.",
+    "The reviewed dispatcher selects FCR before attack rate,so UseAttackRate1does not by itself turn an SCcast into an IASclock. Source startup schedules action/end before the effect changes form. ReverseS1sequence22remains separate animation data; its presence is not proof of a server SCtiming replacement."
+  ],
+  "remaining": [
+    "Full conversion/metadata lookup and event insertion are declared services. Current executable/reentry/equal-deadline/client cltst45and reverseS1visual transport remain unverified. No current client implementation is inferred from the server reference.",
+    "Compose outer start/do/return/payment/global-delay with do116before native learned casting. Free same-form unshift is user-confirmed; cross-form Param12is still unobserved. Existing generic Druid SCprofiles are not changed by this preparation. No native form casting handler is enabled."
+  ]
+}
