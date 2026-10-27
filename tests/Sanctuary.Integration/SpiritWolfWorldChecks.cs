@@ -34,11 +34,11 @@ public static class SpiritWolfWorldChecks
         foreach(string prior in talent.Prerequisites){Train(p,prior);}
         if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
-    internal static PlayerMobile Fresh()
+    internal static PlayerMobile Fresh(int sceneOffset=0)
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
-        int y=1800+64*_scene++;int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
+        int y=1800+64*_scene+++sceneOffset;int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
         // Isolate a flat native terrain adapter above shipped dungeon geometry.
         // Adding live scenes must not accidentally select an underlying wall.
         const int z=100;

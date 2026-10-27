@@ -34,7 +34,7 @@ public static class SpiritWolfHitChecks
     }
     private static ulong Seed(DruidSpiritWolfBody wolf,BaseCreature target,bool hit,bool critical=false)
     {
-        int chance=DruidSpiritWolfHit.Chance(wolf,target);
+        int chance=DruidSpiritWolfHit.Chance(wolf,wolf.Prepared.Controller,target);
         for(ulong initial=1;initial<10000;initial++)
         {
             ulong seed=initial;if(AssassinTrapAttack.Hit(chance,SourceRandom.Roll(ref seed))!=hit){continue;}
@@ -56,8 +56,10 @@ public static class SpiritWolfHitChecks
         try
         {
             target.SetResistance(ResistanceType.Cold,0);Shield(target,0);SourceBlocking.BlockRoll=_=>99;
-            int chance=DruidSpiritWolfHit.Chance(wolf,target);wolf.Dex=200;p.Dex=400;
-            Require(DruidSpiritWolfHit.Chance(wolf,target)==chance,"Native/owner Dexterity leaked into source monster attack");
+            DruidSpiritWolfWorld.Advance(wolf,wolf.Prepared.Controller.NextUtc.AddMilliseconds(24*40),true);
+            Require(wolf.Prepared.Controller is{Mode:4,AttackPacket:{Rank:1,Attack:125}},"Direct hit fixture did not enter source A1");
+            int chance=DruidSpiritWolfHit.Chance(wolf,wolf.Prepared.Controller,target);wolf.Dex=200;p.Dex=400;
+            Require(DruidSpiritWolfHit.Chance(wolf,wolf.Prepared.Controller,target)==chance,"Native/owner Dexterity leaked into source monster attack");
             ulong seed=Seed(wolf,target,false),beforeSeed=seed;int life=SkillHealth.Balance256(target);
             var miss=Resolve(ref seed);Require(miss.Outcome==SpiritWolfHitOutcome.Miss && seed!=beforeSeed && SkillHealth.Balance256(target)==life && GearEffects.ChillPercent(target)==0,"Miss changed health/state");
             Shield(target,1);Require(SourceBlocking.TryRate(target,out int block,out _) && block==10,"Wolf shield target supplier");SourceBlocking.BlockRoll=_=>0;
@@ -70,7 +72,7 @@ public static class SpiritWolfHitChecks
             Require(immune is{Outcome:SpiritWolfHitOutcome.Hit,Critical:true} && SkillHealth.Balance256(target)==life,"Provisional cold-only packet leaked physical floor through immunity");
             target.SetResistance(ResistanceType.Cold,0);SorceressEffectProfiles effects=SorceressEffects.Profiles;
             effects.Store(wolf,new(Enchantment:new(at.AddHours(1),1,1024,1024,100,p.Serial.Value)));
-            Require(DruidSpiritWolfHit.Chance(wolf,target)>=chance,"Live Enchant AR was ignored");seed=Seed(wolf,target,true);var enchanted=Resolve(ref seed);
+            Require(DruidSpiritWolfHit.Chance(wolf,wolf.Prepared.Controller,target)>=chance,"Live Enchant AR was ignored");seed=Seed(wolf,target,true);var enchanted=Resolve(ref seed);
             Require(enchanted.Outcome==SpiritWolfHitOutcome.Hit && enchanted.Fire256==(enchanted.Critical?2048:1024),"Live actor Enchant fire missing or double counted");effects.Clear(wolf);
             target.Location=new(p.X+3,p.Y+1,p.Z);
             Require(DruidWolfGeometry.MeleeDistance(DruidSpiritWolfWorld.Cell(wolf.Prepared.Controller),PetOwnerRoutes.Cell(target),2,CreatureProfiles.For(target).Traits.Size.Value)>2
@@ -78,7 +80,7 @@ public static class SpiritWolfHitChecks
             target.Location=new(p.X+10,p.Y,p.Z);seed=1;var distant=Resolve(ref seed);
             Require(distant.Outcome==SpiritWolfHitOutcome.Invalid && seed==1,"Lost-range impact consumed RNG");
             var state=wolf.Prepared;wolf.RestorePrepared(state with{Controller=state.Controller with{Profile="source-ai-native-ground-fit-pending-hit-v1"}});
-            Require(wolf.Prepared.Controller.Profile=="source-ai-native-ground-fit-cold-hit-v2" && wolf.Prepared.Controller.Seed==state.Controller.Seed,"Old prepared movement profile migration");
+            Require(wolf.Prepared.Controller.Profile=="source-ai-native-ground-fit-mode-attack-v3" && wolf.Prepared.Controller.Seed==state.Controller.Seed,"Old prepared movement profile migration");
             target.Location=new(p.X+2,p.Y,p.Z);SkillHealth.SetBalance256(target,256);seed=Seed(wolf,target,true);
             var lethal=Resolve(ref seed);Require(lethal.Outcome==SpiritWolfHitOutcome.Hit && !target.Alive && target.LastKiller==wolf,"Lethal wolf packet lost killer identity");
             Log.Information("Spirit Wolf melee:384complete source cold packet/RNG comparisons; actual miss/block/FP256 cold/chill/immunity/critical/Enchant/reach and profile migration pass; physical floor and modern full parity remain provisional");

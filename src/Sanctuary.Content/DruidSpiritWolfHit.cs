@@ -41,13 +41,14 @@ internal static class DruidSpiritWolfHit
         // the AI's melee bonus0. A moving target may still be reached at impact.
         return distance<=0 || distance<=5 && body.InLOS(target);
     }
-    internal static int Chance(DruidSpiritWolfBody body,BaseCreature target)
+    internal static int Chance(DruidSpiritWolfBody body,SpiritWolfWorldState state,BaseCreature target)
     {
         var birth=body.Prepared.Snapshot.Birth;
+        var packet=state.AttackPacket??throw new InvalidOperationException("Spirit Wolf hit needs captured A1mode stats");
         int percent=(SorceressEffects.Enchantment(body)?.AttackPercent??0)+CombatAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
         // Source monster Dexterity starts at zero here. SkeletonGuardian's
         // native20Dex and the owner's item/mastery/species AR are not inherited.
-        return AssassinTrapAttack.Chance(birth.Level,checked(birth.BaseAttack+birth.AttackBonus),0,percent,
+        return AssassinTrapAttack.Chance(birth.Level,checked(birth.BaseAttack+birth.AttackBonus+packet.Attack),0,percent,
             ClassStats.Level(target),ClassStats.Defense(target));
     }
     private static (int Min,int Max) Aura(DruidSpiritWolfBody body,CombatAbility ability)
@@ -61,13 +62,15 @@ internal static class DruidSpiritWolfHit
         uint id=target?.Serial.Value??0;
         if(!DruidSpiritWolfWorld.Eligible(body,owner,target) || !InRange(body,state,target) || !AlliedOverlap.Allowed(body))
         {return new(SpiritWolfHitOutcome.Invalid,id);}
+        if(state.AttackPacket==null)
+        {return new(SpiritWolfHitOutcome.Unsupported,id,Reason:"Spirit Wolf A1mode stats were not captured");}
         if(!SourceBlocking.TryRate(target,out _,out _))
         {return new(SpiritWolfHitOutcome.Unsupported,id,Reason:"Spirit Wolf recipient block supplier is not mapped");}
         body.DoHarmful(target,true);
         using var attempted=PaladinThorns.Attempt(body,target,false);
         SorceressEffects.MeleeAttempt(body,target);
         if(body.Deleted || !body.Alive || target.Deleted || !target.Alive){return new(SpiritWolfHitOutcome.Invalid,id);}
-        int chance=Chance(body,target);
+        int chance=Chance(body,state,target);
         if(!AssassinTrapAttack.Hit(chance,SourceRandom.Roll(ref seed)))
         {return new(SpiritWolfHitOutcome.Miss,id,chance);}
         // Ordinary melee blocks before typed damage is filled, irrespective

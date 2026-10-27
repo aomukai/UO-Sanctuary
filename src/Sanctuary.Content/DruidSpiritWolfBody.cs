@@ -58,7 +58,8 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         }
     }
     public override MonsterProfile CombatProfile=>Prepared is{} s
-        ?new(s.Snapshot.Birth.Level,(s.Snapshot.Birth.Life256+255)/256,s.Snapshot.Birth.BaseAttack+s.Snapshot.Birth.AttackBonus,
+        ?new(s.Snapshot.Birth.Level,(s.Snapshot.Birth.Life256+255)/256,
+            checked(s.Snapshot.Birth.BaseAttack+s.Snapshot.Birth.AttackBonus+(s.Controller is{Mode:4,AttackPacket:{} packet}?packet.Attack:0)),
             s.Snapshot.Birth.BaseDefense,0,0,1000,400,0,0,0,0,0)
         :new(1,130,0,67,0,0,1000,400,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
@@ -80,13 +81,19 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
                 || DruidSpiritWolfStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Spirit Wolf life/ownership state");}
             if(state.LearnedCast && state.Controller==null){throw new InvalidDataException("Learned wolf requires its world controller");}
-            if(state.Controller!=null){DruidSpiritWolfWorld.Validate(state.Controller);}
+            if(state.Controller!=null)
+            {
+                DruidSpiritWolfWorld.Validate(state.Controller);
+                if(state.Controller.AttackPacket is{} packet && packet!=DruidBeastAttackStats.Capture(
+                    new(SkillMechanics.For(CombatAbility.SummonSpiritWolf),_=>packet.Rank,_=>0,state.Snapshot.Birth.Level),state.Difficulty,4))
+                {throw new InvalidDataException("Invalid captured Spirit Wolf mode stats");}
+            }
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Spirit Wolf snapshot",e);}
     }
     internal void RestorePrepared(SpiritWolfBodyState state)
-    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidSpiritWolfWorld.Copy(DruidSpiritWolfWorld.Upgrade(c)) with{Profile="source-ai-native-ground-fit-cold-hit-v2"}}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidSpiritWolfWorld.Copy(DruidSpiritWolfWorld.Upgrade(c))}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidSpiritWolfBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || at> DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal

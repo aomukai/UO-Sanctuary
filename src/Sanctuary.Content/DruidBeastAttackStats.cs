@@ -4,8 +4,8 @@ namespace Sanctuary;
 
 internal readonly record struct BeastAttackStats(int Rank,int Minimum,int Maximum,int Attack);
 
-// Prepared flag1 mode-list values, distinct from birth base/passive stats.
-// Native beast mode entry and damage consumers are not connected here yet.
+// Source flag1 mode-list values, distinct from birth base/passive stats.
+// Spirit Wolf A1entry captures these; Dire Wolf consumers remain separate.
 internal static class DruidBeastAttackStats
 {
     internal static BeastAttackStats Capture(SkillValues live,MonsterDifficulty difficulty,int sourceMode)

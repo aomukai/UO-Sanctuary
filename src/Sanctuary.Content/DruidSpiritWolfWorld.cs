@@ -13,9 +13,9 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
     int Frame=0,int Mode=8,int NextThink=25,int ActionAt=0,int EndAt=47,uint Target=0,
     bool Teleport=false,Point2D TeleportPoint=default,int PathOverride=0,int VelocityBonus=0,int PathBudget=0,
     int StrikeRequests=0,uint PendingStrikeTarget=0,int PendingStrikeFrame=0,int PendingStrikeRank=0,string Fault=null,int MovingBonus=0,
-    SpiritWolfHitResult LastHit=null,int Hits=0,int AttackSpeed=0,int DeferredThinks=0)
+    SpiritWolfHitResult LastHit=null,int Hits=0,int AttackSpeed=0,int DeferredThinks=0,BeastAttackStats? AttackPacket=null)
 {
-    public string Profile{get;init;}="source-ai-native-ground-fit-cold-hit-v2";
+    public string Profile{get;init;}="source-ai-native-ground-fit-mode-attack-v3";
     public string AttackThinkPolicy{get;init;}="observed-bite-continuation-neutral-delay-v1";
 }
 
@@ -25,8 +25,15 @@ internal sealed record SpiritWolfWorldState(int Map,ActorMotionState Motion,ulon
 internal static class DruidSpiritWolfWorld
 {
     internal static SpiritWolfWorldState Copy(SpiritWolfWorldState s)=>s with{Motion=s.Motion with{Points=[..s.Motion.Points],SavedSteps=[..s.Motion.SavedSteps]}};
-    internal static SpiritWolfWorldState Upgrade(SpiritWolfWorldState s)=>s.Fault=="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified"
-        ?Park(s with{Fault=null}):s;
+    internal static SpiritWolfWorldState Upgrade(SpiritWolfWorldState s)
+    {
+        if(s.Fault=="Spirit Wolf AI event overlaps unfinished A1; source/current busy-mode dispatch is unverified")
+        {s=Park(s with{Fault=null});}
+        // Old saves have no attack-entry owner rank. Cancel that queued bite
+        // rather than fabricate a packet using the owner's current gear/rank.
+        if(s.Mode==4 && s.AttackPacket==null){s=Park(s);}
+        return s with{Profile="source-ai-native-ground-fit-mode-attack-v3"};
+    }
     internal static void Validate(SpiritWolfWorldState s)
     {
         if(s?.Motion?.Points==null || s.Motion.SavedSteps==null || s.Map<0 || s.Map>=Map.Maps.Length || Map.Maps[s.Map]==null || Map.Maps[s.Map]==Map.Internal
@@ -34,9 +41,11 @@ internal static class DruidSpiritWolfWorld
             || s.NextThink<0 || s.NextThink!=0&&s.NextThink<=s.Frame || s.ActionAt<0 || s.ActionAt!=0&&s.ActionAt<=s.Frame
             || s.EndAt<0 || s.EndAt!=0&&s.EndAt<=s.Frame || s.PathOverride is not(0 or 1 or 7 or 13 or 15)
             || s.VelocityBonus is <-126 or >126 || s.MovingBonus is <-126 or >126 || s.PathBudget is <0 or >77 || s.StrikeRequests<0 || s.PendingStrikeRank is <0 or >255
-            || s.Profile is not("source-ai-native-ground-fit-pending-hit-v1" or "source-ai-native-ground-fit-cold-hit-v2")
+            || s.Profile is not("source-ai-native-ground-fit-pending-hit-v1" or "source-ai-native-ground-fit-cold-hit-v2" or "source-ai-native-ground-fit-mode-attack-v3")
             || s.Hits<0 || s.Hits>s.StrikeRequests
             || s.AttackSpeed is <0 or >32767
+            || s.AttackPacket is{} packet && (packet.Rank is <0 or >255 || packet.Minimum<0 || packet.Maximum<packet.Minimum || packet.Attack<0)
+            || s.Profile=="source-ai-native-ground-fit-mode-attack-v3" && s.Mode==4 && s.AttackPacket==null
             || s.DeferredThinks<0 || s.DeferredThinks>s.Frame || s.AttackThinkPolicy!="observed-bite-continuation-neutral-delay-v1"
             || s.LastHit is{} hit && (!Enum.IsDefined(hit.Outcome) || hit.Chance is <0 or >95 || hit.Cold256<0 || hit.Fire256<0 || hit.Lightning256<0 || hit.ColdFrames<0 || hit.LifeLost<0)
             || s.Mode==1&&(s.ActionAt!=0 || s.EndAt!=0 || s.Teleport)
@@ -59,7 +68,7 @@ internal static class DruidSpiritWolfWorld
     }
     internal static Point2D Cell(SpiritWolfWorldState s)=>DruidRavenMotion.Cell(s.Motion);
     private static SpiritWolfWorldState Neutral(SpiritWolfWorldState s,int delay=15)=>s with{Mode=1,NextThink=checked(s.Frame+Math.Max(1,delay)),
-        ActionAt=0,EndAt=0,Teleport=false,Motion=DruidWolfGeometry.Stop(s.Motion)};
+        ActionAt=0,EndAt=0,Teleport=false,AttackPacket=null,Motion=DruidWolfGeometry.Stop(s.Motion)};
     internal static SpiritWolfWorldState Park(SpiritWolfWorldState s)=>Neutral(s,1) with{PathOverride=0,VelocityBonus=0,PathBudget=0};
     private static void Store(DruidSpiritWolfBody body,SpiritWolfWorldState s)
     {body.RestorePrepared(body.Prepared with{Controller=s,NextRecoveryUtc=s.NextUtc});}
@@ -112,7 +121,7 @@ internal static class DruidSpiritWolfWorld
             if(deleteOnFailure){s=s with{NextThink=0};}return false;
         }
         body.Direction=body.GetDirectionTo(new Point3D((target.X+1)/2,(target.Y+1)/2,body.Z));
-        s=s with{Mode=run?15:2,NextThink=0,ActionAt=0,EndAt=0,Teleport=false,Motion=path.Motion,MovingBonus=bonus};return true;
+        s=s with{Mode=run?15:2,NextThink=0,ActionAt=0,EndAt=0,Teleport=false,AttackPacket=null,Motion=path.Motion,MovingBonus=bonus};return true;
     }
     private static void Velocity(ref SpiritWolfWorldState s,int type,int speed,int budget)
     {
@@ -178,15 +187,16 @@ internal static class DruidSpiritWolfWorld
             {
                 case 0:s=Neutral(s,request.A);break;
                 case 2:
-                    var clock=DruidWolfGeometry.Clock("S1");s=s with{Mode=8,NextThink=0,ActionAt=0,EndAt=s.Frame+clock.End,Teleport=true,
+                    var clock=DruidWolfGeometry.Clock("S1");s=s with{Mode=8,NextThink=0,ActionAt=0,EndAt=s.Frame+clock.End,Teleport=true,AttackPacket=null,
                         TeleportPoint=new(request.C,request.D),Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 3:s=s with{ActionAt=s.Frame+request.A};break;
                 case 4:s=s with{NextThink=s.Frame+Math.Max(1,request.A)};break;
                 case 6:
                     var enemy=World.FindMobile((Serial)(uint)request.B);if(enemy!=null){body.Direction=body.GetDirectionTo(enemy);}
                     int attackSpeed=SourceAttackRate.WolfSpeed(body);var attack=DruidWolfGeometry.Clock("A1",attackSpeed);
+                    var packet=DruidBeastAttackStats.Capture(SkillMechanics.Values(owner,CombatAbility.SummonSpiritWolf),body.SummonDifficulty,4);
                     s=s with{Mode=4,ActionAt=attack.Action==0?0:s.Frame+attack.Action,EndAt=s.Frame+attack.End,NextThink=0,AttackSpeed=attackSpeed,
-                        Target=(uint)request.B,Teleport=false,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
+                        Target=(uint)request.B,Teleport=false,AttackPacket=packet,Motion=DruidWolfGeometry.Stop(s.Motion)};break;
                 case 7:
                     var cell=Cell(s);int distance=DruidWolfGeometry.Full(cell,ownerCell),sign=Math.Sign(distance-request.B),amount=Math.Min(Math.Abs(distance-request.B),request.A);
                     int dx=Math.Abs(ownerCell.X-cell.X),dy=Math.Abs(ownerCell.Y-cell.Y),sum=Math.Max(dx+dy,amount),x=0,y=0;
@@ -259,7 +269,7 @@ internal static class DruidSpiritWolfWorld
                     var hit=DruidSpiritWolfHit.Resolve(body,owner,s,World.FindMobile((Serial)s.Target) as BaseCreature,ref seed);
                     if(body.Deleted){return;}
                     s=s with{ActionAt=0,StrikeRequests=checked(s.StrikeRequests+1),PendingStrikeTarget=s.Target,PendingStrikeFrame=s.Frame,
-                        PendingStrikeRank=SkillMechanics.Rank(owner,CombatAbility.SummonSpiritWolf),Seed=seed,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==SpiritWolfHitOutcome.Hit?1:0))};
+                        PendingStrikeRank=s.AttackPacket.Value.Rank,Seed=seed,LastHit=hit,Hits=checked(s.Hits+(hit.Outcome==SpiritWolfHitOutcome.Hit?1:0))};
                 }
             }
             if(s.Mode is 4 or 8 && s.EndAt==s.Frame)

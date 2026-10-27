@@ -108,7 +108,7 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                             assert session.expect(live + r'-check: (passed|failed)').group(1) == 'passed'
                             session.expect(live + ': ready')
                             client.sendall(b'\x73\x00')
-                            assert session.expect(live + r'-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                            assert session.expect(live + r'-result: (passed|failed)', timeout=25 if live=='spirit-wolf-slow-live' else 15).group(1) == 'passed', logpath.read_text()[-5000:]
                     for family in extra_input_commands:
                         with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
                             threading.Thread(target=drain, args=(client,), daemon=True).start()
