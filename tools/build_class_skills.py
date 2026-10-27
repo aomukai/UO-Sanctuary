@@ -172,6 +172,12 @@ def products():
                   'left':False, 'right':False,
                   'sourceFields':{k:v for k,v in rage.items() if not k.startswith('*') and k != 'lineNumber'},
                   'sourceParameters':{str(i):rage.get('Param'+str(i),0) for i in range(1,13)}}]
+    bear=next(row for row in rows if row['talentId']=='druid.summongrizzly')
+    smite=source_skills['326']
+    assert smite['skill']=='BearSmite' and smite['srvstfunc']==32 and smite['srvdofunc']==2 and smite['ResultFlags']==8
+    druid_npc += [{**bear,'name':smite['skill'],'sourceId':326,'sourceKey':smite['skill'],'left':False,'right':False,
+        'sourceFields':{k:v for k,v in smite.items() if not k.startswith('*') and k!='lineNumber'},
+        'sourceParameters':{str(i):smite.get('Param'+str(i),0) for i in range(1,13)}}]
     monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())

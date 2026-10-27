@@ -4,6 +4,8 @@ This register is independent of mechanical completion. No final assets have been
 
 Text labels are explicitly marked placeholders in the talent/skill panels and hotkey tooltips. Each talent needs a unique icon; passives do not need hotkey icons.
 
+Summon Grizzly's talent and hotkey icons remain pending. Its internal BearSmite/NPC326 action shares the summon identity and adds no separate bindable skill icon.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

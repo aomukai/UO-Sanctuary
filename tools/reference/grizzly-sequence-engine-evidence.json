@@ -1,0 +1,183 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "installed": false,
+  "handlerEnabled": false,
+  "nativeConsumer": false,
+  "preflightSha256": "3509c04c716b08ec6ead808f3e7e1acfb31151b628da4ac544158e3a33be768c",
+  "sourceHashes": {
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "unchangedRoutineHashes": {
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2"
+  },
+  "sequence": [
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "0",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "1",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "2",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "3",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "4",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "5",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "6",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "7",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "8",
+      "dir": "",
+      "event": "1",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "9",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "10",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "11",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "12",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "13",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "14",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "15",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    },
+    {
+      "sequence": "seq_bearsmite",
+      "mode": "A2",
+      "frame": "16",
+      "dir": "",
+      "event": "",
+      "*eol": "0"
+    }
+  ],
+  "animation": {
+    "code": "B7A2HTH",
+    "frames": 17,
+    "speed": 248,
+    "events": [
+      [
+        8,
+        1
+      ]
+    ]
+  },
+  "fixture": {
+    "path": ".local/class-skills/grizzly-sequence-source-probe.json",
+    "sha256": "bdd8e5497c78e8e3b5158b292c608f10593e8d468e9b1cd21fa1bcb9af08620d",
+    "cases": 5742,
+    "generatedSourceSha256": "984ef98c4aaa805f8ebebdda12dc44c84a18b9b9e003975aac65295e1b91d846",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete initializer,advance,event lookup and end test execute with17current A2rows and action1at index8. Initial point0,remaining4352,speed256and animation mode5are distinct from outer monster mode14.",
+    "Supplied speed matrix includes current metadata248,slow/fast/fractional positions,wrap and zero-speed controls. Advance returns the last crossed event;outer consumer must consume the current action before advancing again. Existing parameterized sentry clock is a reuse candidate."
+  ],
+  "limits": [
+    "Table lookup,ordinary-animation branch and frame bonus are explicit services;only sequence clock branches execute. Synthetic starting fractions/remaining/speeds are not asserted reachable gameplay states.",
+    "Attack-rate selection,sequence entry/start32,mode14callbacks,do2release/event timing,live world geometry and saved cancellation remain separate acceptance. No native Grizzly action or learned handler is claimed."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeConsumer": false,
+  "preflightSha256": "3509c04c716b08ec6ead808f3e7e1acfb31151b628da4ac544158e3a33be768c",
+  "eventCodes": {
+    "UNITEVENT_ABSORBDAMAGE": 1037,
+    "UNITEVENT_DAMAGEDBYMISSILE": 1038,
+    "UNITEVENT_DAMAGEDINMELEE": 1039,
+    "UNITEVENT_DOMELEEATTACK": 1040,
+    "UNITEVENT_DOMELEEDMG": 1041,
+    "UNITEVENT_DOMISSILEDMG": 1042,
+    "UNITEVENT_KILL": 1043,
+    "UNITEVENT_KILLED": 1044
+  },
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945"
+  },
+  "unchangedRoutineHashes": {
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_GetDamageFromUnits": "ebcca4e339c1f1b85ae69b13af1909394d6598a7aa6566b3614cdae55a7f6c03",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11"
+  },
+  "reusedFillAbiSha256": "206911e445746f082b602db1f2d4b293cb2ddbec524bc976f438d6fe0ef1c44d",
+  "fixture": {
+    "path": ".local/class-skills/bear-smite-source-probe.json",
+    "sha256": "8f163a57f47e48c84abea66ba6e6a20da61f8c46b1150cfe71fb2ecb63280bbd",
+    "packetCases": 1636,
+    "reductionCases": 1248,
+    "largeValueRationalDifferences": 272,
+    "generatedSourceSha256": "d835c3bcd09b8d9e2fbe53bd5ff002fec9c012eb59141ac48c82a2ff313a4d40",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete start32,allocation,get-combat,unarmed fill/critical/hit-class,percentage,resistance/total,event health,do2and durability wrapper are composed. SourceNPC326damage percent/flat field and unchanged rank-independent do2are distinct. Start does not commit HP;release uses the stored packet despite changed rank/damage/resistance services.",
+    "Complete current-table row checks pin326/start32/do2/SrcDam128/ResultFlags8,rank-one15percent and max250formula,zero skill elements/AR,and Grizzly Crit5/hit-class3. Zero-bound elemental request consumes no supplied RNG draw as supported by the pinned seed helper. NPC326never writes stun in these contexts. Knockback result flag8is prepared on successful start;post-allocation physical addition remains separate from the already computed health total. Full event health executes rather than a copied health block.",
+    "A separate1248-context complete resistance/absorb matrix includes values around1048576FP and reveals272differences from always-multiply-first rational mitigation. Source skips the percentage helper at zero resistance,uses its large-value early division otherwise,and also uses it for percent absorption. Native correction requires its own acceptance;the current native reducer is not certified here."
+  ],
+  "services": [
+    "Target/row/formula/AR-result flags,zero NPC elemental getter/fill,bounded RNG endpoints,world/room/interaction/range and stat-map layouts are explicit. Successful NPC326row has no self/target aura or server overlay;unavailable state/equipment/leech paths trap.",
+    "Final ExecuteMissileDamage mode dispatch,Thorns event callbacks,cold-state receiver and global event handlers are explicit recording services;this is not full monster death/knockback geometry or modern executable equivalence. Target/control contradictions are synthetic branch coverage,not modern-reachability claims."
+  ]
+}

@@ -16,4 +16,13 @@ internal static class SourcePercentage
         else if(divisor<=value>>4){return unchecked(percent*(value/divisor));}
         return (int)((long)percent*value/divisor);
     }
+
+    // Nonnegative damage factors are0..200. Preserve the source's division
+    // ordering,with the existing native wide intermediate/ceiling retained
+    // outside the legacy signed-int result domain.
+    internal static long Damage(long value,int percent)
+    {
+        if(value<0||percent is <0 or >200){throw new System.ArgumentOutOfRangeException();}
+        return value>1048576?checked(value/100*percent):checked(value*percent)/100;
+    }
 }

@@ -74,8 +74,11 @@ public static class NamedElements
     internal static ElementReduction Reduce256(int damage256,int resistance,int reduction256,int absorbPercent,int absorbFlat256,int absorbCap=40)
     {
         // Preserve Sanctuary's zero clamp; legacy negative MDR overflow remains an explicit modern acceptance question.
-        long value=Math.Max(0,(long)damage256-reduction256)*Math.Clamp(100-resistance,0,200)/100;
-        long percent=value*Math.Clamp(absorbPercent,0,absorbCap)/100;
+        long value=Math.Max(0,(long)damage256-reduction256);
+        // Zero resistance bypasses the source percentage helper,retaining all
+        // low bits even above its large-value early-division threshold.
+        if(resistance!=0){value=SourcePercentage.Damage(value,Math.Clamp(100-resistance,0,200));}
+        long percent=SourcePercentage.Damage(value,Math.Clamp(absorbPercent,0,absorbCap));
         long flat=Math.Min(value-percent,Math.Max(0,absorbFlat256));
         return new((int)Math.Clamp(value-percent-flat,0,int.MaxValue),(int)Math.Clamp(percent+flat,0,int.MaxValue));
     }
