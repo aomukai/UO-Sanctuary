@@ -176,7 +176,7 @@ def products():
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['fenris','spiritofbarbs','heartofwolverine','oaksage','spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
+               if r.get('Id','').lower() in ['druidbear','fenris','spiritofbarbs','heartofwolverine','oaksage','spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
     raven_properties = json.loads((ROOT/'tools/reference/raven-preflight.json').read_text())['currentRows']['monprop']
     assert [raven_properties[k] for k in ['Id','prop1','min1','max1','prop1 (N)','min1 (N)','max1 (N)','prop1 (H)','min1 (H)','max1 (H)']] == ['druidhawk'] + ['stupidity','-1','-1']*3
     summons += [{'key':'druidhawk-properties','fields':{'item_stupidity':int(raven_properties['min1'])}}]

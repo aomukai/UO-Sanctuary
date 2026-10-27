@@ -1,0 +1,30 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb"
+  },
+  "unchangedRoutineHashes": {
+    "AITHINK_Fn112_DruidBear": "f94114b4d9fc672dc6cd68284b90934d20c4087842eb82219ae4044a00855f33"
+  },
+  "pinnedMonsterHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "reusedSpiritAbiSha256": "5c7651a9a2144261af68ee7e22ab4f1dc5a90bc0020d6b159f84d852878007f0",
+  "generatedSourceSha256": "d3eed1989432f83fa39f79bfb93292bed05c67927803df55b834d00eb22b8be0",
+  "fixture": {
+    "path": ".local/class-skills/grizzly-ai-source-probe.json",
+    "sha256": "3ea6d057af2a714334ed1bea64d83d1724526a5e6c4985a632bbc3c31092d260",
+    "cases": 672
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty runtime stderr",
+  "established": [
+    "Complete AI112 runs672ordered request/memory contexts. Current three difficulty columns agree on15/40/50parameters,velocity5/run9,BearSmite326sequence skill. Missing owner can PetMove3via remembered-owner lookup; distance>50uses PetMove3,>28uses walk PetMove0with100velocity,returning regardless of movement result.",
+    "At owner distance>18,walk/townwalk or running-owner follow returns only on successful PetMove; failed movement continues target selection. Visible primary wins; potential requires positive visibility and full-size actor distance<28. Combat flag is retained independently of lookup result.",
+    "Combat+target rolls50percent for sequence326,otherwise A1with15stall; missing target idles15at owner distance<=16or follows. Noncombat+target rolls40percent to SetVelocity(0,80,40)for current5/9,then WalkToTargetUnit in either case. No corpse/rage or shared-wolf common-move branch is introduced."
+  ],
+  "limits": [
+    "Owner/primary/potential/visibility/full-size distance,chance,movement result and tactics are explicit supplied services. Target/combat combinations include synthetic controls,not claims of modern reachability. No native saved actor or learned Grizzly handler enabled.",
+    "BearSmite sequence/packet/knockback,first-think/busy timing,world geometry/path/event/seed ordering,save/history/casting and current executable equivalence need separate acceptance. The old outer policy has no town gate; actual target lookup/town attack restrictions remain downstream services."
+  ]
+}

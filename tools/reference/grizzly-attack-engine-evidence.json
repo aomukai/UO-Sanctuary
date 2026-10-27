@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "reusedAbiSha256": "fcc5d982bd6802896af9ec0ba7a3e5f8a3e97ecf14f76393239c2125fa065498",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21",
+    "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e"
+  },
+  "tableHashes": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "fixture": {
+    "path": ".local/class-skills/grizzly-attack-source-probe.json",
+    "sha256": "9f0441d83e35b7970b7aab1e51a948307cd6bbce5bccc4ce5a6a55af460738f1",
+    "cases": 6368,
+    "ordinaryContexts": 6144,
+    "guardContexts": 224,
+    "generatedSourceSha256": "72114c5b2d4e1a7b0372c5e58bb97be8e81e847a3c832f4bf7ea49572fee9400",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete owner damage/AR hook, physical tier/min/max/to-hit getters, mode writer and noRatio helper execute together at live effective ranks0..255,three difficulties,two game contexts and modes4/5/7/8. Birth passives remain separate.",
+    "Grizzly has30..60base physical endpoints with10/15/20/26/30tier increments; rank28raw496..526. Current live player-skill AR getter is300+20*(rank-1)when rank>0,zero at rank0; A1 literal monster mode AR300 is separate from birth monlvl and copied Spirit Wolf AR. A2/cast/S1 table lanes are zero,with the same live owner getter. Missing owner/skill row removes owner endpoints but retains table mode AR."
+  ],
+  "limits": [
+    "BearSmite NPC326,start32/do2,sequence12timing/action and post-combat flat physical add are separate and not certified by ordinary modes4/5/7/8. No learned Grizzly handler or native actor enabled.",
+    "Owner/rank/statlist/game/layout are explicit services; hostile,ratio,elemental and equipment branches are not exercised. This is supplementary older engine composition plus pinned current tables,not a modern executable equivalence certificate."
+  ]
+}

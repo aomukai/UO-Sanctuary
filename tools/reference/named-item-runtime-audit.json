@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "454984478dba512e7de1e72ea2cab092cfde53890f0b87e63efa96a43c55612a",
+  "ContentAssemblySha256": "f3c2ea562bdad8efb524b2aced62b302861f3b8c4f9829199a7427dcbcbd1792",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -68,7 +68,7 @@
     "data/Sanctuary/Balance/named-item-properties.json": "dc5f3b95c4eb24d5dc756381b8b08272db84134c5fc0ea6c8e77f11e4fa58762",
     "data/Sanctuary/Balance/named-skill-backlog.json": "2a9e4b686189b51e41910020dd27cc3f2a065d73edc5c3f530c3c10d84b2a3cb",
     "data/Sanctuary/Balance/named-skill-bindings.json": "b7859dfea4db641ec9c84ca3661d5ec7734098a0676fb7b0e45fa760490b4438",
-    "data/Sanctuary/Balance/necromancer-summons.json": "3763c1de04a25c14251cbb60f56ba61b7f0a6a74cc4ecccc5e8068285b342da0",
+    "data/Sanctuary/Balance/necromancer-summons.json": "7d25862661bd470269702fc633003394cca78ede17538e506c435d06febb66f8",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/potion-belts.json": "97081b7cca48cb3dc17c16c1f54cf8c151fee82474858dc6966653c04a3f9a42",
     "data/Sanctuary/Balance/power-scrolls.json": "4563cb89d0b75f26c14bed8121b3c56c33bd44234047f9d9276d4c508f531f8f",
@@ -354,7 +354,7 @@
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
     "src/Sanctuary.Content/DruidBarbsBody.cs": "d76828d398d2dd748560b28675af569f624462224d310d9dad0b83a2e84208ca",
     "src/Sanctuary.Content/DruidBarbsStats.cs": "0055e6c2675727fe781c46a32fe45d21a3364a5a16ce7ecbd1e421da36bd1540",
-    "src/Sanctuary.Content/DruidBeastAttackStats.cs": "b0d1cc903c502f5fc0ac0774c61c49491bf0c0f22221a58710821536192a1550",
+    "src/Sanctuary.Content/DruidBeastAttackStats.cs": "df7a9b200c18d9cdabefe6f7de57a2f05100e972064756119cf263b14a4e852c",
     "src/Sanctuary.Content/DruidCombat.cs": "1e2698bf277727413359cfa6aad4adf49b8da9b606eae3749ac6f632273f0c4a",
     "src/Sanctuary.Content/DruidCreeperAi.cs": "385e4931a2251b0151fbcd33fb40acea04fdba1a11d61a25fc3d9b499e46cbba",
     "src/Sanctuary.Content/DruidCreeperBody.cs": "6b898559c6c15f66610daca4a76a5ad250ba1a76f4d8b933be5d7a5cdef3dfd4",
@@ -376,6 +376,7 @@
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/DruidFirestorm.cs": "5f0ff4f43c840c7f3b76cb96f9dd1d8df92f346d11311291dbe51fadb1e3050a",
     "src/Sanctuary.Content/DruidFissure.cs": "a14b5cf576c0bafd86455b61f7e16d0ebb2ada64d96bbb217cdbcf38d9f95781",
+    "src/Sanctuary.Content/DruidGrizzlyStats.cs": "6592b63294eba1b343bbd7392997b68f7ea1c87c96a09eb8711feb248d37b88e",
     "src/Sanctuary.Content/DruidGroundCasting.cs": "c6a4a005d6ba7af2d4b7e6798b29c9baae899a6d5728c1595110ce3197acd1f2",
     "src/Sanctuary.Content/DruidHurricane.cs": "481e23f0768c2fcaaefc4091e6d28a01dd99803b2ad60d2bbca27546cb53f0fa",
     "src/Sanctuary.Content/DruidMoltenBoulder.cs": "f960e93097fb93c44fdc58e3ad42f0761eb1b81e8497a8741591b2b09ae154dc",

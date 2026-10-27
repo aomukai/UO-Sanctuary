@@ -5,14 +5,14 @@ namespace Sanctuary;
 internal readonly record struct BeastAttackStats(int Rank,int Minimum,int Maximum,int Attack);
 
 // Source flag1 mode-list values, distinct from birth base/passive stats.
-// Spirit Wolf A1entry captures these; Dire Wolf consumers remain separate.
+// Captured on attack-mode entry; copied birth passives stay separate.
 internal static class DruidBeastAttackStats
 {
     internal static BeastAttackStats Capture(SkillValues live,MonsterDifficulty difficulty,int sourceMode)
     {
         string key=live.Ability switch
         {
-            CombatAbility.SummonSpiritWolf=>"spiritwolf",CombatAbility.SummonDireWolf=>"fenris",
+            CombatAbility.SummonSpiritWolf=>"spiritwolf",CombatAbility.SummonDireWolf=>"fenris",CombatAbility.SummonGrizzly=>"druidbear",
             _=>throw new NotSupportedException("Unmapped beast attack source")
         };
         if(live.Rank is <0 or >255||difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell)
