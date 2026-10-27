@@ -1,0 +1,36 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/AI/AiThink.cpp": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "unchangedRoutineHashes": {
+    "AITHINK_Fn108_Fenris": "cb5503afa2a0911ee7d101dc3017b82a7a91268524e0541dcb0493fcef812802"
+  },
+  "reviewedOnlyRoutines": {
+    "SKILLS_FindUseableCorpse": "40ccfec0c4ab2a3ae68850feed01174951c375385029eb4c52cd07f1eef29c48"
+  },
+  "pinnedMonsterHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "reusedSpiritAbiSha256": "5c7651a9a2144261af68ee7e22ab4f1dc5a90bc0020d6b159f84d852878007f0",
+  "generatedSourceSha256": "0f9da104b7c098c903d61dd083459643dfcc65038d875f1f5b7606d47583d79b",
+  "fixture": {
+    "path": ".local/class-skills/dire-wolf-ai-source-probe.json",
+    "sha256": "7e91e2c3e7b4112f52e946abb70e00bb183169c5a5c1c47e77ca2a723e2d9038",
+    "cases": 1226
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty runtime stderr",
+  "established": [
+    "Complete Fenris AI executes1,226ordered-service contexts with current parameters22/20/25/24/30,velocity5/run10 and distinct skill slots314A1/292S1. All three current difficulty parameter columns agree. Ownerless warp uses event+6/idle8; distance>50warp uses event+2/idle10. Far/moving-owner follow returns regardless of the supplied movement result.",
+    "Visible primary wins; fallback requires positive potential visibility and distance<24. A target is discarded only when both owner-to-wolf and owner-to-target distances exceed24. Shared pet movement precedes corpse work. This is distinct from the old Spirit Wolf fallback/combat defect.",
+    "Available rage and absent rage state test the25percent roll before the no-target/pursuing alternatives,so RNG is still consumed in those alternatives. Corpse lookup requests size10; the selected corpse must be at distance<12. Melee uses314and clears pursuit; noncombat chase remembers corpse ID; combat attacks the current target instead. Rage/unavailable-skill clears pursuit; a failed eligible search does not necessarily clear it.",
+    "Separately reviewed complete corpse finder uses the actor position/room,size10and flags0x1002,returning the first usable corpse accepted by its actor-interaction service. The owner argument is unused. No nearest-distance sort or release-time soft/dead-collision filter is silently added to this finder."
+  ],
+  "limits": [
+    "Owner/target lookup,visibility,distances,room,common movement,chance,corpse finder and tactics/event execution are explicit services. The complete finder/predicates/release have separate evidence; this does not implement native corpse ownership/loot,physical combat,saved AI or learned casting.",
+    "Current native CorpseSkillRules supplies selectable/no-select/shattered/ownership/loot gates; it does not yet expose the distinct source soft/dead-collision release predicates. Extend or explicitly map those traits before a native Fenris consumption claim. Existing Sanctuary corpse/loot protection remains a separate project rule.",
+    "Source lookup/combat flags include independent synthetic controls,including contradictory target/combat inputs; their literal requests are captured,not asserted reachable modern world states. Current first-think/busy-mode dispatch,geometry/path/room/interaction/RNG order and executable equivalence remain separate. No native Fenris actor is enabled."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": true,
+  "newHandlerAdded": false,
+  "installed": false,
+  "handlers": 170,
+  "druidHandlers": 14,
+  "completedClasses": [],
+  "goalComplete": false,
+  "verified": {
+    "passMarkers": 199,
+    "boots": 3,
+    "actualReloads": 2,
+    "naturalWolfFollowRuns": 3,
+    "naturalWolfHitRuns": 3,
+    "naturalWolfHasteRuns": 3,
+    "naturalWolfDecrepifyRuns": 3,
+    "wolfRightCasts": 3,
+    "wolfQuickCasts": 3,
+    "retainedBarbsRightCasts": 3,
+    "retainedBarbsQuickCasts": 3,
+    "pythonTests": 70,
+    "namedDecisions": 573,
+    "namedInputFingerprints": 637,
+    "firstLoopInputFingerprints": 21,
+    "fullClassMarkers": null
+  },
+  "frozenNumericRevision": "88cc65cd85a9ecd0bb6de3ac7f23b0d84b20f49d",
+  "testedAssemblies": {
+    "ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Assemblies/Sanctuary.Content.dll": "f6817cad26becf7e471aa22e5a13058d6aff341519d259bbe9d7c205ddb31264",
+    "Assemblies/Sanctuary.Integration.dll": "43aab384177eb5ab787054ac898ac48fc8d0fef326e3c1f8aa705145370fcd31"
+  },
+  "artifacts": {
+    ".local/class-skills/wolf-mode/stats-inputs.json": "4164fb8a25c6d093ef092dd3ad0c4d2cfa09df7369d362bd45dd0ca53c743548",
+    ".local/class-skills/wolf-mode/stats-native-checks.log": "62ca1525eed55d8eca5f20abfec884e182e26e877c2c264f5354b0e35d7efb2e",
+    ".local/class-skills/wolf-mode/stats-run.log": "c28d96c6606486d5da72b0478fb7e324fde2fd515128da53af14e339e00a0934",
+    ".local/class-skills/wolf-mode/content-build.log": "dc07c82b52e96469c9976bb9abd520329d83dbc6273d080b94e883f67282ac98",
+    ".local/class-skills/wolf-mode/integration-build.log": "7dee35744cf5e32b867e2642a26246163b425099ea9e970f60abe91590b42fb0",
+    ".local/class-skills/wolf-mode/python-tests.log": "ff96037090b8b9d3dd8824d1e465d29433e58b3bf0995f64fae231da0a777235",
+    ".local/class-skills/wolf-mode/spirit-wolf-mode-fixtures.json": "fdcb65864941896348567d44eb3923be5c2ba2fc770633bdde0f6ea123872a37",
+    ".local/class-skills/wolf-mode/spirit-wolf-body-fixtures.json": "c79be6410c2f35f221059e7bae152225f84ab7292684e26626e5c66bcf35a2d8",
+    ".local/class-skills/wolf-mode/spirit-wolf-casting-fixtures.json": "e203b1a89b9fb230f1737886e19ae7c0256d52ef8e534c3af1288d4409d8b646",
+    ".local/class-skills/wolf-mode/wolf-world-fixtures.json": "bcc4954b62d198f797af76624488566aff1bee6fa4372abb6f01082e138cc66c",
+    ".local/class-skills/wolf-mode/named-item-runtime-audit.json": "34135b7504c4e93cf04e274096935e7645febe9b6971b63089be2a04da1dcb0a",
+    ".local/class-skills/wolf-mode/first-loop-affix-audit.json": "39987ac87341abf9d8ea8d4f7375a3d07c7f6e52fcd96b8cd1238cec87aa05fa",
+    "tests/check_spirit_wolf_mode.py": "97afd98e5a3592fb3715b40f5fe1cd3f08258a1daead2a68994e27781cb64bea",
+    "tests/check_creeper_stats.py": "875ca5d7b4854dbc14673a35b45e7ee0293b86cd0d85f02a3065129510ba9b16",
+    "tools/record_spirit_wolf_mode.py": "7ede70bfb0d5c8cb3648d10abd65e623f1bdb457234f92fc14c5fee2aa3c8fcf",
+    "tools/reference/dire-wolf-stats-native-evidence.json": "d9eda9fddea94c99cf7e6ea2036c68af233bb6c549ee848078036a7dbb0611e6",
+    "tools/reference/druid-beast-attack-engine-evidence.json": "7f9f58c1c550860cde2e33010f57308fe389e5f550242da327b189519027213b"
+  },
+  "established": [
+    "Actual Spirit Wolf A1entry captures live owner rank and source mode AR,125at rank1/145at rank2,independently of copied birth/cold/passive values. Shared creature AR and ordinary-hit chance add birth base/passive/mode values once before live actor percentages. Actual Tarnhelm during windup does not rewrite the packet; next A1refreshes it. Impact records entry rank,not current owner rank.",
+    "Actual Enchant AR percent applies to the aggregate flat pool. The high-defense fixture supplies a native Defiance-stat context to avoid the chance cap; it is a component control,not a new player balance rule. Existing cold damage/ordinary block/chill/immunity/critical/reach and no-owner-Dex behavior remain verified.",
+    "Saved v3pending packets are validated against source calculations. Corrupt or absent v3packets fail atomically. Exact old v2JSON without an attack packet cancels the old pending bite without fabricated owner context,RNG or damage. Actual world loads retain live actors/birth and cancel offline pending actions under the existing persistence policy; next real A1after legal placement/approach reads current owner rank. Two reloads stage rank2packets while owner rank is1.",
+    "Retained normal/haste/repeated Decrepify natural bites,follow,right/quick input,three spirits,resources,items and prepared Dire numeric consumers pass199markers across3boots/2actual reloads. All70Python checks pass with0warning/error builds; fresh item fingerprints preserve573named decisions. Earlier151-marker Dire numeric acceptance remains frozen at88cc65c."
+  ],
+  "limits": [
+    "This connects the Spirit Wolf A1mode AR consumer. It does not certify the full modern nonattack/GH/teleport mode-stat stream,global event ordering,physical-floor behavior,sunder/equipment,geometry/path/RNG or graphical equivalence. Existing inferred Decrepify busy continuation remains explicitly provisional.",
+    "Dire Wolf creation/attack statistics are prepared; distinct Fenris AI,saved body,corpse ownership/consumption/rage,physical combat and learned casting remain unfinished. No new handler or completed class is claimed.",
+    "The new package is isolated. Installed main69f3336and existing saves/config/client remain unchanged; installation requires its own accepted package/original-world smoke and preservation receipt. Final effects/audio and separate talent/right/quick icons remain placeholders."
+  ]
+}

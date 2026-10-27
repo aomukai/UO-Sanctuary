@@ -28,7 +28,7 @@ public static class SpiritWolfModeChecks
     {
         // This target survives restarts; keep its floor clear of the natural
         // live scenes whose process-local scene counter restarts from zero.
-        var p=SpiritWolfWorldChecks.Fresh(3072);var at=TimedEffects.Now.AddDays(4);
+        var p=SpiritWolfWorldChecks.Fresh(-1024);var at=TimedEffects.Now.AddDays(4);
         var target=new BladeMissileTarget{CantWalk=true,NoKillAwards=true};target.SetHits(10000);target.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);target.AIObject.AITimer.Stop();
         var wolf=DruidSpiritWolfWorld.Create(p,new(p.X+1,p.Y,p.Z),at,901);
         var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.Name=="Tarnhelm").Id,99,new Random(173),true);

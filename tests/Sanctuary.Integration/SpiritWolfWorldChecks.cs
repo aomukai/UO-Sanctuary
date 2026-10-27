@@ -38,13 +38,27 @@ public static class SpiritWolfWorldChecks
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
-        int y=1800+64*_scene+++sceneOffset;int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
+        int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
         // Isolate a flat native terrain adapter above shipped dungeon geometry.
         // Adding live scenes must not accidentally select an underlying wall.
         const int z=100;
-        for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,z),Map.Trammel);}
-        Require(new[]{0,1,2,3,8,16,30}.All(dx=>Map.Trammel.CanSpawnMobile(new Point3D(7100+dx,y,z))),"World fixture floor is not free");
-        p.MoveToWorld(new(7100,y,z),Map.Trammel);return p;
+        for(int candidate=0;candidate<64;candidate++)
+        {
+            int y=1800+64*(_scene++)+sceneOffset;
+            if(y<24||y+24>=Map.Trammel.Height){break;}
+            // Scene counters restart with the process; saved fixtures do not.
+            // Select an empty native test area rather than moving or deleting
+            // existing actors to make a reused hard-coded location pass.
+            bool occupied=false;
+            foreach(var mobile in Map.Trammel.GetMobilesInRange<Mobile>(new Point3D(7100,y,z),40))
+            {if(!mobile.Deleted&&Math.Abs(mobile.Z-z)<16){occupied=true;break;}}
+            if(occupied){continue;}
+            for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,z),Map.Trammel);}
+            if(!new[]{0,1,2,3,8,16,30}.All(dx=>Map.Trammel.CanSpawnMobile(new Point3D(7100+dx,y,z))))
+            {Log.Information("Wolf fixture skipped occupied/obstructed floor at7100,{Y},100",y);continue;}
+            p.MoveToWorld(new(7100,y,z),Map.Trammel);return p;
+        }
+        p.Delete();throw new InvalidOperationException($"No free wolf fixture scene in facet{Map.Trammel.Width}x{Map.Trammel.Height},offset{sceneOffset}");
     }
     internal static void End(PlayerMobile p){PersistentMinions.Dismiss(p);p.Delete();}
     private static void Through(DruidSpiritWolfBody body,int frame,bool actions=true)
