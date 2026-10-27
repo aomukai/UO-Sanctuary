@@ -9,7 +9,9 @@ using Server;
 using Server.Mobiles;
 namespace Sanctuary;
 
-internal sealed record GrizzlyBodyState(uint Owner,GrizzlySnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
+internal sealed record GrizzlyBodyState(uint Owner,GrizzlySnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] GrizzlyWorldState Controller=null,
+    [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)] bool LearnedCast=false)
 {
     public string Profile{get;init;}="prepared-life-and-ownership-v1";
 }
@@ -22,6 +24,7 @@ public partial class DruidGrizzlyBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private GrizzlyBodyState _prepared;
+    internal bool ControllerLoaded;
     internal GrizzlyBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<GrizzlyBodyState>(_saved));
     internal string SavedText=>_saved;
     public override DiabloClass SummonClass=>DiabloClass.Druid;
@@ -67,6 +70,11 @@ public partial class DruidGrizzlyBody:SkeletonGuardian,ISourceLifeMaximum
                 ||state.Profile!="prepared-life-and-ownership-v1"
                 ||DruidGrizzlyStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Grizzly life/ownership state");}
+            if(state.Controller!=null)
+            {
+                DruidGrizzlyWorld.Validate(state.Controller);
+                if(state.Controller.NextUtc!=state.NextRecoveryUtc){throw new InvalidDataException("Grizzly body/controller clocks differ");}
+            }
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Grizzly snapshot",e);}
@@ -107,6 +115,7 @@ public partial class DruidGrizzlyBody:SkeletonGuardian,ISourceLifeMaximum
     // AI/movement/attack or offline recovery is enabled by this factory.
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){throw new InvalidOperationException("Grizzly recovery belongs to its world clock");}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Grizzly clock must be UTC");}
         if(Deleted||Prepared is not{} state||state.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner||owner.Serial.Value!=state.Owner){Delete();return;}
@@ -122,5 +131,10 @@ public partial class DruidGrizzlyBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterBearLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GrizzlyBodyState>(_saved);Validate(_prepared);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<GrizzlyBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){ControllerLoaded=true;DruidGrizzlies.Track(this);}}
+    public override void SuspendActions()
+    {base.SuspendActions();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidGrizzlyWorld.Park(c)});}}
+    internal override void InterruptForRecovery()
+    {base.InterruptForRecovery();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidGrizzlyWorld.Park(c)});}}
+    public override void OnAfterDelete(){DruidGrizzlies.Forget(this);base.OnAfterDelete();}
 }

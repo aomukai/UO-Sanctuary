@@ -70,14 +70,22 @@ public static class SourceBlocking
     }
     internal static bool TryBlock(BaseCreature actor,bool physical,out bool blocked)
     {
-        blocked=false;if(!TryRate(actor,out int rate,out bool animation)){return false;}
-        blocked=physical && rate>0 && BlockRoll(100)<rate;
-        if(blocked)
-        {
-            if(animation && actor is GraveyardUndead undead){undead.InterruptForRecovery();}
-            actor.FixedEffect(0x375A,5,5,0x481,0);actor.PlaySound(0x1A4); // Identified block/SH presentation placeholders.
-        }
+        if(!TryRoll(actor,physical,out blocked,out bool animation)){return false;}
+        if(blocked){Present(actor,animation);}
         return true;
+    }
+    // Prepared attacks capture the decision now and present it at release.
+    // Existing immediate callers keep their original TryBlock behavior.
+    internal static bool TryRoll(BaseCreature actor,bool physical,out bool blocked,out bool animation)
+    {
+        blocked=false;if(!TryRate(actor,out int rate,out animation)){return false;}
+        blocked=physical&&rate>0&&BlockRoll(100)<rate;return true;
+    }
+    internal static void Present(BaseCreature actor,bool animation)
+    {
+        if(actor is not{Alive:true,Deleted:false}){return;}
+        if(animation&&actor is GraveyardUndead undead){undead.InterruptForRecovery();}
+        actor.FixedEffect(0x375A,5,5,0x481,0);actor.PlaySound(0x1A4); // Identified block/SH presentation placeholders.
     }
     public static SourceShield[] Snapshot()
     {
