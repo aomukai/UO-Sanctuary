@@ -11,11 +11,11 @@
     "Keep corpse-search range, first-eligible ordering, AI priority and the rage effect separate from this type-independent edibility rule."
   ],
   "implementation": {
-    "status": "controller and connected-timer verified; learned casting pending",
+    "status": "learned casting and controller verified; installation tracked separately",
     "nativeActorEnabled": true,
     "preparedBody": true,
-    "verification": "Prior skeletal/fleshy and one-time loot-safe transaction checks remain retained. The saved Fenris controller dispatches feeding at NPC314 A1 action, applies real500frame/+100percent rage after consumption and refuses a corpse consumed during windup. Two reloads cancel queued feeding before a new approach/windup. Three connected authenticated loopback sessions eat once, retain loot and deliver a subsequent raging physical bite. See dire-wolf-world-native-evidence.json.",
-    "next": "Learned placement/payment/allocation/cancellation, shared category/cap and right/quick input acceptance. Keep scan/footprint/room/path/mode/event and exact current-engine limits explicit.",
-    "learnedHandlerEnabled": false
+    "verification": "Retained skeletal/fleshy one-time loot-safe feeding, NPC314 action/500frame rage and connected physical-bite checks pass. Learned SC20mana, rollback/cancellation, independent cap3/FIFO/coexistence, right/quick input and two actual reloads pass230focused markers. Full1181class/projectile markers and separate optional named-item3markers pass with identical candidate binaries/data; each regression has3boots/2reloads. See dire-wolf-casting-native-evidence.json.",
+    "next": "Preserved installation acceptance, then Grizzly implementation and actual coexistence. Keep recorded room/scan/footprint/path/mode/event/current-engine and deferred item-skill limits explicit.",
+    "learnedHandlerEnabled": true
   }
 }

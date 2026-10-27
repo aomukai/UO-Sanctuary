@@ -16,25 +16,9 @@
   "corroborated": {
     "attackRatingPercent": "25*Spirit Wolf effective28=700",
     "defensePercent": "10*Spirit Wolf effective28=280",
-    "damagePercent": "25+10*(Grizzly28-1)=295"
-  },
-  "discrepancy": {
-    "reportedTooltipLife": 5200,
-    "pinnedPublicBaseLife": 750,
-    "cachedLocalBaseLife": 750,
-    "currentLifeCalc": "(par7 * lvl) + skill('Summon Fenris'.par2) * skill('Summon Fenris'.lvl)",
-    "withPreviouslyReportedDire28": "10*28+15*28=700percent; literal750base would yield6000 before other unreviewed paths.",
-    "conditionalInference": "650base would yield5200 with that700percent multiplier. This arithmetic is not evidence that actual monster birth uses650.",
-    "tooltipPath": {
-      "descline1": 74,
-      "desccalca1": "ln12",
-      "descline2": 75,
-      "desccalca2": "pnma*(100+ln12)/100",
-      "desccalcb2": "pxma*(100+ln12)/100",
-      "descline3": 13,
-      "desccalca3": "(par7 * lvl) + (skill('Summon Fenris'.par2) * skill('Summon Fenris'.lvl))"
-    },
-    "status": "unresolved; inspect current tooltip line13 and actual birth path before choosing a Grizzly base; no approved deviation and no native Grizzly handler"
+    "damagePercent": "25+10*(Grizzly28-1)=295",
+    "life": "With prior effective Dire28 and own rank28:10*28+15*28=700percent; Nightmare/Hell base650*8=5200. Normal base750*8=6000. The report fits Nightmare/Hell; the user did not explicitly name the current difficulty.",
+    "damage": "Pinned own physical endpoints at rank28are496..526. Applying295percent yields1959..2077displayed whole damage."
   },
   "files": {
     "publicMonstats": {
@@ -53,5 +37,19 @@
       "path": "/media/aomukai/FILES/Sanctuary/.local/research/d2r-3.3.93847/monstats-sentries-verified.txt",
       "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e"
     }
+  },
+  "resolution": {
+    "status": "difficulty-dependent table values resolve the apparent mismatch; no approved deviation needed",
+    "normalBaseLife": 750,
+    "nightmareBaseLife": 650,
+    "hellBaseLife": 650,
+    "tableFields": [
+      "minHP",
+      "MinHP(N)",
+      "MinHP(H)"
+    ],
+    "causeOfInitialQuestion": "Only the Normal minHP field was read in the initial query; Nightmare/Hell use capitalized MinHP suffix fields. The existing beast preflight already documented750/650/650 and NecromancerSummons.Source normalizes this spelling.",
+    "implementationRule": "Use current owner-facet difficulty, captured effective synergy ranks and the existing proportional-life rescale. Do not flatten Grizzly birth HP to650or750across all difficulties.",
+    "scope": "This corroborates current tables/tooltip arithmetic. Actual birth,AI,BearSmite sequence/damage/knockback and native actor/casting remain to implement and verify."
   }
 }

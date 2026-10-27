@@ -114,7 +114,22 @@ def record(check=False, full_class=False):
         full_log = (STAGE / 'class-native-checks.log').read_text()
         assert ' ERR]' not in full_log and ': failed' not in full_log and full_log.count('Shutting down') == 3
         full_markers = full_log.count(': passed')
-        assert full_markers >= 1184
+        assert full_markers == 1181
+        # The full runner omitted only its optional named-item command. Run
+        # that exact check and its two real reloads in a second isolated world
+        # with identical assemblies/data; retain both inventories explicitly.
+        import collections,re
+        def commands(text):return collections.Counter(re.findall(r'\] ([\w-]+): passed',text))
+        old=(ROOT/'.local/class-skills/wolf-mode/class-native-checks.log').read_text()
+        assert commands(old)-commands(full_log)=={'named-gear-check':1,'named-gear-reload-check':2}
+        assert not commands(full_log)-commands(old)
+        named=json.loads((STAGE/'named-inputs.json').read_text())
+        assert named['artifacts']==full['artifacts'] and named['copiedData']==full['copiedData']
+        namedlog=(STAGE/'named-native-checks.log').read_text()
+        assert ' ERR]' not in namedlog and ': failed' not in namedlog and 'Error:' not in namedlog
+        assert namedlog.count('named-gear-check: passed')==1 and namedlog.count('named-gear-reload-check: passed')==2
+        assert namedlog.count('Shutting down')==namedlog.count('Writing world save snapshot done')==3
+        artifacts += [STAGE/'named-inputs.json',STAGE/'named-native-checks.log',ROOT/'tests/check_named_candidate.py']
         assert 'Native class skills and projectile checks passed, including two save/reload cycles.' in (STAGE / 'full-run.log').read_text()
         for name in ['named-item-runtime-audit.json', 'first-loop-affix-audit.json']:
             assert json.loads((STAGE / ('full-' + name)).read_text()) == json.loads((STAGE / name).read_text())
@@ -122,7 +137,7 @@ def record(check=False, full_class=False):
         artifacts += [STAGE / name for name in ['class-inputs.json', 'class-native-checks.log', 'full-run.log']]
     result = dict(referenceVersion='3.3.93847', legacyCommit=source['legacyCommit'], handlerEnabled=True, installed=False,
         handlers=171, druidHandlers=15, completedClasses=[], goalComplete=False,
-        verified=dict(sourceContexts=1226, nativeOrderedComparisons=3678, fullClassMarkers=full_markers, rightCasts=3, quickCasts=3, difficultyColumns=3, physicalPacketComparisons=576, naturalFenrisRuns=3, pythonTests=70, namedDecisions=573, namedInputFingerprints=len(audits[0]["InputHashes"]), passMarkers=230, boots=3, retainedReloads=2),
+        verified=dict(sourceContexts=1226, nativeOrderedComparisons=3678, fullClassMarkers=full_markers, separateNamedMarkers=3 if full_class else None, separateNamedBoots=3 if full_class else None, separateNamedReloads=2 if full_class else None, rightCasts=3, quickCasts=3, difficultyColumns=3, physicalPacketComparisons=576, naturalFenrisRuns=3, pythonTests=70, namedDecisions=573, namedInputFingerprints=len(audits[0]["InputHashes"]), passMarkers=230, boots=3, retainedReloads=2),
         testedAssemblies=inputs['artifacts'], artifacts={str(p.relative_to(ROOT)): sha(p) for p in artifacts},
         established=[
             'Learned right/quick SC casting uses shared wolf target/range/LOS/ground-fit placement. One20mana payment follows successful allocation; failed/null/unsupported allocation or changed payment availability preserves existing paid wolves and FIFO. Current/deleted/self/town target controls and once-only release pass.',
@@ -130,7 +145,7 @@ def record(check=False, full_class=False):
             'Unlearned,low fractional mana,stop,out-and-back native movement,map round trip,hit recovery and frozen cancellation refuse unpaid casts. Actual right-hold/release and quick packets cast once at20mana in all three boots. Learned bodies,birth,FIFO and right/quick bindings survive two actual reloads; saved unpaid windups do not replay.',
             'The long offline skip now directly verifies expiry of the500frame rage lease without healing or AI RNG. All prior Fenris policy/body/feeding/rage/physical packet,connected timer and shared summon/corpse/item consumers remain checked.230markers pass across three boots/two reloads,all70Python checks pass,and fresh645/21fingerprints preserve573named decisions. Both builds have zero warnings/errors.',
         ], limits=[
-            'This is a learned handler and bounded native acceptance,not class completion or a current-executable parity certificate. The exact full-regression marker count is recorded separately when requested; installation requires its own original-world/preservation receipt.',
+            'This is a learned handler and bounded native acceptance,not class completion or a current-executable parity certificate. The exact full-regression marker count is recorded separately when requested. Full1181class/projectile markers and the optional named-item3markers use separate isolated worlds with identical candidate assemblies/data; each has3boots/2actual reloads. Installation requires its own original-world/preservation receipt.',
             'The learned route currently requires a trained Dire talent. Item-granted/no-hard-point casting,nonzero inherited sunder and NPC equipment delivery remain unsupported in the deferred item-skill scope. Grizzly coexistence needs its actual actor; other existing summon families are checked.',
             'The retained world uses explicit native sector/room/LOS/ground-fit,corpse scan/footprint,path/target-lookup/ties and provisional shared-wolf busy-A1/neutral-delay adapters. Exact modern Fenris feeding/event/cadence,full mode-stat stream and global incoming HP/death/return ordering remain open.',
             'No final art is claimed: silent UO0xE1 Dire Wolf [placeholder],WF movement/bite/feeding/rage/contact/teleport/critical/hurt/death/audio and separate talent/right/quick icons remain pending. Installed main2a6eec9and original saves/config/client remain unchanged until separate rollout.',

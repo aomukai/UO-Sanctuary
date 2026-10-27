@@ -74,13 +74,13 @@
   "implementation": [
     "Add a Spirit-Wolf-only incoming chill eligibility gate to both existing cold-state consumer paths. Preserve source cold resistance and coldeffect metadata. This does not assert100percent cold damage resistance, Holy Freeze immunity or Spirit Wolf freeze immunity.",
     "The prepared rate adapter reads actor haste/slow at A1entry. Named provisional policy observed-bite-continuation-neutral-delay-v1 consumes a busy AI decision without cancelling A1and lets existing mode-end neutral scheduling request the next decision. This follows the observed continuing bites without Fanaticism; exact current dispatch/cadence is not established. That prepared-rate checkpoint preceded learned Spirit Wolf casting, which is now available; exact modern cadence remains unverified.",
-    "Dire Wolf numeric preparation independently matches the reported rank28 tooltip:1803displayed life,635..762physical damage with effective Grizzly28,700AR/392defense,20mana/cap3. Tooltip life455percent is ln12; actual birth also adds par7*rank,735percent total. This report does not establish actor AI or damage-event behavior."
+    "Dire Wolf numeric preparation independently matches the reported rank28 tooltip:1803displayed life,635..762physical damage with effective Grizzly28,700AR/392defense,20mana/cap3. Tooltip life455percent is ln12; actual birth also adds par7*rank,735percent total. This report does not establish actor AI or damage-event behavior.",
+    "Grizzly rank28tooltip life5200matches650Nightmare/Hell base with own280percent+Dire28*15=700percent bonus. Normal base is750and would display6000with those ranks. Capitalized MinHP(N)/MinHP(H)fields resolve the initial Normal-only comparison. AR700/defense280match Spirit Wolf28; raw496..526with295percent gives displayed1959..2077. No native Grizzly body or source/current behavioral parity is claimed."
   ],
   "remaining": [
     "Verify the exact current busy/mode-end dispatch and slowed cadence. Continuing bites are now implemented under an explicitly inferred policy, not a current-executable timing certificate.",
     "Confirm exact cause of Spirit Wolf chill exclusion and separate Spirit Wolf freeze eligibility if needed; retain observed Dire/Grizzly susceptibility in their future implementations.",
-    "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf.",
-    "New Grizzly rank28 tooltip reports5200life; the cached public monstats snapshot has750base life, which would yield6000at the previously reported effective wolf ranks28. Preserve the report and resolve current local table/tooltip path before native Grizzly life implementation. This is not a user-approved balance deviation."
+    "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf."
   ],
   "reviewedNewerSource": {
     "commit": "7f6d773f31060e97124241e6bd30d606bcab6d4e",

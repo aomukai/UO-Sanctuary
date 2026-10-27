@@ -43,7 +43,7 @@ def record(check=False):
     native_path = ROOT / 'tools/reference/dire-wolf-casting-native-evidence.json'
     native = json.loads(native_path.read_text())
     verified = native['verified']
-    assert verified['fullClassMarkers'] >= 1184 and verified['boots'] == 3 and verified['retainedReloads'] == 2
+    assert verified['fullClassMarkers'] == 1181 and verified['separateNamedMarkers'] == 3 and verified['separateNamedReloads'] == 2 and verified['boots'] == 3 and verified['retainedReloads'] == 2
     assert verified['rightCasts'] == verified['quickCasts'] == 3
     package = json.loads((BASE / 'dire-wolf-casting/class-inputs.json').read_text())
     for name in ['ModernUO.dll', 'Server.dll', 'Assemblies/UOContent.dll', 'Assemblies/Sanctuary.Content.dll']:
@@ -56,7 +56,7 @@ def record(check=False):
     assert 'Loading world' in smoke and '2593' in smoke and '12000' in smoke and 'Shutting down' in smoke
     assert ' ERR]' not in smoke and 'create the owner account now?' not in smoke
     output = dict(referenceVersion='3.3.93847', installed=True, handlers=171, druidHandlers=15,
-        fullClassRegression=True, fullClassPassMarkers=verified['fullClassMarkers'], fullClassBoots=3, focused=verified,
+        fullClassRegression=True, fullClassPassMarkers=verified['fullClassMarkers'], fullClassBoots=3, namedItemRegression=dict(markers=3,boots=3,actualReloads=2,identicalCandidateAssembliesAndData=True), focused=verified,
         completedClasses=[], goalComplete=False, currentExecutableParity=False,
         clientUpdated=False, clientReusedByteIdentical=True, graphicalClientAcceptance=False,
         preservedSaveFiles=len(before['saves']), preservedConfigurationFiles=len(before['configuration']),
@@ -64,8 +64,8 @@ def record(check=False):
         originalWorldSmoke=dict(returnCode=0, tcpPort=2593, udpPort=12000, serverStopped=True), rollback=receipt['backup'],
         hashes={str(receipt_path.relative_to(ROOT)): sha(receipt_path), **receipt['artifacts'],
             'tools/record_dire_wolf_casting_installation.py': sha(Path(__file__))},
-        remaining=[*native['limits'][:2], 'Final effects/audio and separate talent/right/quick icons remain placeholders. Graphical playtesting and current-executable equivalence are not established by this server installation.'],
-        next='Continue Summon Grizzly source/native mechanics; preserve the rank28 user tooltip report and resolve its5200life versus literal750base discrepancy before choosing native birth values. Final effects/audio and icons remain separate; full shared engine/current executable gaps remain open.')
+        remaining=['The installed learned handler does not certify full class completion or current-executable parity.', *native['limits'][1:], 'Graphical playtesting and current-executable equivalence are not established by this server installation.'],
+        next='Continue Summon Grizzly source/native mechanics; preserve the rank28user tooltip corroboration of650Nightmare/Hell versus750Normal birth bases, and the approved owner-facet/proportional-life rule. Final effects/audio and icons remain separate; full shared engine/current executable gaps remain open.')
     path = ROOT / 'tools/reference/dire-wolf-casting-installation-evidence.json'
     rendered = json.dumps(output, indent=2) + '\n'
     if check:

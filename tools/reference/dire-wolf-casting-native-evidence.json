@@ -10,7 +10,10 @@
   "verified": {
     "sourceContexts": 1226,
     "nativeOrderedComparisons": 3678,
-    "fullClassMarkers": null,
+    "fullClassMarkers": 1181,
+    "separateNamedMarkers": 3,
+    "separateNamedBoots": 3,
+    "separateNamedReloads": 2,
     "rightCasts": 3,
     "quickCasts": 3,
     "difficultyColumns": 3,
@@ -51,7 +54,7 @@
     "tests/check_dire_wolf_ai.py": "133865f04aa339c719e86c68a989fa1ab51ed2308436b33336c08d5ad41b66e1",
     "tools/record_dire_wolf_ai.py": "2ae66ba108a1b9b7c21d2a921026ddd2e4b4b4b81d0e09987589d8fdd3d615bd",
     "tools/probe_dire_wolf_ai_reference.py": "dffcc4e18633a7b7fd106b7188f0fc8ea6b56287ad340d3754f8ccbb03d5a994",
-    "tools/reference/dire-wolf-corpse-deviation.json": "2fba54a9e692620aeea4072543cf5ca79be9bf46ddbb3bf30318fecdb5abae9c",
+    "tools/reference/dire-wolf-corpse-deviation.json": "19cf4ed03ee73242ef919bfc45a50e69653eef0731dd73cd7c86ff49e58c0e6e",
     "src/Sanctuary.Content/DruidDireWolfBody.cs": "1b5ca9300b1d09248a0f3e6184a72cfee9cdf8fbd2f9c8f360ec8774ef6ea5cc",
     "src/Sanctuary.Content/DruidDireWolfCorpses.cs": "9f15053e7a89293e48054cb7e0aca9b83cabe0ecf520ffcad91d92b497e1176f",
     "src/Sanctuary.Content/CorpseSkillRules.cs": "9da8bb48d19d5ab9b706e94a5bcf25a08a8863ad6cc55f312270da9066623d46",
@@ -81,10 +84,18 @@
     "src/Sanctuary.Content/SkillBindings.cs": "3594d1ea9092e89c8b06bfeb4ee9fd6562d01fbf5d52ab77d005ce6cf0daa0d0",
     "tests/Sanctuary.Integration/DireWolfCastingChecks.cs": "cca09452c6bfdf3165e8fba064b9f6a3c0f48423f656b663a170c746ed0e611d",
     "tests/check_dire_wolf_casting.py": "cb654de753b82c16af8a6e751485a723838b75ea0dc5eab023578b2d3bd5832a",
-    "tools/record_dire_wolf_casting.py": "91cc69179686154155202016c7cd3e663cf934cf031f77d8a8e5a80e1e03bec9",
-    "tools/build_skill_roadmap.py": "5461dfa33452cab892529f60fe9928bb8b63657bad3a6551021a8debceb80c87",
+    "tools/record_dire_wolf_casting.py": "e5bc0d3174f3521ac415c6590423a3680a52a509149cf49825fd78bb4a5ac60d",
+    "tools/build_skill_roadmap.py": "eda7122894586aab1351a68fa732c57db96049724000b07c04629d97d9eba52c",
     "data/Sanctuary/Balance/class-skill-status.json": "53158b9d49b00439dd528858d4993c23a16dca91316e4e68052d6ee7052e73f1",
-    ".local/class-skills/dire-wolf-casting/dire-wolf-casting-fixtures.json": "ab6c6627fcdb120e47b7cdd67d15b2af0346fcf678e575bbe5f9e17b529c80d5"
+    ".local/class-skills/dire-wolf-casting/dire-wolf-casting-fixtures.json": "ab6c6627fcdb120e47b7cdd67d15b2af0346fcf678e575bbe5f9e17b529c80d5",
+    ".local/class-skills/dire-wolf-casting/named-inputs.json": "51c418feea5635d23d654f6354d0bba82ac7dff512b14fb9c8daf83094d4222d",
+    ".local/class-skills/dire-wolf-casting/named-native-checks.log": "399fc6c703f54931e2097d0fcf0e0772d4d4d35b22281035cae3e9c6d834bd3d",
+    "tests/check_named_candidate.py": "4677a69bfd33dd3790a84083c4eb08fbdb1cd3dd6ee9b2b6dea58377ecf30063",
+    ".local/class-skills/dire-wolf-casting/full-named-item-runtime-audit.json": "4faed1f4c364258bb527a9acfb2710c0d8b43a121bdfa25273f8e80d399771c6",
+    ".local/class-skills/dire-wolf-casting/full-first-loop-affix-audit.json": "4a24b9ca3c7d8f3b08f620bd3d5dfb09676038a32954a6e87c57030f2d17ec83",
+    ".local/class-skills/dire-wolf-casting/class-inputs.json": "097a2fa752d194f0d3ad6999da73043ea825524f6eec3000d75e1fe1becf32b9",
+    ".local/class-skills/dire-wolf-casting/class-native-checks.log": "071b05fb9c0867c71b63809b91cd4242e1a67bbd5ca5e439d725674d3eebb46b",
+    ".local/class-skills/dire-wolf-casting/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned right/quick SC casting uses shared wolf target/range/LOS/ground-fit placement. One20mana payment follows successful allocation; failed/null/unsupported allocation or changed payment availability preserves existing paid wolves and FIFO. Current/deleted/self/town target controls and once-only release pass.",
@@ -93,7 +104,7 @@
     "The long offline skip now directly verifies expiry of the500frame rage lease without healing or AI RNG. All prior Fenris policy/body/feeding/rage/physical packet,connected timer and shared summon/corpse/item consumers remain checked.230markers pass across three boots/two reloads,all70Python checks pass,and fresh645/21fingerprints preserve573named decisions. Both builds have zero warnings/errors."
   ],
   "limits": [
-    "This is a learned handler and bounded native acceptance,not class completion or a current-executable parity certificate. The exact full-regression marker count is recorded separately when requested; installation requires its own original-world/preservation receipt.",
+    "This is a learned handler and bounded native acceptance,not class completion or a current-executable parity certificate. The exact full-regression marker count is recorded separately when requested. Full1181class/projectile markers and the optional named-item3markers use separate isolated worlds with identical candidate assemblies/data; each has3boots/2actual reloads. Installation requires its own original-world/preservation receipt.",
     "The learned route currently requires a trained Dire talent. Item-granted/no-hard-point casting,nonzero inherited sunder and NPC equipment delivery remain unsupported in the deferred item-skill scope. Grizzly coexistence needs its actual actor; other existing summon families are checked.",
     "The retained world uses explicit native sector/room/LOS/ground-fit,corpse scan/footprint,path/target-lookup/ties and provisional shared-wolf busy-A1/neutral-delay adapters. Exact modern Fenris feeding/event/cadence,full mode-stat stream and global incoming HP/death/return ordering remain open.",
     "No final art is claimed: silent UO0xE1 Dire Wolf [placeholder],WF movement/bite/feeding/rage/contact/teleport/critical/hurt/death/audio and separate talent/right/quick icons remain pending. Installed main2a6eec9and original saves/config/client remain unchanged until separate rollout."
