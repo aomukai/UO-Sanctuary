@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "sourceHashes": {
+    "source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6"
+  },
+  "completeRoutineHashes": {
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1"
+  },
+  "rateInput": {
+    "path": "tools/reference/modern-form-progress-source-evidence.json",
+    "sha256": "ffd464e7568102c03bca695b82eae653a7ba5d58502db978d976e9501a45efe4",
+    "fixtureSha256": "f14f3493adffe1a97e280068389cffa16e74d7279223f52ead8e98f0cec89377"
+  },
+  "contexts": 14400,
+  "druidFrameBonusControls": 168,
+  "zeroRateControls": 1,
+  "animation": {
+    "wolf": {
+      "frames": 13,
+      "speed": 256,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    "bear": {
+      "frames": 12,
+      "speed": 224,
+      "events": [
+        [
+          7,
+          1
+        ]
+      ]
+    }
+  },
+  "generatedSourceSha256": "afee7fba414f5ba44c4a707d5fcfd2b38b8c5f0068040fda32276b75cb0fe5f4",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-attack-clock-source-probe.json",
+    "sha256": "4a1955dd003debe5450c2a5ed93c5a5550b6ffab3394b7c6d4ca97290730734f"
+  },
+  "established": [
+    "Three complete source routines execute unchanged: actual Druid frame-bonus lookup,ordinary animation initialization and event scheduling. Converted-type/metadata/rate services are explicit. All168Druid human/form/weapon/mode frame-bonus controls are zero. The sequence path is guarded unreachable.",
+    "For all14400prepared modern-rate inputs,current form A1frame7queues one melee event at ceil(7*256/progress),followed by ENDANIM at ceil(formFrames*256/progress). The no-speed control queues only an end next frame. Ordered event parameters are compared,not just a rounded duration.",
+    "The legacy ENDANIM offset is one frame beyond the supplementary calculator cycle column in every case. These are distinct timeline quantities. This preparation does not establish modern accepted-input reentry or justify replacing one with the other."
+  ],
+  "remaining": [
+    "Modern executable action/end/reentry,first callback order,equal-deadline global queue,cancellation/rescheduling and source-to-native transport still need acceptance. Rate selection uses the separately pinned3.3author model,not the obsolete legacy form rate writer.",
+    "Only ordinary Druid form A1is covered. Other form actions,sequences,Fury/Maul/charge interactions,AR/SrcDam/melee-only dispatch,range,ammunition and learned casting remain separate. No native timing consumer or learned form handler is enabled."
+  ]
+}
