@@ -1,0 +1,206 @@
+--- a/src/Sanctuary.Content/ClassCombat.cs
++++ b/src/Sanctuary.Content/ClassCombat.cs
+@@ -27,6 +27,7 @@
+         internal TeleportCast PendingTeleport;
+         internal DruidPlayerForm AttackForm;
+         internal DruidFormCasting.Pending Transform;
++        internal DruidFormInterruption.Action FormAction;
+         internal PaladinZeal.Series Zeal;
+         internal PaladinCharge.Flight Charge;
+         internal PaladinConversion.Prepared Conversion;
+@@ -237,6 +238,7 @@
+         For(from).PendingAbility = CombatAbility.None;
+         For(from).AttackForm = null;
+         For(from).Transform = null;
++        For(from).FormAction = null;
+         For(from).Conversion = null;
+         For(from).BarbarianAttack = null;
+         For(from).FindItemTarget = Serial.Zero;
+@@ -422,6 +424,7 @@
+         session.ActionOrigin = from.Location;
+         session.ActionMap = from.Map;
+         session.Animation = AnimationFor(from, ability, weapon);
++        DruidFormInterruption.Capture(from,now);
+         if (point.X != from.X || point.Y != from.Y)
+         {
+             from.Direction = from.GetDirectionTo(point);
+--- a/src/Sanctuary.Content/SkillCombat.cs
++++ b/src/Sanctuary.Content/SkillCombat.cs
+@@ -102,6 +102,7 @@
+         session.PendingWeapon = CombatTiming.Equipped(owner)?.Serial ?? Serial.Zero;
+         session.NextAction = now + session.Timing.DurationMs; session.EffectAt = now + session.Timing.EffectMs;
+         session.Animation = CombatTiming.WeaponAttack(ability)?ClassCombat.AnimationFor(owner,ability,CombatTiming.Equipped(owner)):(byte)16;
++        DruidFormInterruption.Capture(owner,now);
+         if (point.X != owner.X || point.Y != owner.Y) { owner.Direction = owner.GetDirectionTo(point); }
+         owner.RevealingAction(); ClassCombat.SendAnimation(owner, session.Animation, session.Timing.DurationMs);
+         owner.Animate(session.Animation, 5, 1, true, false, 0); ClassCombat.SendState(owner, session); return true;
+--- a/src/Sanctuary.Content/DruidFormCasting.cs
++++ b/src/Sanctuary.Content/DruidFormCasting.cs
+@@ -60,6 +60,7 @@
+             {DruidPlayerForms.Clear(owner);throw new InvalidOperationException("Form payment changed inside one server turn");}
+         }
+         FireGround.DelayForms(owner);
++        DruidFormInterruption.Capture(owner,now);
+         owner.FixedEffect(0x373A,10,10);owner.PlaySound(0x1E5); // Identified transform/audio placeholders; human body remains.
+         return true;
+     }
+--- a/src/Sanctuary.Content/HitRecovery.cs
++++ b/src/Sanctuary.Content/HitRecovery.cs
+@@ -53,6 +53,7 @@
+         if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0 || BladeFuryModes.Active(player)){return;}
+         int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
+         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
++        session.FormAction=null;
+         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
+         BarbarianDoubleThrow.Cancel(player);
+         BladeFuryModes.Interrupt(player);
+@@ -93,6 +94,7 @@
+ 
+     public static bool Apply(PlayerMobile player, int damage, long now)
+     {
++        if(DruidFormInterruption.PreventRecovery(player,now)){return false;}
+         if(AmazonStrafe.Locked(player,now) || AmazonFend.Locked(player,now) || AmazonImpale.Locked(player,now) || AmazonJab.Locked(player,now) || PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
+         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
+         {
+@@ -108,6 +110,7 @@
+         var session = ClassCombat.For(player);
+         int duration = Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player)) * ActionTiming.FrameMs;
+         session.RecoveryUntil = now + duration;
++        session.FormAction=null;
+         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
+         session.PendingAbility = CombatAbility.None;
+         session.Conversion=null;session.BarbarianAttack=null;
+--- a/src/Sanctuary.Content/ClassMovement.cs
++++ b/src/Sanctuary.Content/ClassMovement.cs
+@@ -16,6 +16,7 @@
+         PersistentMinions.Resume(player);
+         FireGround.Moved(player);
+         var session = ClassCombat.For(player);
++        session.FormAction=null;
+         BladeFuryModes.Interrupt(player);
+         if(AssassinCombat.Handles(session.PendingAbility) || DruidCombat.Handles(session.PendingAbility)){session.PendingAbility=CombatAbility.None;}
+         // Any accepted external step changes the attack mode; voluntary Concentrate steps are gated.
+--- /dev/null
++++ b/src/Sanctuary.Content/DruidFormInterruption.cs
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using Server;
++using Server.Mobiles;
++namespace Sanctuary;
++
++// Released2.4 Werebear guarantee. This is scoped to the actual action, not
++// permanent state immunity and not an inference from an old cooldown alone.
++internal static class DruidFormInterruption
++{
++    internal sealed record Action(DruidPlayerForm Form,long Started,long Until,Map Map,Point3D Origin);
++    public static void Initialize()=>ClassMapHooks.LocationChanged+=Moved;
++    private static void Moved(Mobile mobile)
++    {
++        if(World.Loading||mobile is not PlayerMobile owner){return;}
++        var session=ClassCombat.Existing(owner);
++        if(session?.FormAction is{} action&&(owner.Map!=action.Map||owner.Location!=action.Origin)){session.FormAction=null;}
++    }
++    internal static void Capture(PlayerMobile owner,long now)
++    {
++        var session=ClassCombat.For(owner);var form=DruidPlayerForms.State(owner);
++        session.FormAction=form is{Form.Ability:CombatAbility.Werebear,Form.Modifiers.Concentration:100}
++            &&now<session.NextAction?new(form,now,session.NextAction,owner.Map,owner.Location):null;
++    }
++    internal static bool PreventRecovery(PlayerMobile owner,long now)
++    {
++        if(owner is not{Alive:true,Deleted:false}||!ClassCombat.Enabled(owner)){return false;}
++        var action=ClassCombat.Existing(owner)?.FormAction;
++        return action!=null&&now>=action.Started&&now<action.Until&&action.Form.UntilUtc>TimedEffects.Now
++            &&ReferenceEquals(action.Form,DruidPlayerForms.State(owner))&&owner.Map==action.Map&&owner.Location==action.Origin;
++    }
++}
+--- /dev/null
++++ b/tests/Sanctuary.Integration/DruidFormInterruptionChecks.cs
+@@ -0,0 +1,68 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using System.Linq;
++using Server;
++using Server.Items;
++using Server.Logging;
++using Server.Mobiles;
++namespace Sanctuary.Integration;
++
++public static class DruidFormInterruptionChecks
++{
++    private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidFormInterruptionChecks));
++    public static void Configure()=>ConsoleInputHandler.RegisterCommand("druid-form-interruption-check","Scoped modern Werebear interruption",_=>Core.LoopContext.Post(()=>
++    {try{Check();Log.Information("druid-form-interruption-check: passed");}catch(Exception e){Log.Error(e,"druid-form-interruption-check: failed");}}));
++    private static void Require(bool ok,string message){if(!ok){throw new InvalidOperationException(message);}}
++    private static void Train(PlayerMobile p,CombatAbility ability)
++    {
++        var row=SkillMechanics.For(ability);TalentCatalog.TryGet(DiabloClass.Druid,row.TalentId,out var talent);
++        foreach(var prior in talent.Prerequisites)
++        {if(ClassCreation.Profiles.GetRank(p.Serial,prior)==0){Train(p,SkillMechanics.All.Single(x=>x.TalentId==prior).Ability);}}
++        if(ClassCreation.Profiles.GetRank(p.Serial,row.TalentId)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,row.TalentId,out _),"Train "+row.TalentId);}
++    }
++    private static void Ready(PlayerMobile p)
++    {ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
++    private static void Start(PlayerMobile p,CombatAbility ability)
++    {Ready(p);Require(ClassCombat.Perform(p,ability,null,p.Location,Core.TickCount),"Start "+ability);}
++    private static void Check()
++    {
++        var p=new PlayerMobile{Body=0x190,Player=true,Name="DruidBearInterruptFixture"};p.AddItem(new Backpack());
++        ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);
++        foreach(var ability in new[]{CombatAbility.Werewolf,CombatAbility.Werebear,CombatAbility.Raven,CombatAbility.CycloneArmor}){Train(p,ability);}
++        FixtureSpace.Corridor(p,6140,20,2100);Ready(p);
++        try
++        {
++            DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now);
++            Require(!DruidFormInterruption.PreventRecovery(p,Core.TickCount),"Idle bear immunity");
++            foreach(var ability in new[]{CombatAbility.BasicAttack,CombatAbility.Raven,CombatAbility.CycloneArmor})
++            {
++                Start(p,ability);var s=ClassCombat.For(p);var pending=s.PendingAbility;long effect=s.EffectAt,end=s.NextAction;int mana=NecromancerEffects.ManaBalance256(p);
++                Require(DruidFormInterruption.PreventRecovery(p,effect-1)&&!DruidFormInterruption.PreventRecovery(p,end),"Action interval boundary");
++                Require(!HitRecovery.Apply(p,p.HitsMax,effect-1)&&s.PendingAbility==pending&&s.NextAction==end&&NecromancerEffects.ManaBalance256(p)==mana,"Bear windup disturbed or paid");
++                Require(ClassCombat.ResolveAction(p,effect),"Protected action lost its effect");
++                Require(s.PendingAbility==CombatAbility.None&&end>effect&&DruidFormInterruption.PreventRecovery(p,end-1)
++                    &&!HitRecovery.Apply(p,p.HitsMax,end-1),"Post-impact animation tail interrupted");
++                Require(HitRecovery.Apply(p,p.HitsMax,end),"Expired bear action retained immunity");
++            }
++            Start(p,CombatAbility.BasicAttack);var action=ClassCombat.For(p);long deadline=action.NextAction;ClassCombat.Stop(p);
++            Require(action.NextAction==deadline&&!DruidFormInterruption.PreventRecovery(p,deadline-1)&&HitRecovery.Apply(p,p.HitsMax,deadline-1),"Stop kept immunity behind old deadline");
++            Start(p,CombatAbility.BasicAttack);var origin=p.Location;
++            p.MoveToWorld(new(p.X-1,p.Y,p.Z),p.Map);p.MoveToWorld(origin,p.Map);
++            Require(!DruidFormInterruption.PreventRecovery(p,Core.TickCount),"Out-and-back retained protection");
++            Start(p,CombatAbility.BasicAttack);DruidPlayerForms.Clear(p);
++            Require(!DruidFormInterruption.PreventRecovery(p,Core.TickCount),"Unshift retained protection");
++            DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now);Start(p,CombatAbility.BasicAttack);
++            DruidPlayerForms.Clear(p);DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now);
++            Require(!DruidFormInterruption.PreventRecovery(p,Core.TickCount),"Replacement form inherited prior action");
++            DruidPlayerForms.Clear(p);DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werewolf,TimedEffects.Now);Start(p,CombatAbility.BasicAttack);
++            Require(!DruidFormInterruption.PreventRecovery(p,Core.TickCount)&&HitRecovery.Apply(p,p.HitsMax,ClassCombat.For(p).EffectAt-1),"Wolf incorrectly immune");
++            DruidPlayerForms.Clear(p);Ready(p);
++            Require(ClassCombat.Perform(p,CombatAbility.Werebear,null,p.Location,Core.TickCount),"Human bear cast");long at=ClassCombat.For(p).EffectAt;
++            Require(!DruidFormInterruption.PreventRecovery(p,at-1),"Human entry windup incorrectly immune");
++            Require(ClassCombat.ResolveAction(p,at)&&DruidFormInterruption.PreventRecovery(p,at),"New bear animation tail unprotected");
++            DruidPlayerForms.Clear(p);Ready(p);p.Kill();Require(!p.Alive,"Bear protection leaked into human death");
++            Log.Information("Modern bear:windup/effect/tail/expiry,Stop,first movement,form replacement,wolf/human entry/death controls pass");
++        }
++        finally{DruidPlayerForms.Clear(p);ClassCombat.Stop(p);p.Corpse?.Delete();p.Delete();}
++    }
++}
+--- /dev/null
++++ b/tests/check_druid_form_interruption.py
+@@ -0,0 +1,16 @@
++#!/usr/bin/env python3
++"""Learned form casting,shared cooldowns and real right/quick entry/unshift input."""
++import check_creeper_stats as retained
++
++if __name__ == '__main__':
++    retained.STAGE = retained.ROOT / '.local/class-skills/druid-form-interruption'
++    retained.check(
++        extra_commands=['druid-form-interruption-check', 'druid-form-casting-check', 'druid-form-delay-live-check', 'druid-form-model-check', 'druid-form-world-check', 'shape-restriction-check', 'druid-form-rate-check', 'druid-form-attack-check', 'druid-form-live-check', 'grizzly-ai-check', 'grizzly-stats-check', 'dire-wolf-stats-check', 'battle-orders-check'],
++        extra_reload_commands=['druid-form-casting-reload-check', 'druid-form-world-reload-check', 'shape-restriction-reload-check', 'druid-form-attack-reload-check', 'battle-orders-reload-check'],
++        extra_before_save_commands=['druid-form-world-snapshot-check', 'druid-form-expiry-stage-check'],
++        extra_fixtures=['druid-form-casting-fixtures.json', 'druid-form-world-fixtures.json', 'druid-form-expired-fixtures.json', 'battle-orders.json'],
++        extra_probes=['druid-form-cast-clock', 'shape-restrictions', 'druid-form-attack-clock', 'druid-form-modes', 'modern-form-progress', 'grizzly-ai', 'grizzly-creation', 'grizzly-attack', 'dire-wolf-creation', 'druid-beast-attack'],
++        extra_wait_results={'druid-form-delay-live-check':'druid-form-delay-result', 'druid-form-live-check': 'druid-form-live-result', 'battle-orders-check': 'battle-orders-result', 'battle-orders-reload-check': 'battle-orders-result'},
++        extra_input_commands=['form-wolf-right','form-bear-quick','form-wolf-unshift-quick','form-bear-unshift-right'],
++        between_boot_delay=5)
++    print('Learned form casting and real entry/unshift input pass3boots/2reloads with saved resources/shared cooldowns; exact modern gaps remain explicit.')

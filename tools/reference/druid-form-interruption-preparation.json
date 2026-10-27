@@ -896,5 +896,10 @@
   "next": [
     "First finish and record frozen casting full regression exec1478; do not replace its C#/DLL/data while live. Then check each beforeSha256 and apply the staged native edits/new files as a new candidate,build again at canonical paths,refresh audits and execute focused production-world checks including actual damage/input and save/reload. Do not mark this draft native accepted from compilation.",
     "Numeric lethal-unshift life floor,other form clocks,rank/gear/respec cleanup,modern exact extraAR/reentry/geometry,foreign-class/item-only grants and current direct switching/lost-mana remain separate. Effects/audio/tree/hotkey icons stay identified placeholders."
-  ]
+  ],
+  "recoverableGitPatch": {
+    "path": "tools/reference/druid-form-interruption-prepared.patch",
+    "sha256": "0861f3982958a51a63579f18b5d1f0684e9d345ab6ce3a3c16a720e863244def",
+    "applied": false
+  }
 }
