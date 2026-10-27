@@ -21,10 +21,10 @@
       649,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenModeAcceptance": {
     "commit": "3ebc298",
@@ -1007,6 +1007,11 @@
     "tools/reference/named-item-runtime-audit.json": "5f9ad7101f9bad36cff5827d114209dd7ed63c44180cb1a193e85dbb6b91a2cd",
     ".local/class-skills/bear-smite/first-loop-affix-audit.json": "f5e3e2fbbad729ba774f3d35aec9d27d1b93e3a56b135491264169b5351dc10f",
     "tools/reference/first-loop-affix-audit.json": "f5e3e2fbbad729ba774f3d35aec9d27d1b93e3a56b135491264169b5351dc10f",
+    ".local/class-skills/bear-smite/full-named-item-runtime-audit.json": "5f9ad7101f9bad36cff5827d114209dd7ed63c44180cb1a193e85dbb6b91a2cd",
+    ".local/class-skills/bear-smite/full-first-loop-affix-audit.json": "f5e3e2fbbad729ba774f3d35aec9d27d1b93e3a56b135491264169b5351dc10f",
+    ".local/class-skills/bear-smite/class-inputs.json": "a149bbc65be797c082e960bd5797b856ff75d591bd86a35b7733e874e276903b",
+    ".local/class-skills/bear-smite/class-native-checks.log": "201b6e7a11216f502de4233563cee9ac4332dac330f6eadc4e92f4eed382ad7a",
+    ".local/class-skills/bear-smite/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/reference/grizzly-bearsmite-user-observations.json": "de08473abbb709897c06d258141112d570b02a4d2cd1d73feee17e3a6794168c",
     "tools/record_bear_smite.py": "7d2444e1b88b2fdbdbd3e562934dff9251ea682a1877465f692c8f2f113517bb",
     "tools/record_grizzly_body.py": "4bec24fe01be67819c459255fc12999db78d8208c8b0aad4a1b2c44838ac36fa",

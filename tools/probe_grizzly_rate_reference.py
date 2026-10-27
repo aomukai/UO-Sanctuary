@@ -91,6 +91,7 @@ bool sep=false;for(auto e:events){printf("%s[%d,%d,%d,%d]",sep?",":"",e.type,e.f
             'Complete attack-rate predicate selects monster mode14only with a used skill whose current row enablesUseAttackRate. Missing-skill/flag-off controls reject. Current NPC326enables it. Monster sequence has no player sequence minus30penalty.',
             'Complete unchanged nonweapon writer and initial scheduler execute over current17sequence rows/action8and supplied base248,plus256/32767numeric controls. Existing SourceAttackRate.Speed is a reuse candidate;no owner weapon/IAS inheritance is introduced.',
         ],limits=[
+            'Mode-info14actually selects the infinite per-frame monster callback,as retained in sentry-controller-source-evidence.json. This initial sparse scheduler matrix is a helper control and must not be used to schedule BearSmite release.',
             'Skill/stat/inventory/non-dual-wield/melee-only and animation/table services are explicit. Mode conversion,base-row selection,full stat transport/global event queue and modern first-think/tie behavior remain separate.',
             'Initial queued requests do not prove dispatch timing or mid-sequence rescheduling. Sequence step callbacks,start32/do2,world events and saved cancellation still require native integration. No Grizzly attack or learned handler is enabled.',
         ])

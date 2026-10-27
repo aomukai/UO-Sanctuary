@@ -1,0 +1,66 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "installed": false,
+  "handlerEnabled": false,
+  "nativeConsumer": false,
+  "preflightSha256": "3509c04c716b08ec6ead808f3e7e1acfb31151b628da4ac544158e3a33be768c",
+  "reusedAbiSha256": "d835c3bcd09b8d9e2fbe53bd5ff002fec9c012eb59141ac48c82a2ff313a4d40",
+  "reusedEvidence": {
+    "path": "tools/reference/bear-smite-engine-evidence.json",
+    "sha256": "df4b8a98935541b3ba2ffea97485556ac8f6cf05b08bc25462bd0077089a8e00"
+  },
+  "sourceHashes": {
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223",
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "unchangedRoutineHashes": {
+    "SUNITDMG_SetHitClass": "e8339a737d173dfc75fbfe5a5f4863fea5caa2c37bd9fe5ce87835c0e836ac03",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_GetDamageFromUnits": "ebcca4e339c1f1b85ae69b13af1909394d6598a7aa6566b3614cdae55a7f6c03",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b",
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "DATATBLS_ComputeSequenceAnimation": "eba5484bd9b735bdeb8dfed9ee3724703164a511a32b2835fa2ef12ea58c7879",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1",
+    "UNITS_InitializeSequence": "8c8263b851d3a77f92927838a028f2deb8b0aa18ddf67fb0b7042e7320fd1485",
+    "UNITS_StopSequence": "96508bd9eb73ea360b478c7eb6c65fb95b77c52d8b929e3f4dd538bdb751103f",
+    "UNITS_IsAtEndOfFrameCycle": "905e9caa9e4725c92e117d1ccd4338cad8a151cbec052ff2a9404428d4ed2fe2",
+    "sub_6FC64E60": "0f72bf756ff353698863145c2c6c4f2f73c1fec900586037640d90b614c660af",
+    "sub_6FC64E90": "4e164a067e5e5ec9989c79c3fdb0a90d4a64a54b45d19c301d85684935c818fe"
+  },
+  "fixture": {
+    "path": ".local/class-skills/grizzly-smite-sequence-source-probe.json",
+    "sha256": "f0d99028af2e631c4d3a6da36a191350fdda44171165e3f0dc8822a84caba572",
+    "contexts": 576,
+    "phases": 23616,
+    "generatedSourceSha256": "e488ee9629346135e96f4de694c4aed26d54d5c637052c47e250e009f3dbbeab",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete mode14entry clears server-do and invokes complete start32/allocation/fill/mitigation before per-frame callbacks. Complete mode14callback consumes the existing sequence action before complete advance. Complete do2/durability/event-health executes at release with the cached packet.",
+    "576contexts cover innate ranks1/49,copied percentages25/295,two physical endpoint pairs,supplied speeds124/248/256/434,resistance0/33and nine transition controls. Range loss,target/room/interaction loss,changed release stats,cancellation,changed target HP and missing release row stay distinct. Cancellation is a declared driver boundary,not an executed full mode-change routine.",
+    "Header-backed mode-info14selects infinite per-frame callbacks. Sparse initial animation scheduling is not used as the BearSmite action clock. Current17A2rows have action1at index8. Health is unchanged at entry;start RNG draws are not repeated by release."
+  ],
+  "limits": [
+    "The outer per-frame driver,end/neutral callback,used-skill flags0,base-speed supply and mode-entry/free-combat services are explicit. The full mode changer,global queue/AI ordering and current executable are not executed. Unreachable missing-row/HP controls are not modern gameplay certificates.",
+    "Final mode/death/knockback geometry,Thorns/global callbacks and cold receiver retain the parent recording-service limits. Native sequence/release/world/save cancellation and learned casting require acceptance."
+  ]
+}
