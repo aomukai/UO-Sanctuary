@@ -25,10 +25,10 @@
       667,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "fc00a5c",
@@ -1041,6 +1041,11 @@
     ".local/class-skills/druid-charged-attacks-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/druid-maul/named-item-runtime-audit.json": "f54e2669d691550b29c41f4ba8103c506b986a3d6a2595045e14fd300ec9c5b9",
     ".local/class-skills/druid-maul/first-loop-affix-audit.json": "530e345477b323c20188b1e4baaa650cafbdebcbaec89c775402c7cc7be8e180",
+    ".local/class-skills/druid-maul/full-named-item-runtime-audit.json": "f54e2669d691550b29c41f4ba8103c506b986a3d6a2595045e14fd300ec9c5b9",
+    ".local/class-skills/druid-maul/full-first-loop-affix-audit.json": "530e345477b323c20188b1e4baaa650cafbdebcbaec89c775402c7cc7be8e180",
+    ".local/class-skills/druid-maul/class-inputs.json": "bc661b70c0c0dccd9bf5bc1d5a400407e8fbba20eb04385a38f82e6eadb5391d",
+    ".local/class-skills/druid-maul/class-native-checks.log": "4d804c6d5babbf32902fed86242c10a1ec2933369f0e4194817f9890b701343d",
+    ".local/class-skills/druid-maul/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_maul.py": "90c8fdf9d3dc2186ef009723b134380cfd22e677cbad8531f5597bf7a70a8921",
     "tests/check_druid_maul.py": "20e9c864ae2b45d00cb51e266b5d8cd483044d830927cea7e15a75cf9fb828f4",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",
