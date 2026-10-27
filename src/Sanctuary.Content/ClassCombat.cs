@@ -27,6 +27,7 @@ public static class ClassCombat
         internal TeleportCast PendingTeleport;
         internal DruidPlayerForm AttackForm;
         internal DruidFormCasting.Pending Transform;
+        internal DruidFormInterruption.Action FormAction;
         internal PaladinZeal.Series Zeal;
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
@@ -237,6 +238,7 @@ public static class ClassCombat
         For(from).PendingAbility = CombatAbility.None;
         For(from).AttackForm = null;
         For(from).Transform = null;
+        For(from).FormAction = null;
         For(from).Conversion = null;
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
@@ -422,6 +424,7 @@ public static class ClassCombat
         session.ActionOrigin = from.Location;
         session.ActionMap = from.Map;
         session.Animation = AnimationFor(from, ability, weapon);
+        DruidFormInterruption.Capture(from,now);
         if (point.X != from.X || point.Y != from.Y)
         {
             from.Direction = from.GetDirectionTo(point);

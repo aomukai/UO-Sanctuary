@@ -1783,7 +1783,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned casting candidate composes current SC/FCR action clock,15mana human entry,free same-form return and a shared25frame cooldown using the existing saved form/stat/attack ledgers. Native casting/input/transaction verification is in progress; see the current checkpoint. Direct cross-form switching,item-only form grants and current lost-mana outcome are explicitly unsupported. Forced low-life removal,modern extra AR,reentry,other form action/movement clocks,client and complete parity remain open. Human body/cast flash/audio and separate talent/right/quick icons are identified placeholders; no class complete."
+      "remaining": "Learned SC/FCR casting,15mana human entry,free same-form return,shared25frame cooldown and saved form/stat/attack ledgers have dedicated input/transaction/reload checks and a1,184-marker full regression. Direct cross-form switching,item-only grants and current lost-mana outcome remain unsupported. Forced low-life removal,modern extra AR,reentry,other form hurt/block/movement clocks,rank/gear refresh,client and complete parity remain open. Human body/cast flash/audio and separate talent/right/quick icons are identified placeholders; no class complete."
     },
     {
       "talentId": "druid.lycanthropy",
@@ -1805,7 +1805,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned casting candidate composes current SC/FCR action clock,15mana human entry,free same-form return and the shared25frame cooldown with captured damage/armor/life. Native casting/input/transaction verification is in progress; see the current checkpoint. Direct switching,item-only grants,lost-mana,current extra-AR/reentry,forced low-life removal,concentration and other action/movement clocks remain separate gaps. Final TGbody/motion/effects/audio and separate talent/right/quick icons remain placeholders; no class complete."
+      "remaining": "Learned SC/FCR casting,15mana entry,free same-form return,shared25frame cooldown and captured damage/armor/life have dedicated input/transaction/reload checks. Scoped100concentration protects active attack/skill windup and post-effect animation tail from hit recovery,while actual incoming monster damage still lands. Stop,movement,changed form,idle expiry and restart do not retain immunity; dedicated105-marker native verification is tracked in the checkpoint. Direct switching,item-only grants,lost-mana,forced low-life removal,other hurt/block/movement clocks,rank/gear refresh,current exact action/client acceptance remain gaps. Final TGbody/motion/effects/audio and separate talent/right/quick icons stay placeholders; no class complete."
     },
     {
       "talentId": "druid.maul",

@@ -53,6 +53,7 @@ public static class HitRecovery
         if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0 || BladeFuryModes.Active(player)){return;}
         int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
+        session.FormAction=null;
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
         BarbarianDoubleThrow.Cancel(player);
         BladeFuryModes.Interrupt(player);
@@ -93,6 +94,7 @@ public static class HitRecovery
 
     public static bool Apply(PlayerMobile player, int damage, long now)
     {
+        if(DruidFormInterruption.PreventRecovery(player,now)){return false;}
         if(AmazonStrafe.Locked(player,now) || AmazonFend.Locked(player,now) || AmazonImpale.Locked(player,now) || AmazonJab.Locked(player,now) || PaladinZeal.Locked(player,now) || PaladinCharge.Locked(player,now) || BarbarianConcentrate.Locked(player,now) || BarbarianLeap.Uninterruptible(player) || BarbarianWhirlwind.Locked(player)){return false;}
         if (!ClassCombat.Enabled(player) || !player.Alive || player.Hits <= 0 || Active(player, now))
         {
@@ -108,6 +110,7 @@ public static class HitRecovery
         var session = ClassCombat.For(player);
         int duration = Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player)) * ActionTiming.FrameMs;
         session.RecoveryUntil = now + duration;
+        session.FormAction=null;
         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
         session.PendingAbility = CombatAbility.None;
         session.Conversion=null;session.BarbarianAttack=null;

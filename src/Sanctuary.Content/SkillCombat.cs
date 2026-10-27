@@ -102,6 +102,7 @@ public static class SkillCombat
         session.PendingWeapon = CombatTiming.Equipped(owner)?.Serial ?? Serial.Zero;
         session.NextAction = now + session.Timing.DurationMs; session.EffectAt = now + session.Timing.EffectMs;
         session.Animation = CombatTiming.WeaponAttack(ability)?ClassCombat.AnimationFor(owner,ability,CombatTiming.Equipped(owner)):(byte)16;
+        DruidFormInterruption.Capture(owner,now);
         if (point.X != owner.X || point.Y != owner.Y) { owner.Direction = owner.GetDirectionTo(point); }
         owner.RevealingAction(); ClassCombat.SendAnimation(owner, session.Animation, session.Timing.DurationMs);
         owner.Animate(session.Animation, 5, 1, true, false, 0); ClassCombat.SendState(owner, session); return true;

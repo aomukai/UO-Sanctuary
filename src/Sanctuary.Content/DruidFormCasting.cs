@@ -60,6 +60,7 @@ public static class DruidFormCasting
             {DruidPlayerForms.Clear(owner);throw new InvalidOperationException("Form payment changed inside one server turn");}
         }
         FireGround.DelayForms(owner);
+        DruidFormInterruption.Capture(owner,now);
         owner.FixedEffect(0x373A,10,10);owner.PlaySound(0x1E5); // Identified transform/audio placeholders; human body remains.
         return true;
     }
