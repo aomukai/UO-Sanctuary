@@ -24,7 +24,8 @@ public static class DruidFormModelChecks
     {
         Require(!DruidCombat.Implemented(CombatAbility.Werewolf)&&!DruidCombat.Implemented(CombatAbility.Werebear)
             &&!DruidCombat.Implemented(CombatAbility.Lycanthropy),"Pure forms must not claim a learned handler");
-        using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"druid-forms-source-probe.json")));
+        Require(DruidFormModel.PlayerCastMode==10,"Player CAST must use header10rather than ATTACK1 7");
+        using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"druid-form-modes-source-probe.json")));
         int compared=0,entries=0,unshifts=0,failures=0,expiry=0;
         foreach(var row in fixture.RootElement.EnumerateArray())
         {
@@ -47,7 +48,9 @@ public static class DruidFormModelChecks
             var actual=DruidFormModel.Transform(current,values,100,scene!=8,until=>
                 {allocations++;Require(until==100+DruidFormModel.Capture(values).DurationFrames,"Allocation expiry");return scene!=5;});
             Require(actual.NeedsMana==(N(6)!=0),"do116 result/new-form payment boundary");
-            Require((actual.SkillMode??7)==N(10),"Source player skill mode mismatch");
+            Require((actual.SkillMode??10)==N(10),"Header-backed source player skill mode mismatch");
+            bool modeWritten=row[13].EnumerateArray().Any(e=>e[0].GetInt32()==8&&e[1].GetInt32()==10);
+            Require(actual.SkillMode.HasValue==modeWritten,"Source mode-write event differs despite equal initial/final mode");
             if(actual.State is{} state)
             {
                 entries++;DruidFormModel.Validate(state);
@@ -65,7 +68,7 @@ public static class DruidFormModelChecks
                 Require(DruidFormModel.Expire(state,state.UntilFrame-1).State==state,"Early expiry removed form");
                 var ended=DruidFormModel.Expire(state,state.UntilFrame,scene!=8);
                 Require(ended.Outcome==DruidFormOutcome.Expired&&ended.State==null&&!ended.NeedsMana
-                    &&ended.SkillMode==(scene==8?(int?)null:7)&&ended.DelayFrames==0,"Actual removal callback contract");expiry++;
+                    &&ended.SkillMode==(scene==8?(int?)null:10)&&ended.DelayFrames==0,"Actual removal callback contract");expiry++;
             }
             else if(actual.Outcome==DruidFormOutcome.Unshifted)
             {

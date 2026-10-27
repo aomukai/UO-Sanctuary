@@ -16,6 +16,9 @@ internal sealed record DruidFormChange(DruidFormOutcome Outcome,DruidFormState S
 // expiry, presentation and the outer successful-cast delay separately.
 internal static class DruidFormModel
 {
+    // D2C_PlayerModes from pinned Units/Player.h. These are source skill-mode
+    // values,not UO animation action numbers. ATTACK1 is7; CAST is10.
+    internal const int PlayerCastMode=10;
     private static SkillDefinition Route(SkillValues values)
     {
         ArgumentNullException.ThrowIfNull(values);
@@ -78,7 +81,7 @@ internal static class DruidFormModel
             // do116 removes the exclusive group before allocating another
             // form. Cross-form behavior is source-backed, not yet observed in
             // the current executable. Same-form free unshift is user-confirmed.
-            return new(DruidFormOutcome.Unshifted,null,hasSkill?7:null,row.Number("globaldelay"));
+            return new(DruidFormOutcome.Unshifted,null,hasSkill?PlayerCastMode:null,row.Number("globaldelay"));
         }
         int duration=checked((int)values.Eval("auralencalc"));
         int until=checked(frame+duration);
@@ -88,13 +91,13 @@ internal static class DruidFormModel
         var state=new DruidFormState(values.Ability,values.Rank,lycan,frame,until,Capture(values));
         Validate(state);
         // Successful entry's delay and mana belong to the outer handler.
-        return new(DruidFormOutcome.Entered,state,hasSkill?10:null,0);
+        return new(DruidFormOutcome.Entered,state,hasSkill?PlayerCastMode:null,0);
     }
     internal static DruidFormChange Expire(DruidFormState current,int frame,bool hasSkill=true)
     {
         Validate(current);
         if(frame<0){throw new ArgumentOutOfRangeException(nameof(frame));}
         return frame<current.UntilFrame?new(DruidFormOutcome.Refused,current,null,0)
-            :new(DruidFormOutcome.Expired,null,hasSkill?7:null,0);
+            :new(DruidFormOutcome.Expired,null,hasSkill?PlayerCastMode:null,0);
     }
 }
