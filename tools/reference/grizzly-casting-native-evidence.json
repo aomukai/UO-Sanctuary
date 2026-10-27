@@ -19,10 +19,10 @@
       653,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenWorldAcceptance": {
     "commit": "ac3c010",
@@ -1011,12 +1011,17 @@
     "tools/reference/named-item-runtime-audit.json": "053eaa77e78a7efe3c1822cb7862221768ebe1e4adc12b126e20fafaf28bec28",
     ".local/class-skills/grizzly-casting/first-loop-affix-audit.json": "d85c5386bba5194eef429e9683cb760e9e2182f77ed21e13b418085f4ee80b23",
     "tools/reference/first-loop-affix-audit.json": "d85c5386bba5194eef429e9683cb760e9e2182f77ed21e13b418085f4ee80b23",
+    ".local/class-skills/grizzly-casting/full-named-item-runtime-audit.json": "053eaa77e78a7efe3c1822cb7862221768ebe1e4adc12b126e20fafaf28bec28",
+    ".local/class-skills/grizzly-casting/full-first-loop-affix-audit.json": "d85c5386bba5194eef429e9683cb760e9e2182f77ed21e13b418085f4ee80b23",
+    ".local/class-skills/grizzly-casting/class-inputs.json": "164478d7ac901fd003f0804ab7cec06921eff62b158f8cfe48ceedbc906e4ddf",
+    ".local/class-skills/grizzly-casting/class-native-checks.log": "a10b4706cc225af3ef164c8b516a402edbb9974b8ad15a4904e1361409307735",
+    ".local/class-skills/grizzly-casting/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_grizzly_casting.py": "b3819c4764c998ea8dd38d8dc4a0d7d6fd54612058cd0f810ae8950c5e0a2bb9",
     "tools/record_grizzly_body.py": "4bec24fe01be67819c459255fc12999db78d8208c8b0aad4a1b2c44838ac36fa",
     "tools/build_skill_roadmap.py": "59ed231951fb34bf9908964186fc5ded80ed1d1509f6b9f53cb95c4298e4b21a",
     "tools/build_class_skills.py": "865ca2ed2fa4e93169f86164b7223dcd2bea8eedb8ae84f9b6f5ca9b376df3ba",
     "tools/install_grizzly_casting.py": "37bfa8e4d11e7015901fdd31531255447976990e049b6066c39d199273d7865d",
-    "tools/record_grizzly_casting_installation.py": "c8ce6a2613ac40816a0bb28e7405faf81246be0ee04a84027c4e8bf0a3bc4c3a",
+    "tools/record_grizzly_casting_installation.py": "e4223591f503d2213bc6ca7b918f2ca8b9c84b67f5c21e3e41d87f2cfc51e4d8",
     "tests/check_grizzly_casting.py": "8c2ae8793a674a4c3765e04071ede968cece3d6a61662591c0e5ad6b0823bdaa",
     "tests/check_creeper_stats.py": "875ca5d7b4854dbc14673a35b45e7ee0293b86cd0d85f02a3065129510ba9b16",
     "data/Sanctuary/Balance/class-skill-status.json": "63b5b2353e00d694758541a52a10b09dd0172e40057ffde83c8d654907edf821"

@@ -65,7 +65,7 @@ def record(check=False):
         hashes={str(receipt_path.relative_to(ROOT)): sha(receipt_path), **receipt['artifacts'],
             'tools/record_grizzly_casting_installation.py': sha(Path(__file__))},
         remaining=['The installed learned handler does not certify full class completion or current-executable parity.', *native['remaining'][:2], 'Graphical playtesting and current-executable equivalence are not established by this server installation.'],
-        next='Continue the Druid roadmap with learned Poison Creeper using its existing saved vine/ground backend and pinned rank1life50/poison12-18over4seconds report; keep pending source/geometry/event/property limits and separate effects/icons explicit. No class is complete.')
+        next='Continue unaffected Druid Werewolf/Werebear/Lycanthropy preparation. Poison Creeper retains individual modern underground exposure/attackability and provisional Rabies/gear capture gates; do not silently enable its prepared backend. Keep separate effects/icons and remaining mechanical acceptance explicit. No class is complete.')
     path = ROOT / 'tools/reference/grizzly-casting-installation-evidence.json'
     rendered = json.dumps(output, indent=2) + '\n'
     if check:
