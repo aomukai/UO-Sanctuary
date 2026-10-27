@@ -49,6 +49,12 @@ def build(local_root, installation, check=False):
     body = rows['monstats']['heartofwolverine']
     assert [body[k] for k in ['noRatio', 'minHP', 'maxHP', 'AC', 'DamageRegen', 'Code']] == ['1', '136', '136', '123', '3', 'x3']
     assert summon['Param1'] == '25' and summon['mana'] == '20' and summon['lvlmana'] == '1'
+    oak = json.loads((ROOT / 'tools/reference/oak-sage-preflight.json').read_text())['currentRows']['monstats']['oaksage']
+    assert body['AI'] == oak['AI'] == 'Totem'
+    for field in ['aidel', 'aip1', 'aip2', 'aip3', 'aip4', 'aip5']:
+        for suffix in ['', '(N)', '(H)']:
+            assert body[field + suffix] == oak[field + suffix]
+
     animation = local_root / 'AnimData.d2'
     anim_pin = json.loads((ROOT / 'tools/reference/d2r-local-animation-evidence.json').read_text())
     assert sha(animation) == anim_pin['sha256']
