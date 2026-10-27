@@ -1,0 +1,68 @@
+{
+  "referenceVersion": "3.3.93847",
+  "baseCommit": "7bee45f",
+  "preparedOnly": true,
+  "isolatedNativeMathAccepted": true,
+  "nativeWorldAccepted": false,
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceEvidence": {
+    "path": "tools/reference/druid-charged-attacks-engine-evidence.json",
+    "sha256": "32f3949a3ba4cd28ea96be5d54017fa0c73b32c9880c2e7b0a327f9e46917ce9"
+  },
+  "verified": {
+    "sourceCases": 1120,
+    "isolatedNativeComparisons": 1120,
+    "catalogRows": 240,
+    "worldBoots": 0,
+    "worldReloads": 0,
+    "contentBuild": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "integrationBuild": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "driverBuild": {
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "recoverableGitPatch": {
+    "path": "tools/reference/druid-charges-model-prepared.patch",
+    "sha256": "0f69cedaa556a31da7cc9a3ac2c33ba8ad07325983a09d34e266b8df6da73c2e",
+    "applied": false
+  },
+  "driverSources": {
+    "driver/Program.cs": "using System;\nusing System.Reflection;\nusing Sanctuary;\nusing Sanctuary.Integration;\nusing Server;\n\nCore.ApplicationAssembly=Assembly.GetExecutingAssembly();\nSkillMechanics.Load();\nvar check=typeof(DruidAttackChargeModelChecks).GetMethod(\"Check\",BindingFlags.NonPublic|BindingFlags.Static)\n    ??throw new InvalidOperationException(\"Missing isolated charge differential\");\ntry{check.Invoke(null,null);}\ncatch(TargetInvocationException error){throw error.InnerException??error;}\nConsole.WriteLine(\"Isolated native charge model:1120complete source-case comparisons pass with actual SkillValues/current240row catalog; no world/server/handler claim.\");\n",
+    "driver/Probe.csproj": "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><AssemblyName>Sanctuary.ChargeModelProbe</AssemblyName></PropertyGroup><ItemGroup><Reference Include=\"Server\" HintPath=\"/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Server.dll\" Private=\"true\" /><Reference Include=\"UOContent\" HintPath=\"/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Assemblies/UOContent.dll\" Private=\"true\" /><Reference Include=\"Logger\" HintPath=\"/media/aomukai/FILES/Sanctuary/upstream/ModernUO/Distribution/Logger.dll\" Private=\"true\" /><Reference Include=\"Sanctuary.Content\" HintPath=\"/home/aomukai/.codex/worktrees/druid-barbs-actor/Sanctuary/.local/class-skills/druid-charges-model-next/content/Sanctuary.Content.dll\" Private=\"true\" /><Reference Include=\"Sanctuary.Integration\" HintPath=\"/home/aomukai/.codex/worktrees/druid-barbs-actor/Sanctuary/.local/class-skills/druid-charges-model-next/integration/Sanctuary.Integration.dll\" Private=\"true\" /></ItemGroup></Project>\n"
+  },
+  "artifacts": {
+    ".local/class-skills/druid-charges-model-next/DruidAttackChargeModel.cs": "76cf94228cc7501be2d40dbf4964459c31fd72febd1c3a7df8b4da18ccdeae8e",
+    ".local/class-skills/druid-charges-model-next/DruidAttackChargeModelChecks.cs": "3e8df9b7e326b57b9c565419b1727602174e9d8b8edd99520e047646b88f6f77",
+    ".local/class-skills/druid-charges-model-next/content-build.log": "4e27ae50dff8bd430f49e1794b97a2820b9eab8cccf1f60efc31b274e49374e4",
+    ".local/class-skills/druid-charges-model-next/integration-build.log": "a65c9101e337bf257aab7eb1009b8988d3ad11083c12ac88f37eb563b4d473ef",
+    ".local/class-skills/druid-charges-model-next/driver-build.log": "01a9cb3ea9cc8d52e334a39bb79292102415f9155831de2488809f37a832c5d2",
+    ".local/class-skills/druid-charges-model-next/driver-run.log": "9ba6476df77ed96acbb74189d2582ffd0215f52d59d8ab874687dec649d22edb",
+    ".local/class-skills/druid-charges-model-next/content/Sanctuary.Content.dll": "faab92c0cb69b33f0e31f8f1770a6fe6ed8bb0e1ad6bbdbe153b5ad0752bbe18",
+    ".local/class-skills/druid-charges-model-next/integration/Sanctuary.Integration.dll": "b26dfc6872686587a24c6a3f235e23aa5f4da0151ced83632a9340b73f30adb9",
+    ".local/class-skills/druid-charges-model-next/driver/Program.cs": "734cb3630e2a8d38f2efcb8fd5767f559fe6e240aa5e7ace1dc3f66bacb1e315",
+    ".local/class-skills/druid-charges-model-next/driver/Probe.csproj": "823433e1b345b61b70e7b5c4cdd7aa9d3bea8d4e7702d61741db15b9cd5ccff9",
+    ".local/class-skills/druid-charges-model-next/driver-bin/Sanctuary.ChargeModelProbe.dll": "a0f8c132ceabb266579f0b7276fcc8d16e02fdb7e38db668be58e518e4268797",
+    ".local/class-skills/druid-charges-model-next/driver-bin/Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    ".local/class-skills/druid-charges-model-next/driver-bin/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    ".local/class-skills/druid-charges-model-next/driver-bin/Logger.dll": "140107b54030557f2b959e8e23f68be1b3c987c07354dd7b436944a10a9278b0",
+    ".local/class-skills/druid-charges-model-next/driver-bin/Data/Sanctuary/Balance/class-skills.json": "3a4be2e8eafe063d3f9f539d2bd4e0e02236d07f6b5ff1aee122c418184dd603",
+    ".local/class-skills/druid-charges-model-next/driver-bin/druid-charged-attacks-source-probe.json": "4198d6a63a1951e3664f871d6baab60ace99796c4c4b8425e0ea2ad76caadcd7"
+  },
+  "established": [
+    "Isolated C#Gain/Capture/Validate use actual SkillValues and the current240row catalog. The existing integration differential runs unchanged through a minimal driver with Core.ApplicationAssembly set and real SkillMechanics.Load; all1120source cases compare counters,current stored rank,expiry,allocation and mapped aura values. No world/server is started. The stage retains the same base C#inputs as the accepted reaction candidate plus only the two new helper/test files.",
+    "The pure model refreshes500frames,uses live effective rank for cap/metadata and charge count for aura formulas. Existing states allocate no replacement list. Maul mirrors attackrate into OTHER_ANIMRATE; Feral stores velocity and both life-drain endpoints. Expired-state handling follows the existing native UTC convention. Hit/contact eligibility remains the caller responsibility; this model does not adopt the old lost-target charge rule.",
+    "Canonical src/shared/tests/data and the accepted reaction package are unchanged by this prepared component. The C#model is NOT yet connected to world ownership,state/form cleanup,weapon damage,stun,attack rates,velocity,leech,payment,input or saves. No new handler or completed class is claimed."
+  ],
+  "next": [
+    "Apply/rebuild only after committing the already-successful reaction full acceptance. Use the prepared model as the shared data component while implementing the real Maul action and saved owner ledger. Add actual form-removal/expiry cleanup and dedicated damage/stun/IAS consumers before enabling Maul. Feral velocity/leech can follow using the same verified model.",
+    "Existing ClassStats.DamageBonus, DruidFormAttacks.Timing, ClassMovement delays, WeaponLeech.Capture and GearEffects.PrepareWeaponImpact/Strike are reuse candidates. TigerStrikes.ChargeContact gains before commit; do120drains before gain,so do not copy that event order. Preserve explicit target-loss/current-engine/owner/client and mana/contact timing gaps; effects/icons remain separate."
+  ]
+}

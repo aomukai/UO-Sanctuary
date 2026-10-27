@@ -28,10 +28,10 @@
       21
     ],
     "unchangedNamedDefinitions": 573,
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "cfd45b1",
@@ -1031,6 +1031,11 @@
     ".local/class-skills/druid-form-recovery-clock-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/druid-form-reaction/named-item-runtime-audit.json": "cf574d27739c0d6f796b75de618d97f63ff35968549d0a7b95b1d8b4b368e345",
     ".local/class-skills/druid-form-reaction/first-loop-affix-audit.json": "d1c725ee686bfa35bc2d8fb8efd8456ed94ba17fd1a10fdf9a5ad67d43f2e696",
+    ".local/class-skills/druid-form-reaction/full-named-item-runtime-audit.json": "cf574d27739c0d6f796b75de618d97f63ff35968549d0a7b95b1d8b4b368e345",
+    ".local/class-skills/druid-form-reaction/full-first-loop-affix-audit.json": "d1c725ee686bfa35bc2d8fb8efd8456ed94ba17fd1a10fdf9a5ad67d43f2e696",
+    ".local/class-skills/druid-form-reaction/class-inputs.json": "6e59ac9c336400438bb7dd8cd2dea63d33e786ccfbe4b4a5fbfa2ad0f14a87dd",
+    ".local/class-skills/druid-form-reaction/class-native-checks.log": "bb27c494be41479ca1bbc0bd119a15cd99e3e51a1b4fcfbbf082ea83c1eeafb1",
+    ".local/class-skills/druid-form-reaction/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_form_reaction.py": "e688ee0797a8f24ad8614f30d9e361971f335e8476659e385cec9067e3d18815",
     "tests/check_druid_form_reaction.py": "51be0768a1d30cf0f271832e23016e6d3982c4d62d859be38d073f237d876a10",
     "tests/check_creeper_stats.py": "6341cf1ca5258c8a543dc907d726685b39bdf5887e27651ca83d6ee3cb8a06ce",
