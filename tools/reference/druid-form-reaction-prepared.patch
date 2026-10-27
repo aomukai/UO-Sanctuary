@@ -1,0 +1,187 @@
+--- a/src/Sanctuary.Content/HitRecovery.cs
++++ b/src/Sanctuary.Content/HitRecovery.cs
+@@ -51,7 +51,7 @@
+         var session = ClassCombat.For(player);
+         // Released2.4: a successful block still negates damage but does not interrupt an active skill/attack animation.
+         if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0 || BladeFuryModes.Active(player)){return;}
+-        int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
++        int frames = DruidFormReactionClock.Current(player,true)?.NativeFrames ?? BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
+         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
+         session.FormAction=null;
+         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
+@@ -108,7 +108,7 @@
+         if(PaladinOffense.PreventRecovery(player,now)){return false;}
+         ClassCreation.Profiles.TryGet(player.Serial, out var profile);
+         var session = ClassCombat.For(player);
+-        int duration = Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player)) * ActionTiming.FrameMs;
++        int duration = (DruidFormReactionClock.Current(player,false)?.NativeFrames ?? Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player))) * ActionTiming.FrameMs;
+         session.RecoveryUntil = now + duration;
+         session.FormAction=null;
+         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
+--- /dev/null
++++ b/src/Sanctuary.Content/DruidFormReactionClock.cs
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using Server.Mobiles;
++namespace Sanctuary;
++
++internal readonly record struct DruidFormReaction(int Advance256,int SourceEndFrame)
++{
++    // Existing native hit/block convention, distinct from the proved source
++    // ENDANIM timestamp. Exact modern reentry remains separately unverified.
++    internal int NativeFrames=>Math.Max(1,SourceEndFrame-1);
++}
++
++internal static class DruidFormReactionClock
++{
++    internal static DruidFormReaction Calculate(CombatAbility form,bool block,int bonus,bool holyShield=false)
++    {
++        if(form is not(CombatAbility.Werewolf or CombatAbility.Werebear)){throw new ArgumentOutOfRangeException(nameof(form));}
++        int frames=form==CombatAbility.Werewolf&&!block?4:5;
++        int speed=form==CombatAbility.Werewolf?256:block?200:184;
++        bonus=Math.Clamp(bonus,0,10000);
++        int effective=120*bonus/(120+bonus);
++        int advance=Math.Max(1,speed*((block&&holyShield?100:50)+effective)/100);
++        return new(advance,Math.Max(2,(frames*256+advance-1)/advance));
++    }
++    internal static DruidFormReaction? Current(PlayerMobile owner,bool block)
++    {
++        if(DruidPlayerForms.State(owner) is not{} state){return null;}
++        int bonus=block?ClassGear.Bonus(owner,"block2")+ClassGear.Bonus(owner,"block3"):HitRecovery.Fhr(owner);
++        return Calculate(state.Form.Ability,block,bonus,block&&HolyShields.State(owner)!=null);
++    }
++}
+--- /dev/null
++++ b/tests/Sanctuary.Integration/DruidFormReactionChecks.cs
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using System.IO;
++using System.Linq;
++using System.Text.Json;
++using Server;
++using Server.Items;
++using Server.Logging;
++using Server.Mobiles;
++namespace Sanctuary.Integration;
++
++public static class DruidFormReactionChecks
++{
++    private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidFormReactionChecks));
++    private sealed record Saved(uint Owner,DruidPlayerForm Form,uint Gloves,uint Armor,DruidFormReaction Hit,DruidFormReaction Block);
++    private static string Manifest=>Path.Join(Core.BaseDirectory,"druid-form-reaction-fixtures.json");
++    public static void Configure()
++    {Register("druid-form-reaction-check",Check);Register("druid-form-reaction-reload-check",Reload);Register("druid-form-reaction-live-check",Live);}
++    private static void Register(string name,Action check)=>ConsoleInputHandler.RegisterCommand(name,"Form FHR/FBR source clocks and native reaction convention",_=>Core.LoopContext.Post(()=>
++    {try{check();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
++    private static void Require(bool ok,string reason){if(!ok){throw new InvalidOperationException(reason);}}
++    private static void Train(PlayerMobile p,CombatAbility ability,int rank=1)
++    {
++        var row=SkillMechanics.For(ability);TalentCatalog.TryGet(DiabloClass.Druid,row.TalentId,out var talent);
++        foreach(var prior in talent.Prerequisites)
++        {if(ClassCreation.Profiles.GetRank(p.Serial,prior)==0){Train(p,SkillMechanics.All.Single(x=>x.TalentId==prior).Ability);}}
++        while(ClassCreation.Profiles.GetRank(p.Serial,row.TalentId)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,row.TalentId,out _),"Train "+row.TalentId);}
++    }
++    private static void Ready(PlayerMobile p)
++    {ClassCombat.Stop(p);var s=ClassCombat.For(p);s.NextAction=s.RecoveryUntil=Core.TickCount;NecromancerEffects.SetMana256(p,p.ManaMax*256);}
++    private static PlayerMobile Fresh()
++    {
++        var p=new PlayerMobile{Body=0x190,Player=true,Name="DruidFormReactionFixture"};p.AddItem(new Backpack());
++        ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);
++        Train(p,CombatAbility.Werewolf);Train(p,CombatAbility.Werebear);Train(p,CombatAbility.Lycanthropy,20);
++        while(p.RawStr<150){Require(ClassCreation.Profiles.TrySpendStat(p,CharacterStat.Strength),"Strength");}
++        FixtureSpace.Corridor(p,6140,20,2100);Ready(p);return p;
++    }
++    private static Item Named(PlayerMobile p,string key)
++    {var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey==key).Id,99,new Random(173),true);p.AddToBackpack(item);Require(p.EquipItem(item),"Equip "+key);ClassGear.Refresh(p);return item;}
++    private static void Drop(PlayerMobile p){ClassCombat.Stop(p);DruidPlayerForms.Clear(p);p.Corpse?.Delete();p.Delete();}
++    private static void Matrix()
++    {
++        using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"druid-form-recovery-clock-source-probe.json")));int count=0;
++        foreach(var row in doc.RootElement.EnumerateArray())
++        {
++            int index=row[0].GetInt32();if(index is not(0 or 1 or 13 or 14)){continue;}
++            var reaction=DruidFormReactionClock.Calculate(index<2?CombatAbility.Werewolf:CombatAbility.Werebear,index is 0 or 13,row[1].GetInt32(),row[2].GetInt32()!=0);
++            Require(reaction.Advance256==row[3].GetInt32()&&reaction.SourceEndFrame==row[4].GetInt32()
++                &&reaction.NativeFrames==Math.Max(1,row[4].GetInt32()-1),"Source GH/BL writer/end or explicit native projection mismatch");count++;
++        }
++        Require(count==2072,"Incomplete form GH/BL source matrix");
++        Log.Information("Druid reaction:2072native complete-source GH/BL speed/end comparisons; sourceEND and existing native minus-one projection remain distinct");
++    }
++    private static void Reaction(PlayerMobile p,bool block)
++    {
++        Ready(p);long now=Core.TickCount;var actual=DruidFormReactionClock.Current(p,block);Require(actual!=null,"No form reaction");
++        if(block){HitRecovery.Block(p,now);}else{Require(HitRecovery.Apply(p,p.HitsMax,now),"Idle form did not recover");}
++        var s=ClassCombat.For(p);long end=now+actual.Value.NativeFrames*40;
++        Require(s.RecoveryUntil==end&&s.Animation==20&&s.PendingAbility==CombatAbility.None,"Native form recovery/block clock");
++        Require(HitRecovery.Active(p,end-1)&&!HitRecovery.Active(p,end)&&!p.Frozen&&!p.Paralyzed,"Reaction expiry boundary/native freeze leak");
++    }
++    private static void Check()
++    {
++        Matrix();var p=Fresh();Item gloves=null,armor=null;
++        try
++        {
++            Require(DruidFormReactionClock.Current(p,false)==null&&HitRecovery.Frames(DiabloClass.Druid)==13&&HitRecovery.BlockFrames(DiabloClass.Druid,0)==11,"Human fallback changed");
++            foreach(var form in new[]{CombatAbility.Werewolf,CombatAbility.Werebear})
++            {
++                Require(DruidPlayerForms.ApplyPrepared(p,form,TimedEffects.Now),"Form entry");Ready(p);
++                Require(DruidFormReactionClock.Current(p,false)?.NativeFrames==(form==CombatAbility.Werewolf?7:13)
++                    &&DruidFormReactionClock.Current(p,true)?.NativeFrames==(form==CombatAbility.Werewolf?9:12),"Zero-gear form clock");
++                Reaction(p,false);Reaction(p,true);gloves=Named(p,"Bloodfist");armor=Named(p,"Guardian Angel");
++                Require(HitRecovery.Fhr(p)==30&&ClassGear.Bonus(p,"block2")+ClassGear.Bonus(p,"block3")==30,"Real FHR/FBR gear");
++                Require(DruidFormReactionClock.Current(p,false)?.NativeFrames==(form==CombatAbility.Werewolf?5:9)
++                    &&DruidFormReactionClock.Current(p,true)?.NativeFrames==(form==CombatAbility.Werewolf?6:8),"Live gear did not change form clocks");
++                Reaction(p,false);Reaction(p,true);Ready(p);long now=Core.TickCount;
++                Require(ClassCombat.Perform(p,CombatAbility.BasicAttack,null,p.Location,now),"Protected block-control attack");
++                var pending=ClassCombat.For(p).PendingAbility;long deadline=ClassCombat.For(p).NextAction;HitRecovery.Block(p,now);
++                Require(ClassCombat.For(p).PendingAbility==pending&&ClassCombat.For(p).NextAction==deadline&&!HitRecovery.Active(p,now),"Block interrupted active form attack");
++                if(form==CombatAbility.Werebear){Require(!HitRecovery.Apply(p,p.HitsMax,now),"Bear concentration lost");}
++                p.AddToBackpack(gloves);p.AddToBackpack(armor);ClassGear.Refresh(p);gloves.Delete();armor.Delete();gloves=armor=null;
++                DruidPlayerForms.Clear(p);Ready(p);Require(DruidFormReactionClock.Current(p,true)==null,"Unshift retained reaction clock");
++            }
++        }
++        finally{Drop(p);gloves?.Delete();armor?.Delete();}
++        var saved=Fresh();DruidPlayerForms.ApplyPrepared(saved,CombatAbility.Werewolf,TimedEffects.Now);var g=Named(saved,"Bloodfist");var a=Named(saved,"Guardian Angel");Ready(saved);
++        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(saved.Serial.Value,DruidPlayerForms.State(saved),g.Serial.Value,a.Serial.Value,DruidFormReactionClock.Current(saved,false).Value,DruidFormReactionClock.Current(saved,true).Value)));
++    }
++    private static void Reload()
++    {
++        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
++        Require(DruidPlayerForms.State(p)==saved.Form&&World.FindItem((Serial)saved.Gloves).Parent==p&&World.FindItem((Serial)saved.Armor).Parent==p,"Saved form/gear changed");
++        Require(DruidFormReactionClock.Current(p,false)==saved.Hit&&DruidFormReactionClock.Current(p,true)==saved.Block,"Reloaded live gear/form reaction differs");
++        Require(!HitRecovery.Active(p,Core.TickCount),"Restart replayed reaction");Reaction(p,false);Reaction(p,true);Ready(p);
++    }
++    private static void Live()
++    {
++        var p=Fresh();DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werewolf,TimedEffects.Now);Named(p,"Bloodfist");Ready(p);
++        FixtureClock.NextLoop("druid-form-reaction-live-result",()=>
++        {
++            long start=Core.TickCount;Require(HitRecovery.Apply(p,p.HitsMax,start),"Natural wolf recovery");long end=ClassCombat.For(p).RecoveryUntil;
++            Require(end-start==200,"Natural FHR30wolf duration");p.Direction=Direction.East;var origin=p.Location;
++            Require(!p.Move(Direction.East)&&p.Location==origin,"Movement accepted during form recovery");
++            Timer.StartTimer(TimeSpan.FromMilliseconds(250),()=>
++            {try{Require(!HitRecovery.Active(p,Core.TickCount)&&ClassCombatHooks.MovementAllowed(p)&&p.Move(Direction.East)&&p.Location!=origin,"Natural form recovery did not release movement");Drop(p);Log.Information("druid-form-reaction-live-result: passed");}
++                catch(Exception e){Drop(p);Log.Error(e,"druid-form-reaction-live-result: failed");}});
++        });
++    }
++}
+--- /dev/null
++++ b/tests/check_druid_form_reaction.py
+@@ -0,0 +1,16 @@
++#!/usr/bin/env python3
++"""Learned form casting,shared cooldowns and real right/quick entry/unshift input."""
++import check_creeper_stats as retained
++
++if __name__ == '__main__':
++    retained.STAGE = retained.ROOT / '.local/class-skills/druid-form-interruption'
++    retained.check(
++        extra_commands=['druid-form-reaction-check', 'druid-form-reaction-live-check', 'druid-form-interruption-check', 'druid-form-casting-check', 'druid-form-delay-live-check', 'druid-form-model-check', 'druid-form-world-check', 'shape-restriction-check', 'druid-form-rate-check', 'druid-form-attack-check', 'druid-form-live-check', 'grizzly-ai-check', 'grizzly-stats-check', 'dire-wolf-stats-check', 'battle-orders-check'],
++        extra_reload_commands=['druid-form-reaction-reload-check', 'druid-form-interruption-reload-check', 'druid-form-casting-reload-check', 'druid-form-world-reload-check', 'shape-restriction-reload-check', 'druid-form-attack-reload-check', 'battle-orders-reload-check'],
++        extra_before_save_commands=['druid-form-interruption-snapshot-check', 'druid-form-world-snapshot-check', 'druid-form-expiry-stage-check'],
++        extra_fixtures=['druid-form-reaction-fixtures.json', 'druid-form-interruption-fixtures.json', 'druid-form-casting-fixtures.json', 'druid-form-world-fixtures.json', 'druid-form-expired-fixtures.json', 'battle-orders.json'],
++        extra_probes=['druid-form-recovery-clock', 'druid-form-cast-clock', 'shape-restrictions', 'druid-form-attack-clock', 'druid-form-modes', 'modern-form-progress', 'grizzly-ai', 'grizzly-creation', 'grizzly-attack', 'dire-wolf-creation', 'druid-beast-attack'],
++        extra_wait_results={'druid-form-reaction-live-check':'druid-form-reaction-live-result', 'druid-form-delay-live-check':'druid-form-delay-result', 'druid-form-live-check': 'druid-form-live-result', 'battle-orders-check': 'battle-orders-result', 'battle-orders-reload-check': 'battle-orders-result'},
++        extra_input_commands=['bear-interrupt-quick', 'form-wolf-right','form-bear-quick','form-wolf-unshift-quick','form-bear-unshift-right'],
++        between_boot_delay=5)
++    print('Learned form casting and real entry/unshift input pass3boots/2reloads with saved resources/shared cooldowns; exact modern gaps remain explicit.')

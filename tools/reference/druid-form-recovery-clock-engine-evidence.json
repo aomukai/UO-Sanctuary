@@ -1,0 +1,173 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "predecessor": {
+    "path": "tools/reference/druid-form-cast-clock-engine-evidence.json",
+    "sha256": "23de2808f5b10fdabb6f7bac4f9e7a084e1ff105b8eb4770b3a45d2d22bdeb50"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/GAME/Event.cpp": "5be1541084435940383aeec9f575565b8e93e296b7a45c591374588802d05c8d"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_GetSkillModeFromUnit": "f9c0894bd3315b436c1860b06dd602093f69bdbf8d6a3dc54f8ebdd7b3d80d15",
+    "UNITS_SetAnimationSpeed": "2ff7ce6cf74188b07279504ddfbb187831ecfb6d962acdb39b73d3cc4fb655c6",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_GetFrameBonus": "c520ff2927434b3dd4b4a9ff88914a5817ebf9253a38ad2545c972392266a252",
+    "sub_6FCBC4D0": "584fcef35a95607aca82ea300b3e831dbfa587ea271e7b5c18b2c4845c79521e",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "UNITS_SetAnimData": "65fcaabaa4340c1608291c70cd609a0569d2c278ee8e3ca51f7015195fef66c0",
+    "UNITS_IsAnimModeBlocking": "7f5c5ee26f4eddb80954f602cc76b10ed3601489d8f810b685e138cf47abc08d",
+    "UNITS_UpdateBlockAnimRateAndVelocity": "6e7042e9c69afa450addd10104fe9066f24aa476f5fe12d62cabc2a92e3dfd43",
+    "UNITS_IsAnimModeGetHit": "9274bc655b13019f29363f1dae3ca8e5cf475ad7c051db167a528829e0cf5d3f",
+    "UNITS_UpdateGetHitAnimRateAndVelocity": "7151780c467620a1db1c0e76437d4cd64b0a4c39cc62af21772a676433a59fdf",
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220"
+  },
+  "animationSha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+  "animations": [
+    {
+      "code": "40BLHTH",
+      "frames": 5,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "40GHHTH",
+      "frames": 4,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZBL1HS",
+      "frames": 6,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZBL1HT",
+      "frames": 6,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZBLHTH",
+      "frames": 6,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGH1HS",
+      "frames": 7,
+      "speed": 248,
+      "events": []
+    },
+    {
+      "code": "DZGH1HT",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGH2HS",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGH2HT",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGHBOW",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGHHTH",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGHSTF",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "DZGHXBW",
+      "frames": 7,
+      "speed": 256,
+      "events": []
+    },
+    {
+      "code": "TGBLHTH",
+      "frames": 5,
+      "speed": 200,
+      "events": []
+    },
+    {
+      "code": "TGGHHTH",
+      "frames": 5,
+      "speed": 184,
+      "events": []
+    }
+  ],
+  "contexts": 7770,
+  "formContexts": 2072,
+  "zeroBonusFormGoldens": [
+    {
+      "animation": "40BLHTH",
+      "speed": 128,
+      "sourceEndFrame": 10
+    },
+    {
+      "animation": "40GHHTH",
+      "speed": 128,
+      "sourceEndFrame": 8
+    },
+    {
+      "animation": "TGBLHTH",
+      "speed": 100,
+      "sourceEndFrame": 13
+    },
+    {
+      "animation": "TGGHHTH",
+      "speed": 92,
+      "sourceEndFrame": 14
+    }
+  ],
+  "generatedSourceSha256": "05d5fb74f9b0d196beb276b30b5b45395c091bd7f820b1d321950b5ae4e5eeaa",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-recovery-clock-source-probe.json",
+    "sha256": "16efef33df9a3385f80979b3f101a4734a8f460520fc5e125830e68eb12fdd9d"
+  },
+  "staticTimerReview": {
+    "routine": "D2GAME_InitTimer_6FC351D0",
+    "sha256": "c8f898cd4e44bdf5e21b26afa613b310192c1e5e51b0c28a86768e3b15e9d52b",
+    "executed": false
+  },
+  "established": [
+    "Complete rate dispatcher executes FCR/block/get-hit ordering with actual blocking/get-hit selectors and rate writers. All15licensed human/form GH/BLrecords,bonus0..255/500/1000/10000 and Holy Shield controls feed complete animation metadata assignment,initializer,frame-bonus and scheduler bodies. No attack/OTHER_ANIMRATE or movement branch is reached; each context reads exactly the matching FHR/FBR stat once.",
+    "Wolf GH4frames/speed256 and BL5/256 differ from bear GH5/184 and BL5/200. Zero-bonus/no-Holy source ENDANIM offsets are8,10,14and13respectively. Human weapon-specific controls remain separate. These are scheduled server end events,not automatically current-client or player reentry-frame counts.",
+    "The event allocator is statically reviewed: future expiry frames are retained; only past/current requests clamp to next game frame. This does not execute the full queue/player mode transition. It does not supply evidence for subtracting one frame from a source ENDANIM timestamp."
+  ],
+  "declaredServices": [
+    "Full rate dispatcher and selected writers execute unchanged. Composite conversion and exact current-record lookup are declared services pinned to licensed records; lookup returns the selected record without modifying its frames/speed. Unselected movement,attack,knockback,OTHER_ANIMRATE and unsupported sequence/item helpers are guarded unexecuted.",
+    "Holy Shield=true on a Druid is a synthetic writer-branch control,not a newly supported foreign-class form/skill route. Sequence scheduling and real event insertion/queue execution remain outside this fixture."
+  ],
+  "remaining": [
+    "Native form-specific recovery/block consumers remain to be implemented. Existing native human Frames/BlockFrames use ceil(frames*256/advance)-1. Keep this projection separate from the proved source ENDANIM offset until native/current reentry policy is established; do not silently equate them or alter all human classes.",
+    "Movement,knockback,modern exact reentry/soft-hit/stun/owner/client and gear/respec refresh remain separate. Current Werebear concentration protects active actions but does not eliminate idle recovery. No new handler or asset is claimed."
+  ]
+}

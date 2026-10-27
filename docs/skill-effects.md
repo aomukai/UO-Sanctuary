@@ -16,6 +16,8 @@ Player-form mechanics keep the existing human avatar as a clearly identified pla
 
 Player Werewolf and Werebear assets are separate from summoned wolves/Grizzly: current transform states139/140 map to models430/code40 and431/codeTG. Their22animation records include distinct S1 transformation, attack, cast, block, hurt and movement timings. Final wolf_into/wolf_undo, bear_into/bear_undo, body/motion/contact and druid_morph audio remain pending. The native casting candidate uses the identified generic flash/audio above; final player-form body and effects remain pending independently of mechanical acceptance. Lycanthropy has no independent active effect.
 
+The staged form recovery/block adapter retains generic human animation20as an identified placeholder. Final player wolf40GH/BLand bearTGGH/BLmotion remain missing; those clips are distinct from summoned-beast reactions. Mechanical clocks do not depend on creating these assets. The existing Werewolf/Werebear talent/right/quick icon rows remain in the separate icon register; this adapter adds no new icon requirement.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

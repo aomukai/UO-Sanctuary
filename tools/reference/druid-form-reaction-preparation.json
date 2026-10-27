@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "baseCommit": "f53ea9d",
+  "preparedOnly": true,
+  "nativeAccepted": false,
+  "installed": false,
+  "handlers": 175,
+  "druidHandlers": 19,
+  "completedClasses": [],
+  "sourceEvidence": {
+    "path": "tools/reference/druid-form-recovery-clock-engine-evidence.json",
+    "sha256": "47864068ca781d2383af1a54ae891f70eb3df28cc1344405c180a212f248a73f"
+  },
+  "nativeEdits": {
+    "src/Sanctuary.Content/HitRecovery.cs": {
+      "beforeSha256": "cddd77a063986bf92fe247ae42425a9cc02bffaecafe7bd2169d880fe5f44581",
+      "afterSha256": "681ab82a2568cfc59cce890f5a88a99034b3beacbe753e2344dd59a62c3112b3",
+      "replacements": [
+        [
+          "        int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, \"block2\") + ClassGear.Bonus(player, \"block3\"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);",
+          "        int frames = DruidFormReactionClock.Current(player,true)?.NativeFrames ?? BlockFrames(profile.Class, ClassGear.Bonus(player, \"block2\") + ClassGear.Bonus(player, \"block3\"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);"
+        ],
+        [
+          "        int duration = Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player)) * ActionTiming.FrameMs;",
+          "        int duration = (DruidFormReactionClock.Current(player,false)?.NativeFrames ?? Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player))) * ActionTiming.FrameMs;"
+        ]
+      ]
+    }
+  },
+  "recoverableGitPatch": {
+    "path": "tools/reference/druid-form-reaction-prepared.patch",
+    "sha256": "8a50dd437e2d946fa5512c9a7efc01f55864ebbd547f91d87c61ea885da82c14",
+    "applied": false
+  },
+  "verified": {
+    "isolatedContentBuild": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "isolatedIntegrationBuild": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "nativeRuntimeChecks": 0
+  },
+  "artifacts": {
+    ".local/class-skills/druid-form-reaction-next/DruidFormReactionClock.cs": "97771d49dbe40f2aabaa2a58cb829ca724d0bedf89a3a39c307090760adbfe2c",
+    ".local/class-skills/druid-form-reaction-next/DruidFormReactionChecks.cs": "62e4f521ee224c5022f80dbf473c8cf63d28b36d15173ea44488fe1dfeb38914",
+    ".local/class-skills/druid-form-reaction-next/check_druid_form_reaction.py": "2f8be4ff7e9504b2e3da325e270bbd9e231677d01b0fadc20d1ad3ac0dd96863",
+    ".local/class-skills/druid-form-reaction-next/native-replacements.json": "4e31a7fceea6608ef9d2b90508045ddbd0fd60e71fa5a127e9417075f6720b1f",
+    ".local/class-skills/druid-form-reaction-next/content-build.log": "308c65a489e21b1caf866c29f9ab69d3145d20cb7a7debbfa253af9d588006b6",
+    ".local/class-skills/druid-form-reaction-next/integration-build.log": "101438677c39190c89fa6d815a079aa019bee35e35bcfaa0de8fd360ec09ee18",
+    ".local/class-skills/druid-form-reaction-next/content/Sanctuary.Content.dll": "f75fab067fb75b290244a9d360fbc9bf0d2bf2c84af0d342f9f598c27fe0e0e4",
+    ".local/class-skills/druid-form-reaction-next/integration/Sanctuary.Integration.dll": "a9b1322e079324498b7ee11ce0395b3f7fe57ae266cfef574a904f6cb6903b04"
+  },
+  "prepared": [
+    "The isolated draft replaces only the two form-aware reaction duration consumers in shared HitRecovery. It reads current form,FHR/FBR gear and the selected writer Holy Shield flag. Human functions remain unchanged. Source animation advance and scheduled ENDANIM remain distinct fields; NativeFrames deliberately applies the existing native ceil-minus-one convention. That inherited adapter remains provisional for exact current D2Rreentry; it is not a newly approved deviation or a current-executable certificate.",
+    "Draft native fixtures compare2072form source-speed/end contexts,verify both forms with real Bloodfist30FHR and Guardian Angel30FBR,entry/unshift,human fallback,bear concentration and active-action block compatibility. A saved wolf/gear fixture targets original form/gear and reaction values across two reloads without replaying recovery. A natural200ms FHR30wolf control targets blocked/released actual movement. These tests compile but have not executed.",
+    "Expected zero-gear projected native recovery/block counts are wolf7/9and bear13/12. The independently proved scheduled source ENDANIM offsets are wolf8/10and bear14/13. Do not describe those two timeline quantities as equal. The helpers do not read Werewolf attack/OTHER_ANIMRATE for GH/BL,matching complete dispatch selection."
+  ],
+  "next": [
+    "Finish and record the existing identical frozen Werebear interruption full regression exec68555/PID153175 first. Then check all before hashes and apply the prepared patch as a new candidate. Build at canonical paths,refresh audits and execute the native source/real-gear/lifecycle/reload/natural-time checks before acceptance. Do not replace the live regression DLLs or runtime inputs.",
+    "Numeric forced-unshift life,current exact reentry/soft-hit/stun/geometry/client,knockback/movement and rank/gear/respec refresh remain separate. Animation20is an identified human hurt/block placeholder; final40/TG GH/BLmotion remains in the effects register. Existing tree/right/quick icon requirements are unchanged. No new handler or completed class is claimed."
+  ]
+}
