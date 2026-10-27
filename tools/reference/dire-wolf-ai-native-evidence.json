@@ -1,0 +1,54 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "handlers": 170,
+  "druidHandlers": 14,
+  "completedClasses": [],
+  "goalComplete": false,
+  "verified": {
+    "sourceContexts": 1226,
+    "nativeOrderedComparisons": 3678,
+    "difficultyColumns": 3,
+    "passMarkers": 199,
+    "boots": 3,
+    "retainedReloads": 2
+  },
+  "testedAssemblies": {
+    "ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Assemblies/Sanctuary.Content.dll": "1b99339c9416d0d2ddb09f3697ee5a9a7735108c2b7fb6d3fe36a78f4ac0fc14",
+    "Assemblies/Sanctuary.Integration.dll": "748999c05462da7cda60642fe8351087ee1d52c18563286f9e8130cc2f105e6e"
+  },
+  "artifacts": {
+    ".local/class-skills/dire-wolf-ai/stats-inputs.json": "d93b344b105bc76a8d4b196e8b7c15dff2a7078ed4347f0c2dcb3c9f4e583b7c",
+    ".local/class-skills/dire-wolf-ai/stats-native-checks.log": "19491e2855e1554e68978fe77159738529cd4108a75342bc2bce82607c371358",
+    ".local/class-skills/dire-wolf-ai/stats-run.log": "cc59534d49f57a87354706e48a58a051c5cc396f348b7f42a8cc812274de0d59",
+    ".local/class-skills/dire-wolf-ai/content-build.log": "29f106701fef7a359c5b4d5a3ca51dff04d784eee7f04947a6adff00527ca401",
+    ".local/class-skills/dire-wolf-ai/integration-build.log": "5eede38eb03998cc2303a353e85d2d61d3dd1f113167a057fae1a9dfd2f1039e",
+    "tools/reference/dire-wolf-ai-source-evidence.json": "7f3ef3835b55193d3cd8df3f36e064624fd302be02e94ed806c98517de2eb152",
+    ".local/class-skills/dire-wolf-ai-source-probe.json": "7e91e2c3e7b4112f52e946abb70e00bb183169c5a5c1c47e77ca2a723e2d9038",
+    ".local/class-skills/dire-wolf-ai-source-probe.cpp": "0f9da104b7c098c903d61dd083459643dfcc65038d875f1f5b7606d47583d79b",
+    ".local/class-skills/dire-wolf-ai-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/Sanctuary.Content/DruidDireWolfAi.cs": "6946fa19b4dedc55bd1ece302badf8e3c288151db83a11eb7555f4296f524fb5",
+    "tests/Sanctuary.Integration/DireWolfAiChecks.cs": "a1a9217f30f9a2beaf55c60afdd30d0600ba81fa834f555647a2702ce96ad56b",
+    "tests/check_dire_wolf_ai.py": "133865f04aa339c719e86c68a989fa1ab51ed2308436b33336c08d5ad41b66e1",
+    "tools/record_dire_wolf_ai.py": "2ae66ba108a1b9b7c21d2a921026ddd2e4b4b4b81d0e09987589d8fdd3d615bd",
+    "tools/probe_dire_wolf_ai_reference.py": "dffcc4e18633a7b7fd106b7188f0fc8ea6b56287ad340d3754f8ccbb03d5a994",
+    "tools/reference/dire-wolf-corpse-deviation.json": "669eeeaaba0815112af21377e12599c986ffb346281ba5b484f537c9dd36c7bc"
+  },
+  "established": [
+    "Complete Fenris outer policy matches the source fixture in all three current difficulty columns: ordered services, chance consumption, owner lookup/follow/teleport, positive fallback visibility, corpse pursuit, target priority and remembered owner/corpse/pursuit lanes.",
+    "Named native memory fields explicitly translate source dwAiParam order (pursuit, corpse GUID, owner GUID). The first test adapter used the wrong order; it was corrected before acceptance. No source case was removed or weakened.",
+    "The separate package retains wolf mode, body, normal/haste/Decrepify bites, learned wolf/spirits inputs and actual save/reload checks. Both builds have zero warnings/errors. Installed package preservation was independently rechecked from main."
+  ],
+  "limits": [
+    "No Dire Wolf body, automatic world controller, actual corpse search/consume/reservation, rage stat consumer, physical damage or learned casting is enabled by this policy component.",
+    "Visibility, target and owner lookup, distances, common pet movement, random supply and tactic execution remain explicit services. Legacy target/combat contradictions are literal fixture inputs, not proven reachable modern world states.",
+    "Retained reloads and live sessions belong to existing summons. This is no new class completion, current executable parity certificate, full regression rollout, item audit or graphical acceptance.",
+    "Approved type-independent monster-corpse edibility supersedes old source material/selectable/dead-collision type filters. Shared ownership/access, one-time reservation and loot preservation still apply; the native consumer remains next.",
+    "Final WF movement/bite/corpse/rage/contact/audio assets and separate talent/right/quick icons remain identified placeholders in their existing registers."
+  ]
+}
