@@ -1,0 +1,33 @@
+{
+  "referenceVersion": "3.3.93847",
+  "supplementaryResearch": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "contexts": 14400,
+  "predecessor": {
+    "path": "tools/reference/modern-form-rate-source-evidence.json",
+    "sha256": "5a84659616933102386260ddb3ec0675e0f0f8c2df732989e5e13d92d2cbca59",
+    "sourceCommit": "b7d791031b73b0c6e56a3659e9198578aed21261"
+  },
+  "sourceFiles": {
+    "calculator.js": "0d04393ff939ff2b21296166b989e30fbf85ece3ba73b71b6afd1c14c3193a0a",
+    "constants.js": "1519c847d0ddebe29021612726ee8eea6f112e6d0f2732c0804a01ab39d46dfe",
+    "README.md": "486e4007ad57ddfd4c66791717d825000e71365b613ec4fb3d339390d8c99e07",
+    "index.html": "665a401907be80e053a1bd6638063d06ea4067248d2db47d05e76a455da1fae0"
+  },
+  "fixture": {
+    "path": ".local/class-skills/modern-form-progress-source-probe.json",
+    "sha256": "f14f3493adffe1a97e280068389cffa16e74d7279223f52ead8e98f0cec89377"
+  },
+  "harnessSha256": "e6a8bbc5172830726aaca2149f86ea2d55212669bfa2879c943eaf8bb22eb914",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "established": [
+    "The existing pinned3.3author-calculator harness now observes its actual first-iteration speedIncrease value through a non-mutating tap. All14400original inputs,EIAS fields and cycle outputs remain byte-value identical. Numerical routines/loop operations remain unchanged.",
+    "Frame advance is directly observed,not inferred from an output cycle that could hide a one-unit difference. This prepares native Progress256comparisons for the same bounded single-weapon Druid standard-attack domain."
+  ],
+  "remaining": [
+    "This is supplementary original calculator research,not a disassembly or direct current-build observation. Exact skill/event/impact/cancellation cadence,all form actions,modern cross-form transitions and live player input remain separate. No native rate or learned form handler is enabled.",
+    "Only effective ranks1..60and one Druid weapon are compared; calculator UIcaps skill inputs at60. Higher native rank cases,dual wield,other transformed classes,Maul/Fury/Hunger/Rabies sequences and unrelated skills require distinct evidence.",
+    "Cached implementation files are not redistributed in tracked source. A future independently written native arithmetic projection needs its own source/native comparisons and bounded current-engine claims."
+  ]
+}

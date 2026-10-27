@@ -151,14 +151,14 @@ public static class ClassCombat
         return NamedSkills.Rank(from, "necromancer.teeth", ClassCreation.Profiles.GetRank(from.Serial, "necromancer.teeth")
             + (ClassEquipment.IsStarter(weapon) && ClassGear.Active(from, weapon) ? 1 : 0));
     }
-    public static bool Available(PlayerMobile from, CombatAbility ability) => ability switch
+    public static bool Available(PlayerMobile from, CombatAbility ability) => ShapeRestrictions.Allowed(from,ability)&&(ability switch
     {
         CombatAbility.BasicAttack => Enabled(from) && NamedAmmunition.CanAttack(CombatTiming.Equipped(from)),
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
         _ => NecromancerCombat.Available(from, ability) || SorceressCombat.Available(from, ability) || PaladinCombat.Available(from, ability) || BarbarianCombat.Available(from,ability) || AmazonCombat.Available(from,ability) || AssassinCombat.Available(from,ability) || DruidCombat.Available(from,ability)
-    };
+    });
     public static bool CastSummon(PlayerMobile from, Serial preferred, long now)
     {
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
@@ -365,6 +365,7 @@ public static class ClassCombat
 
     private static bool Perform(PlayerMobile from, CombatAbility ability, Mobile target, Point3D point, long now, bool attackInPlace)
     {
+        if(!ShapeRestrictions.Allowed(from,ability)){return false;}
         var previous=For(from);
         if(previous.Zeal is{Remaining:<=0} && now-previous.NextAction>=0){previous.Zeal=null;}
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Begin(from,ability,target?.Serial ?? Serial.Zero,point,now); }
@@ -487,6 +488,7 @@ public static class ClassCombat
         {
             return false;
         }
+        if(!ShapeRestrictions.Allowed(from,ability)){session.PendingAbility=CombatAbility.None;return false;}
         if (ability == CombatAbility.Teleport) { return Teleportation.Resolve(from, now); }
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || !Available(from, ability) || from.Location != session.ActionOrigin || from.Map != session.ActionMap

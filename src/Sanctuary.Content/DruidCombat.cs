@@ -6,7 +6,7 @@ public static class DruidCombat
 {
     public static bool Implemented(CombatAbility ability) => ability is CombatAbility.SpiritOfBarbs or CombatAbility.HeartOfWolverine or CombatAbility.OakSage or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.Raven or CombatAbility.CycloneArmor or CombatAbility.Firestorm or CombatAbility.MoltenBoulder or CombatAbility.Fissure or CombatAbility.Twister or CombatAbility.Volcano or CombatAbility.Tornado or CombatAbility.Hurricane or CombatAbility.Armageddon;
     public static bool Handles(CombatAbility ability)=>Implemented(ability);
-    public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)
+    public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)&&ShapeRestrictions.Allowed(owner,ability)
         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Druid
         && SkillMechanics.Rank(owner,ability) is >0 and <=255
         && (ability is not(CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly) || ClassCreation.Profiles.GetRank(owner.Serial,SkillMechanics.For(ability).TalentId)>0);
