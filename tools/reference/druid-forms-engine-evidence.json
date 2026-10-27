@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "handlerEnabled": false,
+  "contexts": 1000,
+  "completeRoutines": [
+    "SKILLS_SrvDo116_Wearwolf_Wearbear",
+    "sub_6FCFE030",
+    "sub_6FCFE0E0",
+    "sub_6FD10CE0",
+    "sub_6FD11BA0",
+    "D2GAME_SKILLS_SetDelay_6FD11C00",
+    "sub_6FD11C90"
+  ],
+  "preparationSha256": "81492c764fde4273d8f2a523031a3b39020c708a628c45acbf88f8e7cd509e45",
+  "generatedSourceSha256": "04a7c9570d0886f88e37bed0b7c5329a8002b9959df772f88f57b4194dce1732",
+  "fixtureSha256": "19d9d8801e8c5038963c86544c7a0f07e8e70bd36b85521783b99cfd74a020c3",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sourceRoutineHashes": {
+    "SKILLS_SrvDo116_Wearwolf_Wearbear": "0503cce496346eed7d26ee87d1f6c17c95f6fd1c473395f952829ba832e02acc",
+    "sub_6FCFE030": "c7045fbc3c73e28d86afa00b0243d3395f1b16c8715fd2fe05e63d362d228911",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "sub_6FD11BA0": "1618f5aa7de1a0590f8e46762b1fbf5078c57c66536313c97ab7d66a8d05ac25",
+    "D2GAME_SKILLS_SetDelay_6FD11C00": "e061f357df8019c69e72c7f43ce96f60205e44bf5ddba70c5dc25872ec904f95",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705"
+  },
+  "established": [
+    "Seven complete legacy routines execute under ASan/UBSan over1000current-form/rank/Lycan/player-monster/failure/state contexts. Successful entry orders allocation/post/toggle/expiry before formula stats and skill mode10; actual removal callback clears the form and restores playerCAST versus converted monster mode.",
+    "Same/cross-group removal returns0 without a new form writer and schedules25-frame delay only for player units. Already-present stat list,invalid row/state,failed allocation and missing skill/used-skill controls remain distinct. The zero-mana check permits already-shifted player units."
+  ],
+  "limits": [
+    "Allocation/state/event/skill/anim services and formula values are declared fixture services. Current formula input uses the retained native two-stage diminishing model and absent-skill linear0; this does not independently establish modern formula interpreter or global event semantics.",
+    "The outer handler/payment function was reviewed and hashed by preflight,not executed here. No mana deduction,rank1cost,current life rescale,full combat/animation/skill restriction,world or save/reload consumer is accepted by this source probe.",
+    "Current tables/user free-unshift observation corroborate bounded behavior; reconstructed legacy execution alone is not current executable parity or a learned handler."
+  ]
+}

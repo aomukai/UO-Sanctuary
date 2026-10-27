@@ -6,6 +6,8 @@ Text labels are explicitly marked placeholders in the talent/skill panels and ho
 
 Summon Grizzly's talent and hotkey icons remain pending. Its internal BearSmite/NPC326 action shares the summon identity and adds no separate bindable skill icon.
 
+Werewolf and Werebear each need a talent-tree icon plus right/quick-binding artwork. Lycanthropy needs only its passive talent-tree icon. Source preparation supplies no final images and does not enable these player forms.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

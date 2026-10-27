@@ -1,0 +1,777 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Current-data and complete legacy-source preparation; no learned player forms or native equivalence accepted",
+  "handlerEnabled": false,
+  "installed": false,
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "primaryDataCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "localTables": {
+    "skills": {
+      "filename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "publicSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "states": {
+      "filename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+      "publicSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    },
+    "monstats": {
+      "filename": "monstats-sentries-verified.txt",
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e",
+      "publicSha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+    },
+    "monstats2": {
+      "filename": "monstats2-sentries-verified.txt",
+      "sha256": "a5d0f396d7916299f0925ebfbe13fbf61f1ded6d4b0577fa861cca81bac04c92",
+      "publicSha256": "cce0fa2b19a6ea18905937ead1de2a6f0e62dde79940767d940162d6cf2d9ca2"
+    }
+  },
+  "currentRows": {
+    "skills": {
+      "Wearwolf": {
+        "skill": "Wearwolf",
+        "*Id": "223",
+        "charclass": "dru",
+        "skilldesc": "wearwolf",
+        "srvdofunc": "116",
+        "aurastate": "wolf",
+        "auralencalc": "1000+skill('Shape Shifting'.ln12)",
+        "aurastat1": "skill_staminapercent",
+        "aurastatcalc1": "par1",
+        "aurastat2": "attackrate",
+        "aurastatcalc2": "dm34",
+        "aurastat3": "item_tohit_percent",
+        "aurastatcalc3": "toht",
+        "aurastat4": "item_maxhp_percent",
+        "aurastatcalc4": "par2+skill('Shape Shifting'.ln34)",
+        "cltoverlaya": "wolf_into",
+        "cltoverlayb": "wolf_undo",
+        "cltstfunc": "45",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "monanim": "xx",
+        "seqnum": "22",
+        "UseAttackRate": "1",
+        "ItemEffect": "1",
+        "reqlevel": "1",
+        "maxlvl": "20",
+        "restrict": "1",
+        "globaldelay": "25",
+        "leftskill": "0",
+        "rightskill": "1",
+        "minmana": "1",
+        "manashift": "8",
+        "mana": "15",
+        "lvlmana": "0",
+        "InTown": "1",
+        "Param1": "25",
+        "*Param1 Description": "Stamina %",
+        "Param2": "25",
+        "*Param2 Description": "HP %",
+        "Param3": "10",
+        "*Param3 Description": "Attack Speed % Min",
+        "Param4": "80",
+        "*Param4 Description": "Attack Speed % Max",
+        "Param12": "1",
+        "*Param12 Description": "Allow Instant Direct Transformation",
+        "InGame": "1",
+        "ToHit": "50",
+        "LevToHit": "15",
+        "HitShift": "8",
+        "SrcDam": "128",
+        "cost mult": "256",
+        "cost add": "1000",
+        "*eol": "0"
+      },
+      "Shape Shifting": {
+        "skill": "Shape Shifting",
+        "*Id": "224",
+        "charclass": "dru",
+        "skilldesc": "shape shifting",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "monanim": "xx",
+        "UseAttackRate": "1",
+        "reqlevel": "1",
+        "maxlvl": "20",
+        "reqskill1": "Wearwolf",
+        "leftskill": "0",
+        "rightskill": "0",
+        "minmana": "0",
+        "manashift": "8",
+        "mana": "0",
+        "lvlmana": "0",
+        "interrupt": "1",
+        "passive": "1",
+        "Param1": "1000",
+        "*Param1 Description": "Duration baseline",
+        "Param2": "500",
+        "*Param2 Description": "Duration per level",
+        "Param3": "20",
+        "*Param3 Description": "HP % baseline",
+        "Param4": "5",
+        "*Param4 Description": "HP % per level",
+        "InGame": "1",
+        "HitShift": "8",
+        "cost mult": "256",
+        "cost add": "1000",
+        "*eol": "0"
+      },
+      "Wearbear": {
+        "skill": "Wearbear",
+        "*Id": "228",
+        "charclass": "dru",
+        "skilldesc": "wearbear",
+        "srvdofunc": "116",
+        "aurastate": "bear",
+        "auralencalc": "1000+skill('Shape Shifting'.ln12)",
+        "aurastat1": "damagepercent",
+        "aurastatcalc1": "ln12",
+        "aurastat2": "skill_armor_percent",
+        "aurastatcalc2": "ln34",
+        "aurastat3": "item_maxhp_percent",
+        "aurastatcalc3": "par5 + skill('Shape Shifting'.ln34)",
+        "aurastat4": "skill_concentration",
+        "aurastatcalc4": "par6",
+        "cltoverlaya": "bear_into",
+        "cltoverlayb": "bear_undo",
+        "cltstfunc": "45",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "none",
+        "anim": "SC",
+        "seqtrans": "SC",
+        "monanim": "xx",
+        "seqnum": "22",
+        "UseAttackRate": "1",
+        "reqlevel": "6",
+        "maxlvl": "20",
+        "restrict": "1",
+        "globaldelay": "25",
+        "leftskill": "0",
+        "rightskill": "1",
+        "minmana": "1",
+        "manashift": "8",
+        "mana": "15",
+        "lvlmana": "0",
+        "InTown": "1",
+        "Param1": "55",
+        "*Param1 Description": "Damage % baseline",
+        "Param2": "15",
+        "*Param2 Description": "Damage % per level",
+        "Param3": "40",
+        "*Param3 Description": "Armor % baseline",
+        "Param4": "10",
+        "*Param4 Description": "Armor % per level",
+        "Param5": "75",
+        "*Param5 Description": "HP %",
+        "Param6": "100",
+        "*Param6 Description": "% chance for uninterruptible attack",
+        "Param12": "1",
+        "*Param12 Description": "Allow Instant Direct Transformation",
+        "InGame": "1",
+        "HitShift": "8",
+        "SrcDam": "128",
+        "cost mult": "384",
+        "cost add": "3000",
+        "*eol": "0"
+      }
+    },
+    "states": {
+      "wolf": {
+        "state": "wolf",
+        "*ID": "139",
+        "group": "3",
+        "transform": "1",
+        "restrict": "1",
+        "disguise": "1",
+        "attblue": "1",
+        "meleeonly": "1",
+        "setfunc": "14",
+        "onsound": "druid_morph",
+        "offsound": "druid_morph",
+        "gfxtype": "1",
+        "gfxclass": "430",
+        "*eol": "0"
+      },
+      "bear": {
+        "state": "bear",
+        "*ID": "140",
+        "group": "3",
+        "transform": "1",
+        "restrict": "1",
+        "disguise": "1",
+        "damblue": "1",
+        "armblue": "1",
+        "meleeonly": "1",
+        "setfunc": "14",
+        "onsound": "druid_morph",
+        "offsound": "druid_morph",
+        "gfxtype": "1",
+        "gfxclass": "431",
+        "*eol": "0"
+      }
+    },
+    "monstats": {
+      "wolf": {
+        "Id": "wolf",
+        "*hcIdx": "430",
+        "BaseId": "wolf",
+        "TransLvl": "0",
+        "NameStr": "Wolf",
+        "MonStatsEx": "wolf",
+        "AI": "NecroPet",
+        "Code": "40",
+        "enabled": "1",
+        "MinGrp": "1",
+        "MaxGrp": "1",
+        "Velocity": "6",
+        "Run": "6",
+        "Rarity": "0",
+        "MonSound": "werewolf",
+        "UMonSound": "werewolf",
+        "threat": "14",
+        "aidel": "15",
+        "aidel(N)": "15",
+        "aidel(H)": "15",
+        "Align": "1",
+        "isSpawn": "1",
+        "inTown": "1",
+        "killable": "1",
+        "switchai": "1",
+        "CannotHerald": "1",
+        "Drain": "100",
+        "Drain(N)": "100",
+        "Drain(H)": "100",
+        "coldeffect": "-50",
+        "coldeffect(N)": "-50",
+        "coldeffect(H)": "-50",
+        "DamageRegen": "2",
+        "noRatio": "1",
+        "ToBlock": "8",
+        "ToBlock(N)": "8",
+        "ToBlock(H)": "8",
+        "Crit": "5",
+        "minHP": "16",
+        "maxHP": "25",
+        "AC": "37",
+        "A1MinD": "2",
+        "A1MaxD": "6",
+        "A1TH": "14",
+        "A2MinD": "2",
+        "A2MaxD": "6",
+        "A2TH": "14",
+        "MinHP(N)": "46",
+        "MaxHP(N)": "74",
+        "AC(N)": "40",
+        "A1MinD(N)": "2",
+        "A1MaxD(N)": "6",
+        "A1TH(N)": "20",
+        "A2MinD(N)": "2",
+        "A2MaxD(N)": "6",
+        "A2TH(N)": "20",
+        "MinHP(H)": "79",
+        "MaxHP(H)": "127",
+        "AC(H)": "43",
+        "A1MinD(H)": "2",
+        "A1MaxD(H)": "7",
+        "A1TH(H)": "27",
+        "A2MinD(H)": "2",
+        "A2MaxD(H)": "7",
+        "A2TH(H)": "27",
+        "*eol": "0"
+      },
+      "bear": {
+        "Id": "bear",
+        "*hcIdx": "431",
+        "BaseId": "bear",
+        "TransLvl": "0",
+        "NameStr": "Bear",
+        "MonStatsEx": "bear",
+        "AI": "NecroPet",
+        "Code": "TG",
+        "enabled": "1",
+        "MinGrp": "1",
+        "MaxGrp": "1",
+        "Velocity": "6",
+        "Run": "6",
+        "Rarity": "0",
+        "MonSound": "werebear",
+        "UMonSound": "werebear",
+        "threat": "14",
+        "aidel": "15",
+        "aidel(N)": "15",
+        "aidel(H)": "15",
+        "Align": "1",
+        "isSpawn": "1",
+        "inTown": "1",
+        "killable": "1",
+        "switchai": "1",
+        "CannotHerald": "1",
+        "Drain": "100",
+        "Drain(N)": "100",
+        "Drain(H)": "100",
+        "coldeffect": "-50",
+        "coldeffect(N)": "-50",
+        "coldeffect(H)": "-50",
+        "DamageRegen": "2",
+        "noRatio": "1",
+        "minHP": "12",
+        "maxHP": "19",
+        "AC": "30",
+        "A1MinD": "1",
+        "A1MaxD": "5",
+        "A1TH": "28",
+        "MinHP(N)": "34",
+        "MaxHP(N)": "54",
+        "AC(N)": "33",
+        "A1MinD(N)": "1",
+        "A1MaxD(N)": "5",
+        "A1TH(N)": "40",
+        "MinHP(H)": "57",
+        "MaxHP(H)": "92",
+        "AC(H)": "35",
+        "A1MinD(H)": "2",
+        "A1MaxD(H)": "7",
+        "A1TH(H)": "53",
+        "*eol": "0"
+      }
+    },
+    "monstats2": {
+      "wolf": {
+        "Id": "wolf",
+        "*hcIdx": "430",
+        "Height": "3",
+        "OverlayHeight": "3",
+        "pixHeight": "96",
+        "SizeX": "2",
+        "SizeY": "2",
+        "MeleeRng": "0",
+        "BaseW": "hth",
+        "HitClass": "3",
+        "TRv": "lit",
+        "S1v": "lit",
+        "TR": "1",
+        "S1": "1",
+        "S2": "1",
+        "TotalPieces": "3",
+        "mNU": "1",
+        "mWL": "1",
+        "mGH": "1",
+        "mA1": "1",
+        "mA2": "1",
+        "mBL": "1",
+        "mSC": "1",
+        "mS1": "1",
+        "mS3": "1",
+        "mS4": "1",
+        "mKB": "1",
+        "mRN": "1",
+        "dDT": "8",
+        "dNU": "8",
+        "dWL": "16",
+        "dGH": "8",
+        "dA1": "8",
+        "dA2": "8",
+        "dBL": "8",
+        "dSC": "8",
+        "dS1": "8",
+        "dS2": "8",
+        "dS3": "8",
+        "dS4": "8",
+        "dDD": "8",
+        "dKB": "8",
+        "dSQ": "8",
+        "dRN": "16",
+        "restore": "1",
+        "isSel": "1",
+        "corpseSel": "1",
+        "isAtt": "1",
+        "revive": "1",
+        "large": "1",
+        "Shadow": "1",
+        "Bleed": "1",
+        "light-r": "255",
+        "light-g": "255",
+        "light-b": "255",
+        "InfernoLen": "1",
+        "ResurrectMode": "NU",
+        "*eol": "0"
+      },
+      "bear": {
+        "Id": "bear",
+        "*hcIdx": "431",
+        "Height": "3",
+        "OverlayHeight": "3",
+        "pixHeight": "104",
+        "SizeX": "2",
+        "SizeY": "2",
+        "MeleeRng": "0",
+        "BaseW": "hth",
+        "HitClass": "3",
+        "TRv": "lit",
+        "S1v": "lit",
+        "S2v": "lit",
+        "TR": "1",
+        "S1": "1",
+        "S2": "1",
+        "TotalPieces": "3",
+        "mNU": "1",
+        "mWL": "1",
+        "mGH": "1",
+        "mA1": "1",
+        "mA2": "1",
+        "mBL": "1",
+        "mSC": "1",
+        "mS1": "1",
+        "mS3": "1",
+        "mS4": "1",
+        "mKB": "1",
+        "mRN": "1",
+        "dDT": "8",
+        "dNU": "8",
+        "dWL": "16",
+        "dGH": "8",
+        "dA1": "8",
+        "dA2": "8",
+        "dBL": "8",
+        "dSC": "8",
+        "dS1": "8",
+        "dS2": "8",
+        "dS3": "8",
+        "dS4": "8",
+        "dDD": "8",
+        "dKB": "8",
+        "dSQ": "8",
+        "dRN": "16",
+        "restore": "1",
+        "isSel": "1",
+        "corpseSel": "1",
+        "isAtt": "1",
+        "revive": "1",
+        "large": "1",
+        "Shadow": "1",
+        "Bleed": "2",
+        "light-r": "255",
+        "light-g": "255",
+        "light-b": "255",
+        "InfernoLen": "1",
+        "ResurrectMode": "NU",
+        "*eol": "0"
+      }
+    }
+  },
+  "corroboratedFields": 401,
+  "animation": {
+    "sha256": "61ea70ede691e88a4bf375d872668d74d6cdca4ed5235034188ed1eb0d1e8ee5",
+    "records": [
+      {
+        "code": "TGS1HTH",
+        "frames": 16,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "TGS3HTH",
+        "frames": 10,
+        "speed": 208,
+        "events": [
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "TGS4HTH",
+        "frames": 7,
+        "speed": 152,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "TGBLHTH",
+        "frames": 5,
+        "speed": 200,
+        "events": []
+      },
+      {
+        "code": "TGGHHTH",
+        "frames": 5,
+        "speed": 184,
+        "events": []
+      },
+      {
+        "code": "TGSCHTH",
+        "frames": 10,
+        "speed": 152,
+        "events": [
+          [
+            5,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "TGRNHTH",
+        "frames": 8,
+        "speed": 120,
+        "events": []
+      },
+      {
+        "code": "TGWLHTH",
+        "frames": 8,
+        "speed": 168,
+        "events": []
+      },
+      {
+        "code": "TGNUHTH",
+        "frames": 10,
+        "speed": 136,
+        "events": []
+      },
+      {
+        "code": "40A1HTH",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "40A2HTH",
+        "frames": 13,
+        "speed": 256,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "40S1HTH",
+        "frames": 16,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "40S3HTH",
+        "frames": 10,
+        "speed": 240,
+        "events": [
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "40S4HTH",
+        "frames": 7,
+        "speed": 152,
+        "events": [
+          [
+            4,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "40BLHTH",
+        "frames": 5,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "40GHHTH",
+        "frames": 4,
+        "speed": 256,
+        "events": []
+      },
+      {
+        "code": "40SCHTH",
+        "frames": 11,
+        "speed": 168,
+        "events": [
+          [
+            5,
+            2
+          ]
+        ]
+      },
+      {
+        "code": "40RNHTH",
+        "frames": 8,
+        "speed": 104,
+        "events": []
+      },
+      {
+        "code": "40WLHTH",
+        "frames": 8,
+        "speed": 128,
+        "events": []
+      },
+      {
+        "code": "40NUHTH",
+        "frames": 9,
+        "speed": 144,
+        "events": []
+      },
+      {
+        "code": "TGA1HTH",
+        "frames": 12,
+        "speed": 224,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      {
+        "code": "TGA2HTH",
+        "frames": 12,
+        "speed": 224,
+        "events": [
+          [
+            7,
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "reviewedRoutineHashes": {
+    "SKILLS_SrvDo116_Wearwolf_Wearbear": "0503cce496346eed7d26ee87d1f6c17c95f6fd1c473395f952829ba832e02acc",
+    "sub_6FCFE030": "c7045fbc3c73e28d86afa00b0243d3395f1b16c8715fd2fe05e63d362d228911",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FD00370": "bbb3a9e67d952a399176512d43aa5ba410a7dc660f1bd417ea89852c0fe4679a",
+    "sub_6FD10CE0": "9047bba4a5ffdc2e4614d0bfd7cbc172b6ab1760600eb29f6ef3e14d503215bb",
+    "D2GAME_SKILLMANA_Consume_6FD10A50": "f16acf2dfc4d607270b385fd1f530ff94d459c34ff9c1a45b7c29d38cff702c7",
+    "sub_6FD11BA0": "1618f5aa7de1a0590f8e46762b1fbf5078c57c66536313c97ab7d66a8d05ac25",
+    "D2GAME_SKILLS_SetDelay_6FD11C00": "e061f357df8019c69e72c7f43ce96f60205e44bf5ddba70c5dc25872ec904f95",
+    "sub_6FD11C90": "a9db3339ad073223d3966dda8cc9e1da57752fa1e67ec745172fa30c1d369705",
+    "D2GAME_SKILLS_Handler_6FD12BA0": "32734e7dfbba59829ee813a0b78667a279b481021242c0cca9fea74c982875a3"
+  },
+  "reverseSequence": {
+    "index": 22,
+    "rows": [
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 15,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 14,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 13,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 12,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 11,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 10,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 9,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 8,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 7,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 6,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 5,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 4,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 3,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 2,
+        "event": "ANIMSEQ_EVENT_MELEE_ATTACK"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 1,
+        "event": "ANIMSEQ_EVENT_NONE"
+      },
+      {
+        "mode": "PLRMODE_SPECIAL1",
+        "frame": 0,
+        "event": "ANIMSEQ_EVENT_NONE"
+      }
+    ]
+  },
+  "userReportSha256": "fadc28a8303a3681a55cbf5237fae933d002acf534419f598f4878ac90fef775",
+  "established": [
+    "Current Werewolf223/Werebear228 use do116, right-only town-enabled SC,15mana and25-frame global delay. Lycanthropy224 has no independent state/passive writer; form formulas read its duration/life terms.",
+    "Wolf/bear states139/140 share exclusive group3, transform/disguise/melee-only flags and setfunc14. They map to player-form models430/code40 and431/codeTG, distinct from summoned spiritwolf/fenris/druidbear.",
+    "Complete legacy do116 first removes active same-group states and returns0 after applying delay; the ordinary handler returns before mana consumption on that path. Its separate mana guard permits do116while already shifted. The user confirms free same-form unshift in the pinned build.",
+    "New legacy form allocates a timed state, posts/toggles it, schedules removal, applies up to six formula stats, records skill/rank and selects skill mode10. Attackrate also writes OTHER_ANIMRATE. Removal restores the player skill to CAST; these full routines are pinned for subsequent executable comparisons.",
+    "Legacy sequence22 is a16-entry reversed S1animation15..0with an action at index13. Current SC,UseAttackRate and form metadata must be composed with the live form conversion path before timing acceptance."
+  ],
+  "remaining": [
+    "No native saved form/life/stamina/AR/damage/defense/concentration/rate/restriction consumer, casting/input/payment/delay or reload acceptance is claimed. Reuse existing player stat, resource, weapon, animation and persistence services where semantics agree.",
+    "Direct cross-form selection, modern rank1payment versus legacy minimum-mana quirk, stat capture/refresh,life adjustment/expiry/low-life unshift,global versus local delay and post-2.4attack-rate composition require further source/current-build corroboration.",
+    "Form-specific weapon/skill restrictions and movement/block/hurt/death/cast animation clocks must use their own metadata. Pinning legacy routines is not current executable equivalence.",
+    "Final transformation/body/motion/contact/audio assets and separate Werewolf/Werebear talent+right/quick icons remain pending. Lycanthropy needs a talent icon only. No class is complete."
+  ]
+}

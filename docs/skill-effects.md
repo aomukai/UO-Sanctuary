@@ -12,6 +12,8 @@ The learned Grizzly route now creates the saved world body and delivers ordinary
 
 The user observes Grizzly knockback without stun. BearSmite's prepared packet also has zero stun; do not invent a stun overlay from the hidden formula label. Its animation/contact/knockback work remains pending even though packet preparation is verified. NPC326 is an internal Grizzly action and needs no separate player talent or hotkey icon.
 
+Player Werewolf and Werebear assets are separate from summoned wolves/Grizzly: current transform states139/140 map to models430/code40 and431/codeTG. Their22animation records include distinct S1 transformation, attack, cast, block, hurt and movement timings. Final wolf_into/wolf_undo, bear_into/bear_undo, body/motion/contact and druid_morph audio remain pending. No player-form body or effect has been installed by the source-preparation step. Lycanthropy has no independent active effect.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |
