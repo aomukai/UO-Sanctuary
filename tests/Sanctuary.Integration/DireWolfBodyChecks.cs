@@ -88,7 +88,7 @@ public static class DireWolfBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Prepared body enabled an unfinished skill");
+        Require(DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Learned Fenris handler missing");
         var p=Fresh();var at=TimedEffects.Now.AddHours(1);var wolf=DruidDireWolfBody.CreatePrepared(p,new(p.X+1,p.Y,p.Z),at);
         Require(wolf is{Blessed:false,BleedImmune:false,PoisonImmune:null,CanRegenHits:false,CanRegenMana:false,CanRegenStam:false,ControlSlots:0}
             && wolf.ControlMaster==p && wolf.Permitted(p) && wolf.CanBeDamaged(),"Dire ownership/vulnerability inherited skeleton immunity");

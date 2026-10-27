@@ -1,0 +1,57 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user tooltip report in this task,2026-10-27",
+  "observed": {
+    "effectiveRank": 28,
+    "baseRank": 20,
+    "manaCost": 40,
+    "attackRatingPercent": 700,
+    "defensePercent": 280,
+    "life": 5200,
+    "minimumDamage": 1959,
+    "maximumDamage": 2077,
+    "damagePercent": 295,
+    "synergyContext": "Prior Spirit Wolf/Dire Wolf effective28/base20; no changed synergy ranks were reported in this answer. Confirm against the actual source formula rather than assume a changed rank."
+  },
+  "corroborated": {
+    "attackRatingPercent": "25*Spirit Wolf effective28=700",
+    "defensePercent": "10*Spirit Wolf effective28=280",
+    "damagePercent": "25+10*(Grizzly28-1)=295"
+  },
+  "discrepancy": {
+    "reportedTooltipLife": 5200,
+    "pinnedPublicBaseLife": 750,
+    "cachedLocalBaseLife": 750,
+    "currentLifeCalc": "(par7 * lvl) + skill('Summon Fenris'.par2) * skill('Summon Fenris'.lvl)",
+    "withPreviouslyReportedDire28": "10*28+15*28=700percent; literal750base would yield6000 before other unreviewed paths.",
+    "conditionalInference": "650base would yield5200 with that700percent multiplier. This arithmetic is not evidence that actual monster birth uses650.",
+    "tooltipPath": {
+      "descline1": 74,
+      "desccalca1": "ln12",
+      "descline2": 75,
+      "desccalca2": "pnma*(100+ln12)/100",
+      "desccalcb2": "pxma*(100+ln12)/100",
+      "descline3": 13,
+      "desccalca3": "(par7 * lvl) + (skill('Summon Fenris'.par2) * skill('Summon Fenris'.lvl))"
+    },
+    "status": "unresolved; inspect current tooltip line13 and actual birth path before choosing a Grizzly base; no approved deviation and no native Grizzly handler"
+  },
+  "files": {
+    "publicMonstats": {
+      "path": "tools/reference/d2r-named-equipment/json/monstats.json",
+      "sha256": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7"
+    },
+    "publicSkills": {
+      "path": "tools/reference/d2r-named-equipment/json/skills.json",
+      "sha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "publicSkilldesc": {
+      "path": "tools/reference/d2r-named-equipment/json/skilldesc.json",
+      "sha256": "5e9a367afd79892823352f34ca82c8157d9d9aa3f5ee3f1653ec9ce110449e57"
+    },
+    "cachedLocalMonstats": {
+      "path": "/media/aomukai/FILES/Sanctuary/.local/research/d2r-3.3.93847/monstats-sentries-verified.txt",
+      "sha256": "8831fce35fc549a4849b13a1bd467eb34913f58b8269c0c1bbfa76aeabb6d32e"
+    }
+  }
+}

@@ -29,14 +29,27 @@
     },
     "grizzly": {
       "canBeChilled": true,
-      "canBeFrozen": true
+      "canBeFrozen": true,
+      "tooltip": {
+        "effectiveRank": 28,
+        "baseRank": 20,
+        "manaCost": 40,
+        "attackRatingPercent": 700,
+        "defensePercent": 280,
+        "life": 5200,
+        "minimumDamage": 1959,
+        "maximumDamage": 2077,
+        "damagePercent": 295,
+        "synergyContext": "Prior Spirit Wolf/Dire Wolf effective28/base20; no changed synergy ranks were reported in this answer. Confirm against the actual source formula rather than assume a changed rank."
+      }
     }
   },
   "quotedReports": [
     "spirit wolves don't get chilled. when decrepify l;ands, they slow down, but they still bite",
     "dire wolf and grizzly do get chilled tho, and frozen",
     "no, the effects were usually wolverine spirit and vigor aura from a harmony bow (or thorns from an edge bow)",
-    "skill lvl 28, mana cost 20, attack rating +700%, life 1803, damage 635-762, max wolves 3, max life +455%, defense +392%"
+    "skill lvl 28, mana cost 20, attack rating +700%, life 1803, damage 635-762, max wolves 3, max life +455%, defense +392%",
+    "summon grizzly level 28 (20), mana cost 40, attack rating +700%, defense +280%, life: 5200, damage 1959-2077, damage +295%"
   ],
   "localTableChecks": {
     "files": {
@@ -66,7 +79,8 @@
   "remaining": [
     "Verify the exact current busy/mode-end dispatch and slowed cadence. Continuing bites are now implemented under an explicitly inferred policy, not a current-executable timing certificate.",
     "Confirm exact cause of Spirit Wolf chill exclusion and separate Spirit Wolf freeze eligibility if needed; retain observed Dire/Grizzly susceptibility in their future implementations.",
-    "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf."
+    "Synthetic direct cold-stat injection in rate tests is a component control, not evidence that actual incoming cold can chill a Spirit Wolf.",
+    "New Grizzly rank28 tooltip reports5200life; the cached public monstats snapshot has750base life, which would yield6000at the previously reported effective wolf ranks28. Preserve the report and resolve current local table/tooltip path before native Grizzly life implementation. This is not a user-approved balance deviation."
   ],
   "reviewedNewerSource": {
     "commit": "7f6d773f31060e97124241e6bd30d606bcab6d4e",

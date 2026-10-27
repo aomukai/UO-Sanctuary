@@ -168,7 +168,7 @@ public static class DireWolfWorldChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Prepared controller enabled unfinished learned casting");Numeric();Feeding();Combat();Movement();Stage();
+        Require(DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Learned Fenris handler missing");Numeric();Feeding();Combat();Movement();Stage();
         Log.Information("Fenris world:576complete physical/typed source packets; automatic feeding/rage500frames, competing corpse, physical bites/critical/immunity/Enchant, additive Grizzly/aura/curse, live rank capture, slowed repeat bites and shared owner movement pass; learned casting and exact modern cadence remain pending");
     }
     private static void Reload()

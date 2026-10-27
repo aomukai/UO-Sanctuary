@@ -1956,10 +1956,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 237,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick route uses20mana after allocation and independent capmin(rank,3)/saved FIFO. Saved Fenris policy/movement/feeding/rage500frames/physical bites reuse checked shared primitives; approved type-independent monster corpses retain access,reservation and loot. Source/native and deployment evidence are in the checkpoint. Ground/sector/room/target/corpse-footprint/path,provisional busy-A1cadence,full mode/event/HP-death order,sunder/equipment/oskill and exact current-client parity remain open. Final WF/feeding/rage/contact/audio and separate icons remain placeholders; no class complete."
     },
     {
       "talentId": "druid.solarcreeper",

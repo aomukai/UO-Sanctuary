@@ -17,8 +17,8 @@ internal sealed record DireWolfBodyState(uint Owner,DireWolfSnapshot Snapshot,Mo
 }
 
 // Saved vulnerable Fenris backend. Native skeleton AI and damage are
-// suppressed. This factory prepares life/ownership; automatic Fenris policy,
-// attack and corpse/rage dispatch are separate consumers still to be connected.
+// suppressed. This factory prepares life/ownership; the separate saved Fenris
+// world controller owns movement, attack and corpse/rage dispatch.
 [SerializationGenerator(0)]
 public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
 {

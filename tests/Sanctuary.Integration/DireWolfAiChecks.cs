@@ -48,7 +48,7 @@ public static class DireWolfAiChecks
             }
         }
         Require(compared==3678,"Incomplete Fenris source fixture");
-        Require(!DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Prepared AI must not enable an unfinished learned summon");
+        Require(DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Learned Fenris handler missing");
         Log.Information("Dire Wolf AI:1226complete source contexts across3current difficulty parameter columns,3678native ordered-service/memory comparisons; no native actor,corpse consumer,rage or learned cast is claimed");
     }
 }

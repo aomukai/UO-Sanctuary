@@ -19,7 +19,7 @@ public static class DireWolfStatsChecks
         key=>key=="Summon Fenris"?rank:key=="Summon Spirit Wolf"?spirit:key=="Summon Grizzly"?grizzly:0,_=>hard,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Preparation must not enable unfinished Dire Wolf");
+        Require(DruidCombat.Implemented(CombatAbility.SummonDireWolf),"Learned Dire Wolf route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"dire-wolf-creation-source-probe.json")));
         int births=0,sunder=0;
         foreach(var row in data.RootElement.EnumerateArray())
@@ -102,7 +102,7 @@ public static class DireWolfStatsChecks
                 var inherited=next with{Birth=next.Birth with{PhysicalSunder=95}};
                 Require(DruidDireWolfStats.Rescale(inherited,difficulty).Birth.PhysicalSunder==95,"Rescale lost inherited source stat");
             }
-            Require(!ClassCombat.Available(owner,CombatAbility.SummonDireWolf),"Unfinished summon made available");
+            Require(ClassCombat.Available(owner,CombatAbility.SummonDireWolf),"Trained Dire Wolf unavailable");
         }
         finally{owner.Delete();}
     }

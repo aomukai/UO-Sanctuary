@@ -2483,7 +2483,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Prepared saved Fenris movement/AI, type-independent loot-safe feeding, rage and physical bites are staged for component verification; learned casting remains unfinished. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels."
+    "placeholder": "Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Saved Fenris movement/AI, type-independent loot-safe feeding, rage and physical bites use this placeholder. Learned SC/right/quick casting and payment/cap/input verification are tracked in the checkpoint; exact current graphical/mechanical parity remains open. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels."
   },
   {
     "talentId": "druid.solarcreeper",
