@@ -73,8 +73,8 @@ public static class GrizzlyStatsChecks
             && DruidBeastAttackStats.Capture(Values(99,28),MonsterDifficulty.Normal,4) is{Minimum:496,Maximum:526,Attack:1140}
             && DruidBeastAttackStats.Capture(Values(99,28),MonsterDifficulty.Hell,5) is{Minimum:496,Maximum:526,Attack:840},
             "Live attack rank/table AR remain separate from copied birth passive");
-        bool refused=false;try{DruidBeastAttackStats.Capture(Values(99,28),MonsterDifficulty.Normal,12);}catch(NotSupportedException){refused=true;}
-        Require(refused,"BearSmite sequence silently routed as an ordinary mode");
+        bool refused=false;try{DruidBeastAttackStats.Capture(Values(99,28),MonsterDifficulty.Normal,16);}catch(NotSupportedException){refused=true;}
+        Require(refused,"Unmapped raw monster mode accepted");
     }
 
     private static void Actual()

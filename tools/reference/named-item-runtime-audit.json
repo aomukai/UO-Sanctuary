@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "c735bb5fd6ee33fe9bd65c7ac37c6dbb1378e63dab14fecbd152cd374dad1a3d",
+  "ContentAssemblySha256": "a1c18ad7266f4ca0b9b80c216de420e50064669c28bd0aee8a837d695bedbcae",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -354,7 +354,7 @@
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
     "src/Sanctuary.Content/DruidBarbsBody.cs": "d76828d398d2dd748560b28675af569f624462224d310d9dad0b83a2e84208ca",
     "src/Sanctuary.Content/DruidBarbsStats.cs": "0055e6c2675727fe781c46a32fe45d21a3364a5a16ce7ecbd1e421da36bd1540",
-    "src/Sanctuary.Content/DruidBeastAttackStats.cs": "df7a9b200c18d9cdabefe6f7de57a2f05100e972064756119cf263b14a4e852c",
+    "src/Sanctuary.Content/DruidBeastAttackStats.cs": "d7b4ee062fb610dd9e67a0a9c98622ac83db990e13d32e702c3ec11b98c3d723",
     "src/Sanctuary.Content/DruidCombat.cs": "1e2698bf277727413359cfa6aad4adf49b8da9b606eae3749ac6f632273f0c4a",
     "src/Sanctuary.Content/DruidCreeperAi.cs": "385e4931a2251b0151fbcd33fb40acea04fdba1a11d61a25fc3d9b499e46cbba",
     "src/Sanctuary.Content/DruidCreeperBody.cs": "6b898559c6c15f66610daca4a76a5ad250ba1a76f4d8b933be5d7a5cdef3dfd4",

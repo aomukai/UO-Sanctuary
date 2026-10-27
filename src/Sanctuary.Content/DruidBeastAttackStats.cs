@@ -5,11 +5,12 @@ namespace Sanctuary;
 internal readonly record struct BeastAttackStats(int Rank,int Minimum,int Maximum,int Attack);
 
 // Source flag1 mode-list values, distinct from birth base/passive stats.
-// Captured on attack-mode entry; copied birth passives stay separate.
+// Raw source writer values only; skill/sequence execution stays separate.
 internal static class DruidBeastAttackStats
 {
     internal static BeastAttackStats Capture(SkillValues live,MonsterDifficulty difficulty,int sourceMode)
     {
+        ArgumentNullException.ThrowIfNull(live);
         string key=live.Ability switch
         {
             CombatAbility.SummonSpiritWolf=>"spiritwolf",CombatAbility.SummonDireWolf=>"fenris",CombatAbility.SummonGrizzly=>"druidbear",
@@ -17,7 +18,10 @@ internal static class DruidBeastAttackStats
         };
         if(live.Rank is <0 or >255||difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell)
         {throw new ArgumentOutOfRangeException(nameof(live));}
-        string lane=sourceMode switch{4=>"A1",5=>"A2",3 or 7 or 8=>"S1",_=>throw new NotSupportedException("Unmapped beast attack mode")};
+        if(sourceMode is <0 or >15){throw new NotSupportedException("Unmapped beast mode writer entry");}
+        // Header modes: GH3, BL6, dead12, sequence14. The full raw writer
+        // defaults to A1 outside A2/BL/SC/S1; this does not execute an attack.
+        string lane=sourceMode switch{5=>"A2",6 or 7 or 8=>"S1",_=>"A1"};
         var row=SkillMechanics.For(live.Ability);
         if(NecromancerSummons.Source(key,"noRatio")!=1||NecromancerSummons.Source(key,"Align")!=1
             ||row.Number("SrcDam")!=0||row.Text("DmgSymPerCalc")!="0"||row.Text("ToHitCalc")!="0"
