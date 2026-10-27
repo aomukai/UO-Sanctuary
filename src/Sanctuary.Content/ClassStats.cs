@@ -155,6 +155,7 @@ public static class ClassStats
         Math.Clamp(2.0 * Math.Max(1, attack) / (Math.Max(1, attack) + Math.Max(0, defense))
             * Math.Max(1, attackerLevel) / (Math.Max(1, attackerLevel) + Math.Max(1, defenderLevel)), 0.05, 0.95);
     public static bool? CheckHit(Mobile attacker, Mobile defender)=>CheckHit(attacker,defender,0,projectile:
+        attacker is PlayerMobile formed&&DruidFormAttacks.Active(formed)?false:
         attacker.Weapon is BaseRanged || attacker is PlayerMobile player && CombatTiming.Weapon(CombatTiming.Equipped(player)).Family==AttackFamily.Throw);
     internal static bool? CheckHit(Mobile attacker,Mobile defender,int skillPercent,Func<double> roll=null,bool projectile=false,bool notifyMelee=true)
     {

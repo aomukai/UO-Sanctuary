@@ -25,6 +25,7 @@ public static class ClassCombat
         public byte Animation { get; internal set; }
         internal Serial PendingTarget, PendingWeapon;
         internal TeleportCast PendingTeleport;
+        internal DruidPlayerForm AttackForm;
         internal PaladinZeal.Series Zeal;
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
@@ -153,7 +154,7 @@ public static class ClassCombat
     }
     public static bool Available(PlayerMobile from, CombatAbility ability) => ShapeRestrictions.Allowed(from,ability)&&(ability switch
     {
-        CombatAbility.BasicAttack => Enabled(from) && NamedAmmunition.CanAttack(CombatTiming.Equipped(from)),
+        CombatAbility.BasicAttack => Enabled(from) && (DruidFormAttacks.Active(from)?DruidFormAttacks.Supported(from):NamedAmmunition.CanAttack(CombatTiming.Equipped(from))),
         CombatAbility.Teeth => TeethRank(from) > 0,
         CombatAbility.RaiseSkeleton => SkeletonPets.Rank(from) > 0,
         CombatAbility.Teleport => Teleportation.Rank(from) > 0,
@@ -233,6 +234,7 @@ public static class ClassCombat
         PaladinCharge.Cancel(from);
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
+        For(from).AttackForm = null;
         For(from).Conversion = null;
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
@@ -410,6 +412,7 @@ public static class ClassCombat
         session.NextAction = now + session.Timing.DurationMs;
         session.EffectAt = now + session.Timing.EffectMs;
         session.PendingAbility = ability;
+        session.AttackForm = ability==CombatAbility.BasicAttack?DruidPlayerForms.State(from):null;
         session.PendingTarget = target?.Serial ?? Serial.Zero;
         session.PendingPoint = point;
         session.PendingWeapon = weapon?.Serial ?? Serial.Zero;
@@ -447,6 +450,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
+        if(ability==CombatAbility.BasicAttack&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
@@ -488,7 +492,8 @@ public static class ClassCombat
         {
             return false;
         }
-        if(!ShapeRestrictions.Allowed(from,ability)){session.PendingAbility=CombatAbility.None;return false;}
+        if(!ShapeRestrictions.Allowed(from,ability)||ability==CombatAbility.BasicAttack&&!ReferenceEquals(session.AttackForm,DruidPlayerForms.State(from)))
+        {session.PendingAbility=CombatAbility.None;session.AttackForm=null;return false;}
         if (ability == CombatAbility.Teleport) { return Teleportation.Resolve(from, now); }
         if (!Enabled(from) || !from.Alive || !AlliedOverlap.Allowed(from) || from.Frozen || from.Paralyzed || from.Spell != null
             || !Available(from, ability) || from.Location != session.ActionOrigin || from.Map != session.ActionMap
@@ -534,6 +539,8 @@ public static class ClassCombat
             var aimed = World.FindEntity(session.PendingTarget);
             return NecromancerCombat.Release(from, ability, session.PendingTarget, aimed?.Location ?? session.PendingPoint);
         }
+        bool formMelee=ability==CombatAbility.BasicAttack&&DruidFormAttacks.Active(from);
+        using var formWeapon=formMelee&&CombatTiming.Equipped(from) is{} formItem?WeaponHands.UseMelee(from,formItem):null;
         var target = World.FindMobile(session.PendingTarget);
         if (session.PendingTarget != Serial.Zero && (!IsHostile(from, target) || !from.InRange(target, CombatProtocol.SightRange)))
         {
@@ -567,7 +574,7 @@ public static class ClassCombat
             }
             if(ability==CombatAbility.BasicAttack && BarbarianThrowing.Supported(from))
             {throwing=BarbarianThrowing.Release(from,TimedEffects.Now);if(throwing==null){return false;}}
-            else if (!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
+            else if (!formMelee&&!NamedAmmunition.Consume(CombatTiming.Equipped(from), TimedEffects.Now)) { return false; }
             if (CombatTiming.Weapon(CombatTiming.Equipped(from)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
             {
                 from.MovingEffect(target ?? (IEntity)new Entity(Serial.Zero,point,from.Map), 0xF42, 5, 0, false, false);
@@ -595,7 +602,7 @@ public static class ClassCombat
             {
                 weaponHit=TigerStrikes.BasicStrike(from,target);
             }
-            else if (ClassStats.CheckHit(from, target) == true)
+            else if ((formMelee?ClassStats.CheckHit(from,target,0,DruidFormAttacks.HitRoll,projectile:false):ClassStats.CheckHit(from,target)) == true)
             {
                 GearEffects.Strike(from, target, Utility.RandomDouble(), wearWeapon: pierces == 0,projectileCritical:throwing?.Critical); weaponHit = true;
             }
@@ -803,7 +810,7 @@ public static class ClassCombat
             }
         }
         var weapon = CombatTiming.Equipped(from);
-        var signature = HashCode.Combine(weapon?.Serial, CombatTiming.Ias(from), CombatTiming.Fcr(from),PaladinOffense.AttackRate(from));
+        var signature = HashCode.Combine(weapon?.Serial, CombatTiming.Ias(from), CombatTiming.Fcr(from),PaladinOffense.AttackRate(from),DruidPlayerForms.State(from)?.Form);
         if (!session.TooltipKnown || signature != session.TooltipSignature)
         {
             session.TooltipKnown = true;

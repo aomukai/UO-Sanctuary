@@ -20,9 +20,9 @@ public sealed class DruidFormProfiles:GenericPersistence
     public override void PostDeserialize()=>DruidPlayerForms.Prune(TimedEffects.Now);
 }
 
-// Prepared saved stat consumer only. No learned transformation caller, mana
-// transaction, cross-form switching, visual body, rate or restriction consumer
-// is installed here. Those must be composed before enabling player skills.
+// Prepared saved stat consumer. Shape restrictions and ordinary form A1
+// consumers read this ledger. Learned transformation casting/payment,direct
+// switching,visual body and other action clocks remain separate.
 public static class DruidPlayerForms
 {
     private static ImmutableDictionary<uint,DruidPlayerForm> _states=ImmutableDictionary<uint,DruidPlayerForm>.Empty;

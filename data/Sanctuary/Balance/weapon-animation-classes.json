@@ -1,0 +1,1532 @@
+[
+  {
+    "code": "2ax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "2hs",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "6bs",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "6cb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6cs",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "6hb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6hx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "6l7",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6lb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6ls",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "6lw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6lx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "6mx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "6rx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "6s7",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6sb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6ss",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "6sw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "6ws",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "72a",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "72h",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7ar",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7ax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7b7",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7b8",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7ba",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7bk",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7bl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7br",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "7bs",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7bt",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7bw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7cl",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7cm",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7cr",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7cs",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7dg",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7di",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7fb",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7fc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7fl",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7ga",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7gd",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7gi",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7gl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7gm",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7gs",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "7gw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7h7",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7ha",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7ja",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7kr",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7la",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7ls",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7lw",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7m7",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7ma",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7mp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7mt",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7o7",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7p7",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "7pa",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7pi",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7qr",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7qs",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7s7",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7s8",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7sb",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7sc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7sm",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7sp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7sr",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "7ss",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7st",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "7ta",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7tk",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7tr",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "7ts",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "7tw",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7vo",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7wa",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7wb",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7wc",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "7wd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7wh",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7wn",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7ws",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "7xf",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "7yw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "8bs",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "8cb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8cs",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "8hb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8hx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "8l8",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8lb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8ls",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "8lw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8lx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "8mx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "8rx",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "8s8",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8sb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8ss",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "8sw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "8ws",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "92a",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "92h",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9ar",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9ax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9b7",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9b8",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9b9",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9ba",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9bk",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9bl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9br",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "9bs",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9bt",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9bw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9cl",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9cm",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9cr",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9cs",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9dg",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9di",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9fb",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9fc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9fl",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9ga",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9gd",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9gi",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9gl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9gm",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9gs",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "9gw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9h9",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9ha",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9ja",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9kr",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9la",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9ls",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9lw",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9m9",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9ma",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9mp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9mt",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9p9",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "9pa",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9pi",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9qr",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9qs",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9s8",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9s9",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9sb",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9sc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9sm",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9sp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9sr",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "9ss",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9st",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "9ta",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9tk",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9tr",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "9ts",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "9tw",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9vo",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9wa",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9wb",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9wc",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "9wd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9wh",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9wn",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9ws",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "9xf",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "9yw",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "am1",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "am2",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "am3",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "am4",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "am5",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "am6",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "am7",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "am8",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "am9",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "ama",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "amb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "amc",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "amd",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "ame",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "amf",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "axe",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "axf",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "bal",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "bar",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "bax",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "bkf",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "bld",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "brn",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "bsd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "bst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "bsw",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "btl",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "btx",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "bwn",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "cbw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "ces",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "clb",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "clm",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "clw",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "crs",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "cst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "d33",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "dgr",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "dir",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "fla",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "flb",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "flc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "g33",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "gax",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "gis",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "gix",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "glv",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "gma",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "gpl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "gpm",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "gps",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "gsc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "gsd",
+    "oneHanded": "1HS",
+    "twoHanded": "2HS"
+  },
+  {
+    "code": "gwn",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "hal",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "hax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "hbw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "hdm",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "hfh",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "hst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "hxb",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "jav",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "kri",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "ktr",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "lax",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "lbb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "lbw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "leg",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "lsd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "lst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "lwb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "lxb",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "mac",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "mau",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "mpi",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "msf",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "mst",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "mxb",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "ob1",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob2",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob3",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob4",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob5",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob6",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob7",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob8",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ob9",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "oba",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "obb",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "obc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "obd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "obe",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "obf",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "opl",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "opm",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "ops",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "pax",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "pik",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "pil",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "qf1",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "qf2",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "rxb",
+    "oneHanded": "XBW",
+    "twoHanded": "XBW"
+  },
+  {
+    "code": "sbb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "sbr",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "sbw",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "scm",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "scp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "scy",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "skr",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "spc",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "spr",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "spt",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "ssd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "ssp",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "sst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "swb",
+    "oneHanded": "BOW",
+    "twoHanded": "BOW"
+  },
+  {
+    "code": "tax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "tkf",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "tri",
+    "oneHanded": "2HT",
+    "twoHanded": "2HT"
+  },
+  {
+    "code": "tsp",
+    "oneHanded": "1HT",
+    "twoHanded": "1HT"
+  },
+  {
+    "code": "vou",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "wax",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "whm",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "wnd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "wrb",
+    "oneHanded": "HT1",
+    "twoHanded": "HT1"
+  },
+  {
+    "code": "wsc",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "wsd",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "wsp",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  },
+  {
+    "code": "wst",
+    "oneHanded": "STF",
+    "twoHanded": "STF"
+  },
+  {
+    "code": "ywn",
+    "oneHanded": "1HS",
+    "twoHanded": "1HS"
+  }
+]

@@ -9,7 +9,7 @@ namespace Sanctuary;
 public static class NamedCombat
 {
     public static bool Ranged(Mobile attacker) => attacker is PlayerMobile player
-        ? CombatTiming.Weapon(CombatTiming.Equipped(player)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw
+        ? !DruidFormAttacks.Active(player)&&(CombatTiming.Weapon(CombatTiming.Equipped(player)).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw)
         : attacker.Weapon is BaseRanged || attacker is BaseCreature creature && CreatureProfiles.For(creature).Attack1.Missile != null;
     public static int DefenseFor(Mobile attacker, Mobile target, int defense,bool? ranged=null)
     {

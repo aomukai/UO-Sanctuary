@@ -181,7 +181,7 @@ public static class GearEffects
     {
         effects ??= Random.Shared;
         var weapon = CombatTiming.Equipped(player);
-        bool ranged = CombatTiming.Weapon(weapon).Family is AttackFamily.Bow or AttackFamily.Crossbow or AttackFamily.Throw;
+        bool ranged = NamedCombat.Ranged(player);
         var packet=preparedImpact??PrepareWeaponImpact(player,target,roll,effects,preparedDamage??Damage(player,roll,target,skillPhysicalPercent,physicalRoll,Utility.Random),skillElements,projectileCritical:projectileCritical);
         var damage=packet.Damage;var parts=packet.Parts;int absorbed256=packet.Absorbed256;
         double physical=parts.Physical,total=packet.LifeDamage256 is{} stored?stored/256.0:parts.Total;
