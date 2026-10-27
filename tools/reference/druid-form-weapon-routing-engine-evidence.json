@@ -1,0 +1,40 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "currentPreflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+  "sourceHashes": {
+    "source/D2Common/include/D2Composit.h": "c98e8cabe3fe6f034a8145c856e0953eba0d92e59ae46bc8be50b3760d96690c",
+    "source/D2Common/include/Units/Player.h": "a400c4addccb2bffb0b51d2eca86040b94cc57b9b219c16a329915bab61db518",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945",
+    "source/D2Common/include/D2States.h": "2d7790a8131d22a8ba598e16a87bf3a7ca78108124a9f81cd13adb166829883e",
+    "source/D2Common/src/D2Composit.cpp": "703362434adf701aa3f5dac5300834b80de3b3d6e6ac91b4fe26124c4df0276c",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639"
+  },
+  "completeRoutineHashes": {
+    "COMPOSIT_GetWeaponClassCode": "ca7034603aeac89b99ea70a84cd74f1abf20f75b6269746096cf97c691291f3e",
+    "COMPOSIT_IsWeaponBowOrXBow": "d2ed9232b2500aac180ee65d904bafd8f1afa9f47f3e14d034969b91fd282891",
+    "D2Common_11016": "8ca4fd8f88af783f0053c3f2ddc0ce167c684af0fe2d82ddb991b1aec4ae8893"
+  },
+  "contexts": 72,
+  "guards": 3,
+  "generatedSourceSha256": "1a4bdec83b08987dd0d2f3185b9703af6f808d3d482d4bb8f852489e9b9f30ab",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-weapon-routing-source-probe.json",
+    "sha256": "5edf5dfeec869afdf2e05774c41df50b413cbd3519ecaea2125a054bdc302df7"
+  },
+  "established": [
+    "Complete composite-class selector,bow detector and dynamic skill-range functions execute unchanged. Current wolf430/bear431BaseW=hthand meleeonly1metadata are pinned in the licensed/current corroborated preflight. Original player identity remains separate from converted animation identity.",
+    "Both forms select their HTHcomposite weapon class independently of the declared human base class. Common Attack range=both resolves to melee1. Human HTH/BOW/XBWmetadata controls preserve dynamic range and the separate player-only melee mask rule. Missing skill,row and model controls retain their own paths."
+  ],
+  "remaining": [
+    "Conversion,table lookup,weapon-code linker and state-mask lookup are declared services. Human equipped-inventory,dual-hand and exceptional model branches are guarded unexecuted; no equipment-selection acceptance is claimed.",
+    "These results prepare native effective-attack classification,range,ammunition/projectile suppression and property consumers. Exact source distance/footprint,full transformed Attack start/do damage/AR/SrcDam,modern executable/client and learned casting remain separate. No native form attack is enabled."
+  ]
+}
