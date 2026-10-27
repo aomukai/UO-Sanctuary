@@ -193,6 +193,17 @@ def products():
         if actions:wolf_fields[mode+'Action']=actions[0]
     assert [wolf_fields[k] for k in ['S1Frames','S1Speed','S1Action','A1Frames','A1Speed','A1Action','GHFrames','GHSpeed']] == [13,72,3,13,176,9,7,256]
     summons += [{'key':'spiritwolf-animation','fields':wolf_fields}]
+    bear_preflight=json.loads((ROOT/'tools/reference/grizzly-preflight.json').read_text())
+    bear_animations={row['code']:row for row in bear_preflight['animation']['records']}
+    bear_fields={}
+    for mode in ['WL','NU','A1','A2','S1','GH','DT','DD']:
+        row=bear_animations['B7'+mode+'HTH']
+        bear_fields[mode+'Frames']=row['frames'];bear_fields[mode+'Speed']=row['speed']
+        actions=[frame for frame,kind in row['events'] if kind==1]
+        assert len(actions)<=1
+        if actions:bear_fields[mode+'Action']=actions[0]
+    assert [bear_fields[k] for k in ['A1Frames','A1Speed','A1Action','A2Frames','A2Speed','A2Action','GHFrames','GHSpeed']] == [13,256,7,17,248,8,5,256]
+    summons += [{'key':'druidbear-animation','fields':bear_fields}]
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]
@@ -212,6 +223,8 @@ def products():
     vine = source_skills['294']
     summons += [{'key':'Vine Attack','fields':{k:v for k,v in vine.items() if isinstance(v,(int,str)) and not k.startswith('*') and k != 'lineNumber'}}]
     models = json.loads((SOURCE / 'json/monstats2.json').read_text())
+    assert [models['druidbear'][k] for k in ['SizeX','SizeY','MeleeRng','Height']] == [2,2,2,3]
+    summons += [{'key':'druidbear-model','fields':{k:v for k,v in models['druidbear'].items() if isinstance(v,int)}}]
     summons += [{'key':'druidhawk-model','fields':{k:v for k,v in models['druidhawk'].items() if isinstance(v,int)}}]
     summons += [{'key':'infernosentry-model','fields':{k:v for k,v in models['infernosentry'].items() if isinstance(v,int)}}]
     summons += [{'key':r['Missile'],'fields':{k:v for k,v in r.items() if isinstance(v,(int,str)) and not k.startswith('*') and k not in ['lineNumber','Missile']}} for r in missiles.values()
@@ -219,6 +232,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
+        'druid.summongrizzly':'Prepared saved vulnerable body uses silent UO bear0xD4 and the explicit Grizzly [placeholder] name. Final B7 body/emergence, walk, ordinary A1, BearSmite A2/sequence, contact/knockback, hurt/death and bear/summon audio remain pending. Native life-only preparation is not completed AI/combat/casting. Talent/right/quick icons remain separate text labels.',
         'druid.summondirewolf':'Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Saved Fenris movement/AI, type-independent loot-safe feeding, rage and physical bites use this placeholder. Learned SC/right/quick casting and payment/cap/input verification are tracked in the checkpoint; exact current graphical/mechanical parity remains open. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels.',
         'druid.spiritofbarbs':'Prepared spirit uses silent UO wisp0x3A/violet hue0x48D and the explicit Spirit of Barbs [placeholder] name. Final X4 body/emergence/walk/hurt/death, spirit_of_barbs recipient/control overlays, retaliation contact and spirit/summon audio remain pending. Shared retaliation flash0x374A/hue0x481 is a placeholder. Talent/right/quick icons stay separate text labels. Learned SC/right/quick casting uses the shared identified pose and0x1E5 summon-sound placeholders.',
         'druid.heartofwolverine':'Prepared Heart body uses silent UO wisp0x3A/red hue0x21 and the explicit Heart of Wolverine [placeholder] name. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. Learned SC/right/quick casting uses the shared identified pose/sound placeholders.',

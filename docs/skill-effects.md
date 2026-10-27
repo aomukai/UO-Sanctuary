@@ -6,6 +6,8 @@ Sanctuary presentation preference: visible damaging effects should match their a
 
 Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporary placeholders. Names, damage type and mechanics are authoritative independently of their placeholder appearance. Effect concepts for unimplemented skills are a source-derived backlog, not an implementation claim.
 
+Grizzly's prepared saved body is explicitly **Grizzly [placeholder]**,using silent UO bear0xD4. Final B7 emergence/body/walk,A1attack,A2BearSmite sequence,contact/knockback,hurt/death and bear/summon audio are still needed. The separate icon register retains its talent/right/quick icon work. Detailed placeholder descriptions are kept in [the runtime effects register](../data/Sanctuary/Balance/skill-effects.json).
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

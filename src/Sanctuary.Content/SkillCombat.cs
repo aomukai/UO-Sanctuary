@@ -121,7 +121,7 @@ public static class SkillCombat
     {
         bool classPlayer=target is PlayerMobile victim && ClassCombat.Enabled(victim) || source is PlayerMobile attacker && ClassCombat.Enabled(attacker);
         if (!classPlayer && NecromancerEffects.Armor(target) == 0 && NecromancerEffects.Curse(source) == null
-            && NecromancerEffects.Curse(target) == null && target is not (NecromancerMinion or AmazonDecoy)
+            && NecromancerEffects.Curse(target) == null && target is not (NecromancerMinion or AmazonDecoy or ISourceLifeMaximum)
             && SorceressEffects.Shield(target) == null && SorceressEffects.Armor(target) == null
             && !PaladinResistance.Active(target) && !PaladinThorns.Active(target) && !PaladinConviction.Managed(target)
             && (!weapon || SorceressEffects.Enchantment(source) == null && !PaladinElements.WeaponActive(source) && PaladinAuras.NativeWeaponMultiplier(source,true)==1)) { return null; }

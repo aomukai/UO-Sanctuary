@@ -1,0 +1,62 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "scope": "Complete-body read/review; not a compiled packet proof or native BearSmite implementation",
+  "handlerEnabled": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillBar.cpp": "c20fe0580682b19bf995a06d6770c4c2ff6a532f96683afdc7de174396b0f0cb",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/AI/AiTactics.cpp": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "reviewedRoutineHashes": {
+    "SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite": "93b94ff9eda677643f6b1c34e10db5e4550931be57a3c4c317a8586781860aa5",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "AITACTICS_UseSequenceSkill": "c3d75ea0a5abb29507724a42f305034ef8e496557959e6efce4b9c7ce98162bf",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e"
+  },
+  "preflightSha256": "3509c04c716b08ec6ead808f3e7e1acfb31151b628da4ac544158e3a33be768c",
+  "sourceMonsterModes": {
+    "MONMODE_DEATH": 0,
+    "MONMODE_NEUTRAL": 1,
+    "MONMODE_WALK": 2,
+    "MONMODE_GETHIT": 3,
+    "MONMODE_ATTACK1": 4,
+    "MONMODE_ATTACK2": 5,
+    "MONMODE_BLOCK": 6,
+    "MONMODE_CAST": 7,
+    "MONMODE_SKILL1": 8,
+    "MONMODE_SKILL2": 9,
+    "MONMODE_SKILL3": 10,
+    "MONMODE_SKILL4": 11,
+    "MONMODE_DEAD": 12,
+    "MONMODE_KNOCKBACK": 13,
+    "MONMODE_SEQUENCE": 14,
+    "MONMODE_RUN": 15
+  },
+  "supplementaryStart": {
+    "commit": "7f6d773f31060e97124241e6bd30d606bcab6d4e",
+    "blob": "8b7877862bee8c9bdb14324b8ba1006e3bb616f7",
+    "path": ".local/class-skills/grizzly-newer-SkillBar.cpp",
+    "sha256": "06ea68dc3054d844f535c54217510e94adc976248762feba3b22fe8d8a6e3363",
+    "url": "https://github.com/ThePhrozenKeep/D2MOO/blob/7f6d773f31060e97124241e6bd30d606bcab6d4e/source/D2Game/src/SKILLS/SkillBar.cpp",
+    "sameCompleteRoutine": true
+  },
+  "established": [
+    "Actual monster mode constants are GETHIT3,BLOCK6,DEAD12,SEQUENCE14. AI UseSequenceSkill asks for MONMODE_SEQUENCE14. Existing sentry mode14sequence primitives are reuse candidates;12must not be described as BearSmite sequence.",
+    "NPC326is granted at innate rank1,distinct from owner Grizzly rank. Its current calc1ln34gives15damagepercent at1; calc2max(250,ln12)gives250at1and is described as Stun Length; source ResultFlags8is KNOCKBACK. Effective innate NPC bonuses/Battle Command must be composed rather than treating owner rank as326rank.",
+    "Complete supplementary start32prepares hit flags/percent/elements,allocates combat,and only then adds calc2<<8to dwPhysDamage. It does not write dwStunLen. Separately pinned newer7f6d773routine is byte-for-byte identical,so that reconstruction does not resolve this semantic mismatch.",
+    "Complete do2calls the shared DrainItemDurability wrapper. The complete wrapper copies its allocated packet,checks melee range with monster bonus3,and calls ExecuteEvents with bMissile0. Complete ExecuteEvents recalculates total in its bMissile branch only,commits dwDmgTotal to health and reads dwStunLen separately. Ordinary event/item callbacks remain separate consumers,not proof that this suspicious post-allocation field changes modern health/stun."
+  ],
+  "unresolved": [
+    "Pinned current formula label Stun Length versus reconstructed physical addition/stale total is a modern-reference gap. Do not convert250to extra live damage or a250-frame stun without stronger current-build evidence. Current visible knockback/stun observation is an optional nonblocking question.",
+    "The prior ordinary-mode service ABI declared BLOCK3instead of6; ordinary compared4/5/7/8cases are unaffected,while unused helper mapping3and unexercised6need correction before extending the full Grizzly mode stream. Keep frozen earlier packages/receipts unchanged; add header-backed controls in a new candidate.",
+    "Sequence14clock/entry/start/action/durability/event/tie composition,ordinary versus skill mode-stat timing,block/miss,knockback immunity,actual AI112world and saved cancellation remain to implement and verify. The current body preparation has no automatic movement/combat or learned handler."
+  ]
+}

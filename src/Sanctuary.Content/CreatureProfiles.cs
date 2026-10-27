@@ -175,6 +175,7 @@ public static class CreatureProfiles
         if(creature is DruidOakBody spirit){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned spirit entity","native",spirit.SourceMonsterId,"Saved vulnerable Totem body; individual aura/casting and exact-current acceptance scope is recorded separately");}
         if(creature is DruidCreeperBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned plaguepoppy entity","native","plaguepoppy","Prepared saved noRatio life/ownership only; world state, mats and learned casting pending");}
         if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Saved life/movement/cold hit and learned casting; modern full parity pending");}
+        if(creature is DruidGrizzlyBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned druidbear entity","native","druidbear","Prepared saved vulnerable Grizzly life/ownership; AI112world,BearSmite and learned casting pending");}
         if(creature is DruidDireWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Fenris entity","native","fenris","Prepared saved vulnerable Fenris world/rage/physical combat; learned casting and full current parity pending");}
         if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
         for (var type = creature.GetType(); type != null; type = type.BaseType)
@@ -205,6 +206,11 @@ public static class CreatureProfiles
                 NecromancerSummons.Source("spiritwolf","Drain",difficulty??wolf.SummonDifficulty),
                 Math.Abs(NecromancerSummons.Source("spiritwolf","coldeffect",difficulty??wolf.SummonDifficulty)),0),
             HitRecovery=new(true,7,256)}
+            : creature is DruidGrizzlyBody bear ? _native with{Enabled=true,ApplyStats=false,
+            Traits=new("Bear",false,false,false,false,false,NecromancerSummons.Source("druidbear-model","SizeX"),
+                NecromancerSummons.Source("druidbear","DamageRegen"),NecromancerSummons.Source("druidbear","Drain",difficulty??bear.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source("druidbear","coldeffect",difficulty??bear.SummonDifficulty)),0),
+            HitRecovery=new(true,NecromancerSummons.Source("druidbear-animation","GHFrames"),NecromancerSummons.Source("druidbear-animation","GHSpeed"))}
             : creature is DruidDireWolfBody dire ? _native with{Enabled=true,ApplyStats=false,
             Traits=new("Wolf",false,false,false,false,false,2,4,
                 NecromancerSummons.Source("fenris","Drain",difficulty??dire.SummonDifficulty),
