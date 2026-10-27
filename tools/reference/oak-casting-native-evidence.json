@@ -23,9 +23,9 @@
     "namedInputFingerprints": 627,
     "firstLoopInputFingerprints": 21
   },
-  "fullClassRegression": false,
-  "fullClassBoots": 0,
-  "fullClassPassMarkers": null,
+  "fullClassRegression": true,
+  "fullClassBoots": 3,
+  "fullClassPassMarkers": 1184,
   "clientReusedByteIdentical": true,
   "clientMetadataReflection": true,
   "graphicalClientAcceptance": false,
@@ -945,7 +945,12 @@
     "tests/check_oak_casting.py": "dd39f426db981d98af5d3c0ae8a8db20d538c346b062b17ccb7f9f21e770edb5",
     "tests/check_creeper_stats.py": "46615fa5b96a993a23865424c4ce6a4d2f8dc5ba87b639f09e302cea12a38f3d",
     "tools/record_oak_casting.py": "b8cc5513017887100c30b9803216bce17dcbefc5ba58fae3a1c7cda329a4a4a1",
-    "tools/probe_oak_skill_rank_reference.py": "6f3961d4b3acdb982aac134750f8544b48dbf95dd02f25980003ab12737f392a"
+    "tools/probe_oak_skill_rank_reference.py": "6f3961d4b3acdb982aac134750f8544b48dbf95dd02f25980003ab12737f392a",
+    ".local/class-skills/oak-casting/full-named-item-runtime-audit.json": "5576619a5b223433ced262a4ac0d565de659498a0468da0aaa5195e4eb2966d2",
+    ".local/class-skills/oak-casting/full-first-loop-affix-audit.json": "10157bac97bcb2d054da9e37f478a3f53c438eec3e19e06fbfc25694047579aa",
+    ".local/class-skills/oak-casting/class-inputs.json": "e8cb65f8e24c9bb426a8f829811aa21d6e6fe4c8da559d19a3749a25ffd44f19",
+    ".local/class-skills/oak-casting/class-native-checks.log": "e92079ed364df02b75aca1ec39eff377abd75a977b11332daf92f5e19f013ce4",
+    ".local/class-skills/oak-casting/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Learned right/quick SC casting uses14+effective rank mana once, after successful allocation and before shared totem replacement. Fractional insufficiency, early/duplicate release, stop/movement/facet roundtrip/recovery/freeze, lost mana, invalid destination, failed allocation and post-allocation payment failure preserve the existing spirit and do not create a free replacement.",
