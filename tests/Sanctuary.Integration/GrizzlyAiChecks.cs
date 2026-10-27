@@ -16,7 +16,7 @@ public static class GrizzlyAiChecks
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Grizzly exposed before actor/sequence acceptance");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"grizzly-ai-source-probe.json")));
         int compared=0,sequences=0,ordinary=0,walks=0;
         foreach(var row in data.RootElement.EnumerateArray())

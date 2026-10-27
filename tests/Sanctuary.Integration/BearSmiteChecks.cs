@@ -16,7 +16,7 @@ public static class BearSmiteChecks
     private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Packet preparation exposed incomplete Grizzly casting");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         using var doc=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"bear-smite-source-probe.json")));
         int packets=0,reductions=0,large=0;
         foreach(var row in doc.RootElement.GetProperty("packets").EnumerateArray())

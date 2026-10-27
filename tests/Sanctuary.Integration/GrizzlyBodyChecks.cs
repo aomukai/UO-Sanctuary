@@ -171,7 +171,7 @@ public static class GrizzlyBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Grizzly exposed before combat/casting acceptance");LifeAndStats();Lifecycle();
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");LifeAndStats();Lifecycle();
         var p=Fresh();var bear=DruidGrizzlyBody.CreatePrepared(p,Point(p),TimedEffects.Now.AddDays(2));
         var supplier=Supplier();SkillHealth.SetBalance256(bear,20007);BattleOrders.Apply(supplier,bear,1,TimedEffects.Now.AddHours(1));supplier.Delete();PersistentMinions.Suspend(p);Snapshots(bear);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,bear.Serial.Value,bear.Prepared,SkillHealth.Balance256(bear),bear.MaximumLife256,BattleOrders.Regeneration256(bear),p.Map.MapID,p.Location)));

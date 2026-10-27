@@ -1989,10 +1989,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 247,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick route uses40mana after allocation and independent cap1. Saved Grizzly AI112movement,ordinary physical hit and cached BearSmite/knockback use checked shared primitives. Source/native and deployment status is recorded in the checkpoint. Modern geometry/sector/path/seed,first-think/busy/full mode refresh,hidden physical-field/Life Tap/return and lethal chronology,equipment/nonzero-sunder/item-only/PvP remain open. Final B7effects/audio and separate icons stay placeholders; no class complete."
     },
     {
       "talentId": "assassin.tigerstrike",

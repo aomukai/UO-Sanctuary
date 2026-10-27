@@ -46,7 +46,7 @@ public static class BeastModeStreamChecks
         }
         bool rejected=false;try{DruidBeastAttackStats.Capture(null,MonsterDifficulty.Normal,4);}catch(ArgumentNullException){rejected=true;}
         Require(rejected,"Missing skill values accepted");
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Raw sequence mode stats enabled an unfinished Grizzly handler");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         Log.Information("Beast raw mode stream:73728native complete writer comparisons for3species/all16header modes,256ranks/3difficulties/2game contexts pass; GH3,block6,dead12,sequence14 remain distinct. Raw stats do not execute attacks or BearSmite sequence");
     }
 }

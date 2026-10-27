@@ -16,7 +16,7 @@ public static class GrizzlySequenceChecks
     private static JsonDocument Probe(string name)=>JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,name+"-source-probe.json")));
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Inner sequence exposed unfinished Grizzly casting");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         using var clock=Probe("grizzly-sequence");int clocks=0;
         foreach(var row in clock.RootElement.EnumerateArray())
         {

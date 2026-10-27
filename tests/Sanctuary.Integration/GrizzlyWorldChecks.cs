@@ -150,7 +150,7 @@ public static class GrizzlyWorldChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"World backend exposed unfinished learned casting");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         Combat();Cancellation();DeferredBlock();MovementAndRank();Stage();
         Log.Information("Grizzly world:AI112shared movement,A1physical,cached BearSmite callback10/end19,real knockback/zero stun,entry mitigation/RNG,range/offline/interruption cancellation,deferred block and distinct owner/NPC/Battle Command ranks pass; learned casting and full modern event/geometry acceptance remain pending");
     }

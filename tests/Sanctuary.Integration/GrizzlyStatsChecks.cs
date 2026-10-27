@@ -19,7 +19,7 @@ public static class GrizzlyStatsChecks
         key=>key=="Summon Grizzly"?rank:key=="Summon Spirit Wolf"?spirit:key=="Summon Fenris"?dire:0,_=>hard,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Grizzly handler enabled before actor acceptance");
+        Require(DruidCombat.Implemented(CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"grizzly-creation-source-probe.json")));
         int births=0,sunder=0;
         foreach(var row in data.RootElement.EnumerateArray())
@@ -102,7 +102,7 @@ public static class GrizzlyStatsChecks
                 var inherited=next with{Birth=next.Birth with{PhysicalSunder=95}};
                 Require(DruidGrizzlyStats.Rescale(inherited,difficulty).Birth.PhysicalSunder==95,"Rescale lost inherited source stat");
             }
-            Require(!ClassCombat.Available(owner,CombatAbility.SummonGrizzly),"Prepared Grizzly exposed before actor acceptance");
+            Require(ClassCombat.Available(owner,CombatAbility.SummonGrizzly),"Learned Grizzly route missing");
         }
         finally{owner.Delete();}
     }
