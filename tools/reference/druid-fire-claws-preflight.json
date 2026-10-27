@@ -136,12 +136,12 @@
     "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
   },
   "reuseCandidates": {
-    "DruidChargedAttacks.cs": "01eab03676570a69ae95c176f3b3bfb2474ab5e8432440459aa7d1421a31ec1b",
+    "DruidChargedAttacks.cs": "d3ad5ab96a3d07c7440393bcf54a84c0a694eb61df631b7824883761acef0732",
     "DruidFormAttacks.cs": "2e13403316d3a997755b66caf0a1a96dd1dabf90525a84e69609864feafd4111",
     "AmazonMelee.cs": "da98bc3a247e4d18de771932daee41bdc85fb6ba2f949948925fc3fb17a4b06d",
     "GearEffects.cs": "46635c7f2b93bc3adfe309ec46d99b188e58eef3709da39f256030efbe7bc6df",
     "SkillMechanics.cs": "1598c747a49686178398c3d87c8d91d4602ac8b4ea10f34baee26e1099ee33d2",
-    "WeaponLeech.cs": "0fdb73a8246b409c6bda54316f0392bcf16a10b683034d7bf73e92032bca8d27"
+    "WeaponLeech.cs": "8e51d0e8c6ad1e85bc5bc747bbdb128197c952094154c5814bd3319f4b055426"
   },
   "reviewed": [
     "Current Fire Claws239uses start58/do2,A1/attack-rate,4mana and source128weapon damage. Restrict2allows both wolf and bear. It creates no new charge aura. Current hard-only damage synergy is22percent per Firestorm and Molten Boulder point; do not copy an older four-fire-skill synergy list or apply the summon-tree effective-rank exception here.",
@@ -151,6 +151,6 @@
   ],
   "remaining": [
     "Execute start58/result/weapon-fill/element/mastery/AllocCombat/do2composition with declared service boundaries,then build the native learned route. Verify both forms,mana,miss/block/immunity,physical versus fire/critical/leech,hard-versus-soft synergy,gear,state coexistence,Stop/range/weapon/form cancellation,right/quick and save/reload. Exact modern geometry/RNG/event/reentry,unmapped recipients/PvP and item-only permission remain unverified.",
-    "Keep the current Maul full-regression candidate frozen. Apply the already-native-verified prepared Feral component only after that run is terminal and accepted; Fire Claws follows it. This static preparation changes no handler/runtime data/DLLs or installed build/saves. Human form pose/contact and generic effects remain identified placeholders; fire_hit/cast/contact/audio and talent/left/right/quick icons remain separate pending assets."
+    "Keep the current canonical Feral full-regression candidate frozen. Fire Claws follows its acceptance. Its shared pre-gain leech and Maul charge channels are now live reuse candidates; do not add do120charge gain to Fire Claws. This static preparation changes no handler/runtime data/DLLs or installed build/saves. Human form pose/contact and generic effects remain identified placeholders; fire_hit/cast/contact/audio and talent/left/right/quick icons remain separate pending assets."
   ]
 }
