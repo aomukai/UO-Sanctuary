@@ -22,10 +22,10 @@
       657,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenModeAcceptance": {
     "commit": "ed6b583",
@@ -1026,6 +1026,11 @@
     "tools/reference/named-item-runtime-audit.json": "b2586551315ba2e239a9b85139ebc3c1d8c41730434529ff273b5bf838b17935",
     ".local/class-skills/shape-restrictions/first-loop-affix-audit.json": "9dfeddf573213e8574957255f67d7b8df13c5be022f306d1162d7a862d5cc4ad",
     "tools/reference/first-loop-affix-audit.json": "9dfeddf573213e8574957255f67d7b8df13c5be022f306d1162d7a862d5cc4ad",
+    ".local/class-skills/shape-restrictions/full-named-item-runtime-audit.json": "b2586551315ba2e239a9b85139ebc3c1d8c41730434529ff273b5bf838b17935",
+    ".local/class-skills/shape-restrictions/full-first-loop-affix-audit.json": "9dfeddf573213e8574957255f67d7b8df13c5be022f306d1162d7a862d5cc4ad",
+    ".local/class-skills/shape-restrictions/class-inputs.json": "ac736248578e5c9ca45f4d718109b89a4d5cabf1e7b57ed6230955582a6183f3",
+    ".local/class-skills/shape-restrictions/class-native-checks.log": "be7a2ea721b6d2f577e124231dd059c1d0b6f5102e714d31021489abe323d802",
+    ".local/class-skills/shape-restrictions/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_shape_restrictions.py": "3e918a8d401e4344339441b8e4c917a39c435eac8a0008795674968c59a12ac0",
     "tests/check_shape_restrictions.py": "9f476633589806786c3bd4c8102a54fe06acafafc8ebd9a902468ca8ab3e9c4e",
     "tools/probe_modern_form_progress.py": "51c8a28f218f9bed0ec1949e093572ac36304049821ead39152ad47b4b52a9c2"
