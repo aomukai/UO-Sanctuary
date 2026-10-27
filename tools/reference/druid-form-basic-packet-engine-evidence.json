@@ -1,0 +1,45 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "currentFields": {
+    "223": {
+      "ToHit": 50,
+      "LevToHit": 15,
+      "SrcDam": 128
+    },
+    "228": {
+      "ToHit": 0,
+      "LevToHit": 0,
+      "SrcDam": 128
+    }
+  },
+  "licensedSkillsSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+  "publicSkillsSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "completeRoutineHashes": {
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "sub_6FD00370": "bbb3a9e67d952a399176512d43aa5ba410a7dc660f1bd417ea89852c0fe4679a"
+  },
+  "contexts": 420,
+  "generatedSourceSha256": "d15b086f3786894a968682f873b0eea954c3720fdb03656fe45ebdd98b95e297",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-form-basic-packet-source-probe.json",
+    "sha256": "c7c74b179ada22dd42e2eb63071dd87dc72aad70da76328bd686f67a3c981ef8"
+  },
+  "established": [
+    "Complete transformed Attack allocation and ToHit-factor routines execute unchanged with current licensed/public-correlated Werewolf50+15per-rank fields,Werebear0and both SrcDam128. Supplied hit-roll flags reach allocation unchanged with hitClass1. Missing target prevents allocation; missing state metadata,list or skill skips that contribution.",
+    "The old extra ToHit uses the incoming attack skill-level argument,not a fetched transformation rank. With incoming rank1it supplies50when wolf is active. This is separate from the captured form item_tohit_percent modifier. Zero-source defaults128;later nonzero transform contributions replace it. Simultaneous forms and non128source values are synthetic controls,not valid current gameplay."
+  ],
+  "remaining": [
+    "Whether current3.3.93847retains the older extra ToHit path is unresolved. Do not silently add it to the current native form item-percent bonus. This source execution does not establish the current outer Attack argument,modern stat/roll/damage ordering or a current-executable observation.",
+    "State/list/table lookup and combat allocation/result rolling are declared services. Full damage filling,weapon type/ammunition,range,timing,hit/block and native form casting remain separate. Native default weapon SrcDam128is already the full weapon fraction; no learned form handler is enabled by this proof."
+  ]
+}
