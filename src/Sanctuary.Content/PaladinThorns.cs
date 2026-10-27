@@ -23,14 +23,14 @@ public static class PaladinThorns
     private static bool Eligible(Mobile attacker,Mobile defender)=>attacker is{Alive:true,Deleted:false,Blessed:false}
         && defender is{Deleted:false} && attacker!=defender && attacker.Map==defender.Map && attacker.Map is not null
         && attacker.Map!=Map.Internal && !ClassCombat.Friendly(attacker,defender);
-    public static void Prepared(Mobile attacker,Mobile defender,int physical256,bool ranged)
+    public static void Prepared(Mobile attacker,Mobile defender,int physical256,bool ranged,int? clippedPhysical256=null)
     {
         if(ranged || !Eligible(attacker,defender)){return;}
         var scope=_current!=null && _current.Attacker==attacker && _current.Defender==defender ? _current : null;
         var lease=PaladinAuras.Effect(defender,CombatAbility.Thorns) ?? (defender.Alive?null:scope?.Lease);
         if(lease==null){return;}
         // ExecuteEvents caps the copied physical component before the attacked-in-melee events and Thorns call.
-        long eligiblePhysical=Math.Min(Math.Max(0,physical256),Math.Max(0,(long)defender.Hits*256-SkillHealth.Remainder256(defender)));
+        long eligiblePhysical=clippedPhysical256 is{} clipped?Math.Clamp(clipped,0,Math.Max(0,physical256)):Math.Min(Math.Max(0,physical256),Math.Max(0,SkillHealth.Balance256(defender)));
         if(scope==null || !scope.FlatApplied)
         {
             if(scope!=null){scope.FlatApplied=true;}

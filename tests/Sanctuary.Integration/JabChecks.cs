@@ -114,7 +114,8 @@ public static class JabChecks
         using(WeaponHands.UseMelee(owner,CombatTiming.Equipped(owner)))
         {var values=SkillMechanics.Values(owner,CombatAbility.Jab);var damage=GearEffects.Damage(owner,0,target,(int)values.Eval("calc1"),_=>0);packet=GearEffects.PrepareWeaponImpact(owner,target,0,new Rolls(99),damage,projectileCritical:true);}
         int before=SkillHealth.Balance256(target),crush=NamedCombat.CrushingLoss256(target,false),physical=NamedElements.To256(packet.Parts.Physical),total=NamedElements.To256(packet.Parts.Total);
-        int leech=(int)((long)(physical/256)*ClassGear.Bonus(owner,"life-steal%")*GemCombat.Drain(target)/10000)*256;
+        int leech=(int)((long)Math.Min(physical,Math.Max(0,before-crush))*(ClassGear.Bonus(owner,"life-steal%")*64)/100*GemCombat.Drain(target)/100/64);
+        // Ordinary melee now uses the independently source-checked FP256/6-bit leech path; do not floor to whole HP first.
         SkillHealth.SetBalance256(owner,10*256+17);int hp=SkillHealth.Balance256(owner);AmazonJab.Effects=new Rolls(0);
         Require(Hit(owner,target,series,0)==crush+total && before-SkillHealth.Balance256(target)==crush+total,"Actual Jab Critical Strike/quarter-life melee Crushing Blow/typed damage order");
         Require(SkillHealth.Balance256(owner)==Math.Min(owner.HitsMax*256,hp+physical/2+leech),"Actual Jab Life Tap then ordinary Titan leech, once each");

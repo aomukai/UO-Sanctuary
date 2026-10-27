@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "Known cross-consumer integration gap; not a newly enabled mechanic",
+  "status": "Open shared integration gap; chronology corrected by complete pinned function review",
   "referenceVersion": "3.3.93847",
   "engineReferenceCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
   "sourceHashes": {
@@ -9,19 +9,22 @@
     ".local/class-skills/ThornsSkillItem.cpp.reference": "1045184b945928fe9f55a2806510dca02772b6867a6fd09bc7c685dc56df8696"
   },
   "legacyOrder": [
-    "ExecuteEvents ordinary damage callbacks, including Life Tap on damagedinmelee/damagedbymissile when result bit0x20 is absent",
+    "ExecuteEvents successful damage callbacks, including Life Tap before physical clipping",
     "Copy physical component capped to defender current FP256 life",
     "Ordinary life/mana leech",
-    "Caller domeleeattack/attackedinmelee events, including flat item/aura ATD",
-    "Percentage Thorns using capped physical",
-    "Apply original incoming hit/life damage"
+    "Absorbed-life healing, then incoming total-damage HP subtraction inside ExecuteEvents",
+    "Victim resource/status tails and WILLDIE/KILLED/KILL callbacks",
+    "Caller domeleeattack/attackedinmelee events, including aggregate flat ATD",
+    "Percentage Thorns using previously clipped physical",
+    "ExecuteMissileDamage reaction/death-mode dispatch"
   ],
   "lifeTapEvidence": "D2GAME_EventFunc05_6FD0EDE0 heals the attacking unit from current pDamage.dwPhysDamage and caps healing to recipient maximum. It runs before the ExecuteEvents physical life clip, so using actual post-hit life loss is not equivalent.",
-  "currentGap": "NecromancerEffects.WeaponHit heals Life Tap after actual life loss; GemCombat.Leech and flat thorns also have later consumer placement. Lethal return damage can therefore prevent healing that legacy source would have applied before return. Related gear/proc and class acceptance remain open.",
+  "currentGap": "Candidate PreparedWeaponEvents now orders Life Tap, clipped ordinary leech and absorb recovery before return. Existing return-before-incoming-HP native/content bridges still do not match the complete pinned source order. This is partial recovery work, not full event-pipeline acceptance or modern-executable parity.",
   "nextWork": [
-    "Design one source-aligned prepared weapon-event phase shared by Native AOS and root Gear/typed/elite paths",
-    "Move Life Tap and leech into their correct relative phase, retaining drain/difficulty/recipient caps and avoiding duplicate post-hit callbacks",
-    "Unify eligible item+aura flat ATD stat aggregation and one-packet mitigation, resolving any explicitly approved gem/material deviations first",
-    "Test lethal rescue, life clipping vs healing, zero/mixed/fractional/ranged hits, return flag event suppression, Blood Mana/drain, owner/summon/native paths and both reloads"
-  ]
+    "Verify and preserve the candidate recovery subphase across native AOS, typed/root/special weapon paths and real reloads",
+    "Implement a proper shared HP/death/event bridge: HP subtraction before flat/percentage return, with source callback/kill/death-mode ordering and no double damage",
+    "Unify eligible item+aura flat ATD stat aggregation and one-packet mitigation, retaining approved distinct gem/material effects",
+    "Test lethal/mutual death, clipping versus healing, zero/mixed/fractional/ranged hits, suppressed return events, Blood Mana/drain, owner/summon/native paths and both reloads"
+  ],
+  "supersedingReview": "tools/reference/weapon-event-order-review.json"
 }

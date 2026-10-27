@@ -1,0 +1,37 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": "source/D2Game/src/UNIT/SUnitDmg.cpp",
+  "sourceSha256": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+  "gitBlob": "8ec948a0506a5b46700a535be4c0bfe52bcdc8e7",
+  "scope": "Static ordering review of complete pinned older functions, not execution of the complete pipeline or proof of the current executable.",
+  "functions": {
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+  },
+  "orderedExecuteAnchors": [
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_DOMELEEDMG",
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_DAMAGEDINMELEE",
+    "pDamage->dwPhysDamage = std::min(pDamage->dwPhysDamage, nHp);",
+    "if (pDamage->dwLifeLeech || pDamage->dwManaLeech)",
+    "if (pDamage->dwAbsLife > 0",
+    "if (pDamage->dwDmgTotal > 0)",
+    "if (pDamage->dwManaLeech > 0)",
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_KILLED",
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_KILL,"
+  ],
+  "orderedCallerAnchors": [
+    "SUNITDMG_ExecuteEvents(pGame, pAttacker, pDefender, 0, &damageCopy);",
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_DOMELEEATTACK",
+    "SUNITEVENT_Trigger(pGame, UNITEVENT_ATTACKEDINMELEE",
+    "SKILLS_ApplyThornsDamage(",
+    "SUNITDMG_ExecuteMissileDamage("
+  ],
+  "correction": "ExecuteEvents commits incoming total damage to defender HP before the caller dispatches flat ATD and percentage Thorns. ExecuteMissileDamage is later reaction/death dispatch, not the first HP subtraction.",
+  "candidateScope": "PreparedWeaponEvents moves Life Tap, clipped ordinary leech and absorb healing ahead of the existing return bridge. It preserves the pre-absorb physical clip. It does not repair incoming HP commitment, death flags/callbacks, mode dispatch or complete native absorb chronology.",
+  "remaining": [
+    "A shared ordered HP/death/event bridge is required; ordinary Mobile.Damage immediately performs native callbacks/death and is not an interchangeable delayed dispatch.",
+    "Do not stage HP with SetBalance256 and then subtract it again through Damage, restore old HP to replay callbacks, or infer complete event parity from isolated arithmetic probes.",
+    "Barbs needs one aggregate flat ATD packet shared with compatible Thorns/item stats, independent of percentage return. Learned Barbs remains disabled."
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "referenceVersion": "3.3.93847",
-  "scope": "Current reuse review only; no Barbs handler or fixed return-order certificate.",
+  "scope": "Historical4908035reuse review. Source hashes below identify that earlier snapshot, not the current recovery candidate. See weapon-event-order-review.json for corrected full chronology.",
   "sourceHashes": {
     "src/Sanctuary.Content/PaladinThorns.cs": "fcb849315279a9cf94925c272a41ebfd8402a54ac5f6d4f88951c75fb4b29a8d",
     "src/Sanctuary.Content/GearEffects.cs": "593e6e3ec8f94ed0d8b8c33b51f15d99c6dc7fa697bebe48a0d85ba1e4c974e2",
@@ -22,5 +22,6 @@
   ],
   "assets": [
     "Final Barbs body/control/recipient and retaliation contact/audio remain effects backlog. Talent/right/quick icons remain separate placeholders."
-  ]
+  ],
+  "supersedingReview": "tools/reference/weapon-event-order-review.json"
 }

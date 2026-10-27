@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "preflightSha256": "b99ff9d117aab313fcdea7f471c44ed7a47b423bd71d5d4126eb1250278bcabe",
+  "reusedAuraAbiSha256": "deb925ddb90d1c6d271127871f72b2e3b41e56d8b1de71a23d928d9c8a952fa6",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0"
+  },
+  "unchangedRoutineHashes": {
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+    "sub_6FD0FE50": "1b67f3f52b30bc05b5ab7508c8c94d55518642e636b7b476ef4304bf2270c92b",
+    "sub_6FD0FE80": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2",
+    "SKILL_ComputePeriodicRate": "23b6aa71aabe794cea8d84d183eeef8232258343f19bd9218a83001d24591e0e",
+    "SKILLS_SrvDo065_BasicAura": "1c515c77b26beb1f14e914f41d4b58e32e2fd37967b36f0cc186e3294d2b0c6e"
+  },
+  "fixture": {
+    "path": ".local/class-skills/barbs-aura-source-probe.json",
+    "sha256": "90872368a3347e0d5f0dfd44b35c658a531a18bd43812e5f9d3cc0f24df6a84f",
+    "cases": 440,
+    "generatedSourceSha256": "9ca0d116b748c770b942e671d57f32be023d01e53a1e9f596d48f4b86f760a43",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "440 complete do65/self/recipient/filter/periodic contexts pass: five-frame refresh, six-frame leases, self163/recipient147 and only flat ATD stat78. No percentage Thorns stat or aura mana payment is added.",
+    "Closed radius, live allied eligibility and source-town self behavior reuse the same complete outer source routines as Oak/Heart. Town recipients/dead/NPC/NOAURA/hostile/outside targets are excluded; LOS and CANBEATTACKED are not extra gates for this filter."
+  ],
+  "remaining": [
+    "Formula evaluation uses current tier inputs as a bounded service; this is not a compiled edmn damage-formula proof. BasicAura callback records requests rather than allocating real stat lists.",
+    "Native leases, aggregate item+aura flat ATD mitigation/event delivery, body/movement/cast/save and current executable/client acceptance remain unfinished. No learned handler enabled."
+  ]
+}

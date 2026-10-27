@@ -19,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=()):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=(), extra_probe_files=()):
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -44,6 +44,8 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
         shutil.copytree(ROOT / 'data/Sanctuary', folder / 'Data/Sanctuary')
         for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-components', 'raven-circle', 'toward-path', 'valkyrie-creation', *extra_probes]:
             shutil.copy2(ROOT / '.local/class-skills' / (name + '-source-probe.json'), folder / (name + '-source-probe.json'))
+        for name in extra_probe_files:
+            shutil.copy2(ROOT / '.local/class-skills' / name, folder / name)
         assemblies = json.loads((SERVER / 'Data/assemblies.json').read_text())
         for name in ['Sanctuary.Content.dll', 'Sanctuary.Integration.dll']:
             if name not in assemblies:
@@ -63,6 +65,7 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
         paths += [Path(__file__).resolve(), ROOT / '.local/class-skills/raven-components-source-probe.json', ROOT / '.local/class-skills/valkyrie-creation-source-probe.json']
         paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in ['creeper-ai', 'creeper-vines', 'creeper-components', 'raven-circle', 'toward-path']]
         paths += [ROOT / ('.local/class-skills/' + name + '-source-probe.json') for name in extra_probes]
+        paths += [ROOT / '.local/class-skills' / name for name in extra_probe_files]
         inventory = dict(sourceInputs={str(p.relative_to(ROOT)): sha(p) for p in sorted(paths)},
                          copiedData={str(p.relative_to(folder)): sha(p) for p in sorted((folder / 'Data/Sanctuary').rglob('*')) if p.is_file()},
                          artifacts={str(p.relative_to(folder)): sha(p) for p in [folder / 'ModernUO.dll', folder / 'Server.dll', folder / 'Assemblies/UOContent.dll', folder / 'Assemblies/Sanctuary.Content.dll', folder / 'Assemblies/Sanctuary.Integration.dll']})

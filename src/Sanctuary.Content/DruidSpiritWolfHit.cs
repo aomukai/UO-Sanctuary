@@ -86,7 +86,7 @@ internal static class DruidSpiritWolfHit
         var parts=SkillCombat.MitigatePrepared(body,target,new(0,packet.Fire256/256.0,packet.Cold256/256.0,packet.Lightning256/256.0,0));
         // Pure cold still makes an ordinary melee attempt (flat Thorns may
         // apply), but cannot supply physical leech, Life Tap or percent return.
-        PaladinThorns.Prepared(body,target,0,false);
+        PreparedWeaponEvents.BeforeReturn(body,target,0,false);
         if(packet.Cold256>0){ColdStates.Apply(body,target,packet.ColdFrames,Core.TickCount);}
         int loss=SkillHealth.Damage(body,target,NamedElements.To256(parts.Total));
         CreatureHitRecovery.Apply(target,body,loss);CombatDamage.Finish(target,body);

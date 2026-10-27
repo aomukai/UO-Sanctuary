@@ -186,13 +186,11 @@ public static class GearEffects
         var damage=packet.Damage;var parts=packet.Parts;int absorbed256=packet.Absorbed256;
         double physical=parts.Physical,total=packet.LifeDamage256 is{} stored?stored/256.0:parts.Total;
         if(beforeCommit!=null && !beforeCommit(NamedElements.To256(physical))){return 0;}
-        if(beforeCommit==null && absorbed256>0){SkillHealth.Heal(target,absorbed256);}
         int before = target.Hits; var impact = target.Location; var impactMap = target.Map;
-        PaladinThorns.Prepared(player,target,(int)Math.Clamp(Math.Floor(physical*256),0,int.MaxValue),ranged);
         NamedCombat.Crushing(player, target, ranged, effects);
-        NecromancerEffects.LifeTap(player,target,NamedElements.To256(physical));
-        if(beforeCommit!=null && absorbed256>0){SkillHealth.Heal(target,absorbed256);}
-        if(sourceDrain is{} drain && target is BaseCreature victim){WeaponLeech.Apply(player,victim,NamedElements.To256(physical),drain);}
+        var drain=sourceDrain??WeaponLeech.Capture(player);
+        PreparedWeaponEvents.BeforeReturn(player,target,NamedElements.To256(physical),ranged,absorbed256,
+            target is BaseCreature victim?clipped=>WeaponLeech.Apply(player,victim,clipped,drain):null);
         if(sourceColdFrames is{} coldFrames){ColdStates.Apply(player,target,coldFrames,Core.TickCount);FreezeStates.Apply(player,target,sourceFreezeFrames,Core.TickCount);}
         int normalBefore = target.Hits;
         if (total > 0 && target.Alive && !target.Deleted)
@@ -216,7 +214,7 @@ public static class GearEffects
         int loss = Math.Max(0, before - target.Hits);
         if (loss > 0 && impactMap != null && impactMap != Map.Internal && ClassGear.Bonus(player, "bloody") > 0)
         { new Blood().MoveToWorld(impact, impactMap); }
-        if(sourceDrain==null){GemCombat.Leech(player, target, Math.Min(Math.Max(0, normalBefore - target.Hits), (int)Math.Floor(physical)));}
+        if(sourceDrain==null && target is not BaseCreature){GemCombat.Leech(player,target,Math.Min(Math.Max(0,normalBefore-target.Hits),(int)Math.Floor(physical)));}
         NecromancerEffects.WeaponHit(player, target, Math.Min(loss, (int)physical), ranged,lifeTap:false);
         NamedCombat.AfterStrike(player, target, ranged, effects,skipKnockback:skillKnockback);
         GemCombat.WeaponHit(player, target, loss, ranged);

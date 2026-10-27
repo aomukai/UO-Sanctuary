@@ -270,7 +270,7 @@ public static class NecromancerEffects
         return healed;
     }
     internal static void PreparedNativeWeaponHit(Mobile attacker,Mobile target,int physical256,bool ranged)
-    {PaladinThorns.Prepared(attacker,target,physical256,ranged);LifeTap(attacker,target,physical256);}
+    {PreparedWeaponEvents.BeforeReturn(attacker,target,physical256,ranged);}
     public static void WeaponHit(Mobile attacker, Mobile target, int physicalLoss, bool ranged,bool lifeTap=true)
     {
         SorceressEffects.MeleeHit(attacker, target, physicalLoss, ranged);

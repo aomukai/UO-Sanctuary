@@ -1,8 +1,8 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "4433c4cfbda2d03b020a46efc381052d6b76bdb3ae18258bf864260d34488728",
-  "ContentAssemblyPath": ".local/class-skills/wolverine/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "cdced651de45600dd852e5da4d366d1306ced97f77b99d60ead6c74b7c3a2b8e",
+  "ContentAssemblyPath": ".local/class-skills/weapon-event-phase/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
@@ -17,7 +17,7 @@
     "src/Sanctuary.Content/EquipmentCrafting.cs": "c34a18f93765d013e10ed5bf19a4e6ad4c1d485a52dbe40cf980e6df1d202287",
     "src/Sanctuary.Content/EquipmentEconomy.cs": "dad550786e67062b102d7a3832b4af99deddd9e3aef068f47da781ee2164ebdf",
     "src/Sanctuary.Content/GearDrops.cs": "fd5613e9586adfd244b74a11294b5f57e43d209d75e2731d39077f86ba26fff8",
-    "src/Sanctuary.Content/GearEffects.cs": "593e6e3ec8f94ed0d8b8c33b51f15d99c6dc7fa697bebe48a0d85ba1e4c974e2",
+    "src/Sanctuary.Content/GearEffects.cs": "26c96aa127a33e3b7dd50d149ee28cae35018b0b4a627c2f53e6a8624a301ffa",
     "src/Sanctuary.Content/GearProfiles.cs": "a459917ea82a2960688164755280906ca1692e093e516962eb17f7961ff09d15",
     "src/Sanctuary.Content/HitRecovery.cs": "85e3e79f5de14b613c38f528347d3f1294962a37c9773dc3f884565551fbb227",
     "src/Sanctuary.Content/NamedAmmunition.cs": "f09c11acb35685ee0aa3019fc83e890ecbde0e92190425ed9fb30e001386dd2d",

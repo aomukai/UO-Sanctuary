@@ -33,7 +33,7 @@ public static class EliteCombat
             + NamedElements.Damage(source, target, lightning, "ltng")
             + NamedElements.Damage(source, target, magic, "mag");
         int amount = (int)Math.Floor(total), before = target.Hits;
-        if(weapon){PaladinThorns.Prepared(source,target,(int)Math.Clamp(Math.Floor(preparedPhysical*256),0,int.MaxValue),ranged);}
+        if(weapon){PreparedWeaponEvents.BeforeReturn(source,target,NamedElements.To256(preparedPhysical),ranged);}
         if (amount > 0)
         {
             source.DoHarmful(target); target.Damage(amount, source); CombatDamage.Finish(target, source);

@@ -57,9 +57,8 @@ public static class PaladinSmite
         int raw=range.Min+Math.Clamp(Roll(span),0,span-1);
         var parts=SkillCombat.MitigatePrepared(owner,target,new(NamedElements.Enhance(owner,raw/256.0,"physical"),0,0,0,0),out int absorbed);
         int physical=NamedElements.To256(parts.Physical),before=target.Hits;
-        PaladinThorns.Prepared(owner,target,physical,false);NamedCombat.Crushing(owner,target,false,Effects);
-        NecromancerEffects.LifeTap(owner,target,physical);
-        if(absorbed>0){SkillHealth.Heal(target,absorbed);}
+        NamedCombat.Crushing(owner,target,false,Effects);
+        PreparedWeaponEvents.BeforeReturn(owner,target,physical,false,absorbed);
         if(parts.Total>0){SkillHealth.Damage(owner,target,NamedElements.To256(parts.Total));}
         int loss=Math.Max(0,before-target.Hits);
         CreatureHitRecovery.Apply(target,owner,loss,true);
