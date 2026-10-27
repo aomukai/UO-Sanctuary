@@ -46,15 +46,15 @@
   },
   "artifacts": {
     ".local/class-skills/druid-form-interruption-next/DruidFormInterruption.cs": "b61f8857a620fda84df0ca8c2e46c2a44416629ec7744f552b550fa4c9833b77",
-    ".local/class-skills/druid-form-interruption-next/DruidFormInterruptionChecks.cs": "657dde760a18e1a81942a9b7bffdbb35c88ab504d08ded1b599e14bc14913482",
+    ".local/class-skills/druid-form-interruption-next/DruidFormInterruptionChecks.cs": "c153c7eb5e6b08fb7113fc7133f2d7c1a3f861fe2899b35ba138a72536498969",
     ".local/class-skills/druid-form-interruption-next/native-replacements.json": "3e037508353bd4ea1181b83d02b3003dd7a8ecadf66e6954910904f96e28b653",
-    ".local/class-skills/druid-form-interruption-next/check_druid_form_interruption.py": "dbbc3bae7484408a236d84a28353254e1025369d583e05442500159610940677",
+    ".local/class-skills/druid-form-interruption-next/check_druid_form_interruption.py": "d2fc87f4599faf349d155d8904b5afee7f2d8e08f79bef40907d03a56e3416d9",
     ".local/class-skills/druid-form-interruption-next/content-build.log": "9293c8151cf422bdc1a5f412d1ae80fa33adcd782b74dd2c9bec8211371f4b84",
-    ".local/class-skills/druid-form-interruption-next/integration-build.log": "4a7146d0e9891b900596aecd92297857134b6172ba5e032b1acb8a4925bb36ae",
+    ".local/class-skills/druid-form-interruption-next/integration-build.log": "5d8501a1ea50dcf8456590bb92d31c2924d62e71048b8dd1b9d2530092da146e",
     ".local/class-skills/druid-form-interruption-next/content-first-build-failed.log": "3d557d9b124d2ebd01197aebec8ffcfe833ef31e90d460cd3037a83ec5d0a522",
     ".local/class-skills/druid-form-interruption-next/integration-first-build-failed.log": "c15b86caa75d43a94e9b46436a7ce78ca75b88208782ed6b2652978d3020260e",
     ".local/class-skills/druid-form-interruption-next/content/Sanctuary.Content.dll": "f5f4aa0487a588278c0e34c1216daa2ee6c06b2aee69663f5494f1ebd66730fb",
-    ".local/class-skills/druid-form-interruption-next/integration/Sanctuary.Integration.dll": "84e028945678e71a244776f44b6b97ee53ee22c1ad49da156d3e5d9747ce7560"
+    ".local/class-skills/druid-form-interruption-next/integration/Sanctuary.Integration.dll": "90978349306afb852cff30797be3ba8b58c14f620ae54c69ef0f799be949044f"
   },
   "isolatedSourceInputs": {
     "shared/BeltProtocol.cs": "75be8cbc428000197c23cbccd2ce64f385a2bebe6135ac15792bc0412483504b",
@@ -631,7 +631,7 @@
     "tests/Sanctuary.Integration/DragonKickChecks.cs": "70cc485a4f38251e45fe91b7d3c6c68a14ce61f69f3083c5e1fee64a9b7aa492",
     "tests/Sanctuary.Integration/DruidFormAttackChecks.cs": "f90fedb831cc85ddf4e0925c563e07c563ad9626a45a81e32b0d6843f2351d23",
     "tests/Sanctuary.Integration/DruidFormCastingChecks.cs": "a5379760a26ece8d5f8c85e69c03c577898117c62d6ab68563786bfa5e4138a2",
-    "tests/Sanctuary.Integration/DruidFormInterruptionChecks.cs": "657dde760a18e1a81942a9b7bffdbb35c88ab504d08ded1b599e14bc14913482",
+    "tests/Sanctuary.Integration/DruidFormInterruptionChecks.cs": "c153c7eb5e6b08fb7113fc7133f2d7c1a3f861fe2899b35ba138a72536498969",
     "tests/Sanctuary.Integration/DruidFormModelChecks.cs": "a8cdc0caad28f5ca29fed5d7c9b48039e54cda7cde5dc6aca4fd98da67acc895",
     "tests/Sanctuary.Integration/DruidFormRateChecks.cs": "89ec954f6d42540b9bab7e4388676b2fc8726639c6e33a1de3501c353347c564",
     "tests/Sanctuary.Integration/DruidFormWorldChecks.cs": "e41174d65322efe193a195ce35bf204672bfbe58af4a9a9561678fe253a963d9",
@@ -891,7 +891,8 @@
   "prepared": [
     "Scoped bear action context is captured by common basic-attack/skill starts and after successful human-to-bear effect. Exact form identity,map,origin,start/end and saved form expiry guard it. A post-impact animation tail remains protected after PendingAbility clears. Stop,first accepted step,external out-and-back movement and changed form invalidate protection. Human entry windup,wolf and idle contexts gain no immunity. No global movement/Stop/death lock or resource debit is added.",
     "Five existing consumers and two new C# files are compiled in an isolated source snapshot. Active src/shared/tests/data and the running casting regression inputs remain unchanged. The draft native fixture targets attack/Raven/Cyclone windup/effect/tail/expiry,Stop,movement,form replacement,wolf/human entry and death controls. These checks have NOT been executed.",
-    "Initial snapshot preparation matched two ClassMovement declarations and refused that edit; the subsequent build reported the absent new helper. A unique surrounding anchor fixes preparation. The first integration build found an unsupported profile Remove API in fixture cleanup; normal corpse/delete cleanup fixes it. Failed logs retained. Final two builds ended0 with zero warnings/errors."
+    "Initial snapshot preparation matched two ClassMovement declarations and refused that edit; the subsequent build reported the absent new helper. A unique surrounding anchor fixes preparation. The first integration build found an unsupported profile Remove API in fixture cleanup; normal corpse/delete cleanup fixes it. Failed logs retained. Final two builds ended0 with zero warnings/errors.",
+    "The compiled draft fixture now adds real Quick Raven input on a transformed bear and invokes the production GraveyardUndead.Deal path during windup,after the cast effect and at action expiry. It requires actual life loss and guaranteed recovery-sized damage,unchanged pending action/deadline,once-only mana and a real Raven. Idle damage must cause recovery. A separate saved bear/action fixture checks two reloads preserve original form/resources without reviving transient immunity. These runtime checks are still unexecuted."
   ],
   "next": [
     "First finish and record frozen casting full regression exec1478; do not replace its C#/DLL/data while live. Then check each beforeSha256 and apply the staged native edits/new files as a new candidate,build again at canonical paths,refresh audits and execute focused production-world checks including actual damage/input and save/reload. Do not mark this draft native accepted from compilation.",
@@ -899,7 +900,7 @@
   ],
   "recoverableGitPatch": {
     "path": "tools/reference/druid-form-interruption-prepared.patch",
-    "sha256": "0861f3982958a51a63579f18b5d1f0684e9d345ab6ce3a3c16a720e863244def",
+    "sha256": "893dcdf0904495557367bc5acc15148a19ff0a434e04d376dc1c8ce5e3817028",
     "applied": false
   }
 }
