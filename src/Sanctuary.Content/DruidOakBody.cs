@@ -6,23 +6,32 @@ using System.Linq;
 using System.Text.Json;
 using ModernUO.Serialization;
 using Server;
+using Server.Logging;
 using Server.Mobiles;
 namespace Sanctuary;
 
 internal sealed record OakBodyState(uint Owner,OakBirth Birth,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
 {
     public string Profile{get;init;}="source-birth-no-movement-v1";
+    public OakWorldState Controller{get;init;}
 }
 
-// Saved vulnerable spirit and explicit recovery/aura consumers. Movement and
-// learned casting remain unavailable; native skeleton combat is suppressed.
+// Saved vulnerable spirit and explicit source motion/recovery/aura consumers.
+// Learned casting remains unavailable; native skeleton combat is suppressed.
 [SerializationGenerator(0)]
 public partial class DruidOakBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")]private string _saved="{}";
     private OakBodyState _prepared;
     internal bool Loaded{get;set;}
-    internal OakBodyState Prepared=>_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<OakBodyState>(_saved));
+    internal OakBodyState Prepared
+    {
+        get
+        {
+            var s=_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<OakBodyState>(_saved));
+            return s?.Controller is{} c?s with{Controller=DruidOakWorld.Copy(c)}:s;
+        }
+    }
     internal string SavedText=>_saved;
     public override DiabloClass SummonClass=>DiabloClass.Druid;
     public override bool Permitted(PlayerMobile owner)=>ClassCreation.Profiles.Histories(owner.Serial)
@@ -61,14 +70,18 @@ public partial class DruidOakBody:SkeletonGuardian,ISourceLifeMaximum
             if(state?.Birth is not{Rank:>=1 and <=255,Level:>=1 and <=99}
                 || !((Serial)state.Owner).IsMobile || state.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
                 || state.NextRecoveryUtc.Kind!=DateTimeKind.Utc || state.NextRecoveryUtc>DateTime.MaxValue.AddMilliseconds(-40)
-                || state.Profile!="source-birth-no-movement-v1" || DruidOakStats.Rescale(state.Birth,state.Difficulty)!=state.Birth)
+                || state.Profile is not("source-birth-no-movement-v1" or "source-birth-and-totem-motion-v2")
+                || (state.Controller==null)!=(state.Profile=="source-birth-no-movement-v1")
+                || DruidOakStats.Rescale(state.Birth,state.Difficulty)!=state.Birth)
             {throw new InvalidDataException("Invalid prepared Oak Sage state");}
+            if(state.Controller!=null)
+            {DruidOakWorld.Validate(state.Controller);if(state.Controller.NextUtc!=state.NextRecoveryUtc){throw new InvalidDataException("Oak clocks disagree");}}
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported Oak Sage birth snapshot",e);}
     }
     internal void RestorePrepared(OakBodyState state)
-    {Validate(state);string json=JsonSerializer.Serialize(state);_prepared=state;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidOakWorld.Copy(c)}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidOakBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || at>DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal
@@ -103,6 +116,7 @@ public partial class DruidOakBody:SkeletonGuardian,ISourceLifeMaximum
     }
     internal void Advance(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){DruidOakWorld.Advance(this,at,actions);return;}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Oak clock must be UTC");}
         if(Deleted || Prepared is not{} state || state.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner || owner.Serial.Value!=state.Owner){Delete();return;}
@@ -122,13 +136,18 @@ public partial class DruidOakBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterOakLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<OakBodyState>(_saved);Validate(_prepared);Loaded=true;DruidOaks.Track(this);}
-    public override void SuspendActions(){base.SuspendActions();DruidOakAuras.Stop(this);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<OakBodyState>(_saved);Validate(_prepared);RestorePrepared(_prepared);Loaded=true;DruidOaks.Track(this);}
+    public override void SuspendActions()
+    {
+        base.SuspendActions();DruidOakAuras.Stop(this);
+        if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidOakWorld.Park(c)});}
+    }
     public override void OnAfterDelete(){DruidOaks.Forget(this);DruidOakAuras.Stop(this);base.OnAfterDelete();}
 }
 
 public static class DruidOaks
 {
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidOaks));
     private static readonly System.Collections.Generic.HashSet<DruidOakBody> Bodies=new();
     public static void Initialize()=>Timer.StartTimer(TimeSpan.FromMilliseconds(40),TimeSpan.FromMilliseconds(40),()=>Tick(TimedEffects.Now));
     internal static void Track(DruidOakBody body)=>Bodies.Add(body);
@@ -139,7 +158,8 @@ public static class DruidOaks
         {
             if(body.Deleted){Bodies.Remove(body);continue;}
             bool loaded=body.Loaded;body.Loaded=false;
-            body.Advance(at,!loaded&&(actions??(body.ControlMaster?.NetState!=null)));
+            try{body.Advance(at,!loaded&&(actions??(body.ControlMaster?.NetState is{Running:true})));}
+            catch(Exception e){DruidOakWorld.Fault(body,e.Message);Log.Error(e,"Oak controller refused unsupported context for {Serial}",body.Serial);}
         }
         DruidOakAuras.Expire(at);
     }

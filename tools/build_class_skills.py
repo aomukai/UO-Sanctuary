@@ -172,6 +172,9 @@ def products():
         if actions:wolf_fields[mode+'Action']=actions[0]
     assert [wolf_fields[k] for k in ['S1Frames','S1Speed','S1Action','A1Frames','A1Speed','A1Action','GHFrames','GHSpeed']] == [13,72,3,13,176,9,7,256]
     summons += [{'key':'spiritwolf-animation','fields':wolf_fields}]
+    oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
+    assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
+    summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]
     creeper_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/creeper-preflight.json').read_text())['animation']['records']}
     assert [creeper_animations['K9S1HTH'][k] for k in ['frames','speed','events']] == [2,256,[[1,2]]]
     summons += [{'key':'plaguepoppy-animation','fields':{'S1Frames':2,'S1Speed':256,'S1SkillAction':1,
@@ -186,7 +189,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
-        'druid.oaksage':'Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Life aura has no final visual. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Totem movement and learned casting remain unavailable.',
+        'druid.oaksage':'Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Saved source-controlled movement has no final XW animation; life aura has no final visual. Final spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Learned casting remains unavailable.',
         'druid.poisoncreeper':'Prepared saved body is named Poison Creeper [placeholder], uses UO corpser body0x8 and is silent. This visible vulnerable preparation does not implement underground VINE_BEAST visibility. Final K9 body, underground/surface/attack, plague-vines/head/mat/wither and vine/summon audio remain pending; talent/right/quick icons are separate.',
         'druid.summonspiritwolf':'Prepared actor is named Spirit Wolf [placeholder], uses UO body0xE1 and silent sound. Cold-state marker0x374A/hue0x480 is temporary. Final wolf body/emergence, walk/run, bite/contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent/right/quick icons stay in the separate icon register.',
         'druid.armageddon':'Native self weather, delayed fall and ground fire use identified UO0x36D4/0x3709/0x398C hue0x489 markers and0x1E5 cast-audio placeholder. Final falling rock/tail, terminal explosion/crater, persistent fire, cast/weather/expiry/audio and separate talent/right/quick icons remain pending. Marker animations do not control6/25/37-frame mechanics.',

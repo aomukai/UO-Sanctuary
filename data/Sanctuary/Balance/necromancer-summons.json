@@ -1204,6 +1204,13 @@
     }
   },
   {
+    "key": "oaksage-animation",
+    "fields": {
+      "WLFrames": 7,
+      "WLSpeed": 128
+    }
+  },
+  {
     "key": "plaguepoppy-animation",
     "fields": {
       "S1Frames": 2,

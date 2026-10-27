@@ -2430,7 +2430,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Life aura has no final visual. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Totem movement and learned casting remain unavailable."
+    "placeholder": "Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Saved source-controlled movement has no final XW animation; life aura has no final visual. Final spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Learned casting remains unavailable."
   },
   {
     "talentId": "druid.summonspiritwolf",

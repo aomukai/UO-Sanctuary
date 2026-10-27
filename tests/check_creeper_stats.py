@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=()):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=()):
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -97,6 +97,18 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                         session.expect('creeper-world-live: ready')
                         client.sendall(b'\x73\x00')
                         assert session.expect(r'creeper-world-live-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                    for live in extra_live_commands:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(live + '-check')
+                            assert session.expect(live + r'-check: (passed|failed)').group(1) == 'passed'
+                            session.expect(live + ': ready')
+                            client.sendall(b'\x73\x00')
+                            assert session.expect(live + r'-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                    if boot < 2:
+                        for command in extra_before_save_commands:
+                            session.send(command)
+                            assert session.expect(command + r': (passed|failed)').group(1) == 'passed', logpath.read_text()[-5000:]
                     session.send('save'); session.expect('Writing world save snapshot done')
                     session.send('shutdown'); assert session.process.wait(timeout=20) == 0
                 finally:
