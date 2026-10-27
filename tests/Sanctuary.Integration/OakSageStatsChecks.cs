@@ -18,7 +18,6 @@ public static class OakSageStatsChecks
     private static SkillValues Values(int level,int rank)=>new(SkillMechanics.For(CombatAbility.OakSage),_=>rank,_=>0,level);
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.OakSage),"Numeric component enabled incomplete Oak Sage");
         using var data=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"oak-sage-source-probe.json")));
         int compared=0;
         foreach(var row in data.RootElement.EnumerateArray())
@@ -71,7 +70,7 @@ public static class OakSageStatsChecks
                 && SkillMechanics.Values(owner,CombatAbility.OakSage).Mana256==4096,"Soft rank / immutable old snapshot");
             foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
             {Require(DruidOakStats.Rescale(fresh,difficulty)==DruidOakStats.Birth(SkillMechanics.Values(owner,CombatAbility.OakSage),difficulty),"Captured owner/rank difficulty reconstruction");}
-            Require(!SkillBindings.Instance.Assign(owner,false,CombatAbility.OakSage) && !SkillBindings.Instance.AssignQuick(owner,0,CombatAbility.OakSage),"Unfinished learned bindings exposed");
+            Require(!SkillBindings.Instance.Assign(owner,true,CombatAbility.OakSage),"Oak incorrectly bound to left attack");
         }
         finally{owner.Delete();}
     }

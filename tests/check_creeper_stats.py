@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+import struct
 import threading
 from check_raven_stats import drain
 import tempfile
@@ -18,7 +19,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=()):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=(), extra_live_commands=(), extra_before_save_commands=(), extra_input_commands=()):
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -105,6 +106,21 @@ def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fi
                             session.expect(live + ': ready')
                             client.sendall(b'\x73\x00')
                             assert session.expect(live + r'-result: (passed|failed)', timeout=15).group(1) == 'passed', logpath.read_text()[-5000:]
+                    for family in extra_input_commands:
+                        with socket.create_connection(('127.0.0.1', port), timeout=5) as client:
+                            threading.Thread(target=drain, args=(client,), daemon=True).start()
+                            session.send(family + '-check')
+                            assert session.expect(family + r'-check: (passed|failed)').group(1) == 'passed'
+                            ready = session.expect(family + r': ready ability=(\d+) class=(\d+) x=(\d+) y=(\d+) z=(-?\d+)')
+                            ability, character, x, y, z = map(int, ready.groups())
+                            if family.endswith('right'):
+                                client.sendall(struct.pack('>BHHBBIBIHHb', 0xBF, 21, 0xF2, 7, 4, 1, ability, 0, x, y, z))
+                            else:
+                                client.sendall(struct.pack('>BHHBBIBBBIHHb', 0xBF, 23, 0xF7, 2, 4, 1, character, 7, ability, 0, x, y, z))
+                            session.expect(family + ': windup')
+                            if family.endswith('right'):
+                                client.sendall(struct.pack('>BHHBBI', 0xBF, 11, 0xF2, 7, 5, 2))
+                            assert session.expect(family + r'-result: (passed|failed)', timeout=10).group(1) == 'passed', logpath.read_text()[-5000:]
                     if boot < 2:
                         for command in extra_before_save_commands:
                             session.send(command)

@@ -250,7 +250,7 @@ public static class ClassCombat
         => ContinueHold(from, ability, target, point, now, true);
 
     private static bool CastTargetAllowed(PlayerMobile from, CombatAbility ability, Mobile target) => IsHostile(from, target)
-        || ability is (CombatAbility.Raven or CombatAbility.SummonSpiritWolf) && target is { Deleted: false } && target.Map==from.Map
+        || ability is (CombatAbility.Raven or CombatAbility.SummonSpiritWolf or CombatAbility.OakSage) && target is { Deleted: false } && target.Map==from.Map
         || ClassAbilities.AllyTarget(ability) && target is { Alive: true, Deleted: false } && target.Map == from.Map
             && (target == from || Friendly(from, target));
 

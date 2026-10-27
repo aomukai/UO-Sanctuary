@@ -68,7 +68,7 @@ internal static class DruidOakAuras
             || state.Owner!=owner.Serial.Value || !PersistentMinions.Active(owner,source) || !source.Permitted(owner)
             || source.Map==null || source.Map==Map.Internal || source.Map!=owner.Map)
         {return false;}
-        int rank=state.Birth.AuraRank;var aura=DruidOakStats.Aura(rank);
+        int rank=DruidOakStats.EffectiveAuraRank(state.Birth.AuraRank,BattleCommand.Bonus(source));var aura=DruidOakStats.Aura(rank);
         Apply(source,source,rank,at,true);
         var targets=new List<Mobile>();
         foreach(var target in source.Map.GetMobilesInRange<Mobile>(source.Location,(aura.Radius+1)/2))

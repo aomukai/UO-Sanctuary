@@ -1912,10 +1912,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 226,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick casting pays14+rank mana once after successful allocation, then replaces the shared totem category while wolves/ravens coexist. Saved vulnerable body, Totem follow/escape/warp, five-frame life aura and six-frame leases reuse source pet movement/resources. NPC Battle Command adjusts innate aura rank with current MaxLvl99 ceiling without changing birth stats; lower rank waits for stronger lease expiry. Focused three boots/two reloads/three right and quick casts, natural movement/expiry and saved Command rank pass. Full regression/installation is recorded in the current checkpoint. Item-only/staffmod permission, exceptional NPC bonuses/PvP and exact modern entry timing, room/geometry/event/client parity remain unsupported or uncertain; AStar fallback saves a fault. Final body/effects/audio and talent/right/quick icons are separate placeholders; no class completion."
     },
     {
       "talentId": "druid.summonspiritwolf",

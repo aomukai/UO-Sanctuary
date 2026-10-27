@@ -180,7 +180,7 @@ public static class OakSageBodyChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.OakSage),"Prepared actor exposed learned Oak");ClockAndSource();LifeAndStacking();RecipientsAndOverlap();Lifecycle();
+        ClockAndSource();LifeAndStacking();RecipientsAndOverlap();Lifecycle();
         var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=DruidOakBody.CreatePrepared(p,Point(p),at);DruidOakAuras.Pulse(body,at);
         SkillHealth.SetBalance256(body,6407);SkillHealth.SetBalance256(p,SkillHealth.Maximum256(p)/2+7);PersistentMinions.Suspend(p);Malformed(body);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),body.MaximumLife256,BattleOrders.Regeneration256(body),SkillHealth.Balance256(p),SkillHealth.Maximum256(p),DruidOakAuras.State(body,true),DruidOakAuras.State(p),p.Map.MapID,p.Location)));

@@ -1,0 +1,51 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/DataTbls/DataTbls.cpp": "cb3484c15e9e71af8dabdafcb076eaef3c097eadd60562bfefcfcb7e59ae8272",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "routineHashes": {
+    "SKILLS_GetBonusSkillLevel": "7e20ab48d9d6657c8eb8907d879dc7ccd700c3789568b7424630d658d77827c0",
+    "SKILLS_GetSkillLevel": "4bf88a74fe5cbd91109bfc2d42f617a979446fda102007d67081e69c642952dd",
+    "DATATBLS_GetMaxLevel": "120934216db2993ef7d406e93128c5c59a185f9a6d240a08b8921bc81bcbcb6f",
+    "D2GAME_SetSkills_6FD14C60": "f613352a6f89231ba07e597314595bccfb10bd2269141c1624010fb4ad5bd3c7"
+  },
+  "experience": {
+    "archivePath": "data:data/global/excel/experience.txt",
+    "localFilename": "experience-oak-verified.txt",
+    "sha256": "7a3676c71f6984e6bac6e7c2fb8f26fb1a2f876e90ea9a875915f3c2519d61b2",
+    "maximumLevels": {
+      "Amazon": 99,
+      "Sorceress": 99,
+      "Necromancer": 99,
+      "Paladin": 99,
+      "Barbarian": 99,
+      "Druid": 99,
+      "Assassin": 99,
+      "Warlock": 99
+    },
+    "scope": "Current local MaxLvl row; older getter requests class0maximum."
+  },
+  "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+  "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+  "fixture": {
+    "path": ".local/class-skills/oak-skill-rank-source-probe.json",
+    "sha256": "f75d3456f0dc683a4406cfbd020d22d588e735f6635fc3524e9e6dc2889d2759",
+    "generatedSourceSha256": "9efac48bf3e5dd2eef6e810eec16b77c88e486487413a8b91cfdc2026943c3cf",
+    "cases": 2040,
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete older bonus/level getters add item_allskills for monsters as well as players. Innate non-item-owned skills use the bonus path; item-owned and bonus-disabled controls do not. The skill getter clamps through DATATBLS_GetMaxLevel(0),whose current local MaxLvl field is99.",
+    "Ordinary granted Oak aura starts from the birth sumskill rank. Battle Command supplies item_allskills1through the existing state. Its next periodic pulse reads the effective rank; birth life/defense and base aura rank remain immutable.",
+    "2040unchanged getter contexts cover supplied base ranks1..255,Command0/1,item-owned controls and bonus enabled/disabled. Current-executable getter/event equivalence is not certified by older source."
+  ],
+  "services": [
+    "Reuse the bounded Battle Command skill/stat ABI and supply no NPC gear,shrine,oskill,single-skill or elemental skill bonuses. The two getters execute unchanged. Class0experience maximum99is a supplied current-table value; the table getter is reviewed,not compiled in this probe.",
+    "Current pulse/replacement/expiry and actual Command application/removal/save consumers need separate native acceptance. The existing same-state weaker-rank refusal must not be bypassed on Command expiry."
+  ]
+}

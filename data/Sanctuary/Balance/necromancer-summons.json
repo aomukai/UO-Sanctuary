@@ -1211,6 +1211,12 @@
     }
   },
   {
+    "key": "oaksage-skill-context",
+    "fields": {
+      "MaximumRank": 99
+    }
+  },
+  {
     "key": "plaguepoppy-animation",
     "fields": {
       "S1Frames": 2,

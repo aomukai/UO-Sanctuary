@@ -110,7 +110,7 @@ public static class OakWorldChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.OakSage),"Motion preparation exposed learned casting");Movement();WarpAndEscape();Lifecycle();
+        Movement();WarpAndEscape();Lifecycle();
         var p=Fresh();var body=DruidOakWorld.Create(p,new(p.X+14,p.Y,p.Z),TimedEffects.Now.AddDays(2),738);Through(body,80);SkillHealth.SetBalance256(body,6407);PersistentMinions.Suspend(p);
         File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location)));
         Log.Information("Oak world: source-pet follow, size-aware free-position warp, chance-gated escape, frozen/offline RNG suppression, wardrobe/facet/owner-death and legacy body-only decode pass; first-think timing and geometry remain labelled adapters");

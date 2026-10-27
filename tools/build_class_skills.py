@@ -175,6 +175,9 @@ def products():
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]
+    oak_rank_context = json.loads((ROOT/'tools/reference/oak-skill-rank-engine-evidence.json').read_text())['experience']['maximumLevels']
+    assert oak_rank_context['Amazon'] == 99
+    summons += [{'key':'oaksage-skill-context','fields':{'MaximumRank':oak_rank_context['Amazon']}}]
     creeper_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/creeper-preflight.json').read_text())['animation']['records']}
     assert [creeper_animations['K9S1HTH'][k] for k in ['frames','speed','events']] == [2,256,[[1,2]]]
     summons += [{'key':'plaguepoppy-animation','fields':{'S1Frames':2,'S1Speed':256,'S1SkillAction':1,
