@@ -51,7 +51,7 @@ public static class HitRecovery
         var session = ClassCombat.For(player);
         // Released2.4: a successful block still negates damage but does not interrupt an active skill/attack animation.
         if(session.PendingAbility!=CombatAbility.None || now-session.NextAction<0 || BladeFuryModes.Active(player)){return;}
-        int frames = BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
+        int frames = DruidFormReactionClock.Current(player,true)?.NativeFrames ?? BlockFrames(profile.Class, ClassGear.Bonus(player, "block2") + ClassGear.Bonus(player, "block3"), CombatTiming.Equipped(player),HolyShields.State(player)!=null);
         session.RecoveryUntil = Math.Max(session.RecoveryUntil, now + frames * ActionTiming.FrameMs);
         session.FormAction=null;
         session.PendingAbility = CombatAbility.None; session.PendingTeleport = null; session.Conversion=null;session.BarbarianAttack=null;
@@ -108,7 +108,7 @@ public static class HitRecovery
         if(PaladinOffense.PreventRecovery(player,now)){return false;}
         ClassCreation.Profiles.TryGet(player.Serial, out var profile);
         var session = ClassCombat.For(player);
-        int duration = Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player)) * ActionTiming.FrameMs;
+        int duration = (DruidFormReactionClock.Current(player,false)?.NativeFrames ?? Frames(profile.Class, Fhr(player), CombatTiming.Equipped(player))) * ActionTiming.FrameMs;
         session.RecoveryUntil = now + duration;
         session.FormAction=null;
         // Interrupt the unspent effect, retaining the original shared action deadline and input intent.
