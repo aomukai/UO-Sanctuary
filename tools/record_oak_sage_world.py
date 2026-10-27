@@ -36,16 +36,27 @@ def record(check=False):
     assert ' ERR]' not in full and ': failed' not in full
     assert 'Native class skills and projectile checks passed, including two save/reload cycles.' in (STAGE / 'full-run.log').read_text()
     assert full.count('Shutting down') == 3
+    full_audits = {}
     for name in ['named-item-runtime-audit.json', 'first-loop-affix-audit.json']:
-        assert json.loads((STAGE / ('full-' + name)).read_text()) == json.loads((STAGE / name).read_text())
+        path = STAGE / ('full-' + name)
+        full_audits[name] = path.is_file()
+        if path.is_file():
+            assert json.loads(path.read_text()) == json.loads((STAGE / name).read_text())
+        elif name == 'named-item-runtime-audit.json':
+            assert full.count('named-gear-check: passed') == full.count('named-gear-reload-check: passed') == 0
+        else:
+            assert full.count('first-loop-catalogue-check: passed') == 0
     artifacts = [ROOT / 'tools/reference' / name for name in ['oak-sage-native-evidence.json', 'oak-aura-engine-evidence.json']]
-    artifacts += [STAGE / name for name in ['oak-sage-body-fixtures.json', 'class-native-checks.log', 'full-run.log', 'full-named-item-runtime-audit.json', 'full-first-loop-affix-audit.json']]
+    artifacts += [STAGE / name for name in ['oak-sage-body-fixtures.json', 'class-native-checks.log', 'full-run.log']]
+    artifacts += [STAGE / ('full-' + name) for name, exists in full_audits.items() if exists]
     artifacts += [ROOT / name for name in ['tests/check_class_skills.py', 'tools/probe_oak_aura_reference.py', 'tools/record_oak_sage_world.py']]
     evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False,
         profile='source-birth-no-movement-v1',
         scope='Actual saved vulnerable Oak body and NPC life aura in a disposable world; Totem movement, shared cap and learned input remain unfinished.',
         verified=dict(**numeric['verified'], auraSourceContexts=440, actualOakBoots=3, actualOakReloads=2,
-            retainedBattleOrdersReloads=2, fullClassBoots=3, fullClassReloads=2, fullClassPassMarkers=full.count(': passed')),
+            retainedBattleOrdersReloads=2, fullClassBoots=3, fullClassReloads=2, fullClassPassMarkers=full.count(': passed'),
+            fullClassNamedAuditRepeated=full_audits['named-item-runtime-audit.json'],
+            fullClassFirstLoopAuditRepeated=full_audits['first-loop-affix-audit.json']),
         artifacts={str(path.relative_to(ROOT)): sha(path) for path in artifacts},
         testedAssemblies=numeric['testedAssemblies'],
         established=[
@@ -53,7 +64,7 @@ def record(check=False):
             'NPC298self/control161and recipient149leases are separate, highest rank per state with equal-rank creator retention and supplier refresh. Five-frame periodic refresh and six-frame expiry use current aura values; town recipients, hostile/dead/outside targets and isAtt0vines are excluded. LOS is not added to0x10103.',
             'Oak joins the additive maximum-life percentage pool with Battle Orders and item life percent. Mana/stamina remain unchanged by Oak. Existing exact-life wolf/creeper/decoy/conversion and ordinary creature maximum paths share the life-only contribution. Current life and monster regeneration use the existing resource callback on application/removal/expiry.',
             'Actual injury, rank/expiry/source state, overlapping self/recipient lists, boundary radius, town-self behavior, mutable owner gear versus immutable birth, offline no-healing, wardrobe/facet/orphan/death and two real Oak reloads pass. The fixture only holds future inspection clocks and disables native healing on its named player; production recovery is untouched.',
-            'The shared resource changes additionally pass the full retained class suite with three boots/two reloads. This does not certify a completed class or current D2R executable parity.'
+            'The shared resource changes additionally pass the full retained class suite with three boots/two reloads. Optional named-gear commands were not enabled in this full run; the same package has a fresh573definition named audit from the focused run. The first-loop export is repeated in the full run and compared exactly. This does not certify a completed class or current D2R executable parity.'
         ], adapters=[
             'Native2source subtiles per tile,16height tolerance,map-wide rooms,Sanctuary ally policy and deterministic serial/state enumeration retain existing geometry/allegiance adapters; modern event/global-RNG/equal-deadline order is unverified.',
             'Aura resumption schedules a new five-frame period without replaying missed pulses. The current executable resume phase and whole-frame recovery versus aura ordering are not established.',

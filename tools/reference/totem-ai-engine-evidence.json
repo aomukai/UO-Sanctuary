@@ -4,6 +4,24 @@
   "sourcePath": "source/D2Game/src/AI/AiThink.cpp",
   "sourceSha256": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
   "unchangedRoutineSha256": "f59f7e20245145334f11ed612a48ead0e658d96a1c8af63314acf2287c69d759",
+  "reviewedHelpers": [
+    {
+      "path": "source/D2Game/src/AI/AiTactics.cpp",
+      "name": "sub_6FCCFD40",
+      "sha256": "966f47e9663259dd9ec6a1fe0a1745aa808078b7d63c91d4f079ff0628466b9a",
+      "routineSha256": "577569d52b628b1e27fe21a970c513eb47fe749028c0f6ceb341a5dbe096ab2e",
+      "scope": "Complete routine reviewed, not compiled in this outer AI probe.",
+      "contract": "Wrapper returns the shared target result only when distance<=24. It does not clear the supplied combat flag when it returns null. The nested vision/alignment/target-node finder is not a tested native targeting implementation."
+    },
+    {
+      "path": "source/D2Game/src/UNIT/SUnit.cpp",
+      "name": "sub_6FCBDFE0",
+      "sha256": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+      "routineSha256": "b7dfd67a8eac506ffd789a9853c76aef242c41d88a1207ec77867f65ae9627ca",
+      "scope": "Complete routine reviewed, not compiled in this outer AI probe.",
+      "contract": "Totem passes owner room,owner coordinates,a6=0,a7=0. The helper requests free coordinates using unit size and collision mask0x1C09,then commits through D2Common_10229. Failure returns0; monster success refreshes the unit,sets TELEPORTED and calls sub_6FCBB190. This is not an unconditional exact-owner-position warp."
+    }
+  ],
   "fixture": {
     "path": ".local/class-skills/totem-ai-source-probe.json",
     "sha256": "b4b67388969ef7862f272a0dc466631df4b57fb67335890ca1938936a746d082",

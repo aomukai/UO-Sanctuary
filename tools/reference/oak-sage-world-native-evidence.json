@@ -1,0 +1,67 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "installed": false,
+  "profile": "source-birth-no-movement-v1",
+  "scope": "Actual saved vulnerable Oak body and NPC life aura in a disposable world; Totem movement, shared cap and learned input remain unfinished.",
+  "verified": {
+    "sourceCompositions": 180,
+    "sourceFailureBranches": 6,
+    "effectiveRankControls": 255,
+    "realOwnerTarnhelm": true,
+    "sourceSanitizers": "ASan and UBSan",
+    "retainedBoots": 3,
+    "retainedReloads": 2,
+    "retainedNaturalPoisonRuns": 3,
+    "passMarkers": 49,
+    "pythonTests": 70,
+    "namedDecisions": 573,
+    "namedInputFingerprints": 624,
+    "firstLoopInputFingerprints": 21,
+    "auraSourceContexts": 440,
+    "actualOakBoots": 3,
+    "actualOakReloads": 2,
+    "retainedBattleOrdersReloads": 2,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassPassMarkers": 1181,
+    "fullClassNamedAuditRepeated": false,
+    "fullClassFirstLoopAuditRepeated": true
+  },
+  "artifacts": {
+    "tools/reference/oak-sage-native-evidence.json": "b10bc43f23c2535e4ae68803c78603af97a0e4fc66e0bf11edcc201381025147",
+    "tools/reference/oak-aura-engine-evidence.json": "57c13b6510c942090b48b8b672ce529cbd5b97dca475e706df75f73bb698859a",
+    ".local/class-skills/oak-sage/oak-sage-body-fixtures.json": "a53f540796df7bb6f5346d3cb6f962085d2847969629f7d477eb30a660ebe45b",
+    ".local/class-skills/oak-sage/class-native-checks.log": "8495842e8d8f10d33170828aadd0437ad48be5bd18aaf8df1398ed1c5392d94d",
+    ".local/class-skills/oak-sage/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    ".local/class-skills/oak-sage/full-first-loop-affix-audit.json": "7da2bc02f4203c8e2b771c8fb6c3ca4a71e55e522046d6c5ebf50ba9a97064b6",
+    "tests/check_class_skills.py": "57efb0c11ff55d60593d90204e3b44bea000139f04c7dbe2f77e349b9c358ed1",
+    "tools/probe_oak_aura_reference.py": "94b1ac947b1e71e20cb797ddba0bc5ce02042d4850e6c12f776458634e628b77",
+    "tools/record_oak_sage_world.py": "8e043520857cd59765f3e01a6a60b93d9d73222c1055004f4067832384dc18aa"
+  },
+  "testedAssemblies": {
+    "ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Assemblies/Sanctuary.Content.dll": "774e87e2f6f72537c6418f97770603fb295514ac372635871d0400d69e0d27b7",
+    "Assemblies/Sanctuary.Integration.dll": "b0ae54c31ae535515b42d87a5ef1868ff662a9b1de183bcfa4f77f7cc98c1a7e"
+  },
+  "established": [
+    "Prepared body is vulnerable, nonattacking, saved with owner/history and source rank/level/difficulty. Normal poison170and Nightmare/Hell200retain the raw100passive plus base; magic25uses the existing typed damage consumer. Size2, no native GH, drain/chill metadata and ordinary aura eligibility are explicit source mappings.",
+    "NPC298self/control161and recipient149leases are separate, highest rank per state with equal-rank creator retention and supplier refresh. Five-frame periodic refresh and six-frame expiry use current aura values; town recipients, hostile/dead/outside targets and isAtt0vines are excluded. LOS is not added to0x10103.",
+    "Oak joins the additive maximum-life percentage pool with Battle Orders and item life percent. Mana/stamina remain unchanged by Oak. Existing exact-life wolf/creeper/decoy/conversion and ordinary creature maximum paths share the life-only contribution. Current life and monster regeneration use the existing resource callback on application/removal/expiry.",
+    "Actual injury, rank/expiry/source state, overlapping self/recipient lists, boundary radius, town-self behavior, mutable owner gear versus immutable birth, offline no-healing, wardrobe/facet/orphan/death and two real Oak reloads pass. The fixture only holds future inspection clocks and disables native healing on its named player; production recovery is untouched.",
+    "The shared resource changes additionally pass the full retained class suite with three boots/two reloads. Optional named-gear commands were not enabled in this full run; the same package has a fresh573definition named audit from the focused run. The first-loop export is repeated in the full run and compared exactly. This does not certify a completed class or current D2R executable parity."
+  ],
+  "adapters": [
+    "Native2source subtiles per tile,16height tolerance,map-wide rooms,Sanctuary ally policy and deterministic serial/state enumeration retain existing geometry/allegiance adapters; modern event/global-RNG/equal-deadline order is unverified.",
+    "Aura resumption schedules a new five-frame period without replaying missed pulses. The current executable resume phase and whole-frame recovery versus aura ordering are not established.",
+    "The body is temporarily stationary and silent UO wisp0x3A,named Oak Sage [placeholder]. No final aura overlay/audio is emitted."
+  ],
+  "remaining": [
+    "Implement Totem AI/movement/escape/follow/teleport and active owner-facet transport; preserve shared source motion/path/history services and identify unsupported geometry/path cases.",
+    "Shared totem cap/replacement, successful allocation/payment transaction, learned SC/FCR cancellation/right/quick input, connected natural actor/aura clock checks, graphical client acceptance and preserved installation.",
+    "Staffmod-only permission,Battle Command/exceptional summon gear and complete incoming state/PvP/unmapped recipient acceptance remain outside this prepared route. Exact modern AI/event/timing/geometry is not certified.",
+    "Final XWbody/emergence/movement/hurt/death,oak_sage recipient/control overlays and summon/spirit audio remain in the effects register; talent/right/quick icons remain independent."
+  ]
+}

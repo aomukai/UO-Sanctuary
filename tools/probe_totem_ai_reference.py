@@ -28,6 +28,24 @@ def build(check=False):
     assert hashlib.sha256(body.encode()).hexdigest() == preflight['reviewedRoutineHashes'][name]
     row = preflight['currentRows']['monstats']['oaksage']
     assert all([int(row['aip' + str(i) + suffix]) for i in range(1, 5)] == [20, 30, 30, 20] for suffix in ['', '(N)', '(H)'])
+    reviewed = []
+    for helper_path, helper_name, contract in [
+        ('source/D2Game/src/AI/AiTactics.cpp', 'sub_6FCCFD40',
+         'Wrapper returns the shared target result only when distance<=24. It does not clear the supplied combat flag when it returns null. The nested vision/alignment/target-node finder is not a tested native targeting implementation.'),
+        ('source/D2Game/src/UNIT/SUnit.cpp', 'sub_6FCBDFE0',
+         'Totem passes owner room,owner coordinates,a6=0,a7=0. The helper requests free coordinates using unit size and collision mask0x1C09,then commits through D2Common_10229. Failure returns0; monster success refreshes the unit,sets TELEPORTED and calls sub_6FCBB190. This is not an unconditional exact-owner-position warp.')]:
+        helper_raw = (STAGE / 'd2moo-pinned-source' / helper_path).read_bytes()
+        assert hashlib.sha1(b'blob ' + str(len(helper_raw)).encode() + b'\0' + helper_raw).hexdigest() == next(x['sha'] for x in tree['tree'] if x['path'] == helper_path)
+        helper_text = helper_raw.decode()
+        helper_match = re.search(r'^.*\b' + helper_name + r'\([^;\n]*\)\s*\n\{', helper_text, re.M)
+        assert helper_match, helper_name
+        helper_end, helper_depth = helper_text.index('{', helper_match.start()) + 1, 1
+        while helper_depth:
+            helper_depth += (helper_text[helper_end] == '{') - (helper_text[helper_end] == '}'); helper_end += 1
+        reviewed.append(dict(path=helper_path, name=helper_name,
+            sha256=hashlib.sha256(helper_raw).hexdigest(),
+            routineSha256=hashlib.sha256(helper_text[helper_match.start():helper_end].encode()).hexdigest(),
+            scope='Complete routine reviewed, not compiled in this outer AI probe.', contract=contract))
     cpp = r'''#include <cstdint>
 #include <cstdio>
 #include <vector>
@@ -97,7 +115,7 @@ ownerDistance=distance;owner.dwAnimMode=mode;hasTarget=t;combat=b;random0=r0;ran
         assert calls == expected, (context, calls, expected)
     fixture = STAGE / 'totem-ai-source-probe.json'; fixture.write_text(json.dumps(rows, separators=(',', ':')) + '\n')
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], sourcePath=relative,
-        sourceSha256=hashlib.sha256(raw).hexdigest(), unchangedRoutineSha256=hashlib.sha256(body.encode()).hexdigest(),
+        sourceSha256=hashlib.sha256(raw).hexdigest(), unchangedRoutineSha256=hashlib.sha256(body.encode()).hexdigest(), reviewedHelpers=reviewed,
         fixture=dict(path=str(fixture.relative_to(ROOT)), sha256=hashlib.sha256(fixture.read_bytes()).hexdigest(), cases=len(rows), generatedSourceSha256=hashlib.sha256(path.read_bytes()).hexdigest(), sanitizers='ASan+UBSan'),
         established=[
             '5121complete Totem decision contexts retain lazy escape chance20percent,then ignore-target chance30percent,strict owner-distance>30teleport with25frame idle on success,strict>20walking/townwalk/run following,shared common move and25frame fallback.',
