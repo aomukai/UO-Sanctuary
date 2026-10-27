@@ -12,6 +12,8 @@ namespace Sanctuary;
 internal sealed record DireWolfBodyState(uint Owner,DireWolfSnapshot Snapshot,MonsterDifficulty Difficulty,DateTime NextRecoveryUtc)
 {
     public string Profile{get;init;}="prepared-life-and-ownership-v1";
+    public DireWolfWorldState Controller{get;init;}
+    public bool LearnedCast{get;init;}
 }
 
 // Saved vulnerable Fenris backend. Native skeleton AI and damage are
@@ -22,11 +24,13 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
 {
     [SerializableField(0,setter:"private")] private string _saved="{}";
     private DireWolfBodyState _prepared;
+    internal bool ControllerLoaded{get;set;}
     internal DireWolfBodyState Prepared
     {
         get
         {
-            return _prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<DireWolfBodyState>(_saved));
+            var s=_prepared??(_saved=="{}"?null:_prepared=JsonSerializer.Deserialize<DireWolfBodyState>(_saved));
+            return s?.Controller is{} c?s with{Controller=DruidDireWolfWorld.Copy(c)}:s;
         }
     }
     internal string SavedText=>_saved;
@@ -52,7 +56,7 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
     }
     public override MonsterProfile CombatProfile=>Prepared is{} s
         ?new(s.Snapshot.Birth.Level,(s.Snapshot.Birth.Life256+255)/256,
-            checked(s.Snapshot.Birth.BaseAttack+s.Snapshot.Birth.AttackBonus),
+            checked(s.Snapshot.Birth.BaseAttack+s.Snapshot.Birth.AttackBonus+(s.Controller is{Mode:4,AttackPacket:{} packet}?packet.Attack:0)),
             s.Snapshot.Birth.BaseDefense,0,0,1000,400,0,0,0,0,0)
         :new(1,216,0,116,0,0,1000,400,0,0,0,0,0);
     public override (int Min,int Max) SkillWeaponDamage=>(0,0);
@@ -73,12 +77,20 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
                 || state.Profile!="prepared-life-and-ownership-v1"
                 || DruidDireWolfStats.Rescale(state.Snapshot,state.Difficulty)!=state.Snapshot)
             {throw new InvalidDataException("Invalid prepared Dire Wolf life/ownership state");}
+            if(state.LearnedCast && state.Controller==null){throw new InvalidDataException("Learned Dire Wolf requires its controller");}
+            if(state.Controller is{} controller)
+            {
+                DruidDireWolfWorld.Validate(controller);
+                if(controller.AttackPacket is{} packet && packet!=DruidBeastAttackStats.Capture(
+                    new(SkillMechanics.For(CombatAbility.SummonDireWolf),_=>packet.Rank,_=>0,state.Snapshot.Birth.Level),state.Difficulty,4))
+                {throw new InvalidDataException("Invalid captured Fenris mode stats");}
+            }
         }
         catch(Exception e) when(e is ArgumentException or NotSupportedException or OverflowException)
         {throw new InvalidDataException("Unsupported prepared Dire Wolf snapshot",e);}
     }
     internal void RestorePrepared(DireWolfBodyState state)
-    {Validate(state);string json=JsonSerializer.Serialize(state);_prepared=state;_saved=json;}
+    {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidDireWolfWorld.Copy(c)}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidDireWolfBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
         if(at.Kind!=DateTimeKind.Utc || at> DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal
@@ -113,6 +125,7 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
     // advances only at explicit actor frames; offline frames are discarded.
     internal void AdvanceRecovery(DateTime at,bool actions)
     {
+        if(Prepared?.Controller!=null){throw new InvalidOperationException("Dire actor recovery belongs to the world clock");}
         if(at.Kind!=DateTimeKind.Utc){throw new ArgumentException("Dire Wolf clock must be UTC");}
         if(Deleted || Prepared is not{} state || state.NextRecoveryUtc>at){return;}
         if(ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner || owner.Serial.Value!=state.Owner){Delete();return;}
@@ -128,5 +141,10 @@ public partial class DruidDireWolfBody:SkeletonGuardian,ISourceLifeMaximum
         RestorePrepared(Prepared with{NextRecoveryUtc=next});AIObject?.AITimer.Stop();
     }
     [AfterDeserialization]private void AfterWolfLoad()
-    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<DireWolfBodyState>(_saved);Validate(_prepared);}
+    {AIObject?.AITimer.Stop();_prepared=JsonSerializer.Deserialize<DireWolfBodyState>(_saved);Validate(_prepared);if(_prepared.Controller!=null){ControllerLoaded=true;DruidDireWolves.Track(this);}}
+    public override void SuspendActions()
+    {base.SuspendActions();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidDireWolfWorld.Park(c)});}}
+    internal override void InterruptForRecovery()
+    {base.InterruptForRecovery();if(Prepared is{Controller:{} c} s){RestorePrepared(s with{Controller=DruidDireWolfWorld.Park(c)});}}
+    public override void OnAfterDelete(){DruidDireWolves.Forget(this);base.OnAfterDelete();}
 }

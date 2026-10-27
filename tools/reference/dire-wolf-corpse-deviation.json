@@ -11,10 +11,11 @@
     "Keep corpse-search range, first-eligible ordering, AI priority and the rage effect separate from this type-independent edibility rule."
   ],
   "implementation": {
-    "status": "component-verified; automatic AI/rage dispatch pending",
-    "nativeActorEnabled": false,
+    "status": "controller and connected-timer verified; learned casting pending",
+    "nativeActorEnabled": true,
     "preparedBody": true,
-    "verification": "Real skeletal and fleshy monster deaths; selectable=false and missing source/base/seed controls; existing corpse-skill selectable gate retained; ownership/shatter/reservation/harvest/map exclusions; consume before buff service; failed allocation still consumes; repeated consumers refused; loot and empty-corpse cleanup; two actual corpse/body reloads. See dire-wolf-body-native-evidence.json.",
-    "next": "Connect the accepted Fenris policy to saved world motion, acquisition and NPC314 animation/release. Replace the explicit rage-allocation service with the real 500-frame/+100% stat consumer, then physical combat and learned casting."
+    "verification": "Prior skeletal/fleshy and one-time loot-safe transaction checks remain retained. The saved Fenris controller dispatches feeding at NPC314 A1 action, applies real500frame/+100percent rage after consumption and refuses a corpse consumed during windup. Two reloads cancel queued feeding before a new approach/windup. Three connected authenticated loopback sessions eat once, retain loot and deliver a subsequent raging physical bite. See dire-wolf-world-native-evidence.json.",
+    "next": "Learned placement/payment/allocation/cancellation, shared category/cap and right/quick input acceptance. Keep scan/footprint/room/path/mode/event and exact current-engine limits explicit.",
+    "learnedHandlerEnabled": false
   }
 }

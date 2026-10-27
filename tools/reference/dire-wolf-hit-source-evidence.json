@@ -1,0 +1,32 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceHashes": {
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "unchangedRoutineHashes": {
+    "D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70": "13c4e516d2c7e7cd5e7da0df1ec48dd52409a1edb398d880d2a37daa5e66866e",
+    "SUNITDMG_ApplyDamageBonuses": "ee0707e6b23f0e48e32e374d34b5f555d36a3a35eea9c5ead61aa226900a897a",
+    "SUNITDMG_RollDamageValueInRange": "d2c8977529eaed9cc14ae42336488cc1169efdc52e99bef1b92ed9c51ffa4924",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "reusedCompositionSha256": "206911e445746f082b602db1f2d4b293cb2ddbec524bc976f438d6fe0ef1c44d",
+  "pinnedMonsterHash": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+  "generatedSourceSha256": "0974b5b9293d5cdbb0fac98352334e2f70da95a0330f8ba7596ca1979c4616b4",
+  "fixture": {
+    "path": ".local/class-skills/dire-wolf-hit-source-probe.json",
+    "sha256": "c1a8e260427b6e9151a7f5cf667c8187d975224fe00c1b63d7c04a6a5abab558",
+    "cases": 576
+  },
+  "sanitizers": "ASan+UBSan exit0 with empty stderr",
+  "established": [
+    "Complete ordinary monster fill and critical composition checks physical-first FP256 rolling, -90 percent floor, equal-endpoint widening, large-value percentage truncation, optional fire/lightning/cold in that order, exclusive bounds and Crit5 doubling of all channels.",
+    "Rank1 and rank28 physical endpoints, zero-floor controls and4200/equal endpoints are supplied to the complete routine. Percent controls include295copied Grizzly,395with rage and435with an additional aura. Source monster Strength/weapon/item bonuses are zero; owner/native-skeleton attributes are not inherited."
+  ],
+  "limits": [
+    "This is bounded packet/source evidence. Actual world hit/block/reach, physical mitigation, shared events/life commitment, rage/animation/state expiry and modern executable equivalence require native acceptance. Other typed stats, equipment/sunder, full HP/death/event ordering and critical visual/hit-class flags remain separate."
+  ]
+}

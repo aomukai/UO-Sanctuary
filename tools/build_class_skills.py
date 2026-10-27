@@ -165,6 +165,13 @@ def products():
                           'sourceKey':source['skill'], 'left':False, 'right':False,
                           'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k != 'lineNumber'},
                           'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,13)}})
+    dire = next(row for row in rows if row['talentId'] == 'druid.summondirewolf')
+    rage = source_skills['314']
+    assert rage['skill'] == 'fenris rage' and rage['srvdofunc'] == 137
+    druid_npc = [{**dire, 'name':rage['skill'], 'sourceId':314, 'sourceKey':rage['skill'],
+                  'left':False, 'right':False,
+                  'sourceFields':{k:v for k,v in rage.items() if not k.startswith('*') and k != 'lineNumber'},
+                  'sourceParameters':{str(i):rage.get('Param'+str(i),0) for i in range(1,13)}}]
     monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
@@ -212,7 +219,7 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
-        'druid.summondirewolf':'Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Saved life/ownership and type-independent loot-safe corpse consumption are component-verified; automatic Fenris AI, actual rage/physical combat and learned casting remain unfinished. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels.',
+        'druid.summondirewolf':'Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Prepared saved Fenris movement/AI, type-independent loot-safe feeding, rage and physical bites are staged for component verification; learned casting remains unfinished. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels.',
         'druid.spiritofbarbs':'Prepared spirit uses silent UO wisp0x3A/violet hue0x48D and the explicit Spirit of Barbs [placeholder] name. Final X4 body/emergence/walk/hurt/death, spirit_of_barbs recipient/control overlays, retaliation contact and spirit/summon audio remain pending. Shared retaliation flash0x374A/hue0x481 is a placeholder. Talent/right/quick icons stay separate text labels. Learned SC/right/quick casting uses the shared identified pose and0x1E5 summon-sound placeholders.',
         'druid.heartofwolverine':'Prepared Heart body uses silent UO wisp0x3A/red hue0x21 and the explicit Heart of Wolverine [placeholder] name. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. Learned SC/right/quick casting uses the shared identified pose/sound placeholders.',
         'druid.oaksage':'Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Saved source-controlled movement has no final XW animation; life aura has no final visual. Final spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Learned SC/right/quick casting uses identified pose and0x1E5 summon-sound placeholders.',
@@ -331,6 +338,7 @@ def products():
            ROOT/'data/Sanctuary/talents.json':json.dumps(talents,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-skills.json':json.dumps(rows,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/sentry-npc-skills.json':json.dumps(sentry_npc,indent=2)+'\n',
+           ROOT/'data/Sanctuary/Balance/druid-npc-skills.json':json.dumps(druid_npc,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/druid-spirit-auras.json':json.dumps(spirit_auras,indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/class-states.json':json.dumps([dict(state=r['state'],curse=bool(r.get('curse')),curable=bool(r.get('curable'))) for r in json.loads((SOURCE/'json/states.json').read_text()).values() if r.get('state')],indent=2)+'\n',
            ROOT/'data/Sanctuary/Balance/skill-icons.json':json.dumps(icons,indent=2)+'\n',
