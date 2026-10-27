@@ -104,7 +104,7 @@ public static class BladeSentinelMissiles
             },()=>mask,()=>target?.Serial.Value,id=>
             {
                 var stats=body.Prepared.Creation;
-                int percent=stats.AttackPercent+(SorceressEffects.Enchantment(body)?.AttackPercent??0)+PaladinAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
+                int percent=stats.AttackPercent+(SorceressEffects.Enchantment(body)?.AttackPercent??0)+CombatAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
                 int chance=AssassinTrapAttack.Chance(stats.Level,stats.Attack,body.Dex,percent,ClassStats.Level(target),ClassStats.Defense(target));
                 return AssassinTrapAttack.Hit(chance,body.RollSourceRandom());
             },(id,delay)=>Leases[(state.Id,id)]=new(state.Id,id,state.NextUtc.AddMilliseconds(delay*40L)),

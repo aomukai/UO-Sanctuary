@@ -18,6 +18,7 @@ public static class TotemAiChecks
     private static void Check()
     {
         using var document=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"totem-ai-source-probe.json")));int count=0;
+        foreach(string species in new[]{"oaksage","heartofwolverine"})
         foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
         foreach(var row in document.RootElement.EnumerateArray())
         {
@@ -30,13 +31,13 @@ public static class TotemAiChecks
             bool Warp(){calls.Add(new(5,40,70));return N(8)!=0;}
             bool Move(int mode,bool run,int speed,int leash){calls.Add(new(6,mode,run?1:0,speed,leash));return N(9)!=0;}
             bool Common(int target,bool combat,int flag,int leash){calls.Add(new(7,target,combat?1:0,flag,leash));return N(10)!=0;}
-            DruidTotemAi.Think(new(N(0)!=0,N(4),difficulty),new(Idle,Find,Percent,Escape,Distance,Warp,Move,Common));
+            DruidTotemAi.Think(new(N(0)!=0,N(4),difficulty,species),new(Idle,Find,Percent,Escape,Distance,Warp,Move,Common));
             var expected=row[1].EnumerateArray().Select(x=>new Request(x[0].GetInt32(),x[1].GetInt32(),x[2].GetInt32(),x[3].GetInt32(),x[4].GetInt32()));
             Require(calls.SequenceEqual(expected),"Totem source decision/order: "+input);count++;
         }
-        Require(count==15363,"Incomplete source/difficulty matrix");
+        Require(count==30726,"Incomplete source/difficulty matrix");
         bool refused=false;try{DruidTotemAi.Think(new(true,1),new(_=>{},_=>new(0,false),_=>100,(_,_,_)=>false,()=>0,()=>false,(_,_,_,_)=>false,(_,_,_,_)=>false));}
         catch(ArgumentException){refused=true;}Require(refused,"Invalid percentage silently accepted");
-        Log.Information("Totem AI:5121complete source contexts across3current difficulty rows,15363native ordered decision comparisons pass; geometry and actual controller acceptance remain separate");
+        Log.Information("Totem AI:5121complete source contexts across3current difficulty rows,30726native ordered decision comparisons pass for two mapped spirit rows; geometry and actual controller acceptance remain separate");
     }
 }

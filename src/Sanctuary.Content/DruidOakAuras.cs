@@ -48,7 +48,7 @@ internal static class DruidOakAuras
     }
     internal static bool Apply(DruidOakBody source,Mobile target,int rank,DateTime at,bool control=false)
     {
-        if(!Alive(source) || !Alive(target)){return false;}
+        if(source?.SpiritAbility!=CombatAbility.OakSage || !Alive(source) || !Alive(target)){return false;}
         var key=(target.Serial.Value,control);
         var next=Replacement(_leases.GetValueOrDefault(key),target.Serial.Value,source.Serial.Value,rank,DruidOakStats.Aura(rank).LifePercent,at,control);
         if(next==null){return false;}
@@ -64,7 +64,7 @@ internal static class DruidOakAuras
     }
     internal static bool Pulse(DruidOakBody source,DateTime at)
     {
-        if(!Alive(source) || source.Prepared is not{} state || source.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner
+        if(source?.SpiritAbility!=CombatAbility.OakSage || !Alive(source) || source.Prepared is not{} state || source.ControlMaster is not PlayerMobile{Alive:true,Deleted:false} owner
             || state.Owner!=owner.Serial.Value || !PersistentMinions.Active(owner,source) || !source.Permitted(owner)
             || source.Map==null || source.Map==Map.Internal || source.Map!=owner.Map)
         {return false;}

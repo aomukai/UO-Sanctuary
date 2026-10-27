@@ -133,7 +133,7 @@ public static class GearEffects
         if (!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon).Category == "Throwing" && basis.MissileMax > 0)
         { min = basis.MissileMin; max = basis.MissileMax; }
         double physicalReference = (min + (max - min) * roll) * Math.Max(10, 100 + ClassStats.PhysicalDamageBonus(player, weapon)+(skillPhysicalPercent??0)) / 10000.0;
-        double reference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon) - PaladinAuras.DamagePercent(player)) / 10000.0;
+        double reference = (min + (max - min) * roll) * Math.Max(0, 100 + ClassStats.DamageBonus(player, weapon) - CombatAuras.DamagePercent(player)) / 10000.0;
         var poison = GemCombat.PoisonCombined(weapon, reference * ClassGear.Material(weapon, "damage-poison"), NamedGear.Poison(player, roll));
         double cold = reference * ClassGear.Material(weapon, "damage-cold");
         int coldMs = (cold > 0 ? 2000 : 0) + GemCombat.Duration(weapon, "cold-damage") + NamedGear.ColdDuration(player);

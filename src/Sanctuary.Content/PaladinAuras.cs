@@ -57,8 +57,7 @@ public static class PaladinAuras
         return target is PlayerMobile player && ClassCreation.Profiles.TryGet(player.Serial,out var profile) && profile.Class==DiabloClass.Paladin
             ? ClassCreation.Profiles.GetRank(player.Serial,"paladin.blessedaim")*SkillMechanics.For(CombatAbility.BlessedAim).Parameter(8)+fanaticism : fanaticism;
     }
-    public static double NativeWeaponMultiplier(Mobile source, bool weapon) => weapon && source is BaseCreature and not SkeletonGuardian
-        ? Math.Max(10,100+DamagePercent(source)+NecromancerEffects.DamageStatPercent(source))/100.0 : 1;
+    public static double NativeWeaponMultiplier(Mobile source, bool weapon) => CombatAuras.NativeWeaponMultiplier(source,weapon);
     public static bool CombatStats(Mobile mobile) => Effect(mobile,CombatAbility.Defiance)!=null || Effect(mobile,CombatAbility.BlessedAim)!=null || Effect(mobile,CombatAbility.Fanaticism)!=null || PaladinConviction.Managed(mobile);
     public static void SelectionChanged(PlayerMobile owner, CombatAbility oldAbility, CombatAbility ability)
     {

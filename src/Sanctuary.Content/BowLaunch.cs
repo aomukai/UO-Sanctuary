@@ -36,7 +36,7 @@ public static class BowLaunch
         int min=two && basis.TwoHandMax>0?basis.TwoHandMin:basis.MinDamage,max=two && basis.TwoHandMax>0?basis.TwoHandMax:basis.MaxDamage;
         if(!WeaponHands.Melee(weapon) && ClassGear.Definition(weapon)?.Category=="Throwing" && basis.MissileMax>0){min=basis.MissileMin;max=basis.MissileMax;}
         int percent=physical?Math.Max(10,100+ClassStats.PhysicalDamageBonus(owner,weapon)+skillPercent)
-            :Math.Max(0,100+ClassStats.DamageBonus(owner,weapon)-PaladinAuras.DamagePercent(owner));
+            :Math.Max(0,100+ClassStats.DamageBonus(owner,weapon)-CombatAuras.DamagePercent(owner));
         return (min+(max-min)*roll)*percent/10000.0;
     }
     internal static MissileSourceStats RawPoison(PlayerMobile owner,BaseWeapon weapon)

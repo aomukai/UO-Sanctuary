@@ -170,7 +170,7 @@ public partial class SkeletonGuardian : BaseCreature, IPersistentMinion
     public virtual MonsterProfile CombatProfile => _profile ??= CreateProfile();
     public virtual (int Min,int Max) SkillWeaponDamage
     {
-        get { var profile=SkeletonStats.For(Level,Rank,Mastery,PaladinAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this),SummonDifficulty); return (profile.MinDamage,profile.MaxDamage); }
+        get { var profile=SkeletonStats.For(Level,Rank,Mastery,CombatAuras.DamagePercent(this)+NecromancerEffects.DamageStatPercent(this),SummonDifficulty); return (profile.MinDamage,profile.MaxDamage); }
     }
     private MonsterProfile CreateProfile() => SkeletonStats.For(Level, Rank, Mastery, difficulty: SummonDifficulty);
     // Summon creation writes this FP256 result into its base life before BO.

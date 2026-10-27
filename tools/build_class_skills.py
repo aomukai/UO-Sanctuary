@@ -143,6 +143,13 @@ def products():
         'left':False, 'right':False,
         'sourceFields':{k:v for k,v in oak_aura.items() if not k.startswith('*') and k != 'lineNumber'},
         'sourceParameters':{str(i):oak_aura.get('Param'+str(i),0) for i in range(1,13)}}]
+    heart = next(row for row in rows if row['talentId'] == 'druid.heartofwolverine')
+    heart_aura = source_skills['297']
+    assert heart_aura['skill'] == 'Wolverine Aura' and heart_aura['aurastat1'] == 'item_tohit_percent' and heart_aura['aurastat2'] == 'damagepercent'
+    spirit_auras += [{**heart, 'name':heart_aura['skill'], 'sourceId':297, 'sourceKey':heart_aura['skill'],
+        'left':False, 'right':False,
+        'sourceFields':{k:v for k,v in heart_aura.items() if not k.startswith('*') and k != 'lineNumber'},
+        'sourceParameters':{str(i):heart_aura.get('Param'+str(i),0) for i in range(1,13)}}]
     death = next(row for row in rows if row['talentId'] == 'assassin.deathsentry')
     sentry_npc = []
     for source_id in (312, 324):
@@ -155,7 +162,7 @@ def products():
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())
     summons = [{'key':r['Id'],'fields':{k:v for k,v in r.items() if isinstance(v,int)}} for r in monsters.values()
-               if r.get('Id','').lower() in ['oaksage','spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
+               if r.get('Id','').lower() in ['heartofwolverine','oaksage','spiritwolf','plaguepoppy','druidhawk','necroskeleton','necromage','claygolem','bloodgolem','irongolem','firegolem','bonewall','hydra1','hydra2','hydra3','dopplezon','bladecreeper','chargeboltsentry','wakeofdestruction','lightningsentry','infernosentry','deathsentry']]
     raven_properties = json.loads((ROOT/'tools/reference/raven-preflight.json').read_text())['currentRows']['monprop']
     assert [raven_properties[k] for k in ['Id','prop1','min1','max1','prop1 (N)','min1 (N)','max1 (N)','prop1 (H)','min1 (H)','max1 (H)']] == ['druidhawk'] + ['stupidity','-1','-1']*3
     summons += [{'key':'druidhawk-properties','fields':{'item_stupidity':int(raven_properties['min1'])}}]
@@ -175,6 +182,9 @@ def products():
     oak_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/oak-sage-preflight.json').read_text())['animation']['records']}
     assert [oak_animations['XWWLHTH'][k] for k in ['frames','speed']] == [7,128]
     summons += [{'key':'oaksage-animation','fields':{'WLFrames':7,'WLSpeed':128}}]
+    heart_animations = {row['code']:row for row in json.loads((ROOT/'tools/reference/heart-of-wolverine-preflight.json').read_text())['animation']['records']}
+    assert [heart_animations['X3WLHTH'][k] for k in ['frames','speed']] == [7,232]
+    summons += [{'key':'heartofwolverine-animation','fields':{'WLFrames':7,'WLSpeed':232}}]
     oak_rank_context = json.loads((ROOT/'tools/reference/oak-skill-rank-engine-evidence.json').read_text())['experience']['maximumLevels']
     assert oak_rank_context['Amazon'] == 99
     summons += [{'key':'oaksage-skill-context','fields':{'MaximumRank':oak_rank_context['Amazon']}}]
@@ -192,7 +202,8 @@ def products():
     summons += [{'key':'level-'+str(r['Level']),'fields':r} for r in levels.values() if r.get('Level',0) in range(1,100)]
     icons = [{k:v for k,v in asset.items() if k not in ['effects','sourceEffects','visualEffect','soundEffect']} | {'placeholder':'Text label; final icon pending'} for asset in assets]
     staged_effects = {
-        'druid.oaksage':'Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Saved source-controlled movement has no final XW animation; life aura has no final visual. Final spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Learned casting remains unavailable.',
+        'druid.heartofwolverine':'Prepared Heart body uses silent UO wisp0x3A/red hue0x21 and the explicit Heart of Wolverine [placeholder] name. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. Learned casting is not enabled yet.',
+        'druid.oaksage':'Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Saved source-controlled movement has no final XW animation; life aura has no final visual. Final spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Learned SC/right/quick casting uses identified pose and0x1E5 summon-sound placeholders.',
         'druid.poisoncreeper':'Prepared saved body is named Poison Creeper [placeholder], uses UO corpser body0x8 and is silent. This visible vulnerable preparation does not implement underground VINE_BEAST visibility. Final K9 body, underground/surface/attack, plague-vines/head/mat/wither and vine/summon audio remain pending; talent/right/quick icons are separate.',
         'druid.summonspiritwolf':'Prepared actor is named Spirit Wolf [placeholder], uses UO body0xE1 and silent sound. Cold-state marker0x374A/hue0x480 is temporary. Final wolf body/emergence, walk/run, bite/contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent/right/quick icons stay in the separate icon register.',
         'druid.armageddon':'Native self weather, delayed fall and ground fire use identified UO0x36D4/0x3709/0x398C hue0x489 markers and0x1E5 cast-audio placeholder. Final falling rock/tail, terminal explosion/crater, persistent fire, cast/weather/expiry/audio and separate talent/right/quick icons remain pending. Marker animations do not control6/25/37-frame mechanics.',

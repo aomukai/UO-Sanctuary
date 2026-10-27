@@ -1,0 +1,162 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+using System;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Server;
+using Server.Accounting;
+using Server.Items;
+using Server.Logging;
+using Server.Mobiles;
+using Server.Network;
+namespace Sanctuary.Integration;
+
+public static class WolverineWorldChecks
+{
+    private static readonly ILogger Log=LogFactory.GetLogger(typeof(WolverineWorldChecks));
+    private sealed record Saved(uint Owner,uint Body,OakBodyState State,int Life,int Map,Point3D Point);
+    private static string Manifest=>Path.Join(Core.BaseDirectory,"wolverine-world-fixtures.json");
+    private static int _scene;
+    private static void Require(bool value,string why){if(!value){throw new InvalidOperationException(why);}}
+    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Prepared saved Wolverine source motion/life aura",_=>Core.LoopContext.Post(()=>
+    {try{action();Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+    public static void Configure()
+    {
+        Register("wolverine-world-check",Check);Register("wolverine-world-reload-check",Reload);
+        Register("wolverine-world-live-check",()=>FixtureNetwork.Connected("wolverine-world-live-result",Live));
+    }
+    private static void Floor(Map map,int x,int y,int z)
+    {
+        int floor=Enumerable.Range(0x500,0x100).First(i=>TileData.ItemTable[i].Surface&&!TileData.ItemTable[i].Impassable&&TileData.ItemTable[i].CalcHeight==0);
+        for(int col=x-20;col<=x+50;col++)for(int row=y-16;row<=y+16;row++){new Static(floor).MoveToWorld(new(col,row,z),map);}
+    }
+    private static PlayerMobile Fresh()
+    {
+        var p=new PlayerMobile{Body=0x190,Player=true,Name="WolverineWorldFixture"};p.AddItem(new Backpack());
+        ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);
+        void Train(string id)
+        {Require(TalentCatalog.TryGet(DiabloClass.Druid,id,out var talent),"Talent");foreach(var prior in talent.Prerequisites){if(ClassCreation.Profiles.GetRank(p.Serial,prior)==0){Train(prior);}}Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
+        Train("druid.heartofwolverine");
+        int y=2000+64*_scene++;Floor(Map.Trammel,6800,y,100);p.MoveToWorld(new(6800,y,100),Map.Trammel);return p;
+    }
+    private static DruidWolverineBody Create(PlayerMobile p,Point3D point,DateTime at,ulong seed)
+    {
+        var body=DruidOakWorld.Create(p,point,at,seed,CombatAbility.HeartOfWolverine) as DruidWolverineBody;
+        Require(body!=null&&body.SourceMonsterId=="heartofwolverine"&&body.Prepared.Birth.Regeneration256==25,"Wrong spirit identity/birth");return body;
+    }
+    private static void End(PlayerMobile p)
+    {
+        foreach(var pet in (p.AllFollowers??[]).OfType<BaseCreature>().ToArray()){DruidWolverineAuras.Clear(pet);}
+        DruidWolverineAuras.Clear(p);PersistentMinions.Dismiss(p);p.Delete();
+    }
+    private static void Through(DruidOakBody body,int frame,bool actions=true)
+    {
+        var s=body.Prepared.Controller;Require(frame>s.Frame,"Reverse Wolverine test frame");
+        body.Advance(s.NextUtc.AddMilliseconds((frame-s.Frame-1)*40L),actions);
+    }
+    private static void Movement()
+    {
+        var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=Create(p,new(p.X+14,p.Y,p.Z),at,735);
+        try
+        {
+            var origin=body.Location;Through(body,14);Require(body.Location==origin&&body.Prepared.Controller.Thinks==0,"Wolverine ignored labelled initial aidel timing");
+            Through(body,15);var path=body.Prepared.Controller;Require(path.Motion.Points.Length>0,"Follow fixture has no saved path");
+            var first=path.Motion.Points[0];path.Motion.Points[0]=new(1,1);Require(body.Prepared.Controller.Motion.Points[0]==first,"Caller changed saved Wolverine path points");
+            Through(body,120);Require(body.Prepared.Controller.Fault==null&&Math.Abs(body.X-p.X)<14&&body.Prepared.Controller.Thinks>0,"Wolverine common-pet follow did not move");
+            var before=body.Prepared.Controller;SkillHealth.SetBalance256(body,6407);body.Advance(before.NextUtc.AddMinutes(1),false);
+            Require(body.Map==Map.Internal&&SkillHealth.Balance256(body)==6407&&body.Prepared.Controller.Seed==before.Seed,"Offline Wolverine moved/drew/healed");
+            int regen=BattleOrders.Regeneration256(body);body.Advance(body.Prepared.Controller.NextUtc,true);
+            Require(body.Map==p.Map&&SkillHealth.Balance256(body)==6407+regen,"Wolverine resume replayed offline recovery");
+            var good=body.Prepared;string bytes=body.SavedText;bool refused=false;
+            try{body.RestorePrepared(good with{Controller=good.Controller with{Frame=-1}});}catch(InvalidDataException){refused=true;}
+            Require(refused&&body.SavedText==bytes,"Invalid Wolverine controller changed saved state");
+            var legacy=JsonSerializer.SerializeToNode(new OakBodyState(p.Serial.Value,good.Birth,good.Difficulty,good.NextRecoveryUtc));legacy.AsObject().Remove("Controller");
+            var decoded=legacy.Deserialize<OakBodyState>();DruidOakBody.Validate(decoded,CombatAbility.HeartOfWolverine);
+            Require(decoded.Controller==null&&decoded.Birth==good.Birth,"Legacy body-only JSON lost birth or invented motion");
+        }
+        finally{End(p);}
+    }
+    private static void WarpAndEscape()
+    {
+        var p=Fresh();var at=TimedEffects.Now.AddDays(2);var body=Create(p,new(p.X+24,p.Y,p.Z),at,736);
+        try
+        {
+            Through(body,15);Require(body.Prepared.Controller is{Teleports:1,Mode:1,NextThink:40}&&Math.Abs(body.X-p.X)<=4,"Wolverine far-owner free-position teleport/idle");body.Delete();
+            var enemy=new GraveyardZombie{CantWalk=true,NoKillAwards=true};enemy.MoveToWorld(new(p.X+3,p.Y,p.Z),p.Map);enemy.AIObject.AITimer.Stop();
+            try
+            {
+                ulong chosen=0;for(ulong seed=1;seed<100;seed++){ulong cursor=seed;if(SourceRandom.Roll(ref cursor)%100<20){chosen=seed;break;}}
+                Require(chosen!=0,"No escape fixture seed");var retreat=Create(p,new(p.X+2,p.Y,p.Z),at,chosen);Through(retreat,15);
+                Require(retreat.Prepared.Controller is{EscapeAttempts:1,Mode:2}&&retreat.Prepared.Controller.Motion.FinalTarget.X<retreat.X*2,"Wolverine did not retreat from combat target");
+                var before=retreat.Prepared.Controller;var position=retreat.Location;retreat.Frozen=true;Through(retreat,40);
+                Require(retreat.Location==position&&retreat.Prepared.Controller.Seed==before.Seed&&retreat.Prepared.Controller.Thinks==before.Thinks,"Frozen Wolverine moved or ran AI");
+                retreat.Frozen=false;
+            }
+            finally{enemy.Delete();}
+        }
+        finally{End(p);}
+    }
+    private static void Lifecycle()
+    {
+        var p=Fresh();var facets=SummonDifficulties.Facets();var at=TimedEffects.Now.AddDays(2);var body=Create(p,new(p.X+2,p.Y,p.Z),at,737);
+        try
+        {
+            Through(body,10);SkillHealth.SetBalance256(body,6407);var seed=body.Prepared.Controller.Seed;
+            Require(WardrobeTransaction.ChangeClass(p,DiabloClass.Paladin,out _,out _),"Wolverine world wardrobe park");
+            body.Advance(body.Prepared.Controller.NextUtc.AddMinutes(1),true);
+            Require(body.Map==Map.Internal&&SkillHealth.Balance256(body)==6407&&body.Prepared.Controller.Seed==seed,"Inactive Wolverine AI/healing replay");
+            Require(WardrobeTransaction.ChangeClass(p,DiabloClass.Druid,out _,out _),"Wolverine world wardrobe restore");body.Advance(body.Prepared.Controller.NextUtc,true);
+            Floor(Map.Felucca,p.X,p.Y,p.Z);SummonDifficulties.SetFacets([new(Map.Trammel.MapID,MonsterDifficulty.Normal),new(Map.Felucca.MapID,MonsterDifficulty.Hell)]);
+            p.MoveToWorld(p.Location,Map.Felucca);int life=SkillHealth.Balance256(body),regen=BattleOrders.Regeneration256(body);
+            body.Advance(body.Prepared.Controller.NextUtc,true);
+            Require(body.Map==p.Map&&body.Prepared.Controller.Map==p.Map.MapID&&body.Prepared.Difficulty==MonsterDifficulty.Hell&&body.PoisonResistance==200
+                && SkillHealth.Balance256(body)==life+regen,"Active Wolverine facet transport/rescale altered injury or replayed recovery");
+            p.Kill();Require(body.Deleted,"Owner death retained world Oak");p.Corpse?.Delete();
+        }
+        finally{SummonDifficulties.SetFacets(facets);End(p);}
+    }
+    private static void Check()
+    {
+        Movement();WarpAndEscape();Lifecycle();
+        var p=Fresh();var body=Create(p,new(p.X+14,p.Y,p.Z),TimedEffects.Now.AddDays(2),738);Through(body,80);SkillHealth.SetBalance256(body,6407);PersistentMinions.Suspend(p);
+        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(p.Serial.Value,body.Serial.Value,body.Prepared,SkillHealth.Balance256(body),p.Map.MapID,p.Location)));
+        Log.Information("Wolverine world: source-pet follow, size-aware free-position warp, chance-gated escape, frozen/offline RNG suppression, wardrobe/facet/owner-death and legacy body-only decode pass; first-think timing and geometry remain labelled adapters");
+    }
+    private static void Reload()
+    {
+        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var body=World.FindMobile((Serial)saved.Body) as DruidWolverineBody;
+        Require(body is{Alive:true,Deleted:false}&&body.ControlMaster==p&&body.Map==Map.Internal&&body.SavedText==JsonSerializer.Serialize(saved.State)
+            && SkillHealth.Balance256(body)==saved.Life,"Saved Wolverine controller/birth/pose/injury changed");
+        if(p.Map==Map.Internal){p.MoveToWorld(saved.Point,Map.Maps[saved.Map]);}
+        var before=body.Prepared.Controller;body.Advance(before.NextUtc,false);
+        Require(SkillHealth.Balance256(body)==saved.Life&&body.Prepared.Controller.Seed==before.Seed&&body.Prepared.Controller.Thinks==before.Thinks,"Reload replayed Wolverine RNG/AI/healing");
+        int regen=BattleOrders.Regeneration256(body);body.Advance(body.Prepared.Controller.NextUtc,true);
+        Require(body.Map==p.Map&&SkillHealth.Balance256(body)==Math.Min(body.MaximumLife256,saved.Life+regen),"Loaded Wolverine did not resume one active recovery frame");
+        PersistentMinions.Suspend(p);File.WriteAllText(Manifest,JsonSerializer.Serialize(saved with{State=body.Prepared,Life=SkillHealth.Balance256(body)}));
+    }
+    private static void Live(NetState network)
+    {
+        var p=Fresh();network.Seeded=network.SentFirstPacket=true;network.CompressionEnabled=false;
+        var field=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+        Require(field!=null,"Wolverine protocol bootstrap");field.SetValue(network,Enum.Parse(field.FieldType,"GameServer_LoggedIn"));
+        var account=new Account("wolverine-world-"+Guid.NewGuid().ToString("N"),Guid.NewGuid().ToString("N"));account[0]=p;
+        network.Account=account;network.Mobile=p;p.NetState=network;network.ResetMovementState();
+        int maximum=p.HitsMax;var body=Create(p,new(p.X+14,p.Y,p.Z),TimedEffects.Now,739);var origin=body.Location;long deadline=Core.TickCount+12000;bool followed=false;
+        void Inspect()
+        {
+            try
+            {
+                Require(network.Running&&Core.TickCount<deadline&&(followed||!body.Deleted&&body.Prepared.Controller.Fault==null),"Natural Wolverine follow/aura clock timed out/refused");
+                if(!followed&&body.Location!=origin&&DruidWolverineAuras.AttackPercent(p)==25 && DruidWolverineAuras.DamagePercent(p)==20)
+                {Require(Math.Abs(body.X-p.X)<14&&body.Prepared.Controller.Thinks>0,"Natural Wolverine moved away from owner");body.Delete();followed=true;}
+                if(followed&&DruidWolverineAuras.State(p)==null)
+                {
+                    Require(p.HitsMax==maximum,"Natural Wolverine expiry did not restore player maximum");End(p);account.Delete();Log.Information("wolverine-world-live-result: passed");return;
+                }
+                Timer.StartTimer(TimeSpan.FromMilliseconds(30),Inspect);
+            }
+            catch(Exception e){body.Delete();End(p);account.Delete();Log.Error(e,"wolverine-world-live-result: failed");}
+        }
+        Timer.StartTimer(TimeSpan.FromMilliseconds(30),()=>{Log.Information("wolverine-world-live: ready");Inspect();});
+    }
+}

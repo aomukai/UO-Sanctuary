@@ -38,12 +38,12 @@ internal static class DruidOakWorld
         if(p.X<=0 || p.Y<=0 || p.X>=map.Width*2 || p.Y>=map.Height*2){throw new InvalidDataException("Oak pose outside facet");}
         SourceActorMotion.Advance(s.Motion with{Flags=s.Motion.Flags&~0x20},(_,_)=>throw new InvalidOperationException());
     }
-    internal static DruidOakBody Create(PlayerMobile owner,Point3D point,DateTime at,ulong seed)
+    internal static DruidOakBody Create(PlayerMobile owner,Point3D point,DateTime at,ulong seed,CombatAbility ability=CombatAbility.OakSage)
     {
-        var body=DruidOakBody.CreatePrepared(owner,point,at);
+        var body=DruidOakBody.CreatePrepared(owner,point,at,ability);
         try
         {
-            int first=NecromancerSummons.Source("oaksage","aidel",body.SummonDifficulty);
+            int first=NecromancerSummons.Source(body.SourceMonsterId,"aidel",body.SummonDifficulty);
             if(first!=15){throw new NotSupportedException("Unsupported Oak entry-delay table");}
             var state=new OakWorldState(owner.Map.MapID,DruidRavenMotion.Center(point.X*2,point.Y*2),seed,at.AddMilliseconds(40),NextThink:first);
             body.RestorePrepared(body.Prepared with{Controller=state,Profile="source-birth-and-totem-motion-v2"});PetOwnerRoutes.For(owner,at);return body;
@@ -102,8 +102,8 @@ internal static class DruidOakWorld
         body.Direction=body.GetDirectionTo(new Point3D((target.X+1)/2,(target.Y+1)/2,body.Z));
         s=s with{Mode=2,NextThink=0,Motion=path.Motion,MovingBonus=bonus};return true;
     }
-    private static int Speed(DruidOakBody body,int bonus)=>SourceActorMotion.Speed(NecromancerSummons.Source("oaksage","Velocity"),
-        NecromancerSummons.Source("oaksage-animation","WLSpeed"),100+bonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body),0).Velocity;
+    private static int Speed(DruidOakBody body,int bonus)=>SourceActorMotion.Speed(NecromancerSummons.Source(body.SourceMonsterId,"Velocity"),
+        NecromancerSummons.Source(body.SourceMonsterId+"-animation","WLSpeed"),100+bonus+PaladinVigor.VelocityPercent(body)-GearEffects.MovementSlow(body),0).Velocity;
     private static bool Warp(DruidOakBody body,PlayerMobile owner,ref OakWorldState s)
     {
         // Shared native free-coordinate projection. Source requests size2and
@@ -159,7 +159,7 @@ internal static class DruidOakWorld
         }
         try
         {
-            DruidTotemAi.Think(new(true,mode,body.SummonDifficulty),new(delay=>s=Neutral(s,delay),Find,_=>(int)(Draw(ref s)%100),Escape,
+            DruidTotemAi.Think(new(true,mode,body.SummonDifficulty,body.SourceMonsterId),new(delay=>s=Neutral(s,delay),Find,_=>(int)(Draw(ref s)%100),Escape,
                 ()=>DruidWolfGeometry.UnitDistance(Cell(s),ownerCell,2,2),()=>Warp(body,owner,ref s),
                 (kind,run,speed,leash)=>SourcePetMovement.Move(Context(),services,kind,run,speed,leash),
                 (target,combat,flag,leash)=>SourcePetMovement.Common(Context(),services,target!=0,SpellHelper.IsTown(body.Location,owner),combat,flag,leash)));
@@ -203,7 +203,7 @@ internal static class DruidOakWorld
             Store(body,s);body.AIObject?.AITimer.Stop();
         }
         // Keep the existing no-lag-pulse-replay aura clock separate from motion.
-        DruidOakAuras.Advance(body,at);
+        body.AdvanceAura(at);
     }
     internal static void Fault(DruidOakBody body,string message)
     {if(body.Prepared?.Controller is{} s){Store(body,Park(s) with{Fault=message});}}

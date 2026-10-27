@@ -86,6 +86,6 @@ public static class DragonKickDamage
         // uses a different selected-primary context and is not supplied here.
         // Item ED stays outside the source global-ED lower clamp.
         return new(owner.Str,owner.Dex,ClassStats.Level(owner),true,skillDamagePercent,Boots(owner),flatKickDamage,
-            PaladinAuras.DamagePercent(owner)+NecromancerEffects.DamageStatPercent(owner),itemPercent);
+            CombatAuras.DamagePercent(owner)+NecromancerEffects.DamageStatPercent(owner),itemPercent);
     }
 }

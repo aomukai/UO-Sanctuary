@@ -93,7 +93,7 @@ public static class ClassStats
     {
         if (mobile is BaseCreature creature)
         {
-            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+PaladinAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature);
+            int basis=CreatureProfiles.AttackRating(creature),percent=skillPercent+(SorceressEffects.Enchantment(creature)?.AttackPercent??0)+CombatAuras.AttackPercent(creature)+NecromancerEffects.AttackStatPercent(creature);
             return basis+(int)((long)basis*percent/100);
         }
         if (mobile is not PlayerMobile player || !ClassCreation.Profiles.TryGet(mobile.Serial, out var profile))
@@ -112,7 +112,7 @@ public static class ClassStats
         return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
     }
     internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
-        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+PaladinAuras.AttackPercent(player);
+        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {
@@ -161,7 +161,7 @@ public static class ClassStats
         if(!projectile && notifyMelee){SorceressEffects.MeleeAttempt(attacker, defender);}
         bool classAttack = attacker is PlayerMobile a && ClassCombat.Enabled(a);
         bool classDefense = defender is PlayerMobile d && ClassCombat.Enabled(d);
-        if (!classAttack && !classDefense && !PaladinAuras.CombatStats(attacker) && !PaladinAuras.CombatStats(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
+        if (!classAttack && !classDefense && !CombatAuras.Managed(attacker) && !CombatAuras.Managed(defender) && attacker is not (GraveyardUndead or SkeletonGuardian) && defender is not (GraveyardUndead or SkeletonGuardian or AmazonDecoy)
             && SorceressEffects.Enchantment(attacker) == null && NecromancerEffects.DefenseStatPercent(defender)==0 && NecromancerEffects.AttackStatPercent(attacker)==0 && AmazonInnerSight.State(defender)==null)
         {
             return null;
@@ -194,7 +194,7 @@ public static class ClassStats
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
         }
-        return statBonus + NamedGear.SetBonus(player, "dmg%") + PaladinAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2);
+        return statBonus + NamedGear.SetBonus(player, "dmg%") + CombatAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2);
     }
     internal static int WeaponStatPercent(int strength,int dexterity,int strengthBonus,int dexterityBonus)
         =>(int)((long)strengthBonus*strength/100+(long)dexterityBonus*dexterity/100);

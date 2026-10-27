@@ -44,7 +44,7 @@ internal static class DruidSpiritWolfHit
     internal static int Chance(DruidSpiritWolfBody body,BaseCreature target)
     {
         var birth=body.Prepared.Snapshot.Birth;
-        int percent=(SorceressEffects.Enchantment(body)?.AttackPercent??0)+PaladinAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
+        int percent=(SorceressEffects.Enchantment(body)?.AttackPercent??0)+CombatAuras.AttackPercent(body)+NecromancerEffects.AttackStatPercent(body);
         // Source monster Dexterity starts at zero here. SkeletonGuardian's
         // native20Dex and the owner's item/mastery/species AR are not inherited.
         return AssassinTrapAttack.Chance(birth.Level,checked(birth.BaseAttack+birth.AttackBonus),0,percent,

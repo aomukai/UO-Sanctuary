@@ -3,7 +3,7 @@ using System;
 namespace Sanctuary;
 
 internal readonly record struct TotemTarget(int Id,bool Combat);
-internal sealed record TotemContext(bool HasOwner,int OwnerMode,MonsterDifficulty Difficulty=MonsterDifficulty.Normal);
+internal sealed record TotemContext(bool HasOwner,int OwnerMode,MonsterDifficulty Difficulty=MonsterDifficulty.Normal,string Source="oaksage");
 internal sealed record TotemServices(Action<int> Idle,Func<int,TotemTarget> Target,Func<int,int> Percentage,
     Func<int,int,bool,bool> Escape,Func<int> OwnerDistance,Func<bool> Teleport,
     Func<int,bool,int,int,bool> PetMove,Func<int,bool,int,int,bool> CommonMove);
@@ -16,10 +16,10 @@ internal static class DruidTotemAi
     {
         ArgumentNullException.ThrowIfNull(c);ArgumentNullException.ThrowIfNull(s);
         if(c.OwnerMode is <0 or >19 || c.Difficulty is <MonsterDifficulty.Normal or >MonsterDifficulty.Hell
-            || s.Idle==null || s.Target==null || s.Percentage==null || s.Escape==null || s.OwnerDistance==null
+            || c.Source is not("oaksage" or "heartofwolverine") || s.Idle==null || s.Target==null || s.Percentage==null || s.Escape==null || s.OwnerDistance==null
             || s.Teleport==null || s.PetMove==null || s.CommonMove==null)
         {throw new ArgumentException("Unsupported Totem AI context/services");}
-        int P(int index)=>NecromancerSummons.Source("oaksage","aip"+index,c.Difficulty);
+        int P(int index)=>NecromancerSummons.Source(c.Source,"aip"+index,c.Difficulty);
         bool Chance(int index)
         {
             int roll=s.Percentage(index-1);if(roll is <0 or >99){throw new ArgumentException("Totem percentage outside0..99");}
