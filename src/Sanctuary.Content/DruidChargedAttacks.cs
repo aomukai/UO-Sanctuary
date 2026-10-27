@@ -13,26 +13,27 @@ internal static class DruidChargedAttacks
     internal static Func<double> ElementRoll=Utility.RandomDouble;
     internal static Func<int,int> PhysicalRoll=Utility.Random;
     internal static Random Effects=Random.Shared;
-    // Feral uses the same model, but its live velocity/leech route follows Maul.
-    internal static bool Handles(CombatAbility ability)=>ability==CombatAbility.Maul;
-    internal static bool ValidTarget(PlayerMobile owner,Serial selected)
+    // Both current start56/do120 rows share this contact/charge transaction.
+    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.Maul or CombatAbility.FeralRage;
+    internal static bool ValidTarget(PlayerMobile owner,CombatAbility ability,Serial selected)
     {
         var target=World.FindMobile(selected);
         return owner.Map!=null&&owner.Map!=Map.Internal&&DruidFormAttacks.Active(owner)&&DruidFormAttacks.Supported(owner)
-            &&target is BaseCreature creature&&CombatStuns.Rules(creature,out _,out _)&&ClassCombat.IsHostile(owner,target)
+            &&target is BaseCreature creature&&(ability!=CombatAbility.Maul||CombatStuns.Rules(creature,out _,out _))&&ClassCombat.IsHostile(owner,target)
             &&owner.InRange(target,DruidFormAttacks.Reach(owner))&&owner.InLOS(target)&&Math.Abs(owner.Z-target.Z)<16
             &&SpellHelper.CheckTown(owner.Location,owner)&&SpellHelper.CheckTown(target.Location,owner);
     }
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
-        if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,selected)){return false;}
+        if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,selected)){return false;}
         var values=SkillMechanics.Values(owner,ability);
-        // Approved Sanctuary melee fallback: insufficient mana makes an ordinary
-        // attack. It grants no new charge and uses the ordinary attack's timing.
+        // Current AttackNoMana1 and the pinned older player dispatcher support
+        // ordinary Attack at low mana; exact modern outcome remains unverified.
+        // No new charge or early control-pass acquisition rule is introduced.
         if(!NecromancerEffects.CanPay(owner,values.Mana256))
         {return ClassCombat.Perform(owner,CombatAbility.BasicAttack,World.FindMobile(selected),point,now);}
         var form=DruidPlayerForms.State(owner);
-        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
+        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,ability,id))){return false;}
         var session=ClassCombat.For(owner);var target=(BaseCreature)World.FindMobile(selected);
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         // Source start56 allocates the hit and existing charge damage/stun before
@@ -52,7 +53,7 @@ internal static class DruidChargedAttacks
         var session=ClassCombat.For(owner);var pending=session.DruidChargeAttack;
         if(pending==null||now<pending.EffectAt){return false;}session.DruidChargeAttack=null;
         if(pending.Ability!=ability||pending.Target!=session.PendingTarget||!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner))
-            ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,pending.Target)){return false;}
+            ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,pending.Target)){return false;}
         var target=World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
         using var attempt=PaladinThorns.Attempt(owner,target,false);

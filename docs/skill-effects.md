@@ -314,3 +314,5 @@ Lightning Bolt uses logical projectile0xF42 and throw sound0x238 as identified p
 Plague Javelin uses logical throw0xF42, sound0x238 and green0x374A cloud markers as identified placeholders. Final Javelin/PoisonSparks/poisonpuff moving impact clouds, contact/cast/explosion/loop audio remain pending. Talent/L/R/quick-hotkey icons remain separate.
 
 Lightning Fury uses logical projectile0xF42 and throw sound0x238 as identified placeholders. Final LightningJavelin parent and LightningStrike secondary travel/contact, amazon_lightning_1 and sorceress_lightning_1 audio remain pending. Talent/L/R/quick-hotkey icons stay in the separate register.
+
+Feral Rage uses identified human Wrestle/contact sound0x238 and generic charge flash0x375A. Final feralrage orb front/back overlays,charge-size display,wolf A1/contact and cast/expiry audio remain pending independently of leech/speed mechanics. Its talent/left/right/quick icons remain in the separate register.

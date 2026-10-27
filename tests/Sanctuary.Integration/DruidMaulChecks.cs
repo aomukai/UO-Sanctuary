@@ -155,7 +155,7 @@ public static class DruidMaulChecks
             pending=Begin(p,target);DruidPlayerForms.Clear(p);Require(State(p)==null&&ClassCombat.For(p).DruidChargeAttack==null,"Unshift retained matching-group charge/action");
             Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now)&&!ClassCombat.ResolveAction(p,pending.EffectAt),"New form replayed prior Maul");
             Require(HitRecovery.Apply(p,p.HitsMax,Core.TickCount)&&State(p)==null,"Unshift/reentry retained old concentration action guard");
-            Ready(p);Require(!DruidCombat.Available(p,CombatAbility.FeralRage),"Unimplemented Feral handler enabled");
+            Ready(p);Require(!DruidCombat.Available(p,CombatAbility.FeralRage),"Wrong-form/untrained Feral route");
             // Actual soft-rank gear changes cap and stored level at do120, while
             // the previously allocated damage packet remains unchanged.
             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.Name=="Tarnhelm").Id,99,new Random(321),true);

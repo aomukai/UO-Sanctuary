@@ -252,3 +252,5 @@ Maul needs talent-tree and left/right/quick-hotkey artwork; current text labels 
 | Warlock | Enhanced Entropy | needed | not-applicable |
 | Warlock | Apocalypse | needed | needed |
 | Warlock | Abyss | needed | needed |
+
+Feral Rage needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.

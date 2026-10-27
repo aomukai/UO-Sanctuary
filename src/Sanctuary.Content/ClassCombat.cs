@@ -94,8 +94,8 @@ public static class ClassCombat
         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
-        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
+            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
+        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
         ClassCombatHooks.EquipmentChanged = from =>
         {
             if (ClassCombat.Enabled(from))

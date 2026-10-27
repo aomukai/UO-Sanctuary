@@ -35,8 +35,8 @@ public static class WeaponLeech
     }
     internal static PlayerWeaponDrain Capture(PlayerMobile owner,PlayerWeaponDrain skill=default)
     {
-        int Percent(string code,int extra)=>(int)Math.Clamp((long)ClassGear.Bonus(owner,code)+CombatPotions.Bonus(owner,"stealing")+extra,0,int.MaxValue);
-        return new(Percent("life-steal%",skill.LifePercent),Percent("mana-steal%",skill.ManaPercent));
+        int Percent(string code,long extra)=>(int)Math.Clamp((long)ClassGear.Bonus(owner,code)+CombatPotions.Bonus(owner,"stealing")+extra,0,int.MaxValue);
+        return new(Percent("life-steal%",(long)skill.LifePercent+DruidAttackCharges.LifeDrainPercent(owner)),Percent("mana-steal%",skill.ManaPercent));
     }
     internal static void Apply(PlayerMobile owner,BaseCreature target,int physical256,MissileSourceStats saved)
         =>Apply(owner,target,physical256,new PlayerWeaponDrain(saved.LifeDrain,saved.ManaDrain));

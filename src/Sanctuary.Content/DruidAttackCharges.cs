@@ -41,13 +41,20 @@ internal static class DruidAttackCharges
     internal static int DamagePercent(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.DamagePercent??0;
     internal static int AttackRate(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.AttackRate??0;
     internal static int StunFrames(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.StunFrames??0;
+    internal static int Velocity(PlayerMobile owner)=>State(owner,CombatAbility.FeralRage)?.VelocityPercent??0;
+    internal static int LifeDrainPercent(PlayerMobile owner)
+    {
+        var charge=State(owner,CombatAbility.FeralRage);if(charge==null){return 0;}
+        if(charge.LifeDrainMinimum!=charge.LifeDrainMaximum){throw new NotSupportedException("Unmapped variable Druid charge leech");}
+        return charge.LifeDrainMinimum;
+    }
     internal static bool Gain(PlayerMobile owner,SkillValues values)
     {
         if(!Owner(owner)||DruidPlayerForms.State(owner)==null||!ShapeRestrictions.Allowed(owner,values.Ability)){return false;}
         var next=DruidAttackChargeModel.Gain(State(owner,values.Ability),values,TimedEffects.Now,Allocate);
         if(next==null){return false;}
         var owned=new OwnedDruidAttackCharge(owner.Serial.Value,next);_states=_states.SetItem((owned.Owner,next.Ability),owned);
-        owner.FixedEffect(0x375A,5,5,0x481,0); // Identified charge flash; source maul orb front/back art remains pending.
+        owner.FixedEffect(0x375A,5,5,0x481,0); // Identified charge flash; source maul/feralrage orb front/back art remains pending.
         StatNetwork.Send(owner);return true;
     }
     internal static void Clear(PlayerMobile owner)
