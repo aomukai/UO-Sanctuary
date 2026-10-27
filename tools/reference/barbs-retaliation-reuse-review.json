@@ -1,0 +1,26 @@
+{
+  "referenceVersion": "3.3.93847",
+  "scope": "Current reuse review only; no Barbs handler or fixed return-order certificate.",
+  "sourceHashes": {
+    "src/Sanctuary.Content/PaladinThorns.cs": "fcb849315279a9cf94925c272a41ebfd8402a54ac5f6d4f88951c75fb4b29a8d",
+    "src/Sanctuary.Content/GearEffects.cs": "593e6e3ec8f94ed0d8b8c33b51f15d99c6dc7fa697bebe48a0d85ba1e4c974e2",
+    "src/Sanctuary.Content/NecromancerEffects.cs": "8a9676bc2a7d47a5e7673b59c5a36ecad79413a87a494b82956d03759b07cb37",
+    "src/Sanctuary.Content/SkillCombat.cs": "8281211c4bdce0644471f82a34369162fddaae6abfbbfa4dd970d4b25c6f3a83",
+    "tools/reference/retaliation-event-order-gap.json": "b68ec3e6fda45b2901c6a469bc2e59cfa938322b6f26a07d538d3e55f10593fa",
+    "tools/reference/paladin-thorns-engine-evidence.json": "7bd8c151567fb737de54cda064ad9291f627d7a331635e19cdcb1d189142ad59",
+    "tools/reference/spirit-of-barbs-preflight.json": "b99ff9d117aab313fcdea7f471c44ed7a47b423bd71d5d4126eb1250278bcabe"
+  },
+  "established": [
+    "Current licensed stat78binds flat ATD to attackedinmelee/function6; reviewed older callback reads one aggregate item/skill stat and produces one physical packet. Barbs adds no thorns_percent.",
+    "Existing PaladinThorns.Attempt allocates its scope only when a Paladin Thorns lease exists,and Prepared/Dispose use that lease alone. Barbs needs a generic flat-stat contributor path rather than a fabricated Paladin lease or a second independent packet.",
+    "Current GearEffects.Strike,NecromancerEffects.PreparedNativeWeaponHit and SkillCombat.ResolveHitParts call PaladinThorns.Prepared before LifeTap. Life Tap is now pre-life-commit but still follows return. The historical gap description saying only post-hit is stale; the lethal return/heal ordering issue remains real."
+  ],
+  "next": [
+    "Verify the whole prepared event phase against existing Life Tap/leech source evidence,including native AOS and special melee/missile consumers,before moving callbacks. Preserve percentage Thorns clipping and suppressed return events.",
+    "Sum source-compatible aura/item flat ATD before its one mitigation packet; keep approved distinct gem/material effects separate unless their source contracts match.",
+    "Test lethal healing rescue,miss/block/zero/mixed/physical/ranged/spell cases,combined Barbs/Thorns,source credit,nonrecursion and real reloads. Do not alter the frozen Wolverine C#/data/DLL inputs during its full regression."
+  ],
+  "assets": [
+    "Final Barbs body/control/recipient and retaliation contact/audio remain effects backlog. Talent/right/quick icons remain separate placeholders."
+  ]
+}

@@ -27,9 +27,9 @@
     "namedInputFingerprints": 632,
     "firstLoopInputFingerprints": 21
   },
-  "fullClassRegression": false,
-  "fullClassBoots": 0,
-  "fullClassPassMarkers": null,
+  "fullClassRegression": true,
+  "fullClassBoots": 3,
+  "fullClassPassMarkers": 1184,
   "clientReusedByteIdentical": true,
   "clientMetadataReflection": true,
   "graphicalClientAcceptance": false,
@@ -967,7 +967,12 @@
     "tests/check_wolverine.py": "4876faa43d467b6988840fcdc83ca7eb8cd2594ddfc802b5c295ab158fe2307d",
     "tests/check_creeper_stats.py": "46615fa5b96a993a23865424c4ce6a4d2f8dc5ba87b639f09e302cea12a38f3d",
     "tools/record_wolverine_candidate.py": "2aea302dc6ecf464c5e04358c41de37f28ad8b096f48accebe908593f03097a9",
-    "tools/probe_oak_skill_rank_reference.py": "6f3961d4b3acdb982aac134750f8544b48dbf95dd02f25980003ab12737f392a"
+    "tools/probe_oak_skill_rank_reference.py": "6f3961d4b3acdb982aac134750f8544b48dbf95dd02f25980003ab12737f392a",
+    ".local/class-skills/wolverine/full-named-item-runtime-audit.json": "7920a2b716c9ef303a20eeb60c0c97b30b860a19b86badb762d472bf7a58edc8",
+    ".local/class-skills/wolverine/full-first-loop-affix-audit.json": "06febc1cee0d99ebd7a8733e0f58d34379f402de248b06e584764bd7df142d0b",
+    ".local/class-skills/wolverine/class-inputs.json": "6d38d564a0066430852270a00544411db20d1b35b5868e0627bfac08c4c796db",
+    ".local/class-skills/wolverine/class-native-checks.log": "2fdb7a7a42277102c31226fad5be97d91ee6eddf74a3d1f951d4faad40ce47dc",
+    ".local/class-skills/wolverine/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Shared do119birth/base/passives and saved body/controller preserve the actual derived Heart type and old Oak save shape. Heart uses136life/123defense,25percent birth-life scaling,25FP regeneration and232walking rate. Three natural connected movement/aura/expiry runs and two real body/controller/aura/cast reloads pass, with retained Oak/Wolf/Creeper/resource checks.",
