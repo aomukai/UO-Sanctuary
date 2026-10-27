@@ -3,10 +3,13 @@
   "source": "Direct user observation in this task,2026-10-28",
   "observed": {
     "sameFormRecast": "Returns to human without mana cost",
-    "verbatim": "yes, using it again returns you to human without mana cost"
+    "verbatim": "yes, using it again returns you to human without mana cost",
+    "enteringFormLife": "Preserves current life percentage",
+    "enteringFormLifeVerbatim": "yes, you retain your relative hitpoints, not your absolute"
   },
   "interpretation": [
     "Corroborates free same-form unshift. Do not charge the ordinary15mana entering-form price on this confirmed path.",
-    "The reply does not independently establish direct wolf-to-bear switching, exact delay/animation frames, zero-mana entry, current-life adjustment or stat refresh behavior. Those remain separate checks."
+    "Entering a form preserves relative life. This corroborates proportional entry adjustment, rather than preserving the absolute current-life number.",
+    "The replies do not independently establish direct wolf-to-bear switching, exact delay/animation frames, zero-mana entry, current-life behavior on voluntary unshift/expiry/low-life forced removal or stat refresh behavior. Those remain separate checks."
   ]
 }

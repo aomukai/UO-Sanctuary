@@ -100,6 +100,7 @@ def build(local_root, installation, check=False):
     observation_path = ROOT / 'tools/reference/druid-forms-user-observations.json'
     observations = json.loads(observation_path.read_text())
     assert observations['observed']['sameFormRecast'] == 'Returns to human without mana cost'
+    assert observations['observed']['enteringFormLife'] == 'Preserves current life percentage'
     result = dict(referenceVersion='3.3.93847', scope='Current-data and complete legacy-source preparation; no learned player forms or native equivalence accepted',
         handlerEnabled=False, installed=False, executableSha256=beasts['executableSha256'], buildInfoSha256=beasts['buildInfoSha256'],
         primaryDataCommit=manifest['commit'], legacyCommit=tree['sha'], localTables=pins, currentRows=rows, corroboratedFields=compared,
@@ -111,6 +112,7 @@ def build(local_root, installation, check=False):
             'Complete legacy do116 first removes active same-group states and returns0 after applying delay; the ordinary handler returns before mana consumption on that path. Its separate mana guard permits do116while already shifted. The user confirms free same-form unshift in the pinned build.',
             'New legacy form allocates a timed state, posts/toggles it, schedules removal, applies up to six formula stats, records skill/rank and selects skill mode10. Attackrate also writes OTHER_ANIMRATE. Removal restores the player skill to CAST; these full routines are pinned for subsequent executable comparisons.',
             'Legacy sequence22 is a16-entry reversed S1animation15..0with an action at index13. Current SC,UseAttackRate and form metadata must be composed with the live form conversion path before timing acceptance.',
+            'The user confirms entering a form preserves relative current life. Existing proportional player-resource helpers are reuse candidates; this observation does not separately establish voluntary/expired/low-life return behavior.',
         ], remaining=[
             'No native saved form/life/stamina/AR/damage/defense/concentration/rate/restriction consumer, casting/input/payment/delay or reload acceptance is claimed. Reuse existing player stat, resource, weapon, animation and persistence services where semantics agree.',
             'Direct cross-form selection, modern rank1payment versus legacy minimum-mana quirk, stat capture/refresh,life adjustment/expiry/low-life unshift,global versus local delay and post-2.4attack-rate composition require further source/current-build corroboration.',
