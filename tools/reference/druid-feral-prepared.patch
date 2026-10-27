@@ -1,0 +1,272 @@
+--- a/src/Sanctuary.Content/DruidAttackCharges.cs
++++ b/src/Sanctuary.Content/DruidAttackCharges.cs
+@@ -41,13 +41,20 @@
+     internal static int DamagePercent(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.DamagePercent??0;
+     internal static int AttackRate(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.AttackRate??0;
+     internal static int StunFrames(PlayerMobile owner)=>State(owner,CombatAbility.Maul)?.StunFrames??0;
++    internal static int Velocity(PlayerMobile owner)=>State(owner,CombatAbility.FeralRage)?.VelocityPercent??0;
++    internal static int LifeDrainPercent(PlayerMobile owner)
++    {
++        var charge=State(owner,CombatAbility.FeralRage);if(charge==null){return 0;}
++        if(charge.LifeDrainMinimum!=charge.LifeDrainMaximum){throw new NotSupportedException("Unmapped variable Druid charge leech");}
++        return charge.LifeDrainMinimum;
++    }
+     internal static bool Gain(PlayerMobile owner,SkillValues values)
+     {
+         if(!Owner(owner)||DruidPlayerForms.State(owner)==null||!ShapeRestrictions.Allowed(owner,values.Ability)){return false;}
+         var next=DruidAttackChargeModel.Gain(State(owner,values.Ability),values,TimedEffects.Now,Allocate);
+         if(next==null){return false;}
+         var owned=new OwnedDruidAttackCharge(owner.Serial.Value,next);_states=_states.SetItem((owned.Owner,next.Ability),owned);
+-        owner.FixedEffect(0x375A,5,5,0x481,0); // Identified charge flash; source maul orb front/back art remains pending.
++        owner.FixedEffect(0x375A,5,5,0x481,0); // Identified charge flash; source maul/feralrage orb front/back art remains pending.
+         StatNetwork.Send(owner);return true;
+     }
+     internal static void Clear(PlayerMobile owner)
+--- a/src/Sanctuary.Content/DruidChargedAttacks.cs
++++ b/src/Sanctuary.Content/DruidChargedAttacks.cs
+@@ -13,26 +13,27 @@
+     internal static Func<double> ElementRoll=Utility.RandomDouble;
+     internal static Func<int,int> PhysicalRoll=Utility.Random;
+     internal static Random Effects=Random.Shared;
+-    // Feral uses the same model, but its live velocity/leech route follows Maul.
+-    internal static bool Handles(CombatAbility ability)=>ability==CombatAbility.Maul;
+-    internal static bool ValidTarget(PlayerMobile owner,Serial selected)
++    // Both current start56/do120 rows share this contact/charge transaction.
++    internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.Maul or CombatAbility.FeralRage;
++    internal static bool ValidTarget(PlayerMobile owner,CombatAbility ability,Serial selected)
+     {
+         var target=World.FindMobile(selected);
+         return owner.Map!=null&&owner.Map!=Map.Internal&&DruidFormAttacks.Active(owner)&&DruidFormAttacks.Supported(owner)
+-            &&target is BaseCreature creature&&CombatStuns.Rules(creature,out _,out _)&&ClassCombat.IsHostile(owner,target)
++            &&target is BaseCreature creature&&(ability!=CombatAbility.Maul||CombatStuns.Rules(creature,out _,out _))&&ClassCombat.IsHostile(owner,target)
+             &&owner.InRange(target,DruidFormAttacks.Reach(owner))&&owner.InLOS(target)&&Math.Abs(owner.Z-target.Z)<16
+             &&SpellHelper.CheckTown(owner.Location,owner)&&SpellHelper.CheckTown(target.Location,owner);
+     }
+     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
+     {
+-        if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,selected)){return false;}
++        if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,selected)){return false;}
+         var values=SkillMechanics.Values(owner,ability);
+-        // Approved Sanctuary melee fallback: insufficient mana makes an ordinary
+-        // attack. It grants no new charge and uses the ordinary attack's timing.
++        // Current AttackNoMana1 and the pinned older player dispatcher support
++        // ordinary Attack at low mana; exact modern outcome remains unverified.
++        // No new charge or early control-pass acquisition rule is introduced.
+         if(!NecromancerEffects.CanPay(owner,values.Mana256))
+         {return ClassCombat.Perform(owner,CombatAbility.BasicAttack,World.FindMobile(selected),point,now);}
+         var form=DruidPlayerForms.State(owner);
+-        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,id))){return false;}
++        if(!SkillCombat.Begin(owner,ability,selected,point,now,(_,_,id,_)=>ValidTarget(owner,ability,id))){return false;}
+         var session=ClassCombat.For(owner);var target=(BaseCreature)World.FindMobile(selected);
+         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
+         // Source start56 allocates the hit and existing charge damage/stun before
+@@ -52,7 +53,7 @@
+         var session=ClassCombat.For(owner);var pending=session.DruidChargeAttack;
+         if(pending==null||now<pending.EffectAt){return false;}session.DruidChargeAttack=null;
+         if(pending.Ability!=ability||pending.Target!=session.PendingTarget||!ReferenceEquals(pending.Form,DruidPlayerForms.State(owner))
+-            ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,pending.Target)){return false;}
++            ||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,pending.Target)){return false;}
+         var target=World.FindMobile(pending.Target);owner.DoHarmful(target,true);owner.PlaySound(0x238); // Identified contact/audio placeholder.
+         using var melee=CombatTiming.Equipped(owner) is{} weapon?WeaponHands.UseMelee(owner,weapon):null;
+         using var attempt=PaladinThorns.Attempt(owner,target,false);
+--- a/src/Sanctuary.Content/DruidCombat.cs
++++ b/src/Sanctuary.Content/DruidCombat.cs
+@@ -4,13 +4,13 @@
+ namespace Sanctuary;
+ public static class DruidCombat
+ {
+-    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.Maul or CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.Lycanthropy or CombatAbility.SpiritOfBarbs or CombatAbility.HeartOfWolverine or CombatAbility.OakSage or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.Raven or CombatAbility.CycloneArmor or CombatAbility.Firestorm or CombatAbility.MoltenBoulder or CombatAbility.Fissure or CombatAbility.Twister or CombatAbility.Volcano or CombatAbility.Tornado or CombatAbility.Hurricane or CombatAbility.Armageddon;
++    public static bool Implemented(CombatAbility ability) => ability is CombatAbility.FeralRage or CombatAbility.Maul or CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.Lycanthropy or CombatAbility.SpiritOfBarbs or CombatAbility.HeartOfWolverine or CombatAbility.OakSage or CombatAbility.SummonSpiritWolf or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly or CombatAbility.Raven or CombatAbility.CycloneArmor or CombatAbility.Firestorm or CombatAbility.MoltenBoulder or CombatAbility.Fissure or CombatAbility.Twister or CombatAbility.Volcano or CombatAbility.Tornado or CombatAbility.Hurricane or CombatAbility.Armageddon;
+     public static bool Handles(CombatAbility ability)=>Implemented(ability)&&ability!=CombatAbility.Lycanthropy;
+     public static bool Available(PlayerMobile owner,CombatAbility ability)=>owner!=null && Handles(ability)&&ShapeRestrictions.Allowed(owner,ability)
+         && ClassCreation.Profiles.TryGet(owner.Serial,out var profile) && profile.Class==DiabloClass.Druid
+         && SkillMechanics.Rank(owner,ability) is >0 and <=255
+         && (!DruidFormCasting.Handles(ability)||DruidFormCasting.Transition(owner,ability))
+-        && (ability is not(CombatAbility.Maul or CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly) || ClassCreation.Profiles.GetRank(owner.Serial,SkillMechanics.For(ability).TalentId)>0);
++        && (ability is not(CombatAbility.FeralRage or CombatAbility.Maul or CombatAbility.Werewolf or CombatAbility.Werebear or CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs or CombatAbility.SummonDireWolf or CombatAbility.SummonGrizzly) || ClassCreation.Profiles.GetRank(owner.Serial,SkillMechanics.For(ability).TalentId)>0);
+     public static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
+         =>DruidChargedAttacks.Handles(ability)?DruidChargedAttacks.Begin(owner,ability,selected,point,now):DruidFormCasting.Handles(ability)?DruidFormCasting.Begin(owner,ability,now):(ability is CombatAbility.OakSage or CombatAbility.HeartOfWolverine or CombatAbility.SpiritOfBarbs)?DruidOakCasting.Begin(owner,selected,point,now,ability):ability==CombatAbility.SummonGrizzly?DruidGrizzlyCasting.Begin(owner,selected,point,now):ability==CombatAbility.SummonDireWolf?DruidDireWolfCasting.Begin(owner,selected,point,now):ability==CombatAbility.SummonSpiritWolf?DruidSpiritWolfCasting.Begin(owner,selected,point,now):ability==CombatAbility.Raven?DruidRavenCasting.Begin(owner,selected,point,now):ability==CombatAbility.Armageddon?DruidArmageddon.Begin(owner,selected,point,now):ability==CombatAbility.Hurricane?DruidHurricane.Begin(owner,selected,point,now):ability==CombatAbility.Tornado?DruidTornado.Begin(owner,selected,point,now):ability==CombatAbility.Volcano?DruidVolcano.Begin(owner,selected,point,now):ability==CombatAbility.Twister?DruidTwister.Begin(owner,selected,point,now):ability==CombatAbility.Fissure?DruidFissure.Begin(owner,selected,point,now):ability==CombatAbility.MoltenBoulder?DruidMoltenBoulder.Begin(owner,selected,point,now):ability==CombatAbility.Firestorm?DruidFirestorm.Begin(owner,selected,point,now):SkillCombat.Begin(owner,ability,selected,point,now,(p,_,_,_)=>p.Map!=null && p.Map!=Map.Internal);
+     public static bool Release(PlayerMobile owner,CombatAbility ability)=>Release(owner,ability,Core.TickCount);
+--- a/src/Sanctuary.Content/ActionTiming.cs
++++ b/src/Sanctuary.Content/ActionTiming.cs
+@@ -16,7 +16,7 @@
+ }
+ public static class CombatTiming
+ {
+-    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.Maul or CombatAbility.BladesOfIce or CombatAbility.ClawsOfThunder or CombatAbility.FistsOfFire or CombatAbility.CobraStrike or CombatAbility.TigerStrike or CombatAbility.ShockWeb or CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
++    public static bool WeaponAttack(CombatAbility ability)=>ability is CombatAbility.FeralRage or CombatAbility.Maul or CombatAbility.BladesOfIce or CombatAbility.ClawsOfThunder or CombatAbility.FistsOfFire or CombatAbility.CobraStrike or CombatAbility.TigerStrike or CombatAbility.ShockWeb or CombatAbility.FireBlast or CombatAbility.LightningFury or CombatAbility.PlagueJavelin or CombatAbility.LightningBolt or CombatAbility.PoisonJavelin or CombatAbility.ExplodingArrow or CombatAbility.IceArrow or CombatAbility.GuidedArrow or CombatAbility.FreezingArrow or CombatAbility.Strafe or CombatAbility.ImmolationArrow or CombatAbility.ColdArrow or CombatAbility.FireArrow or CombatAbility.MultipleShot or CombatAbility.MagicArrow or CombatAbility.BasicAttack or CombatAbility.Fend or CombatAbility.Impale or CombatAbility.ChargedStrike or CombatAbility.PowerStrike or CombatAbility.Jab or CombatAbility.PoisonDagger or CombatAbility.Vengeance or CombatAbility.Sacrifice or CombatAbility.Smite or CombatAbility.Zeal or CombatAbility.Charge or CombatAbility.Conversion or CombatAbility.Bash or CombatAbility.Stun or CombatAbility.Concentrate or CombatAbility.Berserk or CombatAbility.DoubleThrow;
+     // Each row is a class; columns follow AttackFamily. These are project balance profiles.
+     private static readonly int[][] _attacks =
+     [
+--- a/src/Sanctuary.Content/ClassCombat.cs
++++ b/src/Sanctuary.Content/ClassCombat.cs
+@@ -94,8 +94,8 @@
+         ClassCombatHooks.MovementAllowed = from => ChargeMotion.Active(from)
+             || !HitRecovery.Active(from,Core.TickCount) && !AmazonStrafe.Locked(from,Core.TickCount) && !AmazonFend.Locked(from,Core.TickCount) && !AmazonImpale.Locked(from,Core.TickCount) && !AmazonJab.Locked(from,Core.TickCount) && !PaladinZeal.Locked(from,Core.TickCount) && !PaladinCharge.Locked(from,Core.TickCount) && !BarbarianConcentrate.Locked(from,Core.TickCount) && !BarbarianLeap.Locked(from) && !BarbarianWhirlwind.Locked(from);
+         ClassCombatHooks.RunningDelay = (from, delay) => ClassCombat.Enabled(from)
+-            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
+-        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)) : delay;
++            ? EquipmentBalance.RunDelay(delay, EquipmentBalance.RunPenalty(from), CombatPotions.RunBonus(from) + FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
++        ClassCombatHooks.WalkingDelay = (from, delay) => ClassCombat.Enabled(from) ? EquipmentBalance.RunDelay(delay, 0, FireGround.Speed(from) + PaladinVigor.VelocityPercent(from)+BarbarianCombat.Passive(from,CombatAbility.IncreasedSpeed)+AssassinBuffs.Velocity(from)+DruidAttackCharges.Velocity(from)) : delay;
+         ClassCombatHooks.EquipmentChanged = from =>
+         {
+             if (ClassCombat.Enabled(from))
+--- a/src/Sanctuary.Content/WeaponLeech.cs
++++ b/src/Sanctuary.Content/WeaponLeech.cs
+@@ -35,8 +35,8 @@
+     }
+     internal static PlayerWeaponDrain Capture(PlayerMobile owner,PlayerWeaponDrain skill=default)
+     {
+-        int Percent(string code,int extra)=>(int)Math.Clamp((long)ClassGear.Bonus(owner,code)+CombatPotions.Bonus(owner,"stealing")+extra,0,int.MaxValue);
+-        return new(Percent("life-steal%",skill.LifePercent),Percent("mana-steal%",skill.ManaPercent));
++        int Percent(string code,long extra)=>(int)Math.Clamp((long)ClassGear.Bonus(owner,code)+CombatPotions.Bonus(owner,"stealing")+extra,0,int.MaxValue);
++        return new(Percent("life-steal%",(long)skill.LifePercent+DruidAttackCharges.LifeDrainPercent(owner)),Percent("mana-steal%",skill.ManaPercent));
+     }
+     internal static void Apply(PlayerMobile owner,BaseCreature target,int physical256,MissileSourceStats saved)
+         =>Apply(owner,target,physical256,new PlayerWeaponDrain(saved.LifeDrain,saved.ManaDrain));
+--- a/tests/Sanctuary.Integration/DruidMaulChecks.cs
++++ b/tests/Sanctuary.Integration/DruidMaulChecks.cs
+@@ -155,7 +155,7 @@
+             pending=Begin(p,target);DruidPlayerForms.Clear(p);Require(State(p)==null&&ClassCombat.For(p).DruidChargeAttack==null,"Unshift retained matching-group charge/action");
+             Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now)&&!ClassCombat.ResolveAction(p,pending.EffectAt),"New form replayed prior Maul");
+             Require(HitRecovery.Apply(p,p.HitsMax,Core.TickCount)&&State(p)==null,"Unshift/reentry retained old concentration action guard");
+-            Ready(p);Require(!DruidCombat.Available(p,CombatAbility.FeralRage),"Unimplemented Feral handler enabled");
++            Ready(p);Require(!DruidCombat.Available(p,CombatAbility.FeralRage),"Wrong-form/untrained Feral route");
+             // Actual soft-rank gear changes cap and stored level at do120, while
+             // the previously allocated damage packet remains unchanged.
+             var helm=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.Name=="Tarnhelm").Id,99,new Random(321),true);
+--- /dev/null
++++ b/tests/Sanctuary.Integration/DruidFeralChecks.cs
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++using System;
++using System.IO;
++using System.Linq;
++using System.Text.Json;
++using Server;
++using Server.Items;
++using Server.Logging;
++using Server.Mobiles;
++namespace Sanctuary.Integration;
++
++public static class DruidFeralChecks
++{
++    private static readonly ILogger Log=LogFactory.GetLogger(typeof(DruidFeralChecks));
++    private sealed class Rolls:Random{public override int Next(int maximum)=>Math.Max(0,maximum-1);}
++    private sealed record Saved(uint Owner,uint Target,DruidAttackCharge Charge,DruidPlayerForm Form,int Life,int Mana,int TargetLife);
++    private static string Manifest=>Path.Join(Core.BaseDirectory,"druid-feral-fixtures.json");
++    private static bool _creating;private static int _scene;
++    public static void Configure(){Rates();Register("druid-feral-check",Check);Register("druid-feral-reload-check",Reload);Register("druid-feral-snapshot-check",Snapshot);}
++    [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();
++    private static void Rates()
++    {
++        var hp=Mobile.HitsRegenRateHandler;var mp=Mobile.ManaRegenRateHandler;
++        bool Held(Mobile p)=>_creating||p.Name?.StartsWith("DruidFeralFixture",StringComparison.Ordinal)==true;
++        Mobile.HitsRegenRateHandler=p=>Held(p)?TimeSpan.FromHours(1):hp?.Invoke(p)??Mobile.DefaultHitsRate;
++        Mobile.ManaRegenRateHandler=p=>Held(p)?TimeSpan.FromHours(1):mp?.Invoke(p)??Mobile.DefaultManaRate;
++    }
++    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Feral actual charge velocity/leech consumers",_=>Core.LoopContext.Post(()=>
++    {try{Controlled(action);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
++    private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
++    private static void Train(PlayerMobile p,CombatAbility ability,int rank=1)
++    {
++        var row=SkillMechanics.For(ability);TalentCatalog.TryGet(DiabloClass.Druid,row.TalentId,out var talent);
++        foreach(string prior in talent.Prerequisites){if(ClassCreation.Profiles.GetRank(p.Serial,prior)==0){Train(p,SkillMechanics.All.Single(x=>x.TalentId==prior).Ability);}}
++        while(ClassCreation.Profiles.GetRank(p.Serial,row.TalentId)<rank){Require(ClassCreation.Profiles.TryTrain(p.Serial,row.TalentId,out _),"Train "+row.TalentId);}
++    }
++    private static PlayerMobile Fresh()
++    {
++        PlayerMobile p;_creating=true;try{p=new PlayerMobile{Body=0x190,Player=true,Name="DruidFeralFixture"};}finally{_creating=false;}
++        p.AddItem(new Backpack());ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);
++        Train(p,CombatAbility.FeralRage);Train(p,CombatAbility.Lycanthropy,20);
++        FixtureSpace.Corridor(p,6060,12,1000+32*_scene++);
++        var dagger=new Dagger();ClassGear.Profiles.Convert(dagger,1,GearRarity.Normal,new Random(173));Require(p.EquipItem(dagger),"Feral dagger");ClassGear.Refresh(p);
++        Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werewolf,TimedEffects.Now),"Feral wolf");Resources(p);return p;
++    }
++    private static void Resources(PlayerMobile p)
++    {ClassCombat.Stop(p);p.Frozen=p.Paralyzed=false;ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;SkillHealth.SetBalance256(p,p.HitsMax*128-17);NecromancerEffects.SetMana256(p,p.ManaMax*128-17);}
++    private static BladeMissileTarget Target(PlayerMobile p,MonsterDifficulty difficulty=MonsterDifficulty.Normal)
++    {
++        var t=new BladeMissileTarget{Name="DruidFeralFixtureTarget",NoKillAwards=true,Frozen=true,CantWalk=true};
++        if(difficulty!=MonsterDifficulty.Normal){MonsterVariants.Assign(t,difficulty);}
++        t.MoveToWorld(new(p.X+1,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();t.SetHits(50000);t.Hits=t.HitsMax;
++        foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Poison,ResistanceType.Energy}){t.SetResistance(type,0);}
++        return t;
++    }
++    private static DruidAttackCharge State(PlayerMobile p)=>DruidAttackCharges.State(p,CombatAbility.FeralRage);
++    private static void Drop(PlayerMobile p){DruidPlayerForms.Clear(p);p.Corpse?.Delete();p.Delete();}
++    private static void Hold(PlayerMobile p,DruidAttackCharge charge)=>DruidAttackCharges.Restore(DruidAttackCharges.Snapshot()
++        .Where(x=>x.Owner!=p.Serial.Value||x.Charge.Ability!=CombatAbility.FeralRage).Append(new OwnedDruidAttackCharge(p.Serial.Value,charge)).ToArray());
++    private static void Controlled(Action action)
++    {
++        var hit=DruidChargedAttacks.HitRoll;var roll=DruidChargedAttacks.ElementRoll;var physical=DruidChargedAttacks.PhysicalRoll;var effects=DruidChargedAttacks.Effects;
++        try{DruidChargedAttacks.HitRoll=()=>0;DruidChargedAttacks.ElementRoll=()=>0;DruidChargedAttacks.PhysicalRoll=_=>0;DruidChargedAttacks.Effects=new Rolls();action();}
++        finally{DruidChargedAttacks.HitRoll=hit;DruidChargedAttacks.ElementRoll=roll;DruidChargedAttacks.PhysicalRoll=physical;DruidChargedAttacks.Effects=effects;}
++    }
++    private static DruidChargedAttacks.Pending Begin(PlayerMobile p,BaseCreature target)
++    {
++        ClassCombat.Stop(p);ClassCombat.For(p).NextAction=ClassCombat.For(p).RecoveryUntil=Core.TickCount;
++        var prior=State(p);int life=SkillHealth.Balance256(target),mana=NecromancerEffects.ManaBalance256(p);
++        Require(ClassCombat.Perform(p,CombatAbility.FeralRage,target,target.Location,Core.TickCount),"Feral start");
++        var pending=ClassCombat.For(p).DruidChargeAttack;
++        Require(pending is{Hit:true}&&State(p)==prior&&SkillHealth.Balance256(target)==life&&NecromancerEffects.ManaBalance256(p)==mana-768,"Feral start hit/payment versus gain");
++        Require(!ClassCombat.ResolveAction(p,pending.EffectAt-1),"Early Feral release");return pending;
++    }
++    private static void Contact(PlayerMobile p,BaseCreature target)
++    {
++        var pending=Begin(p,target);int life=SkillHealth.Balance256(p),mana=NecromancerEffects.ManaBalance256(p);
++        int divisor=MonsterVariants.Difficulty(target) switch{MonsterDifficulty.Nightmare=>2,MonsterDifficulty.Hell=>3,_=>1};
++        var expected=WeaponLeech.Calculate(NamedElements.To256(pending.Impact.Parts.Physical),SkillHealth.Balance256(target),NecromancerEffects.ManaBalance256(target),
++            pending.Drain.LifePercent,pending.Drain.ManaPercent,GemCombat.Drain(target),divisor,divisor);
++        Require(ClassCombat.ResolveAction(p,pending.EffectAt)&&SkillHealth.Balance256(p)==life+expected.Life256
++            &&NecromancerEffects.ManaBalance256(p)==mana+expected.Mana256,"Captured pre-gain Feral leech/difficulty delivery");
++        var state=State(p);Require(!ClassCombat.ResolveAction(p,pending.EffectAt)&&State(p)==state,"Duplicate Feral event");
++    }
++    private static void Movement(PlayerMobile p)
++    {
++        int speed=DruidAttackCharges.Velocity(p);
++        Require(ClassCombatHooks.RunningDelay(p,400)==EquipmentBalance.RunDelay(400,EquipmentBalance.RunPenalty(p),speed)
++            &&ClassCombatHooks.WalkingDelay(p,400)==EquipmentBalance.RunDelay(400,0,speed),"Feral once-only shared run/walk speed");
++    }
++    private static void Check()
++    {
++        var p=Fresh();var target=Target(p);
++        try
++        {
++            int plain=ClassStats.DamageBonus(p,CombatTiming.Equipped(p));Movement(p);
++            Require(WeaponLeech.Capture(p)==default&&State(p)==null,"Fresh Feral leech");
++            Contact(p,target);Require(State(p) is{Count:1,StoredRank:1,DamagePercent:0,LifeDrainMinimum:4,LifeDrainMaximum:4}
++                &&State(p).VelocityPercent>0&&WeaponLeech.Capture(p).LifePercent==4,"First Feral charge channels");Movement(p);
++            Require(ClassStats.DamageBonus(p,CombatTiming.Equipped(p))==plain&&State(p).UntilUtc>TimedEffects.Now.AddSeconds(19),"Feral attack ED leaked into persistent weapon damage or lifetime");
++            Contact(p,target);Require(State(p).Count==2&&WeaponLeech.Capture(p).LifePercent==8,"Second Feral charge");Contact(p,target);Contact(p,target);
++            Require(State(p).Count==3&&WeaponLeech.Capture(p).LifePercent==12,"Rank1Feral cap");Movement(p);
++            var item=NamedGear.Create(NamedGear.Catalog.Items.Single(x=>x.SourceKey=="Manald Heal").Id,99,new Random(321),true);
++            Require(p.EquipItem(item),"Real mana-leech ring");ClassGear.Refresh(p);
++            Require(WeaponLeech.Capture(p).ManaPercent==ClassGear.Bonus(p,"mana-steal%")&&WeaponLeech.Capture(p).LifePercent==12,"Feral replaced or doubled item drain channels");
++            foreach(var difficulty in new[]{MonsterDifficulty.Normal,MonsterDifficulty.Nightmare,MonsterDifficulty.Hell})
++            {var t=Target(p,difficulty);try{Resources(p);Contact(p,t);}finally{t.Delete();}}
++            var saved=State(p);Resources(p);var raw=GearEffects.Damage(p,0,target);int before=SkillHealth.Balance256(p);
++            var drain=WeaponLeech.Capture(p);var expected=WeaponLeech.Calculate(NamedElements.To256(raw.Physical),SkillHealth.Balance256(target),0,drain.LifePercent,drain.ManaPercent,100,1,1);
++            GearEffects.Strike(p,target,0,new Rolls());Require(State(p)==saved&&SkillHealth.Balance256(p)==before+expected.Life256,"Ordinary weapon attack omitted or consumed Feral leech");
++            var pending=Begin(p,target);ClassCombat.Stop(p);Require(!ClassCombat.ResolveAction(p,pending.EffectAt)&&State(p)==saved,"Cancelled Feral gained/refreshed/discarded existing state");
++            DruidPlayerForms.Clear(p);Require(State(p)==null&&DruidAttackCharges.Velocity(p)==0&&WeaponLeech.Capture(p).LifePercent==0&&!DruidCombat.Available(p,CombatAbility.FeralRage),"Unshift retained Feral charge consumers");
++            Log.Information("Feral functional draft:pre-gain captured leech,rank1cap,attack-only ED,shared run/walk speed,real item additive mana drain,three difficulties,ordinary weapon hit and form cleanup pass");
++        }
++        finally{target.Delete();Drop(p);}
++        var savedOwner=Fresh();var savedTarget=Target(savedOwner);Contact(savedOwner,savedTarget);Contact(savedOwner,savedTarget);
++        Hold(savedOwner,State(savedOwner) with{UntilUtc=TimedEffects.Now.Add(FixtureSpace.Retention)});
++        File.WriteAllText(Manifest,JsonSerializer.Serialize(new Saved(savedOwner.Serial.Value,savedTarget.Serial.Value,State(savedOwner),DruidPlayerForms.State(savedOwner),
++            SkillHealth.Balance256(savedOwner),NecromancerEffects.ManaBalance256(savedOwner),SkillHealth.Balance256(savedTarget))));Snapshot();
++    }
++    private static void Snapshot()
++    {
++        var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);var target=World.FindMobile((Serial)saved.Target);
++        Require(State(p)==saved.Charge&&DruidPlayerForms.State(p)==saved.Form&&SkillHealth.Balance256(p)==saved.Life
++            &&NecromancerEffects.ManaBalance256(p)==saved.Mana&&SkillHealth.Balance256(target)==saved.TargetLife,"Feral saved charge/form/fractional pools");
++    }
++    private static void Reload()
++    {
++        Snapshot();var saved=JsonSerializer.Deserialize<Saved>(File.ReadAllText(Manifest));var p=(PlayerMobile)World.FindMobile((Serial)saved.Owner);
++        Require(DruidAttackCharges.Velocity(p)==saved.Charge.VelocityPercent&&WeaponLeech.Capture(p).LifePercent==saved.Charge.LifeDrainMinimum,"Restored Feral consumers");
++    }
++}

@@ -1,0 +1,68 @@
+{
+  "baseCommit": "c954b4b",
+  "draftOnly": true,
+  "applied": false,
+  "nativeAccepted": false,
+  "handlerEnabledInCanonical": false,
+  "files": {
+    "src/Sanctuary.Content/DruidAttackCharges.cs": {
+      "before": "38aeb40b5189de15b6b3f1e93331fa76f40a5d555ec6106fc5da165c92f76428",
+      "prepared": "6de72f80bbfca8095f8bee8d1a3649ac156d706c3d1efe36b8c63d09e3c982ae"
+    },
+    "src/Sanctuary.Content/DruidChargedAttacks.cs": {
+      "before": "01eab03676570a69ae95c176f3b3bfb2474ab5e8432440459aa7d1421a31ec1b",
+      "prepared": "d3ad5ab96a3d07c7440393bcf54a84c0a694eb61df631b7824883761acef0732"
+    },
+    "src/Sanctuary.Content/DruidCombat.cs": {
+      "before": "add0acda0cdb7a02e2fbf5d49a92ff4091d56e40872b582aa4c7a4b66937f2e7",
+      "prepared": "cdf003123be08cbe779ae564f596c2443afda81eeca2c10fa5f6f65f79ab5af9"
+    },
+    "src/Sanctuary.Content/ActionTiming.cs": {
+      "before": "03c8be9369819bb47a0d6446dff5098d98b6ad07f8c66dc13151185812c5a6d0",
+      "prepared": "960dfd26a59a8420ea7d73bd46759fd647531f789597e6ab67ee97a4ae416c59"
+    },
+    "src/Sanctuary.Content/ClassCombat.cs": {
+      "before": "c3a6f1ac712921f31592daa9588b848120d3af15588f9156b838a4ebc21350e4",
+      "prepared": "2d97b83411c320bc3e510521dbd869c85b636ad9d583f51b8dccc215a2921e7c"
+    },
+    "src/Sanctuary.Content/WeaponLeech.cs": {
+      "before": "0fdb73a8246b409c6bda54316f0392bcf16a10b683034d7bf73e92032bca8d27",
+      "prepared": "8e51d0e8c6ad1e85bc5bc747bbdb128197c952094154c5814bd3319f4b055426"
+    },
+    "tests/Sanctuary.Integration/DruidMaulChecks.cs": {
+      "before": "cd0d02cff55d0ff823f88cb8978413747c663aeef093b38522c8474f4a530b6b",
+      "prepared": "ef6a286251632cea7580e69962279d54c66849f3a5cb3f31f91752ee31c6a78d"
+    },
+    "tests/Sanctuary.Integration/DruidFeralChecks.cs": {
+      "before": null,
+      "prepared": "bb1e8cc41c480e3ba983f16c3a514160d6c82b8ae9a1f4136e8f9c0a491b0066"
+    }
+  },
+  "next": "Wait for Maul full regression session43473 to end,bind record_druid_maul.py --full-class and commit it,then apply this patch to a NEW Feral candidate. Build/run dedicated native world,input and reload checks; correct the draft from observed results without overstating compilation as mechanics acceptance.",
+  "referenceVersion": "3.3.93847",
+  "patch": {
+    "path": "tools/reference/druid-feral-prepared.patch",
+    "sha256": "b12b78d3da2e6ff6466c92afa1e2341ddfdc0f5fef7851c2d668d8675873ed09"
+  },
+  "isolatedBuilds": {
+    "content": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "integration": {
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "artifacts": {
+    ".local/class-skills/druid-feral-next/content-build.log": "cb4010310fe9b1e9fad7b64a8e31b70502a12beca6dafac0b49d7b2f3a1de2d8",
+    ".local/class-skills/druid-feral-next/integration-build.log": "472bed0a503ccacd09ae9a0b98bfdd2e04e86a6abccca2fc7c13a0fb7421968a",
+    ".local/class-skills/druid-feral-next/content/Sanctuary.Content.dll": "8c5690fb53b9ea3f9e06454f48be27ad4f9ee04e9eb92f7ee3df8d38bcb3c62e",
+    ".local/class-skills/druid-feral-next/integration/Sanctuary.Integration.dll": "ed464c596781ada43264d5f9ff2ddb81efd534ffbfe5aba34205dfa644793903"
+  },
+  "scopes": [
+    "Prepared only; canonical Maul candidate and runtime data/DLLs are unchanged. No Feral handler/native world/actual input or completed class is claimed.",
+    "Draft reuses start56/do120 capture/payment/action/gain and source model. Feral calc1 damage is attack-specific. Existing charge life drain is added once in WeaponLeech.Capture, before gain; min/max mismatch is refused. Both native player run/walk hooks receive velocity once. Current native pacing is not exact modern movement certification.",
+    "Dedicated compiled integration draft covers pre-gain life recovery,shared speed,cap/refresh,attack-only ED,real Manald Heal additive mana drain,Normal/Nightmare/Hell,ordinary weapon leech,Stop/form cleanup and saved fractional pools. These tests have NOT run. Add source-independent zero-drain/immunity/miss/block/cap/gear/expiry and actual right/quick cases before acceptance."
+  ]
+}
