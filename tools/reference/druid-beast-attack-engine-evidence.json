@@ -1,0 +1,43 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21",
+    "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e"
+  },
+  "tableHashes": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "fixture": {
+    "path": ".local/class-skills/druid-beast-attack-source-probe.json",
+    "sha256": "0697ced03f79c3b2ff6d3b204e8334f095cfdd1a66912cb31693e2a120e7999a",
+    "cases": 12736,
+    "ordinaryContexts": 12288,
+    "guardContexts": 448,
+    "generatedSourceSha256": "fcc5d982bd6802896af9ec0ba7a3e5f8a3e97ecf14f76393239c2125fa065498",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete owner-derived damage/AR hook, physical tier/min/max and to-hit getters, complete monster attack-mode writer and noRatio table helper execute together. Current owner rank0..255 is sampled on every mode entry, not copied into birth.",
+    "A1 adds literal monster AR50 for Spirit Wolf or150 for Fenris to live skill AR75/150+20 per rank after the first. Owner rank zero yields no skill AR. The separate birth monlvl AR and copied passive AR do not replace this flag1 mode list.",
+    "Spirit Wolf mode physical endpoints are zero; Fenris gets current live rank physical tiers7..12 and no weapon or skill-synergy contribution here. Copied Grizzly damagepercent and rage are later damage consumers. A2/cast/S1 use distinct empty table lanes. Old mode stats are cleared before three new writes."
+  ],
+  "limits": [
+    "Current table rows plus supplementary old engine composition are not a modern executable equivalence certificate. Native world A1 entry, body, hit/damage/stat aggregation and mode refresh timing need separate acceptance. Spirit Wolf ordinary melee physical-floor handling is downstream and remains uncertain.",
+    "Owner/rank/statlist/game/layout services are explicit shims. Current friendly/noRatio/no-element species do not execute evil player-count, hostile classic scaling, ratio or elemental mode branches; unexpected service use traps. Null/nonmonster/metadata/list/owner/skill-row controls are retained."
+  ]
+}

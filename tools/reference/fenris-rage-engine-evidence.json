@@ -1,0 +1,42 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "preflightSha256": "ebad66e36553f3b587a3019345dc6dcd9d182a12a6bb8d9f1585cd3ea2b6c30e",
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Common/src/UselessOrdinals.cpp": "2e7dd43a6e176cc1b8a0e8c803c82b4d2a9763be7803be6ca9d3d69160812d30",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CanUnitCorpseBeSelected": "cd4745530266762e7c98195b6463beb224aae0412bc419ca8080d222c0bc2ac1",
+    "UNITS_IsSoftMonster": "f2e755a8b1e1780fed74fbf46e96ea956a0ebbafe14fad2e22ec70f3bdf51f66",
+    "UNITS_IsCorpseUseable": "42fcf874ea0a18cfbcd4ccc462364c77d7401eadd5e0e42497344ab1a3867cad",
+    "D2Common_11020": "0b3637d530aabef4ea2ef06adfd258ed8fbafe169b1490134221bde97e0a509b",
+    "D2COMMON_11018": "fe7fabbf55f8b2423e7e79fe3b4afa547a5ad707079c4242a7e71027dcd994aa",
+    "sub_6FCFE0E0": "a483623e8a8ec264b8af2e9d7411f2925b28f770723db3daecb6afc2594f584d",
+    "sub_6FD10250": "022e482e683b085e201fd52f33597203b21aa9959c486764b2e86111c8256a6c",
+    "SKILLS_SrvDo137_FenrisRage": "1f3dd79adc16d5b0a44b3d7c8425f181bbffa5261dafd5485bf38b44ee539caa"
+  },
+  "fixture": {
+    "path": ".local/class-skills/fenris-rage-source-probe.json",
+    "sha256": "bfabf7dfb0fced3e2c2f01ac117c0a7ea7af585b5ff8b786443e649d8ca8ee3a",
+    "cases": 960,
+    "successfulConsumptionCases": 16,
+    "generatedSourceSha256": "d637976ffb5786b988f2578875554b1cf8162025e4f60292aa5304cc96da6459",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "960 complete do137/11018/11020/selectable/soft/usable and self-buff allocation/six-stat writer compositions execute unchanged. Corpse search predicate and release predicate differ for soft/DEADCOL controls.",
+    "Consumption hides and refreshes before buff allocation. Successful allocation supplies a fresh flag2list,owner type/GUID,state138,expiry frame+500,one removal event and damagepercent100,then animation/velocity refresh. No HP/mana write occurs; repeat use of the hidden corpse fails.",
+    "Consumption still succeeds if buff allocation fails. Missing skill/invalid state returns before the server-do flag; missing/invalid target fails after that flag for a nonnull caster. Rank controls do not change fixed500frame/100percent values."
+  ],
+  "boundedServices": [
+    "Metadata records/flags,udead mask lookup,formula values,stat-list allocation/link/removal scheduling and animation refresh are declared services. Actual native world/corpse/loot concurrency and expiration/removal execution are not instantiated.",
+    "This executes the usable predicate,not full AI corpse search or Fenris AI/attack scheduling. Complete room/find/interaction order,modern executable parity and event ties remain separate.",
+    "No Dire Wolf actor or learned handler enabled. Internal rage visuals/audio and parent talent/right/quick icons remain separately pending."
+  ]
+}

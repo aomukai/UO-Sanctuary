@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "preflightSha256": "ebad66e36553f3b587a3019345dc6dcd9d182a12a6bb8d9f1585cd3ea2b6c30e",
+  "reusedCreationAbiSha256": "dfcb67c3fa52dc6ed4e65bf39c4deaa6f6f7073920f06dd1892ca01909642415",
+  "levelDataSha256": "7e80f0acae8d0e9948f2c8c47f99380746852a5ca022e74b086b97e657b1a90b",
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/SkillNec.cpp": "07259f95772794dc8e64cbd932c0cfe2950eb02ea52b4cccb9028d2cd36ae97d",
+    "source/D2Game/src/MONSTER/MonsterUnique.cpp": "15cae3c152121852e748894914492194e5bb7610c5118d50d14bdb82e0921223"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_SrvDo119_DruidSummon": "7ae4129af2551c6669d90cf920388326ecd88660aa546bbae30255f4a5925123",
+    "D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10": "61d055e7ced44ab4ce82857def33f04b3d2a2c76502c700666e6a686cdf4140a",
+    "D2GAME_SetSummonPassiveStats_6FD0C530": "d15a4722c2c1fc1a463357166dec13abecd67662b2dbeb085cce884b5931efea",
+    "MONSTERUNIQUE_CalculatePercentage": "87882664aec22e346d897f88ba0277f9f1424adb3d63dde99bf153e31091281b"
+  },
+  "fixture": {
+    "path": ".local/class-skills/dire-wolf-creation-source-probe.json",
+    "sha256": "43677fed460983b40a858ea9a4ab2c7c8c41e03425ae65f7a727cd18f700458a",
+    "cases": 55158,
+    "successfulBirths": 55152,
+    "failureBranches": 6,
+    "generatedSourceSha256": "d67fae89b0d4950a4f6693dbdf20cc27cd35907c7edaad6ed0a460c3fe17b18c",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete do119/base/passive/percentage composition executes55,152successful births and six failures across255ranks,three owner levels/difficulties,two game contexts,independent Spirit/Grizzly ranks,fractional life and inherited-sunder controls.",
+    "Current noRatio spawn service supplies216life/116defense/zero initial AR and54FP regeneration. Explicit-level base adds monlvl defense/AR; all four current passives and four capped resistance stats are copied. Life uses10*rank+50+15*(rank-1),capmin(rank,3),source S1mode8 and equipment requestmin(3*rank,owner level).",
+    "Spirit Wolf effective rank contributes separate armor/tohit passives; effective Grizzly rank contributes copied damagepercent,zero when absent. Current four-slot physical sunder is transported exactly as supplied,not silently discarded."
+  ],
+  "boundedServices": [
+    "Spawn/base layout,formula/stat/level/target/AI/equipment services remain explicit. This is not full current monster initialization or native body acceptance. The source initializer flags7 and later attack-mode table statistics are separate.",
+    "Live owner-derived physical endpoints/tohit,attack-mode stats,rage,event/geometry/seed ordering,owner/save/input and current executable equivalence remain unfinished. Nonzero inherited physical-sunder delivery is not established by copying that stat."
+  ]
+}
