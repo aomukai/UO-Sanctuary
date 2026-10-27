@@ -2483,7 +2483,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Numeric and source preparation only; no Dire Wolf actor or learned cast is enabled. Final WF body/emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Any future temporary body/markers must be named placeholders. Talent/right/quick icons remain separate text labels."
+    "placeholder": "Prepared vulnerable body is named Dire Wolf [placeholder], uses silent UO wolf body0xE1. Saved life/ownership and type-independent loot-safe corpse consumption are component-verified; automatic Fenris AI, actual rage/physical combat and learned casting remain unfinished. Final WF emergence/walk/run/bite/hurt/death, corpse-feeding action, direwolfcharged rage overlay, teleport, intrinsic critical/contact and wolf/summon/rage audio remain pending. Talent/right/quick icons remain separate text labels."
   },
   {
     "talentId": "druid.solarcreeper",

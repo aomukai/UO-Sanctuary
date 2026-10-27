@@ -108,6 +108,14 @@ public static class CorpseSkillRules
     // Keep the same corpse/loot restrictions while using the actor's map,
     // height and visibility instead of the owner's new location.
     internal static bool UsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius)
+        =>UsableAt(owner,corpse,actor,radius,true);
+    // Approved Sanctuary deviation: monster type/material/selectable metadata
+    // does not restrict Dire feeding. Actual availability, access and the
+    // shared one-consumer reservation still apply. Other skills retain their
+    // existing selectable requirement.
+    internal static bool DireWolfUsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius)
+        =>UsableAt(owner,corpse,actor,radius,false);
+    private static bool UsableAt(PlayerMobile owner,Corpse corpse,Mobile actor,double radius,bool requireSelectable)
     {
         if(owner is not {Alive:true,Deleted:false} || actor is not{Alive:true,Deleted:false} || corpse is not {Deleted:false,Parent:null,OwnerWasBaseCreature:true,OwnerWasSummoned:false,
             Carved:false,Animated:false,SanctuaryHarvested:false,SanctuaryConsumed:false,SanctuaryRestInPeace:false,IsBones:false}
@@ -115,7 +123,7 @@ public static class CorpseSkillRules
         var row=Profiles.Find(corpse);
         if(row==null && corpse.Owner is BaseCreature {Alive:false} creature){Capture(creature,corpse);row=Profiles.Find(corpse);}
         double dx=actor.X-corpse.X,dy=actor.Y-corpse.Y;
-        return row is{Selectable:true,Owned:false,Shattered:false,NoSelect:false} && dx*dx+dy*dy<=radius*radius
+        return row is{Owned:false,Shattered:false,NoSelect:false} && (!requireSelectable || row.Selectable) && dx*dx+dy*dy<=radius*radius
             && actor.CanSee(corpse) && actor.InLOS(corpse) && corpse.CanLoot(owner,null) && !corpse.IsCriminalAction(owner);
     }
 }

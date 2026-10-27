@@ -11,9 +11,10 @@
     "Keep corpse-search range, first-eligible ordering, AI priority and the rage effect separate from this type-independent edibility rule."
   ],
   "implementation": {
-    "status": "pending",
+    "status": "component-verified; automatic AI/rage dispatch pending",
     "nativeActorEnabled": false,
-    "verification": "not-started",
-    "next": "Reuse the existing native corpse access/reservation/loot consumers through a Dire Wolf eligibility route that does not require source selectable/soft/material flags. Verify skeletal and fleshy monster cases, one-time consumption and intact loot."
+    "preparedBody": true,
+    "verification": "Real skeletal and fleshy monster deaths; selectable=false and missing source/base/seed controls; existing corpse-skill selectable gate retained; ownership/shatter/reservation/harvest/map exclusions; consume before buff service; failed allocation still consumes; repeated consumers refused; loot and empty-corpse cleanup; two actual corpse/body reloads. See dire-wolf-body-native-evidence.json.",
+    "next": "Connect the accepted Fenris policy to saved world motion, acquisition and NPC314 animation/release. Replace the explicit rage-allocation service with the real 500-frame/+100% stat consumer, then physical combat and learned casting."
   }
 }

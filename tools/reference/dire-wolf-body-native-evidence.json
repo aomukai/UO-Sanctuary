@@ -1,0 +1,72 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "handlers": 170,
+  "druidHandlers": 14,
+  "completedClasses": [],
+  "goalComplete": false,
+  "verified": {
+    "sourceContexts": 1226,
+    "nativeOrderedComparisons": 3678,
+    "difficultyColumns": 3,
+    "passMarkers": 205,
+    "boots": 3,
+    "retainedReloads": 2
+  },
+  "testedAssemblies": {
+    "ModernUO.dll": "3d6d3dfd21b36c5ec451095a465a487e82fa01dd841b20b6c4452269eff926dc",
+    "Server.dll": "ee46717d76ee13202f533ad453803d8e2f615fb5cc4f9c536f7f64464ee938f7",
+    "Assemblies/UOContent.dll": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
+    "Assemblies/Sanctuary.Content.dll": "ff8722f18dec51f537dca59c71e298f8994b2c3df4589e12a8acd047de3033d3",
+    "Assemblies/Sanctuary.Integration.dll": "07b47046971479539b34af267dd9eafd808345c8e501d2e31baaba536909cd1b"
+  },
+  "artifacts": {
+    ".local/class-skills/dire-wolf-body/stats-inputs.json": "c6cb0cc18d0f3ff41bf3c24da602a9d2c8a8f3c181e63138a793e4a9e733aade",
+    ".local/class-skills/dire-wolf-body/stats-native-checks.log": "408eb9f16e070739e885cbeed066201c016144c625968d928374a2703e1caad5",
+    ".local/class-skills/dire-wolf-body/stats-run.log": "9c42821b45a102400d7708d671590d34a959b2e88cb021de437c72aa85dda75a",
+    ".local/class-skills/dire-wolf-body/content-build.log": "06517335ce01d08673a2fc8e48f12fda7e3cddc049ab94af78a9f6027a5bef64",
+    ".local/class-skills/dire-wolf-body/integration-build.log": "04c1db7cb37fa73a2fe1d6949a1129a38f8e8ec03bb6e4ba9e5b410bf1dc625f",
+    ".local/class-skills/dire-wolf-body/python-tests.log": "3fe42b9e807af9adf41599743dbb9b6c5a4d2b9992eabe8763be0405e1d43165",
+    ".local/class-skills/dire-wolf-body/audit-native-checks.log": "ccc793c9f4e01285d2d81cdf08af48d56ab8488d1db54557bc60c22e3986ee8e",
+    ".local/class-skills/dire-wolf-body/named-item-runtime-audit.json": "d12fd96c9c78e0ed5910abba9b949db89eab5af3eac86345f91fef2d724497ad",
+    ".local/class-skills/dire-wolf-body/first-loop-affix-audit.json": "10511878f703e13408b084b0faedec271f23783a0a679305760a2cc47cbb3a58",
+    ".local/class-skills/dire-wolf-body/dire-wolf-body-fixtures.json": "d0101f3839850269ff030e057e950f5ef3be38d146d9766d6d2c419ace2173f6",
+    ".local/class-skills/dire-wolf-body/corpse-explosion-cast-fixtures.json": "6bc1adf355e226bdd8a8edbc2d828b399d7999dd9c6668241b10ab92e2674398",
+    ".local/class-skills/dire-wolf-body/tested-skill-effects.json": "4f10d6b3fbb64cb94a130a45c56f0cacd5599cef1ac1a086005c361098a7bed6",
+    "tools/reference/dire-wolf-ai-source-evidence.json": "7f3ef3835b55193d3cd8df3f36e064624fd302be02e94ed806c98517de2eb152",
+    ".local/class-skills/dire-wolf-ai-source-probe.json": "7e91e2c3e7b4112f52e946abb70e00bb183169c5a5c1c47e77ca2a723e2d9038",
+    ".local/class-skills/dire-wolf-ai-source-probe.cpp": "0f9da104b7c098c903d61dd083459643dfcc65038d875f1f5b7606d47583d79b",
+    ".local/class-skills/dire-wolf-ai-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/Sanctuary.Content/DruidDireWolfAi.cs": "6946fa19b4dedc55bd1ece302badf8e3c288151db83a11eb7555f4296f524fb5",
+    "tests/Sanctuary.Integration/DireWolfAiChecks.cs": "a1a9217f30f9a2beaf55c60afdd30d0600ba81fa834f555647a2702ce96ad56b",
+    "tests/check_dire_wolf_ai.py": "133865f04aa339c719e86c68a989fa1ab51ed2308436b33336c08d5ad41b66e1",
+    "tools/record_dire_wolf_ai.py": "2ae66ba108a1b9b7c21d2a921026ddd2e4b4b4b81d0e09987589d8fdd3d615bd",
+    "tools/probe_dire_wolf_ai_reference.py": "dffcc4e18633a7b7fd106b7188f0fc8ea6b56287ad340d3754f8ccbb03d5a994",
+    "tools/reference/dire-wolf-corpse-deviation.json": "56e27006f5825213747e6dd70f5db68aeaaa092cea58109264c586d90396ccc9",
+    "src/Sanctuary.Content/DruidDireWolfBody.cs": "31e85f0b3390f5bb0e0e66018cc3c727598a618dc588c58e2242fd8a252ae48f",
+    "src/Sanctuary.Content/DruidDireWolfCorpses.cs": "9f15053e7a89293e48054cb7e0aca9b83cabe0ecf520ffcad91d92b497e1176f",
+    "src/Sanctuary.Content/CorpseSkillRules.cs": "9da8bb48d19d5ab9b706e94a5bcf25a08a8863ad6cc55f312270da9066623d46",
+    "src/Sanctuary.Content/CreatureProfiles.cs": "2e8744e8f7756225983fe8651b99830760abab0b136e4c1beb26dde532c003bd",
+    "tests/Sanctuary.Integration/DireWolfBodyChecks.cs": "a963228ac8598c8ecb0e555c36b34e06533854b506989096b30b5aacca879f8d",
+    "tests/check_dire_wolf_body.py": "0570c606b52e0cc54f3bbae1c20ccd3d0b918f43e4c57011bba9bdfafa1d2004",
+    "tests/export_runtime_audits.py": "96093e4171ed5324c9ec02e462b59147a07e6f87bae8a2bb89464e75408424c0",
+    "tools/record_dire_wolf_body.py": "0734a531c1277428c5c2a84da6308ce2738b68cdbad88e0d0654cc64dceb0736",
+    "tools/build_class_skills.py": "09d2615b59fbf435db9e7ba63b4763cfe330b60e1f26c00b98ba9fa032bf7275",
+    "data/Sanctuary/Balance/skill-effects.json": "63e5713f1931d51af131a0ae579b5cc469a4164e20fc2a4abfdb7fdca943e593"
+  },
+  "established": [
+    "Prepared Fenris body has immutable captured birth/passive ranks, fractional rank1 life88473FP,54FP recovery, source species/defense/resistances and vulnerability. It keeps the existing serialized SkeletonGuardian base chain and suppresses native skeleton AI/damage. Invalid restores fail atomically; real gear changes only affect fresh captures.",
+    "Actual ownership/history parking, orphan deletion, offline frame discard, one-frame recovery and owner-facet difficulty rescale preserve captured ranks and life percentage. Two real server reloads retain the saved body and consumed/fresh corpse states.",
+    "Approved type-independent corpse route reuses shared native access/map/loot and reservation checks. Actual skeletal and fleshy deaths can be consumed without selectable/source/base-life/seed data. Existing generic corpse skills still require selectable metadata. Owned, shattered, reserved, harvested and cross-map controls refuse feeding.",
+    "Reservation and loot-safe consumption precede the explicit rage-allocation callback. A failed buff allocation still consumes; repeated/competing reservations fail; retained Gold survives and an empty consumed corpse uses shared cleanup. No direct life/mana write is invented.",
+    "205 retained markers pass across three boots and two actual reloads, including existing player corpse-explosion casts, Fenris policy and wolf/spirit consumers. Separate real runtime audits preserve all573 named decisions; all70 Python checks pass. Both builds have zero warnings/errors. Only the Dire asset-placeholder prose changed after the mechanics run; the exact tested register is retained and all remaining rows/fields compare equal."
+  ],
+  "limits": [
+    "No automatic Dire world controller, corpse acquisition/reach/animation dispatch, actual500frame/+100percent rage stat consumer, physical combat or learned placement/payment/input is connected. The rage callback is an explicit service, not a completed rage implementation.",
+    "Facet rescale is verified separately from travel: this body-only fixture uses shared suspend/resume placement. Automatic path/motion/teleport and exact current timing/RNG/geometry require the later world controller. Nonzero physical-sunder delivery remains unsupported.",
+    "No class is complete and no current executable parity certificate or installed candidate rollout is claimed. Main2a6eec9,original saves/configuration/client and the earlier accepted packages remain preserved. Earlier AI package/evidence is frozen at a1721cb.",
+    "The body uses silent UO0xE1 named Dire Wolf [placeholder]. Final WF/corpse/rage/contact/audio effects and separate talent/right/quick icons remain pending."
+  ]
+}
