@@ -1,0 +1,60 @@
+{
+  "referenceVersion": "3.3.93847",
+  "reviewOnly": true,
+  "currentExecutableParity": false,
+  "currentPreflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+  "currentFields": {
+    "Wearwolf": {
+      "Param12": "1",
+      "*Param12 Description": "Allow Instant Direct Transformation"
+    },
+    "Wearbear": {
+      "Param12": "1",
+      "*Param12 Description": "Allow Instant Direct Transformation"
+    }
+  },
+  "userCrossFormObservation": {
+    "source": "Direct user reply,2026-10-28",
+    "observed": false,
+    "verbatim": "i have no idea, i never learned both at the same time",
+    "conclusion": "No cross-form observation available; no respec requested and no global block."
+  },
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourceFile": {
+    "path": "source/D2Common/src/Units/Units.cpp",
+    "sha256": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea"
+  },
+  "routineHashes": {
+    "UNITS_UpdateAnimRateAndVelocity": "6fcb26e1d153e3786da6bc23bf1883967a3c0c77342129dd28bf8a2607150220",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "UNITS_IsSeqAnimSpeedModulatedByFCR": "3fb9c48bdee9d08a73a78f23a88327e5cb1b119077f32dae49a2b8f98d628028",
+    "UNITS_UpdateCastAnimRateAndVelocity": "de79bb2a9985ea8b00257ba3268df36fe737c1c43254a9d0c01bc1841b5b3dde",
+    "UNITS_UpdateBlockAnimRateAndVelocity": "6e7042e9c69afa450addd10104fe9066f24aa476f5fe12d62cabc2a92e3dfd43",
+    "UNITS_UpdateGetHitAnimRateAndVelocity": "7151780c467620a1db1c0e76437d4cd64b0a4c39cc62af21772a676433a59fdf",
+    "UNITS_UpdateOtherAnimRateAndVelocity": "cc7cdb9064f0d909f6fb1dedb7fa0b7f2506adef9379121a84411cfee8921b33"
+  },
+  "officialHistoricalReference": {
+    "title": "Diablo II: Resurrected Patch 2.4 | Ladder Now Live",
+    "url": "https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+    "patchLive": "2022-04-14",
+    "retrieved": "2026-10-28",
+    "releaseNotesNotPtr": true,
+    "paraphrasedFacts": [
+      "Released2.4uses only the new attack-speed calculation for both forms; earlier PTR faster-of-two behavior is not the final release rule.",
+      "Both form attack-speed caps increased from75to150percent. Werebear attacks and skills became uninterruptible.",
+      "Cyclone Armor and Hurricane became castable in both forms; Maul added3percent attack speed per charge."
+    ]
+  },
+  "conclusions": [
+    "Current Param12value1and its direct-transformation label are primary table evidence,not an observed cross-form transition. The complete legacy do116has no corresponding option and clears either active group3form before returning0. Do not silently treat the accepted legacy cross-form comparison as confirmed3.3.93847behavior.",
+    "The legacy attack writer clamps combined rate at175and uses a melee-only alternate base-speed service. Released2.4changes make unchanged reuse of that writer for live player forms unsuitable as a current mechanical reference. Its full routine hashes are retained for comparison,not acceptance.",
+    "The350native model cases remain bounded legacy player-state/stat projections. Their150unshifts include50cross-form cases; only same-form free unshift is user-confirmed. No learned route or live stat/rate consumer was enabled. Keep the immutable accepted package unchanged and apply modern corrections in the next candidate.",
+    "Existing ClassResources percentage buckets,BattleOrders proportional-resource changes,ClassStats AR/defense and saved buff profiles remain reuse candidates. Confirmed proportional form-entry life does not independently establish unshift/expiry/forced-removal rounding."
+  ],
+  "next": [
+    "Implement saved form/stat/resource projection and verify unaffected entry/same-form unshift/expiry paths while retaining explicit unresolved modern behavior. Do not stall the whole Druid roadmap.",
+    "Establish direct cross-form eligibility/payment/timing using current executable evidence or an actual pinned-build observation; the Param12description alone is insufficient.",
+    "Establish modern attack-rate composition and form-specific animation/restriction consumers. Historical patch notes identify known changes but do not certify every3.3.93847formula or later revision."
+  ]
+}
