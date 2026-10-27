@@ -28,6 +28,8 @@ def record(check=False):
     assert log.count('creeper-poison-check: passed') == 1
     assert log.count('creeper-poison-reload-check: passed') == 2
     assert log.count('creeper-poison-live-result: passed') == 3
+    assert log.count('creeper-casting-check: passed') == 1
+    assert log.count('creeper-casting-reload-check: passed') == 2
     assert log.count('creeper-world-reload-check: passed') == 2
     assert log.count('creeper-world-live-check: passed') == 3
     assert log.count('creeper-world-live-result: passed') == 3
@@ -67,6 +69,11 @@ def record(check=False):
     assert poison['Mat']['Poison']['Damage'] == dict(Minimum256=96, Maximum256=144, Frames=100, Count=0)
     assert poison['Poison']['PoisonSource'] == poison['Owner'] and poison['Poison']['Owner'] == poison['Target']
     assert poison['Poison']['PoisonMs'] == 3920 and 96 <= poison['Poison']['PoisonClock']['Rate256'] < 144
+    casting = json.loads((STAGE / 'casting-fixtures.json').read_text())
+    assert casting['State']['Owner'] == casting['Owner']
+    assert casting['State']['Snapshot']['Birth']['Rank'] == 1 and casting['State']['Controller']['Mode'] == 1
+    assert casting['State']['Controller']['SkillEvents'] == 0 and casting['State']['Controller']['Fault'] is None
+    assert casting['Body'] not in [casting['Wolf'], casting['Raven']] and casting['Mana'] >= 0
     wolf = json.loads((STAGE / 'wolf-world-fixtures.json').read_text())
     assert wolf['State']['Controller']['Fault'] is None
     assert wolf['State']['Controller']['AttackSpeed'] == 88 and wolf['State']['Controller']['DeferredThinks'] > 0
@@ -78,6 +85,10 @@ def record(check=False):
     for relative, names in [
         ('source/D2Game/src/AI/AiTactics.cpp', ['D2GAME_AICORE_Escape_6FCD0560']),
         ('source/D2Common/src/Units/Units.cpp', ['UNITS_GetMeleeRange', 'UNITS_IsInMeleeRange', 'UNITS_GetDistanceToCoordinates']),
+        ('source/D2Common/src/D2States.cpp', ['STATES_ToggleState']),
+        ('source/D2Common/src/D2StatList.cpp', ['D2Common_STATES_ToggleState_6FDB8900']),
+        ('source/D2Common/src/Path/Path.cpp', ['PATH_GetCollisionPatternFromMonStats2Txt']),
+        ('source/D2Game/src/GAME/Targets.cpp', ['D2GAME_UpdateSummonAI_6FC401F0']),
         ('source/D2Common/src/D2Skills.cpp', ['SKILLS_GetHighestLevelSkillFromSkillId', 'SKILLS_EvaluateSkillFormula']),
         ('source/D2Game/src/SKILLS/SkillSor.cpp', ['SKILLS_MissileInit_ChargedBolt']),
         ('source/D2Game/src/SKILLS/SkillDruid.cpp', ['SKILLS_SrvDo130_VineAttack']),
@@ -102,6 +113,7 @@ def record(check=False):
         'src/Sanctuary.Content/DruidCreeperFields.cs', 'src/Sanctuary.Content/DruidEmitterPatterns.cs',
         'src/Sanctuary.Content/DruidCreeperGround.cs',
         'src/Sanctuary.Content/DruidCreeperPoison.cs', 'src/Sanctuary.Content/PoisonPackets.cs',
+        'src/Sanctuary.Content/DruidCreeperCasting.cs', 'src/Sanctuary.Content/DruidRavenCasting.cs',
         'src/Sanctuary.Content/PoisonStates.cs', 'src/Sanctuary.Content/TimedEffects.cs',
         'src/Sanctuary.Content/ChargedBolts.cs', 'src/Sanctuary.Content/SourceMissileSteps.cs',
         'src/Sanctuary.Content/AmazonSlowMissiles.cs', 'src/Sanctuary.Content/CombatHitboxes.cs',
@@ -113,21 +125,27 @@ def record(check=False):
         'tests/Sanctuary.Integration/CreeperFieldsChecks.cs',
         'tests/Sanctuary.Integration/CreeperGroundChecks.cs',
         'tests/Sanctuary.Integration/CreeperPoisonChecks.cs', 'tests/Sanctuary.Integration/CreeperStatsChecks.cs',
+        'tests/Sanctuary.Integration/CreeperCastingChecks.cs',
         'tests/check_creeper_stats.py', 'tools/record_creeper_world.py',
         'tools/reference/creeper-stats-native-evidence.json', 'tools/reference/creeper-ai-source-evidence.json',
         'tools/reference/creeper-preflight.json', 'data/Sanctuary/Balance/necromancer-summons.json']]
     paths += [STAGE / name for name in ['stats-inputs.json', 'stats-native-checks.log', 'stats-run.log',
-        'world-fixtures.json', 'ground-fixtures.json', 'poison-fixtures.json', 'wolf-world-fixtures.json', 'python-tests.log', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
+        'world-fixtures.json', 'ground-fixtures.json', 'poison-fixtures.json', 'casting-fixtures.json', 'wolf-world-fixtures.json', 'python-tests.log', 'content/Sanctuary.Content.dll', 'integration/Sanctuary.Integration.dll']]
     evidence = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], installed=False, learnedHandler=False,
         profile=state['Profile'], automaticWorldClock=True, actorConnected=True, liveVineDamage=True,
         headRequestsCapturedOnly=False, movingHeads=True, finiteMats=True, poisonContactsCapturedOnly=False,
         provisionalPoisonCapture=True, poisonCaptureProfile=context['Profile'],
+        preparedPaymentPlacement=True, learnedInputConnected=False, zeroFootprintMobilePlacement=True,
         independentFieldPersistence=True, removedActorFieldsReloaded=True, embeddedFieldsMigrated=True,
         boots=3, actualReloads=2, connectedNaturalFollows=3, connectedNaturalFieldExpiries=3, connectedNaturalPoisonRuns=3,
         passedMarkers=len(re.findall(': passed', log)), pythonTests=70, handlers=167, druidHandlers=11,
         fullClassRegression=False, currentExecutableParity=False, completedClasses=[], goalComplete=False,
         officialSynergyReference=dict(url='https://news.blizzard.com/en-gb/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live',
             scope='Released2.4notes announce Rabies adding10percent poison damage per level to Creeper, matching the current table. This corroborates intended synergy, not modern NPC transport or capture timing.'),
+        exposureReview=dict(implemented=False, stateId=150, currentSetFunc=11, currentClientActiveFunc=89,
+            scope='Reviewed state toggle changes state bits/disguise and refreshes the unit; summon-node helper links owner targeting nodes without setting damage protection. Source size0selects collision patternNONE. Current isAtt0supports filtered exclusion, not a complete global invulnerability policy. Exact surface/underground timing and incoming routes remain open.',
+            supplementaryGuide='https://www.theamazonbasin.com/wiki/index.php/Poison_Creeper',
+            guideScope='Guide reports no damage underground but does not establish this pinned build or expose a timing boundary. Its3+rank second mat duration also differs from the pinned current expression100+25*rank. It is supplementary, not a current-executable certificate.'),
         sourceHashes=source_hashes, reviewedRoutineHashes=routines,
         hashes={str(p.relative_to(ROOT)): sha(p) for p in paths},
         established=[
@@ -141,15 +159,16 @@ def record(check=False):
             'Three authenticated natural sessions create fields after the initial follow, observe both emission batches, delete the actor and introduce two stationary hostile monsters after the inactive contact window. Actual monster life falls from poison and the independent timer expires remaining mats. The always-running conductor continues with no actor in its tracked set. The internal direct factory is exercised, not a learned cast or animation.',
             'New mats capture raw rates,100frame poison length, slow damage scalar and per-mat RNG. Rank1/no-synergy gives32/48rates and hard20Rabies gives96/144; slow33percent gives10/15without shortening poison. The mapped creator helper also matches all zero-mastery cases in the retained complete source endpoint fixture. Ground pools preserve packet/rank/context/seed across two reloads; missing packets and packet/context disagreement are atomically refused.',
             'The bridge reuses recipient resistance/curse/aura pools, independent poison rate/length mitigation, exclusive-maximum rolls and the source40msnegative-regeneration clock. Native controls check no immediate damage,39/40msboundary,50percent and negative resistance, immunity, weaker/stronger replacement, four-second expiry, lethal NPC poison and original-player damage attribution. Landed poison survives two actual reloads and resumes one exact frame with unchanged source/rate. Its inspection UpdatedUtc is held two days; ordinary four-second expiry is checked separately.',
+            'Prepared do115release transaction uses current8mana/InTown1and current effective rank, allocates before payment and replaces existing source-category vines only after successful payment. Native controls cover selected and deleted target coordinates, occupied zero-footprint placement, failed allocation, lost/fractional mana, successful replacement, frozen/invalid-point refusal, town and unchanged Wolf/Raven families. Both actual reloads retain paid state and mana; a new paid commit after each reload replaces the previous vine. This is an internal release transaction, not SC/FCR windup, learned dispatch or client input acceptance.',
             'Shared native terrain helper preserves the existing Wolf ground projection. Wolf world/cold-hit/slow-state controls and two actual reloads pass alongside Creeper. Retained Creeper life/buff/history/facet and numeric/policy controls remain checked. Main installed runtime/saves/config/client are unchanged.'],
         remaining=[
             'This is an internal functional-poison profile with explicitly provisional capture timing, not a learned or current-executable parity certificate. Modern pet/owner stat transport, full mastery/pierce/sunder, current credit/event ordering and graphical acceptance remain open.',
             'The named birth-owner-rabies-no-player-gear-provisional-v1model uses the already-captured summon-birth hard Rabies context and inherited head rank, then creates the raw packet/slow scalar at each mat birth. It honors the current intended synergy and does not copy player weapon/gear mastery or pierce into the NPC. Released notes/tables establish the synergy, not this timing. Modern live-versus-birth Rabies and equipment transport must still be corroborated; this is not an approved Sanctuary deviation. Original-player poison attribution is an explicit durable source-credit adapter after NPC removal.',
             'Current Range expression evaluation is a declared adapter, not executable-parser equivalence. Local head/mat tick ordering, charged floating projection, native terrain-fit/sector-order/height and size3collision services are not exact D2R room/path/collision certificates. The declared original-player allegiance adapter preserves hostile-NPC filtering after actor removal; exact modern ownerless collision/friendly selection, child distance/room checks after source relocation and shared global event order remain unverified.',
-            'VINE_BEAST surface/underground visibility and general melee/projectile targeting remain unverified. isAtt0offensive aura exclusion remains intact, while the named silent0x8actor is visibly vulnerable preparation only.',
+            'VINE_BEAST surface/underground visibility and general melee/projectile targeting remain unverified. Reviewed server state/target-node/size routines do not prove the client state effect or exposure window; no invulnerability timing is invented. isAtt0offensive aura exclusion remains intact, while the named silent0x8actor is visibly vulnerable preparation only.',
             'Server-start age and saved per-actor source-frame offset are explicit clock adapters. Exact modern NPC skill-rate/mode-end/AI scheduling, game epoch, shared actor ordering, source scan alternatives/list/ties/LOS, special target reach and global RNG equivalence are not certified.',
             'Zero-footprint native terrain ignores mobile occupancy but uses ordinary native16height/surface checks. Facet-wide room projection, source-grid conversion, owner one-step movement and nearest mapped target are adapters. AStar/type1, complete moving-target/obstacle path repair and full source collision geometry remain unsupported/unverified.',
-            'Nonzero inherited poison sunder and innate-skill Battle Command transport remain explicitly unsupported. Learned placement/payment/shared-vine cap/right/quick input, full-class regression, graphical client and installation are pending. Separate effects/audio and talent/hotkey icons remain placeholders.'])
+            'Nonzero inherited poison sunder and innate-skill Battle Command transport remain explicitly unsupported. Prepared release requires a learned hard point; staffmod-only summon permission, SC/FCR windup/cancellation, right/quick input, full-class regression, graphical client and installation remain pending. Carrion/Solar source-category keys are recognized, but their actual future actors/casts are not exercised. Native ground16height/LOS/range/two-tile retry remain adapters, not exact source placement or room-search certificates. Separate effects/audio and talent/hotkey icons remain placeholders.'])
     target = ROOT / 'tools/reference/creeper-world-native-evidence.json'
     encoded = json.dumps(evidence, indent=2) + '\n'
     if check:

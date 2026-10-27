@@ -82,10 +82,10 @@ public partial class DruidCreeperBody:SkeletonGuardian,ISourceLifeMaximum
     {Validate(state);var copy=state.Controller is{} c?state with{Controller=DruidCreeperWorld.Copy(c)}:state;string json=JsonSerializer.Serialize(copy);_prepared=copy;_saved=json;}
     internal static DruidCreeperBody CreatePrepared(PlayerMobile owner,Point3D point,DateTime at)
     {
-        // Prepared body only uses an ordinary native legal ground point. Its
-        // source footprint is0; exact underground placement is a separate route.
+        // Source footprint0does not reserve a mobile's space. Native16height/
+        // surface geometry remains the declared terrain projection.
         if(at.Kind!=DateTimeKind.Utc || at>DateTime.MaxValue.AddMilliseconds(-40) || owner?.Map==null || owner.Map==Map.Internal
-            || !owner.Map.CanSpawnMobile(point))
+            || !PetGroundWorld.ZeroFootprint(owner.Map,point))
         {throw new ArgumentException("Creeper needs a legal prepared ground point and UTC clock");}
         var snapshot=DruidCreeperStats.Capture(owner);
         if(snapshot.Birth.Pierce!=0){throw new NotSupportedException("Creeper poison-sunder consumer remains unverified");}

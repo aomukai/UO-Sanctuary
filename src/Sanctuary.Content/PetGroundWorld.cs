@@ -8,11 +8,13 @@ namespace Sanctuary;
 // It does not certify D2 room geometry, source footprints or crowd ordering.
 internal static class PetGroundWorld
 {
+    internal static bool ZeroFootprint(Map map,Point3D p)=>map!=null&&map!=Map.Internal&&p.X>0&&p.Y>0&&p.X<map.Width&&p.Y<map.Height
+        && map.CanFit(p.X,p.Y,p.Z,16,checkMobiles:false,requireSurface:true);
     internal static bool Point(BaseCreature body,Point2D cell,out Point3D point,bool zeroFootprint=false)
     {
         point=new((cell.X+1)/2,(cell.Y+1)/2,body.Z);var map=body.Map;
         if(map==null || map==Map.Internal || cell.X<=0 || cell.Y<=0 || cell.X>=map.Width*2 || cell.Y>=map.Height*2){return false;}
-        bool Fits(Point3D p)=>zeroFootprint?map.CanFit(p.X,p.Y,p.Z,16,checkMobiles:false,requireSurface:true):Teleportation.Space(map,p,body,true);
+        bool Fits(Point3D p)=>zeroFootprint?ZeroFootprint(map,p):Teleportation.Space(map,p,body,true);
         if(Fits(point)){return true;}
         int z=map.GetAverageZ(point.X,point.Y);if(Math.Abs(z-body.Z)>=16){return false;}
         point=new(point.X,point.Y,z);return Fits(point);

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "e7b8803b6b33e03fdd603477e1b62b02c9ca4ac0c70d71eff578975c6c60f2a0",
+  "ContentAssemblySha256": "5cec70044ebe258dfbf2466f8c0b6e38baf6e4917ef3bd60c73aebbb836d49a5",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -351,7 +351,8 @@
     "src/Sanctuary.Content/DruidArmageddon.cs": "09c944796ea690ffa25b5564d409dfff4ec00c46ae25cd7f5eaf4746906a6a61",
     "src/Sanctuary.Content/DruidCombat.cs": "2e012fe4a45f412f9367fbcea20ed425eb1bb6e211466fad8d5bc3634f62af4a",
     "src/Sanctuary.Content/DruidCreeperAi.cs": "385e4931a2251b0151fbcd33fb40acea04fdba1a11d61a25fc3d9b499e46cbba",
-    "src/Sanctuary.Content/DruidCreeperBody.cs": "6f35df30ec6dd614c93b22c938ac34f7a36aed05a2fd3a964b4d21fdfec6d86b",
+    "src/Sanctuary.Content/DruidCreeperBody.cs": "a54c901990af4e1833236550e424ffaa10d38defce0072c0ac5c0ed29678f41e",
+    "src/Sanctuary.Content/DruidCreeperCasting.cs": "df890bf4cb100c1f03da5f7d1b59324f6929b19564e5145956bbeed1e33b29d6",
     "src/Sanctuary.Content/DruidCreeperFields.cs": "74fb705af98c61376bbdd74a2b3e1957e98e70a5e7937b00b06a2e09a2858518",
     "src/Sanctuary.Content/DruidCreeperGround.cs": "0928ecb311b976757c85441e7cda010ecacde8c2a102372f48109450474a21aa",
     "src/Sanctuary.Content/DruidCreeperPoison.cs": "9f4c31dc1af9900cfbafa4c9b53de4961758e31f98349dbd41ed151563ed109a",
@@ -515,7 +516,7 @@
     "src/Sanctuary.Content/PaladinVigor.cs": "d8af81bbaf67c65c8befc3d8f29afee0b6082bde72f24e72858af261abc54d08",
     "src/Sanctuary.Content/PaladinZeal.cs": "e7940a98be03e20fc17f1ab8d509bdfd09c3ffd0ac68fc2cee07e9f25361da8f",
     "src/Sanctuary.Content/PersistentMinions.cs": "2dc58301f5adc0532c3231f68de075e75d843926f553e00c7e0a99b2ae588c5a",
-    "src/Sanctuary.Content/PetGroundWorld.cs": "6b479043af86581ddbefa3c724a2d263d042818d0c9e78c6001f33a8a2d3cf42",
+    "src/Sanctuary.Content/PetGroundWorld.cs": "38bf7d95ad317ba0b6bb62c0fe9b96a4cdb961d4dba6642fce493cd467029a66",
     "src/Sanctuary.Content/PetOwnerRoutes.cs": "5d5d076423b69af304608cfa317e15c7c97e3261f9789bbf639fc891ecf8f456",
     "src/Sanctuary.Content/PlagueJavelins.cs": "30d95e7c2232bff5f22427cbc6f1c0b888a587dca198d40d3a536a3ccc38d897",
     "src/Sanctuary.Content/PoisonJavelinPackets.cs": "d12831c58c075b1e33c82e2362f07616a70fb86e870b7d0ad49024a3e99e2a45",

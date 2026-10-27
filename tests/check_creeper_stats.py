@@ -79,6 +79,7 @@ def check():
                     commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')
                     commands.append('creeper-ground-check' if boot == 0 else 'creeper-ground-reload-check')
                     commands.append('creeper-poison-check' if boot == 0 else 'creeper-poison-reload-check')
+                    commands.append('creeper-casting-check' if boot == 0 else 'creeper-casting-reload-check')
                     if audit and boot == 0:
                         commands.append('first-loop-catalogue-check')
                     for command in commands:
@@ -99,6 +100,7 @@ def check():
         shutil.copy2(folder / 'creeper-world-fixtures.json', STAGE / 'world-fixtures.json')
         shutil.copy2(folder / 'creeper-ground-fixtures.json', STAGE / 'ground-fixtures.json')
         shutil.copy2(folder / 'creeper-poison-fixtures.json', STAGE / 'poison-fixtures.json')
+        shutil.copy2(folder / 'creeper-casting-fixtures.json', STAGE / 'casting-fixtures.json')
         shutil.copy2(folder / 'creeper-body-fixtures.json', STAGE / 'body-fixtures.json')
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
     print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass3boots/2actual reloads; saved life-only Creeper body checked, world AI/mats and learned handler pending; installed world untouched.')
