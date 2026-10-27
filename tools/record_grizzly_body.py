@@ -108,7 +108,9 @@ def record(check=False, full_class=False):
     assert sha(newer) == review['supplementaryStart']['sha256']
     for name, digest in review['sourceHashes'].items():
         assert sha(ROOT / '.local/class-skills/d2moo-pinned-source' / name) == digest, name
-    artifacts += [review_path, newer]
+    observation=ROOT/review['userObservation']['path']
+    assert sha(observation)==review['userObservation']['sha256']
+    artifacts += [review_path, newer, observation]
     artifacts += [ROOT / name for name in ['tools/record_grizzly_body.py', 'tests/check_grizzly_body.py', 'tests/check_creeper_stats.py', 'tests/check_class_skills.py', 'tools/build_class_skills.py', 'tools/review_grizzly_bearsmite.py']]
     result = dict(referenceVersion='3.3.93847', installed=False, handlerEnabled=False, handlers=171, druidHandlers=15, completedClasses=[], goalComplete=False,
         verified=dict(passMarkers=235, boots=3, actualReloads=2, nativeAiComparisons=2016, nativeBirthComparisons=55152, nativeOrdinaryModeComparisons=6144,
@@ -125,7 +127,7 @@ def record(check=False, full_class=False):
             'Complete-body BearSmite review pins real sequence14and block6,records newer start32unchanged,and explicitly retains current Stun Length label versus reconstructed post-allocation physical-field ambiguity. No new BearSmite implementation is inferred. Earlier AI prose648fingerprints was a typo:its receipt verified647/21;this package actually has648/21.',
         ], remaining=[
             'Before full mode-stream/world integration,correct the previously unused beast-helper BLOCK3mapping to actual6and add header-backed GH/block/sequence/dead controls. Prior ordinary4/5/7/8compared cases are unaffected. Sequence12wording in earlier notes was wrong:12is dead,14is sequence.',
-            'No automatic Grizzly AI112world/movement,ordinary hit,BearSmite326sequence/combat,learned40mana/cap1/coexistence/input or rollout is claimed. Resolve or individually gate the current BearSmite stun/flat-field gap instead of inventing250damage or250-frame stun.',
+            'No automatic Grizzly AI112world/movement,ordinary hit,BearSmite326sequence/combat,learned40mana/cap1/coexistence/input or rollout is claimed. User confirms knockback without observed stuns;do not add a stun. Keep the hidden post-allocation flat-field/health semantics explicit instead of inventing250extra damage.',
             'Explicit owner-death and lethal Grizzly death/return chronology,full modern mode/first-think/busy/event/seed/geometry/path,equipment/nonzero-sunder/item-only and graphical playtesting remain acceptance work. Body-only preparation uses explicit recovery frames and shared legal resume placement,not automatic cross-facet movement.',
             'Final B7effects/audio and independent talent/right/quick icons remain separately pending. Installed main remains101013bwith original build/saves/config/client preserved. New source/full candidate evidence does not install the package or complete a class.',
         ])

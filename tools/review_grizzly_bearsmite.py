@@ -59,18 +59,22 @@ def build(check=False):
     row = preflight['currentRows']['skills']['BearSmite']
     assert [row[k] for k in ['*Id', 'srvstfunc', 'srvdofunc', 'SrcDam', 'calc1', 'calc2', '*calc2 desc', 'Param1', 'Param2', 'Param3', 'Param4', 'ResultFlags']] == ['326', '32', '2', '128', 'ln34', 'max(250,ln12)', 'Stun Length', '15', '5', '15', '15', '8']
     assert [preflight['currentRows']['monstats']['druidbear'][k] for k in ['Skill1', 'Sk1mode', 'Sk1lvl']] == ['BearSmite', 'seq_bearsmite', '1']
-    result = dict(referenceVersion='3.3.93847', legacyCommit=tree['sha'], scope='Complete-body read/review; not a compiled packet proof or native BearSmite implementation',
+    observation_path = ROOT / 'tools/reference/grizzly-bearsmite-user-observations.json'
+    observation = json.loads(observation_path.read_text())
+    assert observation['referenceVersion'] == '3.3.93847' and observation['observed']['verbatim'] == "i've only seen a knockback, no stuns"
+    result = dict(userObservation=dict(path=str(observation_path.relative_to(ROOT)),sha256=sha(observation_path)),referenceVersion='3.3.93847', legacyCommit=tree['sha'], scope='Complete-body read/review; not a compiled packet proof or native BearSmite implementation',
         handlerEnabled=False, sourceHashes=hashes, reviewedRoutineHashes={k:hashlib.sha256(v.encode()).hexdigest() for k,v in bodies.items()},
         preflightSha256=sha(preflight_path), sourceMonsterModes=modes,
         supplementaryStart=dict(commit=NEWER_COMMIT, blob=NEWER_BLOB, path=str(newer.relative_to(ROOT)), sha256=sha(newer),
             url=f'https://github.com/ThePhrozenKeep/D2MOO/blob/{NEWER_COMMIT}/source/D2Game/src/SKILLS/SkillBar.cpp', sameCompleteRoutine=True),
         established=[
             'Actual monster mode constants are GETHIT3,BLOCK6,DEAD12,SEQUENCE14. AI UseSequenceSkill asks for MONMODE_SEQUENCE14. Existing sentry mode14sequence primitives are reuse candidates;12must not be described as BearSmite sequence.',
+            'User observation in pinned3.3.93847reports only knockback,no stuns. Keep BearSmite free of an invented stun; this does not measure extra damage or knockback distance.',
             'NPC326is granted at innate rank1,distinct from owner Grizzly rank. Its current calc1ln34gives15damagepercent at1; calc2max(250,ln12)gives250at1and is described as Stun Length; source ResultFlags8is KNOCKBACK. Effective innate NPC bonuses/Battle Command must be composed rather than treating owner rank as326rank.',
             'Complete supplementary start32prepares hit flags/percent/elements,allocates combat,and only then adds calc2<<8to dwPhysDamage. It does not write dwStunLen. Separately pinned newer7f6d773routine is byte-for-byte identical,so that reconstruction does not resolve this semantic mismatch.',
             'Complete do2calls the shared DrainItemDurability wrapper. The complete wrapper copies its allocated packet,checks melee range with monster bonus3,and calls ExecuteEvents with bMissile0. Complete ExecuteEvents recalculates total in its bMissile branch only,commits dwDmgTotal to health and reads dwStunLen separately. Ordinary event/item callbacks remain separate consumers,not proof that this suspicious post-allocation field changes modern health/stun.',
         ], unresolved=[
-            'Pinned current formula label Stun Length versus reconstructed physical addition/stale total is a modern-reference gap. Do not convert250to extra live damage or a250-frame stun without stronger current-build evidence. Current visible knockback/stun observation is an optional nonblocking question.',
+            'User-observed knockback without stun resolves the immediate stun decision:do not add one. The formula label versus reconstructed physical addition/stale total remains a hidden-packet reference gap;do not invent250extra live damage. Exact modern packet/health timing and knockback distance remain separate.',
             'The prior ordinary-mode service ABI declared BLOCK3instead of6; ordinary compared4/5/7/8cases are unaffected,while unused helper mapping3and unexercised6need correction before extending the full Grizzly mode stream. Keep frozen earlier packages/receipts unchanged; add header-backed controls in a new candidate.',
             'Sequence14clock/entry/start/action/durability/event/tie composition,ordinary versus skill mode-stat timing,block/miss,knockback immunity,actual AI112world and saved cancellation remain to implement and verify. The current body preparation has no automatic movement/combat or learned handler.',
         ])

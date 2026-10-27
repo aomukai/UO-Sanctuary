@@ -13,10 +13,10 @@
     "nativeAiComparisons": 2016,
     "nativeBirthComparisons": 55152,
     "nativeOrdinaryModeComparisons": 6144,
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null,
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35,
     "pythonTests": 70,
     "namedDefinitions": 573,
     "inputFingerprints": [
@@ -992,14 +992,20 @@
     "tools/reference/named-item-runtime-audit.json": "3d0f7312f3728a6b525ac0a4f4a7ccd9aa835d7388404d956046e1dbe940a89c",
     ".local/class-skills/grizzly-body/first-loop-affix-audit.json": "1109e12cb66b9fd914b4c36ff8de3db7eb98c84b25256188025d95fd89d5d096",
     "tools/reference/first-loop-affix-audit.json": "1109e12cb66b9fd914b4c36ff8de3db7eb98c84b25256188025d95fd89d5d096",
-    "tools/reference/grizzly-bearsmite-flow-review.json": "280e8513515d11224ad05e880acd15e6bb5462a3c408029d92b0254023ccf804",
+    ".local/class-skills/grizzly-body/full-named-item-runtime-audit.json": "3d0f7312f3728a6b525ac0a4f4a7ccd9aa835d7388404d956046e1dbe940a89c",
+    ".local/class-skills/grizzly-body/full-first-loop-affix-audit.json": "1109e12cb66b9fd914b4c36ff8de3db7eb98c84b25256188025d95fd89d5d096",
+    ".local/class-skills/grizzly-body/class-inputs.json": "65e32fc4748f64ed96caaf6c9eedb551cbc1a0d3202e701f7e33561cd7b1cce3",
+    ".local/class-skills/grizzly-body/class-native-checks.log": "f9ed7f5a584dbc055a226557ecd5d768690ce754d639e2dbea5cd0c11bb26cef",
+    ".local/class-skills/grizzly-body/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
+    "tools/reference/grizzly-bearsmite-flow-review.json": "2ee47d1fd7b6d5339a2da6d2bc3069fafa562eddbd59a02ffd766ab13834b0a1",
     ".local/class-skills/grizzly-newer-SkillBar.cpp": "06ea68dc3054d844f535c54217510e94adc976248762feba3b22fe8d8a6e3363",
-    "tools/record_grizzly_body.py": "1c5cc2e4d3bac53fd6c7e6c1922032dba3c10b5bbc1246a6e9d82b15f9f76ade",
+    "tools/reference/grizzly-bearsmite-user-observations.json": "de08473abbb709897c06d258141112d570b02a4d2cd1d73feee17e3a6794168c",
+    "tools/record_grizzly_body.py": "4bec24fe01be67819c459255fc12999db78d8208c8b0aad4a1b2c44838ac36fa",
     "tests/check_grizzly_body.py": "fc75b48011c20725008f1b51c5c9e4745421876a297ccdb694db03a9a1dd02de",
     "tests/check_creeper_stats.py": "875ca5d7b4854dbc14673a35b45e7ee0293b86cd0d85f02a3065129510ba9b16",
     "tests/check_class_skills.py": "57efb0c11ff55d60593d90204e3b44bea000139f04c7dbe2f77e349b9c358ed1",
     "tools/build_class_skills.py": "6602a787c61f1073fbd46b74966a9a50eda9f8a24a449d463b79eb4c6051af6a",
-    "tools/review_grizzly_bearsmite.py": "2761157e8402b9ae5c73de464852cabbd3e12add35dce2f849ed7d30e40b0966"
+    "tools/review_grizzly_bearsmite.py": "9a7c9ed34099f6d3cf73898be8f647b31d7476b1529f4b390d4c6772b6d141c6"
   },
   "established": [
     "Saved vulnerable Grizzly backend reuses SkeletonGuardian serialized chain,exact life/health,owner history,wardrobe,park/resume,difficulty and source regeneration/defense consumers. It has no native melee or automatic AI timer. Default UO0xD4/silent presentation is explicitly Grizzly [placeholder].",
@@ -1011,7 +1017,7 @@
   ],
   "remaining": [
     "Before full mode-stream/world integration,correct the previously unused beast-helper BLOCK3mapping to actual6and add header-backed GH/block/sequence/dead controls. Prior ordinary4/5/7/8compared cases are unaffected. Sequence12wording in earlier notes was wrong:12is dead,14is sequence.",
-    "No automatic Grizzly AI112world/movement,ordinary hit,BearSmite326sequence/combat,learned40mana/cap1/coexistence/input or rollout is claimed. Resolve or individually gate the current BearSmite stun/flat-field gap instead of inventing250damage or250-frame stun.",
+    "No automatic Grizzly AI112world/movement,ordinary hit,BearSmite326sequence/combat,learned40mana/cap1/coexistence/input or rollout is claimed. User confirms knockback without observed stuns;do not add a stun. Keep the hidden post-allocation flat-field/health semantics explicit instead of inventing250extra damage.",
     "Explicit owner-death and lethal Grizzly death/return chronology,full modern mode/first-think/busy/event/seed/geometry/path,equipment/nonzero-sunder/item-only and graphical playtesting remain acceptance work. Body-only preparation uses explicit recovery frames and shared legal resume placement,not automatic cross-facet movement.",
     "Final B7effects/audio and independent talent/right/quick icons remain separately pending. Installed main remains101013bwith original build/saves/config/client preserved. New source/full candidate evidence does not install the package or complete a class."
   ]

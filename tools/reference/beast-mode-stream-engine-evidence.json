@@ -1,0 +1,65 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "nativeConsumer": false,
+  "sourceHashes": {
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Common/src/DataTbls/MonsterTbls.cpp": "e10daf9cf01ac59cadb2a6c28882f9f88a7b55abd08fbb24956a0505f8bf5ee5",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    "source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    "source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "source/D2Common/include/DataTbls/MonsterTbls.h": "44ee1cb8593911a4ff4d564dfb62dc13e032396a19f81b7044031f7d5b5aa945"
+  },
+  "unchangedRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_GetMinPhysDamage": "78eecd5259f57cbcaa41719e083f3eb317479c419570b20812e2439beb8afdd4",
+    "SKILLS_GetMaxPhysDamage": "a44a82c81db099c1b6b49b879ffe24c59827bc4e350a89123f3369db5bae9d46",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "DATATBLS_CalculateMonsterStatsByLevel": "0efa45a69418af7d588d2d8386dffbca6b4e6d4e681f780bba7334495988bf21",
+    "sub_6FD14D20": "2a817ed567de52f3905f24e497e96c6c8d1352417c518ec9324de566bef490e2",
+    "sub_6FC627B0": "82266fb35c2c0ce76789e7bde74d291444594dd0b05baa8fb0b66807b777058e"
+  },
+  "monsterModes": {
+    "MONMODE_DEATH": 0,
+    "MONMODE_NEUTRAL": 1,
+    "MONMODE_WALK": 2,
+    "MONMODE_GETHIT": 3,
+    "MONMODE_ATTACK1": 4,
+    "MONMODE_ATTACK2": 5,
+    "MONMODE_BLOCK": 6,
+    "MONMODE_CAST": 7,
+    "MONMODE_SKILL1": 8,
+    "MONMODE_SKILL2": 9,
+    "MONMODE_SKILL3": 10,
+    "MONMODE_SKILL4": 11,
+    "MONMODE_DEAD": 12,
+    "MONMODE_KNOCKBACK": 13,
+    "MONMODE_SEQUENCE": 14,
+    "MONMODE_RUN": 15
+  },
+  "reusedAbiSha256": "fcc5d982bd6802896af9ec0ba7a3e5f8a3e97ecf14f76393239c2125fa065498",
+  "tableHashes": {
+    "monstats": "61519ce4b3992f2fe2e0985c8a3b2580b9e6a52900e3cedf4e28bb06bc1582e7",
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+  },
+  "fixture": {
+    "path": ".local/class-skills/beast-mode-stream-source-probe.json",
+    "sha256": "9e2144496d98e14f9187d41cffce696e44f8722cd18074aa8825bb617662953b",
+    "cases": 76416,
+    "ordinaryContexts": 73728,
+    "guardContexts": 2688,
+    "generatedSourceSha256": "79674c039faf50e5f83a032deb162a9508bf39f729c3c4ae569ccfc2896e3780",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete unchanged owner getters,physical tiers,to-hit,monster noRatio helper and flag1mode writer execute73728raw writer contexts:three species,rank0..255,three difficulties,two game contexts,all16actual monster modes.2688guard contexts retain null/nonmonster/metadata/list/owner/skill-row controls.",
+    "Friendly alignment service now supplies header GOOD2instead of earlier NEUTRAL1;both are non-evil and the earlier ordinary outputs are unaffected. Header-backed actual BLOCK6selects S1along with cast7and skill1mode8;A2mode5selects A2;all other raw modes select A1,including GH3,dead12andsequence14. Raw sequence14mode-list AR gets literal A1addition; this does not certify the sequence clock or that every tested raw mode request is reachable/appropriate gameplay.",
+    "Current owner skill getter/endpoints and copied birth/passives remain distinct. Live owner rank zero retains getter physical baseline but zero to-hit; missing owner/skill removes getter endpoints while literal monster lane AR remains. The shared earlier ABI BLOCK3was wrong;compared ordinary4/5/7/8contexts were unaffected,so frozen old receipts remain bounded to those modes."
+  ],
+  "limits": [
+    "This is a direct raw writer proof with explicit owner/rank/stat-list/game/layout services. It does not implement or certify native full-mode entry timing,AI112world,GH interruption,sequence14clock/start/action/packet or modern D2R executable equivalence.",
+    "No runtime C# changed during the existing Grizzly-body full regression. Apply the corrected mode mapping and native all-mode comparisons in a new dedicated package after that run terminates; do not overwrite accepted packages."
+  ]
+}

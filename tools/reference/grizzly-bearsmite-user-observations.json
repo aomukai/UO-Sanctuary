@@ -1,0 +1,12 @@
+{
+  "referenceVersion": "3.3.93847",
+  "source": "Direct user observation in this task,2026-10-27",
+  "observed": {
+    "grizzlyAttack": "Only knockback seen; no stuns observed",
+    "verbatim": "i've only seen a knockback, no stuns"
+  },
+  "interpretation": [
+    "Corroborates current NPC326ResultFlags8knockback. Do not turn its calc2Stun Length label into an invented stun.",
+    "The observation does not measure hidden extra damage,exact knockback distance,attack frequency,recipient immunity or every monster context. Those remain separate reference/acceptance scopes."
+  ]
+}
