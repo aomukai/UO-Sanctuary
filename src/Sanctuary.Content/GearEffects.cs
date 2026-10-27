@@ -152,8 +152,9 @@ public static class GearEffects
         double enhanced=NamedElements.Enhance(player,total-aura,element)+aura;
         return enhanced;
     }
-    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null,int physicalToFirePercent=0)
+    internal static PreparedWeaponImpact PrepareWeaponImpact(PlayerMobile player,Mobile target,double roll,Random effects,GearDamage damage,GearDamage? skillElements=null,int physicalToMagicPercent=0,bool? projectileCritical=null,int physicalToFirePercent=0,Func<GearDamage> skillElementsFactory=null)
     {
+        if(skillElementsFactory!=null&&skillElements.HasValue){throw new ArgumentException("Use one skill-element provider");}
         bool ranged=NamedCombat.Ranged(player);
         double rawPhysical=damage.Physical*(projectileCritical is{} critical?(critical?2:1):NamedCombat.Deadly(player,effects));
         // Skill elements already include their source percentage/mastery rounding.
@@ -170,7 +171,8 @@ public static class GearEffects
             var split=WeaponMissileDamage.ConvertPhysical(NamedElements.To256(rawPhysical),physicalToFirePercent);
             rawPhysical=split.Physical256/256.0;convertedFire=split.Magic256/256.0;
         }
-        var extra=skillElements.GetValueOrDefault();
+        // Fire Claws rolls its skill element after weapon critical, before mitigation.
+        var extra=skillElementsFactory?.Invoke()??skillElements.GetValueOrDefault();
         var parts=SkillCombat.MitigatePrepared(player,target,new(NamedElements.Enhance(player,rawPhysical,"physical"),
             WeaponElement(player,damage.Fire,"fire",roll,ranged)+extra.Fire+convertedFire,
             WeaponElement(player,damage.Cold,"cold",roll,ranged)+extra.Cold,

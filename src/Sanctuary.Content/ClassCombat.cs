@@ -40,6 +40,7 @@ public static class ClassCombat
         internal AmazonMelee.Prepared AmazonAttack;
         internal TigerStrikes.Pending TigerAttack;
         internal DruidChargedAttacks.Pending DruidChargeAttack;
+        internal DruidFireClaws.Pending FireClawAttack;
         internal AssassinClaws.Series ClawAttack;
         internal Serial FindItemTarget;
         internal BarbarianConcentrate.Mode Concentrate;
@@ -109,6 +110,7 @@ public static class ClassCombat
                 BladeFuryModes.EquipmentChanged(from);
                 TigerStrikes.EquipmentChanged(from);
                 DruidChargedAttacks.EquipmentChanged(from);
+                DruidFireClaws.EquipmentChanged(from);
                 AssassinClaws.EquipmentChanged(from);
             }
         };
@@ -232,6 +234,7 @@ public static class ClassCombat
         AmazonMelee.Cancel(from);
         TigerStrikes.Cancel(from);
         DruidChargedAttacks.Cancel(from);
+        DruidFireClaws.Cancel(from);
         AssassinClaws.Cancel(from);
         BarbarianBerserk.CancelMode(from);
         BladeShields.Cancel(from);
@@ -458,7 +461,7 @@ public static class ClassCombat
     }
     internal static byte AnimationFor(PlayerMobile from, CombatAbility ability, BaseWeapon weapon)
     {
-        if((ability==CombatAbility.BasicAttack||DruidChargedAttacks.Handles(ability))&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
+        if(DruidFormAttacks.SingleA1(ability)&&DruidFormAttacks.Active(from)){return (byte)WeaponAnimation.Wrestle;} // Identified human melee pose until final form bodies.
         if (ability is CombatAbility.FireBlast or CombatAbility.ShockWeb){return from.Mounted?(byte)26:(byte)9;} // Identified throw animation placeholder.
         if (ability == CombatAbility.Teeth)
         {
@@ -516,6 +519,7 @@ public static class ClassCombat
             if(AmazonMelee.Handles(ability)){session.AmazonAttack=null;}
             if(TigerStrikes.Handles(ability)){session.TigerAttack=null;}
             if(DruidChargedAttacks.Handles(ability)){session.DruidChargeAttack=null;}
+            if(ability==CombatAbility.FireClaws){session.FireClawAttack=null;}
             if(ability==CombatAbility.Concentrate){BarbarianConcentrate.Cancel(from);}
             if(ability==CombatAbility.Berserk){BarbarianBerserk.CancelMode(from);}
             if(ability==CombatAbility.Zeal){session.ZealPaid=false;session.ZealHits=0;}

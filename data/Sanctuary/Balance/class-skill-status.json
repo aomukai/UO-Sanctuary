@@ -1827,7 +1827,7 @@
       "implementation": "handler-present",
       "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Learned wolf-only A1 route shares source start56/do120 hit/packet/payment and combat-before-gain. Feral attack damage is separate from the persistent charge state; charge count supplies velocity and life drain,with current effective-rank cap/metadata and500frame refresh. Both movement hooks and WeaponLeech.Capture add the captured charge channels once; the first fresh hit cannot borrow its future leech. Isolated21marker/3boot/2reload/6input acceptance is prepared; combined canonical verification is in progress in the checkpoint. Current target-loss/low-mana,event/geometry/seed/cadence/form-clock and client parity remain uncertain; item-only/PvP and unmapped recipients stay unsupported. Orb/body/contact/audio and talent/left/right/quick icons are separate placeholders. No class complete."
+      "remaining": "Learned wolf-only A1 route shares source start56/do120 hit/packet/payment and combat-before-gain. Feral attack damage is separate from the persistent charge state; charge count supplies velocity and life drain,with current effective-rank cap/metadata and500frame refresh. Both movement hooks and WeaponLeech.Capture add the captured charge channels once; the first fresh hit cannot borrow its future leech. Canonical Feral acceptance passes138focused/1184full checks across3boots/2reloads,including6actual inputs; see the historical5db6bc5receipt. Current target-loss/low-mana,event/geometry/seed/cadence/form-clock and client parity remain uncertain; item-only/PvP and unmapped recipients stay unsupported. Orb/body/contact/audio and talent/left/right/quick icons are separate placeholders. No class complete."
     },
     {
       "talentId": "druid.fireclaws",
@@ -1835,10 +1835,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 239,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned wolf/bear A1 route now uses start58/do2,4mana,full weapon damage and mastered skill fire. The shared packet factory rolls skill fire after weapon critical and before mitigation,without refilling weapon damage or enhancing skill fire twice. Current hard-only Firestorm/Molten Boulder synergies,existing Maul stun/damage and Feral physical leech remain distinct; Fire Claws neither gains nor consumes their charges. Source45360bounded cases/13complete routines pass; native combat/input/reload verification is in progress. Exact modern target-loss/low-mana,geometry/event/seed/reentry,high-rank old overflow and owner/client remain uncertain; item-only/PvP/unmapped recipients are unsupported. Live fire-mastery gear verification remains blocked by the existing Ormus skill-rand item gate; scalar mastery is independently tested. Final fire_hit,player form/contact/audio and talent/left/right/quick icons remain separate placeholders. No class complete."
     },
     {
       "talentId": "druid.rabies",

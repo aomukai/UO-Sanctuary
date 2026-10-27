@@ -21,7 +21,7 @@ public static class DruidFeralChecks
     public static void Configure()
     {
         Rates();Register("druid-feral-check",Check);Register("druid-feral-reload-check",Reload);Register("druid-feral-snapshot-check",Snapshot);Register("druid-feral-live-check",Live);
-        foreach(string label in new[]{"feral-right","feral-quick"}){Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label)));}
+        foreach(string label in new[]{"feral-right","feral-quick"}){Register(label+"-check",()=>FixtureNetwork.Connected(label+"-result",n=>Input(n,label)),controlled:false);}
     }
     [CallPriority(int.MaxValue)]public static void Initialize()=>Rates();
     private static void Rates()
@@ -31,8 +31,8 @@ public static class DruidFeralChecks
         Mobile.HitsRegenRateHandler=p=>Held(p)?TimeSpan.FromHours(1):hp?.Invoke(p)??Mobile.DefaultHitsRate;
         Mobile.ManaRegenRateHandler=p=>Held(p)?TimeSpan.FromHours(1):mp?.Invoke(p)??Mobile.DefaultManaRate;
     }
-    private static void Register(string name,Action action)=>ConsoleInputHandler.RegisterCommand(name,"Feral actual charge velocity/leech consumers",_=>Core.LoopContext.Post(()=>
-    {try{Controlled(action);Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
+    private static void Register(string name,Action action,bool controlled=true)=>ConsoleInputHandler.RegisterCommand(name,"Feral actual charge velocity/leech consumers",_=>Core.LoopContext.Post(()=>
+    {try{if(controlled){Controlled(action);}else{action();}Log.Information("{Name}: passed",name);}catch(Exception e){Log.Error(e,"{Name}: failed",name);}}));
     private static void Require(bool ok,string why){if(!ok){throw new InvalidOperationException(why);}}
     private static void Train(PlayerMobile p,CombatAbility ability,int rank=1)
     {

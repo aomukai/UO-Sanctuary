@@ -2339,7 +2339,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Identified human Wrestle attack pose,weapon sound0x238 and fire contact0x374A/hue0x489 precede the prepared weapon/fire commit. Final fire_hit,both player-form A1/contact/cast audio and talent/left/right/quick icons remain pending independently. Physical damage/critical,skill fire/mastery and old charge leech/stun are mechanical; this skill adds no charge aura."
   },
   {
     "talentId": "druid.rabies",

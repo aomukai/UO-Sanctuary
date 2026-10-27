@@ -2,7 +2,6 @@
 using System;
 using Server;
 using Server.Mobiles;
-using Server.Spells;
 namespace Sanctuary;
 
 internal static class DruidChargedAttacks
@@ -16,13 +15,7 @@ internal static class DruidChargedAttacks
     // Both current start56/do120 rows share this contact/charge transaction.
     internal static bool Handles(CombatAbility ability)=>ability is CombatAbility.Maul or CombatAbility.FeralRage;
     internal static bool ValidTarget(PlayerMobile owner,CombatAbility ability,Serial selected)
-    {
-        var target=World.FindMobile(selected);
-        return owner.Map!=null&&owner.Map!=Map.Internal&&DruidFormAttacks.Active(owner)&&DruidFormAttacks.Supported(owner)
-            &&target is BaseCreature creature&&(ability!=CombatAbility.Maul||CombatStuns.Rules(creature,out _,out _))&&ClassCombat.IsHostile(owner,target)
-            &&owner.InRange(target,DruidFormAttacks.Reach(owner))&&owner.InLOS(target)&&Math.Abs(owner.Z-target.Z)<16
-            &&SpellHelper.CheckTown(owner.Location,owner)&&SpellHelper.CheckTown(target.Location,owner);
-    }
+        =>DruidFormAttacks.ValidTarget(owner,selected)&&(ability!=CombatAbility.Maul||World.FindMobile(selected) is BaseCreature creature&&CombatStuns.Rules(creature,out _,out _));
     internal static bool Begin(PlayerMobile owner,CombatAbility ability,Serial selected,Point3D point,long now)
     {
         if(!Handles(ability)||!DruidCombat.Available(owner,ability)||!ValidTarget(owner,ability,selected)){return false;}

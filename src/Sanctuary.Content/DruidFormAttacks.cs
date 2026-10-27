@@ -3,6 +3,7 @@ using System;
 using Server;
 using Server.Items;
 using Server.Mobiles;
+using Server.Spells;
 namespace Sanctuary;
 
 // Prepared Druid ordinary A1 only. Human weapon animation lengths normalize
@@ -12,6 +13,14 @@ internal static class DruidFormAttacks
 {
     internal static Func<double> HitRoll=Utility.RandomDouble;
     internal static bool Active(PlayerMobile owner)=>DruidPlayerForms.State(owner)!=null;
+    internal static bool SingleA1(CombatAbility ability)=>ability is CombatAbility.BasicAttack or CombatAbility.Maul or CombatAbility.FeralRage or CombatAbility.FireClaws;
+    internal static bool ValidTarget(PlayerMobile owner,Serial selected)
+    {
+        var target=World.FindMobile(selected);
+        return owner.Map!=null&&owner.Map!=Map.Internal&&Active(owner)&&Supported(owner)&&target is BaseCreature
+            &&ClassCombat.IsHostile(owner,target)&&owner.InRange(target,Reach(owner))&&owner.InLOS(target)&&Math.Abs(owner.Z-target.Z)<16
+            &&SpellHelper.CheckTown(owner.Location,owner)&&SpellHelper.CheckTown(target.Location,owner);
+    }
     internal static int HumanFrames(string code)=>code switch
     {"HTH"=>16,"1HS"=>19,"1HT"=>19,"2HS"=>21,"2HT"=>23,"STF"=>17,"BOW"=>16,"XBW"=>20,_=>0};
     internal static bool Supported(PlayerMobile owner)=>HumanFrames(WeaponAnimationClasses.Equipped(owner))!=0;
