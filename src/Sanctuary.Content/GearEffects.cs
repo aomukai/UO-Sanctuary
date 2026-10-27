@@ -12,7 +12,10 @@ public readonly record struct GearDamage(double Physical, double Fire, double Co
     public double Total => Physical + Fire + Cold + Lightning + Poison + Magic;
 }
 
-public readonly record struct PreparedWeaponImpact(GearDamage Damage,GearDamage Parts,int Absorbed256,int? LifeDamage256=null);
+public readonly record struct PreparedWeaponImpact(GearDamage Damage,GearDamage Parts,int Absorbed256,int? LifeDamage256=null)
+{
+    public int SourceStunFrames{get;init;}
+}
 
 public static class GearEffects
 {
@@ -174,7 +177,7 @@ public static class GearEffects
             WeaponElement(player,damage.Lightning,"ltng",roll,ranged)+extra.Lightning,0,
             Magic:NamedElements.Enhance(player,damage.Magic,"mag")+convertedMagic),out int absorbed256);
         damage=damage with{Cold=damage.Cold+extra.Cold,ColdMs=damage.ColdMs+extra.ColdMs};
-        return new(damage,parts,absorbed256);
+        return new(damage,parts,absorbed256){SourceStunFrames=DruidAttackCharges.StunFrames(player)};
     }
     public static int Strike(PlayerMobile player, Mobile target, double roll, Random effects = null, bool wearWeapon = true,GearDamage? skillElements=null,
         int? skillPhysicalPercent=null,Func<int,int> physicalRoll=null,Func<int,bool> beforeCommit=null,bool skillKnockback=false,GearDamage? preparedDamage=null,PreparedWeaponImpact? preparedImpact=null,bool? projectileCritical=null,PlayerWeaponDrain? sourceDrain=null,bool softHit=false,int? sourceColdFrames=null,int sourceFreezeFrames=0)
@@ -206,6 +209,7 @@ public static class GearEffects
             }
             CombatDamage.Finish(target, player);
         }
+        if(target is BaseCreature{Alive:true,Deleted:false} stunned&&packet.SourceStunFrames>0){CombatStuns.Apply(stunned,packet.SourceStunFrames);}
         if (target.Alive && !target.Deleted)
         {
             if (damage.Cold > 0 && sourceColdFrames==null) { ApplyChill(target, Core.TickCount, damage.ColdMs, player); }

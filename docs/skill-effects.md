@@ -18,6 +18,8 @@ Player Werewolf and Werebear assets are separate from summoned wolves/Grizzly: c
 
 The staged form recovery/block adapter retains generic human animation20as an identified placeholder. Final player wolf40GH/BLand bearTGGH/BLmotion remain missing; those clips are distinct from summoned-beast reactions. Mechanical clocks do not depend on creating these assets. The existing Werewolf/Werebear talent/right/quick icon rows remain in the separate icon register; this adapter adds no new icon requirement.
 
+Maul uses identified human Wrestle/contact sound0x238 and charge flash0x375A. Final maul-orb front/back overlays, charge-size display, bear A1/contact/audio remain pending independently of combat; its talent/right/quick icons are tracked separately.
+
 | Class | Skill | Effect work | Source cues |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | No source effect cue; final presentation pending |

@@ -1813,10 +1813,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 233,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned bear-only A1 path now connects start56 hit/packet capture,3mana payment,do120 combat/durability-before-gain and saved charges. Current rank caps/overwrites metadata; aura formulas use charge count and500frame lifetime. Damage/stun/IAS join shared weapon/timing consumers; form-group removal,expiry,death,respec/history and low-mana ordinary-Attack fallback are connected. Dedicated native input/combat/reload verification is in progress; see the checkpoint. Source1120case differential and isolated native math are bounded separately. Exact modern target-loss gain,reflect/reentrant death,reach/room/cadence/seed,current form extraAR and graphical parity remain uncertain. Unmapped control recipients and item-only grants remain unsupported; effects/audio and talent/right/quick icons are separate placeholders. No class complete."
     },
     {
       "talentId": "druid.feralrage",

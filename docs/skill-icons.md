@@ -8,6 +8,8 @@ Summon Grizzly's talent and hotkey icons remain pending. Its internal BearSmite/
 
 Werewolf and Werebear each need a talent-tree icon plus right/quick-binding artwork. Lycanthropy needs only its passive talent-tree icon. Learned casting still uses text-label placeholders; final icon generation,mapping and graphical verification remain pending independently.
 
+Maul needs talent-tree and left/right/quick-hotkey artwork; current text labels remain explicitly identified placeholders.
+
 | Class | Skill | Talent tree icon | Hotkey icon |
 | --- | --- | --- | --- |
 | Amazon | Jab | needed | needed |

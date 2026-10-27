@@ -195,7 +195,7 @@ public static class ClassStats
                 statBonus += ClassGear.Bonus(item, "dmg%");
             }
         }
-        return statBonus + NamedGear.SetBonus(player, "dmg%") + CombatAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2)+DruidPlayerForms.DamagePercent(player);
+        return statBonus + NamedGear.SetBonus(player, "dmg%") + CombatAuras.DamagePercent(player)+WeaponMasteries.Bonus(player,weapon,2)+DruidPlayerForms.DamagePercent(player)+DruidAttackCharges.DamagePercent(player);
     }
     internal static int WeaponStatPercent(int strength,int dexterity,int strengthBonus,int dexterityBonus)
         =>(int)((long)strengthBonus*strength/100+(long)dexterityBonus*dexterity/100);
