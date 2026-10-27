@@ -32,7 +32,13 @@ public static class GrizzlyWorldChecks
         foreach(var prior in talent.Prerequisites){Train(p,prior);}
         if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
-    private static PlayerMobile Fresh(){var p=SpiritWolfWorldChecks.Fresh();p.Name="GrizzlyWorldFixture";Train(p,"druid.summongrizzly");return p;}
+    private static PlayerMobile Fresh()
+    {
+        // The creeper fixture restages at the shared world's first scene on
+        // reload. Its real poison must not damage this pending-hit recipient.
+        var p=SpiritWolfWorldChecks.Fresh(column:6300);p.Name="GrizzlyWorldFixture";Train(p,"druid.summongrizzly");
+        Require(!Server.Spells.SpellHelper.IsTown(p.Location,p),"Grizzly fixture must be outside town");return p;
+    }
     private static void End(PlayerMobile p)=>SpiritWolfWorldChecks.End(p);
     private static GraveyardZombie Target(PlayerMobile p,int dx=2)
     {

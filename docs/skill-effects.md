@@ -8,6 +8,8 @@ Existing UO bone/magic-arrow, cloud, curse-marker and summon bodies are temporar
 
 Grizzly's prepared saved body is explicitly **Grizzly [placeholder]**,using silent UO bear0xD4. Final B7 emergence/body/walk,A1attack,A2BearSmite sequence,contact/knockback,hurt/death and bear/summon audio are still needed. The separate icon register retains its talent/right/quick icon work. Detailed placeholder descriptions are kept in [the runtime effects register](../data/Sanctuary/Balance/skill-effects.json).
 
+The Grizzly world backend now moves and delivers ordinary/BearSmite damage and mapped knockback mechanically. Its silent UO0xD4body remains an identified placeholder; final B7motion/attack/contact/audio and actual-client presentation still need asset work.
+
 The user observes Grizzly knockback without stun. BearSmite's prepared packet also has zero stun; do not invent a stun overlay from the hidden formula label. Its animation/contact/knockback work remains pending even though packet preparation is verified. NPC326 is an internal Grizzly action and needs no separate player talent or hotkey icon.
 
 | Class | Skill | Effect work | Source cues |

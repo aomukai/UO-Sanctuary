@@ -34,7 +34,7 @@ public static class SpiritWolfWorldChecks
         foreach(string prior in talent.Prerequisites){Train(p,prior);}
         if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}
     }
-    internal static PlayerMobile Fresh(int sceneOffset=0)
+    internal static PlayerMobile Fresh(int sceneOffset=0,int column=7100)
     {
         var p=new PlayerMobile{Body=0x190,Player=true,Name="SpiritWolfWorldFixture"};p.AddItem(new Backpack());
         ClassCreation.Profiles.Assign(p,DiabloClass.Druid);ClassCreation.Profiles.AdvanceLevel(p,99);Train(p,"druid.summonspiritwolf");
@@ -50,13 +50,13 @@ public static class SpiritWolfWorldChecks
             // Select an empty native test area rather than moving or deleting
             // existing actors to make a reused hard-coded location pass.
             bool occupied=false;
-            foreach(var mobile in Map.Trammel.GetMobilesInRange<Mobile>(new Point3D(7100,y,z),40))
+            foreach(var mobile in Map.Trammel.GetMobilesInRange<Mobile>(new Point3D(column,y,z),40))
             {if(!mobile.Deleted&&Math.Abs(mobile.Z-z)<16){occupied=true;break;}}
             if(occupied){continue;}
-            for(int x=7060;x<=7140;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,z),Map.Trammel);}
-            if(!new[]{0,1,2,3,8,16,30}.All(dx=>Map.Trammel.CanSpawnMobile(new Point3D(7100+dx,y,z))))
-            {Log.Information("Wolf fixture skipped occupied/obstructed floor at7100,{Y},100",y);continue;}
-            p.MoveToWorld(new(7100,y,z),Map.Trammel);return p;
+            for(int x=column-40;x<=column+40;x++)for(int row=y-24;row<=y+24;row++){new Static(floor).MoveToWorld(new(x,row,z),Map.Trammel);}
+            if(!new[]{0,1,2,3,8,16,30}.All(dx=>Map.Trammel.CanSpawnMobile(new Point3D(column+dx,y,z))))
+            {Log.Information("Wolf fixture skipped occupied/obstructed floor at requested column,{Y},100",y);continue;}
+            p.MoveToWorld(new(column,y,z),Map.Trammel);return p;
         }
         p.Delete();throw new InvalidOperationException($"No free wolf fixture scene in facet{Map.Trammel.Width}x{Map.Trammel.Height},offset{sceneOffset}");
     }

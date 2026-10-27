@@ -25,13 +25,13 @@ def record(check=False):
     inventory.STAGE=STAGE
     inputs=inventory.validate_inventory(STAGE/'stats-inputs.json')
     artifacts=[STAGE/name for name in ['stats-inputs.json','stats-native-checks.log','world-run.log',
-        'python-tests.log','grizzly-body-fixtures.json','grizzly-world-fixtures.json','damage-rounding-checks.json','first-attempt-ordinary-clock.log']]
+        'python-tests.log','grizzly-body-fixtures.json','grizzly-world-fixtures.json','damage-rounding-checks.json','first-attempt-ordinary-clock.log','fourth-attempt-creeper-interference.log']]
     for kind in ['content','integration']:
         path=STAGE/(kind+'-build.log');build=path.read_text()
         assert 'Build succeeded.' in build and '0 Warning(s)' in build and '0 Error(s)' in build
         artifacts += [path,STAGE/kind/('Sanctuary.'+kind.title()+'.dll')]
     log=(STAGE/'stats-native-checks.log').read_text()
-    assert ': failed' not in log and ' ERR]' not in log and log.count(': passed')==250
+    assert ': failed' not in log and ' ERR]' not in log and log.count(': passed')==252
     assert log.count('Writing world save snapshot done')==log.count('Shutting down')==3
     for name in ['grizzly-sequence','bear-smite','beast-mode-stream','grizzly-ai','grizzly-stats']:
         assert log.count(name+'-check: passed')==1,name
@@ -66,9 +66,11 @@ def record(check=False):
     for name,digest in full['artifacts'].items():
         raw=(ROOT/name).read_bytes() if name.startswith('.local/') else historical(name,full_link['commit'])
         assert hashlib.sha256(raw).hexdigest()==digest,name
+    assert log.count('grizzly-world-snapshot-check: passed')==2
     assert log.count('grizzly-world-live-check: passed')==log.count('grizzly-world-live-result: passed')==3
     assert 'cached BearSmite callback10/end19,real knockback/zero stun' in log
     saved=json.loads((STAGE/'grizzly-world-fixtures.json').read_text())
+    assert saved['Point']['X']==6300
     assert saved['Life']==20007 and saved['TargetLife']==20000*256
     controller=saved['State']['Controller']
     assert controller['Mode']==14 and controller['StrikeRequests']==0 and controller['Sequence']['Packet']['StunFrames']==0
@@ -93,7 +95,7 @@ def record(check=False):
     result=dict(referenceVersion='3.3.93847',installed=False,grizzlyHandlerEnabled=False,handlers=171,druidHandlers=15,
         completedClasses=[],goalComplete=False,
         verified=dict(nativeClockSteps=5742,nativeRatePlannerContexts=576,nativeComposedContexts=576,nativeComposedPhases=23616,naturalConnectedSessions=3,
-            passMarkers=250,boots=3,actualReloads=2,pythonTests=70,namedDefinitions=573,inputFingerprints=[len(x['InputHashes']) for x in audits]),
+            passMarkers=252,boots=3,actualReloads=2,pythonTests=70,namedDefinitions=573,inputFingerprints=[len(x['InputHashes']) for x in audits]),
         frozenSequenceAcceptance=dict(commit=FROZEN,receipt=frozen_path,sha256=hashlib.sha256(historical(frozen_path)).hexdigest(),
             package='.local/class-skills/grizzly-sequence',passMarkers=241),
         frozenFullAcceptance=full_link,
@@ -102,18 +104,19 @@ def record(check=False):
             'Saved live AI112controller consumes shared target/ground/path/motion/rate services with Grizzly B7metadata. A1physical attacks use their own action7clock and ordinary packet,without the internal BearSmite flat field. Owner live mode rank,copied birth and innate NPCrank1plus live Battle Command stay distinct.',
             'Native BearSmite prepares accuracy/block/damage/critical/mitigation once at sequence entry,commits cached total at callback10with base248,and reaches neutral on19. Changing target resistance and actor Enchant during windup does not reroll or rewrite it. The later250physical field is not extra HP loss. Real mapped knockback starts without stun. Three authenticated connected40ms timer sessions release the actual swat and damage/knockback.',
             'Block decision and presentation now have separate shared entry points. Existing TryBlockstill rolls/presents together;the prepared route retains a real skeleton queued action until release,then presents/interrupts it without health loss. Lost range,offline and recovery cancellation retain the consumed start seed and cannot replay a late hit.',
-            'Two actual world reloads preserve copied birth,FP256injury and consumed start seed while discarding unpaid future attack work. Loaded skips do not heal or attack. Shared owner follow and atomic malformed-state refusal pass. All250focused markers across3boots/2reloads and70Python tests pass;fresh item fingerprints retain573named decisions. Older full1184-marker acceptance belongs to its unchanged frozen BearSmite package.',
+            'Two actual world reloads preserve copied birth,FP256injury and consumed start seed while discarding queued attacks. Loaded skips do not heal or attack. Shared owner follow and atomic malformed-state refusal pass. All252focused markers across3boots/2reloads and70Python tests pass;fresh item fingerprints retain573named decisions. Older full1184-marker acceptance belongs to its unchanged frozen BearSmite package.',
+            'An actual second-reload target HP mismatch was traced by a before-save guard to damage credited to CreeperWorldFixture. The Grizzly retained its seed and zero strike count. Test scenes now use a separate area;both pre-restart guards retain exact recipient/body HP,seed and zero-hit assertions. No immunity or weaker health condition was introduced.',
             'The first attempt used an incorrect ordinary A1test golden. Complete sparse scheduler consumes frame-flag7at offset7with speed256,so entry25releases32and ends38. The corrected test retains the old failure log;this does not change the separate mode14callback10rule.',
         ],remaining=[
             'Learned40mana/cap1/coexistence/rollback/right+quick and preserved rollout remain pending. First-think25and slowed busy/neutral continuation reuse declared shared-beast entry policies;exact modern timing,full mode-list refresh and global queue/AI ordering remain acceptance. AI112requests walking;unmapped running animation explicitly refuses rather than borrowing wolf RN metadata.',
-            'Native target/sector/tie/LOS/ground-fit/path and source-sized distance are explicit adapters. SourceBlockingretains its existing independent native defender-RNG supplier. Full current-executable seed/stat/equipment/nonzero-sunder/item-only transport and early immunity/absorption callbacks remain separate.',
+            'Native target/sector/tie/LOS/ground-fit/path and source-sized distance are explicit adapters. Player/PvP recipients are not mapped by this BaseCreature-only target adapter. SourceBlockingretains its existing independent native defender-RNG supplier. Full current-executable seed/stat/equipment/nonzero-sunder/item-only transport and early immunity/absorption callbacks remain separate.',
             'Post-allocation physical can feed source event fields while cached total controls HP. Hidden modern packet/Life Tap/return semantics remain uncertain. Life Tap,absorb,HP,attempt/return,cold and knockback use declared native bridges;full lethal HP/death/Thorns chronology and arbitrary callbacks remain unfinished acceptance and are not certified by these nonlethal world cases.',
             'Final B7body/motion/attacks/contact/knockback/hurt/death/audio and separate talent/right/quick icons remain placeholders. Main stays101013bwith original build/saves/config/client preserved;no Grizzly handler or completed class is claimed.',
         ])
     path=ROOT/'tools/reference/grizzly-world-native-evidence.json';rendered=json.dumps(result,indent=2)+'\n'
     if check:assert path.read_text()==rendered
     else:path.write_text(rendered)
-    print('Grizzly world:250markers/3boots/2reloads,3connected swats,70Python tests;learned casting pending,171handlers/Druid15.')
+    print('Grizzly world:252markers/3boots/2reloads,3connected swats,70Python tests;learned casting pending,171handlers/Druid15.')
 
 
 if __name__=='__main__':
