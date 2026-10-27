@@ -265,6 +265,8 @@ Shared incoming Graveyard firebolt uses the existing firebolt family: native0x36
 
 Raven uses native bird body0x6, identified placeholder name and attack animation, shared SC pose and sound0x1E5. Final druidhawk model/emergence/flight/dive/retirement, blind presentation and druid_summon audio remain pending. Talent-tree and right/quick icons stay in their independent icon row.
 
+Heart of Wolverine: silent UO wisp0x3A/red hue0x21 and Heart of Wolverine [placeholder] name identify its temporary body. Shared SC pose and summon sound0x1E5 are placeholders. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons stay in the independent icon row; physical/AR aura mechanics do not depend on final art.
+
 Oak Sage: silent UO wisp body0x3A is named Oak Sage [placeholder]. Learned casting uses shared SC pose/sound0x1E5 as identified placeholders. Final XW body/emergence/walk/hurt/death, oak_sage recipient and control overlays, spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. The life aura functions independently of final presentation.
 
 Spirit Wolf: prepared silent UO body0xE1 is named Spirit Wolf [placeholder]; cold state uses temporary0x374A/hue0x480. Final wolf model/emergence, walk/run, bite/cold contact, intrinsic critical hit-class0x10/overlay54, teleport, hurt/death and wolf/summon audio remain pending. Talent-tree/right/quick icons stay in the separate icon row. Learned casting uses the shared SC/summon-sound placeholders; exact mechanical parity remains unfinished.

@@ -2470,7 +2470,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared Heart body uses silent UO wisp0x3A/red hue0x21 and the explicit Heart of Wolverine [placeholder] name. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. Learned casting is not enabled yet."
+    "placeholder": "Prepared Heart body uses silent UO wisp0x3A/red hue0x21 and the explicit Heart of Wolverine [placeholder] name. Final X3 emergence/walk/hurt/death, heart_of_wolverine recipient/control overlays and spirit/summon audio remain pending. Talent/right/quick icons remain separate text-label placeholders. Learned SC/right/quick casting uses the shared identified pose/sound placeholders."
   },
   {
     "talentId": "druid.summondirewolf",

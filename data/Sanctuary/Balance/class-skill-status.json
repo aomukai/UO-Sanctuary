@@ -1945,10 +1945,10 @@
       "characterClass": "Druid",
       "tree": "Summoning",
       "sourceId": 236,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned SC/right/quick casts pay19+effective rank mana after allocation and replace the shared totem category. Saved vulnerable body and source Totem movement reuse Oak birth/controller compatibility with Heart136life/123defense/25percent birth scaling/25FP regeneration and X3walking speed232. Separate control/recipient leases add AR25+7perrank and physical ED20+7perrank, with source rank/creator/expiry and NPC Command transport. Shared combat pools preserve additive Might/curse/skill ED, material elemental exclusion and cold-only Wolf behavior. Verification and installation are recorded in the current checkpoint. Item-only permission,exceptional NPC bonuses/PvP,current first-think/vision/room/geometry/path/event and graphical acceptance remain explicit; source AStar is unsupported. Final X3body,effects/audio and separate talent/right/quick icons remain placeholders; no class completion."
     },
     {
       "talentId": "druid.summondirewolf",
