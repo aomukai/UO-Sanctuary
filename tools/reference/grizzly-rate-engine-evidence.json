@@ -1,0 +1,44 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "installed": false,
+  "handlerEnabled": false,
+  "nativeConsumer": false,
+  "preflightSha256": "3509c04c716b08ec6ead808f3e7e1acfb31151b628da4ac544158e3a33be768c",
+  "reusedAbiSha256": "6b0d06a4e583f9dd3d0cf5733b524fcf7b7ea2d720e4dda2970bd12cdfe015c9",
+  "reusedEvidence": {
+    "path": "tools/reference/spirit-wolf-rate-source-evidence.json",
+    "sha256": "395c985bf5492bd589400324d280834ed5650ad2fcc20c11de4f3e342993dfea"
+  },
+  "sourceHashes": {
+    "source/D2Common/src/Units/Units.cpp": "a226a3d1f3fbe062a1ab6d8807c54058dcd6bc88bd3604b6fcdfad1d229554ea",
+    "source/D2Game/src/UNIT/SUnit.cpp": "b9faca7d12e19e95b072e952ba596b6b63fc9e41d902cfcbde0ae9d638ab5db6",
+    "source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    "source/D2Game/src/MONSTER/Monster.cpp": "397a3f250d527a233fa8cd588650d61e7378b271d0483cec0750b14338f1c15a",
+    "source/D2Common/src/DataTbls/SequenceTbls.cpp": "1c3dd039508a9e0c3224cf8b654fbd6db2d16c46f48aea90cfea66f5bedd30c3"
+  },
+  "unchangedRoutineHashes": {
+    "gaPlayerModesAnimModulators": "506250c49e302d860e7152286215c3387f80898f103f327177d38ebf4c073346",
+    "gaMonModesAnimModulators": "d2c272e5589c6fff17185713b136325fde2a313fd7ac3014e7bb6776db2b9dc8",
+    "gaMonModesAnimModulatorsExpansion": "7afde9675eabb2d75b6d5e535b137ad1ac2ba32329d251aff95c1fdf9d82e0a6",
+    "UNITS_CanAnimModeUseAttackRate": "64e413851a05601c0ffcb269ece0f641c18769637daea236b7b4b5d7d6f622df",
+    "UNITS_UpdateAttackAnimRateAndVelocity": "b58a00ead44f8900e5a5a2b6c8955eccc305a295a4b9de077dae758f11a005cd",
+    "sub_6FCBCE70": "9dd7a37056b4f147057cf285811a67bb7de85a8f768b11ca4cafb22dbe8dcea1",
+    "DATATBLS_GetSequenceEvent": "a2258cf2e50902092a92cd02cf3d2c4bef7a8612ccabf7fc076dad3ffa0987b1"
+  },
+  "fixture": {
+    "path": ".local/class-skills/grizzly-rate-source-probe.json",
+    "sha256": "e8271d02003c8f5f38dbc4ac20c76e6b11314ee2794f3f7eb7211d87946d7282",
+    "cases": 576,
+    "generatedSourceSha256": "897e29fda6a9840423f3350c7a195e84c71aa745d504c969969cac7474b89545",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "Complete attack-rate predicate selects monster mode14only with a used skill whose current row enablesUseAttackRate. Missing-skill/flag-off controls reject. Current NPC326enables it. Monster sequence has no player sequence minus30penalty.",
+    "Complete unchanged nonweapon writer and initial scheduler execute over current17sequence rows/action8and supplied base248,plus256/32767numeric controls. Existing SourceAttackRate.Speed is a reuse candidate;no owner weapon/IAS inheritance is introduced."
+  ],
+  "limits": [
+    "Skill/stat/inventory/non-dual-wield/melee-only and animation/table services are explicit. Mode conversion,base-row selection,full stat transport/global event queue and modern first-think/tie behavior remain separate.",
+    "Initial queued requests do not prove dispatch timing or mid-sequence rescheduling. Sequence step callbacks,start32/do2,world events and saved cancellation still require native integration. No Grizzly attack or learned handler is enabled."
+  ]
+}
