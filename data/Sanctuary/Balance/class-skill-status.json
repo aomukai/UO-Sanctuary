@@ -1780,10 +1780,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 223,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned casting candidate composes current SC/FCR action clock,15mana human entry,free same-form return and a shared25frame cooldown using the existing saved form/stat/attack ledgers. Native casting/input/transaction verification is in progress; see the current checkpoint. Direct cross-form switching,item-only form grants and current lost-mana outcome are explicitly unsupported. Forced low-life removal,modern extra AR,reentry,other form action/movement clocks,client and complete parity remain open. Human body/cast flash/audio and separate talent/right/quick icons are identified placeholders; no class complete."
     },
     {
       "talentId": "druid.lycanthropy",
@@ -1791,10 +1791,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 224,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Effective Lycanthropy rank is captured by both form stat/duration calculations,including item bonuses; it has no standalone active cast or hotkey. Source/native formula,resource/save and learned casting acceptance are linked in the checkpoint. Modern refresh after rank/gear changes and complete current-engine/client acceptance remain open. Passive talent-tree icon remains a separate placeholder; no class complete."
     },
     {
       "talentId": "druid.werebear",
@@ -1802,10 +1802,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 228,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned casting candidate composes current SC/FCR action clock,15mana human entry,free same-form return and the shared25frame cooldown with captured damage/armor/life. Native casting/input/transaction verification is in progress; see the current checkpoint. Direct switching,item-only grants,lost-mana,current extra-AR/reentry,forced low-life removal,concentration and other action/movement clocks remain separate gaps. Final TGbody/motion/effects/audio and separate talent/right/quick icons remain placeholders; no class complete."
     },
     {
       "talentId": "druid.maul",

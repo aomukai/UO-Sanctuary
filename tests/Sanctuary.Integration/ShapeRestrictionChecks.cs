@@ -116,7 +116,7 @@ public static class ShapeRestrictionChecks
     {
         Policy();Consumers();var p=SavedOwner();Require(p!=null,"Saved form fixture missing");
         Train(p,CombatAbility.Firestorm);Train(p,CombatAbility.CycloneArmor);Train(p,CombatAbility.Raven);Reload();
-        Log.Information("Shape casting consumers:both prepared forms reject forbidden fire at availability/start/unpaid release,allow actual Cyclone/Raven once with mana,and preserve rank/mana/freeze guards; no form talent enabled");
+        Log.Information("Shape casting consumers:both prepared forms reject forbidden fire at availability/start/unpaid release,allow actual Cyclone/Raven once with mana,and preserve rank/mana/freeze guards; shape rules retain separate handler/rank eligibility");
     }
     private static void Reload()
     {

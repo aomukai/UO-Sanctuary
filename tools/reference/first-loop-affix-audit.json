@@ -1,14 +1,14 @@
 {
   "SchemaVersion": 1,
   "ManifestSha256": "6475a2abdccc1574dedf88ebe9c2c33bec302d044863295b71f5c0c6791af26a",
-  "ContentAssemblySha256": "f1e2447770517ac4d491111ce94a468907254df40389f8dcba4dc15865f3b42b",
-  "ContentAssemblyPath": ".local/class-skills/druid-form-attack/content/Sanctuary.Content.dll",
+  "ContentAssemblySha256": "b95aa1f0935ab840ea7138b50fca669e22c0c02d8b58af45749f13222030089a",
+  "ContentAssemblyPath": ".local/class-skills/druid-form-casting/content/Sanctuary.Content.dll",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
     "data/Sanctuary/Balance/item-types.json": "f7a778257b61a87157374cefbe2dd73b754d37594474c8ce825c5971b1740c10",
     "data/Sanctuary/Balance/normal-bases.json": "65686083ffff12112352b7a1e9a51e53a5160e5fe21bf64b0f669bd1fb3a026f",
     "data/Sanctuary/Balance/uo-equipment.json": "bba069cee5d8ffd24479a4be787a74345cb80b7216e41f6a8e19cd9b0c542bb8",
-    "src/Sanctuary.Content/ActionTiming.cs": "3afb0c9735da4d404a52638ea586cf29f57932611260118f5c94036606529be9",
+    "src/Sanctuary.Content/ActionTiming.cs": "72c3aa002c08b0aa432c66cab7a11c57b4e140840cd076a5225c532b197be8ea",
     "src/Sanctuary.Content/AffixBalance.cs": "e16c1dfdcece28832320b33d971bfe443eeb515b21fab420ce07935003953c62",
     "src/Sanctuary.Content/ClassGear.cs": "e5caf9f2ab07da6a6231ba9ca50b43e332badd3b3f121648abda79f059a58b51",
     "src/Sanctuary.Content/ClassResources.cs": "bd1e119a820cd5d2f33968e63209f7d800b666eff879bbdc856cc2fd53292e22",

@@ -2274,7 +2274,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Player form keeps the human avatar as an identified placeholder. Native cast pose16,transformation flash0x373A,sound0x1E5 and ordinary melee Wrestle pose stand in for model40/wolf_into/wolf_undo/body/motion/contact/druid_morph audio. These visuals do not own form stats,attack timing or lifetime. Talent/right/quick icons remain separate text labels."
   },
   {
     "talentId": "druid.lycanthropy",
@@ -2300,7 +2300,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Player form keeps the human avatar as an identified placeholder. Native cast pose16,transformation flash0x373A,sound0x1E5 and ordinary melee Wrestle pose stand in for modelTG/bear_into/bear_undo/body/motion/contact/druid_morph audio. These visuals do not own form stats,attack timing or lifetime. Talent/right/quick icons remain separate text labels."
   },
   {
     "talentId": "druid.maul",

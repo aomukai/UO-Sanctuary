@@ -22,8 +22,8 @@ public static class DruidFormModelChecks
     {bool rejected=false;try{action();}catch(ArgumentException){rejected=true;}Require(rejected,why);}
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.Werewolf)&&!DruidCombat.Implemented(CombatAbility.Werebear)
-            &&!DruidCombat.Implemented(CombatAbility.Lycanthropy),"Pure forms must not claim a learned handler");
+        Require(DruidCombat.Handles(CombatAbility.Werewolf)&&DruidCombat.Handles(CombatAbility.Werebear)
+            &&DruidCombat.Implemented(CombatAbility.Lycanthropy)&&!DruidCombat.Handles(CombatAbility.Lycanthropy),"Learned form routes and passive-only Lycanthropy composition");
         Require(DruidFormModel.PlayerCastMode==10,"Player CAST must use header10rather than ATTACK1 7");
         using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Join(Core.BaseDirectory,"druid-form-modes-source-probe.json")));
         int compared=0,entries=0,unshifts=0,failures=0,expiry=0;

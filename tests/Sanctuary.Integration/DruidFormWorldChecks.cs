@@ -172,8 +172,8 @@ public static class DruidFormWorldChecks
     }
     private static void Check()
     {
-        Require(!DruidCombat.Implemented(CombatAbility.Werewolf)&&!DruidCombat.Implemented(CombatAbility.Werebear)
-            &&!DruidCombat.Implemented(CombatAbility.Lycanthropy),"Prepared world must not enable learned forms");
+        Require(DruidCombat.Handles(CombatAbility.Werewolf)&&DruidCombat.Handles(CombatAbility.Werebear)
+            &&DruidCombat.Implemented(CombatAbility.Lycanthropy)&&!DruidCombat.Handles(CombatAbility.Lycanthropy),"Learned form routes and passive-only Lycanthropy composition");
         StatsAndResources();GearAndValidation();
         var p=Fresh();Train(p,CombatAbility.Werewolf,20);Train(p,CombatAbility.Lycanthropy,20);Train(p,CombatAbility.Werebear,20);
         Require(DruidPlayerForms.ApplyPrepared(p,CombatAbility.Werebear,TimedEffects.Now),"Saved bear");

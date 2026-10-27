@@ -43,6 +43,15 @@ public static class FireGround
     public static void Configure() => Profiles = new();
     public static void Initialize() => Timer.StartTimer(TimeSpan.FromMilliseconds(40), TimeSpan.FromMilliseconds(40), Tick);
     public static bool Ready(PlayerMobile owner, CombatAbility ability) => !_cooldowns.TryGetValue((owner.Serial.Value, ability), out var until) || until <= TimedEffects.Now;
+    internal static void DelayForms(PlayerMobile owner)
+    {
+        int frames=SkillMechanics.For(CombatAbility.Werewolf).Number("globaldelay");
+        if(frames!=25||SkillMechanics.For(CombatAbility.Werebear).Number("globaldelay")!=frames)
+        {throw new NotSupportedException("Unmapped shared form delay");}
+        var until=TimedEffects.Now.AddMilliseconds(frames*40);
+        _cooldowns[(owner.Serial.Value,CombatAbility.Werewolf)]=until;
+        _cooldowns[(owner.Serial.Value,CombatAbility.Werebear)]=until;
+    }
     public static void Delay(PlayerMobile owner, CombatAbility ability)
     {
         int frames = SkillMechanics.For(ability).Number("localdelay");

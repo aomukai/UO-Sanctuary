@@ -95,6 +95,8 @@ public static class CombatTiming
     public static int Fcr(PlayerMobile from) => Math.Clamp(AosAttributes.GetValue(from, AosAttribute.CastSpeed), 0, 10000);
     public static ActionTiming For(PlayerMobile from, CombatAbility ability, BaseWeapon weapon = null)
     {
+        if(DruidFormAttacks.Active(from)&&!WeaponAttack(ability)&&DruidCombat.Handles(ability))
+        {return DruidFormCastClock.Calculate(DruidPlayerForms.State(from).Form.Ability,Fcr(from));}
         if(ability==CombatAbility.BasicAttack&&DruidFormAttacks.Active(from)&&DruidFormAttacks.Supported(from)){return DruidFormAttacks.Timing(from);}
         if(AssassinClaws.Handles(ability)){return AssassinClaws.Timing(from);}
         if(TigerStrikes.Handles(ability)){return TigerStrikes.Timing(from);}

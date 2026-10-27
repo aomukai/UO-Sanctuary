@@ -26,6 +26,7 @@ public static class ClassCombat
         internal Serial PendingTarget, PendingWeapon;
         internal TeleportCast PendingTeleport;
         internal DruidPlayerForm AttackForm;
+        internal DruidFormCasting.Pending Transform;
         internal PaladinZeal.Series Zeal;
         internal PaladinCharge.Flight Charge;
         internal PaladinConversion.Prepared Conversion;
@@ -235,6 +236,7 @@ public static class ClassCombat
         For(from).Target = Serial.Zero;
         For(from).PendingAbility = CombatAbility.None;
         For(from).AttackForm = null;
+        For(from).Transform = null;
         For(from).Conversion = null;
         For(from).BarbarianAttack = null;
         For(from).FindItemTarget = Serial.Zero;
@@ -500,6 +502,7 @@ public static class ClassCombat
             || (CombatTiming.Equipped(from)?.Serial ?? Serial.Zero) != session.PendingWeapon)
         {
             session.PendingAbility = CombatAbility.None;
+            if(DruidFormCasting.Handles(ability)){session.Transform=null;}
             if(ability==CombatAbility.BladeShield){BladeShields.Cancel(from);}
             if(ability==CombatAbility.FindItem){session.FindItemTarget=Serial.Zero;}
             if(ability==CombatAbility.Conversion){session.Conversion=null;}
@@ -523,7 +526,7 @@ public static class ClassCombat
         if (AmazonCombat.Handles(ability)) { return AmazonCombat.Release(from,ability,now); }
         if (BarbarianCombat.Handles(ability)) { return BarbarianCombat.Release(from,ability,session.PendingTarget,now); }
         if (AssassinCombat.Handles(ability)) { return AssassinCombat.Release(from,ability,session.PendingTarget,now); }
-        if (DruidCombat.Handles(ability)) { return DruidCombat.Release(from,ability); }
+        if (DruidCombat.Handles(ability)) { return DruidCombat.Release(from,ability,now); }
         if (SorceressCombat.Handles(ability))
         {
             var aimed = World.FindEntity(session.PendingTarget);
