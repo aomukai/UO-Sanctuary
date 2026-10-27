@@ -1,0 +1,19 @@
+{
+  "referenceVersion": "3.3.93847",
+  "talentId": "druid.summondirewolf",
+  "source": "Direct user approval in this task; Sanctuary deviations take precedence over reference behavior.",
+  "userReport": "i haven't observed that, and i don't think we need to make that distinction. monster corpse -> edible",
+  "observedReferenceBehavior": "No new executable observation was claimed. The older engine's search and consume predicates differ; its consume path requires the soft-monster flag.",
+  "approvedDeviation": "Dire Wolves may eat otherwise usable monster corpses regardless of skeletal, fleshy or other monster type. Do not impose source soft/material, dead-collision or corpse-selectable type restrictions on edibility.",
+  "preservedSharedRules": [
+    "Use actual monster corpses, retaining the existing shared ownership, access and loot-preservation rules.",
+    "Reserve and consume each corpse only once; consumed, shattered or otherwise unavailable bodies are not restored by this rule.",
+    "Keep corpse-search range, first-eligible ordering, AI priority and the rage effect separate from this type-independent edibility rule."
+  ],
+  "implementation": {
+    "status": "pending",
+    "nativeActorEnabled": false,
+    "verification": "not-started",
+    "next": "Reuse the existing native corpse access/reservation/loot consumers through a Dire Wolf eligibility route that does not require source selectable/soft/material flags. Verify skeletal and fleshy monster cases, one-time consumption and intact loot."
+  }
+}

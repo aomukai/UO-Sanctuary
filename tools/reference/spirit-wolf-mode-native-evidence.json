@@ -23,7 +23,7 @@
     "namedDecisions": 573,
     "namedInputFingerprints": 637,
     "firstLoopInputFingerprints": 21,
-    "fullClassMarkers": null
+    "fullClassMarkers": 1184
   },
   "frozenNumericRevision": "88cc65cd85a9ecd0bb6de3ac7f23b0d84b20f49d",
   "testedAssemblies": {
@@ -50,7 +50,12 @@
     "tests/check_creeper_stats.py": "875ca5d7b4854dbc14673a35b45e7ee0293b86cd0d85f02a3065129510ba9b16",
     "tools/record_spirit_wolf_mode.py": "7ede70bfb0d5c8cb3648d10abd65e623f1bdb457234f92fc14c5fee2aa3c8fcf",
     "tools/reference/dire-wolf-stats-native-evidence.json": "d9eda9fddea94c99cf7e6ea2036c68af233bb6c549ee848078036a7dbb0611e6",
-    "tools/reference/druid-beast-attack-engine-evidence.json": "7f9f58c1c550860cde2e33010f57308fe389e5f550242da327b189519027213b"
+    "tools/reference/druid-beast-attack-engine-evidence.json": "7f9f58c1c550860cde2e33010f57308fe389e5f550242da327b189519027213b",
+    ".local/class-skills/wolf-mode/full-named-item-runtime-audit.json": "34135b7504c4e93cf04e274096935e7645febe9b6971b63089be2a04da1dcb0a",
+    ".local/class-skills/wolf-mode/full-first-loop-affix-audit.json": "39987ac87341abf9d8ea8d4f7375a3d07c7f6e52fcd96b8cd1238cec87aa05fa",
+    ".local/class-skills/wolf-mode/class-inputs.json": "9844e625a9ff8d340db3cc4b1221b417276fc1792302a0c28c13e35d8f7000a6",
+    ".local/class-skills/wolf-mode/class-native-checks.log": "a3e8434a53bb74f5942904e7ed0efc1ce1187de8e99bd833de749fe9d932e0fc",
+    ".local/class-skills/wolf-mode/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31"
   },
   "established": [
     "Actual Spirit Wolf A1entry captures live owner rank and source mode AR,125at rank1/145at rank2,independently of copied birth/cold/passive values. Shared creature AR and ordinary-hit chance add birth base/passive/mode values once before live actor percentages. Actual Tarnhelm during windup does not rewrite the packet; next A1refreshes it. Impact records entry rank,not current owner rank.",

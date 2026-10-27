@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+"""Verify installed A1content, original-world smoke and preserved saves/client."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = ROOT / '.local/class-skills'
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def hashes(folder):
+    return {str(path.relative_to(folder)): sha(path) for path in folder.rglob('*') if path.is_file()}
+
+
+def record(check=False):
+    subprocess.run([sys.executable, str(ROOT / 'tools/record_spirit_wolf_mode.py'), '--check', '--full-class'], check=True)
+    receipt_path = BASE / 'wolf-mode-installation.json'
+    receipt = json.loads(receipt_path.read_text())
+    assert receipt['installed'] and receipt['smokeReturnCode'] == 0 and receipt['originalWorldSmoke']
+    assert receipt['handlers'] == 170 and receipt['druidHandlers'] == 14 and receipt['genericPackageLinksUnchanged']
+    assert not receipt['goalComplete'] and receipt['completedClasses'] == []
+    assert receipt['clientReused'] and not receipt['clientUpdated']
+    before = receipt['protected']
+    backup = ROOT / receipt['backup']
+    for name, digest in receipt['artifacts'].items():
+        assert sha(ROOT / name) == digest, name
+    assert hashes(ROOT / '.local/server/Saves') == before['saves'] == hashes(backup / 'Saves')
+    assert hashes(ROOT / '.local/server/Configuration') == before['configuration'] == hashes(backup / 'Configuration')
+    assert hashes(ROOT / '.local/client/Profiles') == before['profiles']
+    assert {p.name: sha(p) for p in (ROOT / '.local/client').glob('*.dll')} == before['clientDlls']
+    assert sha(ROOT / '.local/client/settings.json') == before['settingsSha256']
+    assert sha(ROOT / '.local/client/cuo.dll') == before['clientSha256'] == sha(backup / 'client-cuo.dll')
+    generic = {kind: dict(target=str((BASE / kind).resolve()), symlink=(BASE / kind).is_symlink(), sha256=sha(BASE / kind / ('Sanctuary.' + kind.title() + '.dll'))) for kind in ['content', 'integration']}
+    assert generic == before['genericOutputs']
+    native_path = ROOT / 'tools/reference/spirit-wolf-mode-native-evidence.json'
+    native = json.loads(native_path.read_text())
+    verified = native['verified']
+    assert verified['fullClassMarkers'] >= 1184 and verified['boots'] == 3 and verified['actualReloads'] == 2
+    assert verified['wolfRightCasts'] == verified['wolfQuickCasts'] == 3
+    package = json.loads((BASE / 'wolf-mode/class-inputs.json').read_text())
+    for name in ['ModernUO.dll', 'Server.dll', 'Assemblies/UOContent.dll', 'Assemblies/Sanctuary.Content.dll']:
+        assert sha(ROOT / '.local/server' / name) == package['artifacts'][name], name
+    for name, digest in package['copiedData'].items():
+        assert sha(ROOT / '.local/server' / name) == digest, name
+    ns = runpy.run_path(str(ROOT / 'dev'))
+    ns['require_stopped']('server'); ns['require_stopped']('client')
+    smoke = (BASE / 'wolf-mode-installed-server.log').read_text()
+    assert 'Loading world' in smoke and '2593' in smoke and '12000' in smoke and 'Shutting down' in smoke
+    assert ' ERR]' not in smoke and 'create the owner account now?' not in smoke
+    output = dict(referenceVersion='3.3.93847', installed=True, handlers=170, druidHandlers=14,
+        fullClassRegression=True, fullClassPassMarkers=verified['fullClassMarkers'], fullClassBoots=3, focused=verified,
+        completedClasses=[], goalComplete=False, currentExecutableParity=False,
+        clientUpdated=False, clientReusedByteIdentical=True, graphicalClientAcceptance=False,
+        preservedSaveFiles=len(before['saves']), preservedConfigurationFiles=len(before['configuration']),
+        savesConfigProfilesSettingsUnchanged=True, clientDllsUnchanged=True, genericPackageLinksUnchanged=True,
+        originalWorldSmoke=dict(returnCode=0, tcpPort=2593, udpPort=12000, serverStopped=True), rollback=receipt['backup'],
+        hashes={str(receipt_path.relative_to(ROOT)): sha(receipt_path), **receipt['artifacts'],
+            'tools/record_spirit_wolf_mode_installation.py': sha(Path(__file__))},
+        remaining=[*native['limits'][:2], 'Final effects/audio and separate talent/right/quick icons remain placeholders. Graphical playtesting and current-executable equivalence are not established by this server installation.'],
+        next='Implement distinct Fenris AI/body/corpse consumption/rage/physical combat/casting. Approved type-independent monster-corpse edibility takes precedence over old soft/material/type filters; retain shared access,reservation and loot preservation.')
+    path = ROOT / 'tools/reference/spirit-wolf-mode-installation-evidence.json'
+    rendered = json.dumps(output, indent=2) + '\n'
+    if check:
+        assert path.read_text() == rendered
+    else:
+        path.write_text(rendered)
+    print('Wolf A1content installed170/Druid14: full/focused accepted,original-world smoke0,saves/config/client preserved; no completed class or parity certificate.')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true')
+    record(parser.parse_args().check)
