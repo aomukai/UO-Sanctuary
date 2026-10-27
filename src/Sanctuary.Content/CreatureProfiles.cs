@@ -172,6 +172,7 @@ public static class CreatureProfiles
     }
     public static CreatureDefinition Definition(BaseCreature creature)
     {
+        if(creature is DruidOakBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Oak Sage entity","native","oaksage","Saved vulnerable life/aura preparation; Totem movement and learned casting pending");}
         if(creature is DruidCreeperBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned plaguepoppy entity","native","plaguepoppy","Prepared saved noRatio life/ownership only; world state, mats and learned casting pending");}
         if(creature is DruidSpiritWolfBody){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Spirit Wolf entity","native","spiritwolf","Saved life/movement/cold hit and learned casting; modern full parity pending");}
         if(creature is AmazonDecoy){return new(creature.GetType().FullName,typeof(BaseCreature).FullName,"ClassSummon","Pinned Dopplezon entity","native","dopplezon","Explicit Decoy snapshot; full casting and source/native acceptance pending");}
@@ -186,7 +187,13 @@ public static class CreatureProfiles
             "native", null, "Unmapped custom type; native values retained");
     }
     public static CreatureVariant Variant(BaseCreature creature, MonsterDifficulty? difficulty = null)
-        => creature is DruidCreeperBody creeper ? _native with{Enabled=true,ApplyStats=false,
+        => creature is DruidOakBody oak ? _native with{Enabled=true,ApplyStats=false,
+            Resistances=new(Magic:NecromancerSummons.Source("oaksage","ResMa",difficulty??oak.SummonDifficulty)),
+            Traits=new("Spirit",false,false,false,false,false,2,3,
+                NecromancerSummons.Source("oaksage","Drain",difficulty??oak.SummonDifficulty),
+                Math.Abs(NecromancerSummons.Source("oaksage","coldeffect",difficulty??oak.SummonDifficulty)),0),
+            HitRecovery=new(false)}
+            : creature is DruidCreeperBody creeper ? _native with{Enabled=true,ApplyStats=false,
             Resistances=new(0,0,0,0,0,0),
             Traits=new("Vine",false,false,false,false,false,0,3,
                 NecromancerSummons.Source("plaguepoppy","Drain",difficulty??creeper.SummonDifficulty),

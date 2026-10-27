@@ -40,7 +40,7 @@ public static class BattleOrders
         if(World.Loading){return 65000;}
         if(resource==0 && PaladinConversion.Maximum256(actor) is{} converted){return (converted+255)/256;}
         if(resource==0 && actor is ISourceLifeMaximum exact){return (exact.MaximumLife256+255)/256;}
-        int percent=Percent(actor);if(percent<=0){return null;}
+        int percent=resource==0?LifePercent(actor):Percent(actor);if(percent<=0){return null;}
         long base256=(long)basis*256;
         if(resource==0 && actor is SkeletonGuardian summon && actor.HitsMaxSeed==summon.CombatProfile.Life)
         {base256=summon.SourceLife256+((long)basis-summon.CombatProfile.Life)*256;}
@@ -52,6 +52,7 @@ public static class BattleOrders
     // Dropping its percentage in a maximum getter first would let native clamps lose saved life.
     public static BattleOrdersState State(Mobile actor)=>Alive(actor)?_states.GetValueOrDefault(actor.Serial.Value):null;
     public static int Percent(Mobile actor)=>State(actor)?.Percent??0;
+    internal static int LifePercent(Mobile actor)=>Percent(actor)+DruidOakAuras.Percent(actor);
     internal static int Stamina256(Mobile actor)=>actor.Stam*256+(actor.Stam<actor.StamMax?_resources.GetValueOrDefault(actor.Serial.Value)?.StaminaFraction??0:0);
     internal static void SetStamina256(Mobile actor,int amount256)
     {

@@ -102,7 +102,7 @@ public partial class AmazonDecoy:BaseCreature
     private TimerExecutionToken _timer;
     private long _lastFrame;
     public DecoyStats Snapshot=>_snapshot??=JsonSerializer.Deserialize<DecoyStats>(_stats);
-    internal int Maximum256=>Snapshot==null?base.HitsMax*256:(int)Math.Clamp((long)Snapshot.Life256+ClassResources.Percentage(Snapshot.Life256,BattleOrders.Percent(this)),256,65000L*256);
+    internal int Maximum256=>Snapshot==null?base.HitsMax*256:(int)Math.Clamp((long)Snapshot.Life256+ClassResources.Percentage(Snapshot.Life256,BattleOrders.LifePercent(this)),256,65000L*256);
     public override int HitsMax=>World.Loading?65000:(Maximum256+255)/256;
     public override bool Commandable=>false;
     public override bool IsBondable=>false;

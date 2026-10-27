@@ -89,7 +89,7 @@ public static class PaladinConversion
     {
         if(Life(target) is not{} life){return null;}
         long basis=life.Maximum256;
-        return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.Percent(target)),1,65000*256);
+        return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.LifePercent(target)),1,65000*256);
     }
     internal static bool MindBlastEligible(PlayerMobile owner,BaseCreature target)
     {

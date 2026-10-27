@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def check(extra_commands=(), extra_probes=()):
+def check(extra_commands=(), extra_probes=(), extra_reload_commands=(), extra_fixtures=()):
     os.environ.setdefault('SANCTUARY_PROJECT_ROOT', str(ROOT))
     audit = bool(os.environ.get('SANCTUARY_FIRST_LOOP_AUDIT'))
     if audit:
@@ -77,6 +77,8 @@ def check(extra_commands=(), extra_probes=()):
                     commands = ['creeper-ai-check', 'creeper-stats-check', 'creeper-fields-check', 'raven-stats-check', 'raven-flight-check', 'toward-path-check', 'valkyrie-creation-check', 'named-gear-check'] if boot == 0 else []
                     if boot == 0:
                         commands[:0] = extra_commands
+                    else:
+                        commands[:0] = extra_reload_commands
                     commands.append('spirit-wolf-world-check' if boot == 0 else 'spirit-wolf-world-reload-check')
                     commands.append('creeper-body-check' if boot == 0 else 'creeper-body-reload-check')
                     commands.append('creeper-world-check' if boot == 0 else 'creeper-world-reload-check')
@@ -105,6 +107,8 @@ def check(extra_commands=(), extra_probes=()):
         shutil.copy2(folder / 'creeper-poison-fixtures.json', STAGE / 'poison-fixtures.json')
         shutil.copy2(folder / 'creeper-casting-fixtures.json', STAGE / 'casting-fixtures.json')
         shutil.copy2(folder / 'creeper-body-fixtures.json', STAGE / 'body-fixtures.json')
+        for name in extra_fixtures:
+            shutil.copy2(folder / name, STAGE / name)
         assert ' ERR]' not in logpath.read_text() and ': failed' not in logpath.read_text()
     print('Prepared Creeper arithmetic/outer AI and retained Raven/flight/path/Valkyrie/item components pass3boots/2actual reloads; saved life-only Creeper body checked, world AI/mats and learned handler pending; installed world untouched.')
 

@@ -59,7 +59,7 @@ def record(check=False):
     artifacts += [ROOT / name for name in ['tools/prepare_oak_sage_reference.py', 'tools/probe_oak_sage_reference.py', 'tools/build_class_skills.py', 'tests/check_oak_sage_stats.py', 'tools/record_oak_sage_stats.py']]
     artifacts += [STAGE / name for name in ['body-fixtures.json', 'world-fixtures.json', 'ground-fixtures.json', 'poison-fixtures.json', 'casting-fixtures.json', 'wolf-world-fixtures.json']]
     evidence = dict(referenceVersion='3.3.93847', handlerEnabled=False, installed=False,
-        scope='Prepared numeric creation/aura components only; retained existing summons exercise save/reload consumers. Oak Sage has no actor or recipient aura lease.',
+        scope='Numeric creation/aura component acceptance; actual prepared Oak body/aura acceptance and remaining rollout gates are tracked in the current resume checkpoint. Learned Oak remains unavailable.',
         verified=dict(sourceCompositions=180, sourceFailureBranches=6, effectiveRankControls=255,
             realOwnerTarnhelm=True, sourceSanitizers='ASan and UBSan', retainedBoots=3, retainedReloads=2,
             retainedNaturalPoisonRuns=3, passMarkers=log.count(': passed'), pythonTests=70,
@@ -71,8 +71,8 @@ def record(check=False):
             'All255effective ranks retain separate NPC aura radius/life formulas and player tooltip mirrors. A real learned rank1owner captures immutable60life; Tarnhelm yields rank2/78life without changing the prior snapshot. Difficulty reconstruction retains captured rank/owner level.',
             'Oak Sage learned availability and right/quick bindings remain unavailable. New data remains in the isolated package; original installed package, client and saves are not written by the disposable tests.'
         ], remaining=[
-            'Saved actual Oak actor, Totem movement/escape/teleport, shared spirit cap/replacement, incoming resistance/state consumers, owner/facet/class/offline/death and actual Oak reload acceptance.',
-            'NPC do65self/recipient leases, rank replacement/stacking, periodic refresh/expiry, additive Battle Orders/item life pool, proportional current life and regeneration callbacks. Numeric aura values do not establish those behaviors.',
+            'Totem movement/escape/teleport, shared spirit cap/replacement and learned casting remain unfinished. Saved body/aura/lifecycle acceptance is recorded separately; numeric values alone do not establish those behaviors.',
+            'Current executable movement/event/RNG/room/geometry/clock equivalence, staffmod-only permission and full incoming exceptional state/owner/client contexts remain to verify.',
             'Learned SC/resource/cancellation/right/quick input, full retained regression, graphical client acceptance and preserved installation. Modern event/RNG/room/path/geometry/clock equivalence is not claimed.',
             'Final spirit/body/emergence/movement/death/aura/audio effects and separate talent/right/quick icons remain pending in their existing registers.'
         ])
@@ -82,7 +82,7 @@ def record(check=False):
         assert output.read_text() == rendered
     else:
         output.write_text(rendered)
-    print('Oak Sage numeric preparation:180source/native compositions,255rank controls,3retained boots/2reloads and70Python tests; no learned actor or aura lease.')
+    print('Oak Sage numeric preparation:180source/native compositions,255rank controls,3retained boots/2reloads and70Python tests; learned Oak remains disabled.')
 
 
 if __name__ == '__main__':

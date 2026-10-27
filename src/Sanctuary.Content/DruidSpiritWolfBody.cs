@@ -54,7 +54,7 @@ public partial class DruidSpiritWolfBody:SkeletonGuardian,ISourceLifeMaximum
         get
         {
             long basis=SourceLife256+((long)HitsMaxSeed-CombatProfile.Life)*256;
-            return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.Percent(this)),256,65000*256);
+            return (int)Math.Clamp(basis+ClassResources.Percentage(basis,BattleOrders.LifePercent(this)),256,65000*256);
         }
     }
     public override MonsterProfile CombatProfile=>Prepared is{} s

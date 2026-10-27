@@ -2430,7 +2430,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Numeric preparation only; no Oak actor or aura visuals enabled. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders."
+    "placeholder": "Prepared vulnerable spirit is named Oak Sage [placeholder], uses UO wisp body0x3A and is silent. Life aura has no final visual. Final XW spirit body, emergence, walk, hurt/death, oak_sage recipient overlay, control aura and summon/spirit audio remain pending. Talent/right/quick icons are separate text-label placeholders. Totem movement and learned casting remain unavailable."
   },
   {
     "talentId": "druid.summonspiritwolf",

@@ -1,0 +1,23 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "sourcePath": "source/D2Game/src/AI/AiThink.cpp",
+  "sourceSha256": "b16e97299cf67a19789bb7010efb1bb0949aac5ca940e8bc73d79949966f75cb",
+  "unchangedRoutineSha256": "f59f7e20245145334f11ed612a48ead0e658d96a1c8af63314acf2287c69d759",
+  "fixture": {
+    "path": ".local/class-skills/totem-ai-source-probe.json",
+    "sha256": "b4b67388969ef7862f272a0dc466631df4b57fb67335890ca1938936a746d082",
+    "cases": 5121,
+    "generatedSourceSha256": "340f0500e67c3dd4b637e5ae35b12deeb2fce7159de59f3a6810523f7d59bc6b",
+    "sanitizers": "ASan+UBSan"
+  },
+  "established": [
+    "5121complete Totem decision contexts retain lazy escape chance20percent,then ignore-target chance30percent,strict owner-distance>30teleport with25frame idle on success,strict>20walking/townwalk/run following,shared common move and25frame fallback.",
+    "No owner idles10frames. Threat scan requests24. The first RNG service is skipped without a combat target; successful escape returns before the ignore roll. Ignore clears both target and combat. Owner distance is requested after both chance branches.",
+    "Run follow passes60speed,walk/townwalk0; both use PetMove mode0. Failed movement continues to common move with flag0/leash6. Source town behavior is delegated rather than guessed from an explicit branch in this routine."
+  ],
+  "services": [
+    "The complete outer routine executes unchanged. Target scan,random percentage draws,owner distance,room teleport,escape and shared movement are recorded services; no world geometry or modern RNG/event ordering is claimed.",
+    "All three current Oak difficulty parameter columns agree. The prepared stationary Oak body does not yet consume this policy; native motion/controller integration and acceptance remain next work."
+  ]
+}

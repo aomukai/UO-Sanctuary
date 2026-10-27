@@ -1,0 +1,38 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "handlerEnabled": false,
+  "installed": false,
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/SKILLS/SkillPal.cpp": "c421857a633b5dd1f441eded1c5f41cbd88b375ba9dd771c3fa802e39591bdf0"
+  },
+  "unchangedRoutineHashes": {
+    "sub_6FD0FA00": "deb2e3c0df36d00e81914f21202ab03c108a5acebc88b01aaeab50703caed45b",
+    "sub_6FD0FE50": "1b67f3f52b30bc05b5ab7508c8c94d55518642e636b7b476ef4304bf2270c92b",
+    "sub_6FD0FE80": "205e92f8514caf6d9d96461812608f81fc4b192087e6052dba568e181a9282c2",
+    "SKILL_ComputePeriodicRate": "23b6aa71aabe794cea8d84d183eeef8232258343f19bd9218a83001d24591e0e",
+    "SKILLS_SrvDo065_BasicAura": "1c515c77b26beb1f14e914f41d4b58e32e2fd37967b36f0cc186e3294d2b0c6e"
+  },
+  "fixture": {
+    "path": ".local/class-skills/oak-aura-source-probe.json",
+    "sha256": "5333dcb7d365cc8086ec13b35e1d65f0610cfc675539a5f73bc044e6de8b87dc",
+    "cases": 440,
+    "generatedSourceSha256": "dd9d0eea6e90e622a80df14321894f6112d8e8b00013de93ad4807d8e12c202d",
+    "sanitizers": "ASan+UBSan"
+  },
+  "reusedEvidenceHashes": {
+    "inner-sight-engine-evidence.json": "e3fff9b24a624b3f4db1a45980857ad0fb508b59139da46c539887e37d82c043",
+    "battle-orders-engine-evidence.json": "7b9267e04cc3d94c254aad4354f2c5584ba81d04ab62dba6e1036c718614a07c"
+  },
+  "established": [
+    "440complete do65/self-wrapper/recipient-iterator/filter/periodic-rate contexts:5frame refresh,6frame duration,self161and target149states,no mana payment and current radius/life values at four ranks.",
+    "Allied live players/monsters are selected at the closed source radius. Town recipients,dead monsters,NPCs,NOAURA monsters,hostiles,outside radius and the emitter itself are excluded. LOS and CANBEATTACKED are not required by0x10103; source town does not suppress the separate self callback.",
+    "The generic same-skill/state rank and creator/expiry contract reuses complete sub_6FD10EC0from the recorded Inner Sight probe. The resource callbacks and pre-operation percentage pool reuse the recorded Battle Orders source proof. Current Oak states149/161have no curse flag."
+  ],
+  "boundedServices": [
+    "BasicAura callback is a recording service here:actual stat-list allocation/setting,derived life/current/regen updates and saved ownership are exercised in native tests, not claimed as a compiled full callback.",
+    "Rooms,coordinates,alignment,types/modes,NPC/NOAURA metadata,formula evaluation and mana are bounded ABI services. The five named outer routines execute unchanged. Native party friendliness,2subtiles/tile,16height,serial ordering and no-lag-pulse-replay remain declared adapters.",
+    "Modern executable timing/global event ties,controller movement and learned casting remain unverified. No official source-equivalence certificate is inferred from this older reconstruction."
+  ]
+}
