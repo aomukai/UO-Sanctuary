@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "f3c2ea562bdad8efb524b2aced62b302861f3b8c4f9829199a7427dcbcbd1792",
+  "ContentAssemblySha256": "fc7fbbfa972fef74fa251d23eedd1cfee319314a62484f914ac5a6be9f4d6ac5",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -376,6 +376,7 @@
     "src/Sanctuary.Content/DruidEmitterPatterns.cs": "7ff15279bd6a8a236a6f15f736c15c73af1dd66079b16948618057e11e485cef",
     "src/Sanctuary.Content/DruidFirestorm.cs": "5f0ff4f43c840c7f3b76cb96f9dd1d8df92f346d11311291dbe51fadb1e3050a",
     "src/Sanctuary.Content/DruidFissure.cs": "a14b5cf576c0bafd86455b61f7e16d0ebb2ada64d96bbb217cdbcf38d9f95781",
+    "src/Sanctuary.Content/DruidGrizzlyAi.cs": "0ccc87dd6c2a535249d86ddd731cebe2f15673b6bf4390188973b0997c8d60c9",
     "src/Sanctuary.Content/DruidGrizzlyStats.cs": "6592b63294eba1b343bbd7392997b68f7ea1c87c96a09eb8711feb248d37b88e",
     "src/Sanctuary.Content/DruidGroundCasting.cs": "c6a4a005d6ba7af2d4b7e6798b29c9baae899a6d5728c1595110ce3197acd1f2",
     "src/Sanctuary.Content/DruidHurricane.cs": "481e23f0768c2fcaaefc4091e6d28a01dd99803b2ad60d2bbca27546cb53f0fa",
