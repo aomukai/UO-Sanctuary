@@ -1,0 +1,93 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "handlerEnabled": false,
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "preflightSha256": "99cfc46b0f3bee8dbc8ce1a2b2f02df38e6ad49758309628eeddabafaba3238a",
+  "contexts": 45360,
+  "completeRoutineHashes": {
+    "SKILLS_CalculateDamageBonusByLevel": "485e0957dc77d5158af8bdccce7cdd1e4447ce03853c6e073e7d9b96bb5090b1",
+    "SKILLS_CalculateMasteryBonus": "eefc66a1742e595ee485441f326eadab9a6558f33273e2cb26cd67d7fd74466f",
+    "SKILLS_GetMinElemDamage": "12f1edc03d2b8bdd56acf88aae6d31a27aa8f8a5e4d854b4de9fdfe91775c1a6",
+    "SKILLS_GetMaxElemDamage": "4749d710dd993f3d3ce164419f6367a1daad60347d2c92027f47ed24d219ecd9",
+    "SKILLS_GetElementalLength": "12b43c0edec4b005d64134e3a0b38de618a38e91a2a42f97ee7b29c66a86c907",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "SKILLS_GetManaCosts": "445c640231d7535e5cb12445b442bc6bb6a69a1ee59811857803f0bc2f4fecaa",
+    "sub_6FD155E0": "547c0042f87255cb57c734619e0cf288ac5d544da97b1e0aec48fe6872b6ece5",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SKILLS_SrvSt58_FireClaws": "5d76630725266102038cce288cce6da3d0de381e1d585f755704a12412834c92",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2"
+  },
+  "pinnedEnumHashes": {
+    "D2C_ElemTypes": "1172cc567ac2be50644cf3ef3b7e34a73da319e730d14b165d42781eb9f01246",
+    "D2C_ItemStats": "f1144f71d3bfdec1eb8546a438e92ba57737680a0d841d946d64314ded68fb15",
+    "D2DamageResultFlags": "723b921cbf7a1a1adaec54e3dd3101a260742053bbe16d04eaa9b125d362d1b4",
+    "D2DamageHitFlags": "2e5136ae538087b718c1bc58853a7c3a0aa50d9ec4ad6043af74e831eac692b8"
+  },
+  "sourceHashes": {
+    "source/D2Common/include/D2Combat.h": "a71edc6ccae97fa388d0a0689edbf89e59bbb47ab42e5dcbafcb802084c9b5ec",
+    "source/D2Common/include/D2StatList.h": "a25d7f4e326149715c01a53640964ce0a2ab20ee9d3755dec507331b88f8eb06",
+    "source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    "source/D2Common/src/D2Skills.cpp": "4c4610e8facb593c6c96567cef7ff5bfaf7d899f1869278977130111c8a58639",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42"
+  },
+  "generatedSourceSha256": "1c6d7a099480a68278793aaee50a0b4c4e7a1180754fba70795d49ba42c21a66",
+  "compilerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "sanitizerLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixture": {
+    "path": ".local/class-skills/druid-fire-claws-source-probe.json",
+    "sha256": "de629e97410938bb4d3f8bdc5c70e3be53a7097dda1f17cb4891cf1bec956af2"
+  },
+  "columns": [
+    "rank",
+    "hardFirestorm",
+    "hardBoulder",
+    "mastery",
+    "declaredCritical",
+    "upperRoll",
+    "mitigationProfile",
+    "scene",
+    "start",
+    "do",
+    "weaponFills",
+    "skillDraws",
+    "calculations",
+    "allocations",
+    "drains",
+    "overlays",
+    "attackPercent",
+    "mana256",
+    "minFire256",
+    "maxFire256",
+    "rngBound",
+    "rngValue",
+    "rawPhysical256",
+    "rawFire256",
+    "physical256",
+    "fire256",
+    "resultFlags",
+    "hitFlags",
+    "hitClass",
+    "targetLife256",
+    "orderedServices"
+  ],
+  "established": [
+    "Thirteen complete unchanged older routines execute45360bounded contexts: start58/result helper,mastered integer elemental endpoints/length/mana/AR,full elemental writer,AllocCombat and do2. Header enums use their pinned original values. Current hard-only Firestorm/Boulder synergy supplies22percent per point through an explicitly injected formula service.",
+    "Complete start58 sets fill-once hitflag2,requests weapon fill,then rolls/adds skill fire,then allocates. Complete AllocCombat skips a second fill. Its calculation precedes copying the packet. do2requests the successful fire-hit overlay before combat/durability drain. Source skill fire is additive to the declared weapon fire and is not multiplied by the declared physical critical. Minimum/maximum mastery truncates before exclusive-span RNG.",
+    "Missing records/targets,miss,dodge,target loss and missing combat packets have explicit results. With current positive overlay,do2returns early if no packet exists,without invoking drain. Synthetic force-hit/inconsistent weaponblock/object/hitclass/no-overlay controls test bounded branches only; they are not claims about reachable modern Fire Claws contacts."
+  ],
+  "declaredServices": [
+    "Weapon fill,critical choice,mitigation,total damage,combat allocation memory and durability/health execution remain declared services. Their arithmetic is controlled test input,not complete source combat/HP/leech/proc/block/dodge/seed acceptance. Complete routines compose around them unchanged; no whole legacy or current executable is compiled.",
+    "Formula IDs and minimal struct layouts are declared surrogate services,not Fog/ABI execution. Current row strings/values remain byte-pinned. RNG chooses low/high legal values; the game seed algorithm is not reproduced. fire_hit overlay uses synthetic positive ID37 solely for the branch; actual overlay lookup/assets are not certified. Non-fire elemental writer branches and aura list callbacks are guarded unexecuted.",
+    "Ranks1,2,8,9,20,28,60,hard0/1/20 and mastery0/25/100 avoid old signed intermediate overflow under ASan/UBSan. Higher-rank overflow behavior remains unsupported by this probe; no implicit wrap repair or current-build parity is claimed."
+  ],
+  "remaining": [
+    "Connect a native Fire Claws route only after the frozen Feral full regression is terminal and accepted. Reuse shared form A1,prepared weapon packet/physical-only critical,fire endpoint/mastery,source stun/leech and cancellation. Preserve weapon/critical-before-skill-fire ordering and no do120charge gain/consumption. Verify hard-versus-soft synergies,both forms,gear/4mana/target/immune/miss/block/owner/input/save behavior and current executable gaps.",
+    "No new handler,class completion,installed build/save change or final art is established by this source preparation. Fire-hit/body/contact/cast/expiry audio and talent/left/right/quick icons remain separate placeholders."
+  ]
+}

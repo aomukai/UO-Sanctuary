@@ -26,10 +26,10 @@
       667,
       21
     ],
-    "fullClassMarkers": null,
-    "fullClassBoots": null,
-    "fullClassReloads": null,
-    "fullClassSaveSnapshots": null
+    "fullClassMarkers": 1184,
+    "fullClassBoots": 3,
+    "fullClassReloads": 2,
+    "fullClassSaveSnapshots": 35
   },
   "frozenPriorAcceptance": {
     "commit": "c8c42b4",
@@ -1041,6 +1041,11 @@
     ".local/class-skills/druid-charged-attacks-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     ".local/class-skills/druid-feral/named-item-runtime-audit.json": "68ac53732f29fd6efb1f8fb78c22662c3a3b2d8c6802e0c9b5a3ff323c84a007",
     ".local/class-skills/druid-feral/first-loop-affix-audit.json": "63a871d7f58d1e6710f31ffb46dc7f1cecafab8299abf06549de96767532dfd1",
+    ".local/class-skills/druid-feral/full-named-item-runtime-audit.json": "68ac53732f29fd6efb1f8fb78c22662c3a3b2d8c6802e0c9b5a3ff323c84a007",
+    ".local/class-skills/druid-feral/full-first-loop-affix-audit.json": "63a871d7f58d1e6710f31ffb46dc7f1cecafab8299abf06549de96767532dfd1",
+    ".local/class-skills/druid-feral/class-inputs.json": "2e99a88e1d547511765e7d8c62711e3b2da7ac7ab64e3e8e4063d5d193a88558",
+    ".local/class-skills/druid-feral/class-native-checks.log": "57c43d0d7f59eafb89ad197c910a3459f2fc2eb8fec111e0219a2e8648c211e2",
+    ".local/class-skills/druid-feral/full-run.log": "d03f0f2240323b1437352de62747f81399fe0d3f549d45777f4370fc22100a31",
     "tools/record_druid_feral.py": "791e221fa607b558e2088a3d544c8bbbbbdf5f61f883e21ad86c09abbd2aa2b5",
     "tests/check_druid_feral.py": "7e1864c255a62e322c3329e667b1e5750d30c79e55f823d23c1b2886e6374e11",
     "tests/check_creeper_stats.py": "3f0916e7b85ecb74f18068ba261c47491b7063a395f14ebb4218781eef1b3dfd",
