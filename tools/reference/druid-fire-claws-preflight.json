@@ -1,0 +1,156 @@
+{
+  "referenceVersion": "3.3.93847",
+  "sourcePreparation": true,
+  "nativeAccepted": false,
+  "handlerEnabled": false,
+  "executedContexts": 0,
+  "sourceScope": "Byte-pinned current licensed/public data and eight complete older routine hashes. Static checks review Fire Claws call ordering; they do not exhaustively review or execute every shared damage branch, nor certify the current executable.",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "formsPreflightSha256": "4c5b358dfb0bf61c767229e761abe02e2f06a6df3b7d7c7934517bb3124dcdd7",
+  "localTables": {
+    "skills": {
+      "filename": "skills.txt",
+      "sha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+      "publicSha256": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956"
+    },
+    "states": {
+      "filename": "states-creeper-verified.txt",
+      "sha256": "edca1756ad868308e91dd088708d69b3a583b6187edd0c0c001d4dbb8644d5c7",
+      "publicSha256": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19"
+    }
+  },
+  "publicFieldsCompared": 84,
+  "currentRows": {
+    "skills": {
+      "Fire Claws": {
+        "skill": "Fire Claws",
+        "*Id": "239",
+        "charclass": "dru",
+        "skilldesc": "fire claws",
+        "srvstfunc": "58",
+        "srvdofunc": "2",
+        "srvoverlay": "fire_hit",
+        "enhanceable": "1",
+        "attackrank": "0",
+        "range": "h2h",
+        "anim": "A1",
+        "seqtrans": "A1",
+        "monanim": "xx",
+        "UseAttackRate": "1",
+        "TargetableOnly": "1",
+        "SearchEnemyXY": "1",
+        "AttackNoMana": "1",
+        "KeepCursorStateOnKill": "1",
+        "reqlevel": "18",
+        "maxlvl": "20",
+        "reqskill1": "Feral Rage",
+        "reqskill2": "Maul",
+        "restrict": "2",
+        "State1": "wolf",
+        "State2": "bear",
+        "leftskill": "1",
+        "rightskill": "1",
+        "minmana": "1",
+        "manashift": "8",
+        "mana": "4",
+        "lvlmana": "0",
+        "interrupt": "1",
+        "calc1": "0",
+        "*calc1 desc": "Damage %",
+        "Param8": "22",
+        "*Param8 Description": "Damage synergy",
+        "InGame": "1",
+        "ToHit": "50",
+        "LevToHit": "15",
+        "HitShift": "8",
+        "SrcDam": "128",
+        "EType": "fire",
+        "EMin": "32",
+        "EMinLev1": "16",
+        "EMinLev2": "24",
+        "EMinLev3": "32",
+        "EMinLev4": "40",
+        "EMinLev5": "48",
+        "EMax": "48",
+        "EMaxLev1": "17",
+        "EMaxLev2": "25",
+        "EMaxLev3": "33",
+        "EMaxLev4": "41",
+        "EMaxLev5": "49",
+        "EDmgSymPerCalc": "(skill('Firestorm'.blvl)+skill('Molten Boulder'.blvl))*par8",
+        "cost mult": "640",
+        "cost add": "16000",
+        "*eol": "0"
+      }
+    },
+    "states": {
+      "wolf": {
+        "state": "wolf",
+        "*ID": "139",
+        "group": "3",
+        "transform": "1",
+        "restrict": "1",
+        "disguise": "1",
+        "attblue": "1",
+        "meleeonly": "1",
+        "setfunc": "14",
+        "onsound": "druid_morph",
+        "offsound": "druid_morph",
+        "gfxtype": "1",
+        "gfxclass": "430",
+        "*eol": "0"
+      },
+      "bear": {
+        "state": "bear",
+        "*ID": "140",
+        "group": "3",
+        "transform": "1",
+        "restrict": "1",
+        "disguise": "1",
+        "damblue": "1",
+        "armblue": "1",
+        "meleeonly": "1",
+        "setfunc": "14",
+        "onsound": "druid_morph",
+        "offsound": "druid_morph",
+        "gfxtype": "1",
+        "gfxclass": "431",
+        "*eol": "0"
+      }
+    }
+  },
+  "sourceHashes": {
+    "source/D2Game/src/SKILLS/SkillDruid.cpp": "0cf8ba17b704b6f9ef026aab28a3d1c13cda6847266797624d74c57e4bba8b42",
+    "source/D2Game/src/SKILLS/Skills.cpp": "ae7608f7c95eafd3d2b632af8ece88a1f6784490416e2f9ced3706bcbdd1dbcc",
+    "source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7"
+  },
+  "pinnedRoutineHashes": {
+    "SKILLS_SrvSt58_FireClaws": "5d76630725266102038cce288cce6da3d0de381e1d585f755704a12412834c92",
+    "sub_6FD155E0": "547c0042f87255cb57c734619e0cf288ac5d544da97b1e0aec48fe6872b6ece5",
+    "D2GAME_RollElementalDamage_6FD14DD0": "430501f2faf68a422913c2812f211c7b1fa8c63fa4a4da09715c149508874e11",
+    "sub_6FD11E40": "43716701bdf81f3ad8702a1ab50f0efdbcd78c20dd0a8400279b0d1f54509a2a",
+    "SKILLS_SrvDo002_Kick_PowerStrike_MonIceSpear_Impale_Bash_Stun_Concentrate_BearSmite_Vengeance_Berserk_FireClaws": "70ec271db773612943aabdcfe55da0812bc818cd35aa97ea8c017fc27f6d27c2",
+    "SUNITDMG_FillDamageValues": "bf95432c3122031006d855c92283e86db6d901e9763974ec7449cfc471c41020",
+    "SUNITDMG_AllocCombat": "bc56dd3efbba1649d4a3d9bfcb8f2f63187bbd262c2458c6709860891d28c99a",
+    "SUNITDMG_DrainItemDurability": "9384594853e7f4255913c5cf5ff2e45d306ead9fd8e83b3e592470e1c0ef7d58"
+  },
+  "reuseCandidates": {
+    "DruidChargedAttacks.cs": "01eab03676570a69ae95c176f3b3bfb2474ab5e8432440459aa7d1421a31ec1b",
+    "DruidFormAttacks.cs": "2e13403316d3a997755b66caf0a1a96dd1dabf90525a84e69609864feafd4111",
+    "AmazonMelee.cs": "da98bc3a247e4d18de771932daee41bdc85fb6ba2f949948925fc3fb17a4b06d",
+    "GearEffects.cs": "46635c7f2b93bc3adfe309ec46d99b188e58eef3709da39f256030efbe7bc6df",
+    "SkillMechanics.cs": "1598c747a49686178398c3d87c8d91d4602ac8b4ea10f34baee26e1099ee33d2",
+    "WeaponLeech.cs": "0fdb73a8246b409c6bda54316f0392bcf16a10b683034d7bf73e92032bca8d27"
+  },
+  "reviewed": [
+    "Current Fire Claws239uses start58/do2,A1/attack-rate,4mana and source128weapon damage. Restrict2allows both wolf and bear. It creates no new charge aura. Current hard-only damage synergy is22percent per Firestorm and Molten Boulder point; do not copy an older four-fire-skill synergy list or apply the summon-tree effective-rank exception here.",
+    "Complete start58 obtains result flags,then on success sets hitflag2,adds row hit flags/class,sets calc1physical ED,current0,fills weapon damage,rolls skill fire and allocates combat. AllocCombat respects hitflag2and does not refill weapon values. Fill-once ordering prevents duplicate weapon damage/properties. The elemental roller uses mastered endpoints,an exclusive max-minus-min RNG span,and the shared elemental writer. Critical/mitigation/allocation ordering still needs composed execution.",
+    "Complete do2handles configured impact overlay/optional target state before shared durability/combat drain. Final overlay is fire_hit. The existing saved-charge start/impact/timing/cancellation and prepared weapon services are reuse candidates,not proof that do120gain belongs here. Maul damage/stun in bear and Feral pre-gain life drain in wolf must remain shared stat channels; Fire Claws must not add or consume those charge states.",
+    "Use existing actual SkillValues hard-synergy endpoints and shared weapon packet/mastery/critical/leech/recovery consumers rather than introducing another independent damage engine. AmazonMelee has the existing endpoint/mastery pattern,with a lightning-specific adapter that must not be blindly reused as fire. Current form human-weapon normalization/A1clocks and melee-only hands/range remain reusable with their explicit parity gaps."
+  ],
+  "remaining": [
+    "Execute start58/result/weapon-fill/element/mastery/AllocCombat/do2composition with declared service boundaries,then build the native learned route. Verify both forms,mana,miss/block/immunity,physical versus fire/critical/leech,hard-versus-soft synergy,gear,state coexistence,Stop/range/weapon/form cancellation,right/quick and save/reload. Exact modern geometry/RNG/event/reentry,unmapped recipients/PvP and item-only permission remain unverified.",
+    "Keep the current Maul full-regression candidate frozen. Apply the already-native-verified prepared Feral component only after that run is terminal and accepted; Fire Claws follows it. This static preparation changes no handler/runtime data/DLLs or installed build/saves. Human form pose/contact and generic effects remain identified placeholders; fire_hit/cast/contact/audio and talent/left/right/quick icons remain separate pending assets."
+  ]
+}
