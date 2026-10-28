@@ -174,7 +174,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
-        DruidAttackCharges.Clear(player);DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);
+        DruidAttackCharges.Clear(player);DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);DruidRabies.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);
@@ -348,7 +348,7 @@ public sealed class CharacterProfiles : GenericPersistence
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);
         AssassinCharges.Clear(player);TigerStrikes.Cancel(player);AssassinClaws.Cancel(player);
-        DruidAttackCharges.Clear(player);DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);
+        DruidAttackCharges.Clear(player);DruidChargedAttacks.Cancel(player);DruidFireClaws.Cancel(player);DruidHunger.Cancel(player);DruidRabies.Cancel(player);
         CloakShadows.Clear(player);Venoms.Clear(player);
         BarbarianBerserk.Clear(player);
         BarbarianShout.Clear(player);

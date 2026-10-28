@@ -2352,7 +2352,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Prepared infection and contagion have no dedicated rendering. Shared native poison status is an identified placeholder; it does not own the independent infection deadline. Final Werewolf S3 bite/contact, rabies infection overlay, contagion presentation and cast/contact/expiry audio remain pending. The source contagion missile itself has a null cel. Talent/left/right/quick icons remain separate text placeholders. Learned casting is not yet enabled."
+    "placeholder": "Learned S3 uses an identified human Wrestle pose and contact sound0x238. Infection and contagion have no dedicated rendering; shared poison status is a placeholder and does not own the independent infection deadline. Final Werewolf S3 bite/contact, rabies infection overlay and cast/contact/expiry audio remain pending. The source contagion missile itself has a null cel. Talent/left/right/quick icons remain separate text placeholders. Mechanical acceptance is tracked in the checkpoint."
   },
   {
     "talentId": "druid.shockwave",

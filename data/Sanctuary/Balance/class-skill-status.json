@@ -1846,10 +1846,10 @@
       "characterClass": "Druid",
       "tree": "Shape Shifting",
       "sourceId": 238,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "handler-present",
+      "verification": "build-only",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Learned Werewolf S3 candidate uses a source-derived initial hit gate and pinned10mana, then a distinct ordinary weapon bite followed by independent infection and forced-success skill poison. Saved markers/emitters, retained child rank/live synergy, negative-current tail/reinfection and migration have bounded source/native evidence. Actual learned input/payment/cancellation/full-regression acceptance is recorded in the current checkpoint. Modern initial miss/block presentation/payment, extra transformed AR, lost-range attachment, lethal/reentrant chronology, owner logout/facet and exact event/seed/geometry remain explicit gaps. Human Wrestle/contact audio and poison status are identified placeholders; final effects and talent/left/right/quick icons remain separate."
     },
     {
       "talentId": "druid.shockwave",
