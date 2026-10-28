@@ -17,6 +17,19 @@ namespace Sanctuary.Integration;
 public static class MoltenBoulderChecks
 {
     private static readonly ILogger Log=LogFactory.GetLogger(typeof(MoltenBoulderChecks));
+    // Connecting the player activates the sector again, so stopping AITimer
+    // alone does not keep this hit fixture on the projectile's intended path.
+    // Permit actual forced Mobile.Move steps while excluding voluntary AI motion.
+    private sealed class InputTarget:GraveyardSkeleton
+    {
+        public InputTarget(){}
+        public InputTarget(Serial serial):base(serial){}
+        public override void Serialize(IGenericWriter writer){base.Serialize(writer);writer.Write(0);}
+        public override void Deserialize(IGenericReader reader)
+        {base.Deserialize(reader);if(reader.ReadInt()!=0){throw new InvalidDataException("Invalid Boulder input fixture version");}}
+        public override bool DisallowAllMoves=>!CombatDisplacement.Active(this);
+        protected override bool OnMove(Direction direction)=>CombatDisplacement.Active(this) && base.OnMove(direction);
+    }
     private sealed record Saved(uint Owner,uint Target,int Life256,BoulderSave State,uint Pending=0,int PendingMana=0);
     private static string Manifest=>Path.Join(Core.BaseDirectory,"molten-boulder-fixtures.json");
     private static int _scene;private static uint _pending;private static int _pendingMana;private static bool _creating;
@@ -41,9 +54,10 @@ public static class MoltenBoulderChecks
         foreach(string parent in talent.Prerequisites){Train(p,SkillMechanics.All.Single(x=>x.TalentId==parent).Ability);}
         if(ClassCreation.Profiles.GetRank(p.Serial,row.TalentId)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,row.TalentId,out var reason),"Train: "+reason);}
     }
-    private static GraveyardSkeleton Target(PlayerMobile p,int dx)
+    private static GraveyardSkeleton Target(PlayerMobile p,int dx,bool forcedMotionOnly=false)
     {
-        var t=new GraveyardSkeleton{Frozen=true,CantWalk=true,NoKillAwards=true};t.SetHits(10000);
+        GraveyardSkeleton t=forcedMotionOnly?new InputTarget():new GraveyardSkeleton();
+        t.Frozen=t.CantWalk=t.NoKillAwards=true;t.SetHits(10000);
         foreach(var type in new[]{ResistanceType.Physical,ResistanceType.Fire,ResistanceType.Cold,ResistanceType.Energy,ResistanceType.Poison}){t.SetResistance(type,0);}
         t.MoveToWorld(new(p.X+dx,p.Y,p.Z),p.Map);t.AIObject.AITimer.Stop();return t;
     }
@@ -286,7 +300,7 @@ public static class MoltenBoulderChecks
     private static void Input()=>FixtureNetwork.Connected("molten-boulder-input-result",Input);
     private static void Input(NetState network)
     {
-        var held=DruidMoltenBoulder.Snapshot();var p=Fresh();Train(p,CombatAbility.MoltenBoulder);Mana(p);Ready(p);var target=Target(p,3);target.Frozen=target.CantWalk=false;var start=target.Location;
+        var held=DruidMoltenBoulder.Snapshot();var p=Fresh();Train(p,CombatAbility.MoltenBoulder);Mana(p);Ready(p);var target=Target(p,3,true);target.Frozen=target.CantWalk=false;var start=target.Location;
         Require(SkillBindings.Instance.AssignQuick(p,6,CombatAbility.MoltenBoulder),"Connected quick binding");
         network.Seeded=true;network.CompressionEnabled=false;network.Mobile=p;p.NetState=network;
         var protocol=typeof(NetState).GetField("_protocolState",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);Require(protocol!=null,"Input protocol bootstrap");protocol.SetValue(network,Enum.Parse(protocol.FieldType,"GameServer_LoggedIn"));network.ResetMovementState();network.SendMobileUpdate(p);
@@ -300,9 +314,14 @@ public static class MoltenBoulderChecks
                 Require(Core.TickCount<deadline,"Natural Boulder quick-cast timeout");var missiles=DruidMoltenBoulder.Snapshot().Missiles.Where(x=>x.Owner==p.Serial.Value).ToArray();
                 if(!began && ClassCombat.For(p).PendingAbility==CombatAbility.MoltenBoulder){began=true;Require(missiles.Length==0 && NecromancerEffects.ManaBalance256(p)==mana,"Input paid/emitted during windup");}
                 if(!released && missiles.Length>0){released=true;Require(began && missiles.Length==1 && missiles[0].Missile==453 && NecromancerEffects.ManaBalance256(p)==mana-2560 && !FireGround.Ready(p,CombatAbility.MoltenBoulder),"Quick cast release/payment/delay");}
-                damaged|=SkillHealth.Balance256(target)<life;pushed|=target.Location!=start;
+                damaged|=SkillHealth.Balance256(target)<life;
+                if(target.Location!=start)
+                {
+                    Require(damaged && target.X>start.X && target.Y==start.Y && target.Z==start.Z,"Input target moved without damaging outward knockback");
+                    pushed=true;
+                }
                 if(!released || missiles.Length>0){Timer.StartTimer(TimeSpan.FromMilliseconds(20),Wait);return;}
-                Require(damaged && pushed && NecromancerEffects.ManaBalance256(p)==mana-2560 && FireGround.Ready(p,CombatAbility.MoltenBoulder),"Natural damage/knockback/once-only mana/lifetime");Cleanup();Held(held);Log.Information("molten-boulder-input-result: passed");
+                Require(damaged && pushed && NecromancerEffects.ManaBalance256(p)==mana-2560 && FireGround.Ready(p,CombatAbility.MoltenBoulder),$"Natural damage/knockback/once-only mana/lifetime: damaged={damaged} pushed={pushed} mana={NecromancerEffects.ManaBalance256(p)}/{mana-2560} ready={FireGround.Ready(p,CombatAbility.MoltenBoulder)} target={target.Location} start={start}");Cleanup();Held(held);Log.Information("molten-boulder-input-result: passed");
             }
             catch(Exception e){Cleanup();Log.Error(e,"molten-boulder-input-result: failed");}
         }
