@@ -18,6 +18,8 @@ Actual reloads retain **99,984 FP life / remainder112** and the exact Stun deadl
 
 **Assets:** existing stunned-state presentation is an identified placeholder. Final Stun/Berserk effects/audio, summon body/equipment/animations and separate talent/right/quick icons remain in their respective registers. This internal release path creates no additional player hotkey identity.
 
+**Independent source progress during full regression:** [NPC return proof](../tools/reference/monster-return-source-evidence.json), reproduced with `tools/probe_monster_return.py --check`, executes **30,244 contexts per classic/Uber variant**, including complete return, hit-class, recovery, sand-leaper and HP-percentage functions. Both sanitizers are clean. It records156 compile-variant differences, exact service traces, Stun-forced reactions, shared typed-hit-class history, zero/one/two source RNG draws and126 fractional-threshold draw cases per variant. Native reaction/mode scheduling remains unfinished. The active full package is unchanged. A nonblocking reference request is pending: when convenient, leave the pinned D2R build in-game with a summoned Warlock demon so missing current AI/proc helpers can be inspected naturally; no answer or action is assumed.
+
 **Next:** review the active full regression, record/push its acceptance if it succeeds, then continue real contact/mode/return services and actor dependencies. Use a fresh stage for subsequent runtime changes. The full 240-talent/eight-class goal remains active.
 
 ---

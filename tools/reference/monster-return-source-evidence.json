@@ -1,0 +1,121 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "component": "Shared complete NPC damage return,hit class and recovery decision source",
+  "processMemoryRead": false,
+  "currentExecutableParity": false,
+  "nativeConsumerAccepted": false,
+  "handlerEnabled": false,
+  "compiledUnchangedRoutineHashes": {
+    "sub_6FC62DF0": "46297de7356f41f678d240bfec4ed9f472d42b6ae029c7be156a9b6fe2eb6eaa",
+    "SUNITDMG_GetHitClass": "03dfc6f6668f817e635d0e2abe7c27980783b453a121ca23b321f8fc41895470",
+    "sub_6FCC1870": "79e9050fe70da0c3bca898c1b97a23077a2e0146a4a743e9a5cbe1702426c17b",
+    "sub_6FC62F50": "c554d3c5b836e868b15474544f3352c1f61486b39ff2c8d841d9bd1d400b9d1a",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f"
+  },
+  "retainedRoutineHashes": {
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d",
+    "SUNITDMG_GetMonStatsTxtRecordFromUnit": "edaccc054119f98ec088b2e966c91834aab614cf0fac223ae65c83fa6d0e12b6",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "SEED_RollRandomNumber": "0f7446538510a1431085b9fa7b66dd15dc9d8495c2b344973c36010e1ddcb3fa",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "retainedOriginalRoutineHashes": {
+    "SUNIT_IsDead": "3cd4ad43d5104a851266a3d80d07b73ac1f1c5a8ea9f25a37164068bd41e874d",
+    "SUNITDMG_GetMonStatsTxtRecordFromUnit": "edaccc054119f98ec088b2e966c91834aab614cf0fac223ae65c83fa6d0e12b6",
+    "SUNITDMG_ApplyResistancesAndAbsorb": "ea3023c57d81e635cc5f9340f5ef43fafabc862b76222dd8f25e285405d978d3",
+    "SUNITDMG_CalculateTotalDamage": "ee329c7d8429c54de7366b2dcecef33d1ed4dacc1690a8986ac5e1c0a3b4fb4e",
+    "SUNITDMG_ExecuteEvents": "29d79fe1ff916cce3da9b78493564f9438ea99718e99d208f4412a07c3898c55",
+    "SUNITDMG_ExecuteMissileDamage": "1fdd8c096d3c9c6d688f29f1888e88df7c98a9fb13214c65b1099c4b3b3f6f3f",
+    "MISSMODE_SetDamageFlags": "e45650c089a89c9f2db72a953ea9f09b8ea823f0a2bcf7b65dfd130c6b476280",
+    "SEED_RollRandomNumber": "52781199df49817a386318b464b081fa1b62b17df726ed0239d9bf5d03d2dfdc",
+    "SEED_RollLimitedRandomNumber": "c53e46642304b39865cf6f14bce560cd46a0705649163bd903d7622ef014a62e",
+    "ITEMS_RollRandomNumber": "602c9b711d18635c3122dd3e68187f3d34425363380a904f22f3f5a3e40552fa",
+    "ITEMS_RollLimitedRandomNumber": "3f2328ca7951cfd703819b62e12452b6c241ca02e5be6f2592531b6b24ce3b71",
+    "MISSMODE_SrvDmg14_MoltenBoulder": "81290d06e601c5ee172eee3cf498b75fdb4372556dc61e0f39a007a9fe9ab09e",
+    "sub_6FD10140": "03f077dacedb03233ecb7bc08f4bf97ce8034819a0d8f887b9b0c9c4f219c768",
+    "sub_6FCF5DE0": "baec12022207d1e060f38280d5ee1e31efa8edae3fdaa9baad43bbc633324a6d"
+  },
+  "inputs": {
+    ".local/class-skills/d2moo-source-tree.json": "5f4e5eae5648ab16176939d390482b2009f7b5e156f2f517411b56b4ffcd6915",
+    "tools/reference/molten-boulder-impact-source-evidence.json": "ad49c4fb0bf9e8c1951db1e63e8326dcafe4d08d2cf09991cf27b9564208afe2",
+    ".local/class-skills/molten-boulder-impact-source-probe.cpp": "34ed63e79ad9afe4a2aceded41ba17a31f32ff84b2d73f496055375e489a5e1c",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Seed.h": "afe0db281dee8fa879db8db812fbfafdb4d0733471499ab5a0ccb5c90d6a478f",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/UNIT/SUnitDmg.cpp": "56ab5e14f7aceb18681f1c1e720e89c63bfe2a25e2e41b8aa9907652a7c9daf7",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/src/MONSTER/MonsterMode.cpp": "bc03301136bee73eb77d34e2d3a9ddca80b869e88e9ff4e6e9bf13e506ddf575",
+    ".local/class-skills/d2moo-pinned-source/source/D2Game/include/UNIT/SUnitDmg.h": "4aaedd0cdadd4844a0219f14d667facaf86f253ea26ffa38dd7b3ece7921e874",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2DataTbls.h": "6a24aae3b33a3f5bf6e78745849d822432cad902b9307387ca713207471e9a9b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/DataTbls/MonsterIds.h": "189a59fbd4a8c95a7786a63b5d35955a3c03a56bf6dfa3d0db6ca9864542c86b",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/D2Monsters.h": "ffa15fb3ee570191eade261aab16f7bbe83b16a0792ba1764ed5373efce4dcf9",
+    ".local/class-skills/d2moo-pinned-source/source/D2Common/include/Units/Units.h": "2876fb0965e072873bba2bf9beb203a3a3447224122ae453a5523e0d7c37560a",
+    "tools/probe_monster_return.py": "124fba6fefdfd1ceeaaa5674170aa6cf084e9807aa6c17efcfff4d198f665c92"
+  },
+  "artifacts": {
+    ".local/class-skills/monster-return/source.cpp": "d03518ad77e3be9aee0047cdbe8faf07af5d293fbe42f5f074b3ae210ec634a5",
+    ".local/class-skills/monster-return/diagnostics/initial-initializer-types.log": "91c57540b6b5514f52d0b14ab37aa3d70d4ad677ff41d9c421f0e3363b8867b2",
+    ".local/class-skills/monster-return/diagnostics/initial-monster-enum-alias.log": "b087b8dd57d525fe466b347a284eed90925c6b0c370f60c9a324e91000eb163a",
+    ".local/class-skills/monster-return/diagnostics/initial-seed-literal-preflight.log": "2a842bceff6bab186304880271e0405556b66affe2c8b3bb35aed234853bda89",
+    ".local/class-skills/monster-return/classic-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/classic-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/classic.json": "43dd9ff7788f60cb611ae6036c384551569fbd12cdca405325f4df9134cc5c30",
+    ".local/class-skills/monster-return/ubers-compiler.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/ubers-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/class-skills/monster-return/ubers.json": "75cf5c606f90340dba7127a99632c9365e2922539f8e34bc9e44bd1a80bc1996"
+  },
+  "sourceMonsterIds": {
+    "MONSTER_DIABLO": 243,
+    "MONSTER_DIABLOCLONE": 333,
+    "MONSTER_UBERDIABLO": 705,
+    "MONSTER_SANDLEAPER1": 78
+  },
+  "variants": {
+    "classic": {
+      "cases": 30244,
+      "deferred": 778,
+      "kills": 1110,
+      "stunGetHit": 10488,
+      "sandMissingKnockback": 288,
+      "recoveryDraws": [
+        29236,
+        672,
+        336
+      ],
+      "classCalls": 3240,
+      "fractionalFloorDraws": 126
+    },
+    "ubers": {
+      "cases": 30244,
+      "deferred": 778,
+      "kills": 1110,
+      "stunGetHit": 10488,
+      "sandMissingKnockback": 288,
+      "recoveryDraws": [
+        29236,
+        672,
+        336
+      ],
+      "classCalls": 3240,
+      "fractionalFloorDraws": 126
+    },
+    "differentCases": 156
+  },
+  "established": [
+    "Complete return,typed-hit-class,recovery,sand-leaper adjustment and HP-percentage routines run unchanged under ASan/UBSan. Existing complete missile/health source is reused without regenerating its accepted stage. Link namespaces only instrument calls around unchanged class/recovery bodies;the inherited seed literal i64-to-ULL platform shim is checked against the original pinned function.",
+    "Town/row/source and missing-room ordering,hit-class-before-uninterruptible/null-source/dead-mode guards,cached death before reaction,block species exceptions,Stun bypass of ordinary recovery suppression,and source two-stage RNG/integer thresholds are recorded. Sand-leaper adjustment runs after the initial knockback-mode fallback. Both compile-time Uber branches are retained.",
+    "Nondivisible FP maximum-life thresholds use integer division before comparison;the matrix records RNG draws where an aggregated multiply comparison would suppress recovery. This is a separate exact-source consumer requirement;the existing native generic recovery is not changed here.",
+    "Typed hit class has a process-wide rotating four-element scan with a counter that advances only when its helper is called;magic is absent from that scan. The complete recovery helper uses the full final hit class,FP total,integer maximum-life thresholds and zero,one or two actual source RNG draws."
+  ],
+  "services": [
+    "NPC targets only;all player-only branches retain guarded services. Source monster base-ID,row/mode/state presence,room/town,stat storage,mode requests,kill,deferred-state application,network refresh and AI notifications are explicit fixture services. No real death/animation/path scheduling is supplied. Source stat/state indices and ancillary layout remain declared;monster mode/base-hit-class IDs and life/hit-class flag follow pinned headers.",
+    "Return does not commit HP here;health is supplied as an already-committed field. The full class regression package is unchanged. Native reaction consumers,modern executable comparison,persistence/input/actor integration and final effects/icons remain unfinished."
+  ]
+}
