@@ -1,0 +1,39 @@
+{
+  "referenceVersion": "3.3.93847",
+  "handlerEnabled": false,
+  "nativeAccepted": false,
+  "currentExecutableParity": false,
+  "preflightSha256": "cef96c8ba75ab0b3ba67aff36a5c1e9a00287889893beca9f4da826e741ae1b4",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "compiledRoutineHashes": {
+    "sub_6FD10880": "df34c0080b85aca96c6dfddecbc7cc2827b7b6433f0ed2aa2f2618322931b99f",
+    "sub_6FD107F0": "a12765a68c3415be24f95e7b322cc04cc502fce205c0d5a30f7d518415945fe1",
+    "SKILLS_GetToHitFactor": "fe4e501473cd1bfbcb40545af4eebb61c54061000df6b92576575d0bce7436c7",
+    "SKILLS_GetManaCosts": "445c640231d7535e5cb12445b442bc6bb6a69a1ee59811857803f0bc2f4fecaa",
+    "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy": "8ef8842f668076b9d629418d88defc64f60ef18a23aa8323b8d1b6a2e476f93e",
+    "SKILLS_SrvDo013_Fend_Zeal_Fury": "0d6dfa1da37877194eee912ee9bfa6fd1fae478cd908a57bb0905153a7e8acb4"
+  },
+  "contexts": {
+    "startAndScalar": 8160,
+    "do13": 1728
+  },
+  "artifacts": {
+    "tools/probe_druid_fury.py": "172bd9034c94d9ba5cf8083bd527cbfa544b9eac63496055351a0b673a9d7d9b",
+    "tools/probe_zeal_reference.py": "72f1481243045a30270d55572fd113fa280a150f936353c11953fe944328d1b5",
+    ".local/class-skills/druid-fury-source-probe.cpp": "a70a512901fec05f65295133412893258f46fcbf3c2260279fcfde5ab25e2258",
+    ".local/class-skills/druid-fury-source-probe.json": "1bb020c49d7799fd6e3492a440253b67fdebf16848f8af925e88c47867756d3f",
+    ".local/class-skills/druid-fury-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "established": [
+    "Complete shared start37 stores min(rank+1,5)and the selected target,or uses the complete cyclic selector when there is no direct target. Missing table/used skill/target returns failure without a hit count. All255ranks use the complete source AR and mana getters against current row metadata.",
+    "Complete do13 revalidates each remembered target,reselects on death/range loss,allocates SrcDam128 ordinary combat on hit or miss,drains wear4,decrements remaining count,and requests rollback70only if another strike and eligible target remain. A sole survivor can be selected again; missing rows/used skill/targets allocate nothing. Current Fury has no elemental conversion branch."
+  ],
+  "services": [
+    "Reuses only the declared Zeal fixture header. World eligibility/aura enumeration,melee geometry,server target lookup,result flags,packet allocation,durability and rollback event delivery are explicit services. Skill formula evaluation supplies current pinned count and physical ED expressions; complete AR/mana getters are executed.",
+    "This probe records the requested rollback70; it does not execute outer animation anchors,transformed modern rate/scheduler,real weapon packets/critical/leech/procs/charges,payment timing or a native series. Shared selection bodies are complete but the aura eligibility scan remains a declared service."
+  ],
+  "remaining": [
+    "Compose current wolf normalized progress,rate-scaled rollback and outer event delivery before native multi-swing timing. Existing isolated Zeal/Fend clocks cannot certify transformed Fury. Current input/interruption/extra-AR/payment/rank capture and complete weapon/owner/death/client behavior remain open.",
+    "No learned handler,installed change,class completion or final assets are claimed. Effects/audio and talent/left/right/quick icons remain separate."
+  ]
+}
