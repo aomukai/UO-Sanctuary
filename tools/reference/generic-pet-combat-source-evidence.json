@@ -1,0 +1,31 @@
+{
+  "referenceVersion": "3.3.93847",
+  "component": "Current GenericPet combat orchestration",
+  "currentCombatRva": "0x4b58a0",
+  "machineCodeBytes": 2067,
+  "matrixCases": 8079,
+  "fatalSelectorCases": 3,
+  "processMemoryRead": false,
+  "targetProcessCodeExecuted": false,
+  "sourceCodeExecutedInOfflineEmulator": true,
+  "completeAiVerified": false,
+  "handlerEnabled": false,
+  "services": [
+    "Gather supplies0..16opaque40-byte descriptors in a declared borrowed container;dynamic allocation/failure/exception paths are not emulated. Base-mode skill identity comes from synthetic selector1..3tables. Invalid selector reaches the real current fatal-service boundary and is recorded,not returned as false.",
+    "Range/search/blocked-movement/rating/order/action/alternative helpers are declared synthetic services. Search supplies five targets plus two opaque words. Ordering uses independent supplied identity/reverse/rating fixtures,not a claim about the actual helper comparator. Core target validity,movement and NPC skill execution remain unverified.",
+    "Stack cookie checking is a declared no-op preserving the return register. The initial fixture zeroed that register;the corrected service preserves it without modifying captured instructions.",
+    "Remembered descriptor is a vector slot;after supplied ordering,action helpers receive the contents of that slot rather than a detached pre-order object. Raw40-byte payload/counters/flags are preserved except explicit current wrapper writes and declared service mutations."
+  ],
+  "emulatorLibrary": {
+    "path": ".local/class-skills/warlock-runtime-reference/venv/lib/python3.12/site-packages/unicorn/lib/libunicorn.so.2",
+    "sha256": "ddb196ec82b52e502c18e4a34478bf7b9f61c83c2ebaa95c74d8ded45a95da9c"
+  },
+  "artifacts": {
+    ".local/class-skills/generic-pet-combat-source-probe.json": "89cc62d6f3d440f8901104d6f38e4c05fb40d3497467f42f5273d29dfdd5cb18",
+    ".local/class-skills/warlock-runtime-reference/generic-actions-4b58a0-part0.bin": "8400b1007da1e92f37cf10c0bd30a1e49c74c06d577de9869f8f721226fe6700",
+    ".local/class-skills/warlock-runtime-reference/generic-helpers-actions.json": "f746ccce172fd99398fef4ff7a1a7584da1b58f32ac476c48ae2341b8e0b74f5",
+    "tools/probe_generic_pet_combat.py": "1e15d734e153e18dffb0ee07685a9e7fac3708f8998efa081b73cd3185033560",
+    "tools/probe_generic_pet_decisions.py": "610ff02021f3fc98d359c40e263a441adb53cb4b2fee5ea385f3af3f6a4968db",
+    "tools/probe_warlock_runtime.py": "981a2b1152ffaf4b434fd6b63ef8fd61846f8ba030ab10d5a23c24629d5c994c"
+  }
+}
