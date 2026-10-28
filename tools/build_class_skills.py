@@ -72,7 +72,7 @@ def compile_skills():
                     sourceTab=CODES.index(row['charclass'])*3+d['SkillPage']-1, passive=bool(row.get('passive')),
                     left=bool(row.get('leftskill')), right=bool(row.get('rightskill')),
                     sourceFields={k:v for k,v in row.items() if not k.startswith('*') and k != 'lineNumber'},
-                    sourceParameters={str(i):row.get('Param'+str(i),0) for i in range(1,13)}))
+                    sourceParameters={str(i):row.get('Param'+str(i),0) for i in range(1,21)}))
     assert len(mechanics) == 240 and len({m['ability'] for m in mechanics}) == 240
     assert all(len(t['skills'])==10 for c in talents for t in c['trees'])
     # Every talent needs a unique readable icon; passives do not occupy hotkeys.
@@ -142,21 +142,21 @@ def products():
     spirit_auras = [{**oak, 'name':oak_aura['skill'], 'sourceId':298, 'sourceKey':oak_aura['skill'],
         'left':False, 'right':False,
         'sourceFields':{k:v for k,v in oak_aura.items() if not k.startswith('*') and k != 'lineNumber'},
-        'sourceParameters':{str(i):oak_aura.get('Param'+str(i),0) for i in range(1,13)}}]
+        'sourceParameters':{str(i):oak_aura.get('Param'+str(i),0) for i in range(1,21)}}]
     heart = next(row for row in rows if row['talentId'] == 'druid.heartofwolverine')
     heart_aura = source_skills['297']
     assert heart_aura['skill'] == 'Wolverine Aura' and heart_aura['aurastat1'] == 'item_tohit_percent' and heart_aura['aurastat2'] == 'damagepercent'
     spirit_auras += [{**heart, 'name':heart_aura['skill'], 'sourceId':297, 'sourceKey':heart_aura['skill'],
         'left':False, 'right':False,
         'sourceFields':{k:v for k,v in heart_aura.items() if not k.startswith('*') and k != 'lineNumber'},
-        'sourceParameters':{str(i):heart_aura.get('Param'+str(i),0) for i in range(1,13)}}]
+        'sourceParameters':{str(i):heart_aura.get('Param'+str(i),0) for i in range(1,21)}}]
     barbs = next(row for row in rows if row['talentId'] == 'druid.spiritofbarbs')
     barbs_aura = source_skills['296']
     assert barbs_aura['skill'] == 'Barbs Aura' and barbs_aura['aurastat1'] == 'item_attackertakesdamage' and not barbs_aura.get('aurastat2')
     spirit_auras += [{**barbs, 'name':barbs_aura['skill'], 'sourceId':296, 'sourceKey':barbs_aura['skill'],
         'left':False, 'right':False,
         'sourceFields':{k:v for k,v in barbs_aura.items() if not k.startswith('*') and k != 'lineNumber'},
-        'sourceParameters':{str(i):barbs_aura.get('Param'+str(i),0) for i in range(1,13)}}]
+        'sourceParameters':{str(i):barbs_aura.get('Param'+str(i),0) for i in range(1,21)}}]
     death = next(row for row in rows if row['talentId'] == 'assassin.deathsentry')
     sentry_npc = []
     for source_id in (312, 324):
@@ -164,26 +164,26 @@ def products():
         sentry_npc.append({**death, 'name':source['skill'], 'sourceId':source_id,
                           'sourceKey':source['skill'], 'left':False, 'right':False,
                           'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k != 'lineNumber'},
-                          'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,13)}})
+                          'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,21)}})
     dire = next(row for row in rows if row['talentId'] == 'druid.summondirewolf')
     rage = source_skills['314']
     assert rage['skill'] == 'fenris rage' and rage['srvdofunc'] == 137
     druid_npc = [{**dire, 'name':rage['skill'], 'sourceId':314, 'sourceKey':rage['skill'],
                   'left':False, 'right':False,
                   'sourceFields':{k:v for k,v in rage.items() if not k.startswith('*') and k != 'lineNumber'},
-                  'sourceParameters':{str(i):rage.get('Param'+str(i),0) for i in range(1,13)}}]
+                  'sourceParameters':{str(i):rage.get('Param'+str(i),0) for i in range(1,21)}}]
     bear=next(row for row in rows if row['talentId']=='druid.summongrizzly')
     smite=source_skills['326']
     assert smite['skill']=='BearSmite' and smite['srvstfunc']==32 and smite['srvdofunc']==2 and smite['ResultFlags']==8
     druid_npc += [{**bear,'name':smite['skill'],'sourceId':326,'sourceKey':smite['skill'],'left':False,'right':False,
         'sourceFields':{k:v for k,v in smite.items() if not k.startswith('*') and k!='lineNumber'},
-        'sourceParameters':{str(i):smite.get('Param'+str(i),0) for i in range(1,13)}}]
+        'sourceParameters':{str(i):smite.get('Param'+str(i),0) for i in range(1,21)}}]
     for talent_id,source_id,name in [('druid.carrionvine',307,'CorpseCycler'),('druid.solarcreeper',325,'VineCycler')]:
         owner=next(row for row in rows if row['talentId']==talent_id);source=source_skills[str(source_id)]
         assert source['skill']==name and source['srvstfunc']==63
         druid_npc += [{**owner,'name':name,'sourceId':source_id,'sourceKey':name,'left':False,'right':False,
             'sourceFields':{k:v for k,v in source.items() if not k.startswith('*') and k!='lineNumber'},
-            'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,13)}}]
+            'sourceParameters':{str(i):source.get('Param'+str(i),0) for i in range(1,21)}}]
     monsters = json.loads((SOURCE / 'json/monstats.json').read_text())
     missiles = json.loads((SOURCE / 'json/missiles.json').read_text())
     levels = json.loads((SOURCE / 'json/monlvl.json').read_text())

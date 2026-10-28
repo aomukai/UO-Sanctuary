@@ -103,10 +103,15 @@ public sealed class SkillValues
         if (name.Length == 4 && name.StartsWith("pa", StringComparison.Ordinal) && int.TryParse(name.AsSpan(2), out param)) { return Param(param); }
         if (name.Length == 4 && (name.StartsWith("ln", StringComparison.Ordinal) || name.StartsWith("dm", StringComparison.Ordinal)))
         {
-            int a = name[2] - '0', b = name[3] - '0';
-            // ln91/dm91 use parameters 9 and 10, as encoded by the game formula compiler.
-            if (a == 9 && b == 1) { b = 10; }
-            return name[0] == 'l' ? Linear(a, b) : Diminishing(a, b);
+            // These are registered callback names,not arbitrary digit pairs.
+            // Current skillcalc.txt extends the legacy four pairs through20.
+            var pair = name[2..] switch
+            {
+                "12" => (1,2), "34" => (3,4), "56" => (5,6), "78" => (7,8), "91" => (9,10),
+                "21" => (11,12), "43" => (13,14), "65" => (15,16), "87" => (17,18), "92" => (19,20),
+                _ => throw new NotSupportedException("Unregistered D2 skill curve callback: " + name)
+            };
+            return name[0] == 'l' ? Linear(pair.Item1, pair.Item2) : Diminishing(pair.Item1, pair.Item2);
         }
         if (name.StartsWith("clc", StringComparison.Ordinal) && int.TryParse(name.AsSpan(3), out int calc))
         { return new SkillValues(_skill, _rank, _baseRank, _level, _depth + 1).Eval("calc" + (calc + 1)); }

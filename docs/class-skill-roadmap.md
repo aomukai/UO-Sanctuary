@@ -15,7 +15,7 @@ Mechanics reference: **D2R 3.3.93847, Reign of the Warlock**. See [reference and
 
 Prepared Arctic native mode plus its saved cold stream now pass96checks over3boots/2real reloads. The ordinary older-engine rate router/current SQ flags retain sequence256/action10/end15in144controls; connected timers verify live aim/rank,interruptions,damage/chill,expiry and disconnect cleanup. Raw held-input/reentry cadence,current executable rate/release and sustained mana drain remain gated; see [mode evidence](../tools/reference/arctic-modes-native-evidence.json),[stream evidence](../tools/reference/arctic-stream-native-evidence.json) and the current checkpoint. No class is complete.
 
-Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged; Warlock skill mechanics have not been implemented.
+Later-class order is a dependency-based working assumption; only Necromancer-first was required. Warlock/Witch identity, trees and growth are staged. Extended formula aliases and20parameter projection now pass99checks/3boots/2reloads; [foundation evidence](../tools/reference/warlock-foundation-native-evidence.json) records the current data/source limits. Warlock talent handlers remain pending.
 
 Use [the current checkpoint](class-skills-resume-checkpoint.md) for verification evidence, unanswered questions and the next executable work. Use the independent [effect](skill-effects.md) and [icon](skill-icons.md) registers for the asset phase.
 

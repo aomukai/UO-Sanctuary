@@ -1,0 +1,465 @@
+{
+  "referenceVersion": "3.3.93847",
+  "publicCommit": "fa1286949266498b294c40c2942521a7c0d7207a",
+  "handlerEnabled": false,
+  "currentExecutableParity": false,
+  "localExtraction": {
+    "referenceVersion": "3.3.93847",
+    "executableSha256": "e1f5436e3d9687f644ef16938b1b183d1fdef434f18cf66d852cf68f48cc8936",
+    "buildInfoSha256": "7b33910b1fe9db6aa75c45e6161aa44d31306a4a33f2f5b852c07ab244e59021",
+    "readerSha256": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    "readerSourceSha256": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    "archivePath": "data:data/global/excel/skillcalc.txt",
+    "size": 5225,
+    "sha256": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    "localReadOnly": true,
+    "processMemoryOrInput": false
+  },
+  "pinnedInputHashes": {
+    "skills": "b40393a3b024c8363ee2c77b52a4b2330ec90b1c06b1afe38b0f434f47f35956",
+    "missiles": "eb991acea5a3bbd7dea98404a4c763c9b423f1a7e6501ed44a59e4ebfdb467f1",
+    "states": "67899f63881aeea845a53f852a96b5bfc97afef373a952a1362c99771b9c9f19",
+    "weapons": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88",
+    "uniqueitems": "e6f28489942a6145d99190728071c0e7557313239517bb03c627d3d41bbad8e7",
+    "itemstatcost": "32624e8d83e2149cfa6c3506d002e6dab605bb5c92acb287f4b62ed856653237",
+    "charstats": "15e0ec2a7812d763b15c4cd759fcb682c1cdbe1268aa1fadd4e8e6d4708cf564"
+  },
+  "licensedSkillSha256": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+  "playerSkills": [
+    {
+      "id": 373,
+      "key": "Summon Goatman",
+      "start": 0,
+      "do": 56,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 374,
+      "key": "Demonic Mastery",
+      "start": 0,
+      "do": 0,
+      "missile": null,
+      "passive": true
+    },
+    {
+      "id": 375,
+      "key": "Death Mark",
+      "start": 0,
+      "do": 155,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 376,
+      "key": "Summon Tainted",
+      "start": 0,
+      "do": 56,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 377,
+      "key": "Summon Defiler",
+      "start": 0,
+      "do": 56,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 378,
+      "key": "Blood Oath",
+      "start": 66,
+      "do": 0,
+      "missile": null,
+      "passive": true
+    },
+    {
+      "id": 379,
+      "key": "Engorge",
+      "start": 17,
+      "do": 161,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 380,
+      "key": "Blood Boil",
+      "start": 0,
+      "do": 160,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 381,
+      "key": "Consume",
+      "start": 69,
+      "do": 159,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 382,
+      "key": "Bind Demon",
+      "start": 64,
+      "do": 158,
+      "missile": "binddemonchannelmaker",
+      "passive": false
+    },
+    {
+      "id": 383,
+      "key": "Levitate",
+      "start": 0,
+      "do": 0,
+      "missile": null,
+      "passive": true
+    },
+    {
+      "id": 384,
+      "key": "Eldritch Blast",
+      "start": 28,
+      "do": 165,
+      "missile": "eldritchblastnova",
+      "passive": false
+    },
+    {
+      "id": 385,
+      "key": "Hex Bane",
+      "start": 0,
+      "do": 23,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 386,
+      "key": "Hex Siphon",
+      "start": 0,
+      "do": 23,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 387,
+      "key": "Psychic Ward",
+      "start": 0,
+      "do": 18,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 388,
+      "key": "Echoing Strike",
+      "start": 0,
+      "do": 166,
+      "missile": "echoingstrike",
+      "passive": false
+    },
+    {
+      "id": 389,
+      "key": "Hex Purge",
+      "start": 0,
+      "do": 23,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 390,
+      "key": "Blade Warp",
+      "start": 0,
+      "do": 166,
+      "missile": "bladewarp",
+      "passive": false
+    },
+    {
+      "id": 391,
+      "key": "Cleave",
+      "start": 68,
+      "do": 164,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 392,
+      "key": "Mirrored Blades",
+      "start": 68,
+      "do": 166,
+      "missile": null,
+      "passive": false
+    },
+    {
+      "id": 393,
+      "key": "Sigil Lethargy",
+      "start": 0,
+      "do": 157,
+      "missile": "sigillethargysmall",
+      "passive": false
+    },
+    {
+      "id": 394,
+      "key": "Ring of Fire",
+      "start": 0,
+      "do": 154,
+      "missile": "ringoffire",
+      "passive": false
+    },
+    {
+      "id": 395,
+      "key": "Miasma Bolt",
+      "start": 0,
+      "do": 0,
+      "missile": "miasmabolt",
+      "passive": false
+    },
+    {
+      "id": 396,
+      "key": "Sigil Rancor",
+      "start": 0,
+      "do": 157,
+      "missile": "sigilrancorsmall",
+      "passive": false
+    },
+    {
+      "id": 397,
+      "key": "Enhanced Entropy",
+      "start": 0,
+      "do": 0,
+      "missile": null,
+      "passive": true
+    },
+    {
+      "id": 398,
+      "key": "Flame Wave",
+      "start": 0,
+      "do": 156,
+      "missile": "flamewaveunveiling",
+      "passive": false
+    },
+    {
+      "id": 399,
+      "key": "Miasma Chains",
+      "start": 0,
+      "do": 167,
+      "missile": "miasmachainsmaker",
+      "passive": false
+    },
+    {
+      "id": 400,
+      "key": "Sigil Death",
+      "start": 0,
+      "do": 157,
+      "missile": "sigildeathsmall",
+      "passive": false
+    },
+    {
+      "id": 401,
+      "key": "Apocalypse",
+      "start": 0,
+      "do": 123,
+      "missile": "apocalypse",
+      "passive": false
+    },
+    {
+      "id": 402,
+      "key": "Abyss",
+      "start": 14,
+      "do": 28,
+      "missile": "abysscenter",
+      "passive": false
+    }
+  ],
+  "comparedPlayerFields": 1709,
+  "representationDifferences": [
+    {
+      "skill": "Echoing Strike",
+      "field": "range",
+      "public": "rng",
+      "licensed": "rng ",
+      "kind": "outer whitespace"
+    }
+  ],
+  "curveAliases": [
+    {
+      "suffix": "12",
+      "first": 1,
+      "second": 2
+    },
+    {
+      "suffix": "34",
+      "first": 3,
+      "second": 4
+    },
+    {
+      "suffix": "56",
+      "first": 5,
+      "second": 6
+    },
+    {
+      "suffix": "78",
+      "first": 7,
+      "second": 8
+    },
+    {
+      "suffix": "91",
+      "first": 9,
+      "second": 10
+    },
+    {
+      "suffix": "21",
+      "first": 11,
+      "second": 12
+    },
+    {
+      "suffix": "43",
+      "first": 13,
+      "second": 14
+    },
+    {
+      "suffix": "65",
+      "first": 15,
+      "second": 16
+    },
+    {
+      "suffix": "87",
+      "first": 17,
+      "second": 18
+    },
+    {
+      "suffix": "92",
+      "first": 19,
+      "second": 20
+    }
+  ],
+  "extendedAliasUses": [
+    {
+      "skill": "Summon Goatman",
+      "field": "aurastatcalc1",
+      "token": "ln21"
+    },
+    {
+      "skill": "Summon Goatman",
+      "field": "passivecalc3",
+      "token": "ln21"
+    },
+    {
+      "skill": "Summon Tainted",
+      "field": "aurastatcalc1",
+      "token": "ln21"
+    },
+    {
+      "skill": "Summon Tainted",
+      "field": "passivecalc2",
+      "token": "ln21"
+    },
+    {
+      "skill": "Engorge",
+      "field": "aurastatcalc2",
+      "token": "ln21"
+    },
+    {
+      "skill": "Engorge",
+      "field": "aurastatcalc3",
+      "token": "ln21"
+    },
+    {
+      "skill": "Bind Demon",
+      "field": "passivecalc3",
+      "token": "ln21"
+    },
+    {
+      "skill": "Bind Demon",
+      "field": "passivecalc9",
+      "token": "ln43"
+    },
+    {
+      "skill": "Hex Purge",
+      "field": "calc2",
+      "token": "ln21"
+    }
+  ],
+  "unbalancedSourceFormulaFields": [
+    {
+      "skill": "Summon Goatman",
+      "field": "passivecalc3",
+      "expression": "(ln56 + (skill('Demonic Mastery'.ln21))"
+    },
+    {
+      "skill": "Summon Tainted",
+      "field": "passivecalc2",
+      "expression": "(ln91 + (skill('Demonic Mastery'.ln21))"
+    },
+    {
+      "skill": "Summon Defiler",
+      "field": "passivecalc2",
+      "expression": "par2*((lvl - 1) + (skill('Demonic Mastery'.blvl))"
+    }
+  ],
+  "observations": {
+    "version": "3.3.93847",
+    "reportedBy": "user",
+    "effectiveLevitationRank": 2,
+    "hardRank": 1,
+    "normalWeaponReadings": [
+      {
+        "name": "Ripsaw",
+        "baseCode": "flb",
+        "strength": 68,
+        "dexterity": 48,
+        "baseStrength": 70,
+        "baseDexterity": 49
+      },
+      {
+        "name": "Rogue Bow",
+        "baseCode": "cbw",
+        "strength": 24,
+        "dexterity": 34,
+        "baseStrength": 25,
+        "baseDexterity": 35
+      },
+      {
+        "name": "Rusthandle",
+        "baseCode": "gsc",
+        "strength": 36,
+        "dexterity": 0,
+        "displayedLevel": 18,
+        "baseStrength": 37,
+        "baseDexterity": 0
+      }
+    ],
+    "rusthandleUnarmedAndEquippedMatch": true,
+    "established": "All reported attribute values match a4percent reduction with the reduction amount truncated. A weapon need not be equipped for its observed requirement display. No item-ease/ethereal stacking model is established.",
+    "levelNote": "Rusthandle has pinned unique level17 and a Vengeance grant; Vengeance unlocks at18. User identifies its skill grants as likely cause of observed level18; exact requirement override still needs verification."
+  },
+  "community": {
+    "url": "https://docs.google.com/document/d/1gtM3sQ1gzo8kpmTmiJ8CQAiqp7LLu0SeaWE6fUdVg6Y/edit?tab=t.0",
+    "exportUrl": "https://docs.google.com/document/d/1gtM3sQ1gzo8kpmTmiJ8CQAiqp7LLu0SeaWE6fUdVg6Y/export?format=txt",
+    "retrieved": "2026-10-28",
+    "sha256": "72453ee7e8a7419f9e4e142fa3d5f04953da5777a495dcdb0af3c2b610b34151",
+    "sizeBytes": 30335,
+    "selfAttributedAuthors": "Warren/Kabryxis",
+    "latestListedRevision": "2026-10-26",
+    "exactBuildStated": false,
+    "notes": "Public text export succeeds although the web reader lacks the body. Self-described testing includes community reports and explicitly untested claims; revision tags include patch3.2."
+  },
+  "artifacts": {
+    "tools/prepare_warlock_foundation.py": "df604a997b4a3cb35c8ce0ff2c08961eb6f8c0075a20b650dab4bb62facd74a7",
+    ".local/class-skills/warlock-foundation/casc-reference-reader": "61f958eedae630f2294ad5bb960a824bc541dfcebea7827e9d474bcea417f063",
+    ".local/class-skills/warlock-foundation/casc-reference-reader.cpp": "bdf28c25b0ef6ce41b8ccf85d07b9ba1467805c6b6fe7f63293f83ea0f053e35",
+    ".local/class-skills/warlock-foundation/skillcalc.txt": "4028d9985368b89fe5d84a93f60177ecc34957599a170a4f8496ddd169636a4f",
+    ".local/class-skills/warlock-foundation/skillcalc-extraction.json": "0ed55d24aa5875323103c959fed1b60ff0424f9dc180e5c64fc1914aadac8241",
+    ".local/research/d2r-3.3.93847/skills.txt": "56944cb6b6b0f3c57f7b690977987a732afeafc961fa9dc969e7796e54c93f3f",
+    ".local/research/warlock-community/warlock-skills-notes.txt": "72453ee7e8a7419f9e4e142fa3d5f04953da5777a495dcdb0af3c2b610b34151",
+    ".local/class-skills/warlock-foundation-source-probe.json": "d308fbaa49477e324f4cacb3a99dbd8eaeaa93cd2fec28a3d7e35854c83e2bf6",
+    ".local/class-skills/skill-linear-source-probe.json": "8572646215d410a1fbd096561bd0daf80d5bf65c67ebe8bb541011b6cac09f44",
+    "tools/reference/skill-linear-source-evidence.json": "b526ee2bd8d23aab363b116889e4e63e39ba33d3e7d02c43bb2860278a9949ef",
+    "tools/reference/d2r-local-installation-evidence.json": "0de23067ea7bd5d6b015eae87b8f96e366815fea9e238f2beefbd48106462d5c"
+  },
+  "established": [
+    "All30current Warlock player rows match populated pinned public fields against licensed3.3.93847 skills.txt. Runtime sourceParameters must include1..20:Bind Demon requires13/14,which the old1..12projection discarded.",
+    "Strict read-only local CASC skillcalc.txt pins ten named linear/diminishing pairs. ln21/dm21mean11/12,ln43/dm43mean13/14; names are registered aliases,not arbitrary digit pairs. This is current table/metadata evidence,not execution of modern callback bodies."
+  ],
+  "remaining": [
+    "Diminishing arithmetic/rounding remains the existing consumer model and needs per-consumer current-build acceptance; descriptions alone do not prove its exact execution. This change fixes alias routing,not the shared diminishing curve.",
+    "Malformed Warlock source expressions,implicit engine passives,new callbacks,ordinary cast rates,weapon handling and skill lifecycle remain separate. No Warlock handler/class completion or installation is claimed.",
+    "The fan site now labels explanations AI-interpreted and potentially erroneous; treat them as leads. Miasma Bolt/Chain require new41/43/45/167behavior,not an element-only Sentinel copy. Levitation equip/requirement stacking and modifiers still need dedicated native/current checks."
+  ]
+}
