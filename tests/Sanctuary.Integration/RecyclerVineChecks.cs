@@ -96,7 +96,7 @@ public static class RecyclerVineChecks
             Require(actual.Changed&&actual.After256==Math.Min(100,9+rank+3)*256,"Explicit current-table Solar inference");
         }
     }
-    private static void Train(PlayerMobile p,string id)
+    internal static void Train(PlayerMobile p,string id)
     {
         Require(TalentCatalog.TryGet(DiabloClass.Druid,id,out var row),"Druid talent");foreach(var prerequisite in row.Prerequisites){Train(p,prerequisite);}
         if(ClassCreation.Profiles.GetRank(p.Serial,id)==0){Require(ClassCreation.Profiles.TryTrain(p.Serial,id,out _),"Train "+id);}

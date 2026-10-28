@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 1,
-  "ContentAssemblySha256": "0d1ee5bc11ee2372b71094ca892ff06d46fb33a759b78e273a8232cab8589207",
+  "ContentAssemblySha256": "5b91cda18fe1045c9c5eb4039d76a56448e9e7f9419fdc08024af3383a89b34c",
   "NativeAssemblySha256": "1ca3c710d1d62ddc27af1d204b99787a109c95ef0c0f5cceddbd91f07d25a2bf",
   "InputHashes": {
     "data/Sanctuary/Balance/affixes.json": "fad8e097c5ed69104f5a999a1cb1ac74b119c49ececfbc44881ca5d89123ae8c",
@@ -81,7 +81,7 @@
     "data/Sanctuary/Balance/runebark.json": "07a8470d21e5895b36a085b4e77a6ced89a9d2d20904e81561072d6e8fc698d7",
     "data/Sanctuary/Balance/sentry-npc-skills.json": "45b312ccec0f90a04f3efa862eb2693cdd46d5f7a0ab00a82e0734e009ae83ed",
     "data/Sanctuary/Balance/set-items.json": "64f9778a8308c4e4fe953efe510dca01c5ec0f28039a76be4b5fccf63b8418eb",
-    "data/Sanctuary/Balance/skill-effects.json": "3a4413e71edff239d04f7daeaa3f5255deaae8b58ab63f4f29a7dce1468e02de",
+    "data/Sanctuary/Balance/skill-effects.json": "058e89838ad2f96fbde1b77de9663fd2404ab8f57b94b58d8dedbd1a95519f40",
     "data/Sanctuary/Balance/skill-icons.json": "b5541cd3be5797b7e984f47284cfa686eb7d5bc51061520f75a8e927e9cd54e2",
     "data/Sanctuary/Balance/smite-shields.json": "5e35a9df0f6650115033c6e594d4c8365962dc2b58027d02fdcd3b5b5067948b",
     "data/Sanctuary/Balance/socket-gems.json": "95f811ec9b294d5ab01c032204765e6215fce627fb5485c6349c373958d76d45",
@@ -418,6 +418,7 @@
     "src/Sanctuary.Content/DruidRavenStats.cs": "1392061116327514708ac45d5cfdb7ac42b906b41a02baa713eae5c06077ca3d",
     "src/Sanctuary.Content/DruidRecyclerAi.cs": "cf1aa8b1f3f67518ae5025cbb38329d15a52e6a4461761cef53bce9c47897e08",
     "src/Sanctuary.Content/DruidRecyclerBody.cs": "4880c7df086a53a0d9bf1c57e35a0f16c7575d9007d5682b7510458887a9d50a",
+    "src/Sanctuary.Content/DruidRecyclerCasting.cs": "52d3d0919e6a1bd7b5cd8b526a2fbffdbec6bb0f38a9a5f9b2e1a0ed9001e487",
     "src/Sanctuary.Content/DruidRecyclerRecovery.cs": "ecb71df3abd027c94d8ec29f45f3ba4336797343830a6a763e38939a8c1c12d3",
     "src/Sanctuary.Content/DruidRecyclerStats.cs": "f0bbd2c5962dcb8ffc0a34fb58daeb0475b7a2df71c09b548c40fbd51783659c",
     "src/Sanctuary.Content/DruidRecyclerWorld.cs": "f3a73e4e63fa48b280ef1b0668d7d325b825517e739f45a9911bfd07ab7eb331",

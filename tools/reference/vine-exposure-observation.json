@@ -1,0 +1,17 @@
+{
+  "referenceVersion": "3.3.93847",
+  "expansion": "Reign of the Warlock",
+  "source": "User observation from the pinned playable installation",
+  "reportedAt": "2026-10-28",
+  "question": "Can Druid vines take damage while underground, or only while surfaced?",
+  "answer": "only while surfaced",
+  "established": [
+    "Underground vines do not take damage; surfaced vines can take damage."
+  ],
+  "notEstablished": [
+    "Exact surface start/end frames, relation to K9 two-frame control animations and client-only vine missiles.",
+    "Source/current attack targeting, AoE filters, emergence and disappearance chronology."
+  ],
+  "approvedDeviation": false,
+  "scope": "Current-build behavioral evidence for exposure eligibility, not a frame-window measurement or permission to invent one."
+}
