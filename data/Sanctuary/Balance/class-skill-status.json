@@ -2539,10 +2539,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 392,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared current suppliers, immutable primary/duplicate descriptors and SQ25 player file rows have native controls. Total attacks reach5at effective15; duplicates have separate dm12damage and raw Crushing Blow divisors. Current table/tooltip and pinned-version primary extractor supersede an older cap20note. Shared sequence planning retains Cleave. New start68/do166, emission/selection, packet scaling/poison/length/critical placement, bow/throw/ammo/proc chronology and target-specific divisors remain unsupported; potion eligibility conflicts with older notes. No learned route enabled. See mirrored-blades-native-evidence.json; effects/icons are separate."
     },
     {
       "talentId": "warlock.miasmabolt",
