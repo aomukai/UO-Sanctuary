@@ -16,6 +16,8 @@ Natural rank-1 expiry restores ordinary NPC defense after **68 frames / 2.72 sec
 
 **Assets:** NPC Berserk presentation remains pending in the effects register. Existing player Berserk presentation may supply reusable art later. The summon body/equipment/animations and separate talent/right/quick icons remain tracked with identified placeholders; this internal state creates no new player hotkey identity.
 
+**Independent source progress while full regression runs:** [NPC release composition](../tools/reference/goatman-npc-release-source-evidence.json) now executes 3,840 complete shared-source contexts under ASan+UBSan, including 72 zero-damage stuns, 72 shorter replacements and 24 lethal HP-field/transient-stun controls. It confirms health-before-stun, cached release damage, self-state-before-target guards, unique RNG order and distinct packet cleanup paths. Native release, lethal/reentrant and current-executable equivalence remain unverified. This probe changed no C#/runtime data/DLL in the active full regression.
+
 **Next:** finish/review the active full regression, update acceptance and push that result. Then continue shared Stun recipient/damage release and wire real NPC mode/cancellation consumers as their source dependencies become available. The full 240-talent/eight-class goal remains active.
 
 ---
