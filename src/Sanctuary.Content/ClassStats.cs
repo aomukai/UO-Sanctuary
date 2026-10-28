@@ -112,7 +112,7 @@ public static class ClassStats
         return 5*player.Dex-35+For(profile.Class).AttackBonus+ClassGear.Bonus(player,"att");
     }
     internal static int PlayerItemAttackPercent(PlayerMobile player)=>AosAttributes.GetValue(player,AosAttribute.AttackChance)
-        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player)+HexBane.AttackPercent(player)+HexBane.TargetAttackPercent(player)+HexSiphon.AttackPercent(player);
+        +AmazonCombat.AttackPercent(player)+(SorceressEffects.Enchantment(player)?.AttackPercent??0)+CombatAuras.AttackPercent(player)+DruidPlayerForms.AttackPercent(player)+HexBane.AttackPercent(player)+HexBane.TargetAttackPercent(player)+HexSiphon.AttackPercent(player)+HexPurge.AttackPercent(player);
     internal static int PlayerAttackPercent(int basis,int percent)=>Math.Max(1,basis*(100+percent)/100);
     internal static int AttackRatingAgainst(Mobile attacker,Mobile defender,int skillPercent=0)
     {

@@ -40,6 +40,7 @@ public static class ClassDeath
         PsychicWard.Clear(player);
         HexBane.Clear(player);
         HexSiphon.Clear(player);
+        HexPurge.Clear(player);
         DruidHurricane.Clear(player);
         DruidArmageddon.Clear(player);
         AssassinBuffs.Clear(player);

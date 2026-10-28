@@ -2484,10 +2484,10 @@
       "characterClass": "Warlock",
       "tree": "Eldritch",
       "sourceId": 389,
-      "implementation": "pending",
-      "verification": "not-started",
+      "implementation": "blocked",
+      "verification": "partial-native-coverage",
       "complete": false,
-      "remaining": "Needs dedicated rank/gear, target, resource, lifecycle and actual-client acceptance checks."
+      "remaining": "Prepared weapon-conditioned skill attackrate/AR, buff persistence and explicit raw target plans have source/native controls. The shared speed pool preserves EIAS versus itemIAS/FCR. Modern event36/39 application, explosion geometry/damage/roll/charge/reapplication and cross-hex replacement remain gated; explicit plans do not detonate. Current-file pointer leads are unverified and base Warlock clocks remain provisional. See hex-purge-native-evidence.json; final effects/icons remain separate."
     },
     {
       "talentId": "warlock.bladewarp",

@@ -47,7 +47,7 @@ internal static class DruidFormAttacks
         // The verified modern model is invariant under weapon/gear IAS split.
         // Existing native IAS already supplies the selected equipment total.
         var rate=DruidFormRates.Calculate(new(state.Form.Ability,frames,256,weapon.Modifier,0,CombatTiming.Ias(owner),
-            state.Form.Modifiers.AttackRate+DruidAttackCharges.AttackRate(owner)+PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),Math.Max(0,GearEffects.AttackSlow(owner))));
+            state.Form.Modifiers.AttackRate+DruidAttackCharges.AttackRate(owner)+CombatTiming.SkillAttackRate(owner),Math.Max(0,GearEffects.AttackSlow(owner))));
         return rate.Progress256;
     }
     internal static int Reach(PlayerMobile owner)

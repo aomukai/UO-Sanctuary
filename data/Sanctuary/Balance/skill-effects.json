@@ -3155,7 +3155,7 @@
     "generation": "pending",
     "clientMapping": "pending",
     "inGameVerification": "pending",
-    "placeholder": "Existing UO art; final effect pending"
+    "placeholder": "Prepared cast uses UO0x375A hue0x48E flash and0x1E5 audio; supplied target plans use the same identified marker. Final hex_enchant weapon state, warlock_psychic_cast_2, hexpurgedebuff, curse_hit, hex_purge_explosion, charge/depletion/expiry and cast/hit audio remain pending. No explosion is simulated by the marker. Learned input/events36/39 remain gated; talent/right/quick icons are separately tracked."
   },
   {
     "talentId": "warlock.bladewarp",

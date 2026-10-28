@@ -1,0 +1,34 @@
+{
+  "referenceVersion": "3.3.93847",
+  "reportedBy": "User in this session",
+  "reportedItem": "Battlebranch",
+  "reportedBase": "Poleaxe",
+  "reportedEthereal": true,
+  "reportedStrengthRequirement": 50,
+  "reportedLevitationHardRank": 1,
+  "reportedLevitationEffectiveRank": 2,
+  "otherReportedModifiers": [
+    "IAS",
+    "Enhanced Damage"
+  ],
+  "sourceBaseCode": "pax",
+  "sourceBaseStrength": 62,
+  "sourceBaseDexterity": 0,
+  "sourceHashes": {
+    "tools/reference/d2r-named-equipment/json/uniqueitems.json": "e6f28489942a6145d99190728071c0e7557313239517bb03c627d3d41bbad8e7",
+    "tools/reference/d2r-named-equipment/json/weapons.json": "c9c5a4b788f8d70b1ed49064d68aef7a4fe39b308880b0857b3bed361c656f88"
+  },
+  "candidateControls": {
+    "levitationPercent": -4,
+    "percentBeforeEthereal": 50,
+    "etherealBeforePercent": 50
+  },
+  "established": [
+    "First available ethereal requirement observation at effective Levitation rank2;display50matches both principal signed-truncation ordering candidates for62baseStrength and a10point ethereal adjustment."
+  ],
+  "remaining": [
+    "This example does not distinguish modifier order or establish stacking with item Requirements-minus. The complete item/socket modifier list was not supplied. No respec or item acquisition is requested. No general ethereal/ease rule is inferred and the existing unsupported gate remains explicit."
+  ],
+  "mechanicalChangeApplied": false,
+  "reportedEtherealLabel": "ethereal (cannot be repaired)"
+}

@@ -21,7 +21,7 @@ internal static class LobProjectiles
         var weapon=CombatTiming.Weapon(CombatTiming.Equipped(owner));
         if(WeaponHands.Pair(owner) is{} pair){weapon=weapon with{Modifier=(CombatTiming.Weapon(pair.Primary).Modifier+CombatTiming.Weapon(pair.Secondary).Modifier)/2};}
         return Timing(CombatTiming.FrameAdvance(weapon,CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),
-            PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),baseSpeed:128));
+            CombatTiming.SkillAttackRate(owner),baseSpeed:128));
     }
     internal static bool Valid(PlayerMobile owner,Point3D point)=>owner is{Alive:true,Deleted:false}
         && owner.Map!=null && owner.Map!=Map.Internal && point.X>0 && point.Y>0 && point.X<owner.Map.Width && point.Y<owner.Map.Height

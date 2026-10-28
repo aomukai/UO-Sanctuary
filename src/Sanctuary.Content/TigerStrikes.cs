@@ -25,7 +25,7 @@ public static class TigerStrikes
     internal static ActionTiming Timing(PlayerMobile owner)
     {
         string code=PaladinZeal.AnimationCode(owner);int baseSpeed=code is "HT1" or "HT2"?208:256;
-        int advance=CombatTiming.FrameAdvance(CombatTiming.Weapon(CombatTiming.Equipped(owner)),CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner),baseSpeed:baseSpeed);
+        int advance=CombatTiming.FrameAdvance(CombatTiming.Weapon(CombatTiming.Equipped(owner)),CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),CombatTiming.SkillAttackRate(owner),baseSpeed:baseSpeed);
         return Timing(code,advance); // cached-lg-assassin-a1-v1; current timing acceptance open.
     }
     internal static bool ValidTarget(PlayerMobile owner,Serial selected)=>PaladinVengeance.ValidTarget(owner,selected);

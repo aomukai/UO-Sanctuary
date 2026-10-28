@@ -30,7 +30,7 @@ public static class AssassinClaws
         // caller's temporary damage-hand scope cannot select secondary IAS.
         using var hand=pair is{} weapons?WeaponHands.Use(owner,weapons.Primary):null;
         return Advance(CombatTiming.Weapon(primary).Modifier,
-            CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),PaladinOffense.AttackRate(owner)+AssassinBuffs.AttackRate(owner));
+            CombatTiming.Ias(owner),GearEffects.AttackSlow(owner),CombatTiming.SkillAttackRate(owner));
     }
     internal static ActionTiming Timing(PlayerMobile owner)
     {var s=Schedule(WeaponHands.Pair(owner)!=null,Advance(owner));return new(s.End,s.Events[0]);}
