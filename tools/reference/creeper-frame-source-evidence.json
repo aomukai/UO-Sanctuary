@@ -1,0 +1,48 @@
+{
+  "referenceVersion": "3.3.93847",
+  "legacyCommit": "0c0bbd1e6bef9181a3da1c046523af622a925416",
+  "currentExecutableParity": false,
+  "nativeAccepted": false,
+  "contexts": 7400,
+  "compiledRoutineHashes": {
+    "MISSILE_SetTotalFrames": "67cbc746068a4163080ebefb21cedd13f4608307b69ea94326c91aeece158826",
+    "MISSILE_SetCurrentFrame": "b7ed6b7d8a4d9291dd270abc388de19f76327c87fbf36f69d01329723cf6f0eb",
+    "MISSILE_GetTotalFrames": "3d2a8cbf863156175ebf1094b5ef06e4c9e20f339e26b76e202af468b5beefb3",
+    "MISSILE_GetCurrentFrame": "dd0993c6c1eb35da18600d9706b5e32a3c0aa0e2a459fccd407beef4db85e296",
+    "MISSILE_GetRemainingFrames": "0b6090522a85203dec8c36da1623da523d4f650c33ee8a2bf595ec8ee9bc3c71",
+    "MISSMODE_SrvDo26_Vines_PlagueVines": "9e8a9ac4c2be6730bd528f4afa3c17620649cffa551ca8bb5c01f88c1ddb88a4",
+    "MISSMODE_SrvHit50_PlagueVinesTrail": "af8bbaf7333748e0acdf016ccb24391b3b436b0bae629efd55bd693c79edc641"
+  },
+  "sourceHashes": {
+    "source/D2Common/src/Units/Missile.cpp": "a04886a12060dd895753647dcf3fba34c5b1e038ab943fa9200579c73ed39e37",
+    "source/D2Game/src/MISSILES/MissMode.cpp": "a2a8429d1df17d98251db47b46b8d102babe97fedc5a7449e11083726b1d0697"
+  },
+  "sanitizerClean": true,
+  "artifacts": {
+    "tools/probe_creeper_frame_reference.py": "2308794b2020b0a23b4633ae129f8acc4548df5806c561e680793733bf0c9082",
+    ".local/class-skills/creeper-frame-source-probe.cpp": "57e3238c0627b1fbfb390182447d71dcf64ed28717956b0ca86e8ba133486b7e",
+    ".local/class-skills/creeper-frame-source-probe.json": "c44a3956ad458f009b8a7ecba93d97166439cb96098732904b7d63817dd044d9",
+    ".local/class-skills/creeper-frame-sanitizer.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "declaredServices": [
+    "Row/owner/position/skill/rank lookups and child creation request capture.",
+    "Ordinary collision returns a distinct sentinel without decrement, movement or retirement; supplied ages are pre-collision callback inputs."
+  ],
+  "established": [
+    "Complete setters/getters establish total lifetime, current countdown and misleadingly named GetRemainingFrames=elapsed age. Full do26emits at ages divisible by9, including age0. It is not a countdown modulo check.",
+    "Complete hit50returns damage bit2when a target exists and elapsed age<total-15. It is active early and excludes the last15frames, rather than excluding the first15frames. Null-target ending returns0. Contact router/mitigation/LastCollide remain separate."
+  ],
+  "nativeDiscrepancy": {
+    "fixed": false,
+    "reviewMethod": "Static comparison of the prepared C# call sites with executed complete source getters/callbacks; no native C# invocation in this harness.",
+    "reviewCommit": "8852bab",
+    "reviewedFiles": {
+      "src/Sanctuary.Content/DruidCreeperFields.cs": "74fb705af98c61376bbdd74a2b3e1957e98e70a5e7937b00b06a2e09a2858518",
+      "src/Sanctuary.Content/DruidCreeperVines.cs": "a776b5abfa14cff0b6bae1cb73dc362702be3369d5d4d443b0f72c168239324d"
+    },
+    "scope": "Prepared native head emission passes countdown to the elapsed-age do26predicate; prepared mat contact also passes countdown to the elapsed-age hit50predicate, reversing its active window. Older bounded vine proofs stubbed the ambiguous getter and therefore did not detect these cross-component mismatches. Preserve the running Fury package; correct these prepared Creeper components and dependent tests only after its full acceptance."
+  },
+  "remaining": [
+    "Native prepared Creeper phase correction, save-version migration/old in-flight semantics and dedicated source/native/world regression are next. This source harness does not establish full factory/AI/event/geometry/current executable behavior, underground exposure or learned permission."
+  ]
+}
